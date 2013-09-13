@@ -1,0 +1,8 @@
+#N canvas 348 370 450 300 10;
+#X obj 68 73 uioptimized @patching_rect { 0 0 200 200 } @rectcolor
+{ 0 0 0 1 } @overcolor { 1 0 0 1 } @rectangle { 70 };
+#X obj 81 16 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 70 256;
+#X msg 81 46 rectangle \$1;
+#X connect 1 0 2 0;
+#X connect 2 0 0 0;

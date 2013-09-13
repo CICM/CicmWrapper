@@ -73,7 +73,7 @@
 #define jbox_end_layer                              ebox_end_layer
 #define jbox_invalidate_layer                       ebox_invalidate_layer
 #define jbox_paint_layer                            ebox_paint_layer
-#define jbox_notify(object, s, msg, sender, data)   ebox_notify(object, s, msg, sender, data);
+#define jbox_notify(object, s, msg, sender, data)   ebox_notify(object, s, msg, sender, data)
 
 #define jbox_get_fontname(object)                   cicm_obj_get_fontname(object)
 #define jbox_get_font_slant(object)                 cicm_obj_font_slant(object)
