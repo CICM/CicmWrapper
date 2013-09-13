@@ -1,6 +1,13 @@
 
 
-#include "../../Sources/pd_enhanced.h"
+/* 
+ This is an exemple of the Max SDK exemples of Cycling'74 that 
+ shows how to use pd enhanced. Comments with "//!!" are my comments !
+ Cheers, 
+ Pierre
+ */
+
+#include "../../Sources/pd_enhanced.h" //!! INCLUDE pd_enhanced.h and link to Pure data !
 
 /**********************************************************************/
 // Data Structures
@@ -19,7 +26,7 @@ typedef struct _uioptimized {
 /**********************************************************************/
 // Prototypes
 
-extern "C" void uioptimized_setup(void);
+extern "C" void uioptimized_setup(void); //!! Pure Data "main"
 void uioptimized_initclass();
 t_uioptimized* uioptimized_new(t_symbol *s, short argc, t_atom *argv);
 void uioptimized_free(t_uioptimized *x);
@@ -37,24 +44,24 @@ t_max_err uioptimized_setattr_rectangle(t_uioptimized *x, void *attr, long ac, t
 /**********************************************************************/
 // Globals and Statics
 
-static t_eclass *s_uioptimized_class = NULL;
+static t_eclass *s_uioptimized_class = NULL; //!! t_eclass instead of t_class
 
 
 /**********************************************************************/
 // Class Definition and Life Cycle
 
-extern "C" void uioptimized_setup(void)
+extern "C" void uioptimized_setup(void) // idem
 {
-	t_eclass *c;
+	t_eclass *c; // idem
 	
 	c = class_new("uioptimized",
 				  (method)uioptimized_new,
 				  (method)uioptimized_free,
 				  sizeof(t_uioptimized),
-				  0,
+				  0, // no method but long perhaps need changes
 				  A_GIMME,
 				  0L);
-
+    //c->c_flags |= CLASS_FLAG_NEWDICTIONARY; // NO NEED
 	jbox_initclass(c, 0);
 	
 	class_addmethod(c, (method) uioptimized_mousemove,		"mousemove", A_CANT, 0);
@@ -78,9 +85,9 @@ extern "C" void uioptimized_setup(void)
 	
 	CLASS_ATTR_DEFAULT(c, "rect", 0, "0. 0. 128. 128.");
 	
-	//class_register(CLASS_BOX, c);
+	//class_register(CLASS_BOX, c); //!! NO Need
 	s_uioptimized_class = c;
-	//return 0;
+	//return 0;  //!! NO NEED
 }
 
 
@@ -93,7 +100,7 @@ t_uioptimized* uioptimized_new(t_symbol *s, short argc, t_atom *argv)
 		return NULL;
 	
 	if (x) {
-		long flags;
+		long flags; //!! flag are useless for the moment
 		flags = 0
         | JBOX_DRAWFIRSTIN
 		//		| JBOX_NODRAWBOX
@@ -114,7 +121,7 @@ t_uioptimized* uioptimized_new(t_symbol *s, short argc, t_atom *argv)
 		
 		x->j_rects = NULL;
 		x->j_overrect = -1;
-		x->j_out = outlet_new((t_object *)x, gensym("float"));
+		x->j_out = outlet_new((t_object *)x, gensym("float")); //!! PD outlet need changes
 		
 		// call this after initializing defaults
 		attr_dictionary_process((t_object *)x, d); // handle attribute args
@@ -128,7 +135,7 @@ t_uioptimized* uioptimized_new(t_symbol *s, short argc, t_atom *argv)
 void uioptimized_free(t_uioptimized *x)
 {
 	if (x->j_rects)
-		free(x->j_rects);
+		free(x->j_rects); //!! no freebytes but free !
 	jbox_free(&x->j_box);
 }
 
@@ -157,7 +164,7 @@ void uioptimized_mousemove(t_uioptimized *x, t_object *patcherview, t_pt pt, lon
 	
 	if (last_over != x->j_overrect) {	// redraw only if it's different
 		outlet_int(x->j_out, x->j_overrect);
-        jbox_invalidate_layer((t_object *)x, NULL, gensym("color"));
+        jbox_invalidate_layer((t_object *)x, NULL, gensym("color")); //!!  for red box layer, no patcherview_get_jgraphics()
 		jbox_redraw((t_jbox *)x);
 	}
 }
@@ -180,7 +187,7 @@ void uioptimized_paint(t_uioptimized *x, t_object *view)
     // draw the background rectangles if necessary
 	uioptimized_paint_background(x, view, &rect);
     
-	//g = (t_jgraphics*) patcherview_get_jgraphics(view);
+	//g = (t_jgraphics*) patcherview_get_jgraphics(view);  //!!  for red box layer, no patcherview_get_jgraphics()
     g = jbox_start_layer((t_object *)x, view, gensym("color"), rect.width, rect.height);
 	
 	if(g)
@@ -194,7 +201,7 @@ void uioptimized_paint(t_uioptimized *x, t_object *view)
                                       x->j_rects[x->j_overrect].width * (rect.width * 0.1),
                                       x->j_rects[x->j_overrect].height * (rect.height * 0.1));
 	}
-    jgraphics_fill(g);
+    jgraphics_fill(g);  //!!  No rectangle fill fast, just need macro
     jbox_end_layer((t_object*)x, view, gensym("color"));
     }
     jbox_paint_layer((t_object *)x, view, gensym("color"), 0., 0.);	// position of the layer
@@ -217,7 +224,7 @@ void uioptimized_paint_background(t_uioptimized *x, t_object *view, t_rect *rect
                                           x->j_rects[i].y * rect->height - x->j_rects[i].height * (rect->height * 0.05),
                                           x->j_rects[i].width * (rect->width * 0.1),
                                           x->j_rects[i].height * (rect->height * 0.1));
-            jgraphics_fill(g);
+            jgraphics_fill(g);  //!!  No rectangle fill fast, just need macro
 		}
 		jbox_end_layer((t_object*)x, view, gensym("background_layer"));
 	}
@@ -256,7 +263,7 @@ t_max_err uioptimized_setattr_rectangle(t_uioptimized *x, void *attr, long ac, t
 t_max_err uioptimized_notify(t_uioptimized *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
 	if (s == gensym("attr_modified")) {
-		t_symbol *name = (t_symbol *)object_method((t_object *)data, gensym("getname"));
+		t_symbol *name = (t_symbol *)object_method((t_object *)data, gensym("getname")); //!! Pierre :No implemented yet
 		
 		if (name == gensym("rectcolor"))
 			jbox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
@@ -264,7 +271,7 @@ t_max_err uioptimized_notify(t_uioptimized *x, t_symbol *s, t_symbol *msg, void 
 	return jbox_notify((t_jbox *)x, s, msg, sender, data);
 }
 
-void uioptimized_assist(t_uioptimized *x, void *b, long m, long a, char *s)
+void uioptimized_assist(t_uioptimized *x, void *b, long m, long a, char *s) //!! Pierre :No implemented yet
 {
 	if (m == ASSIST_INLET)	// inlet
 		sprintf(s, "Message in");
