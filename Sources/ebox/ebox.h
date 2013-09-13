@@ -1,0 +1,64 @@
+/*
+ * PdEnhanced - Pure Data Enhanced 
+ *
+ * An add-on for Pure Data
+ *
+ * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8
+ * All rights reserved.
+ *
+ * Website  : http://www.mshparisnord.fr/HoaLibrary/
+ * Contacts : cicm.mshparisnord@gmail.com
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Library General Public License as published
+ * by the Free Software Foundation; either version 2 of the License.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Library General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; if not, write to the Free Software Foundation,
+ * Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ */
+
+#ifndef DEF_EBOX
+#define DEF_EBOX
+
+#include "../estruct.h"
+#include "../egraphics/egraphics.h"
+#include "../ewidget/ewidget.h"
+
+void *ebox_alloc(t_eclass *c);
+void ebox_new(t_ebox *b, long flags, long argc, t_atom *argv);
+void ebox_dspsetup(t_ebox *x, long nins, long nout);
+void ebox_ready(t_ebox *x);
+void ebox_free(t_ebox* x);
+void ebox_dspfree(t_ebox *x);
+void ebox_redraw(t_ebox *x);
+void ebox_resize_inputs(t_ebox *x, long nins);
+void ebox_get_rect_for_view(t_object* x, t_object* patcherview, t_rect *rect);
+void ebox_dsp(t_ebox *x, t_signal **sp, short *count);
+t_int* ebox_perform(t_int* w);
+void ebox_dsp_add(t_ebox *x, t_symbol* s, t_object* obj, method m, long flags, void *userparam);
+
+t_egraphics* ebox_start_layer(t_object *b, t_object *view, t_symbol *name, double width, double height);
+t_pd_err ebox_end_layer(t_object *b, t_object *view, t_symbol *name);
+t_pd_err ebox_invalidate_layer(t_object *b, t_object *view, t_symbol *name);
+t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, double x, double y);
+t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
+
+void ebox_draw_background(t_ebox* x, t_glist* glist);
+void ebox_draw_border(t_ebox* x, t_glist* glist);
+void ebox_select(t_ebox* x, t_glist* glist);
+void ebox_move(t_ebox* x, t_glist* glist);
+void ebox_erase(t_ebox* x, t_glist* glist);
+void ebox_update(t_ebox *x, t_glist *glist);
+
+t_binbuf* object_cicm_dictionaryarg(long ac, t_atom *av);
+void attr_cicm_dictionary_process(void *x, t_binbuf *d);
+void ebox_properties(t_gobj *y, t_glist *x);
+
+#endif
