@@ -39,6 +39,7 @@ void ebox_free(t_ebox* x);
 void ebox_dspfree(t_ebox *x);
 void ebox_redraw(t_ebox *x);
 void ebox_resize_inputs(t_ebox *x, long nins);
+void ebox_resize_outputs(t_ebox *x, long nouts);
 void ebox_get_rect_for_view(t_object* x, t_object* patcherview, t_rect *rect);
 void ebox_dsp(t_ebox *x, t_signal **sp, short *count);
 t_int* ebox_perform(t_int* w);
@@ -51,14 +52,24 @@ t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, double x,
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
 void ebox_draw_background(t_ebox* x, t_glist* glist);
+void ebox_draw_text(t_ebox* x, t_glist* glist);
 void ebox_draw_border(t_ebox* x, t_glist* glist);
+
 void ebox_select(t_ebox* x, t_glist* glist);
 void ebox_move(t_ebox* x, t_glist* glist);
 void ebox_erase(t_ebox* x, t_glist* glist);
 void ebox_update(t_ebox *x, t_glist *glist);
+void ebox_invalidate_all(t_ebox *x, t_glist *glist);
 
 t_binbuf* object_cicm_dictionaryarg(long ac, t_atom *av);
 void attr_cicm_dictionary_process(void *x, t_binbuf *d);
 void ebox_properties(t_gobj *y, t_glist *x);
+
+t_symbol* cicm_obj_get_fontname(t_ebox* x);
+t_symbol* cicm_obj_font_slant(t_ebox* x);
+t_symbol* cicm_obj_font_weight(t_ebox* x);
+double cicm_obj_fontsize(t_ebox* x);
+
+
 
 #endif

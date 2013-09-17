@@ -84,9 +84,9 @@ t_pd_err dictionary_appendatoms(t_binbuf *d, t_symbol *key, long argc, t_atom *a
         
     }
     binbuf_addv(d, "s", key);
-    binbuf_addv(d, "s", gensym("{"));
+    binbuf_addv(d, "s", gensym("["));
     binbuf_add(d, argc, argv);
-    binbuf_addv(d, "s", gensym("}"));
+    binbuf_addv(d, "s", gensym("]"));
     
     return 0;
 }
@@ -111,7 +111,7 @@ t_pd_err dictionary_copyatoms(t_binbuf *d, t_symbol *key, long *argc, t_atom **a
     if(index)
     {
         int i = index;
-        while (i < ac && atom_getsym(av+i) != gensym("}"))
+        while (i < ac && atom_getsym(av+i) != gensym("}") && atom_getsym(av+i) != gensym("]"))
         {
             i++;
             argc[0]++;

@@ -46,7 +46,6 @@ void ewidget_init(t_eclass* c)
     c->c_widget.w_save              = (method)ewidget_save_default;
     c->c_widget.w_popup             = (method)ewidget_popup_default;
     c->c_widget.w_dsp               = (method)ewidget_dsp_default;
-    c->c_widget.w_perform           = (method)ewidget_perform_default;
 }
 
 void ewidget_getrect(t_gobj *z, t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2)
@@ -62,14 +61,28 @@ void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
 {
     t_ebox* x   = (t_ebox *)z;
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-    ebox_erase(x, glist );
-   
-    if (vis && x->e_ready_to_draw)
+    
+    if(vis && x->e_ready_to_draw)
     {
-        ebox_draw_background(x, glist);
-        c->c_widget.w_paint(x, (t_object *)glist);
-        ebox_draw_border(x, glist);
-    }        
+        ebox_invalidate_all(x, glist);
+        ebox_update(x, glist);
+        if (c->c_box == 0)
+        {
+            ebox_draw_background(x, glist);
+            c->c_widget.w_paint(x, (t_object *)glist);
+            ebox_draw_border(x, glist);
+        }
+        else
+        {
+            ebox_draw_background(x, glist);
+            ebox_draw_border(x, glist);
+            ebox_draw_text(x, glist);
+        }
+    }
+    else if(!vis)
+    {
+        ebox_erase(x, glist); 
+    }
     
     canvas_fixlinesfor(glist_getcanvas(glist), (t_text*)x);
 }
@@ -165,11 +178,22 @@ void ewidget_mousedrag(t_ebox *x, t_floatarg dx, t_floatarg dy)
 void ewidget_paint(t_ebox *x, t_glist *glist, int mode)
 {
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-    if(x->e_no_redraw_box == 0)
-        ebox_invalidate_layer((t_object *)x, (t_object *)glist, gensym("cicmboxuiborder"));
-    ebox_update(x, glist);
-    c->c_widget.w_paint(x, (t_object *)glist);
-    ebox_draw_border(x, glist);
+
+    if (c->c_box == 1)
+    {
+        ebox_draw_background(x, glist);
+        ebox_draw_border(x, glist);
+        ebox_draw_text(x, glist);
+    }
+    else
+    {
+        if(x->e_no_redraw_box == 0)
+            ebox_invalidate_layer((t_object *)x, (t_object *)glist, gensym("cicmboxuiborder"));
+        ebox_draw_background(x, glist);
+        ebox_update(x, glist);
+        c->c_widget.w_paint(x, (t_object *)glist);
+        ebox_draw_border(x, glist);
+    }
 }
 
 void ewidget_save(t_gobj *z, t_binbuf *b)
@@ -177,25 +201,42 @@ void ewidget_save(t_gobj *z, t_binbuf *b)
     t_ebox *x = (t_ebox *)z;
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
     char attr_name[256];
-    binbuf_addv(b, "ssiis", gensym("#X"), gensym("obj"), (t_int)x->e_obj.te_xpix, (t_int)x->e_obj.te_ypix, atom_getsymbol(binbuf_getvec(x->e_obj.te_binbuf)));
+    binbuf_addv(b, "ssii", gensym("#X"), gensym("obj"), (t_int)x->e_obj.te_xpix, (t_int)x->e_obj.te_ypix);
+
     
-    long argc = 0;
-    t_atom* argv = NULL;
-    for(int i = 0; i < c->c_attr.size(); i++)
+    if (c->c_box)
     {
-        if(c->c_attr[i].save)
+        long ac = binbuf_getnatom(x->e_obj.te_binbuf);
+        t_atom* av = binbuf_getvec(x->e_obj.te_binbuf);
+        char mess[256];
+        for (int i = 0; i < ac; i++)
         {
-            sprintf(attr_name, "@%s", c->c_attr[i].name->s_name);
-            object_attr_getvalueof((t_object *)x, c->c_attr[i].name, &argc, &argv);
-            if(argc && argv)
+            atom_string(av+i, mess, 256);
+            binbuf_addv(b, "s", gensym(mess));
+        }
+    }
+    
+    if (!c->c_box)
+    {
+        long argc = 0;
+        t_atom* argv = NULL;
+        for(int i = 0; i < c->c_attr.size(); i++)
+        {
+            if(c->c_attr[i].save)
             {
-                dictionary_appendatoms(b, gensym(attr_name), argc, argv);
-                argc = 0;
-                free(argv);
-                argv = NULL;
+                sprintf(attr_name, "@%s", c->c_attr[i].name->s_name);
+                object_attr_getvalueof((t_object *)x, c->c_attr[i].name, &argc, &argv);
+                if(argc && argv)
+                {
+                    dictionary_appendatoms(b, gensym(attr_name), argc, argv);
+                    argc = 0;
+                    free(argv);
+                    argv = NULL;
+                }
             }
         }
     }
+    
     c->c_widget.w_save(x, b);
     binbuf_addv(b, ";");
 
@@ -225,7 +266,7 @@ t_pd_err ewidget_notify_default(t_ebox *x, t_symbol *s, t_symbol *msg, void *sen
 
 void ewidget_save_default(t_gobj *z, t_binbuf *b){};
 
-void ewidget_popup_default(t_ebox *x, t_symbol *s, long itemid){};
+void ewidget_popup_default(t_ebox *x, t_symbol *s, long itemid, t_pt pt){};
 
 void ewidget_dsp_default(t_ebox *x, t_object *dsp, short *count, double samplerate, long vectorsize, long flags){;}
 

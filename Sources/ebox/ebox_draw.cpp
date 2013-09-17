@@ -31,7 +31,7 @@ void ebox_draw_background(t_ebox* x, t_glist* glist)
     t_egraphics* g = ebox_start_layer((t_object *)x, (t_object *)glist, gensym("cicmboxuibackground"), x->e_rect.width, x->e_rect.height);
     
     if(g)
-    {       
+    {
         cicm_graphics_set_source_jrgba(g, &x->e_boxparameters.d_boxfillcolor);
         cicm_graphics_rectangle(g, 0, 0, x->e_rect.width, x->e_rect.height);
         cicm_graphics_fill(g);
@@ -39,6 +39,25 @@ void ebox_draw_background(t_ebox* x, t_glist* glist)
         ebox_end_layer((t_object *)x, (t_object *)glist, gensym("cicmboxuibackground"));
     }
     ebox_paint_layer((t_object *)x, (t_object *)glist, gensym("cicmboxuibackground"), 0., 0.);
+}
+
+void ebox_draw_text(t_ebox* x, t_glist* glist)
+{
+    t_egraphics* g = ebox_start_layer((t_object *)x, (t_object *)glist, gensym("cicmboxext"), x->e_rect.width, x->e_rect.height);
+    
+    if(g)
+    {
+        t_ergba black = {0., 0., 0., 1.};
+        cicm_graphics_set_line_width(g, 1.);
+        t_etextlayout *jtl = cicm_text_layout_create();
+        cicm_text_layout_settextcolor(jtl, &black);
+        cicm_text_layout_set(jtl, x->e_box_text->s_name, &x->e_font, 2., 9, 0., 0., ETEXT_LEFT, ETEXT_NOWRAP);
+        cicm_text_layout_draw(jtl, g);
+        cicm_text_layout_destroy(jtl);
+ 
+        ebox_end_layer((t_object *)x, (t_object *)glist, gensym("cicmboxext"));
+    }
+    ebox_paint_layer((t_object *)x, (t_object *)glist, gensym("cicmboxext"), 0., 0.);
 }
 
 void ebox_draw_border(t_ebox* x, t_glist* glist)
@@ -55,20 +74,20 @@ void ebox_draw_border(t_ebox* x, t_glist* glist)
         cicm_graphics_stroke(g);
         
         cicm_graphics_set_source_jrgba(g, &black);
-        for(int i = 0; i < x->e_nins; i++)
+        for(int i = 0; i < obj_ninlets((t_object *)x); i++)
         {
             int pos_x_inlet = 0;
-            if(x->e_nins != 1)
-                pos_x_inlet = (int)(i / (float)(x->e_nins - 1) * (x->e_rect.width - 8));
+            if(obj_ninlets((t_object *)x) != 1)
+                pos_x_inlet = (int)(i / (float)(obj_ninlets((t_object *)x) - 1) * (x->e_rect.width - 8));
             cicm_graphics_rectangle(g, pos_x_inlet, 0, 9, 3);
             cicm_graphics_fill(g);
         }
         
-        for(int i = 0; i < x->e_nouts; i++)
+        for(int i = 0; i < obj_noutlets((t_object *)x); i++)
         {
             int pos_x_outlet = 0;
-            if(x->e_nouts != 1)
-                pos_x_outlet = (int)(i / (float)(x->e_nouts - 1) * (x->e_rect.width - 8));
+            if(obj_noutlets((t_object *)x) != 1)
+                pos_x_outlet = (int)(i / (float)(obj_noutlets((t_object *)x) - 1) * (x->e_rect.width - 8));
             cicm_graphics_rectangle(g, pos_x_outlet, x->e_rect.height - 2, 9, 3);
             cicm_graphics_fill(g);
         }
@@ -112,6 +131,14 @@ void ebox_move(t_ebox* x, t_glist* glist)
             }
             sys_vgui(".x%lx.c coords %s %s\n",canvas, g->c_obj_names[j].c_str(), coordinates);
         }
+    }
+}
+
+void ebox_invalidate_all(t_ebox *x, t_glist *glist)
+{   
+    for(long i = 0; i < x->e_graphics.size(); i++)
+    {
+        x->e_graphics[i].c_state = CICM_GRAPHICS_INVALID;
     }
 }
 

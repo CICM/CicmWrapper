@@ -63,7 +63,7 @@ typedef struct _ewidget
     method          w_save;
     method          w_popup;
     method          w_dsp;
-    method          w_perform;
+    method          w_object_standat_paint;
 } t_ewidget;
 
 typedef struct _eattr
@@ -95,6 +95,7 @@ typedef struct _eattr
 typedef struct _eclass
 {
     t_class         c_class;
+    bool            c_box;
     t_ewidget       c_widget;
     vector<t_eattr> c_attr;
 }t_eclass;
@@ -219,7 +220,7 @@ typedef struct _ebox
     bool                e_mouse_down;
     long                e_modifiers;
     bool                e_ready_to_draw;
-    
+    t_symbol*           e_box_text;
     char*               e_classname;
     t_edrawparams       e_boxparameters;
     vector<t_egraphics> e_graphics;
@@ -231,12 +232,15 @@ typedef struct _ebox
     vector<t_outlet*>   e_outlets;
     long                e_nins;
     long                e_nouts;
- 
+    
     float               e_float;                // float value for signal
     long                e_dsp_size;
     t_int*              e_dsp_vectors;
     long                e_dsp_flag;
     void*               e_dsp_user_param;
+    long                z_misc = 0;     // Special Max for Z_NO_INPLACE
+    t_float**           z_sigs_out = NULL;
+    method              e_perform_method;
     
     bool                e_no_redraw_box = 0;
     t_object*           b_firstin; // For Max, it doesn't matter !

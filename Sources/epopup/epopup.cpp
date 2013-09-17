@@ -140,7 +140,7 @@ void epopupmenu_destroy(t_epopupmenu *menu)
 int epopupmenu_mousemove(t_epopupmenu *menu, t_pt pt, int mousedown)
 {
     t_ebox* x   = (t_ebox *)menu->c_obj;
-    t_eclass* c = (t_eclass *)menu->c_obj;
+    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
     if(menu)
     {
         ebox_invalidate_layer((t_object *)x, (t_object *)x->e_glist, gensym("cicmpopuplight"));

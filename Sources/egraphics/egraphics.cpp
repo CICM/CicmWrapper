@@ -40,12 +40,15 @@ void cicm_graphics_apply_transforms(t_egraphics *g, long index)
         {
             if(g->c_rotation)
             {
-                radius = pd_radius(x_p, y_p);
-                angle  = pd_radius(x_p, y_p) + g->c_rotation;
-                x_p = pd_ordinate(radius, angle);
-                y_p = pd_ordinate(radius, angle);
+                x_p     = x_p - g->c_width / 2.;
+                y_p     = y_p - g->c_height / 2.;
+                radius  = pd_radius(x_p, y_p);
+                angle   = pd_angle(x_p , y_p) + g->c_rotation;
+                x_p     = pd_abscissa(radius, angle) + g->c_width / 2.;
+                y_p     = pd_ordinate(radius, angle) + g->c_height / 2.;
             }
         }
+        
         if(g->c_matrix)
         {
             x = x_p * g->c_matrix->xx + y_p * g->c_matrix->xy + g->c_matrix->x0;
@@ -155,7 +158,6 @@ void cicm_graphics_clip(t_egraphics *g, long index, int stroked)
             g->c_obj_coords[index][i]  = lines.width;
             g->c_obj_coords[index][i+1]  = lines.height;
         }
-        
     }
     else if(strcmp(g->c_obj_types[index].c_str(), "polygon ") == 0)
     {
@@ -282,7 +284,7 @@ void cicm_text_layout_draw(t_etextlayout* textlayout, t_egraphics *g)
     g->c_obj_options[index].append(text);
 
     cicm_graphics_apply_transforms(g, index);
-   
+    
     // CLIP FOR TEXT //
     double x1, y1;
     x1 = g->c_obj_coords[index][0];

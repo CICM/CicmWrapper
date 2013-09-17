@@ -52,6 +52,20 @@ void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
     }
     
     // A METTRE EN ATTR //
+    std::string text;
+    char mess[256];
+    text.assign(x->e_classname);
+    for (int i = 0; i < argc; i++)
+    {
+        atom_string(argv+i, mess, 256);
+        if (mess[0] == '@')
+        {
+            break;
+        }
+    }
+    x->e_box_text =gensym(text.c_str());
+    
+    // A METTRE EN ATTR //
     x->e_font.c_family = gensym(sys_font);
     x->e_font.c_weight = gensym(sys_fontweight);
     x->e_font.c_slant = gensym("regular");
@@ -62,6 +76,15 @@ void ebox_dspsetup(t_ebox *x, long nins, long nout)
 {
     nins = pd_clip_min(nins, 1);
     nout = pd_clip_min(nout, 0);
+    x->e_glist = (t_glist *)canvas_getcurrent();
+    x->e_perform_method = (method)ewidget_perform_default;
+    // SHOULD BE ENOUGH...
+    x->z_sigs_out = new t_float*[256];
+    for (int i = 0; i < 256; i++)
+    {
+        x->z_sigs_out[i] = new t_float[8192];
+    }
+
     for (int i = 1; i < nins; i++)
     {
         x->e_inlets.push_back(signalinlet_new(&x->e_obj, x->e_float));
@@ -69,12 +92,13 @@ void ebox_dspsetup(t_ebox *x, long nins, long nout)
     for (int i = 0; i < nout; i++)
     {
         x->e_outlets.push_back(outlet_new(&x->e_obj, &s_signal));
-        
+       
     }
+    
     x->e_dsp_vectors = NULL;
-    x->e_nins   = obj_ninlets(&x->e_obj);
-    x->e_nouts  = obj_noutlets(&x->e_obj);
-    x->e_dsp_size      = x->e_nins + x->e_nouts + 5;
+    x->e_nins   = obj_nsiginlets(&x->e_obj);
+    x->e_nouts  = obj_nsigoutlets(&x->e_obj);
+    x->e_dsp_size      = x->e_nins + x->e_nouts + 4;
     x->e_dsp_vectors   = (t_int*)calloc(x->e_dsp_size , sizeof(t_int));
 }
 
@@ -82,11 +106,14 @@ void ebox_dspsetup(t_ebox *x, long nins, long nout)
 void ebox_ready(t_ebox *x)
 {
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
+    
     x->e_mouse_down = 0;
     c->c_widget.w_getdrawparameters(x, NULL, &x->e_boxparameters);
+    
+    x->e_nins   = obj_nsiginlets(&x->e_obj);
+    x->e_nouts  = obj_nsigoutlets(&x->e_obj);
+
     x->e_ready_to_draw = 1;
-    x->e_nins   = obj_ninlets(&x->e_obj);
-    x->e_nouts  = obj_noutlets(&x->e_obj);
 }
 
 void ebox_dspfree(t_ebox *x)
@@ -109,8 +136,14 @@ void ebox_dspfree(t_ebox *x)
         outlet_free(x->e_outlets[k-1]);
         x->e_outlets.pop_back();
     }
-    
-    ebox_free(x);
+    for(int i = 0; i < 256; i++)
+    {
+        free(x->z_sigs_out[i]);
+    }
+    free(x->z_sigs_out);
+    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
+    if(!c->c_box)
+        ebox_free(x);
 }
 
 void ebox_free(t_ebox* x)
@@ -148,7 +181,7 @@ void ebox_resize_inputs(t_ebox *x, long nins)
         }
     }
     
-    x->e_nins = obj_ninlets(&x->e_obj);
+    x->e_nins = obj_nsiginlets(&x->e_obj);
     
     if (x->e_dsp_vectors != NULL)
     {
@@ -156,7 +189,75 @@ void ebox_resize_inputs(t_ebox *x, long nins)
         x->e_dsp_vectors = NULL;
         x->e_dsp_size = 0;
     }
-    x->e_dsp_size      = x->e_nins + x->e_nouts + 5;
+    x->e_dsp_size      = x->e_nins + x->e_nouts + 4;
+    x->e_dsp_vectors   = (t_int*)calloc(x->e_dsp_size , sizeof(t_int));
+    
+    ewidget_vis((t_gobj *)x, x->e_glist, 1);
+}
+
+void ebox_resize_outputs(t_ebox *x, long nouts)
+{
+    t_eclass *c         = (t_eclass *)x->e_obj.te_g.g_pd;
+    nouts = pd_clip_min(nouts, long(0));
+    
+    if(!c->c_box)
+    {
+        if(nouts > x->e_nouts)
+        {
+            for (int i = x->e_nouts; i < nouts; i++)
+            {
+                x->e_outlets.push_back(outlet_new(&x->e_obj, &s_signal));
+            }
+        }
+        else if (nouts < x->e_nouts)
+        {
+            for(int k = x->e_outlets.size(); k > nouts; k--)
+            {
+                canvas_deletelinesforio(x->e_glist, (t_text *)x, NULL, x->e_outlets[k-1]);
+                outlet_free(x->e_outlets[k-1]);
+                x->e_outlets.pop_back();
+            }
+        }    
+    }
+    else
+    {
+        if(nouts > x->e_nouts)
+        {
+            for (int i = x->e_nouts; i < nouts; i++)
+            {
+                if(!x->e_glist->gl_loading && glist_isvisible(x->e_glist))
+                    gobj_vis((t_gobj *)x, x->e_glist, 0);
+                x->e_outlets.push_back(outlet_new(&x->e_obj, &s_signal));
+                if(!x->e_glist->gl_loading && glist_isvisible(x->e_glist))
+                    gobj_vis((t_gobj *)x, x->e_glist, 1);
+            }
+        }
+        else if (nouts < x->e_nouts)
+        {
+            for(int k = x->e_outlets.size(); k > nouts; k--)
+            {
+                if(!x->e_glist->gl_loading && glist_isvisible(x->e_glist))
+                {
+                    gobj_vis((t_gobj *)x, x->e_glist, 0);
+                    canvas_deletelinesforio(x->e_glist, (t_text *)x, NULL, x->e_outlets[k-1]);
+                }
+                outlet_free(x->e_outlets[k-1]);
+                x->e_outlets.pop_back();
+                if(!x->e_glist->gl_loading && glist_isvisible(x->e_glist))
+                    gobj_vis((t_gobj *)x, x->e_glist, 1);
+            }
+        }
+        
+    }
+    x->e_nouts = obj_nsigoutlets(&x->e_obj);
+    
+    if (x->e_dsp_vectors != NULL)
+    {
+        free(x->e_dsp_vectors);
+        x->e_dsp_vectors = NULL;
+        x->e_dsp_size = 0;
+    }
+    x->e_dsp_size      = x->e_nins + x->e_nouts + 4;
     x->e_dsp_vectors   = (t_int*)calloc(x->e_dsp_size , sizeof(t_int));
     
     ewidget_vis((t_gobj *)x, x->e_glist, 1);
@@ -169,13 +270,13 @@ void ebox_dsp(t_ebox *x, t_signal **sp, short *count)
     c->c_widget.w_dsp(x, x, count, sp[0]->s_sr, sp[0]->s_n, 0);
     
     x->e_dsp_vectors[0] = (t_int)x;
-    x->e_dsp_vectors[1] = (t_int)c;
-    x->e_dsp_vectors[2] = (t_int)sp[0]->s_n;
-    x->e_dsp_vectors[3] = (t_int)x->e_dsp_flag;
-    x->e_dsp_vectors[4] = (t_int)x->e_dsp_user_param;
-    for (int i = 5; i < x->e_dsp_size; i++)
+    x->e_dsp_vectors[1] = (t_int)sp[0]->s_n;
+    x->e_dsp_vectors[2] = (t_int)x->e_dsp_flag;
+    x->e_dsp_vectors[3] = (t_int)x->e_dsp_user_param;
+    
+    for (int i = 4; i < x->e_dsp_size; i++)
     {
-        x->e_dsp_vectors[i] = (t_int)(sp[i - 5]->s_vec);
+        x->e_dsp_vectors[i] = (t_int)(sp[i - 4]->s_vec);
     }
     
     dsp_addv(ebox_perform, x->e_dsp_size, x->e_dsp_vectors);
@@ -184,21 +285,40 @@ void ebox_dsp(t_ebox *x, t_signal **sp, short *count)
 t_int* ebox_perform(t_int* w)
 {
     t_ebox* x               = (t_ebox *)(w[1]);
-    t_eclass* c             = (t_eclass *)(w[2]);
+    long nsamples           = (long)(w[2]);
+    long flag               = (long)(w[3]);
+    void* user_p            = (void *)(w[4]);
+    t_float** ins           = (t_float **)(&w[5]);
+    t_float** outs          = (t_float **)(&w[5 + x->e_nins]);
     
-    c->c_widget.w_perform(x, NULL, (t_float **)(&w[6]), x->e_nins, (t_float **)(&w[6 + x->e_nins]), x->e_nouts, (long)(w[3]), (long)(w[4]), (void *)(w[5]));
-    
+    if(x->z_misc == E_NO_INPLACE)
+    {
+        t_float *outs_real, *outs_perf;
+        x->e_perform_method(x, NULL, ins, x->e_nins, x->z_sigs_out, x->e_nouts, nsamples, flag, user_p);
+        for (int i = 0; i < x->e_nouts; i++)
+        {
+            outs_perf = x->z_sigs_out[i];
+            outs_real = outs[i];
+            for (int j = 0; j < nsamples; j++)
+            {
+                outs_real[j] = outs_perf[j];
+            }
+        }
+    }
+    else
+    {
+         x->e_perform_method(x, NULL, ins, x->e_nins, outs, x->e_nouts, nsamples, flag, user_p);
+    }
     return w + (x->e_dsp_size + 1);
 }
 
 
 void ebox_dsp_add(t_ebox *x, t_symbol* s, t_object* obj, method m, long flags, void *userparam)
 {
-    t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
-   
+
     x->e_dsp_flag = flags;
     x->e_dsp_user_param = userparam;
-    c->c_widget.w_perform = m;
+    x->e_perform_method = m;
 }
 
 void ebox_get_rect_for_view(t_object *z, t_object *patcherview, t_rect *rect)
@@ -208,66 +328,6 @@ void ebox_get_rect_for_view(t_object *z, t_object *patcherview, t_rect *rect)
     rect->y = x->e_obj.te_ypix;
     rect->width = x->e_rect.width;
     rect->height = x->e_rect.height;
-}
-
-void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long anything)
-{
-    if(gensym(name) == gensym("mousemove"))
-    {
-        c->c_widget.w_mousemove = m;
-    }
-    else if(gensym(name) == gensym("mousedown"))
-    {
-        c->c_widget.w_mousedown = m;
-    }
-    else if(gensym(name) == gensym("mousedrag"))
-    {
-        c->c_widget.w_mousedrag = m;
-    }
-    else if(gensym(name) == gensym("mouseup"))
-    {
-        c->c_widget.w_mouseup = m;
-    }
-    else if(gensym(name) == gensym("paint"))
-    {
-        c->c_widget.w_paint = m;
-    }
-    else if(gensym(name) == gensym("assist"))
-    {
-        ;
-    }
-    else if(gensym(name) == gensym("notify"))
-    {
-        c->c_widget.w_notify = (t_err_method)m;
-    }
-    else if(gensym(name) == gensym("anything"))
-    {
-        class_addanything((t_class *)c, m);
-    }
-    else if(gensym(name) == gensym("getdrawparams"))
-    {
-        c->c_widget.w_getdrawparameters = m;
-    }
-    else if(gensym(name) == gensym("bang"))
-    {
-        class_addbang((t_class *)c, m);
-    }
-    else if(gensym(name) == gensym("save") || gensym(name) == gensym("jsave"))
-    {
-        c->c_widget.w_save = m;
-    }
-    else if(gensym(name) == gensym("popup"))
-    {
-        c->c_widget.w_popup = m;
-    }
-    else if(gensym(name) == gensym("dsp") || gensym(name) == gensym("dsp64"))
-    {
-        c->c_widget.w_dsp = m;
-    }
-    else
-    {
-        class_addmethod((t_class *)c, (t_method)m, gensym(name), type, anything);
-    }
 }
 
 void ebox_properties(t_gobj *z, t_glist *glist)
@@ -395,6 +455,7 @@ void attr_cicm_dictionary_process(void *x, t_binbuf *d)
             }
         }
     }
+    
     char attr_name[256];
     for(int i = 0; i < c->c_attr.size(); i++)
     {

@@ -52,7 +52,7 @@ void ewidget_mouseup_default(t_ebox *x, t_object *patcherview, t_pt pt, long mod
 void ewidget_getdrawparams_default(t_ebox *x, t_object *patcherview, t_edrawparams *params);
 t_pd_err ewidget_notify_default(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void ewidget_save_default(t_gobj *z, t_binbuf *b);
-void ewidget_popup_default(t_ebox *x, t_symbol *s, long itemid);
+void ewidget_popup_default(t_ebox *x, t_symbol *s, long itemid, t_pt pt);
 void ewidget_dsp_default(t_ebox *x, t_object *dsp, short *count, double samplerate, long vectorsize, long flags);
 void ewidget_perform_default(t_ebox *x, t_object *dsp, float **ins, long ni, float **outs, long no, long vectorsize, long flags,void *userparam);
 

@@ -78,6 +78,8 @@ void cicm_text_layout_settextcolor(t_etextlayout* textlayout, t_ergba* color);
 t_efont* cicm_font_create(t_symbol* family, t_symbol* slant, t_symbol* weight, double size);
 void cicm_font_destroy(t_efont* font);
 
+void cicm_graphics_close_path(t_egraphics *g);
+void cicm_graphics_smooth_line(t_egraphics *g);
 
 void cicm_graphics_matrix_init(t_cicm_matrix *x, double xx, double yx, double xy, double yy, double x0, double y0);
 

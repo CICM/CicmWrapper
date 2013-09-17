@@ -105,9 +105,12 @@ void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                     }
                 }
             }
-            c->c_widget.w_notify(x, NULL, s, NULL, NULL);
+            c->c_widget.w_notify(x, s, gensym("attr_modified"), NULL, NULL);
             if(c->c_attr[i].paint)
-                ebox_redraw((t_ebox *)x);
+            {
+                c->c_widget.w_getdrawparameters(x, NULL, &z->e_boxparameters);
+                ewidget_vis((t_gobj *)x, z->e_glist, 1);
+            }
             
         }
     }

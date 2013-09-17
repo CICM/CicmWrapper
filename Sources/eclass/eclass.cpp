@@ -76,6 +76,90 @@ void eclass_dspinit(t_eclass* c)
     class_addmethod((t_class *)c, (t_method)ebox_dsp_add, gensym("dsp_add64"), A_NULL, 0);
 }
 
+void eclassbox_dspinit(t_eclass* c)
+{
+    ewidget_init(c);
+    class_setsavefn((t_class *)c, ewidget_save);
+    class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
+    
+    CLASS_MAINSIGNALIN((t_class *)c, t_ebox, e_float);
+    class_addmethod((t_class *)c, (t_method)ebox_dsp, gensym("dsp"), A_CANT, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_dsp_add, gensym("dsp_add"), A_NULL, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_dsp_add, gensym("dsp_add64"), A_NULL, 0);
+}
+
+t_pd_err eclass_register(t_symbol *name_space, t_eclass *c)
+{
+    if(name_space == gensym("box"))
+    {
+        c->c_box = 1;
+    }
+    else
+        c->c_box = 0;
+    
+    return 0;
+}
+
+void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long anything)
+{
+    if(gensym(name) == gensym("mousemove"))
+    {
+        c->c_widget.w_mousemove = m;
+    }
+    else if(gensym(name) == gensym("mousedown"))
+    {
+        c->c_widget.w_mousedown = m;
+    }
+    else if(gensym(name) == gensym("mousedrag"))
+    {
+        c->c_widget.w_mousedrag = m;
+    }
+    else if(gensym(name) == gensym("mouseup"))
+    {
+        c->c_widget.w_mouseup = m;
+    }
+    else if(gensym(name) == gensym("paint"))
+    {
+        c->c_widget.w_paint = m;
+    }
+    else if(gensym(name) == gensym("assist"))
+    {
+        ;
+    }
+    else if(gensym(name) == gensym("notify"))
+    {
+        c->c_widget.w_notify = (t_err_method)m;
+    }
+    else if(gensym(name) == gensym("anything"))
+    {
+        class_addanything((t_class *)c, m);
+    }
+    else if(gensym(name) == gensym("getdrawparams"))
+    {
+        c->c_widget.w_getdrawparameters = m;
+    }
+    else if(gensym(name) == gensym("bang"))
+    {
+        class_addbang((t_class *)c, m);
+    }
+    else if(gensym(name) == gensym("save") || gensym(name) == gensym("jsave"))
+    {
+        c->c_widget.w_save = m;
+    }
+    else if(gensym(name) == gensym("popup"))
+    {
+        c->c_widget.w_popup = m;
+    }
+    else if(gensym(name) == gensym("dsp") || gensym(name) == gensym("dsp64"))
+    {
+        c->c_widget.w_dsp = m;
+    }
+    else
+    {
+        class_addmethod((t_class *)c, (t_method)m, gensym(name), type, anything);
+    }
+}
+
 
 
 

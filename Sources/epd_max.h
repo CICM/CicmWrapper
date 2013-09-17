@@ -50,6 +50,15 @@
 #define JBOX_NOINSPECTFIRSTIN   0
 
 #define t_jbox              t_ebox
+#define t_pxobject          t_ebox
+
+#define CLASS_BOX				gensym("box")
+#define CLASS_NOBOX				gensym("nobox")
+#define Z_NO_INPLACE 1
+#define Z_PUT_LAST 2
+#define Z_PUT_FIRST 4
+#define Z_IGNORE_DISABLE 8
+
 #define t_jboxdrawparams    t_edrawparams
 #define t_max_err           t_pd_err
 
@@ -57,8 +66,9 @@
 #define class_addmethod                             eclass_addmethod
  
 #define jbox_initclass(class, flags)                eclass_init(class, flags)
+#define class_dspinit(class)                        eclassbox_dspinit(class)
 #define class_dspinitjbox(class)                    eclass_dspinit(class)
-
+#define class_register(name_space, class)           eclass_register(name_space, class)
 #define object_alloc(class)                         ebox_alloc(class)
 #define jbox_new(t_jbox, flags, argc, argv)         ebox_new(t_jbox, flags, argc, argv)
 #define dsp_setupjbox(t_jbox, nins, nouts)          ebox_dspsetup(t_jbox, nins, nouts)
@@ -67,6 +77,7 @@
 #define dsp_freejbox(t_jbox)                        ebox_dspfree(t_jbox)
 #define jbox_redraw(t_jbox)                         ebox_redraw(t_jbox)
 #define jbox_resize_inputs(t_jbox, nins)            ebox_resize_inputs(t_jbox, nins)
+#define jbox_resize_outputs(t_jbox, nouts)          ebox_resize_outputs(t_jbox, nouts)
 #define jbox_get_rect_for_view(t_object, view, rect) ebox_get_rect_for_view(t_object, view, rect)
 
 #define jbox_start_layer                            ebox_start_layer
