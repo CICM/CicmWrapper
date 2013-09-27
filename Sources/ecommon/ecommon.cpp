@@ -41,6 +41,11 @@ void *listout(void *x)
     return outlet_new((t_object *)x, &s_list);
 }
 
+void *floatout(void *x)
+{
+    return outlet_new((t_object *)x, &s_float);
+}
+
 void* object_method(void* x, t_symbol* s)
 {
     rmethod nrmethod = (rmethod)getfn((t_pd *)x, s);

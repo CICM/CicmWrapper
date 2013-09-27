@@ -285,7 +285,7 @@ void cicm_text_layout_draw(t_etextlayout* textlayout, t_egraphics *g)
 
     cicm_graphics_apply_transforms(g, index);
     
-    // CLIP FOR TEXT //
+    // CLIP FOR TEXT //s
     double x1, y1;
     x1 = g->c_obj_coords[index][0];
     y1 = g->c_obj_coords[index][1];

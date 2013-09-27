@@ -41,7 +41,7 @@ void ebox_redraw(t_ebox *x);
 void ebox_resize_inputs(t_ebox *x, long nins);
 void ebox_resize_outputs(t_ebox *x, long nouts);
 void ebox_get_rect_for_view(t_object* x, t_object* patcherview, t_rect *rect);
-void ebox_dsp(t_ebox *x, t_signal **sp, short *count);
+void ebox_dsp(t_ebox *x, t_signal **sp);
 t_int* ebox_perform(t_int* w);
 void ebox_dsp_add(t_ebox *x, t_symbol* s, t_object* obj, method m, long flags, void *userparam);
 

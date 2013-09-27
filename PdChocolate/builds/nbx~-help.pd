@@ -1,0 +1,25 @@
+#N canvas 276 204 629 468 10;
+#X msg 350 79 \; pd dsp 1;
+#X msg 247 61 \; pd dsp 0;
+#X obj 177 94 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 392 127 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 43 256;
+#X obj 506 150 osc~ 84;
+#X obj 501 69 loadbang;
+#X msg 532 120 0.25;
+#X obj 158 128 osc~ 122;
+#X obj 81 92 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X msg 69 124 interval \$1;
+#X obj 194 264 nbx~ @patching_rect [ 0 0 43 15 ] @interval [ 50 ] @bgcolor
+[ 1 1 1 1 ] @bordercolor [ 0.25 0.25 0.25 1 ] @textcolor [ 0 0 0 1
+];
+#X msg 320 223 patching_rect 0 0 \$1 15;
+#X connect 2 0 7 0;
+#X connect 3 0 11 0;
+#X connect 5 0 6 0;
+#X connect 6 0 4 1;
+#X connect 7 0 10 0;
+#X connect 8 0 9 0;
+#X connect 11 0 10 0;

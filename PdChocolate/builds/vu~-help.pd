@@ -1,0 +1,27 @@
+#N canvas 348 370 580 418 10;
+#X obj 94 215 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 -90 256;
+#X obj 93 102 vu~ @patching_rect [ 0 0 13 85 ] @interval [ 50 ] @bgcolor
+[ 0.55 0.55 0.55 1 ] @bordercolor [ 0.25 0.25 0.25 1 ] @coldcolor [
+0 0.6 0 0.8 ] @tepidcolor [ 0.6 0.73 0 0.8 ] @warmcolor [ 0.85 0.85
+0 0.8 ] @hotcolor [ 1 0.6 0 0.8 ] @overcolor [ 1 0 0 0.8 ];
+#X msg 340 69 \; pd dsp 1;
+#X msg 237 51 \; pd dsp 0;
+#X obj 103 73 sig~ 0;
+#X obj 108 47 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 259 108 osc~ 0.1;
+#X obj 259 138 vu~ @patching_rect [ 0 0 15 200 ] @interval [ 50 ] @bgcolor
+[ 0.55 0.55 0.55 1 ] @bordercolor [ 0.25 0.25 0.25 1 ] @coldcolor [
+0 0.6 0 0.8 ] @tepidcolor [ 0.6 0.73 0 0.8 ] @warmcolor [ 0.85 0.85
+0 0.8 ] @hotcolor [ 1 0.6 0 0.8 ] @overcolor [ 1 0 0 0.8 ];
+#X obj 352 148 vu~ @patching_rect [ 0 0 15 200 ] @interval [ 50 ] @bgcolor
+[ 0.55 0.55 0.55 1 ] @bordercolor [ 0.25 0.25 0.25 1 ] @coldcolor [
+0 0.6 0 0.8 ] @tepidcolor [ 0.6 0.73 0 0.8 ] @warmcolor [ 0.85 0.85
+0 0.8 ] @hotcolor [ 1 0.6 0 0.8 ] @overcolor [ 1 0 0 0.8 ];
+#X obj 342 114 phasor~ 0.3;
+#X connect 1 0 0 0;
+#X connect 4 0 1 0;
+#X connect 5 0 4 0;
+#X connect 6 0 7 0;
+#X connect 9 0 8 0;

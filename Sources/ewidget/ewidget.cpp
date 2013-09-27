@@ -204,7 +204,7 @@ void ewidget_save(t_gobj *z, t_binbuf *b)
     binbuf_addv(b, "ssii", gensym("#X"), gensym("obj"), (t_int)x->e_obj.te_xpix, (t_int)x->e_obj.te_ypix);
 
     
-    if (c->c_box)
+    if(c->c_box)
     {
         long ac = binbuf_getnatom(x->e_obj.te_binbuf);
         t_atom* av = binbuf_getvec(x->e_obj.te_binbuf);
@@ -218,6 +218,7 @@ void ewidget_save(t_gobj *z, t_binbuf *b)
     
     if (!c->c_box)
     {
+        binbuf_addv(b, "s", gensym(x->e_classname));
         long argc = 0;
         t_atom* argv = NULL;
         for(int i = 0; i < c->c_attr.size(); i++)

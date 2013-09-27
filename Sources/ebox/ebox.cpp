@@ -263,11 +263,26 @@ void ebox_resize_outputs(t_ebox *x, long nouts)
     ewidget_vis((t_gobj *)x, x->e_glist, 1);
 }
 
-void ebox_dsp(t_ebox *x, t_signal **sp, short *count)
+void ebox_dsp(t_ebox *x, t_signal **sp)
 {
     t_eclass *c         = (t_eclass *)x->e_obj.te_g.g_pd;
-    
-    c->c_widget.w_dsp(x, x, count, sp[0]->s_sr, sp[0]->s_n, 0);
+
+    short count[x->e_nins];
+    for(int i = 0; i < x->e_nins; i++)
+    {
+        count[i] = 0;
+        t_linetraverser t;
+        t_outconnect *oc;
+        linetraverser_start(&t, x->e_glist);
+        while((oc = linetraverser_next(&t)))
+        {
+            if (t.tr_ob2 == (t_object*)x && t.tr_inno == i)
+            {
+                count[i] = 1;
+            }
+        }            
+    }
+    c->c_widget.w_dsp(x, x, &count, sp[0]->s_sr, sp[0]->s_n, 0);
     
     x->e_dsp_vectors[0] = (t_int)x;
     x->e_dsp_vectors[1] = (t_int)sp[0]->s_n;
