@@ -58,7 +58,7 @@ void eclass_init(t_eclass* c, long flags)
     class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
     class_setwidget((t_class *)c, (t_widgetbehavior *)&c->c_widget);
     
-    CLASS_ATTR_DOUBLE_ARRAY (c, "patching_rect", 0, t_ebox, e_rect, 4);
+    CLASS_ATTR_FLOAT_ARRAY (c, "patching_rect", 0, t_ebox, e_rect, 4);
     CLASS_ATTR_DEFAULT      (c, "patching_rect", 0, "0 0 200 200");
     CLASS_ATTR_FILTER_MIN   (c, "patching_rect", 0);
     CLASS_ATTR_SAVE         (c, "patching_rect", 0);

@@ -66,6 +66,7 @@ void epopupmenu_addseperator(t_epopupmenu *menu)
 
 void epopupmenu_popup(t_epopupmenu *menu, t_pt screen, int defitemid)
 {
+    /*
     t_ebox* x =(t_ebox *)menu->c_obj;
     menu->c_rect.x = screen.x;
     menu->c_rect.y = screen.y;
@@ -88,21 +89,21 @@ void epopupmenu_popup(t_epopupmenu *menu, t_pt screen, int defitemid)
         t_ergba greydark = {0.3, 0.3, 0.3, 1.};
         t_ergba black = {0., 0., 0., 1.};
         t_etextlayout *jtl = cicm_text_layout_create();
-        cicm_graphics_set_line_width(g, 1.);
-        cicm_graphics_set_source_jrgba(g, &grey);
-        cicm_graphics_rectangle(g, 0., 0., menu->c_rect.width, menu->c_rect.height);
-        cicm_graphics_fill_preserve(g);
-        cicm_graphics_set_source_jrgba(g, &black);
-        cicm_graphics_stroke(g);
+        egraphics_set_line_width(g, 1.);
+        egraphics_set_source_jrgba(g, &grey);
+        egraphics_rectangle(g, 0., 0., menu->c_rect.width, menu->c_rect.height);
+        egraphics_fill_preserve(g);
+        egraphics_set_source_jrgba(g, &black);
+        egraphics_stroke(g);
         
         for(int i = 0; i < menu->c_items.size(); i++)
         {
             double y  = menu->c_font.c_size * 1.5 * (i + 1);
             if(menu->c_items[i].c_separator)
             {
-                cicm_graphics_move_to(g, 0., y);
-                cicm_graphics_line_to(g, menu->c_rect.width, y);
-                cicm_graphics_fill(g);
+                egraphics_move_to(g, 0., y);
+                egraphics_line_to(g, menu->c_rect.width, y);
+                egraphics_fill(g);
             }
             else
             {
@@ -127,6 +128,7 @@ void epopupmenu_popup(t_epopupmenu *menu, t_pt screen, int defitemid)
     }
         
     ebox_paint_layer((t_object *)x, (t_object *)x->e_glist, gensym("cicmpopupmenu"), menu->c_rect.x , menu->c_rect.y);
+     */
 }
 
 void epopupmenu_destroy(t_epopupmenu *menu)
@@ -139,6 +141,7 @@ void epopupmenu_destroy(t_epopupmenu *menu)
 
 int epopupmenu_mousemove(t_epopupmenu *menu, t_pt pt, int mousedown)
 {
+    /*
     t_ebox* x   = (t_ebox *)menu->c_obj;
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
     if(menu)
@@ -160,10 +163,10 @@ int epopupmenu_mousemove(t_epopupmenu *menu, t_pt pt, int mousedown)
                     t_etextlayout *jtl = cicm_text_layout_create();
                     if(g)
                     {
-                        cicm_graphics_set_line_width(g, 1.);
-                        cicm_graphics_set_source_jrgba(g, &blue);
-                        cicm_graphics_rectangle(g, 1., y1, menu->c_rect.width-1, ratio);
-                        cicm_graphics_fill(g);
+                        egraphics_set_line_width(g, 1.);
+                        egraphics_set_source_jrgba(g, &blue);
+                        egraphics_rectangle(g, 1., y1, menu->c_rect.width-1, ratio);
+                        egraphics_fill(g);
                         
                         cicm_text_layout_settextcolor(jtl, &menu->c_items[i].c_color);
                         cicm_text_layout_set(jtl, menu->c_items[i].c_text->s_name, &menu->c_font, 7., y2 - 7., 0., 0., ETEXT_LEFT, ETEXT_NOWRAP);
@@ -198,7 +201,7 @@ int epopupmenu_mousemove(t_epopupmenu *menu, t_pt pt, int mousedown)
     else
     {
         return 0;
-    }
+    }*/
     
 }
 

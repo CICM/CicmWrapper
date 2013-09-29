@@ -18,7 +18,7 @@
 #X obj 158 128 osc~ 122;
 #X msg 229 158 buffersize \$1;
 #X obj 241 126 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 369 256;
+-262144 -1 -1 0 256;
 #X obj 81 92 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
 -262144 -1 -1 0 256;
 #X msg 69 124 interval \$1;

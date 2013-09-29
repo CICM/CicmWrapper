@@ -25,7 +25,7 @@
  */
 
 #include "egraphics.h"
-
+/*
 void cicm_graphics_close_path(t_egraphics *g)
 {
     double x = g->c_new_obj_coords[g->c_new_obj_coords.size()-2];
@@ -40,3 +40,4 @@ void cicm_graphics_smooth_line(t_egraphics *g)
 {    
     g->c_new_obj_options.assign("-joinstyle round -smooth 1 -splinesteps 30 ");
 }
+*/

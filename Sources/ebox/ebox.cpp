@@ -46,6 +46,8 @@ void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
     x->e_ready_to_draw = 0;
     x->e_glist = (t_glist *)canvas_getcurrent();
     x->e_classname = class_getname(x->e_obj.te_g.g_pd);
+    x->e_number_of_graphics = 0;
+    x->e_graphics = NULL;
     if (flags == 1)
     {
         x->e_no_redraw_box = 1;
@@ -354,84 +356,12 @@ t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *
 {
     if(msg == gensym("patching_rect"))
     {
-        for(long i = 0; i < x->e_graphics.size(); i++)
+        for(long i = 0; i < x->e_number_of_graphics; i++)
         {
-            x->e_graphics[i].c_state = CICM_GRAPHICS_INVALID;
+            x->e_graphics[i].e_state = EGRAPHICS_INVALID;
         }
         ewidget_vis((t_gobj *)x, x->e_glist, 1);
     }
-    return 0;
-}
-
-t_pd_err ebox_end_layer(t_object *b, t_object *view, t_symbol *name)
-{
-    t_ebox* x = (t_ebox*)b;
-    for(long i = 0; i < x->e_graphics.size(); i++)
-    {
-        if(x->e_graphics[i].c_name == name)
-        {
-            x->e_graphics[i].c_state = CICM_GRAPHICS_TO_DRAW;
-            x->e_graphics[i].c_new_obj_type.clear();
-            x->e_graphics[i].c_new_obj_coords.clear();
-            x->e_graphics[i].c_new_obj_options.clear();
-            return 0;
-        }
-    }
-    
-    return 0;
-}
-
-t_pd_err ebox_invalidate_layer(t_object *b, t_object *view, t_symbol *name)
-{
-    t_ebox* x = (t_ebox*)b;
-    for(long i = 0; i < x->e_graphics.size(); i++)
-    {
-        if(x->e_graphics[i].c_name == name)
-        {
-            x->e_graphics[i].c_state = CICM_GRAPHICS_INVALID;
-            return 0;
-        }
-    }
-    return -1;
-}
-
-t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, double x, double y)
-{
-    t_ebox* obj = (t_ebox *)b;
-    t_canvas* canvas = glist_getcanvas((t_glist *)view);
-    t_egraphics* g = NULL;
-    for(int i = 0; i < obj->e_graphics.size(); i++)
-    {
-        if(obj->e_graphics[i].c_name == name && obj->e_graphics[i].c_canvas == canvas && obj->e_graphics[i].c_state == CICM_GRAPHICS_TO_DRAW)
-        {
-            g = &obj->e_graphics[i];
-            g->c_offset_x = x;
-            g->c_offset_y = y;
-        }
-    }
-    if(g)
-    {
-        char temp[256];
-        std::string text;
-        for(int i = 0; i < g->c_obj_types.size(); i++)
-        {
-            text.assign(g->c_canvas_text);
-            text.append(" create ");
-            text.append(g->c_obj_types[i]);
-            
-            for(int j = 0; j < g->c_obj_coords[i].size(); j += 2)
-            {
-                sprintf(temp, "%d %d ", (int)(g->c_obj_coords[i][j] + g->c_offset_x + obj->e_obj.te_xpix), (int)(g->c_obj_coords[i][j+1] + g->c_offset_y + obj->e_obj.te_ypix));
-                text.append(temp);
-            }
-            text.append(g->c_obj_options[i]);
-            sys_gui((char *)text.c_str());
-            g->c_state = CICM_GRAPHICS_CLOSE;
-        }
-    }
-    else
-        return -1;
-    
     return 0;
 }
 
@@ -448,7 +378,7 @@ void attr_cicm_dictionary_process(void *x, t_binbuf *d)
     t_atom* defv = NULL;
     t_ebox* z = (t_ebox *)x;
     t_eclass* c = (t_eclass *)z->e_obj.te_g.g_pd;
-    // DEFAULT c->c_attr VALUES //
+
     for(int i = 0; i < c->c_attr.size(); i++)
     {
         if(c->c_attr[i].defvals)

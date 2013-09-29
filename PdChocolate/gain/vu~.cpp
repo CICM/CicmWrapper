@@ -26,7 +26,7 @@
 
 typedef struct  _vu
 {
-	t_ebox      j_box;
+	t_jbox      j_box;
 	
 	t_clock*	f_clock;
 	int			f_startclock;
@@ -142,7 +142,7 @@ void *vu_new(t_symbol *s, int argc, t_atom *argv)
 	if (!(d = object_dictionaryarg(argc,argv)))
 		return NULL;
     
-	x = (t_vu *)ebox_alloc(vu_class);
+	x = (t_vu *)object_alloc(vu_class);
     
 	flags = 0
     | JBOX_DRAWFIRSTIN
@@ -152,10 +152,10 @@ void *vu_new(t_symbol *s, int argc, t_atom *argv)
     | JBOX_GROWY
     ;
     
-	ebox_new((t_ebox *)x, 0, argc, argv);
+	jbox_new((t_jbox *)x, 0, argc, argv);
 	x->j_box.b_firstin = (t_object *)x;
     
-    ebox_dspsetup((t_ebox *)x, 1, 0);
+	dsp_setupjbox((t_jbox *)x, 1, 0);
     
     x->f_peaks_outlet   = floatout(x);
     x->f_peak_value     = 0.;
@@ -163,7 +163,7 @@ void *vu_new(t_symbol *s, int argc, t_atom *argv)
 	x->f_startclock     = 0;
     x->f_over_led_preserved = 0;
 	attr_dictionary_process(x, d);	
-	ebox_ready((t_ebox *)x);
+	jbox_ready((t_jbox *)x);
     
 	return (x);
 }
@@ -220,8 +220,8 @@ void vu_tick(t_vu *x)
     
     vu_output(x);
     
-	ebox_invalidate_layer((t_object *)x, NULL, gensym("leds_layer"));
-	ebox_redraw((t_jbox *)x);
+	jbox_invalidate_layer((t_object *)x, NULL, gensym("leds_layer"));
+	jbox_redraw((t_jbox *)x);
     
 	if(sys_getdspstate())
 		clock_delay(x->f_clock, x->f_interval);
@@ -268,26 +268,26 @@ t_max_err vu_notify(t_vu *x, t_symbol *s, t_symbol *msg, void *sender, void *dat
 void vu_paint(t_vu *x, t_object *view)
 {
 	t_rect rect;
-	ebox_get_rect_for_view((t_object *)x, view, &rect);
+	jbox_get_rect_for_view((t_object *)x, view, &rect);
 	draw_background(x, view, &rect);
     draw_leds(x, view, &rect);
 }
 
 void draw_background(t_vu *x,  t_object *view, t_rect *rect)
 {
-	t_egraphics *g = ebox_start_layer((t_object *)x, view, gensym("background_layer"), rect->width, rect->height);
+	t_jgraphics *g = jbox_start_layer((t_object *)x, view, gensym("background_layer"), rect->width, rect->height);
  
 	if (g)
 	{
         for(int i = 0; i < 13; i++)
         {
-            egraphics_move_to(g, 0., i * rect->height / 13.);
-            egraphics_line_to(g, rect->width, i * rect->height / 13.);
-            egraphics_stroke(g);
+            jgraphics_move_to(g, 0., i * rect->height / 13.);
+            jgraphics_line_to(g, rect->width, i * rect->height / 13.);
+            jgraphics_stroke(g);
         }
-		ebox_end_layer((t_object*)x, view, gensym("background_layer"));
+		jbox_end_layer((t_object*)x, view, gensym("background_layer"));
 	}
-	ebox_paint_layer((t_object *)x, view, gensym("background_layer"), 0., 0.);
+	jbox_paint_layer((t_object *)x, view, gensym("background_layer"), 0., 0.);
 }
 
 
@@ -298,27 +298,27 @@ void draw_leds(t_vu *x, t_object *view, t_rect *rect)
 	if (g)
 	{
         double led_height = rect->height / 13.;
-        for(float i = 12, dB = -39; i > 0; i--, dB += 3.)
+        for(float i = 13, dB = -39; i > 0; i--, dB += 3.)
         {
             if(x->f_peak_value >= dB)
             {
                 if(i > 9)
-                    egraphics_set_source_jrgba(g, &x->f_color_signal_cold);
+                    jgraphics_set_source_jrgba(g, &x->f_color_signal_cold);
                 else if(i > 6)
-                    egraphics_set_source_jrgba(g, &x->f_color_signal_tepid);
+                    jgraphics_set_source_jrgba(g, &x->f_color_signal_tepid);
                 else if(i > 3)
-                    egraphics_set_source_jrgba(g, &x->f_color_signal_warm);
+                    jgraphics_set_source_jrgba(g, &x->f_color_signal_warm);
                 else if(i > 0)
-                    egraphics_set_source_jrgba(g, &x->f_color_signal_hot);
-                egraphics_rectangle(g, 1, i * led_height + 1, rect->width - 1, led_height - 2 );
-                egraphics_fill(g);
+                    jgraphics_set_source_jrgba(g, &x->f_color_signal_hot);
+                jgraphics_rectangle(g, 1, i * led_height + 1, rect->width - 1, led_height - 2);
+                jgraphics_fill(g);
             }
         }
         if(x->f_over_led_preserved)
         {
-            egraphics_set_source_jrgba(g, &x->f_color_signal_over);
-            egraphics_rectangle(g, 1, 1, rect->width - 1, led_height - 2);
-            egraphics_fill(g);
+            jgraphics_set_source_jrgba(g, &x->f_color_signal_over);
+            jgraphics_rectangle(g, 1, 1, rect->width - 1, led_height - 2);
+            jgraphics_fill(g);
         }
 		jbox_end_layer((t_object*)x, view, gensym("leds_layer"));
 	}

@@ -26,9 +26,10 @@
 
 #include "egraphics.h"
 
+/*
 void cicm_graphics_line_to(t_egraphics *g, double x, double y)
 {
-    if(g->c_state == CICM_GRAPHICS_OPEN)
+    if(g->e_state == EGRAPHICS_OPEN)
     {
         g->c_new_obj_coords.push_back(x);
         g->c_new_obj_coords.push_back(y);
@@ -37,7 +38,7 @@ void cicm_graphics_line_to(t_egraphics *g, double x, double y)
 
 void cicm_graphics_move_to(t_egraphics *g, double x, double y)
 {
-    if(g->c_state == CICM_GRAPHICS_OPEN)
+    if(g->e_state == EGRAPHICS_OPEN)
     {
         g->c_new_obj_type.assign("polygon ");
         
@@ -51,7 +52,7 @@ void cicm_graphics_move_to(t_egraphics *g, double x, double y)
 
 void cicm_graphics_rectangle(t_egraphics *g, double x, double y, double width, double height)
 {
-    if(g->c_state == CICM_GRAPHICS_OPEN)
+    if(g->e_state == EGRAPHICS_OPEN)
     {        
         g->c_new_obj_type.assign("rectangle ");
         
@@ -65,9 +66,10 @@ void cicm_graphics_rectangle(t_egraphics *g, double x, double y, double width, d
     }
 }
 
+
 void cicm_graphics_arc(t_egraphics *g, double xc, double yc, double radius, double angle1, double angle2)
 {
-    if(g->c_state == CICM_GRAPHICS_OPEN)
+    if(g->e_state == EGRAPHICS_OPEN)
     {
         
         g->c_new_obj_coords.clear();
@@ -77,7 +79,7 @@ void cicm_graphics_arc(t_egraphics *g, double xc, double yc, double radius, doub
         g->c_new_obj_coords.push_back(xc + radius);
         g->c_new_obj_coords.push_back(yc + radius);
         
-        int start = (angle1 + g->c_rotation) * 360. / EPD_2PI;
+        int start = (angle1 + g->e_rotation) * 360. / EPD_2PI;
         int extent = (angle2 - angle1)  * 360. / EPD_2PI;
         
         if(extent % 360 == 0)
@@ -97,7 +99,7 @@ void cicm_graphics_arc(t_egraphics *g, double xc, double yc, double radius, doub
 
 void cicm_graphics_arc_negative(t_egraphics *g, double xc, double yc, double radius, double angle1, double angle2)
 {
-    if(g->c_state == CICM_GRAPHICS_OPEN)
+    if(g->e_state == EGRAPHICS_OPEN)
     {
         g->c_new_obj_coords.clear();
         g->c_new_obj_options.clear();
@@ -106,8 +108,8 @@ void cicm_graphics_arc_negative(t_egraphics *g, double xc, double yc, double rad
         g->c_new_obj_coords.push_back(xc + radius);
         g->c_new_obj_coords.push_back(yc + radius);
         
-        int start = (angle1 + g->c_rotation) / EPD_2PI * 360.;
-        int extent = -(angle2 + g->c_rotation - angle1) / EPD_2PI * 360.;
+        int start = (angle1 + g->e_rotation) / EPD_2PI * 360.;
+        int extent = -(angle2 + g->e_rotation - angle1) / EPD_2PI * 360.;
         
         if(extent % 360 == 0)
         {
@@ -123,4 +125,5 @@ void cicm_graphics_arc_negative(t_egraphics *g, double xc, double yc, double rad
         }
     }
 }
+ */
 

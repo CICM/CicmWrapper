@@ -26,34 +26,35 @@
 
 #include "egraphics.h"
 
-void egraphics_matrix_init(t_ematrix *x, float xx, float yx, float xy, float yy, float x0, float y0)
+void egraphics_rotate_set(t_egraphics *g, float angle)
 {
-    x->xx = xx;
-    x->yx = yx;
-    x->xy = xy;
-    x->yy = yy;
-    x->x0 = x0;
-    x->y0 = y0;
+    g->e_rotation = angle;
 }
 
-void egraphics_set_matrix(t_egraphics *g, const t_ematrix* matrix)
+void egraphics_rotate_add(t_egraphics *g, float angle)
 {
-    g->e_matrix = (t_ematrix *)matrix;
+    g->e_rotation += angle;
 }
 
-void egraphics_apply_matrix(t_egraphics *g, t_egraphics_obj* gobj)
+void egraphics_apply_rotation(t_egraphics *g, t_egraphics_obj* gobj)
 {
-    if(g->e_matrix)
+    if(g->e_rotation)
     {
         float x_p, y_p;
-        for(int  i = 0; i < gobj->e_npoints; i++)
+        float radius, angle;
+        for(int  i = 0; i < gobj->e_npoints; i ++)
         {
-            x_p     = gobj->e_points[i].x * g->e_matrix->xx + gobj->e_points[i].y * g->e_matrix->xy + g->e_matrix->x0;
-            y_p     = gobj->e_points[i].x * g->e_matrix->yx + gobj->e_points[i].y * g->e_matrix->yy + g->e_matrix->y0;
-            gobj->e_points[i].x    = x_p;
-            gobj->e_points[i].y    = y_p;
+            x_p     = gobj->e_points[i].x - g->e_rect.width / 2.;
+            y_p     = gobj->e_points[i].y - g->e_rect.height / 2.;
+            
+            radius  = pd_radius(x_p, y_p);
+            angle   = pd_angle(x_p , y_p) + g->e_rotation;
+            
+            gobj->e_points[i].x = pd_abscissa(radius, angle) + g->e_rect.width / 2.;
+            gobj->e_points[i].y = pd_ordinate(radius, angle) + g->e_rect.height / 2.;
         }
-        // MUST DO SOMETHING FOR ARC !!!!
+        gobj->e_angles[0] += g->e_rotation;
+        gobj->e_angles[1] += g->e_rotation;
     }
 }
 

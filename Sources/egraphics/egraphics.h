@@ -49,39 +49,42 @@ typedef enum ecicm_text_wrap_flags
 	ETEXT_WRAP = 1
 } tecicm_text_wrap_flags;
 
-void cicm_graphics_set_line_width(t_egraphics *g, double width);
-void cicm_graphics_set_source_jrgba(t_egraphics *g, t_ergba *rgba);
-void cicm_graphics_fill(t_egraphics *g);
-void cicm_graphics_fill_preserve(t_egraphics *g);
-void cicm_graphics_stroke(t_egraphics *g);
-void cicm_graphics_stroke_preserve(t_egraphics *g);
+
+void egraphics_fill(t_egraphics *g);
+void egraphics_fill_preserve(t_egraphics *g);
+void egraphics_stroke(t_egraphics *g);
+void egraphics_stroke_preserve(t_egraphics *g);
 void cicm_text_layout_draw(t_etextlayout* textlayout, t_egraphics *g);
 
-void cicm_graphics_rotate(t_egraphics *g, double angle);
-void cicm_graphics_set_matrix(t_egraphics *g, const t_cicm_matrix *matrix);
-void cicm_graphics_apply_transforms(t_egraphics *g, long index); // PRIVATE //
-void cicm_graphics_clip(t_egraphics *g, long index, int stroked);
+void egraphics_set_line_width(t_egraphics *g, float width);
+void egraphics_set_source_jrgba(t_egraphics *g, t_ergba *rgba);
+void egraphics_rotate_set(t_egraphics *g, float angle);
+void egraphics_rotate_add(t_egraphics *g, float angle);
+void egraphics_matrix_init(t_ematrix *x, float xx, float yx, float xy, float yy, float x0, float y0);
+void egraphics_set_matrix(t_egraphics *g, const t_ematrix *matrix);
 
-int point_in_rect(double x, double y, double xmin, double ymin, double xmax, double ymax);
-t_rect CohenSutherlandLineClipAndDraw(double x0, double y0, double x1, double y1, double xmin, double ymin, double xmax, double ymax);
+void egraphics_apply_rotation(t_egraphics *g, t_egraphics_obj* gobj); // PRIVATE //
+void egraphics_apply_matrix(t_egraphics *g, t_egraphics_obj* gobj);   // PRIVATE //
+void egraphics_clip(t_egraphics *g, t_egraphics_obj* gobj);           // PRIVATE //
 
-void cicm_graphics_rectangle(t_egraphics *g, double x, double y, double width, double height);
-void cicm_graphics_arc(t_egraphics *g, double xc, double yc, double radius, double angle1, double angle2);
-void cicm_graphics_arc_negative(t_egraphics *g, double xc, double yc, double radius, double angle1, double angle2);
-void cicm_graphics_line_to(t_egraphics *g, double x, double y);
-void cicm_graphics_move_to(t_egraphics *g, double x, double y);
+void egraphics_line_to(t_egraphics *g, float x, float y);
+void egraphics_move_to(t_egraphics *g, float x, float y);
+void egraphics_line(t_egraphics *g, float x0, float y0,  float x1, float y1);
+void egraphics_rectangle(t_egraphics *g, float x, float y, float width, float height);
+void egraphics_rectangle_rounded(t_egraphics *g, float x, float y, float width, float height, float roundness);
 
+/*
 t_etextlayout* cicm_text_layout_create();
 void cicm_text_layout_destroy(t_etextlayout* textlayout);
 void cicm_text_layout_set(t_etextlayout* textlayout, char* text, t_efont *jfont,  double x, double y, double width,  double height, t_etext_justification_flags justification, tecicm_text_wrap_flags wrap);
 void cicm_text_layout_settextcolor(t_etextlayout* textlayout, t_ergba* color);
 t_efont* cicm_font_create(t_symbol* family, t_symbol* slant, t_symbol* weight, double size);
 void cicm_font_destroy(t_efont* font);
+*/
+//void cicm_graphics_close_path(t_egraphics *g);
+//void cicm_graphics_smooth_line(t_egraphics *g);
 
-void cicm_graphics_close_path(t_egraphics *g);
-void cicm_graphics_smooth_line(t_egraphics *g);
-
-void cicm_graphics_matrix_init(t_cicm_matrix *x, double xx, double yx, double xy, double yy, double x0, double y0);
+void cicm_graphics_matrix_init(t_ematrix *x, double xx, double yx, double xy, double yy, double x0, double y0);
 
 t_ergba cicm_rgba_addContrast(t_ergba baseColor, double contrast, bool preserveAlpha = true);
 char* cicm_rgba_to_hex(t_ergba color);

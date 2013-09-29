@@ -113,7 +113,7 @@
 #define JGRAPHICS_2PI       CICM_2PI
 #define JGRAPHICS_PI        CICM_PI
 
-#define t_jmatrix           t_cicm_matrix
+#define t_jmatrix           t_ematrix
 #define t_jgraphics         t_egraphics
 #define t_jrgba             t_ergba
 #define t_jtextlayout       t_etextlayout

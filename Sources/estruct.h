@@ -37,10 +37,10 @@ typedef struct _pt
 
 typedef struct _rect
 {
-	double x;
-	double y;
-	double width;
-	double height;
+	float x;
+	float y;
+	float width;
+	float height;
 } t_rect;
 
 typedef struct _ewidget
@@ -102,10 +102,10 @@ typedef struct _eclass
 
 typedef enum
 {
-	CICM_GRAPHICS_OPEN      = 0,
-	CICM_GRAPHICS_CLOSE     = -1,
-	CICM_GRAPHICS_INVALID   = -2,
-    CICM_GRAPHICS_TO_DRAW   = -3,
+	EGRAPHICS_OPEN      = 0,
+	EGRAPHICS_CLOSE     = -1,
+	EGRAPHICS_INVALID   = -2,
+    EGRAPHICS_TODRAW    = -3,
 } cicm_graphics_codes;
 
 
@@ -117,44 +117,57 @@ typedef struct _ergba
 	double alpha;
 } t_ergba;
 
-typedef struct _cicm_matrix
+typedef struct _ematrix
 {
-	double xx;
-	double yx;
-	double xy;
-	double yy;
-	double x0;
-	double y0;
-} t_cicm_matrix;
+	float xx;
+	float yx;
+	float xy;
+	float yy;
+	float x0;
+	float y0;
+} t_ematrix;
+
+typedef enum
+{
+    E_GOBJ_INVALID           = 0,
+    E_GOBJ_LINE                 ,
+    E_GOBJ_PATH                 ,
+	E_GOBJ_RECTANGLE            ,
+	E_GOBJ_RECTANGLE_ROUNDED    ,
+    E_GOBJ_ARC                  ,
+    E_GOBJ_OVAL                 ,
+} egraphics_types;
+
+typedef struct _egraphics_ob
+{
+	int             e_type;
+    t_symbol*       e_name;
+    int             e_filled;
+    t_symbol*       e_color;
+    float           e_width;
+    
+	t_pt*           e_points;
+    long            e_npoints;
+    float           e_roundness;
+    float           e_angles[2];
+} t_egraphics_obj;
 
 typedef struct _egraphics
 {
-    t_object*           c_owner;
-    t_canvas*           c_canvas;
-    std::string         c_canvas_text;
-    t_symbol*           c_name;
-    double              c_width;
-    double              c_height;
+    t_object*           e_owner;
+    t_symbol*           e_name;
+    int                 e_state;
     
-    int                 c_offset_x;
-    int                 c_offset_y;
+    t_rect              e_rect;
+    t_symbol*           e_color;
+    int                 e_width;
     
-    const t_cicm_matrix*  c_matrix = NULL;
-    double                c_rotation = 0.;
+    t_ematrix*          e_matrix;
+    double              e_rotation;
     
-    std::string             c_new_obj_type;
-    vector<double>          c_new_obj_coords;
-    std::string             c_new_obj_options;
-    
-    // GRAPHICS OBJECTS //
-    vector<std::string >    c_obj_types;
-    vector<vector<double> > c_obj_coords;
-    vector<std::string >    c_obj_options;
-    vector<std::string >    c_obj_names;
-    
-    long                c_state = CICM_GRAPHICS_CLOSE;
-    t_symbol*           c_color = gensym("#000000");
-    long                c_line_width = 1;
+    t_egraphics_obj     e_new_objects;
+    t_egraphics_obj*    e_objects;
+    long                e_number_objects;
     
 } t_egraphics;
 
@@ -223,7 +236,9 @@ typedef struct _ebox
     t_symbol*           e_box_text;
     char*               e_classname;
     t_edrawparams       e_boxparameters;
-    vector<t_egraphics> e_graphics;
+    
+    t_egraphics*        e_graphics;
+    long                e_number_of_graphics;
     
     t_efont             e_font;
     t_epopupmenu*       e_popup = NULL;

@@ -36,9 +36,7 @@
 		8F0C150617E3E29000593A58 /* ewidget.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F0C14EB17E3E29000593A58 /* ewidget.h */; };
 		8F0C150717E3E29000593A58 /* pd_enhanced.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F0C14EC17E3E29000593A58 /* pd_enhanced.h */; };
 		8F68584617F5FC1600022E08 /* vu~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F68584517F5FC1600022E08 /* vu~.cpp */; };
-		8FE1B1F117F6D42300A3E466 /* egraphics_rotation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE1B1F017F6D42300A3E466 /* egraphics_rotation.cpp */; };
-		8FE1B1F317F6E41C00A3E466 /* egraphics_clip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE1B1F217F6E41C00A3E466 /* egraphics_clip.cpp */; };
-		8FE1B1F517F705DA00A3E466 /* egraphics_forms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE1B1F417F705D900A3E466 /* egraphics_forms.cpp */; };
+		8FE1B1EF17F640D400A3E466 /* gain~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE1B1EE17F640D400A3E466 /* gain~.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,9 +70,7 @@
 		8F0C14EB17E3E29000593A58 /* ewidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ewidget.h; sourceTree = "<group>"; };
 		8F0C14EC17E3E29000593A58 /* pd_enhanced.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pd_enhanced.h; sourceTree = "<group>"; };
 		8F68584517F5FC1600022E08 /* vu~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "vu~.cpp"; sourceTree = "<group>"; };
-		8FE1B1F017F6D42300A3E466 /* egraphics_rotation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = egraphics_rotation.cpp; sourceTree = "<group>"; };
-		8FE1B1F217F6E41C00A3E466 /* egraphics_clip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = egraphics_clip.cpp; sourceTree = "<group>"; };
-		8FE1B1F417F705D900A3E466 /* egraphics_forms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = egraphics_forms.cpp; sourceTree = "<group>"; };
+		8FE1B1EE17F640D400A3E466 /* gain~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "gain~.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +88,7 @@
 		5913846415DAA36D0029AD16 = {
 			isa = PBXGroup;
 			children = (
+				8FE1B1EE17F640D400A3E466 /* gain~.cpp */,
 				8F68584517F5FC1600022E08 /* vu~.cpp */,
 				59FB02F717A7FAA9001E977D /* Accelerate.framework */,
 				8F0C14CA17E3E29000593A58 /* Sources */,
@@ -171,11 +168,8 @@
 			children = (
 				8F0C14DC17E3E29000593A58 /* egraphics.cpp */,
 				8F0C14DD17E3E29000593A58 /* egraphics.h */,
-				8FE1B1F017F6D42300A3E466 /* egraphics_rotation.cpp */,
-				8F0C14DF17E3E29000593A58 /* egraphics_matrix.cpp */,
-				8FE1B1F217F6E41C00A3E466 /* egraphics_clip.cpp */,
-				8FE1B1F417F705D900A3E466 /* egraphics_forms.cpp */,
 				8F0C14DE17E3E29000593A58 /* egraphics_color.cpp */,
+				8F0C14DF17E3E29000593A58 /* egraphics_matrix.cpp */,
 				8F0C14E017E3E29000593A58 /* egraphics_paint.cpp */,
 				8F0C14E117E3E29000593A58 /* egraphics_path.cpp */,
 				8F0C14E217E3E29000593A58 /* egraphics_text.cpp */,
@@ -289,9 +283,7 @@
 				8F0C150217E3E29000593A58 /* epopup.cpp in Sources */,
 				8F0C150517E3E29000593A58 /* ewidget.cpp in Sources */,
 				8F68584617F5FC1600022E08 /* vu~.cpp in Sources */,
-				8FE1B1F117F6D42300A3E466 /* egraphics_rotation.cpp in Sources */,
-				8FE1B1F317F6E41C00A3E466 /* egraphics_clip.cpp in Sources */,
-				8FE1B1F517F705DA00A3E466 /* egraphics_forms.cpp in Sources */,
+				8FE1B1EF17F640D400A3E466 /* gain~.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
