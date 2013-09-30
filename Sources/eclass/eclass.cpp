@@ -33,7 +33,9 @@ t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t siz
     t_class *pd  = class_new(gensym(name), (t_newmethod)newmethod, (t_method)freemethod, size, flags, arg1, arg2);
     t_eclass* c;
     c = (t_eclass *)resizebytes(pd, sizeof(*pd), sizeof(*c));
-
+    c->c_nattr = 0;
+    c->c_attr  = (t_eattr *)malloc(sizeof(t_eattr));
+    
 #ifdef NO_PUB
     puclicite = 1;
 #endif
@@ -58,14 +60,20 @@ void eclass_init(t_eclass* c, long flags)
     class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
     class_setwidget((t_class *)c, (t_widgetbehavior *)&c->c_widget);
     
-    CLASS_ATTR_FLOAT_ARRAY (c, "patching_rect", 0, t_ebox, e_rect, 4);
+    // This is for Max compatibilty //
+    CLASS_ATTR_FLOAT_ARRAY  (c, "patching_rect", 0, t_ebox, e_rect, 4);
     CLASS_ATTR_DEFAULT      (c, "patching_rect", 0, "0 0 200 200");
-    CLASS_ATTR_FILTER_MIN   (c, "patching_rect", 0);
+    CLASS_ATTR_FILTER_MIN   (c, "patching_rect", 1);
     CLASS_ATTR_SAVE         (c, "patching_rect", 0);
     CLASS_ATTR_PAINT        (c, "patching_rect", 0);
     CLASS_ATTR_CATEGORY		(c, "patching_rect", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "patching_rect", 0, "Patching rectangle");
     
+    CLASS_ATTR_FLOAT_ARRAY  (c, "size", 0, t_ebox, e_rect.width, 2);
+    CLASS_ATTR_SAVE         (c, "size", 0);
+    CLASS_ATTR_PAINT        (c, "size", 0);
+    CLASS_ATTR_CATEGORY		(c, "size", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "size", 0, "Patching Size");
 }
 
 void eclass_dspinit(t_eclass* c)
@@ -137,6 +145,10 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
     else if(gensym(name) == gensym("getdrawparams"))
     {
         c->c_widget.w_getdrawparameters = m;
+    }
+    else if(gensym(name) == gensym("oksize"))
+    {
+        c->c_widget.w_oksize = m;
     }
     else if(gensym(name) == gensym("bang"))
     {

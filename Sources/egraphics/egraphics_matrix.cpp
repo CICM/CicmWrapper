@@ -26,7 +26,7 @@
 
 #include "egraphics.h"
 
-void egraphics_matrix_init(t_ematrix *x, float xx, float yx, float xy, float yy, float x0, float y0)
+void egraphics_matrix_init(t_matrix *x, float xx, float yx, float xy, float yy, float x0, float y0)
 {
     x->xx = xx;
     x->yx = yx;
@@ -36,12 +36,12 @@ void egraphics_matrix_init(t_ematrix *x, float xx, float yx, float xy, float yy,
     x->y0 = y0;
 }
 
-void egraphics_set_matrix(t_egraphics *g, const t_ematrix* matrix)
+void egraphics_set_matrix(t_elayer *g, const t_matrix* matrix)
 {
-    g->e_matrix = (t_ematrix *)matrix;
+    g->e_matrix = (t_matrix *)matrix;
 }
 
-void egraphics_apply_matrix(t_egraphics *g, t_egraphics_obj* gobj)
+void egraphics_apply_matrix(t_elayer *g, t_egobj* gobj)
 {
     if(g->e_matrix)
     {

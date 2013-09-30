@@ -59,8 +59,10 @@ cicm_class_new_attr_typed(c,name, "long", 1, flags, calcoffset(struct,member))
 cicm_class_new_attr_typed(c,name, "float", 1, flags, calcoffset(struct,member))
 #define CLASS_ATTR_DOUBLE(c,name,flags,struct,member)  \
 cicm_class_new_attr_typed(c,name, "double", 1, flags, calcoffset(struct,member))
+#define CLASS_ATTR_RGB(c,name,flags,struct,member) \
+cicm_class_new_attr_typed(c,name, "float", 3, flags, calcoffset(struct,member))
 #define CLASS_ATTR_RGBA(c,name,flags,struct,member) \
-cicm_class_new_attr_typed(c,name, "double", 4, flags, calcoffset(struct,member))
+cicm_class_new_attr_typed(c,name, "float", 4, flags, calcoffset(struct,member))
 
 #define CLASS_ATTR_INT_ARRAY(c,name,flags,struct,member,size)   \
 cicm_class_new_attr_typed(c,name, "int", size, flags, calcoffset(struct,member))

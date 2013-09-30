@@ -78,7 +78,7 @@ void object_attr_getvalueof(t_object *x, t_symbol *s, long *argc, t_atom **argv)
     getvalue(x, s, argc, argv);
 }
 
-t_pd_err dictionary_appendatoms(t_binbuf *d, t_symbol *key, long argc, t_atom *argv)
+t_pd_err binbuf_append_atoms(t_binbuf *d, t_symbol *key, long argc, t_atom *argv)
 {
     for(int i = 0; i < argc; i++)
     {
@@ -96,7 +96,7 @@ t_pd_err dictionary_appendatoms(t_binbuf *d, t_symbol *key, long argc, t_atom *a
     return 0;
 }
 
-t_pd_err dictionary_copyatoms(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv)
+t_pd_err binbuf_copy_atoms(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv)
 {
     t_atom* av = binbuf_getvec(d);
     long ac = binbuf_getnatom(d);

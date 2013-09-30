@@ -91,7 +91,7 @@ int inside(t_pt pt, int edge, t_rect rect)
     return 1;
 }
 
-t_pt egraphics_clip_point(t_pt pt, t_rect rect)
+t_pt egraphics_clip_object_point(t_pt pt, t_rect rect)
 {
     int code = egraphics_point_in_rect(pt, rect);
     if(code & CLIP_TOP)
@@ -243,17 +243,68 @@ int clip_polygon(t_rect rect, int n, t_pt* in, t_pt* out)
         clip_point(in[i], LEFT, rect, out, &cnt, first, s);
     }
     close_clip(rect, out, &cnt, first, s);
-    for(int i = 0; i < cnt; i++) // We could avoid this but...
+    for(int i = 0; i < cnt; i++) // We could avoid this but... there's a bug in the clipping function
     {
-        out[i] = egraphics_clip_point(out[i], rect);
+        out[i] = egraphics_clip_object_point(out[i], rect);
     }
     return cnt;
 }
 
-void egraphics_clip(t_egraphics *g, t_egraphics_obj* gobj)
+t_symbol* clip_text(t_rect rect, t_pt* in, t_symbol* text)
 {
-    if(gobj->e_type == E_GOBJ_LINE || gobj->e_type == E_GOBJ_PATH || gobj->e_type == E_GOBJ_RECTANGLE)
+    //We assume that people use the system font...
+    //sys_fontwidth()
+    /*
+     double x1, y1;
+     x1 = g->c_obj_coords[index][0];
+     y1 = g->c_obj_coords[index][1];
+     if(x1 < -1 * (strlen(textlayout->c_text->s_name) * textlayout->c_font.c_size / 1.75) || x1 > g->e_rect.width || y1 < textlayout->c_font.c_size / 2.  || y1 > g->e_rect.height - textlayout->c_font.c_size / 2.)
+     {
+     g->c_obj_names.pop_back();
+     g->c_obj_types.pop_back();
+     g->c_obj_coords.pop_back();
+     g->c_obj_options.pop_back();
+     }
+     else if(x1 > g->e_rect.width - strlen(textlayout->c_text->s_name) * textlayout->c_font.c_size / 1.75)
+     {
+     int strsize = (g->e_rect.width - x1) / (textlayout->c_font.c_size / 1.75);
+     std::string newtext = textlayout->c_text->s_name;
+     newtext.resize(strsize);
+     g->c_obj_options[index].assign("-text ");
+     sprintf(text, "{%s} ", newtext.c_str());
+     g->c_obj_options[index].append(text);
+     g->c_obj_options[index].append("-anchor ");
+     g->c_obj_options[index].append(textlayout->c_justification->s_name);
+     g->c_obj_options[index].append(" -font ");
+     sprintf(text, "{%s %d %s} ", textlayout->c_font.c_family->s_name, (int)textlayout->c_font.c_size, textlayout->c_font.c_weight->s_name);
+     g->c_obj_options[index].append(text);
+     sprintf(text, "-fill %s -width %d -tags %s\n", gensym(cicm_rgba_to_hex(textlayout->c_color))->s_name, (int)textlayout->c_rect.width, g->c_obj_names[index].c_str());
+     g->c_obj_options[index].append(text);
+     }
+     else if(x1 < 0)
+     {
+     int strsize = x1 / (textlayout->c_font.c_size / 1.75) * -1;
+     g->c_obj_coords[index][0] = 0.;
+     g->c_obj_options[index].assign("-text ");
+     sprintf(text, "{%s} ", textlayout->c_text->s_name+strsize);
+     g->c_obj_options[index].append(text);
+     g->c_obj_options[index].append("-anchor ");
+     g->c_obj_options[index].append(textlayout->c_justification->s_name);
+     g->c_obj_options[index].append(" -font ");
+     sprintf(text, "{%s %d %s} ", textlayout->c_font.c_family->s_name, (int)textlayout->c_font.c_size, textlayout->c_font.c_weight->s_name);
+     g->c_obj_options[index].append(text);
+     sprintf(text, "-fill %s -width %d -tags %s\n", gensym(cicm_rgba_to_hex(textlayout->c_color))->s_name, (int)textlayout->c_rect.width, g->c_obj_names[index].c_str());
+     g->c_obj_options[index].append(text);
+     }*/
+
+    return NULL;
+}
+
+void egraphics_clip_object(t_elayer *g, t_egobj* gobj)
+{
+    if(gobj->e_type == E_GOBJ_PATH)
     {
+        // I think, we really can't have more than 2 * n new point
         t_pt* new_path = (t_pt *)calloc(gobj->e_npoints * 2, sizeof(t_pt));
         gobj->e_npoints = clip_polygon(g->e_rect, gobj->e_npoints, gobj->e_points, new_path);
         if(!gobj->e_npoints)
@@ -266,293 +317,11 @@ void egraphics_clip(t_egraphics *g, t_egraphics_obj* gobj)
             gobj->e_points = new_path;
         }
     }
-    
-}
-
-/*
-
-
-int egraphics_clip_line(t_pt* pt, t_rect rect)
-{
-    int code0 = egraphics_point_in_rect(pt[0], rect);
-    int code1 = egraphics_point_in_rect(pt[1], rect);
-    int accept = false;
-    
-    while (true)
+    else if(gobj->e_type == E_GOBJ_TEXT)
     {
-        if(!(code0 | code1))
-        {
-            accept = true;
-            break;
-        }
-        else if(code0 & code1)
-        {
-            break;
-        }
-        else
-        {
-            float ymax = rect.y + rect.height;
-            float xmax = rect.x + rect.width;
-            float x, y;
-            int codeOut = code0 ? code0 : code1;
-            
-            // Now find the intersection point;
-            // use formulas y = pt[0].y + slope * (x - pt[0].x), x = pt[0].x + (1 / slope) * (y - pt[0].y)
-            if (codeOut & CLIP_TOP)
-            {
-                x = pt[0].x + (pt[1].x - pt[0].x) * (ymax - pt[0].y) / (pt[1].y - pt[0].y);
-                y = ymax;
-            }
-            else if (codeOut & CLIP_BOTTOM) // point is below the clip rectangle
-            {
-                x = pt[0].x + (pt[1].x - pt[0].x) * (rect.y - pt[0].y) / (pt[1].y - pt[0].y);
-                y = rect.y;
-            }
-            else if (codeOut & CLIP_RIGHT) // point is to the right of clip rectangle
-            {
-                y = pt[0].y + (pt[1].y - pt[0].y) * (xmax - pt[0].x) / (pt[1].x - pt[0].x);
-                x = xmax;
-            }
-            else if (codeOut & CLIP_LEFT) // point is to the left of clip rectangle
-            {
-                y = pt[0].y + (pt[1].y - pt[0].y) * (rect.x - pt[0].x) / (pt[1].x - pt[0].x);
-                x = rect.x;
-            }
-            
-            // Now we move outside point to intersection point to clip
-            // and get ready for next pass.
-            if (codeOut == code0)
-            {
-                pt[0].x = x;
-                pt[0].y = y;
-                code0 = egraphics_point_in_rect(pt[0], rect);
-            }
-            else
-            {
-                pt[1].x = x;
-                pt[1].y = y;
-                code1 = egraphics_point_in_rect(pt[1], rect);
-            }
-        }
-    }
-    if (accept)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-}
-
-t_pt* clip_polygon(t_pt* input_path, int input_size, long* size, t_rect rect)
-{
-    t_pt current_pt, previous_pt;
-    t_pt new_pt;
-    int output_size = 0;
-    t_pt* output_path = (t_pt *)malloc(sizeof(t_pt));
-    
-    previous_pt = input_path[input_size-1];
-    for(int i = 0; i < input_size; i++)
-    {
-        egraphics_clip_line
-    }
-    
-}
-
-t_pt* clip_polygon(t_pt* input_path, int input_size, long* size, t_rect rect)
-{
-    t_pt current_pt, previous_pt;
-    t_pt new_pt;
-    int output_size = 0;
-    t_pt* output_path = (t_pt *)malloc(sizeof(t_pt));
-    
-    previous_pt = input_path[input_size-1];
-    for(int i = 0; i < input_size; i++)
-    {
-        current_pt = input_path[i];
-        if(!egraphics_point_in_rect(current_pt, rect)) // Current Point inside the rectangle
-        {
-            if(!egraphics_point_in_rect(previous_pt, rect)) // Previous Poinr inside the rectangle
-            {
-                output_path = (t_pt *)realloc(output_path, sizeof(t_pt) * (output_size+1)); // We add this point
-                if(!output_path)
-                {
-                    return 0;
-                }
-                else
-                {
-                    output_path[output_size].x = current_pt.x;
-                    output_path[output_size].y = current_pt.y;
-                    output_size++;
-                }
-            }
-            else // Previous point outside the rectangle
-            {
-                if(!find_intersection(current_pt, previous_pt, rect, &new_pt)) // We fint the intersection
-                {
-                    return 0;
-                }
-                output_path = (t_pt *)realloc(output_path, sizeof(t_pt) * (output_size+1)); // We add this new point
-                if(!output_path)
-                {
-                    return 0;
-                }
-                else
-                {
-                    output_path[output_size].x = new_pt.x;
-                    output_path[output_size].y = new_pt.y;
-                    output_size++;
-                }
-                
-                if(current_pt.x != new_pt.x || current_pt.y != new_pt.y) // We add current point if it is not similar
-                {
-                    output_path = (t_pt *)realloc(output_path, sizeof(t_pt) * (output_size+1));
-                    if(!output_path)
-                    {
-                        return 0;
-                    }
-                    else
-                    {
-                        output_path[output_size].x = current_pt.x;
-                        output_path[output_size].y = current_pt.y;
-                        output_size++;
-                    }
-                }
-            }
-        }
-        else
-        {
-            if(pt_inside_rect(previous_pt, rect))
-            {
-                if(!find_intersection(current_pt, previous_pt, rect, &new_pt))
-                {
-                    return 0;
-                }
-                if(previous_pt.x != new_pt.x || previous_pt.y != new_pt.y)
-                {
-                    output_path = (t_pt *)realloc(output_path, sizeof(t_pt) * (output_size+1));
-                    if(!output_path)
-                    {
-                        return 0;
-                    }
-                    else
-                    {
-                        output_path[output_size].x = new_pt.x;
-                        output_path[output_size].y = new_pt.y;
-                        output_size++;
-                    }
-                }
-            }
-        }
-        previous_pt = current_pt;
-    }
-    size[0] = output_size;
-    return output_path;
-}
-
- char pt_inside_rect(t_pt pt, t_rect rect)
- {
- if(pt.x >= rect.x && pt.x <= rect.width && pt.y >= rect.y && rect.y <= rect.width)
- return 1;
- else
- return 0;
- }
- 
- float get_new_x(t_rect rect, float y)
- {
- return rect.height - rect.y  + (y - rect.width - rect.x) * rect.height / rect.width;
- }
- 
- float get_new_y(t_rect rect, float x)
- {
- return rect.y + (x - rect.x) * rect.height / rect.width;
- }
- 
- char find_intersection(t_pt pt1, t_pt pt2, t_rect rect, t_pt* output)
- {
- if(pt1.x == pt2.x)
- {
- output->x = pt1.x;
- output->y = get_new_y(rect, pt1.x);
- return 1;
- }
- if(pt1.y == pt2.y)
- {
- output->y = pt1.y;
- output->x = get_new_y(rect , pt1.y);
- return 1;
- }
- return 1;
- }*/
-
-/*
-int egraphics_clip_path_filled(t_pt* pt, int size, t_rect rect)
-{
-    t_pt* new_points = NULL;
-    int new_size = size;
-    
-    int previous, current, next;
-    // We compute the new number of points //
-    previous    = egraphics_point_in_rect(pt[0], rect);
-    current     = egraphics_point_in_rect(pt[1], rect);
-    for(int i = 1; i < size - 1; i++)
-    {
-        next    = egraphics_point_in_rect(pt[i+1], rect);
-        if(previous && current && next)
-        {
-            new_size--;
-        }
-        else if(current)
-        {
-            new_size++;
-        }
-        previous = current;
-        current  = next;
-    }
-    
-    if(new_size > 0)
-        new_points = (t_pt *)calloc(new_size, sizeof(t_pt));
-    if(new_points)
-    {
-        // We fill the new points //
-        previous    = egraphics_point_in_rect(pt[0], rect);
-        current     = egraphics_point_in_rect(pt[1], rect);
-        for(int i = 1, j = 1; i < size - 1; i++, j++)
-        {
-            next    = egraphics_point_in_rect(pt[i+1], rect);
-            if(previous && current && next)
-            {
-                j--;
-            }
-            else if(current)
-            {
-                new_points[j++] = pt[i];
-                new_points[j] = pt[i];
-            }
-            else
-            {
-                new_points[j] = pt[i];
-            }
-            previous = current;
-            current  = next;
-        }
         
-        // We clip the new points //
-        for(int i = 0; i < new_size; i++)
-        {
-            egraphics_clip_line(new_points+i, rect);
-        }
-        free(pt);
-        pt = new_points;
-        return new_size;
-    }
-    else
-    {
-        return 0;
     }
 }
- */
 
 
 

@@ -26,21 +26,26 @@
 
 #include "egraphics.h"
 
-void egraphics_set_line_width(t_egraphics *g, float width)
+void egraphics_set_line_width(t_elayer *g, float width)
 {
     g->e_width= pd_clip_min(width, 0.);
 }
 
-void egraphics_set_source_jrgba(t_egraphics *g, t_ergba *rgba)
+void egraphics_set_source_jrgba(t_elayer *g, t_rgba *rgba)
 {
-    g->e_color = gensym(cicm_rgba_to_hex(*rgba));
+    g->e_color = gensym(rgba_to_hex(*rgba));
 }
 
-void egraphics_paint(t_egraphics *g, int filled, int preserved)
+void egraphics_set_line_splinestep(t_elayer *g, float smooth)
+{
+    g->e_new_objects.e_roundness = pd_clip_min(smooth, 0);
+}
+
+void egraphics_paint(t_elayer *g, int filled, int preserved)
 {
     if(g->e_new_objects.e_type != E_GOBJ_INVALID)
     {
-        g->e_objects = (t_egraphics_obj *)realloc(g->e_objects, (g->e_number_objects + 1) * sizeof(t_egraphics_obj));
+        g->e_objects = (t_egobj *)realloc(g->e_objects, (g->e_number_objects + 1) * sizeof(t_egobj));
         if(g->e_objects)
         {
             long index = g->e_number_objects;
@@ -56,6 +61,7 @@ void egraphics_paint(t_egraphics *g, int filled, int preserved)
             g->e_objects[index].e_type      = g->e_new_objects.e_type;
             g->e_objects[index].e_angles[0] = g->e_new_objects.e_angles[0];
             g->e_objects[index].e_angles[1] = g->e_new_objects.e_angles[1];
+            g->e_objects[index].e_roundness = g->e_new_objects.e_roundness;
             g->e_objects[index].e_npoints   = g->e_new_objects.e_npoints;
             g->e_objects[index].e_points = (t_pt*)calloc(g->e_objects[index].e_npoints, sizeof(t_pt));
             for (int i = 0; i < g->e_objects[index].e_npoints; i++)
@@ -70,11 +76,11 @@ void egraphics_paint(t_egraphics *g, int filled, int preserved)
             char text[256];
             sprintf(text, "%lx%s%ld", (unsigned long)g->e_owner, g->e_name->s_name, index);
     
-            g->e_objects[index].e_name = gensym(text);
+            g->e_objects[index].e_tag = gensym(text);
          
             egraphics_apply_rotation(g, g->e_objects+index);
             egraphics_apply_matrix(g, g->e_objects+index);
-            egraphics_clip(g, g->e_objects+index);
+            egraphics_clip_object(g, g->e_objects+index); // We should use the clip to copy in the new obj"
             if(!preserved)
             {
                 g->e_new_objects.e_roundness = 0;
@@ -83,126 +89,55 @@ void egraphics_paint(t_egraphics *g, int filled, int preserved)
     }
 }
 
-void egraphics_fill_preserve(t_egraphics *g)
+void egraphics_fill_preserve(t_elayer *g)
 {
     egraphics_paint(g, 1, 1);
 }
 
-void egraphics_fill(t_egraphics *g)
+void egraphics_fill(t_elayer *g)
 {
     egraphics_paint(g, 1, 0);
 }
 
-void egraphics_stroke_preserve(t_egraphics *g)
+void egraphics_stroke_preserve(t_elayer *g)
 {
     egraphics_paint(g, 0, 1);
 }
 
-void egraphics_stroke(t_egraphics *g)
+void egraphics_stroke(t_elayer *g)
 {
     egraphics_paint(g, 0, 0);
 }
-/*
-void cicm_graphics_stroke_preserve(t_egraphics *g)
+
+void etext_layout_draw(t_etext* textlayout, t_elayer *g)
 {
-    if(g->c_new_obj_type.size() && g->c_new_obj_coords.size())
+    g->e_objects = (t_egobj *)realloc(g->e_objects, (g->e_number_objects + 1) * sizeof(t_egobj));
+    if(g->e_objects)
     {
-        char text[256];
-        long index = g->c_obj_names.size();
+        char text[1024];
+        long index = g->e_number_objects;
+        g->e_number_objects++;
         
-        if(g->c_new_obj_type == "polygon ")
-        {
-            g->c_obj_types.push_back("line ");
-            g->c_obj_coords.push_back(g->c_new_obj_coords);
-            sprintf(text, "%lx%s%ld", (unsigned long)g->e_owner, g->e_name->s_name, index);
-            g->c_obj_names.push_back(text);
-            g->c_obj_options.push_back(g->c_new_obj_options);
-            sprintf(text, "-fill %s -width %d -tags %s\n", g->e_color->s_name, (int)g->e_width, g->c_obj_names[index].c_str());
-            g->c_obj_options[index].append(text);
-        }
-        else
-        {
-            g->c_obj_types.push_back(g->c_new_obj_type);
-            g->c_obj_coords.push_back(g->c_new_obj_coords);
-            sprintf(text, "%lx%s%ld", (unsigned long)g->e_owner, g->e_name->s_name, index);
-            g->c_obj_names.push_back(text);
-            g->c_obj_options.push_back(g->c_new_obj_options);
-            sprintf(text, "-outline %s -width %d -tags %s\n", g->e_color->s_name, (int)g->e_width, g->c_obj_names[index].c_str());
-            g->c_obj_options[index].append(text);
-        }
+        g->e_objects[index].e_type      = E_GOBJ_TEXT;
+        g->e_objects[index].e_npoints   = 2;
+        g->e_objects[index].e_points    = (t_pt*)calloc(g->e_objects[index].e_npoints, sizeof(t_pt));
+        g->e_objects[index].e_points[0].x = textlayout->c_rect.x;
+        g->e_objects[index].e_points[0].y = textlayout->c_rect.y;
+        g->e_objects[index].e_points[1].x = textlayout->c_rect.width;
+        g->e_objects[index].e_points[1].y = textlayout->c_rect.height;
+        g->e_objects[index].e_color       = gensym(rgba_to_hex(textlayout->c_color));
         
+        g->e_objects[index].e_font        = textlayout->c_font;
+        g->e_objects[index].e_justify     = textlayout->c_justify;
+        g->e_objects[index].e_text        = textlayout->c_text;
+        
+        sprintf(text, "%lx%s%ld", (unsigned long)g->e_owner, g->e_name->s_name, index);
+        g->e_objects[index].e_tag = gensym(text);
+        
+        egraphics_apply_rotation(g, g->e_objects+index);
+        egraphics_apply_matrix(g, g->e_objects+index);
+        egraphics_clip_object(g, g->e_objects+index);
     }
 }
 
-void cicm_text_layout_draw(t_etextlayout* textlayout, t_egraphics *g)
-{
-    char text[1024];
-    long index = g->c_obj_names.size();
-    
-    sprintf(text, "%lx%s%ld", (unsigned long)g->e_owner, g->e_name->s_name, index);
-    g->c_obj_names.push_back(text);
-    
-    g->c_obj_types.push_back("text ");
-    g->c_new_obj_coords.push_back(textlayout->c_rect.x);
-    g->c_new_obj_coords.push_back(textlayout->c_rect.y);
-    g->c_obj_coords.push_back(g->c_new_obj_coords);
-    g->c_new_obj_coords.clear();
-    
-    g->c_obj_options.push_back("-text ");
-    sprintf(text, "{%s} ", textlayout->c_text->s_name);
-    g->c_obj_options[index].append(text);
-    g->c_obj_options[index].append("-anchor ");
-    g->c_obj_options[index].append(textlayout->c_justification->s_name);
-    g->c_obj_options[index].append(" -font ");
-    sprintf(text, "{%s %d %s} ", textlayout->c_font.c_family->s_name, (int)textlayout->c_font.c_size, textlayout->c_font.c_weight->s_name);
-    g->c_obj_options[index].append(text);
-    sprintf(text, "-fill %s -width %d -tags %s\n", gensym(cicm_rgba_to_hex(textlayout->c_color))->s_name, (int)textlayout->c_rect.width, g->c_obj_names[index].c_str());
-    g->c_obj_options[index].append(text);
-
-    //cicm_graphics_apply_transforms(g, index);
-    
-    // CLIP FOR TEXT //s
-    double x1, y1;
-    x1 = g->c_obj_coords[index][0];
-    y1 = g->c_obj_coords[index][1];
-    if(x1 < -1 * (strlen(textlayout->c_text->s_name) * textlayout->c_font.c_size / 1.75) || x1 > g->e_rect.width || y1 < textlayout->c_font.c_size / 2.  || y1 > g->e_rect.height - textlayout->c_font.c_size / 2.)
-    {
-        g->c_obj_names.pop_back();
-        g->c_obj_types.pop_back();
-        g->c_obj_coords.pop_back();
-        g->c_obj_options.pop_back();
-    }
-    else if(x1 > g->e_rect.width - strlen(textlayout->c_text->s_name) * textlayout->c_font.c_size / 1.75)
-    {
-        int strsize = (g->e_rect.width - x1) / (textlayout->c_font.c_size / 1.75);
-        std::string newtext = textlayout->c_text->s_name;
-        newtext.resize(strsize);
-        g->c_obj_options[index].assign("-text ");
-        sprintf(text, "{%s} ", newtext.c_str());
-        g->c_obj_options[index].append(text);
-        g->c_obj_options[index].append("-anchor ");
-        g->c_obj_options[index].append(textlayout->c_justification->s_name);
-        g->c_obj_options[index].append(" -font ");
-        sprintf(text, "{%s %d %s} ", textlayout->c_font.c_family->s_name, (int)textlayout->c_font.c_size, textlayout->c_font.c_weight->s_name);
-        g->c_obj_options[index].append(text);
-        sprintf(text, "-fill %s -width %d -tags %s\n", gensym(cicm_rgba_to_hex(textlayout->c_color))->s_name, (int)textlayout->c_rect.width, g->c_obj_names[index].c_str());
-        g->c_obj_options[index].append(text);
-    }
-    else if(x1 < 0)
-    {
-        int strsize = x1 / (textlayout->c_font.c_size / 1.75) * -1;
-        g->c_obj_coords[index][0] = 0.;
-        g->c_obj_options[index].assign("-text ");
-        sprintf(text, "{%s} ", textlayout->c_text->s_name+strsize);
-        g->c_obj_options[index].append(text);
-        g->c_obj_options[index].append("-anchor ");
-        g->c_obj_options[index].append(textlayout->c_justification->s_name);
-        g->c_obj_options[index].append(" -font ");
-        sprintf(text, "{%s %d %s} ", textlayout->c_font.c_family->s_name, (int)textlayout->c_font.c_size, textlayout->c_font.c_weight->s_name);
-        g->c_obj_options[index].append(text);
-        sprintf(text, "-fill %s -width %d -tags %s\n", gensym(cicm_rgba_to_hex(textlayout->c_color))->s_name, (int)textlayout->c_rect.width, g->c_obj_names[index].c_str());
-        g->c_obj_options[index].append(text);
-    }
-}
- */
 

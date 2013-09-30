@@ -46,6 +46,7 @@ void ewidget_init(t_eclass* c)
     c->c_widget.w_save              = (method)ewidget_save_default;
     c->c_widget.w_popup             = (method)ewidget_popup_default;
     c->c_widget.w_dsp               = (method)ewidget_dsp_default;
+    c->c_widget.w_oksize            = (method)ewidget_oksize_default;
 }
 
 void ewidget_getrect(t_gobj *z, t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2)
@@ -71,12 +72,6 @@ void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
             ebox_draw_background(x, glist);
             c->c_widget.w_paint(x, (t_object *)glist);
             ebox_draw_border(x, glist);
-        }
-        else
-        {
-            ebox_draw_background(x, glist);
-            ebox_draw_border(x, glist);
-            ebox_draw_text(x, glist);
         }
     }
     else if(!vis)
@@ -179,16 +174,10 @@ void ewidget_paint(t_ebox *x, t_glist *glist, int mode)
 {
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
 
-    if (c->c_box == 1)
-    {
-        ebox_draw_background(x, glist);
-        ebox_draw_border(x, glist);
-        ebox_draw_text(x, glist);
-    }
-    else
+    if (c->c_box == 0)
     {
         if(x->e_no_redraw_box == 0)
-            ebox_invalidate_layer((t_object *)x, (t_object *)glist, gensym("cicmboxuiborder"));
+            ebox_invalidate_layer((t_object *)x, (t_object *)glist, gensym("eboxbd"));
         ebox_draw_background(x, glist);
         ebox_update(x, glist);
         c->c_widget.w_paint(x, (t_object *)glist);
@@ -221,7 +210,7 @@ void ewidget_save(t_gobj *z, t_binbuf *b)
         binbuf_addv(b, "s", gensym(x->e_classname));
         long argc = 0;
         t_atom* argv = NULL;
-        for(int i = 0; i < c->c_attr.size(); i++)
+        for(int i = 0; i < c->c_nattr; i++)
         {
             if(c->c_attr[i].save)
             {
@@ -229,7 +218,7 @@ void ewidget_save(t_gobj *z, t_binbuf *b)
                 object_attr_getvalueof((t_object *)x, c->c_attr[i].name, &argc, &argv);
                 if(argc && argv)
                 {
-                    dictionary_appendatoms(b, gensym(attr_name), argc, argv);
+                    binbuf_append_atoms(b, gensym(attr_name), argc, argv);
                     argc = 0;
                     free(argv);
                     argv = NULL;
@@ -255,15 +244,18 @@ void ewidget_mouseup_default(t_ebox *x, t_object *patcherview, t_pt pt, long mod
 
 void ewidget_getdrawparams_default(t_ebox *x, t_object *patcherview, t_edrawparams *params)
 {
-    t_ergba black = {0., 0., 0., 1.};
-    t_ergba white = {1., 1., 1., 1.};
-    x->e_boxparameters.d_bordercolor = black;
+    x->e_boxparameters.d_bordercolor = rgba_black;
     x->e_boxparameters.d_borderthickness = 1;
-    x->e_boxparameters.d_boxfillcolor = white;
+    x->e_boxparameters.d_boxfillcolor = rgba_white;
     x->e_boxparameters.d_cornersize = 0;
 }
 
-t_pd_err ewidget_notify_default(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data){return 0;}
+void ewidget_oksize_default(t_ebox *x, t_rect* rect){;}
+
+t_pd_err ewidget_notify_default(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
+{
+    return 0;
+}
 
 void ewidget_save_default(t_gobj *z, t_binbuf *b){};
 

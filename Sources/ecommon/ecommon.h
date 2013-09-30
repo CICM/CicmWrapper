@@ -78,10 +78,6 @@ extern "C"
 #define atom_gettype(atom)          (atom)[0].a_type
 #define atom_getsym(atom)           atom_getsymbol(atom)
 
-#define t_dictionary            t_binbuf
-#define dictionary_new          binbuf_new
-#define dictionary_free         binbuf_free
-#define dictionary_write(dict, filename, dir)       binbuf_write(dict, filename, dir, 0)
 #define object_error            pd_error
 #define sys_getdspstate()       canvas_dspstate
 
@@ -137,8 +133,8 @@ void object_method(void* x, t_symbol* s, void* z, method method, long number, vo
 void object_attr_setvalueof(t_object *x, t_symbol* s, long argc, t_atom* argv);
 void object_attr_getvalueof(t_object *x, t_symbol *s, long *argc, t_atom **argv);
 
-t_pd_err dictionary_appendatoms(t_binbuf *d, t_symbol *key, long argc, t_atom *argv);
-t_pd_err dictionary_copyatoms(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv);
+t_pd_err binbuf_append_atoms(t_binbuf *d, t_symbol *key, long argc, t_atom *argv);
+t_pd_err binbuf_copy_atoms(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv);
 
 double pd_clip_min(double aValue, double aMinimum);
 double pd_clip_max(double aValue, double aMaximum);

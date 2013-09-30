@@ -50,6 +50,7 @@ void ewidget_mousedown_default(t_ebox *x, t_object *patcherview, t_pt pt, long m
 void ewidget_mousedrag_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers);
 void ewidget_mouseup_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers);
 void ewidget_getdrawparams_default(t_ebox *x, t_object *patcherview, t_edrawparams *params);
+void ewidget_oksize_default(t_ebox *x, t_rect* rect);
 t_pd_err ewidget_notify_default(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void ewidget_save_default(t_gobj *z, t_binbuf *b);
 void ewidget_popup_default(t_ebox *x, t_symbol *s, long itemid, t_pt pt);

@@ -44,10 +44,13 @@ void *ebox_alloc(t_eclass *c)
 void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
 {
     x->e_ready_to_draw = 0;
+    x->z_misc          = 1;
     x->e_glist = (t_glist *)canvas_getcurrent();
     x->e_classname = class_getname(x->e_obj.te_g.g_pd);
-    x->e_number_of_graphics = 0;
-    x->e_graphics = NULL;
+    x->e_number_of_layers = 0;
+    x->e_layers   = NULL;
+    x->z_sigs_out   = NULL;
+    x->e_popup      = NULL;
     if (flags == 1)
     {
         x->e_no_redraw_box = 1;
@@ -354,32 +357,34 @@ void ebox_properties(t_gobj *z, t_glist *glist)
 
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
-    if(msg == gensym("patching_rect"))
+    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
+    if(msg == gensym("patching_rect") || msg == gensym("size"))
     {
-        for(long i = 0; i < x->e_number_of_graphics; i++)
+        c->c_widget.w_oksize(x, &x->e_rect);
+        for(long i = 0; i < x->e_number_of_layers; i++)
         {
-            x->e_graphics[i].e_state = EGRAPHICS_INVALID;
+            x->e_layers[i].e_state = EGRAPHICS_INVALID;
         }
         ewidget_vis((t_gobj *)x, x->e_glist, 1);
     }
     return 0;
 }
 
-t_binbuf* object_cicm_dictionaryarg(long ac, t_atom *av)
+t_binbuf* binbuf_via_atoms(long ac, t_atom *av)
 {
     t_binbuf* dico = binbuf_new();
     binbuf_add(dico, ac, av);
     return dico;
 }
 
-void attr_cicm_dictionary_process(void *x, t_binbuf *d)
+void attr_binbuf_process(void *x, t_binbuf *d)
 {
     long defc = 0;
     t_atom* defv = NULL;
     t_ebox* z = (t_ebox *)x;
     t_eclass* c = (t_eclass *)z->e_obj.te_g.g_pd;
 
-    for(int i = 0; i < c->c_attr.size(); i++)
+    for(int i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].defvals)
         {
@@ -402,10 +407,10 @@ void attr_cicm_dictionary_process(void *x, t_binbuf *d)
     }
     
     char attr_name[256];
-    for(int i = 0; i < c->c_attr.size(); i++)
+    for(int i = 0; i < c->c_nattr; i++)
     {
         sprintf(attr_name, "@%s", c->c_attr[i].name->s_name);
-        dictionary_copyatoms(d, gensym(attr_name), &defc, &defv);
+        binbuf_copy_atoms(d, gensym(attr_name), &defc, &defv);
         if(defc && defv)
         {
             object_attr_setvalueof((t_object *)x, c->c_attr[i].name, defc, defv);

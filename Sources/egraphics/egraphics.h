@@ -29,64 +29,61 @@
 
 #include "../estruct.h"
 
-typedef enum _etext_justification_flags
-{
-    ETEXT_UP = 0,
-    ETEXT_UP_LEFT = 1,
-    ETEXT_UP_RIGHT = 2,
-    ETEXT_DOWN = 3,
-    ETEXT_DOWN_LEFT = 4,
-    ETEXT_DOWN_RIGHT = 5,
-	ETEXT_LEFT = 6,
-    ETEXT_RIGHT = 7,
-	ETEXT_CENTER = 8,
-    
-} t_etext_justification_flags;
+// PAINT METHOD //
+void egraphics_fill(t_elayer *g);
+void egraphics_fill_preserve(t_elayer *g);
+void egraphics_stroke(t_elayer *g);
+void egraphics_stroke_preserve(t_elayer *g);
+void etext_layout_draw(t_etext* textlayout, t_elayer *g);
 
-typedef enum ecicm_text_wrap_flags
-{
-	ETEXT_NOWRAP = 0,
-	ETEXT_WRAP = 1
-} tecicm_text_wrap_flags;
+// GRAPHICS MADIFICATIONS //
+void egraphics_set_line_splinestep(t_elayer *g, float smooth);
+void egraphics_set_line_width(t_elayer *g, float width);
+void egraphics_set_source_jrgba(t_elayer *g, t_rgba *rgba);
+void egraphics_rotate_set(t_elayer *g, float angle);
+void egraphics_rotate_add(t_elayer *g, float angle);
+void egraphics_matrix_init(t_matrix *x, float xx, float yx, float xy, float yy, float x0, float y0);
+void egraphics_set_matrix(t_elayer *g, const t_matrix *matrix);
+
+// GRAPHICS MADIFICATIONS PRIVATE //
+void egraphics_apply_rotation(t_elayer *g, t_egobj* gobj); // PRIVATE //
+void egraphics_apply_matrix(t_elayer *g, t_egobj* gobj);   // PRIVATE //
+void egraphics_clip_object(t_elayer *g, t_egobj* gobj);           // PRIVATE //
+
+// FORM //
+void egraphics_line_to(t_elayer *g, float x, float y);
+void egraphics_move_to(t_elayer *g, float x, float y);
+void egraphics_line(t_elayer *g, float x0, float y0,  float x1, float y1);
+void egraphics_close_path(t_elayer *g);
+void egraphics_rectangle(t_elayer *g, float x, float y, float width, float height);
+void egraphics_rectangle_rounded(t_elayer *g, float x, float y, float width, float height, float roundness);
 
 
-void egraphics_fill(t_egraphics *g);
-void egraphics_fill_preserve(t_egraphics *g);
-void egraphics_stroke(t_egraphics *g);
-void egraphics_stroke_preserve(t_egraphics *g);
-void cicm_text_layout_draw(t_etextlayout* textlayout, t_egraphics *g);
+t_etext* etext_layout_create();
+void etext_layout_destroy(t_etext* textlayout);
+void etext_layout_set(t_etext* textlayout, char* text, t_efont *jfont,  double x, double y, double width,  double height, t_etextjustify_flags justification, t_etextwrap_flags wrap);
+void etext_layout_settextcolor(t_etext* textlayout, t_rgba* color);
+t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, double size);
+void efont_destroy(t_efont* font);
 
-void egraphics_set_line_width(t_egraphics *g, float width);
-void egraphics_set_source_jrgba(t_egraphics *g, t_ergba *rgba);
-void egraphics_rotate_set(t_egraphics *g, float angle);
-void egraphics_rotate_add(t_egraphics *g, float angle);
-void egraphics_matrix_init(t_ematrix *x, float xx, float yx, float xy, float yy, float x0, float y0);
-void egraphics_set_matrix(t_egraphics *g, const t_ematrix *matrix);
+// COLOR //
+char* rgba_to_hex(t_rgba color);
+char* rgb_to_hex(t_rgb color);
+t_rgba rgba_addContrast(t_rgba color, float contrast, bool preserveAlpha);
+t_rgb rgb_addContrast(t_rgb color, float contrast);
+void rgba_set(t_rgba *color, float red, float green, float blue, float alpha);
+void rgb_set(t_rgb *color, float red, float green, float blue);
 
-void egraphics_apply_rotation(t_egraphics *g, t_egraphics_obj* gobj); // PRIVATE //
-void egraphics_apply_matrix(t_egraphics *g, t_egraphics_obj* gobj);   // PRIVATE //
-void egraphics_clip(t_egraphics *g, t_egraphics_obj* gobj);           // PRIVATE //
+// Ohlala...
+__attribute__((used)) static t_rgba rgba_black         = {0., 0., 0., 1.};
+__attribute__((used)) static t_rgba rgba_greydark      = {0.3, 0.3, 0.3, 1.};
+__attribute__((used)) static t_rgba rgba_grey          = {0.5, 0.5, 0.5, 1.};
+__attribute__((used)) static t_rgba rgba_greylight     = {0.8, 0.8, 0.8, 1.};
+__attribute__((used)) static t_rgba rgba_white         = {1., 1., 1., 1.};
+__attribute__((used)) static t_rgba rgba_blue          = {0., 0., 1., 1.};
+__attribute__((used)) static t_rgba rgba_green         = {0., 1., 0., 1.};
+__attribute__((used)) static t_rgba rgba_red           = {1., 0., 0., 1.};
+__attribute__((used)) static t_rgba rgba_bluelight     = {0.65, 0.65, 0.65, 1.};
 
-void egraphics_line_to(t_egraphics *g, float x, float y);
-void egraphics_move_to(t_egraphics *g, float x, float y);
-void egraphics_line(t_egraphics *g, float x0, float y0,  float x1, float y1);
-void egraphics_rectangle(t_egraphics *g, float x, float y, float width, float height);
-void egraphics_rectangle_rounded(t_egraphics *g, float x, float y, float width, float height, float roundness);
 
-/*
-t_etextlayout* cicm_text_layout_create();
-void cicm_text_layout_destroy(t_etextlayout* textlayout);
-void cicm_text_layout_set(t_etextlayout* textlayout, char* text, t_efont *jfont,  double x, double y, double width,  double height, t_etext_justification_flags justification, tecicm_text_wrap_flags wrap);
-void cicm_text_layout_settextcolor(t_etextlayout* textlayout, t_ergba* color);
-t_efont* cicm_font_create(t_symbol* family, t_symbol* slant, t_symbol* weight, double size);
-void cicm_font_destroy(t_efont* font);
-*/
-//void cicm_graphics_close_path(t_egraphics *g);
-//void cicm_graphics_smooth_line(t_egraphics *g);
-
-void cicm_graphics_matrix_init(t_ematrix *x, double xx, double yx, double xy, double yy, double x0, double y0);
-
-t_ergba cicm_rgba_addContrast(t_ergba baseColor, double contrast, bool preserveAlpha = true);
-char* cicm_rgba_to_hex(t_ergba color);
-
-#endif 
+#endif

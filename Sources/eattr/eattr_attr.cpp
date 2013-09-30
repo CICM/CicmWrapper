@@ -28,7 +28,7 @@
 
 void cicm_class_attr_default(t_eclass* c, char* attrname, long flags, char* value)
 {
-    for(int i = 0; i < c->c_attr.size(); i++)
+    for(int i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].name == gensym(attrname))
         {
@@ -40,7 +40,7 @@ void cicm_class_attr_default(t_eclass* c, char* attrname, long flags, char* valu
 
 void cicm_class_attr_category(t_eclass* c, char* attrname, long flags, char* categoryname)
 {
-    for(int i = 0; i < c->c_attr.size(); i++)
+    for(int i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].name == gensym(attrname))
         {
@@ -52,7 +52,7 @@ void cicm_class_attr_category(t_eclass* c, char* attrname, long flags, char* cat
 
 void cicm_class_attr_order(t_eclass* c, char* attrname, long flags, char* order)
 {
-    for(int i = 0; i < c->c_attr.size(); i++)
+    for(int i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].name == gensym(attrname))
         {
@@ -65,7 +65,7 @@ void cicm_class_attr_order(t_eclass* c, char* attrname, long flags, char* order)
 
 void cicm_class_attr_label(t_eclass* c, char* attrname, long flags, char* labelname)
 {
-    for(int i = 0; i < c->c_attr.size(); i++)
+    for(int i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].name == gensym(attrname))
         {
@@ -77,7 +77,7 @@ void cicm_class_attr_label(t_eclass* c, char* attrname, long flags, char* labeln
 
 void cicm_class_attr_style(t_eclass* c, char* attrname, long flags, char* stylename)
 {
-    for(int i = 0; i < c->c_attr.size(); i++)
+    for(int i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].name == gensym(attrname))
         {
@@ -89,7 +89,7 @@ void cicm_class_attr_style(t_eclass* c, char* attrname, long flags, char* stylen
 
 void cicm_class_attr_filter_min(t_eclass* c, char* attrname, double value)
 {
-    for(int i = 0; i < c->c_attr.size(); i++)
+    for(int i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].name == gensym(attrname))
         {
@@ -106,7 +106,7 @@ void cicm_class_attr_filter_min(t_eclass* c, char* attrname, double value)
 
 void cicm_class_attr_filter_max(t_eclass* c, char* attrname, double value)
 {
-    for(int i = 0; i < c->c_attr.size(); i++)
+    for(int i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].name == gensym(attrname))
         {
@@ -123,7 +123,7 @@ void cicm_class_attr_filter_max(t_eclass* c, char* attrname, double value)
 
 void cicm_class_attr_save(t_eclass* c, char* attrname, long flags)
 {
-    for(int i = 0; i < c->c_attr.size(); i++)
+    for(int i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].name == gensym(attrname))
         {
@@ -135,7 +135,7 @@ void cicm_class_attr_save(t_eclass* c, char* attrname, long flags)
 
 void cicm_class_attr_paint(t_eclass* c, char* attrname, long flags)
 {
-    for(int i = 0; i < c->c_attr.size(); i++)
+    for(int i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].name == gensym(attrname))
         {
@@ -147,7 +147,7 @@ void cicm_class_attr_paint(t_eclass* c, char* attrname, long flags)
 
 void cicm_class_attr_invisible(t_eclass* c, char* attrname, long flags)
 {
-    for(int i = 0; i < c->c_attr.size(); i++)
+    for(int i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].name == gensym(attrname))
         {
@@ -159,7 +159,7 @@ void cicm_class_attr_invisible(t_eclass* c, char* attrname, long flags)
 
 void cicm_class_attr_accessor(t_eclass* c, char* attrname, method getter, method setter)
 {
-    for(int i = 0; i < c->c_attr.size(); i++)
+    for(int i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].name == gensym(attrname))
         {

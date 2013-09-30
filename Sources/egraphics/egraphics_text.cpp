@@ -26,9 +26,9 @@
 
 #include "egraphics.h"
 
-t_etextlayout* cicm_text_layout_create()
+t_etext* etext_layout_create()
 {
-    t_etextlayout* new_text_layout = new t_etextlayout[1];
+    t_etext* new_text_layout = (t_etext *)malloc(sizeof(t_etext));
     new_text_layout->c_color.red = 0.;
     new_text_layout->c_color.green = 0.;
     new_text_layout->c_color.blue = 0.;
@@ -37,12 +37,12 @@ t_etextlayout* cicm_text_layout_create()
     return new_text_layout;
 }
 
-void cicm_text_layout_destroy(t_etextlayout* textlayout)
+void etext_layout_destroy(t_etext* textlayout)
 {
     free(textlayout);
 }
 
-void cicm_text_layout_set(t_etextlayout* textlayout, char* text, t_efont *jfont,  double x, double y, double width,  double height, t_etext_justification_flags justification, tecicm_text_wrap_flags wrap)
+void etext_layout_set(t_etext* textlayout, char* text, t_efont *jfont,  double x, double y, double width,  double height, t_etextjustify_flags justification, t_etextwrap_flags wrap)
 {
     textlayout->c_text = gensym(text);
     textlayout->c_font = jfont[0];
@@ -57,34 +57,34 @@ void cicm_text_layout_set(t_etextlayout* textlayout, char* text, t_efont *jfont,
     }
 
     if(justification == ETEXT_UP)
-        textlayout->c_justification = gensym("n");
+        textlayout->c_justify = gensym("n");
     else if(justification == ETEXT_UP_RIGHT)
-        textlayout->c_justification = gensym("ne");
+        textlayout->c_justify = gensym("ne");
     else if(justification == ETEXT_RIGHT)
-        textlayout->c_justification = gensym("e");
+        textlayout->c_justify = gensym("e");
     else if(justification == ETEXT_DOWN_RIGHT)
-        textlayout->c_justification = gensym("se");
+        textlayout->c_justify = gensym("se");
     else if(justification == ETEXT_DOWN)
-        textlayout->c_justification = gensym("s");
+        textlayout->c_justify = gensym("s");
     else if(justification == ETEXT_DOWN_LEFT)
-        textlayout->c_justification = gensym("sw");
+        textlayout->c_justify = gensym("sw");
     else if(justification == ETEXT_LEFT)
-        textlayout->c_justification = gensym("w");
+        textlayout->c_justify = gensym("w");
     else if(justification == ETEXT_UP_LEFT)
-        textlayout->c_justification = gensym("nw");
+        textlayout->c_justify = gensym("nw");
     else
-        textlayout->c_justification = gensym("center");
+        textlayout->c_justify = gensym("center");
 
 }
 
-void cicm_text_layout_settextcolor(t_etextlayout* textlayout, t_ergba* color)
+void etext_layout_settextcolor(t_etext* textlayout, t_rgba* color)
 {
     textlayout->c_color = color[0];
 }
 
-t_efont* cicm_font_create(t_symbol* family, t_symbol* slant, t_symbol* weight, double size)
+t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, double size)
 {
-    t_efont* new_font = new t_efont[1];
+    t_efont* new_font = (t_efont *)malloc(sizeof(t_efont));
     new_font[0].c_family = family;
     
     new_font[0].c_slant = slant;
@@ -99,7 +99,7 @@ t_efont* cicm_font_create(t_symbol* family, t_symbol* slant, t_symbol* weight, d
     return new_font;
 }
 
-void cicm_font_destroy(t_efont* font)
+void efont_destroy(t_efont* font)
 {
     free(font);
 }

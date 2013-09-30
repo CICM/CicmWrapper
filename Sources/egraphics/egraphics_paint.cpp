@@ -27,47 +27,10 @@
 #include "egraphics.h"
 
 /*
-void cicm_graphics_line_to(t_egraphics *g, double x, double y)
-{
-    if(g->e_state == EGRAPHICS_OPEN)
-    {
-        g->c_new_obj_coords.push_back(x);
-        g->c_new_obj_coords.push_back(y);
-    }
-}
-
-void cicm_graphics_move_to(t_egraphics *g, double x, double y)
-{
-    if(g->e_state == EGRAPHICS_OPEN)
-    {
-        g->c_new_obj_type.assign("polygon ");
-        
-        g->c_new_obj_coords.clear();
-        g->c_new_obj_coords.push_back(x);
-        g->c_new_obj_coords.push_back(y);
-        
-        g->c_new_obj_options.clear();
-    }
-}
-
-void cicm_graphics_rectangle(t_egraphics *g, double x, double y, double width, double height)
-{
-    if(g->e_state == EGRAPHICS_OPEN)
-    {        
-        g->c_new_obj_type.assign("rectangle ");
-        
-        g->c_new_obj_coords.clear();
-        g->c_new_obj_coords.push_back(x);
-        g->c_new_obj_coords.push_back(y);
-        g->c_new_obj_coords.push_back(x + width);
-        g->c_new_obj_coords.push_back(y + height);
-        
-        g->c_new_obj_options.clear();
-    }
-}
 
 
-void cicm_graphics_arc(t_egraphics *g, double xc, double yc, double radius, double angle1, double angle2)
+
+void cicm_graphics_arc(t_elayer *g, double xc, double yc, double radius, double angle1, double angle2)
 {
     if(g->e_state == EGRAPHICS_OPEN)
     {
@@ -97,7 +60,7 @@ void cicm_graphics_arc(t_egraphics *g, double xc, double yc, double radius, doub
     }
 }
 
-void cicm_graphics_arc_negative(t_egraphics *g, double xc, double yc, double radius, double angle1, double angle2)
+void cicm_graphics_arc_negative(t_elayer *g, double xc, double yc, double radius, double angle1, double angle2)
 {
     if(g->e_state == EGRAPHICS_OPEN)
     {

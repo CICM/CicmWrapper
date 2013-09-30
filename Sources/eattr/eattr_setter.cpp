@@ -30,7 +30,7 @@ void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
 {
     t_ebox* z = (t_ebox *)x;
     t_eclass* c = (t_eclass *)z->e_obj.te_g.g_pd;
-    for(int i = 0; i < c->c_attr.size(); i++)
+    for(int i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].name == s)
         {
@@ -108,6 +108,7 @@ void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
             c->c_widget.w_notify(x, s, gensym("attr_modified"), NULL, NULL);
             if(c->c_attr[i].paint)
             {
+                c->c_widget.w_oksize(x, &z->e_rect);
                 c->c_widget.w_getdrawparameters(x, NULL, &z->e_boxparameters);
                 ewidget_vis((t_gobj *)x, z->e_glist, 1);
             }

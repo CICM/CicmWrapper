@@ -33,7 +33,7 @@ void cicm_class_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
     if(argv[0])
         free(argv);
     argc[0] = 0;
-    for(int i = 0; i < c->c_attr.size(); i++)
+    for(int i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].name == s)
         {

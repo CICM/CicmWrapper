@@ -29,7 +29,7 @@
 static char ColBuf[10];
 static char HexDigits[] = "0123456789ABCDEF";
 
-char* cicm_rgba_to_hex(t_ergba color)
+char* rgba_to_hex(t_rgba color)
 {
     int r = color.red * 255;
     int g = color.green * 255;
@@ -45,15 +45,54 @@ char* cicm_rgba_to_hex(t_ergba color)
     return &ColBuf[0];
 }
 
-t_ergba cicm_rgba_addContrast(t_ergba baseColor, double contrast, bool preserveAlpha)
+char* rgb_to_hex(t_rgb color)
 {
-    t_ergba maxColor = baseColor;
-    maxColor.red = pd_clip_minmax(maxColor.red += contrast, 0., 1.);
-    maxColor.green = pd_clip_minmax(maxColor.green += contrast, 0., 1.);
-    maxColor.blue = pd_clip_minmax(maxColor.blue += contrast, 0., 1.);
-    if(!preserveAlpha)
-        maxColor.alpha = pd_clip_minmax(maxColor.alpha += contrast, 0., 1.);
-    return maxColor;
+    int r = color.red * 255;
+    int g = color.green * 255;
+    int b = color.blue * 255;
+    ColBuf[0] = '#';
+    ColBuf[1] = HexDigits[(r >> 4) & 15];
+    ColBuf[2] = HexDigits[r & 15];
+    ColBuf[3] = HexDigits[(g >> 4) & 15];
+    ColBuf[4] = HexDigits[g & 15];
+    ColBuf[5] = HexDigits[(b >> 4) & 15];
+    ColBuf[6] = HexDigits[b & 15];
+    ColBuf[7] = '\0';
+    return &ColBuf[0];
 }
 
+t_rgba rgba_addContrast(t_rgba color, float contrast, bool preserveAlpha)
+{
+    t_rgba new_color = color;
+    new_color.red = pd_clip_minmax(new_color.red += contrast, 0., 1.);
+    new_color.green = pd_clip_minmax(new_color.green += contrast, 0., 1.);
+    new_color.blue = pd_clip_minmax(new_color.blue += contrast, 0., 1.);
+    if(!preserveAlpha)
+        new_color.alpha = pd_clip_minmax(new_color.alpha += contrast, 0., 1.);
+    return new_color;
+}
+
+t_rgb rgb_addContrast(t_rgb color, float contrast)
+{
+    t_rgb new_color = color;
+    new_color.red = pd_clip_minmax(new_color.red += contrast, 0., 1.);
+    new_color.green = pd_clip_minmax(new_color.green += contrast, 0., 1.);
+    new_color.blue = pd_clip_minmax(new_color.blue += contrast, 0., 1.);
+    return new_color;
+}
+
+void rgba_set(t_rgba *color, float red, float green, float blue, float alpha)
+{
+    color->red = red;
+    color->green = green;
+    color->blue = blue;
+    color->alpha = alpha;
+}
+
+void rgb_set(t_rgb *color, float red, float green, float blue)
+{
+    color->red = red;
+    color->green = green;
+    color->blue = blue;
+}
 

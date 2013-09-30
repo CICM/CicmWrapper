@@ -43,6 +43,31 @@ typedef struct _rect
 	float height;
 } t_rect;
 
+typedef struct _rgb
+{
+	float red;
+	float green;
+	float blue;
+} t_rgb;
+
+typedef struct _rgba
+{
+	float red;
+	float green;
+	float blue;
+	float alpha;
+} t_rgba;
+
+typedef struct _matrix
+{
+	float xx;
+	float yx;
+	float xy;
+	float yy;
+	float x0;
+	float y0;
+} t_matrix;
+
 typedef struct _ewidget
 {
     t_getrectfn     w_getrectfn;
@@ -64,6 +89,7 @@ typedef struct _ewidget
     method          w_popup;
     method          w_dsp;
     method          w_object_standat_paint;
+    method          w_oksize;
 } t_ewidget;
 
 typedef struct _eattr
@@ -75,73 +101,90 @@ typedef struct _eattr
     t_symbol*       label;
     t_symbol*       style;
     long            order;
-    bool            save = 0;
-    bool            paint = 0;
-    bool            invisible = 0;
-	long			flags = 0;
+    bool            save;
+    bool            paint;
+    bool            invisible;
+	long			flags;
     long            offset;
     long            sizemax;
     long            size;
     
-	method			getter = NULL;
-	method			setter = NULL;
-    long            clipped = 0;
+	method			getter;
+	method			setter;
+    long            clipped;
 	double          minimum;
     double          maximum;
-    t_symbol*       defvals = NULL;
+    t_symbol*       defvals;
     
 } t_eattr;
 
 typedef struct _eclass
 {
-    t_class         c_class;
-    bool            c_box;
-    t_ewidget       c_widget;
-    vector<t_eattr> c_attr;
+    t_class     c_class;
+    bool        c_box;
+    t_ewidget   c_widget;
+    t_eattr*    c_attr;
+    long        c_nattr;
 }t_eclass;
 
-typedef enum
+typedef enum _elayer_flags
 {
 	EGRAPHICS_OPEN      = 0,
 	EGRAPHICS_CLOSE     = -1,
 	EGRAPHICS_INVALID   = -2,
     EGRAPHICS_TODRAW    = -3,
-} cicm_graphics_codes;
+} t_elayer_flags;
 
-
-typedef struct _ergba
+typedef enum _etextjustify_flags
 {
-	double red;
-	double green;
-	double blue;
-	double alpha;
-} t_ergba;
+    ETEXT_UP            = 0,
+    ETEXT_UP_LEFT       = 1,
+    ETEXT_UP_RIGHT      = 2,
+    ETEXT_DOWN          = 3,
+    ETEXT_DOWN_LEFT     = 4,
+    ETEXT_DOWN_RIGHT    = 5,
+	ETEXT_LEFT          = 6, // first element of text = x
+    ETEXT_RIGHT         = 7, // last element of text = x
+	ETEXT_CENTER        = 8  // center element of text = x
+    
+} t_etextjustify_flags;
 
-typedef struct _ematrix
+typedef enum _etextwrap_flags
 {
-	float xx;
-	float yx;
-	float xy;
-	float yy;
-	float x0;
-	float y0;
-} t_ematrix;
+	ETEXT_NOWRAP    = 0,
+	ETEXT_WRAP      = 1
+} t_etextwrap_flags;
 
 typedef enum
 {
     E_GOBJ_INVALID           = 0,
-    E_GOBJ_LINE                 ,
     E_GOBJ_PATH                 ,
-	E_GOBJ_RECTANGLE            ,
-	E_GOBJ_RECTANGLE_ROUNDED    ,
     E_GOBJ_ARC                  ,
     E_GOBJ_OVAL                 ,
+    E_GOBJ_TEXT                 ,
 } egraphics_types;
 
-typedef struct _egraphics_ob
+typedef struct _efont
+{
+    t_symbol*   c_family;   // times, helvetica, ect...
+    t_symbol*   c_slant;    // regular, italic
+    t_symbol*   c_weight;   // regular, bold
+    float       c_size;
+} t_efont;
+
+typedef struct _etext
+{
+    t_symbol*       c_text;
+    t_rgba          c_color;
+    t_efont         c_font;
+    t_rect          c_rect;
+    t_symbol*       c_justify;
+} t_etext;
+
+typedef struct _egobj
 {
 	int             e_type;
-    t_symbol*       e_name;
+    t_symbol*       e_tag;
     int             e_filled;
     t_symbol*       e_color;
     float           e_width;
@@ -150,9 +193,13 @@ typedef struct _egraphics_ob
     long            e_npoints;
     float           e_roundness;
     float           e_angles[2];
-} t_egraphics_obj;
+    t_efont         e_font;
+    t_symbol*       e_justify;
+    t_symbol*       e_text;
 
-typedef struct _egraphics
+} t_egobj;
+
+typedef struct _elayer
 {
     t_object*           e_owner;
     t_symbol*           e_name;
@@ -162,50 +209,26 @@ typedef struct _egraphics
     t_symbol*           e_color;
     int                 e_width;
     
-    t_ematrix*          e_matrix;
+    t_matrix*           e_matrix;
     double              e_rotation;
     
-    t_egraphics_obj     e_new_objects;
-    t_egraphics_obj*    e_objects;
+    t_egobj             e_new_objects;
+    t_egobj*            e_objects;
     long                e_number_objects;
-    
-} t_egraphics;
-
-typedef struct _efont
-{
-    t_symbol*   c_family;     // times, helvetica, ect...
-    t_symbol*   c_slant;     // regular, italic
-    t_symbol*   c_weight;   // regular, bold
-    double      c_size;
-} t_efont;
-
-typedef struct _etextlayout
-{
-    t_symbol*       c_text;
-    t_ergba         c_color;
-    t_efont         c_font;
-    t_rect          c_rect;
-    t_symbol*       c_justification;
-} t_etextlayout;
+} t_elayer;
 
 typedef struct _edrawparams
-{
-	float		d_inletheight;
-	float		d_inletvoffset;
-	float		d_outletheight;
-	float		d_outletvoffset;
-	float		d_reserved1;
-    
+{    
 	float		d_cornersize;
-	float		d_borderthickness;
-	t_ergba	d_bordercolor;
-	t_ergba	d_boxfillcolor;
+	float       d_borderthickness;
+	t_rgba      d_bordercolor;
+	t_rgba      d_boxfillcolor;
     
 } t_edrawparams;
 
 typedef struct _epopupitem
 {
-    t_ergba c_color;
+    t_rgba      c_color;
     long        c_id;
     t_symbol*   c_text;
     bool        c_checked;
@@ -237,11 +260,11 @@ typedef struct _ebox
     char*               e_classname;
     t_edrawparams       e_boxparameters;
     
-    t_egraphics*        e_graphics;
-    long                e_number_of_graphics;
+    t_elayer*           e_layers;
+    long                e_number_of_layers;
     
     t_efont             e_font;
-    t_epopupmenu*       e_popup = NULL;
+    t_epopupmenu*       e_popup;
     
     vector<t_inlet*>    e_inlets;
     vector<t_outlet*>   e_outlets;
@@ -253,11 +276,11 @@ typedef struct _ebox
     t_int*              e_dsp_vectors;
     long                e_dsp_flag;
     void*               e_dsp_user_param;
-    long                z_misc = 0;     // Special Max for Z_NO_INPLACE
-    t_float**           z_sigs_out = NULL;
+    long                z_misc;     // Special Max for Z_NO_INPLACE
+    t_float**           z_sigs_out;
     method              e_perform_method;
     
-    bool                e_no_redraw_box = 0;
+    bool                e_no_redraw_box;
     t_object*           b_firstin; // For Max, it doesn't matter !
 }t_ebox;
 

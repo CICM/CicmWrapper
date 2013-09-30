@@ -26,17 +26,17 @@
 
 #include "egraphics.h"
 
-void egraphics_rotate_set(t_egraphics *g, float angle)
+void egraphics_rotate_set(t_elayer *g, float angle)
 {
     g->e_rotation = angle;
 }
 
-void egraphics_rotate_add(t_egraphics *g, float angle)
+void egraphics_rotate_add(t_elayer *g, float angle)
 {
     g->e_rotation += angle;
 }
 
-void egraphics_apply_rotation(t_egraphics *g, t_egraphics_obj* gobj)
+void egraphics_apply_rotation(t_elayer *g, t_egobj* gobj)
 {
     if(g->e_rotation)
     {

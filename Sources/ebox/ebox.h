@@ -45,14 +45,13 @@ void ebox_dsp(t_ebox *x, t_signal **sp);
 t_int* ebox_perform(t_int* w);
 void ebox_dsp_add(t_ebox *x, t_symbol* s, t_object* obj, method m, long flags, void *userparam);
 
-t_egraphics* ebox_start_layer(t_object *b, t_object *view, t_symbol *name, double width, double height);
+t_elayer* ebox_start_layer(t_object *b, t_object *view, t_symbol *name, double width, double height);
 t_pd_err ebox_end_layer(t_object *b, t_object *view, t_symbol *name);
 t_pd_err ebox_invalidate_layer(t_object *b, t_object *view, t_symbol *name);
 t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, double x, double y);
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
 void ebox_draw_background(t_ebox* x, t_glist* glist);
-void ebox_draw_text(t_ebox* x, t_glist* glist);
 void ebox_draw_border(t_ebox* x, t_glist* glist);
 
 void ebox_select(t_ebox* x, t_glist* glist);
@@ -61,8 +60,8 @@ void ebox_erase(t_ebox* x, t_glist* glist);
 void ebox_update(t_ebox *x, t_glist *glist);
 void ebox_invalidate_all(t_ebox *x, t_glist *glist);
 
-t_binbuf* object_cicm_dictionaryarg(long ac, t_atom *av);
-void attr_cicm_dictionary_process(void *x, t_binbuf *d);
+t_binbuf* binbuf_via_atoms(long ac, t_atom *av);
+void attr_binbuf_process(void *x, t_binbuf *d);
 void ebox_properties(t_gobj *y, t_glist *x);
 
 t_symbol* cicm_obj_get_fontname(t_ebox* x);

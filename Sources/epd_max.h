@@ -91,8 +91,12 @@
 #define jbox_get_font_weight(object)                cicm_obj_font_weight(object)
 #define jbox_get_fontsize(object)                   cicm_obj_fontsize(object)
 
-#define attr_dictionary_process(object, dict) attr_cicm_dictionary_process(object, dict)
-#define object_dictionaryarg(ac, av) object_cicm_dictionaryarg(ac, av)
+#define t_dictionary                                t_binbuf
+#define dictionary_new                              binbuf_new
+#define dictionary_free                             binbuf_free
+#define dictionary_write(dict, filename, dir)       binbuf_write(dict, filename, dir, 0)
+#define attr_dictionary_process(object, dict)       attr_binbuf_process(object, dict)
+#define object_dictionaryarg(ac, av)                binbuf_via_atoms(ac, av)
 
 #define jgraphics_set_line_width    cicm_graphics_set_line_width
 #define jgraphics_set_source_jrgba  cicm_graphics_set_source_jrgba
@@ -113,10 +117,10 @@
 #define JGRAPHICS_2PI       CICM_2PI
 #define JGRAPHICS_PI        CICM_PI
 
-#define t_jmatrix           t_ematrix
-#define t_jgraphics         t_egraphics
-#define t_jrgba             t_ergba
-#define t_jtextlayout       t_etextlayout
+#define t_jmatrix           t_matrix
+#define t_jgraphics         t_elayer
+#define t_jrgba             t_rgba
+#define t_jtextlayout       t_etext
 #define t_jfont             t_efont
 #define t_jpopupmenu        t_epopupmenu
 

@@ -1,14 +1,8 @@
-#N canvas 276 204 629 468 10;
-#X obj 135 212 scope~ @patching_rect [ 0 0 200 200 ] @interval [ 50
-] @buffersize [ 369 ] @bgcolor [ 0.55 0.55 0.55 1 ] @bordercolor [
-0.25 0.25 0.25 1 ] @sigcolor [ 0 0.6 0 0.8 ];
+#N canvas 504 339 629 468 10;
 #X msg 350 79 \; pd dsp 1;
 #X msg 247 61 \; pd dsp 0;
 #X obj 177 94 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
 -262144 -1 -1 0 256;
-#X obj 373 220 scope~ @patching_rect [ 0 0 200 200 ] @interval [ 50
-] @buffersize [ 128 ] @bgcolor [ 0.55 0.55 0.55 1 ] @bordercolor [
-0.25 0.25 0.25 1 ] @sigcolor [ 0 0.6 0 0.8 ];
 #X obj 392 127 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
 -262144 -1 -1 0 256;
 #X obj 373 162 osc~ 84;
@@ -18,18 +12,26 @@
 #X obj 158 128 osc~ 122;
 #X msg 229 158 buffersize \$1;
 #X obj 241 126 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0 256;
+-262144 -1 -1 1581 256;
 #X obj 81 92 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0 256;
+-262144 -1 -1 330 256;
 #X msg 69 124 interval \$1;
-#X connect 3 0 10 0;
-#X connect 5 0 6 0;
-#X connect 6 0 4 0;
-#X connect 7 0 4 1;
-#X connect 8 0 9 0;
-#X connect 9 0 7 1;
-#X connect 10 0 0 0;
-#X connect 11 0 0 0;
-#X connect 12 0 11 0;
-#X connect 13 0 14 0;
-#X connect 14 0 0 0;
+#X obj 96 229 scope~ @size [ 125 125 ] @patching_rect [ 0 0 125 125
+] @interval [ 2048 ] @buffersize [ 256 ] @bgcolor [ 0.35 0.23 0.13
+1 ] @bdcolor [ 0.27 0.21 0 1 ] @sigcolor [ 0 1 0 1 ];
+#X obj 382 263 scope~ @size [ 125 125 ] @patching_rect [ 0 0 125 125
+] @interval [ 2048 ] @buffersize [ 256 ] @bgcolor [ 0.35 0.23 0.13 1
+] @bdcolor [ 0.27 0.21 0 1 ] @sigcolor [ 0 1 0 1 ];
+#X connect 2 0 8 0;
+#X connect 3 0 4 0;
+#X connect 4 0 14 0;
+#X connect 5 0 14 1;
+#X connect 6 0 7 0;
+#X connect 7 0 5 1;
+#X connect 8 0 13 0;
+#X connect 9 0 13 0;
+#X connect 9 0 14 0;
+#X connect 10 0 9 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 12 0 14 0;
