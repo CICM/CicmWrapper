@@ -119,8 +119,8 @@ void etext_layout_draw(t_etext* textlayout, t_elayer *g)
         g->e_number_objects++;
         
         g->e_objects[index].e_type      = E_GOBJ_TEXT;
-        g->e_objects[index].e_npoints   = 2;
-        g->e_objects[index].e_points    = (t_pt*)calloc(g->e_objects[index].e_npoints, sizeof(t_pt));
+        g->e_objects[index].e_npoints   = 1;
+        g->e_objects[index].e_points    = (t_pt*)calloc(2, sizeof(t_pt));
         g->e_objects[index].e_points[0].x = textlayout->c_rect.x;
         g->e_objects[index].e_points[0].y = textlayout->c_rect.y;
         g->e_objects[index].e_points[1].x = textlayout->c_rect.width;

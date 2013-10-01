@@ -183,6 +183,8 @@ void vu_getdrawparams(t_vu *x, t_object *patcherview, t_edrawparams *params)
 
 void vu_oksize(t_vu *x, t_rect *newrect)
 {
+    newrect->width = pd_clip_min(newrect->width, 8.);
+    newrect->height = pd_clip_min(newrect->height, 8.);
     if(newrect->width > newrect->height)
         x->f_direction = 1;
     else
@@ -191,12 +193,10 @@ void vu_oksize(t_vu *x, t_rect *newrect)
     if(x->f_direction)
     {
         newrect->width = pd_clip_min(newrect->width, 50.);
-        newrect->height = pd_clip_min(newrect->height, 8.);
     }
     else
     {
         newrect->height = pd_clip_min(newrect->height, 50.);
-        newrect->width = pd_clip_min(newrect->width, 8.);
     }
 }
 

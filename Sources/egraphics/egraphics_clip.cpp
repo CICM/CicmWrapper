@@ -250,54 +250,78 @@ int clip_polygon(t_rect rect, int n, t_pt* in, t_pt* out)
     return cnt;
 }
 
-t_symbol* clip_text(t_rect rect, t_pt* in, t_symbol* text)
+t_symbol* clip_text(t_rect rect, t_pt* pt, float size, t_symbol* text, t_symbol* justify)
 {
     //We assume that people use the system font...
-    //sys_fontwidth()
-    /*
-     double x1, y1;
-     x1 = g->c_obj_coords[index][0];
-     y1 = g->c_obj_coords[index][1];
-     if(x1 < -1 * (strlen(textlayout->c_text->s_name) * textlayout->c_font.c_size / 1.75) || x1 > g->e_rect.width || y1 < textlayout->c_font.c_size / 2.  || y1 > g->e_rect.height - textlayout->c_font.c_size / 2.)
-     {
-     g->c_obj_names.pop_back();
-     g->c_obj_types.pop_back();
-     g->c_obj_coords.pop_back();
-     g->c_obj_options.pop_back();
-     }
-     else if(x1 > g->e_rect.width - strlen(textlayout->c_text->s_name) * textlayout->c_font.c_size / 1.75)
-     {
-     int strsize = (g->e_rect.width - x1) / (textlayout->c_font.c_size / 1.75);
-     std::string newtext = textlayout->c_text->s_name;
-     newtext.resize(strsize);
-     g->c_obj_options[index].assign("-text ");
-     sprintf(text, "{%s} ", newtext.c_str());
-     g->c_obj_options[index].append(text);
-     g->c_obj_options[index].append("-anchor ");
-     g->c_obj_options[index].append(textlayout->c_justification->s_name);
-     g->c_obj_options[index].append(" -font ");
-     sprintf(text, "{%s %d %s} ", textlayout->c_font.c_family->s_name, (int)textlayout->c_font.c_size, textlayout->c_font.c_weight->s_name);
-     g->c_obj_options[index].append(text);
-     sprintf(text, "-fill %s -width %d -tags %s\n", gensym(cicm_rgba_to_hex(textlayout->c_color))->s_name, (int)textlayout->c_rect.width, g->c_obj_names[index].c_str());
-     g->c_obj_options[index].append(text);
-     }
-     else if(x1 < 0)
-     {
-     int strsize = x1 / (textlayout->c_font.c_size / 1.75) * -1;
-     g->c_obj_coords[index][0] = 0.;
-     g->c_obj_options[index].assign("-text ");
-     sprintf(text, "{%s} ", textlayout->c_text->s_name+strsize);
-     g->c_obj_options[index].append(text);
-     g->c_obj_options[index].append("-anchor ");
-     g->c_obj_options[index].append(textlayout->c_justification->s_name);
-     g->c_obj_options[index].append(" -font ");
-     sprintf(text, "{%s %d %s} ", textlayout->c_font.c_family->s_name, (int)textlayout->c_font.c_size, textlayout->c_font.c_weight->s_name);
-     g->c_obj_options[index].append(text);
-     sprintf(text, "-fill %s -width %d -tags %s\n", gensym(cicm_rgba_to_hex(textlayout->c_color))->s_name, (int)textlayout->c_rect.width, g->c_obj_names[index].c_str());
-     g->c_obj_options[index].append(text);
-     }*/
-
-    return NULL;
+    float width = sys_fontwidth(size);
+    float height = sys_fontheight(size);
+    
+    if(justify == gensym("center") || justify == gensym("w") || justify == gensym("e")) // y center
+    {
+        if(pt->y - height * 0.5 < rect.y || pt->y + height * 0.5 > rect.y + rect.height)
+            return NULL;
+    }
+    else if (justify == gensym("n") || justify == gensym("nw") || justify == gensym("ne")) // y down
+    {
+        if(pt->y < rect.y || pt->y + height > rect.y + rect.height)
+            return NULL;
+    }
+    else if (justify == gensym("s") || justify == gensym("sw") || justify == gensym("se")) // y up
+    {
+        if(pt->y - height < rect.y || pt->y > rect.y + rect.height)
+            return NULL;
+    }
+    
+    if(justify == gensym("center") || justify == gensym("s") || justify == gensym("n")) // x center
+    {
+        if(pt->x - width * strlen(text->s_name) * 0.5 < rect.x)
+        {
+            int diff = (rect.x - (pt->x - width * strlen(text->s_name) * 0.5)) / width + 0.5;
+            text = gensym(text->s_name+diff);
+            pt->x += diff * width;
+        }
+        if(pt->x + width * strlen(text->s_name) * 0.5 > rect.x + rect.height)
+        {
+            char temp[1024];
+            int diff = ((pt->x + width * strlen(text->s_name) * 0.5) - (rect.x + rect.width)) / width + 0.5;
+            snprintf(temp, strlen(text->s_name) - diff, "%s", text->s_name);
+            text = gensym(temp);
+        }
+    }
+    else if (justify == gensym("e") || justify == gensym("ne") || justify == gensym("se")) // x right
+    {
+        if(pt->x - width * strlen(text->s_name) < rect.x)
+        {
+            int diff = (rect.x - (pt->x - width * strlen(text->s_name))) / width + 0.5;
+            text = gensym(text->s_name+diff);
+            pt->x += diff * width;
+        }
+        if(pt->x > rect.x + rect.width)
+        {
+            char temp[1024];
+            int diff = ((pt->x) - (rect.x + rect.width)) / width + 0.5;
+            snprintf(temp, strlen(text->s_name) - diff, "%s", text->s_name);
+            text = gensym(temp);
+        }
+    }
+    else if (justify == gensym("w") || justify == gensym("nw") || justify == gensym("sw")) // x left
+    {
+        if(pt->x < rect.x)
+        {
+            int diff = (rect.x - pt->x) / width + 0.5;
+            text = gensym(text->s_name+diff);
+            pt->x += diff * width;
+        }
+        if(pt->x + width * strlen(text->s_name) > rect.x + rect.width)
+        {
+            char temp[1024];
+            int diff = ((pt->x + width * strlen(text->s_name)) - (rect.x + rect.width)) / width + 0.5;
+            snprintf(temp, strlen(text->s_name) - diff, "%s", text->s_name);
+            text = gensym(temp);
+        }
+    }
+    
+    return text;
 }
 
 void egraphics_clip_object(t_elayer *g, t_egobj* gobj)
@@ -319,7 +343,11 @@ void egraphics_clip_object(t_elayer *g, t_egobj* gobj)
     }
     else if(gobj->e_type == E_GOBJ_TEXT)
     {
-        
+        gobj->e_text = clip_text(g->e_rect, gobj->e_points, gobj->e_font.c_size, gobj->e_text, gobj->e_justify);
+        if(gobj->e_text == NULL)
+        {
+            gobj->e_type = E_GOBJ_INVALID;
+        }
     }
 }
 

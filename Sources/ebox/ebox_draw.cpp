@@ -45,7 +45,7 @@ void ebox_draw_border(t_ebox* x, t_glist* glist)
 {
     x->e_boxparameters.d_borderthickness = pd_clip_max(x->e_boxparameters.d_borderthickness, x->e_rect.width / 2.);
     float bdsize = (x->e_boxparameters.d_borderthickness - 1.) * 0.5;
-    t_elayer* g = ebox_start_layer((t_object *)x, (t_object *)glist, gensym("eboxbd"), x->e_rect.width + bdsize * 2, x->e_rect.height + bdsize * 2);
+    t_elayer* g = ebox_start_layer((t_object *)x, (t_object *)glist, gensym("eboxbd"), x->e_rect.width + bdsize * 2 + 1, x->e_rect.height + bdsize * 2 + 1);
     
     if(g)
     {
@@ -89,14 +89,15 @@ void ebox_draw_border(t_ebox* x, t_glist* glist)
             if(obj_noutlets((t_object *)x) != 1)
                 pos_x_outlet = (int)(i / (float)(obj_noutlets((t_object *)x) - 1) * (x->e_rect.width - 8));
             
-            egraphics_rectangle(g, pos_x_outlet, x->e_rect.height - 2 + bdsize, 7, 2);
             if (obj_issignaloutlet((t_object *)x, i))
             {
+                egraphics_rectangle(g, pos_x_outlet, x->e_rect.height - 2 + bdsize, 7, 3);
                 egraphics_set_source_jrgba(g, &rgba_grey);
                 egraphics_fill(g);
             }
             else
             {
+                egraphics_rectangle(g, pos_x_outlet, x->e_rect.height - 2 + bdsize, 7, 2);
                 egraphics_set_source_jrgba(g, &rgba_white);
                 egraphics_fill(g);
                 egraphics_set_source_jrgba(g, &rgba_grey);

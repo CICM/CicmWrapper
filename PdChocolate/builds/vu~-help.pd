@@ -3,16 +3,16 @@
 #X obj 302 126 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
 -262144 -1 -1 0 256;
 #X obj 302 350 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0 256;
+-262144 -1 -1 -2.44029 256;
 #X obj 302 196 *~ 1.05;
 #X msg 368 77 \; pd dsp 1;
 #X text 353 191 Just to ensure that the;
 #X text 353 201 overled will blink !;
 #X obj 302 160 phasor~ 0.3;
 #X obj 164 62 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0 256;
+-262144 -1 -1 85 256;
 #X obj 194 81 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0 256;
+-262144 -1 -1 13 256;
 #X obj 194 104 t b f;
 #X msg 164 176 size \$1 \$2;
 #X obj 164 132 pack 13 85;
@@ -21,13 +21,18 @@
 [ 50 ] @bgcolor [ 0.35 0.23 0.13 1 ] @bdcolor [ 0.27 0.21 0 1 ] @coldcolor
 [ 0 0.6 0 0.8 ] @tepidcolor [ 0.6 0.73 0 0.8 ] @warmcolor [ 0.85 0.85
 0 0.8 ] @hotcolor [ 1 0.6 0 0.8 ] @overcolor [ 1 0 0 0.8 ];
+#X obj 330 245 vu~ @patching_rect [ 1 1 85 13 ] @size [ 85 13 ] @interval
+[ 50 ] @bgcolor [ 0.35 0.23 0.13 1 ] @bdcolor [ 0.27 0.21 0 1 ] @coldcolor
+[ 0 0.6 0 0.8 ] @tepidcolor [ 0.6 0.73 0 0.8 ] @warmcolor [ 0.85 0.85
+0 0.8 ] @hotcolor [ 1 0.6 0 0.8 ] @overcolor [ 1 0 0 0.8 ];
 #X connect 1 0 7 0;
 #X connect 3 0 14 0;
+#X connect 3 0 15 0;
 #X connect 7 0 3 0;
 #X connect 8 0 12 0;
 #X connect 9 0 10 0;
 #X connect 10 0 12 0;
 #X connect 10 1 12 1;
-#X connect 11 0 14 0;
+#X connect 11 0 15 0;
 #X connect 12 0 11 0;
 #X connect 14 0 2 0;

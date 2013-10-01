@@ -1,26 +1,39 @@
-#N canvas 276 204 629 468 10;
-#X msg 350 79 \; pd dsp 1;
-#X msg 247 61 \; pd dsp 0;
-#X obj 177 94 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+#N canvas 444 187 629 468 10;
+#X msg 13 77 \; pd dsp 1;
+#X msg 14 29 \; pd dsp 0;
+#X obj 88 163 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
 -262144 -1 -1 0 256;
-#X obj 392 127 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+#X obj 9 164 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
 -262144 -1 -1 0 256;
-#X obj 506 150 osc~ 84;
-#X obj 501 69 loadbang;
-#X msg 532 120 0.25;
-#X obj 158 128 osc~ 122;
-#X obj 81 92 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 100 256;
-#X msg 69 124 interval \$1;
-#X obj 138 308 nbx~ @patching_rect [ 1 1 45 15 ] @size [ 45 15 ] @interval
-[ 100 ] @bgcolor [ 1 1 1 1 ] @bdcolor [ 0.25 0.25 0.25 1 ] @textcolor
-[ 0 0 0 1 ];
-#X msg 320 223 size \$1 15;
-#X connect 2 0 7 0;
-#X connect 3 0 11 0;
-#X connect 5 0 6 0;
-#X connect 6 0 4 1;
-#X connect 7 0 10 0;
-#X connect 8 0 9 0;
-#X connect 9 0 10 0;
-#X connect 11 0 10 0;
+#X msg 9 196 interval \$1;
+#X obj 88 264 nbx~ @patching_rect [ 4 4 55 17 ] @size [ 55 17 ] @mode
+[ 0 ] @interval [ 50 ] @bgcolor [ 0.35 0.23 0.13 1 ] @bdcolor [ 0.27
+0.21 0 1 ] @textcolor [ 1 1 1 1 ];
+#X obj 88 197 osc~ 0.2;
+#X obj 136 311 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 -0.568155 256;
+#X obj 88 336 nbx~ @patching_rect [ 4 4 80 17 ] @size [ 80 17 ] @mode
+[ 0 ] @interval [ 50 ] @bgcolor [ 0.35 0.23 0.13 1 ] @bdcolor [ 0.27
+0.21 0 1 ] @textcolor [ 1 1 1 1 ];
+#X obj 268 264 nbx~ @patching_rect [ 4 4 55 17 ] @size [ 55 17 ] @mode
+[ 1 ] @interval [ 50 ] @bgcolor [ 0.35 0.23 0.13 1 ] @bdcolor [ 0.27
+0.21 0 1 ] @textcolor [ 1 1 1 1 ];
+#X obj 316 311 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 268 336 nbx~ @patching_rect [ 4 4 80 17 ] @size [ 80 17 ] @mode
+[ 0 ] @interval [ 50 ] @bgcolor [ 0.35 0.23 0.13 1 ] @bdcolor [ 0.27
+0.21 0 1 ] @textcolor [ 1 1 1 1 ];
+#X text 9 126 Click on the triangle to change the mode;
+#X text 97 231 Input signal mode : 0;
+#X text 264 184 User set mode 1;
+#X text 264 202 Drag the number.;
+#X text 264 222 The precision depends of where user drag.;
+#X text 264 242 Use shift to increase the precision.;
+#X connect 2 0 6 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 8 0;
+#X connect 5 1 7 0;
+#X connect 6 0 5 0;
+#X connect 9 0 11 0;
+#X connect 9 1 10 0;
