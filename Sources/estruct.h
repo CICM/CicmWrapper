@@ -83,6 +83,11 @@ typedef struct _ewidget
     method          w_mousedown;
     method          w_mousedrag;
     method          w_mouseup;
+    method          w_dblclick;
+    method          w_dblclicklong;
+    method          w_key;
+    method          w_keyfilter;
+    method          w_deserted;
     method          w_getdrawparameters;
     t_err_method    w_notify;
     method          w_save;
@@ -126,6 +131,24 @@ typedef struct _eclass
     t_eattr*    c_attr;
     long        c_nattr;
 }t_eclass;
+
+typedef enum _emod_flags
+{
+    EMOD_NONE     = 0,
+	EMOD_SHIFT    = 9,
+    EMOD_ALT      = 10,
+    EMOD_SHIFTALT = 27,
+    
+} t_emod_flags;
+
+typedef enum _ekey_flags
+{
+    EKEY_DEL      = 8,
+	EKEY_TAB      = 9,
+    EKEY_ENTER    = 10,
+    EKEY_ESC      = 27,
+    
+} t_ekey_flags;
 
 typedef enum _elayer_flags
 {
@@ -255,10 +278,17 @@ typedef struct _ebox
     t_pt                e_mouse;
     bool                e_mouse_down;
     long                e_modifiers;
+    
     bool                e_ready_to_draw;
     t_symbol*           e_box_text;
     char*               e_classname;
     t_edrawparams       e_boxparameters;
+    float               e_lastclick;
+    float               e_dblclick_time;
+    float               e_dblclicklong_time;
+    
+    float               e_deserted_time;
+    t_clock*            e_deserted_clock;
     
     t_elayer*           e_layers;
     long                e_number_of_layers;

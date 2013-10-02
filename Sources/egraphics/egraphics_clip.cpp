@@ -232,7 +232,7 @@ void close_clip(t_rect rect, t_pt* pt_out, int* cnt, t_pt* first[], t_pt *s)
     }
 }
 
-int clip_polygon(t_rect rect, int n, t_pt* in, t_pt* out)
+long clip_polygon(t_rect rect, long n, t_pt* in, t_pt* out)
 {
     t_pt* first[N_EDGE] = {0, 0, 0, 0};
     t_pt  s[N_EDGE];

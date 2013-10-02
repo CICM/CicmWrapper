@@ -45,6 +45,11 @@ void ebox_dsp(t_ebox *x, t_signal **sp);
 t_int* ebox_perform(t_int* w);
 void ebox_dsp_add(t_ebox *x, t_symbol* s, t_object* obj, method m, long flags, void *userparam);
 
+void ebox_setdblclick_time(t_ebox *x, float time);
+void ebox_setdblclicklong_time(t_ebox *x, float time);
+void ebox_setdeserted_time(t_ebox *x, float time);
+void ebox_deserted(t_ebox *x);
+
 t_elayer* ebox_start_layer(t_object *b, t_object *view, t_symbol *name, double width, double height);
 t_pd_err ebox_end_layer(t_object *b, t_object *view, t_symbol *name);
 t_pd_err ebox_invalidate_layer(t_object *b, t_object *view, t_symbol *name);

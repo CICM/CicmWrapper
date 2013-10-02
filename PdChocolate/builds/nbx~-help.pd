@@ -1,34 +1,53 @@
-#N canvas 444 187 629 468 10;
-#X msg 13 77 \; pd dsp 1;
-#X msg 14 29 \; pd dsp 0;
-#X obj 88 163 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+#N canvas 664 176 664 410 10;
+#X msg 75 6 \; pd dsp 1;
+#X msg 9 6 \; pd dsp 0;
+#X obj 83 80 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
 -262144 -1 -1 0 256;
-#X obj 9 164 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0 256;
-#X msg 9 196 interval \$1;
-#X obj 88 264 nbx~ @patching_rect [ 4 4 55 17 ] @size [ 55 17 ] @mode
+#X obj 4 81 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10 -262144
+-1 -1 0 256;
+#X msg 4 113 interval \$1;
+#X obj 83 181 nbx~ @patching_rect [ 4 4 55 17 ] @size [ 55 17 ] @mode
 [ 0 ] @interval [ 50 ] @bgcolor [ 0.35 0.23 0.13 1 ] @bdcolor [ 0.27
 0.21 0 1 ] @textcolor [ 1 1 1 1 ];
-#X obj 88 197 osc~ 0.2;
-#X obj 136 311 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 -0.568155 256;
-#X obj 88 336 nbx~ @patching_rect [ 4 4 80 17 ] @size [ 80 17 ] @mode
+#X obj 83 114 osc~ 0.2;
+#X obj 131 228 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0.986736 256;
+#X obj 83 253 nbx~ @patching_rect [ 4 4 80 17 ] @size [ 80 17 ] @mode
 [ 0 ] @interval [ 50 ] @bgcolor [ 0.35 0.23 0.13 1 ] @bdcolor [ 0.27
 0.21 0 1 ] @textcolor [ 1 1 1 1 ];
-#X obj 268 264 nbx~ @patching_rect [ 4 4 55 17 ] @size [ 55 17 ] @mode
+#X obj 263 181 nbx~ @patching_rect [ 4 4 55 17 ] @size [ 55 17 ] @mode
 [ 1 ] @interval [ 50 ] @bgcolor [ 0.35 0.23 0.13 1 ] @bdcolor [ 0.27
 0.21 0 1 ] @textcolor [ 1 1 1 1 ];
-#X obj 316 311 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+#X obj 311 228 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
 -262144 -1 -1 0 256;
-#X obj 268 336 nbx~ @patching_rect [ 4 4 80 17 ] @size [ 80 17 ] @mode
+#X obj 263 253 nbx~ @patching_rect [ 4 4 80 17 ] @size [ 80 17 ] @mode
 [ 0 ] @interval [ 50 ] @bgcolor [ 0.35 0.23 0.13 1 ] @bdcolor [ 0.27
 0.21 0 1 ] @textcolor [ 1 1 1 1 ];
-#X text 9 126 Click on the triangle to change the mode;
-#X text 97 231 Input signal mode : 0;
-#X text 264 184 User set mode 1;
-#X text 264 202 Drag the number.;
-#X text 264 222 The precision depends of where user drag.;
-#X text 264 242 Use shift to increase the precision.;
+#X text 4 43 Click on the triangle to change the mode;
+#X text 92 148 Input signal mode : 0;
+#X text 379 141 User set mode 1;
+#X text 379 159 Drag the number.;
+#X text 379 179 The precision depends of where user drag.;
+#X text 379 199 Use shift to increase the precision.;
+#X obj 263 75 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 333 75 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X msg 333 110 set \$1;
+#X obj 233 110 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 379 219 Click and write the number.;
+#X text 379 239 Press enter ot tab to valid the number.;
+#X text 379 259 Press esc to avoid the change.;
+#X obj -20 -77 cnv 40 552 40 empty empty numbox~ 3 12 0 18 -228856
+-33289 0;
+#X text -17 -55 A number box with signal... or not.;
+#X text -19 -34 number~ (nbx~ \, number~) is the pd chocolate's version
+of the vanilla nbx.;
+#X text -13 298 Pd Chocolate by Pierre Guillot | CICM - Université
+Paris 8;
+#X text 360 -15 Futher information about chocolate;
+#X obj 363 8 pdchocolate;
 #X connect 2 0 6 0;
 #X connect 3 0 4 0;
 #X connect 4 0 5 0;
@@ -37,3 +56,7 @@
 #X connect 6 0 5 0;
 #X connect 9 0 11 0;
 #X connect 9 1 10 0;
+#X connect 18 0 9 0;
+#X connect 19 0 20 0;
+#X connect 20 0 9 0;
+#X connect 21 0 9 0;

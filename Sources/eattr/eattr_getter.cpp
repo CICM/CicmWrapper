@@ -39,7 +39,7 @@ void cicm_class_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
         {
             t_symbol* type = c->c_attr[i].type;
             char *point = (char *)x + c->c_attr[i].offset;
-            argc[0] = c->c_attr[i].size;
+            argc[0] = (int)c->c_attr[i].size;
             argv[0] = new t_atom[argc[0]];
             if(c->c_attr[i].getter)
             {

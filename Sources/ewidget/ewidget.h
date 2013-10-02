@@ -31,24 +31,33 @@
 #include "../ebox/ebox.h"
 #include "../epopup/epopup.h"
 
-
 void ewidget_init(t_eclass* c);
 void ewidget_getrect(t_gobj *z, t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2);
 void ewidget_vis(t_gobj *z, t_glist *glist, int vis);
 void ewidget_displace(t_gobj *z, t_glist *glist, int dx, int dy);
 void ewidget_select(t_gobj *z, t_glist *glist, int selected);
 void ewidget_delete(t_gobj *z, t_glist *glist);
+void ewidget_save(t_gobj *z, t_binbuf *b);
+
 void ewidget_paint(t_ebox *x, t_glist *glist, int mode);
 int  ewidget_mousemove(t_gobj *x, struct _glist *glist, int posx, int posy, int shift, int alt, int ctrl, int mousedown);
 void ewidget_mousedown(t_ebox *x, t_glist *glist, t_pt pt, long modifiers);
 void ewidget_mousedrag(t_ebox *x, t_floatarg posx, t_floatarg posy);
-void ewidget_save(t_gobj *z, t_binbuf *b);
+void ewidget_key(t_ebox *x, t_floatarg fkey);
 
 void ewidget_paint_default(t_ebox *x, t_object *view);
+
 void ewidget_mousemove_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers);
 void ewidget_mousedown_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers);
 void ewidget_mousedrag_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers);
 void ewidget_mouseup_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers);
+void ewidget_dblclick_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers);
+void ewidget_dblclicklong_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers);
+
+void ewidget_key_default(t_ebox *x, t_object *patcherview, char textcharacter, long modifiers);
+void ewidget_keyfilter_default(t_ebox *x, t_object *patcherview, char textcharacter, long modifiers);
+void ewidget_keyout_default(t_ebox *x, t_object *patcherview);
+
 void ewidget_getdrawparams_default(t_ebox *x, t_object *patcherview, t_edrawparams *params);
 void ewidget_oksize_default(t_ebox *x, t_rect* rect);
 t_pd_err ewidget_notify_default(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);

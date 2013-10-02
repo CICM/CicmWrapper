@@ -90,7 +90,7 @@ t_pd_err binbuf_append_atoms(t_binbuf *d, t_symbol *key, long argc, t_atom *argv
     }
     binbuf_addv(d, "s", key);
     binbuf_addv(d, "s", gensym("["));
-    binbuf_add(d, argc, argv);
+    binbuf_add(d, (int)argc, argv);
     binbuf_addv(d, "s", gensym("]"));
     
     return 0;

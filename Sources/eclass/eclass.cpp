@@ -127,6 +127,26 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
     {
         c->c_widget.w_mouseup = m;
     }
+    else if(gensym(name) == gensym("dblclick"))
+    {
+        c->c_widget.w_dblclick = m;
+    }
+    else if(gensym(name) == gensym("dblclicklong"))
+    {
+        c->c_widget.w_dblclicklong = m;
+    }
+    else if(gensym(name) == gensym("key"))
+    {
+        c->c_widget.w_key = m;
+    }
+    else if(gensym(name) == gensym("keyfilter"))
+    {
+        c->c_widget.w_keyfilter = m;
+    }
+    else if(gensym(name) == gensym("deserted"))
+    {
+        c->c_widget.w_deserted = m;
+    }
     else if(gensym(name) == gensym("paint"))
     {
         c->c_widget.w_paint = m;
@@ -154,6 +174,14 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
     else if(gensym(name) == gensym("bang"))
     {
         class_addbang((t_class *)c, m);
+    }
+    else if(gensym(name) == gensym("float"))
+    {
+        class_addfloat((t_class *)c, m);
+    }
+    else if(gensym(name) == gensym("list"))
+    {
+        class_addlist((t_class *)c, m);
     }
     else if(gensym(name) == gensym("save") || gensym(name) == gensym("jsave"))
     {

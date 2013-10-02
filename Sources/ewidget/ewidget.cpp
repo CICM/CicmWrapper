@@ -41,6 +41,11 @@ void ewidget_init(t_eclass* c)
     c->c_widget.w_mousedown         = (method)ewidget_mousedown_default;
     c->c_widget.w_mousedrag         = (method)ewidget_mousedrag_default;
     c->c_widget.w_mouseup           = (method)ewidget_mouseup_default;
+    c->c_widget.w_dblclick          = NULL;
+    c->c_widget.w_dblclicklong      = NULL;
+    c->c_widget.w_key               = (method)ewidget_key_default;
+    c->c_widget.w_keyfilter         = (method)ewidget_keyfilter_default;
+    c->c_widget.w_deserted          = NULL;
     c->c_widget.w_getdrawparameters = (method)ewidget_getdrawparams_default;
     c->c_widget.w_notify            = (t_err_method)ewidget_notify_default;
     c->c_widget.w_save              = (method)ewidget_save_default;
@@ -113,17 +118,23 @@ int ewidget_mousemove(t_gobj *z, struct _glist *glist, int posx, int posy, int s
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
     x->e_mouse.x = posx - text_xpix(&x->e_obj, glist);
     x->e_mouse.y = posy - text_ypix(&x->e_obj, glist);
+    
+    clock_delay(x->e_deserted_clock, x->e_deserted_time);
     if(epopupmenu_mousemove(x->e_popup, x->e_mouse, mousedown))
         return 1;
     
-    x->e_modifiers = 0;
+    x->e_modifiers = EMOD_NONE;
     if(shift && !alt && !ctrl)
     {
-        x->e_modifiers = 2;
+        x->e_modifiers = EMOD_SHIFT;
     }
     else if (shift && alt && !ctrl)
     {
-        x->e_modifiers = 132;
+        x->e_modifiers = EMOD_SHIFTALT;
+    }
+    else if(!shift && alt && !ctrl)
+    {
+        x->e_modifiers = EMOD_ALT;
     }
     
     if(x->e_mouse_down)
@@ -134,22 +145,23 @@ int ewidget_mousemove(t_gobj *z, struct _glist *glist, int posx, int posy, int s
     
     c->c_widget.w_mousemove(z, (t_object *)glist, x->e_mouse, x->e_modifiers);
     if(mousedown)
-    {
-        x->e_modifiers = 0;
+    {       
+        x->e_modifiers = EMOD_NONE;
         if(shift && !alt && !ctrl)
         {
-            x->e_modifiers = 18;
+            x->e_modifiers = EMOD_SHIFT;
         }
         else if(shift && alt && !ctrl)
         {
-            x->e_modifiers = 148;
+            x->e_modifiers = EMOD_SHIFTALT;
         }
         else if(!shift && alt && !ctrl)
         {
-            x->e_modifiers = 160;
+            x->e_modifiers = EMOD_ALT;
         }
+       
         ewidget_mousedown(x, glist, x->e_mouse, x->e_modifiers);
-        glist_grab(glist, &x->e_obj.te_g, (t_glistmotionfn)ewidget_mousedrag, 0, posx, posy);
+        glist_grab(glist, &x->e_obj.te_g, (t_glistmotionfn)ewidget_mousedrag, (t_glistkeyfn)ewidget_key, posx, posy);
     }
     
     return 1;
@@ -159,7 +171,19 @@ void ewidget_mousedown(t_ebox *x, t_glist *glist, t_pt pt, long modifiers)
 {
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
     x->e_mouse_down = 1;
-    c->c_widget.w_mousedown(x, (t_object *)glist, pt, x->e_modifiers);
+    
+    if(c->c_widget.w_dblclick != NULL && sys_getrealtime() - x->e_lastclick < x->e_dblclick_time)
+    {
+            c->c_widget.w_dblclick(x, (t_object *)glist, pt, x->e_modifiers);
+    }
+    if(c->c_widget.w_dblclicklong != NULL && sys_getrealtime() - x->e_lastclick < x->e_dblclicklong_time)
+    {
+        c->c_widget.w_dblclicklong(x, (t_object *)glist, pt, x->e_modifiers);
+    }
+    else
+        c->c_widget.w_mousedown(x, (t_object *)glist, pt, x->e_modifiers);
+    
+    x->e_lastclick = sys_getrealtime();
 }
 
 void ewidget_mousedrag(t_ebox *x, t_floatarg dx, t_floatarg dy)
@@ -167,7 +191,21 @@ void ewidget_mousedrag(t_ebox *x, t_floatarg dx, t_floatarg dy)
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
     x->e_mouse.x += dx;
     x->e_mouse.y += dy;
-    c->c_widget.w_mousedrag(x, NULL, x->e_mouse, x->e_modifiers);
+    c->c_widget.w_mousedrag(x, x->e_glist, x->e_mouse, x->e_modifiers);
+    clock_delay(x->e_deserted_clock, x->e_deserted_time);
+}
+
+void ewidget_key(t_ebox *x, t_floatarg fkey)
+{
+    if(fkey != 0)
+    {
+        t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
+        if(fkey == EKEY_DEL || fkey == EKEY_ESC || fkey == EKEY_TAB || fkey == EKEY_ENTER)
+            c->c_widget.w_keyfilter(x, x->e_glist, (char)fkey, x->e_modifiers);
+        else
+            c->c_widget.w_key(x, x->e_glist, (char)fkey, x->e_modifiers);
+    }
+    clock_delay(x->e_deserted_clock, x->e_deserted_time);
 }
 
 void ewidget_paint(t_ebox *x, t_glist *glist, int mode)
@@ -241,6 +279,13 @@ void ewidget_mousedown_default(t_ebox *x, t_object *patcherview, t_pt pt, long m
 void ewidget_mousedrag_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers){;}
 
 void ewidget_mouseup_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers){;}
+
+void ewidget_key_default(t_ebox *x, t_object *patcherview, char textcharacter, long modifiers){;};
+
+void ewidget_keyfilter_default(t_ebox *x, t_object *patcherview, char textcharacter, long modifiers)
+{
+    ewidget_key_default(x, patcherview, textcharacter, modifiers);
+}
 
 void ewidget_getdrawparams_default(t_ebox *x, t_object *patcherview, t_edrawparams *params)
 {

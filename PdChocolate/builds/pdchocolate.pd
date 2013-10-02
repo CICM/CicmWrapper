@@ -1,0 +1,25 @@
+#N canvas 331 195 558 284 10;
+#X obj -7 59 vu~ @patching_rect [ 4 4 85 13 ] @size [ 85 13 ] @interval
+[ 50 ] @bgcolor [ 0.35 0.23 0.13 1 ] @bdcolor [ 0.27 0.21 0 1 ] @coldcolor
+[ 0 0.6 0 0.8 ] @tepidcolor [ 0.6 0.73 0 0.8 ] @warmcolor [ 0.85 0.85
+0 0.8 ] @hotcolor [ 1 0.6 0 0.8 ] @overcolor [ 1 0 0 0.8 ];
+#X obj -19 -74 cnv 40 552 40 empty empty PdChocolate 3 12 0 18 -228856
+-33289 0;
+#X obj -6 20 nbx~ @patching_rect [ 4 4 55 17 ] @size [ 55 17 ] @mode
+[ 1 ] @interval [ 50 ] @bgcolor [ 0.35 0.23 0.13 1 ] @bdcolor [ 0.27
+0.21 0 1 ] @textcolor [ 1 1 1 1 ];
+#X text -16 -52 A set of objects for those who want more than vanilla...
+;
+#X text 58 18 nbx~;
+#X text 85 58 vu~;
+#X text 245 14 All object accept this messages :;
+#X msg 245 47 size \$1 \$2;
+#X text 325 46 width and height;
+#X msg 245 77 bgcolor \$1 \$2;
+#X text 336 76 background color (rgba);
+#X text 336 106 border color (rgba);
+#X msg 245 107 bdcolor \$1 \$2;
+#X text -18 -31 Pd chocolate use the Pd Enhanced library developed
+to facilitate the creation and to improve signal and GUI.;
+#X text -7 158 Pd Chocolate by Pierre Guillot | CICM - Université Paris
+8;

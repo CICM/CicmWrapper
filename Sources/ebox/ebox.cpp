@@ -51,6 +51,10 @@ void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
     x->e_layers   = NULL;
     x->z_sigs_out   = NULL;
     x->e_popup      = NULL;
+    x->e_deserted_time = 3000.;
+    x->e_lastclick = sys_getrealtime() - 100.;
+    x->e_dblclick_time = 0.25;
+    x->e_dblclicklong_time = 0.5;
     if (flags == 1)
     {
         x->e_no_redraw_box = 1;
@@ -114,6 +118,7 @@ void ebox_ready(t_ebox *x)
     
     x->e_mouse_down = 0;
     c->c_widget.w_getdrawparameters(x, NULL, &x->e_boxparameters);
+    x->e_deserted_clock = clock_new(x, (t_method)ebox_deserted);
     
     x->e_nins   = obj_nsiginlets(&x->e_obj);
     x->e_nouts  = obj_nsigoutlets(&x->e_obj);
@@ -129,13 +134,13 @@ void ebox_dspfree(t_ebox *x)
         x->e_dsp_vectors = NULL;
         x->e_dsp_size = 0;
     }
-    for(int k = x->e_inlets.size(); k >= 1; k--)
+    for(long k = x->e_inlets.size(); k >= 1; k--)
     {
         canvas_deletelinesforio(x->e_glist, (t_text *)x, x->e_inlets[k-1], NULL);
         inlet_free(x->e_inlets[k-1]);
         x->e_inlets.pop_back();
     }
-    for(int k = x->e_outlets.size(); k >= 1; k--)
+    for(long k = x->e_outlets.size(); k >= 1; k--)
     {
         canvas_deletelinesforio(x->e_glist, (t_text *)x, NULL, x->e_outlets[k-1]);
         outlet_free(x->e_outlets[k-1]);
@@ -153,7 +158,8 @@ void ebox_dspfree(t_ebox *x)
 
 void ebox_free(t_ebox* x)
 {
-     gfxstub_deleteforkey(x);
+    gfxstub_deleteforkey(x);
+    clock_free(x->e_deserted_clock);
 }
 
 void ebox_redraw(t_ebox *x)
@@ -171,14 +177,14 @@ void ebox_resize_inputs(t_ebox *x, long nins)
     
     if(nins > x->e_nins)
     {
-        for (int i = x->e_nins; i < nins; i++)
+        for (long i = x->e_nins; i < nins; i++)
         {
             x->e_inlets.push_back(signalinlet_new(&x->e_obj, x->e_float));
         }
     }
     else if (nins < x->e_nins)
     {
-        for(int k = x->e_inlets.size(); k >= nins; k--)
+        for(long k = x->e_inlets.size(); k >= nins; k--)
         {
             canvas_deletelinesforio(x->e_glist, (t_text *)x, x->e_inlets[k-1], NULL);
             inlet_free(x->e_inlets[k-1]);
@@ -209,14 +215,14 @@ void ebox_resize_outputs(t_ebox *x, long nouts)
     {
         if(nouts > x->e_nouts)
         {
-            for (int i = x->e_nouts; i < nouts; i++)
+            for (long i = x->e_nouts; i < nouts; i++)
             {
                 x->e_outlets.push_back(outlet_new(&x->e_obj, &s_signal));
             }
         }
         else if (nouts < x->e_nouts)
         {
-            for(int k = x->e_outlets.size(); k > nouts; k--)
+            for(long k = x->e_outlets.size(); k > nouts; k--)
             {
                 canvas_deletelinesforio(x->e_glist, (t_text *)x, NULL, x->e_outlets[k-1]);
                 outlet_free(x->e_outlets[k-1]);
@@ -228,7 +234,7 @@ void ebox_resize_outputs(t_ebox *x, long nouts)
     {
         if(nouts > x->e_nouts)
         {
-            for (int i = x->e_nouts; i < nouts; i++)
+            for (long i = x->e_nouts; i < nouts; i++)
             {
                 if(!x->e_glist->gl_loading && glist_isvisible(x->e_glist))
                     gobj_vis((t_gobj *)x, x->e_glist, 0);
@@ -239,7 +245,7 @@ void ebox_resize_outputs(t_ebox *x, long nouts)
         }
         else if (nouts < x->e_nouts)
         {
-            for(int k = x->e_outlets.size(); k > nouts; k--)
+            for(long k = x->e_outlets.size(); k > nouts; k--)
             {
                 if(!x->e_glist->gl_loading && glist_isvisible(x->e_glist))
                 {
@@ -272,7 +278,7 @@ void ebox_dsp(t_ebox *x, t_signal **sp)
 {
     t_eclass *c         = (t_eclass *)x->e_obj.te_g.g_pd;
 
-    short count[x->e_nins];
+    short count[x->e_nins + x->e_nouts];
     for(int i = 0; i < x->e_nins; i++)
     {
         count[i] = 0;
@@ -287,6 +293,21 @@ void ebox_dsp(t_ebox *x, t_signal **sp)
             }
         }            
     }
+    
+    for(int i = x->e_nins; i < x->e_nins + x->e_nouts; i++)
+    {
+        count[i] = 0;
+        t_linetraverser t;
+        t_outconnect *oc;
+        linetraverser_start(&t, x->e_glist);
+        while((oc = linetraverser_next(&t)))
+        {
+            if(t.tr_ob == (t_object*)x && t.tr_outno == i)
+            {
+                count[i] = 1;
+            }
+        }
+    }
     c->c_widget.w_dsp(x, x, &count, sp[0]->s_sr, sp[0]->s_n, 0);
     
     x->e_dsp_vectors[0] = (t_int)x;
@@ -299,7 +320,7 @@ void ebox_dsp(t_ebox *x, t_signal **sp)
         x->e_dsp_vectors[i] = (t_int)(sp[i - 4]->s_vec);
     }
     
-    dsp_addv(ebox_perform, x->e_dsp_size, x->e_dsp_vectors);
+    dsp_addv(ebox_perform, (int)x->e_dsp_size, x->e_dsp_vectors);
 }
 
 t_int* ebox_perform(t_int* w)
@@ -355,6 +376,23 @@ void ebox_properties(t_gobj *z, t_glist *glist)
     ;
 }
 
+void ebox_deserted(t_ebox *x)
+{
+    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
+    c->c_widget.w_deserted(x);
+    clock_unset(x->e_deserted_clock);
+}
+
+void ebox_setdblclick_time(t_ebox *x, float time)
+{
+    x->e_dblclick_time = 1000. / time;
+}
+
+void ebox_setdblclicklong_time(t_ebox *x, float time)
+{
+     x->e_dblclicklong_time = 1000. / time;
+}
+
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
@@ -373,7 +411,7 @@ t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *
 t_binbuf* binbuf_via_atoms(long ac, t_atom *av)
 {
     t_binbuf* dico = binbuf_new();
-    binbuf_add(dico, ac, av);
+    binbuf_add(dico, (int)ac, av);
     return dico;
 }
 

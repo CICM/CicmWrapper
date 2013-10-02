@@ -27,7 +27,7 @@
 typedef struct  _nbx
 {
 	t_ebox      j_box;
-	
+
 	t_clock*	f_clock;
 	int			f_startclock;
     
@@ -44,7 +44,9 @@ typedef struct  _nbx
     float       f_deriv;
     float       f_inc;
     long        f_drag;
-	
+    bool        f_entertext;
+	char        f_textvalue[256];
+    
 } t_nbx;
 
 t_eclass *nbx_class;
@@ -56,9 +58,10 @@ void nbx_assist(t_nbx *x, void *b, long m, long a, char *s);
 
 void nbx_dsp(t_nbx *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags);
 void nbx_perform(t_nbx *x, t_object *d, float **ins, long ni, float **outs, long no, long sf, long f,void *up);
+void nbx_float(t_nbx *x, t_floatarg f);
+void nbx_set(t_nbx *x, t_floatarg f);
 void nbx_tick(t_nbx *x);
 void nbx_output(t_nbx *x);
-
 t_pd_err nbx_notify(t_nbx *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
 void nbx_getdrawparams(t_nbx *x, t_object *patcherview, t_edrawparams *params);
@@ -71,7 +74,10 @@ void draw_value(t_nbx *x,  t_object *view, t_rect *rect);
 void nbx_mousedown(t_nbx *x, t_object *patcherview, t_pt pt, long modifiers);
 void nbx_mousedrag(t_nbx *x, t_object *patcherview, t_pt pt, long modifiers);
 void nbx_mousemove(t_nbx *x, t_object *patcherview, t_pt pt, long modifiers);
-long nbx_key(t_nbx *x, t_object *patcherview, long keycode, long modifiers, long textcharacter);
+
+void nbx_key(t_nbx *x, t_object *patcherview, char textcharacter, long modifiers);
+void nbx_keyfilter(t_nbx *x, t_object *patcherview, char textcharacter, long modifiers);
+void nbx_deserted(t_nbx *x, t_object *patcherview);
 
 extern "C" void nbx_tilde_setup(void)
 {
@@ -79,6 +85,7 @@ extern "C" void nbx_tilde_setup(void)
     
 	c = eclass_new("nbx~", (method)nbx_new, (method)nbx_free, (short)sizeof(t_nbx), 0L, A_GIMME, 0);
     class_addcreator((t_newmethod)nbx_new, gensym("number~"), A_GIMME, 0);
+    class_addcreator((t_newmethod)nbx_new, gensym("numbox~"), A_GIMME, 0);
     
 	eclass_dspinit(c);
 	eclass_init(c, 0);
@@ -89,13 +96,17 @@ extern "C" void nbx_tilde_setup(void)
 	eclass_addmethod(c, (method) nbx_notify,          "notify",           A_CANT, 0);
     eclass_addmethod(c, (method) nbx_getdrawparams,   "getdrawparams",    A_CANT, 0);
     eclass_addmethod(c, (method) nbx_oksize,          "oksize",           A_CANT, 0);
+    eclass_addmethod(c, (method) nbx_float,           "float",            A_FLOAT,0);
+    eclass_addmethod(c, (method) nbx_set,             "set",              A_FLOAT,0);
+    eclass_addmethod(c, (method) nbx_output,          "bang",             A_CANT, 0);
     
     eclass_addmethod(c, (method) nbx_mousedown,        "mousedown",       A_CANT, 0);
     eclass_addmethod(c, (method) nbx_mousedrag,        "mousedrag",       A_CANT, 0);
     eclass_addmethod(c, (method) nbx_mousemove,        "mousemove",       A_CANT, 0);
     eclass_addmethod(c, (method) nbx_key,              "key",             A_CANT, 0);
+    eclass_addmethod(c, (method) nbx_keyfilter,        "keyfilter",       A_CANT, 0);
+    eclass_addmethod(c, (method) nbx_deserted,         "deserted",        A_CANT, 0);
     
-    // SET, FLOAT AND DBLCLICK METHOD
 	CLASS_ATTR_DEFAULT			(c, "size", 0, "55 15");
 	CLASS_ATTR_INVISIBLE		(c, "color", 0);
     
@@ -154,7 +165,9 @@ void *nbx_new(t_symbol *s, int argc, t_atom *argv)
     x->f_peak_value     = 0.;
     x->f_clock          = clock_new(x,(t_method)nbx_tick);
 	x->f_startclock     = 0;
-    
+    x->f_entertext      = 0;
+ 
+    pd_bind(&x->j_box.e_obj.te_g.g_pd, canvas_makebindsym(x->j_box.e_glist->gl_name));
 	attr_dictionary_process(x, d);	
 	ebox_ready((t_ebox *)x);
     
@@ -177,8 +190,7 @@ void nbx_oksize(t_nbx *x, t_rect *newrect)
 
 void nbx_dsp(t_nbx *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
-    if (count[0] || count[1])
-        object_method(dsp, gensym("dsp_add"), x, (method)nbx_perform, 0, NULL);
+    object_method(dsp, gensym("dsp_add"), x, (method)nbx_perform, 0, NULL);
 	x->f_startclock = 1;
 }
 
@@ -206,10 +218,26 @@ void nbx_perform(t_nbx *x, t_object *dsp, float **ins, long ni, float **outs, lo
     }
 }
 
+void nbx_float(t_nbx *x, t_floatarg f)
+{
+    x->f_entertext = 0;
+    x->f_peak_value = f;
+    nbx_output(x);
+    ebox_invalidate_layer((t_object *)x, NULL, gensym("value_layer"));
+    ebox_redraw((t_ebox *)x);
+}
+
+void nbx_set(t_nbx *x, t_floatarg f)
+{
+    x->f_entertext = 0;
+    x->f_peak_value = f;
+    ebox_invalidate_layer((t_object *)x, NULL, gensym("value_layer"));
+    ebox_redraw((t_ebox *)x);
+}
+
 void nbx_tick(t_nbx *x)
 {    
     nbx_output(x);
-    
 	ebox_invalidate_layer((t_object *)x, NULL, gensym("value_layer"));
 	ebox_redraw((t_ebox *)x);
     
@@ -291,9 +319,19 @@ void draw_value(t_nbx *x, t_object *view, t_rect *rect)
 	if (g && jtl)
 	{
         char number[256];
-        sprintf(number, "%f", x->f_peak_value);
+        if(!x->f_entertext)
+        {
+            etext_layout_settextcolor(jtl, &x->f_color_text);
+            sprintf(number, "%f", x->f_peak_value);
+        }
+        else
+        {
+            etext_layout_settextcolor(jtl, &rgba_red);
+            sprintf(number, "%s", x->f_textvalue);
+        }
+        
         etext_layout_set(jtl, number, &x->j_box.e_font, sys_fontwidth(x->j_box.e_font.c_size) + 8, rect->height / 2., rect->width, 0, ETEXT_LEFT, ETEXT_NOWRAP);
-        etext_layout_settextcolor(jtl, &x->f_color_text);
+        
         etext_layout_draw(jtl, g);
 		ebox_end_layer((t_object*)x, view, gensym("value_layer"));
 	}
@@ -304,6 +342,12 @@ void draw_value(t_nbx *x, t_object *view, t_rect *rect)
 void nbx_mousedown(t_nbx *x, t_object *patcherview, t_pt pt, long modifiers)
 {
     x->f_drag = 0;
+    if(x->f_entertext == 0 && x->f_mode)
+    {
+        sprintf(x->f_textvalue, "");
+        x->f_entertext = 1;
+    }
+    
     float text_width = sys_fontwidth(x->j_box.e_font.c_size);
     if(pt.x <= text_width + 4)
     {
@@ -311,6 +355,10 @@ void nbx_mousedown(t_nbx *x, t_object *patcherview, t_pt pt, long modifiers)
             x->f_mode = 0;
         else
             x->f_mode = 1;
+        
+        nbx_output(x);
+        ebox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
+        ebox_redraw((t_ebox *)x);
     }
     else if(pt.x >= text_width + 6 && x->f_mode == 1)
     {
@@ -342,19 +390,15 @@ void nbx_mousedown(t_nbx *x, t_object *patcherview, t_pt pt, long modifiers)
         }
         x->f_inc = pd_clip_minmax(x->f_inc, -100., -0.00001);
     }
-    else
-        return;
-    
-    nbx_output(x);
-    ebox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
-    ebox_redraw((t_ebox *)x);
 }
 
 void nbx_mousedrag(t_nbx *x, t_object *patcherview, t_pt pt, long modifiers)
 {
+    x->f_entertext = 0;
     if(x->f_drag)
     {
-        if(modifiers == 18) // fine tuning
+        canvas_setcursor(glist_getcanvas((t_glist *)patcherview), 2);
+        if(modifiers == EMOD_SHIFT) // fine tuning
             x->f_peak_value = x->f_refvalue + (pt.y - x->f_deriv) * x->f_inc * 0.01 ;
         else
             x->f_peak_value = x->f_refvalue + (pt.y - x->f_deriv) * x->f_inc * 0.5 ;
@@ -369,19 +413,75 @@ void nbx_mousemove(t_nbx *x, t_object *patcherview, t_pt pt, long modifiers)
     if(pt.x <= sys_fontwidth(x->j_box.e_font.c_size) + 6)
     {
         canvas_setcursor(glist_getcanvas((t_glist *)patcherview), 1);
-        canvas_redraw((t_canvas *)patcherview);
     }
-    else
-    {
-        canvas_setcursor(glist_getcanvas((t_glist *)patcherview), 2);
-        canvas_redraw((t_canvas *)patcherview);
-    }
-    x->j_box.e_glist->gl_valid = 0;
 }
 
-long nbx_key(t_nbx *x, t_object *patcherview, long keycode, long modifiers, long textcharacter)
+void nbx_key(t_nbx *x, t_object *patcherview, char textcharacter, long modifiers)
 {
-    return 0;
-};
+    if(!x->f_entertext)
+        return;
+    if(strlen(x->f_textvalue) >= 256)
+        return;
+    if(textcharacter == '-' && strlen(x->f_textvalue) == 0)
+    {
+        strncat(x->f_textvalue, &textcharacter, 1);
+    }
+    else if(textcharacter == '.')
+    {
+        if(atof(x->f_textvalue) - atoi(x->f_textvalue) == 0 && x->f_textvalue[strlen(x->f_textvalue)-1] != '.')
+        {
+            strncat(x->f_textvalue, &textcharacter, 1);
+        }
+    }
+    else if(isdigit(textcharacter))
+    {
+        strncat(x->f_textvalue, &textcharacter, 1);
+    }
+    
+    ebox_invalidate_layer((t_object *)x, NULL, gensym("value_layer"));
+    ebox_redraw((t_ebox *)x);
+}
+
+void nbx_keyfilter(t_nbx *x, t_object *patcherview, char textcharacter, long modifiers)
+{
+    if(!x->f_entertext)
+        return;
+    if(textcharacter == EKEY_DEL)
+    {
+        int pos = strlen(x->f_textvalue) - 1;
+        if(pos > 0)
+            strlcpy(x->f_textvalue, x->f_textvalue, pos);
+        else
+            sprintf(x->f_textvalue, "");
+        ebox_invalidate_layer((t_object *)x, NULL, gensym("value_layer"));
+        ebox_redraw((t_ebox *)x);            
+    }
+    else if (textcharacter == EKEY_TAB || textcharacter == EKEY_ENTER)
+    {
+        x->f_entertext = 0;
+        x->f_peak_value = atof(x->f_textvalue);
+        nbx_output(x);
+        ebox_invalidate_layer((t_object *)x, NULL, gensym("value_layer"));
+        ebox_redraw((t_ebox *)x);
+    }
+    else if (textcharacter == EKEY_ESC)
+    {
+        x->f_entertext = 0;
+        ebox_invalidate_layer((t_object *)x, NULL, gensym("value_layer"));
+        ebox_redraw((t_ebox *)x);
+    }
+}
+
+void nbx_deserted(t_nbx *x, t_object *patcherview)
+{
+    x->f_entertext = 0;
+    ebox_invalidate_layer((t_object *)x, NULL, gensym("value_layer"));
+    ebox_redraw((t_ebox *)x);
+}
+
+
+
+
+
 
 

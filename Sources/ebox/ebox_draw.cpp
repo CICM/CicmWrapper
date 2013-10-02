@@ -346,7 +346,8 @@ t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, double x,
                          (int)(gobj->e_points[0].y + g->e_rect.y + obj->e_obj.te_ypix),
                          gobj->e_text->s_name,
                          gobj->e_justify->s_name,
-                         gobj->e_font.c_family->s_name, (int)gobj->e_font.c_size, gobj->e_font.c_weight->s_name, gobj->e_color->s_name,
+                         gobj->e_font.c_family->s_name, (int)gobj->e_font.c_size, gobj->e_font.c_weight->s_name,
+                         gobj->e_color->s_name,
                          (int)(gobj->e_points[1].x),
                          gobj->e_tag->s_name);
             }
