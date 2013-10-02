@@ -57,7 +57,8 @@ void egraphics_line(t_elayer *g, float x0, float y0,  float x1, float y1);
 void egraphics_close_path(t_elayer *g);
 void egraphics_rectangle(t_elayer *g, float x, float y, float width, float height);
 void egraphics_rectangle_rounded(t_elayer *g, float x, float y, float width, float height, float roundness);
-
+void egraphics_arc(t_elayer *g, float xc, float yc, float radius, float angle1, float angle2);
+void egraphics_ovalarc(t_elayer *g, float xc, float yc, float radiusx, float radiusy, float angle1, float angle2);
 
 t_etext* etext_layout_create();
 void etext_layout_destroy(t_etext* textlayout);

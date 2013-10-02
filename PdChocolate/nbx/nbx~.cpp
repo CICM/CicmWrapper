@@ -108,7 +108,6 @@ extern "C" void nbx_tilde_setup(void)
     eclass_addmethod(c, (method) nbx_deserted,         "deserted",        A_CANT, 0);
     
 	CLASS_ATTR_DEFAULT			(c, "size", 0, "55 15");
-	CLASS_ATTR_INVISIBLE		(c, "color", 0);
     
     CLASS_ATTR_LONG				(c, "mode", 0, t_nbx, f_mode);
 	CLASS_ATTR_ORDER			(c, "mode", 0, "1");
@@ -118,7 +117,7 @@ extern "C" void nbx_tilde_setup(void)
 	CLASS_ATTR_SAVE				(c, "mode", 1);
     
     CLASS_ATTR_LONG				(c, "interval", 0, t_nbx, f_interval);
-	CLASS_ATTR_ORDER			(c, "interval", 0, "5");
+	CLASS_ATTR_ORDER			(c, "interval", 0, "2");
 	CLASS_ATTR_LABEL			(c, "interval", 0, "Refresh Interval in Milliseconds");
 	CLASS_ATTR_FILTER_MIN		(c, "interval", 20);
 	CLASS_ATTR_DEFAULT			(c, "interval", 0, "50");
@@ -131,12 +130,12 @@ extern "C" void nbx_tilde_setup(void)
 	
 	CLASS_ATTR_RGBA				(c, "bdcolor", 0, t_nbx, f_color_border);
 	CLASS_ATTR_LABEL			(c, "bdcolor", 0, "Box Border Color");
-	CLASS_ATTR_ORDER			(c, "bdcolor", 0, "3");
+	CLASS_ATTR_ORDER			(c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "bdcolor", 0, "0.27 0.21 0. 1");
 	
 	CLASS_ATTR_RGBA				(c, "textcolor", 0, t_nbx, f_color_text);
 	CLASS_ATTR_LABEL			(c, "textcolor", 0, "Text Color");
-	CLASS_ATTR_ORDER			(c, "textcolor", 0, "4");
+	CLASS_ATTR_ORDER			(c, "textcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "textcolor", 0, "1. 1. 1. 1.");
 	
 	
@@ -150,8 +149,8 @@ extern "C" void nbx_tilde_setup(void)
 void *nbx_new(t_symbol *s, int argc, t_atom *argv)
 {
 	t_nbx *x =  NULL;
-	t_dictionary *d;
-	if (!(d = object_dictionaryarg(argc,argv)))
+	t_binbuf* d;
+	if (!(d = binbuf_via_atoms(argc,argv)))
 		return NULL;
     
 	x = (t_nbx *)ebox_alloc(nbx_class);
@@ -167,8 +166,7 @@ void *nbx_new(t_symbol *s, int argc, t_atom *argv)
 	x->f_startclock     = 0;
     x->f_entertext      = 0;
  
-    pd_bind(&x->j_box.e_obj.te_g.g_pd, canvas_makebindsym(x->j_box.e_glist->gl_name));
-	attr_dictionary_process(x, d);	
+	attr_binbuf_process(x, d);
 	ebox_ready((t_ebox *)x);
     
 	return (x);
@@ -265,7 +263,7 @@ t_pd_err nbx_notify(t_nbx *x, t_symbol *s, t_symbol *msg, void *sender, void *da
 {
 	if (msg == gensym("attr_modified"))
 	{
-		if(s == gensym("bgcolor") || s == gensym("bdcolor") || s == gensym("textecolor") || s == gensym("mode"))
+		if(s == gensym("bgcolor") || s == gensym("bdcolor") || s == gensym("textcolor") || s == gensym("mode"))
 		{
 			ebox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
 			ebox_invalidate_layer((t_object *)x, NULL, gensym("value_layer"));

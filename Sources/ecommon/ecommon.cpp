@@ -36,12 +36,12 @@ void outlet_list(void* outlet, t_symbol *s, int argc, t_atom *argv)
     outlet_list((t_outlet *)outlet, s, argc, argv);
 }
 
-void *listout(void *x)
+void* listout(void *x)
 {
     return outlet_new((t_object *)x, &s_list);
 }
 
-void *floatout(void *x)
+void* floatout(void *x)
 {
     return outlet_new((t_object *)x, &s_float);
 }

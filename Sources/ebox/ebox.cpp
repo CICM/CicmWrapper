@@ -379,7 +379,8 @@ void ebox_properties(t_gobj *z, t_glist *glist)
 void ebox_deserted(t_ebox *x)
 {
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-    c->c_widget.w_deserted(x);
+    if(c->c_widget.w_deserted)
+        c->c_widget.w_deserted(x);
     clock_unset(x->e_deserted_clock);
 }
 

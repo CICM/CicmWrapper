@@ -31,8 +31,8 @@
 
 typedef struct _pt
 {
-	double x;
-	double y;
+	float x;
+	float y;
 } t_pt;
 
 typedef struct _rect
@@ -183,7 +183,6 @@ typedef enum
     E_GOBJ_INVALID           = 0,
     E_GOBJ_PATH                 ,
     E_GOBJ_ARC                  ,
-    E_GOBJ_OVAL                 ,
     E_GOBJ_TEXT                 ,
 } egraphics_types;
 

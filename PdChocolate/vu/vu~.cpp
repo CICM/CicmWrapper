@@ -37,14 +37,14 @@ typedef struct  _vu
     
     long		f_over_led_preserved;
 	
-	t_jrgba		f_color_background;
-	t_jrgba		f_color_border;
+	t_rgba		f_color_background;
+	t_rgba		f_color_border;
 
-	t_jrgba		f_color_signal_cold;
-	t_jrgba		f_color_signal_tepid;
-	t_jrgba		f_color_signal_warm;
-	t_jrgba		f_color_signal_hot;
-	t_jrgba		f_color_signal_over;
+	t_rgba		f_color_signal_cold;
+	t_rgba		f_color_signal_tepid;
+	t_rgba		f_color_signal_warm;
+	t_rgba		f_color_signal_hot;
+	t_rgba		f_color_signal_over;
 	
 } t_vu;
 
@@ -60,7 +60,7 @@ void vu_perform(t_vu *x, t_object *d, float **ins, long ni, float **outs, long n
 void vu_tick(t_vu *x);
 void vu_output(t_vu *x);
 
-t_max_err vu_notify(t_vu *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
+t_pd_err vu_notify(t_vu *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
 void vu_getdrawparams(t_vu *x, t_object *patcherview, t_jboxdrawparams *params);
 void vu_oksize(t_vu *x, t_rect *newrect);
@@ -76,8 +76,8 @@ extern "C" void vu_tilde_setup(void)
 	c = class_new("vu~", (method)vu_new, (method)vu_free, (short)sizeof(t_vu), 0L, A_GIMME, 0);
     class_addcreator((t_newmethod)vu_new, gensym("meter~"), A_GIMME, 0);
 
-	class_dspinitjbox(c);
-	jbox_initclass(c, JBOX_COLOR | JBOX_FIXWIDTH);
+	eclass_dspinit(c);
+	eclass_init(c, 0);
 	
 	class_addmethod(c, (method) vu_dsp,             "dsp",              A_CANT, 0);
 	class_addmethod(c, (method) vu_assist,          "assist",           A_CANT, 0);
@@ -87,10 +87,9 @@ extern "C" void vu_tilde_setup(void)
     class_addmethod(c, (method) vu_oksize,          "oksize",           A_CANT, 0);
     
 	CLASS_ATTR_DEFAULT			(c, "size", 0, "13 85");
-	CLASS_ATTR_INVISIBLE		(c, "color", 0);
     
     CLASS_ATTR_LONG				(c, "interval", 0, t_vu, f_interval);
-	CLASS_ATTR_ORDER			(c, "interval", 0, "5");
+	CLASS_ATTR_ORDER			(c, "interval", 0, "1");
 	CLASS_ATTR_LABEL			(c, "interval", 0, "Refresh Interval in Milliseconds");
 	CLASS_ATTR_FILTER_MIN		(c, "interval", 20);
 	CLASS_ATTR_DEFAULT			(c, "interval", 0, "50");
@@ -103,32 +102,32 @@ extern "C" void vu_tilde_setup(void)
 	
 	CLASS_ATTR_RGBA				(c, "bdcolor", 0, t_vu, f_color_border);
 	CLASS_ATTR_LABEL			(c, "bdcolor", 0, "Box Border Color");
-	CLASS_ATTR_ORDER			(c, "bdcolor", 0, "3");
+	CLASS_ATTR_ORDER			(c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "bdcolor", 0, "0.27 0.21 0. 1");
 	
 	CLASS_ATTR_RGBA				(c, "coldcolor", 0, t_vu, f_color_signal_cold);
 	CLASS_ATTR_LABEL			(c, "coldcolor", 0, "Cold Signal Color");
-	CLASS_ATTR_ORDER			(c, "coldcolor", 0, "4");
+	CLASS_ATTR_ORDER			(c, "coldcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "coldcolor", 0, "0. 0.6 0. 0.8");
 	
 	CLASS_ATTR_RGBA				(c, "tepidcolor", 0, t_vu, f_color_signal_tepid);
 	CLASS_ATTR_LABEL			(c, "tepidcolor", 0, "Tepid Signal Color");
-	CLASS_ATTR_ORDER			(c, "tepidcolor", 0, "5");
+	CLASS_ATTR_ORDER			(c, "tepidcolor", 0, "4");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "tepidcolor", 0, "0.6 0.73 0. 0.8");
 	
 	CLASS_ATTR_RGBA				(c, "warmcolor", 0, t_vu, f_color_signal_warm);
 	CLASS_ATTR_LABEL			(c, "warmcolor", 0, "Warm Signal Color");
-	CLASS_ATTR_ORDER			(c, "warmcolor", 0, "6");
+	CLASS_ATTR_ORDER			(c, "warmcolor", 0, "5");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "warmcolor", 0, ".85 .85 0. 0.8");
 	
 	CLASS_ATTR_RGBA				(c, "hotcolor", 0, t_vu, f_color_signal_hot);
 	CLASS_ATTR_LABEL			(c, "hotcolor", 0, "Hot Signal Color");
-	CLASS_ATTR_ORDER			(c, "hotcolor", 0, "7");
+	CLASS_ATTR_ORDER			(c, "hotcolor", 0, "6");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "hotcolor", 0, "1. 0.6 0. 0.8");
 	
 	CLASS_ATTR_RGBA				(c, "overcolor", 0, t_vu, f_color_signal_over);
 	CLASS_ATTR_LABEL			(c, "overcolor", 0, "Overload Signal Color");
-	CLASS_ATTR_ORDER			(c, "overcolor", 0, "8");
+	CLASS_ATTR_ORDER			(c, "overcolor", 0, "7");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "overcolor", 0, "1. 0. 0. 0.8");
 	
     class_register(CLASS_NOBOX, c);
@@ -141,20 +140,11 @@ extern "C" void vu_tilde_setup(void)
 void *vu_new(t_symbol *s, int argc, t_atom *argv)
 {
 	t_vu *x =  NULL;
-	t_dictionary *d;
-	long flags;
-	if (!(d = object_dictionaryarg(argc,argv)))
+	t_binbuf* d;
+	if (!(d = binbuf_via_atoms(argc,argv)))
 		return NULL;
     
 	x = (t_vu *)ebox_alloc(vu_class);
-    
-	flags = 0
-    | JBOX_DRAWFIRSTIN
-    | JBOX_DRAWINLAST
-    | JBOX_TRANSPARENT
-    | JBOX_DRAWBACKGROUND
-    | JBOX_GROWY
-    ;
     
 	ebox_new((t_ebox *)x, 0, argc, argv);
 	x->j_box.b_firstin = (t_object *)x;
@@ -167,7 +157,7 @@ void *vu_new(t_symbol *s, int argc, t_atom *argv)
     x->f_clock          = clock_new(x,(t_method)vu_tick);
 	x->f_startclock     = 0;
     x->f_over_led_preserved = 0;
-	attr_dictionary_process(x, d);	
+    attr_binbuf_process(x, d);
 	ebox_ready((t_ebox *)x);
     
 	return (x);

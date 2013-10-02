@@ -173,3 +173,33 @@ void egraphics_rectangle_rounded(t_elayer *g, float x, float y, float width, flo
     }
 }
 
+void egraphics_arc(t_elayer *g, float xc, float yc, float radius, float angle1, float angle2)
+{
+    egraphics_ovalarc(g, xc, yc, radius, radius, angle1, angle2);
+}
+
+void egraphics_ovalarc(t_elayer *g, float xc, float yc, float radiusx, float radiusy, float angle1, float angle2)
+{
+    if(g->e_state == EGRAPHICS_OPEN)
+    {
+        if(g->e_new_objects.e_points == NULL)
+            g->e_new_objects.e_points = (t_pt *)calloc(3, sizeof(t_pt));
+        else
+            g->e_new_objects.e_points   = (t_pt *)realloc(g->e_new_objects.e_points , 3 * sizeof(t_pt));
+        if(g->e_new_objects.e_points)
+        {
+            g->e_new_objects.e_type         = E_GOBJ_ARC;
+            g->e_new_objects.e_points[0].x  = xc;
+            g->e_new_objects.e_points[0].y  = yc;
+            g->e_new_objects.e_points[1].x  = radiusx;
+            g->e_new_objects.e_points[1].y  = radiusy;
+            g->e_new_objects.e_points[2].x  = angle1;
+            g->e_new_objects.e_points[2].y  = angle2;
+        }
+        else
+        {
+            g->e_new_objects.e_type         = E_GOBJ_INVALID;
+        }
+    }
+}
+
