@@ -132,9 +132,10 @@ extern "C" void vu_tilde_setup(void)
 	
     class_register(CLASS_NOBOX, c);
 	vu_class = c;
-    
+    /*
     post("PdChocolate by Pierre Guillot - CICM | Université Paris 8");
     post("PdChocolate has been elaborated with the PdEnhanced Library");
+     */
 }
 
 void *vu_new(t_symbol *s, int argc, t_atom *argv)

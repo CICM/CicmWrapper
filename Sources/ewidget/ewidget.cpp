@@ -70,13 +70,13 @@ void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
     
     if(vis && x->e_ready_to_draw)
     {
-        ebox_invalidate_all(x, glist);
-        ebox_update(x, glist);
-        if (c->c_box == 0)
+        ebox_invalidate_all(x, x->e_canvas);
+        ebox_update(x, x->e_canvas);
+        if(c->c_box == 0)
         {
-            ebox_draw_background(x, glist);
-            c->c_widget.w_paint(x, (t_object *)glist);
-            ebox_draw_border(x, glist);
+            ebox_draw_background(x, x->e_canvas);
+            c->c_widget.w_paint(x, (t_object *)x->e_canvas);
+            ebox_draw_border(x, x->e_canvas);
         }
     }
     else if(!vis)
@@ -108,7 +108,7 @@ void ewidget_delete(t_gobj *z, t_glist *glist)
 {
     t_ebox *x = (t_ebox *)z;
     
-    ebox_erase(x, glist);
+    ebox_erase(x, x->e_canvas);
     canvas_deletelinesfor(glist, (t_text *)z);
 }
 
@@ -122,11 +122,6 @@ int ewidget_mousemove(t_gobj *z, struct _glist *glist, int posx, int posy, int s
     clock_delay(x->e_deserted_clock, x->e_deserted_time);
     if(epopupmenu_mousemove(x->e_popup, x->e_mouse, mousedown))
         return 1;
-
-    char temp[256];
-    sprintf(temp,".x%lx.c", (long unsigned int)glist_getcanvas(glist));
-    sys_vgui("canvas %s.handle%lx -width %d -height %d -bg #ddd -bd 0 \
-             -highlightthickness 3 -highlightcolor {#f00} -cursor bottom_right_corner\n",temp, x, 10, 10);
     
     x->e_modifiers = EMOD_NONE;
     if(shift && !alt && !ctrl)
@@ -217,7 +212,7 @@ void ewidget_paint(t_ebox *x, t_glist *glist, int mode)
 {
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
 
-    if (c->c_box == 0)
+    if (c->c_box == 0 && glist_isvisible(glist))
     {
         if(x->e_no_redraw_box == 0)
             ebox_invalidate_layer((t_object *)x, (t_object *)glist, gensym("eboxbd"));

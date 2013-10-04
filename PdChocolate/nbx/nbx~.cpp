@@ -138,12 +138,8 @@ extern "C" void nbx_tilde_setup(void)
 	CLASS_ATTR_ORDER			(c, "textcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "textcolor", 0, "1. 1. 1. 1.");
 	
-	
     eclass_register(CLASS_NOBOX, c);
 	nbx_class = c;
-    
-    post("PdChocolate by Pierre Guillot - CICM | Université Paris 8");
-    post("PdChocolate has been elaborated with the PdEnhanced Library");
 }
 
 void *nbx_new(t_symbol *s, int argc, t_atom *argv)
@@ -297,7 +293,7 @@ void draw_background(t_nbx *x, t_object *view, t_rect *rect)
         etext_layout_draw(jtl, g);
         
         egraphics_set_line_width(g, 2);
-        egraphics_set_source_jrgba(g, &x->f_color_border);
+        egraphics_set_color_rgba(g, &x->f_color_border);
         egraphics_move_to(g, 0, 0);
         egraphics_line_to(g, sys_fontwidth(x->j_box.e_font.c_size) + 4, rect->height / 2.);
         egraphics_line_to(g, 0, rect->height);

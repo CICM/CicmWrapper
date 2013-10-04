@@ -52,9 +52,9 @@ void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
     
     sprintf(buffer,"#%s", x->e_name_tcl->s_name);
     x->e_name_rcv = gensym(buffer);
-    
-    pd_bind(&x->e_obj.ob_pd, x->e_name_rcv);
-    ebox_tk_ids(x, canvas_getcurrent());
+    x->e_canvas = canvas_getcurrent();
+    //pd_bind(&x->e_obj.ob_pd, x->e_name_rcv);
+    //ebox_tk_ids(x, canvas_getcurrent());
     
     x->e_ready_to_draw = 0;
     x->z_misc          = 1;
@@ -97,35 +97,13 @@ void ebox_free(t_ebox* x)
 {
     gfxstub_deleteforkey(x);
     clock_free(x->e_deserted_clock);
-    pd_unbind(&x->e_obj.ob_pd, x->e_name_rcv);
-}
-
-void ebox_tk_ids(t_ebox *x, t_canvas *canvas)
-{
-    char buffer[MAXPDSTRING];
-    x->e_canvas = canvas;
-    
-    sprintf(buffer,".x%lx.c", (long unsigned int) canvas);
-    x->e_canvas_id = gensym(buffer);
-    
-    sprintf(buffer,"%s.frame%lx", x->e_canvas_id->s_name, (long unsigned int)x);
-    x->e_frame_id = gensym(buffer);
-    
-    sprintf(buffer,"%s.window%lx", x->e_canvas_id->s_name, (long unsigned int)x);
-    x->e_window_id = gensym(buffer);
-    
-    sprintf(buffer,"%s.handle%lx", x->e_canvas_id->s_name, (long unsigned int)x);
-    x->e_handle_id = gensym(buffer);
-    
-    sprintf(buffer,"all%lx", (long unsigned int)x);
-    x->e_all_id = gensym(buffer);
+    //pd_unbind(&x->e_obj.ob_pd, x->e_name_rcv);
 }
 
 void ebox_dspsetup(t_ebox *x, long nins, long nout)
 {
     nins = pd_clip_min(nins, 1);
     nout = pd_clip_min(nout, 0);
-    x->e_canvas = (t_glist *)canvas_getcurrent();
     x->e_perform_method = (method)ewidget_perform_default;
     // SHOULD BE ENOUGH...
     x->z_sigs_out = new t_float*[256];

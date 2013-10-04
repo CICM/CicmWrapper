@@ -159,7 +159,7 @@ void ebox_invalidate_all(t_ebox *x, t_glist *glist)
 void ebox_update(t_ebox *x, t_glist *glist)
 {
     t_elayer* g;
-    t_canvas *canvas = glist_getcanvas(glist);
+    t_canvas *canvas = glist;
     
     for(long i = 0; i < x->e_number_of_layers; i++)
     {
@@ -177,7 +177,7 @@ void ebox_update(t_ebox *x, t_glist *glist)
 void ebox_erase(t_ebox* x, t_glist* glist)
 {
     t_elayer* g;
-    t_canvas *canvas = glist_getcanvas(glist);
+    t_canvas *canvas = glist;
     
     for(long i = 0; i < x->e_number_of_layers; i++)
     {
@@ -296,7 +296,7 @@ t_pd_err ebox_invalidate_layer(t_object *b, t_object *view, t_symbol *name)
 t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, double x, double y)
 {
     t_ebox* obj = (t_ebox *)b;
-    t_canvas* canvas = glist_getcanvas((t_glist *)view);
+    t_canvas* canvas = obj->e_canvas;
     t_elayer* g = NULL;
     for(int i = 0; i < obj->e_number_of_layers; i++)
     {
@@ -317,9 +317,9 @@ t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, double x,
             if(gobj->e_type == E_GOBJ_PATH || gobj->e_type == E_GOBJ_ARC)
             {
                 if(gobj->e_filled)
-                    sprintf(script, ".x%lx.c create polygon ", (unsigned long)canvas);
+                    sprintf(script, ".x%lx.c create polygon ", (int unsigned long)canvas);
                 else
-                    sprintf(script, ".x%lx.c create line ", (unsigned long)canvas);
+                    sprintf(script, ".x%lx.c create line ", (int unsigned long)canvas);
                 
                 for(int j = 0; j < gobj->e_npoints; j ++)
                 {
@@ -339,11 +339,12 @@ t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, double x,
                 strncat(script, temp, 128);
                 sys_gui(script);
                 g->e_state = EGRAPHICS_CLOSE;
+                //post(script);
             }
             else if(gobj->e_type == E_GOBJ_TEXT)
             {
     
-                sys_vgui(".x%lx.c create text %d %d -text {%s} -anchor %s -font {%s %d %s} -fill %s -width %d -tags %s\n", (unsigned long)canvas,
+                sys_vgui(".x%lx.c create text %d %d -text {%s} -anchor %s -font {%s %d %s} -fill %s -width %d -tags %s\n", (int unsigned long)canvas,
                          (int)(gobj->e_points[0].x + g->e_rect.x + obj->e_obj.te_xpix),
                          (int)(gobj->e_points[0].y + g->e_rect.y + obj->e_obj.te_ypix),
                          gobj->e_text->s_name,

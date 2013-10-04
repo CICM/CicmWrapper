@@ -1,0 +1,7 @@
+#N canvas 256 94 559 414 10;
+#X obj -15 -74 cnv 40 552 40 empty empty vu~ 3 12 0 18 -228856 -33289
+0;
+#X text -12 -52 A peak programme meter for signal;
+#X text -14 -31 vu~ (meter~) is the pd chocolate's version of the vanilla
+vu.;
+#X obj 127 113 test;

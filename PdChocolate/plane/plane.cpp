@@ -125,9 +125,6 @@ extern "C" void plane_setup(void)
 	
     eclass_register(CLASS_NOBOX, c);
 	plane_class = c;
-    
-    post("PdChocolate by Pierre Guillot - CICM | Université Paris 8");
-    post("PdChocolate has been elaborated with the PdEnhanced Library");
 }
 
 void *plane_new(t_symbol *s, int argc, t_atom *argv)

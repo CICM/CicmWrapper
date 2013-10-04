@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		59FB02F817A7FAA9001E977D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FB02F717A7FAA9001E977D /* Accelerate.framework */; };
+		8F0F7CD317FEC88F0083124C /* ebox_window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F0F7CD217FEC88F0083124C /* ebox_window.cpp */; };
 		8F16B4CF17FDD05200E618D4 /* egraphics_clip_text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F16B4CE17FDD05200E618D4 /* egraphics_clip_text.cpp */; };
 		8F16B4D117FDD0FB00E618D4 /* egraphics_clip_path.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F16B4D017FDD0FB00E618D4 /* egraphics_clip_path.cpp */; };
 		8F81850017F8470E00C58964 /* eattr.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8184DC17F8470E00C58964 /* eattr.h */; };
@@ -43,6 +44,7 @@
 /* Begin PBXFileReference section */
 		5913846F15DAA36D0029AD16 /* plane.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = plane.pd_darwin; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FB02F717A7FAA9001E977D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		8F0F7CD217FEC88F0083124C /* ebox_window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ebox_window.cpp; sourceTree = "<group>"; };
 		8F16B4CE17FDD05200E618D4 /* egraphics_clip_text.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = egraphics_clip_text.cpp; sourceTree = "<group>"; };
 		8F16B4D017FDD0FB00E618D4 /* egraphics_clip_path.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = egraphics_clip_path.cpp; sourceTree = "<group>"; };
 		8F8184DC17F8470E00C58964 /* eattr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eattr.h; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				8F8184E217F8470E00C58964 /* ebox.cpp */,
 				8F8184E317F8470E00C58964 /* ebox.h */,
 				8F8184E417F8470E00C58964 /* ebox_draw.cpp */,
+				8F0F7CD217FEC88F0083124C /* ebox_window.cpp */,
 			);
 			path = ebox;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FE1B1ED17F6353500A3E466 /* plane.cpp in Sources */,
+				8F0F7CD317FEC88F0083124C /* ebox_window.cpp in Sources */,
 				8F81850117F8470E00C58964 /* eattr_attr.cpp in Sources */,
 				8F81850217F8470E00C58964 /* eattr_getter.cpp in Sources */,
 				8F81850317F8470E00C58964 /* eattr_new.cpp in Sources */,
