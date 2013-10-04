@@ -32,7 +32,7 @@ void ebox_draw_background(t_ebox* x, t_glist* glist)
     
     if(g)
     {
-        egraphics_set_source_jrgba(g, &x->e_boxparameters.d_boxfillcolor);
+        egraphics_set_color_rgba(g, &x->e_boxparameters.d_boxfillcolor);
         egraphics_rectangle_rounded(g, 0, 0, x->e_rect.width, x->e_rect.height, x->e_boxparameters.d_cornersize);
         egraphics_fill(g);
         
@@ -51,11 +51,11 @@ void ebox_draw_border(t_ebox* x, t_glist* glist)
     {
         if(x->e_selected)
         {
-            egraphics_set_source_jrgba(g, &rgba_blue);
+            egraphics_set_color_rgba(g, &rgba_blue);
         }
         else
         {
-            egraphics_set_source_jrgba(g, &x->e_boxparameters.d_bordercolor);
+            egraphics_set_color_rgba(g, &x->e_boxparameters.d_bordercolor);
         }
         egraphics_set_line_width(g, x->e_boxparameters.d_borderthickness);
         egraphics_rectangle_rounded(g, bdsize, bdsize, x->e_rect.width, x->e_rect.height, x->e_boxparameters.d_cornersize);
@@ -71,14 +71,14 @@ void ebox_draw_border(t_ebox* x, t_glist* glist)
             egraphics_rectangle(g, pos_x_inlet, -bdsize, 7, 3);
             if (obj_issignalinlet((t_object *)x, i))
             {
-                egraphics_set_source_jrgba(g, &rgba_grey);
+                egraphics_set_color_rgba(g, &rgba_grey);
                 egraphics_fill(g);
             }
             else
             {
-                egraphics_set_source_jrgba(g, &rgba_white);
+                egraphics_set_color_rgba(g, &rgba_white);
                 egraphics_fill(g);
-                egraphics_set_source_jrgba(g, &rgba_grey);
+                egraphics_set_color_rgba(g, &rgba_grey);
                 egraphics_stroke(g);
             }
         }
@@ -92,15 +92,15 @@ void ebox_draw_border(t_ebox* x, t_glist* glist)
             if (obj_issignaloutlet((t_object *)x, i))
             {
                 egraphics_rectangle(g, pos_x_outlet, x->e_rect.height - 2 + bdsize, 7, 3);
-                egraphics_set_source_jrgba(g, &rgba_grey);
+                egraphics_set_color_rgba(g, &rgba_grey);
                 egraphics_fill(g);
             }
             else
             {
                 egraphics_rectangle(g, pos_x_outlet, x->e_rect.height - 2 + bdsize, 7, 2);
-                egraphics_set_source_jrgba(g, &rgba_white);
+                egraphics_set_color_rgba(g, &rgba_white);
                 egraphics_fill(g);
-                egraphics_set_source_jrgba(g, &rgba_grey);
+                egraphics_set_color_rgba(g, &rgba_grey);
                 egraphics_stroke(g);
             }
         }
@@ -203,9 +203,7 @@ t_elayer* ebox_start_layer(t_object *b, t_object *view, t_symbol *name, double w
             {
                 graphic->e_owner        = b;
                 
-                graphic->e_matrix       = NULL;
-                graphic->e_rotation     = 0.;
-
+                egraphics_matrix_init(&graphic->e_matrix, 1., 0., 0., 1., 0., 0.);
                 graphic->e_width        = 1.f;
                 graphic->e_color        = gensym("#000000");
                 graphic->e_rect.x       = 0.f;
@@ -240,9 +238,8 @@ t_elayer* ebox_start_layer(t_object *b, t_object *view, t_symbol *name, double w
         x->e_number_of_layers++;
         
         graphic->e_owner        = b;
-        graphic->e_matrix       = NULL;
-        graphic->e_rotation     = 0.;
-        
+
+        egraphics_matrix_init(&graphic->e_matrix, 1., 0., 0., 1., 0., 0.);
         graphic->e_width    = 1.f;
         graphic->e_color        = gensym("#000000");
         graphic->e_rect.x       = 0.f;
@@ -317,7 +314,7 @@ t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, double x,
             char temp[128];
             char script[1024];
             t_egobj* gobj = g->e_objects+i;
-            if(gobj->e_type == E_GOBJ_PATH)
+            if(gobj->e_type == E_GOBJ_PATH || gobj->e_type == E_GOBJ_ARC)
             {
                 if(gobj->e_filled)
                     sprintf(script, ".x%lx.c create polygon ", (unsigned long)canvas);
@@ -327,6 +324,11 @@ t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, double x,
                 for(int j = 0; j < gobj->e_npoints; j ++)
                 {
                     sprintf(temp, "%d %d ", (int)(gobj->e_points[j].x + g->e_rect.x + obj->e_obj.te_xpix), (int)(gobj->e_points[j].y + g->e_rect.y + obj->e_obj.te_ypix));
+                    strncat(script, temp, 128);
+                }
+                if(gobj->e_type == E_GOBJ_ARC)
+                {
+                    sprintf(temp, "-smooth 1 -splinesteps 100 ");
                     strncat(script, temp, 128);
                 }
                 if(gobj->e_filled)

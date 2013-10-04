@@ -29,6 +29,12 @@
 
 #include "../estruct.h"
 
+const int CLIP_INSIDE    = 0;   // 0000
+const int CLIP_LEFT      = 1;   // 0001
+const int CLIP_RIGHT     = 2;   // 0010
+const int CLIP_BOTTOM    = 4;   // 0100
+const int CLIP_TOP       = 8;   // 1000
+
 // PAINT METHOD //
 void egraphics_fill(t_elayer *g);
 void egraphics_fill_preserve(t_elayer *g);
@@ -39,16 +45,22 @@ void etext_layout_draw(t_etext* textlayout, t_elayer *g);
 // GRAPHICS MADIFICATIONS //
 void egraphics_set_line_splinestep(t_elayer *g, float smooth);
 void egraphics_set_line_width(t_elayer *g, float width);
-void egraphics_set_source_jrgba(t_elayer *g, t_rgba *rgba);
-void egraphics_rotate_set(t_elayer *g, float angle);
-void egraphics_rotate_add(t_elayer *g, float angle);
+void egraphics_set_color_rgba(t_elayer *g, t_rgba *rgba);
+void egraphics_rotate(t_elayer *g, float angle);
 void egraphics_matrix_init(t_matrix *x, float xx, float yx, float xy, float yy, float x0, float y0);
 void egraphics_set_matrix(t_elayer *g, const t_matrix *matrix);
 
-// GRAPHICS MADIFICATIONS PRIVATE //
-void egraphics_apply_rotation(t_elayer *g, t_egobj* gobj); // PRIVATE //
-void egraphics_apply_matrix(t_elayer *g, t_egobj* gobj);   // PRIVATE //
-void egraphics_clip_object(t_elayer *g, t_egobj* gobj);           // PRIVATE //
+// GRAPHICS MODIFICATIONS PRIVATE //
+void egraphics_apply_matrix(t_elayer *g, t_egobj* gobj);
+void egraphics_clip_object(t_elayer *g, t_egobj* gobj);
+void egraphics_clip_text(t_elayer *g, t_egobj* gobj);
+t_symbol* egraphics_clip_text_perform(t_rect rect, t_pt* pt, float size, t_symbol* text, t_symbol* justify);
+void egraphics_clip_path(t_elayer *g, t_egobj* gobj);
+long egraphics_clip_path_perform(t_rect rect, long n, t_pt* in, t_pt* out);
+int egraphics_point_in_rect(t_pt pt, t_rect rect);
+t_pt egraphics_clip_point(t_pt pt, t_rect rect);
+void egraphics_clip_oval(t_elayer *g, t_egobj* gobj);
+// END PRIVATE //
 
 // FORM //
 void egraphics_line_to(t_elayer *g, float x, float y);
@@ -57,8 +69,10 @@ void egraphics_line(t_elayer *g, float x0, float y0,  float x1, float y1);
 void egraphics_close_path(t_elayer *g);
 void egraphics_rectangle(t_elayer *g, float x, float y, float width, float height);
 void egraphics_rectangle_rounded(t_elayer *g, float x, float y, float width, float height, float roundness);
+void egraphics_circle(t_elayer *g, float xc, float yc, float radius);
+void egraphics_oval(t_elayer *g, float xc, float yc, float radiusx, float radiusy);
 void egraphics_arc(t_elayer *g, float xc, float yc, float radius, float angle1, float angle2);
-void egraphics_ovalarc(t_elayer *g, float xc, float yc, float radiusx, float radiusy, float angle1, float angle2);
+void egraphics_arc_oval(t_elayer *g, float xc, float yc, float radiusx, float radiusy, float angle1, float angle2);
 
 t_etext* etext_layout_create();
 void etext_layout_destroy(t_etext* textlayout);

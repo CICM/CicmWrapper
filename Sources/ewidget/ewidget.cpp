@@ -122,6 +122,11 @@ int ewidget_mousemove(t_gobj *z, struct _glist *glist, int posx, int posy, int s
     clock_delay(x->e_deserted_clock, x->e_deserted_time);
     if(epopupmenu_mousemove(x->e_popup, x->e_mouse, mousedown))
         return 1;
+
+    char temp[256];
+    sprintf(temp,".x%lx.c", (long unsigned int)glist_getcanvas(glist));
+    sys_vgui("canvas %s.handle%lx -width %d -height %d -bg #ddd -bd 0 \
+             -highlightthickness 3 -highlightcolor {#f00} -cursor bottom_right_corner\n",temp, x, 10, 10);
     
     x->e_modifiers = EMOD_NONE;
     if(shift && !alt && !ctrl)
@@ -191,7 +196,7 @@ void ewidget_mousedrag(t_ebox *x, t_floatarg dx, t_floatarg dy)
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
     x->e_mouse.x += dx;
     x->e_mouse.y += dy;
-    c->c_widget.w_mousedrag(x, x->e_glist, x->e_mouse, x->e_modifiers);
+    c->c_widget.w_mousedrag(x, x->e_canvas, x->e_mouse, x->e_modifiers);
     clock_delay(x->e_deserted_clock, x->e_deserted_time);
 }
 
@@ -201,9 +206,9 @@ void ewidget_key(t_ebox *x, t_floatarg fkey)
     {
         t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
         if(fkey == EKEY_DEL || fkey == EKEY_ESC || fkey == EKEY_TAB || fkey == EKEY_ENTER)
-            c->c_widget.w_keyfilter(x, x->e_glist, (char)fkey, x->e_modifiers);
+            c->c_widget.w_keyfilter(x, x->e_canvas, (char)fkey, x->e_modifiers);
         else
-            c->c_widget.w_key(x, x->e_glist, (char)fkey, x->e_modifiers);
+            c->c_widget.w_key(x, x->e_canvas, (char)fkey, x->e_modifiers);
     }
     clock_delay(x->e_deserted_clock, x->e_deserted_time);
 }

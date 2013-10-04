@@ -33,9 +33,12 @@
 
 void *ebox_alloc(t_eclass *c);
 void ebox_new(t_ebox *b, long flags, long argc, t_atom *argv);
+void ebox_free(t_ebox* x);
+void ebox_tk_ids(t_ebox *x, t_canvas *canvas);
+
 void ebox_dspsetup(t_ebox *x, long nins, long nout);
 void ebox_ready(t_ebox *x);
-void ebox_free(t_ebox* x);
+
 void ebox_dspfree(t_ebox *x);
 void ebox_redraw(t_ebox *x);
 void ebox_resize_inputs(t_ebox *x, long nins);

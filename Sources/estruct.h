@@ -214,7 +214,6 @@ typedef struct _egobj
 	t_pt*           e_points;
     long            e_npoints;
     float           e_roundness;
-    float           e_angles[2];
     t_efont         e_font;
     t_symbol*       e_justify;
     t_symbol*       e_text;
@@ -231,9 +230,7 @@ typedef struct _elayer
     t_symbol*           e_color;
     int                 e_width;
     
-    t_matrix*           e_matrix;
-    double              e_rotation;
-    
+    t_matrix            e_matrix;
     t_egobj             e_new_objects;
     t_egobj*            e_objects;
     long                e_number_objects;
@@ -271,7 +268,18 @@ typedef struct _epopupmenu
 typedef struct _ebox
 {
     t_object            e_obj;
-    t_glist*            e_glist;
+    t_canvas*           e_canvas;
+    
+    char*               e_classname;
+    t_symbol*           e_name_tcl;
+    t_symbol*           e_name_rcv;
+    
+    t_symbol*           e_canvas_id;
+    t_symbol*           e_frame_id;
+    t_symbol*           e_handle_id;
+    t_symbol*           e_window_id;
+    t_symbol*           e_all_id;
+    
     t_rect              e_rect;
     bool                e_selected;
     t_pt                e_mouse;
@@ -280,7 +288,7 @@ typedef struct _ebox
     
     bool                e_ready_to_draw;
     t_symbol*           e_box_text;
-    char*               e_classname;
+    
     t_edrawparams       e_boxparameters;
     float               e_lastclick;
     float               e_dblclick_time;

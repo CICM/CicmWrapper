@@ -173,33 +173,63 @@ void egraphics_rectangle_rounded(t_elayer *g, float x, float y, float width, flo
     }
 }
 
-void egraphics_arc(t_elayer *g, float xc, float yc, float radius, float angle1, float angle2)
+void egraphics_circle(t_elayer *g, float xc, float yc, float radius)
 {
-    egraphics_ovalarc(g, xc, yc, radius, radius, angle1, angle2);
+    egraphics_oval(g, xc, yc, radius, radius);
 }
 
-void egraphics_ovalarc(t_elayer *g, float xc, float yc, float radiusx, float radiusy, float angle1, float angle2)
+void egraphics_oval(t_elayer *g, float xc, float yc, float radiusx, float radiusy)
 {
     if(g->e_state == EGRAPHICS_OPEN)
     {
         if(g->e_new_objects.e_points == NULL)
-            g->e_new_objects.e_points = (t_pt *)calloc(3, sizeof(t_pt));
+            g->e_new_objects.e_points   = (t_pt *)calloc(9, sizeof(t_pt));
         else
-            g->e_new_objects.e_points   = (t_pt *)realloc(g->e_new_objects.e_points , 3 * sizeof(t_pt));
+            g->e_new_objects.e_points   = (t_pt *)realloc(g->e_new_objects.e_points , 9 * sizeof(t_pt));
         if(g->e_new_objects.e_points)
         {
             g->e_new_objects.e_type         = E_GOBJ_ARC;
-            g->e_new_objects.e_points[0].x  = xc;
-            g->e_new_objects.e_points[0].y  = yc;
-            g->e_new_objects.e_points[1].x  = radiusx;
-            g->e_new_objects.e_points[1].y  = radiusy;
-            g->e_new_objects.e_points[2].x  = angle1;
-            g->e_new_objects.e_points[2].y  = angle2;
+            float angle = 0;
+            for(int i = 0; i < 9; i++)
+            {
+                g->e_new_objects.e_points[i].x  = xc + radiusx * cos(angle);
+                g->e_new_objects.e_points[i].y  = yc + radiusy * sin(angle);
+                angle += EPD_PI4;
+            }
+            g->e_new_objects.e_npoints      = 9;
         }
         else
         {
             g->e_new_objects.e_type         = E_GOBJ_INVALID;
         }
+    }
+}
+
+void egraphics_arc(t_elayer *g, float xc, float yc, float radius, float angle1, float angle2)
+{
+    egraphics_arc_oval(g, xc, yc, radius, radius, angle1, angle2);
+}
+
+void egraphics_arc_oval(t_elayer *g, float xc, float yc, float radiusx, float radiusy, float angle1, float angle2)
+{
+    while (angle1 >= EPD_2PI)
+        angle1 -= EPD_2PI;
+    while (angle1 < 0)
+        angle1 += EPD_2PI;
+    
+    while (angle2 >= EPD_2PI)
+        angle2 -= EPD_2PI;
+    while (angle2 < 0)
+        angle2 += EPD_2PI;
+    
+    if(angle1 == angle2)
+    {
+        egraphics_oval(g, xc, yc, radiusx, radiusy);
+        return;
+    }
+    if(g->e_state == EGRAPHICS_OPEN)
+    {
+        
     }
 }
 

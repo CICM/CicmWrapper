@@ -79,15 +79,15 @@ void epopupmenu_popup(t_epopupmenu *menu, t_pt screen, int defitemid)
     menu->c_rect.width = (menu->c_font.c_size / 1.5) * max_width + 7.;
     menu->c_rect.height = menu->c_font.c_size * 1.5 * (menu->c_items.size() + 1);
     
-    t_elayer* g = ebox_start_layer((t_object *)x, (t_object *)x->e_glist, gensym("epopupmenu"), menu->c_rect.width, menu->c_rect.height);
+    t_elayer* g = ebox_start_layer((t_object *)x, (t_object *)x->e_canvas, gensym("epopupmenu"), menu->c_rect.width, menu->c_rect.height);
     if(g)
     {
         t_etext *jtl = etext_layout_create();
         egraphics_set_line_width(g, 1.);
-        egraphics_set_source_jrgba(g, &rgba_greylight);
+        egraphics_set_color_rgba(g, &rgba_greylight);
         egraphics_rectangle(g, 0., 0., menu->c_rect.width, menu->c_rect.height);
         egraphics_fill_preserve(g);
-        egraphics_set_source_jrgba(g, &rgba_black);
+        egraphics_set_color_rgba(g, &rgba_black);
         egraphics_stroke(g);
         
         for(int i = 0; i < menu->c_items.size(); i++)
@@ -110,7 +110,7 @@ void epopupmenu_popup(t_epopupmenu *menu, t_pt screen, int defitemid)
                 etext_layout_draw(jtl, g);
             }
         }
-        ebox_end_layer((t_object *)menu->c_obj, (t_object *)x->e_glist, gensym("epopupmenu"));
+        ebox_end_layer((t_object *)menu->c_obj, (t_object *)x->e_canvas, gensym("epopupmenu"));
     }
     if(menu->c_rect.x + menu->c_rect.width >= x->e_rect.width)
     {
@@ -121,7 +121,7 @@ void epopupmenu_popup(t_epopupmenu *menu, t_pt screen, int defitemid)
         menu->c_rect.y -= menu->c_rect.height;
     }
         
-    ebox_paint_layer((t_object *)x, (t_object *)x->e_glist, gensym("epopupmenu"), menu->c_rect.x , menu->c_rect.y);
+    ebox_paint_layer((t_object *)x, (t_object *)x->e_canvas, gensym("epopupmenu"), menu->c_rect.x , menu->c_rect.y);
 }
 
 void epopupmenu_destroy(t_epopupmenu *menu)
@@ -138,8 +138,8 @@ int epopupmenu_mousemove(t_epopupmenu *menu, t_pt pt, int mousedown)
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
     if(menu)
     {
-        ebox_invalidate_layer((t_object *)x, (t_object *)x->e_glist, gensym("epopuplight"));
-        ebox_update(x, x->e_glist);
+        ebox_invalidate_layer((t_object *)x, (t_object *)x->e_canvas, gensym("epopuplight"));
+        ebox_update(x, x->e_canvas);
         double ratio = (menu->c_rect.height  - 7. ) / (double)menu->c_items.size();
         for(int i = 0; i < menu->c_items.size(); i++)
         {
@@ -149,12 +149,12 @@ int epopupmenu_mousemove(t_epopupmenu *menu, t_pt pt, int mousedown)
             {
                 if(!menu->c_items[i].c_disable && !menu->c_items[i].c_separator)
                 {
-                    t_elayer* g = ebox_start_layer((t_object *)x, (t_object *)x->e_glist, gensym("epopuplight"), menu->c_rect.width, menu->c_rect.height);
+                    t_elayer* g = ebox_start_layer((t_object *)x, (t_object *)x->e_canvas, gensym("epopuplight"), menu->c_rect.width, menu->c_rect.height);
                     t_etext *jtl = etext_layout_create();
                     if(g)
                     {
                         egraphics_set_line_width(g, 1.);
-                        egraphics_set_source_jrgba(g, &rgba_bluelight);
+                        egraphics_set_color_rgba(g, &rgba_bluelight);
                         egraphics_rectangle(g, 1., y1, menu->c_rect.width-1, ratio);
                         egraphics_fill(g);
                         
@@ -162,14 +162,14 @@ int epopupmenu_mousemove(t_epopupmenu *menu, t_pt pt, int mousedown)
                         etext_layout_set(jtl, menu->c_items[i].c_text->s_name, &menu->c_font, 7., y2 - 7., 0., 0., ETEXT_LEFT, ETEXT_NOWRAP);
                         etext_layout_draw(jtl, g);
                         
-                        ebox_end_layer((t_object *)menu->c_obj, (t_object *)x->e_glist, gensym("epopuplight"));
+                        ebox_end_layer((t_object *)menu->c_obj, (t_object *)x->e_canvas, gensym("epopuplight"));
                     }
-                    ebox_paint_layer((t_object *)x, (t_object *)x->e_glist, gensym("epopuplight"), menu->c_rect.x , menu->c_rect.y);
+                    ebox_paint_layer((t_object *)x, (t_object *)x->e_canvas, gensym("epopuplight"), menu->c_rect.x , menu->c_rect.y);
                 }
                 if(mousedown)
                 {
-                    ebox_invalidate_layer((t_object *)x, (t_object *)x->e_glist, gensym("epopuplight"));
-                    ebox_invalidate_layer((t_object *)x, (t_object *)x->e_glist, gensym("epopupmenu"));
+                    ebox_invalidate_layer((t_object *)x, (t_object *)x->e_canvas, gensym("epopuplight"));
+                    ebox_invalidate_layer((t_object *)x, (t_object *)x->e_canvas, gensym("epopupmenu"));
                     c->c_widget.w_popup(x, menu->c_name, menu->c_items[i].c_id, pt);
                     menu->c_items.clear();
                     x->e_popup = NULL;
@@ -180,7 +180,7 @@ int epopupmenu_mousemove(t_epopupmenu *menu, t_pt pt, int mousedown)
         }
         if(mousedown)
         {   
-            ebox_invalidate_layer((t_object *)x, (t_object *)x->e_glist, gensym("epopupmenu"));
+            ebox_invalidate_layer((t_object *)x, (t_object *)x->e_canvas, gensym("epopupmenu"));
             menu->c_items.clear();
             x->e_popup = NULL;
             free(menu);

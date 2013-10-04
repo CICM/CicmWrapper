@@ -3,7 +3,7 @@
 #X obj 22 66 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
 -262144 -1 -1 0 256;
 #X obj 22 285 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 -3.27189 256;
+-262144 -1 -1 -43.7393 256;
 #X obj 22 136 *~ 1.05;
 #X msg 88 17 \; pd dsp 1;
 #X text 73 131 Just to ensure that the;
@@ -24,12 +24,11 @@
 [ 1 ] @interval [ 50 ] @bgcolor [ 0.35 0.23 0.13 1 ] @bdcolor [ 0.27
 0.21 0 1 ] @textcolor [ 1 1 1 1 ];
 #X obj 260 175 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 -20 256;
+-262144 -1 -1 -1.04104 256;
 #X text -12 -52 A peak programme meter for signal;
 #X text -14 -31 vu~ (meter~) is the pd chocolate's version of the vanilla
 vu.;
 #X text 316 176 dB;
-#X text 322 85 amp;
 #X text 280 235 Futher information about chocolate;
 #X obj 283 258 pdchocolate;
 #X text -3 308 Pd Chocolate by Pierre Guillot | CICM - Université Paris
@@ -42,5 +41,5 @@ vu.;
 #X connect 9 0 2 0;
 #X connect 10 0 13 0;
 #X connect 12 0 10 0;
-#X connect 21 0 22 0;
-#X connect 22 0 12 0;
+#X connect 20 0 21 0;
+#X connect 21 0 12 0;

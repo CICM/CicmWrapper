@@ -38,21 +38,27 @@ void egraphics_matrix_init(t_matrix *x, float xx, float yx, float xy, float yy, 
 
 void egraphics_set_matrix(t_elayer *g, const t_matrix* matrix)
 {
-    g->e_matrix = (t_matrix *)matrix;
+    egraphics_matrix_init(&g->e_matrix, matrix->xx, matrix->yx, matrix->xy, matrix->yy, matrix->x0, matrix->y0);
 }
+
+void egraphics_rotate(t_elayer *g, float angle)
+{
+    g->e_matrix.xx += cosf(angle);
+    g->e_matrix.yx += sinf(angle);
+    g->e_matrix.xy += -sinf(angle);
+    g->e_matrix.yy += cosf(angle);
+}
+
 
 void egraphics_apply_matrix(t_elayer *g, t_egobj* gobj)
 {
-    if(g->e_matrix)
+    float x_p, y_p;
+    for(int  i = 0; i < gobj->e_npoints; i++)
     {
-        float x_p, y_p;
-        for(int  i = 0; i < gobj->e_npoints; i++)
-        {
-            x_p     = gobj->e_points[i].x * g->e_matrix->xx + gobj->e_points[i].y * g->e_matrix->xy + g->e_matrix->x0;
-            y_p     = gobj->e_points[i].x * g->e_matrix->yx + gobj->e_points[i].y * g->e_matrix->yy + g->e_matrix->y0;
-            gobj->e_points[i].x    = x_p;
-            gobj->e_points[i].y    = y_p;
-        }
+        x_p     = gobj->e_points[i].x * g->e_matrix.xx + gobj->e_points[i].y * g->e_matrix.xy + g->e_matrix.x0;
+        y_p     = gobj->e_points[i].x * g->e_matrix.yx + gobj->e_points[i].y * g->e_matrix.yy + g->e_matrix.y0;
+        gobj->e_points[i].x    = x_p;
+        gobj->e_points[i].y    = y_p;
         // MUST DO SOMETHING FOR ARC !!!!
     }
 }

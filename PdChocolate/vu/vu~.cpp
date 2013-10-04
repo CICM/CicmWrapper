@@ -289,7 +289,7 @@ void draw_background(t_vu *x,  t_object *view, t_rect *rect)
  
 	if (g)
 	{
-        egraphics_set_source_jrgba(g, &x->f_color_border);
+        egraphics_set_color_rgba(g, &x->f_color_border);
         if(!x->f_direction)
         {
             for(int i = 1; i < 13; i++)
@@ -327,13 +327,13 @@ void draw_leds(t_vu *x, t_object *view, t_rect *rect)
             if(x->f_peak_value >= dB)
             {
                 if(i > 9)
-                    egraphics_set_source_jrgba(g, &x->f_color_signal_cold);
+                    egraphics_set_color_rgba(g, &x->f_color_signal_cold);
                 else if(i > 6)
-                    egraphics_set_source_jrgba(g, &x->f_color_signal_tepid);
+                    egraphics_set_color_rgba(g, &x->f_color_signal_tepid);
                 else if(i > 3)
-                    egraphics_set_source_jrgba(g, &x->f_color_signal_warm);
+                    egraphics_set_color_rgba(g, &x->f_color_signal_warm);
                 else if(i > 0)
-                    egraphics_set_source_jrgba(g, &x->f_color_signal_hot);
+                    egraphics_set_color_rgba(g, &x->f_color_signal_hot);
                 if(!x->f_direction)
                 {
                     egraphics_rectangle_rounded(g, 1, i * led_height + 1, rect->width - 2, led_height - 1, 1.f);
@@ -347,7 +347,7 @@ void draw_leds(t_vu *x, t_object *view, t_rect *rect)
         }
         if(x->f_over_led_preserved)
         {
-            egraphics_set_source_jrgba(g, &x->f_color_signal_over);
+            egraphics_set_color_rgba(g, &x->f_color_signal_over);
             if(!x->f_direction)
             {
                 egraphics_rectangle_rounded(g, 1, 1, rect->width - 1, led_height - 1, 1.f);

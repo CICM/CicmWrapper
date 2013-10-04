@@ -31,7 +31,7 @@ void egraphics_set_line_width(t_elayer *g, float width)
     g->e_width= pd_clip_min(width, 0.);
 }
 
-void egraphics_set_source_jrgba(t_elayer *g, t_rgba *rgba)
+void egraphics_set_color_rgba(t_elayer *g, t_rgba *rgba)
 {
     g->e_color = gensym(rgba_to_hex(*rgba));
 }
@@ -59,8 +59,6 @@ void egraphics_paint(t_elayer *g, int filled, int preserved)
                 g->e_objects[index].e_filled = 0;
             }
             g->e_objects[index].e_type      = g->e_new_objects.e_type;
-            g->e_objects[index].e_angles[0] = g->e_new_objects.e_angles[0];
-            g->e_objects[index].e_angles[1] = g->e_new_objects.e_angles[1];
             g->e_objects[index].e_roundness = g->e_new_objects.e_roundness;
             g->e_objects[index].e_npoints   = g->e_new_objects.e_npoints;
             g->e_objects[index].e_points = (t_pt*)calloc(g->e_objects[index].e_npoints, sizeof(t_pt));
@@ -78,7 +76,6 @@ void egraphics_paint(t_elayer *g, int filled, int preserved)
     
             g->e_objects[index].e_tag = gensym(text);
          
-            egraphics_apply_rotation(g, g->e_objects+index);
             egraphics_apply_matrix(g, g->e_objects+index);
             egraphics_clip_object(g, g->e_objects+index); // We should use the clip to copy in the new obj"
             if(!preserved)
@@ -134,7 +131,6 @@ void etext_layout_draw(t_etext* textlayout, t_elayer *g)
         sprintf(text, "%lx%s%ld", (unsigned long)g->e_owner, g->e_name->s_name, index);
         g->e_objects[index].e_tag = gensym(text);
         
-        egraphics_apply_rotation(g, g->e_objects+index);
         egraphics_apply_matrix(g, g->e_objects+index);
         egraphics_clip_object(g, g->e_objects+index);
     }

@@ -43,10 +43,21 @@ void *ebox_alloc(t_eclass *c)
 
 void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
 {
+    char buffer[MAXPDSTRING];
+
+    x->e_classname = class_getname(x->e_obj.te_g.g_pd);
+
+    sprintf(buffer,"%s%lx", x->e_classname, (long unsigned int)x);
+    x->e_name_tcl = gensym(buffer);
+    
+    sprintf(buffer,"#%s", x->e_name_tcl->s_name);
+    x->e_name_rcv = gensym(buffer);
+    
+    pd_bind(&x->e_obj.ob_pd, x->e_name_rcv);
+    ebox_tk_ids(x, canvas_getcurrent());
+    
     x->e_ready_to_draw = 0;
     x->z_misc          = 1;
-    x->e_glist = (t_glist *)canvas_getcurrent();
-    x->e_classname = class_getname(x->e_obj.te_g.g_pd);
     x->e_number_of_layers = 0;
     x->e_layers   = NULL;
     x->z_sigs_out   = NULL;
@@ -81,11 +92,40 @@ void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
     x->e_font.c_size = sys_nearestfontsize(sys_defaultfont);
 }
 
+
+void ebox_free(t_ebox* x)
+{
+    gfxstub_deleteforkey(x);
+    clock_free(x->e_deserted_clock);
+    pd_unbind(&x->e_obj.ob_pd, x->e_name_rcv);
+}
+
+void ebox_tk_ids(t_ebox *x, t_canvas *canvas)
+{
+    char buffer[MAXPDSTRING];
+    x->e_canvas = canvas;
+    
+    sprintf(buffer,".x%lx.c", (long unsigned int) canvas);
+    x->e_canvas_id = gensym(buffer);
+    
+    sprintf(buffer,"%s.frame%lx", x->e_canvas_id->s_name, (long unsigned int)x);
+    x->e_frame_id = gensym(buffer);
+    
+    sprintf(buffer,"%s.window%lx", x->e_canvas_id->s_name, (long unsigned int)x);
+    x->e_window_id = gensym(buffer);
+    
+    sprintf(buffer,"%s.handle%lx", x->e_canvas_id->s_name, (long unsigned int)x);
+    x->e_handle_id = gensym(buffer);
+    
+    sprintf(buffer,"all%lx", (long unsigned int)x);
+    x->e_all_id = gensym(buffer);
+}
+
 void ebox_dspsetup(t_ebox *x, long nins, long nout)
 {
     nins = pd_clip_min(nins, 1);
     nout = pd_clip_min(nout, 0);
-    x->e_glist = (t_glist *)canvas_getcurrent();
+    x->e_canvas = (t_glist *)canvas_getcurrent();
     x->e_perform_method = (method)ewidget_perform_default;
     // SHOULD BE ENOUGH...
     x->z_sigs_out = new t_float*[256];
@@ -136,13 +176,13 @@ void ebox_dspfree(t_ebox *x)
     }
     for(long k = x->e_inlets.size(); k >= 1; k--)
     {
-        canvas_deletelinesforio(x->e_glist, (t_text *)x, x->e_inlets[k-1], NULL);
+        canvas_deletelinesforio(x->e_canvas, (t_text *)x, x->e_inlets[k-1], NULL);
         inlet_free(x->e_inlets[k-1]);
         x->e_inlets.pop_back();
     }
     for(long k = x->e_outlets.size(); k >= 1; k--)
     {
-        canvas_deletelinesforio(x->e_glist, (t_text *)x, NULL, x->e_outlets[k-1]);
+        canvas_deletelinesforio(x->e_canvas, (t_text *)x, NULL, x->e_outlets[k-1]);
         outlet_free(x->e_outlets[k-1]);
         x->e_outlets.pop_back();
     }
@@ -156,17 +196,11 @@ void ebox_dspfree(t_ebox *x)
         ebox_free(x);
 }
 
-void ebox_free(t_ebox* x)
-{
-    gfxstub_deleteforkey(x);
-    clock_free(x->e_deserted_clock);
-}
-
 void ebox_redraw(t_ebox *x)
 {
     if(x->e_ready_to_draw)
     {
-        ewidget_paint(x, x->e_glist, 0);
+        ewidget_paint(x, x->e_canvas, 0);
     }
 }
 
@@ -186,7 +220,7 @@ void ebox_resize_inputs(t_ebox *x, long nins)
     {
         for(long k = x->e_inlets.size(); k >= nins; k--)
         {
-            canvas_deletelinesforio(x->e_glist, (t_text *)x, x->e_inlets[k-1], NULL);
+            canvas_deletelinesforio(x->e_canvas, (t_text *)x, x->e_inlets[k-1], NULL);
             inlet_free(x->e_inlets[k-1]);
             x->e_inlets.pop_back();
         }
@@ -203,7 +237,7 @@ void ebox_resize_inputs(t_ebox *x, long nins)
     x->e_dsp_size      = x->e_nins + x->e_nouts + 4;
     x->e_dsp_vectors   = (t_int*)calloc(x->e_dsp_size , sizeof(t_int));
     
-    ewidget_vis((t_gobj *)x, x->e_glist, 1);
+    ewidget_vis((t_gobj *)x, x->e_canvas, 1);
 }
 
 void ebox_resize_outputs(t_ebox *x, long nouts)
@@ -224,7 +258,7 @@ void ebox_resize_outputs(t_ebox *x, long nouts)
         {
             for(long k = x->e_outlets.size(); k > nouts; k--)
             {
-                canvas_deletelinesforio(x->e_glist, (t_text *)x, NULL, x->e_outlets[k-1]);
+                canvas_deletelinesforio(x->e_canvas, (t_text *)x, NULL, x->e_outlets[k-1]);
                 outlet_free(x->e_outlets[k-1]);
                 x->e_outlets.pop_back();
             }
@@ -236,26 +270,26 @@ void ebox_resize_outputs(t_ebox *x, long nouts)
         {
             for (long i = x->e_nouts; i < nouts; i++)
             {
-                if(!x->e_glist->gl_loading && glist_isvisible(x->e_glist))
-                    gobj_vis((t_gobj *)x, x->e_glist, 0);
+                if(!x->e_canvas->gl_loading && glist_isvisible(x->e_canvas))
+                    gobj_vis((t_gobj *)x, x->e_canvas, 0);
                 x->e_outlets.push_back(outlet_new(&x->e_obj, &s_signal));
-                if(!x->e_glist->gl_loading && glist_isvisible(x->e_glist))
-                    gobj_vis((t_gobj *)x, x->e_glist, 1);
+                if(!x->e_canvas->gl_loading && glist_isvisible(x->e_canvas))
+                    gobj_vis((t_gobj *)x, x->e_canvas, 1);
             }
         }
         else if (nouts < x->e_nouts)
         {
             for(long k = x->e_outlets.size(); k > nouts; k--)
             {
-                if(!x->e_glist->gl_loading && glist_isvisible(x->e_glist))
+                if(!x->e_canvas->gl_loading && glist_isvisible(x->e_canvas))
                 {
-                    gobj_vis((t_gobj *)x, x->e_glist, 0);
-                    canvas_deletelinesforio(x->e_glist, (t_text *)x, NULL, x->e_outlets[k-1]);
+                    gobj_vis((t_gobj *)x, x->e_canvas, 0);
+                    canvas_deletelinesforio(x->e_canvas, (t_text *)x, NULL, x->e_outlets[k-1]);
                 }
                 outlet_free(x->e_outlets[k-1]);
                 x->e_outlets.pop_back();
-                if(!x->e_glist->gl_loading && glist_isvisible(x->e_glist))
-                    gobj_vis((t_gobj *)x, x->e_glist, 1);
+                if(!x->e_canvas->gl_loading && glist_isvisible(x->e_canvas))
+                    gobj_vis((t_gobj *)x, x->e_canvas, 1);
             }
         }
         
@@ -271,7 +305,7 @@ void ebox_resize_outputs(t_ebox *x, long nouts)
     x->e_dsp_size      = x->e_nins + x->e_nouts + 4;
     x->e_dsp_vectors   = (t_int*)calloc(x->e_dsp_size , sizeof(t_int));
     
-    ewidget_vis((t_gobj *)x, x->e_glist, 1);
+    ewidget_vis((t_gobj *)x, x->e_canvas, 1);
 }
 
 void ebox_dsp(t_ebox *x, t_signal **sp)
@@ -284,7 +318,7 @@ void ebox_dsp(t_ebox *x, t_signal **sp)
         count[i] = 0;
         t_linetraverser t;
         t_outconnect *oc;
-        linetraverser_start(&t, x->e_glist);
+        linetraverser_start(&t, x->e_canvas);
         while((oc = linetraverser_next(&t)))
         {
             if (t.tr_ob2 == (t_object*)x && t.tr_inno == i)
@@ -299,7 +333,7 @@ void ebox_dsp(t_ebox *x, t_signal **sp)
         count[i] = 0;
         t_linetraverser t;
         t_outconnect *oc;
-        linetraverser_start(&t, x->e_glist);
+        linetraverser_start(&t, x->e_canvas);
         while((oc = linetraverser_next(&t)))
         {
             if(t.tr_ob == (t_object*)x && t.tr_outno == i)
@@ -404,7 +438,7 @@ t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *
         {
             x->e_layers[i].e_state = EGRAPHICS_INVALID;
         }
-        ewidget_vis((t_gobj *)x, x->e_glist, 1);
+        ewidget_vis((t_gobj *)x, x->e_canvas, 1);
     }
     return 0;
 }
