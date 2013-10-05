@@ -1,9 +1,9 @@
 #N canvas 256 94 559 414 10;
 #X msg 22 16 \; pd dsp 0;
-#X obj 22 66 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+#X obj 22 66 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0 10
 -262144 -1 -1 0 256;
-#X obj 22 285 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0 256;
+#X obj 22 285 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 0 256;
 #X obj 22 136 *~ 1.05;
 #X msg 88 17 \; pd dsp 1;
 #X text 73 131 Just to ensure that the;
@@ -23,8 +23,8 @@
 #X obj 260 84 nbx~ @patching_rect [ 4 4 55 17 ] @size [ 55 17 ] @mode
 [ 1 ] @interval [ 50 ] @bgcolor [ 0.35 0.23 0.13 1 ] @bdcolor [ 0.27
 0.21 0 1 ] @textcolor [ 1 1 1 1 ];
-#X obj 260 175 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0 256;
+#X obj 260 175 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 0 256;
 #X text -12 -52 A peak programme meter for signal;
 #X text -14 -31 vu~ (meter~) is the pd chocolate's version of the vanilla
 vu.;
@@ -34,7 +34,6 @@ vu.;
 8;
 #X obj 260 25 loadbang;
 #X msg 260 56 0.1;
-#X obj 305 260 pdchocolate;
 #X connect 1 0 7 0;
 #X connect 3 0 9 0;
 #X connect 7 0 3 0;

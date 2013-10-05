@@ -27,25 +27,6 @@
 #ifndef DEF_EPD_COMMON
 #define DEF_EPD_COMMON
 
-//#define NO_PUB
-
-#pragma GCC diagnostic ignored "-Wwrite-strings"
-
-extern "C"
-{
-#include "m_pd.h"
-#include "m_imp.h"
-#include "g_canvas.h"
-#include "s_stuff.h"
-}
-
-
-#ifdef _WIN32
-#include <io.h>
-#else
-#include <unistd.h>
-#endif
-
 #include <iostream>
 #include <vector>
 #include <map>
@@ -59,7 +40,20 @@ using namespace std;
 
 #ifdef _WIN32
 #define snprintf _snprintf
+#include <io.h>
+#else
+#pragma GCC diagnostic ignored "-Wwrite-strings"
+#include <unistd.h>
 #endif
+
+
+extern "C"
+{
+#include "m_pd.h"
+#include "m_imp.h"
+#include "g_canvas.h"
+#include "s_stuff.h"
+}
 
 #define EPD_PI  (3.141592653589793238462643383279502884)
 #define EPD_2PI (6.283185307179586476925286766559005)

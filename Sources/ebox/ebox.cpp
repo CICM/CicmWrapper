@@ -47,10 +47,10 @@ void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
 
     x->e_classname = class_getname(x->e_obj.te_g.g_pd);
 
-    sprintf(buffer,"%s%lx", x->e_classname, (long unsigned int)x);
+    sprintf_s(buffer,"%s%lx", x->e_classname, (long unsigned int)x);
     x->e_name_tcl = gensym(buffer);
     
-    sprintf(buffer,"#%s", x->e_name_tcl->s_name);
+    sprintf_s(buffer,"#%s", x->e_name_tcl->s_name);
     x->e_name_rcv = gensym(buffer);
     x->e_canvas = canvas_getcurrent();
     //pd_bind(&x->e_obj.ob_pd, x->e_name_rcv);
@@ -86,8 +86,8 @@ void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
     x->e_box_text =gensym(text.c_str());
     
     // A METTRE EN ATTR //
-    x->e_font.c_family = gensym(sys_font);
-    x->e_font.c_weight = gensym(sys_fontweight);
+    x->e_font.c_family = gensym("helvetica");
+    x->e_font.c_weight = gensym("normal");
     x->e_font.c_slant = gensym("regular");
     x->e_font.c_size = sys_nearestfontsize(11);
 }
@@ -460,7 +460,7 @@ void attr_binbuf_process(void *x, t_binbuf *d)
     char attr_name[256];
     for(int i = 0; i < c->c_nattr; i++)
     {
-        sprintf(attr_name, "@%s", c->c_attr[i].name->s_name);
+        sprintf_s(attr_name, "@%s", c->c_attr[i].name->s_name);
         binbuf_copy_atoms(d, gensym(attr_name), &defc, &defv);
         if(defc && defv)
         {

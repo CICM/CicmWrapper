@@ -11,39 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Sources\eattr\eattr_attr.cpp" />
-    <ClCompile Include="..\..\Sources\eattr\eattr_getter.cpp" />
-    <ClCompile Include="..\..\Sources\eattr\eattr_new.cpp" />
-    <ClCompile Include="..\..\Sources\eattr\eattr_setter.cpp" />
-    <ClCompile Include="..\..\Sources\ebox\ebox.cpp" />
-    <ClCompile Include="..\..\Sources\ebox\ebox_draw.cpp" />
-    <ClCompile Include="..\..\Sources\ebox\ebox_window.cpp" />
-    <ClCompile Include="..\..\Sources\eclass\eclass.cpp" />
-    <ClCompile Include="..\..\Sources\ecommon\ecommon.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip_path.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip_text.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_color.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_forms.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_matrix.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_text.cpp" />
-    <ClCompile Include="..\..\Sources\epopup\epopup.cpp" />
-    <ClCompile Include="..\..\Sources\ewidget\ewidget.cpp" />
-    <ClCompile Include="nbx~.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\Sources\eattr\eattr.h" />
-    <ClInclude Include="..\..\Sources\ebox\ebox.h" />
-    <ClInclude Include="..\..\Sources\eclass\eclass.h" />
-    <ClInclude Include="..\..\Sources\ecommon\ecommon.h" />
-    <ClInclude Include="..\..\Sources\egraphics\egraphics.h" />
-    <ClInclude Include="..\..\Sources\epd.h" />
-    <ClInclude Include="..\..\Sources\epd_max.h" />
-    <ClInclude Include="..\..\Sources\epopup\epopup.h" />
-    <ClInclude Include="..\..\Sources\estruct.h" />
-    <ClInclude Include="..\..\Sources\ewidget\ewidget.h" />
-    <ClInclude Include="..\..\Sources\pd_enhanced.h" />
+    <ClCompile Include="helloworld.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{079DD347-F5E0-4784-9BCE-AF551691BA41}</ProjectGuid>
@@ -84,7 +52,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\Program Files (x86)\pd\src</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;NT;PD;MSW;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;NT;PD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -92,24 +60,23 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <CompileAs>CompileAsCpp</CompileAs>
+      <CompileAs>CompileAsC</CompileAs>
       <CallingConvention>Cdecl</CallingConvention>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <Optimization>Disabled</Optimization>
-      <DisableSpecificWarnings>
-      </DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalOptions>/MACHINE:I386  /EXPORT:nbx_tilde_setup %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/MACHINE:I386  /EXPORT:helloworld_setup %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>C:\Program Files (x86)\pd\bin\pd.lib</AdditionalDependencies>
       <ShowProgress>LinkVerboseLib</ShowProgress>
-      <OutputFile>../builds/$(TargetName).dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\pd\src;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)$(ProjectName).pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>NotSet</TargetMachine>
+      <DelayLoadDLLs>
+      </DelayLoadDLLs>
     </Link>
     <Midl>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
