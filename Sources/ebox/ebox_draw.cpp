@@ -71,14 +71,19 @@ void ebox_draw_border(t_ebox* x, t_glist* glist)
             egraphics_rectangle(g, pos_x_inlet, -bdsize, 7, 3);
             if (obj_issignalinlet((t_object *)x, i))
             {
-                egraphics_set_color_rgba(g, &rgba_grey);
+                egraphics_set_color_rgba(g, &rgba_inletsig);
+                egraphics_fill(g);
+            }
+            else if(obj_isfloatinlet((t_object *)x, i))
+            {
+                egraphics_set_color_rgba(g, &rgba_black);
                 egraphics_fill(g);
             }
             else
             {
                 egraphics_set_color_rgba(g, &rgba_white);
                 egraphics_fill(g);
-                egraphics_set_color_rgba(g, &rgba_grey);
+                egraphics_set_color_rgba(g, &rgba_black);
                 egraphics_stroke(g);
             }
         }
@@ -91,8 +96,14 @@ void ebox_draw_border(t_ebox* x, t_glist* glist)
             
             if (obj_issignaloutlet((t_object *)x, i))
             {
-                egraphics_rectangle(g, pos_x_outlet, x->e_rect.height - 2 + bdsize, 7, 3);
-                egraphics_set_color_rgba(g, &rgba_grey);
+                egraphics_rectangle(g, pos_x_outlet, x->e_rect.height - 2 + bdsize, 7, 2);
+                egraphics_set_color_rgba(g, &rgba_inletsig);
+                egraphics_fill(g);
+            }
+            else if(obj_isfloatoutlet((t_object *)x, i))
+            {
+                egraphics_rectangle(g, pos_x_outlet, x->e_rect.height - 2 + bdsize, 7, 2);
+                egraphics_set_color_rgba(g, &rgba_black);
                 egraphics_fill(g);
             }
             else
@@ -100,7 +111,7 @@ void ebox_draw_border(t_ebox* x, t_glist* glist)
                 egraphics_rectangle(g, pos_x_outlet, x->e_rect.height - 2 + bdsize, 7, 2);
                 egraphics_set_color_rgba(g, &rgba_white);
                 egraphics_fill(g);
-                egraphics_set_color_rgba(g, &rgba_grey);
+                egraphics_set_color_rgba(g, &rgba_black);
                 egraphics_stroke(g);
             }
         }

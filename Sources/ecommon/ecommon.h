@@ -126,6 +126,8 @@ void outlet_int(void* outlet, int val);
 void outlet_list(void* outlet, t_symbol *s, int argc, t_atom *argv);
 void *listout(void *x);
 void *floatout(void *x);
+int obj_isfloatoutlet(t_object *x, int m);
+int obj_isfloatinlet(t_object *x, int m);
 
 void* object_method(void* x, t_symbol* s);
 void object_method(void* x, t_symbol* s, t_floatarg a, t_floatarg b,  t_floatarg c, t_floatarg d);

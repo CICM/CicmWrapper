@@ -46,6 +46,28 @@ void* floatout(void *x)
     return outlet_new((t_object *)x, &s_float);
 }
 
+int obj_isfloatoutlet(t_object *x, int m)
+{
+    int n;
+    t_outlet *o2;
+    for (o2 = x->ob_outlet, n = 0; o2 && m--; o2 = o2->o_next);
+    return (o2 && (o2->o_sym == &s_float));
+}
+
+int obj_isfloatinlet(t_object *x, int m)
+{
+    t_inlet *i;
+    if (x->ob_pd->c_firstin)
+    {
+        if (!m)
+            return (x->ob_pd->c_firstin && x->ob_pd->c_floatsignalin);
+        else m--;
+    }
+    for (i = x->ob_inlet; i && m; i = i->i_next, m--)
+        ;
+    return (i && (i->i_symfrom == &s_float));
+}
+
 void* object_method(void* x, t_symbol* s)
 {
     rmethod nrmethod = (rmethod)getfn((t_pd *)x, s);
