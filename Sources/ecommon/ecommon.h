@@ -133,6 +133,7 @@ void *listout(void *x);
 void *floatout(void *x);
 int obj_isfloatoutlet(t_object *x, int m);
 int obj_isfloatinlet(t_object *x, int m);
+void canvas_deletelines_for_io(t_canvas *x, t_text *text, t_inlet *inp, t_outlet *outp);
 
 void* object_method(void* x, t_symbol* s);
 void object_method(void* x, t_symbol* s, t_floatarg a, t_floatarg b,  t_floatarg c, t_floatarg d);

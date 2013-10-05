@@ -107,7 +107,6 @@ void ewidget_select(t_gobj *z, t_glist *glist, int selected)
 void ewidget_delete(t_gobj *z, t_glist *glist)
 {
     t_ebox *x = (t_ebox *)z;
-    
     ebox_erase(x, x->e_canvas);
     canvas_deletelinesfor(glist, (t_text *)z);
 }
@@ -212,7 +211,7 @@ void ewidget_paint(t_ebox *x, t_glist *glist, int mode)
 {
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
 
-    if (c->c_box == 0 && glist_isvisible(glist))
+    if(c->c_box == 0)
     {
         if(x->e_no_redraw_box == 0)
             ebox_invalidate_layer((t_object *)x, (t_object *)glist, gensym("eboxbd"));

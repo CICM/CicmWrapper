@@ -103,7 +103,7 @@ static t_rgba rgba_red           = {1., 0., 0., 1.};
 static t_rgba rgba_bluelight     = {0.65, 0.65, 0.65, 1.};
 static t_rgba rgba_inletsig      = {0.32, 0.21, 0.49, 1.};
 
-#elif
+#else
 
 __attribute__((used)) static t_rgba rgba_black         = {0., 0., 0., 1.};
 __attribute__((used)) static t_rgba rgba_greydark      = {0.3, 0.3, 0.3, 1.};

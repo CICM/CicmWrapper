@@ -94,6 +94,7 @@ void ebox_create_widget(t_ebox* x)
 void ebox_create_window(t_ebox* x, t_glist* glist)
 {
 
+    /*
     ebox_create_widget(x);
     sys_vgui("%s create window %d %d -anchor nw -window %s -tags {%s %s} -width %d -height %d \n",
              x->e_canvas_id->s_name,
@@ -104,6 +105,7 @@ void ebox_create_window(t_ebox* x, t_glist* glist)
              x->e_all_id->s_name,
              (int)x->e_rect.width,
              (int)x->e_rect.height);
+     */
 }
 
 
