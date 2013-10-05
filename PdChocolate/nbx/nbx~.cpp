@@ -362,7 +362,7 @@ void nbx_mousedown(t_nbx *x, t_object *patcherview, t_pt pt, long modifiers)
         x->f_deriv = pt.y;
         x->f_drag = 1;
         x->f_refvalue = x->f_peak_value;
-        while(fabs(x->f_peak_value) >= pow(10, n_integer))
+        while(fabs(x->f_peak_value) >= powf(10, n_integer))
             n_integer++;
         
         while(text_width + 6 + i * text_width < pos)
@@ -371,16 +371,16 @@ void nbx_mousedown(t_nbx *x, t_object *patcherview, t_pt pt, long modifiers)
         if(x->f_peak_value < 0) // due to "-" offset
         {
             if(i < n_integer)
-                x->f_inc = -pow(10, (n_integer - i));
+                x->f_inc = -powf(10, (n_integer - i));
             else
-                x->f_inc = -1. / pow(10, (i - n_integer - 1));
+                x->f_inc = -1. / powf(10, (i - n_integer - 1));
         }
         else
         {
             if(i < n_integer + 2)
-                x->f_inc = -pow(10, (n_integer - i));
+                x->f_inc = -powf(10, (n_integer - i));
             else
-                x->f_inc = -1. / pow(10, (i - n_integer - 1));
+                x->f_inc = -1. / powf(10, (i - n_integer - 1));
         }
         x->f_inc = pd_clip_minmax(x->f_inc, -100., -0.00001);
     }
@@ -444,7 +444,7 @@ void nbx_keyfilter(t_nbx *x, t_object *patcherview, char textcharacter, long mod
     {
         int pos = strlen(x->f_textvalue) - 1;
         if(pos > 0)
-            strlcpy(x->f_textvalue, x->f_textvalue, pos);
+            strncpy(x->f_textvalue, x->f_textvalue, pos);
         else
             sprintf(x->f_textvalue, "");
         ebox_invalidate_layer((t_object *)x, NULL, gensym("value_layer"));

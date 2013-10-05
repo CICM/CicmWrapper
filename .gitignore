@@ -40,3 +40,5 @@
 *.exp
 *.ilk
 *.rc
+*.manifest
+*.res
