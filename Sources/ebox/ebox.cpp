@@ -89,7 +89,7 @@ void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
     x->e_font.c_family = gensym(sys_font);
     x->e_font.c_weight = gensym(sys_fontweight);
     x->e_font.c_slant = gensym("regular");
-    x->e_font.c_size = sys_nearestfontsize(sys_defaultfont);
+    x->e_font.c_size = sys_nearestfontsize(0);
 }
 
 
@@ -154,13 +154,13 @@ void ebox_dspfree(t_ebox *x)
     }
     for(long k = x->e_inlets.size(); k >= 1; k--)
     {
-        canvas_deletelinesforio(x->e_canvas, (t_text *)x, x->e_inlets[k-1], NULL);
+        //canvas_deletelinesforio(x->e_canvas, (t_text *)x, x->e_inlets[k-1], NULL);
         inlet_free(x->e_inlets[k-1]);
         x->e_inlets.pop_back();
     }
     for(long k = x->e_outlets.size(); k >= 1; k--)
     {
-        canvas_deletelinesforio(x->e_canvas, (t_text *)x, NULL, x->e_outlets[k-1]);
+        //canvas_deletelinesforio(x->e_canvas, (t_text *)x, NULL, x->e_outlets[k-1]);
         outlet_free(x->e_outlets[k-1]);
         x->e_outlets.pop_back();
     }
@@ -198,7 +198,7 @@ void ebox_resize_inputs(t_ebox *x, long nins)
     {
         for(long k = x->e_inlets.size(); k >= nins; k--)
         {
-            canvas_deletelinesforio(x->e_canvas, (t_text *)x, x->e_inlets[k-1], NULL);
+            //canvas_deletelinesforio(x->e_canvas, (t_text *)x, x->e_inlets[k-1], NULL);
             inlet_free(x->e_inlets[k-1]);
             x->e_inlets.pop_back();
         }
@@ -236,7 +236,7 @@ void ebox_resize_outputs(t_ebox *x, long nouts)
         {
             for(long k = x->e_outlets.size(); k > nouts; k--)
             {
-                canvas_deletelinesforio(x->e_canvas, (t_text *)x, NULL, x->e_outlets[k-1]);
+                //canvas_deletelinesforio(x->e_canvas, (t_text *)x, NULL, x->e_outlets[k-1]);
                 outlet_free(x->e_outlets[k-1]);
                 x->e_outlets.pop_back();
             }
@@ -262,7 +262,7 @@ void ebox_resize_outputs(t_ebox *x, long nouts)
                 if(!x->e_canvas->gl_loading && glist_isvisible(x->e_canvas))
                 {
                     gobj_vis((t_gobj *)x, x->e_canvas, 0);
-                    canvas_deletelinesforio(x->e_canvas, (t_text *)x, NULL, x->e_outlets[k-1]);
+                    //canvas_deletelinesforio(x->e_canvas, (t_text *)x, NULL, x->e_outlets[k-1]);
                 }
                 outlet_free(x->e_outlets[k-1]);
                 x->e_outlets.pop_back();

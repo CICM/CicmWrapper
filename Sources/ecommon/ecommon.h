@@ -31,6 +31,15 @@
 
 #pragma GCC diagnostic ignored "-Wwrite-strings"
 
+extern "C"
+{
+#include "m_pd.h"
+#include "m_imp.h"
+#include "g_canvas.h"
+#include "s_stuff.h"
+}
+
+
 #ifdef _WIN32
 #include <io.h>
 #else
@@ -47,14 +56,6 @@
 #include <string>
 
 using namespace std;
-
-extern "C"
-{
-#include "m_pd.h"
-#include "m_imp.h"
-#include "g_canvas.h"
-#include "s_stuff.h"
-}
 
 #ifdef _WIN32
 #define snprintf _snprintf

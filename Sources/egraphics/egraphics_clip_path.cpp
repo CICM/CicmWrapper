@@ -64,40 +64,31 @@ t_pt egraphics_clip_point(t_pt pt, t_rect rect)
     return pt;
 }
 
-typedef enum _edge
-{
-    LEFT = 0,
-    RIGHT = 1,
-    BOTTOM = 2,
-    TOP = 3
-    
-}t_edge;
-
 #define N_EDGE 4
 
 int inside(t_pt pt, int edge, t_rect rect)
 {
     switch (edge)
     {
-        case LEFT:
+        case 0:
             if (pt.x < rect.x)
             {
                 return 0;
             }
             break;
-        case RIGHT:
+        case 1:
             if (pt.x > rect.x + rect.width)
             {
                 return 0;
             }
             break;
-        case BOTTOM:
+        case 2:
             if (pt.y < rect.y)
             {
                 return 0;
             }
             break;
-        case TOP:
+        case 3:
             if (pt.y > rect.y + rect.height)
             {
                 return 0;
@@ -130,15 +121,15 @@ t_pt intersect(t_pt pt1, t_pt pt2, int edge, t_rect rect)
     }
     switch (edge)
     {
-        case LEFT:
+        case 0:
             iPt.x = rect.x;
             iPt.y = pt2.y + (rect.x - pt2.x) * m;
             break;
-        case RIGHT:
+        case 1:
             iPt.x = rect.x + rect.width;
             iPt.y = pt2.y + (rect.x + rect.width - pt2.x) * m;
             break;
-        case BOTTOM:
+        case 2:
             iPt.y = rect.y;
             if(pt1.x != pt2.x)
             {
@@ -152,7 +143,7 @@ t_pt intersect(t_pt pt1, t_pt pt2, int edge, t_rect rect)
                 iPt.x = pt2.x;
             }
             break;
-        case TOP:
+        case 3:
             iPt.y = rect.y + rect.height;
             if(pt1.x != pt2.x)
             {
@@ -183,7 +174,7 @@ void clip_point(t_pt pt, int edge, t_rect rect, t_pt* pt_out, int* cnt, t_pt* fi
         if(cross(pt, s[edge], edge, rect))
         {
             iPt = intersect(pt, s[edge], edge, rect);
-            if(edge < TOP)
+            if(edge < 3)
             {
                 clip_point(iPt, edge+1, rect, pt_out, cnt, first, s);
             }
@@ -197,7 +188,7 @@ void clip_point(t_pt pt, int edge, t_rect rect, t_pt* pt_out, int* cnt, t_pt* fi
     s[edge] = pt;
     if(inside(pt, edge, rect))
     {
-        if (edge < TOP)
+        if (edge < 3)
         {
             clip_point(pt, edge+1, rect, pt_out, cnt, first, s);
         }
@@ -212,14 +203,14 @@ void clip_point(t_pt pt, int edge, t_rect rect, t_pt* pt_out, int* cnt, t_pt* fi
 void close_clip(t_rect rect, t_pt* pt_out, int* cnt, t_pt* first[], t_pt *s)
 {
     t_pt i;
-    t_edge edge;
+    int edge;
     
-    for(edge = LEFT; edge <= TOP; edge++)
+    for(edge = 0; edge <= 3; edge++)
     {
         if(cross(s[edge], *first[edge], edge, rect))
         {
             i = intersect(s[edge], *first[edge], edge, rect);
-            if(edge < TOP)
+            if(edge < 3)
             {
                 clip_point(i, edge+1, rect, pt_out, cnt, first, s);
             }
@@ -240,7 +231,7 @@ long egraphics_clip_path_perform(t_rect rect, long n, t_pt* in, t_pt* out)
     
     for(int i = 0; i < n; i++)
     {
-        clip_point(in[i], LEFT, rect, out, &cnt, first, s);
+        clip_point(in[i], 0, rect, out, &cnt, first, s);
     }
     //close_clip(rect, out, &cnt, first, s);
     

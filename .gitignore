@@ -37,3 +37,6 @@
 *.suo
 *.cache
 *.unsuccessfulbuild
+*.exp
+*.ilk
+*.rc
