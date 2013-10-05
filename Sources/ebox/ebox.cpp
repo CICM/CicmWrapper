@@ -288,9 +288,8 @@ void ebox_resize_outputs(t_ebox *x, long nouts)
 
 void ebox_dsp(t_ebox *x, t_signal **sp)
 {
-    t_eclass *c         = (t_eclass *)x->e_obj.te_g.g_pd;
-
-    short count[x->e_nins + x->e_nouts];
+    t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
+    short* count = (short*)calloc((x->e_nins + x->e_nouts), sizeof(short));
     for(int i = 0; i < x->e_nins; i++)
     {
         count[i] = 0;
@@ -333,6 +332,7 @@ void ebox_dsp(t_ebox *x, t_signal **sp)
     }
     
     dsp_addv(ebox_perform, (int)x->e_dsp_size, x->e_dsp_vectors);
+	free(count);
 }
 
 t_int* ebox_perform(t_int* w)

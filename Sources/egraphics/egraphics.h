@@ -90,6 +90,21 @@ void rgba_set(t_rgba *color, float red, float green, float blue, float alpha);
 void rgb_set(t_rgb *color, float red, float green, float blue);
 
 // Ohlala...
+#ifdef _WIN32
+
+static t_rgba rgba_black         = {0., 0., 0., 1.};
+static t_rgba rgba_greydark      = {0.3, 0.3, 0.3, 1.};
+static t_rgba rgba_grey          = {0.5, 0.5, 0.5, 1.};
+static t_rgba rgba_greylight     = {0.8, 0.8, 0.8, 1.};
+static t_rgba rgba_white         = {1., 1., 1., 1.};
+static t_rgba rgba_blue          = {0., 0., 1., 1.};
+static t_rgba rgba_green         = {0., 1., 0., 1.};
+static t_rgba rgba_red           = {1., 0., 0., 1.};
+static t_rgba rgba_bluelight     = {0.65, 0.65, 0.65, 1.};
+static t_rgba rgba_inletsig      = {0.32, 0.21, 0.49, 1.};
+
+#elif
+
 __attribute__((used)) static t_rgba rgba_black         = {0., 0., 0., 1.};
 __attribute__((used)) static t_rgba rgba_greydark      = {0.3, 0.3, 0.3, 1.};
 __attribute__((used)) static t_rgba rgba_grey          = {0.5, 0.5, 0.5, 1.};
@@ -100,5 +115,7 @@ __attribute__((used)) static t_rgba rgba_green         = {0., 1., 0., 1.};
 __attribute__((used)) static t_rgba rgba_red           = {1., 0., 0., 1.};
 __attribute__((used)) static t_rgba rgba_bluelight     = {0.65, 0.65, 0.65, 1.};
 __attribute__((used)) static t_rgba rgba_inletsig      = {0.32, 0.21, 0.49, 1.};
+
+#endif
 
 #endif

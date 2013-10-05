@@ -56,6 +56,10 @@ extern "C"
 #include "s_stuff.h"
 }
 
+#ifdef _WIN32
+#define snprintf _snprintf
+#endif
+
 #define EPD_PI  (3.141592653589793238462643383279502884)
 #define EPD_2PI (6.283185307179586476925286766559005)
 #define EPD_PI2 (1.57079632679489661923132169163975144)

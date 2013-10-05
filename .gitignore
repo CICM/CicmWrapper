@@ -22,3 +22,18 @@
 *.xcsettings
 *.plist
 *.xcscheme
+
+#Visual Studio
+*.tlog
+*.obj
+*.log
+*.idb
+*.pdb
+*.lastbuildstate
+*.ipch
+*.opensdf
+*.sdf
+*.user
+*.suo
+*.cache
+*.unsuccessfulbuild
