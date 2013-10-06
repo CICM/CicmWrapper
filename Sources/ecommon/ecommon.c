@@ -115,8 +115,9 @@ void object_attr_setvalueof(t_object *x, t_symbol* s, long argc, t_atom* argv)
 void object_attr_getvalueof(t_object *x, t_symbol *s, long *argc, t_atom **argv)
 {
     char realname[256];
+	method getvalue;
     sprintf(realname, "get%s", s->s_name);
-    method getvalue = (method)getfn((t_pd *)x, gensym(realname));
+    getvalue = (method)getfn((t_pd *)x, gensym(realname));
     getvalue(x, s, argc, argv);
 }
 
@@ -148,7 +149,7 @@ t_pd_err binbuf_copy_atoms(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv
     argc[0] = 0;
     if(ac && av)
     {
-        for(int i = 0; i < ac; i++)
+        for(i = 0; i < ac; i++)
         {
             if(atom_gettype(av+i) == A_SYM && atom_getsym(av+i) == key)
             {

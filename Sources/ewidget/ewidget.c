@@ -226,20 +226,22 @@ void ewidget_paint(t_ebox *x, t_glist *glist, int mode)
 
 void ewidget_save(t_gobj *z, t_binbuf *b)
 {
+	int i;
+	char mess[256];
+	long argc = 0;
+    t_atom* argv = NULL;
     t_ebox *x = (t_ebox *)z;
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
     char attr_name[256];
     binbuf_addv(b, "ssii", gensym("#X"), gensym("obj"), (t_int)x->e_obj.te_xpix, (t_int)x->e_obj.te_ypix);
 
-    
     if(c->c_box)
     {
-        long ac = binbuf_getnatom(x->e_obj.te_binbuf);
-        t_atom* av = binbuf_getvec(x->e_obj.te_binbuf);
-        char mess[256];
-        for (int i = 0; i < ac; i++)
+        argc = binbuf_getnatom(x->e_obj.te_binbuf);
+        argv = binbuf_getvec(x->e_obj.te_binbuf);
+        for (i = 0; i < argc; i++)
         {
-            atom_string(av+i, mess, 256);
+            atom_string(argv+i, mess, 256);
             binbuf_addv(b, "s", gensym(mess));
         }
     }
@@ -247,9 +249,9 @@ void ewidget_save(t_gobj *z, t_binbuf *b)
     if (!c->c_box)
     {
         binbuf_addv(b, "s", gensym(x->e_classname));
-        long argc = 0;
-        t_atom* argv = NULL;
-        for(int i = 0; i < c->c_nattr; i++)
+		argc = 0;
+        argv = NULL;
+        for(i = 0; i < c->c_nattr; i++)
         {
             if(c->c_attr[i].save)
             {

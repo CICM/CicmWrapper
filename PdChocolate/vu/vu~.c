@@ -21,10 +21,8 @@
  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-extern "C"
-{
+
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
-}
 
 typedef struct  _vu
 {
@@ -35,7 +33,7 @@ typedef struct  _vu
 	long        f_interval;
     void*       f_peaks_outlet;
     float       f_peak_value;
-	bool        f_direction;
+	char        f_direction;
     
     long		f_over_led_preserved;
 	
@@ -52,7 +50,7 @@ typedef struct  _vu
 
 t_eclass *vu_class;
 
-extern "C" void vu_tilde_setup(void);
+void vu_tilde_setup(void);
 void *vu_new(t_symbol *s, int argc, t_atom *argv);
 void vu_free(t_vu *x);
 void vu_assist(t_vu *x, void *b, long m, long a, char *s);
@@ -71,7 +69,7 @@ void vu_paint(t_vu *x, t_object *view);
 void draw_background(t_vu *x,  t_object *view, t_rect *rect);
 void draw_leds(t_vu *x,  t_object *view, t_rect *rect);
 
-extern "C" void vu_tilde_setup(void)
+void vu_tilde_setup(void)
 {
 	t_eclass *c;
     
@@ -201,8 +199,9 @@ void vu_dsp(t_vu *x, t_object *dsp, short *count, double samplerate, long maxvec
 
 void vu_perform(t_vu *x, t_object *dsp, float **ins, long ni, float **outs, long no, long nsamples, long f,void *up)
 {
+	int i;
     float peak = fabs(ins[0][0]);
-    for(int i = 1; i < nsamples; i++)
+    for(i = 1; i < nsamples; i++)
     {
         if(fabs(ins[0][i]) > peak)
             peak = fabs(ins[0][i]);
@@ -288,6 +287,7 @@ void vu_paint(t_vu *x, t_object *view)
 
 void draw_background(t_vu *x,  t_object *view, t_rect *rect)
 {
+	int i;
 	t_elayer *g = ebox_start_layer((t_object *)x, view, gensym("background_layer"), rect->width, rect->height);
  
 	if (g)
@@ -295,7 +295,7 @@ void draw_background(t_vu *x,  t_object *view, t_rect *rect)
         egraphics_set_color_rgba(g, &x->f_color_border);
         if(!x->f_direction)
         {
-            for(int i = 1; i < 13; i++)
+            for(i = 1; i < 13; i++)
             {
                 egraphics_move_to(g, 0., i * rect->height / 13.f);
                 egraphics_line_to(g, rect->width, i * rect->height / 13.f);
@@ -304,7 +304,7 @@ void draw_background(t_vu *x,  t_object *view, t_rect *rect)
         }
         else
         {
-            for(int i = 1; i < 13; i++)
+            for(i = 1; i < 13; i++)
             {
                 egraphics_move_to(g, i * rect->width / 13.f, 0.f);
                 egraphics_line_to(g, i * rect->width / 13.f, rect->height);
@@ -319,13 +319,15 @@ void draw_background(t_vu *x,  t_object *view, t_rect *rect)
 
 void draw_leds(t_vu *x, t_object *view, t_rect *rect)
 {
+	float i;
+	float dB;
 	t_elayer *g = ebox_start_layer((t_object *)x, view, gensym("leds_layer"), rect->width, rect->height);
 	
 	if (g)
 	{
         float led_height = rect->height / 13.f;
         float led_width = rect->width / 13.f;
-        for(float i = 12, dB = -39; i > 0; i--, dB += 3.f)
+        for(i = 12, dB = -39; i > 0; i--, dB += 3.f)
         {
             if(x->f_peak_value >= dB)
             {

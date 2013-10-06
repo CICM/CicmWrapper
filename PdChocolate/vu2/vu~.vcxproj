@@ -11,7 +11,35 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="helloworld.c" />
+    <ClCompile Include="..\..\Sources\eattr\eattr_attr.c" />
+    <ClCompile Include="..\..\Sources\eattr\eattr_getter.c" />
+    <ClCompile Include="..\..\Sources\eattr\eattr_new.c" />
+    <ClCompile Include="..\..\Sources\eattr\eattr_setter.c" />
+    <ClCompile Include="..\..\Sources\ebox\ebox.c" />
+    <ClCompile Include="..\..\Sources\ebox\ebox_draw.c" />
+    <ClCompile Include="..\..\Sources\ebox\ebox_window.c" />
+    <ClCompile Include="..\..\Sources\eclass\eclass.c" />
+    <ClCompile Include="..\..\Sources\ecommon\ecommon.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip_path.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip_text.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_color.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_forms.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_matrix.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_text.c" />
+    <ClCompile Include="..\..\Sources\epopup\epopup.c" />
+    <ClCompile Include="..\..\Sources\ewidget\ewidget.c" />
+    <ClCompile Include="vu~.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Sources\eattr\eattr.h" />
+    <ClInclude Include="..\..\Sources\ebox\ebox.h" />
+    <ClInclude Include="..\..\Sources\eclass\eclass.h" />
+    <ClInclude Include="..\..\Sources\ecommon\ecommon.h" />
+    <ClInclude Include="..\..\Sources\egraphics\egraphics.h" />
+    <ClInclude Include="..\..\Sources\epopup\epopup.h" />
+    <ClInclude Include="..\..\Sources\ewidget\ewidget.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{079DD347-F5E0-4784-9BCE-AF551691BA41}</ProjectGuid>
@@ -66,7 +94,7 @@
       <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>
-      <AdditionalOptions>/MACHINE:I386  /EXPORT:helloworld_setup %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/MACHINE:I386  /EXPORT:vu_tilde_setup %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>C:\Program Files (x86)\pd\bin\pd.lib</AdditionalDependencies>
       <ShowProgress>LinkVerboseLib</ShowProgress>
       <SuppressStartupBanner>true</SuppressStartupBanner>

@@ -87,18 +87,6 @@
     <ClCompile Include="vu~.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Sources\estruct.h">
-      <Filter>PdEnhanced</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\pd_enhanced.h">
-      <Filter>PdEnhanced</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\epd.h">
-      <Filter>PdEnhanced</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\epd_max.h">
-      <Filter>PdEnhanced</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Sources\eattr\eattr.h">
       <Filter>PdEnhanced\eattr</Filter>
     </ClInclude>

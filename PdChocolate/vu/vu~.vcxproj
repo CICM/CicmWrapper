@@ -11,26 +11,26 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Sources\eattr\eattr_attr.cpp" />
-    <ClCompile Include="..\..\Sources\eattr\eattr_getter.cpp" />
-    <ClCompile Include="..\..\Sources\eattr\eattr_new.cpp" />
-    <ClCompile Include="..\..\Sources\eattr\eattr_setter.cpp" />
-    <ClCompile Include="..\..\Sources\ebox\ebox.cpp" />
-    <ClCompile Include="..\..\Sources\ebox\ebox_draw.cpp" />
-    <ClCompile Include="..\..\Sources\ebox\ebox_window.cpp" />
-    <ClCompile Include="..\..\Sources\eclass\eclass.cpp" />
-    <ClCompile Include="..\..\Sources\ecommon\ecommon.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip_path.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip_text.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_color.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_forms.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_matrix.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_text.cpp" />
-    <ClCompile Include="..\..\Sources\epopup\epopup.cpp" />
-    <ClCompile Include="..\..\Sources\ewidget\ewidget.cpp" />
-    <ClCompile Include="vu~.cpp" />
+    <ClCompile Include="..\..\Sources\eattr\eattr_attr.c" />
+    <ClCompile Include="..\..\Sources\eattr\eattr_getter.c" />
+    <ClCompile Include="..\..\Sources\eattr\eattr_new.c" />
+    <ClCompile Include="..\..\Sources\eattr\eattr_setter.c" />
+    <ClCompile Include="..\..\Sources\ebox\ebox.c" />
+    <ClCompile Include="..\..\Sources\ebox\ebox_draw.c" />
+    <ClCompile Include="..\..\Sources\ebox\ebox_window.c" />
+    <ClCompile Include="..\..\Sources\eclass\eclass.c" />
+    <ClCompile Include="..\..\Sources\ecommon\ecommon.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip_path.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip_text.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_color.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_forms.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_matrix.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_text.c" />
+    <ClCompile Include="..\..\Sources\epopup\epopup.c" />
+    <ClCompile Include="..\..\Sources\ewidget\ewidget.c" />
+    <ClCompile Include="vu~.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\eattr\eattr.h" />
@@ -59,8 +59,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <UseIntelIPP>Sequential</UseIntelIPP>
-    <UseIntelMKL>Sequential</UseIntelMKL>
+    <UseIntelIPP>false</UseIntelIPP>
+    <UseIntelMKL>No</UseIntelMKL>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -92,7 +92,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <CompileAs>CompileAsCpp</CompileAs>
+      <CompileAs>CompileAsC</CompileAs>
       <CallingConvention>Cdecl</CallingConvention>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <Optimization>Disabled</Optimization>
