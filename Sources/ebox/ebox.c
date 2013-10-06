@@ -130,8 +130,8 @@ void ebox_redraw(t_ebox *x)
 
 void ebox_resize_inputs(t_ebox *x, long nins)
 {
+	int i = 0;
     nins = pd_clip_min(nins, 1);
-    int i = 0;
     
     if(nins > obj_nsiginlets(&x->e_obj))
     {
@@ -212,14 +212,14 @@ void ebox_resize_outputs(t_ebox *x, long nouts)
 void ebox_dsp(t_ebox *x, t_signal **sp)
 {
     int i;
+	t_linetraverser t;
+    t_outconnect *oc;
     t_eclass *c  = (t_eclass *)x->e_obj.te_g.g_pd;
     short* count = (short*)calloc((obj_nsiginlets(&x->e_obj) + obj_nsigoutlets(&x->e_obj)), sizeof(short));
     
     for(i = 0; i < obj_nsiginlets(&x->e_obj); i++)
     {
         count[i] = 0;
-        t_linetraverser t;
-        t_outconnect *oc;
         linetraverser_start(&t, x->e_canvas);
         while((oc = linetraverser_next(&t)))
         {
@@ -233,8 +233,6 @@ void ebox_dsp(t_ebox *x, t_signal **sp)
     for(i = obj_nsiginlets(&x->e_obj); i < (obj_nsiginlets(&x->e_obj) + obj_nsigoutlets(&x->e_obj)); i++)
     {
         count[i] = 0;
-        t_linetraverser t;
-        t_outconnect *oc;
         linetraverser_start(&t, x->e_canvas);
         while((oc = linetraverser_next(&t)))
         {
@@ -253,7 +251,7 @@ void ebox_dsp(t_ebox *x, t_signal **sp)
     x->e_dsp_vectors[4] = (t_int)obj_nsiginlets(&x->e_obj);
     x->e_dsp_vectors[5] = (t_int)obj_nsigoutlets(&x->e_obj);
     
-    for (int i = 6; i < x->e_dsp_size; i++)
+    for(i = 6; i < x->e_dsp_size; i++)
     {
         x->e_dsp_vectors[i] = (t_int)(sp[i - 6]->s_vec);
     }
@@ -264,6 +262,7 @@ void ebox_dsp(t_ebox *x, t_signal **sp)
 
 t_int* ebox_perform(t_int* w)
 {
+	int i, j;
     t_ebox* x               = (t_ebox *)(w[1]);
     long nsamples           = (long)(w[2]);
     long flag               = (long)(w[3]);
@@ -277,11 +276,11 @@ t_int* ebox_perform(t_int* w)
     {
         t_float *outs_real, *outs_perf;
         x->e_perform_method(x, NULL, ins, nins, x->z_sigs_out, nouts, nsamples, flag, user_p);
-        for (int i = 0; i < nouts; i++)
+        for(i = 0; i < nouts; i++)
         {
             outs_perf = x->z_sigs_out[i];
             outs_real = outs[i];
-            for (int j = 0; j < nsamples; j++)
+            for(j = 0; j < nsamples; j++)
             {
                 outs_real[j] = outs_perf[j];
             }
@@ -336,11 +335,12 @@ void ebox_setdblclicklong_time(t_ebox *x, float time)
 
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
+	int i;
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
     if(msg == gensym("patching_rect") || msg == gensym("size"))
     {
         c->c_widget.w_oksize(x, &x->e_rect);
-        for(long i = 0; i < x->e_number_of_layers; i++)
+        for(i = 0; i < x->e_number_of_layers; i++)
         {
             x->e_layers[i].e_state = EGRAPHICS_INVALID;
         }

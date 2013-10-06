@@ -52,8 +52,9 @@ void egraphics_rotate(t_elayer *g, float angle)
 
 void egraphics_apply_matrix(t_elayer *g, t_egobj* gobj)
 {
+	int i;
     float x_p, y_p;
-    for(int  i = 0; i < gobj->e_npoints; i++)
+    for(i = 0; i < gobj->e_npoints; i++)
     {
         x_p     = gobj->e_points[i].x * g->e_matrix.xx + gobj->e_points[i].y * g->e_matrix.xy + g->e_matrix.x0;
         y_p     = gobj->e_points[i].x * g->e_matrix.yx + gobj->e_points[i].y * g->e_matrix.yy + g->e_matrix.y0;

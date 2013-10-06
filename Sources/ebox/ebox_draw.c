@@ -43,9 +43,12 @@ void ebox_draw_background(t_ebox* x, t_glist* glist)
 
 void ebox_draw_border(t_ebox* x, t_glist* glist)
 {
+	int i;
+	float bdsize;
+	t_elayer* g;
     x->e_boxparameters.d_borderthickness = pd_clip_max(x->e_boxparameters.d_borderthickness, x->e_rect.width / 2.);
-    float bdsize = (x->e_boxparameters.d_borderthickness - 1.) * 0.5;
-    t_elayer* g = ebox_start_layer((t_object *)x, (t_object *)glist, gensym("eboxbd"), x->e_rect.width + bdsize * 2 + 1, x->e_rect.height + bdsize * 2 + 1);
+    bdsize = (x->e_boxparameters.d_borderthickness - 1.) * 0.5;
+    g = ebox_start_layer((t_object *)x, (t_object *)glist, gensym("eboxbd"), x->e_rect.width + bdsize * 2 + 1, x->e_rect.height + bdsize * 2 + 1);
     
     if(g)
     {
@@ -63,7 +66,7 @@ void ebox_draw_border(t_ebox* x, t_glist* glist)
         
         egraphics_set_line_width(g, 1.);
         
-        for(int i = 0; i < obj_ninlets((t_object *)x); i++)
+        for(i = 0; i < obj_ninlets((t_object *)x); i++)
         {
             int pos_x_inlet = 0;
             if(obj_ninlets((t_object *)x) != 1)
@@ -88,7 +91,7 @@ void ebox_draw_border(t_ebox* x, t_glist* glist)
             }
         }
         
-        for(int i = 0; i < obj_noutlets((t_object *)x); i++)
+        for(i = 0; i < obj_noutlets((t_object *)x); i++)
         {
             int pos_x_outlet = 0;
             if(obj_noutlets((t_object *)x) != 1)
@@ -139,6 +142,7 @@ void ebox_select(t_ebox* x, t_glist* glist)
 
 void ebox_move(t_ebox* x, t_glist* glist)
 {
+	int i, j, k;
     t_elayer* g;
     t_canvas *canvas = glist_getcanvas(glist);
     int pos_x = text_xpix(&x->e_obj, glist);
@@ -148,13 +152,13 @@ void ebox_move(t_ebox* x, t_glist* glist)
     char coordinates[2048] = "";
     if(glist_isvisible(glist))
     {
-        for(long i = 0; i < x->e_number_of_layers; i++)
+        for(i = 0; i < x->e_number_of_layers; i++)
         {
             g = &x->e_layers[i];
-            for(long j = 0; j < g->e_number_objects; j++)
+            for(j = 0; j < g->e_number_objects; j++)
             {
-                sprintf(coordinates, "");
-                for(int k = 0; k < g->e_objects[j].e_npoints; k ++)
+                sprintf(coordinates, "", 0);
+                for(k = 0; k < g->e_objects[j].e_npoints; k ++)
                 {
                     sprintf(temp, "%d %d ", (int)((int)g->e_objects[j].e_points[k].x + (int)g->e_rect.x + pos_x), (int)((int)g->e_objects[j].e_points[k].y + (int)g->e_rect.y + pos_y));
                     strcat(coordinates, temp);
@@ -167,7 +171,8 @@ void ebox_move(t_ebox* x, t_glist* glist)
 
 void ebox_invalidate_all(t_ebox *x, t_glist *glist)
 {   
-    for(long i = 0; i < x->e_number_of_layers; i++)
+	int i;
+    for(i = 0; i < x->e_number_of_layers; i++)
     {
         x->e_layers[i].e_state = EGRAPHICS_INVALID;
     }
@@ -175,17 +180,18 @@ void ebox_invalidate_all(t_ebox *x, t_glist *glist)
 
 void ebox_update(t_ebox *x, t_glist *glist)
 {
+	int i, j;
     t_elayer* g;
     t_canvas *canvas = glist;
     
     if(glist_isvisible(glist))
     {
-        for(long i = 0; i < x->e_number_of_layers; i++)
+        for(i = 0; i < x->e_number_of_layers; i++)
         {
             g = &x->e_layers[i];
             if(g->e_state == EGRAPHICS_INVALID)
             {
-                for(long j = 0; j < g->e_number_objects; j++)
+                for(j = 0; j < g->e_number_objects; j++)
                 {
                     sys_vgui(".x%lx.c delete %s\n", canvas, g->e_objects[j].e_tag->s_name);
                 }
@@ -196,14 +202,15 @@ void ebox_update(t_ebox *x, t_glist *glist)
 
 void ebox_erase(t_ebox* x, t_glist* glist)
 {
+	int i, j;
     t_elayer* g;
     t_canvas *canvas = glist;
     if(glist_isvisible(glist))
     {
-        for(long i = 0; i < x->e_number_of_layers; i++)
+        for(i = 0; i < x->e_number_of_layers; i++)
         {
             g = &x->e_layers[i];
-            for(long j = 0; j < g->e_number_objects; j++)
+            for(j = 0; j < g->e_number_objects; j++)
             {
                 sys_vgui(".x%lx.c delete %s\n", canvas, g->e_objects[j].e_tag->s_name);
             }
@@ -215,8 +222,9 @@ void ebox_erase(t_ebox* x, t_glist* glist)
 
 t_elayer* ebox_start_layer(t_object *b, t_object *view, t_symbol *name, double width, double height)
 {
+	int i;
     t_ebox* x = (t_ebox*)b;   
-    for(int i = 0; i < x->e_number_of_layers; i++)
+    for(i = 0; i < x->e_number_of_layers; i++)
     {
         t_elayer* graphic = &x->e_layers[i];
         if(graphic->e_name == name)
@@ -288,8 +296,9 @@ t_elayer* ebox_start_layer(t_object *b, t_object *view, t_symbol *name, double w
 
 t_pd_err ebox_end_layer(t_object *b, t_object *view, t_symbol *name)
 {
+	int i;
     t_ebox* x = (t_ebox*)b;
-    for(long i = 0; i < x->e_number_of_layers; i++)
+    for(i = 0; i < x->e_number_of_layers; i++)
     {
         if(x->e_layers[i].e_name == name)
         {
@@ -303,8 +312,9 @@ t_pd_err ebox_end_layer(t_object *b, t_object *view, t_symbol *name)
 
 t_pd_err ebox_invalidate_layer(t_object *b, t_object *view, t_symbol *name)
 {
+	int i;
     t_ebox* x = (t_ebox*)b;
-    for(long i = 0; i < x->e_number_of_layers; i++)
+    for(i = 0; i < x->e_number_of_layers; i++)
     {
         if(x->e_layers[i].e_name == name)
         {
@@ -317,10 +327,11 @@ t_pd_err ebox_invalidate_layer(t_object *b, t_object *view, t_symbol *name)
 
 t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, double x, double y)
 {
+	int i, j;
     t_ebox* obj = (t_ebox *)b;
     t_canvas* canvas = obj->e_canvas;
     t_elayer* g = NULL;
-    for(int i = 0; i < obj->e_number_of_layers; i++)
+    for(i = 0; i < obj->e_number_of_layers; i++)
     {
         if(obj->e_layers[i].e_name == name && obj->e_layers[i].e_state == EGRAPHICS_TODRAW)
         {
@@ -331,7 +342,7 @@ t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, double x,
     }
     if(g)
     {
-        for(int i = 0; i < g->e_number_objects; i++)
+        for(i = 0; i < g->e_number_objects; i++)
         {
             char temp[128];
             char script[1024];
@@ -343,14 +354,14 @@ t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, double x,
                 else
                     sprintf(script, ".x%lx.c create line ", (int unsigned long)canvas);
                 
-                for(int j = 0; j < gobj->e_npoints; j ++)
+                for(j = 0; j < gobj->e_npoints; j ++)
                 {
                     sprintf(temp, "%d %d ", (int)(gobj->e_points[j].x + g->e_rect.x + obj->e_obj.te_xpix), (int)(gobj->e_points[j].y + g->e_rect.y + obj->e_obj.te_ypix));
                     strncat(script, temp, 128);
                 }
                 if(gobj->e_type == E_GOBJ_ARC)
                 {
-                    sprintf(temp, "-smooth 1 -splinesteps 100 ");
+                    sprintf(temp, "-smooth 1 -splinesteps 100 ", 0);
                     strncat(script, temp, 128);
                 }
                 if(gobj->e_filled)

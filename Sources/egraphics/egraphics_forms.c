@@ -180,6 +180,8 @@ void egraphics_circle(t_elayer *g, float xc, float yc, float radius)
 
 void egraphics_oval(t_elayer *g, float xc, float yc, float radiusx, float radiusy)
 {
+	int i;
+	float angle = 0;
     if(g->e_state == EGRAPHICS_OPEN)
     {
         if(g->e_new_objects.e_points == NULL)
@@ -189,8 +191,8 @@ void egraphics_oval(t_elayer *g, float xc, float yc, float radiusx, float radius
         if(g->e_new_objects.e_points)
         {
             g->e_new_objects.e_type         = E_GOBJ_ARC;
-            float angle = 0;
-            for(int i = 0; i < 9; i++)
+            angle = 0;
+            for(i = 0; i < 9; i++)
             {
                 g->e_new_objects.e_points[i].x  = xc + radiusx * cos(angle);
                 g->e_new_objects.e_points[i].y  = yc + radiusy * sin(angle);

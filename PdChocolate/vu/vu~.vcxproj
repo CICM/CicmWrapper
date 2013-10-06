@@ -11,26 +11,26 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Sources\eattr\eattr_attr.cpp" />
-    <ClCompile Include="..\..\Sources\eattr\eattr_getter.cpp" />
-    <ClCompile Include="..\..\Sources\eattr\eattr_new.cpp" />
-    <ClCompile Include="..\..\Sources\eattr\eattr_setter.cpp" />
-    <ClCompile Include="..\..\Sources\ebox\ebox.cpp" />
-    <ClCompile Include="..\..\Sources\ebox\ebox_draw.cpp" />
-    <ClCompile Include="..\..\Sources\ebox\ebox_window.cpp" />
-    <ClCompile Include="..\..\Sources\eclass\eclass.cpp" />
-    <ClCompile Include="..\..\Sources\ecommon\ecommon.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip_path.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip_text.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_color.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_forms.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_matrix.cpp" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_text.cpp" />
-    <ClCompile Include="..\..\Sources\epopup\epopup.cpp" />
-    <ClCompile Include="..\..\Sources\ewidget\ewidget.cpp" />
-    <ClCompile Include="vu~.cpp" />
+    <ClCompile Include="..\..\Sources\eattr\eattr_attr.c" />
+    <ClCompile Include="..\..\Sources\eattr\eattr_getter.c" />
+    <ClCompile Include="..\..\Sources\eattr\eattr_new.c" />
+    <ClCompile Include="..\..\Sources\eattr\eattr_setter.c" />
+    <ClCompile Include="..\..\Sources\ebox\ebox.c" />
+    <ClCompile Include="..\..\Sources\ebox\ebox_draw.c" />
+    <ClCompile Include="..\..\Sources\ebox\ebox_window.c" />
+    <ClCompile Include="..\..\Sources\eclass\eclass.c" />
+    <ClCompile Include="..\..\Sources\ecommon\ecommon.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip_path.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip_text.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_color.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_forms.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_matrix.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_text.c" />
+    <ClCompile Include="..\..\Sources\epopup\epopup.c" />
+    <ClCompile Include="..\..\Sources\ewidget\ewidget.c" />
+    <ClCompile Include="vu~.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\eattr\eattr.h" />
@@ -38,12 +38,8 @@
     <ClInclude Include="..\..\Sources\eclass\eclass.h" />
     <ClInclude Include="..\..\Sources\ecommon\ecommon.h" />
     <ClInclude Include="..\..\Sources\egraphics\egraphics.h" />
-    <ClInclude Include="..\..\Sources\epd.h" />
-    <ClInclude Include="..\..\Sources\epd_max.h" />
     <ClInclude Include="..\..\Sources\epopup\epopup.h" />
-    <ClInclude Include="..\..\Sources\estruct.h" />
     <ClInclude Include="..\..\Sources\ewidget\ewidget.h" />
-    <ClInclude Include="..\..\Sources\pd_enhanced.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{079DD347-F5E0-4784-9BCE-AF551691BA41}</ProjectGuid>
@@ -59,8 +55,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <UseIntelIPP>Sequential</UseIntelIPP>
-    <UseIntelMKL>Sequential</UseIntelMKL>
+    <UseIntelIPP>false</UseIntelIPP>
+    <UseIntelMKL>No</UseIntelMKL>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -74,12 +70,10 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../builds/</OutDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../builds/</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -87,12 +81,12 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;NT;PD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <CompileAs>CompileAsCpp</CompileAs>
+      <CompileAs>CompileAsC</CompileAs>
       <CallingConvention>Cdecl</CallingConvention>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <Optimization>Disabled</Optimization>
@@ -109,6 +103,7 @@
       <TargetMachine>NotSet</TargetMachine>
       <DelayLoadDLLs>
       </DelayLoadDLLs>
+      <OutputFile>../builds/$(ProjectName).dll</OutputFile>
     </Link>
     <Midl>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -117,7 +112,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <OmitFramePointers>true</OmitFramePointers>
       <AdditionalIncludeDirectories>C:\Program Files (x86)\pd\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -130,16 +125,16 @@
       <WarningLevel>Level2</WarningLevel>
       <DebugInformationFormat>
       </DebugInformationFormat>
-      <CompileAs>CompileAsCpp</CompileAs>
+      <CompileAs>CompileAsC</CompileAs>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <ExceptionHandling>SyncCThrow</ExceptionHandling>
     </ClCompile>
     <Link>
-      <AdditionalOptions>/EXPORT:setup_hoa0x2ewider_tilde %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>C:\Program Files (x86)\pd\bin;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
+      <AdditionalOptions>/MACHINE:I386  /EXPORT:vu_tilde_setup %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>C:\Program Files (x86)\pd\bin\pd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../builds/$(ProjectName).dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\pd\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>

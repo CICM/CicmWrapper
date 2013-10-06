@@ -28,7 +28,7 @@
 
 void cicm_class_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
 {
-    int i;
+    int i, j;
     t_ebox* z   = (t_ebox *)x;
     t_eclass* c = (t_eclass *)z->e_obj.te_g.g_pd;
     if(argv[0])
@@ -48,35 +48,35 @@ void cicm_class_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
             }
             else if(type == gensym("int"))
             {
-                for(int j = 0; j < argc[0]; j++)
+                for(j = 0; j < argc[0]; j++)
                 {
                     atom_setlong(argv[0]+j, ((int *)point)[j]);
                 }
             }
             else if(type == gensym("long"))
             {
-                for(int j = 0; j < argc[0]; j++)
+                for(j = 0; j < argc[0]; j++)
                 {
                     atom_setlong(argv[0]+j, ((long *)point)[j]);
                 }
             }
             else if(type == gensym("float"))
             {
-                for(int j = 0; j < argc[0]; j++)
+                for(j = 0; j < argc[0]; j++)
                 {
                     atom_setfloat(argv[0]+j, ((float *)point)[j]);
                 }
             }
             else if(type == gensym("double"))
             {
-                for(int j = 0; j < argc[0]; j++)
+                for(j = 0; j < argc[0]; j++)
                 {
                     atom_setfloat(argv[0]+j, ((double *)point)[j]);
                 }
             }
             else if(type == gensym("symbol"))
             {
-                for(int j = 0; j < argc[0]; j++)
+                for(j = 0; j < argc[0]; j++)
                 {
                     atom_setsym(argv[0]+j, ((t_symbol **)point)[j]);
                 }

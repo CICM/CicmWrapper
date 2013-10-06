@@ -21,8 +21,10 @@
  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
+extern "C"
+{
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
+}
 
 typedef struct  _nbx
 {
@@ -316,12 +318,12 @@ void draw_value(t_nbx *x, t_object *view, t_rect *rect)
         if(!x->f_entertext)
         {
             etext_layout_settextcolor(jtl, &x->f_color_text);
-            sprintf(number, "%f", x->f_peak_value);
+            sprintf_s(number, "%f", x->f_peak_value);
         }
         else
         {
             etext_layout_settextcolor(jtl, &rgba_red);
-            sprintf(number, "%s", x->f_textvalue);
+            sprintf_s(number, "%s", x->f_textvalue);
         }
         
         etext_layout_set(jtl, number, &x->j_box.e_font, sys_fontwidth(x->j_box.e_font.c_size) + 8, rect->height / 2., rect->width, 0, ETEXT_LEFT, ETEXT_NOWRAP);
@@ -338,7 +340,7 @@ void nbx_mousedown(t_nbx *x, t_object *patcherview, t_pt pt, long modifiers)
     x->f_drag = 0;
     if(x->f_entertext == 0 && x->f_mode)
     {
-        sprintf(x->f_textvalue, "");
+        sprintf_s(x->f_textvalue, "");
         x->f_entertext = 1;
     }
     
@@ -446,7 +448,7 @@ void nbx_keyfilter(t_nbx *x, t_object *patcherview, char textcharacter, long mod
         if(pos > 0)
             strncpy(x->f_textvalue, x->f_textvalue, pos);
         else
-            sprintf(x->f_textvalue, "");
+            sprintf_s(x->f_textvalue, "");
         ebox_invalidate_layer((t_object *)x, NULL, gensym("value_layer"));
         ebox_redraw((t_ebox *)x);            
     }

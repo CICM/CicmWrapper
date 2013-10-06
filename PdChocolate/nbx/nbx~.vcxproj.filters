@@ -27,62 +27,62 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Sources\eattr\eattr_setter.cpp">
+    <ClCompile Include="..\..\Sources\eattr\eattr_attr.c">
       <Filter>PdEnhanced\eattr</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\eattr\eattr_attr.cpp">
+    <ClCompile Include="..\..\Sources\eattr\eattr_getter.c">
       <Filter>PdEnhanced\eattr</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\eattr\eattr_getter.cpp">
+    <ClCompile Include="..\..\Sources\eattr\eattr_new.c">
       <Filter>PdEnhanced\eattr</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\eattr\eattr_new.cpp">
+    <ClCompile Include="..\..\Sources\eattr\eattr_setter.c">
       <Filter>PdEnhanced\eattr</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\ebox\ebox_draw.cpp">
+    <ClCompile Include="..\..\Sources\ebox\ebox.c">
       <Filter>PdEnhanced\ebox</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\ebox\ebox_window.cpp">
+    <ClCompile Include="..\..\Sources\ebox\ebox_draw.c">
       <Filter>PdEnhanced\ebox</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\ebox\ebox.cpp">
+    <ClCompile Include="..\..\Sources\ebox\ebox_window.c">
       <Filter>PdEnhanced\ebox</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\eclass\eclass.cpp">
+    <ClCompile Include="..\..\Sources\eclass\eclass.c">
       <Filter>PdEnhanced\eclass</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\egraphics\egraphics.cpp">
+    <ClCompile Include="..\..\Sources\ecommon\ecommon.c">
+      <Filter>PdEnhanced\ecommon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Sources\egraphics\egraphics.c">
       <Filter>PdEnhanced\egraphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip.cpp">
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip.c">
       <Filter>PdEnhanced\egraphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip_path.cpp">
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip_path.c">
       <Filter>PdEnhanced\egraphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip_text.cpp">
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip_text.c">
       <Filter>PdEnhanced\egraphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_color.cpp">
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_color.c">
       <Filter>PdEnhanced\egraphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_forms.cpp">
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_forms.c">
       <Filter>PdEnhanced\egraphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_matrix.cpp">
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_matrix.c">
       <Filter>PdEnhanced\egraphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_text.cpp">
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_text.c">
       <Filter>PdEnhanced\egraphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\epopup\epopup.cpp">
+    <ClCompile Include="..\..\Sources\epopup\epopup.c">
       <Filter>PdEnhanced\epopup</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\ewidget\ewidget.cpp">
+    <ClCompile Include="..\..\Sources\ewidget\ewidget.c">
       <Filter>PdEnhanced\ewidget</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\ecommon\ecommon.cpp">
-      <Filter>PdEnhanced\ecommon</Filter>
     </ClCompile>
     <ClCompile Include="nbx~.cpp" />
   </ItemGroup>
@@ -96,6 +96,9 @@
     <ClInclude Include="..\..\Sources\eclass\eclass.h">
       <Filter>PdEnhanced\eclass</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Sources\ecommon\ecommon.h">
+      <Filter>PdEnhanced\ecommon</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Sources\egraphics\egraphics.h">
       <Filter>PdEnhanced\egraphics</Filter>
     </ClInclude>
@@ -104,21 +107,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Sources\ewidget\ewidget.h">
       <Filter>PdEnhanced\ewidget</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\estruct.h">
-      <Filter>PdEnhanced</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\pd_enhanced.h">
-      <Filter>PdEnhanced</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\epd.h">
-      <Filter>PdEnhanced</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\epd_max.h">
-      <Filter>PdEnhanced</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Sources\ecommon\ecommon.h">
-      <Filter>PdEnhanced\ecommon</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

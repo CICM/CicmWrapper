@@ -43,12 +43,14 @@ void egraphics_set_line_splinestep(t_elayer *g, float smooth)
 
 void egraphics_paint(t_elayer *g, int filled, int preserved)
 {
+	int i, index;
+	char text[256];
     if(g->e_new_objects.e_type != E_GOBJ_INVALID)
     {
         g->e_objects = (t_egobj *)realloc(g->e_objects, (g->e_number_objects + 1) * sizeof(t_egobj));
         if(g->e_objects)
         {
-            long index = g->e_number_objects;
+            index = g->e_number_objects;
             g->e_number_objects++;
             if (filled)
             {
@@ -62,7 +64,7 @@ void egraphics_paint(t_elayer *g, int filled, int preserved)
             g->e_objects[index].e_roundness = g->e_new_objects.e_roundness;
             g->e_objects[index].e_npoints   = g->e_new_objects.e_npoints;
             g->e_objects[index].e_points = (t_pt*)calloc(g->e_objects[index].e_npoints, sizeof(t_pt));
-            for (int i = 0; i < g->e_objects[index].e_npoints; i++)
+            for(i = 0; i < g->e_objects[index].e_npoints; i++)
             {
                 g->e_objects[index].e_points[i]   = g->e_new_objects.e_points[i];
             }
@@ -71,7 +73,6 @@ void egraphics_paint(t_elayer *g, int filled, int preserved)
             g->e_objects[index].e_color = g->e_color;
             g->e_objects[index].e_width = g->e_width;
             
-            char text[256];
             sprintf(text, "%lx%s%ld", (unsigned long)g->e_owner, g->e_name->s_name, index);
     
             g->e_objects[index].e_tag = gensym(text);

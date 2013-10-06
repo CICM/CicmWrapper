@@ -208,17 +208,18 @@ void close_clip(t_rect rect, t_pt* pt_out, int* cnt, t_pt* first[], t_pt *s)
 
 long egraphics_clip_path_perform(t_rect rect, long n, t_pt* in, t_pt* out)
 {
+	int i;
     t_pt* first[N_EDGE] = {0, 0, 0, 0};
     t_pt  s[N_EDGE];
     int cnt = 0;
     
-    for(int i = 0; i < n; i++)
+    for(i = 0; i < n; i++)
     {
         clip_point(in[i], 0, rect, out, &cnt, first, s);
     }
     //close_clip(rect, out, &cnt, first, s);
     
-    for(int i = 0; i < cnt; i++) // We could avoid this but... there's a bug in the clipping function
+    for(i = 0; i < cnt; i++) // We could avoid this but... there's a bug in the clipping function
     {
         out[i] = egraphics_clip_point(out[i], rect);
     }
