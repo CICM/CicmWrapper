@@ -26,14 +26,9 @@
 
 #include "ecommon.h"
 
-void outlet_int(void* outlet, int val)
+void outlet_int(t_outlet* outlet, int val)
 {
-    outlet_float((t_outlet *)outlet, val);
-}
-
-void outlet_list(void* outlet, t_symbol *s, int argc, t_atom *argv)
-{
-    outlet_list((t_outlet *)outlet, s, argc, argv);
+    outlet_float(outlet, val);
 }
 
 void* listout(void *x)
@@ -88,23 +83,28 @@ void canvas_deletelines_for_io(t_canvas *x, t_text *text, t_inlet *inp, t_outlet
     }
 }
 
-void* object_method(void* x, t_symbol* s)
+void* object_method(void* x, t_symbol* s, void* z, method method, long number, void* other)
 {
     rmethod nrmethod = (rmethod)getfn((t_pd *)x, s);
-    return nrmethod(x, s);
+    return nrmethod(x, s, z, method, number, other);
 }
-
-void object_method(void* x, t_symbol* s, t_floatarg a, t_floatarg b,  t_floatarg c, t_floatarg d)
+/*
+void* object_method(void* x, t_symbol* s, ...)
 {
+    va_list arguments;
+    
+    va_start(arguments, s);
+    while (*vp)
+    {
+        vp++;
+        count++;
+        *vp = va_arg(arguments, t_atomtype);
+    }
+    va_end(ap);
+    
     rmethod nrmethod = (rmethod)getfn((t_pd *)x, s);
-    nrmethod(x, s, a, b, c, d);
-}
-
-void object_method(void* x, t_symbol* s, void* z, method method, long number, void* other)
-{
-    rmethod nrmethod = (rmethod)getfn((t_pd *)x, s);
-    nrmethod(x, s, z, method, number, other);
-}
+    return nrmethod(x, s, ...);
+}*/
 
 void object_attr_setvalueof(t_object *x, t_symbol* s, long argc, t_atom* argv)
 {
@@ -165,7 +165,7 @@ t_pd_err binbuf_copy_atoms(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv
             i++;
             argc[0]++;
         }
-        argv[0] = new t_atom[argc[0]];
+        argv[0] = (t_atom *)calloc(argc[0], sizeof(t_atom));
         for (i = 0; i < argc[0]; i++)
         {
             if(atom_gettype(av+i+index) == A_SYM && atom_getsym(av+i+index) == gensym("s_nosymbol"))

@@ -29,12 +29,6 @@
 
 #include "../estruct.h"
 
-const int CLIP_INSIDE    = 0;   // 0000
-const int CLIP_LEFT      = 1;   // 0001
-const int CLIP_RIGHT     = 2;   // 0010
-const int CLIP_BOTTOM    = 4;   // 0100
-const int CLIP_TOP       = 8;   // 1000
-
 // PAINT METHOD //
 void egraphics_fill(t_elayer *g);
 void egraphics_fill_preserve(t_elayer *g);
@@ -57,7 +51,6 @@ void egraphics_clip_text(t_elayer *g, t_egobj* gobj);
 t_symbol* egraphics_clip_text_perform(t_rect rect, t_pt* pt, float size, t_symbol* text, t_symbol* justify);
 void egraphics_clip_path(t_elayer *g, t_egobj* gobj);
 long egraphics_clip_path_perform(t_rect rect, long n, t_pt* in, t_pt* out);
-int egraphics_point_in_rect(t_pt pt, t_rect rect);
 t_pt egraphics_clip_point(t_pt pt, t_rect rect);
 void egraphics_clip_oval(t_elayer *g, t_egobj* gobj);
 // END PRIVATE //

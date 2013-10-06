@@ -21,8 +21,10 @@
  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
+extern "C"
+{
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
+}
 
 typedef struct  _vu
 {

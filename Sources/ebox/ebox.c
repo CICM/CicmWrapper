@@ -130,7 +130,7 @@ void ebox_redraw(t_ebox *x)
 
 void ebox_resize_inputs(t_ebox *x, long nins)
 {
-    nins = pd_clip_min(nins, long(1));
+    nins = pd_clip_min(nins, 1);
     int i = 0;
     
     if(nins > obj_nsiginlets(&x->e_obj))
@@ -156,7 +156,7 @@ void ebox_resize_outputs(t_ebox *x, long nouts)
 {
     int i;
     t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
-    nouts       = pd_clip_min(nouts, long(0));
+    nouts       = pd_clip_min(nouts, 0);
     
     if(!c->c_box)
     {
@@ -370,7 +370,7 @@ void attr_binbuf_process(void *x, t_binbuf *d)
         if(c->c_attr[i].defvals)
         {
             defc = c->c_attr[i].size;
-            defv = new t_atom[defc];
+            defv = (t_atom *)calloc(defc, sizeof(t_atom));
             if(defc && defv)
             {
                 char* str_start = c->c_attr[i].defvals->s_name;

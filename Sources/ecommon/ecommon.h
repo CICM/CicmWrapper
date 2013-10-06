@@ -27,21 +27,6 @@
 #ifndef DEF_EPD_COMMON
 #define DEF_EPD_COMMON
 
-
-#include <iostream>
-#include <vector>
-#include <string>
-using namespace std;
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <math.h>
-#include <ctype.h>
-#include <string.h>
-
-
-
 #ifdef _WIN32
 #define snprintf _snprintf
 #include <io.h>
@@ -50,13 +35,19 @@ using namespace std;
 #include <unistd.h>
 #endif
 
-extern "C"
-{
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <math.h>
+#include <ctype.h>
+#include <string.h>
+#include <stdarg.h>
+
 #include "m_pd.h"
 #include "m_imp.h"
 #include "g_canvas.h"
 #include "s_stuff.h"
-}
+
 #define EPD_PI  (3.141592653589793238462643383279502884)
 #define EPD_2PI (6.283185307179586476925286766559005)
 #define EPD_PI2 (1.57079632679489661923132169163975144)
@@ -67,10 +58,10 @@ extern "C"
 #define t_pd_err            long
 #define ASSIST_INLET        1
 #define ASSIST_OUTLET       2
-#define E_NO_INPLACE 1
-#define E_PUT_LAST 2
-#define E_PUT_FIRST 4
-#define E_IGNORE_DISABLE 8
+#define E_NO_INPLACE        1
+#define E_PUT_LAST          2
+#define E_PUT_FIRST         4
+#define E_IGNORE_DISABLE    8
 
 #define atom_setfloat(atom, float)  SETFLOAT(atom, float)
 #define atom_setlong(atom, long)    SETFLOAT(atom, (float)long)
@@ -85,9 +76,9 @@ extern "C"
 #define layer_getname(layer) layer.c_name->s_name
 #define layer_getsize(layer) layer.c_atom.size()
 
-typedef void    (*method)(...);
-typedef void*   (*rmethod)(...);
-typedef t_pd_err (*t_err_method)(...);
+typedef void        (*method)(void* x, ...);
+typedef void*       (*rmethod)(void* x, ...);
+typedef t_pd_err    (*t_err_method)(void* x, ...);
 
 union inletunion
 {
@@ -123,17 +114,15 @@ struct _outlet
     t_symbol *o_sym;
 };
 
-void outlet_int(void* outlet, int val);
-void outlet_list(void* outlet, t_symbol *s, int argc, t_atom *argv);
+void outlet_int(t_outlet* outlet, int val);
 void *listout(void *x);
 void *floatout(void *x);
 int obj_isfloatoutlet(t_object *x, int m);
 int obj_isfloatinlet(t_object *x, int m);
 void canvas_deletelines_for_io(t_canvas *x, t_text *text, t_inlet *inp, t_outlet *outp);
 
-void* object_method(void* x, t_symbol* s);
-void object_method(void* x, t_symbol* s, t_floatarg a, t_floatarg b,  t_floatarg c, t_floatarg d);
-void object_method(void* x, t_symbol* s, void* z, method method, long number, void* other);
+//void* object_method(void* x, t_symbol* s, ...); // For tht moment we only use dsp method so...
+void* object_method(void* x, t_symbol* s, void* z, method method, long number, void* other);
 void object_attr_setvalueof(t_object *x, t_symbol* s, long argc, t_atom* argv);
 void object_attr_getvalueof(t_object *x, t_symbol *s, long *argc, t_atom **argv);
 

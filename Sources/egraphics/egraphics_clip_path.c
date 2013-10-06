@@ -26,38 +26,21 @@
 
 #include "egraphics.h"
 
-int egraphics_point_in_rect(t_pt pt, t_rect rect)
-{
-    int code = CLIP_INSIDE;
-    
-    if (pt.x < rect.x)
-        code |= CLIP_LEFT;
-    else if (pt.x > rect.x + rect.width)
-        code |= CLIP_RIGHT;
-    if (pt.y < rect.y)
-        code |= CLIP_BOTTOM;
-    else if (pt.y > rect.y + rect.height)
-        code |= CLIP_TOP;
-    
-    return code;
-}
-
 t_pt egraphics_clip_point(t_pt pt, t_rect rect)
 {
-    int code = egraphics_point_in_rect(pt, rect);
-    if(code & CLIP_TOP)
+    if(pt.y > rect.y + rect.height)
     {
         pt.y = rect.y + rect.height;
     }
-    else if(code & CLIP_BOTTOM)
+    else if(pt.y < rect.y)
     {
         pt.y = rect.y;
     }
-    if(code & CLIP_RIGHT)
+    if(pt.x > rect.x + rect.width)
     {
         pt.x = rect.x + rect.width;
     }
-    else if(code & CLIP_LEFT)
+    else if(pt.x < rect.x)
     {
         pt.x = rect.x;
     }
