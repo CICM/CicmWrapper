@@ -157,7 +157,7 @@ void ebox_move(t_ebox* x, t_glist* glist)
             g = &x->e_layers[i];
             for(j = 0; j < g->e_number_objects; j++)
             {
-                sprintf(coordinates, "");
+                sprintf(coordinates, "", 0);
                 for(k = 0; k < g->e_objects[j].e_npoints; k ++)
                 {
                     sprintf(temp, "%d %d ", (int)((int)g->e_objects[j].e_points[k].x + (int)g->e_rect.x + pos_x), (int)((int)g->e_objects[j].e_points[k].y + (int)g->e_rect.y + pos_y));
@@ -361,7 +361,7 @@ t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, double x,
                 }
                 if(gobj->e_type == E_GOBJ_ARC)
                 {
-                    sprintf(temp, "-smooth 1 -splinesteps 100 ");
+                    sprintf(temp, "-smooth 1 -splinesteps 100 ", 0);
                     strncat(script, temp, 128);
                 }
                 if(gobj->e_filled)

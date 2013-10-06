@@ -203,12 +203,12 @@ double pd_clip_max(double aValue, double aMaximum)
         return aValue;
 }
 
-double pd_ordinate(const double radius, const double angle)
+double pd_ordinate(double radius, double angle)
 {
     return radius * sin(angle);
 }
 
-double pd_abscissa(const double radius, const double angle)
+double pd_abscissa(double radius, double angle)
 {
     return radius * cos(angle);
 }

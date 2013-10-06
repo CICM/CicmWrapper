@@ -21,7 +21,6 @@
  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
 
 typedef struct  _vu

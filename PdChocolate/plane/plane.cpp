@@ -21,7 +21,6 @@
  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
 
 typedef struct  _plane
@@ -44,7 +43,7 @@ typedef struct  _plane
 
 t_eclass *plane_class;
 
-extern "C" void plane_tilde_setup(void);
+void plane_tilde_setup(void);
 void *plane_new(t_symbol *s, int argc, t_atom *argv);
 void plane_free(t_plane *x);
 void plane_assist(t_plane *x, void *b, long m, long a, char *s);
@@ -66,7 +65,7 @@ void plane_mousedown(t_plane *x, t_object *patcherview, t_pt pt, long modifiers)
 void plane_mousedrag(t_plane *x, t_object *patcherview, t_pt pt, long modifiers);
 void plane_mousemove(t_plane *x, t_object *patcherview, t_pt pt, long modifiers);
 
-extern "C" void plane_setup(void)
+void plane_setup(void)
 {
 	t_eclass *c;
     
@@ -228,6 +227,7 @@ t_pd_err plane_point_set(t_plane *x, t_object *attr, long ac, t_atom *av)
 
 t_pd_err plane_bound_set(t_plane *x, t_object *attr, long ac, t_atom *av)
 {
+	t_atom argv[2];
     if(ac && av)
     {
         if(ac >= 1)
@@ -240,7 +240,6 @@ t_pd_err plane_bound_set(t_plane *x, t_object *attr, long ac, t_atom *av)
             x->f_boundaries.height = atom_getfloat(av+3);
         
         // Boundaries changed -> recompute the point position !
-        t_atom argv[2];
         atom_setfloat(argv, x->f_point.x);
         atom_setfloat(argv+1, x->f_point.y);
         object_attr_setvalueof((t_object *)x, gensym("point"), 2, argv);
