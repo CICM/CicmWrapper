@@ -27,16 +27,20 @@
 #ifndef DEF_EPD_COMMON
 #define DEF_EPD_COMMON
 
+
 #include <iostream>
 #include <vector>
-#include <map>
+#include <string>
+using namespace std;
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <math.h>
-#include <string>
+#include <ctype.h>
+#include <string.h>
 
-using namespace std;
+
 
 #ifdef _WIN32
 #define snprintf _snprintf
@@ -46,7 +50,6 @@ using namespace std;
 #include <unistd.h>
 #endif
 
-
 extern "C"
 {
 #include "m_pd.h"
@@ -54,7 +57,6 @@ extern "C"
 #include "g_canvas.h"
 #include "s_stuff.h"
 }
-
 #define EPD_PI  (3.141592653589793238462643383279502884)
 #define EPD_2PI (6.283185307179586476925286766559005)
 #define EPD_PI2 (1.57079632679489661923132169163975144)
@@ -83,8 +85,8 @@ extern "C"
 #define layer_getname(layer) layer.c_name->s_name
 #define layer_getsize(layer) layer.c_atom.size()
 
-typedef void (*method)(...);
-typedef void* (*rmethod)(...);
+typedef void    (*method)(...);
+typedef void*   (*rmethod)(...);
 typedef t_pd_err (*t_err_method)(...);
 
 union inletunion

@@ -28,11 +28,11 @@
 
 void cicm_class_new_attr_typed(t_eclass* c, char* attrname, char* type, long size, long flags, long offset)
 {
-    
+    int i;
     char getattr[256];
     if(size < 1)
         return;
-    for(int i = 0; i < c->c_nattr; i++)
+    for(i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].name == gensym(attrname))
             return ;

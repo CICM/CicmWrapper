@@ -320,73 +320,73 @@ t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, double x,
     t_ebox* obj = (t_ebox *)b;
     t_canvas* canvas = obj->e_canvas;
     t_elayer* g = NULL;
-    if(glist_isvisible(canvas))
+    for(int i = 0; i < obj->e_number_of_layers; i++)
     {
-        for(int i = 0; i < obj->e_number_of_layers; i++)
+        if(obj->e_layers[i].e_name == name && obj->e_layers[i].e_state == EGRAPHICS_TODRAW)
         {
-            if(obj->e_layers[i].e_name == name && obj->e_layers[i].e_state == EGRAPHICS_TODRAW)
-            {
-                g = &obj->e_layers[i];
-                g->e_rect.x = x;
-                g->e_rect.y = y;
-            }
+            g = &obj->e_layers[i];
+            g->e_rect.x = x;
+            g->e_rect.y = y;
         }
-        if(g)
-        {
-            for(int i = 0; i < g->e_number_objects; i++)
-            {
-                char temp[128];
-                char script[1024];
-                t_egobj* gobj = g->e_objects+i;
-                if(gobj->e_type == E_GOBJ_PATH || gobj->e_type == E_GOBJ_ARC)
-                {
-                    if(gobj->e_filled)
-                        sprintf(script, ".x%lx.c create polygon ", (int unsigned long)canvas);
-                    else
-                        sprintf(script, ".x%lx.c create line ", (int unsigned long)canvas);
-                    
-                    for(int j = 0; j < gobj->e_npoints; j ++)
-                    {
-                        sprintf(temp, "%d %d ", (int)(gobj->e_points[j].x + g->e_rect.x + obj->e_obj.te_xpix), (int)(gobj->e_points[j].y + g->e_rect.y + obj->e_obj.te_ypix));
-                        strncat(script, temp, 128);
-                    }
-                    if(gobj->e_type == E_GOBJ_ARC)
-                    {
-                        sprintf(temp, "-smooth 1 -splinesteps 100 ");
-                        strncat(script, temp, 128);
-                    }
-                    if(gobj->e_filled)
-                        sprintf(temp, "-fill %s -width 0 -tags %s\n", gobj->e_color->s_name,  gobj->e_tag->s_name);
-                    else
-                        sprintf(temp, "-fill %s -width %f -tags %s\n", gobj->e_color->s_name, gobj->e_width, gobj->e_tag->s_name);
-                    
-                    strncat(script, temp, 128);
-                    sys_gui(script);
-                    g->e_state = EGRAPHICS_CLOSE;
-                    //post(script);
-                }
-                else if(gobj->e_type == E_GOBJ_TEXT)
-                {
-                    
-                    sys_vgui(".x%lx.c create text %d %d -text {%s} -anchor %s -font {%s %d %s} -fill %s -width %d -tags %s\n", (int unsigned long)canvas,
-                             (int)(gobj->e_points[0].x + g->e_rect.x + obj->e_obj.te_xpix),
-                             (int)(gobj->e_points[0].y + g->e_rect.y + obj->e_obj.te_ypix),
-                             gobj->e_text->s_name,
-                             gobj->e_justify->s_name,
-                             gobj->e_font.c_family->s_name, (int)gobj->e_font.c_size, gobj->e_font.c_weight->s_name,
-                             gobj->e_color->s_name,
-                             (int)(gobj->e_points[1].x),
-                             gobj->e_tag->s_name);
-                }
-                else
-                {
-                    //error("Invalid layer object %s", gobj->e_name->s_name);
-                }
-            }
-        }
-        else
-            return -1;
     }
+    if(g)
+    {
+        for(int i = 0; i < g->e_number_objects; i++)
+        {
+            char temp[128];
+            char script[1024];
+            t_egobj* gobj = g->e_objects+i;
+            if(gobj->e_type == E_GOBJ_PATH || gobj->e_type == E_GOBJ_ARC)
+            {
+                if(gobj->e_filled)
+                    sprintf(script, ".x%lx.c create polygon ", (int unsigned long)canvas);
+                else
+                    sprintf(script, ".x%lx.c create line ", (int unsigned long)canvas);
+                
+                for(int j = 0; j < gobj->e_npoints; j ++)
+                {
+                    sprintf(temp, "%d %d ", (int)(gobj->e_points[j].x + g->e_rect.x + obj->e_obj.te_xpix), (int)(gobj->e_points[j].y + g->e_rect.y + obj->e_obj.te_ypix));
+                    strncat(script, temp, 128);
+                }
+                if(gobj->e_type == E_GOBJ_ARC)
+                {
+                    sprintf(temp, "-smooth 1 -splinesteps 100 ");
+                    strncat(script, temp, 128);
+                }
+                if(gobj->e_filled)
+                    sprintf(temp, "-fill %s -width 0 -tags %s\n", gobj->e_color->s_name,  gobj->e_tag->s_name);
+                else
+                    sprintf(temp, "-fill %s -width %f -tags %s\n", gobj->e_color->s_name, gobj->e_width, gobj->e_tag->s_name);
+                
+                strncat(script, temp, 128);
+                sys_gui(script);
+                g->e_state = EGRAPHICS_CLOSE;
+                //post(script);
+            }
+            else if(gobj->e_type == E_GOBJ_TEXT)
+            {
+                
+                sys_vgui(".x%lx.c create text %d %d -text {%s} -anchor %s -font {%s %d %s} -fill %s -width %d -tags %s\n", (int unsigned long)canvas,
+                         (int)(gobj->e_points[0].x + g->e_rect.x + obj->e_obj.te_xpix),
+                         (int)(gobj->e_points[0].y + g->e_rect.y + obj->e_obj.te_ypix),
+                         gobj->e_text->s_name,
+                         gobj->e_justify->s_name,
+                         gobj->e_font.c_family->s_name, (int)gobj->e_font.c_size, gobj->e_font.c_weight->s_name,
+                         gobj->e_color->s_name,
+                         (int)(gobj->e_points[1].x),
+                         gobj->e_tag->s_name);
+            }
+            else
+            {
+                //error("Invalid layer object %s", gobj->e_name->s_name);
+            }
+        }
+    }
+    else
+    {
+        return -1;
+    }
+    
     
     return 0;
 }

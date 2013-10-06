@@ -106,9 +106,9 @@ typedef struct _eattr
     t_symbol*       label;
     t_symbol*       style;
     long            order;
-    bool            save;
-    bool            paint;
-    bool            invisible;
+    char            save;
+    char            paint;
+    char            invisible;
 	long			flags;
     long            offset;
     long            sizemax;
@@ -126,7 +126,7 @@ typedef struct _eattr
 typedef struct _eclass
 {
     t_class     c_class;
-    bool        c_box;
+    char        c_box;
     t_ewidget   c_widget;
     t_eattr*    c_attr;
     long        c_nattr;
@@ -245,26 +245,6 @@ typedef struct _edrawparams
     
 } t_edrawparams;
 
-typedef struct _epopupitem
-{
-    t_rgba      c_color;
-    long        c_id;
-    t_symbol*   c_text;
-    bool        c_checked;
-    bool        c_disable;
-    bool        c_separator;
-}t_epopupitem;
-
-typedef struct _epopupmenu
-{
-    t_object*               c_obj;
-    vector<t_epopupitem>    c_items;
-    t_efont                 c_font;
-    t_rect                  c_rect;
-    t_symbol*               c_name;
-    
-}t_epopupmenu;
-
 typedef struct _ebox
 {
     t_object            e_obj;
@@ -281,13 +261,14 @@ typedef struct _ebox
     t_symbol*           e_all_id;
     
     t_rect              e_rect;
-    bool                e_selected;
+    t_efont             e_font;
+    
+    char                e_selected;
     t_pt                e_mouse;
-    bool                e_mouse_down;
+    char                e_mouse_down;
     long                e_modifiers;
     
-    bool                e_ready_to_draw;
-    t_symbol*           e_box_text;
+    char                e_ready_to_draw;
     
     t_edrawparams       e_boxparameters;
     float               e_lastclick;
@@ -300,24 +281,22 @@ typedef struct _ebox
     t_elayer*           e_layers;
     long                e_number_of_layers;
     
-    t_efont             e_font;
-    t_epopupmenu*       e_popup;
     
-    vector<t_inlet*>    e_inlets;
-    vector<t_outlet*>   e_outlets;
-    long                e_nins;
-    long                e_nouts;
+    //t_epopupmenu*       e_popup;
+    
+    t_inlet*            e_inlets[256];
+    t_outlet*           e_outlets[256];
     
     float               e_float;                // float value for signal
     long                e_dsp_size;
-    t_int*              e_dsp_vectors;
+    t_int               e_dsp_vectors[262];
     long                e_dsp_flag;
     void*               e_dsp_user_param;
     long                z_misc;     // Special Max for Z_NO_INPLACE
-    t_float**           z_sigs_out;
+    t_float*            z_sigs_out[256];
     method              e_perform_method;
     
-    bool                e_no_redraw_box;
+    char                e_no_redraw_box;
     t_object*           b_firstin; // For Max, it doesn't matter !
 }t_ebox;
 

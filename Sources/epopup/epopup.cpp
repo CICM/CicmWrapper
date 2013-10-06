@@ -25,7 +25,7 @@
  */
 
 #include "epopup.h"
-
+/*
 t_epopupmenu* epopupmenu_create(t_ebox *x, t_symbol* name)
 {
     t_epopupmenu* popmenu = new t_epopupmenu[1];
@@ -193,6 +193,8 @@ int epopupmenu_mousemove(t_epopupmenu *menu, t_pt pt, int mousedown)
         return 0;
     }    
 }
+ 
+ */
 
 
 

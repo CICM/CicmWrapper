@@ -28,12 +28,13 @@
 
 void cicm_class_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
 {
-    t_ebox* z = (t_ebox *)x;
+    int i;
+    t_ebox* z   = (t_ebox *)x;
     t_eclass* c = (t_eclass *)z->e_obj.te_g.g_pd;
     if(argv[0])
         free(argv);
     argc[0] = 0;
-    for(int i = 0; i < c->c_nattr; i++)
+    for(i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].name == s)
         {
@@ -71,6 +72,13 @@ void cicm_class_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
                 for(int j = 0; j < argc[0]; j++)
                 {
                     atom_setfloat(argv[0]+j, ((double *)point)[j]);
+                }
+            }
+            else if(type == gensym("symbol"))
+            {
+                for(int j = 0; j < argc[0]; j++)
+                {
+                    atom_setsym(argv[0]+j, ((t_symbol **)point)[j]);
                 }
             }
         }

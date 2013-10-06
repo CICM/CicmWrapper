@@ -74,9 +74,9 @@ void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
         ebox_update(x, x->e_canvas);
         if(c->c_box == 0)
         {
-            ebox_draw_background(x, x->e_canvas);
-            c->c_widget.w_paint(x, (t_object *)x->e_canvas);
-            ebox_draw_border(x, x->e_canvas);
+            ebox_draw_background(x, glist);
+            c->c_widget.w_paint(x, (t_object *)glist);
+            ebox_draw_border(x, glist);
         }
     }
     else if(!vis)
@@ -119,8 +119,10 @@ int ewidget_mousemove(t_gobj *z, struct _glist *glist, int posx, int posy, int s
     x->e_mouse.y = posy - text_ypix(&x->e_obj, glist);
     
     clock_delay(x->e_deserted_clock, x->e_deserted_time);
+    /*
     if(epopupmenu_mousemove(x->e_popup, x->e_mouse, mousedown))
         return 1;
+     */
     
     x->e_modifiers = EMOD_NONE;
     if(shift && !alt && !ctrl)

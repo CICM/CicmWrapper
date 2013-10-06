@@ -122,7 +122,8 @@ void object_attr_getvalueof(t_object *x, t_symbol *s, long *argc, t_atom **argv)
 
 t_pd_err binbuf_append_atoms(t_binbuf *d, t_symbol *key, long argc, t_atom *argv)
 {
-    for(int i = 0; i < argc; i++)
+    int i;
+    for(i = 0; i < argc; i++)
     {
         if(atom_gettype(argv+i) == A_SYM && (atom_getsymbol(argv+i) == gensym("") || atom_getsymbol(argv+i) == gensym(" ")))
         {
@@ -140,6 +141,7 @@ t_pd_err binbuf_append_atoms(t_binbuf *d, t_symbol *key, long argc, t_atom *argv
 
 t_pd_err binbuf_copy_atoms(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv)
 {
+    int i;
     t_atom* av = binbuf_getvec(d);
     long ac = binbuf_getnatom(d);
     int index = 0;
@@ -157,14 +159,14 @@ t_pd_err binbuf_copy_atoms(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv
     
     if(index)
     {
-        int i = index;
+        i = index;
         while (i < ac && atom_getsym(av+i) != gensym("}") && atom_getsym(av+i) != gensym("]"))
         {
             i++;
             argc[0]++;
         }
         argv[0] = new t_atom[argc[0]];
-        for (int i = 0; i < argc[0]; i++)
+        for (i = 0; i < argc[0]; i++)
         {
             if(atom_gettype(av+i+index) == A_SYM && atom_getsym(av+i+index) == gensym("s_nosymbol"))
             {

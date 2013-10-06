@@ -61,7 +61,7 @@ char* rgb_to_hex(t_rgb color)
     return &ColBuf[0];
 }
 
-t_rgba rgba_addContrast(t_rgba color, float contrast, bool preserveAlpha)
+t_rgba rgba_addContrast(t_rgba color, float contrast, char preserveAlpha)
 {
     t_rgba new_color = color;
     new_color.red = pd_clip_minmax(new_color.red += contrast, 0., 1.);

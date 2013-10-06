@@ -86,10 +86,10 @@
 #define jbox_paint_layer                            ebox_paint_layer
 #define jbox_notify(object, s, msg, sender, data)   ebox_notify(object, s, msg, sender, data)
 
-#define jbox_get_fontname(object)                   cicm_obj_get_fontname(object)
-#define jbox_get_font_slant(object)                 cicm_obj_font_slant(object)
-#define jbox_get_font_weight(object)                cicm_obj_font_weight(object)
-#define jbox_get_fontsize(object)                   cicm_obj_fontsize(object)
+#define jbox_get_fontname(object)                   ebox_get_fontname(object)
+#define jbox_get_font_slant(object)                 ebox_font_slant(object)
+#define jbox_get_font_weight(object)                ebox_font_weight(object)
+#define jbox_get_fontsize(object)                   ebox_font_size(object)
 
 #define t_dictionary                                t_binbuf
 #define dictionary_new                              binbuf_new

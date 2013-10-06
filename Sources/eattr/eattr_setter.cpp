@@ -105,6 +105,17 @@ void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                     }
                 }
             }
+            else if(type == gensym("symbol"))
+            {
+                t_symbol** pointor = (t_symbol **)point;
+                for(int j = 0; j < c->c_attr[i].size && j < argc; j++)
+                {
+                    if(atom_gettype(argv+j) == A_SYM)
+                    {
+                        pointor[j] = gensym(atom_getsymbol(argv+j)->s_name);
+                    }
+                }
+            }
             c->c_widget.w_notify(x, s, gensym("attr_modified"), NULL, NULL);
             if(c->c_attr[i].paint)
             {

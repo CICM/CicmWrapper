@@ -84,7 +84,7 @@ void efont_destroy(t_efont* font);
 // COLOR //
 char* rgba_to_hex(t_rgba color);
 char* rgb_to_hex(t_rgb color);
-t_rgba rgba_addContrast(t_rgba color, float contrast, bool preserveAlpha);
+t_rgba rgba_addContrast(t_rgba color, float contrast, char preserveAlpha);
 t_rgb rgb_addContrast(t_rgb color, float contrast);
 void rgba_set(t_rgba *color, float red, float green, float blue, float alpha);
 void rgb_set(t_rgb *color, float red, float green, float blue);

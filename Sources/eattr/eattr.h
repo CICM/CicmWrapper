@@ -63,6 +63,8 @@ cicm_class_new_attr_typed(c,name, "double", 1, flags, calcoffset(struct,member))
 cicm_class_new_attr_typed(c,name, "float", 3, flags, calcoffset(struct,member))
 #define CLASS_ATTR_RGBA(c,name,flags,struct,member) \
 cicm_class_new_attr_typed(c,name, "float", 4, flags, calcoffset(struct,member))
+#define CLASS_ATTR_SYMBOL(c,name,flags,struct,member) \
+cicm_class_new_attr_typed(c,name, "symbol", 1, flags, calcoffset(struct,member))
 
 #define CLASS_ATTR_INT_ARRAY(c,name,flags,struct,member,size)   \
 cicm_class_new_attr_typed(c,name, "int", size, flags, calcoffset(struct,member))
@@ -72,6 +74,8 @@ cicm_class_new_attr_typed(c,name, "long", size, flags, calcoffset(struct,member)
 cicm_class_new_attr_typed(c,name, "float", size, flags, calcoffset(struct,member))
 #define CLASS_ATTR_DOUBLE_ARRAY(c,name,flags,struct,member,size)  \
 cicm_class_new_attr_typed(c,name, "double", size, flags, calcoffset(struct,member))
+#define CLASS_ATTR_SYMBOL_ARRAY(c,name,flags,struct,member) \
+cicm_class_new_attr_typed(c,name, "symbol", size, flags, calcoffset(struct,member))
 
 #define CLASS_ATTR_INT_VARSIZE(c,name,flags,struct,member, size, maxsize)   \
 cicm_class_new_attr_typed(c,name, "int", maxsize, flags, calcoffset(struct,member))
@@ -81,6 +85,8 @@ cicm_class_new_attr_typed(c,name, "long", maxsize, flags, calcoffset(struct,memb
 cicm_class_new_attr_typed(c,name, "float", maxsize, flags, calcoffset(struct,member))
 #define CLASS_ATTR_DOUBLE_VARSIZE(c,name,flags,struct,member,size, maxsize)  \
 cicm_class_new_attr_typed(c,name, "double", maxsize, flags, calcoffset(struct,member))
+#define CLASS_ATTR_SYMBOL_VARSIZE(c,name,flags,struct,member) \
+cicm_class_new_attr_typed(c,name, "symbol", size, flags, calcoffset(struct,member))
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 

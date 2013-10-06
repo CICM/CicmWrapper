@@ -34,6 +34,7 @@
 void *ebox_alloc(t_eclass *c);
 void ebox_new(t_ebox *b, long flags, long argc, t_atom *argv);
 void ebox_free(t_ebox* x);
+char ebox_getregister(t_ebox *x);
 
 void ebox_tk_ids(t_ebox *x, t_canvas *canvas);
 void ebox_bind_events(t_ebox* x);
@@ -76,10 +77,10 @@ t_binbuf* binbuf_via_atoms(long ac, t_atom *av);
 void attr_binbuf_process(void *x, t_binbuf *d);
 void ebox_properties(t_gobj *y, t_glist *x);
 
-t_symbol* cicm_obj_get_fontname(t_ebox* x);
-t_symbol* cicm_obj_font_slant(t_ebox* x);
-t_symbol* cicm_obj_font_weight(t_ebox* x);
-double cicm_obj_fontsize(t_ebox* x);
+t_symbol* ebox_get_fontname(t_ebox* x);
+t_symbol* ebox_font_slant(t_ebox* x);
+t_symbol* ebox_font_weight(t_ebox* x);
+float ebox_font_size(t_ebox* x);
 
 
 

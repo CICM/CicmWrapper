@@ -75,6 +75,35 @@ void eclass_init(t_eclass* c, long flags)
     CLASS_ATTR_PAINT        (c, "size", 0);
     CLASS_ATTR_CATEGORY		(c, "size", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "size", 0, "Patching Size");
+    
+    CLASS_ATTR_SYMBOL       (c, "fontname", 0, t_ebox, e_font.c_family);
+    CLASS_ATTR_DEFAULT      (c, "fontname", 0, "helvetica");
+    CLASS_ATTR_SAVE         (c, "fontname", 0);
+    CLASS_ATTR_PAINT        (c, "fontname", 0);
+    CLASS_ATTR_CATEGORY		(c, "fontname", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "fontname", 0, "Font name");
+    
+    CLASS_ATTR_SYMBOL       (c, "fontweight", 0, t_ebox, e_font.c_weight);
+    CLASS_ATTR_DEFAULT      (c, "fontweight", 0, "normal");
+    CLASS_ATTR_SAVE         (c, "fontweight", 0);
+    CLASS_ATTR_PAINT        (c, "fontweight", 0);
+    CLASS_ATTR_CATEGORY		(c, "fontweight", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "fontweight", 0, "Font weight");
+    
+    CLASS_ATTR_SYMBOL       (c, "fontslant", 0, t_ebox, e_font.c_slant);
+    CLASS_ATTR_DEFAULT      (c, "fontslant", 0, "regular");
+    CLASS_ATTR_SAVE         (c, "fontslant", 0);
+    CLASS_ATTR_PAINT        (c, "fontslant", 0);
+    CLASS_ATTR_CATEGORY		(c, "fontslant", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "fontslant", 0, "Font slant");
+    
+    CLASS_ATTR_FLOAT        (c, "fontsize", 0, t_ebox, e_font.c_size);
+    CLASS_ATTR_DEFAULT      (c, "fontsize", 0, "11");
+    CLASS_ATTR_FILTER_MIN   (c, "fontsize", 4);
+    CLASS_ATTR_SAVE         (c, "fontsize", 0);
+    CLASS_ATTR_PAINT        (c, "fontsize", 0);
+    CLASS_ATTR_CATEGORY		(c, "fontsize", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "fontsize", 0, "Font size");
 }
 
 void eclass_dspinit(t_eclass* c)
