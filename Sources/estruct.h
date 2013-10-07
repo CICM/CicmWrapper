@@ -79,6 +79,8 @@ typedef struct _ewidget
     t_clickfn       w_clickfn;
     method          w_assist;
     method          w_paint;
+    method          w_mouseenter;
+    method          w_mouseleave;
     method          w_mousemove;
     method          w_mousedown;
     method          w_mousedrag;
@@ -182,7 +184,9 @@ typedef enum
 {
     E_GOBJ_INVALID           = 0,
     E_GOBJ_PATH                 ,
+    E_GOBJ_RECT                 ,
     E_GOBJ_ARC                  ,
+    E_GOBJ_OVAL                 ,
     E_GOBJ_TEXT                 ,
 } egraphics_types;
 
@@ -206,7 +210,6 @@ typedef struct _etext
 typedef struct _egobj
 {
 	int             e_type;
-    t_symbol*       e_tag;
     int             e_filled;
     t_symbol*       e_color;
     float           e_width;
@@ -224,6 +227,7 @@ typedef struct _elayer
 {
     t_object*           e_owner;
     t_symbol*           e_name;
+    t_symbol*           e_id;
     int                 e_state;
     
     t_rect              e_rect;
@@ -235,6 +239,12 @@ typedef struct _elayer
     t_egobj*            e_objects;
     long                e_number_objects;
 } t_elayer;
+
+typedef struct _eview
+{
+    t_object*   e_owner;
+    t_symbol*   e_name;
+} t_eview;
 
 typedef struct _edrawparams
 {    
@@ -255,6 +265,7 @@ typedef struct _ebox
     t_symbol*           e_name_rcv;
     
     t_symbol*           e_canvas_id;
+    t_symbol*           e_drawing_id;
     t_symbol*           e_frame_id;
     t_symbol*           e_handle_id;
     t_symbol*           e_window_id;
@@ -269,7 +280,6 @@ typedef struct _ebox
     long                e_modifiers;
     
     char                e_ready_to_draw;
-    
     t_edrawparams       e_boxparameters;
     float               e_lastclick;
     float               e_dblclick_time;
@@ -296,7 +306,6 @@ typedef struct _ebox
     t_float*            z_sigs_out[256];
     method              e_perform_method;
     
-    char                e_no_redraw_box;
     t_object*           b_firstin; // For Max, it doesn't matter !
 }t_ebox;
 

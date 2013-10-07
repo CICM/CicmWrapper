@@ -34,13 +34,15 @@ void ewidget_init(t_eclass* c)
     c->c_widget.w_selectfn          = ewidget_select;
     c->c_widget.w_activatefn        = NULL;
     c->c_widget.w_deletefn          = ewidget_delete;
-    c->c_widget.w_clickfn           = ewidget_mousemove;
+    c->c_widget.w_clickfn           = NULL;
     
     c->c_widget.w_paint             = (method)ewidget_paint_default;
-    c->c_widget.w_mousemove         = (method)ewidget_mousemove_default;
-    c->c_widget.w_mousedown         = (method)ewidget_mousedown_default;
-    c->c_widget.w_mousedrag         = (method)ewidget_mousedrag_default;
-    c->c_widget.w_mouseup           = (method)ewidget_mouseup_default;
+    c->c_widget.w_mouseenter        = NULL;
+    c->c_widget.w_mouseleave        = NULL;
+    c->c_widget.w_mousemove         = NULL;
+    c->c_widget.w_mousedown         = NULL;
+    c->c_widget.w_mousedrag         = NULL;
+    c->c_widget.w_mouseup           = NULL;
     c->c_widget.w_dblclick          = NULL;
     c->c_widget.w_dblclicklong      = NULL;
     c->c_widget.w_key               = (method)ewidget_key_default;
@@ -67,9 +69,10 @@ void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
 {
     t_ebox* x   = (t_ebox *)z;
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-    
+
     if(vis && x->e_ready_to_draw)
     {
+        sys_queuegui(x, x->e_canvas, (t_guicallbackfn)ebox_create_window);
         ebox_invalidate_all(x, x->e_canvas);
         ebox_update(x, x->e_canvas);
         if(c->c_box == 0)
@@ -79,11 +82,11 @@ void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
             ebox_draw_border(x, glist);
         }
     }
-    else if(!vis)
+    else
     {
         ebox_erase(x, glist); 
     }
-    
+    post("vismethod");
     canvas_fixlinesfor(glist_getcanvas(glist), (t_text*)x);
 }
 
@@ -119,11 +122,16 @@ int ewidget_mousemove(t_gobj *z, struct _glist *glist, int posx, int posy, int s
     x->e_mouse.y = posy - text_ypix(&x->e_obj, glist);
     
     clock_delay(x->e_deserted_clock, x->e_deserted_time);
+    
     /*
     if(epopupmenu_mousemove(x->e_popup, x->e_mouse, mousedown))
         return 1;
      */
-    
+    /*
+    post("shift %i", shift);
+    post("alt %i", alt);
+    post("ctrl %i", ctrl);
+    */
     x->e_modifiers = EMOD_NONE;
     if(shift && !alt && !ctrl)
     {
@@ -215,12 +223,10 @@ void ewidget_paint(t_ebox *x, t_glist *glist, int mode)
 
     if(c->c_box == 0)
     {
-        if(x->e_no_redraw_box == 0)
-            ebox_invalidate_layer((t_object *)x, (t_object *)glist, gensym("eboxbd"));
         ebox_draw_background(x, glist);
         ebox_update(x, glist);
         c->c_widget.w_paint(x, (t_object *)glist);
-        ebox_draw_border(x, glist);
+        //ebox_draw_border(x, glist);
     }
 }
 

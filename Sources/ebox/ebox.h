@@ -37,7 +37,7 @@ void ebox_free(t_ebox* x);
 char ebox_getregister(t_ebox *x);
 
 void ebox_tk_ids(t_ebox *x, t_canvas *canvas);
-void ebox_bind_events(t_ebox* x);
+void ebox_bind_events(t_ebox* x, int isin);
 void ebox_create_widget(t_ebox* x);
 void ebox_create_window(t_ebox* x, t_glist* glist);
 
@@ -58,10 +58,10 @@ void ebox_setdblclicklong_time(t_ebox *x, float time);
 void ebox_setdeserted_time(t_ebox *x, float time);
 void ebox_deserted(t_ebox *x);
 
-t_elayer* ebox_start_layer(t_object *b, t_object *view, t_symbol *name, double width, double height);
+t_elayer* ebox_start_layer(t_object *b, t_object *view, t_symbol *name, float width, float height);
 t_pd_err ebox_end_layer(t_object *b, t_object *view, t_symbol *name);
 t_pd_err ebox_invalidate_layer(t_object *b, t_object *view, t_symbol *name);
-t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, double x, double y);
+t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, float x, float y);
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
 void ebox_draw_background(t_ebox* x, t_glist* glist);
@@ -72,6 +72,7 @@ void ebox_move(t_ebox* x, t_glist* glist);
 void ebox_erase(t_ebox* x, t_glist* glist);
 void ebox_update(t_ebox *x, t_glist *glist);
 void ebox_invalidate_all(t_ebox *x, t_glist *glist);
+void ebox_set_cursor(t_ebox* x, int mode);
 
 t_binbuf* binbuf_via_atoms(long ac, t_atom *av);
 void attr_binbuf_process(void *x, t_binbuf *d);
@@ -82,6 +83,12 @@ t_symbol* ebox_font_slant(t_ebox* x);
 t_symbol* ebox_font_weight(t_ebox* x);
 float ebox_font_size(t_ebox* x);
 
+void ebox_mouse_enter(t_ebox* x);
+void ebox_mouse_leave(t_ebox* x);
+void ebox_mouse_move(t_ebox* x, float x_p, float y_p, float key);
+void ebox_mouse_up(t_ebox* x, float x_p, float y_p, float key);
+void ebox_mouse_down(t_ebox* x, float x_p, float y_p, float key);
+void ebox_mouse_drag(t_ebox* x, float x_p, float y_p, float key);
 
 
 #endif

@@ -46,19 +46,13 @@ void egraphics_set_matrix(t_elayer *g, const t_matrix *matrix);
 
 // GRAPHICS MODIFICATIONS PRIVATE //
 void egraphics_apply_matrix(t_elayer *g, t_egobj* gobj);
-void egraphics_clip_object(t_elayer *g, t_egobj* gobj);
-void egraphics_clip_text(t_elayer *g, t_egobj* gobj);
-t_symbol* egraphics_clip_text_perform(t_rect rect, t_pt* pt, float size, t_symbol* text, t_symbol* justify);
-void egraphics_clip_path(t_elayer *g, t_egobj* gobj);
-long egraphics_clip_path_perform(t_rect rect, long n, t_pt* in, t_pt* out);
-t_pt egraphics_clip_point(t_pt pt, t_rect rect);
-void egraphics_clip_oval(t_elayer *g, t_egobj* gobj);
-// END PRIVATE //
 
 // FORM //
 void egraphics_line_to(t_elayer *g, float x, float y);
 void egraphics_move_to(t_elayer *g, float x, float y);
 void egraphics_line(t_elayer *g, float x0, float y0,  float x1, float y1);
+void egraphics_line_fast(t_elayer *g, float x0, float y0, float x1, float y1);
+
 void egraphics_close_path(t_elayer *g);
 void egraphics_rectangle(t_elayer *g, float x, float y, float width, float height);
 void egraphics_rectangle_rounded(t_elayer *g, float x, float y, float width, float height, float roundness);
@@ -77,7 +71,7 @@ void efont_destroy(t_efont* font);
 // COLOR //
 char* rgba_to_hex(t_rgba color);
 char* rgb_to_hex(t_rgb color);
-t_rgba rgba_addContrast(t_rgba color, float contrast, char preserveAlpha);
+t_rgba rgba_addContrast(t_rgba color, float contrast);
 t_rgb rgb_addContrast(t_rgb color, float contrast);
 void rgba_set(t_rgba *color, float red, float green, float blue, float alpha);
 void rgb_set(t_rgb *color, float red, float green, float blue);

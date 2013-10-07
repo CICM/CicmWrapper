@@ -79,6 +79,16 @@ void egraphics_line(t_elayer *g, float x0, float y0, float x1, float y1)
     }
 }
 
+void egraphics_line_fast(t_elayer *g, float x0, float y0, float x1, float y1)
+{
+    if(g->e_state == EGRAPHICS_OPEN)
+    {
+        egraphics_move_to(g, x0, y0);
+        egraphics_line_to(g, x1, y1);
+    }
+    egraphics_stroke(g);
+}
+
 void egraphics_close_path(t_elayer *g)
 {
     if(g->e_state == EGRAPHICS_OPEN && g->e_new_objects.e_npoints >= 1)
@@ -110,7 +120,7 @@ void egraphics_rectangle(t_elayer *g, float x, float y, float width, float heigh
             g->e_new_objects.e_points   = (t_pt *)realloc(g->e_new_objects.e_points , 5 * sizeof(t_pt));
         if(g->e_new_objects.e_points)
         {
-            g->e_new_objects.e_type         = E_GOBJ_PATH;
+            g->e_new_objects.e_type         = E_GOBJ_RECT;
             g->e_new_objects.e_points[0].x  = x;
             g->e_new_objects.e_points[0].y  = y;
             g->e_new_objects.e_points[1].x  = x + width;
@@ -141,7 +151,7 @@ void egraphics_rectangle_rounded(t_elayer *g, float x, float y, float width, flo
             g->e_new_objects.e_points   = (t_pt *)realloc(g->e_new_objects.e_points , 9 * sizeof(t_pt));
         if(g->e_new_objects.e_points)
         {
-            g->e_new_objects.e_type         = E_GOBJ_PATH;
+            g->e_new_objects.e_type         = E_GOBJ_RECT;
             g->e_new_objects.e_points[0].x  = x + roundness;
             g->e_new_objects.e_points[0].y  = y;
             g->e_new_objects.e_points[1].x  = x + width - roundness;
@@ -180,25 +190,20 @@ void egraphics_circle(t_elayer *g, float xc, float yc, float radius)
 
 void egraphics_oval(t_elayer *g, float xc, float yc, float radiusx, float radiusy)
 {
-	int i;
-	float angle = 0;
     if(g->e_state == EGRAPHICS_OPEN)
     {
         if(g->e_new_objects.e_points == NULL)
-            g->e_new_objects.e_points   = (t_pt *)calloc(9, sizeof(t_pt));
+            g->e_new_objects.e_points   = (t_pt *)calloc(2, sizeof(t_pt));
         else
-            g->e_new_objects.e_points   = (t_pt *)realloc(g->e_new_objects.e_points , 9 * sizeof(t_pt));
+            g->e_new_objects.e_points   = (t_pt *)realloc(g->e_new_objects.e_points , 2 * sizeof(t_pt));
         if(g->e_new_objects.e_points)
         {
-            g->e_new_objects.e_type         = E_GOBJ_ARC;
-            angle = 0;
-            for(i = 0; i < 9; i++)
-            {
-                g->e_new_objects.e_points[i].x  = xc + radiusx * cos(angle);
-                g->e_new_objects.e_points[i].y  = yc + radiusy * sin(angle);
-                angle += EPD_PI4;
-            }
-            g->e_new_objects.e_npoints      = 9;
+            g->e_new_objects.e_type         = E_GOBJ_OVAL;
+            g->e_new_objects.e_points[0].x  = xc - radiusx;
+            g->e_new_objects.e_points[0].y  = yc - radiusy;
+            g->e_new_objects.e_points[1].x  = xc + radiusx;
+            g->e_new_objects.e_points[1].y  = yc + radiusy;
+            g->e_new_objects.e_npoints      = 2;
         }
         else
         {
@@ -224,14 +229,32 @@ void egraphics_arc_oval(t_elayer *g, float xc, float yc, float radiusx, float ra
     while (angle2 < 0)
         angle2 += EPD_2PI;
     
-    if(angle1 == angle2)
+    if((angle1 - angle2) < 0.00001f && (angle1 - angle2) > -0.00001f)
     {
         egraphics_oval(g, xc, yc, radiusx, radiusy);
         return;
     }
     if(g->e_state == EGRAPHICS_OPEN)
     {
-        
+        if(g->e_new_objects.e_points == NULL)
+            g->e_new_objects.e_points   = (t_pt *)calloc(3, sizeof(t_pt));
+        else
+            g->e_new_objects.e_points   = (t_pt *)realloc(g->e_new_objects.e_points , 3 * sizeof(t_pt));
+        if(g->e_new_objects.e_points)
+        {
+            g->e_new_objects.e_type         = E_GOBJ_ARC;
+            g->e_new_objects.e_points[0].x  = xc - radiusx;
+            g->e_new_objects.e_points[0].y  = yc - radiusy;
+            g->e_new_objects.e_points[1].x  = xc + radiusx;
+            g->e_new_objects.e_points[1].y  = yc + radiusy;
+            g->e_new_objects.e_points[2].x  = angle1;
+            g->e_new_objects.e_points[3].y  = angle2 - angle1;
+            g->e_new_objects.e_npoints      = 3;
+        }
+        else
+        {
+            g->e_new_objects.e_type         = E_GOBJ_INVALID;
+        }
     }
 }
 

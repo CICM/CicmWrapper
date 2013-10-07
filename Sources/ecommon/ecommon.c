@@ -31,12 +31,12 @@ void outlet_int(t_outlet* outlet, int val)
     outlet_float(outlet, val);
 }
 
-void* listout(void *x)
+t_outlet* listout(void *x)
 {
     return outlet_new((t_object *)x, &s_list);
 }
 
-void* floatout(void *x)
+t_outlet* floatout(void *x)
 {
     return outlet_new((t_object *)x, &s_float);
 }
