@@ -42,7 +42,7 @@ static const char* modifiers_list[] = {
     
     "Mod1-Mod2-Control-",
     "Mod1-Mod2-Shift-",
-    "Shift-Control-Shift-",
+    "Mod2-Control-Shift-",
 
     "Mod1-Mod2-Shift-Control-",
 };
@@ -71,28 +71,29 @@ void ebox_tk_ids(t_ebox *x, t_canvas *canvas)
     x->e_all_id = gensym(buffer);
 }
 
-void ebox_bind_events(t_ebox* x, int isin)
+void ebox_bind_events(t_ebox* x)
 {
     int i;
-    if(isin)
+    // Mouse Enter //
+    sys_vgui("bind %s <Enter> {pdsend {%s mouseenter}}\n",
+             x->e_drawing_id->s_name, x->e_name_rcv->s_name);
+    // Mouse Leave //
+    sys_vgui("bind %s <Leave> {pdsend {%s mouseleave}}\n",
+             x->e_drawing_id->s_name, x->e_name_rcv->s_name);
+    
+    // Right click //
+    sys_vgui("bind %s <Button-2> {pdsend {%s mousemove %%x %%y}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
+    for(i = 0; i < 14; i++)
     {
-        // Right click //
-        sys_vgui("bind %s <Button-2> {+pdsend {%s mousemove %%x %%y}}\n",
-                 x->e_drawing_id->s_name, x->e_name_rcv->s_name);
-        for(i = 0; i < 14; i++)
-        {
-            // Mouse Down //
-            sys_vgui("bind %s <%sButtonPress> {+pdsend {%s mousedown %%x %%y %i}}\n",
-                     x->e_drawing_id->s_name, modifiers_list[i], x->e_name_rcv->s_name, i);
-            
-            // Mouse Up //
-            sys_vgui("bind %s <%sButtonRelease> {+pdsend {%s mouseup %%x %%y %i}}\n",
-                     x->e_drawing_id->s_name, modifiers_list[i], x->e_name_rcv->s_name, i);
-            
-            // Mouse Move //
-            sys_vgui("bind %s <%sMotion> {+pdsend {%s mousemove %%x %%y %i}}\n",
-                     x->e_drawing_id->s_name, modifiers_list[i], x->e_name_rcv->s_name, i);
-        }
+        // Mouse Down //
+        sys_vgui("bind %s <%sButtonPress> {pdsend {%s mousedown %%x %%y %i}}\n", x->e_drawing_id->s_name, modifiers_list[i], x->e_name_rcv->s_name, i);
+        
+        // Mouse Up //
+        sys_vgui("bind %s <%sButtonRelease> {pdsend {%s mouseup %%x %%y %i}}\n", x->e_drawing_id->s_name, modifiers_list[i], x->e_name_rcv->s_name, i);
+        
+        // Mouse Move //
+        sys_vgui("bind %s <%sMotion> {pdsend {%s mousemove %%x %%y %i}}\n", x->e_drawing_id->s_name, modifiers_list[i], x->e_name_rcv->s_name, i);
+    }
         /*
          sys_vgui("bind %s <$::modifier-Button> {pdtk_canvas_rightclick %s \
          [expr %%X - [winfo rootx %s]] [expr %%Y - [winfo rooty %s]] %%b}\n",
@@ -101,7 +102,6 @@ void ebox_bind_events(t_ebox* x, int isin)
          sys_vgui("bind %s <KeyRelease> {+pdsend {%s keyup %%N}} \n",
          x->e_drawing_id->s_name, x->e_name_rcv->s_name);
           */
-    }
 }
 
 void ebox_create_widget(t_ebox* x)
@@ -113,19 +113,12 @@ void ebox_create_widget(t_ebox* x)
              (int)x->e_rect.width,
              (int)x->e_rect.height);
 
-    // Mouse Enter //
-    sys_vgui("bind %s <Enter> {+pdsend {%s mouseenter}}\n",
-             x->e_drawing_id->s_name, x->e_name_rcv->s_name);
-    // Mouse Leave //
-    sys_vgui("bind %s <Leave> {+pdsend {%s mouseleave}}\n",
-             x->e_drawing_id->s_name, x->e_name_rcv->s_name);
-    ebox_bind_events(x, 1);
+    ebox_bind_events(x);
     
 }
 
 void ebox_create_window(t_ebox* x, t_glist* glist)
 {
-    post("window");
     ebox_tk_ids(x, glist);
     ebox_create_widget(x);
     
@@ -137,8 +130,6 @@ void ebox_create_window(t_ebox* x, t_glist* glist)
              x->e_window_id->s_name,
              (int)x->e_rect.width - 8,
              (int)x->e_rect.height - 8);
-    
-    canvas_create_editor(x->e_canvas);
 }
 
 

@@ -163,7 +163,7 @@ static char *cursorlist[] = {
 void ebox_set_cursor(t_ebox* x, int mode)
 {
     mode = pd_clip_minmax(mode, 0, 6);
-    sys_vgui("%s configure -cursor %s\n", x->e_canvas_id->s_name, cursorlist[mode]);
+    sys_vgui("%s configure -cursor %s\n", x->e_drawing_id->s_name, cursorlist[mode]);
 }
 
 void ebox_invalidate_all(t_ebox *x, t_glist *glist)
@@ -192,12 +192,10 @@ void ebox_update(t_ebox *x, t_glist *glist)
 
 void ebox_erase(t_ebox* x, t_glist* glist)
 {
-    post("erase");
     if(glist_isvisible(glist))
     {
         sys_vgui("%s delete %s\n", x->e_drawing_id->s_name, x->e_all_id->s_name);
         sys_vgui("%s delete %s\n", x->e_canvas_id->s_name, x->e_window_id->s_name);
-        post("eraseglist");
     }
     
     free(x->e_layers);

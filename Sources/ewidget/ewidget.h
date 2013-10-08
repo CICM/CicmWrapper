@@ -47,10 +47,6 @@ void ewidget_key(t_ebox *x, t_floatarg fkey);
 
 void ewidget_paint_default(t_ebox *x, t_object *view);
 
-void ewidget_mousemove_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers);
-void ewidget_mousedown_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers);
-void ewidget_mousedrag_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers);
-void ewidget_mouseup_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers);
 void ewidget_dblclick_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers);
 void ewidget_dblclicklong_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers);
 

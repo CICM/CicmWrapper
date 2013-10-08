@@ -37,7 +37,7 @@ void ebox_free(t_ebox* x);
 char ebox_getregister(t_ebox *x);
 
 void ebox_tk_ids(t_ebox *x, t_canvas *canvas);
-void ebox_bind_events(t_ebox* x, int isin);
+void ebox_bind_events(t_ebox* x);
 void ebox_create_widget(t_ebox* x);
 void ebox_create_window(t_ebox* x, t_glist* glist);
 

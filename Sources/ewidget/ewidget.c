@@ -72,7 +72,7 @@ void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
 
     if(vis && x->e_ready_to_draw)
     {
-        sys_queuegui(x, x->e_canvas, (t_guicallbackfn)ebox_create_window);
+        ebox_create_window(x, glist);
         ebox_invalidate_all(x, x->e_canvas);
         ebox_update(x, x->e_canvas);
         if(c->c_box == 0)
@@ -139,7 +139,7 @@ int ewidget_mousemove(t_gobj *z, struct _glist *glist, int posx, int posy, int s
     }
     else if (shift && alt && !ctrl)
     {
-        x->e_modifiers = EMOD_SHIFTALT;
+        x->e_modifiers = EMOD_ALTSHIFT;
     }
     else if(!shift && alt && !ctrl)
     {
@@ -162,7 +162,7 @@ int ewidget_mousemove(t_gobj *z, struct _glist *glist, int posx, int posy, int s
         }
         else if(shift && alt && !ctrl)
         {
-            x->e_modifiers = EMOD_SHIFTALT;
+            x->e_modifiers = EMOD_ALTSHIFT;
         }
         else if(!shift && alt && !ctrl)
         {
@@ -280,14 +280,6 @@ void ewidget_save(t_gobj *z, t_binbuf *b)
 }
 
 void ewidget_paint_default(t_ebox *x, t_object *view){;}
-
-void ewidget_mousemove_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers){;}
-
-void ewidget_mousedown_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers){;}
-
-void ewidget_mousedrag_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers){;}
-
-void ewidget_mouseup_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers){;}
 
 void ewidget_key_default(t_ebox *x, t_object *patcherview, char textcharacter, long modifiers){;};
 
