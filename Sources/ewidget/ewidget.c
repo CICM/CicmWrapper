@@ -36,7 +36,7 @@ void ewidget_init(t_eclass* c)
     c->c_widget.w_deletefn          = ewidget_delete;
     c->c_widget.w_clickfn           = NULL;
     
-    c->c_widget.w_paint             = (method)ewidget_paint_default;
+    c->c_widget.w_paint             = NULL;
     c->c_widget.w_mouseenter        = NULL;
     c->c_widget.w_mouseleave        = NULL;
     c->c_widget.w_mousemove         = NULL;
@@ -44,7 +44,6 @@ void ewidget_init(t_eclass* c)
     c->c_widget.w_mousedrag         = NULL;
     c->c_widget.w_mouseup           = NULL;
     c->c_widget.w_dblclick          = NULL;
-    c->c_widget.w_dblclicklong      = NULL;
     c->c_widget.w_key               = (method)ewidget_key_default;
     c->c_widget.w_keyfilter         = (method)ewidget_keyfilter_default;
     c->c_widget.w_deserted          = NULL;
@@ -52,17 +51,17 @@ void ewidget_init(t_eclass* c)
     c->c_widget.w_notify            = (t_err_method)ewidget_notify_default;
     c->c_widget.w_save              = (method)ewidget_save_default;
     c->c_widget.w_popup             = (method)ewidget_popup_default;
-    c->c_widget.w_dsp               = (method)ewidget_dsp_default;
+    c->c_widget.w_dsp               = NULL;
     c->c_widget.w_oksize            = (method)ewidget_oksize_default;
 }
 
 void ewidget_getrect(t_gobj *z, t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2)
 {
     t_ebox *x = (t_ebox *)z;
-    *xp1 = text_xpix(&x->e_obj, glist);
-    *yp1 = text_ypix(&x->e_obj, glist);
-    *xp2 = *xp1 + x->e_rect.width;
-    *yp2 = *yp1 + x->e_rect.height;
+    *xp1 = text_xpix(&x->e_obj, glist)-1;
+    *yp1 = text_ypix(&x->e_obj, glist)-1;
+    *xp2 = *xp1 + (int)x->e_rect.width+2;
+    *yp2 = *yp1 + (int)x->e_rect.height+2;
 }
 
 void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
@@ -78,7 +77,8 @@ void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
         if(c->c_box == 0)
         {
             ebox_draw_background(x, glist);
-            c->c_widget.w_paint(x, (t_object *)glist);
+            if(c->c_widget.w_paint)
+                c->c_widget.w_paint(x, (t_object *)glist);
             ebox_draw_border(x, glist);
         }
     }
@@ -86,18 +86,17 @@ void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
     {
         ebox_erase(x, glist); 
     }
-    post("vismethod");
     canvas_fixlinesfor(glist_getcanvas(glist), (t_text*)x);
 }
 
 void ewidget_displace(t_gobj *z, t_glist *glist, int dx, int dy)
 {
     t_ebox *x = (t_ebox *)z;
-    
     x->e_obj.te_xpix += dx;
     x->e_obj.te_ypix += dy;
+    x->e_rect.x = x->e_obj.te_xpix;
+    x->e_rect.y = x->e_obj.te_ypix;
     ebox_move(x, glist);
-    canvas_fixlinesfor(glist_getcanvas(glist), (t_text*)x);
 }
 
 void ewidget_select(t_gobj *z, t_glist *glist, int selected)
@@ -114,95 +113,6 @@ void ewidget_delete(t_gobj *z, t_glist *glist)
     canvas_deletelinesfor(glist, (t_text *)z);
 }
 
-int ewidget_mousemove(t_gobj *z, struct _glist *glist, int posx, int posy, int shift, int alt, int ctrl, int mousedown)
-{
-    t_ebox* x   = (t_ebox *)z;
-    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-    x->e_mouse.x = posx - text_xpix(&x->e_obj, glist);
-    x->e_mouse.y = posy - text_ypix(&x->e_obj, glist);
-    
-    clock_delay(x->e_deserted_clock, x->e_deserted_time);
-    
-    /*
-    if(epopupmenu_mousemove(x->e_popup, x->e_mouse, mousedown))
-        return 1;
-     */
-    /*
-    post("shift %i", shift);
-    post("alt %i", alt);
-    post("ctrl %i", ctrl);
-    */
-    x->e_modifiers = EMOD_NONE;
-    if(shift && !alt && !ctrl)
-    {
-        x->e_modifiers = EMOD_SHIFT;
-    }
-    else if (shift && alt && !ctrl)
-    {
-        x->e_modifiers = EMOD_ALTSHIFT;
-    }
-    else if(!shift && alt && !ctrl)
-    {
-        x->e_modifiers = EMOD_ALT;
-    }
-    
-    if(x->e_mouse_down)
-    {
-        x->e_mouse_down = 0;
-        c->c_widget.w_mouseup(x, NULL, x->e_mouse, x->e_modifiers);
-    }
-    
-    c->c_widget.w_mousemove(z, (t_object *)glist, x->e_mouse, x->e_modifiers);
-    if(mousedown)
-    {       
-        x->e_modifiers = EMOD_NONE;
-        if(shift && !alt && !ctrl)
-        {
-            x->e_modifiers = EMOD_SHIFT;
-        }
-        else if(shift && alt && !ctrl)
-        {
-            x->e_modifiers = EMOD_ALTSHIFT;
-        }
-        else if(!shift && alt && !ctrl)
-        {
-            x->e_modifiers = EMOD_ALT;
-        }
-       
-        ewidget_mousedown(x, glist, x->e_mouse, x->e_modifiers);
-        glist_grab(glist, &x->e_obj.te_g, (t_glistmotionfn)ewidget_mousedrag, (t_glistkeyfn)ewidget_key, posx, posy);
-    }
-    
-    return 1;
-}
-
-void ewidget_mousedown(t_ebox *x, t_glist *glist, t_pt pt, long modifiers)
-{
-    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-    x->e_mouse_down = 1;
-    
-    if(c->c_widget.w_dblclick != NULL && sys_getrealtime() - x->e_lastclick < x->e_dblclick_time)
-    {
-            c->c_widget.w_dblclick(x, (t_object *)glist, pt, x->e_modifiers);
-    }
-    if(c->c_widget.w_dblclicklong != NULL && sys_getrealtime() - x->e_lastclick < x->e_dblclicklong_time)
-    {
-        c->c_widget.w_dblclicklong(x, (t_object *)glist, pt, x->e_modifiers);
-    }
-    else
-        c->c_widget.w_mousedown(x, (t_object *)glist, pt, x->e_modifiers);
-    
-    x->e_lastclick = sys_getrealtime();
-}
-
-void ewidget_mousedrag(t_ebox *x, t_floatarg dx, t_floatarg dy)
-{
-    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-    x->e_mouse.x += dx;
-    x->e_mouse.y += dy;
-    c->c_widget.w_mousedrag(x, x->e_canvas, x->e_mouse, x->e_modifiers);
-    clock_delay(x->e_deserted_clock, x->e_deserted_time);
-}
 
 void ewidget_key(t_ebox *x, t_floatarg fkey)
 {
@@ -215,19 +125,6 @@ void ewidget_key(t_ebox *x, t_floatarg fkey)
             c->c_widget.w_key(x, x->e_canvas, (char)fkey, x->e_modifiers);
     }
     clock_delay(x->e_deserted_clock, x->e_deserted_time);
-}
-
-void ewidget_paint(t_ebox *x, t_glist *glist, int mode)
-{
-    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-
-    if(c->c_box == 0)
-    {
-        ebox_draw_background(x, glist);
-        ebox_update(x, glist);
-        c->c_widget.w_paint(x, (t_object *)glist);
-        //ebox_draw_border(x, glist);
-    }
 }
 
 void ewidget_save(t_gobj *z, t_binbuf *b)
@@ -279,8 +176,6 @@ void ewidget_save(t_gobj *z, t_binbuf *b)
 
 }
 
-void ewidget_paint_default(t_ebox *x, t_object *view){;}
-
 void ewidget_key_default(t_ebox *x, t_object *patcherview, char textcharacter, long modifiers){;};
 
 void ewidget_keyfilter_default(t_ebox *x, t_object *patcherview, char textcharacter, long modifiers)
@@ -306,10 +201,6 @@ t_pd_err ewidget_notify_default(t_ebox *x, t_symbol *s, t_symbol *msg, void *sen
 void ewidget_save_default(t_gobj *z, t_binbuf *b){};
 
 void ewidget_popup_default(t_ebox *x, t_symbol *s, long itemid, t_pt pt){};
-
-void ewidget_dsp_default(t_ebox *x, t_object *dsp, short *count, double samplerate, long vectorsize, long flags){;}
-
-void ewidget_perform_default(t_ebox *x, t_object *dsp, float **ins, long ni, float **outs, long no, long vectorsize, long flags, void *userparam){;}
 
 
 

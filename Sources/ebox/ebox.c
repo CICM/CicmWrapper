@@ -52,18 +52,16 @@ void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
     
     sprintf(buffer,"#%s", x->e_name_tcl->s_name);
     x->e_name_rcv = gensym(buffer);
-    x->e_canvas = canvas_getcurrent();
-    ebox_tk_ids(x, canvas_getcurrent());
+    
     pd_bind(&x->e_obj.ob_pd, x->e_name_rcv);
     x->e_ready_to_draw      = 0;
     x->z_misc               = 1;
     x->e_number_of_layers   = 0;
     x->e_layers             = NULL;
     x->e_deserted_time      = 3000.;
-    x->e_lastclick          = sys_getrealtime() - 100.;
-    x->e_dblclick_time      = 0.25;
-    x->e_dblclicklong_time  = 0.5;
     //x->e_popup            = NULL;
+    
+    ebox_tk_ids(x, canvas_getcurrent());
 }
 
 
@@ -84,7 +82,7 @@ void ebox_dspsetup(t_ebox *x, long nins, long nout)
     int i;
     nins = pd_clip_min(nins, 1);
     nout = pd_clip_min(nout, 0);
-    x->e_perform_method = (method)ewidget_perform_default;
+    x->e_perform_method = NULL;
 
     for( i = 0; i < 256; i++)
         x->z_sigs_out[i] = (t_float *)calloc(8192, sizeof(t_float));
@@ -119,9 +117,16 @@ void ebox_dspfree(t_ebox *x)
 
 void ebox_redraw(t_ebox *x)
 {
+    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
     if(x->e_ready_to_draw && glist_isvisible(x->e_canvas))
     {
-        ewidget_paint(x, x->e_canvas, 0);
+        if(c->c_box == 0)
+        {
+            ebox_draw_background(x, x->e_canvas);
+            ebox_update(x, x->e_canvas);
+            if(c->c_widget.w_paint)
+                c->c_widget.w_paint(x, (t_object *)x->e_canvas);
+        }
     }
 }
 
@@ -240,7 +245,8 @@ void ebox_dsp(t_ebox *x, t_signal **sp)
             }
         }
     }*/
-    c->c_widget.w_dsp(x, x, &count, sp[0]->s_sr, sp[0]->s_n, 0);
+    if(c->c_widget.w_dsp != NULL)
+        c->c_widget.w_dsp(x, x, &count, sp[0]->s_sr, sp[0]->s_n, 0);
     
     x->e_dsp_vectors[0] = (t_int)x;
     x->e_dsp_vectors[1] = (t_int)sp[0]->s_n;
@@ -273,7 +279,8 @@ t_int* ebox_perform(t_int* w)
     if(x->z_misc == E_NO_INPLACE)
     {
         t_float *outs_real, *outs_perf;
-        x->e_perform_method(x, NULL, ins, nins, x->z_sigs_out, nouts, nsamples, flag, user_p);
+        if(x->e_perform_method != NULL)
+            x->e_perform_method(x, NULL, ins, nins, x->z_sigs_out, nouts, nsamples, flag, user_p);
         for(i = 0; i < nouts; i++)
         {
             outs_perf = x->z_sigs_out[i];
@@ -286,7 +293,8 @@ t_int* ebox_perform(t_int* w)
     }
     else
     {
-         x->e_perform_method(x, NULL, ins, nins, outs, nouts, nsamples, flag, user_p);
+        if(x->e_perform_method != NULL)
+            x->e_perform_method(x, NULL, ins, nins, outs, nouts, nsamples, flag, user_p);
     }
     return w + (x->e_dsp_size + 1);
 }
@@ -302,33 +310,15 @@ void ebox_dsp_add(t_ebox *x, t_symbol* s, t_object* obj, method m, long flags, v
 void ebox_get_rect_for_view(t_object *z, t_object *patcherview, t_rect *rect)
 {
     t_ebox* x = (t_ebox *)z;
-    rect->x = x->e_obj.te_xpix + 4;
-    rect->y = x->e_obj.te_ypix + 4;
-    rect->width = x->e_rect.width - 8;
-    rect->height = x->e_rect.height - 8;
+    rect->x = x->e_obj.te_xpix;
+    rect->y = x->e_obj.te_ypix;
+    rect->width = x->e_rect.width;
+    rect->height = x->e_rect.height;
 }
 
 void ebox_properties(t_gobj *z, t_glist *glist)
 {
     ;
-}
-
-void ebox_deserted(t_ebox *x)
-{
-    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-    if(c->c_widget.w_deserted)
-        c->c_widget.w_deserted(x);
-    clock_unset(x->e_deserted_clock);
-}
-
-void ebox_setdblclick_time(t_ebox *x, float time)
-{
-    x->e_dblclick_time = 1000. / time;
-}
-
-void ebox_setdblclicklong_time(t_ebox *x, float time)
-{
-     x->e_dblclicklong_time = 1000. / time;
 }
 
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data)

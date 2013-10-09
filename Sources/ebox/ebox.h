@@ -53,8 +53,6 @@ void ebox_dsp(t_ebox *x, t_signal **sp);
 t_int* ebox_perform(t_int* w);
 void ebox_dsp_add(t_ebox *x, t_symbol* s, t_object* obj, method m, long flags, void *userparam);
 
-void ebox_setdblclick_time(t_ebox *x, float time);
-void ebox_setdblclicklong_time(t_ebox *x, float time);
 void ebox_setdeserted_time(t_ebox *x, float time);
 void ebox_deserted(t_ebox *x);
 
@@ -72,7 +70,6 @@ void ebox_move(t_ebox* x, t_glist* glist);
 void ebox_erase(t_ebox* x, t_glist* glist);
 void ebox_update(t_ebox *x, t_glist *glist);
 void ebox_invalidate_all(t_ebox *x, t_glist *glist);
-void ebox_set_cursor(t_ebox* x, int mode);
 
 t_binbuf* binbuf_via_atoms(long ac, t_atom *av);
 void attr_binbuf_process(void *x, t_binbuf *d);
@@ -83,12 +80,21 @@ t_symbol* ebox_font_slant(t_ebox* x);
 t_symbol* ebox_font_weight(t_ebox* x);
 float ebox_font_size(t_ebox* x);
 
+void ebox_set_cursor(t_ebox* x, int mode);
 void ebox_mouse_enter(t_ebox* x);
 void ebox_mouse_leave(t_ebox* x);
 void ebox_mouse_move(t_ebox* x, float x_p, float y_p, float key);
 void ebox_mouse_up(t_ebox* x, float x_p, float y_p, float key);
 void ebox_mouse_down(t_ebox* x, float x_p, float y_p, float key);
 void ebox_mouse_drag(t_ebox* x, float x_p, float y_p, float key);
+void ebox_mouse_dblclick(t_ebox* x, float x_p, float y_p);
+void ebox_mouse_rightclick(t_ebox* x, float x_p, float y_p);
+
+void ebox_set_mouse_global_position(t_ebox* x, float x_p, float y_p);
+t_pt ebox_get_mouse_global_position(t_ebox* x);
+t_pt ebox_get_mouse_canvas_position(t_ebox* x);
+
+
 
 
 #endif

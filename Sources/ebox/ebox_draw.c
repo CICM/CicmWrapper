@@ -28,6 +28,7 @@
 
 void ebox_draw_background(t_ebox* x, t_glist* glist)
 {
+    /*
     t_elayer* g = ebox_start_layer((t_object *)x, (t_object *)glist, gensym("eboxbg"), x->e_rect.width, x->e_rect.height);
     
     if(g)
@@ -39,6 +40,7 @@ void ebox_draw_background(t_ebox* x, t_glist* glist)
         ebox_end_layer((t_object *)x, (t_object *)glist, gensym("eboxbg"));
     }
     ebox_paint_layer((t_object *)x, (t_object *)glist, gensym("eboxbg"), 0, 0);
+     */
 }
 
 void ebox_draw_border(t_ebox* x, t_glist* glist)
@@ -142,28 +144,11 @@ void ebox_select(t_ebox* x, t_glist* glist)
 
 void ebox_move(t_ebox* x, t_glist* glist)
 {
-    int pos_x = text_xpix(&x->e_obj, glist);
-    int pos_y = text_ypix(&x->e_obj, glist);
     if(glist_isvisible(glist))
     {
-        sys_vgui("%s coords %s %d %d\n", x->e_canvas_id->s_name, x->e_window_id->s_name, pos_x, pos_y);
+        sys_vgui("%s coords %s %f %f\n", x->e_canvas_id->s_name, x->e_window_id->s_name, x->e_rect.x, x->e_rect.y);
     }
-}
-
-static char *cursorlist[] = {
-    "$cursor_runmode_nothing",
-    "$cursor_runmode_clickme",
-    "$cursor_runmode_thicken",
-    "$cursor_runmode_addpoint",
-    "$cursor_editmode_nothing",
-    "$cursor_editmode_connect",
-    "$cursor_editmode_disconnect"
-};
-
-void ebox_set_cursor(t_ebox* x, int mode)
-{
-    mode = pd_clip_minmax(mode, 0, 6);
-    sys_vgui("%s configure -cursor %s\n", x->e_drawing_id->s_name, cursorlist[mode]);
+    canvas_fixlinesfor(glist_getcanvas(glist), (t_text*)x);
 }
 
 void ebox_invalidate_all(t_ebox *x, t_glist *glist)
@@ -178,7 +163,7 @@ void ebox_invalidate_all(t_ebox *x, t_glist *glist)
 void ebox_update(t_ebox *x, t_glist *glist)
 {
 	int i;
-    if(glist_isvisible(glist))
+    if(glist_isvisible(x->e_canvas))
     {
         for(i = 0; i < x->e_number_of_layers; i++)
         {
@@ -192,10 +177,9 @@ void ebox_update(t_ebox *x, t_glist *glist)
 
 void ebox_erase(t_ebox* x, t_glist* glist)
 {
-    if(glist_isvisible(glist))
+    if(glist_isvisible(x->e_canvas))
     {
-        sys_vgui("%s delete %s\n", x->e_drawing_id->s_name, x->e_all_id->s_name);
-        sys_vgui("%s delete %s\n", x->e_canvas_id->s_name, x->e_window_id->s_name);
+        sys_vgui("destroy %s \n", x->e_drawing_id->s_name);
     }
     
     free(x->e_layers);
@@ -317,6 +301,10 @@ t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, float x_p
 	int i, j;
     t_ebox* x = (t_ebox *)b;
     t_elayer* g = NULL;
+    
+    sys_vgui("%s configure -bg %s -width %i -height %i\n", x->e_drawing_id->s_name, rgba_to_hex(x->e_boxparameters.d_boxfillcolor), (int)x->e_rect.width, (int)x->e_rect.height);
+    sys_vgui("%s itemconfigure %s -width %d -height %d\n", x->e_canvas_id->s_name, x->e_window_id->s_name, (int)x->e_rect.width, (int)x->e_rect.height);
+    canvas_fixlinesfor(x->e_canvas, (t_text *)x);
     for(i = 0; i < x->e_number_of_layers; i++)
     {
         if(x->e_layers[i].e_name == name)
@@ -330,6 +318,7 @@ t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, float x_p
     }
     if(g)
     {
+        
         for(i = 0; i < g->e_number_objects; i++)
         {
             t_egobj* gobj = g->e_objects+i;

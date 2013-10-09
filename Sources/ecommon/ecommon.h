@@ -76,6 +76,8 @@
 #define layer_getname(layer) layer.c_name->s_name
 #define layer_getsize(layer) layer.c_atom.size()
 
+EXTERN void canvas_displaceselection(t_canvas *x, int dx, int dy);
+
 typedef void        (*method)(void* x, ...);
 typedef void*       (*rmethod)(void* x, ...);
 typedef t_pd_err    (*t_err_method)(void* x, ...);

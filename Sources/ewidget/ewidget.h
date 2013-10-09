@@ -39,16 +39,7 @@ void ewidget_select(t_gobj *z, t_glist *glist, int selected);
 void ewidget_delete(t_gobj *z, t_glist *glist);
 void ewidget_save(t_gobj *z, t_binbuf *b);
 
-void ewidget_paint(t_ebox *x, t_glist *glist, int mode);
-int  ewidget_mousemove(t_gobj *x, struct _glist *glist, int posx, int posy, int shift, int alt, int ctrl, int mousedown);
-void ewidget_mousedown(t_ebox *x, t_glist *glist, t_pt pt, long modifiers);
-void ewidget_mousedrag(t_ebox *x, t_floatarg posx, t_floatarg posy);
 void ewidget_key(t_ebox *x, t_floatarg fkey);
-
-void ewidget_paint_default(t_ebox *x, t_object *view);
-
-void ewidget_dblclick_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers);
-void ewidget_dblclicklong_default(t_ebox *x, t_object *patcherview, t_pt pt, long modifiers);
 
 void ewidget_key_default(t_ebox *x, t_object *patcherview, char textcharacter, long modifiers);
 void ewidget_keyfilter_default(t_ebox *x, t_object *patcherview, char textcharacter, long modifiers);
@@ -59,9 +50,6 @@ void ewidget_oksize_default(t_ebox *x, t_rect* rect);
 t_pd_err ewidget_notify_default(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void ewidget_save_default(t_gobj *z, t_binbuf *b);
 void ewidget_popup_default(t_ebox *x, t_symbol *s, long itemid, t_pt pt);
-void ewidget_dsp_default(t_ebox *x, t_object *dsp, short *count, double samplerate, long vectorsize, long flags);
-void ewidget_perform_default(t_ebox *x, t_object *dsp, float **ins, long ni, float **outs, long no, long vectorsize, long flags,void *userparam);
-
 
 
 

@@ -55,7 +55,7 @@ void ebox_tk_ids(t_ebox *x, t_canvas *canvas)
     sprintf(buffer,".x%lx.c", (long unsigned int) canvas);
     x->e_canvas_id = gensym(buffer);
     
-    sprintf(buffer,"%s.drawing%lx", x->e_canvas_id->s_name, (long unsigned int)x);
+    sprintf(buffer,"%s.canvas%lx", x->e_canvas_id->s_name, (long unsigned int)x);
     x->e_drawing_id = gensym(buffer);
     
     sprintf(buffer,"%s.frame%lx", x->e_canvas_id->s_name, (long unsigned int)x);
@@ -74,15 +74,14 @@ void ebox_tk_ids(t_ebox *x, t_canvas *canvas)
 void ebox_bind_events(t_ebox* x)
 {
     int i;
+    
     // Mouse Enter //
-    sys_vgui("bind %s <Enter> {pdsend {%s mouseenter}}\n",
-             x->e_drawing_id->s_name, x->e_name_rcv->s_name);
+    sys_vgui("bind %s <Enter> {pdsend {%s mouseenter}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
     // Mouse Leave //
-    sys_vgui("bind %s <Leave> {pdsend {%s mouseleave}}\n",
-             x->e_drawing_id->s_name, x->e_name_rcv->s_name);
+    sys_vgui("bind %s <Leave> {pdsend {%s mouseleave}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
     
     // Right click //
-    sys_vgui("bind %s <Button-2> {pdsend {%s mousemove %%x %%y}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
+    sys_vgui("bind %s <Button-2> {pdsend {%s mousedown %%x %%y 1}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
     for(i = 0; i < 14; i++)
     {
         // Mouse Down //
@@ -94,7 +93,8 @@ void ebox_bind_events(t_ebox* x)
         // Mouse Move //
         sys_vgui("bind %s <%sMotion> {pdsend {%s mousemove %%x %%y %i}}\n", x->e_drawing_id->s_name, modifiers_list[i], x->e_name_rcv->s_name, i);
     }
-        /*
+    
+    /*
          sys_vgui("bind %s <$::modifier-Button> {pdtk_canvas_rightclick %s \
          [expr %%X - [winfo rootx %s]] [expr %%Y - [winfo rooty %s]] %%b}\n",
          x->e_drawing_id->s_name, x->e_canvas_id->s_name, x->e_canvas_id->s_name, x->e_canvas_id->s_name);
@@ -108,13 +108,13 @@ void ebox_create_widget(t_ebox* x)
 {
     sys_vgui("namespace eval ebox%lx {} \n", x);
     sys_vgui("destroy %s \n", x->e_drawing_id->s_name);
-    sys_vgui("canvas %s -borderwidth 0 -width %d -height %d \n",
+    
+    sys_vgui("canvas %s -width %d -height %d -bd 0 -state normal -takefocus 0 -highlightthickness 0  -insertborderwidth -2 -insertwidth -2 -confine 0\n",
              x->e_drawing_id->s_name,
              (int)x->e_rect.width,
              (int)x->e_rect.height);
-
-    ebox_bind_events(x);
     
+    ebox_bind_events(x);    
 }
 
 void ebox_create_window(t_ebox* x, t_glist* glist)
@@ -124,12 +124,14 @@ void ebox_create_window(t_ebox* x, t_glist* glist)
     
     sys_vgui("%s create window %d %d -anchor nw -window %s -tags %s -width %d -height %d\n",
              x->e_canvas_id->s_name,
-             (int)x->e_obj.te_xpix + 4,
-             (int)x->e_obj.te_ypix + 4,
+             (int)x->e_obj.te_xpix,
+             (int)x->e_obj.te_ypix,
              x->e_drawing_id->s_name,
              x->e_window_id->s_name,
-             (int)x->e_rect.width - 8,
-             (int)x->e_rect.height - 8);
+             (int)x->e_rect.width,
+             (int)x->e_rect.height);
+
+    sys_vgui("focus -force %s\n", x->e_canvas_id->s_name);
 }
 
 

@@ -111,6 +111,14 @@ void eclass_init(t_eclass* c, long flags)
     class_addmethod((t_class *)c, (t_method)ebox_mouse_down,  gensym("mousedown"),  A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_up,    gensym("mouseup"),    A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_drag,  gensym("mousedrag"),  A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_set_mouse_global_position,  gensym("globalmouse"), A_DEFFLOAT,A_DEFFLOAT,0);
+    
+    // For global mouse position //
+    sys_gui("proc global_mousepos {target} {\n");
+    sys_gui(" set x [winfo pointerx .]\n");
+    sys_gui(" set y [winfo pointery .]\n");
+    sys_gui(" pdsend \"$target globalmouse $x $y\"\n");
+    sys_gui("}\n");
 }
 
 void eclass_dspinit(t_eclass* c)
@@ -174,10 +182,6 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
     else if(gensym(name) == gensym("dblclick"))
     {
         c->c_widget.w_dblclick = m;
-    }
-    else if(gensym(name) == gensym("dblclicklong"))
-    {
-        c->c_widget.w_dblclicklong = m;
     }
     else if(gensym(name) == gensym("key"))
     {

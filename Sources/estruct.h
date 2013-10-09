@@ -86,7 +86,6 @@ typedef struct _ewidget
     method          w_mousedrag;
     method          w_mouseup;
     method          w_dblclick;
-    method          w_dblclicklong;
     method          w_key;
     method          w_keyfilter;
     method          w_deserted;
@@ -133,26 +132,6 @@ typedef struct _eclass
     t_eattr*    c_attr;
     long        c_nattr;
 }t_eclass;
-/*
-"",
-"Mod1-",
-"Mod2-",
-"Control-",
-"Shift-",
-
-"Mod1-Mod2-",
-"Mod1-Control-",
-"Mod1-Shift-",
-"Mod2-Control-",
-"Mod2-Shift-"
-"Control-Shift-",
-
-"Mod1-Mod2-Control-",
-"Mod1-Mod2-Shift-",
-"Mod2-Control-Shift-",
-
-"Mod1-Mod2-Shift-Control-",
-*/
 
 typedef enum _emod_flags
 {
@@ -289,6 +268,7 @@ typedef struct _ebox
 {
     t_object            e_obj;
     t_canvas*           e_canvas;
+    t_canvas*           e_drawing;
     
     char*               e_classname;
     t_symbol*           e_name_tcl;
@@ -303,17 +283,15 @@ typedef struct _ebox
     
     t_rect              e_rect;
     t_efont             e_font;
-    
+   
     char                e_selected;
     t_pt                e_mouse;
+    t_pt                e_move_box;
     char                e_mouse_down;
     long                e_modifiers;
     
     char                e_ready_to_draw;
     t_edrawparams       e_boxparameters;
-    float               e_lastclick;
-    float               e_dblclick_time;
-    float               e_dblclicklong_time;
     
     float               e_deserted_time;
     t_clock*            e_deserted_clock;
