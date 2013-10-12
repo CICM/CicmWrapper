@@ -1,4 +1,4 @@
-All the things to do :
+To do :
 
 - Add keys methods (ebox_handle and ebox_window)
 - Add Automatic inspector with attributes
