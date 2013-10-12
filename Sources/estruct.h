@@ -29,11 +29,12 @@
 
 #include "ecommon/ecommon.h"
 
+
 typedef struct _pt
 {
 	float x;
 	float y;
-} t_pt;
+} t_pt; ///< A 2D Point.
 
 typedef struct _rect
 {
@@ -41,14 +42,14 @@ typedef struct _rect
 	float y;
 	float width;
 	float height;
-} t_rect;
+} t_rect; ///< A Rectangle.
 
 typedef struct _rgb
 {
 	float red;
 	float green;
 	float blue;
-} t_rgb;
+} t_rgb; ///< A RGB Color.
 
 typedef struct _rgba
 {
@@ -56,7 +57,7 @@ typedef struct _rgba
 	float green;
 	float blue;
 	float alpha;
-} t_rgba;
+} t_rgba; ///< A RGBA Color.
 
 typedef struct _matrix
 {
@@ -66,7 +67,7 @@ typedef struct _matrix
 	float yy;
 	float x0;
 	float y0;
-} t_matrix;
+} t_matrix; ///< A Graphic Matrix.
 
 typedef struct _ewidget
 {
