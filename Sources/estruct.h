@@ -285,6 +285,8 @@ typedef struct _ebox
     t_efont             e_font;
    
     char                e_selected;
+    int                 e_selected_inlet;
+    int                 e_selected_outlet;
     t_pt                e_mouse;
     t_pt                e_move_box;
     char                e_mouse_down;

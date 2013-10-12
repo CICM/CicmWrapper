@@ -62,8 +62,8 @@ t_pd_err ebox_invalidate_layer(t_object *b, t_object *view, t_symbol *name);
 t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, float x, float y);
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
-void ebox_draw_background(t_ebox* x, t_glist* glist);
 void ebox_draw_border(t_ebox* x, t_glist* glist);
+void ebox_draw_iolets(t_ebox* x, t_glist* glist);
 
 void ebox_select(t_ebox* x, t_glist* glist);
 void ebox_move(t_ebox* x, t_glist* glist);
@@ -89,6 +89,7 @@ void ebox_mouse_down(t_ebox* x, float x_p, float y_p, float key);
 void ebox_mouse_drag(t_ebox* x, float x_p, float y_p, float key);
 void ebox_mouse_dblclick(t_ebox* x, float x_p, float y_p);
 void ebox_mouse_rightclick(t_ebox* x, float x_p, float y_p);
+void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key);
 
 void ebox_set_mouse_global_position(t_ebox* x, float x_p, float y_p);
 t_pt ebox_get_mouse_global_position(t_ebox* x);

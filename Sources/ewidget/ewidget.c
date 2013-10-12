@@ -58,10 +58,10 @@ void ewidget_init(t_eclass* c)
 void ewidget_getrect(t_gobj *z, t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2)
 {
     t_ebox *x = (t_ebox *)z;
-    *xp1 = text_xpix(&x->e_obj, glist)-1;
-    *yp1 = text_ypix(&x->e_obj, glist)-1;
-    *xp2 = *xp1 + (int)x->e_rect.width+2;
-    *yp2 = *yp1 + (int)x->e_rect.height+2;
+    *xp1 = text_xpix(&x->e_obj, glist) - (int)(x->e_boxparameters.d_borderthickness);
+    *yp1 = text_ypix(&x->e_obj, glist) - (int)(x->e_boxparameters.d_borderthickness);
+    *xp2 = text_xpix(&x->e_obj, glist) + (int)x->e_rect.width + (int)(x->e_boxparameters.d_borderthickness);
+    *yp2 = text_ypix(&x->e_obj, glist) + (int)x->e_rect.height + (int)(x->e_boxparameters.d_borderthickness);
 }
 
 void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
@@ -71,15 +71,16 @@ void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
 
     if(vis && x->e_ready_to_draw)
     {
-        ebox_create_window(x, glist);
-        ebox_invalidate_all(x, x->e_canvas);
-        ebox_update(x, x->e_canvas);
         if(c->c_box == 0)
         {
-            ebox_draw_background(x, glist);
+            ebox_create_window(x, glist);
+            ebox_invalidate_all(x, x->e_canvas);
+            ebox_update(x, x->e_canvas);
+        
             if(c->c_widget.w_paint)
                 c->c_widget.w_paint(x, (t_object *)glist);
             ebox_draw_border(x, glist);
+            ebox_draw_iolets(x, glist);
         }
     }
     else

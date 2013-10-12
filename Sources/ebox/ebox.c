@@ -99,7 +99,13 @@ void ebox_ready(t_ebox *x)
 {
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
     
+    x->e_selected_inlet = -1;
+    x->e_selected_outlet = -1;
     x->e_mouse_down = 0;
+    x->e_boxparameters.d_bordercolor = rgba_black;
+    x->e_boxparameters.d_borderthickness = 1;
+    x->e_boxparameters.d_boxfillcolor = rgba_white;
+    x->e_boxparameters.d_cornersize = 0;
     c->c_widget.w_getdrawparameters(x, NULL, &x->e_boxparameters);
     x->e_deserted_clock = clock_new(x, (t_method)ebox_deserted);
     x->e_ready_to_draw = 1;
@@ -122,10 +128,13 @@ void ebox_redraw(t_ebox *x)
     {
         if(c->c_box == 0)
         {
-            ebox_draw_background(x, x->e_canvas);
+            ebox_invalidate_layer((t_object *)x, (t_object *)x->e_canvas, gensym("eboxbd"));
+            ebox_invalidate_layer((t_object *)x, (t_object *)x->e_canvas, gensym("eboxio"));
             ebox_update(x, x->e_canvas);
             if(c->c_widget.w_paint)
                 c->c_widget.w_paint(x, (t_object *)x->e_canvas);
+            ebox_draw_border(x, x->e_canvas);
+            ebox_draw_iolets(x, x->e_canvas);
         }
     }
 }
@@ -310,8 +319,8 @@ void ebox_dsp_add(t_ebox *x, t_symbol* s, t_object* obj, method m, long flags, v
 void ebox_get_rect_for_view(t_object *z, t_object *patcherview, t_rect *rect)
 {
     t_ebox* x = (t_ebox *)z;
-    rect->x = x->e_obj.te_xpix;
-    rect->y = x->e_obj.te_ypix;
+    rect->x = x->e_rect.x = x->e_obj.te_xpix;
+    rect->y = x->e_rect.y = x->e_obj.te_ypix;
     rect->width = x->e_rect.width;
     rect->height = x->e_rect.height;
 }

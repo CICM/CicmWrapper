@@ -27,7 +27,6 @@
 #include "ebox.h"
 
 static t_pt mouse_global_pos;
-static int ebox_check_global_move = 0;
 
 static char *cursorlist[] = {
     "$cursor_runmode_nothing",
@@ -59,7 +58,7 @@ t_pt ebox_get_mouse_canvas_position(t_ebox* x)
     t_pt point;
     sys_vgui("global_mousepos %s\n", x->e_name_rcv->s_name);
     point.x = mouse_global_pos.x - x->e_canvas->gl_screenx1;
-    point.y = mouse_global_pos.y - x->e_canvas->gl_screeny1;
+    point.y = mouse_global_pos.y - x->e_canvas->gl_screeny1 - x->e_boxparameters.d_borderthickness * 6; // Why ???
     
     return point;
 }
@@ -102,20 +101,17 @@ void ebox_mouse_leave(t_ebox* x)
         }
     }
     else
+    {
         ebox_set_cursor(x, 4);
+    }
 }
 
 void ebox_mouse_move(t_ebox* x, float x_p, float y_p, float key)
 {
-    t_pt point;
-    t_selection *y;
-    t_class *cl;
-    int resortin = 0, resortout = 0;
     t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
-    
-    if(!x->e_mouse_down)
+    if(!x->e_canvas->gl_edit)
     {
-        if(!x->e_canvas->gl_edit)
+        if(!x->e_mouse_down)
         {
             x->e_mouse.x = x_p;
             x->e_mouse.y = y_p;
@@ -124,39 +120,34 @@ void ebox_mouse_move(t_ebox* x, float x_p, float y_p, float key)
                 c->c_widget.w_mousemove(x, x->e_canvas, x->e_mouse, (long)key);
         }
         else
-            ebox_set_cursor(x, 4);
-    }
-    else
-    {
-        if(!x->e_canvas->gl_edit)
         {
             ebox_mouse_drag(x, x_p, y_p, key);
         }
+    }
+    else
+    {
+        if(!x->e_mouse_down)
+        {
+            ebox_mouse_move_editmode(x, x_p, y_p, key);
+        }
         else
         {
-            // stupid error somewhere .... sorry
-            if(ebox_check_global_move == 0)
-            {
-                x->e_move_box = ebox_get_mouse_canvas_position(x);
-                ebox_check_global_move = 1;
-            }
-            point = ebox_get_mouse_canvas_position(x);
-            // ... and I do evething : so stupid !
-            for (y = x->e_canvas->gl_editor->e_selection; y; y = y->sel_next)
-            {
-                cl = pd_class(&y->sel_what->g_pd);
-                gobj_displace(y->sel_what, x->e_canvas, point.x - x->e_move_box.x, point.y - x->e_move_box.y);
-                if (cl == vinlet_class) resortin = 1;
-                else if (cl == voutlet_class) resortout = 1;
-            }
-            if (resortin) canvas_resortinlets(x->e_canvas);
-            if (resortout) canvas_resortoutlets(x->e_canvas);
-            sys_vgui("pdtk_canvas_getscroll .x%lx.c\n", x->e_canvas);
-            if (x->e_canvas->gl_editor->e_selection)
-                canvas_dirty(x->e_canvas, 1);
-         
-            x->e_move_box = point;
+            x->e_move_box = ebox_get_mouse_canvas_position(x);
+            sys_vgui("pdtk_canvas_motion %s %i %i 0\n", x->e_canvas_id->s_name, (int)x->e_move_box.x, (int)x->e_move_box.y);
         }
+    }
+}
+
+void ebox_mouse_drag(t_ebox* x, float x_p, float y_p, float key)
+{
+    t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
+    
+    if(!x->e_canvas->gl_edit)
+    {
+        x->e_mouse.x = x_p;
+        x->e_mouse.y = y_p;
+        if(c->c_widget.w_mousedrag && x->e_mouse_down)
+            c->c_widget.w_mousedrag(x, x->e_canvas, x->e_mouse, (long)key);
     }
 }
 
@@ -172,10 +163,8 @@ void ebox_mouse_down(t_ebox* x, float x_p, float y_p, float key)
     }
     else
     {
-        ebox_check_global_move = 0;
         x->e_move_box = ebox_get_mouse_canvas_position(x);
-        t_gotfn selmethod = getfn((t_pd *)x->e_canvas, gensym("mouse"));
-        selmethod(x->e_canvas, gensym("mouse"), x->e_move_box.x, x->e_move_box.y, 0, 0);
+        sys_vgui("pdtk_canvas_mouse %s %i %i 0 0\n", x->e_canvas_id->s_name, (int)(x->e_move_box.x), (int)(x->e_move_box.y));
     }
     x->e_mouse_down = 1;
 }
@@ -194,23 +183,10 @@ void ebox_mouse_up(t_ebox* x, float x_p, float y_p, float key)
     }
     else
     {
-        t_gotfn selmethod = getfn((t_pd *)x->e_canvas, gensym("mouseup"));
-        selmethod(x->e_canvas, gensym("mouseup"), x_p + x->e_obj.te_xpix , y_p + x->e_obj.te_ypix, 0, 0);
+        x->e_move_box = ebox_get_mouse_canvas_position(x);
+        sys_vgui("pdtk_canvas_mouseup %s %i %i 0\n", x->e_canvas_id->s_name, (int)x->e_move_box.x, (int)x->e_move_box.y);
     }
     x->e_mouse_down = 0;
-}
-
-void ebox_mouse_drag(t_ebox* x, float x_p, float y_p, float key)
-{
-    t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
-    
-    if(!x->e_canvas->gl_edit)
-    {
-        x->e_mouse.x = x_p;
-        x->e_mouse.y = y_p;
-        if(c->c_widget.w_mousedrag && x->e_mouse_down)
-            c->c_widget.w_mousedrag(x, x->e_canvas, x->e_mouse, (long)key);
-    }
 }
 
 void ebox_mouse_dblclick(t_ebox* x, float x_p, float y_p)
@@ -228,7 +204,20 @@ void ebox_mouse_dblclick(t_ebox* x, float x_p, float y_p)
 
 void ebox_mouse_rightclick(t_ebox* x, float x_p, float y_p)
 {
+    t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
     
+    if(!x->e_canvas->gl_edit)
+    {
+        x->e_mouse.x = x_p;
+        x->e_mouse.y = y_p;
+        if(c->c_widget.w_dblclick)
+            c->c_widget.w_dblclick(x, x->e_canvas, x->e_mouse);
+    }
+    else
+    {
+        x->e_move_box = ebox_get_mouse_canvas_position(x);
+        sys_vgui("pdtk_canvas_rightclick %s %i %i 0\n", x->e_canvas_id->s_name, (int)x->e_move_box.x, (int)x->e_move_box.y);
+    }
 }
 
 void ebox_deserted(t_ebox *x)
@@ -237,5 +226,66 @@ void ebox_deserted(t_ebox *x)
     if(c->c_widget.w_deserted)
         c->c_widget.w_deserted(x);
     clock_unset(x->e_deserted_clock);
+}
+
+void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
+{
+    int i;
+    //t_gobj* g = (t_gobj*)x;
+    x->e_selected_outlet    = -1;
+    x->e_selected_inlet     = -1;
+    
+    x->e_move_box = ebox_get_mouse_canvas_position(x);
+    sys_vgui("pdtk_canvas_motion %s %i %i 0\n", x->e_canvas_id->s_name, (int)x->e_move_box.x, (int)x->e_move_box.y);
+    
+     // Check inlets //
+    if(y_p > 0 && y_p < 3)
+    {
+        for(i = 0; i < obj_noutlets((t_object *)x); i++)
+        {
+            int pos_x_inlet = 0;
+            if(obj_ninlets((t_object *)x) != 1)
+                pos_x_inlet = (int)(i / (float)(obj_ninlets((t_object *)x) - 1) * (x->e_rect.width - 8));
+            
+            if(x_p >= pos_x_inlet && x_p <= pos_x_inlet +7)
+            {
+                //sys_vgui("pdtk_gettip .x%lx.c inlet %d [list %s] [list %s] [list %s]\n", x->e_canvas, i, g->g_pd->c_name->s_name, g->g_pd->c_helpname->s_name, g->g_pd->c_externdir);
+                x->e_selected_inlet = i;
+                ebox_set_cursor(x, 4);
+                break;
+            }
+            
+        }
+    }
+    if(x->e_selected_inlet == -1)
+    {
+        // Check outlets //
+        if(y_p > x->e_rect.width + x->e_boxparameters.d_borderthickness * 2. - 3 && y_p < x->e_rect.width + x->e_boxparameters.d_borderthickness * 2.)
+        {
+            for(i = 0; i < obj_noutlets((t_object *)x); i++)
+            {
+                int pos_x_outlet = 0;
+                if(obj_noutlets((t_object *)x) != 1)
+                    pos_x_outlet = (int)(i / (float)(obj_noutlets((t_object *)x) - 1) * (x->e_rect.width - 8));
+                
+                if(x_p >= pos_x_outlet && x_p <= pos_x_outlet +7)
+                {
+                    //sys_vgui("pdtk_gettip .x%lx.c outlet %d [list %s] [list %s] [list %s]\n", x->e_canvas, i, g->g_pd->c_name->s_name, g->g_pd->c_helpname->s_name, g->g_pd->c_externdir);
+                    x->e_selected_outlet = i;
+                    ebox_set_cursor(x, 5);
+                    break;
+                }
+                
+            }
+        }
+        // my box //
+        if(x->e_selected_outlet == -1)
+        {
+            //sys_vgui("pdtk_gettip .x%lx.c text %d [list %s] [list %s] [list %s]\n", x->e_canvas, i, g->g_pd->c_name->s_name, g->g_pd->c_helpname->s_name, g->g_pd->c_externdir);
+            ebox_set_cursor(x, 4);
+        }
+    }
+    ebox_invalidate_layer((t_object *)x, NULL, gensym("eboxio"));
+    ebox_redraw(x);
 }
 
