@@ -92,6 +92,9 @@ void ebox_bind_events(t_ebox* x)
         
         // Mouse Move //
         sys_vgui("bind %s <%sMotion> {pdsend {%s mousemove %%x %%y %i}}\n", x->e_drawing_id->s_name, modifiers_list[i], x->e_name_rcv->s_name, i);
+        
+        // Mouse Wheel //
+        sys_vgui("bind %s <%sMouseWheel> {pdsend {%s mousewheel %%D %i}}\n", x->e_drawing_id->s_name, modifiers_list[i], x->e_name_rcv->s_name, i);
     }
     /*
          sys_vgui("bind %s <$::modifier-Button> {pdtk_canvas_rightclick %s \

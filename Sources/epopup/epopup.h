@@ -29,35 +29,13 @@
 
 #include "../estruct.h"
 #include "../ebox/ebox.h"
-/*
-// To put in struc //
-typedef struct _epopupitem
-{
-    t_rgba      c_color;
-    long        c_id;
-    t_symbol*   c_text;
-    bool        c_checked;
-    bool        c_disable;
-    bool        c_separator;
-}t_epopupitem;
 
-typedef struct _epopupmenu
-{
-    t_object*               c_obj;
-    vector<t_epopupitem>    c_items;
-    t_efont                 c_font;
-    t_rect                  c_rect;
-    t_symbol*               c_name;
-    
-}t_epopupmenu;
-
-t_epopupmenu* epopupmenu_create(t_ebox *x, t_symbol* name);
+t_epopupmenu* epopupmenu_create(t_symbol* name);
 void epopupmenu_setfont(t_epopupmenu *menu, t_efont *font);
-void epopupmenu_additem(t_epopupmenu *menu, int itemid, char *text, t_rgba *textColor, bool checked, bool disabled, void *icon);
+void epopupmenu_additem(t_epopupmenu *menu, int itemid, char *text, t_rgba *textColor, char checked, char disabled, void *icon);
 void epopupmenu_addseperator(t_epopupmenu *menu);
 void epopupmenu_popup(t_epopupmenu *menu, t_pt screen, int defitemid);
 void epopupmenu_destroy(t_epopupmenu *menu);
 int epopupmenu_mousemove(t_epopupmenu *menu, t_pt points, int mousedown);
- */
 
 #endif

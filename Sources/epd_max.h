@@ -97,6 +97,8 @@
 #define dictionary_write(dict, filename, dir)       binbuf_write(dict, filename, dir, 0)
 #define attr_dictionary_process(object, dict)       binbuf_attr_process(object, dict)
 #define object_dictionaryarg(ac, av)                binbuf_via_atoms(ac, av)
+#define dictionary_copyatoms(d, key, argc, argv)    binbuf_copy_atoms(d, key, argc, argv)
+#define dictionary_appendatoms(d, key, argc, argv)  binbuf_append_atoms(d, key, argc, argv)
 
 #define jgraphics_set_line_width    egraphics_set_line_width
 #define jgraphics_set_source_jrgba  egraphics_set_color_rgba

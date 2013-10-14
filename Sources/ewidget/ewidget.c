@@ -43,6 +43,7 @@ void ewidget_init(t_eclass* c)
     c->c_widget.w_mousedown         = NULL;
     c->c_widget.w_mousedrag         = NULL;
     c->c_widget.w_mouseup           = NULL;
+    c->c_widget.w_mousewheel        = NULL;
     c->c_widget.w_dblclick          = NULL;
     c->c_widget.w_key               = (method)ewidget_key_default;
     c->c_widget.w_keyfilter         = (method)ewidget_keyfilter_default;

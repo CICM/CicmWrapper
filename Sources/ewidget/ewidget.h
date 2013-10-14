@@ -51,6 +51,4 @@ t_pd_err ewidget_notify_default(t_ebox *x, t_symbol *s, t_symbol *msg, void *sen
 void ewidget_save_default(t_gobj *z, t_binbuf *b);
 void ewidget_popup_default(t_ebox *x, t_symbol *s, long itemid, t_pt pt);
 
-
-
 #endif 

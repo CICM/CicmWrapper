@@ -86,6 +86,7 @@ typedef struct _ewidget
     method          w_mousedown;
     method          w_mousedrag;
     method          w_mouseup;
+    method          w_mousewheel;
     method          w_dblclick;
     method          w_key;
     method          w_keyfilter;
@@ -216,6 +217,23 @@ typedef struct _etext
     t_rect          c_rect;
     t_symbol*       c_justify;
 } t_etext;
+
+typedef struct _epopupitem
+{
+    t_rgba      c_color;
+    long        c_id;
+    t_symbol*   c_text;
+    char        c_checked;
+    char        c_disable;
+    char        c_separator;
+}t_epopupitem;
+
+typedef struct _epopupmenu
+{
+    t_symbol*               c_name;
+    t_epopupitem*           c_items;
+    t_efont                 c_font;
+}t_epopupmenu;
 
 typedef struct _egobj
 {
