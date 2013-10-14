@@ -58,7 +58,7 @@ t_pt ebox_get_mouse_canvas_position(t_ebox* x)
     t_pt point;
     sys_vgui("global_mousepos %s\n", x->e_name_rcv->s_name);
     point.x = mouse_global_pos.x - x->e_canvas->gl_screenx1;
-    point.y = mouse_global_pos.y - x->e_canvas->gl_screeny1 - x->e_boxparameters.d_borderthickness * 6; // Why ???
+    point.y = mouse_global_pos.y - x->e_canvas->gl_screeny1 - 22; // The top of canvas
     
     return point;
 }
@@ -75,9 +75,9 @@ void ebox_mouse_enter(t_ebox* x)
 
     if(!x->e_canvas->gl_edit)
     {
+        ebox_set_cursor(x, 1);
         if(c->c_widget.w_mouseenter && !x->e_mouse_down)
         {
-            ebox_set_cursor(x, 1);
             c->c_widget.w_mouseenter(x);
         }
     }
@@ -93,9 +93,9 @@ void ebox_mouse_leave(t_ebox* x)
     
     if(!x->e_canvas->gl_edit)
     {
+        ebox_set_cursor(x, 0);
         if(c->c_widget.w_mouseleave && !x->e_mouse_down)
         {
-            ebox_set_cursor(x, 0);
             c->c_widget.w_mouseleave(x);
             clock_delay(x->e_deserted_clock, x->e_deserted_time);
         }
@@ -111,6 +111,7 @@ void ebox_mouse_move(t_ebox* x, float x_p, float y_p, float key)
     t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
     if(!x->e_canvas->gl_edit)
     {
+        ebox_set_cursor(x, 1);
         if(!x->e_mouse_down)
         {
             x->e_mouse.x = x_p;
@@ -126,6 +127,7 @@ void ebox_mouse_move(t_ebox* x, float x_p, float y_p, float key)
     }
     else
     {
+        ebox_set_cursor(x, 4);
         if(!x->e_mouse_down)
         {
             ebox_mouse_move_editmode(x, x_p, y_p, key);

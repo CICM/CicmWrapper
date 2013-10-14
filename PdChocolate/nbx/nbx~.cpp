@@ -26,6 +26,10 @@ extern "C"
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
 }
 
+#ifndef _WIN32
+#define sprintf_s sprintf
+#endif
+
 typedef struct  _nbx
 {
 	t_ebox      j_box;
@@ -109,7 +113,7 @@ extern "C" void nbx_tilde_setup(void)
     eclass_addmethod(c, (method) nbx_keyfilter,        "keyfilter",       A_CANT, 0);
     eclass_addmethod(c, (method) nbx_deserted,         "deserted",        A_CANT, 0);
     
-	CLASS_ATTR_DEFAULT			(c, "size", 0, "55 15");
+	CLASS_ATTR_DEFAULT			(c, "size", 0, "53 13");
     
     CLASS_ATTR_LONG				(c, "mode", 0, t_nbx, f_mode);
 	CLASS_ATTR_ORDER			(c, "mode", 0, "1");
@@ -164,7 +168,7 @@ void *nbx_new(t_symbol *s, int argc, t_atom *argv)
 	x->f_startclock     = 0;
     x->f_entertext      = 0;
  
-	attr_binbuf_process(x, d);
+	binbuf_attr_process(x, d);
 	ebox_ready((t_ebox *)x);
     
 	return (x);
@@ -287,9 +291,9 @@ void draw_background(t_nbx *x, t_object *view, t_rect *rect)
 	if (g && jtl)
 	{
         if(!x->f_mode)
-            etext_layout_set(jtl, "~", &x->j_box.e_font, 1, rect->height / 2., rect->width, 0, ETEXT_LEFT, ETEXT_NOWRAP);
+            etext_layout_set(jtl, "~", &x->j_box.e_font, 0, rect->height / 2., rect->width, 0, ETEXT_LEFT, ETEXT_NOWRAP);
         else
-            etext_layout_set(jtl, "-", &x->j_box.e_font, 1, rect->height / 2., rect->width, 0, ETEXT_LEFT, ETEXT_NOWRAP);
+            etext_layout_set(jtl, "-", &x->j_box.e_font, 0, rect->height / 2., rect->width, 0, ETEXT_LEFT, ETEXT_NOWRAP);
         
         etext_layout_settextcolor(jtl, &x->f_color_text);
         etext_layout_draw(jtl, g);
@@ -326,7 +330,7 @@ void draw_value(t_nbx *x, t_object *view, t_rect *rect)
             sprintf_s(number, "%s", x->f_textvalue);
         }
         
-        etext_layout_set(jtl, number, &x->j_box.e_font, sys_fontwidth(x->j_box.e_font.c_size) + 8, rect->height / 2., rect->width, 0, ETEXT_LEFT, ETEXT_NOWRAP);
+        etext_layout_set(jtl, number, &x->j_box.e_font, sys_fontwidth(x->j_box.e_font.c_size) + 8, rect->height / 2., rect->width - 3, 0, ETEXT_LEFT, ETEXT_NOWRAP);
         
         etext_layout_draw(jtl, g);
 		ebox_end_layer((t_object*)x, view, gensym("value_layer"));

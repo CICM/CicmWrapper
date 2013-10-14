@@ -49,7 +49,7 @@ void egraphics_paint(t_elayer *g, int filled, int preserved)
         g->e_objects = (t_egobj *)realloc(g->e_objects, (g->e_number_objects + 1) * sizeof(t_egobj));
         if(g->e_objects)
         {
-            index = g->e_number_objects;
+            index = (int)g->e_number_objects;
             g->e_number_objects++;
             if (filled)
             {

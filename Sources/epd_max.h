@@ -95,7 +95,7 @@
 #define dictionary_new                              binbuf_new
 #define dictionary_free                             binbuf_free
 #define dictionary_write(dict, filename, dir)       binbuf_write(dict, filename, dir, 0)
-#define attr_dictionary_process(object, dict)       attr_binbuf_process(object, dict)
+#define attr_dictionary_process(object, dict)       binbuf_attr_process(object, dict)
 #define object_dictionaryarg(ac, av)                binbuf_via_atoms(ac, av)
 
 #define jgraphics_set_line_width    egraphics_set_line_width
@@ -135,7 +135,7 @@
 
 #define jgraphics_rectangle(graphics, x, y, width, height)      egraphics_rectangle(graphics, x, y, width, height)
 #define jgraphics_arc(graphics, xc, yc, radius, angle1, angle2) egraphics_arc(graphics, xc, yc, radius, angle1, angle2)
-#define jgraphics_arc_negative(graphics, xc, yc, radius, angle1, angle2) egraphics_arc_negative(graphics, xc, yc, radius, angle1, angle2)
+
 #define jgraphics_line_to(graphics, x, y)                       egraphics_line_to(graphics, x, y)
 #define jgraphics_move_to(graphics, x, y)                       egraphics_move_to(graphics, x, y)
 
@@ -154,6 +154,7 @@
 #define jfont_create(family, slant, weight, size)               efont_create(family, slant, weight, size)
 #define jfont_destroy(font)                                     efont_destroy(font)
 
+#define cicm_rgba_addContrast(color, contrast)       rgba_addContrast(color, contrast)              
 
 
 #endif

@@ -353,7 +353,7 @@ t_binbuf* binbuf_via_atoms(long ac, t_atom *av)
     return dico;
 }
 
-void attr_binbuf_process(void *x, t_binbuf *d)
+void binbuf_attr_process(void *x, t_binbuf *d)
 {
     int i, j;
     char attr_name[256];

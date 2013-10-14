@@ -6,23 +6,27 @@
 #X obj 4 81 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10 -262144
 -1 -1 0 256;
 #X msg 4 113 interval \$1;
-#X obj 83 181 nbx~ @patching_rect [ 4 4 55 17 ] @size [ 55 17 ] @mode
-[ 0 ] @interval [ 50 ] @bgcolor [ 0.35 0.23 0.13 1 ] @bdcolor [ 0.27
-0.21 0 1 ] @textcolor [ 1 1 1 1 ];
+#X obj 83 181 nbx~ @patching_rect [ 83 181 55 17 ] @size [ 55 17 ]
+@fontname [ helvetica ] @fontweight [ normal ] @fontslant [ regular
+] @fontsize [ 11 ] @mode [ 0 ] @interval [ 50 ] @bgcolor [ 0.35 0.23
+0.13 1 ] @bdcolor [ 0.27 0.21 0 1 ] @textcolor [ 1 1 1 1 ];
 #X obj 83 114 osc~ 0.2;
-#X obj 131 228 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+#X obj 133 228 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0.187976 256;
+#X obj 83 253 nbx~ @patching_rect [ 83 253 80 17 ] @size [ 80 17 ]
+@fontname [ helvetica ] @fontweight [ normal ] @fontslant [ regular
+] @fontsize [ 11 ] @mode [ 0 ] @interval [ 50 ] @bgcolor [ 0.35 0.23
+0.13 1 ] @bdcolor [ 0.27 0.21 0 1 ] @textcolor [ 1 1 1 1 ];
+#X obj 265 181 nbx~ @patching_rect [ 265 181 55 17 ] @size [ 55 17
+] @fontname [ helvetica ] @fontweight [ normal ] @fontslant [ regular
+] @fontsize [ 11 ] @mode [ 1 ] @interval [ 50 ] @bgcolor [ 0.35 0.23
+0.13 1 ] @bdcolor [ 0.27 0.21 0 1 ] @textcolor [ 1 1 1 1 ];
+#X obj 315 228 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
 -262144 -1 -1 0 256;
-#X obj 83 253 nbx~ @patching_rect [ 4 4 80 17 ] @size [ 80 17 ] @mode
-[ 0 ] @interval [ 50 ] @bgcolor [ 0.35 0.23 0.13 1 ] @bdcolor [ 0.27
-0.21 0 1 ] @textcolor [ 1 1 1 1 ];
-#X obj 263 181 nbx~ @patching_rect [ 4 4 55 17 ] @size [ 55 17 ] @mode
-[ 1 ] @interval [ 50 ] @bgcolor [ 0.35 0.23 0.13 1 ] @bdcolor [ 0.27
-0.21 0 1 ] @textcolor [ 1 1 1 1 ];
-#X obj 311 228 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0 256;
-#X obj 263 253 nbx~ @patching_rect [ 4 4 80 17 ] @size [ 80 17 ] @mode
-[ 0 ] @interval [ 50 ] @bgcolor [ 0.35 0.23 0.13 1 ] @bdcolor [ 0.27
-0.21 0 1 ] @textcolor [ 1 1 1 1 ];
+#X obj 265 253 nbx~ @patching_rect [ 265 253 80 17 ] @size [ 80 17
+] @fontname [ helvetica ] @fontweight [ normal ] @fontslant [ regular
+] @fontsize [ 11 ] @mode [ 0 ] @interval [ 50 ] @bgcolor [ 0.35 0.23
+0.13 1 ] @bdcolor [ 0.27 0.21 0 1 ] @textcolor [ 1 1 1 1 ];
 #X text 4 43 Click on the triangle to change the mode;
 #X text 379 159 Drag the number.;
 #X text 379 179 The precision depends of where user drag.;
@@ -45,7 +49,7 @@ of the vanilla nbx.;
 #X text -13 298 Pd Chocolate by Pierre Guillot | CICM - Université
 Paris 8;
 #X text 360 -15 Futher information about chocolate;
-#X text 92 148 mode ~ : 0;
+#X text 94 148 mode ~ : 0;
 #X text 379 141 mode - : 1;
 #X connect 2 0 6 0;
 #X connect 3 0 4 0;

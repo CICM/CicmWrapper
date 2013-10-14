@@ -157,7 +157,7 @@ void *vu_new(t_symbol *s, int argc, t_atom *argv)
     x->f_clock          = clock_new(x,(t_method)vu_tick);
 	x->f_startclock     = 0;
     x->f_over_led_preserved = 0;
-    attr_binbuf_process(x, d);
+    binbuf_attr_process(x, d);
 	ebox_ready((t_ebox *)x);
     
 	return (x);

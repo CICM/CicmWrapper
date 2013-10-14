@@ -44,7 +44,7 @@ void ebox_draw_border(t_ebox* x, t_glist* glist)
         {
             egraphics_set_color_rgba(g, &x->e_boxparameters.d_bordercolor);
         }
-        egraphics_set_line_width(g, bdsize);
+        egraphics_set_line_width(g, bdsize*2);
         egraphics_rectangle_rounded(g, 0, 0, x->e_rect.width+bdsize*2, x->e_rect.height+bdsize*2, bdcorner);
         egraphics_stroke(g);
         
@@ -69,7 +69,7 @@ void ebox_draw_iolets(t_ebox* x, t_glist* glist)
             int pos_x_inlet = 0;
             if(obj_ninlets((t_object *)x) != 1)
                 pos_x_inlet = (int)(i / (float)(obj_ninlets((t_object *)x) - 1) * (x->e_rect.width - 8));
-            egraphics_rectangle(g, pos_x_inlet, 0, 7, 2);
+            egraphics_rectangle(g, pos_x_inlet, 0, 7, 3);
             if(x->e_selected_inlet == i)
             {
                 egraphics_set_color_rgba(g, &rgba_blue);
@@ -125,7 +125,7 @@ void ebox_draw_iolets(t_ebox* x, t_glist* glist)
         }
         ebox_end_layer((t_object *)x, (t_object *)glist, gensym("eboxio"));
     }
-    ebox_paint_layer((t_object *)x, (t_object *)glist, gensym("eboxio"), -bdsize, -bdsize);
+    ebox_paint_layer((t_object *)x, (t_object *)glist, gensym("eboxio"), 0, -bdsize);
 }
 
 void ebox_select(t_ebox* x, t_glist* glist)
@@ -300,7 +300,7 @@ t_pd_err ebox_invalidate_layer(t_object *b, t_object *view, t_symbol *name)
 t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, float x_p, float y_p)
 {
 	int i, j;
-    float bdsize;
+    float bdsize, start, extent;
     t_ebox* x = (t_ebox *)b;
     t_elayer* g = NULL;
     bdsize = x->e_boxparameters.d_borderthickness;
@@ -361,19 +361,22 @@ t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, float x_p
             ////////////// ARC /////////////////
             else if (gobj->e_type == E_GOBJ_ARC)
             {
-                sys_vgui("%s create arc %d %d %d %d -start %f -extent %f",
+                start = pd_angle(gobj->e_points[2].x,  gobj->e_points[2].y);
+                extent = pd_angle(gobj->e_points[3].x,  gobj->e_points[3].y);
+                sys_vgui("%s create arc %d %d %d %d -start %f -extent %f ",
                          x->e_drawing_id->s_name,
                          (int)(gobj->e_points[0].x + x_p + bdsize),
                          (int)(gobj->e_points[0].y + y_p + bdsize),
                          (int)(gobj->e_points[1].x + x_p + bdsize),
                          (int)(gobj->e_points[1].y + y_p + bdsize),
-                         gobj->e_points[2].x,
-                         gobj->e_points[2].y);
+                         (float)start / EPD_2PI * 360.,
+                         (float)extent / EPD_2PI * 360.);
+                
                 if(gobj->e_filled)
                     sys_vgui("-style pieslice -fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->e_all_id->s_name);
                 else
                     sys_vgui("-style arc -outline %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->e_all_id->s_name);
-                
+
                 g->e_state = EGRAPHICS_CLOSE;
             }
             ////////////// TEXT ////////////////

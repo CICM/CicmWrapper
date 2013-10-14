@@ -72,7 +72,7 @@ void ebox_update(t_ebox *x, t_glist *glist);
 void ebox_invalidate_all(t_ebox *x, t_glist *glist);
 
 t_binbuf* binbuf_via_atoms(long ac, t_atom *av);
-void attr_binbuf_process(void *x, t_binbuf *d);
+void binbuf_attr_process(void *x, t_binbuf *d);
 void ebox_properties(t_gobj *y, t_glist *x);
 
 t_symbol* ebox_get_fontname(t_ebox* x);

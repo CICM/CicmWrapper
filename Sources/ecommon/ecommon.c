@@ -205,12 +205,12 @@ double pd_clip_max(double aValue, double aMaximum)
 
 double pd_ordinate(double radius, double angle)
 {
-    return radius * sin(angle);
+    return radius * sinf(angle);
 }
 
 double pd_abscissa(double radius, double angle)
 {
-    return radius * cos(angle);
+    return radius * cosf(angle);
 }
 
 double pd_radius(double x, double y)
@@ -220,7 +220,18 @@ double pd_radius(double x, double y)
 
 double pd_angle(double x, double y)
 {
-    return atan2(y, x);
+    //if(x > 0. && y >= 0.)
+        return atan2(y, x);
+    /*
+    else if(x > 0. && y < 0.)
+        return atan2(y, x) + EPD_2PI;
+    else if(x < 0.)
+        return atan2(y, x) + EPD_PI;
+    else if(x == 0 && y < 0)
+        return EPD_PI2;
+    else
+        return EPD_PI + EPD_PI2;
+    */
 }
 
 double pd_clip_minmax(double aValue, double aMinimum, double aMaximum)

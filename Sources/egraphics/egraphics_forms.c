@@ -237,9 +237,9 @@ void egraphics_arc_oval(t_elayer *g, float xc, float yc, float radiusx, float ra
     if(g->e_state == EGRAPHICS_OPEN)
     {
         if(g->e_new_objects.e_points == NULL)
-            g->e_new_objects.e_points   = (t_pt *)calloc(3, sizeof(t_pt));
+            g->e_new_objects.e_points   = (t_pt *)calloc(4, sizeof(t_pt));
         else
-            g->e_new_objects.e_points   = (t_pt *)realloc(g->e_new_objects.e_points , 3 * sizeof(t_pt));
+            g->e_new_objects.e_points   = (t_pt *)realloc(g->e_new_objects.e_points , 4 * sizeof(t_pt));
         if(g->e_new_objects.e_points)
         {
             g->e_new_objects.e_type         = E_GOBJ_ARC;
@@ -247,9 +247,11 @@ void egraphics_arc_oval(t_elayer *g, float xc, float yc, float radiusx, float ra
             g->e_new_objects.e_points[0].y  = yc - radiusy;
             g->e_new_objects.e_points[1].x  = xc + radiusx;
             g->e_new_objects.e_points[1].y  = yc + radiusy;
-            g->e_new_objects.e_points[2].x  = angle1;
-            g->e_new_objects.e_points[3].y  = angle2 - angle1;
-            g->e_new_objects.e_npoints      = 3;
+            g->e_new_objects.e_points[2].x  = pd_abscissa(radiusx, angle1);
+            g->e_new_objects.e_points[2].y  = pd_ordinate(radiusy, angle1);
+            g->e_new_objects.e_points[3].x  = pd_abscissa(radiusx, angle2-angle1);
+            g->e_new_objects.e_points[3].y  = pd_ordinate(radiusy, angle2-angle1);
+            g->e_new_objects.e_npoints      = 4;
         }
         else
         {
