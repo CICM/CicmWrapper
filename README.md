@@ -2,13 +2,13 @@
 <p>Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8</p>
 <p>All rights reserved.</p>
 
-### An add-on for Pure Data
+##### An add-on for Pure Data
 
-### Authors :
+#### Authors :
 
-#### Pierre Guillot
+###### Pierre Guillot
 
-### Pure Data Enhanced : 
+#### Pure Data Enhanced : 
 
 <p>Contacts : cicm.mshparisnord@gmail.com</p>
 

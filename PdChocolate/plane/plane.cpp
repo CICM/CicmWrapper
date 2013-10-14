@@ -21,7 +21,10 @@
  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+extern "C"
+{
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
+}
 
 typedef struct  _plane
 {
@@ -65,7 +68,7 @@ void plane_mousedown(t_plane *x, t_object *patcherview, t_pt pt, long modifiers)
 void plane_mousedrag(t_plane *x, t_object *patcherview, t_pt pt, long modifiers);
 void plane_mousemove(t_plane *x, t_object *patcherview, t_pt pt, long modifiers);
 
-void plane_setup(void)
+extern "C" void plane_setup(void)
 {
 	t_eclass *c;
     
@@ -140,7 +143,7 @@ void *plane_new(t_symbol *s, int argc, t_atom *argv)
     
     x->f_out_x = (t_outlet *)floatout(x);
     x->f_out_y = (t_outlet *)floatout(x);
-	attr_binbuf_process(x, d);
+	binbuf_attr_process(x, d);
     
 	ebox_ready((t_ebox *)x);
 	return (x);
@@ -208,7 +211,7 @@ t_pd_err plane_notify(t_plane *x, t_symbol *s, t_symbol *msg, void *sender, void
 {
 	if (msg == gensym("attr_modified"))
 	{
-		if(s == gensym("bgcolor") || s == gensym("bdcolor") || s == gensym("ptcolor") || s == gensym("point"))
+		if(s == gensym("bgcolor") || s == gensym("bdcolor") || s == gensym("ptcolor") || s == gensym("point") || s == gensym("ptsize"))
 		{
 			ebox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
 			ebox_invalidate_layer((t_object *)x, NULL, gensym("point_layer"));

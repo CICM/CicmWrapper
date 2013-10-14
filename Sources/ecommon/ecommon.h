@@ -76,6 +76,8 @@
 #define layer_getname(layer) layer.c_name->s_name
 #define layer_getsize(layer) layer.c_atom.size()
 
+EXTERN void canvas_displaceselection(t_canvas *x, int dx, int dy);
+
 typedef void        (*method)(void* x, ...);
 typedef void*       (*rmethod)(void* x, ...);
 typedef t_pd_err    (*t_err_method)(void* x, ...);
@@ -115,8 +117,8 @@ struct _outlet
 };
 
 void outlet_int(t_outlet* outlet, int val);
-void *listout(void *x);
-void *floatout(void *x);
+t_outlet *listout(void *x);
+t_outlet *floatout(void *x);
 int obj_isfloatoutlet(t_object *x, int m);
 int obj_isfloatinlet(t_object *x, int m);
 void canvas_deletelines_for_io(t_canvas *x, t_text *text, t_inlet *inp, t_outlet *outp);

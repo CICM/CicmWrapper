@@ -29,11 +29,12 @@
 
 #include "ecommon/ecommon.h"
 
+
 typedef struct _pt
 {
 	float x;
 	float y;
-} t_pt;
+} t_pt; ///< A 2D Point.
 
 typedef struct _rect
 {
@@ -41,14 +42,14 @@ typedef struct _rect
 	float y;
 	float width;
 	float height;
-} t_rect;
+} t_rect; ///< A Rectangle.
 
 typedef struct _rgb
 {
 	float red;
 	float green;
 	float blue;
-} t_rgb;
+} t_rgb; ///< A RGB Color.
 
 typedef struct _rgba
 {
@@ -56,7 +57,7 @@ typedef struct _rgba
 	float green;
 	float blue;
 	float alpha;
-} t_rgba;
+} t_rgba; ///< A RGBA Color.
 
 typedef struct _matrix
 {
@@ -66,7 +67,7 @@ typedef struct _matrix
 	float yy;
 	float x0;
 	float y0;
-} t_matrix;
+} t_matrix; ///< A Graphic Matrix.
 
 typedef struct _ewidget
 {
@@ -79,12 +80,13 @@ typedef struct _ewidget
     t_clickfn       w_clickfn;
     method          w_assist;
     method          w_paint;
+    method          w_mouseenter;
+    method          w_mouseleave;
     method          w_mousemove;
     method          w_mousedown;
     method          w_mousedrag;
     method          w_mouseup;
     method          w_dblclick;
-    method          w_dblclicklong;
     method          w_key;
     method          w_keyfilter;
     method          w_deserted;
@@ -135,10 +137,20 @@ typedef struct _eclass
 typedef enum _emod_flags
 {
     EMOD_NONE     = 0,
-	EMOD_SHIFT    = 9,
-    EMOD_ALT      = 10,
-    EMOD_SHIFTALT = 27,
-    
+	EMOD_CMD      = 1,
+    EMOD_ALT      = 2,
+    EMOD_CTRL     = 3,
+    EMOD_SHIFT    = 4,
+	EMOD_CMDALT   = 5,
+    EMOD_CMDCTRL  = 6,
+    EMOD_CMDSHIFT = 7,
+    EMOD_ALTCTRL  = 8,
+	EMOD_ALTSHIFT = 9,
+    EMOD_CTRLSHIFT  = 10,
+    EMOD_CMDALTCTRL = 11,
+    EMOD_CMDALTSHIFT = 12,
+    EMOD_ALTCTRLSHIFT = 13,
+    EMOD_CMDALTCTRLSHIFT = 14,
 } t_emod_flags;
 
 typedef enum _ekey_flags
@@ -182,7 +194,9 @@ typedef enum
 {
     E_GOBJ_INVALID           = 0,
     E_GOBJ_PATH                 ,
+    E_GOBJ_RECT                 ,
     E_GOBJ_ARC                  ,
+    E_GOBJ_OVAL                 ,
     E_GOBJ_TEXT                 ,
 } egraphics_types;
 
@@ -206,7 +220,6 @@ typedef struct _etext
 typedef struct _egobj
 {
 	int             e_type;
-    t_symbol*       e_tag;
     int             e_filled;
     t_symbol*       e_color;
     float           e_width;
@@ -224,6 +237,7 @@ typedef struct _elayer
 {
     t_object*           e_owner;
     t_symbol*           e_name;
+    t_symbol*           e_id;
     int                 e_state;
     
     t_rect              e_rect;
@@ -235,6 +249,12 @@ typedef struct _elayer
     t_egobj*            e_objects;
     long                e_number_objects;
 } t_elayer;
+
+typedef struct _eview
+{
+    t_object*   e_owner;
+    t_symbol*   e_name;
+} t_eview;
 
 typedef struct _edrawparams
 {    
@@ -249,12 +269,14 @@ typedef struct _ebox
 {
     t_object            e_obj;
     t_canvas*           e_canvas;
+    t_canvas*           e_drawing;
     
     char*               e_classname;
     t_symbol*           e_name_tcl;
     t_symbol*           e_name_rcv;
     
     t_symbol*           e_canvas_id;
+    t_symbol*           e_drawing_id;
     t_symbol*           e_frame_id;
     t_symbol*           e_handle_id;
     t_symbol*           e_window_id;
@@ -262,18 +284,17 @@ typedef struct _ebox
     
     t_rect              e_rect;
     t_efont             e_font;
-    
+   
     char                e_selected;
+    int                 e_selected_inlet;
+    int                 e_selected_outlet;
     t_pt                e_mouse;
+    t_pt                e_move_box;
     char                e_mouse_down;
     long                e_modifiers;
     
     char                e_ready_to_draw;
-    
     t_edrawparams       e_boxparameters;
-    float               e_lastclick;
-    float               e_dblclick_time;
-    float               e_dblclicklong_time;
     
     float               e_deserted_time;
     t_clock*            e_deserted_clock;
@@ -296,7 +317,6 @@ typedef struct _ebox
     t_float*            z_sigs_out[256];
     method              e_perform_method;
     
-    char                e_no_redraw_box;
     t_object*           b_firstin; // For Max, it doesn't matter !
 }t_ebox;
 

@@ -104,6 +104,22 @@ void eclass_init(t_eclass* c, long flags)
     CLASS_ATTR_PAINT        (c, "fontsize", 0);
     CLASS_ATTR_CATEGORY		(c, "fontsize", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontsize", 0, "Font size");
+    
+    class_addmethod((t_class *)c, (t_method)ebox_mouse_enter, gensym("mouseenter"), A_CANT);
+    class_addmethod((t_class *)c, (t_method)ebox_mouse_leave, gensym("mouseleave"), A_CANT, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_mouse_move,  gensym("mousemove"),  A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_mouse_down,  gensym("mousedown"),  A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_mouse_up,    gensym("mouseup"),    A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_mouse_drag,  gensym("mousedrag"),  A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_mouse_rightclick,  gensym("rightclick"),  A_DEFFLOAT, A_DEFFLOAT, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_set_mouse_global_position,  gensym("globalmouse"), A_DEFFLOAT,A_DEFFLOAT,0);
+    
+    // For global mouse position //
+    sys_gui("proc global_mousepos {target} {\n");
+    sys_gui(" set x [winfo pointerx .]\n");
+    sys_gui(" set y [winfo pointery .]\n");
+    sys_gui(" pdsend \"$target globalmouse $x $y\"\n");
+    sys_gui("}\n");
 }
 
 void eclass_dspinit(t_eclass* c)
@@ -140,7 +156,15 @@ t_pd_err eclass_register(t_symbol *name_space, t_eclass *c)
 
 void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long anything)
 {
-    if(gensym(name) == gensym("mousemove"))
+    if(gensym(name) == gensym("mouseenter"))
+    {
+        c->c_widget.w_mouseenter = m;
+    }
+    else if(gensym(name) == gensym("mouseleave"))
+    {
+        c->c_widget.w_mouseleave = m;
+    }
+    else if(gensym(name) == gensym("mousemove"))
     {
         c->c_widget.w_mousemove = m;
     }
@@ -159,10 +183,6 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
     else if(gensym(name) == gensym("dblclick"))
     {
         c->c_widget.w_dblclick = m;
-    }
-    else if(gensym(name) == gensym("dblclicklong"))
-    {
-        c->c_widget.w_dblclicklong = m;
     }
     else if(gensym(name) == gensym("key"))
     {

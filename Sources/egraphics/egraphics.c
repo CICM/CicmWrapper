@@ -44,13 +44,12 @@ void egraphics_set_line_splinestep(t_elayer *g, float smooth)
 void egraphics_paint(t_elayer *g, int filled, int preserved)
 {
 	int i, index;
-	char text[256];
     if(g->e_new_objects.e_type != E_GOBJ_INVALID)
     {
         g->e_objects = (t_egobj *)realloc(g->e_objects, (g->e_number_objects + 1) * sizeof(t_egobj));
         if(g->e_objects)
         {
-            index = g->e_number_objects;
+            index = (int)g->e_number_objects;
             g->e_number_objects++;
             if (filled)
             {
@@ -64,6 +63,11 @@ void egraphics_paint(t_elayer *g, int filled, int preserved)
             g->e_objects[index].e_roundness = g->e_new_objects.e_roundness;
             g->e_objects[index].e_npoints   = g->e_new_objects.e_npoints;
             g->e_objects[index].e_points = (t_pt*)calloc(g->e_objects[index].e_npoints, sizeof(t_pt));
+            if(!g->e_objects[index].e_points)
+            {
+                g->e_objects[index].e_type = E_GOBJ_INVALID;
+                return;
+            }
             for(i = 0; i < g->e_objects[index].e_npoints; i++)
             {
                 g->e_objects[index].e_points[i]   = g->e_new_objects.e_points[i];
@@ -72,13 +76,8 @@ void egraphics_paint(t_elayer *g, int filled, int preserved)
             
             g->e_objects[index].e_color = g->e_color;
             g->e_objects[index].e_width = g->e_width;
-            
-            sprintf(text, "%lx%s%ld", (unsigned long)g->e_owner, g->e_name->s_name, index);
-    
-            g->e_objects[index].e_tag = gensym(text);
          
             egraphics_apply_matrix(g, g->e_objects+index);
-            egraphics_clip_object(g, g->e_objects+index); // We should use the clip to copy in the new obj"
             if(!preserved)
             {
                 g->e_new_objects.e_roundness = 0;
@@ -112,7 +111,6 @@ void etext_layout_draw(t_etext* textlayout, t_elayer *g)
     g->e_objects = (t_egobj *)realloc(g->e_objects, (g->e_number_objects + 1) * sizeof(t_egobj));
     if(g->e_objects)
     {
-        char text[1024];
         long index = g->e_number_objects;
         g->e_number_objects++;
         
@@ -129,11 +127,7 @@ void etext_layout_draw(t_etext* textlayout, t_elayer *g)
         g->e_objects[index].e_justify     = textlayout->c_justify;
         g->e_objects[index].e_text        = textlayout->c_text;
         
-        sprintf(text, "%lx%s%ld", (unsigned long)g->e_owner, g->e_name->s_name, index);
-        g->e_objects[index].e_tag = gensym(text);
-        
         egraphics_apply_matrix(g, g->e_objects+index);
-        egraphics_clip_object(g, g->e_objects+index);
     }
 }
 

@@ -52,27 +52,23 @@ void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
     
     sprintf(buffer,"#%s", x->e_name_tcl->s_name);
     x->e_name_rcv = gensym(buffer);
-    x->e_canvas = canvas_getcurrent();
     
+    pd_bind(&x->e_obj.ob_pd, x->e_name_rcv);
     x->e_ready_to_draw      = 0;
     x->z_misc               = 1;
     x->e_number_of_layers   = 0;
     x->e_layers             = NULL;
     x->e_deserted_time      = 3000.;
-    x->e_lastclick          = sys_getrealtime() - 100.;
-    x->e_dblclick_time      = 0.25;
-    x->e_dblclicklong_time  = 0.5;
     //x->e_popup            = NULL;
-    if(flags == 1)
-        x->e_no_redraw_box = 1;
+    
+    ebox_tk_ids(x, canvas_getcurrent());
 }
 
 
 void ebox_free(t_ebox* x)
 {
-    gfxstub_deleteforkey(x);
     clock_free(x->e_deserted_clock);
-    //pd_unbind(&x->e_obj.ob_pd, x->e_name_rcv);
+    pd_unbind(&x->e_obj.ob_pd, x->e_name_rcv);
 }
 
 char ebox_getregister(t_ebox *x)
@@ -86,7 +82,7 @@ void ebox_dspsetup(t_ebox *x, long nins, long nout)
     int i;
     nins = pd_clip_min(nins, 1);
     nout = pd_clip_min(nout, 0);
-    x->e_perform_method = (method)ewidget_perform_default;
+    x->e_perform_method = NULL;
 
     for( i = 0; i < 256; i++)
         x->z_sigs_out[i] = (t_float *)calloc(8192, sizeof(t_float));
@@ -103,7 +99,13 @@ void ebox_ready(t_ebox *x)
 {
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
     
+    x->e_selected_inlet = -1;
+    x->e_selected_outlet = -1;
     x->e_mouse_down = 0;
+    x->e_boxparameters.d_bordercolor = rgba_black;
+    x->e_boxparameters.d_borderthickness = 1;
+    x->e_boxparameters.d_boxfillcolor = rgba_white;
+    x->e_boxparameters.d_cornersize = 0;
     c->c_widget.w_getdrawparameters(x, NULL, &x->e_boxparameters);
     x->e_deserted_clock = clock_new(x, (t_method)ebox_deserted);
     x->e_ready_to_draw = 1;
@@ -121,9 +123,19 @@ void ebox_dspfree(t_ebox *x)
 
 void ebox_redraw(t_ebox *x)
 {
+    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
     if(x->e_ready_to_draw && glist_isvisible(x->e_canvas))
     {
-        ewidget_paint(x, x->e_canvas, 0);
+        if(c->c_box == 0)
+        {
+            ebox_invalidate_layer((t_object *)x, (t_object *)x->e_canvas, gensym("eboxbd"));
+            ebox_invalidate_layer((t_object *)x, (t_object *)x->e_canvas, gensym("eboxio"));
+            ebox_update(x, x->e_canvas);
+            if(c->c_widget.w_paint)
+                c->c_widget.w_paint(x, (t_object *)x->e_canvas);
+            ebox_draw_border(x, x->e_canvas);
+            ebox_draw_iolets(x, x->e_canvas);
+        }
     }
 }
 
@@ -149,7 +161,7 @@ void ebox_resize_inputs(t_ebox *x, long nins)
         }
     }
     x->e_dsp_size = obj_nsiginlets(&x->e_obj) + obj_nsigoutlets(&x->e_obj) + 6;
-    ewidget_vis((t_gobj *)x, x->e_canvas, 1);
+    ebox_redraw(x);
 }
 
 void ebox_resize_outputs(t_ebox *x, long nouts)
@@ -206,17 +218,17 @@ void ebox_resize_outputs(t_ebox *x, long nouts)
     }
 
     x->e_dsp_size = obj_nsiginlets(&x->e_obj) + obj_nsigoutlets(&x->e_obj) + 6;
-    ewidget_vis((t_gobj *)x, x->e_canvas, 1);
+    ebox_redraw(x);
 }
 
 void ebox_dsp(t_ebox *x, t_signal **sp)
 {
     int i;
-	t_linetraverser t;
-    t_outconnect *oc;
+	//t_linetraverser t;
+    //t_outconnect *oc = NULL;
     t_eclass *c  = (t_eclass *)x->e_obj.te_g.g_pd;
     short* count = (short*)calloc((obj_nsiginlets(&x->e_obj) + obj_nsigoutlets(&x->e_obj)), sizeof(short));
-    
+    /*
     for(i = 0; i < obj_nsiginlets(&x->e_obj); i++)
     {
         count[i] = 0;
@@ -227,7 +239,7 @@ void ebox_dsp(t_ebox *x, t_signal **sp)
             {
                 count[i] = 1;
             }
-        }            
+        }
     }
     
     for(i = obj_nsiginlets(&x->e_obj); i < (obj_nsiginlets(&x->e_obj) + obj_nsigoutlets(&x->e_obj)); i++)
@@ -241,8 +253,9 @@ void ebox_dsp(t_ebox *x, t_signal **sp)
                 count[i] = 1;
             }
         }
-    }
-    c->c_widget.w_dsp(x, x, &count, sp[0]->s_sr, sp[0]->s_n, 0);
+    }*/
+    if(c->c_widget.w_dsp != NULL)
+        c->c_widget.w_dsp(x, x, &count, sp[0]->s_sr, sp[0]->s_n, 0);
     
     x->e_dsp_vectors[0] = (t_int)x;
     x->e_dsp_vectors[1] = (t_int)sp[0]->s_n;
@@ -275,7 +288,8 @@ t_int* ebox_perform(t_int* w)
     if(x->z_misc == E_NO_INPLACE)
     {
         t_float *outs_real, *outs_perf;
-        x->e_perform_method(x, NULL, ins, nins, x->z_sigs_out, nouts, nsamples, flag, user_p);
+        if(x->e_perform_method != NULL)
+            x->e_perform_method(x, NULL, ins, nins, x->z_sigs_out, nouts, nsamples, flag, user_p);
         for(i = 0; i < nouts; i++)
         {
             outs_perf = x->z_sigs_out[i];
@@ -288,7 +302,8 @@ t_int* ebox_perform(t_int* w)
     }
     else
     {
-         x->e_perform_method(x, NULL, ins, nins, outs, nouts, nsamples, flag, user_p);
+        if(x->e_perform_method != NULL)
+            x->e_perform_method(x, NULL, ins, nins, outs, nouts, nsamples, flag, user_p);
     }
     return w + (x->e_dsp_size + 1);
 }
@@ -304,8 +319,8 @@ void ebox_dsp_add(t_ebox *x, t_symbol* s, t_object* obj, method m, long flags, v
 void ebox_get_rect_for_view(t_object *z, t_object *patcherview, t_rect *rect)
 {
     t_ebox* x = (t_ebox *)z;
-    rect->x = x->e_obj.te_xpix;
-    rect->y = x->e_obj.te_ypix;
+    rect->x = x->e_rect.x = x->e_obj.te_xpix;
+    rect->y = x->e_rect.y = x->e_obj.te_ypix;
     rect->width = x->e_rect.width;
     rect->height = x->e_rect.height;
 }
@@ -315,36 +330,18 @@ void ebox_properties(t_gobj *z, t_glist *glist)
     ;
 }
 
-void ebox_deserted(t_ebox *x)
-{
-    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-    if(c->c_widget.w_deserted)
-        c->c_widget.w_deserted(x);
-    clock_unset(x->e_deserted_clock);
-}
-
-void ebox_setdblclick_time(t_ebox *x, float time)
-{
-    x->e_dblclick_time = 1000. / time;
-}
-
-void ebox_setdblclicklong_time(t_ebox *x, float time)
-{
-     x->e_dblclicklong_time = 1000. / time;
-}
-
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
 	int i;
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-    if(msg == gensym("patching_rect") || msg == gensym("size"))
+    if(s == gensym("patching_rect") || s == gensym("size"))
     {
         c->c_widget.w_oksize(x, &x->e_rect);
         for(i = 0; i < x->e_number_of_layers; i++)
         {
             x->e_layers[i].e_state = EGRAPHICS_INVALID;
         }
-        ewidget_vis((t_gobj *)x, x->e_canvas, 1);
+        ebox_redraw(x);
     }
     return 0;
 }
@@ -356,7 +353,7 @@ t_binbuf* binbuf_via_atoms(long ac, t_atom *av)
     return dico;
 }
 
-void attr_binbuf_process(void *x, t_binbuf *d)
+void binbuf_attr_process(void *x, t_binbuf *d)
 {
     int i, j;
     char attr_name[256];
