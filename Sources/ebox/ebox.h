@@ -91,6 +91,7 @@ void ebox_mouse_dblclick(t_ebox* x, float x_p, float y_p);
 void ebox_mouse_rightclick(t_ebox* x, float x_p, float y_p);
 void ebox_mouse_wheel(t_ebox* x, float delta, float key);
 void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key);
+void ebox_popup(t_ebox* x, t_symbol* s, float itemid);
 
 void ebox_set_mouse_global_position(t_ebox* x, float x_p, float y_p);
 t_pt ebox_get_mouse_global_position(t_ebox* x);

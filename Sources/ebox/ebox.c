@@ -99,6 +99,8 @@ void ebox_ready(t_ebox *x)
 {
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
     
+    ebox_get_mouse_global_position(x);
+    
     x->e_selected_inlet = -1;
     x->e_selected_outlet = -1;
     x->e_mouse_down = 0;

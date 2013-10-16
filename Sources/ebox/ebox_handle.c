@@ -47,10 +47,9 @@ void ebox_set_mouse_global_position(t_ebox* x, float x_p, float y_p)
 
 t_pt ebox_get_mouse_global_position(t_ebox* x)
 {
-    t_pt point;
     sys_vgui("global_mousepos %s\n", x->e_name_rcv->s_name);
-    point = mouse_global_pos;
-    return point;
+    sys_vgui("global_mousepos %s\n", x->e_name_rcv->s_name);
+    return mouse_global_pos;
 }
 
 t_pt ebox_get_mouse_canvas_position(t_ebox* x)
@@ -300,5 +299,13 @@ void ebox_mouse_wheel(t_ebox* x, float delta, float key)
         if(c->c_widget.w_mousewheel)
             c->c_widget.w_mousewheel(x, x->e_canvas, x->e_mouse, (long)key, delta, delta);
     }
+}
+
+void ebox_popup(t_ebox* x, t_symbol* s, float itemid)
+{
+    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
+
+    if(c->c_widget.w_popup)
+        c->c_widget.w_popup(x, s, (long)itemid);
 }
 

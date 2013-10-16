@@ -114,6 +114,7 @@ void eclass_init(t_eclass* c, long flags)
     class_addmethod((t_class *)c, (t_method)ebox_mouse_rightclick,  gensym("rightclick"),  A_DEFFLOAT, A_DEFFLOAT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_wheel,  gensym("mousewheel"),  A_DEFFLOAT, A_DEFFLOAT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_set_mouse_global_position,  gensym("globalmouse"), A_DEFFLOAT,A_DEFFLOAT,0);
+    class_addmethod((t_class *)c, (t_method)ebox_popup,  gensym("popup"),  A_SYMBOL, A_DEFFLOAT, 0);
     
     // For global mouse position //
     sys_gui("proc global_mousepos {target} {\n");
