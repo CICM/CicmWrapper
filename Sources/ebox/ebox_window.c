@@ -81,7 +81,7 @@ void ebox_bind_events(t_ebox* x)
     sys_vgui("bind %s <Leave> {pdsend {%s mouseleave}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
     
     // Right click //
-    sys_vgui("bind %s <Button-2> {pdsend {%s rightclick %%x %%y}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
+    sys_vgui("bind %s <Button-2> {pdsend {%s mousedown %%x %%y 1}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
     for(i = 0; i < 14; i++)
     {
         // Mouse Down //

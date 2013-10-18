@@ -44,10 +44,7 @@ void *ebox_alloc(t_eclass *c)
 void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
 {
     char buffer[MAXPDSTRING];
-
-    x->e_classname = class_getname(x->e_obj.te_g.g_pd);
-
-    sprintf(buffer,"%s%lx", x->e_classname, (long unsigned int)x);
+    sprintf(buffer,"%s%lx", class_getname(x->e_obj.te_g.g_pd), (long unsigned int)x);
     x->e_name_tcl = gensym(buffer);
     
     sprintf(buffer,"#%s", x->e_name_tcl->s_name);
@@ -59,7 +56,6 @@ void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
     x->e_number_of_layers   = 0;
     x->e_layers             = NULL;
     x->e_deserted_time      = 3000.;
-    //x->e_popup            = NULL;
     
     ebox_tk_ids(x, canvas_getcurrent());
 }
@@ -98,6 +94,8 @@ void ebox_dspsetup(t_ebox *x, long nins, long nout)
 void ebox_ready(t_ebox *x)
 {
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
+    
+    ebox_get_mouse_global_position(x);
     
     x->e_selected_inlet = -1;
     x->e_selected_outlet = -1;
@@ -336,7 +334,8 @@ t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
     if(s == gensym("patching_rect") || s == gensym("size"))
     {
-        c->c_widget.w_oksize(x, &x->e_rect);
+        if(c->c_widget.w_oksize != NULL)
+            c->c_widget.w_oksize(x, &x->e_rect);
         for(i = 0; i < x->e_number_of_layers; i++)
         {
             x->e_layers[i].e_state = EGRAPHICS_INVALID;

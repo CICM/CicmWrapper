@@ -92,12 +92,12 @@ typedef struct _ewidget
     method          w_keyfilter;
     method          w_deserted;
     method          w_getdrawparameters;
-    t_err_method    w_notify;
     method          w_save;
     method          w_popup;
     method          w_dsp;
     method          w_object_standat_paint;
     method          w_oksize;
+    t_err_method    w_notify;
 } t_ewidget;
 
 typedef struct _eattr
@@ -209,6 +209,12 @@ typedef struct _efont
     float       c_size;
 } t_efont;
 
+typedef struct _epopup
+{
+    t_symbol*   c_name;
+    t_symbol*   c_send;
+}t_epopup;
+
 typedef struct _etext
 {
     t_symbol*       c_text;
@@ -217,23 +223,6 @@ typedef struct _etext
     t_rect          c_rect;
     t_symbol*       c_justify;
 } t_etext;
-
-typedef struct _epopupitem
-{
-    t_rgba      c_color;
-    long        c_id;
-    t_symbol*   c_text;
-    char        c_checked;
-    char        c_disable;
-    char        c_separator;
-}t_epopupitem;
-
-typedef struct _epopupmenu
-{
-    t_symbol*               c_name;
-    t_epopupitem*           c_items;
-    t_efont                 c_font;
-}t_epopupmenu;
 
 typedef struct _egobj
 {
@@ -289,7 +278,6 @@ typedef struct _ebox
     t_canvas*           e_canvas;
     t_canvas*           e_drawing;
     
-    char*               e_classname;
     t_symbol*           e_name_tcl;
     t_symbol*           e_name_rcv;
     
@@ -319,9 +307,6 @@ typedef struct _ebox
     
     t_elayer*           e_layers;
     long                e_number_of_layers;
-    
-    
-    //t_epopupmenu*       e_popup;
     
     t_inlet*            e_inlets[256];
     t_outlet*           e_outlets[256];

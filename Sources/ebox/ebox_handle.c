@@ -47,10 +47,9 @@ void ebox_set_mouse_global_position(t_ebox* x, float x_p, float y_p)
 
 t_pt ebox_get_mouse_global_position(t_ebox* x)
 {
-    t_pt point;
     sys_vgui("global_mousepos %s\n", x->e_name_rcv->s_name);
-    point = mouse_global_pos;
-    return point;
+    sys_vgui("global_mousepos %s\n", x->e_name_rcv->s_name);
+    return mouse_global_pos;
 }
 
 t_pt ebox_get_mouse_canvas_position(t_ebox* x)
@@ -109,6 +108,7 @@ void ebox_mouse_leave(t_ebox* x)
 void ebox_mouse_move(t_ebox* x, float x_p, float y_p, float key)
 {
     t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
+    ebox_get_mouse_global_position(x);
     if(!x->e_canvas->gl_edit)
     {
         ebox_set_cursor(x, 1);
@@ -166,7 +166,10 @@ void ebox_mouse_down(t_ebox* x, float x_p, float y_p, float key)
     else
     {
         x->e_move_box = ebox_get_mouse_canvas_position(x);
-        sys_vgui("pdtk_canvas_mouse %s %i %i 0 0\n", x->e_canvas_id->s_name, (int)(x->e_move_box.x), (int)(x->e_move_box.y));
+        if(key == EMOD_CMD)
+            sys_vgui("pdtk_canvas_rightclick %s %i %i 0\n", x->e_canvas_id->s_name, (int)x->e_move_box.x, (int)x->e_move_box.y);
+        else
+            sys_vgui("pdtk_canvas_mouse %s %i %i 0 0\n", x->e_canvas_id->s_name, (int)(x->e_move_box.x), (int)(x->e_move_box.y));
     }
     x->e_mouse_down = 1;
 }
@@ -206,19 +209,13 @@ void ebox_mouse_dblclick(t_ebox* x, float x_p, float y_p)
 
 void ebox_mouse_rightclick(t_ebox* x, float x_p, float y_p)
 {
-    t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
-    
     if(!x->e_canvas->gl_edit)
     {
-        x->e_mouse.x = x_p;
-        x->e_mouse.y = y_p;
-        if(c->c_widget.w_dblclick)
-            c->c_widget.w_dblclick(x, x->e_canvas, x->e_mouse);
+        ;
     }
     else
     {
-        x->e_move_box = ebox_get_mouse_canvas_position(x);
-        sys_vgui("pdtk_canvas_rightclick %s %i %i 0\n", x->e_canvas_id->s_name, (int)x->e_move_box.x, (int)x->e_move_box.y);
+        ;
     }
 }
 
@@ -299,6 +296,76 @@ void ebox_mouse_wheel(t_ebox* x, float delta, float key)
     {
         if(c->c_widget.w_mousewheel)
             c->c_widget.w_mousewheel(x, x->e_canvas, x->e_mouse, (long)key, delta, delta);
+    }
+}
+
+void ebox_popup(t_ebox* x, t_symbol* s, float itemid)
+{
+    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
+
+    if(c->c_widget.w_popup)
+        c->c_widget.w_popup(x, s, (long)itemid);
+}
+
+void ebox_dosave_box(t_gobj* z, t_binbuf *b)
+{
+    t_ebox*   x = (t_ebox *)z;
+    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
+    
+    binbuf_addv(b, "ssii", gensym("#X"), gensym("obj"), (t_int)x->e_obj.te_xpix, (t_int)x->e_obj.te_ypix);
+    binbuf_add(b, binbuf_getnatom(x->e_obj.te_binbuf), binbuf_getvec(x->e_obj.te_binbuf));
+    
+    if(c->c_widget.w_save != NULL)
+        c->c_widget.w_save(x, b);
+    
+    binbuf_addv(b, ";");
+}
+
+void ebox_dosave_nobox(t_gobj* z, t_binbuf *b)
+{
+    int         i;
+    char        attr_name[MAXPDSTRING];
+    long        argc    = 0;
+    t_atom*     argv    = NULL;
+    t_ebox*   x = (t_ebox *)z;
+    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
+    
+    binbuf_addv(b, "ssiis", gensym("#X"), gensym("obj"), (int)x->e_obj.te_xpix, (int)x->e_obj.te_ypix, gensym(class_getname(x->e_obj.te_g.g_pd)));
+    
+    for(i = 0; i < c->c_nattr; i++)
+    {
+        if(c->c_attr[i].save)
+        {
+            sprintf(attr_name, "@%s", c->c_attr[i].name->s_name);
+            object_attr_getvalueof((t_object *)x, c->c_attr[i].name, &argc, &argv);
+            if(argc && argv)
+            {
+                binbuf_append_atoms(b, gensym(attr_name), argc, argv);
+                argc = 0;
+                free(argv);
+                argv = NULL;
+            }
+        }
+    }
+
+    if(c->c_widget.w_save != NULL)
+        c->c_widget.w_save(x, b);
+    
+    binbuf_addv(b, ";");
+}
+
+void ebox_save(t_gobj* z, t_binbuf *b)
+{
+    t_ebox*   x = (t_ebox *)z;
+    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
+    
+    if(c->c_box)
+    {
+        ebox_dosave_box(z, b);
+    }
+    else if(x->e_ready_to_draw)
+    {
+       ebox_dosave_nobox(z, b);
     }
 }
 

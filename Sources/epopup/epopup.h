@@ -30,12 +30,10 @@
 #include "../estruct.h"
 #include "../ebox/ebox.h"
 
-t_epopupmenu* epopupmenu_create(t_symbol* name);
-void epopupmenu_setfont(t_epopupmenu *menu, t_efont *font);
-void epopupmenu_additem(t_epopupmenu *menu, int itemid, char *text, t_rgba *textColor, char checked, char disabled, void *icon);
-void epopupmenu_addseperator(t_epopupmenu *menu);
-void epopupmenu_popup(t_epopupmenu *menu, t_pt screen, int defitemid);
-void epopupmenu_destroy(t_epopupmenu *menu);
-int epopupmenu_mousemove(t_epopupmenu *menu, t_pt points, int mousedown);
+t_epopup* epopupmenu_create(t_ebox* x, t_symbol* name);
+void epopupmenu_setfont(t_epopup *menu, t_efont *font);
+void epopupmenu_additem(t_epopup *menu, int itemid, char *text, char checked, char disabled);
+void epopupmenu_addseperator(t_epopup *menu);
+void epopupmenu_popup(t_epopup *menu, t_pt screen, int defitemid);
 
 #endif

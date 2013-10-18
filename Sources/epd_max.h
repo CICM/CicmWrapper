@@ -109,11 +109,13 @@
 
 #define jgraphics_rotate            egraphics_rotate
 
-#define jpopupmenu_create               epopupmenu_create
-#define jpopupmenu_setfont              epopupmenu_setfont
-#define jpopupmenu_additem(menu, itemid, text, textColor, checked, disabled, icon) epopupmenu_additem(menu, itemid, text, textColor, checked, disabled, icon)
-#define jpopupmenu_addseperator(menu)   epopupmenu_addseperator(menu)
-#define jpopupmenu_popup(menu, screen, defitemid) epopupmenu_popup(menu, screen, defitemid)
+// POPUP MENU //
+#define jpopupmenu_create(jbox, name)               epopupmenu_create(jbox, name)
+#define jpopupmenu_setfont(menu, font)              epopupmenu_setfont(menu, font)
+#define jpopupmenu_popup(menu, screen, defitemid)   epopupmenu_popup(menu, screen, defitemid)
+#define jpopupmenu_destroy(menu)                    (menu = menu) // Useless...
+#define jpopupmenu_addseperator(menu)               epopupmenu_addseperator(menu)
+#define jpopupmenu_additem(menu, itemid, text, textColor, checked, disabled, icon) epopupmenu_additem(menu, itemid, text, checked, disabled)
 
 
 #define JGRAPHICS_2PI       CICM_2PI
@@ -124,7 +126,7 @@
 #define t_jrgba             t_rgba
 #define t_jtextlayout       t_etext
 #define t_jfont             t_efont
-#define t_jpopupmenu        t_epopupmenu
+#define t_jpopupmenu        t_epopup
 
 #define jgraphics_set_line_width    egraphics_set_line_width
 #define jgraphics_fill              egraphics_fill

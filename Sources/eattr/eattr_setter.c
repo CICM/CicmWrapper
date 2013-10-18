@@ -120,7 +120,8 @@ void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
             c->c_widget.w_notify(x, s, gensym("attr_modified"), NULL, NULL);
             if(c->c_attr[i].paint)
             {
-                c->c_widget.w_oksize(x, &z->e_rect);
+                if(c->c_widget.w_oksize != NULL)
+                    c->c_widget.w_oksize(x, &z->e_rect);
                 c->c_widget.w_getdrawparameters(x, NULL, &z->e_boxparameters);
                 ebox_redraw(z);
             }

@@ -26,64 +26,43 @@
 
 #include "epopup.h"
 
-static t_symbol* popupme;
-
-t_epopupmenu* epopupmenu_create(t_symbol* name)
+t_epopup* epopupmenu_create(t_ebox* x, t_symbol* name)
 {
-	/*
-    sys_vgui("destroy %s\n", popupme->s_name);
-    popupme = name;
-    sys_vgui("menubutton %s\n", name->s_name);
+    t_epopup* menu = (t_epopup *)malloc(sizeof(t_epopup));
+    menu->c_send = x->e_name_rcv;
+    menu->c_name = name;
+    sys_vgui("destroy .eboxpopup%s\n", menu->c_name->s_name);
+    sys_vgui("menu .eboxpopup%s -tearoff 0\n", menu->c_name->s_name);
     
-    t_epopupmenu* popmenu = malloc(sizeof(t_epopupmenu));
-    popmenu->c_name = name;
-    return popmenu;
-	*/
+    return menu;
 }
 
 
-void epopupmenu_setfont(t_epopupmenu *menu, t_efont *font)
+void epopupmenu_setfont(t_epopup* menu, t_efont *font)
 {
-    menu->c_font = font[0];
+    sys_vgui(".eboxpopup%s configure -font {%s %d %s italic}\n", menu->c_name->s_name, font[0].c_family->s_name, (int)font[0].c_size, font[0].c_weight->s_name, font[0].c_slant->s_name);
 }
 
-void epopupmenu_additem(t_epopupmenu *menu, int itemid, char *text, t_rgba *textColor, char checked, char disabled, void *icon)
+void epopupmenu_additem(t_epopup* menu, int itemid, char *text, char checked, char disabled)
 {
-    t_epopupitem item;
-    item.c_id = itemid;
-    item.c_text = gensym(text);
-    if(textColor != NULL)
-        item.c_color = textColor[0];
+    sys_vgui(".eboxpopup%s add command ", menu->c_name->s_name);
+    sys_vgui("-command {pdsend {%s popup %s %f}} ", menu->c_send->s_name, menu->c_name->s_name, (float)itemid);
+    sys_vgui("-label {%s} ", text);
+    if(disabled)
+        sys_vgui("-state disable\n");
     else
-        item.c_color = rgba_black;
-    item.c_checked = checked;
-    item.c_disable = disabled;
-    item.c_separator = 0;
-    menu->c_items = realloc(menu->c_items, sizeof(t_epopupitem) * 1);
+        sys_vgui("-state active\n");
 }
 
-void epopupmenu_addseperator(t_epopupmenu* menu)
+void epopupmenu_addseperator(t_epopup* menu)
 {
-    t_epopupitem item;
-    item.c_separator = 1;
-    item.c_text = gensym("");
+    sys_vgui(".eboxpopup%s add separator\n", menu->c_name->s_name);
 }
 
-void epopupmenu_popup(t_epopupmenu* menu, t_pt screen, int defitemid)
+void epopupmenu_popup(t_epopup* menu, t_pt screen, int defitemid)
 {
-    ;
+    sys_vgui(".eboxpopup%s post %i %i\n", menu->c_name->s_name, (int)screen.x, (int)screen.y);
 }
-
-void epopupmenu_destroy(t_epopupmenu *menu)
-{
-    free(menu);    
-}
-
-int epopupmenu_mousemove(t_epopupmenu *menu, t_pt pt, int mousedown)
-{
-    ;
-}
-
 
 
 

@@ -114,7 +114,7 @@ void object_attr_setvalueof(t_object *x, t_symbol* s, long argc, t_atom* argv)
 
 void object_attr_getvalueof(t_object *x, t_symbol *s, long *argc, t_atom **argv)
 {
-    char realname[256];
+    char realname[MAXPDSTRING];
 	method getvalue;
     sprintf(realname, "get%s", s->s_name);
     getvalue = (method)getfn((t_pd *)x, gensym(realname));
@@ -124,19 +124,31 @@ void object_attr_getvalueof(t_object *x, t_symbol *s, long *argc, t_atom **argv)
 t_pd_err binbuf_append_atoms(t_binbuf *d, t_symbol *key, long argc, t_atom *argv)
 {
     int i;
+    long ac = argc+3;
+    t_atom* av = (t_atom *)calloc(ac, sizeof(t_atom));
+    atom_setsym(av, key);
+    atom_setsym(av+1, gensym("["));
     for(i = 0; i < argc; i++)
     {
-        if(atom_gettype(argv+i) == A_SYM && (atom_getsymbol(argv+i) == gensym("") || atom_getsymbol(argv+i) == gensym(" ")))
+        if(atom_gettype(argv) == A_FLOAT)
         {
-            atom_setsym(argv+i, gensym("s_nosymbol"));
+            atom_setfloat(av+i+2, atom_getfloat(argv+i));
         }
-        
+        else if(atom_gettype(argv+i) == A_SYM)
+        {
+            if(atom_getsym(argv+i) == gensym("") || atom_getsym(argv+i) == gensym(" "))
+                atom_setsym(av+i+2, gensym("s_nosymbol"));
+            else
+                atom_setsym(av+i+2, gensym(atom_getsym(argv+i)->s_name));
+        }
+        else
+        {
+            av[i+2] = argv[i];
+        }
     }
-    binbuf_addv(d, "s", key);
-    binbuf_addv(d, "s", gensym("["));
-    binbuf_add(d, (int)argc, argv);
-    binbuf_addv(d, "s", gensym("]"));
+    atom_setsym(av+ac-1, gensym("]"));
     
+    binbuf_add(d, ac, av);
     return 0;
 }
 
