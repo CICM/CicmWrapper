@@ -30,6 +30,7 @@ static t_symbol* popupme;
 
 t_epopupmenu* epopupmenu_create(t_symbol* name)
 {
+	/*
     sys_vgui("destroy %s\n", popupme->s_name);
     popupme = name;
     sys_vgui("menubutton %s\n", name->s_name);
@@ -37,6 +38,7 @@ t_epopupmenu* epopupmenu_create(t_symbol* name)
     t_epopupmenu* popmenu = malloc(sizeof(t_epopupmenu));
     popmenu->c_name = name;
     return popmenu;
+	*/
 }
 
 
