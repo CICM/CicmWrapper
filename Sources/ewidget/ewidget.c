@@ -50,10 +50,10 @@ void ewidget_init(t_eclass* c)
     c->c_widget.w_deserted          = NULL;
     c->c_widget.w_getdrawparameters = (method)ewidget_getdrawparams_default;
     c->c_widget.w_notify            = (t_err_method)ewidget_notify_default;
-    c->c_widget.w_save              = (method)ewidget_save_default;
-    c->c_widget.w_popup             = (method)ewidget_popup_default;
+    c->c_widget.w_save              = NULL;
+    c->c_widget.w_popup             = NULL;
     c->c_widget.w_dsp               = NULL;
-    c->c_widget.w_oksize            = (method)ewidget_oksize_default;
+    c->c_widget.w_oksize            = NULL;
 }
 
 void ewidget_getrect(t_gobj *z, t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2)
@@ -129,55 +129,6 @@ void ewidget_key(t_ebox *x, t_floatarg fkey)
     clock_delay(x->e_deserted_clock, x->e_deserted_time);
 }
 
-void ewidget_save(t_gobj *z, t_binbuf *b)
-{
-	int i;
-	char mess[256];
-	long argc = 0;
-    t_atom* argv = NULL;
-    t_ebox *x = (t_ebox *)z;
-    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-    char attr_name[256];
-    binbuf_addv(b, "ssii", gensym("#X"), gensym("obj"), (t_int)x->e_obj.te_xpix, (t_int)x->e_obj.te_ypix);
-
-    if(c->c_box)
-    {
-        argc = binbuf_getnatom(x->e_obj.te_binbuf);
-        argv = binbuf_getvec(x->e_obj.te_binbuf);
-        for (i = 0; i < argc; i++)
-        {
-            atom_string(argv+i, mess, 256);
-            binbuf_addv(b, "s", gensym(mess));
-        }
-    }
-    
-    if (!c->c_box)
-    {
-        binbuf_addv(b, "s", gensym(x->e_classname));
-		argc = 0;
-        argv = NULL;
-        for(i = 0; i < c->c_nattr; i++)
-        {
-            if(c->c_attr[i].save)
-            {
-                sprintf(attr_name, "@%s", c->c_attr[i].name->s_name);
-                object_attr_getvalueof((t_object *)x, c->c_attr[i].name, &argc, &argv);
-                if(argc && argv)
-                {
-                    binbuf_append_atoms(b, gensym(attr_name), argc, argv);
-                    argc = 0;
-                    free(argv);
-                    argv = NULL;
-                }
-            }
-        }
-    }
-    
-    c->c_widget.w_save(x, b);
-    binbuf_addv(b, ";");
-
-}
-
 void ewidget_key_default(t_ebox *x, t_object *patcherview, char textcharacter, long modifiers){;};
 
 void ewidget_keyfilter_default(t_ebox *x, t_object *patcherview, char textcharacter, long modifiers)
@@ -193,17 +144,10 @@ void ewidget_getdrawparams_default(t_ebox *x, t_object *patcherview, t_edrawpara
     x->e_boxparameters.d_cornersize = 0;
 }
 
-void ewidget_oksize_default(t_ebox *x, t_rect* rect){;}
-
 t_pd_err ewidget_notify_default(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
     return 0;
 }
-
-void ewidget_save_default(t_gobj *z, t_binbuf *b){};
-
-void ewidget_popup_default(t_ebox *x, t_symbol *s, long itemid, t_pt pt){};
-
 
 
 

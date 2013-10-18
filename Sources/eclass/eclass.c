@@ -56,9 +56,6 @@ t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t siz
 void eclass_init(t_eclass* c, long flags)
 {
     ewidget_init(c);
-    class_setsavefn((t_class *)c, ewidget_save);
-    class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
-    class_setwidget((t_class *)c, (t_widgetbehavior *)&c->c_widget);
     
     // This is for Max compatibilty //
     CLASS_ATTR_FLOAT_ARRAY  (c, "patching_rect", 0, t_ebox, e_rect, 4);
@@ -116,6 +113,10 @@ void eclass_init(t_eclass* c, long flags)
     class_addmethod((t_class *)c, (t_method)ebox_set_mouse_global_position,  gensym("globalmouse"), A_DEFFLOAT,A_DEFFLOAT,0);
     class_addmethod((t_class *)c, (t_method)ebox_popup,  gensym("popup"),  A_SYMBOL, A_DEFFLOAT, 0);
     
+    class_setwidget((t_class *)&c->c_class, (t_widgetbehavior *)&c->c_widget);
+    class_setsavefn((t_class *)&c->c_class, ebox_save);
+    class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
+    
     // For global mouse position //
     sys_gui("proc global_mousepos {target} {\n");
     sys_gui(" set x [winfo pointerx .]\n");
@@ -135,7 +136,7 @@ void eclass_dspinit(t_eclass* c)
 void eclassbox_dspinit(t_eclass* c)
 {
     ewidget_init(c);
-    class_setsavefn((t_class *)c, ewidget_save);
+    class_setsavefn((t_class *)c, ebox_save);
     class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
     
     CLASS_MAINSIGNALIN((t_class *)c, t_ebox, e_float);
@@ -147,9 +148,7 @@ void eclassbox_dspinit(t_eclass* c)
 t_pd_err eclass_register(t_symbol *name_space, t_eclass *c)
 {
     if(name_space == gensym("box"))
-    {
         c->c_box = 1;
-    }
     else
         c->c_box = 0;
     
@@ -214,10 +213,7 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
     {
         c->c_widget.w_notify = (t_err_method)m;
     }
-    else if(gensym(name) == gensym("anything"))
-    {
-        class_addanything((t_class *)c, m);
-    }
+    
     else if(gensym(name) == gensym("getdrawparams"))
     {
         c->c_widget.w_getdrawparameters = m;
@@ -225,6 +221,18 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
     else if(gensym(name) == gensym("oksize"))
     {
         c->c_widget.w_oksize = m;
+    }
+    else if(gensym(name) == gensym("save") || gensym(name) == gensym("jsave"))
+    {
+        c->c_widget.w_save = m;
+    }
+    else if(gensym(name) == gensym("popup"))
+    {
+        c->c_widget.w_popup = m;
+    }
+    else if(gensym(name) == gensym("dsp") || gensym(name) == gensym("dsp64"))
+    {
+        c->c_widget.w_dsp = m;
     }
     else if(gensym(name) == gensym("bang"))
     {
@@ -238,17 +246,9 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
     {
         class_addlist((t_class *)c, m);
     }
-    else if(gensym(name) == gensym("save") || gensym(name) == gensym("jsave"))
+    else if(gensym(name) == gensym("anything"))
     {
-        c->c_widget.w_save = m;
-    }
-    else if(gensym(name) == gensym("popup"))
-    {
-        c->c_widget.w_popup = m;
-    }
-    else if(gensym(name) == gensym("dsp") || gensym(name) == gensym("dsp64"))
-    {
-        c->c_widget.w_dsp = m;
+        class_addanything((t_class *)c, m);
     }
     else
     {

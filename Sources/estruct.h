@@ -92,12 +92,12 @@ typedef struct _ewidget
     method          w_keyfilter;
     method          w_deserted;
     method          w_getdrawparameters;
-    t_err_method    w_notify;
     method          w_save;
     method          w_popup;
     method          w_dsp;
     method          w_object_standat_paint;
     method          w_oksize;
+    t_err_method    w_notify;
 } t_ewidget;
 
 typedef struct _eattr
@@ -278,7 +278,6 @@ typedef struct _ebox
     t_canvas*           e_canvas;
     t_canvas*           e_drawing;
     
-    char*               e_classname;
     t_symbol*           e_name_tcl;
     t_symbol*           e_name_rcv;
     
@@ -308,9 +307,6 @@ typedef struct _ebox
     
     t_elayer*           e_layers;
     long                e_number_of_layers;
-    
-    
-    //t_epopupmenu*       e_popup;
     
     t_inlet*            e_inlets[256];
     t_outlet*           e_outlets[256];

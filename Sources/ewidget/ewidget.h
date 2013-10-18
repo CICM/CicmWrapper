@@ -37,7 +37,6 @@ void ewidget_vis(t_gobj *z, t_glist *glist, int vis);
 void ewidget_displace(t_gobj *z, t_glist *glist, int dx, int dy);
 void ewidget_select(t_gobj *z, t_glist *glist, int selected);
 void ewidget_delete(t_gobj *z, t_glist *glist);
-void ewidget_save(t_gobj *z, t_binbuf *b);
 
 void ewidget_key(t_ebox *x, t_floatarg fkey);
 
@@ -48,7 +47,5 @@ void ewidget_keyout_default(t_ebox *x, t_object *patcherview);
 void ewidget_getdrawparams_default(t_ebox *x, t_object *patcherview, t_edrawparams *params);
 void ewidget_oksize_default(t_ebox *x, t_rect* rect);
 t_pd_err ewidget_notify_default(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
-void ewidget_save_default(t_gobj *z, t_binbuf *b);
-void ewidget_popup_default(t_ebox *x, t_symbol *s, long itemid, t_pt pt);
 
 #endif 
