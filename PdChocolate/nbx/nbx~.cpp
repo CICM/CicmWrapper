@@ -26,10 +26,6 @@ extern "C"
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
 }
 
-#ifndef _WIN32
-#define sprintf_s sprintf
-#endif
-
 typedef struct  _nbx
 {
 	t_ebox      j_box;

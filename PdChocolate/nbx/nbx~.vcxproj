@@ -17,13 +17,11 @@
     <ClCompile Include="..\..\Sources\eattr\eattr_setter.c" />
     <ClCompile Include="..\..\Sources\ebox\ebox.c" />
     <ClCompile Include="..\..\Sources\ebox\ebox_draw.c" />
+    <ClCompile Include="..\..\Sources\ebox\ebox_handle.c" />
     <ClCompile Include="..\..\Sources\ebox\ebox_window.c" />
     <ClCompile Include="..\..\Sources\eclass\eclass.c" />
     <ClCompile Include="..\..\Sources\ecommon\ecommon.c" />
     <ClCompile Include="..\..\Sources\egraphics\egraphics.c" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip.c" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip_path.c" />
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip_text.c" />
     <ClCompile Include="..\..\Sources\egraphics\egraphics_color.c" />
     <ClCompile Include="..\..\Sources\egraphics\egraphics_forms.c" />
     <ClCompile Include="..\..\Sources\egraphics\egraphics_matrix.c" />

@@ -57,15 +57,6 @@
     <ClCompile Include="..\..\Sources\egraphics\egraphics.c">
       <Filter>PdEnhanced\egraphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip.c">
-      <Filter>PdEnhanced\egraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip_path.c">
-      <Filter>PdEnhanced\egraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sources\egraphics\egraphics_clip_text.c">
-      <Filter>PdEnhanced\egraphics</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Sources\egraphics\egraphics_color.c">
       <Filter>PdEnhanced\egraphics</Filter>
     </ClCompile>
@@ -85,6 +76,9 @@
       <Filter>PdEnhanced\ewidget</Filter>
     </ClCompile>
     <ClCompile Include="nbx~.cpp" />
+    <ClCompile Include="..\..\Sources\ebox\ebox_handle.c">
+      <Filter>PdEnhanced\ebox</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\eattr\eattr.h">
