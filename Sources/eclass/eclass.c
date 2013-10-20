@@ -26,8 +26,6 @@
 
 #include "eclass.h"
 
-static int puclicite = 0;
-
 t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t size, int flags, t_atomtype arg1, int arg2)
 {
     t_class *pd  = class_new(gensym(name), (t_newmethod)newmethod, (t_method)freemethod, size, flags, arg1, arg2);
@@ -36,20 +34,15 @@ t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t siz
     c->c_nattr = 0;
     c->c_attr  = (t_eattr *)malloc(sizeof(t_eattr));
     
-#ifdef NO_PUB
-    puclicite = 1;
+#ifdef E_PUB
+post(".________________________________________________.");
+post("|                                                |");
+post("|                  Pd Enhanced                   |");
+post("| Pure Data Enhanced : Version 0.1 at sept. 2013 |");
+post("|  Organization : Université Paris 8 | CICM      |");
+post("|          Author : Pierre Guillot               |");
+post("|________________________________________________|");
 #endif
-    if(!puclicite)
-    {
-        post(".________________________________________________.");
-        post("|                                                |");
-        post("|                  Pd Enhanced                   |");
-        post("| Pure Data Enhanced : Version 0.1 at sept. 2013 |");
-        post("|  Organization : Université Paris 8 | CICM      |");
-        post("|          Author : Pierre Guillot               |");
-        post("|________________________________________________|");
-        puclicite = 1;
-    }
     return c;
 }
 
@@ -102,7 +95,7 @@ void eclass_init(t_eclass* c, long flags)
     CLASS_ATTR_CATEGORY		(c, "fontsize", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontsize", 0, "Font size");
     
-    class_addmethod((t_class *)c, (t_method)ebox_mouse_enter, gensym("mouseenter"), A_CANT);
+    class_addmethod((t_class *)c, (t_method)ebox_mouse_enter, gensym("mouseenter"), A_CANT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_leave, gensym("mouseleave"), A_CANT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_move,  gensym("mousemove"),  A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_down,  gensym("mousedown"),  A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);

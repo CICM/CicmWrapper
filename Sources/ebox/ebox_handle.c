@@ -156,6 +156,7 @@ void ebox_mouse_drag(t_ebox* x, float x_p, float y_p, float key)
 void ebox_mouse_down(t_ebox* x, float x_p, float y_p, float key)
 {
     t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
+	
     if(!x->e_canvas->gl_edit)
     {
         x->e_mouse.x = x_p;
@@ -166,9 +167,11 @@ void ebox_mouse_down(t_ebox* x, float x_p, float y_p, float key)
     else
     {
         x->e_move_box = ebox_get_mouse_canvas_position(x);
+#ifdef _MAC
         if(key == EMOD_CMD)
             sys_vgui("pdtk_canvas_rightclick %s %i %i 0\n", x->e_canvas_id->s_name, (int)x->e_move_box.x, (int)x->e_move_box.y);
         else
+#endif
             sys_vgui("pdtk_canvas_mouse %s %i %i 0 0\n", x->e_canvas_id->s_name, (int)(x->e_move_box.x), (int)(x->e_move_box.y));
     }
     x->e_mouse_down = 1;

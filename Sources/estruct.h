@@ -135,6 +135,26 @@ typedef struct _eclass
     long        c_nattr;
 }t_eclass;
 
+#ifdef _WINDOWS
+typedef enum _emod_flags
+{
+    EMOD_NONE     = 1,
+	EMOD_CMD      = 2,
+    EMOD_ALT      = 5,
+    EMOD_CTRL     = 6,
+    EMOD_SHIFT    = 7,
+	EMOD_CMDALT   = 5,
+    EMOD_CMDCTRL  = 6,
+    EMOD_CMDSHIFT = 7,
+    EMOD_ALTCTRL  = 8,
+	EMOD_ALTSHIFT = 11,
+    EMOD_CTRLSHIFT  = 10,
+    EMOD_CMDALTCTRL = 11,
+    EMOD_CMDALTSHIFT = 12,
+    EMOD_ALTCTRLSHIFT = 13,
+    EMOD_CMDALTCTRLSHIFT = 14,
+} t_emod_flags;
+#else
 typedef enum _emod_flags
 {
     EMOD_NONE     = 0,
@@ -153,6 +173,7 @@ typedef enum _emod_flags
     EMOD_ALTCTRLSHIFT = 13,
     EMOD_CMDALTCTRLSHIFT = 14,
 } t_emod_flags;
+#endif
 
 typedef enum _ekey_flags
 {
