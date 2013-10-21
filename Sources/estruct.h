@@ -139,7 +139,7 @@ typedef struct _eclass
 typedef enum _emod_flags
 {
     EMOD_NONE     = 1,
-	EMOD_CMD      = 2,
+	EMOD_CMD      = 0,
     EMOD_ALT      = 5,
     EMOD_CTRL     = 6,
     EMOD_SHIFT    = 7,

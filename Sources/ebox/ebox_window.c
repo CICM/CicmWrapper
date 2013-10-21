@@ -74,14 +74,18 @@ void ebox_tk_ids(t_ebox *x, t_canvas *canvas)
 void ebox_bind_events(t_ebox* x)
 {
     int i;
-    
     // Mouse Enter //
     sys_vgui("bind %s <Enter> {pdsend {%s mouseenter}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
     // Mouse Leave //
     sys_vgui("bind %s <Leave> {pdsend {%s mouseleave}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
     
     // Right click //
-    sys_vgui("bind %s <Button-2> {pdsend {%s mousedown %%x %%y 1}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
+#ifdef _WINDOWS
+	sys_vgui("bind %s <Button-3> {pdsend {%s mousedown %%x %%y %i}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name, EMOD_CMD);
+#else
+    sys_vgui("bind %s <Button-2> {pdsend {%s mousedown %%x %%y %i}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name, EMOD_CMD);
+#endif
+
     for(i = 0; i < 14; i++)
     {
         // Mouse Down //
@@ -133,7 +137,12 @@ void ebox_create_window(t_ebox* x, t_glist* glist)
              (int)(x->e_rect.width + x->e_boxparameters.d_borderthickness * 2.),
              (int)(x->e_rect.height + x->e_boxparameters.d_borderthickness * 2.));
 
+#ifdef _WINDOWS
+	
+#else
     sys_vgui("focus -force %s\n", x->e_canvas_id->s_name);
+#endif
+   
 }
 
 
