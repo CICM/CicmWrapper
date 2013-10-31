@@ -293,7 +293,7 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
 void ebox_mouse_wheel(t_ebox* x, float delta, float key)
 {
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-	post("key %f", key);
+	//post("key %f", key);
     if(!x->e_canvas->gl_edit)
     {
         if(c->c_widget.w_mousewheel)
