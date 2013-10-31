@@ -52,11 +52,15 @@ void ebox_tk_ids(t_ebox *x, t_canvas *canvas)
 
 void ebox_bind_events(t_ebox* x)
 {
+	int right = EMOD_CMD;
+#ifdef _WINDOWS
+	right += 8;
+#endif
     sys_vgui("bind %s <Enter> {pdsend {%s mouseenter}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
     sys_vgui("bind %s <Leave> {pdsend {%s mouseleave}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
-    
-	sys_vgui("bind %s <Button-3> {pdsend {%s mousedown %%x %%y %i}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name, EMOD_CMD);
-    sys_vgui("bind %s <Button-2> {pdsend {%s mousedown %%x %%y %i}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name, EMOD_CMD);
+   
+	sys_vgui("bind %s <Button-3> {pdsend {%s mousedown %%x %%y %i}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name, right);
+    sys_vgui("bind %s <Button-2> {pdsend {%s mousedown %%x %%y %i}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name, right);
     sys_vgui("bind %s <Button-1>        {pdsend {%s mousedown   %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
     sys_vgui("bind %s <ButtonRelease>   {pdsend {%s mouseup     %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
     sys_vgui("bind %s <Motion>          {pdsend {%s mousemove   %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);

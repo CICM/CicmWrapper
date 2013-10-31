@@ -57,7 +57,11 @@ t_pt ebox_get_mouse_canvas_position(t_ebox* x)
     t_pt point;
     sys_vgui("global_mousepos %s\n", x->e_name_rcv->s_name);
     point.x = mouse_global_pos.x - x->e_canvas->gl_screenx1;
+#ifdef _WINDOWS
+	point.y = mouse_global_pos.y - x->e_canvas->gl_screeny1 - 44;
+#elif
     point.y = mouse_global_pos.y - x->e_canvas->gl_screeny1 - 22; // The top of canvas
+#endif
     
     return point;
 }
@@ -112,6 +116,17 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     ebox_get_mouse_global_position(x);
     
     x->e_modifiers = (long)atom_getfloat(argv+2);
+#ifdef _WINDOWS
+	
+	if(x->e_modifiers >= 131080)
+	{
+		x->e_modifiers -= 131080;
+		x->e_modifiers += EMOD_ALT;
+	}
+	else
+		x->e_modifiers -= 8;
+#endif
+
     if(!x->e_canvas->gl_edit)
     {
         if(!x->e_mouse_down)
@@ -146,6 +161,7 @@ void ebox_mouse_drag(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
     
     x->e_modifiers -= 256;
+
     if(!x->e_canvas->gl_edit)
     {
         x->e_mouse.x = atom_getfloat(argv);
@@ -160,6 +176,16 @@ void ebox_mouse_down(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
 	
     x->e_modifiers = (long)atom_getfloat(argv+2);
+#ifdef _WINDOWS
+	
+	if(x->e_modifiers >= 131080)
+	{
+		x->e_modifiers -= 131080;
+		x->e_modifiers += EMOD_ALT;
+	}
+	else
+		x->e_modifiers -= 8;
+#endif
 
     if(!x->e_canvas->gl_edit)
     {
@@ -182,9 +208,18 @@ void ebox_mouse_down(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 void ebox_mouse_up(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
-    
+   
     x->e_modifiers = (long)atom_getfloat(argv+2);
-    
+#ifdef _WINDOWS
+	
+	if(x->e_modifiers >= 131080)
+	{
+		x->e_modifiers -= 131080;
+		x->e_modifiers += EMOD_ALT;
+	}
+	else
+		x->e_modifiers -= 8;
+#endif    
     if(!x->e_canvas->gl_edit)
     {
         x->e_mouse.x = atom_getfloat(argv);
@@ -205,7 +240,16 @@ void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
     
     x->e_modifiers = (long)atom_getfloat(argv+2);
-    
+#ifdef _WINDOWS
+	
+	if(x->e_modifiers >= 131080)
+	{
+		x->e_modifiers -= 131080;
+		x->e_modifiers += EMOD_ALT;
+	}
+	else
+		x->e_modifiers -= 8;
+#endif    
     if(!x->e_canvas->gl_edit)
     {
         x->e_mouse.x = atom_getfloat(argv);
@@ -223,6 +267,18 @@ void ebox_mouse_wheel(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     x->e_modifiers = (long)atom_getfloat(argv+3);
     delta = atom_getfloat(argv+2);
 
+#ifdef _WINDOWS
+	
+	if(x->e_modifiers >= 131080)
+	{
+		x->e_modifiers -= 131080;
+		x->e_modifiers += EMOD_ALT;
+	}
+	else
+		x->e_modifiers -= 8;
+
+	delta /= 120.;
+#endif
     if(!x->e_canvas->gl_edit)
     {
         x->e_mouse.x = atom_getfloat(argv);
