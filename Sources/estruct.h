@@ -157,21 +157,12 @@ typedef enum _emod_flags
 #else
 typedef enum _emod_flags
 {
-    EMOD_NONE     = 0,
-	EMOD_CMD      = 1,
-    EMOD_ALT      = 2,
-    EMOD_CTRL     = 3,
-    EMOD_SHIFT    = 4,
-	EMOD_CMDALT   = 5,
-    EMOD_CMDCTRL  = 6,
-    EMOD_CMDSHIFT = 7,
-    EMOD_ALTCTRL  = 8,
-	EMOD_ALTSHIFT = 9,
-    EMOD_CTRLSHIFT  = 10,
-    EMOD_CMDALTCTRL = 11,
-    EMOD_CMDALTSHIFT = 12,
-    EMOD_ALTCTRLSHIFT = 13,
-    EMOD_CMDALTCTRLSHIFT = 14,
+    EMOD_NONE           = 0,
+	EMOD_SHIFT          = 1,
+    EMOD_MAJ            = 2,
+    EMOD_CTRL           = 4,
+    EMOD_CMD            = 8,
+    EMOD_ALT            = 16,
 } t_emod_flags;
 #endif
 

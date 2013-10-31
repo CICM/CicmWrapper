@@ -97,14 +97,18 @@ void eclass_init(t_eclass* c, long flags)
     
     class_addmethod((t_class *)c, (t_method)ebox_mouse_enter, gensym("mouseenter"), A_CANT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_leave, gensym("mouseleave"), A_CANT, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_mouse_move,  gensym("mousemove"),  A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_mouse_down,  gensym("mousedown"),  A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_mouse_up,    gensym("mouseup"),    A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_mouse_drag,  gensym("mousedrag"),  A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_mouse_rightclick,  gensym("rightclick"),  A_DEFFLOAT, A_DEFFLOAT, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_mouse_wheel,  gensym("mousewheel"),  A_DEFFLOAT, A_DEFFLOAT, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_mouse_move,  gensym("mousemove"),  A_GIMME, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_mouse_down,  gensym("mousedown"),  A_GIMME, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_mouse_up,    gensym("mouseup"),    A_GIMME, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_mouse_drag,  gensym("mousedrag"),  A_GIMME, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_mouse_wheel, gensym("mousewheel"), A_GIMME, 0);
+    
+    class_addmethod((t_class *)c, (t_method)ebox_keyup,     gensym("keyup"),  A_GIMME, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_keydown,   gensym("keydown"),A_GIMME, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_focus,     gensym("focus"),  A_DEFFLOAT, 0);
+    
+    class_addmethod((t_class *)c, (t_method)ebox_popup,                      gensym("popup"),  A_SYMBOL, A_DEFFLOAT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_set_mouse_global_position,  gensym("globalmouse"), A_DEFFLOAT,A_DEFFLOAT,0);
-    class_addmethod((t_class *)c, (t_method)ebox_popup,  gensym("popup"),  A_SYMBOL, A_DEFFLOAT, 0);
     
     class_setwidget((t_class *)&c->c_class, (t_widgetbehavior *)&c->c_widget);
     class_setsavefn((t_class *)&c->c_class, ebox_save);

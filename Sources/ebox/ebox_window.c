@@ -26,27 +26,6 @@
 
 #include "ebox.h"
 
-static const char* modifiers_list[] = {
-    "",
-    "Mod1-",
-    "Mod2-",
-    "Control-",
-    "Shift-",
-    
-    "Mod1-Mod2-",
-    "Mod1-Control-",
-    "Mod1-Shift-",
-    "Mod2-Control-",
-    "Mod2-Shift-"
-    "Control-Shift-",
-    
-    "Mod1-Mod2-Control-",
-    "Mod1-Mod2-Shift-",
-    "Mod2-Control-Shift-",
-
-    "Mod1-Mod2-Shift-Control-",
-};
-
 void ebox_tk_ids(t_ebox *x, t_canvas *canvas)
 {
     char buffer[MAXPDSTRING];
@@ -73,41 +52,21 @@ void ebox_tk_ids(t_ebox *x, t_canvas *canvas)
 
 void ebox_bind_events(t_ebox* x)
 {
-    int i;
-    // Mouse Enter //
     sys_vgui("bind %s <Enter> {pdsend {%s mouseenter}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
-    // Mouse Leave //
     sys_vgui("bind %s <Leave> {pdsend {%s mouseleave}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
     
-    // Right click //
-#ifdef _WINDOWS
 	sys_vgui("bind %s <Button-3> {pdsend {%s mousedown %%x %%y %i}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name, EMOD_CMD);
-#else
     sys_vgui("bind %s <Button-2> {pdsend {%s mousedown %%x %%y %i}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name, EMOD_CMD);
-#endif
-
-    for(i = 0; i < 14; i++)
-    {
-        // Mouse Down //
-        sys_vgui("bind %s <%sButtonPress> {pdsend {%s mousedown %%x %%y %i}}\n", x->e_drawing_id->s_name, modifiers_list[i], x->e_name_rcv->s_name, i);
-        
-        // Mouse Up //
-        sys_vgui("bind %s <%sButtonRelease> {pdsend {%s mouseup %%x %%y %i}}\n", x->e_drawing_id->s_name, modifiers_list[i], x->e_name_rcv->s_name, i);
-        
-        // Mouse Move //
-        sys_vgui("bind %s <%sMotion> {pdsend {%s mousemove %%x %%y %i}}\n", x->e_drawing_id->s_name, modifiers_list[i], x->e_name_rcv->s_name, i);
-        
-        // Mouse Wheel //
-        sys_vgui("bind %s <%sMouseWheel> {pdsend {%s mousewheel %%D %i}}\n", x->e_drawing_id->s_name, modifiers_list[i], x->e_name_rcv->s_name, i);
-    }
-    /*
-         sys_vgui("bind %s <$::modifier-Button> {pdtk_canvas_rightclick %s \
-         [expr %%X - [winfo rootx %s]] [expr %%Y - [winfo rooty %s]] %%b}\n",
-         x->e_drawing_id->s_name, x->e_canvas_id->s_name, x->e_canvas_id->s_name, x->e_canvas_id->s_name);
-        
-         sys_vgui("bind %s <KeyRelease> {+pdsend {%s keyup %%N}} \n",
-         x->e_drawing_id->s_name, x->e_name_rcv->s_name);
-          */
+    sys_vgui("bind %s <Button-1>        {pdsend {%s mousedown   %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
+    sys_vgui("bind %s <ButtonRelease>   {pdsend {%s mouseup     %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
+    sys_vgui("bind %s <Motion>          {pdsend {%s mousemove   %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
+    sys_vgui("bind %s <MouseWheel> {pdsend {%s mousewheel  %%x %%y %%D %%s}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
+  
+    sys_vgui("bind %s <KeyPress>    {+pdsend {%s keydown    %%k %%N}} \n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
+    sys_vgui("bind %s <KeyRelease>  {+pdsend {%s keyup      %%k %%N}} \n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
+    
+    sys_vgui("bind %s <FocusIn>    {+pdsend {%s focus 1}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
+    sys_vgui("bind %s <FocusOut>   {+pdsend {%s focus 0}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
 }
 
 void ebox_create_widget(t_ebox* x)
@@ -137,11 +96,8 @@ void ebox_create_window(t_ebox* x, t_glist* glist)
              (int)(x->e_rect.width + x->e_boxparameters.d_borderthickness * 2.),
              (int)(x->e_rect.height + x->e_boxparameters.d_borderthickness * 2.));
 
-#ifdef _WINDOWS
-	
-#else
+    x->e_modifiers = 0;
     sys_vgui("focus -force %s\n", x->e_canvas_id->s_name);
-#endif
    
 }
 
