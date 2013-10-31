@@ -59,7 +59,7 @@ t_pt ebox_get_mouse_canvas_position(t_ebox* x)
     point.x = mouse_global_pos.x - x->e_canvas->gl_screenx1;
 #ifdef _WINDOWS
 	point.y = mouse_global_pos.y - x->e_canvas->gl_screeny1 - 44;
-#elif
+#else
     point.y = mouse_global_pos.y - x->e_canvas->gl_screeny1 - 22; // The top of canvas
 #endif
     
