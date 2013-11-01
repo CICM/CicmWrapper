@@ -102,7 +102,7 @@ void ebox_create_window(t_ebox* x, t_glist* glist)
 
     x->e_modifiers = 0;
     
-#ifdef _WINDOWSs
+#ifdef _WINDOWS
 	
 #else
     sys_vgui("focus -force %s\n", x->e_canvas_id->s_name);
