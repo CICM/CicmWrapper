@@ -101,7 +101,12 @@ void ebox_create_window(t_ebox* x, t_glist* glist)
              (int)(x->e_rect.height + x->e_boxparameters.d_borderthickness * 2.));
 
     x->e_modifiers = 0;
+    
+#ifdef _WINDOWSs
+	
+#else
     sys_vgui("focus -force %s\n", x->e_canvas_id->s_name);
+#endif
    
 }
 
