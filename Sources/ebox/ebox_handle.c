@@ -88,7 +88,12 @@ void ebox_mouse_enter(t_ebox* x)
     {
         ebox_set_cursor(x, 4);
     }
-    sys_vgui("focus -force %s\n", x->e_drawing_id->s_name);
+	
+#ifdef _WINDOWS
+	
+#else
+    sys_vgui("focus -force %s\n", x->e_canvas_id->s_name);
+#endif
 }
 
 void ebox_mouse_leave(t_ebox* x)
@@ -456,3 +461,11 @@ void ebox_save(t_gobj* z, t_binbuf *b)
     }
 }
 
+void ebox_resize_patch(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+{
+	//t_gotfn m;
+	//post("%f %f %f %f", atom_getfloat(argv), atom_getfloat(argv+1), atom_getfloat(argv+2), atom_getfloat(argv+3));
+
+	//m = getfn((t_pd *)x->e_canvas, gensym("setbounds"));
+	//m(x->e_canvas, atom_getfloat(argv), atom_getfloat(argv+1), atom_getfloat(argv+2), atom_getfloat(argv+3));
+}

@@ -109,7 +109,8 @@ void eclass_init(t_eclass* c, long flags)
     
     class_addmethod((t_class *)c, (t_method)ebox_popup,                      gensym("popup"),  A_SYMBOL, A_DEFFLOAT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_set_mouse_global_position,  gensym("globalmouse"), A_DEFFLOAT,A_DEFFLOAT,0);
-    
+    class_addmethod((t_class *)c, (t_method)ebox_resize_patch,   gensym("resize_patch"),A_GIMME, 0);
+
     class_setwidget((t_class *)&c->c_class, (t_widgetbehavior *)&c->c_widget);
     class_setsavefn((t_class *)&c->c_class, ebox_save);
     class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);

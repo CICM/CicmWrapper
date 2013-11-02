@@ -56,7 +56,6 @@ void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
     x->e_number_of_layers   = 0;
     x->e_layers             = NULL;
     x->e_deserted_time      = 3000.;
-    
     ebox_tk_ids(x, canvas_getcurrent());
 }
 

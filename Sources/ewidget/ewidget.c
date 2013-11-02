@@ -67,38 +67,56 @@ void ewidget_getrect(t_gobj *z, t_glist *glist, int *xp1, int *yp1, int *xp2, in
 
 void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
 {
+	t_gotfn m;
     t_ebox* x   = (t_ebox *)z;
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
 
-    if(vis && x->e_ready_to_draw)
+    if(vis)
     {
-        if(c->c_box == 0)
+        if(c->c_box == 0 && x->e_ready_to_draw)
         {
-            ebox_create_window(x, glist);
+			ebox_create_window(x, glist);
             ebox_invalidate_all(x, x->e_canvas);
             ebox_update(x, x->e_canvas);
         
             if(c->c_widget.w_paint)
-                c->c_widget.w_paint(x, (t_object *)glist);
-            ebox_draw_border(x, glist);
-            ebox_draw_iolets(x, glist);
+                c->c_widget.w_paint(x, (t_object *)x->e_canvas);
+            ebox_draw_border(x, x->e_canvas);
+            ebox_draw_iolets(x, x->e_canvas);
         }
     }
     else
     {
-        ebox_erase(x, glist); 
+        ebox_erase(x, glist);
     }
     canvas_fixlinesfor(glist_getcanvas(glist), (t_text*)x);
+
+	if(!x->e_selected)
+	{
+	//post("move %i %i %i %i", (int)glist->gl_screenx1, (int)glist->gl_screeny1, (int)glist->gl_screenx2, (int)glist->gl_screeny2);
+		m = getfn((t_pd *)x->e_canvas, gensym("setbounds"));
+		m(x->e_canvas, glist->gl_screenx1, glist->gl_screeny1, glist->gl_screenx2, glist->gl_screeny2);
+		sys_vgui("focus -force %s\n", x->e_canvas_id->s_name);
+	}
 }
 
 void ewidget_displace(t_gobj *z, t_glist *glist, int dx, int dy)
 {
+	t_gotfn m;
     t_ebox *x = (t_ebox *)z;
+	if(!x->e_selected)
+	{
+	//post("move %i %i %i %i", (int)glist->gl_screenx1, (int)glist->gl_screeny1, (int)glist->gl_screenx2, (int)glist->gl_screeny2);
+		m = getfn((t_pd *)x->e_canvas, gensym("setbounds"));
+		m(x->e_canvas, glist->gl_screenx1, glist->gl_screeny1, glist->gl_screenx2, glist->gl_screeny2);
+		sys_vgui("focus -force %s\n", x->e_canvas_id->s_name);
+	}
     x->e_obj.te_xpix += dx;
     x->e_obj.te_ypix += dy;
     x->e_rect.x = x->e_obj.te_xpix;
     x->e_rect.y = x->e_obj.te_ypix;
     ebox_move(x, glist);
+	
 }
 
 void ewidget_select(t_gobj *z, t_glist *glist, int selected)

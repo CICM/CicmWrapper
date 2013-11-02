@@ -91,6 +91,8 @@ void ebox_mouse_drag(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
 void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
 void ebox_mouse_wheel(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
 
+void ebox_resize_patch(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
+
 void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key);
 void ebox_popup(t_ebox* x, t_symbol* s, float itemid);
 
