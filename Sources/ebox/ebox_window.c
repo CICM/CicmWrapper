@@ -34,7 +34,7 @@ void ebox_tk_ids(t_ebox *x, t_canvas *canvas)
     sprintf(buffer,".x%lx.c", (long unsigned int) canvas);
     x->e_canvas_id = gensym(buffer);
     
-    sprintf(buffer,"%s.canvas%lx", x->e_canvas_id->s_name, (long unsigned int)x);
+    sprintf(buffer,"%s.ecanvas%lx", x->e_canvas_id->s_name, (long unsigned int)x);
     x->e_drawing_id = gensym(buffer);
     
     sprintf(buffer,"%s.eframe%lx", x->e_canvas_id->s_name, (long unsigned int)x);
@@ -68,11 +68,6 @@ void ebox_bind_events(t_ebox* x)
   
     sys_vgui("bind %s <KeyPress>    {+pdsend {%s keydown    %%k %%N}} \n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
     sys_vgui("bind %s <KeyRelease>  {+pdsend {%s keyup      %%k %%N}} \n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
-
-	//sys_vgui("bind %s <Configure>  {+pdsend {%s resize_patch %%d}} \n", x->e_canvas_id->s_name, x->e_name_rcv->s_name);
-    
-    //sys_vgui("bind %s <FocusIn>    {+pdsend {%s focus 1}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
-    //sys_vgui("bind %s <FocusOut>   {+pdsend {%s focus 0}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
 }
 
 void ebox_create_widget(t_ebox* x)
@@ -102,7 +97,6 @@ void ebox_create_window(t_ebox* x, t_glist* glist)
              (int)(x->e_rect.width + x->e_boxparameters.d_borderthickness * 2.),
              (int)(x->e_rect.height + x->e_boxparameters.d_borderthickness * 2.));
 
-	//sys_vgui("%s configure -takefocus 1\n", x->e_canvas_id->s_name);
     x->e_modifiers = 0;
 #ifdef _WINDOWS
 	

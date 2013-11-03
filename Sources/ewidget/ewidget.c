@@ -67,9 +67,6 @@ void ewidget_getrect(t_gobj *z, t_glist *glist, int *xp1, int *yp1, int *xp2, in
 
 void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
 {
-#ifdef _WINDOWS
-	t_gotfn m = NULL;
-#endif
     t_ebox* x   = (t_ebox *)z;
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
 
@@ -92,35 +89,29 @@ void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
         ebox_erase(x, glist);
     }
     canvas_fixlinesfor(glist_getcanvas(glist), (t_text*)x);
-
-#ifdef _WINDOWS
-	
-	if(!x->e_selected)
-	{
-	//post("move %i %i %i %i", (int)glist->gl_screenx1, (int)glist->gl_screeny1, (int)glist->gl_screenx2, (int)glist->gl_screeny2);
-		m = getfn((t_pd *)x->e_canvas, gensym("setbounds"));
-		m(x->e_canvas, glist->gl_screenx1, glist->gl_screeny1, glist->gl_screenx2, glist->gl_screeny2);
-		sys_vgui("focus -force %s\n", x->e_canvas_id->s_name);
-	}
-#endif
 }
 
 void ewidget_displace(t_gobj *z, t_glist *glist, int dx, int dy)
 {
+	t_ebox *x;
+#ifdef _WINDOWS
 	t_gotfn m;
-    t_ebox *x = (t_ebox *)z;
-	if(!x->e_selected)
-	{
-		m = getfn((t_pd *)x->e_canvas, gensym("setbounds"));
-		m(x->e_canvas, glist->gl_screenx1, glist->gl_screeny1, glist->gl_screenx2, glist->gl_screeny2);
-		sys_vgui("focus -force %s\n", x->e_canvas_id->s_name);
-	}
+    
+#endif
+	x = (t_ebox *)z;
     x->e_obj.te_xpix += dx;
     x->e_obj.te_ypix += dy;
     x->e_rect.x = x->e_obj.te_xpix;
     x->e_rect.y = x->e_obj.te_ypix;
     ebox_move(x, glist);
-	
+
+#ifdef _WINDOWS
+	if(!x->e_selected)
+	{
+		m = getfn((t_pd *)x->e_canvas, gensym("setbounds"));
+		m(x->e_canvas, glist->gl_screenx1, glist->gl_screeny1, glist->gl_screenx2, glist->gl_screeny2);
+	}
+#endif
 }
 
 void ewidget_select(t_gobj *z, t_glist *glist, int selected)
