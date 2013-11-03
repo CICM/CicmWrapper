@@ -407,6 +407,7 @@ void ebox_dosave_box(t_gobj* z, t_binbuf *b)
     binbuf_addv(b, "ssii", gensym("#X"), gensym("obj"), (t_int)x->e_obj.te_xpix, (t_int)x->e_obj.te_ypix);
     binbuf_add(b, binbuf_getnatom(x->e_obj.te_binbuf), binbuf_getvec(x->e_obj.te_binbuf));
     
+
     if(c->c_widget.w_save != NULL)
         c->c_widget.w_save(x, b);
     
@@ -450,7 +451,6 @@ void ebox_save(t_gobj* z, t_binbuf *b)
 {
     t_ebox*   x = (t_ebox *)z;
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-    
     if(c->c_box)
     {
         ebox_dosave_box(z, b);

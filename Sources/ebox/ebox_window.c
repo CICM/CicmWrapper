@@ -77,7 +77,7 @@ void ebox_bind_events(t_ebox* x)
 
 void ebox_create_widget(t_ebox* x)
 {
-    //sys_vgui("namespace eval ebox%lx {} \n", x);
+    sys_vgui("namespace eval ebox%lx {} \n", x);
     sys_vgui("destroy %s \n", x->e_drawing_id->s_name);
     
     sys_vgui("canvas %s -width %d -height %d -bd 0 -highlightthickness 0 -insertborderwidth 0\n",
