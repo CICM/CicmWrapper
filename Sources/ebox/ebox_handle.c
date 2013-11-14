@@ -28,14 +28,19 @@
 
 static t_pt mouse_global_pos;
 
-static char *cursorlist[] = {
-    "$cursor_runmode_nothing",
-    "$cursor_runmode_clickme",
-    "$cursor_runmode_thicken",
-    "$cursor_runmode_addpoint",
-    "$cursor_editmode_nothing",
-    "$cursor_editmode_connect",
-    "$cursor_editmode_disconnect"
+static char *my_cursorlist[] = {
+    "left_ptr",
+    "arrow",
+    "sb_v_double_arrow",
+    "plus",
+    "hand2",
+    "circle",
+    "X_cursor",
+    "bottom_side",
+    "bottom_right_corner",
+    "right_side",
+    "double_arrow",
+    "exchange"
 };
 
 
@@ -68,25 +73,18 @@ t_pt ebox_get_mouse_canvas_position(t_ebox* x)
 
 void ebox_set_cursor(t_ebox* x, int mode)
 {
-    mode = pd_clip_minmax(mode, 0, 6);
-    sys_vgui("%s configure -cursor %s\n", x->e_drawing_id->s_name, cursorlist[mode]);
+    mode = pd_clip_minmax(mode, 0, 11);
+    sys_vgui("%s configure -cursor %s\n", x->e_drawing_id->s_name, my_cursorlist[mode]);
 }
 
 void ebox_mouse_enter(t_ebox* x)
 {
     t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
     
-    if(!x->e_canvas->gl_edit)
+    if(!x->e_canvas->gl_edit && !x->e_mouse_down)
     {
-        ebox_set_cursor(x, 1);
-        if(c->c_widget.w_mouseenter && !x->e_mouse_down)
-        {
+        if(c->c_widget.w_mouseenter)
             c->c_widget.w_mouseenter(x);
-        }
-    }
-    else
-    {
-        ebox_set_cursor(x, 4);
     }
 	
 #ifdef _WINDOWS
@@ -100,16 +98,14 @@ void ebox_mouse_leave(t_ebox* x)
 {
     t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
     
-    if(!x->e_canvas->gl_edit)
+    if(!x->e_canvas->gl_edit && !x->e_mouse_down)
     {
-        ebox_set_cursor(x, 0);
-        if(c->c_widget.w_mouseleave && !x->e_mouse_down)
-        {
+        if(c->c_widget.w_mouseleave)
             c->c_widget.w_mouseleave(x);
-            clock_delay(x->e_deserted_clock, x->e_deserted_time);
-        }
+        clock_delay(x->e_deserted_clock, x->e_deserted_time);
+        ebox_set_cursor(x, 0);
     }
-    else
+    else if(x->e_canvas->gl_edit && !x->e_mouse_down)
     {
         ebox_set_cursor(x, 4);
     }
@@ -117,6 +113,7 @@ void ebox_mouse_leave(t_ebox* x)
 
 void ebox_mouse_move(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
+    t_atom av[2];
     t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
     ebox_get_mouse_global_position(x);
     
@@ -136,6 +133,7 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     {
         if(!x->e_mouse_down)
         {
+            ebox_set_cursor(x, 1);
             x->e_mouse.x = atom_getfloat(argv);
             x->e_mouse.y = atom_getfloat(argv+1);
             
@@ -155,8 +153,63 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
         }
         else
         {
-            x->e_move_box = ebox_get_mouse_canvas_position(x);
-            sys_vgui("pdtk_canvas_motion %s %i %i 0\n", x->e_canvas_id->s_name, (int)x->e_move_box.x, (int)x->e_move_box.y);
+            x->e_mouse.x = atom_getfloat(argv);
+            x->e_mouse.y = atom_getfloat(argv+1);
+            if(x->e_selected_item < EITEM_BOTTOM)
+            {
+                x->e_move_box = ebox_get_mouse_canvas_position(x);
+                sys_vgui("pdtk_canvas_motion %s %i %i 0\n", x->e_canvas_id->s_name, (int)x->e_move_box.x, (int)x->e_move_box.y);
+            }
+            else
+            {
+                if(x->e_flags & EBOX_GROWNO)
+                    return;
+                else if(x->e_flags & EBOX_GROWLINK)
+                {
+                    if(x->e_selected_item == EITEM_BOTTOM)
+                    {
+                        atom_setfloat(av, x->e_rect_last.width + (x->e_mouse.y - x->e_rect_last.height));
+                        atom_setfloat(av+1, x->e_mouse.y);
+                    }
+                    else if(x->e_selected_item == EITEM_RIGHT)
+                    {
+                        atom_setfloat(av, x->e_mouse.x);
+                        atom_setfloat(av+1, x->e_rect_last.height + (x->e_mouse.x - x->e_rect_last.width));
+                    }
+                    else if(x->e_selected_item == EITEM_CORNER)
+                    {
+                        if(x->e_mouse.y > x->e_mouse.x)
+                        {
+                            atom_setfloat(av, x->e_mouse.y);
+                            atom_setfloat(av+1, x->e_mouse.y);
+                        }
+                        else
+                        {
+                            atom_setfloat(av, x->e_mouse.x);
+                            atom_setfloat(av+1, x->e_mouse.x);
+                        }
+                    }
+                }
+                else if (x->e_flags & EBOX_GROWINDI)
+                {
+                    if(x->e_selected_item == EITEM_BOTTOM)
+                    {
+                        atom_setfloat(av, x->e_rect_last.width);
+                        atom_setfloat(av+1, x->e_mouse.y);
+                    }
+                    else if(x->e_selected_item == EITEM_RIGHT)
+                    {
+                        atom_setfloat(av, x->e_mouse.x);
+                        atom_setfloat(av+1, x->e_rect_last.height);
+                    }
+                    else if(x->e_selected_item == EITEM_CORNER)
+                    {
+                        atom_setfloat(av, x->e_mouse.x);
+                        atom_setfloat(av+1, x->e_mouse.y);
+                    }
+                }
+                mess3((t_pd *)x, gensym("size"),  gensym("size"), 2, av);
+            }
         }
     }
 }
@@ -201,11 +254,20 @@ void ebox_mouse_down(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     }
     else
     {
-		x->e_move_box = ebox_get_mouse_canvas_position(x);
-        if(x->e_modifiers == EMOD_CMD)
-            sys_vgui("pdtk_canvas_rightclick %s %i %i 0\n", x->e_canvas_id->s_name, (int)x->e_move_box.x, (int)x->e_move_box.y);
+        x->e_mouse.x = atom_getfloat(argv);
+        x->e_mouse.y = atom_getfloat(argv+1);
+        if(x->e_selected_item < EITEM_BOTTOM)
+        {
+            x->e_move_box = ebox_get_mouse_canvas_position(x);
+            if(x->e_modifiers == EMOD_CMD)
+                sys_vgui("pdtk_canvas_rightclick %s %i %i 0\n", x->e_canvas_id->s_name, (int)x->e_move_box.x, (int)x->e_move_box.y);
+            else
+                sys_vgui("pdtk_canvas_mouse %s %i %i 0 0\n", x->e_canvas_id->s_name, (int)(x->e_move_box.x), (int)(x->e_move_box.y));
+        }
         else
-            sys_vgui("pdtk_canvas_mouse %s %i %i 0 0\n", x->e_canvas_id->s_name, (int)(x->e_move_box.x), (int)(x->e_move_box.y));
+        {
+            x->e_rect_last = x->e_rect;
+        }
     }
     x->e_mouse_down = 1;
 }
@@ -333,15 +395,21 @@ void ebox_deserted(t_ebox *x)
 void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
 {
     int i;
+    int top, left, right, bottom;
     //t_gobj* g = (t_gobj*)x;
+    x->e_selected_item      = 0;
     x->e_selected_outlet    = -1;
     x->e_selected_inlet     = -1;
-    
     x->e_move_box = ebox_get_mouse_canvas_position(x);
     sys_vgui("pdtk_canvas_motion %s %i %i 0\n", x->e_canvas_id->s_name, (int)x->e_move_box.x, (int)x->e_move_box.y);
     
-     // Check inlets //
-    if(y_p > 0 && y_p < 3)
+    top     = 0;
+    left    = 0;
+    right   = x->e_rect.width + x->e_boxparameters.d_borderthickness * 2.;
+    bottom  = x->e_rect.height + x->e_boxparameters.d_borderthickness * 2.;
+    
+    // TOP //
+    if(y_p >= 0 && y_p < 3)
     {
         for(i = 0; i < obj_noutlets((t_object *)x); i++)
         {
@@ -352,41 +420,62 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
             if(x_p >= pos_x_inlet && x_p <= pos_x_inlet +7)
             {
                 //sys_vgui("pdtk_gettip .x%lx.c inlet %d [list %s] [list %s] [list %s]\n", x->e_canvas, i, g->g_pd->c_name->s_name, g->g_pd->c_helpname->s_name, g->g_pd->c_externdir);
-                x->e_selected_inlet = i;
+                x->e_selected_item = i;
+                x->e_selected_item = EITEM_INLET;
                 ebox_set_cursor(x, 4);
                 break;
             }
-            
         }
+        x->e_selected_outlet = -1;
+        ebox_invalidate_layer((t_object *)x, NULL, gensym("eboxio"));
+        ebox_redraw(x);
+        return;
     }
-    if(x->e_selected_inlet == -1)
+    // BOTTOM & RIGHT //
+    else if(y_p > bottom - 3 && y_p <= bottom && x_p > right - 3 && x_p <= right)
     {
-        // Check outlets //
-        if(y_p > x->e_rect.width + x->e_boxparameters.d_borderthickness * 2. - 3 && y_p < x->e_rect.width + x->e_boxparameters.d_borderthickness * 2.)
+        x->e_selected_item = EITEM_CORNER;
+        ebox_set_cursor(x, 8);
+        return;
+    }
+    // BOTTOM //
+    else if(y_p > bottom - 3 && y_p < bottom)
+    {
+        for(i = 0; i < obj_noutlets((t_object *)x); i++)
         {
-            for(i = 0; i < obj_noutlets((t_object *)x); i++)
+            int pos_x_outlet = 0;
+            if(obj_noutlets((t_object *)x) != 1)
+                pos_x_outlet = (int)(i / (float)(obj_noutlets((t_object *)x) - 1) * (x->e_rect.width - 8));
+            
+            if(x_p >= pos_x_outlet && x_p <= pos_x_outlet +7)
             {
-                int pos_x_outlet = 0;
-                if(obj_noutlets((t_object *)x) != 1)
-                    pos_x_outlet = (int)(i / (float)(obj_noutlets((t_object *)x) - 1) * (x->e_rect.width - 8));
-                
-                if(x_p >= pos_x_outlet && x_p <= pos_x_outlet +7)
-                {
-                    //sys_vgui("pdtk_gettip .x%lx.c outlet %d [list %s] [list %s] [list %s]\n", x->e_canvas, i, g->g_pd->c_name->s_name, g->g_pd->c_helpname->s_name, g->g_pd->c_externdir);
-                    x->e_selected_outlet = i;
-                    ebox_set_cursor(x, 5);
-                    break;
-                }
-                
+                x->e_selected_outlet = i;
+                x->e_selected_item = EITEM_OUTLET;
+                ebox_set_cursor(x, 5);
+                break;
             }
         }
-        // my box //
+        x->e_selected_inlet = -1;
         if(x->e_selected_outlet == -1)
         {
-            //sys_vgui("pdtk_gettip .x%lx.c text %d [list %s] [list %s] [list %s]\n", x->e_canvas, i, g->g_pd->c_name->s_name, g->g_pd->c_helpname->s_name, g->g_pd->c_externdir);
-            ebox_set_cursor(x, 4);
+            x->e_selected_item = EITEM_BOTTOM;
+            ebox_set_cursor(x, 7);
         }
+        ebox_invalidate_layer((t_object *)x, NULL, gensym("eboxio"));
+        ebox_redraw(x);
+        return;
     }
+    // RIGHT //
+    else if(x_p > right - 3 && x_p <= right)
+    {
+        x->e_selected_item = EITEM_RIGHT;
+        ebox_set_cursor(x, 9);
+        return;
+    }
+    
+    // BOX //
+    ebox_set_cursor(x, 4);
+
     ebox_invalidate_layer((t_object *)x, NULL, gensym("eboxio"));
     ebox_redraw(x);
 }

@@ -154,6 +154,18 @@ typedef enum _ekey_flags
     
 } t_ekey_flags;
 
+typedef enum _eselitem_flags
+{
+    EITEM_NONE    = 0,
+    EITEM_OBJ     = 1,
+	EITEM_INLET   = 2,
+    EITEM_OUTLET  = 3,
+    EITEM_BOTTOM  = 4,
+    EITEM_CORNER  = 5,
+    EITEM_RIGHT   = 6,
+    
+} t_eselitem_flags;
+
 typedef enum _elayer_flags
 {
 	EGRAPHICS_OPEN      = 0,
@@ -279,12 +291,14 @@ typedef struct _ebox
     t_symbol*           e_window_id;
     t_symbol*           e_all_id;
     
+    long                e_flags;
     t_rect              e_rect;
     t_efont             e_font;
-   
-    char                e_selected;
+    t_rect              e_rect_last;
+    int                 e_selected_item;
     int                 e_selected_inlet;
     int                 e_selected_outlet;
+    
     t_pt                e_mouse;
     t_pt                e_move_box;
     char                e_mouse_down;

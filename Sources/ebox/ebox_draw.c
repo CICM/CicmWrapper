@@ -36,7 +36,7 @@ void ebox_draw_border(t_ebox* x, t_glist* glist)
     
     if(g)
     {
-        if(x->e_selected)
+        if(x->e_selected_item == EITEM_OBJ)
         {
             egraphics_set_color_rgba(g, &rgba_blue);
         }
@@ -132,7 +132,7 @@ void ebox_select(t_ebox* x, t_glist* glist)
 {
     if(glist_isvisible(glist))
     {
-        if(x->e_selected)
+        if(x->e_selected_item == EITEM_OBJ)
         {
             sys_vgui("%s itemconfigure eboxbd%ld -fill %s\n", x->e_drawing_id->s_name, x,rgba_to_hex(rgba_blue));
         }

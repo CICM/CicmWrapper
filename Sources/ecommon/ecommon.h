@@ -24,6 +24,7 @@
  *
  */
 
+
 #ifndef DEF_EPD_COMMON
 #define DEF_EPD_COMMON
 
@@ -62,6 +63,8 @@
 #define E_PUT_LAST          2
 #define E_PUT_FIRST         4
 #define E_IGNORE_DISABLE    8
+
+#include "eboxflag.h"
 
 #define atom_setfloat(atom, float)  SETFLOAT(atom, float)
 #define atom_setlong(atom, long)    SETFLOAT(atom, (float)long)

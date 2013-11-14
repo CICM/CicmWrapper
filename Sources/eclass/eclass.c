@@ -50,15 +50,6 @@ void eclass_init(t_eclass* c, long flags)
 {
     ewidget_init(c);
     
-    // This is for Max compatibilty //
-    CLASS_ATTR_FLOAT_ARRAY  (c, "patching_rect", 0, t_ebox, e_rect, 4);
-    CLASS_ATTR_DEFAULT      (c, "patching_rect", 0, "0 0 200 200");
-    CLASS_ATTR_FILTER_MIN   (c, "patching_rect", 4);
-    CLASS_ATTR_SAVE         (c, "patching_rect", 0);
-    CLASS_ATTR_PAINT        (c, "patching_rect", 0);
-    CLASS_ATTR_CATEGORY		(c, "patching_rect", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "patching_rect", 0, "Patching rectangle");
-    
     CLASS_ATTR_FLOAT_ARRAY  (c, "size", 0, t_ebox, e_rect.width, 2);
     CLASS_ATTR_FILTER_MIN   (c, "size", 4);
     CLASS_ATTR_SAVE         (c, "size", 0);

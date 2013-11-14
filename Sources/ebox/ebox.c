@@ -44,6 +44,9 @@ void *ebox_alloc(t_eclass *c)
 void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
 {
     char buffer[MAXPDSTRING];
+    
+    x->e_flags = flags;
+    
     sprintf(buffer,"%s%lx", class_getname(x->e_obj.te_g.g_pd), (long unsigned int)x);
     x->e_name_tcl = gensym(buffer);
     
@@ -96,9 +99,11 @@ void ebox_ready(t_ebox *x)
     
     ebox_get_mouse_global_position(x);
     
+    x->e_selected_item  = EITEM_NONE;
     x->e_selected_inlet = -1;
-    x->e_selected_outlet = -1;
-    x->e_mouse_down = 0;
+    x->e_selected_outlet= -1;
+    x->e_mouse_down     = 0;
+    
     x->e_boxparameters.d_bordercolor = rgba_black;
     x->e_boxparameters.d_borderthickness = 1;
     x->e_boxparameters.d_boxfillcolor = rgba_white;

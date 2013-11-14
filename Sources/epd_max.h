@@ -31,9 +31,11 @@
 #define JBOX_NODRAWBOX          0
 #define JBOX_DRAWINLAST         0
 #define JBOX_TRANSPARENT        0
-#define JBOX_NOGROW             0
-#define JBOX_GROWY              0
-#define JBOX_GROWBOTH           0
+
+#define JBOX_NOGROW             EBOX_GROWNO
+#define JBOX_GROWY              EBOX_GROWLINK
+#define JBOX_GROWBOTH           EBOX_GROWINDI
+
 #define JBOX_IGNORELOCKCLICK    0
 #define JBOX_HILITE             0
 #define JBOX_BACKGROUND         0
