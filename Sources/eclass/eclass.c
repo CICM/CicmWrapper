@@ -100,6 +100,7 @@ void eclass_init(t_eclass* c, long flags)
     
     class_addmethod((t_class *)c, (t_method)ebox_popup,                      gensym("popup"),  A_SYMBOL, A_DEFFLOAT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_set_mouse_global_position,  gensym("globalmouse"), A_DEFFLOAT,A_DEFFLOAT,0);
+    class_addmethod((t_class *)c, (t_method)ebox_set_mouse_patcher_position,  gensym("patchermouse"), A_DEFFLOAT,A_DEFFLOAT,0);
     class_addmethod((t_class *)c, (t_method)ebox_resize_patch,   gensym("resize_patch"),A_GIMME, 0);
 
     class_setwidget((t_class *)&c->c_class, (t_widgetbehavior *)&c->c_widget);
@@ -111,6 +112,12 @@ void eclass_init(t_eclass* c, long flags)
     sys_gui(" set x [winfo pointerx .]\n");
     sys_gui(" set y [winfo pointery .]\n");
     sys_gui(" pdsend \"$target globalmouse $x $y\"\n");
+    sys_gui("}\n");
+    
+    sys_gui("proc patcher_mousepos {target patcher} {\n");
+    sys_gui(" set x [winfo rootx $patcher]\n");
+    sys_gui(" set y [winfo rooty $patcher]\n");
+    sys_gui(" pdsend \"$target patchermouse $x $y\"\n");
     sys_gui("}\n");
 }
 

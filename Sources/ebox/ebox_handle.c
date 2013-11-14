@@ -27,10 +27,11 @@
 #include "ebox.h"
 
 static t_pt mouse_global_pos;
+static t_pt mouse_patcher_pos;
 
 static char *my_cursorlist[] = {
     "left_ptr",
-    "arrow",
+    "center_ptr",
     "sb_v_double_arrow",
     "plus",
     "hand2",
@@ -50,6 +51,12 @@ void ebox_set_mouse_global_position(t_ebox* x, float x_p, float y_p)
     mouse_global_pos.y = y_p;
 }
 
+void ebox_set_mouse_patcher_position(t_ebox* x, float x_p, float y_p)
+{
+    mouse_patcher_pos.x = x_p;
+    mouse_patcher_pos.y = y_p;
+}
+
 t_pt ebox_get_mouse_global_position(t_ebox* x)
 {
     sys_vgui("global_mousepos %s\n", x->e_name_rcv->s_name);
@@ -60,14 +67,11 @@ t_pt ebox_get_mouse_global_position(t_ebox* x)
 t_pt ebox_get_mouse_canvas_position(t_ebox* x)
 {
     t_pt point;
-    sys_vgui("global_mousepos %s\n", x->e_name_rcv->s_name);
-    point.x = mouse_global_pos.x - x->e_canvas->gl_screenx1;
-#ifdef _WINDOWS
-	point.y = mouse_global_pos.y - x->e_canvas->gl_screeny1 - 44;
-#else
-    point.y = mouse_global_pos.y - x->e_canvas->gl_screeny1 - 22; // The top of canvas
-#endif
-    
+    ebox_get_mouse_global_position(x);
+    sys_vgui("patcher_mousepos %s %s\n", x->e_name_rcv->s_name, x->e_canvas_id->s_name);
+    sys_vgui("patcher_mousepos %s %s\n", x->e_name_rcv->s_name, x->e_canvas_id->s_name);
+    point.x = mouse_global_pos.x - mouse_patcher_pos.x;
+    point.y = mouse_global_pos.y - mouse_patcher_pos.y;
     return point;
 }
 
@@ -396,8 +400,7 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
 {
     int i;
     int top, left, right, bottom;
-    //t_gobj* g = (t_gobj*)x;
-    x->e_selected_item      = 0;
+    
     x->e_selected_outlet    = -1;
     x->e_selected_inlet     = -1;
     x->e_move_box = ebox_get_mouse_canvas_position(x);

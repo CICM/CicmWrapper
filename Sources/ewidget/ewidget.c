@@ -117,7 +117,10 @@ void ewidget_displace(t_gobj *z, t_glist *glist, int dx, int dy)
 void ewidget_select(t_gobj *z, t_glist *glist, int selected)
 {
     t_ebox *x = (t_ebox *)z;
-    x->e_selected_item = EITEM_OBJ;
+    if(selected)
+        x->e_selected_item = EITEM_OBJ;
+    else
+        x->e_selected_item = EITEM_NONE;
     ebox_select(x, glist);
 }
 

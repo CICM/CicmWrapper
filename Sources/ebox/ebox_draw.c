@@ -69,7 +69,7 @@ void ebox_draw_iolets(t_ebox* x, t_glist* glist)
             int pos_x_inlet = 0;
             if(obj_ninlets((t_object *)x) != 1)
                 pos_x_inlet = (int)(i / (float)(obj_ninlets((t_object *)x) - 1) * (x->e_rect.width - 8));
-            egraphics_rectangle(g, pos_x_inlet, 0, 7, 3);
+            egraphics_rectangle(g, pos_x_inlet, 0, 7, 2);
             if(x->e_selected_inlet == i)
             {
                 egraphics_set_color_rgba(g, &rgba_blue);

@@ -105,6 +105,7 @@ void ebox_dosave_nobox(t_gobj* z, t_binbuf *b);
 void ebox_save(t_gobj* z, t_binbuf *b);
 
 void ebox_set_mouse_global_position(t_ebox* x, float x_p, float y_p);
+void ebox_set_mouse_patcher_position(t_ebox* x, float x_p, float y_p);
 t_pt ebox_get_mouse_global_position(t_ebox* x);
 t_pt ebox_get_mouse_canvas_position(t_ebox* x);
 
