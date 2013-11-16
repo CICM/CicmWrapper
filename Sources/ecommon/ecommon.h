@@ -85,6 +85,14 @@ typedef void        (*method)(void* x, ...);
 typedef void*       (*rmethod)(void* x, ...);
 typedef t_pd_err    (*t_err_method)(void* x, ...);
 
+struct _guiconnect
+{
+    t_object x_obj;
+    t_pd *x_who;
+    t_symbol *x_sym;
+    t_clock *x_clock;
+};
+
 union inletunion
 {
     t_symbol *iu_symto;

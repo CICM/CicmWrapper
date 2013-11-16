@@ -33,11 +33,13 @@ void *ebox_alloc(t_eclass *c)
         bug("pd_new: apparently called before setup routine");
     x = (t_pd *)t_getbytes(c->c_class.c_size);
     *x = (t_pd)c;
+    
     if (c->c_class.c_patchable)
     {
         ((t_object *)x)->ob_inlet = 0;
         ((t_object *)x)->ob_outlet = 0;
     }
+    
     return (x);
 }
 
@@ -54,12 +56,13 @@ void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
     x->e_name_rcv = gensym(buffer);
     
     pd_bind(&x->e_obj.ob_pd, x->e_name_rcv);
+    
     x->e_ready_to_draw      = 0;
     x->z_misc               = 1;
     x->e_number_of_layers   = 0;
     x->e_layers             = NULL;
     x->e_deserted_time      = 3000.;
-    ebox_tk_ids(x, canvas_getcurrent());
+    x->e_frame_id           = NULL;
 }
 
 
@@ -100,6 +103,7 @@ void ebox_ready(t_ebox *x)
     ebox_get_mouse_global_position(x);
     
     x->e_selected_item  = EITEM_NONE;
+    x->e_selected_box   = 0;
     x->e_selected_inlet = -1;
     x->e_selected_outlet= -1;
     x->e_mouse_down     = 0;
@@ -126,18 +130,18 @@ void ebox_dspfree(t_ebox *x)
 void ebox_redraw(t_ebox *x)
 {
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-    if(x->e_ready_to_draw && glist_isvisible(x->e_canvas))
+
+    if(x->e_canvas && x->e_ready_to_draw && c->c_box == 0)
     {
-        if(c->c_box == 0)
-        {
-            ebox_invalidate_layer((t_object *)x, (t_object *)x->e_canvas, gensym("eboxbd"));
-            ebox_invalidate_layer((t_object *)x, (t_object *)x->e_canvas, gensym("eboxio"));
-            ebox_update(x, x->e_canvas);
-            if(c->c_widget.w_paint)
-                c->c_widget.w_paint(x, (t_object *)x->e_canvas);
-            ebox_draw_border(x, x->e_canvas);
+        ebox_invalidate_layer((t_object *)x, NULL, gensym("eboxbd"));
+        ebox_invalidate_layer((t_object *)x, NULL, gensym("eboxio"));
+        
+        ebox_update(x);
+        if(c->c_widget.w_paint)
+            c->c_widget.w_paint(x, (t_object *)x->e_canvas);
+        ebox_draw_border(x, x->e_canvas);
+        if(x->e_canvas->gl_edit)
             ebox_draw_iolets(x, x->e_canvas);
-        }
     }
 }
 
@@ -336,7 +340,7 @@ t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *
 {
 	int i;
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-    if(s == gensym("patching_rect") || s == gensym("size"))
+    if(s == gensym("size"))
     {
         if(c->c_widget.w_oksize != NULL)
             c->c_widget.w_oksize(x, &x->e_rect);

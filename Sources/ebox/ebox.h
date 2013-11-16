@@ -68,7 +68,7 @@ void ebox_draw_iolets(t_ebox* x, t_glist* glist);
 void ebox_select(t_ebox* x, t_glist* glist);
 void ebox_move(t_ebox* x, t_glist* glist);
 void ebox_erase(t_ebox* x, t_glist* glist);
-void ebox_update(t_ebox *x, t_glist *glist);
+void ebox_update(t_ebox *x);
 void ebox_invalidate_all(t_ebox *x, t_glist *glist);
 
 t_binbuf* binbuf_via_atoms(long ac, t_atom *av);
@@ -109,7 +109,9 @@ void ebox_set_mouse_patcher_position(t_ebox* x, float x_p, float y_p);
 t_pt ebox_get_mouse_global_position(t_ebox* x);
 t_pt ebox_get_mouse_canvas_position(t_ebox* x);
 
-
-
+void ebox_patcher_editmode(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
+void ebox_patcher_motion(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
+void ebox_patcher_key(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
+void ebox_patcher_mouse(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
 
 #endif

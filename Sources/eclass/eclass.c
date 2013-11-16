@@ -49,42 +49,7 @@ post("|________________________________________________|");
 void eclass_init(t_eclass* c, long flags)
 {
     ewidget_init(c);
-    
-    CLASS_ATTR_FLOAT_ARRAY  (c, "size", 0, t_ebox, e_rect.width, 2);
-    CLASS_ATTR_FILTER_MIN   (c, "size", 4);
-    CLASS_ATTR_SAVE         (c, "size", 0);
-    CLASS_ATTR_PAINT        (c, "size", 0);
-    CLASS_ATTR_CATEGORY		(c, "size", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "size", 0, "Patching Size");
-    
-    CLASS_ATTR_SYMBOL       (c, "fontname", 0, t_ebox, e_font.c_family);
-    CLASS_ATTR_DEFAULT      (c, "fontname", 0, "helvetica");
-    CLASS_ATTR_SAVE         (c, "fontname", 0);
-    CLASS_ATTR_PAINT        (c, "fontname", 0);
-    CLASS_ATTR_CATEGORY		(c, "fontname", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "fontname", 0, "Font name");
-    
-    CLASS_ATTR_SYMBOL       (c, "fontweight", 0, t_ebox, e_font.c_weight);
-    CLASS_ATTR_DEFAULT      (c, "fontweight", 0, "normal");
-    CLASS_ATTR_SAVE         (c, "fontweight", 0);
-    CLASS_ATTR_PAINT        (c, "fontweight", 0);
-    CLASS_ATTR_CATEGORY		(c, "fontweight", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "fontweight", 0, "Font weight");
-    
-    CLASS_ATTR_SYMBOL       (c, "fontslant", 0, t_ebox, e_font.c_slant);
-    CLASS_ATTR_DEFAULT      (c, "fontslant", 0, "regular");
-    CLASS_ATTR_SAVE         (c, "fontslant", 0);
-    CLASS_ATTR_PAINT        (c, "fontslant", 0);
-    CLASS_ATTR_CATEGORY		(c, "fontslant", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "fontslant", 0, "Font slant");
-    
-    CLASS_ATTR_FLOAT        (c, "fontsize", 0, t_ebox, e_font.c_size);
-    CLASS_ATTR_DEFAULT      (c, "fontsize", 0, "11");
-    CLASS_ATTR_FILTER_MIN   (c, "fontsize", 4);
-    CLASS_ATTR_SAVE         (c, "fontsize", 0);
-    CLASS_ATTR_PAINT        (c, "fontsize", 0);
-    CLASS_ATTR_CATEGORY		(c, "fontsize", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "fontsize", 0, "Font size");
+    eclass_default_attributes(c);
     
     class_addmethod((t_class *)c, (t_method)ebox_mouse_enter, gensym("mouseenter"), A_CANT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_leave, gensym("mouseleave"), A_CANT, 0);
@@ -98,9 +63,14 @@ void eclass_init(t_eclass* c, long flags)
     class_addmethod((t_class *)c, (t_method)ebox_keydown,   gensym("keydown"),A_GIMME, 0);
     class_addmethod((t_class *)c, (t_method)ebox_focus,     gensym("focus"),  A_DEFFLOAT, 0);
     
-    class_addmethod((t_class *)c, (t_method)ebox_popup,                      gensym("popup"),  A_SYMBOL, A_DEFFLOAT, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_set_mouse_global_position,  gensym("globalmouse"), A_DEFFLOAT,A_DEFFLOAT,0);
-    class_addmethod((t_class *)c, (t_method)ebox_set_mouse_patcher_position,  gensym("patchermouse"), A_DEFFLOAT,A_DEFFLOAT,0);
+    class_addmethod((t_class *)c, (t_method)ebox_patcher_editmode,  gensym("editmode"),     A_GIMME, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_patcher_motion,    gensym("motion"),       A_GIMME, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_patcher_key,       gensym("key"),          A_GIMME, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_patcher_mouse,     gensym("mouse"),        A_GIMME, 0);
+    
+    class_addmethod((t_class *)c, (t_method)ebox_popup,                     gensym("popup"),  A_SYMBOL, A_DEFFLOAT, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_set_mouse_global_position, gensym("globalmouse"), A_DEFFLOAT,A_DEFFLOAT,0);
+    class_addmethod((t_class *)c, (t_method)ebox_set_mouse_patcher_position,gensym("patchermouse"), A_DEFFLOAT,A_DEFFLOAT,0);
     class_addmethod((t_class *)c, (t_method)ebox_resize_patch,   gensym("resize_patch"),A_GIMME, 0);
 
     class_setwidget((t_class *)&c->c_class, (t_widgetbehavior *)&c->c_widget);
@@ -139,6 +109,46 @@ void eclassbox_dspinit(t_eclass* c)
     class_addmethod((t_class *)c, (t_method)ebox_dsp, gensym("dsp"), A_CANT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_dsp_add, gensym("dsp_add"), A_NULL, 0);
     class_addmethod((t_class *)c, (t_method)ebox_dsp_add, gensym("dsp_add64"), A_NULL, 0);
+}
+
+void eclass_default_attributes(t_eclass* c)
+{
+    CLASS_ATTR_FLOAT_ARRAY  (c, "size", 0, t_ebox, e_rect.width, 2);
+    CLASS_ATTR_DEFAULT      (c, "size", 0, "100. 100.");
+    CLASS_ATTR_FILTER_MIN   (c, "size", 4);
+    CLASS_ATTR_SAVE         (c, "size", 0);
+    CLASS_ATTR_PAINT        (c, "size", 0);
+    CLASS_ATTR_CATEGORY		(c, "size", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "size", 0, "Patching Size");
+    
+    CLASS_ATTR_SYMBOL       (c, "fontname", 0, t_ebox, e_font.c_family);
+    CLASS_ATTR_DEFAULT      (c, "fontname", 0, "helvetica");
+    CLASS_ATTR_SAVE         (c, "fontname", 0);
+    CLASS_ATTR_PAINT        (c, "fontname", 0);
+    CLASS_ATTR_CATEGORY		(c, "fontname", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "fontname", 0, "Font name");
+    
+    CLASS_ATTR_SYMBOL       (c, "fontweight", 0, t_ebox, e_font.c_weight);
+    CLASS_ATTR_DEFAULT      (c, "fontweight", 0, "normal");
+    CLASS_ATTR_SAVE         (c, "fontweight", 0);
+    CLASS_ATTR_PAINT        (c, "fontweight", 0);
+    CLASS_ATTR_CATEGORY		(c, "fontweight", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "fontweight", 0, "Font weight");
+    
+    CLASS_ATTR_SYMBOL       (c, "fontslant", 0, t_ebox, e_font.c_slant);
+    CLASS_ATTR_DEFAULT      (c, "fontslant", 0, "regular");
+    CLASS_ATTR_SAVE         (c, "fontslant", 0);
+    CLASS_ATTR_PAINT        (c, "fontslant", 0);
+    CLASS_ATTR_CATEGORY		(c, "fontslant", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "fontslant", 0, "Font slant");
+    
+    CLASS_ATTR_FLOAT        (c, "fontsize", 0, t_ebox, e_font.c_size);
+    CLASS_ATTR_DEFAULT      (c, "fontsize", 0, "11");
+    CLASS_ATTR_FILTER_MIN   (c, "fontsize", 4);
+    CLASS_ATTR_SAVE         (c, "fontsize", 0);
+    CLASS_ATTR_PAINT        (c, "fontsize", 0);
+    CLASS_ATTR_CATEGORY		(c, "fontsize", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "fontsize", 0, "Font size");
 }
 
 t_pd_err eclass_register(t_symbol *name_space, t_eclass *c)

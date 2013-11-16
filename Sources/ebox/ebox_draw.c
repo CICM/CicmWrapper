@@ -36,7 +36,7 @@ void ebox_draw_border(t_ebox* x, t_glist* glist)
     
     if(g)
     {
-        if(x->e_selected_item == EITEM_OBJ)
+        if(x->e_selected_box == EITEM_OBJ)
         {
             egraphics_set_color_rgba(g, &rgba_blue);
         }
@@ -132,7 +132,7 @@ void ebox_select(t_ebox* x, t_glist* glist)
 {
     if(glist_isvisible(glist))
     {
-        if(x->e_selected_item == EITEM_OBJ)
+        if(x->e_selected_box == EITEM_OBJ)
         {
             sys_vgui("%s itemconfigure eboxbd%ld -fill %s\n", x->e_drawing_id->s_name, x,rgba_to_hex(rgba_blue));
         }
@@ -161,24 +161,21 @@ void ebox_invalidate_all(t_ebox *x, t_glist *glist)
     }
 }
 
-void ebox_update(t_ebox *x, t_glist *glist)
+void ebox_update(t_ebox *x)
 {
 	int i;
-    if(glist_isvisible(x->e_canvas))
+    for(i = 0; i < x->e_number_of_layers; i++)
     {
-        for(i = 0; i < x->e_number_of_layers; i++)
+        if(x->e_layers[i].e_state == EGRAPHICS_INVALID)
         {
-            if(x->e_layers[i].e_state == EGRAPHICS_INVALID)
-            {
-                sys_vgui("%s delete %s\n", x->e_drawing_id->s_name, x->e_layers[i].e_id->s_name);
-            }
+            sys_vgui("%s delete %s\n", x->e_drawing_id->s_name, x->e_layers[i].e_id->s_name);
         }
     }
 }
 
 void ebox_erase(t_ebox* x, t_glist* glist)
 {
-    if(glist_isvisible(x->e_canvas))
+    if(x->e_canvas && glist_isvisible(x->e_canvas))
     {
         sys_vgui("destroy %s \n", x->e_drawing_id->s_name);
     }
@@ -304,9 +301,11 @@ t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, float x_p
     t_ebox* x = (t_ebox *)b;
     t_elayer* g = NULL;
     bdsize = x->e_boxparameters.d_borderthickness;
-    sys_vgui("%s configure -bg %s\n", x->e_drawing_id->s_name, rgba_to_hex(x->e_boxparameters.d_boxfillcolor));
+    
     sys_vgui("%s itemconfigure %s -width %d -height %d\n", x->e_canvas_id->s_name, x->e_window_id->s_name, (int)(x->e_rect.width + bdsize * 2.), (int)(x->e_rect.height + bdsize * 2.));
     canvas_fixlinesfor(x->e_canvas, (t_text *)x);
+    sys_vgui("%s configure -bg %s\n", x->e_drawing_id->s_name, rgba_to_hex(x->e_boxparameters.d_boxfillcolor));
+    
     for(i = 0; i < x->e_number_of_layers; i++)
     {
         if(x->e_layers[i].e_name == name)

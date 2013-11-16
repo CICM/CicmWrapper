@@ -29,22 +29,23 @@
 void ebox_tk_ids(t_ebox *x, t_canvas *canvas)
 {
     char buffer[MAXPDSTRING];
+    
     x->e_canvas = canvas;
     
     sprintf(buffer,".x%lx.c", (long unsigned int) canvas);
     x->e_canvas_id = gensym(buffer);
     
-    sprintf(buffer,"%s.ecanvas%lx", x->e_canvas_id->s_name, (long unsigned int)x);
-    x->e_drawing_id = gensym(buffer);
+    sprintf(buffer,"ebox%s", x->e_canvas_id->s_name);
+    pd_bind(&x->e_obj.ob_pd, gensym(buffer));
     
-    sprintf(buffer,"%s.eframe%lx", x->e_canvas_id->s_name, (long unsigned int)x);
+    sprintf(buffer,".x%lx", (long unsigned int) canvas);
     x->e_frame_id = gensym(buffer);
+    
+    sprintf(buffer,"%s.ecanvas%lx", x->e_canvas_id->s_name, (long unsigned int)x);
+    x->e_drawing_id = gensym(buffer);    
     
     sprintf(buffer,"%s.ewindow%lx", x->e_canvas_id->s_name, (long unsigned int)x);
     x->e_window_id = gensym(buffer);
-    
-    sprintf(buffer,"%s.ehandle%lx", x->e_canvas_id->s_name, (long unsigned int)x);
-    x->e_handle_id = gensym(buffer);
     
     sprintf(buffer,"all%lx", (long unsigned int)x);
     x->e_all_id = gensym(buffer);
@@ -66,8 +67,8 @@ void ebox_bind_events(t_ebox* x)
     sys_vgui("bind %s <Motion>          {pdsend {%s mousemove   %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
     sys_vgui("bind %s <MouseWheel> {pdsend {%s mousewheel  %%x %%y %%D %%s}}\n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
   
-    sys_vgui("bind %s <KeyPress>    {+pdsend {%s keydown    %%k %%N}} \n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
-    sys_vgui("bind %s <KeyRelease>  {+pdsend {%s keyup      %%k %%N}} \n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
+    sys_vgui("bind %s <KeyPress>    {pdsend {%s keydown    %%k %%N}} \n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
+    sys_vgui("bind %s <KeyRelease>  {pdsend {%s keyup      %%k %%N}} \n", x->e_drawing_id->s_name, x->e_name_rcv->s_name);
 }
 
 void ebox_create_widget(t_ebox* x)
@@ -79,7 +80,6 @@ void ebox_create_widget(t_ebox* x)
              x->e_drawing_id->s_name,
              (int)(x->e_rect.width + x->e_boxparameters.d_borderthickness),
              (int)(x->e_rect.height + x->e_boxparameters.d_borderthickness));
-
 }
 
 void ebox_create_window(t_ebox* x, t_glist* glist)

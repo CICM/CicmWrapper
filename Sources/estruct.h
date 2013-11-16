@@ -280,6 +280,7 @@ typedef struct _ebox
     t_object            e_obj;
     t_canvas*           e_canvas;
     t_canvas*           e_drawing;
+    t_guiconnect*       e_guiconnect;
     
     t_symbol*           e_name_tcl;
     t_symbol*           e_name_rcv;
@@ -287,7 +288,6 @@ typedef struct _ebox
     t_symbol*           e_canvas_id;
     t_symbol*           e_drawing_id;
     t_symbol*           e_frame_id;
-    t_symbol*           e_handle_id;
     t_symbol*           e_window_id;
     t_symbol*           e_all_id;
     
@@ -295,6 +295,7 @@ typedef struct _ebox
     t_rect              e_rect;
     t_efont             e_font;
     t_rect              e_rect_last;
+    int                 e_selected_box;
     int                 e_selected_item;
     int                 e_selected_inlet;
     int                 e_selected_outlet;

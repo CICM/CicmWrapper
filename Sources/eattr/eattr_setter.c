@@ -31,6 +31,7 @@ void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
 	int i, j;
     t_ebox* z = (t_ebox *)x;
     t_eclass* c = (t_eclass *)z->e_obj.te_g.g_pd;
+    
     for(i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].name == s)
@@ -117,12 +118,17 @@ void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                     }
                 }
             }
-            c->c_widget.w_notify(x, s, gensym("attr_modified"), NULL, NULL);
+            
+            if(c->c_widget.w_notify != NULL)
+                c->c_widget.w_notify(x, s, gensym("attr_modified"), NULL, NULL);
+            
             if(c->c_attr[i].paint)
             {
                 if(c->c_widget.w_oksize != NULL)
                     c->c_widget.w_oksize(x, &z->e_rect);
-                c->c_widget.w_getdrawparameters(x, NULL, &z->e_boxparameters);
+                if(c->c_widget.w_getdrawparameters != NULL)
+                    c->c_widget.w_getdrawparameters(x, NULL, &z->e_boxparameters);
+
                 ebox_redraw(z);
             }
             

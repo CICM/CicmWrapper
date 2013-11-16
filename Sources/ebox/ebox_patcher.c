@@ -24,19 +24,26 @@
  *
  */
 
-#ifndef DEF_ECLASS
-#define DEF_ECLASS
+#include "ebox.h"
 
-#include "../estruct.h"
-#include "../eattr/eattr.h"
+void ebox_patcher_editmode(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+{
+    //post("editmode");
+}
 
-t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t size, int flags, t_atomtype arg1, int arg2);
-void eclass_init(t_eclass* c, long flags);
-void eclass_dspinit(t_eclass* c);
-void eclassbox_dspinit(t_eclass* c);
-void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long anything);
-t_pd_err eclass_register(t_symbol *name_space, t_eclass *c);
+void ebox_patcher_motion(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+{
+	//sys_vgui("focus -force %s\n", x->e_canvas_id->s_name);
+}
 
-void eclass_default_attributes(t_eclass* c);
+void ebox_patcher_key(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+{
+	//post("key");
+    //ebox_redraw(x);
+    //sys_vgui("focus -force %s\n", x->e_canvas_id->s_name);
+}
 
-#endif
+void ebox_patcher_mouse(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+{
+	//sys_vgui("focus -force %s\n", x->e_canvas_id->s_name);
+}

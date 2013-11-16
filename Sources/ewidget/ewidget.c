@@ -48,8 +48,8 @@ void ewidget_init(t_eclass* c)
     c->c_widget.w_key               = (method)ewidget_key_default;
     c->c_widget.w_keyfilter         = (method)ewidget_keyfilter_default;
     c->c_widget.w_deserted          = NULL;
-    c->c_widget.w_getdrawparameters = (method)ewidget_getdrawparams_default;
-    c->c_widget.w_notify            = (t_err_method)ewidget_notify_default;
+    c->c_widget.w_getdrawparameters = NULL;
+    c->c_widget.w_notify            = NULL;
     c->c_widget.w_save              = NULL;
     c->c_widget.w_popup             = NULL;
     c->c_widget.w_dsp               = NULL;
@@ -69,19 +69,14 @@ void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
 {
     t_ebox* x   = (t_ebox *)z;
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-
+    
     if(vis)
     {
         if(c->c_box == 0 && x->e_ready_to_draw)
         {
-			ebox_create_window(x, glist);
-            ebox_invalidate_all(x, x->e_canvas);
-            ebox_update(x, x->e_canvas);
-        
-            if(c->c_widget.w_paint)
-                c->c_widget.w_paint(x, (t_object *)x->e_canvas);
-            ebox_draw_border(x, x->e_canvas);
-            ebox_draw_iolets(x, x->e_canvas);
+			ebox_create_window(x, glist_getcanvas(glist));
+            ebox_invalidate_all(x, NULL);
+            ebox_redraw(x);
         }
     }
     else
@@ -106,7 +101,7 @@ void ewidget_displace(t_gobj *z, t_glist *glist, int dx, int dy)
     ebox_move(x, glist);
 
 #ifdef _WINDOWS
-	if(x->e_selected_item != EITEM_OBJ)
+	if(!x->e_selected_box)
 	{
 		m = getfn((t_pd *)x->e_canvas, gensym("setbounds"));
 		m(x->e_canvas, glist->gl_screenx1, glist->gl_screeny1, glist->gl_screenx2, glist->gl_screeny2);
@@ -118,9 +113,9 @@ void ewidget_select(t_gobj *z, t_glist *glist, int selected)
 {
     t_ebox *x = (t_ebox *)z;
     if(selected)
-        x->e_selected_item = EITEM_OBJ;
+        x->e_selected_box = 1;
     else
-        x->e_selected_item = EITEM_NONE;
+        x->e_selected_box = 0;
     ebox_select(x, glist);
 }
 
@@ -150,19 +145,6 @@ void ewidget_key_default(t_ebox *x, t_object *patcherview, char textcharacter, l
 void ewidget_keyfilter_default(t_ebox *x, t_object *patcherview, char textcharacter, long modifiers)
 {
     ewidget_key_default(x, patcherview, textcharacter, modifiers);
-}
-
-void ewidget_getdrawparams_default(t_ebox *x, t_object *patcherview, t_edrawparams *params)
-{
-    x->e_boxparameters.d_bordercolor = rgba_black;
-    x->e_boxparameters.d_borderthickness = 1;
-    x->e_boxparameters.d_boxfillcolor = rgba_white;
-    x->e_boxparameters.d_cornersize = 0;
-}
-
-t_pd_err ewidget_notify_default(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
-{
-    return 0;
 }
 
 
