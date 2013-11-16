@@ -59,8 +59,8 @@ void ebox_set_mouse_patcher_position(t_ebox* x, float x_p, float y_p)
 
 t_pt ebox_get_mouse_global_position(t_ebox* x)
 {
-    sys_vgui("global_mousepos %s\n", x->e_name_rcv->s_name);
-    sys_vgui("global_mousepos %s\n", x->e_name_rcv->s_name);
+    sys_vgui("global_mousepos %s\n", x->e_object_id->s_name);
+    sys_vgui("global_mousepos %s\n", x->e_object_id->s_name);
     return mouse_global_pos;
 }
 
@@ -68,8 +68,8 @@ t_pt ebox_get_mouse_canvas_position(t_ebox* x)
 {
     t_pt point;
     ebox_get_mouse_global_position(x);
-    sys_vgui("patcher_mousepos %s %s\n", x->e_name_rcv->s_name, x->e_canvas_id->s_name);
-    sys_vgui("patcher_mousepos %s %s\n", x->e_name_rcv->s_name, x->e_canvas_id->s_name);
+    sys_vgui("patcher_mousepos %s %s\n", x->e_object_id->s_name, x->e_canvas_id->s_name);
+    sys_vgui("patcher_mousepos %s %s\n", x->e_object_id->s_name, x->e_canvas_id->s_name);
     point.x = mouse_global_pos.x - mouse_patcher_pos.x;
     point.y = mouse_global_pos.y - mouse_patcher_pos.y;
     return point;
@@ -90,9 +90,6 @@ void ebox_mouse_enter(t_ebox* x)
         if(c->c_widget.w_mouseenter)
             c->c_widget.w_mouseenter(x);
     }
-	
-    //sys_vgui("pdtk_canvas_raise %s\n", x->e_drawing_id->s_name);
-    sys_vgui("focus -force %s\n", x->e_drawing_id->s_name);
 }
 
 void ebox_mouse_leave(t_ebox* x)
@@ -105,22 +102,10 @@ void ebox_mouse_leave(t_ebox* x)
             c->c_widget.w_mouseleave(x);
         clock_delay(x->e_deserted_clock, x->e_deserted_time);
         ebox_set_cursor(x, 0);
-#ifdef _WINDOWS
-        
-#else
-        //sys_vgui("pdtk_canvas_raise %s\n", x->e_frame_id->s_name);
-        sys_vgui("focus -force %s\n", x->e_canvas_id->s_name);
-#endif
     }
     else if(x->e_canvas->gl_edit && !x->e_mouse_down)
     {
         ebox_set_cursor(x, 4);
-#ifdef _WINDOWS
-        
-#else
-        //sys_vgui("pdtk_canvas_raise %s\n", x->e_frame_id->s_name);
-        sys_vgui("focus -force %s\n", x->e_canvas_id->s_name);
-#endif
     }
 }
 
@@ -320,12 +305,6 @@ void ebox_mouse_up(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     }
     
     x->e_mouse_down = 0;
-    
-    if(x->e_mouse.x > x->e_rect.width || x->e_mouse.y > x->e_rect.height)
-    {
-        //sys_vgui("pdtk_canvas_raise %s\n", x->e_frame_id->s_name);
-        sys_vgui("focus -force %s\n", x->e_canvas_id->s_name);
-    }
 }
 
 void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
@@ -405,11 +384,6 @@ void ebox_keyup(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     {
         ;
     }
-}
-
-void ebox_focus(t_ebox* x, float focus)
-{
-    ;
 }
 
 void ebox_deserted(t_ebox *x)

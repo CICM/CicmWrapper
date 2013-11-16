@@ -29,7 +29,7 @@
 t_epopup* epopupmenu_create(t_ebox* x, t_symbol* name)
 {
     t_epopup* menu = (t_epopup *)malloc(sizeof(t_epopup));
-    menu->c_send = x->e_name_rcv;
+    menu->c_send = x->e_object_id;
     menu->c_name = name;
     sys_vgui("destroy .eboxpopup%s\n", menu->c_name->s_name);
     sys_vgui("menu .eboxpopup%s -tearoff 0\n", menu->c_name->s_name);

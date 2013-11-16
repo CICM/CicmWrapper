@@ -49,27 +49,24 @@ void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
     
     x->e_flags = flags;
     
-    sprintf(buffer,"%s%lx", class_getname(x->e_obj.te_g.g_pd), (long unsigned int)x);
-    x->e_name_tcl = gensym(buffer);
+    sprintf(buffer,"#%s%lx", class_getname(x->e_obj.te_g.g_pd), (long unsigned int)x);
+    x->e_object_id = gensym(buffer);
     
-    sprintf(buffer,"#%s", x->e_name_tcl->s_name);
-    x->e_name_rcv = gensym(buffer);
-    
-    pd_bind(&x->e_obj.ob_pd, x->e_name_rcv);
+    pd_bind(&x->e_obj.ob_pd, x->e_object_id);
     
     x->e_ready_to_draw      = 0;
     x->z_misc               = 1;
     x->e_number_of_layers   = 0;
     x->e_layers             = NULL;
     x->e_deserted_time      = 3000.;
-    x->e_frame_id           = NULL;
+    x->e_editor_id           = NULL;
 }
 
 
 void ebox_free(t_ebox* x)
 {
     clock_free(x->e_deserted_clock);
-    pd_unbind(&x->e_obj.ob_pd, x->e_name_rcv);
+    pd_unbind(&x->e_obj.ob_pd, x->e_object_id);
 }
 
 char ebox_getregister(t_ebox *x)
@@ -339,6 +336,7 @@ void ebox_properties(t_gobj *z, t_glist *glist)
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
 	int i;
+    float bdsize;
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
     if(s == gensym("size"))
     {
@@ -348,6 +346,14 @@ t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *
         {
             x->e_layers[i].e_state = EGRAPHICS_INVALID;
         }
+        if(x->e_canvas && x->e_ready_to_draw && c->c_box == 0)
+        {
+            bdsize = x->e_boxparameters.d_borderthickness;
+            
+            sys_vgui("%s itemconfigure %s -width %d -height %d\n", x->e_canvas_id->s_name, x->e_window_id->s_name, (int)(x->e_rect.width + bdsize * 2.), (int)(x->e_rect.height + bdsize * 2.));
+            canvas_fixlinesfor(x->e_canvas, (t_text *)x);
+        }
+        
         ebox_redraw(x);
     }
     return 0;

@@ -94,9 +94,9 @@ void ewidget_displace(t_gobj *z, t_glist *glist, int dx, int dy)
     
 #endif
 	x = (t_ebox *)z;
+    
     x->e_rect.x += dx;
     x->e_rect.y += dy;
-    
     x->e_obj.te_xpix += dx;
     x->e_obj.te_ypix += dy;
     

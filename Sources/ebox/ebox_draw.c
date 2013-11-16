@@ -301,9 +301,6 @@ t_pd_err ebox_paint_layer(t_object *b, t_object *view, t_symbol *name, float x_p
     t_ebox* x = (t_ebox *)b;
     t_elayer* g = NULL;
     bdsize = x->e_boxparameters.d_borderthickness;
-    
-    sys_vgui("%s itemconfigure %s -width %d -height %d\n", x->e_canvas_id->s_name, x->e_window_id->s_name, (int)(x->e_rect.width + bdsize * 2.), (int)(x->e_rect.height + bdsize * 2.));
-    canvas_fixlinesfor(x->e_canvas, (t_text *)x);
     sys_vgui("%s configure -bg %s\n", x->e_drawing_id->s_name, rgba_to_hex(x->e_boxparameters.d_boxfillcolor));
     
     for(i = 0; i < x->e_number_of_layers; i++)

@@ -28,22 +28,25 @@
 
 void ebox_patcher_editmode(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
-    //post("editmode");
+    ebox_redraw(x);
 }
 
 void ebox_patcher_motion(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
-	//sys_vgui("focus -force %s\n", x->e_canvas_id->s_name);
+	;
 }
 
 void ebox_patcher_key(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
-	//post("key");
-    //ebox_redraw(x);
-    //sys_vgui("focus -force %s\n", x->e_canvas_id->s_name);
+	;
 }
 
 void ebox_patcher_mouse(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
-	//sys_vgui("focus -force %s\n", x->e_canvas_id->s_name);
+    ;
+}
+
+void ebox_patcher_focus(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+{
+    ;
 }

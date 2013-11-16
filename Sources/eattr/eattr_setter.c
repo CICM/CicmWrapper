@@ -119,6 +119,7 @@ void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                 }
             }
             
+            ebox_notify(z, s, gensym("attr_modified"), NULL, NULL);
             if(c->c_widget.w_notify != NULL)
                 c->c_widget.w_notify(x, s, gensym("attr_modified"), NULL, NULL);
             

@@ -98,7 +98,7 @@ void ebox_popup(t_ebox* x, t_symbol* s, float itemid);
 
 void ebox_keydown(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
 void ebox_keyup(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
-void ebox_focus(t_ebox* x, float focus);
+
 
 void ebox_dosave_box(t_gobj* z, t_binbuf *b);
 void ebox_dosave_nobox(t_gobj* z, t_binbuf *b);
@@ -113,5 +113,6 @@ void ebox_patcher_editmode(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
 void ebox_patcher_motion(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
 void ebox_patcher_key(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
 void ebox_patcher_mouse(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
+void ebox_patcher_focus(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
 
 #endif
