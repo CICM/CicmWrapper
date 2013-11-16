@@ -325,8 +325,8 @@ void ebox_dsp_add(t_ebox *x, t_symbol* s, t_object* obj, method m, long flags, v
 void ebox_get_rect_for_view(t_object *z, t_object *patcherview, t_rect *rect)
 {
     t_ebox* x = (t_ebox *)z;
-    rect->x = x->e_rect.x = x->e_obj.te_xpix;
-    rect->y = x->e_rect.y = x->e_obj.te_ypix;
+    rect->x = x->e_rect.x;
+    rect->y = x->e_rect.y;
     rect->width = x->e_rect.width;
     rect->height = x->e_rect.height;
 }

@@ -74,7 +74,7 @@ void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
     {
         if(c->c_box == 0 && x->e_ready_to_draw)
         {
-			ebox_create_window(x, glist_getcanvas(glist));
+			ebox_create_window(x, glist);
             ebox_invalidate_all(x, NULL);
             ebox_redraw(x);
         }
@@ -94,10 +94,12 @@ void ewidget_displace(t_gobj *z, t_glist *glist, int dx, int dy)
     
 #endif
 	x = (t_ebox *)z;
+    x->e_rect.x += dx;
+    x->e_rect.y += dy;
+    
     x->e_obj.te_xpix += dx;
     x->e_obj.te_ypix += dy;
-    x->e_rect.x = x->e_obj.te_xpix;
-    x->e_rect.y = x->e_obj.te_ypix;
+    
     ebox_move(x, glist);
 
 #ifdef _WINDOWS

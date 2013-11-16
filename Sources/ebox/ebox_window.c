@@ -84,14 +84,25 @@ void ebox_create_widget(t_ebox* x)
 
 void ebox_create_window(t_ebox* x, t_glist* glist)
 {
-    ebox_tk_ids(x, glist);
+    ebox_tk_ids(x, glist_getcanvas(glist));
     ebox_create_widget(x);
 	ebox_bind_events(x);
     
+    if(!glist->gl_havewindow)
+    {
+        x->e_rect.x = glist->gl_obj.te_xpix + x->e_obj.te_xpix - glist->gl_xmargin;
+        x->e_rect.y = glist->gl_obj.te_ypix + x->e_obj.te_ypix - glist->gl_ymargin;
+    }
+    else
+    {
+        x->e_rect.x = x->e_obj.te_xpix;
+        x->e_rect.y = x->e_obj.te_ypix;
+    }
+    
     sys_vgui("%s create window %d %d -anchor nw -window %s -tags %s -width %d -height %d\n",
              x->e_canvas_id->s_name,
-             (int)(x->e_obj.te_xpix - x->e_boxparameters.d_borderthickness),
-             (int)(x->e_obj.te_ypix - x->e_boxparameters.d_borderthickness),
+             (int)(x->e_rect.x  - x->e_boxparameters.d_borderthickness),
+             (int)(x->e_rect.y - x->e_boxparameters.d_borderthickness),
              x->e_drawing_id->s_name,
              x->e_window_id->s_name,
              (int)(x->e_rect.width + x->e_boxparameters.d_borderthickness * 2.),
