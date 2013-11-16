@@ -30,5 +30,6 @@
 #define EBOX_GROWNO                 (1<<4)
 #define EBOX_GROWLINK               (1<<5)
 #define EBOX_GROWINDI               (1<<6)
+#define EBOX_IGNORELOCKCLICK        (1<<7)
 
 #endif

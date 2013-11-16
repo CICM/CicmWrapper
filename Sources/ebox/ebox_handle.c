@@ -131,7 +131,11 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     {
         if(!x->e_mouse_down)
         {
-            ebox_set_cursor(x, 1);
+            if(x->e_flags & EBOX_IGNORELOCKCLICK)
+                ebox_set_cursor(x, 0);
+            else
+                ebox_set_cursor(x, 1);
+            
             x->e_mouse.x = atom_getfloat(argv);
             x->e_mouse.y = atom_getfloat(argv+1);
             
