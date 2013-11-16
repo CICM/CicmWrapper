@@ -131,24 +131,24 @@ void vu_tilde_setup(void)
 	
     class_register(CLASS_NOBOX, c);
 	vu_class = c;
-    /*
-    post("PdChocolate by Pierre Guillot - CICM | Université Paris 8");
-    post("PdChocolate has been elaborated with the PdEnhanced Library");
-     */
 }
 
 void *vu_new(t_symbol *s, int argc, t_atom *argv)
 {
 	t_vu *x =  NULL;
 	t_binbuf* d;
+    long flags;
 	if (!(d = binbuf_via_atoms(argc,argv)))
 		return NULL;
     
 	x = (t_vu *)ebox_alloc(vu_class);
     
-	ebox_new((t_ebox *)x, 0, argc, argv);
-	x->j_box.b_firstin = (t_object *)x;
+    flags = 0
+    | EBOX_GROWINDI
+    ;
     
+	ebox_new((t_ebox *)x, flags, argc, argv);
+	x->j_box.b_firstin = (t_object *)x;
     ebox_dspsetup((t_ebox *)x, 1, 0);
     
     x->f_direction      = 0;
@@ -175,6 +175,7 @@ void vu_oksize(t_vu *x, t_rect *newrect)
 {
     newrect->width = pd_clip_min(newrect->width, 8.);
     newrect->height = pd_clip_min(newrect->height, 8.);
+    
     if(newrect->width > newrect->height)
         x->f_direction = 1;
     else

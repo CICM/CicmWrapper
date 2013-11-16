@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		59FB02F817A7FAA9001E977D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FB02F717A7FAA9001E977D /* Accelerate.framework */; };
+		8F3A5FA418379C4A0030B487 /* ebox_patcher.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F3A5FA318379C4A0030B487 /* ebox_patcher.c */; };
 		8FB730CF180953EB00830C7B /* vu~.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB730CE180953EB00830C7B /* vu~.c */; };
 		8FB731341809564100830C7B /* eattr.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB731121809564100830C7B /* eattr.h */; };
 		8FB731351809564100830C7B /* eattr_attr.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB731131809564100830C7B /* eattr_attr.c */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		5913846F15DAA36D0029AD16 /* vu~.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "vu~.pd_darwin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FB02F717A7FAA9001E977D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		8F3A5FA318379C4A0030B487 /* ebox_patcher.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ebox_patcher.c; sourceTree = "<group>"; };
 		8FB730CE180953EB00830C7B /* vu~.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "vu~.c"; sourceTree = "<group>"; };
 		8FB731121809564100830C7B /* eattr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eattr.h; sourceTree = "<group>"; };
 		8FB731131809564100830C7B /* eattr_attr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eattr_attr.c; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				8FB7311A1809564100830C7B /* ebox_draw.c */,
 				8FB7311B1809564100830C7B /* ebox_handle.c */,
 				8FB7311C1809564100830C7B /* ebox_window.c */,
+				8F3A5FA318379C4A0030B487 /* ebox_patcher.c */,
 			);
 			path = ebox;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				8FB731371809564100830C7B /* eattr_new.c in Sources */,
 				8FB731441809564100830C7B /* egraphics_color.c in Sources */,
 				8FB7314D1809564100830C7B /* ewidget.c in Sources */,
+				8F3A5FA418379C4A0030B487 /* ebox_patcher.c in Sources */,
 				8FB7313D1809564100830C7B /* ebox_window.c in Sources */,
 				8FB731381809564100830C7B /* eattr_setter.c in Sources */,
 				8FB730CF180953EB00830C7B /* vu~.c in Sources */,
