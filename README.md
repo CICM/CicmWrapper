@@ -46,11 +46,11 @@ ect...
 - Name the text file "pd.def" and add "EXPORT" at the first line
 - Tape : "lib /def:pd.def /OUT:pd.lib"
 
+You will have a pd.lib in the Pure Data installation folder and be able to compile.
+
 ###### Linux projects :
 
-It's "under construction" but ir should be similar to the vanilla Pd compilation exept that you have to include all the files of the project.
-
-You will have a pd.lib in the Pure Data installation folder and be able to compile.
+It's "under construction" but it should be similar to the vanilla Pd compilation exept that you have to include all the files of the project.
 
 #### ToDo :
 - Add automatic properties window with the attributes. Need to find the best way to avoid tcl files. (important)
