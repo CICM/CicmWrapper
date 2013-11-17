@@ -330,7 +330,31 @@ void ebox_get_rect_for_view(t_object *z, t_object *patcherview, t_rect *rect)
 
 void ebox_properties(t_gobj *z, t_glist *glist)
 {
-    ;
+    t_ebox *x = (t_ebox *)z;
+    char buf[800];
+    //t_symbol *srl[3];
+    
+    //iemgui_properties(&x->x_gui, srl);
+    
+    sprintf(buf, "pdtk_iemgui_dialog %%s %s \
+            ----------dimensions(pix):----------- %d %d size: 0 0 empty \
+            --------flash-time(ms)(ms):--------- %d intrrpt: %d hold: %d \
+            %d empty empty %d %d empty %d \
+            {%s} {%s} \
+            {%s} %d %d \
+            %d %d \
+            %d %d %d\n", x->e_obj.te_g.g_pd->c_name->s_name,
+            (int)x->e_rect.width, (int)x->e_rect.height,
+            0, 0, 2,
+            -1, 0, -1, -1,
+            "", "",
+            "", 0, 0,
+            0, 10,
+            0xffffff , 0xffffff , 0xffffff );
+     
+    //sprintf(buf, "pdtk_iemgui_dialog %%s |%s| \n", x->e_obj.te_g.g_pd->c_name->s_name);
+    
+    gfxstub_new(&x->e_obj.ob_pd, x, buf);
 }
 
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data)

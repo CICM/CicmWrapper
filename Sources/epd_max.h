@@ -146,7 +146,6 @@
 #define jgraphics_move_to(graphics, x, y)                       egraphics_move_to(graphics, x, y)
 
 #define jgraphics_close_path(graphics)                          egraphics_close_path(graphics)
-#define jgraphics_smooth_line(graphics)                         egraphics_smooth_line(graphics)
 
 #define jgraphics_matrix_init(matrix, xx, yx, xy, yy, x0, y0)   egraphics_matrix_init(matrix, xx, yx, xy, yy, x0, y0)
 

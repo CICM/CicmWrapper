@@ -425,7 +425,6 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
             
             if(x_p >= pos_x_inlet && x_p <= pos_x_inlet +7)
             {
-                //sys_vgui("pdtk_gettip .x%lx.c inlet %d [list %s] [list %s] [list %s]\n", x->e_canvas, i, g->g_pd->c_name->s_name, g->g_pd->c_helpname->s_name, g->g_pd->c_externdir);
                 x->e_selected_inlet = i;
                 ebox_set_cursor(x, 4);
                 break;

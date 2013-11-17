@@ -76,7 +76,7 @@ void eclass_init(t_eclass* c, long flags)
 
     class_setwidget((t_class *)&c->c_class, (t_widgetbehavior *)&c->c_widget);
     class_setsavefn((t_class *)&c->c_class, ebox_save);
-    class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
+    //class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
     
     // For global mouse position //
     sys_gui("proc global_mousepos {target} {\n");
@@ -104,7 +104,7 @@ void eclassbox_dspinit(t_eclass* c)
 {
     ewidget_init(c);
     class_setsavefn((t_class *)c, ebox_save);
-    class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
+    //class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
     
     CLASS_MAINSIGNALIN((t_class *)c, t_ebox, e_float);
     class_addmethod((t_class *)c, (t_method)ebox_dsp, gensym("dsp"), A_CANT, 0);
