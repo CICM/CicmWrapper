@@ -128,7 +128,7 @@ void ebox_redraw(t_ebox *x)
 {
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
 
-    if(x->e_canvas && x->e_ready_to_draw && c->c_box == 0)
+    if(x->e_canvas && x->e_ready_to_draw && c->c_box == 0 && glist_isvisible(x->e_canvas))
     {
         ebox_invalidate_layer((t_object *)x, NULL, gensym("eboxbd"));
         ebox_invalidate_layer((t_object *)x, NULL, gensym("eboxio"));
@@ -147,7 +147,7 @@ void ebox_resize_inputs(t_ebox *x, long nins)
 {
 	int i = 0;
     nins = pd_clip_min(nins, 1);
-    
+
     if(nins > obj_nsiginlets(&x->e_obj))
     {
         for(i = obj_nsiginlets(&x->e_obj); i < nins; i++)
@@ -398,10 +398,19 @@ void binbuf_attr_process(void *x, t_binbuf *d)
     t_atom* defv    = NULL;
     t_ebox* z       = (t_ebox *)x;
     t_eclass* c     = (t_eclass *)z->e_obj.te_g.g_pd;
-
+    
     for(i = 0; i < c->c_nattr; i++)
     {
-        if(c->c_attr[i].defvals)
+        sprintf(attr_name, "@%s", c->c_attr[i].name->s_name);
+        binbuf_copy_atoms(d, gensym(attr_name), &defc, &defv);
+        if(defc && defv)
+        {
+            object_attr_setvalueof((t_object *)x, c->c_attr[i].name, defc, defv);
+            defc = 0;
+            free(defv);
+            defv = NULL;
+        }
+        else if(c->c_attr[i].defvals)
         {
             defc = c->c_attr[i].size;
             defv = (t_atom *)calloc(defc, sizeof(t_atom));
@@ -425,20 +434,6 @@ void binbuf_attr_process(void *x, t_binbuf *d)
                 free(defv);
                 defv = NULL;
             }
-        }
-    }
-    
-    
-    for(i = 0; i < c->c_nattr; i++)
-    {
-        sprintf(attr_name, "@%s", c->c_attr[i].name->s_name);
-        binbuf_copy_atoms(d, gensym(attr_name), &defc, &defv);
-        if(defc && defv)
-        {
-            object_attr_setvalueof((t_object *)x, c->c_attr[i].name, defc, defv);
-            defc = 0;
-            free(defv);
-            defv = NULL;
         }
     }
 }
