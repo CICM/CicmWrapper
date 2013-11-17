@@ -1,6 +1,5 @@
 ## PD Enhanced
 <p>Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8</p>
-<p>All rights reserved.</p>
 
 ##### Presentation
 
