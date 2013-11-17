@@ -5,7 +5,7 @@
 
 Pd Enhanced aims to facilitate the creation of objects for Pure Data. It offers an architecture similar to the Max objects that allows to easily create Pure Data objects with a source code for Max objects. One of the main axis is the creation of graphical user interfaces. Pd Chocolate is a small set of externals, not essential but that can be very useful (there’re a vu~ and a nbx~ that don’t have the blink effect of their homologue). The objects are always in developpement so ask if you want a stable version.
 
-- The automatic generation inlets/outlets.
+- The inlets/outlets are automatically generated.
 - The background color, border size, border color are easy to set.
 - The GUI objects can be resized with click and drag.
 - The graphics API use layers and "clip" the drawings within the box boundaries.
@@ -44,8 +44,7 @@ To create pd.lib :
 ect...
 - Name the text file "pd.def" and add "EXPORT" at the first line
 - Tape : "lib /def:pd.def /OUT:pd.lib"
-
-You will have a pd.lib in the Pure Data installation folder and be able to compile.
+<p>You will have a pd.lib in the Pure Data installation folder and be able to compile.</p>
 
 ###### Linux projects :
 
@@ -54,7 +53,7 @@ It's "under construction" but it should be similar to the vanilla Pd compilation
 #### ToDo :
 - Add automatic properties window with the attributes. Need to find the best way to avoid tcl files. (important)
 - Find the connection with the object to send a "count" (like Max count) in dsp method. (medium)
-- Secure the rezize i/o method. (low)
+- Secure the resize i/o method. (low)
 
 #### License : GPL.
 
