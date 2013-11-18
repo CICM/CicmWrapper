@@ -199,19 +199,17 @@ void eclass_properties_dialog(t_eclass* c)
     }
     sys_vgui("toplevel $id\n");
     sys_vgui("wm title $id {%s properties}\n", c->c_class.c_name->s_name);
-
+    sys_vgui("wm resizable $id 0 0\n", c->c_class.c_name->s_name);
+    sys_vgui("frame $id.frame \n");
+    sys_vgui("grid  $id.frame -in $id -row 1 -column 1\n");
     for(i = 0; i < c->c_nattr; i++)
     {
-        sys_vgui("frame $id.0%s \n", c->c_attr[i].name->s_name);
-        sys_vgui("pack  $id.0%s -side top -anchor w\n", c->c_attr[i].name->s_name);
-        sys_vgui("frame $id.1%s \n", c->c_attr[i].name->s_name);
-        sys_vgui("pack  $id.1%s -side top -anchor w\n", c->c_attr[i].name->s_name);
+        sys_vgui("label $id.label%i -text \"%s :\"\n", i+1, c->c_attr[i].label->s_name);
+        sys_vgui("grid  $id.label%i -in $id.frame -column 1 -row %i\n", i+1, i+1);
+        sys_vgui("entry $id.entry%i -textvariable $var_%s\n", i+1, c->c_attr[i].name->s_name);
+        sys_vgui("grid  $id.entry%i -in $id.frame -column 2 -row %i\n", i+1, i+1);
         
-        sys_vgui("label $id.0%s.label -text \"%s :\"\n", c->c_attr[i].name->s_name, c->c_attr[i].label->s_name);
-        sys_vgui("entry $id.1%s.entry -textvariable $var_%s\n", c->c_attr[i].name->s_name, c->c_attr[i].name->s_name);
-        sys_vgui("pack  $id.0%s.label -side left -anchor w\n", c->c_attr[i].name->s_name);
-        sys_vgui("pack  $id.1%s.entry -side left -anchor w\n", c->c_attr[i].name->s_name);
-        sys_vgui("bind  $id.1%s.entry <KeyPress-Return> [concat pdtk_%s_dialog_apply $id]\n", c->c_attr[i].name->s_name, c->c_class.c_name->s_name);
+        sys_vgui("bind  $id.entry%i <KeyPress-Return> [concat pdtk_%s_dialog_apply $id]\n",i+1, c->c_class.c_name->s_name);
        
     }
     sys_gui("}\n");
