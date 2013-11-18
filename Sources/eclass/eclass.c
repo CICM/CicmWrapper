@@ -58,17 +58,10 @@ void eclass_init(t_eclass* c, long flags)
     class_addmethod((t_class *)c, (t_method)ebox_mouse_up,    gensym("mouseup"),    A_GIMME, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_drag,  gensym("mousedrag"),  A_GIMME, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_wheel, gensym("mousewheel"), A_GIMME, 0);
-    
-    class_addmethod((t_class *)c, (t_method)ebox_keyup,     gensym("keyup"),  A_GIMME, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_keydown,   gensym("keydown"),A_GIMME, 0);
-    
+    class_addmethod((t_class *)c, (t_method)ebox_keyup,       gensym("keyup"),      A_GIMME, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_keydown,     gensym("keydown"),    A_GIMME, 0);
     
     class_addmethod((t_class *)c, (t_method)ebox_patcher_editmode,  gensym("editmode"),     A_GIMME, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_patcher_motion,    gensym("motion"),       A_GIMME, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_patcher_key,       gensym("key"),          A_GIMME, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_patcher_mouse,     gensym("mouse"),        A_GIMME, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_patcher_focus,     gensym("focus"),        A_GIMME, 0);
-    
     class_addmethod((t_class *)c, (t_method)ebox_popup,                     gensym("popup"),  A_SYMBOL, A_DEFFLOAT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_set_mouse_global_position, gensym("globalmouse"), A_DEFFLOAT,A_DEFFLOAT,0);
     class_addmethod((t_class *)c, (t_method)ebox_set_mouse_patcher_position,gensym("patchermouse"), A_DEFFLOAT,A_DEFFLOAT,0);
@@ -121,6 +114,7 @@ void eclass_default_attributes(t_eclass* c)
     CLASS_ATTR_PAINT        (c, "size", 0);
     CLASS_ATTR_CATEGORY		(c, "size", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "size", 0, "Patching Size");
+    CLASS_ATTR_ACCESSORS    (c, "size", NULL, ebox_size_set);
     
     CLASS_ATTR_SYMBOL       (c, "fontname", 0, t_ebox, e_font.c_family);
     CLASS_ATTR_DEFAULT      (c, "fontname", 0, "helvetica");
@@ -177,23 +171,8 @@ void eclass_properties_dialog(t_eclass* c)
     }
     strcat(buffer, "]\n");
     sys_gui(buffer);
-    //sys_gui("]\n");
     sys_gui("pdsend $cmd\n");
     sys_gui("}\n");
-    
-    /*
-    // DIALOG WINDOW CANCEL //
-    sys_vgui("proc pdtk_%s_dialog_cancel {id}{ \n", c->c_class.c_name->s_name);
-    sys_gui("set cmd [concat $id cancel ]\n");
-    sys_gui("pdsend cmd\n");
-    sys_gui("}\n");
-    
-    // DIALOG WINDOW OK //
-    sys_vgui("proc pdtk_%s_dialog_ok {id}{ \n", c->c_class.c_name->s_name);
-    sys_vgui("pdtk_%s_dialog_apply  $id\n", c->c_class.c_name->s_name);
-    sys_vgui("pdtk_%s_dialog_cancel $id\n", c->c_class.c_name->s_name);
-    sys_gui("}\n");
-    */
     
     // DIALOG WINDOW CREATION //
     sys_vgui("proc pdtk_%s_dialog {id \n", c->c_class.c_name->s_name);
@@ -226,13 +205,14 @@ void eclass_properties_dialog(t_eclass* c)
         sys_vgui("frame $id.0%s \n", c->c_attr[i].name->s_name);
         sys_vgui("pack  $id.0%s -side top -anchor w\n", c->c_attr[i].name->s_name);
         sys_vgui("frame $id.1%s \n", c->c_attr[i].name->s_name);
-        sys_vgui("pack  $id.1%s -side top -anchor e\n", c->c_attr[i].name->s_name);
+        sys_vgui("pack  $id.1%s -side top -anchor w\n", c->c_attr[i].name->s_name);
         
         sys_vgui("label $id.0%s.label -text \"%s :\"\n", c->c_attr[i].name->s_name, c->c_attr[i].label->s_name);
         sys_vgui("entry $id.1%s.entry -textvariable $var_%s\n", c->c_attr[i].name->s_name, c->c_attr[i].name->s_name);
         sys_vgui("pack  $id.0%s.label -side left -anchor w\n", c->c_attr[i].name->s_name);
-        sys_vgui("pack  $id.1%s.entry -side right -anchor e\n", c->c_attr[i].name->s_name);
+        sys_vgui("pack  $id.1%s.entry -side left -anchor w\n", c->c_attr[i].name->s_name);
         sys_vgui("bind  $id.1%s.entry <KeyPress-Return> [concat pdtk_%s_dialog_apply $id]\n", c->c_attr[i].name->s_name, c->c_class.c_name->s_name);
+       
     }
     sys_gui("}\n");
     

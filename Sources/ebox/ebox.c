@@ -67,6 +67,7 @@ void ebox_free(t_ebox* x)
 {
     clock_free(x->e_deserted_clock);
     pd_unbind(&x->e_obj.ob_pd, x->e_object_id);
+    gfxstub_deleteforkey(x);
 }
 
 char ebox_getregister(t_ebox *x)
@@ -445,6 +446,43 @@ void binbuf_attr_process(void *x, t_binbuf *d)
             }
         }
     }
+}
+
+t_pd_err ebox_size_set(t_ebox *x, t_object *attr, long argc, t_atom *argv)
+{
+    float width, height;
+    if(argc && argv)
+    {
+        if(x->e_flags & EBOX_GROWNO)
+            return 0;
+        else if(x->e_flags & EBOX_GROWLINK)
+        {
+            if(atom_gettype(argv) == A_FLOAT)
+            {
+                width  = pd_clip_min(atom_getfloat(argv), 4);
+                height = x->e_rect.height;
+                x->e_rect.height += width - x->e_rect.width;
+                if(x->e_rect.height < 4)
+                {
+                    x->e_rect.width += 4 - height;
+                    x->e_rect.height = 4;
+                }
+                else
+                {
+                    x->e_rect.width  =  width;
+                }
+            }
+        }
+        else if (x->e_flags & EBOX_GROWINDI)
+        {
+            if(atom_gettype(argv) == A_FLOAT)
+                x->e_rect.width = pd_clip_min(atom_getfloat(argv), 4);
+            if(atom_gettype(argv+1) == A_FLOAT)
+                x->e_rect.height = pd_clip_min(atom_getfloat(argv+1), 4);
+        }
+    }
+    
+	return 0;
 }
 
 t_symbol* ebox_get_fontname(t_ebox* x)
