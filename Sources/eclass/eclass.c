@@ -94,11 +94,7 @@ void eclass_dspinit(t_eclass* c)
 }
 
 void eclassbox_dspinit(t_eclass* c)
-{
-    ewidget_init(c);
-    class_setsavefn((t_class *)c, ebox_save);
-    //class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
-    
+{    
     CLASS_MAINSIGNALIN((t_class *)c, t_ebox, e_float);
     class_addmethod((t_class *)c, (t_method)ebox_dsp, gensym("dsp"), A_CANT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_dsp_add, gensym("dsp_add"), A_NULL, 0);

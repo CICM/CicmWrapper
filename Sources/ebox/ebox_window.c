@@ -54,26 +54,21 @@ void ebox_bind_events(t_ebox* x)
 #ifdef _WINDOWS
 	right += 8;
 #endif
-    sys_vgui("bind %s <Enter> {pdsend {%s mouseenter}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
-    sys_vgui("bind %s <Leave> {pdsend {%s mouseleave}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <Enter> {+pdsend {%s mouseenter}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <Leave> {+pdsend {%s mouseleave}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
    
-	sys_vgui("bind %s <Button-3> {pdsend {%s mousedown %%x %%y %i}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name, right);
-    sys_vgui("bind %s <Button-2> {pdsend {%s mousedown %%x %%y %i}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name, right);
-    sys_vgui("bind %s <Button-1>        {pdsend {%s mousedown   %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
-    sys_vgui("bind %s <ButtonRelease>   {pdsend {%s mouseup     %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
-    sys_vgui("bind %s <Motion>          {pdsend {%s mousemove   %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
-    sys_vgui("bind %s <MouseWheel> {pdsend {%s mousewheel  %%x %%y %%D %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
+	sys_vgui("bind %s <Button-3> {+pdsend {%s mousedown %%x %%y %i}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name, right);
+    sys_vgui("bind %s <Button-2> {+pdsend {%s mousedown %%x %%y %i}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name, right);
+    sys_vgui("bind %s <Button-1>        {+pdsend {%s mousedown   %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <ButtonRelease>   {+pdsend {%s mouseup     %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <Motion>          {+pdsend {%s mousemove   %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <MouseWheel> {+pdsend {%s mousewheel  %%x %%y %%D %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
   
-    sys_vgui("bind %s <KeyPress>    {pdsend {%s keydown    %%k %%N}} \n", x->e_drawing_id->s_name, x->e_object_id->s_name);
-    sys_vgui("bind %s <KeyRelease>  {pdsend {%s keyup      %%k %%N}} \n", x->e_drawing_id->s_name, x->e_object_id->s_name);
-    
-    sys_vgui("bind %s <KeyPress>    {pdsend {%s keydown    %%k %%N}} \n", x->e_drawing_id->s_name, x->e_object_id->s_name);
-    sys_vgui("bind %s <KeyRelease>  {pdsend {%s keyup      %%k %%N}} \n", x->e_drawing_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <KeyPress>    {+pdsend {%s keydown    %%k %%N}} \n", x->e_drawing_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <KeyRelease>  {+pdsend {%s keyup      %%k %%N}} \n", x->e_drawing_id->s_name, x->e_object_id->s_name);
     
     // Canvas & Editor Binding //
     sys_vgui("bind %s <<EditMode>>  {+pdsend {%s editmode}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
-    //sys_vgui("bind %s <FocusIn>     {+pdsend {%s focus 1}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
-    //sys_vgui("bind %s <FocusOut>    {+pdsend {%s focus 0}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
 }
 
 void ebox_create_widget(t_ebox* x)

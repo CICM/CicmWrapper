@@ -123,6 +123,8 @@ void ebox_dspfree(t_ebox *x)
     
     if(!ebox_getregister(x))
         ebox_free(x);
+    
+    //sys_vgui("bind %s <<EditMode>> {}\n", x->e_editor_id->s_name);
 }
 
 void ebox_redraw(t_ebox *x)
