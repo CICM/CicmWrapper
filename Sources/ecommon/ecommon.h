@@ -141,6 +141,7 @@ void object_attr_getvalueof(t_object *x, t_symbol *s, long *argc, t_atom **argv)
 
 t_pd_err binbuf_append_atoms(t_binbuf *d, t_symbol *key, long argc, t_atom *argv);
 t_pd_err binbuf_copy_atoms(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv);
+t_binbuf* binbuf_via_atoms(long ac, t_atom *av);
 
 double pd_clip_min(double aValue, double aMinimum);
 double pd_clip_max(double aValue, double aMaximum);

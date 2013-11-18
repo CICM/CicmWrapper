@@ -72,13 +72,13 @@ void eclass_init(t_eclass* c, long flags)
     class_addmethod((t_class *)c, (t_method)ebox_popup,                     gensym("popup"),  A_SYMBOL, A_DEFFLOAT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_set_mouse_global_position, gensym("globalmouse"), A_DEFFLOAT,A_DEFFLOAT,0);
     class_addmethod((t_class *)c, (t_method)ebox_set_mouse_patcher_position,gensym("patchermouse"), A_DEFFLOAT,A_DEFFLOAT,0);
-    class_addmethod((t_class *)c, (t_method)ebox_resize_patch,   gensym("resize_patch"),A_GIMME, 0);
 
     class_setwidget((t_class *)&c->c_class, (t_widgetbehavior *)&c->c_widget);
     class_setsavefn((t_class *)&c->c_class, ebox_save);
-    //class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
+    class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
+    class_addmethod((t_class *)c, (t_method)ebox_dialog,     gensym("dialog"),        A_GIMME, 0);
     
-    // For global mouse position //
+    // For global and patcher mouse position //
     sys_gui("proc global_mousepos {target} {\n");
     sys_gui(" set x [winfo pointerx .]\n");
     sys_gui(" set y [winfo pointery .]\n");
@@ -127,21 +127,21 @@ void eclass_default_attributes(t_eclass* c)
     CLASS_ATTR_SAVE         (c, "fontname", 0);
     CLASS_ATTR_PAINT        (c, "fontname", 0);
     CLASS_ATTR_CATEGORY		(c, "fontname", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "fontname", 0, "Font name");
+    CLASS_ATTR_LABEL		(c, "fontname", 0, "Font Name");
     
     CLASS_ATTR_SYMBOL       (c, "fontweight", 0, t_ebox, e_font.c_weight);
     CLASS_ATTR_DEFAULT      (c, "fontweight", 0, "normal");
     CLASS_ATTR_SAVE         (c, "fontweight", 0);
     CLASS_ATTR_PAINT        (c, "fontweight", 0);
     CLASS_ATTR_CATEGORY		(c, "fontweight", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "fontweight", 0, "Font weight");
+    CLASS_ATTR_LABEL		(c, "fontweight", 0, "Font Weight");
     
     CLASS_ATTR_SYMBOL       (c, "fontslant", 0, t_ebox, e_font.c_slant);
     CLASS_ATTR_DEFAULT      (c, "fontslant", 0, "regular");
     CLASS_ATTR_SAVE         (c, "fontslant", 0);
     CLASS_ATTR_PAINT        (c, "fontslant", 0);
     CLASS_ATTR_CATEGORY		(c, "fontslant", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "fontslant", 0, "Font slant");
+    CLASS_ATTR_LABEL		(c, "fontslant", 0, "Font Slant");
     
     CLASS_ATTR_FLOAT        (c, "fontsize", 0, t_ebox, e_font.c_size);
     CLASS_ATTR_DEFAULT      (c, "fontsize", 0, "11");
@@ -149,7 +149,93 @@ void eclass_default_attributes(t_eclass* c)
     CLASS_ATTR_SAVE         (c, "fontsize", 0);
     CLASS_ATTR_PAINT        (c, "fontsize", 0);
     CLASS_ATTR_CATEGORY		(c, "fontsize", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "fontsize", 0, "Font size");
+    CLASS_ATTR_LABEL		(c, "fontsize", 0, "Font Size");
+}
+
+void eclass_properties_dialog(t_eclass* c)
+{
+    int i, j;
+    char buffer[1000];
+    char temp[1000];
+    // DIALOG WINDOW APPLY //
+    sys_vgui("proc pdtk_%s_dialog_apply {id} { \n", c->c_class.c_name->s_name);
+    sys_gui("set vid [string trimleft $id .]\n");
+    for(i = 0; i < c->c_nattr; i++)
+    {
+        sys_vgui("set var_%s [concat %s_$vid] \n", c->c_attr[i].name->s_name, c->c_attr[i].name->s_name);
+        sys_vgui("global $var_%s \n", c->c_attr[i].name->s_name);
+    }
+    
+    sprintf(buffer, "set cmd [concat $id dialog ");
+   
+    for(i = 0; i < c->c_nattr; i++)
+    {
+        sprintf(temp, "@%s ", c->c_attr[i].name->s_name);
+        strcat(buffer, temp);
+        sprintf(temp, "[eval concat $$var_%s] ", c->c_attr[i].name->s_name);
+        strcat(buffer, temp);
+    }
+    strcat(buffer, "]\n");
+    sys_gui(buffer);
+    //sys_gui("]\n");
+    sys_gui("pdsend $cmd\n");
+    sys_gui("}\n");
+    
+    /*
+    // DIALOG WINDOW CANCEL //
+    sys_vgui("proc pdtk_%s_dialog_cancel {id}{ \n", c->c_class.c_name->s_name);
+    sys_gui("set cmd [concat $id cancel ]\n");
+    sys_gui("pdsend cmd\n");
+    sys_gui("}\n");
+    
+    // DIALOG WINDOW OK //
+    sys_vgui("proc pdtk_%s_dialog_ok {id}{ \n", c->c_class.c_name->s_name);
+    sys_vgui("pdtk_%s_dialog_apply  $id\n", c->c_class.c_name->s_name);
+    sys_vgui("pdtk_%s_dialog_cancel $id\n", c->c_class.c_name->s_name);
+    sys_gui("}\n");
+    */
+    
+    // DIALOG WINDOW CREATION //
+    sys_vgui("proc pdtk_%s_dialog {id \n", c->c_class.c_name->s_name);
+    for(i = 0; i < c->c_nattr; i++)
+    {
+        for(j = 0; j < c->c_attr[i].sizemax; j++)
+        {
+            sys_vgui("%s%i \n", c->c_attr[i].name->s_name, j);
+        }
+    }
+    sys_gui("} {\n");
+    sys_gui("set vid [string trimleft $id .]\n");
+    
+    for(i = 0; i < c->c_nattr; i++)
+    {
+        sys_vgui("set var_%s [concat %s_$vid]\n", c->c_attr[i].name->s_name, c->c_attr[i].name->s_name);
+        sys_vgui("global $var_%s \n", c->c_attr[i].name->s_name);
+        sys_vgui("set $var_%s \"\n", c->c_attr[i].name->s_name);
+        for(j = 0; j < c->c_attr[i].sizemax; j++)
+        {
+            sys_vgui("$%s%i\n", c->c_attr[i].name->s_name, j);
+        }
+        sys_vgui("\" \n");
+    }
+    sys_vgui("toplevel $id\n");
+    sys_vgui("wm title $id {%s properties}\n", c->c_class.c_name->s_name);
+
+    for(i = 0; i < c->c_nattr; i++)
+    {
+        sys_vgui("frame $id.0%s \n", c->c_attr[i].name->s_name);
+        sys_vgui("pack  $id.0%s -side top -anchor w\n", c->c_attr[i].name->s_name);
+        sys_vgui("frame $id.1%s \n", c->c_attr[i].name->s_name);
+        sys_vgui("pack  $id.1%s -side top -anchor e\n", c->c_attr[i].name->s_name);
+        
+        sys_vgui("label $id.0%s.label -text \"%s :\"\n", c->c_attr[i].name->s_name, c->c_attr[i].label->s_name);
+        sys_vgui("entry $id.1%s.entry -textvariable $var_%s\n", c->c_attr[i].name->s_name, c->c_attr[i].name->s_name);
+        sys_vgui("pack  $id.0%s.label -side left -anchor w\n", c->c_attr[i].name->s_name);
+        sys_vgui("pack  $id.1%s.entry -side right -anchor e\n", c->c_attr[i].name->s_name);
+        sys_vgui("bind  $id.1%s.entry <KeyPress-Return> [concat pdtk_%s_dialog_apply $id]\n", c->c_attr[i].name->s_name, c->c_class.c_name->s_name);
+    }
+    sys_gui("}\n");
+    
 }
 
 t_pd_err eclass_register(t_symbol *name_space, t_eclass *c)
@@ -159,6 +245,7 @@ t_pd_err eclass_register(t_symbol *name_space, t_eclass *c)
     else
         c->c_box = 0;
     
+    eclass_properties_dialog(c);
     return 0;
 }
 

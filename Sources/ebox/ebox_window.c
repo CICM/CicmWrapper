@@ -72,8 +72,8 @@ void ebox_bind_events(t_ebox* x)
     
     // Canvas & Editor Binding //
     sys_vgui("bind %s <<EditMode>>  {+pdsend {%s editmode}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
-    sys_vgui("bind %s <FocusIn>     {+pdsend {%s focus 1}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
-    sys_vgui("bind %s <FocusOut>    {+pdsend {%s focus 0}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
+    //sys_vgui("bind %s <FocusIn>     {+pdsend {%s focus 1}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
+    //sys_vgui("bind %s <FocusOut>    {+pdsend {%s focus 0}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
 }
 
 void ebox_create_widget(t_ebox* x)

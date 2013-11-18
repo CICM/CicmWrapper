@@ -121,32 +121,37 @@ void object_attr_getvalueof(t_object *x, t_symbol *s, long *argc, t_atom **argv)
     getvalue(x, s, argc, argv);
 }
 
+t_binbuf* binbuf_via_atoms(long ac, t_atom *av)
+{
+    t_binbuf* dico = binbuf_new();
+    binbuf_add(dico, (int)ac, av);
+    return dico;
+}
+
 t_pd_err binbuf_append_atoms(t_binbuf *d, t_symbol *key, long argc, t_atom *argv)
 {
     int i;
-    long ac = argc+3;
+    long ac = argc+1;
     t_atom* av = (t_atom *)calloc(ac, sizeof(t_atom));
     atom_setsym(av, key);
-    atom_setsym(av+1, gensym("["));
     for(i = 0; i < argc; i++)
     {
         if(atom_gettype(argv) == A_FLOAT)
         {
-            atom_setfloat(av+i+2, atom_getfloat(argv+i));
+            atom_setfloat(av+i+1, atom_getfloat(argv+i));
         }
         else if(atom_gettype(argv+i) == A_SYM)
         {
             if(atom_getsym(argv+i) == gensym("") || atom_getsym(argv+i) == gensym(" "))
-                atom_setsym(av+i+2, gensym("s_nosymbol"));
+                atom_setsym(av+i+1, gensym("s_nosymbol"));
             else
-                atom_setsym(av+i+2, gensym(atom_getsym(argv+i)->s_name));
+                atom_setsym(av+i+1, gensym(atom_getsym(argv+i)->s_name));
         }
         else
         {
-            av[i+2] = argv[i];
+            av[i+1] = argv[i];
         }
     }
-    atom_setsym(av+ac-1, gensym("]"));
     
     binbuf_add(d, ac, av);
     return 0;
@@ -165,7 +170,7 @@ t_pd_err binbuf_copy_atoms(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv
         {
             if(atom_gettype(av+i) == A_SYM && atom_getsym(av+i) == key)
             {
-                index = i + 2;
+                index = i + 1;
             }
         }
     }
@@ -173,7 +178,7 @@ t_pd_err binbuf_copy_atoms(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv
     if(index)
     {
         i = index;
-        while (i < ac && atom_getsym(av+i) != gensym("}") && atom_getsym(av+i) != gensym("]"))
+        while (i < ac && atom_getsym(av+i)->s_name[0] != '@')
         {
             i++;
             argc[0]++;
@@ -190,6 +195,14 @@ t_pd_err binbuf_copy_atoms(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv
                 argv[0][i] = av[i+index];
             }
         }
+        /*
+        post("-------------------------------");
+        post("\n");
+        post("%s : %ld", key->s_name, argc[0]);
+        postatom(argc[0], argv[0]);
+        post("\n");
+        post("-------------------------------");
+         */
     }
     else
     {

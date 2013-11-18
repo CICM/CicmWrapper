@@ -71,9 +71,9 @@ void ebox_erase(t_ebox* x, t_glist* glist);
 void ebox_update(t_ebox *x);
 void ebox_invalidate_all(t_ebox *x, t_glist *glist);
 
-t_binbuf* binbuf_via_atoms(long ac, t_atom *av);
 void binbuf_attr_process(void *x, t_binbuf *d);
 void ebox_properties(t_gobj *y, t_glist *x);
+void ebox_dialog(t_object *x, t_symbol *s, long argc, t_atom* argv);
 
 t_symbol* ebox_get_fontname(t_ebox* x);
 t_symbol* ebox_font_slant(t_ebox* x);
@@ -90,8 +90,6 @@ void ebox_mouse_down(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
 void ebox_mouse_drag(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
 void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
 void ebox_mouse_wheel(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
-
-void ebox_resize_patch(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
 
 void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key);
 void ebox_popup(t_ebox* x, t_symbol* s, float itemid);

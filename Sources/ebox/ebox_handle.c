@@ -366,7 +366,6 @@ void ebox_mouse_wheel(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 
 void ebox_keydown(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
-    //post("keydown");
     if(!x->e_canvas->gl_edit)
     {
         
@@ -549,13 +548,4 @@ void ebox_save(t_gobj* z, t_binbuf *b)
     {
        ebox_dosave_nobox(z, b);
     }
-}
-
-void ebox_resize_patch(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
-{
-	//t_gotfn m;
-	//post("%f %f %f %f", atom_getfloat(argv), atom_getfloat(argv+1), atom_getfloat(argv+2), atom_getfloat(argv+3));
-
-	//m = getfn((t_pd *)x->e_canvas, gensym("setbounds"));
-	//m(x->e_canvas, atom_getfloat(argv), atom_getfloat(argv+1), atom_getfloat(argv+2), atom_getfloat(argv+3));
 }

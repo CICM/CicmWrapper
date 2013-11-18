@@ -59,7 +59,7 @@ void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
     x->e_number_of_layers   = 0;
     x->e_layers             = NULL;
     x->e_deserted_time      = 3000.;
-    x->e_editor_id           = NULL;
+    x->e_editor_id          = NULL;
 }
 
 
@@ -330,31 +330,46 @@ void ebox_get_rect_for_view(t_object *z, t_object *patcherview, t_rect *rect)
 
 void ebox_properties(t_gobj *z, t_glist *glist)
 {
+    int i, j;
+    t_atom *argv;
+    long    argc;
     t_ebox *x = (t_ebox *)z;
-    char buf[800];
-    //t_symbol *srl[3];
+    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
+    char buffer[1000];
+    char temp[1000];
     
-    //iemgui_properties(&x->x_gui, srl);
+    sprintf(buffer, "pdtk_%s_dialog %%s ", c->c_class.c_name->s_name);
+    for(i = 0; i < c->c_nattr; i++)
+    {
+        object_attr_getvalueof((t_object *)x, c->c_attr[i].name, &argc, &argv);
+        if(argc && argv)
+        {
+            for(j = 0; j < argc; j++)
+            {
+                atom_string(argv+j, temp, 1000);
+                strcat(buffer, temp);
+                strcat(buffer, " ");
+            }
+        }
+    }
+    strcat(buffer, "\n");
     
-    sprintf(buf, "pdtk_iemgui_dialog %%s %s \
-            ----------dimensions(pix):----------- %d %d size: 0 0 empty \
-            --------flash-time(ms)(ms):--------- %d intrrpt: %d hold: %d \
-            %d empty empty %d %d empty %d \
-            {%s} {%s} \
-            {%s} %d %d \
-            %d %d \
-            %d %d %d\n", x->e_obj.te_g.g_pd->c_name->s_name,
-            (int)x->e_rect.width, (int)x->e_rect.height,
-            0, 0, 2,
-            -1, 0, -1, -1,
-            "", "",
-            "", 0, 0,
-            0, 10,
-            0xffffff , 0xffffff , 0xffffff );
-     
-    //sprintf(buf, "pdtk_iemgui_dialog %%s |%s| \n", x->e_obj.te_g.g_pd->c_name->s_name);
-    
-    gfxstub_new(&x->e_obj.ob_pd, x, buf);
+    gfxstub_new(&x->e_obj.ob_pd, x, buffer);
+}
+
+void ebox_dialog(t_object *x, t_symbol *s, long argc, t_atom* argv)
+{
+    t_binbuf* b;
+    if(argc && argv)
+    {
+        b = binbuf_via_atoms(argc, argv);
+        if(b)
+        {
+            binbuf_attr_process(x, b);
+            binbuf_free(b);
+        }
+        ebox_properties((t_gobj *)x, NULL);
+    }
 }
 
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
@@ -383,17 +398,11 @@ t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *
     return 0;
 }
 
-t_binbuf* binbuf_via_atoms(long ac, t_atom *av)
-{
-    t_binbuf* dico = binbuf_new();
-    binbuf_add(dico, (int)ac, av);
-    return dico;
-}
-
 void binbuf_attr_process(void *x, t_binbuf *d)
 {
     int i, j;
     char attr_name[256];
+
     long defc       = 0;
     t_atom* defv    = NULL;
     t_ebox* z       = (t_ebox *)x;

@@ -38,5 +38,6 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
 t_pd_err eclass_register(t_symbol *name_space, t_eclass *c);
 
 void eclass_default_attributes(t_eclass* c);
+void eclass_properties_dialog(t_eclass* c);
 
 #endif
