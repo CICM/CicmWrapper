@@ -53,7 +53,8 @@ void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
     x->e_object_id = gensym(buffer);
     
     pd_bind(&x->e_obj.ob_pd, x->e_object_id);
-    
+    ebox_router(x, gensym("attach"), 0, NULL);
+   
     x->e_ready_to_draw      = 0;
     x->z_misc               = 1;
     x->e_number_of_layers   = 0;
@@ -62,12 +63,12 @@ void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
     x->e_editor_id          = NULL;
 }
 
-
 void ebox_free(t_ebox* x)
 {
     clock_free(x->e_deserted_clock);
     pd_unbind(&x->e_obj.ob_pd, x->e_object_id);
     gfxstub_deleteforkey(x);
+    ebox_router(x, gensym("detach"), 0, NULL);
 }
 
 char ebox_getregister(t_ebox *x)

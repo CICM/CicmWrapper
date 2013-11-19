@@ -68,7 +68,7 @@ void ebox_bind_events(t_ebox* x)
     sys_vgui("bind %s <KeyRelease>  {+pdsend {%s keyup      %%k %%N}} \n", x->e_drawing_id->s_name, x->e_object_id->s_name);
     
     // Canvas & Editor Binding //
-    sys_vgui("bind %s <<EditMode>>  {+pdsend {%s editmode}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <<EditMode>>  {+pdsend {#erouter %s editmode}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
 }
 
 void ebox_create_widget(t_ebox* x)

@@ -24,21 +24,27 @@
  *
  */
 
-#ifndef DEF_ECLASS
-#define DEF_ECLASS
+#ifndef DEF_EROUTER
+#define DEF_EROUTER
 
 #include "../estruct.h"
-#include "../eattr/eattr.h"
-#include "../erouter/erouter.h"
+#include "../egraphics/egraphics.h"
+#include "../ewidget/ewidget.h"
 
-t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t size, int flags, t_atomtype arg1, int arg2);
-void eclass_init(t_eclass* c, long flags);
-void eclass_dspinit(t_eclass* c);
-void eclassbox_dspinit(t_eclass* c);
-void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long anything);
-t_pd_err eclass_register(t_symbol *name_space, t_eclass *c);
+t_class *erouter_class;
 
-void eclass_default_attributes(t_eclass* c);
-void eclass_properties_dialog(t_eclass* c);
+typedef struct _erouter
+{
+    t_object            e_obj;
+    t_symbol**          e_childs;
+    long                e_nchilds;
+}t_erouter;
+
+void ebox_router(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
+void erouter_setup();
+void erouter_free(t_erouter *x);
+void erouter_attach(t_erouter *x, t_symbol* child);
+void erouter_detach(t_erouter *x, t_symbol* child);
+void erouter_anything(t_erouter *x, t_symbol *s, long argc, t_atom *argv);
 
 #endif

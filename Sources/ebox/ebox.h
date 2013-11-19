@@ -30,6 +30,7 @@
 #include "../estruct.h"
 #include "../egraphics/egraphics.h"
 #include "../ewidget/ewidget.h"
+#include "../erouter/erouter.h"
 
 void *ebox_alloc(t_eclass *c);
 void ebox_new(t_ebox *b, long flags, long argc, t_atom *argv);
