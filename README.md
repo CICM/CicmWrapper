@@ -51,7 +51,7 @@ ect...
 It's "under construction" but it should be similar to the vanilla Pd compilation exept that you have to include all the files of the project.
 
 #### ToDo :
-- Add automatic properties window with the attributes. Need to find the best way to avoid tcl files. (important)
+- Update the properties window : attributes order, categories, etc. (low)
 - Find the connection with the object to send a "count" (like Max count) in dsp method. (medium)
 - Secure the resize i/o method. (low)
 
