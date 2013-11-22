@@ -231,36 +231,9 @@ void ebox_resize_outputs(t_ebox *x, long nouts)
 void ebox_dsp(t_ebox *x, t_signal **sp)
 {
     int i;
-	//t_linetraverser t;
-    //t_outconnect *oc = NULL;
     t_eclass *c  = (t_eclass *)x->e_obj.te_g.g_pd;
     short* count = (short*)calloc((obj_nsiginlets(&x->e_obj) + obj_nsigoutlets(&x->e_obj)), sizeof(short));
-    /*
-    for(i = 0; i < obj_nsiginlets(&x->e_obj); i++)
-    {
-        count[i] = 0;
-        linetraverser_start(&t, x->e_canvas);
-        while((oc = linetraverser_next(&t)))
-        {
-            if (t.tr_ob2 == (t_object*)x && t.tr_inno == i)
-            {
-                count[i] = 1;
-            }
-        }
-    }
-    
-    for(i = obj_nsiginlets(&x->e_obj); i < (obj_nsiginlets(&x->e_obj) + obj_nsigoutlets(&x->e_obj)); i++)
-    {
-        count[i] = 0;
-        linetraverser_start(&t, x->e_canvas);
-        while((oc = linetraverser_next(&t)))
-        {
-            if(t.tr_ob == (t_object*)x && t.tr_outno == i)
-            {
-                count[i] = 1;
-            }
-        }
-    }*/
+
     if(c->c_widget.w_dsp != NULL)
         c->c_widget.w_dsp(x, x, &count, sp[0]->s_sr, sp[0]->s_n, 0);
     
@@ -486,6 +459,45 @@ t_pd_err ebox_size_set(t_ebox *x, t_object *attr, long argc, t_atom *argv)
     }
     
 	return 0;
+}
+
+void ebox_getconnections(t_ebox* x, short* count)
+{
+    t_gobj*y;
+    t_object* obj;
+    t_object* dest;
+    int obj_nout;
+    t_outlet* out;
+    t_inlet * in;
+    t_outconnect* conn;
+    
+    for(y = x->e_canvas->gl_owner->gl_list; y; y = y->g_next) /* traverse all objects in canvas */
+    {
+        obj         = (t_object *)y;
+        obj_nout    =  obj_noutlets(obj);
+        int nout=0;
+        int sourcewhich=0;
+        
+        for(nout=0; nout<obj_nout; nout++) /* traverse all outlets of each object */
+        {
+            out     = NULL;
+            in      = NULL;
+            dest    = NULL;
+            conn    = obj_starttraverseoutlet(obj, &out, nout);
+            
+            while(conn)
+            { /* traverse all connections from each outlet */
+                int which;
+                conn = obj_nexttraverseoutlet(conn, &dest, &in, &which);
+                if(dest == &x->e_obj)
+                {
+                    //int connid = glist_getindex(x->e_canvas->gl_owner, (t_gobj*)obj);
+                    post("inlet from %d:%d to my:%d", 0, sourcewhich, which);
+                }
+            }
+            sourcewhich++;
+        }
+    }
 }
 
 t_symbol* ebox_get_fontname(t_ebox* x)

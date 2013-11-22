@@ -47,6 +47,7 @@ void ebox_ready(t_ebox *x);
 
 void ebox_dspfree(t_ebox *x);
 void ebox_redraw(t_ebox *x);
+void ebox_getconnections(t_ebox* x, short* count);
 void ebox_resize_inputs(t_ebox *x, long nins);
 void ebox_resize_outputs(t_ebox *x, long nouts);
 void ebox_get_rect_for_view(t_object* x, t_object* patcherview, t_rect *rect);
