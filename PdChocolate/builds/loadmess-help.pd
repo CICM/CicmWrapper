@@ -21,8 +21,7 @@ Paris 8;
 #X text -24 -31 loadmess is the pd chocolate's version of the vanilla
 loadbang that accepts arguments (float \, symbol and list).;
 #X text -22 -52 A loadbang for float \, symbol and list.;
-#X text 40 169 comment;
-#X text -19 152 With no arguments loadmess is a loadbang;
+#X text -19 162 With no arguments loadmess is a loadbang;
 #X msg 153 87 set Morrison;
 #X text 255 5 Bang the loadmess;
 #X text 34 29 Dblclick bang the loadmess;
@@ -33,4 +32,4 @@ loadbang that accepts arguments (float \, symbol and list).;
 #X connect 9 0 7 0;
 #X connect 10 0 4 0;
 #X connect 13 0 12 0;
-#X connect 18 0 6 0;
+#X connect 17 0 6 0;
