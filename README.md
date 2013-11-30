@@ -39,9 +39,9 @@ To create pd.lib :
 - Change to the pd.dll directory : "cd C:\Program Files (x86)\pd\bin\".
 - Tape : "dumpbin /exports C:\yourpath\yourlib.dll"
 - Copy only the functions names :
--- 1    0 00017770 function_name_0 -> function_name_0
--- 2    1 00017710 function_name_1 -> function_name_1
--- ect...
+- - 1    0 00017770 function_name_0 -> function_name_0
+- - 2    1 00017710 function_name_1 -> function_name_1
+- - ect...
 - Name the text file "pd.def" and add "EXPORT" at the first line
 - Tape : "lib /def:pd.def /OUT:pd.lib"
 <p>You will have a pd.lib in the Pure Data installation folder and be able to compile.</p>
