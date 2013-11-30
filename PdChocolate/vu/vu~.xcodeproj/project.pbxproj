@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		59FB02F817A7FAA9001E977D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FB02F717A7FAA9001E977D /* Accelerate.framework */; };
 		8F3A5FA418379C4A0030B487 /* ebox_patcher.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F3A5FA318379C4A0030B487 /* ebox_patcher.c */; };
+		8F83E16918424BD6007D594E /* eboxflag.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F83E16818424BD6007D594E /* eboxflag.h */; };
+		8F83E16D18424BE2007D594E /* erouter.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F83E16B18424BE2007D594E /* erouter.c */; };
+		8F83E16E18424BE2007D594E /* erouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F83E16C18424BE2007D594E /* erouter.h */; };
 		8FB730CF180953EB00830C7B /* vu~.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB730CE180953EB00830C7B /* vu~.c */; };
 		8FB731341809564100830C7B /* eattr.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB731121809564100830C7B /* eattr.h */; };
 		8FB731351809564100830C7B /* eattr_attr.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB731131809564100830C7B /* eattr_attr.c */; };
@@ -44,6 +47,9 @@
 		5913846F15DAA36D0029AD16 /* vu~.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "vu~.pd_darwin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FB02F717A7FAA9001E977D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		8F3A5FA318379C4A0030B487 /* ebox_patcher.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ebox_patcher.c; sourceTree = "<group>"; };
+		8F83E16818424BD6007D594E /* eboxflag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eboxflag.h; sourceTree = "<group>"; };
+		8F83E16B18424BE2007D594E /* erouter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = erouter.c; sourceTree = "<group>"; };
+		8F83E16C18424BE2007D594E /* erouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erouter.h; sourceTree = "<group>"; };
 		8FB730CE180953EB00830C7B /* vu~.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "vu~.c"; sourceTree = "<group>"; };
 		8FB731121809564100830C7B /* eattr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eattr.h; sourceTree = "<group>"; };
 		8FB731131809564100830C7B /* eattr_attr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eattr_attr.c; sourceTree = "<group>"; };
@@ -105,9 +111,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		8F83E16A18424BE2007D594E /* erouter */ = {
+			isa = PBXGroup;
+			children = (
+				8F83E16B18424BE2007D594E /* erouter.c */,
+				8F83E16C18424BE2007D594E /* erouter.h */,
+			);
+			path = erouter;
+			sourceTree = "<group>";
+		};
 		8FB731101809564100830C7B /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				8F83E16A18424BE2007D594E /* erouter */,
 				8FB731111809564100830C7B /* eattr */,
 				8FB731171809564100830C7B /* ebox */,
 				8FB7311D1809564100830C7B /* eclass */,
@@ -161,6 +177,7 @@
 		8FB731201809564100830C7B /* ecommon */ = {
 			isa = PBXGroup;
 			children = (
+				8F83E16818424BD6007D594E /* eboxflag.h */,
 				8FB731211809564100830C7B /* ecommon.c */,
 				8FB731221809564100830C7B /* ecommon.h */,
 			);
@@ -205,8 +222,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F83E16918424BD6007D594E /* eboxflag.h in Headers */,
 				8FB731481809564100830C7B /* epd.h in Headers */,
 				8FB7313F1809564100830C7B /* eclass.h in Headers */,
+				8F83E16E18424BE2007D594E /* erouter.h in Headers */,
 				8FB731491809564100830C7B /* epd_max.h in Headers */,
 				8FB731431809564100830C7B /* egraphics.h in Headers */,
 				8FB7314E1809564100830C7B /* ewidget.h in Headers */,
@@ -269,6 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F83E16D18424BE2007D594E /* erouter.c in Sources */,
 				8FB7313E1809564100830C7B /* eclass.c in Sources */,
 				8FB731461809564100830C7B /* egraphics_matrix.c in Sources */,
 				8FB731361809564100830C7B /* eattr_getter.c in Sources */,

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		59FB02F817A7FAA9001E977D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FB02F717A7FAA9001E977D /* Accelerate.framework */; };
+		8F83E17218424DB5007D594E /* erouter.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F83E17018424DB5007D594E /* erouter.c */; };
+		8F83E17318424DB5007D594E /* erouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F83E17118424DB5007D594E /* erouter.h */; };
+		8F83E17518424E1A007D594E /* ebox_patcher.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F83E17418424E1A007D594E /* ebox_patcher.c */; };
 		8FB730F41809556B00830C7B /* eattr.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB730D21809556B00830C7B /* eattr.h */; };
 		8FB730F51809556B00830C7B /* eattr_attr.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB730D31809556B00830C7B /* eattr_attr.c */; };
 		8FB730F61809556B00830C7B /* eattr_getter.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB730D41809556B00830C7B /* eattr_getter.c */; };
@@ -42,6 +45,9 @@
 /* Begin PBXFileReference section */
 		5913846F15DAA36D0029AD16 /* nbx~.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "nbx~.pd_darwin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FB02F717A7FAA9001E977D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		8F83E17018424DB5007D594E /* erouter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = erouter.c; sourceTree = "<group>"; };
+		8F83E17118424DB5007D594E /* erouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erouter.h; sourceTree = "<group>"; };
+		8F83E17418424E1A007D594E /* ebox_patcher.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ebox_patcher.c; sourceTree = "<group>"; };
 		8FB730D21809556B00830C7B /* eattr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eattr.h; sourceTree = "<group>"; };
 		8FB730D31809556B00830C7B /* eattr_attr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eattr_attr.c; sourceTree = "<group>"; };
 		8FB730D41809556B00830C7B /* eattr_getter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eattr_getter.c; sourceTree = "<group>"; };
@@ -103,9 +109,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		8F83E16F18424DB5007D594E /* erouter */ = {
+			isa = PBXGroup;
+			children = (
+				8F83E17018424DB5007D594E /* erouter.c */,
+				8F83E17118424DB5007D594E /* erouter.h */,
+			);
+			path = erouter;
+			sourceTree = "<group>";
+		};
 		8FB730D01809556B00830C7B /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				8F83E16F18424DB5007D594E /* erouter */,
 				8FB730D11809556B00830C7B /* eattr */,
 				8FB730D71809556B00830C7B /* ebox */,
 				8FB730DD1809556B00830C7B /* eclass */,
@@ -141,6 +157,7 @@
 				8FB730D91809556B00830C7B /* ebox.h */,
 				8FB730DA1809556B00830C7B /* ebox_draw.c */,
 				8FB730DB1809556B00830C7B /* ebox_handle.c */,
+				8F83E17418424E1A007D594E /* ebox_patcher.c */,
 				8FB730DC1809556B00830C7B /* ebox_window.c */,
 			);
 			path = ebox;
@@ -207,6 +224,7 @@
 				8FB731091809556B00830C7B /* epd_max.h in Headers */,
 				8FB731031809556B00830C7B /* egraphics.h in Headers */,
 				8FB7310E1809556B00830C7B /* ewidget.h in Headers */,
+				8F83E17318424DB5007D594E /* erouter.h in Headers */,
 				8FB731011809556B00830C7B /* ecommon.h in Headers */,
 				8FB7310C1809556B00830C7B /* estruct.h in Headers */,
 				8FB7310F1809556B00830C7B /* pd_enhanced.h in Headers */,
@@ -270,6 +288,7 @@
 				8FB731061809556B00830C7B /* egraphics_matrix.c in Sources */,
 				8FB730F61809556B00830C7B /* eattr_getter.c in Sources */,
 				8FB731021809556B00830C7B /* egraphics.c in Sources */,
+				8F83E17218424DB5007D594E /* erouter.c in Sources */,
 				8FB730F91809556B00830C7B /* ebox.c in Sources */,
 				8FB730F71809556B00830C7B /* eattr_new.c in Sources */,
 				8FB731041809556B00830C7B /* egraphics_color.c in Sources */,
@@ -280,6 +299,7 @@
 				8FB730F51809556B00830C7B /* eattr_attr.c in Sources */,
 				8FB731071809556B00830C7B /* egraphics_text.c in Sources */,
 				8FB730FB1809556B00830C7B /* ebox_draw.c in Sources */,
+				8F83E17518424E1A007D594E /* ebox_patcher.c in Sources */,
 				8FB730FC1809556B00830C7B /* ebox_handle.c in Sources */,
 				8FB7310A1809556B00830C7B /* epopup.c in Sources */,
 				8FB731051809556B00830C7B /* egraphics_forms.c in Sources */,

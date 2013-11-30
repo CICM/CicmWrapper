@@ -208,7 +208,7 @@ typedef struct _efont
 {
     t_symbol*   c_family;   // times, helvetica, ect...
     t_symbol*   c_slant;    // regular, italic
-    t_symbol*   c_weight;   // regular, bold
+    t_symbol*   c_weight;   // normal, bold
     float       c_size;
 } t_efont;
 

@@ -392,6 +392,11 @@ void binbuf_attr_process(void *x, t_binbuf *d)
         if(defc && defv)
         {
             object_attr_setvalueof((t_object *)x, c->c_attr[i].name, defc, defv);
+            /*
+            post(" ", c->c_attr[i].name->s_name);
+            post("attr : %s", c->c_attr[i].name->s_name);
+            postatom(defc, defv);
+             */
             defc = 0;
             free(defv);
             defv = NULL;
@@ -492,7 +497,7 @@ void ebox_getconnections(t_ebox* x, short* count)
                 if(dest == &x->e_obj)
                 {
                     //int connid = glist_getindex(x->e_canvas->gl_owner, (t_gobj*)obj);
-                    post("inlet from %d:%d to my:%d", 0, sourcewhich, which);
+                    //post("inlet from %d:%d to my:%d", 0, sourcewhich, which);
                 }
             }
             sourcewhich++;

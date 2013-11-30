@@ -36,6 +36,9 @@
 		8F2E9B59180A757500237119 /* ewidget.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F2E9B3D180A757500237119 /* ewidget.c */; };
 		8F2E9B5A180A757500237119 /* ewidget.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F2E9B3E180A757500237119 /* ewidget.h */; };
 		8F2E9B5B180A757500237119 /* pd_enhanced.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F2E9B3F180A757500237119 /* pd_enhanced.h */; };
+		8F83E177184257BF007D594E /* ebox_patcher.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F83E176184257BF007D594E /* ebox_patcher.c */; };
+		8F83E17B184257C8007D594E /* erouter.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F83E179184257C8007D594E /* erouter.c */; };
+		8F83E17C184257C8007D594E /* erouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F83E17A184257C8007D594E /* erouter.h */; };
 		8FE1B1ED17F6353500A3E466 /* plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE1B1EC17F6353500A3E466 /* plane.cpp */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +73,9 @@
 		8F2E9B3D180A757500237119 /* ewidget.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ewidget.c; sourceTree = "<group>"; };
 		8F2E9B3E180A757500237119 /* ewidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ewidget.h; sourceTree = "<group>"; };
 		8F2E9B3F180A757500237119 /* pd_enhanced.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pd_enhanced.h; sourceTree = "<group>"; };
+		8F83E176184257BF007D594E /* ebox_patcher.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ebox_patcher.c; sourceTree = "<group>"; };
+		8F83E179184257C8007D594E /* erouter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = erouter.c; sourceTree = "<group>"; };
+		8F83E17A184257C8007D594E /* erouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = erouter.h; sourceTree = "<group>"; };
 		8FE1B1EC17F6353500A3E466 /* plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plane.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +112,7 @@
 		8F2E9B1C180A757500237119 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				8F83E178184257C8007D594E /* erouter */,
 				8F2E9B1D180A757500237119 /* eattr */,
 				8F2E9B23180A757500237119 /* ebox */,
 				8F2E9B29180A757500237119 /* eclass */,
@@ -140,6 +147,7 @@
 				8F2E9B24180A757500237119 /* ebox.c */,
 				8F2E9B25180A757500237119 /* ebox.h */,
 				8F2E9B26180A757500237119 /* ebox_draw.c */,
+				8F83E176184257BF007D594E /* ebox_patcher.c */,
 				8F2E9B27180A757500237119 /* ebox_handle.c */,
 				8F2E9B28180A757500237119 /* ebox_window.c */,
 			);
@@ -195,6 +203,15 @@
 			path = ewidget;
 			sourceTree = "<group>";
 		};
+		8F83E178184257C8007D594E /* erouter */ = {
+			isa = PBXGroup;
+			children = (
+				8F83E179184257C8007D594E /* erouter.c */,
+				8F83E17A184257C8007D594E /* erouter.h */,
+			);
+			path = erouter;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -207,6 +224,7 @@
 				8F2E9B55180A757500237119 /* epd_max.h in Headers */,
 				8F2E9B4F180A757500237119 /* egraphics.h in Headers */,
 				8F2E9B5A180A757500237119 /* ewidget.h in Headers */,
+				8F83E17C184257C8007D594E /* erouter.h in Headers */,
 				8F2E9B4D180A757500237119 /* ecommon.h in Headers */,
 				8F2E9B58180A757500237119 /* estruct.h in Headers */,
 				8F2E9B5B180A757500237119 /* pd_enhanced.h in Headers */,
@@ -266,6 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F83E17B184257C8007D594E /* erouter.c in Sources */,
 				8F2E9B4A180A757500237119 /* eclass.c in Sources */,
 				8F2E9B52180A757500237119 /* egraphics_matrix.c in Sources */,
 				8F2E9B42180A757500237119 /* eattr_getter.c in Sources */,
@@ -274,6 +293,7 @@
 				8F2E9B43180A757500237119 /* eattr_new.c in Sources */,
 				8F2E9B50180A757500237119 /* egraphics_color.c in Sources */,
 				8F2E9B59180A757500237119 /* ewidget.c in Sources */,
+				8F83E177184257BF007D594E /* ebox_patcher.c in Sources */,
 				8F2E9B49180A757500237119 /* ebox_window.c in Sources */,
 				8F2E9B44180A757500237119 /* eattr_setter.c in Sources */,
 				8FE1B1ED17F6353500A3E466 /* plane.cpp in Sources */,

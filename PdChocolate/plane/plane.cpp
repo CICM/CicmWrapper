@@ -133,12 +133,15 @@ void *plane_new(t_symbol *s, int argc, t_atom *argv)
 {
 	t_plane *x =  NULL;
 	t_binbuf* d;
+    long flags;
 	if (!(d = binbuf_via_atoms(argc,argv)))
 		return NULL;
     
 	x = (t_plane *)ebox_alloc(plane_class);
-    
-	ebox_new((t_ebox *)x, 0, argc, argv);
+    flags = 0
+    | EBOX_GROWLINK
+    ;
+	ebox_new((t_ebox *)x, flags, argc, argv);
 	x->j_box.b_firstin = (t_object *)x;
     
     x->f_out_x = (t_outlet *)floatout(x);
@@ -161,11 +164,6 @@ void plane_oksize(t_plane *x, t_rect *newrect)
 {
     newrect->width = pd_clip_min(newrect->width, 15.);
     newrect->height = pd_clip_min(newrect->height, 15.);
-    
-    if(newrect->height > newrect->width)
-        newrect->width = newrect->height;
-    else
-        newrect->height = newrect->width;
 }
 
 void plane_set(t_plane *x, t_symbol *s, long ac, t_atom *av)
@@ -213,7 +211,6 @@ t_pd_err plane_notify(t_plane *x, t_symbol *s, t_symbol *msg, void *sender, void
 	{
 		if(s == gensym("bgcolor") || s == gensym("bdcolor") || s == gensym("ptcolor") || s == gensym("point") || s == gensym("ptsize"))
 		{
-			ebox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
 			ebox_invalidate_layer((t_object *)x, NULL, gensym("point_layer"));
 		}
         ebox_redraw((t_ebox *)x);
@@ -308,19 +305,18 @@ void plane_mousedrag(t_plane *x, t_object *patcherview, t_pt pt, long modifiers)
 
 void plane_mousemove(t_plane *x, t_object *patcherview, t_pt pt, long modifiers)
 {
-    // We use this function to set the cursor but, for the moment, the glist can't be notify
-    // of the change before the drag method
     t_pt point;
     point.x = (pt.x + x->f_boundaries.x * x->f_ratio.x) / x->f_ratio.x;
     point.y = -(pt.y - (x->j_box.e_rect.height + x->f_boundaries.y * x->f_ratio.y)) / -x->f_ratio.y;
     
-    if(x->f_point.x > point.x - x->f_size && x->f_point.x < point.x + x->f_size && x->f_point.y > point.y - x->f_size && x->f_point.x < point.y + x->f_size)
+    if(x->f_point.x > point.x - x->f_size / x->f_ratio.x && x->f_point.x < point.x + x->f_size / x->f_ratio.x &&
+       x->f_point.y > point.y - x->f_size / x->f_ratio.y && x->f_point.x < point.y + x->f_size / x->f_ratio.y)
     {
-        canvas_setcursor(glist_getcanvas((t_glist *)patcherview), 4);
+        ebox_set_cursor((t_ebox *)x, 4);
     }
     else
     {
-        canvas_setcursor(glist_getcanvas((t_glist *)patcherview), 0);
+        ebox_set_cursor((t_ebox *)x, 0);
     }
 }
 

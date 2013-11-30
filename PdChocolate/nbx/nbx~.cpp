@@ -26,6 +26,11 @@ extern "C"
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
 }
 
+#ifndef _WINDOWS
+#define sprintf_s sprintf
+#endif
+
+
 typedef struct  _nbx
 {
 	t_ebox      j_box;
@@ -148,12 +153,18 @@ void *nbx_new(t_symbol *s, int argc, t_atom *argv)
 {
 	t_nbx *x =  NULL;
 	t_binbuf* d;
+    long flags;
+    
 	if (!(d = binbuf_via_atoms(argc,argv)))
 		return NULL;
     
 	x = (t_nbx *)ebox_alloc(nbx_class);
     
-	ebox_new((t_ebox *)x, 0, argc, argv);
+    flags = 0
+    | EBOX_GROWINDI
+    ;
+    
+	ebox_new((t_ebox *)x, flags, argc, argv);
 	x->j_box.b_firstin = (t_object *)x;
     
 	ebox_dspsetup((t_ebox *)x, 1, 1);
