@@ -26,7 +26,7 @@
 
 #include "eattr.h"
 
-void cicm_class_new_attr_typed(t_eclass* c, char* attrname, char* type, long maxsize, long size, long flags, long offset)
+void cicm_class_new_attr_typed(t_eclass* c, char* attrname, char* type, long size, long maxsize, long flags, long offset)
 {
     int i;
     char getattr[256];

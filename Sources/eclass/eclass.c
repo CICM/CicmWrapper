@@ -175,9 +175,10 @@ void eclass_properties_dialog(t_eclass* c)
     sys_vgui("proc pdtk_%s_dialog {id \n", c->c_class.c_name->s_name);
     for(i = 0; i < c->c_nattr; i++)
     {
+        sys_vgui("%s \n", c->c_attr[i].name->s_name);
         for(j = 0; j < c->c_attr[i].sizemax; j++)
         {
-            sys_vgui("%s%i \n", c->c_attr[i].name->s_name, j);
+            
         }
     }
     sys_gui("} {\n");

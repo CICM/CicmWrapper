@@ -52,30 +52,30 @@ void cicm_class_attr_accessor(t_eclass* c, char* attrname, method getter, method
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #define CLASS_ATTR_INT(c,name,flags,struct,member)   \
-cicm_class_new_attr_typed(c,name, "int", 1, 1, flags, calcoffset(struct,member))
+cicm_class_new_attr_typed(c,name, "int", 1, 0, flags, calcoffset(struct,member))
 #define CLASS_ATTR_LONG(c,name,flags,struct,member)   \
-cicm_class_new_attr_typed(c,name, "long", 1, 1, flags, calcoffset(struct,member))
+cicm_class_new_attr_typed(c,name, "long", 1, 0, flags, calcoffset(struct,member))
 #define CLASS_ATTR_FLOAT(c,name,flags,struct,member)  \
-cicm_class_new_attr_typed(c,name, "float", 1, 1, flags, calcoffset(struct,member))
+cicm_class_new_attr_typed(c,name, "float", 1, 0, flags, calcoffset(struct,member))
 #define CLASS_ATTR_DOUBLE(c,name,flags,struct,member)  \
-cicm_class_new_attr_typed(c,name, "double", 1, 1, flags, calcoffset(struct,member))
+cicm_class_new_attr_typed(c,name, "double", 1, 0, flags, calcoffset(struct,member))
 #define CLASS_ATTR_RGB(c,name,flags,struct,member) \
-cicm_class_new_attr_typed(c,name, "float", 3, 3, flags, calcoffset(struct,member))
+cicm_class_new_attr_typed(c,name, "float", 3, 0, flags, calcoffset(struct,member))
 #define CLASS_ATTR_RGBA(c,name,flags,struct,member) \
-cicm_class_new_attr_typed(c,name, "float", 4, 4, flags, calcoffset(struct,member))
+cicm_class_new_attr_typed(c,name, "float", 4, 0, flags, calcoffset(struct,member))
 #define CLASS_ATTR_SYMBOL(c,name,flags,struct,member) \
-cicm_class_new_attr_typed(c,name, "symbol", 1, 1, flags, calcoffset(struct,member))
+cicm_class_new_attr_typed(c,name, "symbol", 1, 0, flags, calcoffset(struct,member))
 
 #define CLASS_ATTR_INT_ARRAY(c,name,flags,struct,member,size)   \
-cicm_class_new_attr_typed(c,name, "int", size, size, flags, calcoffset(struct,member))
+cicm_class_new_attr_typed(c,name, "int", size, 0, flags, calcoffset(struct,member))
 #define CLASS_ATTR_LONG_ARRAY(c,name,flags,struct,member,size)   \
-cicm_class_new_attr_typed(c,name, "long", size, size, flags, calcoffset(struct,member))
+cicm_class_new_attr_typed(c,name, "long", size, 0, flags, calcoffset(struct,member))
 #define CLASS_ATTR_FLOAT_ARRAY(c,name,flags,struct,member,size)  \
-cicm_class_new_attr_typed(c,name, "float", size, size, flags, calcoffset(struct,member))
+cicm_class_new_attr_typed(c,name, "float", size, 0, flags, calcoffset(struct,member))
 #define CLASS_ATTR_DOUBLE_ARRAY(c,name,flags,struct,member,size)  \
-cicm_class_new_attr_typed(c,name, "double", size, size, flags, calcoffset(struct,member))
+cicm_class_new_attr_typed(c,name, "double", size, 0, flags, calcoffset(struct,member))
 #define CLASS_ATTR_SYMBOL_ARRAY(c,name,flags,struct,member, size) \
-cicm_class_new_attr_typed(c,name, "symbol", size, size, flags, calcoffset(struct,member))
+cicm_class_new_attr_typed(c,name, "symbol", size, 0, flags, calcoffset(struct,member))
 
 #define CLASS_ATTR_INT_VARSIZE(c,name,flags,struct,member, size, maxsize)   \
 cicm_class_new_attr_typed(c,name, "int", calcoffset(struct,size), maxsize, flags, calcoffset(struct,member))

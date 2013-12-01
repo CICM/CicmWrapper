@@ -28,7 +28,7 @@
 
 void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
 {
-	int i, j;
+	int i, j, size;
     t_ebox* z = (t_ebox *)x;
     t_eclass* c = (t_eclass *)z->e_obj.te_g.g_pd;
     
@@ -60,6 +60,15 @@ void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                 }
             }
             
+            if(c->c_attr[i].sizemax == 0)
+                size = c->c_attr[i].size;
+            else
+            {
+                size = (long)(x) + c->c_attr[i].size;
+                if(size > c->c_attr[i].sizemax)
+                    size = c->c_attr[i].sizemax;
+            }
+            
             if(c->c_attr[i].setter)
             {
                 c->c_attr[i].setter(x, c->c_attr[i].obj, argc, argv);
@@ -67,7 +76,7 @@ void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
             else if(type == gensym("int"))
             {
                 int* pointor = (int *)point;
-                for(j = 0; j < c->c_attr[i].size && j < argc; j++)
+                for(j = 0; j < size && j < argc; j++)
                 {
                     if(atom_gettype(argv+j) == A_LONG)
                     {
@@ -78,7 +87,7 @@ void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
             else if(type == gensym("long"))
             {
                 long* pointor = (long *)point;
-                for(j = 0; j < c->c_attr[i].size && j < argc; j++)
+                for(j = 0; j < size && j < argc; j++)
                 {
                     if(atom_gettype(argv+j) == A_LONG)
                     {
@@ -89,7 +98,7 @@ void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
             else if(type == gensym("float"))
             {
                 float* pointor = (float *)point;
-                for(j = 0; j < c->c_attr[i].size && j < argc; j++)
+                for(j = 0; j < size && j < argc; j++)
                 {
                     if(atom_gettype(argv+j) == A_FLOAT)
                     {
@@ -100,7 +109,7 @@ void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
             else if(type == gensym("double"))
             {
                 double* pointor = (double *)point;
-                for(j = 0; j < c->c_attr[i].size && j < argc; j++)
+                for(j = 0; j < size && j < argc; j++)
                 {
                     if(atom_gettype(argv+j) == A_FLOAT)
                     {
@@ -111,7 +120,7 @@ void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
             else if(type == gensym("symbol"))
             {
                 t_symbol** pointor = (t_symbol **)point;
-                for(j = 0; j < c->c_attr[i].size && j < argc; j++)
+                for(j = 0; j < size && j < argc; j++)
                 {
                     if(atom_gettype(argv+j) == A_SYM)
                     {
