@@ -312,8 +312,8 @@ void ebox_properties(t_gobj *z, t_glist *glist)
     long    argc;
     t_ebox *x = (t_ebox *)z;
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-    char buffer[1000];
-    char temp[1000];
+    char buffer[MAXPDSTRING];
+    char temp[MAXPDSTRING];
     
     sprintf(buffer, "pdtk_%s_dialog %%s ", c->c_class.c_name->s_name);
     for(i = 0; i < c->c_nattr; i++)
@@ -323,14 +323,28 @@ void ebox_properties(t_gobj *z, t_glist *glist)
         {
             for(j = 0; j < argc; j++)
             {
-                atom_string(argv+j, temp, 1000);
-                strcat(buffer, temp);
-                strcat(buffer, " ");
+                atom_string(argv+j, temp, MAXPDSTRING);
+                
+                if(c->c_attr[i].type == gensym("symbol") && strchr(temp, ' '))
+                {
+                    strcat(buffer, "\"");
+                    strcat(buffer, "'");
+                    strcat(buffer, temp);
+                    strcat(buffer, "'");
+                    strcat(buffer, "\"");
+                    strcat(buffer, " ");
+                }
+                else
+                {
+                    atom_string(argv+j, temp, MAXPDSTRING);
+                    strcat(buffer, temp);
+                    strcat(buffer, " ");
+                }
             }
         }
     }
     strcat(buffer, "\n");
-    
+
     gfxstub_new(&x->e_obj.ob_pd, x, buffer);
 }
 
@@ -392,11 +406,6 @@ void binbuf_attr_process(void *x, t_binbuf *d)
         if(defc && defv)
         {
             object_attr_setvalueof((t_object *)x, c->c_attr[i].name, defc, defv);
-            /*
-            post(" ", c->c_attr[i].name->s_name);
-            post("attr : %s", c->c_attr[i].name->s_name);
-            postatom(defc, defv);
-             */
             defc = 0;
             free(defv);
             defv = NULL;

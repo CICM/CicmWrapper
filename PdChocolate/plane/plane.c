@@ -21,10 +21,7 @@
  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-extern "C"
-{
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
-}
 
 typedef struct  _plane
 {
@@ -33,11 +30,10 @@ typedef struct  _plane
     t_outlet*   f_out_x;
     t_outlet*   f_out_y;
     
-    t_pt        f_point;
     float       f_size;
+    t_pt        f_position;
     t_pt        f_ratio;
     t_rect      f_boundaries;
-    char        f_selected;
 	t_rgba		f_color_background;
 	t_rgba		f_color_border;
 	t_rgba		f_color_point;
@@ -46,7 +42,7 @@ typedef struct  _plane
 
 t_eclass *plane_class;
 
-void plane_tilde_setup(void);
+void plane_setup(void);
 void *plane_new(t_symbol *s, int argc, t_atom *argv);
 void plane_free(t_plane *x);
 void plane_assist(t_plane *x, void *b, long m, long a, char *s);
@@ -64,16 +60,14 @@ void plane_oksize(t_plane *x, t_rect *newrect);
 void plane_paint(t_plane *x, t_object *view);
 void draw_point(t_plane *x,  t_object *view, t_rect *rect);
 
-void plane_mousedown(t_plane *x, t_object *patcherview, t_pt pt, long modifiers);
 void plane_mousedrag(t_plane *x, t_object *patcherview, t_pt pt, long modifiers);
-void plane_mousemove(t_plane *x, t_object *patcherview, t_pt pt, long modifiers);
 
-extern "C" void plane_setup(void)
+void plane_setup(void)
 {
 	t_eclass *c;
     
 	c = eclass_new("plane", (method)plane_new, (method)plane_free, (short)sizeof(t_plane), 0L, A_GIMME, 0);
-    
+    class_addcreator((t_newmethod)plane_new, gensym("pictslider"), A_GIMME, 0);
 	eclass_init(c, 0);
 	
 	eclass_addmethod(c, (method) plane_assist,          "assist",           A_CANT, 0);
@@ -85,13 +79,12 @@ extern "C" void plane_setup(void)
     eclass_addmethod(c, (method) plane_point_set,       "list",             A_CANT, 0);
     eclass_addmethod(c, (method) plane_output,          "bang",             A_CANT, 0);
     
-    eclass_addmethod(c, (method) plane_mousedown,        "mousedown",       A_CANT, 0);
+    eclass_addmethod(c, (method) plane_mousedrag,        "mousedown",       A_CANT, 0);
     eclass_addmethod(c, (method) plane_mousedrag,        "mousedrag",       A_CANT, 0);
-    eclass_addmethod(c, (method) plane_mousemove,        "mousemove",       A_CANT, 0);
     
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "120 120");
 	
-    CLASS_ATTR_FLOAT_ARRAY          (c, "point", 0, t_plane, f_point, 2);
+    CLASS_ATTR_FLOAT_ARRAY          (c, "point", 0, t_plane, f_position, 2);
 	CLASS_ATTR_LABEL                (c, "point", 0, "Point position");
     CLASS_ATTR_ACCESSORS			(c, "point", NULL, plane_point_set);
 	CLASS_ATTR_ORDER                (c, "point", 0, "1");
@@ -146,8 +139,8 @@ void *plane_new(t_symbol *s, int argc, t_atom *argv)
     
     x->f_out_x = (t_outlet *)floatout(x);
     x->f_out_y = (t_outlet *)floatout(x);
-	binbuf_attr_process(x, d);
     
+	binbuf_attr_process(x, d);
 	ebox_ready((t_ebox *)x);
 	return (x);
 }
@@ -173,16 +166,16 @@ void plane_set(t_plane *x, t_symbol *s, long ac, t_atom *av)
         if(ac >= 1)
         {
             if(x->f_boundaries.x < x->f_boundaries.width)
-                x->f_point.x = pd_clip_minmax(atom_getfloat(av), x->f_boundaries.x, x->f_boundaries.width);
+                x->f_position.x = pd_clip_minmax(atom_getfloat(av), x->f_boundaries.x, x->f_boundaries.width);
             else
-                x->f_point.x = pd_clip_minmax(atom_getfloat(av), x->f_boundaries.width, x->f_boundaries.x);
+                x->f_position.x = pd_clip_minmax(atom_getfloat(av), x->f_boundaries.width, x->f_boundaries.x);
         }
         if(ac >= 2)
         {
             if(x->f_boundaries.y < x->f_boundaries.height)
-                x->f_point.y = pd_clip_minmax(atom_getfloat(av+1), x->f_boundaries.y, x->f_boundaries.height);
+                x->f_position.y = pd_clip_minmax(atom_getfloat(av+1), x->f_boundaries.y, x->f_boundaries.height);
             else
-                x->f_point.y = pd_clip_minmax(atom_getfloat(av+1), x->f_boundaries.height, x->f_boundaries.y);
+                x->f_position.y = pd_clip_minmax(atom_getfloat(av+1), x->f_boundaries.height, x->f_boundaries.y);
         }
         ebox_invalidate_layer((t_object *)x, NULL, gensym("point_layer"));
         ebox_redraw((t_ebox *)x);
@@ -191,8 +184,8 @@ void plane_set(t_plane *x, t_symbol *s, long ac, t_atom *av)
 
 void plane_output(t_plane *x)
 {
-    outlet_float((t_outlet*)x->f_out_x, (float)x->f_point.x);
-    outlet_float((t_outlet*)x->f_out_y, (float)x->f_point.y);
+    outlet_float(x->f_out_x, x->f_position.x);
+    outlet_float(x->f_out_y, x->f_position.y);
 }
 
 void plane_free(t_plane *x)
@@ -214,6 +207,7 @@ t_pd_err plane_notify(t_plane *x, t_symbol *s, t_symbol *msg, void *sender, void
 			ebox_invalidate_layer((t_object *)x, NULL, gensym("point_layer"));
 		}
         ebox_redraw((t_ebox *)x);
+        
 	}
 	return 0;
 }
@@ -228,6 +222,7 @@ t_pd_err plane_point_set(t_plane *x, t_object *attr, long ac, t_atom *av)
 t_pd_err plane_bound_set(t_plane *x, t_object *attr, long ac, t_atom *av)
 {
 	t_atom argv[2];
+    
     if(ac && av)
     {
         if(ac >= 1)
@@ -240,10 +235,10 @@ t_pd_err plane_bound_set(t_plane *x, t_object *attr, long ac, t_atom *av)
             x->f_boundaries.height = atom_getfloat(av+3);
         
         // Boundaries changed -> recompute the point position !
-        atom_setfloat(argv, x->f_point.x);
-        atom_setfloat(argv+1, x->f_point.y);
-        object_attr_setvalueof((t_object *)x, gensym("point"), 2, argv);
-
+        atom_setfloat(argv, x->f_position.x);
+        atom_setfloat(argv+1, x->f_position.y);
+        plane_set(x, NULL, 2, argv);
+        plane_output(x);
     }
     return 0;
 }
@@ -252,9 +247,10 @@ void plane_paint(t_plane *x, t_object *view)
 {
 	t_rect rect;
 	ebox_get_rect_for_view((t_object *)x, view, &rect);
-    x->f_ratio.x = rect.width / (x->f_boundaries.width - x->f_boundaries.x);
-    x->f_ratio.y = rect.height / (x->f_boundaries.height - x->f_boundaries.y);
+    x->f_ratio.x = (rect.width - 2 * x->f_size - 2) / (x->f_boundaries.width - x->f_boundaries.x);
+    x->f_ratio.y = (rect.height - 2 * x->f_size - 2) / (x->f_boundaries.height - x->f_boundaries.y);
     draw_point(x, view, &rect);
+    
 }
 
 void draw_point(t_plane *x, t_object *view, t_rect *rect)
@@ -264,60 +260,29 @@ void draw_point(t_plane *x, t_object *view, t_rect *rect)
 	if (g)
 	{
         t_matrix matrix;
-        // Here, an example of the use of a matrix
+        // Here, an example matrix
         egraphics_matrix_init(&matrix, x->f_ratio.x, 0.f, 0.f, -x->f_ratio.y, x->f_boundaries.x * -x->f_ratio.x, rect->height + x->f_boundaries.y * x->f_ratio.y);
         egraphics_set_matrix(g, &matrix);
         
         egraphics_set_color_rgba(g, &x->f_color_point);
         // We use oval to keep a perfect circle with the matrix stranformation
-        egraphics_oval(g, x->f_point.x, x->f_point.y, x->f_size / x->f_ratio.x, x->f_size / x->f_ratio.y);
-        egraphics_fill(g);
-        
+        egraphics_oval(g, x->f_position.x, x->f_position.y, x->f_size / x->f_ratio.x, x->f_size / x->f_ratio.y);
+        egraphics_set_line_width(g, 2);
+        egraphics_stroke(g);
         ebox_end_layer((t_object*)x, view, gensym("point_layer"));
 	}
-	ebox_paint_layer((t_object *)x, view, gensym("point_layer"), 0., 0.);
-}
-
-void plane_mousedown(t_plane *x, t_object *patcherview, t_pt pt, long modifiers)
-{
-    t_pt point;
-    point.x = (pt.x + x->f_boundaries.x * x->f_ratio.x) / x->f_ratio.x;
-    point.y = -(pt.y - (x->j_box.e_rect.height + x->f_boundaries.y * x->f_ratio.y)) / -x->f_ratio.y;
-    
-    if(x->f_point.x > point.x - x->f_size && x->f_point.x < point.x + x->f_size && x->f_point.y > point.y - x->f_size && x->f_point.x < point.y + x->f_size)
-    {
-        x->f_selected = 1;
-    }
-    else
-        x->f_selected = 0;
+	ebox_paint_layer((t_object *)x, view, gensym("point_layer"), x->f_size + 1, -x->f_size - 1);
 }
 
 void plane_mousedrag(t_plane *x, t_object *patcherview, t_pt pt, long modifiers)
 {
-    if(x->f_selected)
-    {
-        t_atom argv[2];
-        atom_setfloat(argv, (pt.x + x->f_boundaries.x * x->f_ratio.x) / x->f_ratio.x);
-        atom_setfloat(argv+1, (pt.y - (x->j_box.e_rect.height + x->f_boundaries.y * x->f_ratio.y)) / -x->f_ratio.y);
-        object_attr_setvalueof((t_object *)x, gensym("point"), 2, argv);
-    }
-}
-
-void plane_mousemove(t_plane *x, t_object *patcherview, t_pt pt, long modifiers)
-{
-    t_pt point;
-    point.x = (pt.x + x->f_boundaries.x * x->f_ratio.x) / x->f_ratio.x;
-    point.y = -(pt.y - (x->j_box.e_rect.height + x->f_boundaries.y * x->f_ratio.y)) / -x->f_ratio.y;
-    
-    if(x->f_point.x > point.x - x->f_size / x->f_ratio.x && x->f_point.x < point.x + x->f_size / x->f_ratio.x &&
-       x->f_point.y > point.y - x->f_size / x->f_ratio.y && x->f_point.x < point.y + x->f_size / x->f_ratio.y)
-    {
-        ebox_set_cursor((t_ebox *)x, 4);
-    }
-    else
-    {
-        ebox_set_cursor((t_ebox *)x, 0);
-    }
+    t_atom argv[2];
+    pt.x -= (x->f_size + 2);
+    pt.y += (x->f_size - 2);
+    atom_setfloat(argv, (pt.x + x->f_boundaries.x * x->f_ratio.x) / x->f_ratio.x);
+    atom_setfloat(argv+1, (pt.y - (x->j_box.e_rect.height + x->f_boundaries.y * x->f_ratio.y)) / -x->f_ratio.y);
+    plane_set(x, NULL, 2, argv);
+    plane_output(x);
 }
 
 

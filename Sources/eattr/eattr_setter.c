@@ -38,6 +38,7 @@ void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
         {
             t_symbol* type = c->c_attr[i].type;
             char *point = (char *)(x) + c->c_attr[i].offset;
+            
             if(c->c_attr[i].clipped == 1 || c->c_attr[i].clipped == 3)
             {
                 for(j = 0; j < argc; j++)
@@ -114,7 +115,7 @@ void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                 {
                     if(atom_gettype(argv+j) == A_SYM)
                     {
-                        pointor[j] = gensym(atom_getsymbol(argv+j)->s_name);
+                        pointor[j] = atom_getsymbol(argv+j);
                     }
                 }
             }

@@ -319,6 +319,10 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
     {
         class_addanything((t_class *)c, m);
     }
+    else if(gensym(name) == gensym("symbol"))
+    {
+        class_addsymbol((t_class *)c, m);
+    }
     else
     {
         class_addmethod((t_class *)c, (t_method)m, gensym(name), type, anything);

@@ -26,7 +26,7 @@
 
 #include "eattr.h"
 
-void cicm_class_new_attr_typed(t_eclass* c, char* attrname, char* type, long size, long flags, long offset)
+void cicm_class_new_attr_typed(t_eclass* c, char* attrname, char* type, long maxsize, long size, long flags, long offset)
 {
     int i;
     char getattr[256];
@@ -53,7 +53,7 @@ void cicm_class_new_attr_typed(t_eclass* c, char* attrname, char* type, long siz
         c->c_attr[c->c_nattr].flags = flags;
         c->c_attr[c->c_nattr].offset = offset;
         c->c_attr[c->c_nattr].size = size;
-        c->c_attr[c->c_nattr].sizemax = size;
+        c->c_attr[c->c_nattr].sizemax = maxsize;
         c->c_attr[c->c_nattr].getter = NULL;
         c->c_attr[c->c_nattr].setter = NULL;
         c->c_attr[c->c_nattr].clipped = 0;

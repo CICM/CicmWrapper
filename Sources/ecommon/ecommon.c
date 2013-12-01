@@ -191,7 +191,7 @@ t_pd_err binbuf_copy_atoms(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv
         argv[0] = (t_atom *)calloc(argc[0], sizeof(t_atom));
         for (i = 0; i < argc[0]; i++)
         {
-            if(atom_gettype(av+i+index) == A_SYM && atom_getsym(av+i+index) == gensym("s_nosymbol"))
+            if(atom_gettype(av+i+index) == A_SYM && (atom_getsym(av+i+index) == gensym("s_nosymbol") || atom_getsym(av+i+index) == gensym("nan")))
             {
                 atom_setsym(argv[0]+i, gensym(" "));
             }

@@ -40,6 +40,7 @@ typedef struct  _nbx
     
     long        f_mode;
 	long        f_interval;
+    long        f_ndecimal;
     void*       f_peaks_outlet;
     float       f_peak_value;
 	
@@ -130,6 +131,14 @@ extern "C" void nbx_tilde_setup(void)
 	CLASS_ATTR_DEFAULT			(c, "interval", 0, "50");
 	CLASS_ATTR_SAVE				(c, "interval", 1);
 	
+    CLASS_ATTR_LONG				(c, "decimal", 0, t_nbx, f_ndecimal);
+	CLASS_ATTR_ORDER			(c, "decimal", 0, "3");
+	CLASS_ATTR_LABEL			(c, "decimal", 0, "Number od decimal");
+	CLASS_ATTR_FILTER_MIN		(c, "decimal", 0);
+    CLASS_ATTR_FILTER_MAX		(c, "decimal", 6);
+	CLASS_ATTR_DEFAULT			(c, "decimal", 0, "4");
+	CLASS_ATTR_SAVE				(c, "decimal", 1);
+    
 	CLASS_ATTR_RGBA				(c, "bgcolor", 0, t_nbx, f_color_background);
 	CLASS_ATTR_LABEL			(c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER			(c, "bgcolor", 0, "1");
@@ -277,6 +286,10 @@ t_pd_err nbx_notify(t_nbx *x, t_symbol *s, t_symbol *msg, void *sender, void *da
 			ebox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
 			ebox_invalidate_layer((t_object *)x, NULL, gensym("value_layer"));
 		}
+        if(s == gensym("fontsize"))
+        {
+            object_attr_setvalueof((t_object *)x, gensym("size"), 0, NULL);
+        }
         ebox_redraw((t_ebox *)x);
 	}
 	return 0;
@@ -298,9 +311,9 @@ void draw_background(t_nbx *x, t_object *view, t_rect *rect)
 	if (g && jtl)
 	{
         if(!x->f_mode)
-            etext_layout_set(jtl, "~", &x->j_box.e_font, 0, rect->height / 2., rect->width, 0, ETEXT_LEFT, ETEXT_NOWRAP);
+            etext_layout_set(jtl, "~", &x->j_box.e_font, 0, rect->height / 2. - 1., rect->width, 0, ETEXT_LEFT, ETEXT_NOWRAP);
         else
-            etext_layout_set(jtl, "-", &x->j_box.e_font, 0, rect->height / 2., rect->width, 0, ETEXT_LEFT, ETEXT_NOWRAP);
+            etext_layout_set(jtl, "-", &x->j_box.e_font, 0, rect->height / 2. - 1., rect->width, 0, ETEXT_LEFT, ETEXT_NOWRAP);
         
         etext_layout_settextcolor(jtl, &x->f_color_text);
         etext_layout_draw(jtl, g);
@@ -308,7 +321,7 @@ void draw_background(t_nbx *x, t_object *view, t_rect *rect)
         egraphics_set_line_width(g, 2);
         egraphics_set_color_rgba(g, &x->f_color_border);
         egraphics_move_to(g, 0, 0);
-        egraphics_line_to(g, sys_fontwidth(x->j_box.e_font.c_size) + 4, rect->height / 2.);
+        egraphics_line_to(g, sys_fontwidth(x->j_box.e_font.c_size) + 6,  rect->height / 2.);
         egraphics_line_to(g, 0, rect->height);
         egraphics_stroke(g);
         
@@ -363,9 +376,10 @@ void nbx_mousedown(t_nbx *x, t_object *patcherview, t_pt pt, long modifiers)
         else
             x->f_mode = 1;
         
-        nbx_output(x);
         ebox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
+        ebox_invalidate_layer((t_object *)x, NULL, gensym("value_layer"));
         ebox_redraw((t_ebox *)x);
+        nbx_output(x);
     }
     else if(pt.x >= text_width + 6 && x->f_mode == 1)
     {
@@ -404,7 +418,7 @@ void nbx_mousedrag(t_nbx *x, t_object *patcherview, t_pt pt, long modifiers)
     x->f_entertext = 0;
     if(x->f_drag)
     {
-        canvas_setcursor(glist_getcanvas((t_glist *)patcherview), 2);
+        ebox_set_cursor((t_ebox *)x, 2);
         if(modifiers == EMOD_SHIFT) // fine tuning
             x->f_peak_value = x->f_refvalue + (pt.y - x->f_deriv) * x->f_inc * 0.01 ;
         else
@@ -419,7 +433,11 @@ void nbx_mousemove(t_nbx *x, t_object *patcherview, t_pt pt, long modifiers)
 {
     if(pt.x <= sys_fontwidth(x->j_box.e_font.c_size) + 6)
     {
-        canvas_setcursor(glist_getcanvas((t_glist *)patcherview), 1);
+        ebox_set_cursor((t_ebox *)x, 4);
+    }
+    else
+    {
+        ebox_set_cursor((t_ebox *)x, 1);
     }
 }
 

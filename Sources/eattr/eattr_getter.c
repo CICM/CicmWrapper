@@ -78,7 +78,10 @@ void cicm_class_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
             {
                 for(j = 0; j < argc[0]; j++)
                 {
-                    atom_setsym(argv[0]+j, ((t_symbol **)point)[j]);
+                    if(((t_symbol **)point)[j])
+                        atom_setsym(argv[0]+j, ((t_symbol **)point)[j]);
+                    else
+                        atom_setsym(argv[0]+j, gensym(" "));
                 }
             }
         }

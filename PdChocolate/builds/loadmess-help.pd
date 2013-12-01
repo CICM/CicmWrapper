@@ -26,6 +26,7 @@ loadbang that accepts arguments (float \, symbol and list).;
 #X text 255 5 Bang the loadmess;
 #X text 34 29 Dblclick bang the loadmess;
 #X text 264 148 List example;
+#X obj 388 299 pdchocolate;
 #X connect 4 0 3 0;
 #X connect 5 0 6 0;
 #X connect 8 0 9 0;
