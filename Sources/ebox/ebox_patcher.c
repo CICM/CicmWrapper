@@ -26,26 +26,56 @@
 
 #include "ebox.h"
 
+//! Get the patcher notification when editmode has changed (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @return          Nothing
+*/
 void ebox_patcher_editmode(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     ebox_redraw(x);
 }
 
+//! Get the patcher notification when mouse has moved (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @return          Nothing
+*/
 void ebox_patcher_motion(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
 	;
 }
 
+//! Get the patcher notification when keys has been pressed (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @return          Nothing
+*/
 void ebox_patcher_key(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
 	;
 }
 
+//! Get the patcher notification when mouse has been pressed (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @return          Nothing
+*/
 void ebox_patcher_mouse(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     ;
 }
 
+//! Get the patcher notification when focus has changed (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @return          Nothing
+*/
 void ebox_patcher_focus(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     ;

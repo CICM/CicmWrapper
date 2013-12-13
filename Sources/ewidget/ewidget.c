@@ -75,25 +75,25 @@ void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
         if(c->c_box == 0 && x->e_ready_to_draw)
         {
 			ebox_create_window(x, glist);
-            ebox_invalidate_all(x, NULL);
+            ebox_invalidate_all(x);
             // No redraw for the 1st paint
             if(x->e_canvas && x->e_ready_to_draw && c->c_box == 0)
             {
-                ebox_invalidate_layer((t_object *)x, NULL, gensym("eboxbd"));
-                ebox_invalidate_layer((t_object *)x, NULL, gensym("eboxio"));
+                ebox_invalidate_layer(x, gensym("eboxbd"));
+                ebox_invalidate_layer(x, gensym("eboxio"));
                 
                 ebox_update(x);
                 if(c->c_widget.w_paint)
                     c->c_widget.w_paint(x, (t_object *)x->e_canvas);
-                ebox_draw_border(x, x->e_canvas);
+                ebox_draw_border(x);
                 if(x->e_canvas->gl_edit)
-                    ebox_draw_iolets(x, x->e_canvas);
+                    ebox_draw_iolets(x);
             }
         }
     }
     else
     {
-        ebox_erase(x, glist);
+        ebox_erase(x);
     }
     canvas_fixlinesfor(glist_getcanvas(glist), (t_text*)x);
 }
@@ -112,7 +112,7 @@ void ewidget_displace(t_gobj *z, t_glist *glist, int dx, int dy)
     x->e_obj.te_xpix += dx;
     x->e_obj.te_ypix += dy;
     
-    ebox_move(x, glist);
+    ebox_move(x);
 
 #ifdef _WINDOWS
 	if(!x->e_selected_box)
@@ -130,13 +130,13 @@ void ewidget_select(t_gobj *z, t_glist *glist, int selected)
         x->e_selected_box = 1;
     else
         x->e_selected_box = 0;
-    ebox_select(x, glist);
+    ebox_select(x);
 }
 
 void ewidget_delete(t_gobj *z, t_glist *glist)
 {
     t_ebox *x = (t_ebox *)z;
-    ebox_erase(x, x->e_canvas);
+    ebox_erase(x);
     canvas_deletelinesfor(glist, (t_text *)z);
 }
 

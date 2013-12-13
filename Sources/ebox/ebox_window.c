@@ -26,6 +26,13 @@
 
 #include "ebox.h"
 
+//! Initialize all the ebox ids (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox
+ \ @param canvas    The ebox's canvas
+ \ @return          Nothing
+*/
 void ebox_tk_ids(t_ebox *x, t_canvas *canvas)
 {
     char buffer[MAXPDSTRING];
@@ -48,6 +55,12 @@ void ebox_tk_ids(t_ebox *x, t_canvas *canvas)
     x->e_all_id = gensym(buffer);
 }
 
+//! Bind an ebox to several events (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox
+ \ @return          Nothing
+*/
 void ebox_bind_events(t_ebox* x)
 {
 	int right = EMOD_CMD;
@@ -71,6 +84,12 @@ void ebox_bind_events(t_ebox* x)
     sys_vgui("bind %s <<EditMode>>  {+pdsend {#erouter %s editmode}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
 }
 
+//! Create the canvas widget (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The gobj object
+ \ @return          Nothing
+*/
 void ebox_create_widget(t_ebox* x)
 {
     sys_vgui("namespace eval ebox%lx {} \n", x);
@@ -82,8 +101,16 @@ void ebox_create_widget(t_ebox* x)
              (int)(x->e_rect.height + x->e_boxparameters.d_borderthickness));
 }
 
+//! Create the window widget (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox
+ \ @param glist     The ebox's glist
+ \ @return          Nothing
+*/
 void ebox_create_window(t_ebox* x, t_glist* glist)
 {
+    ebox_router(x, gensym("attach"), 0, NULL);
     ebox_tk_ids(x, glist_getcanvas(glist));
     ebox_create_widget(x);
 	ebox_bind_events(x);

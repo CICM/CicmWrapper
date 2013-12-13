@@ -1,0 +1,8 @@
+#N canvas 577 322 450 300 10;
+#X obj 153 200 menu @size 110 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @items 'zaza po' 'pipi pupu' 'maman papa popo' @bgcolor 0.35 0.23
+0.13 1 @bdcolor 0.27 0.21 0 1 @textcolor 1 1 1 1;
+#X msg 174 73 append zaza;
+#X msg 275 82 append plash man;
+#X connect 1 0 0 0;
+#X connect 2 0 0 0;

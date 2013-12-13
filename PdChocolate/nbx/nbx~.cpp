@@ -87,6 +87,8 @@ void nbx_key(t_nbx *x, t_object *patcherview, char textcharacter, long modifiers
 void nbx_keyfilter(t_nbx *x, t_object *patcherview, char textcharacter, long modifiers);
 void nbx_deserted(t_nbx *x, t_object *patcherview);
 
+void nbx_preset(t_nbx *x, t_binbuf *b);
+
 extern "C" void nbx_tilde_setup(void)
 {
 	t_eclass *c;
@@ -114,6 +116,8 @@ extern "C" void nbx_tilde_setup(void)
     eclass_addmethod(c, (method) nbx_key,              "key",             A_CANT, 0);
     eclass_addmethod(c, (method) nbx_keyfilter,        "keyfilter",       A_CANT, 0);
     eclass_addmethod(c, (method) nbx_deserted,         "deserted",        A_CANT, 0);
+    
+    eclass_addmethod(c, (method) nbx_preset,           "preset",          A_CANT, 0);
     
 	CLASS_ATTR_DEFAULT			(c, "size", 0, "53 13");
     
@@ -503,6 +507,12 @@ void nbx_deserted(t_nbx *x, t_object *patcherview)
     ebox_invalidate_layer((t_object *)x, NULL, gensym("value_layer"));
     ebox_redraw((t_ebox *)x);
 }
+
+void nbx_preset(t_nbx *x, t_binbuf *b)
+{
+    binbuf_addv(b, "sf", gensym("float"), x->f_peak_value);
+}
+
 
 
 

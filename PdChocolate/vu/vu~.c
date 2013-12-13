@@ -97,12 +97,12 @@ void vu_tilde_setup(void)
 	CLASS_ATTR_RGBA				(c, "bgcolor", 0, t_vu, f_color_background);
 	CLASS_ATTR_LABEL			(c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER			(c, "bgcolor", 0, "1");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "bgcolor", 0, "0.35 0.23 0.13 1.");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "bgcolor", 0, "0.75 0.75 0.75 1.");
 	
 	CLASS_ATTR_RGBA				(c, "bdcolor", 0, t_vu, f_color_border);
 	CLASS_ATTR_LABEL			(c, "bdcolor", 0, "Box Border Color");
 	CLASS_ATTR_ORDER			(c, "bdcolor", 0, "2");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "bdcolor", 0, "0.27 0.21 0. 1");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "bdcolor", 0, "0.5 0.5 0.5 1.");
 	
 	CLASS_ATTR_RGBA				(c, "coldcolor", 0, t_vu, f_color_signal_cold);
 	CLASS_ATTR_LABEL			(c, "coldcolor", 0, "Cold Signal Color");
@@ -147,7 +147,7 @@ void *vu_new(t_symbol *s, int argc, t_atom *argv)
     | EBOX_GROWINDI
     ;
     
-	ebox_new((t_ebox *)x, flags, argc, argv);
+	ebox_new((t_ebox *)x, flags);
 	x->j_box.b_firstin = (t_object *)x;
     ebox_dspsetup((t_ebox *)x, 1, 0);
     
@@ -236,7 +236,7 @@ void vu_tick(t_vu *x)
     
     vu_output(x);
     
-	ebox_invalidate_layer((t_object *)x, NULL, gensym("leds_layer"));
+	ebox_invalidate_layer((t_ebox *)x, gensym("leds_layer"));
 	ebox_redraw((t_jbox *)x);
     
 	if(sys_getdspstate())
@@ -265,12 +265,12 @@ t_pd_err vu_notify(t_vu *x, t_symbol *s, t_symbol *msg, void *sender, void *data
 	{
 		if(s == gensym("bgcolor") || s == gensym("bdcolor"))
 		{
-			ebox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
+			ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
 		}
 		else if( s == gensym("coldcolor") || s == gensym("tepidcolor") || s == gensym("warmcolor") || s == gensym("hotcolor") || s == gensym("overcolor"))
 		{
-			ebox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
-			ebox_invalidate_layer((t_object *)x, NULL, gensym("leds_layer"));
+			ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+			ebox_invalidate_layer((t_ebox *)x, gensym("leds_layer"));
 		}
 		ebox_redraw((t_jbox *)x);
 	}
@@ -280,7 +280,7 @@ t_pd_err vu_notify(t_vu *x, t_symbol *s, t_symbol *msg, void *sender, void *data
 void vu_paint(t_vu *x, t_object *view)
 {
 	t_rect rect;
-	ebox_get_rect_for_view((t_object *)x, view, &rect);
+	ebox_get_rect_for_view((t_ebox *)x, &rect);
 	draw_background(x, view, &rect);
     draw_leds(x, view, &rect);
 }
@@ -288,7 +288,7 @@ void vu_paint(t_vu *x, t_object *view)
 void draw_background(t_vu *x,  t_object *view, t_rect *rect)
 {
 	int i;
-	t_elayer *g = ebox_start_layer((t_object *)x, view, gensym("background_layer"), rect->width, rect->height);
+	t_elayer *g = ebox_start_layer((t_ebox *)x, gensym("background_layer"), rect->width, rect->height);
  
 	if (g)
 	{
@@ -311,9 +311,9 @@ void draw_background(t_vu *x,  t_object *view, t_rect *rect)
                 egraphics_stroke(g);
             }
         }
-		ebox_end_layer((t_object*)x, view, gensym("background_layer"));
+		ebox_end_layer((t_ebox*)x, gensym("background_layer"));
 	}
-	ebox_paint_layer((t_object *)x, view, gensym("background_layer"), 0.f, 0.f);
+	ebox_paint_layer((t_ebox *)x, gensym("background_layer"), 0.f, 0.f);
 }
 
 
@@ -321,7 +321,7 @@ void draw_leds(t_vu *x, t_object *view, t_rect *rect)
 {
 	float i;
 	float dB;
-	t_elayer *g = ebox_start_layer((t_object *)x, view, gensym("leds_layer"), rect->width, rect->height);
+	t_elayer *g = ebox_start_layer((t_ebox *)x, gensym("leds_layer"), rect->width, rect->height);
 	
 	if (g)
 	{
@@ -341,11 +341,17 @@ void draw_leds(t_vu *x, t_object *view, t_rect *rect)
                     egraphics_set_color_rgba(g, &x->f_color_signal_hot);
                 if(!x->f_direction)
                 {
-                    egraphics_rectangle_rounded(g, 1, i * led_height + 1, rect->width - 2, led_height - 1, 1.f);
+                    if(i > 11)
+                        egraphics_rectangle_rounded(g, 0, i * led_height + 1, rect->width, led_height, 1.f);
+                    else
+                        egraphics_rectangle_rounded(g, 0, i * led_height + 1, rect->width, led_height - 1, 1.f);
                 }
                 else
                 {
-                    egraphics_rectangle_rounded(g, (12 - i) * led_width + 1, 1, led_width - 1, rect->height - 2, 1.);
+                    if(i > 11)
+                        egraphics_rectangle_rounded(g, 0, 0, led_width, rect->height, 1.);
+                    else
+                        egraphics_rectangle_rounded(g, (12 - i) * led_width + 1, 0, led_width - 1, rect->height, 1.);
                 }
                 egraphics_fill(g);
             }
@@ -355,19 +361,19 @@ void draw_leds(t_vu *x, t_object *view, t_rect *rect)
             egraphics_set_color_rgba(g, &x->f_color_signal_over);
             if(!x->f_direction)
             {
-                egraphics_rectangle_rounded(g, 1, 1, rect->width - 1, led_height - 1, 1.f);
+                egraphics_rectangle_rounded(g, 0, 0, rect->width, led_height, 1.f);
             }
             else
             {
-                egraphics_rectangle_rounded(g, 12 * led_width + 1, 1, led_width - 1,  rect->height - 1, 1.);
+                egraphics_rectangle_rounded(g, 12 * led_width + 1, 0, led_width,  rect->height, 1.);
 
             }
             
             egraphics_fill(g);
         }
-		ebox_end_layer((t_object*)x, view, gensym("leds_layer"));
+		ebox_end_layer((t_ebox *)x, gensym("leds_layer"));
 	}
-	ebox_paint_layer((t_object *)x, view, gensym("leds_layer"), 0., 0.);
+	ebox_paint_layer((t_ebox *)x, gensym("leds_layer"), 0., 0.);
 }
 
 

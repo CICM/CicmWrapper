@@ -152,6 +152,7 @@ void *menu_new(t_symbol *s, int argc, t_atom *argv)
     x->f_out_index  = floatout(x);
     x->f_out_item   = listout(x);
     x->f_item_selected = 0;
+    x->f_items_size = 0;
 	binbuf_attr_process(x, d);
 	ebox_ready((t_ebox *)x);
     

@@ -26,7 +26,7 @@
 
 #include "eattr.h"
 
-void cicm_class_attr_default(t_eclass* c, char* attrname, long flags, char* value)
+void eclass_attr_default(t_eclass* c, char* attrname, long flags, char* value)
 {
 	int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -39,7 +39,7 @@ void cicm_class_attr_default(t_eclass* c, char* attrname, long flags, char* valu
     }
 }
 
-void cicm_class_attr_category(t_eclass* c, char* attrname, long flags, char* categoryname)
+void eclass_attr_category(t_eclass* c, char* attrname, long flags, char* categoryname)
 {
 	int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -52,7 +52,7 @@ void cicm_class_attr_category(t_eclass* c, char* attrname, long flags, char* cat
     }
 }
 
-void cicm_class_attr_order(t_eclass* c, char* attrname, long flags, char* order)
+void eclass_attr_order(t_eclass* c, char* attrname, long flags, char* order)
 {
 	int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -66,7 +66,7 @@ void cicm_class_attr_order(t_eclass* c, char* attrname, long flags, char* order)
     }
 }
 
-void cicm_class_attr_label(t_eclass* c, char* attrname, long flags, char* labelname)
+void eclass_attr_label(t_eclass* c, char* attrname, long flags, char* labelname)
 {
 	int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -79,7 +79,7 @@ void cicm_class_attr_label(t_eclass* c, char* attrname, long flags, char* labeln
     }
 }
 
-void cicm_class_attr_style(t_eclass* c, char* attrname, long flags, char* stylename)
+void eclass_attr_style(t_eclass* c, char* attrname, long flags, char* stylename)
 {
 	int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -92,7 +92,7 @@ void cicm_class_attr_style(t_eclass* c, char* attrname, long flags, char* stylen
     }
 }
 
-void cicm_class_attr_filter_min(t_eclass* c, char* attrname, double value)
+void eclass_attr_filter_min(t_eclass* c, char* attrname, double value)
 {
 	int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -110,7 +110,7 @@ void cicm_class_attr_filter_min(t_eclass* c, char* attrname, double value)
     }
 }
 
-void cicm_class_attr_filter_max(t_eclass* c, char* attrname, double value)
+void eclass_attr_filter_max(t_eclass* c, char* attrname, double value)
 {
 	int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -128,7 +128,7 @@ void cicm_class_attr_filter_max(t_eclass* c, char* attrname, double value)
     }
 }
 
-void cicm_class_attr_save(t_eclass* c, char* attrname, long flags)
+void eclass_attr_save(t_eclass* c, char* attrname, long flags)
 {
 	int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -141,7 +141,7 @@ void cicm_class_attr_save(t_eclass* c, char* attrname, long flags)
     }
 }
 
-void cicm_class_attr_paint(t_eclass* c, char* attrname, long flags)
+void eclass_attr_paint(t_eclass* c, char* attrname, long flags)
 {
 	int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -154,7 +154,7 @@ void cicm_class_attr_paint(t_eclass* c, char* attrname, long flags)
     }
 }
 
-void cicm_class_attr_invisible(t_eclass* c, char* attrname, long flags)
+void eclass_attr_invisible(t_eclass* c, char* attrname, long flags)
 {
 	int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -167,7 +167,7 @@ void cicm_class_attr_invisible(t_eclass* c, char* attrname, long flags)
     }
 }
 
-void cicm_class_attr_accessor(t_eclass* c, char* attrname, method getter, method setter)
+void eclass_attr_accessor(t_eclass* c, char* attrname, method getter, method setter)
 {
 	int i;
     for(i = 0; i < c->c_nattr; i++)

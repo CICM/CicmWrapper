@@ -26,6 +26,12 @@
 
 #include "ebox.h"
 
+//! Allocate the memory for an intance of an ebox that contains a specific eclass
+/*
+ \ @memberof    ebox
+ \ @param c     The eclass pointer
+ \ @return      This function return a new instance of an ebox
+*/
 void *ebox_alloc(t_eclass *c)
 {
     t_pd *x;
@@ -43,17 +49,22 @@ void *ebox_alloc(t_eclass *c)
     return (x);
 }
 
-void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
+//! Initialize an UI ebox
+/*
+ \ @memberof    ebox
+ \ @param x     The ebox pointer
+ \ @param flag  The flags to set the ebox behavior
+ \ @return      Nothing
+*/
+void ebox_new(t_ebox *x, long flags)
 {
     char buffer[MAXPDSTRING];
     
     x->e_flags = flags;
-    
     sprintf(buffer,"#%s%lx", class_getname(x->e_obj.te_g.g_pd), (long unsigned int)x);
     x->e_object_id = gensym(buffer);
     
     pd_bind(&x->e_obj.ob_pd, x->e_object_id);
-    ebox_router(x, gensym("attach"), 0, NULL);
    
     x->e_ready_to_draw      = 0;
     x->z_misc               = 1;
@@ -61,40 +72,17 @@ void ebox_new(t_ebox *x, long flags, long argc, t_atom *argv)
     x->e_layers             = NULL;
     x->e_deserted_time      = 3000.;
     x->e_editor_id          = NULL;
+    x->e_objuser_id         = gensym("(null)");
+    pd_bind(&x->e_obj.ob_pd, x->e_objuser_id);
+    default_attr_process(x);
 }
 
-void ebox_free(t_ebox* x)
-{
-    clock_free(x->e_deserted_clock);
-    pd_unbind(&x->e_obj.ob_pd, x->e_object_id);
-    gfxstub_deleteforkey(x);
-    ebox_router(x, gensym("detach"), 0, NULL);
-}
-
-char ebox_getregister(t_ebox *x)
-{
-    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-    return c->c_box;
-}
-
-void ebox_dspsetup(t_ebox *x, long nins, long nout)
-{
-    int i;
-    nins = pd_clip_min(nins, 1);
-    nout = pd_clip_min(nout, 0);
-    x->e_perform_method = NULL;
-
-    for( i = 0; i < 256; i++)
-        x->z_sigs_out[i] = (t_float *)calloc(8192, sizeof(t_float));
-    for(i = 1; i < nins; i++)
-        x->e_inlets[i] = signalinlet_new(&x->e_obj, x->e_float);
-    for(i = 0; i < nout; i++)
-        x->e_outlets[i] = outlet_new(&x->e_obj, &s_signal);
-    
-    x->e_dsp_size = obj_nsiginlets(&x->e_obj) + obj_nsigoutlets(&x->e_obj) + 6;
-}
-
-
+//! Indicate that an UI ebox is ready
+/*
+ \ @memberof    ebox
+ \ @param x     The ebox pointer
+ \ @return      Nothing
+*/
 void ebox_ready(t_ebox *x)
 {
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
@@ -116,420 +104,38 @@ void ebox_ready(t_ebox *x)
     x->e_ready_to_draw = 1;
 }
 
-void ebox_dspfree(t_ebox *x)
+//! Free an UI ebox
+/*
+ \ @memberof    ebox
+ \ @param x     The ebox pointer
+ \ @return      Nothing
+*/
+void ebox_free(t_ebox* x)
 {
-    int i;
-    for(i = 0; i < 256; i++)
-        free(x->z_sigs_out[i]);
-    
-    if(!ebox_getregister(x))
-        ebox_free(x);
-    
-    //sys_vgui("bind %s <<EditMode>> {}\n", x->e_editor_id->s_name);
+    ebox_router(x, gensym("detach"), 0, NULL);
+    clock_free(x->e_deserted_clock);
+    pd_unbind(&x->e_obj.ob_pd, x->e_object_id);
+    gfxstub_deleteforkey(x);
 }
 
-void ebox_redraw(t_ebox *x)
+//! Return if the ebox is an UI object or not
+/*
+ \ @memberof    ebox
+ \ @param x     The ebox pointer
+ \ @return      This function return true the object is a box and flase if the object is an UI
+*/
+char ebox_getregister(t_ebox *x)
 {
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-
-    if(x->e_canvas && x->e_ready_to_draw && c->c_box == 0 && glist_isvisible(x->e_canvas))
-    {
-        ebox_invalidate_layer((t_object *)x, NULL, gensym("eboxbd"));
-        ebox_invalidate_layer((t_object *)x, NULL, gensym("eboxio"));
-        
-        ebox_update(x);
-        if(c->c_widget.w_paint)
-            c->c_widget.w_paint(x, (t_object *)x->e_canvas);
-        ebox_draw_border(x, x->e_canvas);
-        if(x->e_canvas->gl_edit)
-            ebox_draw_iolets(x, x->e_canvas);
-    }
+    return c->c_box;
 }
 
 
-void ebox_resize_inputs(t_ebox *x, long nins)
-{
-	int i = 0;
-    nins = pd_clip_min(nins, 1);
-
-    if(nins > obj_nsiginlets(&x->e_obj))
-    {
-        for(i = obj_nsiginlets(&x->e_obj); i < nins; i++)
-        {
-            x->e_inlets[i] = signalinlet_new(&x->e_obj, x->e_float);
-        }
-    }
-    else if(nins < obj_nsiginlets(&x->e_obj))
-    {
-        for(i = obj_nsiginlets(&x->e_obj) - 1; i >= nins - 1; i--)
-        {
-            canvas_deletelines_for_io(x->e_canvas, (t_text *)x, x->e_inlets[i], NULL);
-            inlet_free(x->e_inlets[i]);
-        }
-    }
-    x->e_dsp_size = obj_nsiginlets(&x->e_obj) + obj_nsigoutlets(&x->e_obj) + 6;
-    ebox_redraw(x);
-}
-
-void ebox_resize_outputs(t_ebox *x, long nouts)
-{
-    int i;
-    t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
-    nouts       = pd_clip_min(nouts, 0);
-    
-    if(!c->c_box)
-    {
-        if(nouts > obj_nsigoutlets(&x->e_obj))
-        {
-            for(i = obj_nsigoutlets(&x->e_obj); i < nouts; i++)
-            {
-                x->e_outlets[i] = outlet_new(&x->e_obj, &s_signal);
-            }
-        }
-        else if (nouts < obj_nsigoutlets(&x->e_obj))
-        {
-            for(i = obj_nsigoutlets(&x->e_obj)-1; i >= nouts; i--)
-            {
-                canvas_deletelines_for_io(x->e_canvas, (t_text *)x, NULL, x->e_outlets[i]);
-                outlet_free(x->e_outlets[i]);
-            }
-        }    
-    }
-    else
-    {
-        if(nouts > obj_nsigoutlets(&x->e_obj))
-        {
-            for (i = obj_nsigoutlets(&x->e_obj); i < nouts; i++)
-            {
-                if(!x->e_canvas->gl_loading && glist_isvisible(x->e_canvas))
-                    gobj_vis((t_gobj *)x, x->e_canvas, 0);
-                x->e_outlets[i] = outlet_new(&x->e_obj, &s_signal);
-                if(!x->e_canvas->gl_loading && glist_isvisible(x->e_canvas))
-                    gobj_vis((t_gobj *)x, x->e_canvas, 1);
-            }
-        }
-        else if (nouts < obj_nsigoutlets(&x->e_obj))
-        {
-            for(i = obj_nsigoutlets(&x->e_obj) - 1; i >= nouts; i--)
-            {
-                if(!x->e_canvas->gl_loading && glist_isvisible(x->e_canvas))
-                {
-                    gobj_vis((t_gobj *)x, x->e_canvas, 0);
-                    canvas_deletelines_for_io(x->e_canvas, (t_text *)x, NULL, x->e_outlets[i]);
-                }
-                outlet_free(x->e_outlets[i]);
-                if(!x->e_canvas->gl_loading && glist_isvisible(x->e_canvas))
-                    gobj_vis((t_gobj *)x, x->e_canvas, 1);
-            }
-        }
-    }
-
-    x->e_dsp_size = obj_nsiginlets(&x->e_obj) + obj_nsigoutlets(&x->e_obj) + 6;
-    ebox_redraw(x);
-}
-
-void ebox_dsp(t_ebox *x, t_signal **sp)
-{
-    int i;
-    t_eclass *c  = (t_eclass *)x->e_obj.te_g.g_pd;
-    short* count = (short*)calloc((obj_nsiginlets(&x->e_obj) + obj_nsigoutlets(&x->e_obj)), sizeof(short));
-
-    if(c->c_widget.w_dsp != NULL)
-        c->c_widget.w_dsp(x, x, &count, sp[0]->s_sr, sp[0]->s_n, 0);
-    
-    x->e_dsp_vectors[0] = (t_int)x;
-    x->e_dsp_vectors[1] = (t_int)sp[0]->s_n;
-    x->e_dsp_vectors[2] = (t_int)x->e_dsp_flag;
-    x->e_dsp_vectors[3] = (t_int)x->e_dsp_user_param;
-    x->e_dsp_vectors[4] = (t_int)obj_nsiginlets(&x->e_obj);
-    x->e_dsp_vectors[5] = (t_int)obj_nsigoutlets(&x->e_obj);
-    
-    for(i = 6; i < x->e_dsp_size; i++)
-    {
-        x->e_dsp_vectors[i] = (t_int)(sp[i - 6]->s_vec);
-    }
-    
-    dsp_addv(ebox_perform, (int)x->e_dsp_size, x->e_dsp_vectors);
-	free(count);
-}
-
-t_int* ebox_perform(t_int* w)
-{
-	int i, j;
-    t_ebox* x               = (t_ebox *)(w[1]);
-    long nsamples           = (long)(w[2]);
-    long flag               = (long)(w[3]);
-    void* user_p            = (void *)(w[4]);
-    long nins               = (long)(w[5]);
-    long nouts              = (long)(w[6]);
-    t_float** ins           = (t_float **)(&w[7]);
-    t_float** outs          = (t_float **)(&w[7 + nins]);
-    
-    if(x->z_misc == E_NO_INPLACE)
-    {
-        t_float *outs_real, *outs_perf;
-        if(x->e_perform_method != NULL)
-            x->e_perform_method(x, NULL, ins, nins, x->z_sigs_out, nouts, nsamples, flag, user_p);
-        for(i = 0; i < nouts; i++)
-        {
-            outs_perf = x->z_sigs_out[i];
-            outs_real = outs[i];
-            for(j = 0; j < nsamples; j++)
-            {
-                outs_real[j] = outs_perf[j];
-            }
-        }
-    }
-    else
-    {
-        if(x->e_perform_method != NULL)
-            x->e_perform_method(x, NULL, ins, nins, outs, nouts, nsamples, flag, user_p);
-    }
-    return w + (x->e_dsp_size + 1);
-}
 
 
-void ebox_dsp_add(t_ebox *x, t_symbol* s, t_object* obj, method m, long flags, void *userparam)
-{
-    x->e_dsp_flag = flags;
-    x->e_dsp_user_param = userparam;
-    x->e_perform_method = m;
-}
 
-void ebox_get_rect_for_view(t_object *z, t_object *patcherview, t_rect *rect)
-{
-    t_ebox* x = (t_ebox *)z;
-    rect->x = x->e_rect.x;
-    rect->y = x->e_rect.y;
-    rect->width = x->e_rect.width;
-    rect->height = x->e_rect.height;
-}
 
-void ebox_properties(t_gobj *z, t_glist *glist)
-{
-    int i, j;
-    t_atom *argv;
-    long    argc;
-    t_ebox *x = (t_ebox *)z;
-    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-    char buffer[MAXPDSTRING];
-    char temp[MAXPDSTRING];
-    
-    sprintf(buffer, "pdtk_%s_dialog %%s ", c->c_class.c_name->s_name);
-    for(i = 0; i < c->c_nattr; i++)
-    {
-        object_attr_getvalueof((t_object *)x, c->c_attr[i].name, &argc, &argv);
-        if(argc && argv)
-        {
-            for(j = 0; j < argc; j++)
-            {
-                atom_string(argv+j, temp, MAXPDSTRING);
-                
-                if(c->c_attr[i].type == gensym("symbol") && strchr(temp, ' '))
-                {
-                    strcat(buffer, "\"");
-                    strcat(buffer, "'");
-                    strcat(buffer, temp);
-                    strcat(buffer, "'");
-                    strcat(buffer, "\"");
-                    strcat(buffer, " ");
-                }
-                else
-                {
-                    atom_string(argv+j, temp, MAXPDSTRING);
-                    strcat(buffer, temp);
-                    strcat(buffer, " ");
-                }
-            }
-        }
-    }
-    strcat(buffer, "\n");
 
-    gfxstub_new(&x->e_obj.ob_pd, x, buffer);
-}
 
-void ebox_dialog(t_object *x, t_symbol *s, long argc, t_atom* argv)
-{
-    t_binbuf* b;
-    if(argc && argv)
-    {
-        b = binbuf_via_atoms(argc, argv);
-        if(b)
-        {
-            binbuf_attr_process(x, b);
-            binbuf_free(b);
-        }
-        ebox_properties((t_gobj *)x, NULL);
-    }
-}
 
-t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
-{
-	int i;
-    float bdsize;
-    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-    if(s == gensym("size"))
-    {
-        if(c->c_widget.w_oksize != NULL)
-            c->c_widget.w_oksize(x, &x->e_rect);
-        for(i = 0; i < x->e_number_of_layers; i++)
-        {
-            x->e_layers[i].e_state = EGRAPHICS_INVALID;
-        }
-        if(x->e_canvas && x->e_ready_to_draw && c->c_box == 0)
-        {
-            bdsize = x->e_boxparameters.d_borderthickness;
-            
-            sys_vgui("%s itemconfigure %s -width %d -height %d\n", x->e_canvas_id->s_name, x->e_window_id->s_name, (int)(x->e_rect.width + bdsize * 2.), (int)(x->e_rect.height + bdsize * 2.));
-            canvas_fixlinesfor(x->e_canvas, (t_text *)x);
-        }
-        
-        ebox_redraw(x);
-    }
-    return 0;
-}
 
-void binbuf_attr_process(void *x, t_binbuf *d)
-{
-    int i, j;
-    char attr_name[256];
-
-    long defc       = 0;
-    t_atom* defv    = NULL;
-    t_ebox* z       = (t_ebox *)x;
-    t_eclass* c     = (t_eclass *)z->e_obj.te_g.g_pd;
-    
-    for(i = 0; i < c->c_nattr; i++)
-    {
-        sprintf(attr_name, "@%s", c->c_attr[i].name->s_name);
-        binbuf_copy_atoms(d, gensym(attr_name), &defc, &defv);
-        if(defc && defv)
-        {
-            object_attr_setvalueof((t_object *)x, c->c_attr[i].name, defc, defv);
-            defc = 0;
-            free(defv);
-            defv = NULL;
-        }
-        else if(c->c_attr[i].defvals)
-        {
-            defc = c->c_attr[i].size;
-            defv = (t_atom *)calloc(defc, sizeof(t_atom));
-            if(defc && defv)
-            {
-                char* str_start = c->c_attr[i].defvals->s_name;
-                for(j = 0; j < defc; j++)
-                {
-                    if(isalpha(str_start[0]))
-                    {
-                        atom_setsym(defv+j, gensym(str_start));
-                    }
-                    else
-                    {
-                        float val = (float)strtod(str_start, &str_start);
-                        atom_setfloat(defv+j, val);
-                    }
-                }
-                object_attr_setvalueof((t_object *)x, c->c_attr[i].name, defc, defv);
-                defc = 0;
-                free(defv);
-                defv = NULL;
-            }
-        }
-    }
-}
-
-t_pd_err ebox_size_set(t_ebox *x, t_object *attr, long argc, t_atom *argv)
-{
-    float width, height;
-    if(argc && argv)
-    {
-        if(x->e_flags & EBOX_GROWNO)
-            return 0;
-        else if(x->e_flags & EBOX_GROWLINK)
-        {
-            if(atom_gettype(argv) == A_FLOAT)
-            {
-                width  = pd_clip_min(atom_getfloat(argv), 4);
-                height = x->e_rect.height;
-                x->e_rect.height += width - x->e_rect.width;
-                if(x->e_rect.height < 4)
-                {
-                    x->e_rect.width += 4 - height;
-                    x->e_rect.height = 4;
-                }
-                else
-                {
-                    x->e_rect.width  =  width;
-                }
-            }
-        }
-        else if (x->e_flags & EBOX_GROWINDI)
-        {
-            if(atom_gettype(argv) == A_FLOAT)
-                x->e_rect.width = pd_clip_min(atom_getfloat(argv), 4);
-            if(atom_gettype(argv+1) == A_FLOAT)
-                x->e_rect.height = pd_clip_min(atom_getfloat(argv+1), 4);
-        }
-    }
-    
-	return 0;
-}
-
-void ebox_getconnections(t_ebox* x, short* count)
-{
-    t_gobj*y;
-    t_object* obj;
-    t_object* dest;
-    int obj_nout;
-    t_outlet* out;
-    t_inlet * in;
-    t_outconnect* conn;
-    
-    for(y = x->e_canvas->gl_owner->gl_list; y; y = y->g_next) /* traverse all objects in canvas */
-    {
-        obj         = (t_object *)y;
-        obj_nout    =  obj_noutlets(obj);
-        int nout=0;
-        int sourcewhich=0;
-        
-        for(nout=0; nout<obj_nout; nout++) /* traverse all outlets of each object */
-        {
-            out     = NULL;
-            in      = NULL;
-            dest    = NULL;
-            conn    = obj_starttraverseoutlet(obj, &out, nout);
-            
-            while(conn)
-            { /* traverse all connections from each outlet */
-                int which;
-                conn = obj_nexttraverseoutlet(conn, &dest, &in, &which);
-                if(dest == &x->e_obj)
-                {
-                    //int connid = glist_getindex(x->e_canvas->gl_owner, (t_gobj*)obj);
-                    //post("inlet from %d:%d to my:%d", 0, sourcewhich, which);
-                }
-            }
-            sourcewhich++;
-        }
-    }
-}
-
-t_symbol* ebox_get_fontname(t_ebox* x)
-{
-    return x->e_font.c_family;
-}
-
-t_symbol* ebox_font_slant(t_ebox* x)
-{
-    return x->e_font.c_slant;
-}
-
-t_symbol* ebox_font_weight(t_ebox* x)
-{
-    return x->e_font.c_weight;
-}
-
-float ebox_font_size(t_ebox* x)
-{
-    return x->e_font.c_size;
-}

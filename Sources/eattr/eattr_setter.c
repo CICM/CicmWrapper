@@ -26,10 +26,12 @@
 
 #include "eattr.h"
 
-void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
+void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
 {
 	int i, j, size;
-    t_ebox* z = (t_ebox *)x;
+    char *point;
+    long *point_size;
+    t_ebox* z   = (t_ebox *)x;
     t_eclass* c = (t_eclass *)z->e_obj.te_g.g_pd;
     
     for(i = 0; i < c->c_nattr; i++)
@@ -37,7 +39,19 @@ void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
         if(c->c_attr[i].name == s)
         {
             t_symbol* type = c->c_attr[i].type;
-            char *point = (char *)(x) + c->c_attr[i].offset;
+            if(c->c_attr[i].sizemax == 0)
+                size = c->c_attr[i].size;
+            else
+            {
+                if(argc > c->c_attr[i].sizemax)
+                    argc = c->c_attr[i].sizemax;
+                size = argc;
+                point = (char *)x + c->c_attr[i].size;
+                point_size = (long *)point;
+                point_size[0] = (long)size;
+            }
+            
+            point = (char *)(x) + c->c_attr[i].offset;
             
             if(c->c_attr[i].clipped == 1 || c->c_attr[i].clipped == 3)
             {
@@ -58,15 +72,6 @@ void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                         atom_setfloat(argv+j, (float)pd_clip_max(atom_getfloat(argv+j), c->c_attr[i].maximum));
                     }
                 }
-            }
-            
-            if(c->c_attr[i].sizemax == 0)
-                size = c->c_attr[i].size;
-            else
-            {
-                size = (long)(x) + c->c_attr[i].size;
-                if(size > c->c_attr[i].sizemax)
-                    size = c->c_attr[i].sizemax;
             }
             
             if(c->c_attr[i].setter)
@@ -124,7 +129,7 @@ void cicm_class_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                 {
                     if(atom_gettype(argv+j) == A_SYM)
                     {
-                        pointor[j] = atom_getsymbol(argv+j);
+                        pointor[j] = gensym(atom_getsymbol(argv+j)->s_name);
                     }
                 }
             }

@@ -60,12 +60,13 @@ void eclass_init(t_eclass* c, long flags)
     class_addmethod((t_class *)c, (t_method)ebox_mouse_wheel, gensym("mousewheel"), A_GIMME, 0);
     class_addmethod((t_class *)c, (t_method)ebox_keyup,       gensym("keyup"),      A_GIMME, 0);
     class_addmethod((t_class *)c, (t_method)ebox_keydown,     gensym("keydown"),    A_GIMME, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_attrprint,   gensym("attrprint"),  A_CANT,  0);
     
     class_addmethod((t_class *)c, (t_method)ebox_patcher_editmode,          gensym("editmode"),     A_GIMME, 0);
     class_addmethod((t_class *)c, (t_method)ebox_popup,                     gensym("popup"),  A_SYMBOL, A_DEFFLOAT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_router,                    gensym("router"), A_GIMME, 0);
     class_addmethod((t_class *)c, (t_method)ebox_set_mouse_global_position, gensym("globalmouse"), A_DEFFLOAT,A_DEFFLOAT,0);
-    class_addmethod((t_class *)c, (t_method)ebox_set_mouse_patcher_position,gensym("patchermouse"), A_DEFFLOAT,A_DEFFLOAT,0);
+    class_addmethod((t_class *)c, (t_method)ebox_set_mouse_canvas_position,gensym("patchermouse"), A_DEFFLOAT,A_DEFFLOAT,0);
 
     class_setwidget((t_class *)&c->c_class, (t_widgetbehavior *)&c->c_widget);
     class_setsavefn((t_class *)&c->c_class, ebox_save);
@@ -141,13 +142,30 @@ void eclass_default_attributes(t_eclass* c)
     CLASS_ATTR_PAINT        (c, "fontsize", 0);
     CLASS_ATTR_CATEGORY		(c, "fontsize", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontsize", 0, "Font Size");
+    
+    CLASS_ATTR_SYMBOL       (c, "idname", 0, t_ebox, e_objuser_id);
+    CLASS_ATTR_DEFAULT      (c, "idname", 0, "(null)");
+    CLASS_ATTR_ACCESSORS    (c, "idname", NULL, ebox_set_id);
+    CLASS_ATTR_SAVE         (c, "idname", 0);
+    CLASS_ATTR_CATEGORY		(c, "idname", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "idname", 0, "Id Name");
+}
+
+void eclass_preset_attributes(t_eclass* c)
+{
+    CLASS_ATTR_SYMBOL       (c, "presetname", 0, t_ebox, e_objpreset_id);
+    CLASS_ATTR_DEFAULT      (c, "presetname", 0, "(null)");
+    CLASS_ATTR_SAVE         (c, "presetname", 0);
+    CLASS_ATTR_CATEGORY		(c, "presetname", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "presetname", 0, "Preset Name");
 }
 
 void eclass_properties_dialog(t_eclass* c)
 {
-    int i, j;
+    int i;
     char buffer[1000];
     char temp[1000];
+    
     // DIALOG WINDOW APPLY //
     sys_vgui("proc pdtk_%s_dialog_apply {id} { \n", c->c_class.c_name->s_name);
     sys_gui("set vid [string trimleft $id .]\n");
@@ -176,10 +194,6 @@ void eclass_properties_dialog(t_eclass* c)
     for(i = 0; i < c->c_nattr; i++)
     {
         sys_vgui("%s \n", c->c_attr[i].name->s_name);
-        for(j = 0; j < c->c_attr[i].sizemax; j++)
-        {
-            
-        }
     }
     sys_gui("} {\n");
     sys_gui("set vid [string trimleft $id .]\n");
@@ -189,10 +203,7 @@ void eclass_properties_dialog(t_eclass* c)
         sys_vgui("set var_%s [concat %s_$vid]\n", c->c_attr[i].name->s_name, c->c_attr[i].name->s_name);
         sys_vgui("global $var_%s \n", c->c_attr[i].name->s_name);
         sys_vgui("set $var_%s \"\n", c->c_attr[i].name->s_name);
-        for(j = 0; j < c->c_attr[i].sizemax; j++)
-        {
-            sys_vgui("$%s%i\n", c->c_attr[i].name->s_name, j);
-        }
+        sys_vgui("$%s\n", c->c_attr[i].name->s_name);
         sys_vgui("\" \n");
     }
     sys_vgui("toplevel $id\n");
@@ -323,6 +334,11 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
     else if(gensym(name) == gensym("symbol"))
     {
         class_addsymbol((t_class *)c, m);
+    }
+    else if(gensym(name) == gensym("preset"))
+    {
+        class_addmethod((t_class *)c, (t_method)m, gensym(name), type, anything);
+        eclass_preset_attributes(c);
     }
     else
     {

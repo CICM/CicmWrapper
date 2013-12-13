@@ -26,7 +26,7 @@
 
 #include "eattr.h"
 
-void cicm_class_new_attr_typed(t_eclass* c, char* attrname, char* type, long size, long maxsize, long flags, long offset)
+void eclass_new_attr_typed(t_eclass* c, char* attrname, char* type, long size, long maxsize, long flags, long offset)
 {
     int i;
     char getattr[256];
@@ -61,13 +61,14 @@ void cicm_class_new_attr_typed(t_eclass* c, char* attrname, char* type, long siz
         c->c_attr[c->c_nattr].maximum = 1;
         c->c_attr[c->c_nattr].defvals = gensym("");
         
-        class_addmethod((t_class *)c, (t_method)cicm_class_attr_setter, gensym(attrname), A_GIMME, 0);
+        class_addmethod((t_class *)c, (t_method)eclass_attr_setter, gensym(attrname), A_GIMME, 0);
         sprintf(getattr, "get%s", attrname);
-        class_addmethod((t_class *)c, (t_method)cicm_class_attr_getter, gensym(getattr), A_GIMME, 0);
+        class_addmethod((t_class *)c, (t_method)eclass_attr_getter, gensym(getattr), A_GIMME, 0);
         c->c_nattr++;
     }
 
 }
+
 
 
 

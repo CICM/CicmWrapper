@@ -63,6 +63,7 @@ void ebox_router(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
         if(atom_getsym(argv+1) == gensym("detach"))
             sys_vgui("erouter_detach %s\n", x->e_object_id->s_name);
     }
+
 }
 
 void erouter_setup()

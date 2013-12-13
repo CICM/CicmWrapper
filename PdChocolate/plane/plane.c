@@ -62,6 +62,8 @@ void draw_point(t_plane *x,  t_object *view, t_rect *rect);
 
 void plane_mousedrag(t_plane *x, t_object *patcherview, t_pt pt, long modifiers);
 
+void plane_preset(t_plane *x, t_binbuf *b);
+
 void plane_setup(void)
 {
 	t_eclass *c;
@@ -79,8 +81,10 @@ void plane_setup(void)
     eclass_addmethod(c, (method) plane_point_set,       "list",             A_CANT, 0);
     eclass_addmethod(c, (method) plane_output,          "bang",             A_CANT, 0);
     
-    eclass_addmethod(c, (method) plane_mousedrag,        "mousedown",       A_CANT, 0);
-    eclass_addmethod(c, (method) plane_mousedrag,        "mousedrag",       A_CANT, 0);
+    eclass_addmethod(c, (method) plane_mousedrag,       "mousedown",        A_CANT, 0);
+    eclass_addmethod(c, (method) plane_mousedrag,       "mousedrag",        A_CANT, 0);
+    
+    eclass_addmethod(c, (method) plane_preset,          "preset",           A_CANT, 0);
     
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "120 120");
 	
@@ -285,7 +289,10 @@ void plane_mousedrag(t_plane *x, t_object *patcherview, t_pt pt, long modifiers)
     plane_output(x);
 }
 
-
+void plane_preset(t_plane *x, t_binbuf *b)
+{
+    binbuf_addv(b, "sff", gensym("point"), x->f_position.x, x->f_position.y);
+}
 
 
 

@@ -133,42 +133,110 @@ t_binbuf* binbuf_via_atoms(long ac, t_atom *av)
     return dico;
 }
 
-t_pd_err binbuf_append_atoms(t_binbuf *d, t_symbol *key, long argc, t_atom *argv)
+t_symbol* fsymbol_from_symbol(t_symbol* s)
+{
+    char buffer[MAXPDSTRING];
+    if(strchr(s->s_name,' '))
+    {
+        sprintf(buffer, "'%s'", s->s_name);
+        return gensym(buffer);
+    }
+    else
+        return s;
+}
+
+t_symbol* symbol_from_fsymbol(t_symbol* s)
+{
+    return gensym(strtok(s->s_name," '\""));
+}
+
+t_atom* fatoms_from_atoms(long ac, t_atom* av)
 {
     int i;
+    for(i = 0; i < ac; i++)
+    {
+        if(atom_gettype(av+i) == A_SYM)
+            atom_setsym(av+i, fsymbol_from_symbol(atom_getsym(av+i)));
+        else
+            av[i] = av[i];
+    }
+    return av;
+}
+
+long atoms_from_fatoms(long ac, t_atom* av)
+{
+    int i, j;
+    char buffer[MAXPDSTRING];
+    char temp[MAXPDSTRING];
+    char *pch;
+    t_symbol* s;
+    j = 0;
+    for(i = 0; i < ac; i++)
+    {
+        if(atom_gettype(av+i) == A_SYM)
+        {
+            s = atom_getsym(av+i);
+            pch = strpbrk(s->s_name,"'");
+            if(pch != NULL)
+            {
+                sprintf(buffer, "%s", strtok(pch," '\""));
+                if (i+1 < ac)
+                {
+                    do
+                    {
+                        i++;
+                        strcat(buffer, " ");
+                        atom_string(av+i, temp, MAXPDSTRING);
+                        pch = strpbrk(temp,"'");
+                        strcat(buffer, strtok(temp," '\""));
+                    }
+                    while(pch == NULL && i < ac);
+                }
+                atom_setsym(av+j, gensym(buffer));
+                
+            }
+            else
+            {
+                atom_setsym(av+j, symbol_from_fsymbol(s));
+            }
+        }
+        else
+            av[j] = av[i];
+        j++;
+    }
+    return j;
+}
+
+t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *argv)
+{
+    int i;
+    
     long ac = argc+1;
     t_atom* av = (t_atom *)calloc(ac, sizeof(t_atom));
     atom_setsym(av, key);
+    argv = fatoms_from_atoms(argc, argv);
     for(i = 0; i < argc; i++)
     {
-        if(atom_gettype(argv) == A_FLOAT)
-        {
-            atom_setfloat(av+i+1, atom_getfloat(argv+i));
-        }
-        else if(atom_gettype(argv+i) == A_SYM)
-        {
-            if(atom_getsym(argv+i) == gensym("") || atom_getsym(argv+i) == gensym(" "))
-                atom_setsym(av+i+1, gensym("s_nosymbol"));
-            else
-                atom_setsym(av+i+1, gensym(atom_getsym(argv+i)->s_name));
-        }
-        else
-        {
-            av[i+1] = argv[i];
-        }
+        av[i+1] = argv[i];
     }
     
     binbuf_add(d, ac, av);
     return 0;
 }
 
-t_pd_err binbuf_copy_atoms(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv)
+t_pd_err binbuf_get_attribute(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv)
+{
+    t_atom* av  = binbuf_getvec(d);
+    long ac     = binbuf_getnatom(d);
+    return atoms_get_attribute(ac, av, key, argc, argv);
+}
+
+t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_atom **argv)
 {
     int i;
-    t_atom* av = binbuf_getvec(d);
-    long ac = binbuf_getnatom(d);
-    int index = 0;
-    argc[0] = 0;
+    int index   = 0;
+    argc[0]     = 0;
+    
     if(ac && av)
     {
         for(i = 0; i < ac; i++)
@@ -188,32 +256,30 @@ t_pd_err binbuf_copy_atoms(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv
             i++;
             argc[0]++;
         }
-        argv[0] = (t_atom *)calloc(argc[0], sizeof(t_atom));
-        for (i = 0; i < argc[0]; i++)
-        {
-            if(atom_gettype(av+i+index) == A_SYM && (atom_getsym(av+i+index) == gensym("s_nosymbol") || atom_getsym(av+i+index) == gensym("nan")))
-            {
-                atom_setsym(argv[0]+i, gensym(" "));
-            }
-            else
-            {
-                argv[0][i] = av[i+index];
-            }
-        }
-        /*
-        post("-------------------------------");
-        post("\n");
-        post("%s : %ld", key->s_name, argc[0]);
-        postatom(argc[0], argv[0]);
-        post("\n");
-        post("-------------------------------");
-         */
     }
     else
     {
         argc[0] = 0;
         argv = NULL;
+        return -1;
     }
+    
+    if(argc[0])
+    {
+        argv[0] = (t_atom *)calloc(argc[0], sizeof(t_atom));
+        for (i = 0; i < argc[0]; i++)
+        {
+            argv[0][i] = av[i+index];
+        }
+        argc[0] = atoms_from_fatoms(argc[0], argv[0]);
+    }
+    else
+    {
+        argc[0] = 0;
+        argv = NULL;
+        return -1;
+    }
+    
     return 0;
 }
 

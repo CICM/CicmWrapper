@@ -26,9 +26,10 @@
 
 #include "eattr.h"
 
-void cicm_class_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
+void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
 {
     int i, j;
+    char *point;
     t_ebox* z   = (t_ebox *)x;
     t_eclass* c = (t_eclass *)z->e_obj.te_g.g_pd;
     if(argv[0])
@@ -39,15 +40,18 @@ void cicm_class_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
         if(c->c_attr[i].name == s)
         {
             t_symbol* type = c->c_attr[i].type;
-            char *point = (char *)x + c->c_attr[i].offset;
             if(c->c_attr[i].sizemax == 0)
                 argc[0] = (int)c->c_attr[i].size;
             else
             {
-                argc[0] = (int)(x) + c->c_attr[i].size;
+                point = (char *)x + c->c_attr[i].size;
+                argc[0] = (long)point[0];
                 if(argc[0] > c->c_attr[i].sizemax)
                     argc[0] = c->c_attr[i].sizemax;
             }
+            
+            point = (char *)x + c->c_attr[i].offset;
+           
             argv[0] = (t_atom *)calloc(argc[0], sizeof(t_atom));
             if(c->c_attr[i].getter)
             {
@@ -83,12 +87,13 @@ void cicm_class_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
             }
             else if(type == gensym("symbol"))
             {
+                t_symbol** syms = (t_symbol **)point;
                 for(j = 0; j < argc[0]; j++)
                 {
-                    if(((t_symbol **)point)[j])
-                        atom_setsym(argv[0]+j, ((t_symbol **)point)[j]);
-                    else
-                        atom_setsym(argv[0]+j, gensym(" "));
+                    if(syms[j])
+                    {
+                        atom_setsym(argv[0]+j, gensym(syms[j]->s_name));
+                    }
                 }
             }
         }

@@ -44,19 +44,40 @@ static char *my_cursorlist[] = {
     "exchange"
 };
 
-
+//! The global mouse position method called by tcl/tk (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param x_p       The abscissa of the mouse position
+ \ @param y_p       The ordinate of the mouse position
+ \ @return          Nothing
+*/
 void ebox_set_mouse_global_position(t_ebox* x, float x_p, float y_p)
 {
     mouse_global_pos.x = x_p;
     mouse_global_pos.y = y_p;
 }
 
-void ebox_set_mouse_patcher_position(t_ebox* x, float x_p, float y_p)
+//! The canvas mouse position method called by tcl/tk (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param x_p       The abscissa of the mouse position
+ \ @param y_p       The ordinate of the mouse position
+ \ @return          Nothing
+*/
+void ebox_set_mouse_canvas_position(t_ebox* x, float x_p, float y_p)
 {
     mouse_patcher_pos.x = x_p;
     mouse_patcher_pos.y = y_p;
 }
 
+//! Retrieve the global mouse position
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @return          This function return a point that contains the global abscissa and ordiante of the mouse
+*/
 t_pt ebox_get_mouse_global_position(t_ebox* x)
 {
     sys_vgui("global_mousepos %s\n", x->e_object_id->s_name);
@@ -64,6 +85,12 @@ t_pt ebox_get_mouse_global_position(t_ebox* x)
     return mouse_global_pos;
 }
 
+//! Retrieve the canvas mouse position
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @return          This function return a point that contains abscissa and ordinate of the mouse in the ebox's canvas
+*/
 t_pt ebox_get_mouse_canvas_position(t_ebox* x)
 {
     t_pt point;
@@ -75,12 +102,25 @@ t_pt ebox_get_mouse_canvas_position(t_ebox* x)
     return point;
 }
 
+//! Change the cursor
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param mode      The index of the cursor list
+ \ @return          Nothing
+*/
 void ebox_set_cursor(t_ebox* x, int mode)
 {
     mode = pd_clip_minmax(mode, 0, 11);
     sys_vgui("%s configure -cursor %s\n", x->e_drawing_id->s_name, my_cursorlist[mode]);
 }
 
+//! The mouse enter method called by tcl/tk (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @return          Nothing
+*/
 void ebox_mouse_enter(t_ebox* x)
 {
     t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
@@ -92,6 +132,12 @@ void ebox_mouse_enter(t_ebox* x)
     }
 }
 
+//! The mouse leave method called by tcl/tk (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @return          Nothing
+*/
 void ebox_mouse_leave(t_ebox* x)
 {
     t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
@@ -109,6 +155,15 @@ void ebox_mouse_leave(t_ebox* x)
     }
 }
 
+//! The mouse move method called by tcl/tk (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param s         The message selector
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Nothing
+*/
 void ebox_mouse_move(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     t_atom av[2];
@@ -216,6 +271,15 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     }
 }
 
+//! The mouse drag method called via mouse move method when mouse down (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param s         The message selector
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Nothing
+*/
 void ebox_mouse_drag(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
@@ -231,6 +295,15 @@ void ebox_mouse_drag(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     }
 }
 
+//! The mouse down method called by tcl/tk (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param s         The message selector
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Nothing
+*/
 void ebox_mouse_down(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
@@ -274,6 +347,15 @@ void ebox_mouse_down(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     x->e_mouse_down = 1;
 }
 
+//! The mouse up method called by tcl/tk (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param s         The message selector
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Nothing
+*/
 void ebox_mouse_up(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
@@ -311,6 +393,15 @@ void ebox_mouse_up(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     x->e_mouse_down = 0;
 }
 
+//! The mouse double click method called by tcl/tk (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param s         The message selector
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Nothing
+*/
 void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
@@ -335,6 +426,15 @@ void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     }
 }
 
+//! The mouse wheel method called by tcl/tk (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param s         The message selector
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Nothing
+*/
 void ebox_mouse_wheel(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     float delta;
@@ -364,39 +464,15 @@ void ebox_mouse_wheel(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     }
 }
 
-void ebox_keydown(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
-{
-    if(!x->e_canvas->gl_edit)
-    {
-        
-    }
-    else
-    {
-        ;
-    }
-    ebox_redraw(x);
-}
-
-void ebox_keyup(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
-{
-    if(!x->e_canvas->gl_edit)
-    {
-        ;
-    }
-    else
-    {
-        ;
-    }
-}
-
-void ebox_deserted(t_ebox *x)
-{
-    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-    if(c->c_widget.w_deserted)
-        c->c_widget.w_deserted(x);
-    clock_unset(x->e_deserted_clock);
-}
-
+//! The mouse move editmode method called via mouse move method when mouse down (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param s         The message selector
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Nothing
+*/
 void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
 {
     int i;
@@ -429,7 +505,7 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
                 break;
             }
         }
-        ebox_invalidate_layer((t_object *)x, NULL, gensym("eboxio"));
+        ebox_invalidate_layer(x, gensym("eboxio"));
         ebox_redraw(x);
         return;
     }
@@ -461,7 +537,7 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
             x->e_selected_item = EITEM_BOTTOM;
             ebox_set_cursor(x, 7);
         }
-        ebox_invalidate_layer((t_object *)x, NULL, gensym("eboxio"));
+        ebox_invalidate_layer(x, gensym("eboxio"));
         ebox_redraw(x);
         return;
     }
@@ -476,10 +552,78 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
     // BOX //
     ebox_set_cursor(x, 4);
 
-    ebox_invalidate_layer((t_object *)x, NULL, gensym("eboxio"));
+    ebox_invalidate_layer(x, gensym("eboxio"));
     ebox_redraw(x);
 }
 
+//! The key down method called by tcl/tk (PRIVATE AND NOT READY)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param s         The message selector
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Nothing
+ */
+void ebox_keydown(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+{
+    if(!x->e_canvas->gl_edit)
+    {
+        
+    }
+    else
+    {
+        ;
+    }
+    ebox_redraw(x);
+}
+
+//! The key up method called by tcl/tk (PRIVATE AND NOT READY)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param s         The message selector
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Nothing
+*/
+void ebox_keyup(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+{
+    if(!x->e_canvas->gl_edit)
+    {
+        ;
+    }
+    else
+    {
+        ;
+    }
+}
+
+//! The key up method called by tcl/tk (PRIVATE AND NOT READY)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param s         The message selector
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Nothing
+*/
+void ebox_deserted(t_ebox *x)
+{
+    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
+    if(c->c_widget.w_deserted)
+        c->c_widget.w_deserted(x);
+    clock_unset(x->e_deserted_clock);
+}
+
+//! The popup method called by tcl/tk (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param s         The message selector
+ \ @param itemid    the id of the selected item
+ \ @return          Nothing
+*/
 void ebox_popup(t_ebox* x, t_symbol* s, float itemid)
 {
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
@@ -488,6 +632,13 @@ void ebox_popup(t_ebox* x, t_symbol* s, float itemid)
         c->c_widget.w_popup(x, s, (long)itemid);
 }
 
+//! The default save method for UI ebox (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param z         The gobj
+ \ @param b         The binbuf
+ \ @return          Nothing
+*/
 void ebox_dosave_box(t_gobj* z, t_binbuf *b)
 {
     t_ebox*   x = (t_ebox *)z;
@@ -496,13 +647,19 @@ void ebox_dosave_box(t_gobj* z, t_binbuf *b)
     binbuf_addv(b, "ssii", gensym("#X"), gensym("obj"), (t_int)x->e_obj.te_xpix, (t_int)x->e_obj.te_ypix);
     binbuf_add(b, binbuf_getnatom(x->e_obj.te_binbuf), binbuf_getvec(x->e_obj.te_binbuf));
     
-
     if(c->c_widget.w_save != NULL)
         c->c_widget.w_save(x, b);
     
     binbuf_addv(b, ";");
 }
 
+//! The default save method for none UI ebox (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param z         The gobj
+ \ @param b         The binbuf
+ \ @return          Nothing
+*/
 void ebox_dosave_nobox(t_gobj* z, t_binbuf *b)
 {
     int         i;
@@ -522,7 +679,7 @@ void ebox_dosave_nobox(t_gobj* z, t_binbuf *b)
             object_attr_getvalueof((t_object *)x, c->c_attr[i].name, &argc, &argv);
             if(argc && argv)
             {
-                binbuf_append_atoms(b, gensym(attr_name), argc, argv);
+                binbuf_append_attribute(b, gensym(attr_name), argc, argv);
                 argc = 0;
                 free(argv);
                 argv = NULL;
@@ -536,6 +693,13 @@ void ebox_dosave_nobox(t_gobj* z, t_binbuf *b)
     binbuf_addv(b, ";");
 }
 
+//! The default save method for all ebox called by PD (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param z         The gobj
+ \ @param b         The binbuf
+ \ @return          Nothing
+*/
 void ebox_save(t_gobj* z, t_binbuf *b)
 {
     t_ebox*   x = (t_ebox *)z;
@@ -549,3 +713,25 @@ void ebox_save(t_gobj* z, t_binbuf *b)
        ebox_dosave_nobox(z, b);
     }
 }
+
+//! The default user id method for all ebox called by PD (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The gobj
+ \ @param attr      Nothing (for Max 6 compatibility)
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Always 0 (for the moment)
+*/
+t_pd_err ebox_set_id(t_ebox *x, t_object *attr, long argc, t_atom *argv)
+{
+    if(argc && argv && atom_gettype(argv) == A_SYM)
+    {
+        pd_unbind(&x->e_obj.ob_pd, x->e_objuser_id);
+        x->e_objuser_id = atom_getsym(argv);
+        pd_bind(&x->e_obj.ob_pd, x->e_objuser_id);
+    }
+    return 0;
+}
+
+

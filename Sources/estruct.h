@@ -281,6 +281,8 @@ typedef struct _ebox
     t_canvas*           e_canvas;
     
     t_symbol*           e_object_id;
+    t_symbol*           e_objuser_id;
+    t_symbol*           e_objpreset_id;
     t_symbol*           e_canvas_id;
     t_symbol*           e_drawing_id;
     t_symbol*           e_editor_id;

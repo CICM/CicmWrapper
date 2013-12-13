@@ -1,4 +1,4 @@
-#N canvas 664 176 664 410 10;
+#N canvas 319 169 1032 455 10;
 #X msg 55 6 \; pd dsp 1;
 #X msg -11 6 \; pd dsp 0;
 #X obj 63 91 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
@@ -11,7 +11,7 @@
 0.35 0.23 0.13 1 @bdcolor 0.27 0.21 0 1 @textcolor 1 1 1 1;
 #X obj 63 114 osc~ 0.2;
 #X obj 125 228 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0.37911 256;
+-262144 -1 -1 -0.843433 256;
 #X obj 63 253 nbx~ @size 80 17 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @mode 0 @interval 50 @decimal 4 @bgcolor
 0.35 0.23 0.13 1 @bdcolor 0.27 0.21 0 1 @textcolor 1 1 1 1;
@@ -19,7 +19,7 @@
 @fontslant regular @fontsize 11 @mode 1 @interval 50 @decimal 4 @bgcolor
 0.35 0.23 0.13 1 @bdcolor 0.27 0.21 0 1 @textcolor 1 1 1 1;
 #X obj 295 228 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 -6 256;
+-262144 -1 -1 10 256;
 #X obj 245 253 nbx~ @size 80 17 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @mode 0 @interval 50 @decimal 4 @bgcolor
 0.35 0.23 0.13 1 @bdcolor 0.27 0.21 0 1 @textcolor 1 1 1 1;
@@ -28,9 +28,9 @@
 #X text 359 179 The precision depends of where user drag.;
 #X text 359 199 Use shift to increase the precision.;
 #X obj 243 75 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 -6 256;
+-262144 -1 -1 10 256;
 #X obj 313 75 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 66 256;
+-262144 -1 -1 10 256;
 #X msg 313 110 set \$1;
 #X obj 213 110 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;

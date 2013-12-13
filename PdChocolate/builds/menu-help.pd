@@ -5,23 +5,25 @@
 Paris 8;
 #X obj 388 299 pdchocolate;
 #X text 619 235 Futher information about chocolate;
-#X obj 94 281 menu @size 100 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @items this is noel s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol @bgcolor
-0.35 0.23 0.13 1 @bdcolor 0.27 0.21 0 1 @textcolor 1 1 1 1;
+#X msg 317 18 append this is noel;
+#X obj 11 283 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 409 30 insert 1 joey;
+#X msg 547 34 append to \, append ta;
+#X msg 420 62 insert 1 zaa \, insert 45 zozo;
+#X msg 320 136 append 17;
+#X msg 435 125 setitem 18 maman;
+#X msg 373 167 setitem 2 maman;
+#X msg 494 185 delete 4;
+#X msg 567 191 delete 0;
+#X msg 652 188 delete 18;
+#X msg 656 144 clear;
+#X msg 9 117 set \$1;
+#X obj 9 80 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10 -262144
+-1 -1 0 256;
+#X obj 94 338 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X symbolatom 189 338 20 0 0 0 - - -;
 #X msg 317 18 append this is noel;
 #X obj 11 283 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -43,23 +45,6 @@ s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol @bgcolor
 #X obj 94 338 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
 -262144 -1 -1 0 256;
 #X symbolatom 189 338 20 0 0 0 - - -;
-#X obj 543 295 menu @size 100 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @items s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol
-s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol s_nosymbol @bgcolor
-0.35 0.23 0.13 1 @bdcolor 0.27 0.21 0 1 @textcolor 1 1 1 1;
 #X text -22 -52 A menu that display a list of items;
 #X text -24 -31 meunu (umenu) display a list of items like the popup
 menu but without stoping the DSP and with a lot of options.;
@@ -81,22 +66,23 @@ John Lennon \, append Jim Morisson;
 #X text 302 76 Edition;
 #X msg 242 41 append;
 #X msg 92 40 Jimi Hendrix;
-#X obj -7 42 incdec @size 15 15 @fontname helvetica @fontweight normal
+#X obj -12 42 incdec @size 15 15 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @step 1 @bgcolor 0.35 0.23 0.13 1 @bdcolor
 0.27 0.21 0 1 @arcolor 0.94 0.85 0.57 1;
 #X obj 616 234 s menu;
 #X msg 106 139 set Jimi Hendrix;
-#X connect 4 0 20 0;
-#X connect 4 1 21 0;
+#X msg 239 213 items;
+#X obj 153 265 menu @size 100 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11  @bgcolor
+0.35 0.23 0.13 1 @bdcolor 0.27 0.21 0 1 @textcolor 1 1 1 1;
+#X connect 4 0 19 0;
 #X connect 5 0 4 0;
 #X connect 6 0 4 0;
-#X connect 16 0 36 0;
-#X connect 17 0 30 0;
-#X connect 17 0 35 0;
-#X connect 18 0 28 0;
-#X connect 19 0 18 0;
-#X connect 29 0 28 0;
-#X connect 31 0 4 0;
-#X connect 34 0 30 0;
-#X connect 35 0 17 0;
-#X connect 37 0 28 0;
+#X connect 7 0 4 0;
+#X connect 10 0 4 0;
+#X connect 18 0 17 0;
+#X connect 34 0 52 0;
+#X connect 34 0 47 0;
+#X connect 48 0 4 0;
+#X connect 51 0 47 0;
+#X connect 52 0 34 0;

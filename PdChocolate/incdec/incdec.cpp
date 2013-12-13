@@ -53,6 +53,7 @@ void incdec_float(t_incdec *x, float f);
 void incdec_output(t_incdec *x);
 void incdec_inc(t_incdec *x);
 void incdec_dec(t_incdec *x);
+void incdec_preset(t_incdec *x, t_binbuf *b);
 
 t_pd_err incdec_notify(t_incdec *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
@@ -85,6 +86,7 @@ extern "C" void incdec_setup(void)
     eclass_addmethod(c, (method) incdec_dec,             "dec",              A_CANT, 0);
     eclass_addmethod(c, (method) incdec_mousedown,       "mousedown",        A_CANT, 0);
     eclass_addmethod(c, (method) incdec_mouseup,         "mouseup",          A_CANT, 0);
+    eclass_addmethod(c, (method) incdec_preset,          "preset",           A_CANT, 0);
     
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "13 20");
 	
@@ -296,6 +298,16 @@ void incdec_mouseup(t_incdec *x, t_object *patcherview, t_pt pt, long modifiers)
     x->f_mouse_down = 0;
     ebox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
     ebox_redraw((t_ebox *)x);
+}
+
+void incdec_preset(t_incdec *x, t_binbuf *b)
+{
+    int ac;
+    t_atom* av;
+    eclass_attr_getter((t_object *)x, gensym("idname"), &ac, &av);
+    if(ac)
+        post("%s", atom_getsym(av));
+    binbuf_addv(b, "sssf", x->j_box.e_objuser_id, gensym("incdec"), gensym("float"), x->f_value);
 }
 
 
