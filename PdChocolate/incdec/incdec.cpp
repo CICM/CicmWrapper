@@ -53,7 +53,6 @@ void incdec_float(t_incdec *x, float f);
 void incdec_output(t_incdec *x);
 void incdec_inc(t_incdec *x);
 void incdec_dec(t_incdec *x);
-void incdec_preset(t_incdec *x, t_binbuf *b);
 
 t_pd_err incdec_notify(t_incdec *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
@@ -86,7 +85,6 @@ extern "C" void incdec_setup(void)
     eclass_addmethod(c, (method) incdec_dec,             "dec",              A_CANT, 0);
     eclass_addmethod(c, (method) incdec_mousedown,       "mousedown",        A_CANT, 0);
     eclass_addmethod(c, (method) incdec_mouseup,         "mouseup",          A_CANT, 0);
-    eclass_addmethod(c, (method) incdec_preset,          "preset",           A_CANT, 0);
     
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "13 20");
 	
@@ -99,17 +97,17 @@ extern "C" void incdec_setup(void)
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_incdec, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.35 0.23 0.13 1.");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
 	
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_incdec, f_color_border);
 	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Box Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.27 0.21 0. 1");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
 	
 	CLASS_ATTR_RGBA                 (c, "arcolor", 0, t_incdec, f_color_arrow);
-	CLASS_ATTR_LABEL                (c, "arcolor", 0, "Point Color");
+	CLASS_ATTR_LABEL                (c, "arcolor", 0, "Arrow Color");
 	CLASS_ATTR_ORDER                (c, "arcolor", 0, "3");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "arcolor", 0, "0.94 0.85 0.57 1");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "arcolor", 0, "0. 0. 0. 1.");
 	
 	
     eclass_register(CLASS_NOBOX, c);
@@ -128,7 +126,7 @@ void *incdec_new(t_symbol *s, int argc, t_atom *argv)
     flags = 0
     | EBOX_GROWINDI
     ;
-	ebox_new((t_ebox *)x, flags, argc, argv);
+	ebox_new((t_ebox *)x, flags);
 	x->j_box.b_firstin = (t_object *)x;
     x->f_value = 0.;
     x->f_mouse_down = 0;
@@ -202,7 +200,7 @@ t_pd_err incdec_notify(t_incdec *x, t_symbol *s, t_symbol *msg, void *sender, vo
 	{
 		if(s == gensym("bgcolor") || s == gensym("bdcolor") || s == gensym("arcolor"))
 		{
-			ebox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
+			ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
 		}
         ebox_redraw((t_ebox *)x);
 	}
@@ -212,14 +210,14 @@ t_pd_err incdec_notify(t_incdec *x, t_symbol *s, t_symbol *msg, void *sender, vo
 void incdec_paint(t_incdec *x, t_object *view)
 {
 	t_rect rect;
-	ebox_get_rect_for_view((t_object *)x, view, &rect);
+	ebox_get_rect_for_view((t_ebox *)x, &rect);
     draw_background(x, view, &rect);
 }
 
 void draw_background(t_incdec *x, t_object *view, t_rect *rect)
 {
     float height;
-	t_elayer *g = ebox_start_layer((t_object *)x, view, gensym("background_layer"), rect->width, rect->height);
+	t_elayer *g = ebox_start_layer((t_ebox *)x, gensym("background_layer"), rect->width, rect->height);
     
 	if (g)
 	{
@@ -240,14 +238,11 @@ void draw_background(t_incdec *x, t_object *view, t_rect *rect)
         else
             egraphics_set_color_rgba(g, &x->f_color_arrow);
         
-        if((rect->height / 2.) * 0.1 < 2)
-            height = (rect->height / 2.) - 2.;
-        else
-            height = (rect->height / 2.) * 0.9;
+        height = rect->height / 2. - 2;
         
-        egraphics_move_to(g, rect->width * 0.1, height);
-        egraphics_line_to(g, rect->width * 0.9, height);
-        egraphics_line_to(g, rect->width * 0.5, (rect->height / 2.) * 0.1);
+        egraphics_move_to(g, rect->width * 0.1, pd_clip_max(height * 0.9, height - 1));
+        egraphics_line_to(g, rect->width * 0.9, pd_clip_max(height * 0.9, height - 1));
+        egraphics_line_to(g, rect->width * 0.5, pd_clip_min(height* 0.1, 1));
         egraphics_fill(g);
         
         // Arrow Down //
@@ -256,24 +251,19 @@ void draw_background(t_incdec *x, t_object *view, t_rect *rect)
         else
             egraphics_set_color_rgba(g, &x->f_color_arrow);
         
-        if((rect->height / 2.) * 0.1 < 2)
-            height = (rect->height / 2.) + 2.;
-        else
-            height = (rect->height / 2.) * 1.1;
-        
-        egraphics_move_to(g, rect->width * 0.1, height);
-        egraphics_line_to(g, rect->width * 0.9, height);
-        egraphics_line_to(g, rect->width * 0.5, (rect->height / 2.) * 1.9);
+        egraphics_move_to(g, rect->width * 0.1, pd_clip_min(height * 0.1 + rect->height / 2. + 2.5, rect->height / 2. + 2.5));
+        egraphics_line_to(g, rect->width * 0.9, pd_clip_min(height * 0.1 + rect->height / 2. + 2.5, rect->height / 2. + 2.5));
+        egraphics_line_to(g, rect->width * 0.5, pd_clip_max(height * 0.9 + rect->height / 2. + 2.5, rect->height - 1));
         egraphics_fill(g);
         
         // Middle Line //
         egraphics_set_color_rgba(g, &x->f_color_border);
         egraphics_set_line_width(g, 2);
-        egraphics_line_fast(g, 0., rect->height / 2., rect->width, rect->height / 2.);
+        egraphics_line_fast(g, 0., rect->height / 2. + 0.5, rect->width, rect->height / 2. + 0.5);
         
-        ebox_end_layer((t_object*)x, view, gensym("background_layer"));
+        ebox_end_layer((t_ebox*)x, gensym("background_layer"));
 	}
-	ebox_paint_layer((t_object *)x, view, gensym("background_layer"), 0., 0.);
+	ebox_paint_layer((t_ebox *)x, gensym("background_layer"), 0., 0.);
 }
 
 void incdec_mousedown(t_incdec *x, t_object *patcherview, t_pt pt, long modifiers)
@@ -288,7 +278,7 @@ void incdec_mousedown(t_incdec *x, t_object *patcherview, t_pt pt, long modifier
         incdec_dec(x);
         x->f_mouse_down = -1;
     }
-    ebox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
+    ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
     ebox_redraw((t_ebox *)x);
 }
 
@@ -296,18 +286,8 @@ void incdec_mousedown(t_incdec *x, t_object *patcherview, t_pt pt, long modifier
 void incdec_mouseup(t_incdec *x, t_object *patcherview, t_pt pt, long modifiers)
 {
     x->f_mouse_down = 0;
-    ebox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
+    ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
     ebox_redraw((t_ebox *)x);
-}
-
-void incdec_preset(t_incdec *x, t_binbuf *b)
-{
-    int ac;
-    t_atom* av;
-    eclass_attr_getter((t_object *)x, gensym("idname"), &ac, &av);
-    if(ac)
-        post("%s", atom_getsym(av));
-    binbuf_addv(b, "sssf", x->j_box.e_objuser_id, gensym("incdec"), gensym("float"), x->f_value);
 }
 
 

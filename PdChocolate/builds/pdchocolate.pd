@@ -1,51 +1,54 @@
-#N canvas 633 241 656 368 10;
+#N canvas 447 83 709 373 10;
 #X obj -19 -74 cnv 40 552 40 empty empty PdChocolate 3 12 0 18 -228856
 -33289 0;
-#X obj 68 39 nbx~ @size 55 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname 	 @presetname  @mode 1 @interval
-50 @decimal 4 @bgcolor 0.35 0.23 0.13 1 @bdcolor 0.27 0.21 0 1 @textcolor
-1 1 1 1;
 #X text -16 -52 A set of objects for those who want more than vanilla...
 ;
-#X text 132 37 nbx~;
+#X text 132 37 number~;
 #X text 85 78 vu~;
 #X text -7 258 Pd Chocolate by Pierre Guillot | CICM - Université Paris
 8;
-#X obj 70 114 plane @size 80 80 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @point
-0 0 @bound -1 -1 1 1 @ptsize 5 @bgcolor 0.35 0.23 0.13 1 @bdcolor 0.27
-0.21 0 1 @ptcolor 0.94 0.85 0.57 1;
-#X text 158 149 plane;
+#X text 189 142 plane;
+#X text 265 73 For GUI :;
+#X text 265 141 - Inlets and outlets are hidden in "runmode".;
+#X text 256 44 In the helps \, the name between () are the alias.;
+#X text -16 -52 A set of objects for those who want more than vanilla...
+;
+#X text 132 37 number~;
+#X text 85 78 vu~;
+#X text -7 258 Pd Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X text 189 142 plane;
 #X text -18 -31 Pd Chocolate use the Pd Enhanced library developed
 to facilitate the creation of signal objects and GUI and to improve
 interraction with the user.;
 #X text 265 73 For GUI :;
 #X text 265 141 - Inlets and outlets are hidden in "runmode".;
 #X text 256 44 In the helps \, the name between () are the alias.;
-#X text 83 221 Sorry for the default colors but it's chocolate \, be
-happy that I didn't call it pistachio...;
-#X obj 259 11 incdec @size 15 20 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @step 0.3 @bgcolor 0.35
-0.23 0.13 1 @bdcolor 0.27 0.21 0 1 @arcolor 0.94 0.85 0.57 1;
-#X text 319 12 incdec;
-#X text 148 15 loadmess;
-#X obj 277 10 nbx 3 22 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0 256;
-#X obj 68 15 loadmess 1.2;
 #X msg 547 118 attrprint;
 #X text 265 167 - Drag the border or the corner of the box to resize
 them. Sometimes the width or the height depends of the font size.;
 #X text 265 95 - Look at the properties window to edit the attributes.
 Use the attrprint message to post the attributes characteristics.;
-#X obj 166 69 preset @size 70 18 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 7 @idname (null) @bgcolor 0.35 0.23 0.13
-1 @bdcolor 0.27 0.21 0 1 @emcolor 0.47 0.41 0.2 1 @stcolor 0.27 0.21
-0 1 @secolor 0.94 0.85 0.57 1 @textcolor 1 1 1 1 @preset [ ];
 #X obj -8 81 vu~ @size 85 13 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @interval 50 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6 0 0.8 @tepidcolor
 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor
 1 0 0 0.8;
-#X connect 13 0 16 0;
-#X connect 16 0 13 0;
-#X connect 17 0 1 0;
+#X obj 113 126 plane @size 62 62 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @bound
+-1 -1 1 1 @ptsize 5 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @ptcolor 0 0 0 1;
+#X obj 142 78 incdec @size 15 15 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @step 1 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @arcolor 0 0 0 1;
+#X text 160 76 incdec;
+#X obj 72 38 number~ @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @interval 50 @decimal
+6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
+1;
+#X text 56 189 number;
+#X obj 160 220 loadmess chocolate;
+#X obj -3 190 number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;

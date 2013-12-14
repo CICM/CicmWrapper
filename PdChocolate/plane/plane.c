@@ -48,10 +48,11 @@ void plane_free(t_plane *x);
 void plane_assist(t_plane *x, void *b, long m, long a, char *s);
 
 void plane_set(t_plane *x, t_symbol *s, long ac, t_atom *av);
+void plane_list(t_plane *x, t_symbol *s, long ac, t_atom *av);
 void plane_output(t_plane *x);
 
 t_pd_err plane_notify(t_plane *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
-t_pd_err plane_point_set(t_plane *x, t_object *attr, long ac, t_atom *av);
+
 t_pd_err plane_bound_set(t_plane *x, t_object *attr, long ac, t_atom *av);
 
 void plane_getdrawparams(t_plane *x, t_object *patcherview, t_edrawparams *params);
@@ -78,7 +79,7 @@ void plane_setup(void)
     eclass_addmethod(c, (method) plane_getdrawparams,   "getdrawparams",    A_CANT, 0);
     eclass_addmethod(c, (method) plane_oksize,          "oksize",           A_CANT, 0);
     eclass_addmethod(c, (method) plane_set,             "set",              A_GIMME,0);
-    eclass_addmethod(c, (method) plane_point_set,       "list",             A_CANT, 0);
+    eclass_addmethod(c, (method) plane_list,            "list",            A_GIMME,0);
     eclass_addmethod(c, (method) plane_output,          "bang",             A_CANT, 0);
     
     eclass_addmethod(c, (method) plane_mousedrag,       "mousedown",        A_CANT, 0);
@@ -87,12 +88,6 @@ void plane_setup(void)
     eclass_addmethod(c, (method) plane_preset,          "preset",           A_CANT, 0);
     
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "120 120");
-	
-    CLASS_ATTR_FLOAT_ARRAY          (c, "point", 0, t_plane, f_position, 2);
-	CLASS_ATTR_LABEL                (c, "point", 0, "Point position");
-    CLASS_ATTR_ACCESSORS			(c, "point", NULL, plane_point_set);
-	CLASS_ATTR_ORDER                (c, "point", 0, "1");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "point", 0, "0. 0.");
     
     CLASS_ATTR_FLOAT_ARRAY          (c, "bound", 0, t_plane, f_boundaries, 4);
 	CLASS_ATTR_LABEL                (c, "bound", 0, "Boundaries");
@@ -109,17 +104,17 @@ void plane_setup(void)
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_plane, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.35 0.23 0.13 1.");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
 	
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_plane, f_color_border);
 	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Box Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.27 0.21 0. 1");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
 	
 	CLASS_ATTR_RGBA                 (c, "ptcolor", 0, t_plane, f_color_point);
 	CLASS_ATTR_LABEL                (c, "ptcolor", 0, "Point Color");
 	CLASS_ATTR_ORDER                (c, "ptcolor", 0, "3");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "ptcolor", 0, "0.94 0.85 0.57 1");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "ptcolor", 0, "0. 0. 0. 1");
 	
 	
     eclass_register(CLASS_NOBOX, c);
@@ -138,11 +133,14 @@ void *plane_new(t_symbol *s, int argc, t_atom *argv)
     flags = 0
     | EBOX_GROWLINK
     ;
-	ebox_new((t_ebox *)x, flags, argc, argv);
+	ebox_new((t_ebox *)x, flags);
 	x->j_box.b_firstin = (t_object *)x;
     
     x->f_out_x = (t_outlet *)floatout(x);
     x->f_out_y = (t_outlet *)floatout(x);
+    
+    x->f_position.x = 0.;
+    x->f_position.y = 0.;
     
 	binbuf_attr_process(x, d);
 	ebox_ready((t_ebox *)x);
@@ -181,15 +179,24 @@ void plane_set(t_plane *x, t_symbol *s, long ac, t_atom *av)
             else
                 x->f_position.y = pd_clip_minmax(atom_getfloat(av+1), x->f_boundaries.height, x->f_boundaries.y);
         }
-        ebox_invalidate_layer((t_object *)x, NULL, gensym("point_layer"));
+        ebox_invalidate_layer((t_ebox *)x, gensym("point_layer"));
         ebox_redraw((t_ebox *)x);
     }
 }
 
+void plane_list(t_plane *x, t_symbol *s, long ac, t_atom *av)
+{
+    plane_set(x, NULL, ac, av);
+    plane_output(x);
+}
+
 void plane_output(t_plane *x)
 {
-    outlet_float(x->f_out_x, x->f_position.x);
-    outlet_float(x->f_out_y, x->f_position.y);
+    if(x->j_box.e_ready_to_draw)
+    {
+        outlet_float(x->f_out_x, x->f_position.x);
+        outlet_float(x->f_out_y, x->f_position.y);
+    }
 }
 
 void plane_free(t_plane *x)
@@ -206,21 +213,14 @@ t_pd_err plane_notify(t_plane *x, t_symbol *s, t_symbol *msg, void *sender, void
 {
 	if (msg == gensym("attr_modified"))
 	{
-		if(s == gensym("bgcolor") || s == gensym("bdcolor") || s == gensym("ptcolor") || s == gensym("point") || s == gensym("ptsize"))
+		if(s == gensym("bgcolor") || s == gensym("bdcolor") || s == gensym("ptcolor") || s == gensym("ptsize"))
 		{
-			ebox_invalidate_layer((t_object *)x, NULL, gensym("point_layer"));
+			ebox_invalidate_layer((t_ebox *)x, gensym("point_layer"));
 		}
         ebox_redraw((t_ebox *)x);
         
 	}
 	return 0;
-}
-
-t_pd_err plane_point_set(t_plane *x, t_object *attr, long ac, t_atom *av)
-{
-    plane_set(x, NULL, ac, av);
-    plane_output(x);
-    return 0;
 }
 
 t_pd_err plane_bound_set(t_plane *x, t_object *attr, long ac, t_atom *av)
@@ -250,7 +250,7 @@ t_pd_err plane_bound_set(t_plane *x, t_object *attr, long ac, t_atom *av)
 void plane_paint(t_plane *x, t_object *view)
 {
 	t_rect rect;
-	ebox_get_rect_for_view((t_object *)x, view, &rect);
+	ebox_get_rect_for_view((t_ebox *)x, &rect);
     x->f_ratio.x = (rect.width - 2 * x->f_size - 2) / (x->f_boundaries.width - x->f_boundaries.x);
     x->f_ratio.y = (rect.height - 2 * x->f_size - 2) / (x->f_boundaries.height - x->f_boundaries.y);
     draw_point(x, view, &rect);
@@ -259,7 +259,7 @@ void plane_paint(t_plane *x, t_object *view)
 
 void draw_point(t_plane *x, t_object *view, t_rect *rect)
 {
-	t_elayer *g = ebox_start_layer((t_object *)x, view, gensym("point_layer"), rect->width, rect->height);
+	t_elayer *g = ebox_start_layer((t_ebox *)x, gensym("point_layer"), rect->width, rect->height);
     
 	if (g)
 	{
@@ -272,10 +272,10 @@ void draw_point(t_plane *x, t_object *view, t_rect *rect)
         // We use oval to keep a perfect circle with the matrix stranformation
         egraphics_oval(g, x->f_position.x, x->f_position.y, x->f_size / x->f_ratio.x, x->f_size / x->f_ratio.y);
         egraphics_set_line_width(g, 2);
-        egraphics_stroke(g);
-        ebox_end_layer((t_object*)x, view, gensym("point_layer"));
+        egraphics_fill(g);
+        ebox_end_layer((t_ebox*)x, gensym("point_layer"));
 	}
-	ebox_paint_layer((t_object *)x, view, gensym("point_layer"), x->f_size + 1, -x->f_size - 1);
+	ebox_paint_layer((t_ebox *)x, gensym("point_layer"), x->f_size + 1, -x->f_size - 1);
 }
 
 void plane_mousedrag(t_plane *x, t_object *patcherview, t_pt pt, long modifiers)
@@ -291,7 +291,7 @@ void plane_mousedrag(t_plane *x, t_object *patcherview, t_pt pt, long modifiers)
 
 void plane_preset(t_plane *x, t_binbuf *b)
 {
-    binbuf_addv(b, "sff", gensym("point"), x->f_position.x, x->f_position.y);
+    binbuf_addv(b, "sff", gensym("list"), x->f_position.x, x->f_position.y);
 }
 
 

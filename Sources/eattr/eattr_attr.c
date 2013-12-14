@@ -26,6 +26,15 @@
 
 #include "eattr.h"
 
+//! Initalize the default value of an attribute
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param flags     The flags of the attribute
+ \ @param value     The default value
+ \ @return          Nothing
+*/
 void eclass_attr_default(t_eclass* c, char* attrname, long flags, char* value)
 {
 	int i;
@@ -39,19 +48,37 @@ void eclass_attr_default(t_eclass* c, char* attrname, long flags, char* value)
     }
 }
 
-void eclass_attr_category(t_eclass* c, char* attrname, long flags, char* categoryname)
+//! Initalize the category of an attribute
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param flags     The flags of the attribute
+ \ @param category  The category of the attribute
+ \ @return          Nothing
+*/
+void eclass_attr_category(t_eclass* c, char* attrname, long flags, char* category)
 {
 	int i;
     for(i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].name == gensym(attrname))
         {
-            c->c_attr[i].category = gensym(categoryname);
+            c->c_attr[i].category = gensym(category);
             return ;
         }
     }
 }
 
+//! Initalize the order of an attribute
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param flags     The flags of the attribute
+ \ @param category  The order of the attribute
+ \ @return          Nothing
+*/
 void eclass_attr_order(t_eclass* c, char* attrname, long flags, char* order)
 {
 	int i;
@@ -66,6 +93,15 @@ void eclass_attr_order(t_eclass* c, char* attrname, long flags, char* order)
     }
 }
 
+//! Initalize the category of an attribute
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param flags     The flags of the attribute
+ \ @param label     The label of the attribute
+ \ @return          Nothing
+*/
 void eclass_attr_label(t_eclass* c, char* attrname, long flags, char* labelname)
 {
 	int i;
@@ -79,19 +115,36 @@ void eclass_attr_label(t_eclass* c, char* attrname, long flags, char* labelname)
     }
 }
 
-void eclass_attr_style(t_eclass* c, char* attrname, long flags, char* stylename)
+//! Initalize the category of an attribute
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param flags     The flags of the attribute
+ \ @param style     The style of the attribute
+ \ @return          Nothing
+*/
+void eclass_attr_style(t_eclass* c, char* attrname, long flags, char* style)
 {
 	int i;
     for(i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].name == gensym(attrname))
         {
-            c->c_attr[i].style = gensym(stylename);
+            c->c_attr[i].style = gensym(style);
             return ;
         }
     }
 }
 
+//! Initalize the minimum value of an attribute
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param value     The minimum value of the attribute
+ \ @return          Nothing
+*/
 void eclass_attr_filter_min(t_eclass* c, char* attrname, double value)
 {
 	int i;
@@ -110,6 +163,14 @@ void eclass_attr_filter_min(t_eclass* c, char* attrname, double value)
     }
 }
 
+//! Initalize the maximum value of an attribute
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param value     The maximum value of the attribute
+ \ @return          Nothing
+*/
 void eclass_attr_filter_max(t_eclass* c, char* attrname, double value)
 {
 	int i;
@@ -128,6 +189,14 @@ void eclass_attr_filter_max(t_eclass* c, char* attrname, double value)
     }
 }
 
+//! Initalize the attribute to be saved with the object
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param flags     The flags of the attribute
+ \ @return          Nothing
+*/
 void eclass_attr_save(t_eclass* c, char* attrname, long flags)
 {
 	int i;
@@ -141,6 +210,14 @@ void eclass_attr_save(t_eclass* c, char* attrname, long flags)
     }
 }
 
+//! Initalize the attribute to redraw the object when its value has changed
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param flags     The flags of the attribute
+ \ @return          Nothing
+*/
 void eclass_attr_paint(t_eclass* c, char* attrname, long flags)
 {
 	int i;
@@ -154,6 +231,14 @@ void eclass_attr_paint(t_eclass* c, char* attrname, long flags)
     }
 }
 
+//! Initalize the attribute to be invisible in the properties window
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param flags     The flags of the attribute
+ \ @return          Nothing
+*/
 void eclass_attr_invisible(t_eclass* c, char* attrname, long flags)
 {
 	int i;
@@ -167,6 +252,15 @@ void eclass_attr_invisible(t_eclass* c, char* attrname, long flags)
     }
 }
 
+//! Initalize the user getter and setter of an attribute
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param getter    The getter function
+ \ @param setter    The setter function
+ \ @return          Nothing
+*/
 void eclass_attr_accessor(t_eclass* c, char* attrname, method getter, method setter)
 {
 	int i;

@@ -147,10 +147,10 @@ typedef enum _emod_flags
 
 typedef enum _ekey_flags
 {
-    EKEY_DEL      = 8,
-	EKEY_TAB      = 9,
-    EKEY_ENTER    = 10,
-    EKEY_ESC      = 27,
+    EKEY_DEL      = 0,
+	EKEY_TAB      = 1,
+    EKEY_ENTER    = 2,
+    EKEY_ESC      = 3,
     
 } t_ekey_flags;
 
@@ -217,6 +217,12 @@ typedef struct _epopup
     t_symbol*   c_name;
     t_symbol*   c_send;
 }t_epopup;
+
+typedef struct _etextfield
+{
+    t_symbol*   c_name;
+    t_symbol*   c_send;
+}t_etextfield;
 
 typedef struct _etext
 {
@@ -305,9 +311,6 @@ typedef struct _ebox
     
     char                e_ready_to_draw;
     t_edrawparams       e_boxparameters;
-    
-    float               e_deserted_time;
-    t_clock*            e_deserted_clock;
     
     t_elayer*           e_layers;
     long                e_number_of_layers;

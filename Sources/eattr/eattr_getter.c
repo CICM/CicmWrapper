@@ -26,6 +26,15 @@
 
 #include "eattr.h"
 
+//! Method to get the attributes
+/*
+ \ @memberof        eattr
+ \ @param x         The object pointer
+ \ @param s         The attribute name
+ \ @param argc      The pointer to an int that will contains the size of the attributes
+ \ @param argv      The pointer to an array of atoms that will contains the attributes values
+ \ @return          Nothing
+*/
 void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
 {
     int i, j;

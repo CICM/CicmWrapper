@@ -108,38 +108,38 @@ extern "C" void preset_setup(void)
     eclass_addmethod(c, (method) preset_read,            "read",             A_GIMME,0);
     eclass_addmethod(c, (method) preset_write,           "write",            A_GIMME,0);
     
-	CLASS_ATTR_DEFAULT              (c, "size", 0, "100 30");
+	CLASS_ATTR_DEFAULT              (c, "size", 0, "102 34");
     CLASS_ATTR_DEFAULT              (c, "fontsize", 0, "7");
     
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_incdec, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.35 0.23 0.13 1.");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
 	
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_incdec, f_color_border);
 	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Box Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.27 0.21 0. 1");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
+	
+	CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_incdec, f_color_text);
+	CLASS_ATTR_LABEL                (c, "textcolor", 0, "Text Color");
+	CLASS_ATTR_ORDER                (c, "textcolor", 0, "3");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "0. 0. 0. 1.");
     
 	CLASS_ATTR_RGBA                 (c, "emcolor", 0, t_incdec, f_color_button_empty);
 	CLASS_ATTR_LABEL                (c, "emcolor", 0, "Empty Button Color");
 	CLASS_ATTR_ORDER                (c, "emcolor", 0, "3");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "emcolor", 0, "0.47 0.41 0.2 1");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "emcolor", 0, "0.85 0.85 0.85 1.");
     
     CLASS_ATTR_RGBA                 (c, "stcolor", 0, t_incdec, f_color_button_stored);
 	CLASS_ATTR_LABEL                (c, "stcolor", 0, "Stored Button Color");
 	CLASS_ATTR_ORDER                (c, "stcolor", 0, "3");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "stcolor", 0, "0.27 0.21 0. 1");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "stcolor", 0, "0.5 0.5 0.5 1.");
     
     CLASS_ATTR_RGBA                 (c, "secolor", 0, t_incdec, f_color_button_selected);
 	CLASS_ATTR_LABEL                (c, "secolor", 0, "Selected Button Color");
 	CLASS_ATTR_ORDER                (c, "secolor", 0, "3");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "secolor", 0, "0.94 0.85 0.57 1");
-    
-    CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_incdec, f_color_text);
-	CLASS_ATTR_LABEL                (c, "textcolor", 0, "Text Color");
-	CLASS_ATTR_ORDER                (c, "textcolor", 0, "3");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "1. 1. 1. 1.");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "secolor", 0, "0.15 0.15 0.15 1.");
 	
     eclass_register(CLASS_NOBOX, c);
 	preset_class = c;
@@ -159,7 +159,7 @@ void *preset_new(t_symbol *s, int argc, t_atom *argv)
     flags = 0
     | EBOX_GROWINDI
     ;
-	ebox_new((t_ebox *)x, flags, argc, argv);
+	ebox_new((t_ebox *)x, flags);
 	x->j_box.b_firstin = (t_object *)x;
     
     x->f_binbuf = (t_binbuf **)calloc(MAXBINBUF, sizeof(t_binbuf *));
@@ -213,9 +213,12 @@ void preset_store(t_incdec *x, float f)
             if(y->g_pd->c_methods[i].me_name == gensym("preset"))
             {
                 z = (t_ebox *)y;
-                sprintf(id, "@%s", z->e_objpreset_id->s_name);
-                binbuf_addv(x->f_binbuf[index-1], "ss", gensym(id), z->e_obj.te_g.g_pd->c_name);
-                y->g_pd->c_methods[i].me_fun((t_object *)y, x->f_binbuf[index-1]);
+                if(z->e_objpreset_id != gensym("(null)") && z->e_objpreset_id != gensym("''"))
+                {
+                    sprintf(id, "@%s", z->e_objpreset_id->s_name);
+                    binbuf_addv(x->f_binbuf[index-1], "ss", gensym(id), z->e_obj.te_g.g_pd->c_name);
+                    y->g_pd->c_methods[i].me_fun((t_object *)y, x->f_binbuf[index-1]);
+                }
             }
         }
     }
@@ -257,7 +260,7 @@ void preset_float(t_incdec *x, float f)
                 }
             }
         }
-        ebox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
+        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
         ebox_redraw((t_ebox *)x);
     }
 }
@@ -276,7 +279,7 @@ void preset_clear(t_incdec *x, float f)
         x->f_binbuf_selected = 0;
     }
     binbuf_clear(x->f_binbuf[index-1]);
-    ebox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
+    ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
     ebox_redraw((t_ebox *)x);
 }
 
@@ -286,7 +289,7 @@ void preset_clearall(t_incdec *x)
         binbuf_clear(x->f_binbuf[i]);
     if(!x->f_init)
         return;
-    ebox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
+    ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
     ebox_redraw((t_ebox *)x);
 }
 
@@ -314,7 +317,7 @@ t_pd_err preset_notify(t_incdec *x, t_symbol *s, t_symbol *msg, void *sender, vo
 	{
 		if(s == gensym("bgcolor") || s == gensym("bdcolor") || s == gensym("btcolor"))
 		{
-			ebox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
+			ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
 		}
         ebox_redraw((t_ebox *)x);
 	}
@@ -324,7 +327,7 @@ t_pd_err preset_notify(t_incdec *x, t_symbol *s, t_symbol *msg, void *sender, vo
 void preset_paint(t_incdec *x, t_object *view)
 {
 	t_rect rect;
-	ebox_get_rect_for_view((t_object *)x, view, &rect);
+	ebox_get_rect_for_view((t_ebox *)x, &rect);
     x->f_point_size = ebox_font_size((t_ebox *)x);
     draw_background(x, view, &rect);
     x->f_init = 1;    
@@ -334,7 +337,7 @@ void draw_background(t_incdec *x, t_object *view, t_rect *rect)
 {
     char number[256];
     t_rgba color;
-	t_elayer *g = ebox_start_layer((t_object *)x, view, gensym("background_layer"), rect->width, rect->height);
+	t_elayer *g = ebox_start_layer((t_ebox *)x, gensym("background_layer"), rect->width, rect->height);
     t_etext *jtl = etext_layout_create();
     
 	if (g && jtl)
@@ -373,9 +376,9 @@ void draw_background(t_incdec *x, t_object *view, t_rect *rect)
             i++;
         }
         
-        ebox_end_layer((t_object*)x, view, gensym("background_layer"));
+        ebox_end_layer((t_ebox*)x, gensym("background_layer"));
 	}
-	ebox_paint_layer((t_object *)x, view, gensym("background_layer"), 0., 0.);
+	ebox_paint_layer((t_ebox *)x, gensym("background_layer"), 0., 0.);
 }
 
 void preset_mousemove(t_incdec *x, t_object *patcherview, t_pt pt, long modifiers)
@@ -387,7 +390,7 @@ void preset_mousemove(t_incdec *x, t_object *patcherview, t_pt pt, long modifier
     index = (int)((pt.y) / (x->f_point_size * 2.5)) * n_row_button;
     index += pd_clip_max((pt.x) / (x->f_point_size * 2.5) + 1, n_row_button);
     x->f_binbuf_hover = index;
-    ebox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
+    ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
     ebox_redraw((t_ebox *)x);
 }
 
@@ -410,7 +413,7 @@ void preset_mousedown(t_incdec *x, t_object *patcherview, t_pt pt, long modifier
 void preset_mouseleave(t_incdec *x, t_object *patcherview, t_pt pt, long modifiers)
 {
     x->f_binbuf_hover = 0;
-    ebox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
+    ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
     ebox_redraw((t_ebox *)x);
 }
 

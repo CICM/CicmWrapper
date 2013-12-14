@@ -26,6 +26,18 @@
 
 #include "eattr.h"
 
+//! Allocate the memory and intializa an new attribute for an eclass (You should prefer to use the MACROS)
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param type      The attribute type
+ \ @param size      The attribute size
+ \ @param maxsize   The attribute max size
+ \ @param maxsize   The attribute flags
+ \ @param offset    The attribute bit offset in the object structure
+ \ @return          Nothing
+*/
 void eclass_new_attr_typed(t_eclass* c, char* attrname, char* type, long size, long maxsize, long flags, long offset)
 {
     int i;

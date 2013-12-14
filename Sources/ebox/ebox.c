@@ -70,7 +70,6 @@ void ebox_new(t_ebox *x, long flags)
     x->z_misc               = 1;
     x->e_number_of_layers   = 0;
     x->e_layers             = NULL;
-    x->e_deserted_time      = 3000.;
     x->e_editor_id          = NULL;
     x->e_objuser_id         = gensym("(null)");
     pd_bind(&x->e_obj.ob_pd, x->e_objuser_id);
@@ -100,7 +99,6 @@ void ebox_ready(t_ebox *x)
     x->e_boxparameters.d_boxfillcolor = rgba_white;
     x->e_boxparameters.d_cornersize = 0;
     c->c_widget.w_getdrawparameters(x, NULL, &x->e_boxparameters);
-    x->e_deserted_clock = clock_new(x, (t_method)ebox_deserted);
     x->e_ready_to_draw = 1;
 }
 
@@ -113,8 +111,8 @@ void ebox_ready(t_ebox *x)
 void ebox_free(t_ebox* x)
 {
     ebox_router(x, gensym("detach"), 0, NULL);
-    clock_free(x->e_deserted_clock);
     pd_unbind(&x->e_obj.ob_pd, x->e_object_id);
+    pd_unbind(&x->e_obj.ob_pd, x->e_objuser_id);
     gfxstub_deleteforkey(x);
 }
 

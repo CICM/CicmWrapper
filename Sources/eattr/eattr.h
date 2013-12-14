@@ -32,15 +32,24 @@
 
 #define calcoffset(x,y) ((long)(&(((x *)0L)->y)))
 
+// eattr_new.c functions //
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 void eclass_new_attr_typed(t_eclass* c, char* attrname, char* type, long size, long maxsize, long flags, long offset);
 
+// eattr_setter.c functions //
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv);
+
+// eattr_getter.c functions //
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv);
 
-void eclass_attr_category(t_eclass* c, char* attrname, long flags, char* categoryname);
+// eattr_attr.c functions //
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+void eclass_attr_category(t_eclass* c, char* attrname, long flags, char* category);
 void eclass_attr_order(t_eclass* c, char* attrname, long flags, char* order);
-void eclass_attr_label(t_eclass* c, char* attrname, long flags, char* labelname);
-void eclass_attr_style(t_eclass* c, char* attrname, long flags, char* stylename);
+void eclass_attr_label(t_eclass* c, char* attrname, long flags, char* label);
+void eclass_attr_style(t_eclass* c, char* attrname, long flags, char* style);
 void eclass_attr_default(t_eclass* c, char* attrname, long flags, char* value);
 void eclass_attr_filter_min(t_eclass* c, char* attrname, double value);
 void eclass_attr_filter_max(t_eclass* c, char* attrname, double value);
@@ -51,6 +60,16 @@ void eclass_attr_accessor(t_eclass* c, char* attrname, method getter, method set
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//! MACRO TO CREATE ATTRIBUTES
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param name      The attribute name
+ \ @param flags     The attribute flag
+ \ @param struct    The object structure
+ \ @param member    The variable of the attribute
+ \ @return          Nothing
+*/
 #define CLASS_ATTR_INT(c,name,flags,struct,member)   \
 eclass_new_attr_typed(c,name, "int", 1, 0, flags, calcoffset(struct,member))
 #define CLASS_ATTR_LONG(c,name,flags,struct,member)   \
@@ -90,6 +109,15 @@ eclass_new_attr_typed(c,name, "symbol", calcoffset(struct,size), maxsize, flags,
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//! MACRO TO DEFINE ATTRIBUTE OF ATTRIBUES
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param name      The attribute name
+ \ @param flags     The attribute flag
+ \ @param others    The attribute of the attributes
+ \ @return          Nothing
+ */
 #define CLASS_ATTR_CATEGORY(c,name,flags,categoryname)  eclass_attr_category(c,name,flags,categoryname)
 #define CLASS_ATTR_ORDER(c,name,flags,order)            eclass_attr_order(c,name,flags,order)
 #define CLASS_ATTR_LABEL(c,name,flags,label)            eclass_attr_label(c,name,flags,label)

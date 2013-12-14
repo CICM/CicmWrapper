@@ -70,18 +70,20 @@ void ebox_bind_events(t_ebox* x)
     sys_vgui("bind %s <Enter> {+pdsend {%s mouseenter}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
     sys_vgui("bind %s <Leave> {+pdsend {%s mouseleave}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
    
+    sys_vgui("bind %s <Double-Button-1> {+pdsend {%s dblclick   %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
 	sys_vgui("bind %s <Button-3> {+pdsend {%s mousedown %%x %%y %i}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name, right);
     sys_vgui("bind %s <Button-2> {+pdsend {%s mousedown %%x %%y %i}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name, right);
     sys_vgui("bind %s <Button-1>        {+pdsend {%s mousedown   %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
     sys_vgui("bind %s <ButtonRelease>   {+pdsend {%s mouseup     %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
     sys_vgui("bind %s <Motion>          {+pdsend {%s mousemove   %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
     sys_vgui("bind %s <MouseWheel> {+pdsend {%s mousewheel  %%x %%y %%D %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
-  
-    sys_vgui("bind %s <KeyPress>    {+pdsend {%s keydown    %%k %%N}} \n", x->e_drawing_id->s_name, x->e_object_id->s_name);
-    sys_vgui("bind %s <KeyRelease>  {+pdsend {%s keyup      %%k %%N}} \n", x->e_drawing_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <Key>  {pdsend {%s key  %%k %%N}} \n",  x->e_drawing_id->s_name, x->e_object_id->s_name);
     
     // Canvas & Editor Binding //
     sys_vgui("bind %s <<EditMode>>  {+pdsend {#erouter %s editmode}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <<EditMode>>  {+pdsend {#erouter %s editmode}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <FocusIn>      {pdsend {%s focus 1}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <FocusOut>      {pdsend {%s focus 0}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
 }
 
 //! Create the canvas widget (PRIVATE)
@@ -95,7 +97,7 @@ void ebox_create_widget(t_ebox* x)
     sys_vgui("namespace eval ebox%lx {} \n", x);
     sys_vgui("destroy %s \n", x->e_drawing_id->s_name);
     
-    sys_vgui("canvas %s -width %d -height %d -bd 0 -highlightthickness 0 -insertborderwidth 0\n",
+    sys_vgui("canvas %s -width %d -height %d -bd 0 -highlightthickness 0 -insertborderwidth 0 -state normal -takefocus 1 -insertwidth 0 -confine 0\n",
              x->e_drawing_id->s_name,
              (int)(x->e_rect.width + x->e_boxparameters.d_borderthickness),
              (int)(x->e_rect.height + x->e_boxparameters.d_borderthickness));

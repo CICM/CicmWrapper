@@ -63,7 +63,6 @@ void ebox_router(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
         if(atom_getsym(argv+1) == gensym("detach"))
             sys_vgui("erouter_detach %s\n", x->e_object_id->s_name);
     }
-
 }
 
 void erouter_setup()
@@ -71,6 +70,7 @@ void erouter_setup()
     t_class* c;
     t_erouter *x;
     c = class_new(gensym("erouter"), NULL, (t_method)erouter_free, sizeof(t_erouter), CLASS_PD, 0);
+
     class_addmethod(c, (t_method)erouter_attach,  gensym("ebox_attach"), A_SYMBOL);
     class_addmethod(c, (t_method)erouter_detach,  gensym("ebox_detach"), A_SYMBOL);
     class_addanything(c, erouter_anything);
@@ -117,7 +117,7 @@ void erouter_attach(t_erouter *x, t_symbol* child)
     {
         if(x->e_childs[i] == child)
         {
-            post("erouter already attach to %s", x->e_childs[i]->s_name);
+            //post("erouter already attach to %s", x->e_childs[i]->s_name);
             return;
         }
     }
@@ -133,7 +133,7 @@ void erouter_attach(t_erouter *x, t_symbol* child)
         {
             x->e_childs     = NULL;
             x->e_nchilds    = 0;
-            post("erouter can't attach to %s", x->e_childs[i]->s_name);
+            //post("erouter can't attach to %s", x->e_childs[i]->s_name);
         }
     }
     else
@@ -148,7 +148,7 @@ void erouter_attach(t_erouter *x, t_symbol* child)
         {
             x->e_childs     = NULL;
             x->e_nchilds    = 0;
-            post("erouter can't attach to %s", x->e_childs[i]->s_name);
+            //post("erouter can't attach to %s", x->e_childs[i]->s_name);
         }
     }
 }

@@ -110,8 +110,7 @@ void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, long argc, t_atom* argv);      
 void ebox_mouse_wheel(t_ebox* x, t_symbol* s, long argc, t_atom* argv);                             // PRIVATE
 void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key);                          // PRIVATE
 void ebox_popup(t_ebox* x, t_symbol* s, float itemid);                                              // PRIVATE
-void ebox_keydown(t_ebox* x, t_symbol* s, long argc, t_atom* argv);                                 // PRIVATE
-void ebox_keyup(t_ebox* x, t_symbol* s, long argc, t_atom* argv);                                   // PRIVATE
+void ebox_key(t_ebox* x, t_symbol* s, long argc, t_atom* argv);                                     // PRIVATE
 void ebox_setdeserted_time(t_ebox *x, float time);                                                  // PRIVATE
 void ebox_deserted(t_ebox *x);                                                                      // PRIVATE
 void ebox_dosave_box(t_gobj* z, t_binbuf *b);                                                       // PRIVATE

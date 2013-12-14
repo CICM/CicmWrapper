@@ -41,7 +41,8 @@ static char *my_cursorlist[] = {
     "bottom_right_corner",
     "right_side",
     "double_arrow",
-    "exchange"
+    "exchange",
+    "xterm"
 };
 
 //! The global mouse position method called by tcl/tk (PRIVATE)
@@ -111,7 +112,7 @@ t_pt ebox_get_mouse_canvas_position(t_ebox* x)
 */
 void ebox_set_cursor(t_ebox* x, int mode)
 {
-    mode = pd_clip_minmax(mode, 0, 11);
+    mode = pd_clip_minmax(mode, 0, 12);
     sys_vgui("%s configure -cursor %s\n", x->e_drawing_id->s_name, my_cursorlist[mode]);
 }
 
@@ -127,6 +128,7 @@ void ebox_mouse_enter(t_ebox* x)
     
     if(!x->e_canvas->gl_edit && !x->e_mouse_down)
     {
+        sys_vgui("focus %s\n", x->e_drawing_id->s_name);
         if(c->c_widget.w_mouseenter)
             c->c_widget.w_mouseenter(x);
     }
@@ -144,9 +146,10 @@ void ebox_mouse_leave(t_ebox* x)
     
     if(!x->e_canvas->gl_edit && !x->e_mouse_down)
     {
+        sys_vgui("focus %s\n", x->e_canvas_id->s_name);
         if(c->c_widget.w_mouseleave)
             c->c_widget.w_mouseleave(x);
-        clock_delay(x->e_deserted_clock, x->e_deserted_time);
+
         ebox_set_cursor(x, 0);
     }
     else if(x->e_canvas->gl_edit && !x->e_mouse_down)
@@ -476,7 +479,7 @@ void ebox_mouse_wheel(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
 {
     int i;
-    int top, left, right, bottom;
+    int right, bottom;
     
     x->e_selected_outlet    = -1;
     x->e_selected_inlet     = -1;
@@ -484,8 +487,6 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
     x->e_move_box = ebox_get_mouse_canvas_position(x);
     sys_vgui("pdtk_canvas_motion %s %i %i 0\n", x->e_canvas_id->s_name, (int)x->e_move_box.x, (int)x->e_move_box.y);
     
-    top     = 0;
-    left    = 0;
     right   = x->e_rect.width + x->e_boxparameters.d_borderthickness * 2.;
     bottom  = x->e_rect.height + x->e_boxparameters.d_borderthickness * 2.;
     
@@ -565,37 +566,70 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
  \ @param argv      The array of atoms
  \ @return          Nothing
  */
-void ebox_keydown(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+void ebox_key(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
-    if(!x->e_canvas->gl_edit)
+    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
+   
+    if(argc >= 2 && argv && atom_gettype(argv+1) == A_FLOAT)
     {
-        
-    }
-    else
-    {
-        ;
-    }
-    ebox_redraw(x);
-}
-
-//! The key up method called by tcl/tk (PRIVATE AND NOT READY)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @param s         The message selector
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
- \ @return          Nothing
-*/
-void ebox_keyup(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
-{
-    if(!x->e_canvas->gl_edit)
-    {
-        ;
-    }
-    else
-    {
-        ;
+        if(!x->e_canvas->gl_edit)
+        {
+            if(atom_getfloat(argv+1) == 65288)
+            {
+                if(c->c_widget.w_keyfilter)
+                {
+                    c->c_widget.w_keyfilter(x, NULL, EKEY_DEL, 0);
+                }
+                else if(c->c_widget.w_key)
+                {
+                    c->c_widget.w_key(x, NULL, EKEY_DEL, 0);
+                }
+            }
+            else if(atom_getfloat(argv+1) == 65289)
+            {
+                if(c->c_widget.w_keyfilter)
+                {
+                    c->c_widget.w_keyfilter(x, NULL, EKEY_TAB, 0);
+                }
+                else if(c->c_widget.w_key)
+                {
+                    c->c_widget.w_key(x, NULL, EKEY_TAB, 0);
+                }
+            }
+            else if(atom_getfloat(argv+1) == 65293)
+            {
+                if(c->c_widget.w_keyfilter)
+                {
+                    c->c_widget.w_keyfilter(x, NULL, EKEY_ENTER, 0);
+                }
+                else if(c->c_widget.w_key)
+                {
+                    c->c_widget.w_key(x, NULL, EKEY_ENTER, 0);
+                }
+            }
+            else if(atom_getfloat(argv+1) == 65307)
+            {
+                if(c->c_widget.w_keyfilter)
+                {
+                    c->c_widget.w_keyfilter(x, NULL, EKEY_ESC, 0);
+                }
+                else if(c->c_widget.w_key)
+                {
+                    c->c_widget.w_key(x, NULL, EKEY_ESC, 0);
+                }
+            }
+            else
+            {
+                if(c->c_widget.w_key)
+                {
+                    c->c_widget.w_key(x, NULL, (char)atom_getfloat(argv+1), 0);
+                }
+            }
+        }
+        else
+        {
+            ;
+        }
     }
 }
 
@@ -611,9 +645,9 @@ void ebox_keyup(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 void ebox_deserted(t_ebox *x)
 {
     t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-    if(c->c_widget.w_deserted)
+
+    if(c->c_widget.w_deserted && x->e_ready_to_draw)
         c->c_widget.w_deserted(x);
-    clock_unset(x->e_deserted_clock);
 }
 
 //! The popup method called by tcl/tk (PRIVATE)

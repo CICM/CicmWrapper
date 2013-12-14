@@ -31,15 +31,17 @@
 #include "../eattr/eattr.h"
 #include "../erouter/erouter.h"
 
+// eclass functions //
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t size, int flags, t_atomtype arg1, int arg2);
 void eclass_init(t_eclass* c, long flags);
 void eclass_dspinit(t_eclass* c);
 void eclassbox_dspinit(t_eclass* c);
 void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long anything);
-t_pd_err eclass_register(t_symbol *name_space, t_eclass *c);
+t_pd_err eclass_register(t_symbol *name, t_eclass *c);
 
-void eclass_default_attributes(t_eclass* c);
-void eclass_preset_attributes(t_eclass* c);
-void eclass_properties_dialog(t_eclass* c);
+void eclass_default_attributes(t_eclass* c);    // PRIVATE
+void eclass_preset_attributes(t_eclass* c);     // PRIVATE
+void eclass_properties_dialog(t_eclass* c);     // PRIVATE
 
 #endif

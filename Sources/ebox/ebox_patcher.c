@@ -78,5 +78,5 @@ void ebox_patcher_mouse(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 */
 void ebox_patcher_focus(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
-    ;
+    ebox_deserted(x);
 }

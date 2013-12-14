@@ -26,6 +26,15 @@
 
 #include "eattr.h"
 
+//! Method to set the attributes
+/*
+ \ @memberof        eattr
+ \ @param x         The object pointer
+ \ @param s         The attribute name
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms that contains the attributes values
+ \ @return          Nothing
+*/
 void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
 {
 	int i, j, size;

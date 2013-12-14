@@ -1,0 +1,50 @@
+#N canvas 319 169 558 427 10;
+#X text 149 109 Drag the number.;
+#X text 149 149 Use shift to increase the precision.;
+#X msg 63 120 set \$1;
+#X obj -37 110 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 149 209 Press esc to avoid the change.;
+#X obj -40 -77 cnv 40 552 40 empty empty number 3 12 0 18 -228856 -33289
+0;
+#X text -33 298 Pd Chocolate by Pierre Guillot | CICM - Université
+Paris 8;
+#X text 295 -8 Futher information about chocolate;
+#X obj -7 168 number @size 84 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X text -39 -33 number (numbox \, nbx-) is the pd chocolate's version
+of the vanilla nbx.;
+#X obj 352 29 pdchocolate;
+#X obj -7 247 number @size 62 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 63 87 number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X text 149 169 Double click to write the number.;
+#X text -37 -55 A number box with another dragging behavior.;
+#X obj -7 44 loadmess -3.14169;
+#X text 149 228 Press the up arraw or the down arrow to increment or
+decrement by 1;
+#X text 149 129 The precision depends on where the user drag.;
+#X text 149 189 Press enter or tab to valid the number.;
+#X obj 319 96 number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+3 @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @textcolor 0 0 0 1;
+#X text 314 67 Minimum value;
+#X obj 416 97 number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max -10.87 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X text 411 68 Maximum value;
+#X connect 2 0 8 0;
+#X connect 3 0 8 0;
+#X connect 8 0 11 0;
+#X connect 12 0 2 0;
+#X connect 15 0 8 0;
+#X connect 15 0 12 0;

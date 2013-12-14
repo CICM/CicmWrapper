@@ -151,7 +151,6 @@ void ewidget_key(t_ebox *x, t_floatarg fkey)
         else
             c->c_widget.w_key(x, x->e_canvas, (char)fkey, x->e_modifiers);
     }
-    clock_delay(x->e_deserted_clock, x->e_deserted_time);
 }
 
 void ewidget_key_default(t_ebox *x, t_object *patcherview, char textcharacter, long modifiers){;};

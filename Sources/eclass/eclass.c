@@ -26,6 +26,18 @@
 
 #include "eclass.h"
 
+//! Allocate the memory and initialize a nex eclass
+/*
+ \ @memberof            eclass
+ \ @param name          The eclass name
+ \ @param newmethod     The new method
+ \ @param freemethod    The free method
+ \ @param size          The size of the eclass
+ \ @param flags         The class flags
+ \ @param arg1          The type of parameters the new function
+ \ @param arg2          Another argument
+ \ @return              this function return the new eclass
+*/
 t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t size, int flags, t_atomtype arg1, int arg2)
 {
     t_class *pd  = class_new(gensym(name), (t_newmethod)newmethod, (t_method)freemethod, size, flags, arg1, arg2);
@@ -46,6 +58,13 @@ post("|________________________________________________|");
     return c;
 }
 
+//! Initialize an eclass for UI behavior
+/*
+ \ @memberof            eclass
+ \ @param c             The eclass pointer
+ \ @param flags         Nothing for the moment
+ \ @return              Nothing
+*/
 void eclass_init(t_eclass* c, long flags)
 {
     ewidget_init(c);
@@ -58,8 +77,10 @@ void eclass_init(t_eclass* c, long flags)
     class_addmethod((t_class *)c, (t_method)ebox_mouse_up,    gensym("mouseup"),    A_GIMME, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_drag,  gensym("mousedrag"),  A_GIMME, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_wheel, gensym("mousewheel"), A_GIMME, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_keyup,       gensym("keyup"),      A_GIMME, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_keydown,     gensym("keydown"),    A_GIMME, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_key,         gensym("key"),        A_GIMME, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_mouse_dblclick, gensym("dblclick"),   A_GIMME, 0);
+    
+    class_addmethod((t_class *)c, (t_method)ebox_patcher_focus,   gensym("focus"),  A_CANT,  0);
     class_addmethod((t_class *)c, (t_method)ebox_attrprint,   gensym("attrprint"),  A_CANT,  0);
     
     class_addmethod((t_class *)c, (t_method)ebox_patcher_editmode,          gensym("editmode"),     A_GIMME, 0);
@@ -87,6 +108,12 @@ void eclass_init(t_eclass* c, long flags)
     sys_gui("}\n");
 }
 
+//! Initialize an UI eclass for DSP behavior
+/*
+ \ @memberof            eclass
+ \ @param c             The eclass pointer
+ \ @return              Nothing
+*/
 void eclass_dspinit(t_eclass* c)
 {
     CLASS_MAINSIGNALIN((t_class *)c, t_ebox, e_float);
@@ -95,6 +122,12 @@ void eclass_dspinit(t_eclass* c)
     class_addmethod((t_class *)c, (t_method)ebox_dsp_add, gensym("dsp_add64"), A_NULL, 0);
 }
 
+//! Initialize an box eclass for DSP behavior
+/*
+ \ @memberof            eclass
+ \ @param c             The eclass pointer
+ \ @return              Nothing
+*/
 void eclassbox_dspinit(t_eclass* c)
 {    
     CLASS_MAINSIGNALIN((t_class *)c, t_ebox, e_float);
@@ -103,6 +136,12 @@ void eclassbox_dspinit(t_eclass* c)
     class_addmethod((t_class *)c, (t_method)ebox_dsp_add, gensym("dsp_add64"), A_NULL, 0);
 }
 
+//! Initialize the default attributes of an UI eclass // PRIVATE
+/*
+ \ @memberof            eclass
+ \ @param c             The eclass pointer
+ \ @return              Nothing
+*/
 void eclass_default_attributes(t_eclass* c)
 {
     CLASS_ATTR_FLOAT_ARRAY  (c, "size", 0, t_ebox, e_rect.width, 2);
@@ -151,6 +190,12 @@ void eclass_default_attributes(t_eclass* c)
     CLASS_ATTR_LABEL		(c, "idname", 0, "Id Name");
 }
 
+//! Initialize the default attributes of an UI eclass that have the "preset" method // PRIVATE
+/*
+ \ @memberof            eclass
+ \ @param c             The eclass pointer
+ \ @return              Nothing
+*/
 void eclass_preset_attributes(t_eclass* c)
 {
     CLASS_ATTR_SYMBOL       (c, "presetname", 0, t_ebox, e_objpreset_id);
@@ -160,6 +205,12 @@ void eclass_preset_attributes(t_eclass* c)
     CLASS_ATTR_LABEL		(c, "presetname", 0, "Preset Name");
 }
 
+//! Initialize the tcl/tk properties dialog window functions // PRIVATE
+/*
+ \ @memberof            eclass
+ \ @param c             The eclass pointer
+ \ @return              Nothing
+*/
 void eclass_properties_dialog(t_eclass* c)
 {
     int i;
@@ -225,9 +276,16 @@ void eclass_properties_dialog(t_eclass* c)
     
 }
 
-t_pd_err eclass_register(t_symbol *name_space, t_eclass *c)
+//! Initialize the eclass name space BOX or NOBOX
+/*
+ \ @memberof            eclass
+ \ @param name          The name space
+ \ @param c             The eclass pointer
+ \ @return              Always 0 (for the moment)
+*/
+t_pd_err eclass_register(t_symbol *name, t_eclass *c)
 {
-    if(name_space == gensym("box"))
+    if(name == gensym("box"))
         c->c_box = 1;
     else
         c->c_box = 0;
@@ -236,6 +294,16 @@ t_pd_err eclass_register(t_symbol *name_space, t_eclass *c)
     return 0;
 }
 
+//! Add methods to an eclass
+/*
+ \ @memberof            eclass
+ \ @param c             The eclass pointer
+ \ @param m             The method function
+ \ @param name          The method selector
+ \ @param type          The method type
+ \ @param anything      Another argument
+ \ @return              Nothing
+*/
 void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long anything)
 {
     if(gensym(name) == gensym("mouseenter"))
