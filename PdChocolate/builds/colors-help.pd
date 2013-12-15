@@ -30,9 +30,8 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @matrix 20 1 @reverse 1 @saturation 0.795 @hue 0.33 @lightness 0 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
-#X msg -45 277 0.833334 0 1.98682e-07;
-#X msg 109 277 0 0.416667 1;
-#X msg 109 253 set \$1 \$2 \$3;
+#X msg -45 277 0.5 1 0.5;
+#X msg 109 277 0.333333 0.75 1;
 #X obj -45 86 pack 0 0;
 #X obj -45 43 number @size 53 17 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
@@ -44,23 +43,21 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 1 @textcolor 0 0 0 1;
 #X obj -27 68 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X symbolatom 263 278 10 0 0 0 - - -;
 #X obj -137 315 plane @size 85 85 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @bound
--1 -1 1 1 @ptsize 5 @bgcolor 0.833334 0 1.98682e-07 0 @bdcolor 0.5
-0.5 0.5 1 @ptcolor 0.833334 0 1.98682e-07 0;
-#X msg -45 253 set \$1 \$2 \$3;
+-1 -1 1 1 @ptsize 5 @bgcolor 0.5 1 0.5 0 @bdcolor 0.5 0.5 0.5 1 @ptcolor
+0.5 1 0.5 0;
 #X obj -45 114 colors @size 313 131 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @matrix 24 13 @reverse 0 @saturation 1 @hue 0 @lightness 1 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
-#N canvas 580 506 450 300 colorplane 0;
+#N canvas 955 409 450 300 colorplane 0;
 #X obj 100 49 inlet;
-#X obj 114 175 outlet;
-#X msg 97 132 ptcolor \$1 \$2 \$3;
+#X obj 99 177 outlet;
 #X msg 99 84 bgcolor \$1 \$2 \$3;
-#X connect 0 0 3 0;
+#X msg 206 85 ptcolor \$1 \$2 \$3;
 #X connect 0 0 2 0;
+#X connect 0 0 3 0;
 #X connect 2 0 1 0;
 #X connect 3 0 1 0;
 #X restore -137 284 pd colorplane;
@@ -77,26 +74,29 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 #X text 358 233 and the saturation :;
 #X text 358 223 Change the lighness;
 #X text 339 185 the number of row is equal to 1;
-#X obj 13 -3 loadmess 7;
 #X text -152 -52 A GUI to pick colors;
+#X obj -45 252 prepend set;
+#X obj 109 252 prepend set;
+#X msg 263 277 #7FFE7F;
+#X obj 263 252 prepend set;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;
 #X connect 8 0 12 0;
 #X connect 9 0 8 0;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;
-#X connect 15 0 14 0;
-#X connect 16 0 23 0;
-#X connect 17 0 16 0;
-#X connect 18 0 19 0;
-#X connect 18 0 16 1;
-#X connect 19 0 17 0;
-#X connect 22 0 13 0;
-#X connect 23 0 22 0;
-#X connect 23 0 24 0;
-#X connect 23 1 15 0;
-#X connect 23 2 20 0;
-#X connect 24 0 21 0;
-#X connect 31 0 5 0;
-#X connect 32 0 9 0;
-#X connect 38 0 18 0;
+#X connect 15 0 20 0;
+#X connect 16 0 15 0;
+#X connect 17 0 18 0;
+#X connect 17 0 15 1;
+#X connect 18 0 16 0;
+#X connect 20 0 21 0;
+#X connect 20 0 36 0;
+#X connect 20 1 37 0;
+#X connect 20 2 39 0;
+#X connect 21 0 19 0;
+#X connect 28 0 5 0;
+#X connect 29 0 9 0;
+#X connect 36 0 13 0;
+#X connect 37 0 14 0;
+#X connect 39 0 38 0;

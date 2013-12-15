@@ -222,8 +222,9 @@ void number_output(t_number *x)
 {
     if(x->f_maxbound)
         x->f_value = pd_clip_max(x->f_value, x->f_max);
-    else if(x->f_minbound)
+    if(x->f_minbound)
         x->f_value = pd_clip_min(x->f_value, x->f_min);
+    
     outlet_float((t_outlet*)x->f_outlet, (float)x->f_value);
 }
 
@@ -536,8 +537,6 @@ t_pd_err number_min_set(t_number *x, t_object *attr, long ac, t_atom *av)
         {
             x->f_min = atom_getfloat(av);
             x->f_minbound = 1;
-            if(x->j_box.e_ready_to_draw)
-                number_output(x);
             
             if(x->f_maxbound && x->f_max < x->f_min)
             {
@@ -569,8 +568,6 @@ t_pd_err number_max_set(t_number *x, t_object *attr, long ac, t_atom *av)
         {
             x->f_max = atom_getfloat(av);
             x->f_maxbound = 1;
-            if(x->j_box.e_ready_to_draw)
-                number_output(x);
             
             if(x->f_minbound && x->f_max < x->f_min)
             {

@@ -1,4 +1,4 @@
-#N canvas 447 83 716 434 10;
+#N canvas 791 104 716 434 10;
 #X obj -19 -74 cnv 40 552 40 empty empty PdChocolate 3 12 0 18 -228856
 -33289 0;
 #X text -16 -52 A set of objects for those who want more than vanilla...
@@ -62,3 +62,8 @@ nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 12 7 @reverse 0 @saturation 1 @hue 0 @lightness 1 @bgcolor 0.75 0.75
 0.75 1 @bdcolor 0.5 0.5 0.5 1;
 #X text 127 274 Colors;
+#X obj 222 258 toggl @size 15 15 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname chocogll
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5 0.5 0.5
+1;
+#X text 246 257 toggl;

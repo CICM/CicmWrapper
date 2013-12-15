@@ -15,7 +15,6 @@
 #X msg 9 29 set \$1;
 #X text -14 -31 plane (pictslider) allows you to move a point on a
 cartesian plane.;
-#X msg 361 221 bound \$1 \$2 \$3 \$4;
 #X obj 361 250 s plane;
 #X text 295 285 Futher information about chocolate;
 #X obj 361 185 pack 0 0 0 0;
@@ -32,54 +31,55 @@ cartesian plane.;
 -1 -1 1 1 @ptsize 5 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
 1 @ptcolor 0 0 0 1;
 #X obj 68 54 number @size 53 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @decimal
-6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
-1;
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
 #X obj 9 54 number @size 53 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @decimal
-6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
-1;
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
 #X obj 340 100 number @size 53 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @decimal
-6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
-1;
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
 #X obj 281 100 number @size 53 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @decimal
-6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
-1;
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
 #X obj 458 100 number @size 53 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @decimal
-6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
-1;
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
 #X obj 399 100 number @size 53 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @decimal
-6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
-1;
-#X connect 2 0 25 0;
-#X connect 3 0 27 0;
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 361 216 prepend bound;
+#X connect 2 0 24 0;
+#X connect 3 0 26 0;
 #X connect 3 1 2 1;
-#X connect 4 0 25 0;
+#X connect 4 0 24 0;
 #X connect 8 0 11 0;
 #X connect 9 0 10 0;
-#X connect 10 0 26 0;
-#X connect 11 0 27 0;
-#X connect 13 0 14 0;
-#X connect 16 0 13 0;
-#X connect 19 0 16 0;
-#X connect 19 1 16 3;
-#X connect 20 0 16 0;
-#X connect 20 1 16 2;
-#X connect 21 0 16 0;
-#X connect 21 1 16 1;
+#X connect 10 0 25 0;
+#X connect 11 0 26 0;
+#X connect 15 0 31 0;
+#X connect 18 0 15 0;
+#X connect 18 1 15 3;
+#X connect 19 0 15 0;
+#X connect 19 1 15 2;
+#X connect 20 0 15 0;
+#X connect 20 1 15 1;
+#X connect 21 0 28 0;
+#X connect 21 0 27 0;
+#X connect 22 0 30 0;
 #X connect 22 0 29 0;
-#X connect 22 0 28 0;
-#X connect 23 0 31 0;
-#X connect 23 0 30 0;
-#X connect 25 0 6 0;
-#X connect 25 1 7 0;
-#X connect 26 0 3 0;
-#X connect 27 0 2 0;
-#X connect 28 0 21 0;
-#X connect 29 0 16 0;
+#X connect 24 0 6 0;
+#X connect 24 1 7 0;
+#X connect 25 0 3 0;
+#X connect 26 0 2 0;
+#X connect 27 0 20 0;
+#X connect 28 0 15 0;
+#X connect 29 0 18 0;
 #X connect 30 0 19 0;
-#X connect 31 0 20 0;
+#X connect 31 0 13 0;
