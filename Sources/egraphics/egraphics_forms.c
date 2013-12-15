@@ -259,4 +259,28 @@ void egraphics_arc_oval(t_elayer *g, float xc, float yc, float radiusx, float ra
         }
     }
 }
+/*
+void egraphics_image(t_elayer *g, t_eimage* image, float x, float y)
+{
+    if(g->e_state == EGRAPHICS_OPEN)
+    {
+        if(g->e_new_objects.e_points == NULL)
+            g->e_new_objects.e_points   = (t_pt *)calloc(1, sizeof(t_pt));
+        else
+            g->e_new_objects.e_points   = (t_pt *)realloc(g->e_new_objects.e_points, sizeof(t_pt));
+        if(g->e_new_objects.e_points)
+        {
+            g->e_new_objects.e_type         = E_GOBJ_IMAG;
+            g->e_new_objects.e_points[0].x  = x;
+            g->e_new_objects.e_points[0].y  = y;
+            g->e_new_objects.e_npoints      = 1;
+            g->e_new_objects.e_text         = image->c_name;
+        }
+        else
+        {
+            g->e_new_objects.e_type = E_GOBJ_INVALID;
+        }
+        g->e_new_objects.e_type     = E_GOBJ_IMAG;
+    }
+}*/
 

@@ -100,4 +100,3 @@ void etextfield_destroy(t_etextfield *textfield)
 {
     sys_vgui("%s destroy %s entry .textfield%s\n", textfield->c_name->s_name);
 }
-

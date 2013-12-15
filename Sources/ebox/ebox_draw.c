@@ -304,6 +304,19 @@ t_pd_err ebox_paint_layer(t_ebox *b, t_symbol *name, float x_p, float y_p)
                 
                 g->e_state = EGRAPHICS_CLOSE;
             }
+            else if(gobj->e_type == E_GOBJ_IMAG)
+            {
+                /*
+                //sys_vgui("set %s [image create photo -file %s%s.%s]\n", image->c_name->s_name, path->s_name, name->s_name, image->c_ext->s_name);
+                sys_vgui("%s create image %d %d -anchor nw -image [image create photo -file /Users/Pierre/SourceTree/PdEnhanced/PdChocolate/builds/colorpicker.gif] -tags { %s %s }\n",
+                         x->e_drawing_id->s_name,
+                         (int)(gobj->e_points[0].x + x_p + bdsize),
+                         (int)(gobj->e_points[0].y + y_p + bdsize),
+                         g->e_id->s_name,
+                         x->e_all_id->s_name);
+                 */
+                g->e_state = EGRAPHICS_CLOSE;
+            }
             else
             {
                 return -1;

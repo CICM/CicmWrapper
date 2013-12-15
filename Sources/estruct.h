@@ -59,6 +59,21 @@ typedef struct _rgba
 	float alpha;
 } t_rgba; ///< A RGBA Color.
 
+typedef struct _hsl
+{
+	float hue;
+	float saturation;
+	float lightness;
+} t_hsl; ///< A HSL Color.
+
+typedef struct _hsla
+{
+	float hue;
+	float saturation;
+	float lightness;
+    float alpha;
+} t_hsla; ///< A HSLA Color.
+
 typedef struct _matrix
 {
 	float xx;
@@ -202,6 +217,7 @@ typedef enum
     E_GOBJ_ARC                  ,
     E_GOBJ_OVAL                 ,
     E_GOBJ_TEXT                 ,
+    E_GOBJ_IMAG                 ,
 } egraphics_types;
 
 typedef struct _efont

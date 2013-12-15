@@ -36,6 +36,28 @@ void egraphics_set_color_rgba(t_elayer *g, t_rgba *rgba)
     g->e_color = gensym(rgba_to_hex(*rgba));
 }
 
+void egraphics_set_color_rgb(t_elayer *g, t_rgb *rgb)
+{
+    g->e_color = gensym(rgb_to_hex(*rgb));
+}
+
+void egraphics_set_color_hex(t_elayer *g, t_symbol *hex)
+{
+    g->e_color = hex;
+}
+
+void egraphics_set_color_hsla(t_elayer *g, t_hsla *hsla)
+{
+    t_rgba color = hsla_to_rgba(*hsla);
+    g->e_color = gensym(rgba_to_hex(color));
+}
+
+void egraphics_set_color_hsl(t_elayer *g, t_hsl *hsl)
+{
+    t_rgb color = hsl_to_rgb(*hsl);
+    g->e_color = gensym(rgb_to_hex(color));
+}
+
 void egraphics_set_line_splinestep(t_elayer *g, float smooth)
 {
     g->e_new_objects.e_roundness = pd_clip_min(smooth, 0);
@@ -76,7 +98,8 @@ void egraphics_paint(t_elayer *g, int filled, int preserved)
             
             g->e_objects[index].e_color = g->e_color;
             g->e_objects[index].e_width = g->e_width;
-         
+            g->e_objects[index].e_text  = g->e_new_objects.e_text;
+            
             egraphics_apply_matrix(g, g->e_objects+index);
             if(!preserved)
             {

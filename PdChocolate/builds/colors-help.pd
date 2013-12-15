@@ -1,0 +1,102 @@
+#N canvas 189 170 735 534 10;
+#X obj -155 -74 cnv 40 552 40 empty empty colors 3 12 0 18 -228856
+-33289 0;
+#X text -12 411 Pd Chocolate by Pierre Guillot | CICM - Université
+Paris 8;
+#X obj 170 378 pdchocolate;
+#X text 97 353 Futher information about chocolate;
+#X text -154 -31 colors (swatch) display several colors and allows
+you to pick them.;
+#X obj 342 69 number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+0 @max 1 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @textcolor 0 0 0 1;
+#X msg 342 97 lightness \$1;
+#X obj 342 125 colors @size 201 14 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@matrix 20 1 @reverse 0 @saturation 1 @hue 0 @lightness 0.75 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X msg 341 283 hue \$1;
+#X obj 341 258 number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+0 @max 1 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @textcolor 0 0 0 1;
+#X obj 407 258 number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+0 @max 1 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @textcolor 0 0 0 1;
+#X msg 407 283 saturation \$1;
+#X obj 341 328 colors @size 201 14 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@matrix 20 1 @reverse 1 @saturation 0.795 @hue 0.33 @lightness 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X msg -45 277 0.833334 0 1.98682e-07;
+#X msg 109 277 0 0.416667 1;
+#X msg 109 253 set \$1 \$2 \$3;
+#X obj -45 86 pack 0 0;
+#X obj -45 43 number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+0 @max nan @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @textcolor 0 0 0 1;
+#X obj 13 43 number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+0 @max nan @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @textcolor 0 0 0 1;
+#X obj -27 68 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X symbolatom 263 278 10 0 0 0 - - -;
+#X obj -137 315 plane @size 85 85 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @bound
+-1 -1 1 1 @ptsize 5 @bgcolor 0.833334 0 1.98682e-07 0 @bdcolor 0.5
+0.5 0.5 1 @ptcolor 0.833334 0 1.98682e-07 0;
+#X msg -45 253 set \$1 \$2 \$3;
+#X obj -45 114 colors @size 313 131 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@matrix 24 13 @reverse 0 @saturation 1 @hue 0 @lightness 1 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#N canvas 580 506 450 300 colorplane 0;
+#X obj 100 49 inlet;
+#X obj 114 175 outlet;
+#X msg 97 132 ptcolor \$1 \$2 \$3;
+#X msg 99 84 bgcolor \$1 \$2 \$3;
+#X connect 0 0 3 0;
+#X connect 0 0 2 0;
+#X connect 2 0 1 0;
+#X connect 3 0 1 0;
+#X restore -137 284 pd colorplane;
+#X text -46 296 RGB color;
+#X text 107 296 HSL color;
+#X text 260 296 HEX color;
+#X text -48 19 Select a color with column and row;
+#X text 88 85 Click to pick a color;
+#X text 339 7 The number of row is equal to 1;
+#X obj 342 28 loadmess 0.75;
+#X obj 341 205 loadmess 0.33;
+#X text 347 47 Change the lighness :;
+#X text 339 175 The matrix is reversed and;
+#X text 358 233 and the saturation :;
+#X text 358 223 Change the lighness;
+#X text 339 185 the number of row is equal to 1;
+#X obj 13 -3 loadmess 7;
+#X text -152 -52 A GUI to pick colors;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 8 0 12 0;
+#X connect 9 0 8 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 15 0 14 0;
+#X connect 16 0 23 0;
+#X connect 17 0 16 0;
+#X connect 18 0 19 0;
+#X connect 18 0 16 1;
+#X connect 19 0 17 0;
+#X connect 22 0 13 0;
+#X connect 23 0 22 0;
+#X connect 23 0 24 0;
+#X connect 23 1 15 0;
+#X connect 23 2 20 0;
+#X connect 24 0 21 0;
+#X connect 31 0 5 0;
+#X connect 32 0 9 0;
+#X connect 38 0 18 0;
