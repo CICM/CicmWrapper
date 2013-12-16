@@ -110,10 +110,10 @@ void ebox_ready(t_ebox *x)
 */
 void ebox_free(t_ebox* x)
 {
-    ebox_router(x, gensym("detach"), 0, NULL);
+    gfxstub_deleteforkey(x);
+    erouter_detach((t_object *)x);
     pd_unbind(&x->e_obj.ob_pd, x->e_object_id);
     pd_unbind(&x->e_obj.ob_pd, x->e_objuser_id);
-    gfxstub_deleteforkey(x);
 }
 
 //! Return if the ebox is an UI object or not

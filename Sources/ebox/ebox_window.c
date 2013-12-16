@@ -80,10 +80,11 @@ void ebox_bind_events(t_ebox* x)
     sys_vgui("bind %s <Key>  {pdsend {%s key  %%k %%N}} \n",  x->e_drawing_id->s_name, x->e_object_id->s_name);
     
     // Canvas & Editor Binding //
+    
     sys_vgui("bind %s <<EditMode>>  {+pdsend {#erouter %s editmode}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
     sys_vgui("bind %s <<EditMode>>  {+pdsend {#erouter %s editmode}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
-    sys_vgui("bind %s <FocusIn>      {pdsend {%s focus 1}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
-    sys_vgui("bind %s <FocusOut>      {pdsend {%s focus 0}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <FocusIn>     {+pdsend {#erouter %s focus}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <FocusOut>    {+pdsend {#erouter %s focus}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
 }
 
 //! Create the canvas widget (PRIVATE)
@@ -112,7 +113,9 @@ void ebox_create_widget(t_ebox* x)
 */
 void ebox_create_window(t_ebox* x, t_glist* glist)
 {
-    ebox_router(x, gensym("attach"), 0, NULL);
+    erouter_setup(glist_getcanvas(glist)->gl_list->g_pd);
+    erouter_attach((t_object *)x);
+    
     ebox_tk_ids(x, glist_getcanvas(glist));
     ebox_create_widget(x);
 	ebox_bind_events(x);

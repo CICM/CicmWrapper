@@ -26,49 +26,29 @@
 
 #include "erouter.h"
 
-void ebox_router(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+t_erouter* glist_return_erouter(t_class* glist)
 {
-    if(s == gensym("attach"))
-    {
-
-        sys_gui("proc erouter_attach {target} {\n");
-        sys_gui("global erouter\n");
-        sys_gui("if { [info exists erouter] == 0} {\n");
-        sys_gui("pdsend \"$target router notalloc attach\"\n");
-        sys_gui("} else {\n");
-        sys_gui("pdsend \"#erouter ebox_attach $target\"\n");
-        sys_gui("}\n");
-        sys_gui("}\n");
-        
-        sys_vgui("erouter_attach %s\n", x->e_object_id->s_name);
-    }
-    else if(s == gensym("detach"))
-    {
-        sys_gui("proc erouter_detach {target} {\n");
-        sys_gui("global erouter\n");
-        sys_gui("if { [info exists erouter] == 0} {\n");
-        sys_gui("pdsend \"$target router notalloc detach\"\n");
-        sys_gui("} else {\n");
-        sys_gui("pdsend \"#erouter ebox_detach $target\"\n");
-        sys_gui("}\n");
-        sys_gui("}\n");
-        
-        sys_vgui("erouter_detach %s\n", x->e_object_id->s_name);
-    }
-    else if(atom_getsym(argv) == gensym("notalloc"))
-    {
-        if(atom_getsym(argv+1) == gensym("attach"))
-            sys_vgui("erouter_attach %s\n", x->e_object_id->s_name);
-        if(atom_getsym(argv+1) == gensym("detach"))
-            sys_vgui("erouter_detach %s\n", x->e_object_id->s_name);
-    }
+    return my_erouter;
 }
 
-void erouter_setup()
+void erouter_setup(t_class* glist)
 {
-    t_class* c = NULL;
+    int i;
     t_erouter *x;
+    rmethod nrmethod = NULL;
+    t_class* c = NULL;
     
+    for(i = 0; i < glist->c_nmethod; i++)
+    {
+        if(glist->c_methods[i].me_name == gensym("erouter"))
+        {
+            nrmethod = (rmethod)glist->c_methods[i].me_fun;
+            my_erouter = nrmethod(NULL);
+            if(my_erouter != NULL)
+                return;
+        }
+    }
+
     c = class_new(gensym("erouter"), NULL, (t_method)erouter_free, sizeof(t_erouter), CLASS_PD, 0);
     if (c)
     {
@@ -81,10 +61,12 @@ void erouter_setup()
         pd_bind(&x->e_obj.ob_pd, gensym("#erouter"));
         x->e_nchilds    = 0;
         x->e_childs     = NULL;
-       
-        sys_vgui("set erouter %ld\n", (long)x);
+        
+        my_erouter = x;
+        class_addmethod(glist, (t_method)glist_return_erouter, gensym("erouter"), A_CANT);
+        post("PD Chocolate by Pierre Guillot");
+        post("© 2013 - 2014  CICM | Paris 8 University");
     }
-    
 }
 
 void erouter_free(t_erouter *x)
@@ -92,31 +74,23 @@ void erouter_free(t_erouter *x)
     free(x->e_childs);
 }
 
-void erouter_detach(t_erouter *x, t_symbol* child)
+void erouter_detach(t_object* child)
 {
-    int i, j;
+    int i;
+    t_erouter *x = my_erouter;
     for(i = 0; i < x->e_nchilds; i++)
     {
         if(x->e_childs[i] == child)
         {
-            for(j = i; j < x->e_nchilds-1; j++)
-            {
-                x->e_childs[j] = x->e_childs[j+1];
-            }
-            x->e_nchilds--;
+            x->e_childs[i] = NULL;
         }
-    }
-    x->e_childs = (t_symbol **)realloc(x->e_childs, x->e_nchilds * sizeof(t_symbol *));
-    if(!x->e_childs)
-    {
-        x->e_childs     = NULL;
-        x->e_nchilds    = 0;
     }
 }
 
-void erouter_attach(t_erouter *x, t_symbol* child)
+void erouter_attach(t_object* child)
 {
     int i;
+    t_erouter *x = my_erouter;
     for(i = 0; i < x->e_nchilds; i++)
     {
         if(x->e_childs[i] == child)
@@ -127,22 +101,33 @@ void erouter_attach(t_erouter *x, t_symbol* child)
     }
     if(!x->e_nchilds || x->e_childs == NULL)
     {
-        x->e_childs = (t_symbol **)calloc(1, sizeof(t_symbol *));
+        x->e_childs = (t_object **)calloc(1, sizeof(t_object *));
         if(x->e_childs)
         {
             x->e_childs[0]  = child;
             x->e_nchilds    = 1;
+            return;
         }
         else
         {
             x->e_childs     = NULL;
             x->e_nchilds    = 0;
+            return;
             //post("erouter can't attach to %s", x->e_childs[i]->s_name);
         }
     }
     else
     {
-        x->e_childs = (t_symbol **)realloc(x->e_childs, (x->e_nchilds + 1) * sizeof(t_symbol *));
+        for(i = 0; i < x->e_nchilds; i++)
+        {
+            if(x->e_childs[i] == NULL)
+            {
+                x->e_childs[i]  = child;
+                return;
+            }
+        }
+        
+        x->e_childs = (t_object **)realloc(x->e_childs, (x->e_nchilds + 1) * sizeof(t_object *));
         if(x->e_childs)
         {
             x->e_childs[x->e_nchilds]  = child;
@@ -160,13 +145,23 @@ void erouter_attach(t_erouter *x, t_symbol* child)
 void erouter_anything(t_erouter *x, t_symbol *s, long argc, t_atom *argv)
 {
     int i;
+    t_ebox* z;
+    rmethod nrmethod = NULL;
     if(argc >= 1 && argv && atom_gettype(argv) == A_SYM)
     {
         for(i = 0; i < x->e_nchilds; i++)
         {
-            if(x->e_childs[i] == s)
+            if(x->e_childs[i] != NULL)
             {
-                sys_vgui("pdsend {%s %s}\n", s->s_name, atom_getsym(argv)->s_name);
+                z = (t_ebox *)x->e_childs[i];
+                if(z->e_object_id == s)
+                {
+                    nrmethod = (rmethod)zgetfn(&z->e_obj.te_g.g_pd, atom_getsym(argv));
+                    if(nrmethod)
+                    {
+                        pd_typedmess((t_pd *)z, atom_getsym(argv), argc, argv);
+                    }
+                }
             }
         }
     }

@@ -136,6 +136,7 @@ void ewidget_select(t_gobj *z, t_glist *glist, int selected)
 void ewidget_delete(t_gobj *z, t_glist *glist)
 {
     t_ebox *x = (t_ebox *)z;
+    erouter_detach((t_object *)x);
     ebox_erase(x);
     canvas_deletelinesfor(glist, (t_text *)z);
 }

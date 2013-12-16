@@ -36,15 +36,17 @@ t_class *erouter_class;
 typedef struct _erouter
 {
     t_object            e_obj;
-    t_symbol**          e_childs;
+    t_object**          e_childs;
     long                e_nchilds;
 }t_erouter;
 
-void ebox_router(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
-void erouter_setup();
+t_erouter* my_erouter;
+
+t_erouter* glist_return_erouter(t_class* glist);
+void erouter_setup(t_class* glist);
 void erouter_free(t_erouter *x);
-void erouter_attach(t_erouter *x, t_symbol* child);
-void erouter_detach(t_erouter *x, t_symbol* child);
+void erouter_attach(t_object* child);
+void erouter_detach(t_object* child);
 void erouter_anything(t_erouter *x, t_symbol *s, long argc, t_atom *argv);
 
 #endif

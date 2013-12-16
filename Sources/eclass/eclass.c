@@ -40,7 +40,6 @@
 */
 t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t size, int flags, t_atomtype arg1, int arg2)
 {
-    erouter_setup();
     t_class *pd  = class_new(gensym(name), (t_newmethod)newmethod, (t_method)freemethod, size, flags, arg1, arg2);
     t_eclass* c;
     c = (t_eclass *)resizebytes(pd, sizeof(*pd), sizeof(*c));
@@ -71,6 +70,7 @@ void eclass_init(t_eclass* c, long flags)
     ewidget_init(c);
     eclass_default_attributes(c);
     
+    class_addmethod((t_class *)c, (t_method)glist_return_erouter, gensym("erouter"), A_CANT);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_enter, gensym("mouseenter"), A_CANT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_leave, gensym("mouseleave"), A_CANT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_move,  gensym("mousemove"),  A_GIMME, 0);
@@ -86,7 +86,6 @@ void eclass_init(t_eclass* c, long flags)
     
     class_addmethod((t_class *)c, (t_method)ebox_patcher_editmode,          gensym("editmode"),     A_GIMME, 0);
     class_addmethod((t_class *)c, (t_method)ebox_popup,                     gensym("popup"),  A_SYMBOL, A_DEFFLOAT, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_router,                    gensym("router"), A_GIMME, 0);
     class_addmethod((t_class *)c, (t_method)ebox_set_mouse_global_position, gensym("globalmouse"), A_DEFFLOAT,A_DEFFLOAT,0);
     class_addmethod((t_class *)c, (t_method)ebox_set_mouse_canvas_position,gensym("patchermouse"), A_DEFFLOAT,A_DEFFLOAT,0);
 
