@@ -40,6 +40,7 @@
 */
 t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t size, int flags, t_atomtype arg1, int arg2)
 {
+    erouter_setup();
     t_class *pd  = class_new(gensym(name), (t_newmethod)newmethod, (t_method)freemethod, size, flags, arg1, arg2);
     t_eclass* c;
     c = (t_eclass *)resizebytes(pd, sizeof(*pd), sizeof(*c));

@@ -66,7 +66,7 @@ John Lennon \, append Jim Morisson;
 #X text 302 76 Edition;
 #X msg 242 41 append;
 #X msg 92 40 Jimi Hendrix;
-#X obj -12 42 incdec @size 15 15 @fontname helvetica @fontweight normal
+#X obj -12 42 cincdec @size 15 15 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @step 1 @bgcolor 0.35 0.23 0.13 1 @bdcolor
 0.27 0.21 0 1 @arcolor 0.94 0.85 0.57 1;
 #X obj 616 234 s menu;

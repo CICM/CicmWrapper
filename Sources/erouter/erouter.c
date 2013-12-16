@@ -57,7 +57,6 @@ void ebox_router(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     }
     else if(atom_getsym(argv) == gensym("notalloc"))
     {
-        erouter_setup();
         if(atom_getsym(argv+1) == gensym("attach"))
             sys_vgui("erouter_attach %s\n", x->e_object_id->s_name);
         if(atom_getsym(argv+1) == gensym("detach"))
@@ -67,20 +66,25 @@ void ebox_router(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 
 void erouter_setup()
 {
-    t_class* c;
+    t_class* c = NULL;
     t_erouter *x;
+    
     c = class_new(gensym("erouter"), NULL, (t_method)erouter_free, sizeof(t_erouter), CLASS_PD, 0);
-
-    class_addmethod(c, (t_method)erouter_attach,  gensym("ebox_attach"), A_SYMBOL);
-    class_addmethod(c, (t_method)erouter_detach,  gensym("ebox_detach"), A_SYMBOL);
-    class_addanything(c, erouter_anything);
-    erouter_class = c;
-
-    x = (t_erouter *)pd_new(erouter_class);
-    pd_bind(&x->e_obj.ob_pd, gensym("#erouter"));
-    x->e_nchilds    = 0;
-    x->e_childs     = NULL;
-    sys_vgui("set erouter %ld\n", (long)x);
+    if (c)
+    {
+        class_addmethod(c, (t_method)erouter_attach,  gensym("ebox_attach"), A_SYMBOL);
+        class_addmethod(c, (t_method)erouter_detach,  gensym("ebox_detach"), A_SYMBOL);
+        class_addanything(c, erouter_anything);
+        erouter_class = c;
+        
+        x = (t_erouter *)pd_new(erouter_class);
+        pd_bind(&x->e_obj.ob_pd, gensym("#erouter"));
+        x->e_nchilds    = 0;
+        x->e_childs     = NULL;
+       
+        sys_vgui("set erouter %ld\n", (long)x);
+    }
+    
 }
 
 void erouter_free(t_erouter *x)

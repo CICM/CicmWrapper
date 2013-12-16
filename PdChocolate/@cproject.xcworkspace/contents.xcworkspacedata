@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:cbang/cbang.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:ccolorpanel/ccolorpanel.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:cincdec/cincdec.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:cknob/cknob.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:cmeter_tilde/cmeter~.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:cnumber/cnumber.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:cnumber_tilde/cnumber~.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:cplane/cplane.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:cpreset/cpreset.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:cradio/cradio.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:cslider/cslider.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:ctoggle/ctoggle.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:loadmess/loadmess.xcodeproj">
+   </FileRef>
+</Workspace>

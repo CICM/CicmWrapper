@@ -1,0 +1,56 @@
+#N canvas 90 129 587 422 10;
+#X msg 367 74 \; pd dsp 0;
+#X obj 22 136 *~ 1.05;
+#X msg 433 75 \; pd dsp 1;
+#X text 73 131 Just to ensure that the;
+#X text 73 141 overled will blink !;
+#X obj 22 100 phasor~ 0.3;
+#X text 79 285 dB;
+#X obj -15 -74 cnv 40 552 40 empty empty cmeter~ 3 12 0 18 -228856
+-33289 0;
+#X text -12 -52 A peak programme meter for signal;
+#X text 316 178 dB;
+#X text 280 235 Futher information about chocolate;
+#X text -3 308 Pd Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X obj 260 44 loadmess 0.1;
+#X obj 22 34 loadmess 0.3;
+#X obj 280 260 pdchocolate;
+#X obj 22 69 cnumber @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 260 78 cnumber @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 260 117 sig~ 1;
+#X obj 260 179 cnumber @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 22 282 cnumber @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 260 148 cmeter~ @size 85 13 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @interval 50
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6 0
+0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
+1 0.6 0 0.8 @overcolor 1 0 0 0.8;
+#X obj 22 182 cmeter~ @size 13 85 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @interval 50 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6 0 0.8 @tepidcolor
+0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor
+1 0 0 0.8;
+#X text -14 -31 cmeter~ is the pd chocolate's version of the vanilla
+vu.;
+#X connect 1 0 21 0;
+#X connect 5 0 1 0;
+#X connect 12 0 16 0;
+#X connect 13 0 15 0;
+#X connect 15 0 5 0;
+#X connect 16 0 17 0;
+#X connect 17 0 20 0;
+#X connect 20 0 18 0;
+#X connect 21 0 19 0;

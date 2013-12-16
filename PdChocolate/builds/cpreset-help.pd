@@ -1,0 +1,81 @@
+#N canvas 508 218 785 448 10;
+#X obj -25 -74 cnv 40 552 40 empty empty preset 3 12 0 18 -228856 -33289
+0;
+#X text -13 328 Pd Chocolate by Pierre Guillot | CICM - Université
+Paris 8;
+#X text 507 311 Futher information about chocolate;
+#X msg 598 164 read zozo;
+#X msg 670 156 write zozo;
+#X text -22 -52 A GUI to save and recall presets;
+#X text -24 -31 Save and recall presets of the Chocolate externals
+in a pacther;
+#X text -25 16 Object with presets have a preset name.;
+#X text -26 29 They can share the same preset name so;
+#X text -24 41 be careful.;
+#X text 321 81 Recall a preset;
+#X obj 317 54 loadmess 1;
+#X msg 424 78 store \$1;
+#X text 420 30 Store a preset;
+#X text 505 54 Clear a preset;
+#X msg 510 102 clear \$1;
+#X text 572 105 Clear all presets;
+#X text 157 137 Click on a preset to recall it;
+#X text 157 157 Click with shift on a preset to store it;
+#X text 157 177 Click with alt on a preset to clear it;
+#X obj 580 336 pdchocolate;
+#X obj 28 103 cplane @size 120 120 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname chococplane
+@bound -1 -1 1 1 @ptsize 5 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @ptcolor 0 0 0 1;
+#X obj 201 218 cnumber @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname choconum
+@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 424 53 cnumber @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+1 @max nan @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @textcolor 0 0 0 1;
+#X msg 573 128 clearall;
+#X obj 317 103 cnumber @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 1 @max nan @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 510 75 cnumber @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+1 @max nan @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @textcolor 0 0 0 1;
+#X text 261 217 Presetname : choconum;
+#X text 24 76 Presetname : chococplane;
+#X obj 3 263 ccolorpanel @size 73 53 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname choccolorpanel
+@matrix 4 4 @reverse 0 @saturation 1 @hue 0 @lightness 1 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X text 81 281 Presetname : choccolorpanel;
+#X text 422 273 Presetname : chocoslidr;
+#X obj 295 273 cslider @size 120 15 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname chocoslidr
+@mode 0 @min 0 @max 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @kncolor 0.5 0.5 0.5 1;
+#X obj 424 159 cpreset @size 102 34 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 7 @idname (null) @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor 0.85
+0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset
+[ @index 0 @chococplane cplane list 0.703704 0.277778 @choconum cnumber
+float 3.9 @choccolorpanel ccolorpanel list 3 1 @chocoslidr slidr float
+0.5 @index 1 @chococplane cplane list -0.592593 -0.740741 @choconum
+cnumber float -1.345 @choccolorpanel ccolorpanel list 0 2 @chocoslidr
+slidr float 0.0583333 @index 2 @chococplane cplane list -1 0.925926
+@choconum cnumber float -61.845 @choccolorpanel ccolorpanel list 0
+0 @index 3 @chococplane cplane list 1 0.148148 @choconum cnumber float
+12.987 @choccolorpanel ccolorpanel list 1 0 @index 4 @chococplane cplane
+list -1 -0.685185 @choconum cnumber float -0.98765 @choccolorpanel
+ccolorpanel list 2 0 @index 5 @chococplane cplane list -1 -0.685185
+@choconum cnumber float -1.46265 @choccolorpanel ccolorpanel list 3
+0 @chocoslidr slidr float 0.0583333 ];
+#X connect 11 0 25 0;
+#X connect 12 0 33 0;
+#X connect 15 0 33 0;
+#X connect 23 0 12 0;
+#X connect 24 0 33 0;
+#X connect 25 0 33 0;
+#X connect 26 0 15 0;

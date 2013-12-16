@@ -7,11 +7,7 @@ Paris 8;
 #X obj 79 60 loadmess Hendrix;
 #X symbolatom 79 122 10 0 0 0 - - -;
 #X obj 266 171 loadmess John Lennon love 1968;
-#X obj 300 25 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
 #X text 360 112 Change the value and bang.;
-#X obj 47 233 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
-1;
 #X obj 47 190 loadmess;
 #X text -24 -31 loadmess is the pd chocolate's version of the vanilla
 loadbang that accepts arguments (float \, symbol and list).;
@@ -25,16 +21,22 @@ loadbang that accepts arguments (float \, symbol and list).;
 #X obj 266 197 list prepend set;
 #X msg 266 242 John Lennon love 1968;
 #X obj 266 218 list trim;
-#X obj 300 113 number @size 53 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @decimal
-6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
-1;
+#X obj 300 113 cnumber @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
 #X obj 300 67 loadmess 3.14169;
+#X obj 300 30 cbang @size 15 15 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 47 229 ctoggle @size 15 15 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5 0.5 0.5 1;
 #X connect 3 0 4 0;
-#X connect 5 0 18 0;
-#X connect 6 0 22 0;
-#X connect 9 0 8 0;
-#X connect 13 0 4 0;
-#X connect 18 0 20 0;
+#X connect 5 0 16 0;
+#X connect 7 0 22 0;
+#X connect 11 0 4 0;
+#X connect 16 0 18 0;
+#X connect 18 0 17 0;
 #X connect 20 0 19 0;
-#X connect 22 0 21 0;
+#X connect 21 0 20 0;

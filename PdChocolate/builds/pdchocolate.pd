@@ -1,73 +1,90 @@
-#N canvas 791 104 716 434 10;
+#N canvas 524 116 769 498 10;
 #X obj -19 -74 cnv 40 552 40 empty empty PdChocolate 3 12 0 18 -228856
 -33289 0;
 #X text -16 -52 A set of objects for those who want more than vanilla...
 ;
-#X text 132 37 number~;
-#X text 85 78 vu~;
-#X text -7 318 Pd Chocolate by Pierre Guillot | CICM - Université Paris
+#X text 132 37 cnumber~;
+#X text -7 384 Pd Chocolate by Pierre Guillot | CICM - Université Paris
 8;
-#X text 259 142 plane;
-#X text 309 73 For GUI :;
-#X text 319 141 - Inlets and outlets are hidden in "runmode".;
-#X text 310 44 In the helps \, the name between () are the alias.;
+#X text 259 142 cplane;
+#X text 329 33 For GUI :;
+#X text 339 101 - Inlets and outlets are hidden in "runmode".;
 #X text -16 -52 A set of objects for those who want more than vanilla...
 ;
-#X text 132 37 number~;
-#X text 85 78 vu~;
-#X text -7 318 Pd Chocolate by Pierre Guillot | CICM - Université Paris
+#X text 132 37 cnumber~;
+#X text -7 384 Pd Chocolate by Pierre Guillot | CICM - Université Paris
 8;
-#X text 259 142 plane;
+#X text 259 142 cplane;
+#X text 329 33 For GUI :;
+#X text 339 101 - Inlets and outlets are hidden in "runmode".;
+#X msg 627 78 attrprint;
+#X text 339 127 - Drag the border or the corner of the box to resize
+them. Sometimes the width or the height depends of the font size.;
+#X text 339 55 - Look at the properties window to edit the attributes.
+Use the attrprint message to post the attributes characteristics.;
+#X obj 183 126 cplane @size 62 62 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @bound
+-1 -1 1 1 @ptsize 5 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @ptcolor 0 0 0 1;
+#X obj 212 59 cincdec @size 15 15 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @step 1 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @arcolor 0 0 0 1;
+#X text 228 57 cincdec;
+#X obj 72 38 cnumber~ @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @interval 50 @decimal
+6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
+1;
+#X text 96 199 cnumber;
+#X obj 160 220 loadmess chocolate;
+#X obj 37 200 cnumber @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 21 256 ccolorpanel @size 97 50 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@matrix 12 7 @reverse 0 @saturation 1 @hue 0 @lightness 1 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X obj 275 290 cbang @size 15 15 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X text 298 288 cbang;
+#X text 127 274 ccolorpanel;
+#X text 278 221 loadmess;
 #X text -18 -31 Pd Chocolate use the Pd Enhanced library developed
 to facilitate the creation of signal objects and GUI and to improve
-interraction with the user.;
-#X text 309 73 For GUI :;
-#X text 319 141 - Inlets and outlets are hidden in "runmode".;
-#X text 310 44 In the helps \, the name between () are the alias.;
-#X msg 607 118 attrprint;
-#X text 319 167 - Drag the border or the corner of the box to resize
-them. Sometimes the width or the height depends of the font size.;
-#X text 319 95 - Look at the properties window to edit the attributes.
-Use the attrprint message to post the attributes characteristics.;
-#X obj -8 81 vu~ @size 85 13 @fontname helvetica @fontweight normal
+user interraction.;
+#X obj 16 326 cknob @size 50 50 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @endless
+0 @mode 0 @min 0 @max 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @necolor 0.5 0.5 0.5 1;
+#X text 75 342 cknob;
+#X obj -8 81 cmeter~ @size 85 13 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @interval 50 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6 0 0.8 @tepidcolor
 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor
 1 0 0 0.8;
-#X obj 183 126 plane @size 62 62 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @bound
--1 -1 1 1 @ptsize 5 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
-1 @ptcolor 0 0 0 1;
-#X obj 212 78 incdec @size 15 15 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @step 1 @bgcolor 0.75
-0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @arcolor 0 0 0 1;
-#X text 230 76 incdec;
-#X obj 72 38 number~ @size 53 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @interval 50 @decimal
-6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
-1;
-#X text 96 199 number;
-#X obj 160 220 loadmess chocolate;
-#X obj 37 200 number @size 53 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
-nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
-#X obj 12 133 preset @size 102 34 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 7 @idname (null) @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor 0.85 0.85 0.85
-1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset [ ];
-#X text 122 142 preset;
-#X obj 21 256 colors @size 97 50 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @matrix
-12 7 @reverse 0 @saturation 1 @hue 0 @lightness 1 @bgcolor 0.75 0.75
-0.75 1 @bdcolor 0.5 0.5 0.5 1;
-#X text 127 274 Colors;
-#X obj 222 258 toggl @size 15 15 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname chocogll
+#X obj 12 133 cpreset @size 102 34 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 7 @idname (null) @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor 0.85
+0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset
+[ ];
+#X obj 222 258 ctoggle @size 15 15 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname chocogll
 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5 0.5 0.5
 1;
-#X text 246 257 toggl;
-#X obj 275 290 buttn @size 15 15 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
-#X text 298 288 buttn;
+#X obj 329 257 cslider @size 120 15 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@mode 0 @min 0 @max 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @kncolor 0.5 0.5 0.5 1;
+#X obj 171 300 cradio @size 15 71 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @nitems
+4 @mode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @itcolor
+0.5 0.5 0.5 1;
+#X text 85 78 cmeter~;
+#X text 195 336 cradio;
+#X text 246 257 ctoggle;
+#X text 455 257 cslider;
+#X text 122 142 cpreset;
+#X text 339 163 -;
+#X text 339 163 - Popup menu for properties window and help is only
+available in "editmode";
