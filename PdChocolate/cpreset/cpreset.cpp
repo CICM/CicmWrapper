@@ -68,9 +68,7 @@ void preset_dec(t_preset *x);
 void preset_save(t_preset *x, t_binbuf *d);
 void preset_init(t_preset *x, t_binbuf *d);
 void preset_read(t_preset *x, t_symbol *s, long argc, t_atom *argv);
-void preset_doread(t_preset *x, t_symbol *s, long argc, t_atom *argv);
 void preset_write(t_preset *x, t_symbol *s, long argc, t_atom *argv);
-void preset_dowrite(t_preset *x, t_symbol *s, long argc, t_atom *argv);
 
 t_pd_err preset_notify(t_preset *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
@@ -480,83 +478,35 @@ void preset_init(t_preset *x, t_binbuf *d)
 
 void preset_read(t_preset *x, t_symbol *s, long argc, t_atom *argv)
 {
-    FILE *fd;
-    char buf[MAXPDSTRING], *bufptr;
-    int filedesc;
-    
-    if ((filedesc = canvas_open(x->j_box.e_canvas, s->s_name, "", buf, &bufptr, MAXPDSTRING, 0)) < 0 || !(fd = fdopen(filedesc, "r")))
+    t_binbuf *d = binbuf_new();
+    if(d && argv && argc && atom_gettype(argv) == A_SYM)
     {
-        post("%s: open failed", s->s_name);
-        return;
-    }
-    
-    if(argc && argv)
-    {
-        t_symbol *sym = (atom_gettype(argv) == A_SYM) ? atom_getsym(argv) : gensym("");
-        preset_doread(x, sym, 0, NULL);
-    }
-}
-
-void preset_doread(t_preset *x, t_symbol *s, long argc, t_atom *argv)
-{
-    t_dictionary *d = dictionary_new();
-    
-    if (s == gensym(""))
-    {
-        object_error(x, "preset : read failed, read method needs a filename and a path.");
-        return;
-    }
-    
-    if(binbuf_read(d, s->s_name, "", 0))
-    {
-        object_error(x, "preset : %s read failed", atom_getsym(argv)->s_name);
-    }
-    else
-    {
-        preset_init(x, d);
-        if (d)
+        if(binbuf_read(d, atom_getsym(argv)->s_name, "", 0))
         {
-            dictionary_free(d);
+            object_error(x, "preset : %s read failed", atom_getsym(argv)->s_name);
+        }
+        else
+        {
+            preset_init(x, d);
         }
     }
+    if(d)
+        binbuf_free(d);
 }
 
 void preset_write(t_preset *x, t_symbol *s, long argc, t_atom *argv)
 {
-    char buf[MAXPDSTRING], *bufptr;
-    if(argc && argv && atom_gettype(argv) == A_SYM)
-    {
-        if(strpbrk(atom_getsym(argv)->s_name, "/\"") == NULL)
-        {
-            
-        }
-            post("%ld", canvas_open(x->j_box.e_canvas, atom_getsym(argv)->s_name, "", buf, &bufptr, MAXPDSTRING, 0));
-        post(buf);
-        post(bufptr);
-        //preset_dowrite(x, atom_getsym(argv), 0, NULL);
-    }
-}
-
-void preset_dowrite(t_preset *x, t_symbol *s, long argc, t_atom *argv)
-{
     t_binbuf *d = binbuf_new();
-    
-    if(d)
+    if(d && argv && argc && atom_gettype(argv) == A_SYM)
     {
-        post("%s", canvas_getcurrentdir()->s_name);
-        //preset_save(x, d);
-        /*
-        if (s == gensym(""))
-        {
-            object_error(x, "preset : write failed, write method needs a filename and a path.");
-            return;
-        }
-        if(binbuf_write(d, s->s_name, "", 0))
+        preset_save(x, d);
+        if(binbuf_write(d, atom_getsym(argv)->s_name, "", 0))
         {
             object_error(x, "preset : %s write failed", atom_getsym(argv)->s_name);
-        }*/
-        dictionary_free(d);
+        }
     }
+    if(d)
+        binbuf_free(d);
     
 }
 

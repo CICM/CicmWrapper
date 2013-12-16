@@ -116,6 +116,8 @@ void ebox_deserted(t_ebox *x);                                                  
 void ebox_dosave_box(t_gobj* z, t_binbuf *b);                                                       // PRIVATE
 void ebox_dosave_nobox(t_gobj* z, t_binbuf *b);                                                     // PRIVATE
 void ebox_save(t_gobj* z, t_binbuf *b);                                                             // PRIVATE
+void ebox_write(t_ebox* x, t_symbol* s, long argc, t_atom* argv);                                   // PRIVATE
+void ebox_read(t_ebox* x, t_symbol* s, long argc, t_atom* argv);                                    // PRIVATE
 t_pd_err ebox_set_id(t_ebox *x, t_object *attr, long argc, t_atom *argv);                           // PRIVATE
 
 // ebox_patcher.c functions//

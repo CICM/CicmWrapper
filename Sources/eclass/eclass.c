@@ -94,17 +94,47 @@ void eclass_init(t_eclass* c, long flags)
     class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
     class_addmethod((t_class *)c, (t_method)ebox_dialog,     gensym("dialog"),        A_GIMME, 0);
     
-    // For global and patcher mouse position //
+    // GLOBAL MOUSE POSITION //
     sys_gui("proc global_mousepos {target} {\n");
     sys_gui(" set x [winfo pointerx .]\n");
     sys_gui(" set y [winfo pointery .]\n");
     sys_gui(" pdsend \"$target globalmouse $x $y\"\n");
     sys_gui("}\n");
     
+    // PATCHER MOUSE POSITION //
     sys_gui("proc patcher_mousepos {target patcher} {\n");
     sys_gui(" set x [winfo rootx $patcher]\n");
     sys_gui(" set y [winfo rooty $patcher]\n");
     sys_gui(" pdsend \"$target patchermouse $x $y\"\n");
+    sys_gui("}\n");
+    
+    // SAVE DIALOG //
+    sys_gui("proc ebox_saveas {name initialfile initialdir} {\n");
+    sys_gui("if { ! [file isdirectory $initialdir]} {set initialdir $::env(HOME)}\n");
+    sys_gui("set filename [tk_getSaveFile -initialfile $initialfile -initialdir $initialdir -defaultextension .pd -filetypes $::filetypes]\n");
+    sys_gui("if {$filename eq \"\"} return;\n");
+        
+    sys_gui("set extension [file extension $filename]\n");
+    sys_gui("set oldfilename $filename\n");
+
+    sys_gui("if {$filename ne $oldfilename && [file exists $filename]} {\n");
+    sys_gui("set answer [tk_messageBox -type okcancel -icon question -default cancel-message [_ \"$filename\" already exists. Do you want to replace it?]]\n");
+    sys_gui("if {$answer eq \"cancel\"} return;\n");
+    sys_gui("}\n");
+    sys_gui("set dirname [file dirname $filename]\n");
+    sys_gui("set basename [file tail $filename]\n");
+    sys_gui("pdsend \"$name eboxwriteto [enquote_path $dirname/$basename]\"\n");
+    sys_gui("set ::filenewdir $dirname\n");
+    sys_gui("::pd_guiprefs::update_recentfiles $filename\n");
+    sys_gui("}\n");
+    
+    // OPEN DIALOG //
+    sys_gui("proc ebox_openfrom {name} {\n");
+    sys_gui("if { ! [file isdirectory $::filenewdir]} {\n");
+    sys_gui("set ::filenewdir [file normalize $::env(HOME)]\n");
+    sys_gui("}\n");
+    sys_gui("set files [tk_getOpenFile -multiple true -initialdir $::fileopendir]\n");
+    sys_gui("pdsend \"$name eboxreadfrom [enquote_path $files]\"\n");
     sys_gui("}\n");
 }
 
@@ -407,6 +437,18 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
     {
         class_addmethod((t_class *)c, (t_method)m, gensym(name), type, anything);
         eclass_preset_attributes(c);
+    }
+    else if(gensym(name) == gensym("write"))
+    {
+        class_addmethod((t_class *)c, (t_method)ebox_write, gensym(name), type, anything);
+        class_addmethod((t_class *)c, (t_method)ebox_write, gensym("eboxwriteto"), type, anything);
+        c->c_widget.w_write = m;
+    }
+    else if(gensym(name) == gensym("read"))
+    {
+        class_addmethod((t_class *)c, (t_method)ebox_read, gensym(name), type, anything);
+        class_addmethod((t_class *)c, (t_method)ebox_read, gensym("eboxreadfrom"), type, anything);
+        c->c_widget.w_read = m;
     }
     else
     {

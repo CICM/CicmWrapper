@@ -768,4 +768,69 @@ t_pd_err ebox_set_id(t_ebox *x, t_object *attr, long argc, t_atom *argv)
     return 0;
 }
 
+void ebox_write(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+{
+    char buf[MAXPDSTRING];
+    char* pch;
+    t_atom av[1];
+    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
+    
+    if(argc && argv && atom_gettype(argv) == A_SYM)
+    {
+        pch = strpbrk(atom_getsym(argv)->s_name, "/\"");
+        if(pch != NULL)
+        {
+            atom_setsym(av, atom_getsym(argv));
+            if(c->c_widget.w_write)
+                c->c_widget.w_write(x, s, 1, av);
+            return;
+        }
+        else
+        {
+            sprintf(buf, "%s/%s", canvas_getdir(x->e_canvas)->s_name, atom_getsym(argv)->s_name);
+            atom_setsym(av, gensym(buf));
+            if(c->c_widget.w_write)
+                c->c_widget.w_write(x, s, 1, av);
+            return;
+        }
+    }
+    sys_vgui("ebox_saveas %s nothing nothing\n", x->e_object_id->s_name);
+}
+
+void ebox_read(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+{
+    char buf[MAXPDSTRING];
+    char* pch;
+    t_atom av[1];
+    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
+    
+    if(argc && argv && atom_gettype(argv) == A_SYM)
+    {
+        pch = strpbrk(atom_getsym(argv)->s_name, "/\"");
+        if(pch != NULL)
+        {
+            atom_setsym(av, atom_getsym(argv));
+            if(c->c_widget.w_read)
+                c->c_widget.w_read(x, s, 1, av);
+            return;
+        }
+        else
+        {
+            sprintf(buf, "%s/%s", canvas_getdir(x->e_canvas)->s_name, atom_getsym(argv)->s_name);
+            atom_setsym(av, gensym(buf));
+            if(c->c_widget.w_read)
+                c->c_widget.w_read(x, s, 1, av);
+            return;
+        }
+    }
+    sys_vgui("ebox_openfrom %s\n", x->e_object_id->s_name);
+}
+
+
+
+
+
+
+
+
 

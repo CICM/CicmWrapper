@@ -82,9 +82,8 @@ void ebox_bind_events(t_ebox* x)
     // Canvas & Editor Binding //
     
     sys_vgui("bind %s <<EditMode>>  {+pdsend {#erouter %s editmode}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
-    sys_vgui("bind %s <<EditMode>>  {+pdsend {#erouter %s editmode}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
-    sys_vgui("bind %s <FocusIn>     {+pdsend {#erouter %s focus}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
-    sys_vgui("bind %s <FocusOut>    {+pdsend {#erouter %s focus}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <FocusIn>     {+pdsend {#erouter %s focus 1}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <FocusOut>    {+pdsend {#erouter %s focus 0}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
 }
 
 //! Create the canvas widget (PRIVATE)

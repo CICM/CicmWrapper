@@ -1,11 +1,10 @@
-#N canvas 508 218 785 448 10;
+#N canvas 168 157 1100 467 10;
 #X obj -25 -74 cnv 40 552 40 empty empty preset 3 12 0 18 -228856 -33289
 0;
 #X text -13 328 Pd Chocolate by Pierre Guillot | CICM - Université
 Paris 8;
 #X text 507 311 Futher information about chocolate;
-#X msg 598 164 read zozo;
-#X msg 670 156 write zozo;
+#X msg 727 68 write zozo;
 #X text -22 -52 A GUI to save and recall presets;
 #X text -24 -31 Save and recall presets of the Chocolate externals
 in a pacther;
@@ -72,10 +71,17 @@ list -1 -0.685185 @choconum cnumber float -0.98765 @choccolorpanel
 ccolorpanel list 2 0 @index 5 @chococplane cplane list -1 -0.685185
 @choconum cnumber float -1.46265 @choccolorpanel ccolorpanel list 3
 0 @chocoslidr slidr float 0.0583333 ];
-#X connect 11 0 25 0;
-#X connect 12 0 33 0;
-#X connect 15 0 33 0;
-#X connect 23 0 12 0;
-#X connect 24 0 33 0;
-#X connect 25 0 33 0;
-#X connect 26 0 15 0;
+#X msg 654 68 read zaza;
+#X msg 658 26 write /Users/Pierre/SourceTree/PdEnhanced/PdChocolate/builds/zozo
+;
+#X msg 807 67 write;
+#X msg 649 -34 read /Users/Pierre/SourceTree/PdEnhanced/PdChocolate/builds/zozo
+;
+#X msg 857 64 read;
+#X connect 10 0 24 0;
+#X connect 11 0 32 0;
+#X connect 14 0 32 0;
+#X connect 22 0 11 0;
+#X connect 23 0 32 0;
+#X connect 24 0 32 0;
+#X connect 25 0 14 0;

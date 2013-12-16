@@ -113,6 +113,8 @@ typedef struct _ewidget
     method          w_object_standat_paint;
     method          w_oksize;
     t_err_method    w_notify;
+    method          w_write;
+    method          w_read;
 } t_ewidget;
 
 typedef struct _eattr

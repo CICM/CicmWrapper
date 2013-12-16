@@ -54,6 +54,8 @@ void ewidget_init(t_eclass* c)
     c->c_widget.w_popup             = NULL;
     c->c_widget.w_dsp               = NULL;
     c->c_widget.w_oksize            = NULL;
+    c->c_widget.w_write             = NULL;
+    c->c_widget.w_read              = NULL;
 }
 
 void ewidget_getrect(t_gobj *z, t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2)
@@ -136,7 +138,6 @@ void ewidget_select(t_gobj *z, t_glist *glist, int selected)
 void ewidget_delete(t_gobj *z, t_glist *glist)
 {
     t_ebox *x = (t_ebox *)z;
-    erouter_detach((t_object *)x);
     ebox_erase(x);
     canvas_deletelinesfor(glist, (t_text *)z);
 }

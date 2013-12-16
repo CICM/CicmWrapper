@@ -64,6 +64,7 @@ void erouter_setup(t_class* glist)
         
         my_erouter = x;
         class_addmethod(glist, (t_method)glist_return_erouter, gensym("erouter"), A_CANT);
+        
         post("PD Chocolate by Pierre Guillot");
         post("© 2013 - 2014  CICM | Paris 8 University");
     }
@@ -78,11 +79,14 @@ void erouter_detach(t_object* child)
 {
     int i;
     t_erouter *x = my_erouter;
-    for(i = 0; i < x->e_nchilds; i++)
+    if(x)
     {
-        if(x->e_childs[i] == child)
+        for(i = 0; i < x->e_nchilds; i++)
         {
-            x->e_childs[i] = NULL;
+            if(x->e_childs[i] == child)
+            {
+                x->e_childs[i] = NULL;
+            }
         }
     }
 }
