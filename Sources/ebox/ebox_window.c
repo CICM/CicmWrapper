@@ -63,6 +63,7 @@ void ebox_tk_ids(t_ebox *x, t_canvas *canvas)
 */
 void ebox_bind_events(t_ebox* x)
 {
+    // TODO : FAIRE LES BINDS EN FONCTION DES METHODS !!! (eviter les appels inutiles)
 	int right = EMOD_CMD;
 #ifdef _WINDOWS
 	right += 8;

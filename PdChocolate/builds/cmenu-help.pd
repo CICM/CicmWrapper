@@ -1,4 +1,4 @@
-#N canvas 393 111 672 619 10;
+#N canvas 352 181 672 619 10;
 #X obj -25 -74 cnv 40 552 40 empty empty cmenu 3 12 0 18 -228856 -33289
 0;
 #X text 76 504 Pd Chocolate by Pierre Guillot | CICM - Université Paris
@@ -55,15 +55,15 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 #X msg 369 71 setitem 2 in Mumbai;
 #X text -24 -31 cmenu display a list of items without stoping the DSP
 and with a lot of options.;
-#X obj 152 373 cmenu @size 99 17 @fontname helvetica @fontweight normal
+#X obj 92 373 cmenu @size 151 17 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @hover
-0 @items 'Sunday Morning' 'I Waiting For The Man' 'Femme Fatale' 'Venus In Furs'
-'Run Run Run' @states 0 0 0 0 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
-0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+0 @items 'Sunday Morning' 'I m Waiting For The Man' 'Femme Fatale'
+'Venus In Furs' 'Run Run Run' @states 0 0 0 0 0 @bgcolor 0.75 0.75
+0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X text 161 339 Mousing : Click or Hover;
-#X obj 262 373 cmenu @size 99 17 @fontname helvetica @fontweight normal
+#X obj 262 373 cmenu @size 175 17 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @hover
-1 @items 'All Tomorrow' Heroin 'There She Goes' 'Ill Be Your miror'
+1 @items 'All Tomorrow' Heroin 'There She Goes' 'I ll Be Your miror'
 'The Black Angel Death Song' 'European Son' @states 0 0 0 0 0 0 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X connect 4 0 11 0;
