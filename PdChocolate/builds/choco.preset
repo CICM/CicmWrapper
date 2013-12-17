@@ -1,0 +1,16 @@
+@preset [ @index 0 @chococplane cplane list 0.703704 0.277778 @choconum
+cnumber float 3.9 @choccolorpanel ccolorpanel list 3 1 @chocoslidr
+cslider float 0.458333 @chocodio cradio float 2 @index 1 @chococplane
+cplane list -0.592593 -0.740741 @choconum cnumber float -1.345 @choccolorpanel
+ccolorpanel list 0 2 @chocoslidr cslider float 0.725 @chocodio cradio
+float 5 @index 2 @chococplane cplane list -1 0.925926 @choconum cnumber
+float -61.845 @choccolorpanel ccolorpanel list 0 0 @chocoslidr cslider
+float 0.158333 @chocodio cradio float 0 @index 3 @chococplane cplane
+list 1 0.148148 @choconum cnumber float 12.987 @choccolorpanel ccolorpanel
+list 1 0 @chocoslidr cslider float 0.966667 @chocodio cradio float
+7 @index 4 @chococplane cplane list -1 -0.685185 @choconum cnumber
+float -0.98765 @choccolorpanel ccolorpanel list 2 0 @chocoslidr cslider
+float 0.0583333 @chocodio cradio float 5 @index 5 @chococplane cplane
+list -1 -0.685185 @choconum cnumber float -1.46265 @choccolorpanel
+ccolorpanel list 3 0 @chocoslidr cslider float 0.9 @chocodio cradio
+float 2 ] 

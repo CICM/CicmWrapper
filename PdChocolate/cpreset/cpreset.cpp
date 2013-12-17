@@ -488,6 +488,8 @@ void preset_read(t_preset *x, t_symbol *s, long argc, t_atom *argv)
         else
         {
             preset_init(x, d);
+            ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+            ebox_redraw((t_ebox *)x);
         }
     }
     if(d)

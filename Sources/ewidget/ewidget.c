@@ -62,7 +62,7 @@ void ewidget_getrect(t_gobj *z, t_glist *glist, int *xp1, int *yp1, int *xp2, in
 {
     t_ebox *x = (t_ebox *)z;
     *xp1 = text_xpix(&x->e_obj, glist);
-    *yp1 = text_ypix(&x->e_obj, glist);
+    *yp1 = text_ypix(&x->e_obj, glist) - (int)(x->e_boxparameters.d_borderthickness);
     *xp2 = text_xpix(&x->e_obj, glist) + (int)x->e_rect.width + (int)(x->e_boxparameters.d_borderthickness);
     *yp2 = text_ypix(&x->e_obj, glist) + (int)x->e_rect.height + (int)(x->e_boxparameters.d_borderthickness);
 }
