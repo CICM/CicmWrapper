@@ -301,11 +301,10 @@ void tab_delete(t_tab *x, t_symbol *s, int argc, t_atom *argv)
             for(i = atom_getfloat(argv); i < x->f_items_size - 1; i++)
                 x->f_items[i] = x->f_items[i+1];
             x->f_items_size--;
-            for(i = x->f_items_size - 1; i < MAXITEMS; i++)
-                x->f_items[i] = NULL;
-            
-            object_attr_setvalueof((t_object *)x, gensym("size"), 0, NULL);
+            for(i = x->f_items_size; i < MAXITEMS; i++)
+                x->f_items[i] = gensym("(null)");
         }
+        object_attr_setvalueof((t_object *)x, gensym("size"), 0, NULL);
     }
 }
 
@@ -470,9 +469,9 @@ void draw_selection(t_tab *x, t_object *view, t_rect *rect)
         {
             egraphics_set_color_rgba(g, &x->f_color_hover);
             if(x->f_orientation)
-                egraphics_rectangle(g, 0., ratio * x->f_item_hover, rect->width, ratio);
+                egraphics_rectangle(g, -2, ratio * x->f_item_hover - 1, rect->width+4, ratio + 1);
             else
-                egraphics_rectangle(g, ratio * x->f_item_hover, 0, ratio, rect->height);
+                egraphics_rectangle(g, ratio * x->f_item_hover, -2, ratio, rect->height+4);
             egraphics_fill(g);
         }
         
@@ -480,9 +479,9 @@ void draw_selection(t_tab *x, t_object *view, t_rect *rect)
         {
             egraphics_set_color_rgba(g, &x->f_color_select);
             if(x->f_orientation)
-                egraphics_rectangle(g, 0., ratio * x->f_item_selected, rect->width, ratio);
+                egraphics_rectangle(g, -2, ratio * x->f_item_selected - 1, rect->width+4, ratio + 1);
             else
-                egraphics_rectangle(g, ratio * x->f_item_selected, 0, ratio, rect->height);
+                egraphics_rectangle(g, ratio * x->f_item_selected, -2, ratio, rect->height+4);
             egraphics_fill(g);
         }
 		ebox_end_layer((t_ebox*)x, gensym("selection_layer"));

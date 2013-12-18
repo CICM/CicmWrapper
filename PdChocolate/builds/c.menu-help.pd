@@ -1,4 +1,4 @@
-#N canvas 352 181 672 619 10;
+#N canvas 713 193 672 619 10;
 #X obj -25 -74 cnv 40 552 40 empty empty c.menu 3 12 0 18 -228856 -33289
 0;
 #X text 76 504 Pd Chocolate by Pierre Guillot | CICM - Université Paris
@@ -12,9 +12,9 @@
 #X text 88 46 Selection;
 #X text 340 7 Edition;
 #X msg 172 112 Jimi Hendrix;
-#X obj 106 206 c.menu @size 100 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @hover
-0 @items 'Jimi Hendrix' 'Janis Joplin' 'John Lennon' 'Jim Morisson'
+#X obj 106 206 c.menu @size 100 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@hover 0 @items 'Jimi Hendrix' 'Janis Joplin' 'John Lennon' 'Jim Morisson'
 @states 0 0 0 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
 #X msg 106 79 set Janis Joplin;
@@ -26,10 +26,10 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min 0 @max 3 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @textcolor 0 0 0 1;
-#X obj 50 110 c.number @size 53 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
-0 @max 3 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
-1 @textcolor 0 0 0 1;
+#X obj 50 110 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 0 @max 3 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
 #X obj -11 69 loadmess 2;
 #X obj 201 272 prepend set;
 #X msg 201 303 Janis Joplin;
@@ -53,19 +53,23 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 1;
 #X msg 500 145 state 0 \$1;
 #X msg 369 71 setitem 2 in Mumbai;
-#X text -24 -31 c.menu display a list of items without stoping the DSP
-and with a lot of options.;
+#X text -24 -31 c.menu display a list of items without stoping the
+DSP and with a lot of options.;
 #X obj 92 373 c.menu @size 151 17 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @hover
 0 @items 'Sunday Morning' 'I m Waiting For The Man' 'Femme Fatale'
 'Venus In Furs' 'Run Run Run' @states 0 0 0 0 0 @bgcolor 0.75 0.75
 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X text 161 339 Mousing : Click or Hover;
-#X obj 262 373 c.menu @size 175 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @hover
-1 @items 'All Tomorrow' Heroin 'There She Goes' 'I ll Be Your miror'
+#X obj 262 373 c.menu @size 175 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@hover 1 @items 'All Tomorrow' Heroin 'There She Goes' 'I ll Be Your miror'
 'The Black Angel Death Song' 'European Son' @states 0 0 0 0 0 0 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 460 355 Note that you can use the;
+#X text 460 365 inspector to edit the tab.;
+#X text 460 375 Don't forget that ' and ";
+#X text 460 385 are the separators.;
 #X connect 4 0 11 0;
 #X connect 5 0 19 0;
 #X connect 10 0 11 0;
