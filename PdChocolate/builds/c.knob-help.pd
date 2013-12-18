@@ -1,0 +1,116 @@
+#N canvas 90 129 563 423 10;
+#X obj -49 -74 cnv 40 552 40 empty empty c.knob 3 12 0 18 -228856 -33289
+0;
+#X text 225 257 Futher information about chocolate;
+#X text -37 308 Pd Chocolate by Pierre Guillot | CICM - Université
+Paris 8;
+#X obj 289 287 pdchocolate;
+#X obj -17 94 c.knob @size 50 50 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname choknob1
+@endless 0 @mode 0 @min 0 @max 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @necolor 0.5 0.5 0.5 1;
+#X obj -17 50 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj -17 168 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 200 94 c.knob @size 50 50 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @endless
+1 @mode 0 @min 0 @max 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @necolor 0.5 0.5 0.5 1;
+#X obj 266 94 c.knob @size 50 50 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @endless
+1 @mode 0 @min 1 @max 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @necolor 0.5 0.5 0.5 1;
+#X obj 200 168 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 266 168 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 357 94 c.knob @size 50 50 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @endless
+0 @mode 0 @min -3.14 @max 15 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @necolor 0.5 0.5 0.5 1;
+#X obj 357 50 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+-3.14 @max 15 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 357 168 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 83 94 c.knob @size 50 50 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname choknob2
+@endless 0 @mode 1 @min 0 @max 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @necolor 0.5 0.5 0.5 1;
+#X obj 83 168 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X text 79 197 Circular;
+#X text 79 207 tracking;
+#X text 79 217 mode;
+#X text -21 207 tracking;
+#X text -21 217 mode;
+#X text -21 197 Vertical;
+#X obj -17 21 loadmess 0.5;
+#X obj 83 50 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 83 21 loadmess 0.25;
+#X msg 266 69 set \$1;
+#X msg 200 68 set \$1;
+#X text 199 197 Endless;
+#X text 199 207 mode;
+#X text 265 197 Endless;
+#X text 265 207 mode with;
+#X text 265 217 reversed;
+#X text 265 227 boundaries;
+#X obj 200 33 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 266 33 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X text 355 197 Other;
+#X text 355 207 boundaries;
+#X text 355 217 values;
+#X text -47 -52 A knob;
+#X text -12 260 Cknob is compatible with preset;
+#X obj 439 51 c.bang @size 15 15 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 70 282 c.preset @size 34 16 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 7 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor 0.85 0.85 0.85
+1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset [ @index
+0 @choknob1 c.knob float 0.22 @choknob2 c.knob float 0.75344 @index 1
+@choknob1 c.knob float 0.8 @choknob2 c.knob float 0.291445 ];
+#X text -48 -31 knob is a knob with vertical an horizontal tracking
+and endless mode.;
+#X connect 4 0 6 0;
+#X connect 5 0 4 0;
+#X connect 7 0 9 0;
+#X connect 7 0 25 0;
+#X connect 8 0 10 0;
+#X connect 8 0 26 0;
+#X connect 11 0 13 0;
+#X connect 12 0 11 0;
+#X connect 14 0 15 0;
+#X connect 22 0 5 0;
+#X connect 23 0 14 0;
+#X connect 24 0 23 0;
+#X connect 25 0 8 0;
+#X connect 26 0 7 0;
+#X connect 33 0 7 0;
+#X connect 34 0 8 0;
+#X connect 40 0 11 0;

@@ -37,10 +37,4 @@ void ewidget_vis(t_gobj *z,         t_glist *glist, int vis);
 void ewidget_displace(t_gobj *z,    t_glist *glist, int dx, int dy);
 void ewidget_select(t_gobj *z,      t_glist *glist, int selected);
 void ewidget_delete(t_gobj *z,      t_glist *glist);
-
-void ewidget_key(t_ebox *x, t_floatarg fkey);
-void ewidget_key_default(t_ebox *x, t_object *patcherview, char textcharacter, long modifiers);
-void ewidget_keyfilter_default(t_ebox *x, t_object *patcherview, char textcharacter, long modifiers);
-void ewidget_keyout_default(t_ebox *x, t_object *patcherview);
-
 #endif 

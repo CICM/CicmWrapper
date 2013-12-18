@@ -45,8 +45,8 @@ void ewidget_init(t_eclass* c)
     c->c_widget.w_mouseup           = NULL;
     c->c_widget.w_mousewheel        = NULL;
     c->c_widget.w_dblclick          = NULL;
-    c->c_widget.w_key               = (method)ewidget_key_default;
-    c->c_widget.w_keyfilter         = (method)ewidget_keyfilter_default;
+    c->c_widget.w_key               = NULL;
+    c->c_widget.w_keyfilter         = NULL;
     c->c_widget.w_deserted          = NULL;
     c->c_widget.w_getdrawparameters = NULL;
     c->c_widget.w_notify            = NULL;
@@ -140,26 +140,6 @@ void ewidget_delete(t_gobj *z, t_glist *glist)
     t_ebox *x = (t_ebox *)z;
     ebox_erase(x);
     canvas_deletelinesfor(glist, (t_text *)z);
-}
-
-
-void ewidget_key(t_ebox *x, t_floatarg fkey)
-{
-    if(fkey != 0)
-    {
-        t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
-        if(fkey == EKEY_DEL || fkey == EKEY_ESC || fkey == EKEY_TAB || fkey == EKEY_ENTER)
-            c->c_widget.w_keyfilter(x, x->e_canvas, (char)fkey, x->e_modifiers);
-        else
-            c->c_widget.w_key(x, x->e_canvas, (char)fkey, x->e_modifiers);
-    }
-}
-
-void ewidget_key_default(t_ebox *x, t_object *patcherview, char textcharacter, long modifiers){;};
-
-void ewidget_keyfilter_default(t_ebox *x, t_object *patcherview, char textcharacter, long modifiers)
-{
-    ewidget_key_default(x, patcherview, textcharacter, modifiers);
 }
 
 

@@ -3,98 +3,104 @@
 -33289 0;
 #X text -16 -52 A set of objects for those who want more than vanilla...
 ;
-#X text 132 37 cnumber~;
+#X text 132 37 c.number~;
 #X text -7 384 Pd Chocolate by Pierre Guillot | CICM - Université Paris
 8;
-#X text 259 142 cplane;
-#X text 329 33 For GUI :;
-#X text 339 101 - Inlets and outlets are hidden in "runmode".;
+#X text 259 142 c.plane;
+#X text 359 -17 For GUI :;
+#X text 369 51 - Inlets and outlets are hidden in "runmode".;
 #X text -16 -52 A set of objects for those who want more than vanilla...
 ;
-#X text 132 37 cnumber~;
+#X text 132 37 c.number~;
 #X text -7 384 Pd Chocolate by Pierre Guillot | CICM - Université Paris
 8;
-#X text 259 142 cplane;
-#X text 329 33 For GUI :;
-#X text 339 101 - Inlets and outlets are hidden in "runmode".;
-#X msg 627 78 attrprint;
-#X text 339 127 - Drag the border or the corner of the box to resize
+#X text 259 142 c.plane;
+#X text 359 -17 For GUI :;
+#X text 369 51 - Inlets and outlets are hidden in "runmode".;
+#X msg 657 28 attrprint;
+#X text 369 77 - Drag the border or the corner of the box to resize
 them. Sometimes the width or the height depends of the font size.;
-#X text 339 55 - Look at the properties window to edit the attributes.
+#X text 369 5 - Look at the properties window to edit the attributes.
 Use the attrprint message to post the attributes characteristics.;
-#X obj 183 126 cplane @size 62 62 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @bound
--1 -1 1 1 @ptsize 5 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
-1 @ptcolor 0 0 0 1;
-#X obj 212 59 cincdec @size 15 15 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @step 1 @bgcolor 0.75
-0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @arcolor 0 0 0 1;
-#X text 228 57 cincdec;
-#X obj 72 38 cnumber~ @size 53 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @interval 50 @decimal
-6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
-1;
-#X text 96 199 cnumber;
-#X obj 160 220 loadmess chocolate;
-#X obj 37 200 cnumber @size 53 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
-nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
-#X obj 21 256 ccolorpanel @size 97 50 @fontname helvetica @fontweight
+#X obj 183 126 c.plane @size 62 62 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@bound -1 -1 1 1 @ptsize 5 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @ptcolor 0 0 0 1;
+#X obj 212 59 c.incdec @size 15 15 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @step 1 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @arcolor 0 0 0 1;
+#X text 228 57 c.incdec;
+#X obj 72 38 c.number~ @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @interval 50
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X text 96 199 c.number;
+#X obj 37 200 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 21 256 c.colorpanel @size 97 50 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @matrix 12 7 @reverse 0 @saturation 1 @hue 0 @lightness 1 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
-#X obj 275 290 cbang @size 15 15 @fontname helvetica @fontweight normal
+#X obj 275 290 c.bang @size 15 15 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
-#X text 298 288 cbang;
-#X text 127 274 ccolorpanel;
+#X text 298 288 c.bang;
+#X text 127 274 c.colorpanel;
 #X text 278 221 loadmess;
 #X text -18 -31 Pd Chocolate use the Pd Enhanced library developed
 to facilitate the creation of signal objects and GUI and to improve
 user interraction.;
-#X obj 16 326 cknob @size 50 50 @fontname helvetica @fontweight normal
+#X obj 16 326 c.knob @size 50 50 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @endless
 0 @mode 0 @min 0 @max 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @necolor 0.5 0.5 0.5 1;
-#X text 75 342 cknob;
-#X obj -8 81 cmeter~ @size 85 13 @fontname helvetica @fontweight normal
+#X text 75 342 c.knob;
+#X obj -8 81 c.meter~ @size 85 13 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @interval 50 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6 0 0.8 @tepidcolor
 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor
 1 0 0 0.8;
-#X obj 12 133 cpreset @size 102 34 @fontname helvetica @fontweight
+#X obj 12 133 c.preset @size 102 34 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 7 @idname (null) @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor 0.85
 0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset
 [ ];
-#X obj 222 258 ctoggle @size 15 15 @fontname helvetica @fontweight
+#X obj 222 258 c.toggle @size 15 15 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname chocogll
 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5 0.5 0.5
 1;
-#X obj 329 257 cslider @size 120 15 @fontname helvetica @fontweight
+#X obj 329 257 c.slider @size 120 15 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @mode 0 @min 0 @max 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
 1 @kncolor 0.5 0.5 0.5 1;
-#X obj 171 300 cradio @size 15 71 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @nitems
-4 @mode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @itcolor
-0.5 0.5 0.5 1;
-#X text 85 78 cmeter~;
-#X text 195 336 cradio;
-#X text 246 257 ctoggle;
-#X text 455 257 cslider;
-#X text 122 142 cpreset;
-#X text 339 163 -;
-#X text 339 163 - Popup menu for properties window and help is only
+#X obj 171 300 c.radio @size 15 71 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@nitems 4 @mode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1
+@itcolor 0.5 0.5 0.5 1;
+#X text 85 78 c.meter~;
+#X text 195 336 c.radio;
+#X text 246 257 c.toggle;
+#X text 455 257 c.slider;
+#X text 122 142 c.preset;
+#X text 369 113 -;
+#X text 369 113 - Popup menu for properties window and help is only
 available in "editmode";
-#X obj 286 333 cmenu @size 100 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @hover
-0 @items chocolate @states 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1;
-#X text 392 332 cmenu;
-#X obj 518 238 cgain~ @size 20 160 @fontname helvetica @fontweight
+#X obj 286 333 c.menu @size 100 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@hover 0 @items chocolate @states 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 392 332 c.menu;
+#X obj 518 238 c.gain~ @size 20 160 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @kncolor
 0.5 0.5 0.5 1;
-#X text 550 310 cgain~Â ;
+#X text 550 310 c.gain~Â ;
+#X obj 436 169 c.tab @size 117 34 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @orientation
+1 @toggle 0 @items vanilla pistachio @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35
+0.35 0.35 1;
+#X text 560 175 c.tab;
+#X obj 160 220 loadmess coffee;

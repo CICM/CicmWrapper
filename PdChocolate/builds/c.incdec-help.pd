@@ -1,0 +1,58 @@
+#N canvas 189 170 559 414 10;
+#X obj -25 -74 cnv 40 552 40 empty empty c.incdec 3 12 0 18 -228856
+-33289 0;
+#X text -13 308 Pd Chocolate by Pierre Guillot | CICM - Université
+Paris 8;
+#X obj 388 299 pdchocolate;
+#X text 315 274 Futher information about chocolate;
+#X msg 241 61 set \$1;
+#X text -22 -52 A GUI to increment and decrement a value;
+#X text -24 -31 c.incdec increment and decrement a value without stack
+overflow.;
+#X text 240 12 Step the value withpout output.;
+#X text 301 69 Output the value;
+#X text 87 12 Set and output the value;
+#X msg 32 125 step \$1;
+#X text 10 59 Set the increment step;
+#X msg 350 129 inc;
+#X msg 342 169 dec;
+#X text 381 127 Increment;
+#X text 376 170 Decrement;
+#X text -17 194 Numbox output is connected;
+#X text -18 208 to the c.incdec input and the;
+#X text -19 222 c.incdec output is connected;
+#X text -18 236 to the numbox input.;
+#X obj 205 228 c.incdec @size 17 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @step 0.35 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @arcolor 0 0 0 1;
+#X obj 225 228 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 32 102 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 140 34 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 241 34 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 32 77 loadmess 0.35;
+#X obj 330 89 c.bang @size 15 15 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X connect 4 0 20 0;
+#X connect 10 0 20 0;
+#X connect 12 0 20 0;
+#X connect 13 0 20 0;
+#X connect 20 0 21 0;
+#X connect 21 0 20 0;
+#X connect 22 0 10 0;
+#X connect 23 0 20 0;
+#X connect 24 0 4 0;
+#X connect 25 0 22 0;
+#X connect 26 0 20 0;

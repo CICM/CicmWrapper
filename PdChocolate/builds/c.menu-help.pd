@@ -1,0 +1,88 @@
+#N canvas 352 181 672 619 10;
+#X obj -25 -74 cnv 40 552 40 empty empty c.menu 3 12 0 18 -228856 -33289
+0;
+#X text 76 504 Pd Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X obj 504 7 pdchocolate;
+#X text 431 -18 Futher information about chocolate;
+#X msg -11 167 set \$1;
+#X msg 291 68 append 17;
+#X msg -11 167 set \$1;
+#X text -22 -52 A menu that display a list of items;
+#X text 88 46 Selection;
+#X text 340 7 Edition;
+#X msg 172 112 Jimi Hendrix;
+#X obj 106 206 c.menu @size 100 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @hover
+0 @items 'Jimi Hendrix' 'Janis Joplin' 'John Lennon' 'Jim Morisson'
+@states 0 0 0 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X msg 106 79 set Janis Joplin;
+#X obj 106 304 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min nan @max nan @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj -11 133 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 0 @max 3 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 50 110 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+0 @max 3 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @textcolor 0 0 0 1;
+#X obj -11 69 loadmess 2;
+#X obj 201 272 prepend set;
+#X msg 201 303 Janis Joplin;
+#X obj 315 207 c.menu @size 99 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @hover
+0 @items 'in America' 'in the West' @states 0 0 @bgcolor 0.75 0.75
+0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 462 174 clear;
+#X obj 315 304 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 0 @max nan @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X msg 410 302 Once upon a time in America;
+#X obj 410 255 prepend set Once upon a time;
+#X msg 251 41 append in Paris \, append in L.A.;
+#X msg 377 106 insert 1 in Tokyo;
+#X msg 401 147 delete 2;
+#X obj 500 109 c.toggle @size 15 15 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5 0.5 0.5
+1;
+#X msg 500 145 state 0 \$1;
+#X msg 369 71 setitem 2 in Mumbai;
+#X text -24 -31 c.menu display a list of items without stoping the DSP
+and with a lot of options.;
+#X obj 92 373 c.menu @size 151 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @hover
+0 @items 'Sunday Morning' 'I m Waiting For The Man' 'Femme Fatale'
+'Venus In Furs' 'Run Run Run' @states 0 0 0 0 0 @bgcolor 0.75 0.75
+0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 161 339 Mousing : Click or Hover;
+#X obj 262 373 c.menu @size 175 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @hover
+1 @items 'All Tomorrow' Heroin 'There She Goes' 'I ll Be Your miror'
+'The Black Angel Death Song' 'European Son' @states 0 0 0 0 0 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X connect 4 0 11 0;
+#X connect 5 0 19 0;
+#X connect 10 0 11 0;
+#X connect 11 0 13 0;
+#X connect 11 1 17 0;
+#X connect 12 0 11 0;
+#X connect 14 0 4 0;
+#X connect 15 0 11 0;
+#X connect 16 0 14 0;
+#X connect 17 0 18 0;
+#X connect 19 0 21 0;
+#X connect 19 1 23 0;
+#X connect 20 0 19 0;
+#X connect 23 0 22 0;
+#X connect 24 0 19 0;
+#X connect 25 0 19 0;
+#X connect 26 0 19 0;
+#X connect 27 0 28 0;
+#X connect 28 0 19 0;
+#X connect 29 0 19 0;

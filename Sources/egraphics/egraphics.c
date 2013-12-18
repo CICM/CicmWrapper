@@ -149,7 +149,7 @@ void etext_layout_draw(t_etext* textlayout, t_elayer *g)
         g->e_objects[index].e_font        = textlayout->c_font;
         g->e_objects[index].e_justify     = textlayout->c_justify;
         g->e_objects[index].e_text        = textlayout->c_text;
-        
+        g->e_objects[index].e_anchor      = textlayout->c_anchor;
         egraphics_apply_matrix(g, g->e_objects+index);
     }
 }

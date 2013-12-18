@@ -290,11 +290,12 @@ t_pd_err ebox_paint_layer(t_ebox *b, t_symbol *name, float x_p, float y_p)
             else if(gobj->e_type == E_GOBJ_TEXT)
             {
                 
-                sys_vgui("%s create text %d %d -text {%s} -anchor %s -font {%s %d %s} -fill %s -width %d -tags { %s %s }\n",
+                sys_vgui("%s create text %d %d -text {%s} -anchor %s -justify %s -font {%s %d %s} -fill %s -width %d -tags { %s %s }\n",
                          x->e_drawing_id->s_name,
                          (int)(gobj->e_points[0].x + x_p + bdsize),
                          (int)(gobj->e_points[0].y + y_p + bdsize),
                          gobj->e_text->s_name,
+                         gobj->e_anchor->s_name,
                          gobj->e_justify->s_name,
                          gobj->e_font.c_family->s_name, (int)gobj->e_font.c_size, gobj->e_font.c_weight->s_name,
                          gobj->e_color->s_name,

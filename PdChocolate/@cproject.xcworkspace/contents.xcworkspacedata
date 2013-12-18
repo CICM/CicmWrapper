@@ -2,40 +2,49 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:cbang/cbang.xcodeproj">
+      location = "group:cbang/c.bang.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:ccolorpanel/ccolorpanel.xcodeproj">
+      location = "group:ccolorpanel/c.colorpanel.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cincdec/cincdec.xcodeproj">
+      location = "group:cincdec/c.incdec.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cknob/cknob.xcodeproj">
+      location = "group:cknob/c.knob.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cmeter_tilde/cmeter~.xcodeproj">
+      location = "group:cmeter_tilde/c.meter~.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cnumber/cnumber.xcodeproj">
+      location = "group:cnumber/c.number.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cnumber_tilde/cnumber~.xcodeproj">
+      location = "group:cnumber_tilde/c.number~.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cplane/cplane.xcodeproj">
+      location = "group:cplane/c.plane.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cpreset/cpreset.xcodeproj">
+      location = "group:cpreset/c.preset.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cradio/cradio.xcodeproj">
+      location = "group:cradio/c.radio.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cslider/cslider.xcodeproj">
+      location = "group:cslider/c.slider.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:ctoggle/ctoggle.xcodeproj">
+      location = "group:ctoggle/c.toggle.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:cgain_tilde/c.gain~.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:cmenu/c.menu.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:ctab/c.tab.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:loadmess/loadmess.xcodeproj">

@@ -3,8 +3,6 @@
 
 
 #### ToDo :
-- Gain
-- Texts Buttons
 - Preset master with interpolation
 
 - Oscilloscope

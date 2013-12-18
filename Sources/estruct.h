@@ -191,7 +191,7 @@ typedef enum _elayer_flags
     EGRAPHICS_TODRAW    = -3,
 } t_elayer_flags;
 
-typedef enum _etextjustify_flags
+typedef enum _etextanchor_flags
 {
     ETEXT_UP            = 0,
     ETEXT_UP_LEFT       = 1,
@@ -203,13 +203,20 @@ typedef enum _etextjustify_flags
     ETEXT_RIGHT         = 7, // last element of text = x
 	ETEXT_CENTER        = 8  // center element of text = x
     
-} t_etextjustify_flags;
+} t_etextanchor_flags;
 
 typedef enum _etextwrap_flags
 {
 	ETEXT_NOWRAP    = 0,
 	ETEXT_WRAP      = 1
 } t_etextwrap_flags;
+
+typedef enum _etextjustify_flags
+{
+	ETEXT_JLEFT    = 0,
+	ETEXT_JRIGHT   = 1,
+    ETEXT_JCENTER  = 2
+} t_etextjustify_flags;
 
 typedef enum
 {
@@ -248,6 +255,7 @@ typedef struct _etext
     t_rgba          c_color;
     t_efont         c_font;
     t_rect          c_rect;
+    t_symbol*       c_anchor;
     t_symbol*       c_justify;
 } t_etext;
 
@@ -262,6 +270,7 @@ typedef struct _egobj
     long            e_npoints;
     float           e_roundness;
     t_efont         e_font;
+    t_symbol*       e_anchor;
     t_symbol*       e_justify;
     t_symbol*       e_text;
 

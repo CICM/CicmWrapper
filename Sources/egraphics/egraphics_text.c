@@ -42,7 +42,7 @@ void etext_layout_destroy(t_etext* textlayout)
     free(textlayout);
 }
 
-void etext_layout_set(t_etext* textlayout, char* text, t_efont *jfont,  double x, double y, double width,  double height, t_etextjustify_flags justification, t_etextwrap_flags wrap)
+void etext_layout_set(t_etext* textlayout, char* text, t_efont *jfont,  double x, double y, double width,  double height, t_etextanchor_flags anchor, t_etextjustify_flags justify, t_etextwrap_flags wrap)
 {
     textlayout->c_text = gensym(text);
     textlayout->c_font = jfont[0];
@@ -56,24 +56,31 @@ void etext_layout_set(t_etext* textlayout, char* text, t_efont *jfont,  double x
         textlayout->c_rect.width = 0.;
     }
 
-    if(justification == ETEXT_UP)
-        textlayout->c_justify = gensym("n");
-    else if(justification == ETEXT_UP_RIGHT)
-        textlayout->c_justify = gensym("ne");
-    else if(justification == ETEXT_RIGHT)
-        textlayout->c_justify = gensym("e");
-    else if(justification == ETEXT_DOWN_RIGHT)
-        textlayout->c_justify = gensym("se");
-    else if(justification == ETEXT_DOWN)
-        textlayout->c_justify = gensym("s");
-    else if(justification == ETEXT_DOWN_LEFT)
-        textlayout->c_justify = gensym("sw");
-    else if(justification == ETEXT_LEFT)
-        textlayout->c_justify = gensym("w");
-    else if(justification == ETEXT_UP_LEFT)
-        textlayout->c_justify = gensym("nw");
+    if(anchor == ETEXT_UP)
+        textlayout->c_anchor = gensym("n");
+    else if(anchor == ETEXT_UP_RIGHT)
+        textlayout->c_anchor = gensym("ne");
+    else if(anchor == ETEXT_RIGHT)
+        textlayout->c_anchor = gensym("e");
+    else if(anchor == ETEXT_DOWN_RIGHT)
+        textlayout->c_anchor = gensym("se");
+    else if(anchor == ETEXT_DOWN)
+        textlayout->c_anchor = gensym("s");
+    else if(anchor == ETEXT_DOWN_LEFT)
+        textlayout->c_anchor = gensym("sw");
+    else if(anchor == ETEXT_LEFT)
+        textlayout->c_anchor = gensym("w");
+    else if(anchor == ETEXT_UP_LEFT)
+        textlayout->c_anchor = gensym("nw");
     else
+        textlayout->c_anchor = gensym("center");
+    
+    if(justify == ETEXT_JCENTER)
         textlayout->c_justify = gensym("center");
+    else if(justify == ETEXT_JRIGHT)
+        textlayout->c_justify = gensym("right");
+    else
+        textlayout->c_justify = gensym("left");
 
 }
 
