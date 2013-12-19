@@ -174,7 +174,8 @@ void ebox_dsp(t_ebox *x, t_signal **sp)
     int i;
     t_eclass *c  = (t_eclass *)x->e_obj.te_g.g_pd;
     short* count = (short*)calloc((obj_nsiginlets(&x->e_obj) + obj_nsigoutlets(&x->e_obj)), sizeof(short));
-
+    //if(count)
+    //    ebox_getconnections(x, count);
     if(c->c_widget.w_dsp != NULL)
         c->c_widget.w_dsp(x, x, &count, sp[0]->s_sr, sp[0]->s_n, 0);
     
@@ -262,6 +263,8 @@ void ebox_dsp_add(t_ebox *x, t_symbol* s, t_object* obj, method m, long flags, v
 */
 void ebox_getconnections(t_ebox* x, short* count)
 {
+    /*
+    int state;
     t_gobj*y;
     t_object* obj;
     t_object* dest;
@@ -270,33 +273,46 @@ void ebox_getconnections(t_ebox* x, short* count)
     t_inlet * in;
     t_outconnect* conn;
     
-    for(y = x->e_canvas->gl_owner->gl_list; y; y = y->g_next) /* traverse all objects in canvas */
+    state = canvas_suspend_dsp();
+
+    for(int i = 0; i < obj_nsiginlets(&x->e_obj); i++)
+    {
+        post("inlet %i dest : %s", i, x->e_inlets[i]->i_dest[0]->c_name);
+        post("inlet %i pd : %s", i, x->e_inlets[i]->i_pd->c_name);
+        //post("inlet %i pd : %s", i, x->e_inlets[i]->);
+    }
+    canvas_resume_dsp(state);
+    
+    for(y = x->e_canvas->gl_owner->gl_list; y; y = y->g_next)
     {
         obj         = (t_object *)y;
         obj_nout    =  obj_noutlets(obj);
         int nout=0;
         int sourcewhich=0;
+    
+        post("class %s", obj->te_g.g_pd->c_name->s_name);
         
-        for(nout=0; nout<obj_nout; nout++) /* traverse all outlets of each object */
+        for(nout = 0; nout < obj_nout; nout++)
         {
             out     = NULL;
             in      = NULL;
             dest    = NULL;
             conn    = obj_starttraverseoutlet(obj, &out, nout);
             
-            while(conn)
-            { /* traverse all connections from each outlet */
+            while(conn)  // traverse all connections from each outlet //
+            {
                 int which;
                 conn = obj_nexttraverseoutlet(conn, &dest, &in, &which);
                 if(dest == &x->e_obj)
                 {
+                    post("me");
                     //int connid = glist_getindex(x->e_canvas->gl_owner, (t_gobj*)obj);
                     //("inlet from %d:%d to my:%d", 0, sourcewhich, which);
                 }
             }
             sourcewhich++;
         }
-    }
+    }*/
 }
 
 

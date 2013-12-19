@@ -1,4 +1,4 @@
-#N canvas 713 193 672 619 10;
+#N canvas 713 193 690 619 10;
 #X obj -25 -74 cnv 40 552 40 empty empty c.menu 3 12 0 18 -228856 -33289
 0;
 #X text 76 504 Pd Chocolate by Pierre Guillot | CICM - Université Paris

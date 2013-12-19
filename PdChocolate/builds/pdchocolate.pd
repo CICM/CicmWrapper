@@ -1,4 +1,4 @@
-#N canvas 524 116 769 498 10;
+#N canvas 249 121 899 504 10;
 #X obj -19 -74 cnv 40 552 40 empty empty PdChocolate 3 12 0 18 -228856
 -33289 0;
 #X text -16 -52 A set of objects for those who want more than vanilla...
@@ -104,3 +104,8 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 0.35 0.35 1;
 #X text 560 175 c.tab;
 #X obj 160 220 loadmess coffee;
+#X obj 627 268 c.scope~ @size 125 100 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @bufdis 256 @bufsig
+256 @range -1 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @sicolor
+0 0.6 0 0.8;
+#X text 759 308 c.scope~;

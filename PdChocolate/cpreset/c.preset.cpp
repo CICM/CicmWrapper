@@ -238,6 +238,7 @@ void preset_float(t_preset *x, float f)
         return;
     if(!x->f_init)
         return;
+    
     if(binbuf_getnatom(x->f_binbuf[index-1]))
     {
         x->f_binbuf_selected = index;

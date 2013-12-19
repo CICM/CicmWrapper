@@ -54,6 +54,7 @@ It's "under construction" but it should be similar to the vanilla Pd compilation
 - Update the properties window : attributes order, categories, etc. (low)
 - Find the connection with the object to send a "count" (like Max count) in dsp method. (medium)
 - Secure the resize i/o method. (low)
+- Assit method.
 
 #### License : GPL.
 

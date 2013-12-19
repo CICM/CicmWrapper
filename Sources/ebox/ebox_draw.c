@@ -78,6 +78,7 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
 {
 	int i;
     char text[256];
+    
     for(i = 0; i < x->e_number_of_layers; i++)
     {
         t_elayer* graphic = &x->e_layers[i];
