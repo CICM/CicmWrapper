@@ -4,7 +4,7 @@
 <p>Pd Chocolate is a part of the Pd Enhanced library developed to facilitate the creation of signal objects and GUI and to improve user interactions.</p>
 <p>Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8</p>
 
-![Image Pd](https://raw.github.com/CICM/HoaLibrary/master/Ressources/PdChocolate.png "Pd Patch")
+![Image Pd](https://raw.github.com/pierreguillot/PdEnhanced/master/Ressources/PdChocolate.png "Pd Patch")
 
 ##### Version :
 
@@ -16,7 +16,7 @@ Pierre Guillot
 
 ##### Dependencies : 
 
-<a title="Cblas" href="http://www.netlib.org/clapack/cblas/" target="_blank">Cblas</a>, <a title="PdEnhanced" href="https://github.com/pierreguillot/PdEnhanced" target="_blank">PdEnhanced</a>
+<a title="PdEnhanced" href="https://github.com/pierreguillot/PdEnhanced" target="_blank">PdEnhanced</a>
 
 ##### Licence : 
 
