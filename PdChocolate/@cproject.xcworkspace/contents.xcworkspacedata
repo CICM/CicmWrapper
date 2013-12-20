@@ -5,6 +5,9 @@
       location = "group:cbang/c.bang.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:cbreakpoints/c.breakpoints.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:ccolorpanel/c.colorpanel.xcodeproj">
    </FileRef>
    <FileRef
@@ -45,6 +48,9 @@
    </FileRef>
    <FileRef
       location = "group:ctab/c.tab.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:cscope_tilde/c.scope~.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:loadmess/loadmess.xcodeproj">

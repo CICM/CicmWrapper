@@ -1,0 +1,34 @@
+#N canvas 281 186 701 514 10;
+#X obj -15 -74 cnv 40 552 40 empty empty c.plane 3 12 0 18 -228856
+-33289 0;
+#X text -3 388 Pd Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X text -14 -31 c.plane (pictslider) allows you to move a point on
+a cartesian c.plane.;
+#X text 456 -15 Futher information about chocolate;
+#X obj 514 12 pdchocolate;
+#X text -12 -52 A plane where you can move a point;
+#X obj 260 119 c.filterview @size 200 120 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@type 1 @frequency 0 @gain 5 @factor 5 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @ptcolor 0 0 0 1;
+#X obj 260 85 prepend type;
+#X obj 165 53 c.menu @size 100 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @hover
+0 @items lowpass highpass bandpass notch peak lowshelf highshelf @states
+0 0 0 0 0 0 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X msg 260 331 0.740741 -1.48148 0.740741 -1.11111 0.851852;
+#X obj 379 71 c.bang @size 15 15 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 260 298 prepend set;
+#X msg 355 294 highpass 0 5 5;
+#X obj 355 261 prepend set;
+#X connect 6 0 11 0;
+#X connect 6 1 13 0;
+#X connect 7 0 6 0;
+#X connect 8 1 7 0;
+#X connect 10 0 6 0;
+#X connect 11 0 9 0;
+#X connect 13 0 12 0;

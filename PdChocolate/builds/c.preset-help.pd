@@ -99,6 +99,11 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname chocopoints
 @absrange 0 1000 @ordrange 0 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @ptcolor 0.5 0.5 0.5 1 @licolor 0 0 0 1 @textcolor 0 0 0
 1 @points 0 0.933333 396.947 0 488.55 0.866667 541.985 0 1000 1;
+#X msg 705 108 inter \$1;
+#X obj 705 80 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 1 @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
 #X connect 6 0 17 0;
 #X connect 7 0 25 0;
 #X connect 10 0 25 0;
@@ -109,3 +114,5 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname chocopoints
 #X connect 26 0 25 0;
 #X connect 28 0 27 0;
 #X connect 29 0 27 0;
+#X connect 49 0 25 0;
+#X connect 50 0 49 0;

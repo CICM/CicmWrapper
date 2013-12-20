@@ -1,0 +1,27 @@
+#N canvas 414 179 450 300 10;
+#X obj 89 235 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname choconum
+@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 28 152 c.preset @size 102 34 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 7 @idname (null) @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor 0.85
+0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset
+[ @index 0 @choconum c.number float 1 @index 1 @choconum c.number float
+2 @index 3 @choconum c.number float 4 @index 4 @choconum c.number float
+5 ];
+#X msg 69 113 inter \$1;
+#X obj 69 85 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+1 @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @textcolor 0 0 0 1;
+#X msg 152 64 1.8;
+#X obj 210 178 c.breakpoints @size 150 100 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname baba
+@absrange 0 1000 @ordrange 0 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @ptcolor 0.5 0.5 0.5 1 @licolor 0 0 0 1 @textcolor 0 0 0
+1 @points 0 1 246.575 0.987654 417.808 0.753086 561.644 0.567901 773.973
+0.753086 979.452 0.17284;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X connect 4 0 3 0;

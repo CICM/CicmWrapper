@@ -35,28 +35,30 @@ enum
     Peak = 4,
     Lowshelf = 5,
     Highshelf = 6,
-    Allpass = 7,
-    Resonante = 8
+    //Resonante = 7,
+    //Allpass = 8
 };
 
 typedef struct  _filterview
 {
 	t_ebox      j_box;
     
-    t_outlet*   f_out_x;
-    t_outlet*   f_out_y;
+    t_outlet*   f_out_coeffs;
+    t_outlet*   f_out_config;
     
     long        f_type;
     
+    float       f_sample_rate;
     float       f_coeff_a0;
     float       f_coeff_a1;
     float       f_coeff_a2;
     float       f_coeff_b1;
     float       f_coeff_b2;
     
-    float       f_cutoff;
-    float       f_q;
-    float       f_gain;
+    float       f_frequency;
+    float       f_frequency_factor;
+    float       f_q_factor;
+    float       f_gain_factor;
     
 	t_rgba		f_color_background;
 	t_rgba		f_color_border;
@@ -73,10 +75,11 @@ void filterview_assist(t_filterview *x, void *b, long m, long a, char *s);
 void filterview_set(t_filterview *x, t_symbol *s, long ac, t_atom *av);
 void filterview_list(t_filterview *x, t_symbol *s, long ac, t_atom *av);
 void filterview_output(t_filterview *x);
+void filterview_compute(t_filterview *x);
 
 t_pd_err filterview_notify(t_filterview *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
-t_pd_err filterview_bound_set(t_filterview *x, t_object *attr, long ac, t_atom *av);
+t_pd_err filterview_type_set(t_filterview *x, t_object *attr, long ac, t_atom *av);
 
 void filterview_getdrawparams(t_filterview *x, t_object *patcherview, t_edrawparams *params);
 void filterview_oksize(t_filterview *x, t_rect *newrect);
@@ -109,19 +112,30 @@ void setup_c0x2efilterview(void)
     
     eclass_addmethod(c, (method) filterview_preset,          "preset",           A_CANT, 0);
     
-	CLASS_ATTR_DEFAULT              (c, "size", 0, "120 120");
+	CLASS_ATTR_DEFAULT              (c, "size", 0, "200 120");
     
-    CLASS_ATTR_FLOAT                (c, "frequency", 0, t_filterview, f_boundaries, 4);
+    CLASS_ATTR_LONG                 (c, "type", 0, t_filterview, f_type);
+	CLASS_ATTR_LABEL                (c, "type", 0, "Filter Type");
+    CLASS_ATTR_ACCESSORS			(c, "type", NULL, filterview_type_set);
+	CLASS_ATTR_ORDER                (c, "type", 0, "1");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "type", 0, "0.");
+    
+    CLASS_ATTR_FLOAT                (c, "frequency", 0, t_filterview, f_frequency);
 	CLASS_ATTR_LABEL                (c, "frequency", 0, "Boundaries");
-    CLASS_ATTR_ACCESSORS			(c, "frequency", NULL, filterview_bound_set);
 	CLASS_ATTR_ORDER                (c, "frequency", 0, "1");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "frequency", 0, "10025");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "frequency", 0, "40.");
     
-    CLASS_ATTR_FLOAT                (c, "ptsize", 0, t_filterview, f_size);
-	CLASS_ATTR_LABEL                (c, "ptsize", 0, "Point size");
-	CLASS_ATTR_ORDER                (c, "ptsize", 0, "3");
-    CLASS_ATTR_FILTER_CLIP          (c, "ptsize", 5., 50.f);
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "ptsize", 0, "5");
+    CLASS_ATTR_FLOAT                (c, "gain", 0, t_filterview, f_gain_factor);
+	CLASS_ATTR_LABEL                (c, "gain", 0, "Point size");
+	CLASS_ATTR_ORDER                (c, "gain", 0, "3");
+    CLASS_ATTR_FILTER_CLIP          (c, "gain", 5., 50.f);
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "gain", 0, "5");
+    
+    CLASS_ATTR_FLOAT                (c, "factor", 0, t_filterview, f_q_factor);
+	CLASS_ATTR_LABEL                (c, "factor", 0, "Point size");
+	CLASS_ATTR_ORDER                (c, "factor", 0, "3");
+    CLASS_ATTR_FILTER_CLIP          (c, "factor", 5., 50.f);
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "factor", 0, "5");
     
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_filterview, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
@@ -153,17 +167,15 @@ void *filterview_new(t_symbol *s, int argc, t_atom *argv)
     
 	x = (t_filterview *)ebox_alloc(filterview_class);
     flags = 0
-    | EBOX_GROWLINK
+    | EBOX_GROWINDI
     ;
 	ebox_new((t_ebox *)x, flags);
 	x->j_box.b_firstin = (t_object *)x;
     
-    x->f_out_x = (t_outlet *)floatout(x);
-    x->f_out_y = (t_outlet *)floatout(x);
-    
-    x->f_position.x = 0.;
-    x->f_position.y = 0.;
-    
+    x->f_out_coeffs = (t_outlet *)listout(x);
+    x->f_out_config = (t_outlet *)anythingout(x);
+    x->f_sample_rate = sys_getsr();
+    x->f_frequency_factor = 0.5;
 	binbuf_attr_process(x, d);
 	ebox_ready((t_ebox *)x);
 	return (x);
@@ -187,20 +199,6 @@ void filterview_set(t_filterview *x, t_symbol *s, long ac, t_atom *av)
 {
     if(ac && av)
     {
-        if(ac >= 1)
-        {
-            if(x->f_boundaries.x < x->f_boundaries.width)
-                x->f_position.x = pd_clip_minmax(atom_getfloat(av), x->f_boundaries.x, x->f_boundaries.width);
-            else
-                x->f_position.x = pd_clip_minmax(atom_getfloat(av), x->f_boundaries.width, x->f_boundaries.x);
-        }
-        if(ac >= 2)
-        {
-            if(x->f_boundaries.y < x->f_boundaries.height)
-                x->f_position.y = pd_clip_minmax(atom_getfloat(av+1), x->f_boundaries.y, x->f_boundaries.height);
-            else
-                x->f_position.y = pd_clip_minmax(atom_getfloat(av+1), x->f_boundaries.height, x->f_boundaries.y);
-        }
         ebox_invalidate_layer((t_ebox *)x, gensym("point_layer"));
         ebox_redraw((t_ebox *)x);
     }
@@ -214,10 +212,37 @@ void filterview_list(t_filterview *x, t_symbol *s, long ac, t_atom *av)
 
 void filterview_output(t_filterview *x)
 {
+    t_atom argv[5];
     if(x->j_box.e_ready_to_draw)
     {
-        outlet_float(x->f_out_x, x->f_position.x);
-        outlet_float(x->f_out_y, x->f_position.y);
+        atom_setfloat(argv, x->f_coeff_a0);
+        atom_setfloat(argv+1, x->f_coeff_a1);
+        atom_setfloat(argv+2, x->f_coeff_a2);
+        atom_setfloat(argv+3, x->f_coeff_b1);
+        atom_setfloat(argv+4, x->f_coeff_b2);
+        outlet_list(x->f_out_coeffs, &s_list, 5, argv);
+        
+        if(x->f_type == Lowpass)
+            atom_setsym(argv, gensym("lowpass"));
+        else if(x->f_type == Highpass)
+            atom_setsym(argv, gensym("highpass"));
+        else if(x->f_type == Bandpass)
+            atom_setsym(argv, gensym("bandpass"));
+        else if(x->f_type == Notch)
+            atom_setsym(argv, gensym("notch"));
+        else if(x->f_type == Peak)
+            atom_setsym(argv, gensym("peak"));
+        else if(x->f_type == Lowshelf)
+            atom_setsym(argv, gensym("lowshelf"));
+        else if(x->f_type == Highshelf)
+            atom_setsym(argv, gensym("highshelf"));
+        else
+            atom_setsym(argv, gensym("nothing"));
+        
+        atom_setfloat(argv+1, x->f_frequency);
+        atom_setfloat(argv+2, x->f_gain_factor);
+        atom_setfloat(argv+3, x->f_q_factor);
+        outlet_anything(x->f_out_config, &s_list, 4, argv);
     }
 }
 
@@ -245,26 +270,36 @@ t_pd_err filterview_notify(t_filterview *x, t_symbol *s, t_symbol *msg, void *se
 	return 0;
 }
 
-t_pd_err filterview_bound_set(t_filterview *x, t_object *attr, long ac, t_atom *av)
+t_pd_err filterview_type_set(t_filterview *x, t_object *attr, long ac, t_atom *av)
 {
-	t_atom argv[2];
-    
     if(ac && av)
     {
-        if(ac >= 1)
-            x->f_boundaries.x = atom_getfloat(av);
-        if(ac >= 2)
-            x->f_boundaries.y = atom_getfloat(av+1);
-        if(ac >= 3)
-            x->f_boundaries.width = atom_getfloat(av+2);
-        if(ac >= 4)
-            x->f_boundaries.height = atom_getfloat(av+3);
-        
-        // Boundaries changed -> recompute the point position !
-        atom_setfloat(argv, x->f_position.x);
-        atom_setfloat(argv+1, x->f_position.y);
-        filterview_set(x, NULL, 2, argv);
-        filterview_output(x);
+        if(atom_gettype(av) == A_FLOAT)
+        {
+            x->f_type = pd_clip_minmax(atom_getfloat(av), 0, 8);
+        }
+        else if(atom_gettype(av) == A_SYM)
+        {
+            if(atom_getsym(av) == gensym("lowpass"))
+                x->f_type = Lowpass;
+            else if(atom_getsym(av) == gensym("highpass"))
+                x->f_type = Highpass;
+            else if(atom_getsym(av) == gensym("bandpass"))
+                x->f_type = Bandpass;
+            else if(atom_getsym(av) == gensym("notch"))
+                x->f_type = Notch;
+            else if(atom_getsym(av) == gensym("peak"))
+                x->f_type = Peak;
+            else if(atom_getsym(av) == gensym("lowshelf"))
+                x->f_type = Lowshelf;
+            else if(atom_getsym(av) == gensym("highshelf"))
+                x->f_type = Highshelf;/*
+            else if(atom_getsym(av) == gensym("allpass"))
+                x->f_type = Allpass;
+            else if(atom_getsym(av) == gensym("resonante"))
+                x->f_type = Resonante;*/
+        }
+        filterview_compute(x);
     }
     return 0;
 }
@@ -273,8 +308,6 @@ void filterview_paint(t_filterview *x, t_object *view)
 {
 	t_rect rect;
 	ebox_get_rect_for_view((t_ebox *)x, &rect);
-    x->f_ratio.x = (rect.width - 2 * x->f_size - 2) / (x->f_boundaries.width - x->f_boundaries.x);
-    x->f_ratio.y = (rect.height - 2 * x->f_size - 2) / (x->f_boundaries.height - x->f_boundaries.y);
     draw_point(x, view, &rect);
     
 }
@@ -285,38 +318,128 @@ void draw_point(t_filterview *x, t_object *view, t_rect *rect)
     
 	if (g)
 	{
-        t_matrix matrix;
-        // Here, an example matrix
-        egraphics_matrix_init(&matrix, x->f_ratio.x, 0.f, 0.f, -x->f_ratio.y, x->f_boundaries.x * -x->f_ratio.x, rect->height + x->f_boundaries.y * x->f_ratio.y);
-        egraphics_set_matrix(g, &matrix);
-        
-        egraphics_set_color_rgba(g, &x->f_color_point);
-        // We use oval to keep a perfect circle with the matrix stranformation
-        egraphics_oval(g, x->f_position.x, x->f_position.y, x->f_size / x->f_ratio.x, x->f_size / x->f_ratio.y);
-        egraphics_set_line_width(g, 2);
-        egraphics_fill(g);
-        ebox_end_layer((t_ebox*)x, gensym("point_layer"));
+        ;
 	}
-	ebox_paint_layer((t_ebox *)x, gensym("point_layer"), x->f_size + 1, -x->f_size - 1);
+	ebox_paint_layer((t_ebox *)x, gensym("point_layer"), 0, 0);
 }
 
 void filterview_mousedrag(t_filterview *x, t_object *patcherview, t_pt pt, long modifiers)
 {
     t_atom argv[2];
-    pt.x -= (x->f_size + 2);
-    pt.y += (x->f_size - 2);
-    atom_setfloat(argv, (pt.x + x->f_boundaries.x * x->f_ratio.x) / x->f_ratio.x);
-    atom_setfloat(argv+1, (pt.y - (x->j_box.e_rect.height + x->f_boundaries.y * x->f_ratio.y)) / -x->f_ratio.y);
     filterview_set(x, NULL, 2, argv);
     filterview_output(x);
 }
 
 void filterview_preset(t_filterview *x, t_binbuf *b)
 {
-    binbuf_addv(b, "sff", gensym("list"), x->f_position.x, x->f_position.y);
+   // binbuf_addv(b, "sff", gensym("list"), x->f_position.x, x->f_position.y);
 }
 
-
+void filterview_compute(t_filterview *x)
+{
+    double norm;
+    double gain = x->f_gain_factor;
+    
+    if(x->f_type == Lowpass)
+    {
+        norm = 1. / (double)(1. + x->f_frequency_factor / x->f_q_factor + x->f_frequency_factor * x->f_frequency_factor);
+        x->f_coeff_a0 = x->f_frequency_factor * x->f_frequency_factor * norm;
+        x->f_coeff_a1 = 2 * x->f_coeff_a0;
+        x->f_coeff_a2 = x->f_coeff_a0;
+        x->f_coeff_b1 = 2 * (x->f_frequency_factor * x->f_frequency_factor - 1) * norm;
+        x->f_coeff_b2 = (1 - x->f_frequency_factor / x->f_q_factor + x->f_frequency_factor * x->f_frequency_factor) * norm;
+    }
+    else if(x->f_type == Highpass)
+    {
+        norm = 1. / (double)(1. + x->f_frequency_factor / x->f_q_factor + x->f_frequency_factor * x->f_frequency_factor);
+        x->f_coeff_a0 = 1 * norm;
+        x->f_coeff_a1 = -2 * x->f_coeff_a0;
+        x->f_coeff_a2 = x->f_coeff_a0;
+        x->f_coeff_b1 = 2 * (x->f_frequency_factor * x->f_frequency_factor - 1) * norm;
+        x->f_coeff_b2 = (1 - x->f_frequency_factor / x->f_q_factor + x->f_frequency_factor * x->f_frequency_factor) * norm;
+    }
+    else if(x->f_type == Bandpass)
+    {
+        norm = 1. / (double)(1. + x->f_frequency_factor / x->f_q_factor + x->f_frequency_factor * x->f_frequency_factor);
+        x->f_coeff_a0 = x->f_frequency_factor / x->f_q_factor * norm;
+        x->f_coeff_a1 = 0.;
+        x->f_coeff_a2 = -(x->f_frequency_factor / x->f_q_factor * norm);
+        x->f_coeff_b1 = 2 * (x->f_frequency_factor * x->f_frequency_factor - 1) * norm;
+        x->f_coeff_b2 = (1 - x->f_frequency_factor / x->f_q_factor + x->f_frequency_factor * x->f_frequency_factor) * norm;
+    }
+    else if(x->f_type == Notch)
+    {
+        norm = 1 / (1 + x->f_frequency_factor / x->f_q_factor + x->f_frequency_factor * x->f_frequency_factor);
+        x->f_coeff_a0 = (1 + x->f_frequency_factor * x->f_frequency_factor) * norm;
+        x->f_coeff_a1 = 2 * (x->f_frequency_factor * x->f_frequency_factor - 1) * norm;
+        x->f_coeff_a2 = x->f_coeff_a0;
+        x->f_coeff_b1 = x->f_coeff_a1;
+        x->f_coeff_b2 = (1 - x->f_frequency_factor / x->f_q_factor + x->f_frequency_factor * x->f_frequency_factor) * norm;
+    }
+    else if(x->f_type == Peak)
+    {
+        if (x->f_gain_factor >= 0.)
+        {
+            norm = 1 / (1 + 1. / x->f_q_factor * x->f_frequency_factor + x->f_frequency_factor * x->f_frequency_factor);
+            x->f_coeff_a0 = (1 + gain / x->f_q_factor * x->f_frequency_factor + x->f_frequency_factor * x->f_frequency_factor) * norm;
+            x->f_coeff_a1 = 2 * (x->f_frequency_factor * x->f_frequency_factor - 1) * norm;
+            x->f_coeff_a2 = (1 - gain / x->f_q_factor * x->f_frequency_factor + x->f_frequency_factor * x->f_frequency_factor) * norm;
+            x->f_coeff_b1 = x->f_coeff_a1;
+            x->f_coeff_b2 = (1 - 1 / x->f_q_factor * x->f_frequency_factor + x->f_frequency_factor * x->f_frequency_factor) * norm;
+        }
+        else
+        {
+            norm = 1 / (1 + gain / x->f_q_factor * x->f_frequency_factor + x->f_frequency_factor * x->f_frequency_factor);
+            x->f_coeff_a0 = (1 + 1. / x->f_q_factor * x->f_frequency_factor + x->f_frequency_factor * x->f_frequency_factor) * norm;
+            x->f_coeff_a1 = 2 * (x->f_frequency_factor * x->f_frequency_factor - 1) * norm;
+            x->f_coeff_a2 = (1 - 1. / x->f_q_factor * x->f_frequency_factor + x->f_frequency_factor * x->f_frequency_factor) * norm;
+            x->f_coeff_b1 = x->f_coeff_a1;
+            x->f_coeff_b2 = (1 - gain / x->f_q_factor * x->f_frequency_factor + x->f_frequency_factor * x->f_frequency_factor) * norm;
+        }
+    }
+    else if(x->f_type == Lowshelf)
+    {
+        if (x->f_gain_factor >= 0.)
+        {
+            norm = 1 / (1 + sqrt(2.) * x->f_frequency_factor + x->f_frequency_factor * x->f_frequency_factor);
+            x->f_coeff_a0 = (1 + sqrt(2.*gain) * x->f_frequency_factor + gain * x->f_frequency_factor * x->f_frequency_factor) * norm;
+            x->f_coeff_a1 = 2 * (gain * x->f_frequency_factor * x->f_frequency_factor - 1) * norm;
+            x->f_coeff_a2 = (1 - sqrt(2*gain) * x->f_frequency_factor + gain * x->f_frequency_factor * x->f_frequency_factor) * norm;
+            x->f_coeff_b1 = 2 * (x->f_frequency_factor * x->f_frequency_factor - 1) * norm;
+            x->f_coeff_b2 = (1 - sqrt(2.) * x->f_frequency_factor + x->f_frequency_factor * x->f_frequency_factor) * norm;
+        }
+        else
+        {
+            norm = 1 / (1 + sqrt(2.*gain) * x->f_frequency_factor + gain * x->f_frequency_factor * x->f_frequency_factor);
+            x->f_coeff_a0 = (1 + sqrt(2.) * x->f_frequency_factor + x->f_frequency_factor * x->f_frequency_factor) * norm;
+            x->f_coeff_a1 = 2 * (x->f_frequency_factor * x->f_frequency_factor - 1) * norm;
+            x->f_coeff_a2 = (1 - sqrt(2.) * x->f_frequency_factor + x->f_frequency_factor * x->f_frequency_factor) * norm;
+            x->f_coeff_b1 = 2 * (gain * x->f_frequency_factor * x->f_frequency_factor - 1) * norm;
+            x->f_coeff_b2 = (1 - sqrt(2.*gain) * x->f_frequency_factor + gain * x->f_frequency_factor * x->f_frequency_factor) * norm;
+        }
+    }
+    else if(x->f_type == Highshelf)
+    {
+        if (x->f_gain_factor >= 0.)
+        {
+            norm = 1 / (1 + sqrt(2.) * x->f_frequency_factor + x->f_frequency_factor * x->f_frequency_factor);
+            x->f_coeff_a0 = (gain + sqrt(2*gain) * x->f_frequency_factor + x->f_frequency_factor * x->f_frequency_factor) * norm;
+            x->f_coeff_a1 = 2 * (x->f_frequency_factor * x->f_frequency_factor - gain) * norm;
+            x->f_coeff_a2 = (gain - sqrt(2*gain) * x->f_frequency_factor + x->f_frequency_factor * x->f_frequency_factor) * norm;
+            x->f_coeff_b1 = 2 * (x->f_frequency_factor * x->f_frequency_factor - 1) * norm;
+            x->f_coeff_b2 = (1 - sqrt(2.) * x->f_frequency_factor + x->f_frequency_factor * x->f_frequency_factor) * norm;
+        }
+        else
+        {
+            norm = 1 / (gain + sqrt(2*gain) * x->f_frequency_factor + x->f_frequency_factor * x->f_frequency_factor);
+            x->f_coeff_a0 = (1 + sqrt(2.) * x->f_frequency_factor + x->f_frequency_factor * x->f_frequency_factor) * norm;
+            x->f_coeff_a1 = 2 * (x->f_frequency_factor * x->f_frequency_factor - 1) * norm;
+            x->f_coeff_a2 = (1 - sqrt(2.) * x->f_frequency_factor + x->f_frequency_factor * x->f_frequency_factor) * norm;
+            x->f_coeff_b1 = 2 * (x->f_frequency_factor * x->f_frequency_factor - gain) * norm;
+            x->f_coeff_b2 = (gain - sqrt(2*gain) * x->f_frequency_factor + x->f_frequency_factor * x->f_frequency_factor) * norm;
+        }
+    }
+}
 
 
 

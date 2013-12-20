@@ -26,24 +26,29 @@
 
 #include "erouter.h"
 
-t_erouter* glist_return_erouter(t_class* glist)
+t_erouter* glist_return_erouter(t_object* glist)
 {
     return my_erouter;
 }
 
-void erouter_setup(t_class* glist)
+void erouter_setup(t_glist* obj)
 {
     int i;
     t_erouter *x;
     rmethod nrmethod = NULL;
+    t_class* glist = obj->gl_obj.te_g.g_pd;
     t_class* c = NULL;
+    if(!glist)
+    {
+        return;
+    }
     
     for(i = 0; i < glist->c_nmethod; i++)
     {
         if(glist->c_methods[i].me_name == gensym("erouter"))
         {
             nrmethod = (rmethod)glist->c_methods[i].me_fun;
-            my_erouter = nrmethod(NULL);
+            my_erouter = nrmethod(obj);
             if(my_erouter != NULL)
                 return;
         }

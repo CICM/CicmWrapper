@@ -121,9 +121,8 @@ void ebox_create_widget(t_ebox* x)
 */
 void ebox_create_window(t_ebox* x, t_glist* glist)
 {
-    erouter_setup(glist_getcanvas(glist)->gl_list->g_pd);
+    erouter_setup(glist);
     erouter_attach((t_object *)x);
-    
     ebox_tk_ids(x, glist_getcanvas(glist));
     ebox_create_widget(x);
 	ebox_bind_events(x);

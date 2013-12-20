@@ -60,6 +60,7 @@ void preset_assist(t_preset *x, void *b, long m, long a, char *s);
 
 void preset_store(t_preset *x, float f);
 void preset_float(t_preset *x, float f);
+void preset_interpolate(t_preset *x, float f);
 void preset_clear(t_preset *x, float f);
 void preset_clearall(t_preset *x, t_symbol *s, long argc, t_atom *argv);
 void preset_output(t_preset *x);
@@ -98,6 +99,7 @@ extern "C" void setup_c0x2epreset(void)
     eclass_addmethod(c, (method) preset_store,           "store",            A_FLOAT,0);
     eclass_addmethod(c, (method) preset_clear,           "clear",            A_FLOAT,0);
     eclass_addmethod(c, (method) preset_float,           "float",            A_FLOAT,0);
+    eclass_addmethod(c, (method) preset_interpolate,     "inter",            A_FLOAT,0);
     eclass_addmethod(c, (method) preset_clearall,        "clear",            A_GIMME,0);
   
     eclass_addmethod(c, (method) preset_mousemove,       "mousemove",        A_CANT, 0);
@@ -246,9 +248,9 @@ void preset_float(t_preset *x, float f)
         {
             for(int i = 0; i < y->g_pd->c_nmethod; i++)
             {
-                if(y->g_pd->c_methods[i].me_name == gensym("preset"))
+                z = (t_ebox *)y;
+                if(y->g_pd->c_methods[i].me_name == gensym("preset") && z->e_objpreset_id != gensym("(null)"))
                 {
-                    z = (t_ebox *)y;
                     sprintf(id, "@%s", z->e_objpreset_id->s_name);
                     binbuf_get_attribute(x->f_binbuf[index-1], gensym(id), &ac, &av);
                     
@@ -264,6 +266,157 @@ void preset_float(t_preset *x, float f)
         ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
         ebox_redraw((t_ebox *)x);
     }
+}
+
+void preset_interpolate(t_preset *x, float f)
+{
+    t_gobj *y;
+    t_ebox *z;
+    long acdo, acup, ac, max;
+    t_atom *avdo, *avup, *av;
+    char id[MAXPDSTRING];
+    t_canvas* canvas = x->j_box.e_canvas;
+    int i, j, indexdo, indexup, realdo, realup;
+    float ratio;
+    if(!x->f_init)
+        return;
+    max = -1;
+    for(i = MAXBINBUF-1; i >= 0; i--)
+    {
+        if(binbuf_getnatom(x->f_binbuf[i]))
+        {
+            max = i + 1;
+            break;
+        }
+    }
+    if(max < 1)
+        return;
+    
+    f = pd_clip_minmax(f, 1, max);
+
+    indexdo = pd_clip_minmax(floorf(f)-1, 0, max-1);
+    indexup = pd_clip_minmax(ceilf(f)-1, 0, max-1);
+    if(indexdo == indexup)
+    {
+        preset_float(x, f);
+        return;
+    }
+    x->f_binbuf_selected = indexup;
+    // Look for all the objects in a canvas //
+    for (y = canvas->gl_list; y; y = y->g_next)
+    {
+        // Look for all the object methods //
+        for(int i = 0; i < y->g_pd->c_nmethod; i++)
+        {
+            z = (t_ebox *)y;
+            // We find a preset method so we can send preset //
+            if(y->g_pd->c_methods[i].me_name == gensym("preset") && z->e_objpreset_id != gensym("(null)"))
+            {
+                sprintf(id, "@%s", z->e_objpreset_id->s_name);
+                realdo = -1;
+                realup = -1;
+                acdo = 0;
+                acup = 0;
+                
+                // Look for all the preset from the smallest index to zero //
+                for(j = indexdo; j >= 0 && realdo == -1; j--)
+                {
+                    // We find a recorded preset //
+                    if(binbuf_getnatom(x->f_binbuf[j]))
+                    {
+                        // We get the preset //
+                        binbuf_get_attribute(x->f_binbuf[j], gensym(id), &acdo, &avdo);
+                        if(acdo >= 2 && avdo && atom_gettype(avdo) == A_SYM && atom_gettype(avdo+1) == A_SYM)
+                        {
+                            // If the object is in the preset we record the preset else we skip this preset //
+                            if(z->e_obj.te_g.g_pd->c_name == atom_getsym(avdo))
+                            {
+                                realdo = j;
+                                break;
+                            }
+                            else
+                            {
+                                free(avdo);
+                                acdo = 0;
+                            }
+                        }
+                    }
+                }
+                
+                // Look for all the preset from the biggest index to the top //
+                for(j = indexup; j <= max && realup == -1; j++)
+                {
+                    // We find a recorded preset //
+                    if(binbuf_getnatom(x->f_binbuf[j]))
+                    {
+                        // We get the preset //
+                        binbuf_get_attribute(x->f_binbuf[j], gensym(id), &acup, &avup);
+                        if(acup >= 2 && avup && atom_gettype(avup) == A_SYM && atom_gettype(avup+1) == A_SYM)
+                        {
+                            // If the object is in the preset we record the preset else we skip this preset //
+                            if(z->e_obj.te_g.g_pd->c_name == atom_getsym(avup))
+                            {
+                                realup = j;
+                                break;
+                            }
+                            else
+                            {
+                                free(avup);
+                                acup = 0;
+                            }
+                        }
+                    }
+                }
+
+                // If we have the 2 presets with the same selector for this object then we make an interpolation //
+                if(acdo && acup && atom_getsym(avdo+1) == atom_getsym(avup+1))
+                {
+                    ratio = (float)(f - (realdo + 1)) / (float)(realup - realdo);
+                    ac = acdo;
+                    av = (t_atom *)calloc(ac, sizeof(t_atom));
+                    atom_setsym(av+1, atom_getsym(avdo+1));
+                    for(j = 2; j < ac; j++)
+                    {
+                        if(j < acup)
+                        {
+                            if(atom_gettype(avdo+j) == A_FLOAT && atom_gettype(avup+j) == A_FLOAT )
+                            {
+                                atom_setfloat(av+j, atom_getfloat(avdo+j) * (1. - ratio) + atom_getfloat(avup+j) * ratio);
+                            }
+                            else
+                            {
+                                av[j] = avdo[j];
+                            }
+                        }
+                        else
+                        {
+                            av[j] = avdo[j];
+                        }
+                    }
+     
+                    pd_typedmess((t_pd *)z, atom_getsym(av+1), ac-2, av+2);
+                    free(av);
+                    free(avup);
+                    free(avdo);
+                }
+                // If we have only the smallest preset for this object //
+                else  if(acdo)
+                {
+                    pd_typedmess((t_pd *)z, atom_getsym(avdo+1), acdo-2, avdo+2);
+                    free(avdo);
+                }
+                // If we have only the highest preset for this object //
+                else if(acup)
+                {
+                    pd_typedmess((t_pd *)z, atom_getsym(avup+1), acup-2, avup+2);
+                    free(avup);
+                }
+            }
+        }
+    }
+    ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+    ebox_redraw((t_ebox *)x);
+    
 }
 
 void preset_clear(t_preset *x, float f)

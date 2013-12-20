@@ -46,6 +46,11 @@ t_outlet* bangout(void *x)
     return outlet_new((t_object *)x, &s_bang);
 }
 
+t_outlet* anythingout(void *x)
+{
+    return outlet_new((t_object *)x, &s_anything);
+}
+
 int obj_isfloatoutlet(t_object *x, int m)
 {
     int n;
