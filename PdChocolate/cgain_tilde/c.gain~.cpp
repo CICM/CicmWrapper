@@ -223,8 +223,9 @@ void gain_float(t_gain *x, float f)
 void gain_linear(t_gain *x, float f)
 {
     f = pd_clip_minmax(f, 0.00001, 8.);
-    f = (20. * log10(f));
-    if(f == NAN || f < -90)
+    f = (20.f * log10f(f));
+    
+    if(f == NAN || f == INFINITY || f < -90)
     {
         f  = -90.;
     }

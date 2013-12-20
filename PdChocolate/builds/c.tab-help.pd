@@ -31,7 +31,7 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 1 @textcolor 0 0 0 1;
 #X obj -11 19 loadmess 2;
 #X obj 201 222 prepend set;
-#X msg 201 253 John Lennon;
+#X msg 201 253 Jim Morisson;
 #X obj 365 157 c.tab @size 196 34 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @orientation
 1 @toggle 1 @items 'in America' 'in the West' @bgcolor 0.75 0.75 0.75
@@ -42,7 +42,7 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min 0 @max nan @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @textcolor 0 0 0 1;
-#X msg 460 312 Once upon a time in the West;
+#X msg 460 312 Once upon a time in America;
 #X obj 460 285 prepend set Once upon a time;
 #X msg 365 21 append in Paris \, append in L.A.;
 #X msg 491 82 insert 1 in Tokyo;
@@ -59,10 +59,10 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 #X text 99 276 Clicked index;
 #X text 199 276 Clicked item;
 #X text 289 276 Hover index;
-#X text 551 356 Hover index;
+#X text 551 248 Hover index;
 #X text 359 336 Selected index;
 #X text 459 336 Slected item;
-#X obj 556 334 c.number @size 53 17 @fontname helvetica @fontweight
+#X obj 556 226 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min nan @max nan @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;

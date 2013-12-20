@@ -225,7 +225,8 @@ void number_output(t_number *x)
         x->f_value = pd_clip_max(x->f_value, x->f_max);
     if(x->f_minbound)
         x->f_value = pd_clip_min(x->f_value, x->f_min);
-    
+    if(x->f_value == NAN || x->f_value == INFINITY)
+        x->f_value = 0;
     outlet_float((t_outlet*)x->f_outlet, (float)x->f_value);
 }
 

@@ -1,4 +1,4 @@
-#N canvas 713 193 690 619 10;
+#N canvas 681 161 690 619 10;
 #X obj -25 -74 cnv 40 552 40 empty empty c.menu 3 12 0 18 -228856 -33289
 0;
 #X text 76 504 Pd Chocolate by Pierre Guillot | CICM - Université Paris
@@ -68,8 +68,8 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 #X text 460 365 inspector to edit the tab.;
 #X text 460 375 Don't forget that ' and ";
 #X text 460 385 are the separators.;
-#X text -24 -31 c.menu displays a list of items (without stoping the
-DSP) and offers several interactions.;
+#X text -24 -31 c.menu displays a list of item and offers several interactions.
+;
 #X connect 4 0 11 0;
 #X connect 5 0 19 0;
 #X connect 10 0 11 0;

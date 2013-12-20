@@ -12,7 +12,7 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 #X msg 342 97 lightness \$1;
 #X obj 342 125 c.colorpanel @size 201 14 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@matrix 20 1 @reverse 0 @saturation 1 @hue 0 @lightness 0.75 @bgcolor
+@matrix 20 1 @reverse 0 @saturation 1 @hue 0 @lightness 0.355 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
 #X msg 341 283 hue \$1;
 #X obj 341 258 c.number @size 53 17 @fontname helvetica @fontweight
@@ -26,10 +26,10 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 #X msg 407 283 saturation \$1;
 #X obj 341 328 c.colorpanel @size 201 14 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@matrix 20 1 @reverse 1 @saturation 0.795 @hue 0.33 @lightness 0 @bgcolor
+@matrix 20 1 @reverse 1 @saturation 0 @hue 1 @lightness 0 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
-#X msg -45 277 0.333334 0.666667 0;
-#X msg 109 277 0.25 0.333333 1;
+#X msg -45 277 0.958333 0.833333 1;
+#X msg 109 277 0.791667 0.916667 1;
 #X obj -45 86 pack 0 0;
 #X obj -45 43 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
@@ -43,8 +43,8 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 -1;
 #X obj -137 315 c.plane @size 85 85 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@bound -1 -1 1 1 @ptsize 5 @bgcolor 0.333334 0.666667 0 0 @bdcolor
-0.5 0.5 0.5 1 @ptcolor 0.333334 0.666667 0 0;
+@bound -1 -1 1 1 @ptsize 5 @bgcolor 0.958333 0.833333 1 0 @bdcolor
+0.5 0.5 0.5 1 @ptcolor 0.958333 0.833333 1 0;
 #X obj -45 114 c.colorpanel @size 313 131 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @matrix 24 13 @reverse 0 @saturation 1 @hue 0 @lightness 1 @bgcolor
@@ -72,12 +72,12 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 #X text 358 223 Change the lighness;
 #X obj -45 252 prepend set;
 #X obj 109 252 prepend set;
-#X msg 263 277 #55AA00;
+#X msg 263 277 #F4D4FF;
 #X obj 263 252 prepend set;
 #X text -152 -52 A GUI to pick color;
 #X text 339 7 The number of row is equal to 1;
 #X text 339 185 the number of row is equal to 1;
-#X text -154 -31 c.colorpanel display several colors and allows you
+#X text -154 -31 c.colorpanel displays several colors and allows you
 to pick them.;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
