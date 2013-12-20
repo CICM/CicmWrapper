@@ -5,8 +5,7 @@
 #### ToDo :
 - Preset master with interpolation
 
-- Oscilloscope
-- Board
+- Blackboard
 - Textfield
 
 #### License : GPL.

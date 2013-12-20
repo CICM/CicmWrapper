@@ -102,7 +102,7 @@ void setup_c0x2escope_tilde(void)
     
     CLASS_ATTR_FLOAT_ARRAY		(c, "range", 0, t_scope, f_range, 2);
 	CLASS_ATTR_ORDER			(c, "range", 0, "2");
-	CLASS_ATTR_LABEL			(c, "range", 0, "Minimum Range");
+	CLASS_ATTR_LABEL			(c, "range", 0, "Range");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "range", 0, "-1 1");
     
     CLASS_ATTR_LONG				(c, "xymode", 0, t_scope, f_mode);

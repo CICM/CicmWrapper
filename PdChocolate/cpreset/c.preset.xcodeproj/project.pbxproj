@@ -365,7 +365,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$SRCROOT/../../../../SDKs/pd-extended/pd/src";
 				GCC_PREPROCESSOR_DEFINITIONS = NO_PUB;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				HEADER_SEARCH_PATHS = "$SRCROOT/../../../../SDKs/pd-extended/pd/src/";
+				HEADER_SEARCH_PATHS = "/Applications/Pd-0.45-3.app/Contents/Resources/src";
 				"HEADER_SEARCH_PATHS[arch=*]" = "$SRCROOT/../../../../SDKs/pd-extended/pd/src";
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "";
 				INFOPLIST_PREPROCESSOR_DEFINITIONS = "";
