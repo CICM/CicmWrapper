@@ -61,6 +61,18 @@ char* rgb_to_hex(t_rgb color)
     return &ColBuf[0];
 }
 
+char* hsla_to_hex(t_hsla color)
+{
+    t_rgba ncolor = hsla_to_rgba(color);
+    return rgba_to_hex(ncolor);
+}
+
+char* hsl_to_hex(t_hsl color)
+{
+    t_rgb ncolor = hsl_to_rgb(color);
+    return rgb_to_hex(ncolor);
+}
+
 t_rgba hex_to_rgba(char* color)
 {
     int hexvalue = atoi(color+1);

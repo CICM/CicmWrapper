@@ -79,6 +79,7 @@ void *loadmess_new(t_symbol *s, int argc, t_atom *argv)
     for(i = 0; i < argc; i++)
         x->l_argv[i] = argv[i];
     
+    inlet_new(<#t_object *owner#>, <#t_pd *dest#>, <#t_symbol *s1#>, <#t_symbol *s2#>)
     if(!x->l_argc)
     {
         x->l_out = (t_outlet *)bangout(x);

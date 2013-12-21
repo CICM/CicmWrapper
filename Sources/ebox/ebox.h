@@ -40,6 +40,12 @@ void ebox_ready(t_ebox *x);
 void ebox_free(t_ebox* x);
 char ebox_getregister(t_ebox *x);
 
+void ebox_inletnew(t_ebox* x);
+void eproxy_setup(void);
+void eproxy_anything(t_eproxy *x, t_symbol *s, int argc, t_atom *argv);
+void *eproxy_new(t_symbol *s, int argc, t_atom *argv);
+void eproxy_init(t_eproxy *x, t_ebox *owner, int index);
+int ebox_getproxy(t_ebox* x);
 // ebox_dsp.c functions//
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ebox_dspsetup(t_ebox *x, long nins, long nouts);

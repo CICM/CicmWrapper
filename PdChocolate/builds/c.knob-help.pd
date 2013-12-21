@@ -4,7 +4,7 @@
 #X text 225 257 Futher information about chocolate;
 #X text -37 308 Pd Chocolate by Pierre Guillot | CICM - Université
 Paris 8;
-#X obj 289 287 pdchocolate;
+#X obj 289 287 @pdchocolate;
 #X obj -17 94 c.knob @size 50 50 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname choknob1
 @endless 0 @mode 0 @min 0 @max 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor

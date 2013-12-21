@@ -3,7 +3,7 @@
 -33289 0;
 #X text -13 308 Pd Chocolate by Pierre Guillot | CICM - Université
 Paris 8;
-#X obj 388 299 pdchocolate;
+#X obj 388 299 @pdchocolate;
 #X text 315 274 Futher information about chocolate;
 #X msg 241 61 set \$1;
 #X text -22 -52 A GUI to increment and decrement a value;

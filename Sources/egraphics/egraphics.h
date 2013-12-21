@@ -76,6 +76,8 @@ void efont_destroy(t_efont* font);
 // COLOR //
 char* rgba_to_hex(t_rgba color);
 char* rgb_to_hex(t_rgb color);
+char* hsla_to_hex(t_hsla color);
+char* hsl_to_hex(t_hsl color);
 t_hsl rgb_to_hsl(t_rgb color);
 t_hsla rgba_to_hsla(t_rgba color);
 t_rgba hex_to_rgba(char* color);

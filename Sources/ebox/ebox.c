@@ -35,6 +35,7 @@
 void *ebox_alloc(t_eclass *c)
 {
     t_pd *x;
+    t_ebox* z;
     if(!c)
         bug("pd_new: apparently called before setup routine");
     x = (t_pd *)t_getbytes(c->c_class.c_size);
@@ -45,6 +46,8 @@ void *ebox_alloc(t_eclass *c)
         ((t_object *)x)->ob_inlet = 0;
         ((t_object *)x)->ob_outlet = 0;
     }
+    z = (t_ebox *)x;
+    z->e_nproxy = 0;
     
     return (x);
 }
@@ -72,6 +75,7 @@ void ebox_new(t_ebox *x, long flags)
     x->e_layers             = NULL;
     x->e_editor_id          = NULL;
     x->e_objuser_id         = gensym("(null)");
+
     pd_bind(&x->e_obj.ob_pd, x->e_objuser_id);
     default_attr_process(x);
 }
@@ -100,6 +104,54 @@ void ebox_ready(t_ebox *x)
     x->e_boxparameters.d_cornersize = 0;
     c->c_widget.w_getdrawparameters(x, NULL, &x->e_boxparameters);
     x->e_ready_to_draw = 1;
+}
+
+void eproxy_init(t_eproxy *x, t_ebox *owner, int index)
+{
+	x->p_owner = (t_object *)owner;
+	x->p_pd    = eproxy_class;
+    x->p_index = index;
+}
+
+void *eproxy_new(t_symbol *s, int argc, t_atom *argv)
+{
+	t_eproxy *x = NULL;
+    x = (t_eproxy *)pd_new(eproxy_class);
+    return x;
+}
+
+void eproxy_anything(t_eproxy *x, t_symbol *s, int argc, t_atom *argv)
+{
+    t_ebox *z = (t_ebox *)x->p_owner;
+    z->e_current_proxy = x->p_index;
+	pd_typedmess((t_pd *)x->p_owner, s, argc, argv);
+    z->e_current_proxy = 0;
+}
+
+void eproxy_setup(void)
+{
+    t_class* c;
+	c = class_new(gensym("eproxy"),(t_newmethod)eproxy_new, (t_method)NULL, sizeof(t_eproxy), 0, A_GIMME, 0);
+	class_addanything(c, (t_method)eproxy_anything);
+    eproxy_class = c;
+}
+
+//! Add a proxy inlet
+/*
+ \ @memberof    ebox
+ \ @param x     The ebox pointer
+ \ @return      Nothing
+ */
+void ebox_inletnew(t_ebox* x)
+{
+    eproxy_init(&x->e_proxy[x->e_nproxy], x, x->e_nproxy+1);
+    inlet_new(&x->e_obj, &x->e_proxy[x->e_nproxy].p_pd, NULL, NULL);
+    x->e_nproxy++;
+}
+
+int ebox_getproxy(t_ebox* x)
+{
+    return x->e_current_proxy;
 }
 
 //! Free an UI ebox

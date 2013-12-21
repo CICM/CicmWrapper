@@ -266,8 +266,8 @@ void colorpanel_output(t_colorpanel *x)
         atom_setfloat(av+2, color_rgb.blue);
         outlet_list(x->f_out_rgb, &s_list, 3, av);
         atom_setfloat(av, color_hls.hue);
-        atom_setfloat(av+1, color_hls.lightness);
-        atom_setfloat(av+2, color_hls.saturation);
+        atom_setfloat(av+1, color_hls.saturation);
+        atom_setfloat(av+2, color_hls.lightness);
         outlet_list(x->f_out_hsl, &s_list, 3, av);
         outlet_symbol(x->f_out_hex, color_hex);
     }

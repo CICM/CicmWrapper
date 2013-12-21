@@ -3,7 +3,7 @@
 0;
 #X text 1 389 Pd Chocolate by Pierre Guillot | CICM - Université Paris
 8;
-#X obj 479 418 pdchocolate;
+#X obj 479 418 @pdchocolate;
 #X text 406 393 Futher information about chocolate;
 #X msg -11 117 set \$1;
 #X msg 405 48 append 17;

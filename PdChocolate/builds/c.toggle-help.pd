@@ -6,7 +6,7 @@
 #X text 295 12 Futher information about chocolate;
 #X obj 33 88 - 1;
 #X obj 33 19 loadbang;
-#X obj 358 47 pdchocolate;
+#X obj 358 47 @pdchocolate;
 #X text -37 -55 A toggle... that's all.;
 #X obj 33 59 c.toggle @size 15 15 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname chocogll

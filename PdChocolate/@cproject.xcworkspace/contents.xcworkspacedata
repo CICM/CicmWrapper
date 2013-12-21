@@ -52,7 +52,4 @@
    <FileRef
       location = "group:cscope_tilde/c.scope~.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:loadmess/loadmess.xcodeproj">
-   </FileRef>
 </Workspace>

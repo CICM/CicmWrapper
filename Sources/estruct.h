@@ -308,10 +308,21 @@ typedef struct _edrawparams
     
 } t_edrawparams;
 
+t_class *eproxy_class;
+
+typedef struct _eproxy {
+	t_pd        p_pd;
+	t_object*   p_owner;
+    int         p_index;
+} t_eproxy;
+
 typedef struct _ebox
 {
     t_object            e_obj;
     t_canvas*           e_canvas;
+    t_eproxy            e_proxy[256];
+    long                e_nproxy;
+    long                e_current_proxy;
     
     t_symbol*           e_object_id;
     t_symbol*           e_objuser_id;

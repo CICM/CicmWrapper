@@ -6,7 +6,7 @@
 #X text -14 -31 c.plane (pictslider) allows you to move a point on
 a cartesian c.plane.;
 #X text 456 -15 Futher information about chocolate;
-#X obj 514 12 pdchocolate;
+#X obj 514 12 @pdchocolate;
 #X text -12 -52 A plane where you can move a point;
 #X obj 260 119 c.filterview @size 200 120 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)

@@ -14,7 +14,7 @@ in a pacther;
 #X text 555 4 Clear a preset;
 #X msg 560 52 clear \$1;
 #X text 622 55 Clear all presets;
-#X obj 703 -32 pdchocolate;
+#X obj 703 -32 @pdchocolate;
 #X obj 28 103 c.plane @size 120 120 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname chococ.plane
 @bound -1 -1 1 1 @ptsize 5 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5

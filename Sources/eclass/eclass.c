@@ -45,7 +45,7 @@ t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t siz
     c = (t_eclass *)resizebytes(pd, sizeof(*pd), sizeof(*c));
     c->c_nattr = 0;
     c->c_attr  = (t_eattr *)malloc(sizeof(t_eattr));
-    
+    eproxy_setup();
 #ifdef E_PUB
 post(".________________________________________________.");
 post("|                                                |");
