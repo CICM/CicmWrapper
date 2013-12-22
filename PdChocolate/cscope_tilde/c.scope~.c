@@ -132,6 +132,7 @@ void setup_c0x2escope_tilde(void)
 
 void *scope_new(t_symbol *s, int argc, t_atom *argv)
 {
+	int i;
 	t_scope *x =  NULL;
 	t_binbuf* d;
     long flags;
@@ -149,12 +150,12 @@ void *scope_new(t_symbol *s, int argc, t_atom *argv)
 	x->j_box.b_firstin = (t_object *)x;
     ebox_dspsetup((t_ebox *)x, 2, 0);
     
-    x->f_buffer_x = calloc(80192, sizeof(float));
-    x->f_buffer_y = calloc(80192, sizeof(float));
+    x->f_buffer_x = (float *)calloc(80192, sizeof(float));
+    x->f_buffer_y = (float *)calloc(80192, sizeof(float));
     x->f_mode     = 0;
     x->f_index    = 0;
   
-    for(int i = 0; i < 80192; i++)
+    for(i = 0; i < 80192; i++)
     {
         x->f_buffer_x[i] = 0.;
         x->f_buffer_y[i] = 0.;

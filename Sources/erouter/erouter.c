@@ -48,17 +48,17 @@ void erouter_setup(t_glist* obj)
         if(glist->c_methods[i].me_name == gensym("erouter"))
         {
             nrmethod = (rmethod)glist->c_methods[i].me_fun;
-            my_erouter = nrmethod(obj);
+            my_erouter = (t_erouter*)nrmethod(obj);
             if(my_erouter != NULL)
                 return;
         }
     }
 
-    c = class_new(gensym("erouter"), NULL, (t_method)erouter_free, sizeof(t_erouter), CLASS_PD, 0);
+    c = class_new(gensym("erouter"), NULL, (t_method)erouter_free, sizeof(t_erouter), CLASS_PD, A_NULL);
     if (c)
     {
-        class_addmethod(c, (t_method)erouter_attach,  gensym("ebox_attach"), A_SYMBOL);
-        class_addmethod(c, (t_method)erouter_detach,  gensym("ebox_detach"), A_SYMBOL);
+        class_addmethod(c, (t_method)erouter_attach,  gensym("ebox_attach"), A_GIMME, 0);
+        class_addmethod(c, (t_method)erouter_detach,  gensym("ebox_detach"), A_GIMME, 0);
         class_addanything(c, erouter_anything);
         erouter_class = c;
         
@@ -68,7 +68,7 @@ void erouter_setup(t_glist* obj)
         x->e_childs     = NULL;
         
         my_erouter = x;
-        class_addmethod(glist, (t_method)glist_return_erouter, gensym("erouter"), A_CANT);
+        class_addmethod(glist, (t_method)glist_return_erouter, gensym("erouter"), A_GIMME, 0);
         
         post("PD Chocolate by Pierre Guillot");
         post("© 2013 - 2014  CICM | Paris 8 University");

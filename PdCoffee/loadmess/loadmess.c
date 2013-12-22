@@ -75,11 +75,11 @@ void *loadmess_new(t_symbol *s, int argc, t_atom *argv)
     x->l_loaded = 0;
     x->l_time = clock_getsystime();
     x->l_argc = argc;
-    x->l_argv = calloc(x->l_argc, sizeof(t_atom));
+    x->l_argv = (t_atom *)calloc(x->l_argc, sizeof(t_atom));
     for(i = 0; i < argc; i++)
         x->l_argv[i] = argv[i];
     
-    inlet_new(<#t_object *owner#>, <#t_pd *dest#>, <#t_symbol *s1#>, <#t_symbol *s2#>)
+    //inlet_new((t_object *)owner, <#t_pd *dest#>, <#t_symbol *s1#>, <#t_symbol *s2#>)
     if(!x->l_argc)
     {
         x->l_out = (t_outlet *)bangout(x);

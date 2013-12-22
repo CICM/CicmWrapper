@@ -24,6 +24,10 @@
  *
  */
 
+#ifdef _WINDOWS
+#define round(val)  floor(val + 0.5)
+#endif
+
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
 
 typedef struct  _colorpanel
@@ -140,7 +144,7 @@ void setup_c0x2ecolorpanel(void)
     CLASS_ATTR_SAVE                 (c, "lightness", 0);
     
     CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_colorpanel, f_color_background);
-	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
+	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "BackgB Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
     
@@ -201,10 +205,11 @@ void colorpanel_getdrawparams(t_colorpanel *x, t_object *patcherview, t_edrawpar
 
 void colorpanel_oksize(t_colorpanel *x, t_rect *newrect)
 {
+	float ratio;
     newrect->width = pd_clip_min(newrect->width, 30.);
     newrect->height = pd_clip_min(newrect->height, 10.);
     
-    float ratio = (newrect->width - 1.) / (float)x->f_matrix_sizes.x;
+    ratio = (newrect->width - 1.) / (float)x->f_matrix_sizes.x;
     if(ratio - (int)ratio != 0)
     {
         ratio = round(ratio);
@@ -405,14 +410,15 @@ void colorpanel_preset(t_colorpanel *x, t_binbuf *b)
 void colorpanel_computecolors(t_colorpanel *x)
 {
     int i, j;
-    
+    t_hsla color_ref;
+
     x->f_color_hover.x = -10;
     x->f_color_hover.y = -10;
     
     x->f_color_picked.x = -10;
     x->f_color_picked.y = -10;
     
-    t_hsla color_ref;
+    
     hsla_set(&color_ref, x->f_hue, x->f_saturation, x->f_lightness, 1.);
     if(x->f_reverse)
     {

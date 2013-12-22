@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Sources\eattr\eattr_attr.c" />
+    <ClCompile Include="..\..\Sources\eattr\eattr_getter.c" />
+    <ClCompile Include="..\..\Sources\eattr\eattr_new.c" />
+    <ClCompile Include="..\..\Sources\eattr\eattr_setter.c" />
+    <ClCompile Include="..\..\Sources\ebox\ebox.c" />
+    <ClCompile Include="..\..\Sources\ebox\ebox_attr.c" />
+    <ClCompile Include="..\..\Sources\ebox\ebox_draw.c" />
+    <ClCompile Include="..\..\Sources\ebox\ebox_dsp.c" />
+    <ClCompile Include="..\..\Sources\ebox\ebox_handle.c" />
+    <ClCompile Include="..\..\Sources\ebox\ebox_patcher.c" />
+    <ClCompile Include="..\..\Sources\ebox\ebox_window.c" />
+    <ClCompile Include="..\..\Sources\eclass\eclass.c" />
+    <ClCompile Include="..\..\Sources\ecommon\ecommon.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_color.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_forms.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_matrix.c" />
+    <ClCompile Include="..\..\Sources\egraphics\egraphics_text.c" />
+    <ClCompile Include="..\..\Sources\epopup\epopup.c" />
+    <ClCompile Include="..\..\Sources\erouter\erouter.c" />
+    <ClCompile Include="..\..\Sources\ewidget\ewidget.c" />
+    <ClCompile Include="c.number~.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Sources\eattr\eattr.h" />
+    <ClInclude Include="..\..\Sources\ebox\ebox.h" />
+    <ClInclude Include="..\..\Sources\eclass\eclass.h" />
+    <ClInclude Include="..\..\Sources\ecommon\eboxflag.h" />
+    <ClInclude Include="..\..\Sources\ecommon\ecommon.h" />
+    <ClInclude Include="..\..\Sources\egraphics\egraphics.h" />
+    <ClInclude Include="..\..\Sources\epd.h" />
+    <ClInclude Include="..\..\Sources\epd_max.h" />
+    <ClInclude Include="..\..\Sources\epopup\epopup.h" />
+    <ClInclude Include="..\..\Sources\erouter\erouter.h" />
+    <ClInclude Include="..\..\Sources\estruct.h" />
+    <ClInclude Include="..\..\Sources\ewidget\ewidget.h" />
+    <ClInclude Include="..\..\Sources\pd_enhanced.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3DE2AAAE-BDB4-48A4-A646-497A99DFCDEB}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <UseIntelIPP>Sequential</UseIntelIPP>
+    <UseIntelMKL>Sequential</UseIntelMKL>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../builds/</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\pd\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;NT;PD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level2</WarningLevel>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <CompileAs>CompileAsC</CompileAs>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <ExceptionHandling>SyncCThrow</ExceptionHandling>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/MACHINE:I386  /EXPORT:setup_c0x2enumber_tilde %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>C:\Program Files (x86)\pd\bin\pd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../builds/$(ProjectName).dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\pd\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
