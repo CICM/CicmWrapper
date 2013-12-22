@@ -1,45 +1,45 @@
-#N canvas 617 166 560 430 10;
-#X msg 55 6 \; pd dsp 1;
-#X msg -11 6 \; pd dsp 0;
-#X msg -16 133 interval \$1;
-#X obj 63 134 osc~ 0.2;
-#X obj -40 -77 cnv 40 552 40 empty empty c.number~ 3 12 0 18 -228856
+#N canvas 617 166 586 438 10;
+#X msg 55 -64 \; pd dsp 1;
+#X msg -11 -64 \; pd dsp 0;
+#X msg -16 63 interval \$1;
+#X obj 63 64 osc~ 0.2;
+#X obj -40 -147 cnv 40 552 40 empty empty c.number~ 3 12 0 18 -228856
 -33289 0;
-#X text -33 298 Pd Chocolate by Pierre Guillot | CICM - Université
+#X text -33 228 Pd Chocolate by Pierre Guillot | CICM - Université
 Paris 8;
-#X text 185 91 Futher information about chocolate;
-#X obj -16 70 loadmess 20;
-#X obj 63 70 loadmess 0.2;
-#X text -21 45 Tick interval (ms);
-#X obj 63 186 c.number~ @size 53 17 @fontname helvetica @fontweight
+#X obj -16 0 loadmess 20;
+#X obj 63 0 loadmess 0.2;
+#X text -21 -25 Tick interval (ms);
+#X obj 63 116 c.number~ @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @interval 20
 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 63 253 c.number~ @size 72 17 @fontname helvetica @fontweight
+#X obj 63 183 c.number~ @size 72 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @interval 50
 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 236 122 @pdchocolate;
-#X obj -16 109 c.number @size 53 17 @fontname helvetica @fontweight
+#X obj -16 39 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min nan @max nan @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 63 109 c.number @size 53 17 @fontname helvetica @fontweight normal
+#X obj 63 39 c.number @size 53 17 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
 nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @textcolor 0 0 0 1;
-#X obj 111 220 c.number @size 53 17 @fontname helvetica @fontweight
+#X obj 111 150 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
-#X text -39 -34 c.number~ is the pd chocolate's signal version of the
-vanilla nbx.;
-#X text -37 -55 A number box for signal.;
-#X connect 2 0 10 0;
-#X connect 3 0 10 0;
-#X connect 7 0 13 0;
-#X connect 8 0 14 0;
-#X connect 10 0 11 0;
-#X connect 10 1 15 0;
-#X connect 13 0 2 0;
-#X connect 14 0 3 0;
+#X text -39 -104 c.number~ is the pd chocolate's signal version of
+the vanilla nbx.;
+#X text -37 -125 A number box for signal.;
+#X obj 276 -135 pddplink @pdchocolate.pd -text Futher information about
+Pd Chocolate;
+#X connect 2 0 9 0;
+#X connect 3 0 9 0;
+#X connect 6 0 11 0;
+#X connect 7 0 12 0;
+#X connect 9 0 10 0;
+#X connect 9 1 13 0;
+#X connect 11 0 2 0;
+#X connect 12 0 3 0;

@@ -151,6 +151,26 @@ void erouter_attach(t_object* child)
     }
 }
 
+long erouter_getnobjects()
+{
+    t_erouter *x = my_erouter;
+    if(x)
+        return x->e_nchilds;
+    else
+        return 0;
+}
+
+t_object* erouter_getobject(long index)
+{
+    t_erouter *x = my_erouter;
+    if(x)
+    {
+       if(index >= 0 && index < x->e_nchilds)
+           return x->e_childs[index];
+    }
+    return NULL;
+}
+
 void erouter_anything(t_erouter *x, t_symbol *s, long argc, t_atom *argv)
 {
     int i;

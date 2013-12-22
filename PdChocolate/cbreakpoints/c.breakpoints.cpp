@@ -571,7 +571,7 @@ void draw_text(t_breakpoints *x, t_object *view, t_rect *rect)
     t_etext *jtl = etext_layout_create();
 	if(g && jtl)
 	{
-        float height = sys_fontheight(ebox_font_size((t_ebox *)x)) + 1;
+        float height = sys_fontheight(ebox_getfontsize((t_ebox *)x)) + 1;
         if (x->f_point_selected != -1)
         {
             sprintf(number, "x : %.2f y : %.2f", x->f_point_abscissa[x->f_point_selected], x->f_point_ordinate[x->f_point_selected]);
@@ -606,7 +606,7 @@ void draw_points(t_breakpoints *x, t_object *view, t_rect *rect)
     int i;
     float abs, ord;
     float ratiox, ratioy;
-    float height = sys_fontheight(ebox_font_size((t_ebox *)x)) + 2;
+    float height = sys_fontheight(ebox_getfontsize((t_ebox *)x)) + 2;
 	t_elayer *g = ebox_start_layer((t_ebox *)x, gensym("points_layer"), rect->width, rect->height);
     
 	if (g && x->f_number_of_points)
@@ -656,7 +656,7 @@ void breakpoints_mousemove(t_breakpoints *x, t_object *patcherview, t_pt pt, lon
 {
     int i;
     float abs, ord;
-    float height = sys_fontheight(ebox_font_size((t_ebox *)x)) + 2;
+    float height = sys_fontheight(ebox_getfontsize((t_ebox *)x)) + 2;
     float distx = (3. / (x->f_size.x - 4.)) * (x->f_range_abscissa[1] - x->f_range_abscissa[0]);
     float disty = (3. / (x->f_size.y - 4. - height)) * (x->f_range_ordinate[1] - x->f_range_ordinate[0]);
     
@@ -683,7 +683,7 @@ void breakpoints_mousedown(t_breakpoints *x, t_object *patcherview, t_pt pt, lon
     int i;
     t_atom av[2];
     float abs, ord;
-    float height = sys_fontheight(ebox_font_size((t_ebox *)x)) + 2;
+    float height = sys_fontheight(ebox_getfontsize((t_ebox *)x)) + 2;
     float distx = (3. / (x->f_size.x - 4.)) * (x->f_range_abscissa[1] - x->f_range_abscissa[0]);
     float disty = (3. / (x->f_size.y - 4. - height)) * (x->f_range_ordinate[1] - x->f_range_ordinate[0]);
     
@@ -733,7 +733,7 @@ void breakpoints_mousedrag(t_breakpoints *x, t_object *patcherview, t_pt pt, lon
 {
     t_atom av[3];
     float abs, ord;
-    float height = sys_fontheight(ebox_font_size((t_ebox *)x)) + 2;
+    float height = sys_fontheight(ebox_getfontsize((t_ebox *)x)) + 2;
     abs = ((pt.x - 3.) / (x->f_size.x - 4.)) * (x->f_range_abscissa[1] - x->f_range_abscissa[0]) + x->f_range_abscissa[0];
     ord = ((x->f_size.y - (pt.y - 4.) - 4.) / (x->f_size.y - 4. - height)) * (x->f_range_ordinate[1] - x->f_range_ordinate[0]) + x->f_range_ordinate[0];
 
@@ -766,7 +766,7 @@ void breakpoints_mouseleave(t_breakpoints *x, t_object *patcherview, t_pt pt, lo
 void breakpoints_mouseup(t_breakpoints *x, t_object *patcherview, t_pt pt, long modifiers)
 {
     float abs, ord;
-    float height = sys_fontheight(ebox_font_size((t_ebox *)x)) + 2;
+    float height = sys_fontheight(ebox_getfontsize((t_ebox *)x)) + 2;
     abs = ((pt.x - 3.) / (x->f_size.x - 4.)) * (x->f_range_abscissa[1] - x->f_range_abscissa[0]) + x->f_range_abscissa[0];
     ord = ((x->f_size.y - (pt.y - 4.) - 4.) / (x->f_size.y - 4. - height)) * (x->f_range_ordinate[1] - x->f_range_ordinate[0]) + x->f_range_ordinate[0];
 

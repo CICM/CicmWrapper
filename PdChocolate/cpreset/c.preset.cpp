@@ -62,7 +62,7 @@ void preset_store(t_preset *x, float f);
 void preset_float(t_preset *x, float f);
 void preset_interpolate(t_preset *x, float f);
 void preset_clear(t_preset *x, float f);
-void preset_clearall(t_preset *x, t_symbol *s, long argc, t_atom *argv);
+void preset_clearall(t_preset *x);
 void preset_output(t_preset *x);
 void preset_inc(t_preset *x);
 void preset_dec(t_preset *x);
@@ -100,7 +100,7 @@ extern "C" void setup_c0x2epreset(void)
     eclass_addmethod(c, (method) preset_clear,           "clear",            A_FLOAT,0);
     eclass_addmethod(c, (method) preset_float,           "float",            A_FLOAT,0);
     eclass_addmethod(c, (method) preset_interpolate,     "inter",            A_FLOAT,0);
-    eclass_addmethod(c, (method) preset_clearall,        "clear",            A_GIMME,0);
+    eclass_addmethod(c, (method) preset_clearall,        "clearall",         A_CANT,0);
   
     eclass_addmethod(c, (method) preset_mousemove,       "mousemove",        A_CANT, 0);
     eclass_addmethod(c, (method) preset_mousedown,       "mousedown",        A_CANT, 0);
@@ -437,7 +437,7 @@ void preset_clear(t_preset *x, float f)
     ebox_redraw((t_ebox *)x);
 }
 
-void preset_clearall(t_preset *x, t_symbol *s, long argc, t_atom *argv)
+void preset_clearall(t_preset *x)
 {
     for(int i = 0; i < MAXBINBUF; i++)
         binbuf_clear(x->f_binbuf[i]);
@@ -482,7 +482,7 @@ void preset_paint(t_preset *x, t_object *view)
 {
 	t_rect rect;
 	ebox_get_rect_for_view((t_ebox *)x, &rect);
-    x->f_point_size = ebox_font_size((t_ebox *)x);
+    x->f_point_size = ebox_getfontsize((t_ebox *)x);
     draw_background(x, view, &rect);
     x->f_init = 1;    
 }

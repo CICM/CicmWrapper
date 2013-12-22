@@ -144,7 +144,7 @@ void default_attr_process(void *x)
  \ @param x         The ebox
  \ @return          The font name
 */
-t_symbol* ebox_get_fontname(t_ebox* x)
+t_symbol* ebox_getfontname(t_ebox* x)
 {
     return x->e_font.c_family;
 }
@@ -155,7 +155,7 @@ t_symbol* ebox_get_fontname(t_ebox* x)
  \ @param x         The ebox
  \ @return          The font slant
 */
-t_symbol* ebox_font_slant(t_ebox* x)
+t_symbol* ebox_getfontslant(t_ebox* x)
 {
     return x->e_font.c_slant;
 }
@@ -166,7 +166,7 @@ t_symbol* ebox_font_slant(t_ebox* x)
  \ @param x         The ebox
  \ @return          The font weight
 */
-t_symbol* ebox_font_weight(t_ebox* x)
+t_symbol* ebox_getfont_weight(t_ebox* x)
 {
     return x->e_font.c_weight;
 }
@@ -177,7 +177,7 @@ t_symbol* ebox_font_weight(t_ebox* x)
  \ @param x         The ebox
  \ @return          The font size
 */
-float ebox_font_size(t_ebox* x)
+float ebox_getfontsize(t_ebox* x)
 {
     return x->e_font.c_size;
 }

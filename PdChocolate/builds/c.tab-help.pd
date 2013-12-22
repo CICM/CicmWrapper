@@ -1,93 +1,93 @@
 #N canvas 303 33 815 525 10;
-#X obj -25 -74 cnv 40 552 40 empty empty c.tab 3 12 0 18 -228856 -33289
+#X obj -25 -86 cnv 40 552 40 empty empty c.tab 3 12 0 18 -228856 -33289
 0;
-#X text 1 389 Pd Chocolate by Pierre Guillot | CICM - Université Paris
+#X text 1 377 Pd Chocolate by Pierre Guillot | CICM - Université Paris
 8;
-#X obj 479 418 @pdchocolate;
-#X text 406 393 Futher information about chocolate;
-#X msg -11 117 set \$1;
-#X msg 405 48 append 17;
-#X msg -11 117 set \$1;
-#X text 98 -3 Selection;
-#X text 390 -3 Edition;
-#X msg 172 62 Jimi Hendrix;
-#X obj 106 156 c.tab @size 196 32 @fontname helvetica @fontweight normal
+#X msg -11 105 set \$1;
+#X msg 405 36 append 17;
+#X msg -11 105 set \$1;
+#X text 98 -15 Selection;
+#X text 390 -15 Edition;
+#X msg 172 50 Jimi Hendrix;
+#X obj 106 144 c.tab @size 196 32 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @orientation
 0 @toggle 0 @items 'Jimi Hendrix' 'Janis Joplin' 'John Lennon' 'Jim Morisson'
 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1
 @hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35 0.35 1;
-#X msg 106 21 set Janis Joplin;
-#X obj 106 254 c.number @size 53 17 @fontname helvetica @fontweight
+#X msg 106 9 set Janis Joplin;
+#X obj 106 242 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min nan @max nan @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj -11 83 c.number @size 53 17 @fontname helvetica @fontweight
+#X obj -11 71 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min 0 @max 3 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @textcolor 0 0 0 1;
-#X obj 50 60 c.number @size 53 17 @fontname helvetica @fontweight normal
+#X obj 50 48 c.number @size 53 17 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
 0 @max 3 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
 1 @textcolor 0 0 0 1;
-#X obj -11 19 loadmess 2;
-#X obj 201 222 prepend set;
-#X msg 201 253 Jim Morisson;
-#X obj 365 157 c.tab @size 196 34 @fontname helvetica @fontweight normal
+#X obj -11 7 loadmess 2;
+#X obj 201 210 prepend set;
+#X msg 201 241 Jim Morisson;
+#X obj 365 145 c.tab @size 196 34 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @orientation
 1 @toggle 1 @items 'in America' 'in the West' @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1
 @secolor 0.35 0.35 0.35 1;
-#X msg 576 124 clear;
-#X obj 365 314 c.number @size 53 17 @fontname helvetica @fontweight
+#X msg 576 112 clear;
+#X obj 365 302 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min 0 @max nan @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @textcolor 0 0 0 1;
-#X msg 460 312 Once upon a time in America;
-#X obj 460 285 prepend set Once upon a time;
-#X msg 365 21 append in Paris \, append in L.A.;
-#X msg 491 82 insert 1 in Tokyo;
-#X msg 515 107 delete 2;
-#X msg 483 51 setitem 2 in Mumbai;
-#X text 147 116 Tab with an horizontal;
-#X text 147 126 orientation in "bang" mode.;
-#X text 582 161 Tab with an vertcial;
-#X text 582 171 orientation in "toggle" mode.;
-#X obj 297 252 c.number @size 53 17 @fontname helvetica @fontweight
+#X msg 460 300 Once upon a time in America;
+#X obj 460 273 prepend set Once upon a time;
+#X msg 365 9 append in Paris \, append in L.A.;
+#X msg 491 70 insert 1 in Tokyo;
+#X msg 515 95 delete 2;
+#X msg 483 39 setitem 2 in Mumbai;
+#X text 147 104 Tab with an horizontal;
+#X text 147 114 orientation in "bang" mode.;
+#X text 582 149 Tab with an vertcial;
+#X text 582 159 orientation in "toggle" mode.;
+#X obj 297 240 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min nan @max nan @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
-#X text 99 276 Clicked index;
-#X text 199 276 Clicked item;
-#X text 289 276 Hover index;
-#X text 551 248 Hover index;
-#X text 359 336 Selected index;
-#X text 459 336 Slected item;
-#X obj 556 226 c.number @size 53 17 @fontname helvetica @fontweight
+#X text 99 264 Clicked index;
+#X text 199 264 Clicked item;
+#X text 289 264 Hover index;
+#X text 551 236 Hover index;
+#X text 359 324 Selected index;
+#X text 459 324 Slected item;
+#X obj 556 214 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min nan @max nan @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
-#X text -22 -52 A multiple text button or text toogle;
-#X text -24 -31 c.tab display a list of text buttons.;
-#X text 13 335 Note that you can use the inspector to edit the tab.
+#X text -22 -64 A multiple text button or text toogle;
+#X text -24 -43 c.tab display a list of text buttons.;
+#X text 13 323 Note that you can use the inspector to edit the tab.
 ;
-#X text 13 345 Don't forget that ' and " are the separators.;
-#X connect 4 0 10 0;
-#X connect 5 0 18 0;
-#X connect 9 0 10 0;
-#X connect 10 0 12 0;
-#X connect 10 1 16 0;
-#X connect 10 2 31 0;
-#X connect 11 0 10 0;
-#X connect 13 0 4 0;
-#X connect 14 0 10 0;
-#X connect 15 0 13 0;
-#X connect 16 0 17 0;
-#X connect 18 0 20 0;
-#X connect 18 1 22 0;
-#X connect 18 2 38 0;
-#X connect 19 0 18 0;
-#X connect 22 0 21 0;
-#X connect 23 0 18 0;
-#X connect 24 0 18 0;
-#X connect 25 0 18 0;
-#X connect 26 0 18 0;
+#X text 13 333 Don't forget that ' and " are the separators.;
+#X obj 286 -74 pddplink @pdchocolate.pd -text Futher information about
+Pd Chocolate;
+#X connect 2 0 8 0;
+#X connect 3 0 16 0;
+#X connect 7 0 8 0;
+#X connect 8 0 10 0;
+#X connect 8 1 14 0;
+#X connect 8 2 29 0;
+#X connect 9 0 8 0;
+#X connect 11 0 2 0;
+#X connect 12 0 8 0;
+#X connect 13 0 11 0;
+#X connect 14 0 15 0;
+#X connect 16 0 18 0;
+#X connect 16 1 20 0;
+#X connect 16 2 36 0;
+#X connect 17 0 16 0;
+#X connect 20 0 19 0;
+#X connect 21 0 16 0;
+#X connect 22 0 16 0;
+#X connect 23 0 16 0;
+#X connect 24 0 16 0;

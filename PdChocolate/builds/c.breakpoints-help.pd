@@ -1,113 +1,113 @@
 #N canvas 148 78 1051 539 10;
-#X obj -25 -74 cnv 40 552 40 empty empty c.breakpoints 3 12 0 18 -228856
+#X obj -25 -94 cnv 40 552 40 empty empty c.breakpoints 3 12 0 18 -228856
 -33289 0;
-#X text 174 417 Pd Chocolate by Pierre Guillot | CICM - Université
+#X text 174 397 Pd Chocolate by Pierre Guillot | CICM - Université
 Paris 8;
-#X text 563 -62 Futher information about chocolate;
-#X msg 37 119 erase;
-#X msg 29 92 remove 2;
-#X obj 6 224 c.breakpoints @size 200 100 @fontname helvetica @fontweight
+#X msg 37 99 erase;
+#X msg 29 72 remove 2;
+#X obj 6 204 c.breakpoints @size 200 100 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @absrange 0 1000 @ordrange 0 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @ptcolor 0.5 0.5 0.5 1 @licolor 0 0 0 1 @textcolor 0 0 0
 1 @points 0 0 245 0.46 370 0.87 650 0.81 920 0;
-#X obj 326 314 c.number @size 53 17 @fontname helvetica @fontweight
+#X obj 326 294 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 326 43 c.number @size 53 17 @fontname helvetica @fontweight
+#X obj 326 23 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 353 72 c.bang @size 15 15 @fontname helvetica @fontweight normal
+#X obj 353 52 c.bang @size 15 15 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
-#X obj 521 293 prepend set;
-#X text -22 -52 A GUI to edit a breakpoint function;
-#X text -24 -31 c.breakpoints allows to create a breakpoint function
+#X obj 521 273 prepend set;
+#X text -22 -72 A GUI to edit a breakpoint function;
+#X text -24 -51 c.breakpoints allows to create a breakpoint function
 and to use for the line~.;
-#X msg 6 42 add 733 0.1;
-#X text 87 42 Add a breakpoint (x \, y);
-#X text 88 92 remove a breakpoint (index);
-#X msg 22 67 move 4 \$1 \$2;
-#X text 107 65 Move a breakpoint (index x \, y);
-#X text 78 119 Erase all;
-#X text 2 329 Click and drag on a breakpoint to move it;
-#X obj 326 176 c.breakpoints @size 200 100 @fontname helvetica @fontweight
+#X msg 6 22 add 733 0.1;
+#X text 87 22 Add a breakpoint (x \, y);
+#X text 88 72 remove a breakpoint (index);
+#X msg 22 47 move 4 \$1 \$2;
+#X text 107 45 Move a breakpoint (index x \, y);
+#X text 78 99 Erase all;
+#X text 2 309 Click and drag on a breakpoint to move it;
+#X obj 326 156 c.breakpoints @size 200 100 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @absrange 0 1000 @ordrange 0 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @ptcolor 0.5 0.5 0.5 1 @licolor 0 0 0 1 @textcolor 0 0 0
 1 @points 0 0 255 0.39 375 0.19 450 0.67 490 0.2 530 0.47 555 0.85
 675 0.71 740 0.34 910 0.59 1000 0;
-#X text 347 18 Play;
-#X text 17 18 Edit;
-#X text 386 37 Output the interpolated ordinate;
-#X obj 423 311 line;
-#X obj 423 334 c.number @size 53 17 @fontname helvetica @fontweight
+#X text 347 -2 Play;
+#X text 17 -2 Edit;
+#X text 386 17 Output the interpolated ordinate;
+#X obj 423 291 line;
+#X obj 423 314 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 521 336 0.19 50 0.67 275 0.63 605 0.91 755 0.43 835;
-#X msg 387 140 getlist;
-#X text 376 76 for a line or line~ object;
-#X text 376 66 Output several formatted lists;
-#X text 438 140 Output the function as one list;
-#X obj 661 224 c.breakpoints @size 200 100 @fontname helvetica @fontweight
+#X msg 521 316 0.19 50 0.67 275 0.63 605 0.91 755 0.43 835;
+#X msg 387 120 getlist;
+#X text 376 56 for a line or line~ object;
+#X text 376 46 Output several formatted lists;
+#X text 438 120 Output the function as one list;
+#X obj 661 204 c.breakpoints @size 200 100 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @absrange 0 1000 @ordrange -1 2 @bgcolor 0.75 0.75 0.75 1 @bdcolor
 0.5 0.5 0.5 1 @ptcolor 0.5 0.5 0.5 1 @licolor 0 0 0 1 @textcolor 0
 0 0 1 @points 0 2 180 -0.07 345 -0.37 580 -0.49 820 -0.67 1000 -0.91
 ;
-#X msg 661 20 absrange 0 1000;
-#X text 760 19 Change the abscissa range;
-#X msg 681 41 absrange 0 2000;
-#X msg 691 70 ordrange 0 1;
-#X msg 711 91 ordrange -1 2;
-#X text 770 70 Change the ordinate range;
-#X text 682 -4 Some Properties;
-#X text 812 120 Change the abscissa range;
-#X text 843 170 Change the ordinate range;
-#X msg 741 141 scaleabs 0 2000;
-#X msg 721 120 scaleabs 0 500;
-#X msg 751 170 scaleord 0 1.5;
-#X msg 771 191 scaleord -1 -0.2;
-#X text 842 130 and retain the;
-#X text 842 140 function shape;
-#X text 877 180 and retain the;
-#X text 877 190 function shape;
-#X msg 372 96 next;
-#X text 410 96 Output the next breakpoint;
-#X msg 382 118 prev;
-#X text 420 118 Output the previous breakpoint;
-#X text 386 47 for an abscissa (here \, between 0 - 1000);
-#X text 2 349 Click with shift to create a breakpoint;
-#X text 2 369 Click with alt to remove a breakpoint;
-#X msg 47 144 write;
-#X text 88 144 Write function in a file;
-#X msg 57 174 read;
-#X text 98 174 Read function from a file;
-#X obj 636 -37 @@pdchocolate;
-#X connect 3 0 5 0;
-#X connect 4 0 5 0;
-#X connect 7 0 19 0;
-#X connect 8 0 19 0;
-#X connect 9 0 25 0;
-#X connect 12 0 5 0;
-#X connect 15 0 5 0;
-#X connect 19 0 6 0;
-#X connect 19 1 23 0;
-#X connect 19 2 9 0;
-#X connect 23 0 24 0;
-#X connect 26 0 19 0;
-#X connect 31 0 30 0;
-#X connect 33 0 30 0;
-#X connect 34 0 30 0;
-#X connect 35 0 30 0;
-#X connect 40 0 30 0;
-#X connect 41 0 30 0;
-#X connect 42 0 30 0;
-#X connect 43 0 30 0;
-#X connect 48 0 19 0;
-#X connect 50 0 19 0;
-#X connect 55 0 5 0;
-#X connect 57 0 5 0;
+#X msg 661 0 absrange 0 1000;
+#X text 760 -1 Change the abscissa range;
+#X msg 681 21 absrange 0 2000;
+#X msg 691 50 ordrange 0 1;
+#X msg 711 71 ordrange -1 2;
+#X text 770 50 Change the ordinate range;
+#X text 682 -24 Some Properties;
+#X text 812 100 Change the abscissa range;
+#X text 843 150 Change the ordinate range;
+#X msg 741 121 scaleabs 0 2000;
+#X msg 721 100 scaleabs 0 500;
+#X msg 751 150 scaleord 0 1.5;
+#X msg 771 171 scaleord -1 -0.2;
+#X text 842 110 and retain the;
+#X text 842 120 function shape;
+#X text 877 160 and retain the;
+#X text 877 170 function shape;
+#X msg 372 76 next;
+#X text 410 76 Output the next breakpoint;
+#X msg 382 98 prev;
+#X text 420 98 Output the previous breakpoint;
+#X text 386 27 for an abscissa (here \, between 0 - 1000);
+#X text 2 329 Click with shift to create a breakpoint;
+#X text 2 349 Click with alt to remove a breakpoint;
+#X msg 47 124 write;
+#X text 88 124 Write function in a file;
+#X msg 57 154 read;
+#X text 98 154 Read function from a file;
+#X obj 282 -83 pddplink @pdchocolate.pd -text Futher information about
+Pd Chocolate;
+#X connect 2 0 4 0;
+#X connect 3 0 4 0;
+#X connect 6 0 18 0;
+#X connect 7 0 18 0;
+#X connect 8 0 24 0;
+#X connect 11 0 4 0;
+#X connect 14 0 4 0;
+#X connect 18 0 5 0;
+#X connect 18 1 22 0;
+#X connect 18 2 8 0;
+#X connect 22 0 23 0;
+#X connect 25 0 18 0;
+#X connect 30 0 29 0;
+#X connect 32 0 29 0;
+#X connect 33 0 29 0;
+#X connect 34 0 29 0;
+#X connect 39 0 29 0;
+#X connect 40 0 29 0;
+#X connect 41 0 29 0;
+#X connect 42 0 29 0;
+#X connect 47 0 18 0;
+#X connect 49 0 18 0;
+#X connect 54 0 4 0;
+#X connect 56 0 4 0;

@@ -1,65 +1,65 @@
 #N canvas 90 129 587 422 10;
-#X obj -49 -74 cnv 40 552 40 empty empty c.slider 3 12 0 18 -228856
+#X obj -49 -84 cnv 40 552 40 empty empty c.slider 3 12 0 18 -228856
 -33289 0;
-#X text 314 252 Futher information about chocolate;
-#X text -37 308 Pd Chocolate by Pierre Guillot | CICM - Université
+#X text -37 298 Pd Chocolate by Pierre Guillot | CICM - Université
 Paris 8;
-#X obj -12 14 loadmess 0.3;
-#X obj 314 277 @pdchocolate;
-#X text -47 -52 A horizontal and vertical slider;
-#X obj -12 213 c.number @size 53 17 @fontname helvetica @fontweight
+#X obj -12 4 loadmess 0.3;
+#X text -47 -62 A horizontal and vertical slider;
+#X obj -12 203 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
-#X text 13 90 Slidr have exactely;
-#X text 13 103 the same behavior as;
-#X text 13 116 its vanilla counterpart.;
-#X text 13 129 Except that the default;
-#X text 13 142 range are 0 and 1;
-#X obj -12 45 c.number @size 53 17 @fontname helvetica @fontweight
+#X text 13 93 the same behavior as;
+#X text 13 106 its vanilla counterpart.;
+#X text 13 119 Except that the default;
+#X text 13 132 range are 0 and 1;
+#X obj -12 35 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min 0 @max 1 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @textcolor 0 0 0 1;
-#X obj 203 101 c.number @size 53 17 @fontname helvetica @fontweight
+#X obj 203 91 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
-#X text 202 7 Slidr can have an relative;
-#X text 202 20 mousing behavior and;
-#X text 202 33 reversed minimum and maximum;
-#X obj 179 244 c.number @size 53 17 @fontname helvetica @fontweight
+#X text 202 10 mousing behavior and;
+#X text 202 23 reversed minimum and maximum;
+#X obj 179 234 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 179 178 set \$1;
-#X obj 179 154 c.number @size 53 17 @fontname helvetica @fontweight
+#X msg 179 168 set \$1;
+#X obj 179 144 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 179 126 loadmess 80;
-#X obj -12 72 c.slider @size 15 120 @fontname helvetica @fontweight
+#X obj 179 116 loadmess 80;
+#X obj -12 62 c.slider @size 15 120 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @mode 0 @min 0 @max 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
 1 @kncolor 0.5 0.5 0.5 1;
-#X obj 203 58 c.slider @size 120 15 @fontname helvetica @fontweight
+#X obj 203 48 c.slider @size 120 15 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @mode 1 @min 3.6 @max -2.7 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @kncolor 0.5 0.5 0.5 1;
-#X obj 179 207 c.slider @size 120 15 @fontname helvetica @fontweight
+#X obj 179 197 c.slider @size 120 15 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname chocoslidr
 @mode 0 @min 0 @max 127 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @kncolor 0.5 0.5 0.5 1;
-#X text -48 -31 c.slider is the pd chocolate's version of the vanilla
+#X text -48 -41 c.slider is the pd chocolate's version of the vanilla
 hslider and vslider.;
-#X obj 137 169 c.bang @size 15 15 @fontname helvetica @fontweight normal
+#X obj 137 159 c.bang @size 15 15 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
-#X connect 3 0 12 0;
-#X connect 12 0 21 0;
-#X connect 18 0 23 0;
-#X connect 19 0 18 0;
-#X connect 20 0 19 0;
-#X connect 21 0 6 0;
-#X connect 22 0 13 0;
-#X connect 23 0 17 0;
-#X connect 25 0 23 0;
+#X obj 276 -71 pddplink @pdchocolate.pd -text Futher information about
+Pd Chocolate;
+#X text 13 80 Slider have exactely;
+#X text 202 -3 Slider can have an relative;
+#X connect 2 0 9 0;
+#X connect 9 0 17 0;
+#X connect 14 0 19 0;
+#X connect 15 0 14 0;
+#X connect 16 0 15 0;
+#X connect 17 0 4 0;
+#X connect 18 0 10 0;
+#X connect 19 0 13 0;
+#X connect 21 0 19 0;

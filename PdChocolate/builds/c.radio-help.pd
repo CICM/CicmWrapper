@@ -1,56 +1,56 @@
 #N canvas 520 205 587 422 10;
-#X obj -49 -74 cnv 40 552 40 empty empty c.radio 3 12 0 18 -228856
+#X obj -49 -84 cnv 40 552 40 empty empty c.radio 3 12 0 18 -228856
 -33289 0;
-#X text 314 252 Futher information about chocolate;
-#X text -37 308 Pd Chocolate by Pierre Guillot | CICM - Université
+#X text -37 298 Pd Chocolate by Pierre Guillot | CICM - Université
 Paris 8;
-#X obj 354 277 @pdchocolate;
-#X obj -19 200 c.number @size 53 17 @fontname helvetica @fontweight
+#X obj -19 190 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 236 240 prepend set;
-#X msg 236 270 1 0 1 1 0;
-#X obj -19 120 c.number @size 53 17 @fontname helvetica @fontweight
+#X obj 236 230 prepend set;
+#X msg 236 260 1 0 1 0 0;
+#X obj -19 110 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min 0 @max 7 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @textcolor 0 0 0 1;
-#X msg 55 119 set \$1;
-#X obj 55 80 c.number @size 53 17 @fontname helvetica @fontweight normal
+#X msg 55 109 set \$1;
+#X obj 55 70 c.number @size 53 17 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
 0 @max 7 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
 1 @textcolor 0 0 0 1;
-#X obj -19 51 loadmess 0;
-#X text -47 -52 A check list or radio buttons;
-#X text -21 27 Radio button mode;
-#X text 234 2 Check list mode;
-#X msg 236 62 1 0 1 0 0;
-#X obj 316 62 prepend set;
-#X msg 316 32 0 1 0 1 1;
-#X obj 236 32 loadbang;
-#X obj 197 64 c.bang @size 15 15 @fontname helvetica @fontweight normal
+#X obj -19 41 loadmess 0;
+#X text -47 -62 A check list or radio buttons;
+#X text -21 17 Radio button mode;
+#X text 234 -8 Check list mode;
+#X msg 236 52 1 0 1 0 0;
+#X obj 316 52 prepend set;
+#X msg 316 22 0 1 0 1 1;
+#X obj 236 22 loadbang;
+#X obj 197 54 c.bang @size 15 15 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
-#X obj 236 125 c.radio @size 15 80 @fontname helvetica @fontweight
+#X obj 236 115 c.radio @size 15 80 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname chocolist
 @nitems 5 @mode 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1
 @itcolor 0.5 0.5 0.5 1;
-#X obj -19 161 c.radio @size 140 15 @fontname helvetica @fontweight
+#X obj -19 151 c.radio @size 140 15 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname chocodio
 @nitems 8 @mode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1
 @itcolor 0.5 0.5 0.5 1;
-#X text -48 -31 c.radio is the pd chocolate's version of the vanilla
+#X text -48 -41 c.radio is the pd chocolate's version of the vanilla
 hradio and vradio.;
-#X connect 5 0 6 0;
-#X connect 7 0 20 0;
-#X connect 8 0 20 0;
-#X connect 9 0 8 0;
-#X connect 10 0 7 0;
-#X connect 10 0 9 0;
-#X connect 14 0 19 0;
-#X connect 15 0 19 0;
-#X connect 16 0 15 0;
-#X connect 17 0 14 0;
-#X connect 18 0 19 0;
-#X connect 19 0 5 0;
-#X connect 20 0 4 0;
+#X obj 273 -73 pddplink @pdchocolate.pd -text Futher information about
+Pd Chocolate;
+#X connect 3 0 4 0;
+#X connect 5 0 18 0;
+#X connect 6 0 18 0;
+#X connect 7 0 6 0;
+#X connect 8 0 5 0;
+#X connect 8 0 7 0;
+#X connect 12 0 17 0;
+#X connect 13 0 17 0;
+#X connect 14 0 13 0;
+#X connect 15 0 12 0;
+#X connect 16 0 17 0;
+#X connect 17 0 3 0;
+#X connect 18 0 2 0;

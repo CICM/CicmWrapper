@@ -45,7 +45,7 @@ t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t siz
     c = (t_eclass *)resizebytes(pd, sizeof(*pd), sizeof(*c));
     c->c_nattr = 0;
     c->c_attr  = (t_eattr *)malloc(sizeof(t_eattr));
-    eproxy_setup();
+    eproxy_setup(c);
 #ifdef E_PUB
 post(".________________________________________________.");
 post("|                                                |");
@@ -369,8 +369,8 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
     }
     else if(gensym(name) == gensym("key") || gensym(name) == gensym("keyfilter"))
     {
-        
-        class_addmethod((t_class *)c, (t_method)ebox_key,         gensym("key"),        A_GIMME, 0);
+        if(c->c_widget.w_key == NULL && c->c_widget.w_keyfilter == NULL)
+            class_addmethod((t_class *)c, (t_method)ebox_key,         gensym("key"),        A_GIMME, 0);
         if(gensym(name) == gensym("key"))
             c->c_widget.w_key = m;
         if(gensym(name) == gensym("keyfilter"))

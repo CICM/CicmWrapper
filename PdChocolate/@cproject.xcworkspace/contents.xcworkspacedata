@@ -5,6 +5,9 @@
       location = "group:cbang/c.bang.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:cblackboard/c.blackboard.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:cbreakpoints/c.breakpoints.xcodeproj">
    </FileRef>
    <FileRef

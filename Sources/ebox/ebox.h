@@ -41,7 +41,7 @@ void ebox_free(t_ebox* x);
 char ebox_getregister(t_ebox *x);
 
 void ebox_inletnew(t_ebox* x);
-void eproxy_setup(void);
+void eproxy_setup(t_eclass* c);
 void eproxy_anything(t_eproxy *x, t_symbol *s, int argc, t_atom *argv);
 void *eproxy_new(t_symbol *s, int argc, t_atom *argv);
 void eproxy_init(t_eproxy *x, t_ebox *owner, int index);
@@ -80,10 +80,10 @@ void ebox_erase(t_ebox* x);                                                     
 void binbuf_attr_process(void *x, t_binbuf *d);
 void atoms_attr_process(void *x, long argc, t_atom *argv);
 void default_attr_process(void *x);
-t_symbol* ebox_get_fontname(t_ebox* x);
-t_symbol* ebox_font_slant(t_ebox* x);
-t_symbol* ebox_font_weight(t_ebox* x);
-float ebox_font_size(t_ebox* x);
+t_symbol* ebox_getfontname(t_ebox* x);
+t_symbol* ebox_getfontslant(t_ebox* x);
+t_symbol* ebox_getfontweight(t_ebox* x);
+float ebox_getfontsize(t_ebox* x);
 
 void ebox_properties(t_gobj *y, t_glist *x);                                                        // PRIVATE
 void ebox_dialog(t_object *x, t_symbol *s, long argc, t_atom* argv);                                // PRIVATE

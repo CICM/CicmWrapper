@@ -1,81 +1,81 @@
 #N canvas 375 205 634 422 10;
-#X obj -49 -74 cnv 40 552 40 empty empty c.gain~ 3 12 0 18 -228856 -33289
-0;
-#X text 314 252 Futher information about chocolate;
-#X text -37 318 Pd Chocolate by Pierre Guillot | CICM - Université
+#X obj -49 -84 cnv 40 552 40 empty empty c.gain~ 3 12 0 18 -228856
+-33289 0;
+#X text -37 308 Pd Chocolate by Pierre Guillot | CICM - Université
 Paris 8;
-#X obj 374 277 @pdchocolate;
-#X obj 335 17 c.number @size 53 17 @fontname helvetica @fontweight normal
+#X obj 335 7 c.number @size 53 17 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
 0 @max 8 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
 1 @textcolor 0 0 0 1;
-#X obj 275 97 c.gain~ @size 160 20 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @mode
-1 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @kncolor
+#X obj 275 87 c.gain~ @size 160 20 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@mode 1 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @kncolor
 0.5 0.5 0.5 1;
-#X obj 40 88 c.gain~ @size 20 160 @fontname helvetica @fontweight normal
+#X obj 40 78 c.gain~ @size 20 160 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @mode
 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @kncolor
 0.5 0.5 0.5 1;
-#X obj 55 261 c.number @size 53 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
-nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
-#X obj 40 35 c.number @size 53 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
--90 @max 18 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
-1 @textcolor 0 0 0 1;
-#X msg 335 43 linear \$1;
-#X msg 242 271 \; pd dsp 1;
-#X msg 176 271 \; pd dsp 0;
-#X obj 255 153 c.number~ @size 53 17 @fontname helvetica @fontweight
-normal @fontslant regular @fontsize 11 @idname (null) @interval 50
-@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
-#X obj 40 291 c.meter~ @size 85 13 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @interval 50 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6 0 0.8 @tepidcolor
-0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor
-1 0 0 0.8;
-#X obj 40 4 noise~;
-#X text -47 -52 A slider for signal;
-#X text -48 -31 c.gain~ is a slider that allows to control the volume
-of a signal with decibel.;
-#X text 115 260 dB;
-#X text 101 35 dB;
-#X text 62 76 - 18 dB;
-#X text 62 237 - -90 dB;
-#X text 62 104 - 0 dB;
-#X obj -39 23 c.number @size 53 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
--90 @max 18 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
-1 @textcolor 0 0 0 1;
-#X msg -39 52 set \$1;
-#X text 395 15 Amplitude;
-#X obj 450 153 c.number @size 53 17 @fontname helvetica @fontweight
+#X obj 55 251 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
-#X text 508 152 dB;
-#X obj 255 40 sig~ 1;
-#X obj 335 -7 loadmess 1;
-#X text 68 163 Absolute mousing mode;
-#X text 291 180 Relative mousing mode;
-#X text 141 100 reset to 0 dB.;
-#X text 141 86 Double click to;
-#X text 274 129 0 amp;
-#X text 273 118 |;
-#X text 402 118 |;
-#X text 403 129 1 amp;
-#X connect 4 0 9 0;
-#X connect 5 0 12 0;
-#X connect 5 1 25 0;
-#X connect 6 0 13 0;
-#X connect 6 1 7 0;
-#X connect 8 0 6 0;
-#X connect 9 0 5 0;
-#X connect 14 0 6 0;
-#X connect 22 0 23 0;
-#X connect 23 0 6 0;
-#X connect 27 0 5 0;
-#X connect 28 0 4 0;
+#X obj 40 25 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+-90 @max 18 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @textcolor 0 0 0 1;
+#X msg 335 33 linear \$1;
+#X msg 242 261 \; pd dsp 1;
+#X msg 176 261 \; pd dsp 0;
+#X obj 255 143 c.number~ @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @interval 50
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 40 281 c.meter~ @size 85 13 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @interval 50
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6 0
+0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
+1 0.6 0 0.8 @overcolor 1 0 0 0.8;
+#X obj 40 -6 noise~;
+#X text -47 -62 A slider for signal;
+#X text -48 -41 c.gain~ is a slider that allows to control the volume
+of a signal with decibel.;
+#X text 115 250 dB;
+#X text 101 25 dB;
+#X text 62 66 - 18 dB;
+#X text 62 227 - -90 dB;
+#X text 62 94 - 0 dB;
+#X obj -39 13 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min -90 @max 18 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg -39 42 set \$1;
+#X text 395 5 Amplitude;
+#X obj 450 143 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 508 142 dB;
+#X obj 255 30 sig~ 1;
+#X obj 335 -17 loadmess 1;
+#X text 68 153 Absolute mousing mode;
+#X text 291 170 Relative mousing mode;
+#X text 141 90 reset to 0 dB.;
+#X text 141 76 Double click to;
+#X text 274 119 0 amp;
+#X text 273 108 |;
+#X text 402 108 |;
+#X text 403 119 1 amp;
+#X obj 274 -73 pddplink @pdchocolate.pd -text Futher information about
+Pd Chocolate;
+#X connect 2 0 7 0;
+#X connect 3 0 10 0;
+#X connect 3 1 23 0;
+#X connect 4 0 11 0;
+#X connect 4 1 5 0;
+#X connect 6 0 4 0;
+#X connect 7 0 3 0;
+#X connect 12 0 4 0;
+#X connect 20 0 21 0;
+#X connect 21 0 4 0;
+#X connect 25 0 3 0;
+#X connect 26 0 2 0;

@@ -128,12 +128,12 @@ void eproxy_anything(t_eproxy *x, t_symbol *s, int argc, t_atom *argv)
     z->e_current_proxy = 0;
 }
 
-void eproxy_setup(void)
+void eproxy_setup(t_eclass* c)
 {
-    t_class* c;
-	c = class_new(gensym("eproxy"),(t_newmethod)eproxy_new, (t_method)NULL, sizeof(t_eproxy), 0, A_GIMME, 0);
-	class_addanything(c, (t_method)eproxy_anything);
-    eproxy_class = c;
+    char buffer[MAXPDSTRING];
+    sprintf(buffer, "eproxy%s", c->c_class.c_name->s_name);
+	eproxy_class = class_new(gensym(buffer),(t_newmethod)eproxy_new, (t_method)NULL, sizeof(t_eproxy), 0, A_GIMME, 0);
+	class_addanything(eproxy_class, (t_method)eproxy_anything);
 }
 
 //! Add a proxy inlet

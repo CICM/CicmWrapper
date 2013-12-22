@@ -24,6 +24,7 @@ The PD Chocolate Library in under the <a title="GNU" href="http://www.gnu.org/co
 
 ##### Objects :
 - Bang
+- Blackbloard
 - Colorpanel
 - Function
 - Incdec
@@ -36,7 +37,6 @@ The PD Chocolate Library in under the <a title="GNU" href="http://www.gnu.org/co
 - Slider
 - Tab
 - Toggle
-- Blackboard (Todo - like Max's Lcd)
 - Textfield (Todo)
 - Filtergraph(Todo)
 - Gain~
