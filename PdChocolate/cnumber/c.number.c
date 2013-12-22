@@ -26,11 +26,6 @@
 
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
 
-#ifndef _WINDOWS
-#define sprintf_s sprintf
-#endif
-
-
 typedef struct  _number
 {
 	t_ebox      j_box;
@@ -307,12 +302,12 @@ void draw_value_drag(t_number *x, t_object *view, t_rect *rect)
         int size, inc = 7;
         float peak;
         char number[256];
-        sprintf_s(number, "%i", (int)x->f_value);
+        sprintf(number, "%i", (int)x->f_value);
         size = strlen(number);
         // TRONQUER LE NOMBRE ENTIER
         if(size > x->f_max_decimal+1)
         {
-            sprintf_s(number, "%i...", (int)(x->f_value / powf(10, size - (x->f_max_decimal+1))));
+            sprintf(number, "%i...", (int)(x->f_value / powf(10, size - (x->f_max_decimal+1))));
         }
         // TRONQUER LES DECIMALS
         else
@@ -336,7 +331,7 @@ void draw_value_drag(t_number *x, t_object *view, t_rect *rect)
                 inc = x->f_ndecimal;
             
             if(inc == 0 || x->f_value == (int)x->f_value)
-                sprintf_s(number, "%i.", (int)x->f_value);
+                sprintf(number, "%i.", (int)x->f_value);
             else if(inc == 1)
                 sprintf(number, "%.1f", x->f_value);
             else if(inc == 2)
@@ -369,7 +364,7 @@ void draw_value_text(t_number *x,  t_object *view, t_rect *rect)
 	if (g && jtl)
 	{
         char number[256];
-        sprintf_s(number, "%s|", x->f_textvalue);
+        sprintf(number, "%s|", x->f_textvalue);
         etext_layout_settextcolor(jtl, &x->f_color_text);
         
         etext_layout_set(jtl, number, &x->j_box.e_font, sys_fontwidth(x->j_box.e_font.c_size) + 8, rect->height / 2., rect->width - 3, 0, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);

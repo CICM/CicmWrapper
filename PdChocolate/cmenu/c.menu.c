@@ -26,10 +26,6 @@
 
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
 
-#ifndef _WINDOWS
-#define sprintf_s sprintf
-#endif
-
 #define MAXITEMS 100
 
 typedef struct  _menu

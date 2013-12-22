@@ -26,11 +26,6 @@
 
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
 
-#ifndef _WINDOWS
-#define sprintf_s sprintf
-#endif
-
-
 typedef struct  _number
 {
 	t_ebox      j_box;
@@ -280,12 +275,12 @@ void draw_value(t_number *x, t_object *view, t_rect *rect)
         int size, inc = 0;
         float peak;
         char number[256];
-        sprintf_s(number, "%i", (int)x->f_peak_value);
+        sprintf(number, "%i", (int)x->f_peak_value);
         size = strlen(number);
         // TRONQUER LE NOMBRE ENTIER
         if(size > x->f_max_decimal+1)
         {
-            sprintf_s(number, "%i...", (int)(x->f_peak_value / pow(10, size - (x->f_max_decimal+1))));
+            sprintf(number, "%i...", (int)(x->f_peak_value / pow(10, size - (x->f_max_decimal+1))));
         }
         // TRONQUER LES DECIMALS
         else
@@ -304,7 +299,7 @@ void draw_value(t_number *x, t_object *view, t_rect *rect)
                 inc = x->f_ndecimal;
             
             if(inc == 0)
-                sprintf_s(number, "%i.", (int)x->f_peak_value);
+                sprintf(number, "%i.", (int)x->f_peak_value);
             else if(inc == 1)
                 sprintf(number, "%.1f", x->f_peak_value);
             else if(inc == 2)
