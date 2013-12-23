@@ -24,7 +24,9 @@
  *
  */
 
+extern "C"  {
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
+}
 
 typedef struct _radio
 {
@@ -67,7 +69,7 @@ void draw_items(t_radio *x, t_object *view, t_rect *rect);
 
 void radio_mousedown(t_radio *x, t_object *patcherview, t_pt pt, long modifiers);
 
-void setup_c0x2eradio(void)
+extern "C" void setup_c0x2eradio(void)
 {
 	t_eclass *c;
     

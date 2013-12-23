@@ -24,7 +24,9 @@
  *
  */
 
+extern "C" {
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
+}
 
 typedef struct _incdec
 {
@@ -64,7 +66,7 @@ void draw_background(t_incdec *x,  t_object *view, t_rect *rect);
 void incdec_mousedown(t_incdec *x, t_object *patcherview, t_pt pt, long modifiers);
 void incdec_mouseup(t_incdec *x, t_object *patcherview, t_pt pt, long modifiers);
 
-void setup_c0x2eincdec(void)
+extern "C" void setup_c0x2eincdec(void)
 {
 	t_eclass *c;
     

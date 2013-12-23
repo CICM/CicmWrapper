@@ -24,7 +24,9 @@
  *
  */
 
+extern "C" {
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
+}
 
 typedef struct  _meter
 {
@@ -70,7 +72,7 @@ void meter_paint(t_meter *x, t_object *view);
 void draw_background(t_meter *x,  t_object *view, t_rect *rect);
 void draw_leds(t_meter *x,  t_object *view, t_rect *rect);
 
-void setup_c0x2emeter_tilde(void)
+extern "C" void setup_c0x2emeter_tilde(void)
 {
 	t_eclass *c;
     

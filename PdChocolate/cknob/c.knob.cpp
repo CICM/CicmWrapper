@@ -24,7 +24,9 @@
  *
  */
 
+extern "C" {
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
+}
 
 typedef struct _knob
 {
@@ -67,7 +69,7 @@ void draw_needle(t_knob *x, t_object *view, t_rect *rect);
 void knob_mousedown(t_knob *x, t_object *patcherview, t_pt pt, long modifiers);
 void knob_mousedrag(t_knob *x, t_object *patcherview, t_pt pt, long modifiers);
 
-void setup_c0x2eknob(void)
+extern "C" void setup_c0x2eknob(void)
 {
 	t_eclass *c;
     

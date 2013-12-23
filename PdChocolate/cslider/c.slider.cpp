@@ -24,7 +24,9 @@
  *
  */
 
+extern "C"  {
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
+}
 
 typedef struct _slider
 {
@@ -67,7 +69,7 @@ void draw_background(t_slider *x,  t_object *view, t_rect *rect);
 void slider_mousedown(t_slider *x, t_object *patcherview, t_pt pt, long modifiers);
 void slider_mousedrag(t_slider *x, t_object *patcherview, t_pt pt, long modifiers);
 
-void setup_c0x2eslider(void)
+extern "C" void setup_c0x2eslider(void)
 {
 	t_eclass *c;
     

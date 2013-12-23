@@ -24,8 +24,9 @@
  *
  */
 
+extern "C" {
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
-
+}
 typedef struct _bang
 {
 	t_ebox      j_box;
@@ -58,7 +59,7 @@ void draw_background(t_bang *x,  t_object *view, t_rect *rect);
 void bang_mousedown(t_bang *x, t_object *patcherview, t_pt pt, long modifiers);
 void bang_mouseup(t_bang *x, t_object *patcherview, t_pt pt, long modifiers);
 
-void setup_c0x2ebang(void)
+extern "C" void setup_c0x2ebang(void)
 {
 	t_eclass *c;
     

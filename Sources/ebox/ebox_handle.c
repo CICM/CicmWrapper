@@ -30,8 +30,13 @@ static t_pt mouse_global_pos;
 static t_pt mouse_patcher_pos;
 
 static char *my_cursorlist[] = {
-    "left_ptr",
+#ifdef _WINDOWS
+	"right_ptr",
+	"left_ptr",
+#else
+	"left_ptr",
     "center_ptr",
+#endif
     "sb_v_double_arrow",
     "plus",
     "hand2",
@@ -81,8 +86,9 @@ void ebox_set_mouse_canvas_position(t_ebox* x, float x_p, float y_p)
 */
 t_pt ebox_get_mouse_global_position(t_ebox* x)
 {
-    sys_vgui("global_mousepos %s\n", x->e_object_id->s_name);
-    sys_vgui("global_mousepos %s\n", x->e_object_id->s_name);
+	t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
+	sys_vgui("ebox_%s_global_mousepos %s\n",c->c_class.c_name->s_name, x->e_object_id->s_name);
+    //sys_vgui("global_mousepos %s\n", x->e_object_id->s_name);
     return mouse_global_pos;
 }
 
@@ -95,9 +101,10 @@ t_pt ebox_get_mouse_global_position(t_ebox* x)
 t_pt ebox_get_mouse_canvas_position(t_ebox* x)
 {
     t_pt point;
-    ebox_get_mouse_global_position(x);
-    sys_vgui("patcher_mousepos %s %s\n", x->e_object_id->s_name, x->e_canvas_id->s_name);
-    sys_vgui("patcher_mousepos %s %s\n", x->e_object_id->s_name, x->e_canvas_id->s_name);
+	t_eclass *c = (t_eclass *)x->e_obj.te_g.g_pd;
+    //ebox_get_mouse_global_position(x);
+    sys_vgui("ebox_%s_patcher_mousepos %s %s\n", c->c_class.c_name->s_name, x->e_object_id->s_name, x->e_canvas_id->s_name);
+    //sys_vgui("patcher_mousepos %s %s\n", x->e_object_id->s_name, x->e_canvas_id->s_name);
     point.x = mouse_global_pos.x - mouse_patcher_pos.x;
     point.y = mouse_global_pos.y - mouse_patcher_pos.y;
     return point;
@@ -761,9 +768,13 @@ t_pd_err ebox_set_id(t_ebox *x, t_object *attr, long argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_SYM)
     {
-        pd_unbind(&x->e_obj.ob_pd, x->e_objuser_id);
-        x->e_objuser_id = atom_getsym(argv);
-        pd_bind(&x->e_obj.ob_pd, x->e_objuser_id);
+		if(x->e_objuser_id != gensym("(null)"))
+			pd_unbind(&x->e_obj.ob_pd, x->e_objuser_id);
+		if(atom_getsym(argv) != gensym("(null)"))
+		{
+			x->e_objuser_id = atom_getsym(argv);
+			pd_bind(&x->e_obj.ob_pd, x->e_objuser_id);
+		}
     }
     return 0;
 }
@@ -794,7 +805,7 @@ void ebox_write(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
             return;
         }
     }
-    sys_vgui("ebox_saveas %s nothing nothing\n", x->e_object_id->s_name);
+    sys_vgui("ebox%s_saveas %s nothing nothing\n", c->c_class.c_name->s_name, x->e_object_id->s_name);
 }
 
 void ebox_read(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
@@ -823,7 +834,7 @@ void ebox_read(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
             return;
         }
     }
-    sys_vgui("ebox_openfrom %s\n", x->e_object_id->s_name);
+    sys_vgui("ebox%s_openfrom %s\n", c->c_class.c_name->s_name, x->e_object_id->s_name);
 }
 
 

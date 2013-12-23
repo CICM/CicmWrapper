@@ -93,7 +93,7 @@
     <ClCompile Include="..\..\Sources\ewidget\ewidget.c">
       <Filter>PdEnhanced\ewidget</Filter>
     </ClCompile>
-    <ClCompile Include="c.slider.c" />
+    <ClCompile Include="c.slider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Sources\eattr\eattr.h">

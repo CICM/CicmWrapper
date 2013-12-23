@@ -24,7 +24,9 @@
  *
  */
 
+extern "C"  {
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
+}
 
 typedef struct _toggle
 {
@@ -59,7 +61,7 @@ void draw_background(t_toggle *x,  t_object *view, t_rect *rect);
 
 void toggle_mousedown(t_toggle *x, t_object *patcherview, t_pt pt, long modifiers);
 
-void setup_c0x2etoggle(void)
+extern "C" void setup_c0x2etoggle(void)
 {
 	t_eclass *c;
     

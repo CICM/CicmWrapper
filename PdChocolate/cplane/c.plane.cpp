@@ -24,7 +24,9 @@
  *
  */
 
+extern "C"  {
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
+}
 
 typedef struct  _plane
 {
@@ -67,7 +69,7 @@ void plane_mousedrag(t_plane *x, t_object *patcherview, t_pt pt, long modifiers)
 
 void plane_preset(t_plane *x, t_binbuf *b);
 
-void setup_c0x2eplane(void)
+extern "C" void setup_c0x2eplane(void)
 {
 	t_eclass *c;
     

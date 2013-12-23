@@ -76,7 +76,6 @@ void ebox_new(t_ebox *x, long flags)
     x->e_editor_id          = NULL;
     x->e_objuser_id         = gensym("(null)");
 
-    pd_bind(&x->e_obj.ob_pd, x->e_objuser_id);
     default_attr_process(x);
 }
 
@@ -163,9 +162,10 @@ int ebox_getproxy(t_ebox* x)
 void ebox_free(t_ebox* x)
 {
     gfxstub_deleteforkey(x);
-    erouter_detach((t_object *)x);
     pd_unbind(&x->e_obj.ob_pd, x->e_object_id);
-    pd_unbind(&x->e_obj.ob_pd, x->e_objuser_id);
+	if(x->e_objuser_id != gensym("(null)"))
+		pd_unbind(&x->e_obj.ob_pd, x->e_objuser_id);
+	erouter_detach((t_object *)x);
 }
 
 //! Return if the ebox is an UI object or not

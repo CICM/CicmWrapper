@@ -24,7 +24,9 @@
  *
  */
 
+extern "C"  {
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
+}
 
 typedef struct  _blacboard
 {
@@ -85,7 +87,7 @@ void blackboard_mouseup(t_blacboard *x, t_object *patcherview, t_pt pt, long mod
 void blackboard_mouseleave(t_blacboard *x, t_object *patcherview, t_pt pt, long modifiers);
 
 
-void setup_c0x2eblackboard(void)
+extern "C" void setup_c0x2eblackboard(void)
 {
 	t_eclass *c;
     

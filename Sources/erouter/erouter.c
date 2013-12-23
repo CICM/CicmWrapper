@@ -77,7 +77,11 @@ void erouter_setup(t_glist* obj)
 
 void erouter_free(t_erouter *x)
 {
-    free(x->e_childs);
+	if(x->e_childs)
+	{
+		free(x->e_childs);
+		x->e_childs = NULL;
+	}
 }
 
 void erouter_detach(t_object* child)

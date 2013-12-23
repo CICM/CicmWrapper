@@ -28,7 +28,9 @@
 #define round(val)  floor(val + 0.5)
 #endif
 
+extern "C" {
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
+}
 
 typedef struct  _colorpanel
 {
@@ -83,7 +85,7 @@ void colorpanel_mousedown(t_colorpanel *x, t_object *patcherview, t_pt pt, long 
 void colorpanel_mouseleave(t_colorpanel *x, t_object *patcherview, t_pt pt, long modifiers);
 void colorpanel_preset(t_colorpanel *x, t_binbuf *b);
 
-void setup_c0x2ecolorpanel(void)
+extern "C" void setup_c0x2ecolorpanel(void)
 {
 	t_eclass *c;
     

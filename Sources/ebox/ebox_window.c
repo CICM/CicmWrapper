@@ -69,24 +69,23 @@ void ebox_bind_events(t_ebox* x)
 	right += 8;
 #endif
     
-    sys_vgui("bind %s <Button-3> {+pdsend {%s mousedown %%x %%y %i}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name, right);
-    sys_vgui("bind %s <Button-2> {+pdsend {%s mousedown %%x %%y %i}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name, right);
-    sys_vgui("bind %s <Button-1> {+pdsend {%s mousedown %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
-    sys_vgui("bind %s <ButtonRelease>   {+pdsend {%s mouseup     %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
-    sys_vgui("bind %s <Motion> {+pdsend {%s mousemove %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <Button-3> {pdsend {%s mousedown %%x %%y %i}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name, right);
+    sys_vgui("bind %s <Button-2> {pdsend {%s mousedown %%x %%y %i}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name, right);
+    sys_vgui("bind %s <Button-1> {pdsend {%s mousedown %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <ButtonRelease>   {pdsend {%s mouseup     %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <Motion> {pdsend {%s mousemove %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
     
-    sys_vgui("bind %s <Enter> {+pdsend {%s mouseenter}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
-    sys_vgui("bind %s <Leave> {+pdsend {%s mouseleave}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <Enter> {pdsend {%s mouseenter}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
+    sys_vgui("bind %s <Leave> {pdsend {%s mouseleave}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
     
     if(c->c_widget.w_dblclick)
-       sys_vgui("bind %s <Double-Button-1> {+pdsend {%s dblclick   %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
+       sys_vgui("bind %s <Double-Button-1> {pdsend {%s dblclick   %%x %%y %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
     if(c->c_widget.w_mousewheel)
-        sys_vgui("bind %s <MouseWheel> {+pdsend {%s mousewheel  %%x %%y %%D %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
+        sys_vgui("bind %s <MouseWheel> {pdsend {%s mousewheel  %%x %%y %%D %%s}}\n", x->e_drawing_id->s_name, x->e_object_id->s_name);
     if(c->c_widget.w_key || c->c_widget.w_keyfilter)
         sys_vgui("bind %s <Key>  {pdsend {%s key  %%k %%N}} \n",  x->e_drawing_id->s_name, x->e_object_id->s_name);
     
     // Canvas & Editor Binding //
-    
     sys_vgui("bind %s <<EditMode>>  {+pdsend {#erouter %s editmode}} \n", x->e_editor_id->s_name, x->e_object_id->s_name);
     if(c->c_widget.w_deserted)
     {
@@ -148,6 +147,7 @@ void ebox_create_window(t_ebox* x, t_glist* glist)
              (int)(x->e_rect.height + x->e_boxparameters.d_borderthickness * 2.));
 
     x->e_modifiers = 0;
+	
 #ifdef _WINDOWS
 	
 #else

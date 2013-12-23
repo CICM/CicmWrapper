@@ -24,7 +24,9 @@
  *
  */
 
+extern "C"  {
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
+}
 
 #define MAXITEMS 100
 
@@ -85,7 +87,7 @@ void tab_mousemove(t_tab *x, t_object *patcherview, t_pt pt, long modifiers);
 
 void tab_preset(t_tab *x, t_binbuf *b);
 
-void setup_c0x2etab(void)
+extern "C" void setup_c0x2etab(void)
 {
 	t_eclass *c;
     
@@ -364,7 +366,7 @@ void tab_float(t_tab *x, t_floatarg f)
 void tab_symbol(t_tab *x, t_symbol *s, int argc, t_atom *argv)
 {
     int i;
-    t_atom* av = malloc(argc + 1);
+    t_atom* av = (t_atom *)calloc(argc + 1, sizeof(t_atom));
     atom_setsym(av, s);
     for(i = 0; i < argc; i++)
         av[i+1] = argv[i];

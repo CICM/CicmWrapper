@@ -24,7 +24,9 @@
  *
  */
 
+extern "C"  {
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
+}
 
 #define MAXBINBUF 1024
 
@@ -80,7 +82,7 @@ void preset_mousemove(t_preset *x, t_object *patcherview, t_pt pt, long modifier
 void preset_mousedown(t_preset *x, t_object *patcherview, t_pt pt, long modifiers);
 void preset_mouseleave(t_preset *x, t_object *patcherview, t_pt pt, long modifiers);
 
-void setup_c0x2epreset(void)
+extern "C" void setup_c0x2epreset(void)
 {
 	t_eclass *c;
     

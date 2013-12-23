@@ -24,7 +24,9 @@
  *
  */
 
+extern "C"  {
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
+}
 
 typedef struct  _number
 {
@@ -84,7 +86,7 @@ void number_deserted(t_number *x);
 
 void number_preset(t_number *x, t_binbuf *b);
 
-void setup_c0x2enumber(void)
+extern "C" void setup_c0x2enumber(void)
 {
 	t_eclass *c;
     

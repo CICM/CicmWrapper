@@ -23,9 +23,9 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  */
-
+extern "C" {
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
-
+}
 #define MAXPOINTS 256
 
 typedef struct _breakpoints
@@ -101,7 +101,7 @@ void breakpoints_mousedrag(t_breakpoints *x, t_object *patcherview, t_pt pt, lon
 void breakpoints_mouseleave(t_breakpoints *x, t_object *patcherview, t_pt pt, long modifiers);
 void breakpoints_mouseup(t_breakpoints *x, t_object *patcherview, t_pt pt, long modifiers);
 
-void setup_c0x2ebreakpoints(void)
+extern "C" void setup_c0x2ebreakpoints(void)
 {
 	t_eclass *c;
     

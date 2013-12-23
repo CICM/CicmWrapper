@@ -24,7 +24,9 @@
  *
  */
 
+extern "C" {
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
+}
 
 #define MAXITEMS 100
 
@@ -89,7 +91,7 @@ void menu_mousemove(t_menu *x, t_object *patcherview, t_pt pt, long modifiers);
 
 void menu_preset(t_menu *x, t_binbuf *b);
 
-void setup_c0x2emenu(void)
+extern "C" void setup_c0x2emenu(void)
 {
 	t_eclass *c;
     
@@ -389,7 +391,7 @@ void menu_float(t_menu *x, t_floatarg f)
 void menu_symbol(t_menu *x, t_symbol *s, int argc, t_atom *argv)
 {
     int i;
-    t_atom* av = malloc(argc + 1);
+    t_atom* av = (t_atom *)calloc(argc + 1, sizeof(t_atom));
     atom_setsym(av, s);
     for(i = 0; i < argc; i++)
         av[i+1] = argv[i];

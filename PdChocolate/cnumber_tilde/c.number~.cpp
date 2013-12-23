@@ -24,7 +24,9 @@
  *
  */
 
+extern "C"  {
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
+}
 
 typedef struct  _number
 {
@@ -67,7 +69,7 @@ void draw_value(t_number *x,  t_object *view, t_rect *rect);
 
 void number_preset(t_number *x, t_binbuf *b);
 
-void setup_c0x2enumber_tilde(void)
+extern "C" void setup_c0x2enumber_tilde(void)
 {
 	t_eclass *c;
     
@@ -280,7 +282,7 @@ void draw_value(t_number *x, t_object *view, t_rect *rect)
         // TRONQUER LE NOMBRE ENTIER
         if(size > x->f_max_decimal+1)
         {
-            sprintf(number, "%i...", (int)(x->f_peak_value / pow(10, size - (x->f_max_decimal+1))));
+            sprintf(number, "%i...", (int)(x->f_peak_value / powf(10, size - (x->f_max_decimal+1))));
         }
         // TRONQUER LES DECIMALS
         else

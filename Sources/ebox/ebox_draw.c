@@ -493,8 +493,11 @@ void ebox_erase(t_ebox* x)
     {
         sys_vgui("destroy %s \n", x->e_drawing_id->s_name);
     }
-    
-    free(x->e_layers);
+    if(x->e_layers)
+	{
+		free(x->e_layers);
+		x->e_layers = NULL;
+	}
     x->e_number_of_layers = 0;
 }
 

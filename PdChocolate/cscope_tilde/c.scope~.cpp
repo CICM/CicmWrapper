@@ -24,7 +24,9 @@
  *
  */
 
+extern "C"  {
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
+}
 
 typedef struct  _scope
 {
@@ -68,7 +70,7 @@ void draw_background(t_scope *x,  t_object *view, t_rect *rect);
 void draw_signal(t_scope *x,  t_object *view, t_rect *rect);
 void draw_signalXY(t_scope *x, t_object *view, t_rect *rect);
 
-void setup_c0x2escope_tilde(void)
+extern "C" void setup_c0x2escope_tilde(void)
 {
 	t_eclass *c;
     
