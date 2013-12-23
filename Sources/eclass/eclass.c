@@ -90,7 +90,7 @@ void eclass_init(t_eclass* c, long flags)
     class_setsavefn((t_class *)&c->c_class, ebox_save);
     class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
     
-    sys_vgui("namespace eval eclass%s {} \n", c->c_class.c_name);
+    sys_vgui("namespace eval eclass%s {} \n", c->c_class.c_name->s_name);
     // GLOBAL MOUSE POSITION //
     sys_vgui("proc ebox_%s_global_mousepos {target} {\n", c->c_class.c_name->s_name);
     sys_gui(" set x [winfo pointerx .]\n");
