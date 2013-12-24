@@ -1,5 +1,5 @@
 /*
- * PdEnhanced - Pure Data Enhanced 
+ * PdEnhanced - Pure Data Enhanced
  *
  * An add-on for Pure Data
  *
@@ -53,9 +53,8 @@ t_outlet* anythingout(void *x)
 
 int obj_isfloatoutlet(t_object *x, int m)
 {
-    int n;
     t_outlet *o2;
-    for (o2 = x->ob_outlet, n = 0; o2 && m--; o2 = o2->o_next);
+    for (o2 = x->ob_outlet; o2 && m--; o2 = o2->o_next);
     return (o2 && (o2->o_sym == &s_float));
 }
 
@@ -102,7 +101,7 @@ void* object_method(void* x, t_symbol* s, void* z, method method, long number, v
 void* object_method(void* x, t_symbol* s, ...)
 {
     va_list arguments;
-    
+
     va_start(arguments, s);
     while (*vp)
     {
@@ -111,7 +110,7 @@ void* object_method(void* x, t_symbol* s, ...)
         *vp = va_arg(arguments, t_atomtype);
     }
     va_end(ap);
-    
+
     rmethod nrmethod = (rmethod)getfn((t_pd *)x, s);
     return nrmethod(x, s, ...);
 }*/
@@ -198,7 +197,7 @@ long atoms_from_fatoms(long ac, t_atom* av)
                     while(pch == NULL && i < ac);
                 }
                 atom_setsym(av+j, gensym(buffer));
-                
+
             }
             else
             {
@@ -215,7 +214,7 @@ long atoms_from_fatoms(long ac, t_atom* av)
 t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *argv)
 {
     int i;
-    
+
     long ac = argc+1;
     t_atom* av = (t_atom *)calloc(ac, sizeof(t_atom));
     atom_setsym(av, key);
@@ -224,7 +223,7 @@ t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *
     {
         av[i+1] = argv[i];
     }
-    
+
     binbuf_add(d, ac, av);
     return 0;
 }
@@ -241,7 +240,7 @@ t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_a
     int i;
     int index   = 0;
     argc[0]     = 0;
-    
+
     if(ac && av)
     {
         for(i = 0; i < ac; i++)
@@ -252,7 +251,7 @@ t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_a
             }
         }
     }
-    
+
     if(index)
     {
         i = index;
@@ -268,7 +267,7 @@ t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_a
         argv = NULL;
         return -1;
     }
-    
+
     if(argc[0])
     {
         argv[0] = (t_atom *)calloc(argc[0], sizeof(t_atom));
@@ -284,7 +283,7 @@ t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_a
         argv = NULL;
         return -1;
     }
-    
+
     return 0;
 }
 
