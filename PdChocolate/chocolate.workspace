@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="Workspace">
+		<Project filename="ctoggle/c.toggle.cbp" />
+		<Project filename="ctab/c.tab.cbp" />
+		<Project filename="cslider/c.slider.cbp" />
+		<Project filename="cscope_tilde/c.scope~.cbp" />
+		<Project filename="cradio/c.radio.cbp" />
+		<Project filename="cpreset/c.preset.cbp" />
+		<Project filename="cplane/c.plane.cbp" />
+		<Project filename="cnumber_tilde/c.number~.cbp" />
+		<Project filename="cnumber/c.number.cbp" />
+		<Project filename="cmeter_tilde/c.meter~.cbp" />
+		<Project filename="cmenu/c.menu.cbp" />
+		<Project filename="cknob/c.knob.cbp" />
+		<Project filename="cincdec/c.incdec.cbp" />
+		<Project filename="cgain_tilde/c.gain~.cbp" />
+		<Project filename="ccolorpanel/c.colorpanel.cbp" />
+		<Project filename="cbreakpoints/c.breakpoints.cbp" />
+		<Project filename="cblackboard/c.blackboard.cbp" />
+		<Project filename="cbang/c.bang.cbp" />
+	</Workspace>
+</CodeBlocks_workspace_file>

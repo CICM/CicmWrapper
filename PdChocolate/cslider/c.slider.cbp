@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="c.slider" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../builds/$(PROJECT_NAME).pd_linux" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="Linux" />
+				<Option object_output="Linux" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+					<Add option="-fPIC" />
+					<Add directory="../../../../SDKs/pd-extended/pd/src" />
+				</Compiler>
+				<Linker>
+					<Add option="-fPIC" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../builds/$(PROJECT_NAME).pd_linux" prefix_auto="0" extension_auto="0" />
+				<Option object_output="../builds" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-fPIC" />
+					<Add directory="../../../../SDKs/pd-extended/pd/src" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-fPIC" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="../../Sources/eattr/eattr.h" />
+		<Unit filename="../../Sources/eattr/eattr_attr.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/eattr/eattr_getter.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/eattr/eattr_new.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/eattr/eattr_setter.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/ebox/ebox.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/ebox/ebox.h" />
+		<Unit filename="../../Sources/ebox/ebox_attr.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/ebox/ebox_draw.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/ebox/ebox_dsp.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/ebox/ebox_handle.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/ebox/ebox_patcher.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/ebox/ebox_window.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/eclass/eclass.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/eclass/eclass.h" />
+		<Unit filename="../../Sources/ecommon/eboxflag.h" />
+		<Unit filename="../../Sources/ecommon/ecommon.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/ecommon/ecommon.h" />
+		<Unit filename="../../Sources/egraphics/egraphics.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/egraphics/egraphics.h" />
+		<Unit filename="../../Sources/egraphics/egraphics_color.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/egraphics/egraphics_forms.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/egraphics/egraphics_matrix.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/egraphics/egraphics_text.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/epd.h" />
+		<Unit filename="../../Sources/epd_max.h" />
+		<Unit filename="../../Sources/epopup/epopup.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/epopup/epopup.h" />
+		<Unit filename="../../Sources/erouter/erouter.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/erouter/erouter.h" />
+		<Unit filename="../../Sources/estruct.h" />
+		<Unit filename="../../Sources/ewidget/ewidget.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/ewidget/ewidget.h" />
+		<Unit filename="../../Sources/pd_enhanced.h" />
+		<Unit filename="c.slider.cpp" />
+		<Extensions>
+			<envvars />
+			<code_completion>
+				<search_path add="../../../../SDKs/pd-extended/pd/src" />
+			</code_completion>
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

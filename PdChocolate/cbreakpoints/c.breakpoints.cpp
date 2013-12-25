@@ -31,12 +31,12 @@ extern "C" {
 typedef struct _breakpoints
 {
 	t_ebox      j_box;
-    
+
     t_outlet*   f_out_float;
     t_outlet*   f_out_list;
     t_outlet*   f_out_function;
     t_clock*    f_clock;
-    
+
     t_pt        f_size;
     t_pt        f_mouse;
     float       f_point_abscissa[MAXPOINTS];
@@ -47,16 +47,16 @@ typedef struct _breakpoints
     long        f_point_last_created;
     long        f_output_inc;
     char        f_output_nextprev;
-    
+
     float       f_range_abscissa[2];
     float       f_range_ordinate[2];
-    
+
 	t_rgba		f_color_background;
 	t_rgba		f_color_border;
 	t_rgba		f_color_point;
     t_rgba		f_color_line;
     t_rgba		f_color_text;
-    
+
 } t_breakpoints;
 
 t_eclass *breakpoints_class;
@@ -104,80 +104,80 @@ void breakpoints_mouseup(t_breakpoints *x, t_object *patcherview, t_pt pt, long 
 extern "C" void setup_c0x2ebreakpoints(void)
 {
 	t_eclass *c;
-    
+
 	c = eclass_new("c.breakpoints", (method)breakpoints_new, (method)breakpoints_free, (short)sizeof(t_breakpoints), 0L, A_GIMME, 0);
-    
+
 	eclass_init(c, 0);
-	
+
 	eclass_addmethod(c, (method) breakpoints_assist,          "assist",           A_CANT, 0);
 	eclass_addmethod(c, (method) breakpoints_paint,           "paint",            A_CANT, 0);
 	eclass_addmethod(c, (method) breakpoints_notify,          "notify",           A_CANT, 0);
     eclass_addmethod(c, (method) breakpoints_getdrawparams,   "getdrawparams",    A_CANT, 0);
     eclass_addmethod(c, (method) breakpoints_oksize,          "oksize",           A_CANT, 0);
-    
+
     eclass_addmethod(c, (method) breakpoints_float,           "float",            A_FLOAT,0);
     eclass_addmethod(c, (method) breakpoints_bang,            "bang",             A_CANT, 0);
     eclass_addmethod(c, (method) breakpoints_next,            "next",             A_CANT, 0);
     eclass_addmethod(c, (method) breakpoints_prev,            "prev",             A_CANT, 0);
     eclass_addmethod(c, (method) breakpoints_getlist,         "getlist",          A_CANT, 0);
-    
+
     eclass_addmethod(c, (method) breakpoints_add,             "add",              A_GIMME,0);
     eclass_addmethod(c, (method) breakpoints_move,            "move",             A_GIMME,0);
     eclass_addmethod(c, (method) breakpoints_remove,          "remove",           A_GIMME,0);
     eclass_addmethod(c, (method) breakpoints_erase,           "erase",            A_CANT,0);
     eclass_addmethod(c, (method) breakpoints_function,        "function",         A_GIMME,0);
-    
+
     eclass_addmethod(c, (method) breakpoints_scaleabs,        "scaleabs",         A_GIMME,0);
     eclass_addmethod(c, (method) breakpoints_scaleord,        "scaleord",         A_GIMME,0);
-    
+
     eclass_addmethod(c, (method) breakpoints_mousedown,       "mousedown",        A_CANT, 0);
     eclass_addmethod(c, (method) breakpoints_mousemove,       "mousemove",        A_CANT, 0);
     eclass_addmethod(c, (method) breakpoints_mousedrag,       "mousedrag",        A_CANT, 0);
     eclass_addmethod(c, (method) breakpoints_mouseleave,      "mouseleave",       A_CANT, 0);
     eclass_addmethod(c, (method) breakpoints_mouseup,         "mouseup",          A_CANT, 0);
-    
+
     eclass_addmethod(c, (method) breakpoints_preset,          "preset",           A_CANT, 0);
     eclass_addmethod(c, (method) breakpoints_read,            "read",             A_GIMME,0);
     eclass_addmethod(c, (method) breakpoints_write,           "write",            A_GIMME,0);
     eclass_addmethod(c, (method) breakpoints_save,            "save",             A_CANT, 0);
-    
+
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "150. 100.");
-    
+
     CLASS_ATTR_FLOAT_ARRAY          (c, "absrange", 0, t_breakpoints, f_range_abscissa, 2);
 	CLASS_ATTR_ORDER                (c, "absrange", 0, "2");
 	CLASS_ATTR_LABEL                (c, "absrange", 0, "Abscissa Range");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "absrange", 0, "0. 1000.");
-    
+
     CLASS_ATTR_FLOAT_ARRAY          (c, "ordrange", 0, t_breakpoints, f_range_ordinate, 2);
 	CLASS_ATTR_ORDER                (c, "ordrange", 0, "2");
 	CLASS_ATTR_LABEL                (c, "ordrange", 0, "Ordinate Range");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "ordrange", 0, "0. 1.");
-    
+
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_breakpoints, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
-	
+
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_breakpoints, f_color_border);
 	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Box Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
-	
+
 	CLASS_ATTR_RGBA                 (c, "ptcolor", 0, t_breakpoints, f_color_point);
 	CLASS_ATTR_LABEL                (c, "ptcolor", 0, "Point Color");
 	CLASS_ATTR_ORDER                (c, "ptcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "ptcolor", 0, "0.5 0.5 0.5 1.");
-    
+
     CLASS_ATTR_RGBA                 (c, "licolor", 0, t_breakpoints, f_color_line);
 	CLASS_ATTR_LABEL                (c, "licolor", 0, "Line Color");
 	CLASS_ATTR_ORDER                (c, "licolor", 0, "4");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "licolor", 0, "0. 0. 0. 1.");
-    
+
     CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_breakpoints, f_color_text);
 	CLASS_ATTR_LABEL                (c, "textcolor", 0, "Text Color");
 	CLASS_ATTR_ORDER                (c, "textcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "0. 0. 0. 1.");
-	
+
     eclass_register(CLASS_NOBOX, c);
 	breakpoints_class = c;
 }
@@ -189,7 +189,7 @@ void *breakpoints_new(t_symbol *s, int argc, t_atom *argv)
     long flags;
 	if (!(d = binbuf_via_atoms(argc,argv)))
 		return NULL;
-    
+
 	x = (t_breakpoints *)ebox_alloc(breakpoints_class);
     flags = 0
     | EBOX_GROWINDI
@@ -199,7 +199,7 @@ void *breakpoints_new(t_symbol *s, int argc, t_atom *argv)
     x->f_out_float = (t_outlet *)floatout(x);
     x->f_out_list = (t_outlet *)listout(x);
     x->f_out_function = (t_outlet *)listout(x);
-    
+
     x->f_number_of_points = 0;
     x->f_point_hover    = -1;
     x->f_point_selected = -1;
@@ -208,9 +208,9 @@ void *breakpoints_new(t_symbol *s, int argc, t_atom *argv)
     x->f_point_last_created = -1;
     x->f_mouse.x = -666666;
     x->f_mouse.y = -666666;
-    
+
     x->f_clock = clock_new(x, (t_method)breakpoints_inc);
-    
+
     binbuf_attr_process(x, d);
     breakpoints_init(x, d);
 	ebox_ready((t_ebox *)x);
@@ -279,7 +279,7 @@ void breakpoints_bang(t_breakpoints *x)
         atom_setfloat(av, x->f_point_ordinate[0]);
         atom_setfloat(av+1, x->f_point_abscissa[0]);
         outlet_list(x->f_out_list, &s_list, 2, av);
-        
+
         if(x->f_number_of_points > 1)
             clock_delay(x->f_clock, x->f_point_abscissa[1] - x->f_point_abscissa[0]);
     }
@@ -308,8 +308,8 @@ void breakpoints_next(t_breakpoints *x)
     x->f_output_nextprev++;
     if(x->f_output_nextprev >= x->f_number_of_points)
         x->f_output_nextprev = 0;
-    atom_setfloat(av, x->f_point_ordinate[x->f_output_nextprev]);
-    atom_setfloat(av+1, x->f_point_abscissa[x->f_output_nextprev]);
+    atom_setfloat(av, (float)x->f_point_ordinate[x->f_output_nextprev]);
+    atom_setfloat(av+1, (float)x->f_point_abscissa[x->f_output_nextprev]);
     outlet_list(x->f_out_list, &s_list, 2, av);
 }
 
@@ -337,17 +337,17 @@ void breakpoints_add(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv)
     float abs, ord;
     if(x->f_number_of_points == MAXPOINTS)
         return;
-    
+
     if(argc && argv)
     {
         if(argc == 2 && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT)
         {
             abs = atom_getfloat(argv);
             ord = pd_clip_minmax(atom_getfloat(argv+1), x->f_range_ordinate[0], x->f_range_ordinate[1]);
-            
+
             if(abs < x->f_range_abscissa[0] || abs > x->f_range_abscissa[1])
                 return;
-            
+
             if(x->f_number_of_points == 0)
             {
                 index  = 0;
@@ -364,7 +364,7 @@ void breakpoints_add(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv)
                     if(abs > x->f_point_abscissa[i])
                         index = i+1;
                 }
-                
+
                 for(i = x->f_number_of_points-1; i >= index; i--)
                 {
                     x->f_point_abscissa[i+1] = x->f_point_abscissa[i];
@@ -375,10 +375,10 @@ void breakpoints_add(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv)
             x->f_point_ordinate[index] = ord;
             x->f_number_of_points++;
             x->f_point_last_created = index;
-            
+
             ebox_invalidate_layer((t_ebox *)x, gensym("points_layer"));
             ebox_redraw((t_ebox *)x);
-            
+
         }
     }
 }
@@ -388,7 +388,7 @@ void breakpoints_remove(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv)
     int index, i;
     if(x->f_number_of_points == MAXPOINTS)
         return;
-    
+
     if(argc && argv)
     {
         if(argc == 1 && atom_gettype(argv) == A_FLOAT)
@@ -396,7 +396,7 @@ void breakpoints_remove(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv)
             index = atom_getfloat(argv);
             if(index >= x->f_number_of_points || index < 0)
                 return;
-            
+
             for(i = index; i < x->f_number_of_points; i++)
             {
                 x->f_point_abscissa[i] = x->f_point_abscissa[i+1];
@@ -415,7 +415,7 @@ void breakpoints_move(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv)
     float abs, ord;
     if(x->f_number_of_points == MAXPOINTS)
         return;
-    
+
     if(argc && argv)
     {
         if(argc == 3 && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT && atom_gettype(argv+2) == A_FLOAT)
@@ -445,7 +445,7 @@ void breakpoints_move(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv)
                 x->f_point_abscissa[index] = pd_clip_minmax(abs, x->f_point_abscissa[index-1], x->f_point_abscissa[index+1]);
                 x->f_point_ordinate[index] = ord;
             }
-            
+
             ebox_invalidate_layer((t_ebox *)x, gensym("points_layer"));
             ebox_redraw((t_ebox *)x);
         }
@@ -465,7 +465,7 @@ void breakpoints_scaleabs(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv
             min = max;
             max = atom_getfloat(argv);
         }
-        
+
         ratio = x->f_range_abscissa[1] - x->f_range_abscissa[0];
         for(i = 0; i < x->f_number_of_points; i++)
         {
@@ -473,7 +473,7 @@ void breakpoints_scaleabs(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv
         }
         object_attr_setvalueof((t_object *)x, gensym("absrange"), argc, argv);
     }
-    
+
 }
 
 void breakpoints_scaleord(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv)
@@ -489,7 +489,7 @@ void breakpoints_scaleord(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv
             min = max;
             max = atom_getfloat(argv);
         }
-        
+
         ratio = x->f_range_ordinate[1] - x->f_range_ordinate[0];
         for(i = 0; i < x->f_number_of_points; i++)
         {
@@ -529,7 +529,7 @@ t_pd_err breakpoints_notify(t_breakpoints *x, t_symbol *s, t_symbol *msg, void *
                 x->f_range_ordinate[0] = x->f_range_ordinate[1];
                 x->f_range_ordinate[1] = max;
             }
-            
+
             for(i = 0; i < x->f_number_of_points; i++)
             {
                 if(x->f_point_abscissa[i] < x->f_range_abscissa[0] || x->f_point_abscissa[i] > x->f_range_abscissa[1])
@@ -588,7 +588,7 @@ void draw_text(t_breakpoints *x, t_object *view, t_rect *rect)
         etext_layout_set(jtl, number, &x->j_box.e_font, 5, height * 0.5, rect->width, 0, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
         etext_layout_settextcolor(jtl, &x->f_color_text);
         etext_layout_draw(jtl, g);
-        
+
         ebox_end_layer((t_ebox*)x, gensym("text_layer"));
 	}
     if(jtl)
@@ -605,12 +605,12 @@ void draw_points(t_breakpoints *x, t_object *view, t_rect *rect)
     float ratiox, ratioy;
     float height = sys_fontheight(ebox_getfontsize((t_ebox *)x)) + 2;
 	t_elayer *g = ebox_start_layer((t_ebox *)x, gensym("points_layer"), rect->width, rect->height);
-    
+
 	if (g && x->f_number_of_points)
 	{
         ratiox = (rect->width - 4.) / (x->f_range_abscissa[1] - x->f_range_abscissa[0]);
         ratioy = (rect->height - height - 4.) / (x->f_range_ordinate[1] - x->f_range_ordinate[0]);
-        
+
         egraphics_set_line_width(g, 2);
         egraphics_set_color_rgba(g, &x->f_color_line);
         abs = (x->f_point_abscissa[0] - x->f_range_abscissa[0]) * ratiox + 2.;
@@ -620,11 +620,11 @@ void draw_points(t_breakpoints *x, t_object *view, t_rect *rect)
         {
             abs = (x->f_point_abscissa[i] - x->f_range_abscissa[0]) * ratiox + 2.;
             ord = rect->height - (x->f_point_ordinate[i] - x->f_range_ordinate[0]) * ratioy - 2.;
-            
+
             egraphics_line_to(g, abs, ord);
         }
         egraphics_stroke(g);
-        
+
         egraphics_set_color_rgba(g, &x->f_color_point);
         for(i = 0; i < x->f_number_of_points; i++)
         {
@@ -656,13 +656,13 @@ void breakpoints_mousemove(t_breakpoints *x, t_object *patcherview, t_pt pt, lon
     float height = sys_fontheight(ebox_getfontsize((t_ebox *)x)) + 2;
     float distx = (3. / (x->f_size.x - 4.)) * (x->f_range_abscissa[1] - x->f_range_abscissa[0]);
     float disty = (3. / (x->f_size.y - 4. - height)) * (x->f_range_ordinate[1] - x->f_range_ordinate[0]);
-    
+
     abs = ((pt.x - 3.) / (x->f_size.x - 4.)) * (x->f_range_abscissa[1] - x->f_range_abscissa[0]) + x->f_range_abscissa[0];
     ord = ((x->f_size.y - (pt.y - 4.) - 4.) / (x->f_size.y - 4. - height)) * (x->f_range_ordinate[1] - x->f_range_ordinate[0]) + x->f_range_ordinate[0];
     x->f_point_hover = -1;
     x->f_mouse.x = abs;
     x->f_mouse.y = ord;
-    
+
     for(i = 0; i < x->f_number_of_points; i++)
     {
         if(abs > x->f_point_abscissa[i] - distx && abs < x->f_point_abscissa[i] + distx && ord > x->f_point_ordinate[i] - disty && ord < x->f_point_ordinate[i] + disty)
@@ -683,7 +683,7 @@ void breakpoints_mousedown(t_breakpoints *x, t_object *patcherview, t_pt pt, lon
     float height = sys_fontheight(ebox_getfontsize((t_ebox *)x)) + 2;
     float distx = (3. / (x->f_size.x - 4.)) * (x->f_range_abscissa[1] - x->f_range_abscissa[0]);
     float disty = (3. / (x->f_size.y - 4. - height)) * (x->f_range_ordinate[1] - x->f_range_ordinate[0]);
-    
+
     abs = ((pt.x - 3.) / (x->f_size.x - 4.)) * (x->f_range_abscissa[1] - x->f_range_abscissa[0]) + x->f_range_abscissa[0];
     ord = ((x->f_size.y - (pt.y - 4.) - 4.) / (x->f_size.y - 4. - height)) * (x->f_range_ordinate[1] - x->f_range_ordinate[0]) + x->f_range_ordinate[0];
 
@@ -692,7 +692,7 @@ void breakpoints_mousedown(t_breakpoints *x, t_object *patcherview, t_pt pt, lon
     x->f_point_last_created = -1;
     x->f_mouse.x = abs;
     x->f_mouse.y = ord;
-    
+
     ebox_invalidate_layer((t_ebox *)x, gensym("text_layer"));
     if(modifiers == EMOD_SHIFT)
     {
@@ -702,14 +702,14 @@ void breakpoints_mousedown(t_breakpoints *x, t_object *patcherview, t_pt pt, lon
         x->f_point_selected = x->f_point_last_created;
         return;
     }
-    
+
     for(i = 0; i < x->f_number_of_points; i++)
     {
         if(abs > x->f_point_abscissa[i] - distx && abs < x->f_point_abscissa[i] + distx && ord > x->f_point_ordinate[i] - disty && ord < x->f_point_ordinate[i] + disty)
         {
             x->f_point_selected = i;
             x->f_point_hover    = i;
-            
+
         }
     }
     if(modifiers == EMOD_ALT)
@@ -734,7 +734,7 @@ void breakpoints_mousedrag(t_breakpoints *x, t_object *patcherview, t_pt pt, lon
     abs = ((pt.x - 3.) / (x->f_size.x - 4.)) * (x->f_range_abscissa[1] - x->f_range_abscissa[0]) + x->f_range_abscissa[0];
     ord = ((x->f_size.y - (pt.y - 4.) - 4.) / (x->f_size.y - 4. - height)) * (x->f_range_ordinate[1] - x->f_range_ordinate[0]) + x->f_range_ordinate[0];
 
-    
+
     x->f_mouse.x = abs;
     x->f_mouse.y = ord;
     ebox_invalidate_layer((t_ebox *)x, gensym("text_layer"));
@@ -754,7 +754,7 @@ void breakpoints_mouseleave(t_breakpoints *x, t_object *patcherview, t_pt pt, lo
     x->f_point_hover    = -1;
     x->f_mouse.x = -666666;
     x->f_mouse.y = -666666;
-    
+
     ebox_invalidate_layer((t_ebox *)x, gensym("text_layer"));
     ebox_invalidate_layer((t_ebox *)x, gensym("points_layer"));
     ebox_redraw((t_ebox *)x);
@@ -767,11 +767,11 @@ void breakpoints_mouseup(t_breakpoints *x, t_object *patcherview, t_pt pt, long 
     abs = ((pt.x - 3.) / (x->f_size.x - 4.)) * (x->f_range_abscissa[1] - x->f_range_abscissa[0]) + x->f_range_abscissa[0];
     ord = ((x->f_size.y - (pt.y - 4.) - 4.) / (x->f_size.y - 4. - height)) * (x->f_range_ordinate[1] - x->f_range_ordinate[0]) + x->f_range_ordinate[0];
 
-    
+
     x->f_mouse.x = abs;
     x->f_mouse.y = ord;
     x->f_point_selected    = -1;
-    
+
     ebox_invalidate_layer((t_ebox *)x, gensym("text_layer"));
     ebox_invalidate_layer((t_ebox *)x, gensym("points_layer"));
     ebox_redraw((t_ebox *)x);
@@ -832,7 +832,7 @@ void breakpoints_write(t_breakpoints *x, t_symbol *s, long argc, t_atom *argv)
     }
     if(d)
         binbuf_free(d);
-    
+
 }
 
 void breakpoints_function(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv)

@@ -1,5 +1,5 @@
 /*
- * PdEnhanced - Pure Data Enhanced 
+ * PdEnhanced - Pure Data Enhanced
  *
  * An add-on for Pure Data
  *
