@@ -31,6 +31,11 @@ void outlet_int(t_outlet* outlet, int val)
     outlet_float(outlet, val);
 }
 
+t_outlet* symbolout(void *x)
+{
+    return outlet_new((t_object *)x, &s_symbol);
+}
+
 t_outlet* listout(void *x)
 {
     return outlet_new((t_object *)x, &s_list);

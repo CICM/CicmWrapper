@@ -1,0 +1,84 @@
+#N canvas 256 94 729 408 10;
+#X obj -25 -74 cnv 40 552 40 empty empty patcherargs 3 12 0 18 -228856
+-33289 0;
+#X text -13 308 Pd Coffee by Pierre Guillot | CICM - Universit� Paris
+8;
+#X obj 57 79 prepend set;
+#X msg 57 115 Once upon a time;
+#X obj 196 79 prepend set;
+#X msg 196 115 where in the west;
+#X obj 57 21 c.bang @size 15 15 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 336 117 c.bang @size 15 15 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X text -22 -52 An object that retrieve the patcher arguments.;
+#X obj 57 52 patcherargs Once upon a time @where in the west;
+#X text 55 136 The argument list;
+#X text 194 136 The where attribute;
+#X text 194 146 and his value;
+#X text 330 136 Bang when arguments and;
+#X text -24 -31 patcherargs retrieves the arguments and the attributes
+of a patcher. It can have default arguments and attributes that will
+be output if they don't exist.;
+#X text 330 146 attributes has been read;
+#N canvas 555 449 615 248 This 0;
+#X obj 57 69 prepend set;
+#X msg 57 105 This is a movie-patcher;
+#X obj 213 69 ! set;
+#X msg 213 105 movie 8.5;
+#X obj 57 42 patcherargs;
+#X obj 161 42 patcherargs @movie;
+#X obj 334 69 prepend set;
+#X msg 334 105 maker Fellini;
+#X obj 456 69 prepend set;
+#X obj 401 42 patcherargs @actors;
+#X obj 282 42 patcherargs @maker;
+#X msg 456 105 actors Mastroianni and Aimée;
+#X connect 0 0 1 0;
+#X connect 2 0 3 0;
+#X connect 4 0 0 0;
+#X connect 5 1 2 0;
+#X connect 6 0 7 0;
+#X connect 8 0 11 0;
+#X connect 9 1 8 0;
+#X connect 10 1 6 0;
+#X restore 56 196 pd This is a movie-patcher @movie 8.5 @maker Fellini
+@actors Mastroianni and Aimée;
+#X text 385 14 Patcher arguments and attributes;
+#N canvas 555 449 615 248 This 0;
+#X obj 57 79 prepend set;
+#X obj 57 15 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 57 115 This is a movie-patcher !;
+#X obj 232 115 prepend set;
+#X obj 232 79 route movie maker actors;
+#X obj 312 115 prepend set;
+#X msg 312 145 Pasolini;
+#X obj 392 115 prepend set;
+#X msg 392 145 Stamp & Mangano & Girotti;
+#X msg 232 145 Teorema;
+#X obj 57 42 patcherargs This is a movie-patcher ! @movie Teorema @maker
+Pasolini @actors Stamp & Mangano & Girotti;
+#X connect 0 0 2 0;
+#X connect 1 0 10 0;
+#X connect 3 0 9 0;
+#X connect 4 0 3 0;
+#X connect 4 1 5 0;
+#X connect 4 2 7 0;
+#X connect 5 0 6 0;
+#X connect 7 0 8 0;
+#X connect 10 0 0 0;
+#X connect 10 1 4 0;
+#X restore 57 240 pd This is a movie-patcher;
+#X text 428 202 Example with defined attributes;
+#X text 218 242 Example with default arguments and attributes;
+#X text 385 24 are retrieved on load and can be;
+#X text 385 34 output with bang or dblclick;
+#X connect 2 0 3 0;
+#X connect 4 0 5 0;
+#X connect 6 0 9 0;
+#X connect 9 0 2 0;
+#X connect 9 1 4 0;
+#X connect 9 2 7 0;

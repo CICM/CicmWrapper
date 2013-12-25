@@ -88,11 +88,14 @@ void *loadmess_new(t_symbol *s, int argc, t_atom *argv)
         if(atom_gettype(argv) == A_FLOAT)
             x->l_out = (t_outlet *)floatout(x);
         else if (atom_gettype(argv) == A_SYMBOL)
-            x->l_out = (t_outlet *)listout(x);
+            x->l_out = (t_outlet *)symbolout(x);
     }
     else
     {
-        x->l_out = (t_outlet *)listout(x);
+        if(atom_gettype(argv) == A_FLOAT)
+            x->l_out = (t_outlet *)listout(x);
+        else if (atom_gettype(argv) == A_SYMBOL)
+            x->l_out = (t_outlet *)anythingout(x);
     }
     
     return (x);
@@ -119,7 +122,10 @@ void loadmess_output(t_loadmess *x)
     }
     else
     {
-        outlet_list(x->l_out, &s_list, x->l_argc, x->l_argv);
+        if(atom_gettype(x->l_argv) == A_FLOAT)
+            outlet_list(x->l_out, &s_list, x->l_argc, x->l_argv);
+        else if (atom_gettype(x->l_argv) == A_SYMBOL)
+            outlet_anything(x->l_out, atom_getsym(x->l_argv), x->l_argc-1, x->l_argv+1);
     }
 }
 

@@ -42,11 +42,11 @@
 		8F9074C5185B1A0A003AA6BD /* ewidget.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F9074A3185B1A0A003AA6BD /* ewidget.c */; };
 		8F9074C6185B1A0A003AA6BD /* ewidget.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F9074A4185B1A0A003AA6BD /* ewidget.h */; };
 		8F9074C7185B1A0A003AA6BD /* pd_enhanced.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F9074A5185B1A0A003AA6BD /* pd_enhanced.h */; };
-		8FB730CF180953EB00830C7B /* pak.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB730CE180953EB00830C7B /* pak.c */; };
+		8FB730CF180953EB00830C7B /* prepend.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB730CE180953EB00830C7B /* prepend.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5913846F15DAA36D0029AD16 /* mouse.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = mouse.pd_darwin; sourceTree = BUILT_PRODUCTS_DIR; };
+		5913846F15DAA36D0029AD16 /* prepend.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = prepend.pd_darwin; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FB02F717A7FAA9001E977D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		8F90747D185B1A0A003AA6BD /* eattr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eattr.h; sourceTree = "<group>"; };
 		8F90747E185B1A0A003AA6BD /* eattr_attr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eattr_attr.c; sourceTree = "<group>"; };
@@ -82,7 +82,7 @@
 		8F9074A3185B1A0A003AA6BD /* ewidget.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ewidget.c; sourceTree = "<group>"; };
 		8F9074A4185B1A0A003AA6BD /* ewidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ewidget.h; sourceTree = "<group>"; };
 		8F9074A5185B1A0A003AA6BD /* pd_enhanced.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pd_enhanced.h; sourceTree = "<group>"; };
-		8FB730CE180953EB00830C7B /* pak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pak.c; sourceTree = "<group>"; };
+		8FB730CE180953EB00830C7B /* prepend.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = prepend.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +100,7 @@
 		5913846415DAA36D0029AD16 = {
 			isa = PBXGroup;
 			children = (
-				8FB730CE180953EB00830C7B /* pak.c */,
+				8FB730CE180953EB00830C7B /* prepend.c */,
 				8F90747B185B1A0A003AA6BD /* Sources */,
 				59FB02F717A7FAA9001E977D /* Accelerate.framework */,
 				5913847015DAA36D0029AD16 /* Products */,
@@ -110,7 +110,7 @@
 		5913847015DAA36D0029AD16 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5913846F15DAA36D0029AD16 /* mouse.pd_darwin */,
+				5913846F15DAA36D0029AD16 /* prepend.pd_darwin */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -247,9 +247,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		5913846E15DAA36D0029AD16 /* mouse */ = {
+		5913846E15DAA36D0029AD16 /* prepend */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5913847315DAA36D0029AD16 /* Build configuration list for PBXNativeTarget "mouse" */;
+			buildConfigurationList = 5913847315DAA36D0029AD16 /* Build configuration list for PBXNativeTarget "prepend" */;
 			buildPhases = (
 				5913846B15DAA36D0029AD16 /* Sources */,
 				5913846C15DAA36D0029AD16 /* Frameworks */,
@@ -259,9 +259,9 @@
 			);
 			dependencies = (
 			);
-			name = mouse;
+			name = prepend;
 			productName = pd1;
-			productReference = 5913846F15DAA36D0029AD16 /* mouse.pd_darwin */;
+			productReference = 5913846F15DAA36D0029AD16 /* prepend.pd_darwin */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -272,7 +272,7 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 			};
-			buildConfigurationList = 5913846915DAA36D0029AD16 /* Build configuration list for PBXProject "mouse" */;
+			buildConfigurationList = 5913846915DAA36D0029AD16 /* Build configuration list for PBXProject "prepend" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -284,7 +284,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5913846E15DAA36D0029AD16 /* mouse */,
+				5913846E15DAA36D0029AD16 /* prepend */,
 			);
 		};
 /* End PBXProject section */
@@ -308,7 +308,7 @@
 				8F9074B1185B1A0A003AA6BD /* ebox_patcher.c in Sources */,
 				8F9074AD185B1A0A003AA6BD /* ebox_attr.c in Sources */,
 				8F9074AA185B1A0A003AA6BD /* eattr_setter.c in Sources */,
-				8FB730CF180953EB00830C7B /* pak.c in Sources */,
+				8FB730CF180953EB00830C7B /* prepend.c in Sources */,
 				8F9074C2185B1A0A003AA6BD /* erouter.c in Sources */,
 				8F9074BC185B1A0A003AA6BD /* egraphics_matrix.c in Sources */,
 				8F9074B8185B1A0A003AA6BD /* egraphics.c in Sources */,
@@ -376,7 +376,7 @@
 					dynamic_lookup,
 				);
 				PRELINK_LIBS = "";
-				PRODUCT_NAME = mouse;
+				PRODUCT_NAME = prepend;
 				USER_HEADER_SEARCH_PATHS = "/Developer/usr/include /usr/local/include";
 			};
 			name = Release;
@@ -384,7 +384,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5913846915DAA36D0029AD16 /* Build configuration list for PBXProject "mouse" */ = {
+		5913846915DAA36D0029AD16 /* Build configuration list for PBXProject "prepend" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5913847215DAA36D0029AD16 /* Release */,
@@ -392,7 +392,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5913847315DAA36D0029AD16 /* Build configuration list for PBXNativeTarget "mouse" */ = {
+		5913847315DAA36D0029AD16 /* Build configuration list for PBXNativeTarget "prepend" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5913847515DAA36D0029AD16 /* Release */,
