@@ -1,0 +1,178 @@
+\hypertarget{edspobj_8c}{\section{Sources/eobj/edspobj.c File Reference}
+\label{edspobj_8c}\index{Sources/eobj/edspobj.\-c@{Sources/eobj/edspobj.\-c}}
+}
+
+
+The basic edspobj functions.  
+
+
+{\ttfamily \#include \char`\"{}edspobj.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{edspobj_8c_ae019212dddab3f7bd6dfd39acf574be9}{ebox\-\_\-dspsetup} (void $\ast$x, long nins, long nouts)
+\begin{DoxyCompactList}\small\item\em Initialize an eobj for D\-S\-P. \end{DoxyCompactList}\item 
+void \hyperlink{edspobj_8c_a64cb5ffe42ec8989161ba654f966a0d4}{ebox\-\_\-dspfree} (void $\ast$x)
+\begin{DoxyCompactList}\small\item\em Free a dsp eobj (note that if the object is also an U\-I, you don't need to call \hyperlink{ebox_8c_af23211541198cfe590300b42e758c94e}{ebox\-\_\-free()}) \end{DoxyCompactList}\item 
+void \hyperlink{edspobj_8c_ae2ab8f6c9a9fd92dde6680156aeb72c2}{ebox\-\_\-resize\-\_\-inputs} (void $\ast$x, long nins)
+\begin{DoxyCompactList}\small\item\em Resize the number of signal inputs of an ebox. \end{DoxyCompactList}\item 
+void \hyperlink{edspobj_8c_a9e08d47f84fef4ec49321e05b712d8b1}{ebox\-\_\-resize\-\_\-outputs} (void $\ast$x, long nouts)
+\begin{DoxyCompactList}\small\item\em Resize the number of signal outputs of an ebox. \end{DoxyCompactList}\item 
+void \hyperlink{edspobj_8c_a9b6d7adf78a3be77032769ccc4f2d3ff}{eobj\-\_\-dsp} (\hyperlink{estruct_8h_a9668957b9f134d4a24735be06751362c}{t\-\_\-edspobj} $\ast$x, t\-\_\-signal $\ast$$\ast$sp)
+\begin{DoxyCompactList}\small\item\em The dsp method (P\-R\-I\-V\-A\-T\-E) \end{DoxyCompactList}\item 
+t\-\_\-int $\ast$ \hyperlink{edspobj_8c_ace63b2b0184d732f3a18ab6c12a7cb4f}{eobj\-\_\-perform} (t\-\_\-int $\ast$w)
+\begin{DoxyCompactList}\small\item\em The perform method (P\-R\-I\-V\-A\-T\-E) \end{DoxyCompactList}\item 
+void \hyperlink{edspobj_8c_a6b83271218b34e7febba96f3d0cc220b}{ebox\-\_\-dsp\-\_\-add} (\hyperlink{estruct_8h_a9668957b9f134d4a24735be06751362c}{t\-\_\-edspobj} $\ast$x, t\-\_\-symbol $\ast$s, t\-\_\-object $\ast$obj, \hyperlink{ecommon_8h_ab1d8a64ecf75ff5e30ec8ee685f03179}{method} m, long flags, void $\ast$userparam)
+\begin{DoxyCompactList}\small\item\em The dsp add method (P\-R\-I\-V\-A\-T\-E) \end{DoxyCompactList}\item 
+void \hyperlink{edspobj_8c_a92bfbf8089ad9e9bbc5f0d9dfb7018ad}{ebox\-\_\-getconnections} (\hyperlink{estruct_8h_a9668957b9f134d4a24735be06751362c}{t\-\_\-edspobj} $\ast$x, short $\ast$count)
+\begin{DoxyCompactList}\small\item\em The function should return the inlets and outlets dsp connections (P\-R\-I\-V\-A\-T\-E A\-N\-D N\-O\-T R\-E\-A\-D\-Y) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The basic edspobj functions. \begin{DoxyAuthor}{Author}
+Pierre Guillot 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\-1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2013-\/2014
+\end{DoxyDate}
+Functions to allocate, initialize and free the memory of an edspobj and functions to call the dsp and perform methods. 
+
+Definition in file \hyperlink{edspobj_8c_source}{edspobj.\-c}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{edspobj_8c_a6b83271218b34e7febba96f3d0cc220b}{\index{edspobj.\-c@{edspobj.\-c}!ebox\-\_\-dsp\-\_\-add@{ebox\-\_\-dsp\-\_\-add}}
+\index{ebox\-\_\-dsp\-\_\-add@{ebox\-\_\-dsp\-\_\-add}!edspobj.c@{edspobj.\-c}}
+\subsubsection[{ebox\-\_\-dsp\-\_\-add}]{\setlength{\rightskip}{0pt plus 5cm}void ebox\-\_\-dsp\-\_\-add (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-edspobj} $\ast$}]{x, }
+\item[{t\-\_\-symbol $\ast$}]{s, }
+\item[{t\-\_\-object $\ast$}]{obj, }
+\item[{{\bf method}}]{m, }
+\item[{long}]{flags, }
+\item[{void $\ast$}]{userparam}
+\end{DoxyParamCaption}
+)}}\label{edspobj_8c_a6b83271218b34e7febba96f3d0cc220b}
+
+
+The dsp add method (P\-R\-I\-V\-A\-T\-E) 
+
+
+
+Definition at line 265 of file edspobj.\-c.
+
+\hypertarget{edspobj_8c_a64cb5ffe42ec8989161ba654f966a0d4}{\index{edspobj.\-c@{edspobj.\-c}!ebox\-\_\-dspfree@{ebox\-\_\-dspfree}}
+\index{ebox\-\_\-dspfree@{ebox\-\_\-dspfree}!edspobj.c@{edspobj.\-c}}
+\subsubsection[{ebox\-\_\-dspfree}]{\setlength{\rightskip}{0pt plus 5cm}void ebox\-\_\-dspfree (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{x}
+\end{DoxyParamCaption}
+)}}\label{edspobj_8c_a64cb5ffe42ec8989161ba654f966a0d4}
+
+
+Free a dsp eobj (note that if the object is also an U\-I, you don't need to call \hyperlink{ebox_8c_af23211541198cfe590300b42e758c94e}{ebox\-\_\-free()}) 
+
+
+
+Definition at line 72 of file edspobj.\-c.
+
+\hypertarget{edspobj_8c_ae019212dddab3f7bd6dfd39acf574be9}{\index{edspobj.\-c@{edspobj.\-c}!ebox\-\_\-dspsetup@{ebox\-\_\-dspsetup}}
+\index{ebox\-\_\-dspsetup@{ebox\-\_\-dspsetup}!edspobj.c@{edspobj.\-c}}
+\subsubsection[{ebox\-\_\-dspsetup}]{\setlength{\rightskip}{0pt plus 5cm}void ebox\-\_\-dspsetup (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{x, }
+\item[{long}]{nins, }
+\item[{long}]{nouts}
+\end{DoxyParamCaption}
+)}}\label{edspobj_8c_ae019212dddab3f7bd6dfd39acf574be9}
+
+
+Initialize an eobj for D\-S\-P. 
+
+
+
+Definition at line 48 of file edspobj.\-c.
+
+\hypertarget{edspobj_8c_a92bfbf8089ad9e9bbc5f0d9dfb7018ad}{\index{edspobj.\-c@{edspobj.\-c}!ebox\-\_\-getconnections@{ebox\-\_\-getconnections}}
+\index{ebox\-\_\-getconnections@{ebox\-\_\-getconnections}!edspobj.c@{edspobj.\-c}}
+\subsubsection[{ebox\-\_\-getconnections}]{\setlength{\rightskip}{0pt plus 5cm}void ebox\-\_\-getconnections (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-edspobj} $\ast$}]{x, }
+\item[{short $\ast$}]{count}
+\end{DoxyParamCaption}
+)}}\label{edspobj_8c_a92bfbf8089ad9e9bbc5f0d9dfb7018ad}
+
+
+The function should return the inlets and outlets dsp connections (P\-R\-I\-V\-A\-T\-E A\-N\-D N\-O\-T R\-E\-A\-D\-Y) 
+
+
+
+Definition at line 279 of file edspobj.\-c.
+
+\hypertarget{edspobj_8c_ae2ab8f6c9a9fd92dde6680156aeb72c2}{\index{edspobj.\-c@{edspobj.\-c}!ebox\-\_\-resize\-\_\-inputs@{ebox\-\_\-resize\-\_\-inputs}}
+\index{ebox\-\_\-resize\-\_\-inputs@{ebox\-\_\-resize\-\_\-inputs}!edspobj.c@{edspobj.\-c}}
+\subsubsection[{ebox\-\_\-resize\-\_\-inputs}]{\setlength{\rightskip}{0pt plus 5cm}void ebox\-\_\-resize\-\_\-inputs (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{x, }
+\item[{long}]{nins}
+\end{DoxyParamCaption}
+)}}\label{edspobj_8c_ae2ab8f6c9a9fd92dde6680156aeb72c2}
+
+
+Resize the number of signal inputs of an ebox. 
+
+
+
+Definition at line 90 of file edspobj.\-c.
+
+\hypertarget{edspobj_8c_a9e08d47f84fef4ec49321e05b712d8b1}{\index{edspobj.\-c@{edspobj.\-c}!ebox\-\_\-resize\-\_\-outputs@{ebox\-\_\-resize\-\_\-outputs}}
+\index{ebox\-\_\-resize\-\_\-outputs@{ebox\-\_\-resize\-\_\-outputs}!edspobj.c@{edspobj.\-c}}
+\subsubsection[{ebox\-\_\-resize\-\_\-outputs}]{\setlength{\rightskip}{0pt plus 5cm}void ebox\-\_\-resize\-\_\-outputs (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{x, }
+\item[{long}]{nouts}
+\end{DoxyParamCaption}
+)}}\label{edspobj_8c_a9e08d47f84fef4ec49321e05b712d8b1}
+
+
+Resize the number of signal outputs of an ebox. 
+
+
+
+Definition at line 122 of file edspobj.\-c.
+
+\hypertarget{edspobj_8c_a9b6d7adf78a3be77032769ccc4f2d3ff}{\index{edspobj.\-c@{edspobj.\-c}!eobj\-\_\-dsp@{eobj\-\_\-dsp}}
+\index{eobj\-\_\-dsp@{eobj\-\_\-dsp}!edspobj.c@{edspobj.\-c}}
+\subsubsection[{eobj\-\_\-dsp}]{\setlength{\rightskip}{0pt plus 5cm}void eobj\-\_\-dsp (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-edspobj} $\ast$}]{x, }
+\item[{t\-\_\-signal $\ast$$\ast$}]{sp}
+\end{DoxyParamCaption}
+)}}\label{edspobj_8c_a9b6d7adf78a3be77032769ccc4f2d3ff}
+
+
+The dsp method (P\-R\-I\-V\-A\-T\-E) 
+
+
+
+Definition at line 187 of file edspobj.\-c.
+
+\hypertarget{edspobj_8c_ace63b2b0184d732f3a18ab6c12a7cb4f}{\index{edspobj.\-c@{edspobj.\-c}!eobj\-\_\-perform@{eobj\-\_\-perform}}
+\index{eobj\-\_\-perform@{eobj\-\_\-perform}!edspobj.c@{edspobj.\-c}}
+\subsubsection[{eobj\-\_\-perform}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-int$\ast$ eobj\-\_\-perform (
+\begin{DoxyParamCaption}
+\item[{t\-\_\-int $\ast$}]{w}
+\end{DoxyParamCaption}
+)}}\label{edspobj_8c_ace63b2b0184d732f3a18ab6c12a7cb4f}
+
+
+The perform method (P\-R\-I\-V\-A\-T\-E) 
+
+
+
+Definition at line 219 of file edspobj.\-c.
+

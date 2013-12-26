@@ -155,7 +155,7 @@ void *preset_new(t_symbol *s, int argc, t_atom *argv)
 	if (!(d = binbuf_via_atoms(argc,argv)))
 		return NULL;
     
-	x = (t_preset *)ebox_alloc(preset_class);
+	x = (t_preset *)eobj_alloc(preset_class);
     x->f_init = 0;
     flags = 0
     | EBOX_GROWINDI

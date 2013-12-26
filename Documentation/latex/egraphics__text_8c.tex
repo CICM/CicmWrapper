@@ -1,0 +1,101 @@
+\hypertarget{egraphics__text_8c}{\section{Sources/egraphics/egraphics\-\_\-text.c File Reference}
+\label{egraphics__text_8c}\index{Sources/egraphics/egraphics\-\_\-text.\-c@{Sources/egraphics/egraphics\-\_\-text.\-c}}
+}
+{\ttfamily \#include \char`\"{}egraphics.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{estruct_8h_a18c8d269848e474fac68c69e47b9bfea}{t\-\_\-etext} $\ast$ \hyperlink{egraphics__text_8c_aac0fb6c3fcc99c73ed24117e55ee3007}{etext\-\_\-layout\-\_\-create} ()
+\item 
+void \hyperlink{egraphics__text_8c_aa0db7897a34ede0e88090217e266d43a}{etext\-\_\-layout\-\_\-destroy} (\hyperlink{estruct_8h_a18c8d269848e474fac68c69e47b9bfea}{t\-\_\-etext} $\ast$textlayout)
+\item 
+void \hyperlink{egraphics__text_8c_a72d9cb99d09ddca4f3c24cba2025e9e7}{etext\-\_\-layout\-\_\-set} (\hyperlink{estruct_8h_a18c8d269848e474fac68c69e47b9bfea}{t\-\_\-etext} $\ast$textlayout, char $\ast$text, \hyperlink{estruct_8h_a0ff751991151d14e6ca5a0b5c4fcbe8b}{t\-\_\-efont} $\ast$jfont, double x, double y, double width, double height, \hyperlink{estruct_8h_a16a65ab698f84192f84ff4ac376bd40c}{t\-\_\-etextanchor\-\_\-flags} anchor, \hyperlink{estruct_8h_a622b0d886213c0f77b92385fd7874c2f}{t\-\_\-etextjustify\-\_\-flags} justify, \hyperlink{estruct_8h_a23dc036dcc2af8ab4bd13ffd6dbfd80e}{t\-\_\-etextwrap\-\_\-flags} wrap)
+\item 
+void \hyperlink{egraphics__text_8c_a6dc133480bb28bcd659eba01716e43e4}{etext\-\_\-layout\-\_\-settextcolor} (\hyperlink{estruct_8h_a18c8d269848e474fac68c69e47b9bfea}{t\-\_\-etext} $\ast$textlayout, \hyperlink{estruct_8h_accd6b4d009fe9b0f43327724b74a60e9}{t\-\_\-rgba} $\ast$color)
+\item 
+\hyperlink{estruct_8h_a0ff751991151d14e6ca5a0b5c4fcbe8b}{t\-\_\-efont} $\ast$ \hyperlink{egraphics__text_8c_abe6c4703fa92c2ee2d6484656aa861df}{efont\-\_\-create} (t\-\_\-symbol $\ast$family, t\-\_\-symbol $\ast$slant, t\-\_\-symbol $\ast$weight, double size)
+\item 
+void \hyperlink{egraphics__text_8c_aa43b0920fcc3732dac62d39d0fff1d8a}{efont\-\_\-destroy} (\hyperlink{estruct_8h_a0ff751991151d14e6ca5a0b5c4fcbe8b}{t\-\_\-efont} $\ast$font)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{egraphics__text_8c_abe6c4703fa92c2ee2d6484656aa861df}{\index{egraphics\-\_\-text.\-c@{egraphics\-\_\-text.\-c}!efont\-\_\-create@{efont\-\_\-create}}
+\index{efont\-\_\-create@{efont\-\_\-create}!egraphics_text.c@{egraphics\-\_\-text.\-c}}
+\subsubsection[{efont\-\_\-create}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-efont}$\ast$ efont\-\_\-create (
+\begin{DoxyParamCaption}
+\item[{t\-\_\-symbol $\ast$}]{family, }
+\item[{t\-\_\-symbol $\ast$}]{slant, }
+\item[{t\-\_\-symbol $\ast$}]{weight, }
+\item[{double}]{size}
+\end{DoxyParamCaption}
+)}}\label{egraphics__text_8c_abe6c4703fa92c2ee2d6484656aa861df}
+
+
+Definition at line 92 of file egraphics\-\_\-text.\-c.
+
+\hypertarget{egraphics__text_8c_aa43b0920fcc3732dac62d39d0fff1d8a}{\index{egraphics\-\_\-text.\-c@{egraphics\-\_\-text.\-c}!efont\-\_\-destroy@{efont\-\_\-destroy}}
+\index{efont\-\_\-destroy@{efont\-\_\-destroy}!egraphics_text.c@{egraphics\-\_\-text.\-c}}
+\subsubsection[{efont\-\_\-destroy}]{\setlength{\rightskip}{0pt plus 5cm}void efont\-\_\-destroy (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-efont} $\ast$}]{font}
+\end{DoxyParamCaption}
+)}}\label{egraphics__text_8c_aa43b0920fcc3732dac62d39d0fff1d8a}
+
+
+Definition at line 109 of file egraphics\-\_\-text.\-c.
+
+\hypertarget{egraphics__text_8c_aac0fb6c3fcc99c73ed24117e55ee3007}{\index{egraphics\-\_\-text.\-c@{egraphics\-\_\-text.\-c}!etext\-\_\-layout\-\_\-create@{etext\-\_\-layout\-\_\-create}}
+\index{etext\-\_\-layout\-\_\-create@{etext\-\_\-layout\-\_\-create}!egraphics_text.c@{egraphics\-\_\-text.\-c}}
+\subsubsection[{etext\-\_\-layout\-\_\-create}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-etext}$\ast$ etext\-\_\-layout\-\_\-create (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{egraphics__text_8c_aac0fb6c3fcc99c73ed24117e55ee3007}
+
+
+Definition at line 29 of file egraphics\-\_\-text.\-c.
+
+\hypertarget{egraphics__text_8c_aa0db7897a34ede0e88090217e266d43a}{\index{egraphics\-\_\-text.\-c@{egraphics\-\_\-text.\-c}!etext\-\_\-layout\-\_\-destroy@{etext\-\_\-layout\-\_\-destroy}}
+\index{etext\-\_\-layout\-\_\-destroy@{etext\-\_\-layout\-\_\-destroy}!egraphics_text.c@{egraphics\-\_\-text.\-c}}
+\subsubsection[{etext\-\_\-layout\-\_\-destroy}]{\setlength{\rightskip}{0pt plus 5cm}void etext\-\_\-layout\-\_\-destroy (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-etext} $\ast$}]{textlayout}
+\end{DoxyParamCaption}
+)}}\label{egraphics__text_8c_aa0db7897a34ede0e88090217e266d43a}
+
+
+Definition at line 40 of file egraphics\-\_\-text.\-c.
+
+\hypertarget{egraphics__text_8c_a72d9cb99d09ddca4f3c24cba2025e9e7}{\index{egraphics\-\_\-text.\-c@{egraphics\-\_\-text.\-c}!etext\-\_\-layout\-\_\-set@{etext\-\_\-layout\-\_\-set}}
+\index{etext\-\_\-layout\-\_\-set@{etext\-\_\-layout\-\_\-set}!egraphics_text.c@{egraphics\-\_\-text.\-c}}
+\subsubsection[{etext\-\_\-layout\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}void etext\-\_\-layout\-\_\-set (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-etext} $\ast$}]{textlayout, }
+\item[{char $\ast$}]{text, }
+\item[{{\bf t\-\_\-efont} $\ast$}]{jfont, }
+\item[{double}]{x, }
+\item[{double}]{y, }
+\item[{double}]{width, }
+\item[{double}]{height, }
+\item[{{\bf t\-\_\-etextanchor\-\_\-flags}}]{anchor, }
+\item[{{\bf t\-\_\-etextjustify\-\_\-flags}}]{justify, }
+\item[{{\bf t\-\_\-etextwrap\-\_\-flags}}]{wrap}
+\end{DoxyParamCaption}
+)}}\label{egraphics__text_8c_a72d9cb99d09ddca4f3c24cba2025e9e7}
+
+
+Definition at line 45 of file egraphics\-\_\-text.\-c.
+
+\hypertarget{egraphics__text_8c_a6dc133480bb28bcd659eba01716e43e4}{\index{egraphics\-\_\-text.\-c@{egraphics\-\_\-text.\-c}!etext\-\_\-layout\-\_\-settextcolor@{etext\-\_\-layout\-\_\-settextcolor}}
+\index{etext\-\_\-layout\-\_\-settextcolor@{etext\-\_\-layout\-\_\-settextcolor}!egraphics_text.c@{egraphics\-\_\-text.\-c}}
+\subsubsection[{etext\-\_\-layout\-\_\-settextcolor}]{\setlength{\rightskip}{0pt plus 5cm}void etext\-\_\-layout\-\_\-settextcolor (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-etext} $\ast$}]{textlayout, }
+\item[{{\bf t\-\_\-rgba} $\ast$}]{color}
+\end{DoxyParamCaption}
+)}}\label{egraphics__text_8c_a6dc133480bb28bcd659eba01716e43e4}
+
+
+Definition at line 87 of file egraphics\-\_\-text.\-c.
+

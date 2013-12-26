@@ -1,0 +1,157 @@
+\hypertarget{eobj__dsp_8c}{\section{Sources/eobj/eobj\-\_\-dsp.c File Reference}
+\label{eobj__dsp_8c}\index{Sources/eobj/eobj\-\_\-dsp.\-c@{Sources/eobj/eobj\-\_\-dsp.\-c}}
+}
+{\ttfamily \#include \char`\"{}eobj.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{eobj__dsp_8c_a75990a2c2f4f51a081904dce5c5e14b4}{eobj\-\_\-dspsetup} (void $\ast$x, long nins, long nouts)
+\begin{DoxyCompactList}\small\item\em Initialize an eobj for D\-S\-P. \end{DoxyCompactList}\item 
+void \hyperlink{eobj__dsp_8c_ad1252e017dafb1443ae6806909808d04}{eobj\-\_\-dspfree} (void $\ast$x)
+\begin{DoxyCompactList}\small\item\em Free a dsp eobj (note that if the object is also an U\-I, you don't need to call \hyperlink{ebox_8c_af23211541198cfe590300b42e758c94e}{ebox\-\_\-free()}) \end{DoxyCompactList}\item 
+void \hyperlink{eobj__dsp_8c_a5e86c6f25b1ad53b29d490942ccbc5e9}{eobj\-\_\-resize\-\_\-inputs} (void $\ast$x, long nins)
+\begin{DoxyCompactList}\small\item\em Resize the number of signal inputs of an ebox. \end{DoxyCompactList}\item 
+void \hyperlink{eobj__dsp_8c_a8dd9873ea10d828254e741bf069c3ea4}{eobj\-\_\-resize\-\_\-outputs} (void $\ast$x, long nouts)
+\begin{DoxyCompactList}\small\item\em Resize the number of signal outputs of an ebox. \end{DoxyCompactList}\item 
+void \hyperlink{eobj__dsp_8c_a9b6d7adf78a3be77032769ccc4f2d3ff}{eobj\-\_\-dsp} (\hyperlink{estruct_8h_a9668957b9f134d4a24735be06751362c}{t\-\_\-edspobj} $\ast$x, t\-\_\-signal $\ast$$\ast$sp)
+\begin{DoxyCompactList}\small\item\em The dsp method (P\-R\-I\-V\-A\-T\-E) \end{DoxyCompactList}\item 
+t\-\_\-int $\ast$ \hyperlink{eobj__dsp_8c_ace63b2b0184d732f3a18ab6c12a7cb4f}{eobj\-\_\-perform} (t\-\_\-int $\ast$w)
+\begin{DoxyCompactList}\small\item\em The perform method (P\-R\-I\-V\-A\-T\-E) \end{DoxyCompactList}\item 
+void \hyperlink{eobj__dsp_8c_a53511d5b1b3b494e4a7ec71c1bc776d8}{eobj\-\_\-dsp\-\_\-add} (\hyperlink{estruct_8h_a9668957b9f134d4a24735be06751362c}{t\-\_\-edspobj} $\ast$x, t\-\_\-symbol $\ast$s, t\-\_\-object $\ast$obj, \hyperlink{ecommon_8h_ab1d8a64ecf75ff5e30ec8ee685f03179}{method} m, long flags, void $\ast$userparam)
+\begin{DoxyCompactList}\small\item\em The dsp add method (P\-R\-I\-V\-A\-T\-E) \end{DoxyCompactList}\item 
+void \hyperlink{eobj__dsp_8c_a4a9b9c841f907c30857c3cb5c2f2dffc}{eobj\-\_\-getconnections} (\hyperlink{estruct_8h_a9668957b9f134d4a24735be06751362c}{t\-\_\-edspobj} $\ast$x, short $\ast$count)
+\begin{DoxyCompactList}\small\item\em The function should return the inlets and outlets dsp connections (P\-R\-I\-V\-A\-T\-E A\-N\-D N\-O\-T R\-E\-A\-D\-Y) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{eobj__dsp_8c_a9b6d7adf78a3be77032769ccc4f2d3ff}{\index{eobj\-\_\-dsp.\-c@{eobj\-\_\-dsp.\-c}!eobj\-\_\-dsp@{eobj\-\_\-dsp}}
+\index{eobj\-\_\-dsp@{eobj\-\_\-dsp}!eobj_dsp.c@{eobj\-\_\-dsp.\-c}}
+\subsubsection[{eobj\-\_\-dsp}]{\setlength{\rightskip}{0pt plus 5cm}void eobj\-\_\-dsp (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-edspobj} $\ast$}]{x, }
+\item[{t\-\_\-signal $\ast$$\ast$}]{sp}
+\end{DoxyParamCaption}
+)}}\label{eobj__dsp_8c_a9b6d7adf78a3be77032769ccc4f2d3ff}
+
+
+The dsp method (P\-R\-I\-V\-A\-T\-E) 
+
+
+
+Definition at line 176 of file eobj\-\_\-dsp.\-c.
+
+\hypertarget{eobj__dsp_8c_a53511d5b1b3b494e4a7ec71c1bc776d8}{\index{eobj\-\_\-dsp.\-c@{eobj\-\_\-dsp.\-c}!eobj\-\_\-dsp\-\_\-add@{eobj\-\_\-dsp\-\_\-add}}
+\index{eobj\-\_\-dsp\-\_\-add@{eobj\-\_\-dsp\-\_\-add}!eobj_dsp.c@{eobj\-\_\-dsp.\-c}}
+\subsubsection[{eobj\-\_\-dsp\-\_\-add}]{\setlength{\rightskip}{0pt plus 5cm}void eobj\-\_\-dsp\-\_\-add (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-edspobj} $\ast$}]{x, }
+\item[{t\-\_\-symbol $\ast$}]{s, }
+\item[{t\-\_\-object $\ast$}]{obj, }
+\item[{{\bf method}}]{m, }
+\item[{long}]{flags, }
+\item[{void $\ast$}]{userparam}
+\end{DoxyParamCaption}
+)}}\label{eobj__dsp_8c_a53511d5b1b3b494e4a7ec71c1bc776d8}
+
+
+The dsp add method (P\-R\-I\-V\-A\-T\-E) 
+
+
+
+Definition at line 254 of file eobj\-\_\-dsp.\-c.
+
+\hypertarget{eobj__dsp_8c_ad1252e017dafb1443ae6806909808d04}{\index{eobj\-\_\-dsp.\-c@{eobj\-\_\-dsp.\-c}!eobj\-\_\-dspfree@{eobj\-\_\-dspfree}}
+\index{eobj\-\_\-dspfree@{eobj\-\_\-dspfree}!eobj_dsp.c@{eobj\-\_\-dsp.\-c}}
+\subsubsection[{eobj\-\_\-dspfree}]{\setlength{\rightskip}{0pt plus 5cm}void eobj\-\_\-dspfree (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{x}
+\end{DoxyParamCaption}
+)}}\label{eobj__dsp_8c_ad1252e017dafb1443ae6806909808d04}
+
+
+Free a dsp eobj (note that if the object is also an U\-I, you don't need to call \hyperlink{ebox_8c_af23211541198cfe590300b42e758c94e}{ebox\-\_\-free()}) 
+
+
+
+Definition at line 61 of file eobj\-\_\-dsp.\-c.
+
+\hypertarget{eobj__dsp_8c_a75990a2c2f4f51a081904dce5c5e14b4}{\index{eobj\-\_\-dsp.\-c@{eobj\-\_\-dsp.\-c}!eobj\-\_\-dspsetup@{eobj\-\_\-dspsetup}}
+\index{eobj\-\_\-dspsetup@{eobj\-\_\-dspsetup}!eobj_dsp.c@{eobj\-\_\-dsp.\-c}}
+\subsubsection[{eobj\-\_\-dspsetup}]{\setlength{\rightskip}{0pt plus 5cm}void eobj\-\_\-dspsetup (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{x, }
+\item[{long}]{nins, }
+\item[{long}]{nouts}
+\end{DoxyParamCaption}
+)}}\label{eobj__dsp_8c_a75990a2c2f4f51a081904dce5c5e14b4}
+
+
+Initialize an eobj for D\-S\-P. 
+
+
+
+Definition at line 37 of file eobj\-\_\-dsp.\-c.
+
+\hypertarget{eobj__dsp_8c_a4a9b9c841f907c30857c3cb5c2f2dffc}{\index{eobj\-\_\-dsp.\-c@{eobj\-\_\-dsp.\-c}!eobj\-\_\-getconnections@{eobj\-\_\-getconnections}}
+\index{eobj\-\_\-getconnections@{eobj\-\_\-getconnections}!eobj_dsp.c@{eobj\-\_\-dsp.\-c}}
+\subsubsection[{eobj\-\_\-getconnections}]{\setlength{\rightskip}{0pt plus 5cm}void eobj\-\_\-getconnections (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-edspobj} $\ast$}]{x, }
+\item[{short $\ast$}]{count}
+\end{DoxyParamCaption}
+)}}\label{eobj__dsp_8c_a4a9b9c841f907c30857c3cb5c2f2dffc}
+
+
+The function should return the inlets and outlets dsp connections (P\-R\-I\-V\-A\-T\-E A\-N\-D N\-O\-T R\-E\-A\-D\-Y) 
+
+
+
+Definition at line 268 of file eobj\-\_\-dsp.\-c.
+
+\hypertarget{eobj__dsp_8c_ace63b2b0184d732f3a18ab6c12a7cb4f}{\index{eobj\-\_\-dsp.\-c@{eobj\-\_\-dsp.\-c}!eobj\-\_\-perform@{eobj\-\_\-perform}}
+\index{eobj\-\_\-perform@{eobj\-\_\-perform}!eobj_dsp.c@{eobj\-\_\-dsp.\-c}}
+\subsubsection[{eobj\-\_\-perform}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-int$\ast$ eobj\-\_\-perform (
+\begin{DoxyParamCaption}
+\item[{t\-\_\-int $\ast$}]{w}
+\end{DoxyParamCaption}
+)}}\label{eobj__dsp_8c_ace63b2b0184d732f3a18ab6c12a7cb4f}
+
+
+The perform method (P\-R\-I\-V\-A\-T\-E) 
+
+
+
+Definition at line 208 of file eobj\-\_\-dsp.\-c.
+
+\hypertarget{eobj__dsp_8c_a5e86c6f25b1ad53b29d490942ccbc5e9}{\index{eobj\-\_\-dsp.\-c@{eobj\-\_\-dsp.\-c}!eobj\-\_\-resize\-\_\-inputs@{eobj\-\_\-resize\-\_\-inputs}}
+\index{eobj\-\_\-resize\-\_\-inputs@{eobj\-\_\-resize\-\_\-inputs}!eobj_dsp.c@{eobj\-\_\-dsp.\-c}}
+\subsubsection[{eobj\-\_\-resize\-\_\-inputs}]{\setlength{\rightskip}{0pt plus 5cm}void eobj\-\_\-resize\-\_\-inputs (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{x, }
+\item[{long}]{nins}
+\end{DoxyParamCaption}
+)}}\label{eobj__dsp_8c_a5e86c6f25b1ad53b29d490942ccbc5e9}
+
+
+Resize the number of signal inputs of an ebox. 
+
+
+
+Definition at line 79 of file eobj\-\_\-dsp.\-c.
+
+\hypertarget{eobj__dsp_8c_a8dd9873ea10d828254e741bf069c3ea4}{\index{eobj\-\_\-dsp.\-c@{eobj\-\_\-dsp.\-c}!eobj\-\_\-resize\-\_\-outputs@{eobj\-\_\-resize\-\_\-outputs}}
+\index{eobj\-\_\-resize\-\_\-outputs@{eobj\-\_\-resize\-\_\-outputs}!eobj_dsp.c@{eobj\-\_\-dsp.\-c}}
+\subsubsection[{eobj\-\_\-resize\-\_\-outputs}]{\setlength{\rightskip}{0pt plus 5cm}void eobj\-\_\-resize\-\_\-outputs (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{x, }
+\item[{long}]{nouts}
+\end{DoxyParamCaption}
+)}}\label{eobj__dsp_8c_a8dd9873ea10d828254e741bf069c3ea4}
+
+
+Resize the number of signal outputs of an ebox. 
+
+
+
+Definition at line 111 of file eobj\-\_\-dsp.\-c.
+

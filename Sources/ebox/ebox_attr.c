@@ -41,7 +41,7 @@ void atoms_attr_process(void *x, long argc, t_atom *argv)
     long defc       = 0;
     t_atom* defv    = NULL;
     t_ebox* z       = (t_ebox *)x;
-    t_eclass* c     = (t_eclass *)z->e_obj.te_g.g_pd;
+    t_eclass* c     = (t_eclass *)z->b_obj.o_obj.te_g.g_pd;
     
     for(i = 0; i < c->c_nattr; i++)
     {
@@ -72,7 +72,7 @@ void binbuf_attr_process(void *x, t_binbuf *d)
     long defc       = 0;
     t_atom* defv    = NULL;
     t_ebox* z       = (t_ebox *)x;
-    t_eclass* c     = (t_eclass *)z->e_obj.te_g.g_pd;
+    t_eclass* c     = (t_eclass *)z->b_obj.o_obj.te_g.g_pd;
     
     for(i = 0; i < c->c_nattr; i++)
     {
@@ -100,7 +100,7 @@ void default_attr_process(void *x)
     long defc       = 0;
     t_atom* defv    = NULL;
     t_ebox* z       = (t_ebox *)x;
-    t_eclass* c     = (t_eclass *)z->e_obj.te_g.g_pd;
+    t_eclass* c     = (t_eclass *)z->b_obj.o_obj.te_g.g_pd;
     
     for(i = 0; i < c->c_nattr; i++)
     {
@@ -146,7 +146,7 @@ void default_attr_process(void *x)
 */
 t_symbol* ebox_getfontname(t_ebox* x)
 {
-    return x->e_font.c_family;
+    return x->b_font.c_family;
 }
 
 //! Retrieve the font slant of an ebox
@@ -157,7 +157,7 @@ t_symbol* ebox_getfontname(t_ebox* x)
 */
 t_symbol* ebox_getfontslant(t_ebox* x)
 {
-    return x->e_font.c_slant;
+    return x->b_font.c_slant;
 }
 
 //! Retrieve the font weight of an ebox
@@ -168,7 +168,7 @@ t_symbol* ebox_getfontslant(t_ebox* x)
 */
 t_symbol* ebox_getfont_weight(t_ebox* x)
 {
-    return x->e_font.c_weight;
+    return x->b_font.c_weight;
 }
 
 //! Retrieve the font size of an ebox
@@ -179,7 +179,7 @@ t_symbol* ebox_getfont_weight(t_ebox* x)
 */
 float ebox_getfontsize(t_ebox* x)
 {
-    return x->e_font.c_size;
+    return x->b_font.c_size;
 }
 
 //! The default notify method of ebox called when an attribute has changed // PRIVATE
@@ -196,21 +196,21 @@ t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *
 {
 	int i;
     float bdsize;
-    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
+    t_eclass* c = (t_eclass *)x->b_obj.o_obj.te_g.g_pd;
     if(s == gensym("size"))
     {
         if(c->c_widget.w_oksize != NULL)
-            c->c_widget.w_oksize(x, &x->e_rect);
-        for(i = 0; i < x->e_number_of_layers; i++)
+            c->c_widget.w_oksize(x, &x->b_rect);
+        for(i = 0; i < x->b_number_of_layers; i++)
         {
-            x->e_layers[i].e_state = EGRAPHICS_INVALID;
+            x->b_layers[i].e_state = EGRAPHICS_INVALID;
         }
-        if(x->e_canvas && x->e_ready_to_draw && c->c_box == 0)
+        if(x->b_obj.o_canvas && x->b_ready_to_draw && c->c_box == 0)
         {
-            bdsize = x->e_boxparameters.d_borderthickness;
+            bdsize = x->b_boxparameters.d_borderthickness;
             
-            sys_vgui("%s itemconfigure %s -width %d -height %d\n", x->e_canvas_id->s_name, x->e_window_id->s_name, (int)(x->e_rect.width + bdsize * 2.), (int)(x->e_rect.height + bdsize * 2.));
-            canvas_fixlinesfor(x->e_canvas, (t_text *)x);
+            sys_vgui("%s itemconfigure %s -width %d -height %d\n", x->b_canvas_id->s_name, x->b_window_id->s_name, (int)(x->b_rect.width + bdsize * 2.), (int)(x->b_rect.height + bdsize * 2.));
+            canvas_fixlinesfor(x->b_obj.o_canvas, (t_text *)x);
         }
         
         ebox_redraw(x);
@@ -232,32 +232,32 @@ t_pd_err ebox_size_set(t_ebox *x, t_object *attr, long argc, t_atom *argv)
     float width, height;
     if(argc && argv)
     {
-        if(x->e_flags & EBOX_GROWNO)
+        if(x->b_flags & EBOX_GROWNO)
             return 0;
-        else if(x->e_flags & EBOX_GROWLINK)
+        else if(x->b_flags & EBOX_GROWLINK)
         {
             if(atom_gettype(argv) == A_FLOAT)
             {
                 width  = pd_clip_min(atom_getfloat(argv), 4);
-                height = x->e_rect.height;
-                x->e_rect.height += width - x->e_rect.width;
-                if(x->e_rect.height < 4)
+                height = x->b_rect.height;
+                x->b_rect.height += width - x->b_rect.width;
+                if(x->b_rect.height < 4)
                 {
-                    x->e_rect.width += 4 - height;
-                    x->e_rect.height = 4;
+                    x->b_rect.width += 4 - height;
+                    x->b_rect.height = 4;
                 }
                 else
                 {
-                    x->e_rect.width  =  width;
+                    x->b_rect.width  =  width;
                 }
             }
         }
-        else if (x->e_flags & EBOX_GROWINDI)
+        else if (x->b_flags & EBOX_GROWINDI)
         {
             if(atom_gettype(argv) == A_FLOAT)
-                x->e_rect.width = pd_clip_min(atom_getfloat(argv), 4);
+                x->b_rect.width = pd_clip_min(atom_getfloat(argv), 4);
             if(atom_gettype(argv+1) == A_FLOAT)
-                x->e_rect.height = pd_clip_min(atom_getfloat(argv+1), 4);
+                x->b_rect.height = pd_clip_min(atom_getfloat(argv+1), 4);
         }
     }
     
@@ -273,7 +273,7 @@ t_pd_err ebox_size_set(t_ebox *x, t_object *attr, long argc, t_atom *argv)
 void ebox_attrprint(t_ebox* x)
 {
     int i;
-    t_eclass* c     = (t_eclass *)x->e_obj.te_g.g_pd;
+    t_eclass* c     = (t_eclass *)x->b_obj.o_obj.te_g.g_pd;
     post("%s attributes :", c->c_class.c_name->s_name);
     for(i = 0; i < c->c_nattr; i++)
     {
@@ -295,7 +295,7 @@ void ebox_properties(t_gobj *z, t_glist *glist)
     t_atom *argv;
     long    argc;
     t_ebox *x = (t_ebox *)z;
-    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
+    t_eclass* c = (t_eclass *)x->b_obj.o_obj.te_g.g_pd;
     char buffer[MAXPDSTRING];
     char temp[MAXPDSTRING];
     
@@ -327,7 +327,7 @@ void ebox_properties(t_gobj *z, t_glist *glist)
         strcat(buffer, " ");
     }
     strcat(buffer, "\n");
-    gfxstub_new(&x->e_obj.ob_pd, x, buffer);
+    gfxstub_new(&x->b_obj.o_obj.ob_pd, x, buffer);
 }
 
 //! Receive the properties window messages and change the attributes values (PRIVATE)

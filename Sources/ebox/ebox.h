@@ -24,6 +24,13 @@
  *
  */
 
+/*!
+ * @file ebox.h
+ * @author Pierre Guillot
+ * @version 0.1
+ * @date 2013-2014
+ */
+
 #ifndef DEF_EBOX
 #define DEF_EBOX
 
@@ -31,32 +38,13 @@
 #include "../egraphics/egraphics.h"
 #include "../ewidget/ewidget.h"
 #include "../erouter/erouter.h"
+#include "../eobj/eobj.h"
 
 // ebox.c functions //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-void *ebox_alloc(t_eclass *c);
 void ebox_new(t_ebox *b, long flags);
 void ebox_ready(t_ebox *x);
 void ebox_free(t_ebox* x);
-char ebox_getregister(t_ebox *x);
-
-void ebox_inletnew(t_ebox* x);
-void eproxy_setup(t_eclass* c);
-void eproxy_anything(t_eproxy *x, t_symbol *s, int argc, t_atom *argv);
-void *eproxy_new(t_symbol *s, int argc, t_atom *argv);
-void eproxy_init(t_eproxy *x, t_ebox *owner, int index);
-int ebox_getproxy(t_ebox* x);
-// ebox_dsp.c functions//
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-void ebox_dspsetup(t_ebox *x, long nins, long nouts);
-void ebox_dspfree(t_ebox *x);
-void ebox_resize_inputs(t_ebox *x, long nins);
-void ebox_resize_outputs(t_ebox *x, long nouts);
-
-void ebox_dsp(t_ebox *x, t_signal **sp);                                                            // PRIVATE
-t_int* ebox_perform(t_int* w);                                                                      // PRIVATE
-void ebox_getconnections(t_ebox* x, short* count);                                                  // PRIVATE
-void ebox_dsp_add(t_ebox *x, t_symbol* s, t_object* obj, method m, long flags, void *userparam);    // PRIVATE
 
 // ebox_draw.c functions//
 ////////////////////////////////////////////////////////////////////////////////////////////////////////

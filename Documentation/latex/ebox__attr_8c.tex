@@ -1,0 +1,228 @@
+\hypertarget{ebox__attr_8c}{\section{Sources/ebox/ebox\-\_\-attr.c File Reference}
+\label{ebox__attr_8c}\index{Sources/ebox/ebox\-\_\-attr.\-c@{Sources/ebox/ebox\-\_\-attr.\-c}}
+}
+{\ttfamily \#include \char`\"{}ebox.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{ebox__attr_8c_ab88d4c432cccc353685418e5c3245092}{atoms\-\_\-attr\-\_\-process} (void $\ast$x, long argc, t\-\_\-atom $\ast$argv)
+\begin{DoxyCompactList}\small\item\em Change the attributes with an array of atoms. \end{DoxyCompactList}\item 
+void \hyperlink{ebox__attr_8c_a5694b084d55088ea23938adedb7f5d35}{binbuf\-\_\-attr\-\_\-process} (void $\ast$x, t\-\_\-binbuf $\ast$d)
+\begin{DoxyCompactList}\small\item\em Change the attributes with a binbuf. \end{DoxyCompactList}\item 
+void \hyperlink{ebox__attr_8c_a204b3bd38f67ad20bea9c746d54446dd}{default\-\_\-attr\-\_\-process} (void $\ast$x)
+\begin{DoxyCompactList}\small\item\em Change the attributes with their defaults values. \end{DoxyCompactList}\item 
+t\-\_\-symbol $\ast$ \hyperlink{ebox__attr_8c_a9cc07b9de1e8355c9120a5e6b72c200e}{ebox\-\_\-getfontname} (\hyperlink{estruct_8h_a7e9080d551b06530af7cb6f574e90bbe}{t\-\_\-ebox} $\ast$x)
+\begin{DoxyCompactList}\small\item\em Retrieve the font name of an ebox. \end{DoxyCompactList}\item 
+t\-\_\-symbol $\ast$ \hyperlink{ebox__attr_8c_a4ec93cf41296bde221592db0c9fc1e27}{ebox\-\_\-getfontslant} (\hyperlink{estruct_8h_a7e9080d551b06530af7cb6f574e90bbe}{t\-\_\-ebox} $\ast$x)
+\begin{DoxyCompactList}\small\item\em Retrieve the font slant of an ebox. \end{DoxyCompactList}\item 
+t\-\_\-symbol $\ast$ \hyperlink{ebox__attr_8c_a6688b3a062f9d823d9c28370645c3a4b}{ebox\-\_\-getfont\-\_\-weight} (\hyperlink{estruct_8h_a7e9080d551b06530af7cb6f574e90bbe}{t\-\_\-ebox} $\ast$x)
+\begin{DoxyCompactList}\small\item\em Retrieve the font weight of an ebox. \end{DoxyCompactList}\item 
+float \hyperlink{ebox__attr_8c_a187b43c8efeafc2fe9ff928b3fa81b21}{ebox\-\_\-getfontsize} (\hyperlink{estruct_8h_a7e9080d551b06530af7cb6f574e90bbe}{t\-\_\-ebox} $\ast$x)
+\begin{DoxyCompactList}\small\item\em Retrieve the font size of an ebox. \end{DoxyCompactList}\item 
+\hyperlink{ecommon_8h_a458e4680987e741cdb2075ddda51229b}{t\-\_\-pd\-\_\-err} \hyperlink{ebox__attr_8c_afccbedef509e9fbd11f147f101e69664}{ebox\-\_\-notify} (\hyperlink{estruct_8h_a7e9080d551b06530af7cb6f574e90bbe}{t\-\_\-ebox} $\ast$x, t\-\_\-symbol $\ast$s, t\-\_\-symbol $\ast$msg, void $\ast$sender, void $\ast$data)
+\begin{DoxyCompactList}\small\item\em The default notify method of ebox called when an attribute has changed // P\-R\-I\-V\-A\-T\-E. \end{DoxyCompactList}\item 
+\hyperlink{ecommon_8h_a458e4680987e741cdb2075ddda51229b}{t\-\_\-pd\-\_\-err} \hyperlink{ebox__attr_8c_a10693ecfeea41ac07ab2f36720f7cada}{ebox\-\_\-size\-\_\-set} (\hyperlink{estruct_8h_a7e9080d551b06530af7cb6f574e90bbe}{t\-\_\-ebox} $\ast$x, t\-\_\-object $\ast$attr, long argc, t\-\_\-atom $\ast$argv)
+\begin{DoxyCompactList}\small\item\em The default size attribute method of ebox called when an size attribute has changed. This function restrains the width and the height depending of the ebox flags E\-B\-O\-X\-\_\-\-G\-R\-O\-W\-N\-O, E\-B\-O\-X\-\_\-\-G\-R\-O\-W\-L\-I\-N\-K and E\-B\-O\-X\-\_\-\-G\-R\-O\-W\-I\-N\-D\-I // P\-R\-I\-V\-A\-T\-E. \end{DoxyCompactList}\item 
+void \hyperlink{ebox__attr_8c_abbc146621a3d4e8a69731212eee299c3}{ebox\-\_\-attrprint} (\hyperlink{estruct_8h_a7e9080d551b06530af7cb6f574e90bbe}{t\-\_\-ebox} $\ast$x)
+\begin{DoxyCompactList}\small\item\em The attribute print method that post all the attributes characteristics in the P\-D console // P\-R\-I\-V\-A\-T\-E. \end{DoxyCompactList}\item 
+void \hyperlink{ebox__attr_8c_a25a70428e513bb010853949da191d7b7}{ebox\-\_\-properties} (t\-\_\-gobj $\ast$z, t\-\_\-glist $\ast$glist)
+\begin{DoxyCompactList}\small\item\em Open the properties window (P\-R\-I\-V\-A\-T\-E) \end{DoxyCompactList}\item 
+void \hyperlink{ebox__attr_8c_abc8858f28190c36e1d990cbc8f322cc0}{ebox\-\_\-dialog} (t\-\_\-object $\ast$x, t\-\_\-symbol $\ast$s, long argc, t\-\_\-atom $\ast$argv)
+\begin{DoxyCompactList}\small\item\em Receive the properties window messages and change the attributes values (P\-R\-I\-V\-A\-T\-E) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{ebox__attr_8c_ab88d4c432cccc353685418e5c3245092}{\index{ebox\-\_\-attr.\-c@{ebox\-\_\-attr.\-c}!atoms\-\_\-attr\-\_\-process@{atoms\-\_\-attr\-\_\-process}}
+\index{atoms\-\_\-attr\-\_\-process@{atoms\-\_\-attr\-\_\-process}!ebox_attr.c@{ebox\-\_\-attr.\-c}}
+\subsubsection[{atoms\-\_\-attr\-\_\-process}]{\setlength{\rightskip}{0pt plus 5cm}void atoms\-\_\-attr\-\_\-process (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{x, }
+\item[{long}]{argc, }
+\item[{t\-\_\-atom $\ast$}]{argv}
+\end{DoxyParamCaption}
+)}}\label{ebox__attr_8c_ab88d4c432cccc353685418e5c3245092}
+
+
+Change the attributes with an array of atoms. 
+
+
+
+Definition at line 37 of file ebox\-\_\-attr.\-c.
+
+\hypertarget{ebox__attr_8c_a5694b084d55088ea23938adedb7f5d35}{\index{ebox\-\_\-attr.\-c@{ebox\-\_\-attr.\-c}!binbuf\-\_\-attr\-\_\-process@{binbuf\-\_\-attr\-\_\-process}}
+\index{binbuf\-\_\-attr\-\_\-process@{binbuf\-\_\-attr\-\_\-process}!ebox_attr.c@{ebox\-\_\-attr.\-c}}
+\subsubsection[{binbuf\-\_\-attr\-\_\-process}]{\setlength{\rightskip}{0pt plus 5cm}void binbuf\-\_\-attr\-\_\-process (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{x, }
+\item[{t\-\_\-binbuf $\ast$}]{d}
+\end{DoxyParamCaption}
+)}}\label{ebox__attr_8c_a5694b084d55088ea23938adedb7f5d35}
+
+
+Change the attributes with a binbuf. 
+
+
+
+Definition at line 67 of file ebox\-\_\-attr.\-c.
+
+\hypertarget{ebox__attr_8c_a204b3bd38f67ad20bea9c746d54446dd}{\index{ebox\-\_\-attr.\-c@{ebox\-\_\-attr.\-c}!default\-\_\-attr\-\_\-process@{default\-\_\-attr\-\_\-process}}
+\index{default\-\_\-attr\-\_\-process@{default\-\_\-attr\-\_\-process}!ebox_attr.c@{ebox\-\_\-attr.\-c}}
+\subsubsection[{default\-\_\-attr\-\_\-process}]{\setlength{\rightskip}{0pt plus 5cm}void default\-\_\-attr\-\_\-process (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{x}
+\end{DoxyParamCaption}
+)}}\label{ebox__attr_8c_a204b3bd38f67ad20bea9c746d54446dd}
+
+
+Change the attributes with their defaults values. 
+
+
+
+Definition at line 97 of file ebox\-\_\-attr.\-c.
+
+\hypertarget{ebox__attr_8c_abbc146621a3d4e8a69731212eee299c3}{\index{ebox\-\_\-attr.\-c@{ebox\-\_\-attr.\-c}!ebox\-\_\-attrprint@{ebox\-\_\-attrprint}}
+\index{ebox\-\_\-attrprint@{ebox\-\_\-attrprint}!ebox_attr.c@{ebox\-\_\-attr.\-c}}
+\subsubsection[{ebox\-\_\-attrprint}]{\setlength{\rightskip}{0pt plus 5cm}void ebox\-\_\-attrprint (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-ebox} $\ast$}]{x}
+\end{DoxyParamCaption}
+)}}\label{ebox__attr_8c_abbc146621a3d4e8a69731212eee299c3}
+
+
+The attribute print method that post all the attributes characteristics in the P\-D console // P\-R\-I\-V\-A\-T\-E. 
+
+
+
+Definition at line 273 of file ebox\-\_\-attr.\-c.
+
+\hypertarget{ebox__attr_8c_abc8858f28190c36e1d990cbc8f322cc0}{\index{ebox\-\_\-attr.\-c@{ebox\-\_\-attr.\-c}!ebox\-\_\-dialog@{ebox\-\_\-dialog}}
+\index{ebox\-\_\-dialog@{ebox\-\_\-dialog}!ebox_attr.c@{ebox\-\_\-attr.\-c}}
+\subsubsection[{ebox\-\_\-dialog}]{\setlength{\rightskip}{0pt plus 5cm}void ebox\-\_\-dialog (
+\begin{DoxyParamCaption}
+\item[{t\-\_\-object $\ast$}]{x, }
+\item[{t\-\_\-symbol $\ast$}]{s, }
+\item[{long}]{argc, }
+\item[{t\-\_\-atom $\ast$}]{argv}
+\end{DoxyParamCaption}
+)}}\label{ebox__attr_8c_abc8858f28190c36e1d990cbc8f322cc0}
+
+
+Receive the properties window messages and change the attributes values (P\-R\-I\-V\-A\-T\-E) 
+
+
+
+Definition at line 340 of file ebox\-\_\-attr.\-c.
+
+\hypertarget{ebox__attr_8c_a6688b3a062f9d823d9c28370645c3a4b}{\index{ebox\-\_\-attr.\-c@{ebox\-\_\-attr.\-c}!ebox\-\_\-getfont\-\_\-weight@{ebox\-\_\-getfont\-\_\-weight}}
+\index{ebox\-\_\-getfont\-\_\-weight@{ebox\-\_\-getfont\-\_\-weight}!ebox_attr.c@{ebox\-\_\-attr.\-c}}
+\subsubsection[{ebox\-\_\-getfont\-\_\-weight}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-symbol$\ast$ ebox\-\_\-getfont\-\_\-weight (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-ebox} $\ast$}]{x}
+\end{DoxyParamCaption}
+)}}\label{ebox__attr_8c_a6688b3a062f9d823d9c28370645c3a4b}
+
+
+Retrieve the font weight of an ebox. 
+
+
+
+Definition at line 169 of file ebox\-\_\-attr.\-c.
+
+\hypertarget{ebox__attr_8c_a9cc07b9de1e8355c9120a5e6b72c200e}{\index{ebox\-\_\-attr.\-c@{ebox\-\_\-attr.\-c}!ebox\-\_\-getfontname@{ebox\-\_\-getfontname}}
+\index{ebox\-\_\-getfontname@{ebox\-\_\-getfontname}!ebox_attr.c@{ebox\-\_\-attr.\-c}}
+\subsubsection[{ebox\-\_\-getfontname}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-symbol$\ast$ ebox\-\_\-getfontname (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-ebox} $\ast$}]{x}
+\end{DoxyParamCaption}
+)}}\label{ebox__attr_8c_a9cc07b9de1e8355c9120a5e6b72c200e}
+
+
+Retrieve the font name of an ebox. 
+
+
+
+Definition at line 147 of file ebox\-\_\-attr.\-c.
+
+\hypertarget{ebox__attr_8c_a187b43c8efeafc2fe9ff928b3fa81b21}{\index{ebox\-\_\-attr.\-c@{ebox\-\_\-attr.\-c}!ebox\-\_\-getfontsize@{ebox\-\_\-getfontsize}}
+\index{ebox\-\_\-getfontsize@{ebox\-\_\-getfontsize}!ebox_attr.c@{ebox\-\_\-attr.\-c}}
+\subsubsection[{ebox\-\_\-getfontsize}]{\setlength{\rightskip}{0pt plus 5cm}float ebox\-\_\-getfontsize (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-ebox} $\ast$}]{x}
+\end{DoxyParamCaption}
+)}}\label{ebox__attr_8c_a187b43c8efeafc2fe9ff928b3fa81b21}
+
+
+Retrieve the font size of an ebox. 
+
+
+
+Definition at line 180 of file ebox\-\_\-attr.\-c.
+
+\hypertarget{ebox__attr_8c_a4ec93cf41296bde221592db0c9fc1e27}{\index{ebox\-\_\-attr.\-c@{ebox\-\_\-attr.\-c}!ebox\-\_\-getfontslant@{ebox\-\_\-getfontslant}}
+\index{ebox\-\_\-getfontslant@{ebox\-\_\-getfontslant}!ebox_attr.c@{ebox\-\_\-attr.\-c}}
+\subsubsection[{ebox\-\_\-getfontslant}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-symbol$\ast$ ebox\-\_\-getfontslant (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-ebox} $\ast$}]{x}
+\end{DoxyParamCaption}
+)}}\label{ebox__attr_8c_a4ec93cf41296bde221592db0c9fc1e27}
+
+
+Retrieve the font slant of an ebox. 
+
+
+
+Definition at line 158 of file ebox\-\_\-attr.\-c.
+
+\hypertarget{ebox__attr_8c_afccbedef509e9fbd11f147f101e69664}{\index{ebox\-\_\-attr.\-c@{ebox\-\_\-attr.\-c}!ebox\-\_\-notify@{ebox\-\_\-notify}}
+\index{ebox\-\_\-notify@{ebox\-\_\-notify}!ebox_attr.c@{ebox\-\_\-attr.\-c}}
+\subsubsection[{ebox\-\_\-notify}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-pd\-\_\-err} ebox\-\_\-notify (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-ebox} $\ast$}]{x, }
+\item[{t\-\_\-symbol $\ast$}]{s, }
+\item[{t\-\_\-symbol $\ast$}]{msg, }
+\item[{void $\ast$}]{sender, }
+\item[{void $\ast$}]{data}
+\end{DoxyParamCaption}
+)}}\label{ebox__attr_8c_afccbedef509e9fbd11f147f101e69664}
+
+
+The default notify method of ebox called when an attribute has changed // P\-R\-I\-V\-A\-T\-E. 
+
+
+
+Definition at line 195 of file ebox\-\_\-attr.\-c.
+
+\hypertarget{ebox__attr_8c_a25a70428e513bb010853949da191d7b7}{\index{ebox\-\_\-attr.\-c@{ebox\-\_\-attr.\-c}!ebox\-\_\-properties@{ebox\-\_\-properties}}
+\index{ebox\-\_\-properties@{ebox\-\_\-properties}!ebox_attr.c@{ebox\-\_\-attr.\-c}}
+\subsubsection[{ebox\-\_\-properties}]{\setlength{\rightskip}{0pt plus 5cm}void ebox\-\_\-properties (
+\begin{DoxyParamCaption}
+\item[{t\-\_\-gobj $\ast$}]{z, }
+\item[{t\-\_\-glist $\ast$}]{glist}
+\end{DoxyParamCaption}
+)}}\label{ebox__attr_8c_a25a70428e513bb010853949da191d7b7}
+
+
+Open the properties window (P\-R\-I\-V\-A\-T\-E) 
+
+
+
+Definition at line 292 of file ebox\-\_\-attr.\-c.
+
+\hypertarget{ebox__attr_8c_a10693ecfeea41ac07ab2f36720f7cada}{\index{ebox\-\_\-attr.\-c@{ebox\-\_\-attr.\-c}!ebox\-\_\-size\-\_\-set@{ebox\-\_\-size\-\_\-set}}
+\index{ebox\-\_\-size\-\_\-set@{ebox\-\_\-size\-\_\-set}!ebox_attr.c@{ebox\-\_\-attr.\-c}}
+\subsubsection[{ebox\-\_\-size\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-pd\-\_\-err} ebox\-\_\-size\-\_\-set (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-ebox} $\ast$}]{x, }
+\item[{t\-\_\-object $\ast$}]{attr, }
+\item[{long}]{argc, }
+\item[{t\-\_\-atom $\ast$}]{argv}
+\end{DoxyParamCaption}
+)}}\label{ebox__attr_8c_a10693ecfeea41ac07ab2f36720f7cada}
+
+
+The default size attribute method of ebox called when an size attribute has changed. This function restrains the width and the height depending of the ebox flags E\-B\-O\-X\-\_\-\-G\-R\-O\-W\-N\-O, E\-B\-O\-X\-\_\-\-G\-R\-O\-W\-L\-I\-N\-K and E\-B\-O\-X\-\_\-\-G\-R\-O\-W\-I\-N\-D\-I // P\-R\-I\-V\-A\-T\-E. 
+
+
+
+Definition at line 230 of file ebox\-\_\-attr.\-c.
+

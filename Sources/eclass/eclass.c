@@ -114,10 +114,10 @@ void eclass_init(t_eclass* c, long flags)
 */
 void eclass_dspinit(t_eclass* c)
 {
-    CLASS_MAINSIGNALIN((t_class *)c, t_ebox, e_float);
-    class_addmethod((t_class *)c, (t_method)ebox_dsp, gensym("dsp"), A_CANT, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_dsp_add, gensym("dsp_add"), A_NULL, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_dsp_add, gensym("dsp_add64"), A_NULL, 0);
+    CLASS_MAINSIGNALIN((t_class *)c, t_edspbox, b_obj.d_float);
+    class_addmethod((t_class *)c, (t_method)eobj_dsp, gensym("dsp"), A_CANT, 0);
+    class_addmethod((t_class *)c, (t_method)eobj_dsp_add, gensym("dsp_add"), A_NULL, 0);
+    class_addmethod((t_class *)c, (t_method)eobj_dsp_add, gensym("dsp_add64"), A_NULL, 0);
 }
 
 //! Initialize an box eclass for DSP behavior
@@ -128,10 +128,10 @@ void eclass_dspinit(t_eclass* c)
 */
 void eclassbox_dspinit(t_eclass* c)
 {    
-    CLASS_MAINSIGNALIN((t_class *)c, t_ebox, e_float);
-    class_addmethod((t_class *)c, (t_method)ebox_dsp, gensym("dsp"), A_CANT, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_dsp_add, gensym("dsp_add"), A_NULL, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_dsp_add, gensym("dsp_add64"), A_NULL, 0);
+    CLASS_MAINSIGNALIN((t_class *)c, t_edspobj, d_float);
+    class_addmethod((t_class *)c, (t_method)eobj_dsp, gensym("dsp"), A_CANT, 0);
+    class_addmethod((t_class *)c, (t_method)eobj_dsp_add, gensym("dsp_add"), A_NULL, 0);
+    class_addmethod((t_class *)c, (t_method)eobj_dsp_add, gensym("dsp_add64"), A_NULL, 0);
 }
 
 //! Initialize the default attributes of an UI eclass // PRIVATE
@@ -142,7 +142,7 @@ void eclassbox_dspinit(t_eclass* c)
 */
 void eclass_default_attributes(t_eclass* c)
 {
-    CLASS_ATTR_FLOAT_ARRAY  (c, "size", 0, t_ebox, e_rect.width, 2);
+    CLASS_ATTR_FLOAT_ARRAY  (c, "size", 0, t_ebox, b_rect.width, 2);
     CLASS_ATTR_DEFAULT      (c, "size", 0, "100. 100.");
     CLASS_ATTR_FILTER_MIN   (c, "size", 4);
     CLASS_ATTR_SAVE         (c, "size", 0);
@@ -151,28 +151,28 @@ void eclass_default_attributes(t_eclass* c)
     CLASS_ATTR_LABEL		(c, "size", 0, "Patching Size");
     CLASS_ATTR_ACCESSORS    (c, "size", NULL, ebox_size_set);
     
-    CLASS_ATTR_SYMBOL       (c, "fontname", 0, t_ebox, e_font.c_family);
+    CLASS_ATTR_SYMBOL       (c, "fontname", 0, t_ebox, b_font.c_family);
     CLASS_ATTR_DEFAULT      (c, "fontname", 0, "helvetica");
     CLASS_ATTR_SAVE         (c, "fontname", 0);
     CLASS_ATTR_PAINT        (c, "fontname", 0);
     CLASS_ATTR_CATEGORY		(c, "fontname", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontname", 0, "Font Name");
     
-    CLASS_ATTR_SYMBOL       (c, "fontweight", 0, t_ebox, e_font.c_weight);
+    CLASS_ATTR_SYMBOL       (c, "fontweight", 0, t_ebox, b_font.c_weight);
     CLASS_ATTR_DEFAULT      (c, "fontweight", 0, "normal");
     CLASS_ATTR_SAVE         (c, "fontweight", 0);
     CLASS_ATTR_PAINT        (c, "fontweight", 0);
     CLASS_ATTR_CATEGORY		(c, "fontweight", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontweight", 0, "Font Weight");
     
-    CLASS_ATTR_SYMBOL       (c, "fontslant", 0, t_ebox, e_font.c_slant);
+    CLASS_ATTR_SYMBOL       (c, "fontslant", 0, t_ebox, b_font.c_slant);
     CLASS_ATTR_DEFAULT      (c, "fontslant", 0, "regular");
     CLASS_ATTR_SAVE         (c, "fontslant", 0);
     CLASS_ATTR_PAINT        (c, "fontslant", 0);
     CLASS_ATTR_CATEGORY		(c, "fontslant", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontslant", 0, "Font Slant");
     
-    CLASS_ATTR_FLOAT        (c, "fontsize", 0, t_ebox, e_font.c_size);
+    CLASS_ATTR_FLOAT        (c, "fontsize", 0, t_ebox, b_font.c_size);
     CLASS_ATTR_DEFAULT      (c, "fontsize", 0, "11");
     CLASS_ATTR_FILTER_MIN   (c, "fontsize", 4);
     CLASS_ATTR_SAVE         (c, "fontsize", 0);
@@ -180,7 +180,7 @@ void eclass_default_attributes(t_eclass* c)
     CLASS_ATTR_CATEGORY		(c, "fontsize", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontsize", 0, "Font Size");
     
-    CLASS_ATTR_SYMBOL       (c, "idname", 0, t_ebox, e_objuser_id);
+    CLASS_ATTR_SYMBOL       (c, "idname", 0, t_ebox, b_objuser_id);
     CLASS_ATTR_DEFAULT      (c, "idname", 0, "(null)");
     CLASS_ATTR_ACCESSORS    (c, "idname", NULL, ebox_set_id);
     CLASS_ATTR_SAVE         (c, "idname", 0);
@@ -196,7 +196,7 @@ void eclass_default_attributes(t_eclass* c)
 */
 void eclass_preset_attributes(t_eclass* c)
 {
-    CLASS_ATTR_SYMBOL       (c, "presetname", 0, t_ebox, e_objpreset_id);
+    CLASS_ATTR_SYMBOL       (c, "presetname", 0, t_ebox, b_objpreset_id);
     CLASS_ATTR_DEFAULT      (c, "presetname", 0, "(null)");
     CLASS_ATTR_SAVE         (c, "presetname", 0);
     CLASS_ATTR_CATEGORY		(c, "presetname", 0, "Basic");

@@ -23,6 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">PdEnhanced
+   &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
   </td>
  </tr>
@@ -61,6 +62,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="classes.html"><span>Data&#160;Structure&#160;Index</span></a></li>
+      <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -68,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -85,134 +87,229 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">_ebox Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The Pd Enhanced GUI object.  
+ <a href="struct__ebox.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="estruct_8h_source.html">estruct.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a337dd8dd1771ebe57e90886d4fdfe92d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a337dd8dd1771ebe57e90886d4fdfe92d"></a>
-t_object&#160;</td><td class="memItemRight" valign="bottom"><b>e_obj</b></td></tr>
-<tr class="separator:a337dd8dd1771ebe57e90886d4fdfe92d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2572dc1da66f274bc25b4bec1cbd08a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae2572dc1da66f274bc25b4bec1cbd08a"></a>
-t_canvas *&#160;</td><td class="memItemRight" valign="bottom"><b>e_canvas</b></td></tr>
-<tr class="separator:ae2572dc1da66f274bc25b4bec1cbd08a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58e35b68d10bf20876e94cbb9bf8e8c4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a58e35b68d10bf20876e94cbb9bf8e8c4"></a>
-t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><b>e_object_id</b></td></tr>
-<tr class="separator:a58e35b68d10bf20876e94cbb9bf8e8c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4da8e9640bcf8e2be7004a5f0e0007c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af4da8e9640bcf8e2be7004a5f0e0007c"></a>
-t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><b>e_objuser_id</b></td></tr>
-<tr class="separator:af4da8e9640bcf8e2be7004a5f0e0007c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a221f87b86e273092ba153465dbd8375f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a221f87b86e273092ba153465dbd8375f"></a>
-t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><b>e_objpreset_id</b></td></tr>
-<tr class="separator:a221f87b86e273092ba153465dbd8375f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc954e0b6c201ccc39c6cbb4624b53b4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afc954e0b6c201ccc39c6cbb4624b53b4"></a>
-t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><b>e_canvas_id</b></td></tr>
-<tr class="separator:afc954e0b6c201ccc39c6cbb4624b53b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e3b02016162fde9b56c5402b2aa359c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4e3b02016162fde9b56c5402b2aa359c"></a>
-t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><b>e_drawing_id</b></td></tr>
-<tr class="separator:a4e3b02016162fde9b56c5402b2aa359c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf74913773079d84226bf3e048a63cd9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acf74913773079d84226bf3e048a63cd9"></a>
-t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><b>e_editor_id</b></td></tr>
-<tr class="separator:acf74913773079d84226bf3e048a63cd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3e9fa7a4d136c36050ad152665f91cd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad3e9fa7a4d136c36050ad152665f91cd"></a>
-t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><b>e_window_id</b></td></tr>
-<tr class="separator:ad3e9fa7a4d136c36050ad152665f91cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1a42a9fbbc595325de07747b67c6ac4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa1a42a9fbbc595325de07747b67c6ac4"></a>
-t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><b>e_all_id</b></td></tr>
-<tr class="separator:aa1a42a9fbbc595325de07747b67c6ac4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6678f7de23db50b13124a5cdd7c17bcc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6678f7de23db50b13124a5cdd7c17bcc"></a>
-long&#160;</td><td class="memItemRight" valign="bottom"><b>e_flags</b></td></tr>
-<tr class="separator:a6678f7de23db50b13124a5cdd7c17bcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaef55281ce06e8d04077acd1e73e484e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaef55281ce06e8d04077acd1e73e484e"></a>
-<a class="el" href="struct__rect.html">t_rect</a>&#160;</td><td class="memItemRight" valign="bottom"><b>e_rect</b></td></tr>
-<tr class="separator:aaef55281ce06e8d04077acd1e73e484e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bf02b4e1a6c0c7723b5ed198f45e0b0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4bf02b4e1a6c0c7723b5ed198f45e0b0"></a>
-<a class="el" href="struct__efont.html">t_efont</a>&#160;</td><td class="memItemRight" valign="bottom"><b>e_font</b></td></tr>
-<tr class="separator:a4bf02b4e1a6c0c7723b5ed198f45e0b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37d4dacd3bef2a0a1e990d925b6d9990"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a37d4dacd3bef2a0a1e990d925b6d9990"></a>
-<a class="el" href="struct__rect.html">t_rect</a>&#160;</td><td class="memItemRight" valign="bottom"><b>e_rect_last</b></td></tr>
-<tr class="separator:a37d4dacd3bef2a0a1e990d925b6d9990"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9602d6350201bc3f00e3427e632f7d9b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9602d6350201bc3f00e3427e632f7d9b"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>e_selected_box</b></td></tr>
-<tr class="separator:a9602d6350201bc3f00e3427e632f7d9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac85c4a91b77986f43621d9f985c73d66"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac85c4a91b77986f43621d9f985c73d66"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>e_selected_item</b></td></tr>
-<tr class="separator:ac85c4a91b77986f43621d9f985c73d66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62e9aadff06c426cbbad8eb5fc762b42"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a62e9aadff06c426cbbad8eb5fc762b42"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>e_selected_inlet</b></td></tr>
-<tr class="separator:a62e9aadff06c426cbbad8eb5fc762b42"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1a7c67be8d54be0b678780e2deb4204"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae1a7c67be8d54be0b678780e2deb4204"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>e_selected_outlet</b></td></tr>
-<tr class="separator:ae1a7c67be8d54be0b678780e2deb4204"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f26b73f569fefdcaed95229582cd400"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5f26b73f569fefdcaed95229582cd400"></a>
-<a class="el" href="struct__pt.html">t_pt</a>&#160;</td><td class="memItemRight" valign="bottom"><b>e_mouse</b></td></tr>
-<tr class="separator:a5f26b73f569fefdcaed95229582cd400"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6c19145ab1759b41fb80f9c096143de"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab6c19145ab1759b41fb80f9c096143de"></a>
-<a class="el" href="struct__pt.html">t_pt</a>&#160;</td><td class="memItemRight" valign="bottom"><b>e_move_box</b></td></tr>
-<tr class="separator:ab6c19145ab1759b41fb80f9c096143de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5bffd7df9520fdbbe12500cc0dacb58"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af5bffd7df9520fdbbe12500cc0dacb58"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><b>e_mouse_down</b></td></tr>
-<tr class="separator:af5bffd7df9520fdbbe12500cc0dacb58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a0d1603384fcbb1cd15c6bc2f354228"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2a0d1603384fcbb1cd15c6bc2f354228"></a>
-long&#160;</td><td class="memItemRight" valign="bottom"><b>e_modifiers</b></td></tr>
-<tr class="separator:a2a0d1603384fcbb1cd15c6bc2f354228"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac39900ee714636dbaf2f81345b71f2d2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac39900ee714636dbaf2f81345b71f2d2"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><b>e_ready_to_draw</b></td></tr>
-<tr class="separator:ac39900ee714636dbaf2f81345b71f2d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a280f5ed4e0dcf4494a1a842655638704"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a280f5ed4e0dcf4494a1a842655638704"></a>
-<a class="el" href="struct__edrawparams.html">t_edrawparams</a>&#160;</td><td class="memItemRight" valign="bottom"><b>e_boxparameters</b></td></tr>
-<tr class="separator:a280f5ed4e0dcf4494a1a842655638704"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a950d7e8bdd1d8de86d5ca4651ead23e5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a950d7e8bdd1d8de86d5ca4651ead23e5"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>e_deserted_time</b></td></tr>
-<tr class="separator:a950d7e8bdd1d8de86d5ca4651ead23e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecc449f43f91af85587d958f504fc032"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aecc449f43f91af85587d958f504fc032"></a>
-t_clock *&#160;</td><td class="memItemRight" valign="bottom"><b>e_deserted_clock</b></td></tr>
-<tr class="separator:aecc449f43f91af85587d958f504fc032"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57ba63ff116177a06892f74e1eeedadc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a57ba63ff116177a06892f74e1eeedadc"></a>
-<a class="el" href="struct__elayer.html">t_elayer</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>e_layers</b></td></tr>
-<tr class="separator:a57ba63ff116177a06892f74e1eeedadc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c1bca7969d5175986c61fd95b3e5d9f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8c1bca7969d5175986c61fd95b3e5d9f"></a>
-long&#160;</td><td class="memItemRight" valign="bottom"><b>e_number_of_layers</b></td></tr>
-<tr class="separator:a8c1bca7969d5175986c61fd95b3e5d9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d87579850c288c8ff571b65e3a954ec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2d87579850c288c8ff571b65e3a954ec"></a>
-t_inlet *&#160;</td><td class="memItemRight" valign="bottom"><b>e_inlets</b> [256]</td></tr>
-<tr class="separator:a2d87579850c288c8ff571b65e3a954ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adab07829848f0100bc3e897ed4b989a8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adab07829848f0100bc3e897ed4b989a8"></a>
-t_outlet *&#160;</td><td class="memItemRight" valign="bottom"><b>e_outlets</b> [256]</td></tr>
-<tr class="separator:adab07829848f0100bc3e897ed4b989a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad30a7d21f486f593958971d3b9ec36d3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad30a7d21f486f593958971d3b9ec36d3"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>e_float</b></td></tr>
-<tr class="separator:ad30a7d21f486f593958971d3b9ec36d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34d2b509590074485b75c6efb80f2a8a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a34d2b509590074485b75c6efb80f2a8a"></a>
-long&#160;</td><td class="memItemRight" valign="bottom"><b>e_dsp_size</b></td></tr>
-<tr class="separator:a34d2b509590074485b75c6efb80f2a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37a74c1a71f50b83a5da00975519ea27"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a37a74c1a71f50b83a5da00975519ea27"></a>
-t_int&#160;</td><td class="memItemRight" valign="bottom"><b>e_dsp_vectors</b> [262]</td></tr>
-<tr class="separator:a37a74c1a71f50b83a5da00975519ea27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6298f74f2639c64139da990534dc8787"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6298f74f2639c64139da990534dc8787"></a>
-long&#160;</td><td class="memItemRight" valign="bottom"><b>e_dsp_flag</b></td></tr>
-<tr class="separator:a6298f74f2639c64139da990534dc8787"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7753518284f1a6af6e251c772f17ce39"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7753518284f1a6af6e251c772f17ce39"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><b>e_dsp_user_param</b></td></tr>
-<tr class="separator:a7753518284f1a6af6e251c772f17ce39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9aec3dacaf034534f15e857f265fa049"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9aec3dacaf034534f15e857f265fa049"></a>
-long&#160;</td><td class="memItemRight" valign="bottom"><b>z_misc</b></td></tr>
-<tr class="separator:a9aec3dacaf034534f15e857f265fa049"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d714274ffedfe180845fe82312dc9a5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8d714274ffedfe180845fe82312dc9a5"></a>
-t_float *&#160;</td><td class="memItemRight" valign="bottom"><b>z_sigs_out</b> [256]</td></tr>
-<tr class="separator:a8d714274ffedfe180845fe82312dc9a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d9ad4da3e6b40edec20a9ffa81921a6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4d9ad4da3e6b40edec20a9ffa81921a6"></a>
-method&#160;</td><td class="memItemRight" valign="bottom"><b>e_perform_method</b></td></tr>
-<tr class="separator:a4d9ad4da3e6b40edec20a9ffa81921a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af361e9a708c6555e227a03251ddc56c3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af361e9a708c6555e227a03251ddc56c3"></a>
-t_object *&#160;</td><td class="memItemRight" valign="bottom"><b>b_firstin</b></td></tr>
-<tr class="separator:af361e9a708c6555e227a03251ddc56c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a384a670299e98768527fbe457de9a38a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__eobj.html">t_eobj</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#a384a670299e98768527fbe457de9a38a">b_obj</a></td></tr>
+<tr class="separator:a384a670299e98768527fbe457de9a38a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae34af00c0a1b333cb06b30666f0ffc39"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#ae34af00c0a1b333cb06b30666f0ffc39">b_object_id</a></td></tr>
+<tr class="separator:ae34af00c0a1b333cb06b30666f0ffc39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae324f65e10196cc7e166652e8d7d394d"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#ae324f65e10196cc7e166652e8d7d394d">b_objuser_id</a></td></tr>
+<tr class="separator:ae324f65e10196cc7e166652e8d7d394d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc377263d208d1051f4a0997868b1155"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#adc377263d208d1051f4a0997868b1155">b_objpreset_id</a></td></tr>
+<tr class="separator:adc377263d208d1051f4a0997868b1155"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0251c6969a1032f8f50d076e909fb3e"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#ac0251c6969a1032f8f50d076e909fb3e">b_canvas_id</a></td></tr>
+<tr class="separator:ac0251c6969a1032f8f50d076e909fb3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a153f9c9929d722ecb29217f3fb0914c9"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#a153f9c9929d722ecb29217f3fb0914c9">b_drawing_id</a></td></tr>
+<tr class="separator:a153f9c9929d722ecb29217f3fb0914c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf8c80c6ea45ad810c754984d98830ff"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#adf8c80c6ea45ad810c754984d98830ff">b_editor_id</a></td></tr>
+<tr class="separator:adf8c80c6ea45ad810c754984d98830ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7033df943e798c68e3a6117785c2d79e"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#a7033df943e798c68e3a6117785c2d79e">b_window_id</a></td></tr>
+<tr class="separator:a7033df943e798c68e3a6117785c2d79e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f63dcf604135dd4fbfbf43eaed53c1a"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#a0f63dcf604135dd4fbfbf43eaed53c1a">b_all_id</a></td></tr>
+<tr class="separator:a0f63dcf604135dd4fbfbf43eaed53c1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdae234dbd983dfbfb0592858c4ff026"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abdae234dbd983dfbfb0592858c4ff026"></a>
+long&#160;</td><td class="memItemRight" valign="bottom"><b>b_flags</b></td></tr>
+<tr class="separator:abdae234dbd983dfbfb0592858c4ff026"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc70ff46c135ee9f377a038bbc05a33e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abc70ff46c135ee9f377a038bbc05a33e"></a>
+<a class="el" href="struct__rect.html">t_rect</a>&#160;</td><td class="memItemRight" valign="bottom"><b>b_rect</b></td></tr>
+<tr class="separator:abc70ff46c135ee9f377a038bbc05a33e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4071412a20456f5fcafe2a91cdef11c3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4071412a20456f5fcafe2a91cdef11c3"></a>
+<a class="el" href="struct__efont.html">t_efont</a>&#160;</td><td class="memItemRight" valign="bottom"><b>b_font</b></td></tr>
+<tr class="separator:a4071412a20456f5fcafe2a91cdef11c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a0a15d3bc005cd4f815088b230b5ebd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2a0a15d3bc005cd4f815088b230b5ebd"></a>
+<a class="el" href="struct__rect.html">t_rect</a>&#160;</td><td class="memItemRight" valign="bottom"><b>b_rect_last</b></td></tr>
+<tr class="separator:a2a0a15d3bc005cd4f815088b230b5ebd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc1a127070b19ccf6e222d7349c84c96"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acc1a127070b19ccf6e222d7349c84c96"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>b_selected_box</b></td></tr>
+<tr class="separator:acc1a127070b19ccf6e222d7349c84c96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f65b6d093e53fd85bed085ce0c5dd8e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1f65b6d093e53fd85bed085ce0c5dd8e"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>b_selected_item</b></td></tr>
+<tr class="separator:a1f65b6d093e53fd85bed085ce0c5dd8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cebb4789c213079e0490e86c10c2893"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0cebb4789c213079e0490e86c10c2893"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>b_selected_inlet</b></td></tr>
+<tr class="separator:a0cebb4789c213079e0490e86c10c2893"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbf0482cb9c6e192e2059775acc1ac86"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acbf0482cb9c6e192e2059775acc1ac86"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>b_selected_outlet</b></td></tr>
+<tr class="separator:acbf0482cb9c6e192e2059775acc1ac86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8831d355ec1dbb2dca9a68268a977965"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8831d355ec1dbb2dca9a68268a977965"></a>
+<a class="el" href="struct__pt.html">t_pt</a>&#160;</td><td class="memItemRight" valign="bottom"><b>b_mouse</b></td></tr>
+<tr class="separator:a8831d355ec1dbb2dca9a68268a977965"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b028829ae54f8ccede6bb0d5903f7fd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2b028829ae54f8ccede6bb0d5903f7fd"></a>
+<a class="el" href="struct__pt.html">t_pt</a>&#160;</td><td class="memItemRight" valign="bottom"><b>b_move_box</b></td></tr>
+<tr class="separator:a2b028829ae54f8ccede6bb0d5903f7fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dc439a4d35e98f78370c81ceadc8ea0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1dc439a4d35e98f78370c81ceadc8ea0"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><b>b_mouse_down</b></td></tr>
+<tr class="separator:a1dc439a4d35e98f78370c81ceadc8ea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad230697acdd2d00abb2dc18dd38089d8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad230697acdd2d00abb2dc18dd38089d8"></a>
+long&#160;</td><td class="memItemRight" valign="bottom"><b>b_modifiers</b></td></tr>
+<tr class="separator:ad230697acdd2d00abb2dc18dd38089d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a234ea03e103bd45f5fa1d27b8e69b5dd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a234ea03e103bd45f5fa1d27b8e69b5dd"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><b>b_ready_to_draw</b></td></tr>
+<tr class="separator:a234ea03e103bd45f5fa1d27b8e69b5dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01fa53a36dc717c81755d805a868ad9d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a01fa53a36dc717c81755d805a868ad9d"></a>
+<a class="el" href="struct__edrawparams.html">t_edrawparams</a>&#160;</td><td class="memItemRight" valign="bottom"><b>b_boxparameters</b></td></tr>
+<tr class="separator:a01fa53a36dc717c81755d805a868ad9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad80949f483467d74761a9e321300d64e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad80949f483467d74761a9e321300d64e"></a>
+<a class="el" href="struct__elayer.html">t_elayer</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>b_layers</b></td></tr>
+<tr class="separator:ad80949f483467d74761a9e321300d64e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84105957ca11a224cf734f350fb23ac9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a84105957ca11a224cf734f350fb23ac9"></a>
+long&#160;</td><td class="memItemRight" valign="bottom"><b>b_number_of_layers</b></td></tr>
+<tr class="separator:a84105957ca11a224cf734f350fb23ac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The Pd Enhanced GUI object. </p>
+<p>It contains the Pd Enhanced object with all the members for graphical behavior. This should be used for graphical object that don't have signal processing methods. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00403">403</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a0f63dcf604135dd4fbfbf43eaed53c1a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">t_symbol* b_all_id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The global ID. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00415">415</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac0251c6969a1032f8f50d076e909fb3e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">t_symbol* b_canvas_id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The canvas ID. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00411">411</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a153f9c9929d722ecb29217f3fb0914c9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">t_symbol* b_drawing_id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The drawing ID. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00412">412</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="adf8c80c6ea45ad810c754984d98830ff"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">t_symbol* b_editor_id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The editor ID. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00413">413</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a384a670299e98768527fbe457de9a38a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct__eobj.html">t_eobj</a> b_obj</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The Pd Enhanced object. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00405">405</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae34af00c0a1b333cb06b30666f0ffc39"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">t_symbol* b_object_id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The object intern ID. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00407">407</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="adc377263d208d1051f4a0997868b1155"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">t_symbol* b_objpreset_id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The object preset ID. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00409">409</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae324f65e10196cc7e166652e8d7d394d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">t_symbol* b_objuser_id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The object user ID. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00408">408</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7033df943e798c68e3a6117785c2d79e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">t_symbol* b_window_id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The window ID. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00414">414</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>Sources/<a class="el" href="estruct_8h_source.html">estruct.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 13 2013 11:04:47 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 26 2013 11:52:39 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

@@ -1,0 +1,109 @@
+\hypertarget{eproxy_8h}{\section{Sources/eobj/eproxy.h File Reference}
+\label{eproxy_8h}\index{Sources/eobj/eproxy.\-h@{Sources/eobj/eproxy.\-h}}
+}
+
+
+The basic eproxy functions.  
+
+
+{\ttfamily \#include \char`\"{}../estruct.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../egraphics/egraphics.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../ewidget/ewidget.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../erouter/erouter.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{eproxy_8h_ac23dc0bc843038b579bea45d1804fcb7}{eproxy\-\_\-setup} (\hyperlink{estruct_8h_a261d794de3821fb7902103ba8ae44ed1}{t\-\_\-eclass} $\ast$c)
+\begin{DoxyCompactList}\small\item\em Initialize the proxy inlet classe. \end{DoxyCompactList}\item 
+void \hyperlink{eproxy_8h_aefc743b49e7a40d50805133c0d224145}{eproxy\-\_\-anything} (\hyperlink{estruct_8h_a45599b9a5c1e0b5f1ca92299329c721c}{t\-\_\-eproxy} $\ast$x, t\-\_\-symbol $\ast$s, int argc, t\-\_\-atom $\ast$argv)
+\begin{DoxyCompactList}\small\item\em Anything method of the proxy inlet. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{eproxy_8h_a65c180db8eb5ca2bf1872751feb0757c}{eproxy\-\_\-new} (t\-\_\-symbol $\ast$s, int argc, t\-\_\-atom $\ast$argv)
+\begin{DoxyCompactList}\small\item\em Allocate the memory for a proxy inlet. \end{DoxyCompactList}\item 
+void \hyperlink{eproxy_8h_a71a9b596b79f7bf7235109ba5c034bce}{eproxy\-\_\-init} (\hyperlink{estruct_8h_a45599b9a5c1e0b5f1ca92299329c721c}{t\-\_\-eproxy} $\ast$x, void $\ast$owner, int index)
+\begin{DoxyCompactList}\small\item\em Intialize a proxy inlet. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The basic eproxy functions. \begin{DoxyAuthor}{Author}
+Pierre Guillot 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\-1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2013-\/2014
+\end{DoxyDate}
+Functions to allocate, initialize and free the memory of an eproxy. 
+
+Definition in file \hyperlink{eproxy_8h_source}{eproxy.\-h}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{eproxy_8h_aefc743b49e7a40d50805133c0d224145}{\index{eproxy.\-h@{eproxy.\-h}!eproxy\-\_\-anything@{eproxy\-\_\-anything}}
+\index{eproxy\-\_\-anything@{eproxy\-\_\-anything}!eproxy.h@{eproxy.\-h}}
+\subsubsection[{eproxy\-\_\-anything}]{\setlength{\rightskip}{0pt plus 5cm}void eproxy\-\_\-anything (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-eproxy} $\ast$}]{x, }
+\item[{t\-\_\-symbol $\ast$}]{s, }
+\item[{int}]{argc, }
+\item[{t\-\_\-atom $\ast$}]{argv}
+\end{DoxyParamCaption}
+)}}\label{eproxy_8h_aefc743b49e7a40d50805133c0d224145}
+
+
+Anything method of the proxy inlet. 
+
+
+
+Definition at line 80 of file eproxy.\-c.
+
+\hypertarget{eproxy_8h_a71a9b596b79f7bf7235109ba5c034bce}{\index{eproxy.\-h@{eproxy.\-h}!eproxy\-\_\-init@{eproxy\-\_\-init}}
+\index{eproxy\-\_\-init@{eproxy\-\_\-init}!eproxy.h@{eproxy.\-h}}
+\subsubsection[{eproxy\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void eproxy\-\_\-init (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-eproxy} $\ast$}]{x, }
+\item[{void $\ast$}]{owner, }
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)}}\label{eproxy_8h_a71a9b596b79f7bf7235109ba5c034bce}
+
+
+Intialize a proxy inlet. 
+
+
+
+Definition at line 48 of file eproxy.\-c.
+
+\hypertarget{eproxy_8h_a65c180db8eb5ca2bf1872751feb0757c}{\index{eproxy.\-h@{eproxy.\-h}!eproxy\-\_\-new@{eproxy\-\_\-new}}
+\index{eproxy\-\_\-new@{eproxy\-\_\-new}!eproxy.h@{eproxy.\-h}}
+\subsubsection[{eproxy\-\_\-new}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ eproxy\-\_\-new (
+\begin{DoxyParamCaption}
+\item[{t\-\_\-symbol $\ast$}]{s, }
+\item[{int}]{argc, }
+\item[{t\-\_\-atom $\ast$}]{argv}
+\end{DoxyParamCaption}
+)}}\label{eproxy_8h_a65c180db8eb5ca2bf1872751feb0757c}
+
+
+Allocate the memory for a proxy inlet. 
+
+
+
+Definition at line 63 of file eproxy.\-c.
+
+\hypertarget{eproxy_8h_ac23dc0bc843038b579bea45d1804fcb7}{\index{eproxy.\-h@{eproxy.\-h}!eproxy\-\_\-setup@{eproxy\-\_\-setup}}
+\index{eproxy\-\_\-setup@{eproxy\-\_\-setup}!eproxy.h@{eproxy.\-h}}
+\subsubsection[{eproxy\-\_\-setup}]{\setlength{\rightskip}{0pt plus 5cm}void eproxy\-\_\-setup (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-eclass} $\ast$}]{c}
+\end{DoxyParamCaption}
+)}}\label{eproxy_8h_ac23dc0bc843038b579bea45d1804fcb7}
+
+
+Initialize the proxy inlet classe. 
+
+
+
+Definition at line 94 of file eproxy.\-c.
+

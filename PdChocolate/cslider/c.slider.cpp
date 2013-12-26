@@ -137,7 +137,7 @@ void *slider_new(t_symbol *s, int argc, t_atom *argv)
 	if (!(d = binbuf_via_atoms(argc,argv)))
 		return NULL;
     
-	x = (t_slider *)ebox_alloc(slider_class);
+	x = (t_slider *)eobj_alloc(slider_class);
     flags = 0
     | EBOX_GROWINDI
     ;

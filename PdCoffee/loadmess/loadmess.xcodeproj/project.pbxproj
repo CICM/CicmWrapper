@@ -8,16 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		59FB02F817A7FAA9001E977D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FB02F717A7FAA9001E977D /* Accelerate.framework */; };
+		8F234C35186C31AD000467C1 /* eobj_basic.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F234C33186C31AD000467C1 /* eobj_basic.c */; };
+		8F234C36186C31AD000467C1 /* eobj.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F234C34186C31AD000467C1 /* eobj.h */; };
+		8F234C38186C3309000467C1 /* eobj_proxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F234C37186C3309000467C1 /* eobj_proxy.c */; };
+		8F234C3D186C37C5000467C1 /* eobj_dsp.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F234C3B186C37C5000467C1 /* eobj_dsp.c */; };
 		8F9074A6185B1A0A003AA6BD /* eattr.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F90747D185B1A0A003AA6BD /* eattr.h */; };
 		8F9074A7185B1A0A003AA6BD /* eattr_attr.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F90747E185B1A0A003AA6BD /* eattr_attr.c */; };
 		8F9074A8185B1A0A003AA6BD /* eattr_getter.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F90747F185B1A0A003AA6BD /* eattr_getter.c */; };
 		8F9074A9185B1A0A003AA6BD /* eattr_new.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F907480185B1A0A003AA6BD /* eattr_new.c */; };
 		8F9074AA185B1A0A003AA6BD /* eattr_setter.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F907481185B1A0A003AA6BD /* eattr_setter.c */; };
-		8F9074AB185B1A0A003AA6BD /* ebox.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F907483185B1A0A003AA6BD /* ebox.c */; };
+		8F9074AB185B1A0A003AA6BD /* ebox_basic.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F907483185B1A0A003AA6BD /* ebox_basic.c */; };
 		8F9074AC185B1A0A003AA6BD /* ebox.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F907484185B1A0A003AA6BD /* ebox.h */; };
 		8F9074AD185B1A0A003AA6BD /* ebox_attr.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F907485185B1A0A003AA6BD /* ebox_attr.c */; };
 		8F9074AE185B1A0A003AA6BD /* ebox_draw.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F907486185B1A0A003AA6BD /* ebox_draw.c */; };
-		8F9074AF185B1A0A003AA6BD /* ebox_dsp.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F907487185B1A0A003AA6BD /* ebox_dsp.c */; };
 		8F9074B0185B1A0A003AA6BD /* ebox_handle.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F907488185B1A0A003AA6BD /* ebox_handle.c */; };
 		8F9074B1185B1A0A003AA6BD /* ebox_patcher.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F907489185B1A0A003AA6BD /* ebox_patcher.c */; };
 		8F9074B2185B1A0A003AA6BD /* ebox_window.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F90748A185B1A0A003AA6BD /* ebox_window.c */; };
@@ -48,16 +51,19 @@
 /* Begin PBXFileReference section */
 		5913846F15DAA36D0029AD16 /* loadmess.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = loadmess.pd_darwin; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FB02F717A7FAA9001E977D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		8F234C33186C31AD000467C1 /* eobj_basic.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eobj_basic.c; sourceTree = "<group>"; };
+		8F234C34186C31AD000467C1 /* eobj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eobj.h; sourceTree = "<group>"; };
+		8F234C37186C3309000467C1 /* eobj_proxy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eobj_proxy.c; sourceTree = "<group>"; };
+		8F234C3B186C37C5000467C1 /* eobj_dsp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eobj_dsp.c; sourceTree = "<group>"; };
 		8F90747D185B1A0A003AA6BD /* eattr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eattr.h; sourceTree = "<group>"; };
 		8F90747E185B1A0A003AA6BD /* eattr_attr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eattr_attr.c; sourceTree = "<group>"; };
 		8F90747F185B1A0A003AA6BD /* eattr_getter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eattr_getter.c; sourceTree = "<group>"; };
 		8F907480185B1A0A003AA6BD /* eattr_new.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eattr_new.c; sourceTree = "<group>"; };
 		8F907481185B1A0A003AA6BD /* eattr_setter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eattr_setter.c; sourceTree = "<group>"; };
-		8F907483185B1A0A003AA6BD /* ebox.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ebox.c; sourceTree = "<group>"; };
+		8F907483185B1A0A003AA6BD /* ebox_basic.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ebox_basic.c; sourceTree = "<group>"; };
 		8F907484185B1A0A003AA6BD /* ebox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ebox.h; sourceTree = "<group>"; };
 		8F907485185B1A0A003AA6BD /* ebox_attr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ebox_attr.c; sourceTree = "<group>"; };
 		8F907486185B1A0A003AA6BD /* ebox_draw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ebox_draw.c; sourceTree = "<group>"; };
-		8F907487185B1A0A003AA6BD /* ebox_dsp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ebox_dsp.c; sourceTree = "<group>"; };
 		8F907488185B1A0A003AA6BD /* ebox_handle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ebox_handle.c; sourceTree = "<group>"; };
 		8F907489185B1A0A003AA6BD /* ebox_patcher.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ebox_patcher.c; sourceTree = "<group>"; };
 		8F90748A185B1A0A003AA6BD /* ebox_window.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ebox_window.c; sourceTree = "<group>"; };
@@ -115,9 +121,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		8F234C32186C31AD000467C1 /* eobj */ = {
+			isa = PBXGroup;
+			children = (
+				8F234C3B186C37C5000467C1 /* eobj_dsp.c */,
+				8F234C37186C3309000467C1 /* eobj_proxy.c */,
+				8F234C33186C31AD000467C1 /* eobj_basic.c */,
+				8F234C34186C31AD000467C1 /* eobj.h */,
+			);
+			path = eobj;
+			sourceTree = "<group>";
+		};
 		8F90747B185B1A0A003AA6BD /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				8F234C32186C31AD000467C1 /* eobj */,
 				8F90747C185B1A0A003AA6BD /* eattr */,
 				8F907482185B1A0A003AA6BD /* ebox */,
 				8F90748B185B1A0A003AA6BD /* eclass */,
@@ -150,14 +168,13 @@
 		8F907482185B1A0A003AA6BD /* ebox */ = {
 			isa = PBXGroup;
 			children = (
-				8F907483185B1A0A003AA6BD /* ebox.c */,
-				8F907484185B1A0A003AA6BD /* ebox.h */,
+				8F907483185B1A0A003AA6BD /* ebox_basic.c */,
 				8F907485185B1A0A003AA6BD /* ebox_attr.c */,
 				8F907486185B1A0A003AA6BD /* ebox_draw.c */,
-				8F907487185B1A0A003AA6BD /* ebox_dsp.c */,
 				8F907488185B1A0A003AA6BD /* ebox_handle.c */,
 				8F907489185B1A0A003AA6BD /* ebox_patcher.c */,
 				8F90748A185B1A0A003AA6BD /* ebox_window.c */,
+				8F907484185B1A0A003AA6BD /* ebox.h */,
 			);
 			path = ebox;
 			sourceTree = "<group>";
@@ -240,6 +257,7 @@
 				8F9074C1185B1A0A003AA6BD /* epopup.h in Headers */,
 				8F9074BF185B1A0A003AA6BD /* epd_max.h in Headers */,
 				8F9074B9185B1A0A003AA6BD /* egraphics.h in Headers */,
+				8F234C36186C31AD000467C1 /* eobj.h in Headers */,
 				8F9074BE185B1A0A003AA6BD /* epd.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,7 +314,8 @@
 			files = (
 				8F9074A8185B1A0A003AA6BD /* eattr_getter.c in Sources */,
 				8F9074B0185B1A0A003AA6BD /* ebox_handle.c in Sources */,
-				8F9074AB185B1A0A003AA6BD /* ebox.c in Sources */,
+				8F234C3D186C37C5000467C1 /* eobj_dsp.c in Sources */,
+				8F9074AB185B1A0A003AA6BD /* ebox_basic.c in Sources */,
 				8F9074C5185B1A0A003AA6BD /* ewidget.c in Sources */,
 				8F9074B2185B1A0A003AA6BD /* ebox_window.c in Sources */,
 				8F9074B3185B1A0A003AA6BD /* eclass.c in Sources */,
@@ -308,11 +327,12 @@
 				8F9074B1185B1A0A003AA6BD /* ebox_patcher.c in Sources */,
 				8F9074AD185B1A0A003AA6BD /* ebox_attr.c in Sources */,
 				8F9074AA185B1A0A003AA6BD /* eattr_setter.c in Sources */,
+				8F234C38186C3309000467C1 /* eobj_proxy.c in Sources */,
 				8FB730CF180953EB00830C7B /* loadmess.c in Sources */,
 				8F9074C2185B1A0A003AA6BD /* erouter.c in Sources */,
 				8F9074BC185B1A0A003AA6BD /* egraphics_matrix.c in Sources */,
+				8F234C35186C31AD000467C1 /* eobj_basic.c in Sources */,
 				8F9074B8185B1A0A003AA6BD /* egraphics.c in Sources */,
-				8F9074AF185B1A0A003AA6BD /* ebox_dsp.c in Sources */,
 				8F9074A7185B1A0A003AA6BD /* eattr_attr.c in Sources */,
 				8F9074C0185B1A0A003AA6BD /* epopup.c in Sources */,
 				8F9074AE185B1A0A003AA6BD /* ebox_draw.c in Sources */,

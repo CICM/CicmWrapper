@@ -1,0 +1,157 @@
+\hypertarget{ebox__dsp_8c}{\section{Sources/ebox/ebox\-\_\-dsp.c File Reference}
+\label{ebox__dsp_8c}\index{Sources/ebox/ebox\-\_\-dsp.\-c@{Sources/ebox/ebox\-\_\-dsp.\-c}}
+}
+{\ttfamily \#include \char`\"{}ebox.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{ebox__dsp_8c_a02b31c62809733595155db99f5a0fab0}{ebox\-\_\-dspsetup} (t\-\_\-dspobj $\ast$x, long nins, long nouts)
+\begin{DoxyCompactList}\small\item\em Initialize an ebox for D\-S\-P. \end{DoxyCompactList}\item 
+void \hyperlink{ebox__dsp_8c_a93d0e9fea6cc59b6974c1e973559558a}{ebox\-\_\-dspfree} (t\-\_\-dspobj $\ast$x)
+\begin{DoxyCompactList}\small\item\em Free a dsp ebox (note that if the object is also an U\-I, you don't need to call \hyperlink{ebox_8c_af23211541198cfe590300b42e758c94e}{ebox\-\_\-free()}) \end{DoxyCompactList}\item 
+void \hyperlink{ebox__dsp_8c_a84fcc178da52a05d9a053f3bff80204c}{ebox\-\_\-resize\-\_\-inputs} (t\-\_\-dspobj $\ast$x, long nins)
+\begin{DoxyCompactList}\small\item\em Resize the number of signal inputs of an ebox. \end{DoxyCompactList}\item 
+void \hyperlink{ebox__dsp_8c_a5b9b34397e856819fce5b0f811566beb}{ebox\-\_\-resize\-\_\-outputs} (t\-\_\-dspobj $\ast$x, long nouts)
+\begin{DoxyCompactList}\small\item\em Resize the number of signal outputs of an ebox. \end{DoxyCompactList}\item 
+void \hyperlink{ebox__dsp_8c_a669cc3390cd86e26b2a8898db3db063e}{ebox\-\_\-dsp} (t\-\_\-dspobj $\ast$x, t\-\_\-signal $\ast$$\ast$sp)
+\begin{DoxyCompactList}\small\item\em The dsp method (P\-R\-I\-V\-A\-T\-E) \end{DoxyCompactList}\item 
+t\-\_\-int $\ast$ \hyperlink{ebox__dsp_8c_abf79dbfeb6ebb3c34892e602a2b66da0}{ebox\-\_\-perform} (t\-\_\-int $\ast$w)
+\begin{DoxyCompactList}\small\item\em The perform method (P\-R\-I\-V\-A\-T\-E) \end{DoxyCompactList}\item 
+void \hyperlink{ebox__dsp_8c_a343d1cee8b52a86dab9f06ada44e7ad5}{ebox\-\_\-dsp\-\_\-add} (\hyperlink{estruct_8h_a7e9080d551b06530af7cb6f574e90bbe}{t\-\_\-ebox} $\ast$x, t\-\_\-symbol $\ast$s, t\-\_\-object $\ast$obj, \hyperlink{ecommon_8h_ab1d8a64ecf75ff5e30ec8ee685f03179}{method} m, long flags, void $\ast$userparam)
+\begin{DoxyCompactList}\small\item\em The dsp add method (P\-R\-I\-V\-A\-T\-E) \end{DoxyCompactList}\item 
+void \hyperlink{ebox__dsp_8c_af0720795c8c9bbdd6d79d9bd83825e8f}{ebox\-\_\-getconnections} (\hyperlink{estruct_8h_a7e9080d551b06530af7cb6f574e90bbe}{t\-\_\-ebox} $\ast$x, short $\ast$count)
+\begin{DoxyCompactList}\small\item\em The function should return the inlets and outlets dsp connections (P\-R\-I\-V\-A\-T\-E A\-N\-D N\-O\-T R\-E\-A\-D\-Y) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{ebox__dsp_8c_a669cc3390cd86e26b2a8898db3db063e}{\index{ebox\-\_\-dsp.\-c@{ebox\-\_\-dsp.\-c}!ebox\-\_\-dsp@{ebox\-\_\-dsp}}
+\index{ebox\-\_\-dsp@{ebox\-\_\-dsp}!ebox_dsp.c@{ebox\-\_\-dsp.\-c}}
+\subsubsection[{ebox\-\_\-dsp}]{\setlength{\rightskip}{0pt plus 5cm}void ebox\-\_\-dsp (
+\begin{DoxyParamCaption}
+\item[{t\-\_\-dspobj $\ast$}]{x, }
+\item[{t\-\_\-signal $\ast$$\ast$}]{sp}
+\end{DoxyParamCaption}
+)}}\label{ebox__dsp_8c_a669cc3390cd86e26b2a8898db3db063e}
+
+
+The dsp method (P\-R\-I\-V\-A\-T\-E) 
+
+
+
+Definition at line 172 of file ebox\-\_\-dsp.\-c.
+
+\hypertarget{ebox__dsp_8c_a343d1cee8b52a86dab9f06ada44e7ad5}{\index{ebox\-\_\-dsp.\-c@{ebox\-\_\-dsp.\-c}!ebox\-\_\-dsp\-\_\-add@{ebox\-\_\-dsp\-\_\-add}}
+\index{ebox\-\_\-dsp\-\_\-add@{ebox\-\_\-dsp\-\_\-add}!ebox_dsp.c@{ebox\-\_\-dsp.\-c}}
+\subsubsection[{ebox\-\_\-dsp\-\_\-add}]{\setlength{\rightskip}{0pt plus 5cm}void ebox\-\_\-dsp\-\_\-add (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-ebox} $\ast$}]{x, }
+\item[{t\-\_\-symbol $\ast$}]{s, }
+\item[{t\-\_\-object $\ast$}]{obj, }
+\item[{{\bf method}}]{m, }
+\item[{long}]{flags, }
+\item[{void $\ast$}]{userparam}
+\end{DoxyParamCaption}
+)}}\label{ebox__dsp_8c_a343d1cee8b52a86dab9f06ada44e7ad5}
+
+
+The dsp add method (P\-R\-I\-V\-A\-T\-E) 
+
+
+
+Definition at line 250 of file ebox\-\_\-dsp.\-c.
+
+\hypertarget{ebox__dsp_8c_a93d0e9fea6cc59b6974c1e973559558a}{\index{ebox\-\_\-dsp.\-c@{ebox\-\_\-dsp.\-c}!ebox\-\_\-dspfree@{ebox\-\_\-dspfree}}
+\index{ebox\-\_\-dspfree@{ebox\-\_\-dspfree}!ebox_dsp.c@{ebox\-\_\-dsp.\-c}}
+\subsubsection[{ebox\-\_\-dspfree}]{\setlength{\rightskip}{0pt plus 5cm}void ebox\-\_\-dspfree (
+\begin{DoxyParamCaption}
+\item[{t\-\_\-dspobj $\ast$}]{x}
+\end{DoxyParamCaption}
+)}}\label{ebox__dsp_8c_a93d0e9fea6cc59b6974c1e973559558a}
+
+
+Free a dsp ebox (note that if the object is also an U\-I, you don't need to call \hyperlink{ebox_8c_af23211541198cfe590300b42e758c94e}{ebox\-\_\-free()}) 
+
+
+
+Definition at line 60 of file ebox\-\_\-dsp.\-c.
+
+\hypertarget{ebox__dsp_8c_a02b31c62809733595155db99f5a0fab0}{\index{ebox\-\_\-dsp.\-c@{ebox\-\_\-dsp.\-c}!ebox\-\_\-dspsetup@{ebox\-\_\-dspsetup}}
+\index{ebox\-\_\-dspsetup@{ebox\-\_\-dspsetup}!ebox_dsp.c@{ebox\-\_\-dsp.\-c}}
+\subsubsection[{ebox\-\_\-dspsetup}]{\setlength{\rightskip}{0pt plus 5cm}void ebox\-\_\-dspsetup (
+\begin{DoxyParamCaption}
+\item[{t\-\_\-dspobj $\ast$}]{x, }
+\item[{long}]{nins, }
+\item[{long}]{nouts}
+\end{DoxyParamCaption}
+)}}\label{ebox__dsp_8c_a02b31c62809733595155db99f5a0fab0}
+
+
+Initialize an ebox for D\-S\-P. 
+
+
+
+Definition at line 37 of file ebox\-\_\-dsp.\-c.
+
+\hypertarget{ebox__dsp_8c_af0720795c8c9bbdd6d79d9bd83825e8f}{\index{ebox\-\_\-dsp.\-c@{ebox\-\_\-dsp.\-c}!ebox\-\_\-getconnections@{ebox\-\_\-getconnections}}
+\index{ebox\-\_\-getconnections@{ebox\-\_\-getconnections}!ebox_dsp.c@{ebox\-\_\-dsp.\-c}}
+\subsubsection[{ebox\-\_\-getconnections}]{\setlength{\rightskip}{0pt plus 5cm}void ebox\-\_\-getconnections (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-ebox} $\ast$}]{x, }
+\item[{short $\ast$}]{count}
+\end{DoxyParamCaption}
+)}}\label{ebox__dsp_8c_af0720795c8c9bbdd6d79d9bd83825e8f}
+
+
+The function should return the inlets and outlets dsp connections (P\-R\-I\-V\-A\-T\-E A\-N\-D N\-O\-T R\-E\-A\-D\-Y) 
+
+
+
+Definition at line 264 of file ebox\-\_\-dsp.\-c.
+
+\hypertarget{ebox__dsp_8c_abf79dbfeb6ebb3c34892e602a2b66da0}{\index{ebox\-\_\-dsp.\-c@{ebox\-\_\-dsp.\-c}!ebox\-\_\-perform@{ebox\-\_\-perform}}
+\index{ebox\-\_\-perform@{ebox\-\_\-perform}!ebox_dsp.c@{ebox\-\_\-dsp.\-c}}
+\subsubsection[{ebox\-\_\-perform}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-int$\ast$ ebox\-\_\-perform (
+\begin{DoxyParamCaption}
+\item[{t\-\_\-int $\ast$}]{w}
+\end{DoxyParamCaption}
+)}}\label{ebox__dsp_8c_abf79dbfeb6ebb3c34892e602a2b66da0}
+
+
+The perform method (P\-R\-I\-V\-A\-T\-E) 
+
+
+
+Definition at line 204 of file ebox\-\_\-dsp.\-c.
+
+\hypertarget{ebox__dsp_8c_a84fcc178da52a05d9a053f3bff80204c}{\index{ebox\-\_\-dsp.\-c@{ebox\-\_\-dsp.\-c}!ebox\-\_\-resize\-\_\-inputs@{ebox\-\_\-resize\-\_\-inputs}}
+\index{ebox\-\_\-resize\-\_\-inputs@{ebox\-\_\-resize\-\_\-inputs}!ebox_dsp.c@{ebox\-\_\-dsp.\-c}}
+\subsubsection[{ebox\-\_\-resize\-\_\-inputs}]{\setlength{\rightskip}{0pt plus 5cm}void ebox\-\_\-resize\-\_\-inputs (
+\begin{DoxyParamCaption}
+\item[{t\-\_\-dspobj $\ast$}]{x, }
+\item[{long}]{nins}
+\end{DoxyParamCaption}
+)}}\label{ebox__dsp_8c_a84fcc178da52a05d9a053f3bff80204c}
+
+
+Resize the number of signal inputs of an ebox. 
+
+
+
+Definition at line 77 of file ebox\-\_\-dsp.\-c.
+
+\hypertarget{ebox__dsp_8c_a5b9b34397e856819fce5b0f811566beb}{\index{ebox\-\_\-dsp.\-c@{ebox\-\_\-dsp.\-c}!ebox\-\_\-resize\-\_\-outputs@{ebox\-\_\-resize\-\_\-outputs}}
+\index{ebox\-\_\-resize\-\_\-outputs@{ebox\-\_\-resize\-\_\-outputs}!ebox_dsp.c@{ebox\-\_\-dsp.\-c}}
+\subsubsection[{ebox\-\_\-resize\-\_\-outputs}]{\setlength{\rightskip}{0pt plus 5cm}void ebox\-\_\-resize\-\_\-outputs (
+\begin{DoxyParamCaption}
+\item[{t\-\_\-dspobj $\ast$}]{x, }
+\item[{long}]{nouts}
+\end{DoxyParamCaption}
+)}}\label{ebox__dsp_8c_a5b9b34397e856819fce5b0f811566beb}
+
+
+Resize the number of signal outputs of an ebox. 
+
+
+
+Definition at line 108 of file ebox\-\_\-dsp.\-c.
+

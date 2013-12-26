@@ -28,7 +28,7 @@
 
 typedef struct  _loadmess
 {
-	t_ebox      l_box;
+	t_eobj      l_box;
 	t_outlet*   l_out;
     t_atom*     l_argv;
 	long        l_argc;
@@ -71,7 +71,7 @@ void *loadmess_new(t_symbol *s, int argc, t_atom *argv)
     if (!(d = binbuf_via_atoms(argc,argv)))
         return NULL;
     
-    x = (t_loadmess *)ebox_alloc(loadmess_class);
+    x = (t_loadmess *)eobj_alloc(loadmess_class);
     x->l_loaded = 0;
     x->l_time = clock_getsystime();
     x->l_argc = argc;

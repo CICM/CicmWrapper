@@ -190,7 +190,7 @@ void *breakpoints_new(t_symbol *s, int argc, t_atom *argv)
 	if (!(d = binbuf_via_atoms(argc,argv)))
 		return NULL;
 
-	x = (t_breakpoints *)ebox_alloc(breakpoints_class);
+	x = (t_breakpoints *)eobj_alloc(breakpoints_class);
     flags = 0
     | EBOX_GROWINDI
     ;

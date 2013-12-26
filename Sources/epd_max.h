@@ -71,7 +71,7 @@
 #define class_dspinit(class)                        eclassbox_dspinit(class)
 #define class_dspinitjbox(class)                    eclass_dspinit(class)
 #define class_register(name_space, class)           eclass_register(name_space, class)
-#define object_alloc(class)                         ebox_alloc(class)
+#define object_alloc(class)                         eobj_alloc(class)
 #define jbox_new(t_jbox, flags, argc, argv)         ebox_new(t_jbox, flags, argc, argv)
 #define dsp_setupjbox(t_jbox, nins, nouts)          ebox_dspsetup(t_jbox, nins, nouts)
 #define jbox_ready(t_jbox)                          ebox_ready(t_jbox)

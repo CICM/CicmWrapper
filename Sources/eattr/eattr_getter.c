@@ -40,7 +40,7 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
     int i, j;
     char *point;
     t_ebox* z   = (t_ebox *)x;
-    t_eclass* c = (t_eclass *)z->e_obj.te_g.g_pd;
+    t_eclass* c = (t_eclass *)z->b_obj.o_obj.te_g.g_pd;
     if(argv[0])
         free(argv);
     argc[0] = 0;

@@ -153,7 +153,7 @@ void *gain_new(t_symbol *s, int argc, t_atom *argv)
 	if (!(d = binbuf_via_atoms(argc,argv)))
 		return NULL;
     
-	x = (t_gain *)ebox_alloc(gain_class);
+	x = (t_gain *)eobj_alloc(gain_class);
     flags = 0
     | EBOX_GROWINDI
     ;

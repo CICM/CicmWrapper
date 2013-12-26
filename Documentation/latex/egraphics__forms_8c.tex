@@ -1,0 +1,192 @@
+\hypertarget{egraphics__forms_8c}{\section{Sources/egraphics/egraphics\-\_\-forms.c File Reference}
+\label{egraphics__forms_8c}\index{Sources/egraphics/egraphics\-\_\-forms.\-c@{Sources/egraphics/egraphics\-\_\-forms.\-c}}
+}
+{\ttfamily \#include \char`\"{}egraphics.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{egraphics__forms_8c_a256b717f8eeea9cc755374b8a60cd293}{egraphics\-\_\-move\-\_\-to} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g, float x, float y)
+\item 
+void \hyperlink{egraphics__forms_8c_ae7850b71992b31e3a6d51225898837ae}{egraphics\-\_\-line\-\_\-to} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g, float x, float y)
+\item 
+void \hyperlink{egraphics__forms_8c_a1194e837c7f38cc23d28f0d835705ec9}{egraphics\-\_\-line} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g, float x0, float y0, float x1, float y1)
+\item 
+void \hyperlink{egraphics__forms_8c_a1edd7b565474683c2c20a0ea92770ab0}{egraphics\-\_\-line\-\_\-fast} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g, float x0, float y0, float x1, float y1)
+\item 
+void \hyperlink{egraphics__forms_8c_a0f59e6df320f9a85448d6cdd4157e67c}{egraphics\-\_\-close\-\_\-path} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g)
+\item 
+void \hyperlink{egraphics__forms_8c_a9b13ded89650dbb17dd8969f417fef73}{egraphics\-\_\-rectangle} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g, float x, float y, float width, float height)
+\item 
+void \hyperlink{egraphics__forms_8c_a526c4c0dee0e231f8fd72be932754bb0}{egraphics\-\_\-rectangle\-\_\-rounded} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g, float x, float y, float width, float height, float roundness)
+\item 
+void \hyperlink{egraphics__forms_8c_a77ff91432b9eca677b5dde0611b37322}{egraphics\-\_\-circle} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g, float xc, float yc, float radius)
+\item 
+void \hyperlink{egraphics__forms_8c_a909b35c4761b86db7fd25a82aa5cec92}{egraphics\-\_\-oval} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g, float xc, float yc, float radiusx, float radiusy)
+\item 
+void \hyperlink{egraphics__forms_8c_a39ce0fbc67e9e2635920c8916852c484}{egraphics\-\_\-arc} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g, float xc, float yc, float radius, float angle1, float angle2)
+\item 
+void \hyperlink{egraphics__forms_8c_ad76d2fd21d89959fa4f1000734f89cef}{egraphics\-\_\-arc\-\_\-oval} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g, float xc, float yc, float radiusx, float radiusy, float angle1, float angle2)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{egraphics__forms_8c_a39ce0fbc67e9e2635920c8916852c484}{\index{egraphics\-\_\-forms.\-c@{egraphics\-\_\-forms.\-c}!egraphics\-\_\-arc@{egraphics\-\_\-arc}}
+\index{egraphics\-\_\-arc@{egraphics\-\_\-arc}!egraphics_forms.c@{egraphics\-\_\-forms.\-c}}
+\subsubsection[{egraphics\-\_\-arc}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-arc (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g, }
+\item[{float}]{xc, }
+\item[{float}]{yc, }
+\item[{float}]{radius, }
+\item[{float}]{angle1, }
+\item[{float}]{angle2}
+\end{DoxyParamCaption}
+)}}\label{egraphics__forms_8c_a39ce0fbc67e9e2635920c8916852c484}
+
+
+Definition at line 215 of file egraphics\-\_\-forms.\-c.
+
+\hypertarget{egraphics__forms_8c_ad76d2fd21d89959fa4f1000734f89cef}{\index{egraphics\-\_\-forms.\-c@{egraphics\-\_\-forms.\-c}!egraphics\-\_\-arc\-\_\-oval@{egraphics\-\_\-arc\-\_\-oval}}
+\index{egraphics\-\_\-arc\-\_\-oval@{egraphics\-\_\-arc\-\_\-oval}!egraphics_forms.c@{egraphics\-\_\-forms.\-c}}
+\subsubsection[{egraphics\-\_\-arc\-\_\-oval}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-arc\-\_\-oval (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g, }
+\item[{float}]{xc, }
+\item[{float}]{yc, }
+\item[{float}]{radiusx, }
+\item[{float}]{radiusy, }
+\item[{float}]{angle1, }
+\item[{float}]{angle2}
+\end{DoxyParamCaption}
+)}}\label{egraphics__forms_8c_ad76d2fd21d89959fa4f1000734f89cef}
+
+
+Definition at line 220 of file egraphics\-\_\-forms.\-c.
+
+\hypertarget{egraphics__forms_8c_a77ff91432b9eca677b5dde0611b37322}{\index{egraphics\-\_\-forms.\-c@{egraphics\-\_\-forms.\-c}!egraphics\-\_\-circle@{egraphics\-\_\-circle}}
+\index{egraphics\-\_\-circle@{egraphics\-\_\-circle}!egraphics_forms.c@{egraphics\-\_\-forms.\-c}}
+\subsubsection[{egraphics\-\_\-circle}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-circle (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g, }
+\item[{float}]{xc, }
+\item[{float}]{yc, }
+\item[{float}]{radius}
+\end{DoxyParamCaption}
+)}}\label{egraphics__forms_8c_a77ff91432b9eca677b5dde0611b37322}
+
+
+Definition at line 186 of file egraphics\-\_\-forms.\-c.
+
+\hypertarget{egraphics__forms_8c_a0f59e6df320f9a85448d6cdd4157e67c}{\index{egraphics\-\_\-forms.\-c@{egraphics\-\_\-forms.\-c}!egraphics\-\_\-close\-\_\-path@{egraphics\-\_\-close\-\_\-path}}
+\index{egraphics\-\_\-close\-\_\-path@{egraphics\-\_\-close\-\_\-path}!egraphics_forms.c@{egraphics\-\_\-forms.\-c}}
+\subsubsection[{egraphics\-\_\-close\-\_\-path}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-close\-\_\-path (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{egraphics__forms_8c_a0f59e6df320f9a85448d6cdd4157e67c}
+
+
+Definition at line 92 of file egraphics\-\_\-forms.\-c.
+
+\hypertarget{egraphics__forms_8c_a1194e837c7f38cc23d28f0d835705ec9}{\index{egraphics\-\_\-forms.\-c@{egraphics\-\_\-forms.\-c}!egraphics\-\_\-line@{egraphics\-\_\-line}}
+\index{egraphics\-\_\-line@{egraphics\-\_\-line}!egraphics_forms.c@{egraphics\-\_\-forms.\-c}}
+\subsubsection[{egraphics\-\_\-line}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-line (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g, }
+\item[{float}]{x0, }
+\item[{float}]{y0, }
+\item[{float}]{x1, }
+\item[{float}]{y1}
+\end{DoxyParamCaption}
+)}}\label{egraphics__forms_8c_a1194e837c7f38cc23d28f0d835705ec9}
+
+
+Definition at line 73 of file egraphics\-\_\-forms.\-c.
+
+\hypertarget{egraphics__forms_8c_a1edd7b565474683c2c20a0ea92770ab0}{\index{egraphics\-\_\-forms.\-c@{egraphics\-\_\-forms.\-c}!egraphics\-\_\-line\-\_\-fast@{egraphics\-\_\-line\-\_\-fast}}
+\index{egraphics\-\_\-line\-\_\-fast@{egraphics\-\_\-line\-\_\-fast}!egraphics_forms.c@{egraphics\-\_\-forms.\-c}}
+\subsubsection[{egraphics\-\_\-line\-\_\-fast}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-line\-\_\-fast (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g, }
+\item[{float}]{x0, }
+\item[{float}]{y0, }
+\item[{float}]{x1, }
+\item[{float}]{y1}
+\end{DoxyParamCaption}
+)}}\label{egraphics__forms_8c_a1edd7b565474683c2c20a0ea92770ab0}
+
+
+Definition at line 82 of file egraphics\-\_\-forms.\-c.
+
+\hypertarget{egraphics__forms_8c_ae7850b71992b31e3a6d51225898837ae}{\index{egraphics\-\_\-forms.\-c@{egraphics\-\_\-forms.\-c}!egraphics\-\_\-line\-\_\-to@{egraphics\-\_\-line\-\_\-to}}
+\index{egraphics\-\_\-line\-\_\-to@{egraphics\-\_\-line\-\_\-to}!egraphics_forms.c@{egraphics\-\_\-forms.\-c}}
+\subsubsection[{egraphics\-\_\-line\-\_\-to}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-line\-\_\-to (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g, }
+\item[{float}]{x, }
+\item[{float}]{y}
+\end{DoxyParamCaption}
+)}}\label{egraphics__forms_8c_ae7850b71992b31e3a6d51225898837ae}
+
+
+Definition at line 51 of file egraphics\-\_\-forms.\-c.
+
+\hypertarget{egraphics__forms_8c_a256b717f8eeea9cc755374b8a60cd293}{\index{egraphics\-\_\-forms.\-c@{egraphics\-\_\-forms.\-c}!egraphics\-\_\-move\-\_\-to@{egraphics\-\_\-move\-\_\-to}}
+\index{egraphics\-\_\-move\-\_\-to@{egraphics\-\_\-move\-\_\-to}!egraphics_forms.c@{egraphics\-\_\-forms.\-c}}
+\subsubsection[{egraphics\-\_\-move\-\_\-to}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-move\-\_\-to (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g, }
+\item[{float}]{x, }
+\item[{float}]{y}
+\end{DoxyParamCaption}
+)}}\label{egraphics__forms_8c_a256b717f8eeea9cc755374b8a60cd293}
+
+
+Definition at line 29 of file egraphics\-\_\-forms.\-c.
+
+\hypertarget{egraphics__forms_8c_a909b35c4761b86db7fd25a82aa5cec92}{\index{egraphics\-\_\-forms.\-c@{egraphics\-\_\-forms.\-c}!egraphics\-\_\-oval@{egraphics\-\_\-oval}}
+\index{egraphics\-\_\-oval@{egraphics\-\_\-oval}!egraphics_forms.c@{egraphics\-\_\-forms.\-c}}
+\subsubsection[{egraphics\-\_\-oval}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-oval (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g, }
+\item[{float}]{xc, }
+\item[{float}]{yc, }
+\item[{float}]{radiusx, }
+\item[{float}]{radiusy}
+\end{DoxyParamCaption}
+)}}\label{egraphics__forms_8c_a909b35c4761b86db7fd25a82aa5cec92}
+
+
+Definition at line 191 of file egraphics\-\_\-forms.\-c.
+
+\hypertarget{egraphics__forms_8c_a9b13ded89650dbb17dd8969f417fef73}{\index{egraphics\-\_\-forms.\-c@{egraphics\-\_\-forms.\-c}!egraphics\-\_\-rectangle@{egraphics\-\_\-rectangle}}
+\index{egraphics\-\_\-rectangle@{egraphics\-\_\-rectangle}!egraphics_forms.c@{egraphics\-\_\-forms.\-c}}
+\subsubsection[{egraphics\-\_\-rectangle}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-rectangle (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g, }
+\item[{float}]{x, }
+\item[{float}]{y, }
+\item[{float}]{width, }
+\item[{float}]{height}
+\end{DoxyParamCaption}
+)}}\label{egraphics__forms_8c_a9b13ded89650dbb17dd8969f417fef73}
+
+
+Definition at line 113 of file egraphics\-\_\-forms.\-c.
+
+\hypertarget{egraphics__forms_8c_a526c4c0dee0e231f8fd72be932754bb0}{\index{egraphics\-\_\-forms.\-c@{egraphics\-\_\-forms.\-c}!egraphics\-\_\-rectangle\-\_\-rounded@{egraphics\-\_\-rectangle\-\_\-rounded}}
+\index{egraphics\-\_\-rectangle\-\_\-rounded@{egraphics\-\_\-rectangle\-\_\-rounded}!egraphics_forms.c@{egraphics\-\_\-forms.\-c}}
+\subsubsection[{egraphics\-\_\-rectangle\-\_\-rounded}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-rectangle\-\_\-rounded (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g, }
+\item[{float}]{x, }
+\item[{float}]{y, }
+\item[{float}]{width, }
+\item[{float}]{height, }
+\item[{float}]{roundness}
+\end{DoxyParamCaption}
+)}}\label{egraphics__forms_8c_a526c4c0dee0e231f8fd72be932754bb0}
+
+
+Definition at line 144 of file egraphics\-\_\-forms.\-c.
+

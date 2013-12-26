@@ -143,7 +143,7 @@ void *knob_new(t_symbol *s, int argc, t_atom *argv)
 	if (!(d = binbuf_via_atoms(argc,argv)))
 		return NULL;
     
-	x = (t_knob *)ebox_alloc(knob_class);
+	x = (t_knob *)eobj_alloc(knob_class);
     flags = 0
     | EBOX_GROWLINK
     ;
