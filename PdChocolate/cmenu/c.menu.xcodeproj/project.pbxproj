@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		59FB02F817A7FAA9001E977D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FB02F717A7FAA9001E977D /* Accelerate.framework */; };
+		8F01EDBE186C460500972C51 /* c.menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F01EDBD186C460500972C51 /* c.menu.cpp */; };
 		8F02DF1C1860246F005ED073 /* eattr.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F02DEF31860246F005ED073 /* eattr.h */; };
 		8F02DF1D1860246F005ED073 /* eattr_attr.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F02DEF41860246F005ED073 /* eattr_attr.c */; };
 		8F02DF1E1860246F005ED073 /* eattr_getter.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F02DEF51860246F005ED073 /* eattr_getter.c */; };
@@ -42,12 +43,12 @@
 		8F02DF3B1860246F005ED073 /* ewidget.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F02DF191860246F005ED073 /* ewidget.c */; };
 		8F02DF3C1860246F005ED073 /* ewidget.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F02DF1A1860246F005ED073 /* ewidget.h */; };
 		8F02DF3D1860246F005ED073 /* pd_enhanced.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F02DF1B1860246F005ED073 /* pd_enhanced.h */; };
-		8FB730CF180953EB00830C7B /* c.menu.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB730CE180953EB00830C7B /* c.menu.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5913846F15DAA36D0029AD16 /* c.menu.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = c.menu.pd_darwin; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FB02F717A7FAA9001E977D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		8F01EDBD186C460500972C51 /* c.menu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = c.menu.cpp; sourceTree = "<group>"; };
 		8F02DEF31860246F005ED073 /* eattr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eattr.h; sourceTree = "<group>"; };
 		8F02DEF41860246F005ED073 /* eattr_attr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eattr_attr.c; sourceTree = "<group>"; };
 		8F02DEF51860246F005ED073 /* eattr_getter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eattr_getter.c; sourceTree = "<group>"; };
@@ -82,7 +83,6 @@
 		8F02DF191860246F005ED073 /* ewidget.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ewidget.c; sourceTree = "<group>"; };
 		8F02DF1A1860246F005ED073 /* ewidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ewidget.h; sourceTree = "<group>"; };
 		8F02DF1B1860246F005ED073 /* pd_enhanced.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pd_enhanced.h; sourceTree = "<group>"; };
-		8FB730CE180953EB00830C7B /* c.menu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = c.menu.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +100,7 @@
 		5913846415DAA36D0029AD16 = {
 			isa = PBXGroup;
 			children = (
-				8FB730CE180953EB00830C7B /* c.menu.c */,
+				8F01EDBD186C460500972C51 /* c.menu.cpp */,
 				8F02DEF11860246F005ED073 /* Sources */,
 				59FB02F717A7FAA9001E977D /* Accelerate.framework */,
 				5913847015DAA36D0029AD16 /* Products */,
@@ -308,12 +308,12 @@
 				8F02DF271860246F005ED073 /* ebox_patcher.c in Sources */,
 				8F02DF231860246F005ED073 /* ebox_attr.c in Sources */,
 				8F02DF201860246F005ED073 /* eattr_setter.c in Sources */,
-				8FB730CF180953EB00830C7B /* c.menu.c in Sources */,
 				8F02DF381860246F005ED073 /* erouter.c in Sources */,
 				8F02DF321860246F005ED073 /* egraphics_matrix.c in Sources */,
 				8F02DF2E1860246F005ED073 /* egraphics.c in Sources */,
 				8F02DF251860246F005ED073 /* ebox_dsp.c in Sources */,
 				8F02DF1D1860246F005ED073 /* eattr_attr.c in Sources */,
+				8F01EDBE186C460500972C51 /* c.menu.cpp in Sources */,
 				8F02DF361860246F005ED073 /* epopup.c in Sources */,
 				8F02DF241860246F005ED073 /* ebox_draw.c in Sources */,
 			);

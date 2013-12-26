@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		59FB02F817A7FAA9001E977D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FB02F717A7FAA9001E977D /* Accelerate.framework */; };
+		8F01EDC0186C461C00972C51 /* c.plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F01EDBF186C461C00972C51 /* c.plane.cpp */; };
 		8F907540185B45E9003AA6BD /* eattr.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F907517185B45E9003AA6BD /* eattr.h */; };
 		8F907541185B45E9003AA6BD /* eattr_attr.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F907518185B45E9003AA6BD /* eattr_attr.c */; };
 		8F907542185B45E9003AA6BD /* eattr_getter.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F907519185B45E9003AA6BD /* eattr_getter.c */; };
@@ -42,12 +43,12 @@
 		8F90755F185B45E9003AA6BD /* ewidget.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F90753D185B45E9003AA6BD /* ewidget.c */; };
 		8F907560185B45E9003AA6BD /* ewidget.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F90753E185B45E9003AA6BD /* ewidget.h */; };
 		8F907561185B45EA003AA6BD /* pd_enhanced.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F90753F185B45E9003AA6BD /* pd_enhanced.h */; };
-		8F9AD49F185C87C30095F0CC /* c.plane.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F9AD49E185C87C30095F0CC /* c.plane.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5913846F15DAA36D0029AD16 /* c.plane.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = c.plane.pd_darwin; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FB02F717A7FAA9001E977D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		8F01EDBF186C461C00972C51 /* c.plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = c.plane.cpp; sourceTree = "<group>"; };
 		8F907517185B45E9003AA6BD /* eattr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eattr.h; sourceTree = "<group>"; };
 		8F907518185B45E9003AA6BD /* eattr_attr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eattr_attr.c; sourceTree = "<group>"; };
 		8F907519185B45E9003AA6BD /* eattr_getter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eattr_getter.c; sourceTree = "<group>"; };
@@ -82,7 +83,6 @@
 		8F90753D185B45E9003AA6BD /* ewidget.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ewidget.c; sourceTree = "<group>"; };
 		8F90753E185B45E9003AA6BD /* ewidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ewidget.h; sourceTree = "<group>"; };
 		8F90753F185B45E9003AA6BD /* pd_enhanced.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pd_enhanced.h; sourceTree = "<group>"; };
-		8F9AD49E185C87C30095F0CC /* c.plane.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = c.plane.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +100,7 @@
 		5913846415DAA36D0029AD16 = {
 			isa = PBXGroup;
 			children = (
-				8F9AD49E185C87C30095F0CC /* c.plane.c */,
+				8F01EDBF186C461C00972C51 /* c.plane.cpp */,
 				8F907515185B45E9003AA6BD /* Sources */,
 				59FB02F717A7FAA9001E977D /* Accelerate.framework */,
 				5913847015DAA36D0029AD16 /* Products */,
@@ -295,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F907542185B45E9003AA6BD /* eattr_getter.c in Sources */,
+				8F01EDC0186C461C00972C51 /* c.plane.cpp in Sources */,
 				8F90754A185B45E9003AA6BD /* ebox_handle.c in Sources */,
 				8F907545185B45E9003AA6BD /* ebox.c in Sources */,
 				8F90755F185B45E9003AA6BD /* ewidget.c in Sources */,
@@ -308,7 +309,6 @@
 				8F90754B185B45E9003AA6BD /* ebox_patcher.c in Sources */,
 				8F907547185B45E9003AA6BD /* ebox_attr.c in Sources */,
 				8F907544185B45E9003AA6BD /* eattr_setter.c in Sources */,
-				8F9AD49F185C87C30095F0CC /* c.plane.c in Sources */,
 				8F90755C185B45E9003AA6BD /* erouter.c in Sources */,
 				8F907556185B45E9003AA6BD /* egraphics_matrix.c in Sources */,
 				8F907552185B45E9003AA6BD /* egraphics.c in Sources */,
