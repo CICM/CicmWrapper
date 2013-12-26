@@ -61,34 +61,34 @@ void ewidget_init(t_eclass* c)
 void ewidget_getrect(t_gobj *z, t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2)
 {
     t_ebox *x = (t_ebox *)z;
-    *xp1 = text_xpix(&x->b_obj.o_obj, glist);
-    *yp1 = text_ypix(&x->b_obj.o_obj, glist) - (int)(x->b_boxparameters.d_borderthickness);
-    *xp2 = text_xpix(&x->b_obj.o_obj, glist) + (int)x->b_rect.width + (int)(x->b_boxparameters.d_borderthickness);
-    *yp2 = text_ypix(&x->b_obj.o_obj, glist) + (int)x->b_rect.height + (int)(x->b_boxparameters.d_borderthickness);
+    *xp1 = text_xpix(&x->e_obj, glist);
+    *yp1 = text_ypix(&x->e_obj, glist) - (int)(x->e_boxparameters.d_borderthickness);
+    *xp2 = text_xpix(&x->e_obj, glist) + (int)x->e_rect.width + (int)(x->e_boxparameters.d_borderthickness);
+    *yp2 = text_ypix(&x->e_obj, glist) + (int)x->e_rect.height + (int)(x->e_boxparameters.d_borderthickness);
 }
 
 void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
 {
     t_ebox* x   = (t_ebox *)z;
-    t_eclass* c = (t_eclass *)x->b_obj.o_obj.te_g.g_pd;
+    t_eclass* c = (t_eclass *)x->e_obj.te_g.g_pd;
     
     if(vis)
     {
-        if(c->c_box == 0 && x->b_ready_to_draw)
+        if(c->c_box == 0 && x->e_ready_to_draw)
         {
 			ebox_create_window(x, glist);
             ebox_invalidate_all(x);
             // No redraw for the 1st paint
-            if(x->b_obj.o_canvas && x->b_ready_to_draw && c->c_box == 0)
+            if(x->e_canvas && x->e_ready_to_draw && c->c_box == 0)
             {
                 ebox_invalidate_layer(x, gensym("eboxbd"));
                 ebox_invalidate_layer(x, gensym("eboxio"));
                 
                 ebox_update(x);
                 if(c->c_widget.w_paint)
-                    c->c_widget.w_paint(x, (t_object *)x->b_obj.o_canvas);
+                    c->c_widget.w_paint(x, (t_object *)x->e_canvas);
                 ebox_draw_border(x);
-                if(x->b_obj.o_canvas->gl_edit)
+                if(x->e_canvas->gl_edit)
                     ebox_draw_iolets(x);
             }
         }
@@ -109,10 +109,10 @@ void ewidget_displace(t_gobj *z, t_glist *glist, int dx, int dy)
 #endif
 	x = (t_ebox *)z;
     
-    x->b_rect.x += dx;
-    x->b_rect.y += dy;
-    x->b_obj.o_obj.te_xpix += dx;
-    x->b_obj.o_obj.te_ypix += dy;
+    x->e_rect.x += dx;
+    x->e_rect.y += dy;
+    x->e_obj.te_xpix += dx;
+    x->e_obj.te_ypix += dy;
     
     ebox_move(x);
 
@@ -129,9 +129,9 @@ void ewidget_select(t_gobj *z, t_glist *glist, int selected)
 {
     t_ebox *x = (t_ebox *)z;
     if(selected)
-        x->b_selected_box = 1;
+        x->e_selected_box = 1;
     else
-        x->b_selected_box = 0;
+        x->e_selected_box = 0;
     ebox_select(x);
 }
 

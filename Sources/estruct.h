@@ -24,105 +24,65 @@
  *
  */
 
-/**
- * @file estruct.h
- * @brief The header that contains all the principals structures of PdEnhanced
- * @details All the principals structures are defined in this file.
- * @author Pierre Guillot
- */
 #ifndef DEF_ESTRUCT
 #define DEF_ESTRUCT
 
 #include "ecommon/ecommon.h"
 
-/**
- * @struct _pt
- * @brief A point structure.
- * @details It contains the members x and y for abscissa and ordinate.
- */
+
 typedef struct _pt
 {
-	float x; /*!< The abscissa coordiante. */
-	float y; /*!< The ordiante coordiante. */
-} t_pt;
+	float x;
+	float y;
+} t_pt; ///< A 2D Point.
 
-/**
- * @struct _rect
- * @brief A rectangle structure.
- * @details It contains the members x, y, width and height for abscissa and ordinate and size.
- */
 typedef struct _rect
 {
-	float x;        /*!< The abscissa coordiante. */
-	float y;        /*!< The ordiante coordiante. */
-	float width;    /*!< The width of the rectangle */
-	float height;   /*!< The height of the rectangle */
-} t_rect;
+	float x;
+	float y;
+	float width;
+	float height;
+} t_rect; ///< A Rectangle.
 
-/**
- * @struct _matrix
- * @brief A matrix structure.
- * @details It contains the members xx, yx, xy, yy, x0 and y0
- */
-typedef struct _matrix
-{
-	float xx;   /*!< The abscissa-abscissa translation of the matrix */
-	float yx;   /*!< The abscissa-ordiante translation of the matrix */
-	float xy;   /*!< The ordiante-abscissa translation of the matrix */
-	float yy;   /*!< The ordiante-ordiante translation of the matrix */
-	float x0;   /*!< The abscissa origin of the matrix */
-	float y0;   /*!< The ordiante origin of the matrix */
-} t_matrix;
-
-/**
- * @struct _rgb
- * @brief A rgb color structure.
- * @details It contains the members red, green and blue.
- */
 typedef struct _rgb
 {
-	float red;      /*!< The red value. */
-	float green;    /*!< The green value. */
-	float blue;     /*!< The blue value. */
-} t_rgb;
+	float red;
+	float green;
+	float blue;
+} t_rgb; ///< A RGB Color.
 
-/**
- * @struct _rgba
- * @brief A rgba color structure.
- * @details It contains the members red, green, blue and alpha.
- */
 typedef struct _rgba
 {
-	float red;      /*!< The red value. */
-	float green;    /*!< The green value. */
-	float blue;     /*!< The blue value. */
-	float alpha;    /*!< The alpha value. */
-} t_rgba;
+	float red;
+	float green;
+	float blue;
+	float alpha;
+} t_rgba; ///< A RGBA Color.
 
-/**
- * @struct _hsl
- * @brief A hsl color structure.
- * @details It contains the members hue, saturation and lightness.
- */
 typedef struct _hsl
 {
-	float hue;          /*!< The hue value. */
-	float saturation;   /*!< The saturation value. */
-	float lightness;    /*!< The lightness value. */
-} t_hsl;
+	float hue;
+	float saturation;
+	float lightness;
+} t_hsl; ///< A HSL Color.
 
-/**
- * @struct _hsla
- * @brief A hsla color structure.
- * @details It contains the members hue, saturation, lightness and alpha.
- */
 typedef struct _hsla
 {
-	float hue;          /*!< The hue value. */
-	float saturation;   /*!< The saturation value. */
-	float lightness;    /*!< The lightness value. */
-    float alpha;        /*!< The alpha value. */
-} t_hsla;
+	float hue;
+	float saturation;
+	float lightness;
+    float alpha;
+} t_hsla; ///< A HSLA Color.
+
+typedef struct _matrix
+{
+	float xx;
+	float yx;
+	float xy;
+	float yy;
+	float x0;
+	float y0;
+} t_matrix; ///< A Graphic Matrix.
 
 typedef struct _ewidget
 {
@@ -356,124 +316,57 @@ typedef struct _eproxy {
     int         p_index;
 } t_eproxy;
 
-
-/**
- * @struct _eobj
- * @brief The Pd Enhanced Box object.
- * @details It contains the Pd object, the canvas pointer and members for proxy inlets.
- * This should be used for no graphical object that don't have signal processing methods.
- */
-typedef struct _eobj
-{
-    t_object            o_obj;              /*!< The Pd object. */
-    t_canvas*           o_canvas;           /*!< The canvas that own the object. */
-    t_eproxy            o_proxy[256];       /*!< The array of proxy inlets. */
-    long                o_nproxy;           /*!< The number of proxy inlets. */
-    long                o_current_proxy;    /*!< The index of the current proxy inlet used */
-}t_eobj;
-
-/**
- * @struct _edspobj
- * @brief The Pd Enhanced Box DSP object.
- * @details It contains the Pd Enhanced object with all the members for signal processing.
- * This should be used for no graphical object that have signal processing methods.
- */
-typedef struct _edspobj
-{
-    t_eobj              d_obj;              /*!< The Pd Enhanced object. */
-
-    t_inlet*            d_inlets[256];      /*!< The array of signal inlets. */
-    t_outlet*           d_outlets[256];     /*!< The array of signal outlets. */
-    float               d_float;            /*!< The float member to initialize the signal method. */
-    long                d_dsp_size;         /*!< The number of signal inlets and outlets. */
-    t_int               d_dsp_vectors[262]; /*!< The vector that contains all the pointers for the perform method. */
-    long                d_dsp_flag;         /*!< The flags to initialize the perform method. */
-    void*               d_dsp_user_param;   /*!< The user parameters to pass through the perform method. */
-    t_float*            d_sigs_out[256];    /*!< The array of signal vectors. */
-    method              d_perform_method;   /*!< The user perform method. */
-    long                d_misc;
-}t_edspobj;
-
-/**
- * @struct _ebox
- * @brief The Pd Enhanced GUI object.
- * @details It contains the Pd Enhanced object with all the members for graphical behavior.
- * This should be used for graphical object that don't have signal processing methods.
- */
 typedef struct _ebox
 {
-    t_eobj              b_obj;              /*!< The Pd Enhanced object. */
+    t_object            e_obj;
+    t_canvas*           e_canvas;
+    t_eproxy            e_proxy[256];
+    long                e_nproxy;
+    long                e_current_proxy;
     
-    t_symbol*           b_object_id;        /*!< The object intern ID. */
-    t_symbol*           b_objuser_id;       /*!< The object user ID. */
-    t_symbol*           b_objpreset_id;     /*!< The object preset ID. */
+    t_symbol*           e_object_id;
+    t_symbol*           e_objuser_id;
+    t_symbol*           e_objpreset_id;
+    t_symbol*           e_canvas_id;
+    t_symbol*           e_drawing_id;
+    t_symbol*           e_editor_id;
+    t_symbol*           e_window_id;
+    t_symbol*           e_all_id;
     
-    t_symbol*           b_canvas_id;        /*!< The canvas ID. */
-    t_symbol*           b_drawing_id;       /*!< The drawing ID. */
-    t_symbol*           b_editor_id;        /*!< The editor ID. */
-    t_symbol*           b_window_id;        /*!< The window ID. */
-    t_symbol*           b_all_id;           /*!< The global ID. */
+    long                e_flags;
+    t_rect              e_rect;
+    t_efont             e_font;
+    t_rect              e_rect_last;
+    int                 e_selected_box;
+    int                 e_selected_item;
+    int                 e_selected_inlet;
+    int                 e_selected_outlet;
     
-    long                b_flags;
-    t_rect              b_rect;
-    t_efont             b_font;
-    t_rect              b_rect_last;
-    int                 b_selected_box;
-    int                 b_selected_item;
-    int                 b_selected_inlet;
-    int                 b_selected_outlet;
+    t_pt                e_mouse;
+    t_pt                e_move_box;
+    char                e_mouse_down;
+    long                e_modifiers;
     
-    t_pt                b_mouse;
-    t_pt                b_move_box;
-    char                b_mouse_down;
-    long                b_modifiers;
+    char                e_ready_to_draw;
+    t_edrawparams       e_boxparameters;
     
-    char                b_ready_to_draw;
-    t_edrawparams       b_boxparameters;
+    t_elayer*           e_layers;
+    long                e_number_of_layers;
     
-    t_elayer*           b_layers;
-    long                b_number_of_layers;
+    t_inlet*            e_inlets[256];
+    t_outlet*           e_outlets[256];
+    
+    float               e_float;                // float value for signal
+    long                e_dsp_size;
+    t_int               e_dsp_vectors[262];
+    long                e_dsp_flag;
+    void*               e_dsp_user_param;
+    long                z_misc;     // Special Max for Z_NO_INPLACE
+    t_float*            z_sigs_out[256];
+    method              e_perform_method;
+    
+    t_object*           b_firstin; // For Max, it doesn't matter !
 }t_ebox;
-
-/**
- * @struct _edspbox
- * @brief The Pd Enhanced GUI DSP object.
- * @details It contains the Pd Enhanced object with all the members for graphical behavior and signal processing.
- * This should be used for graphical object that have signal processing methods.
- */
-typedef struct _edspbox
-{
-    t_edspobj           b_obj;              /*!< The Pd Enhanced DSP object. */
-    
-    t_symbol*           b_object_id;
-    t_symbol*           b_objuser_id;
-    t_symbol*           b_objpreset_id;
-    t_symbol*           b_canvas_id;
-    t_symbol*           b_drawing_id;
-    t_symbol*           b_editor_id;
-    t_symbol*           b_window_id;
-    t_symbol*           b_all_id;
-    
-    long                b_flags;
-    t_rect              b_rect;
-    t_efont             b_font;
-    t_rect              b_rect_last;
-    int                 b_selected_box;
-    int                 b_selected_item;
-    int                 b_selected_inlet;
-    int                 b_selected_outlet;
-    
-    t_pt                b_mouse;
-    t_pt                b_move_box;
-    char                b_mouse_down;
-    long                b_modifiers;
-    
-    char                b_ready_to_draw;
-    t_edrawparams       b_boxparameters;
-    
-    t_elayer*           b_layers;
-    long                b_number_of_layers;
-}t_edspbox;
 
 
 

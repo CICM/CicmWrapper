@@ -134,7 +134,7 @@ void *radio_new(t_symbol *s, int argc, t_atom *argv)
 	if (!(d = binbuf_via_atoms(argc,argv)))
 		return NULL;
     
-	x = (t_radio *)eobj_alloc(radio_class);
+	x = (t_radio *)ebox_alloc(radio_class);
     flags = 0
     | EBOX_GROWINDI
     ;

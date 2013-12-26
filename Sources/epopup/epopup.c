@@ -29,7 +29,7 @@
 t_epopup* epopupmenu_create(t_ebox* x, t_symbol* name)
 {
     t_epopup* menu = (t_epopup *)malloc(sizeof(t_epopup));
-    menu->c_send = x->b_object_id;
+    menu->c_send = x->e_object_id;
     menu->c_name = name;
     sys_vgui("destroy .eboxpopup%s\n", menu->c_name->s_name);
     sys_vgui("menu .eboxpopup%s -tearoff 0\n", menu->c_name->s_name);
@@ -67,14 +67,14 @@ void epopupmenu_popup(t_epopup* menu, t_pt screen, int defitemid)
 t_etextfield* etextfield_create(t_ebox* x, t_symbol* name, float width, float height)
 {
     t_etextfield* textfield = (t_etextfield *)malloc(sizeof(t_etextfield));
-    textfield->c_send = x->b_object_id;
+    textfield->c_send = x->e_object_id;
     textfield->c_name = name;
     //sys_vgui("destroy .textfield%s\n", x->e_window_id->s_name, textfield->c_name->s_name);
     sys_vgui("destroy .%ldzaza\n");
     sys_vgui("entry .%ldzaza\n",
               (long)x,
-             (int)(x->b_rect.width + x->b_boxparameters.d_borderthickness),
-             (int)(x->b_rect.height + x->b_boxparameters.d_borderthickness));
+             (int)(x->e_rect.width + x->e_boxparameters.d_borderthickness),
+             (int)(x->e_rect.height + x->e_boxparameters.d_borderthickness));
     
     return textfield;
     

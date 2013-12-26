@@ -110,7 +110,7 @@ void *bang_new(t_symbol *s, int argc, t_atom *argv)
 	if (!(d = binbuf_via_atoms(argc,argv)))
 		return NULL;
     
-	x = (t_bang *)eobj_alloc(bang_class);
+	x = (t_bang *)ebox_alloc(bang_class);
     flags = 0
     | EBOX_GROWLINK
     ;

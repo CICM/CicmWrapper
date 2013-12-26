@@ -1,9 +1,0 @@
-var searchData=
-[
-  ['obj_5fisfloatinlet',['obj_isfloatinlet',['../ecommon_8c.html#aca574f2182f23cf5a8c527bdeb7f9de8',1,'obj_isfloatinlet(t_object *x, int m):&#160;ecommon.c'],['../ecommon_8h.html#aca574f2182f23cf5a8c527bdeb7f9de8',1,'obj_isfloatinlet(t_object *x, int m):&#160;ecommon.c']]],
-  ['obj_5fisfloatoutlet',['obj_isfloatoutlet',['../ecommon_8c.html#a16c90f22690cdce6c698af830d8a3a0d',1,'obj_isfloatoutlet(t_object *x, int m):&#160;ecommon.c'],['../ecommon_8h.html#a16c90f22690cdce6c698af830d8a3a0d',1,'obj_isfloatoutlet(t_object *x, int m):&#160;ecommon.c']]],
-  ['object_5fattr_5fgetvalueof',['object_attr_getvalueof',['../ecommon_8c.html#a3fb846c57f360ca1f353fd826da37c5c',1,'object_attr_getvalueof(t_object *x, t_symbol *s, long *argc, t_atom **argv):&#160;ecommon.c'],['../ecommon_8h.html#a3fb846c57f360ca1f353fd826da37c5c',1,'object_attr_getvalueof(t_object *x, t_symbol *s, long *argc, t_atom **argv):&#160;ecommon.c']]],
-  ['object_5fattr_5fsetvalueof',['object_attr_setvalueof',['../ecommon_8c.html#a25294ad2c3ae990aee1609847a11395d',1,'object_attr_setvalueof(t_object *x, t_symbol *s, long argc, t_atom *argv):&#160;ecommon.c'],['../ecommon_8h.html#a25294ad2c3ae990aee1609847a11395d',1,'object_attr_setvalueof(t_object *x, t_symbol *s, long argc, t_atom *argv):&#160;ecommon.c']]],
-  ['object_5fmethod',['object_method',['../ecommon_8c.html#ad1421d9b47627735246620816e14c583',1,'object_method(void *x, t_symbol *s, void *z, method method, long number, void *other):&#160;ecommon.c'],['../ecommon_8h.html#ad1421d9b47627735246620816e14c583',1,'object_method(void *x, t_symbol *s, void *z, method method, long number, void *other):&#160;ecommon.c']]],
-  ['outlet_5fint',['outlet_int',['../ecommon_8c.html#a55ef15be4b15368563c3c90377b3c4ad',1,'outlet_int(t_outlet *outlet, int val):&#160;ecommon.c'],['../ecommon_8h.html#a55ef15be4b15368563c3c90377b3c4ad',1,'outlet_int(t_outlet *outlet, int val):&#160;ecommon.c']]]
-];

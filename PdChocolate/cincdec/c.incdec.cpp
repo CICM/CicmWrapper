@@ -123,7 +123,7 @@ void *incdec_new(t_symbol *s, int argc, t_atom *argv)
 	if (!(d = binbuf_via_atoms(argc,argv)))
 		return NULL;
     
-	x = (t_incdec *)eobj_alloc(incdec_class);
+	x = (t_incdec *)ebox_alloc(incdec_class);
     flags = 0
     | EBOX_GROWINDI
     ;

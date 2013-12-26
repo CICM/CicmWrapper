@@ -187,9 +187,9 @@ void erouter_anything(t_erouter *x, t_symbol *s, long argc, t_atom *argv)
             if(x->e_childs[i] != NULL)
             {
                 z = (t_ebox *)x->e_childs[i];
-                if(z->b_object_id == s)
+                if(z->e_object_id == s)
                 {
-                    nrmethod = (rmethod)zgetfn(&z->b_obj.o_obj.te_g.g_pd, atom_getsym(argv));
+                    nrmethod = (rmethod)zgetfn(&z->e_obj.te_g.g_pd, atom_getsym(argv));
                     if(nrmethod)
                     {
                         pd_typedmess((t_pd *)z, atom_getsym(argv), argc, argv);
