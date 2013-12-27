@@ -54,7 +54,7 @@ void setup_c0x2eprepend(void)
 {
 	t_eclass *c;
     
-	c = eclass_new("prepend", (method)prepend_new, (method)prepend_free, (short)sizeof(t_prepend), 0L, A_GIMME, 0);
+	c = eclass_new("c.prepend", (method)prepend_new, (method)prepend_free, (short)sizeof(t_prepend), 0L, A_GIMME, 0);
     eclass_addmethod(c, (method)prepend_anything,    "anything",       A_GIMME, 0);
     eclass_addmethod(c, (method)prepend_list,        "list",           A_GIMME, 0);
     eclass_addmethod(c, (method)prepend_set,         "set",            A_GIMME, 0);

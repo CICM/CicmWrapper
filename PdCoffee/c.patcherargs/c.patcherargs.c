@@ -58,8 +58,8 @@ void setup_c0x2epatcherargs(void)
 {
 	t_eclass *c;
     
-	c = eclass_new("patcherargs", (method)patcherargs_new, (method)patcherargs_free, (short)sizeof(t_patcherargs), 0L, A_GIMME, 0);
-    eclass_addmethod(c, (method)patcherargs_output,      "loadbang",   A_CANT, 0);
+	c = eclass_new("c.patcherargs", (method)patcherargs_new, (method)patcherargs_free, (short)sizeof(t_patcherargs), 0L, A_GIMME, 0);
+    //eclass_addmethod(c, (method)patcherargs_output,      "loadbang",   A_CANT, 0);
     eclass_addmethod(c, (method)patcherargs_output,      "bang",       A_CANT, 0);
     eclass_addmethod(c, (method)patcherargs_click,       "click",      A_CANT, 0);
     

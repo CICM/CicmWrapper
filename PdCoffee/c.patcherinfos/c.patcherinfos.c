@@ -52,7 +52,7 @@ void setup_c0x2epatcherinfos(void)
 	t_eclass *c;
     
 	c = eclass_new("c.patcherinfos", (method)patcherinfos_new, (method)patcherinfos_free, (short)sizeof(t_patcherinfos), 0L, A_GIMME, 0);
-    eclass_addmethod(c, (method)patcherinfos_output,      "loadbang",   A_CANT, 0);
+    //eclass_addmethod(c, (method)patcherinfos_output,      "loadbang",   A_CANT, 0);
     eclass_addmethod(c, (method)patcherinfos_output,      "bang",       A_CANT, 0);
     eclass_addmethod(c, (method)patcherinfos_click,       "click",      A_CANT, 0);
     

@@ -5,19 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>B6A9184B-DCFC-43F7-A06E-1F860AE3B4DE</string>
+	<string>D9B431B0-AEF2-4DF2-A4B3-8365A32A7BD3</string>
 	<key>IDESourceControlProjectName</key>
 	<string>@coffee</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>D9A8DEA2-6D4B-4446-AFEF-15502E1AA5BC</key>
+		<key>0C5AA973-66EA-492B-BDDF-390AC3F9FD5C</key>
 		<string>https://github.com/pierreguillot/PdEnhanced.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>PdCoffee/@coffee.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>D9A8DEA2-6D4B-4446-AFEF-15502E1AA5BC</key>
+		<key>0C5AA973-66EA-492B-BDDF-390AC3F9FD5C</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>D9A8DEA2-6D4B-4446-AFEF-15502E1AA5BC</string>
+	<string>0C5AA973-66EA-492B-BDDF-390AC3F9FD5C</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>D9A8DEA2-6D4B-4446-AFEF-15502E1AA5BC</string>
+			<string>0C5AA973-66EA-492B-BDDF-390AC3F9FD5C</string>
 			<key>IDESourceControlWCCName</key>
 			<string>PdEnhanced</string>
 		</dict>
