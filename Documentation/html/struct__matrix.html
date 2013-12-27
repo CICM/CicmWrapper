@@ -23,7 +23,9 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">PdEnhanced
+   &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
+   <div id="projectbrief">Add on for PD</div>
   </td>
  </tr>
  </tbody>
@@ -61,6 +63,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="classes.html"><span>Data&#160;Structure&#160;Index</span></a></li>
+      <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -68,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -85,35 +88,130 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">_matrix Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A matrix structure.  
+ <a href="struct__matrix.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="estruct_8h_source.html">estruct.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a9fb9d00fbbf390e0263bcc204b03c7c8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9fb9d00fbbf390e0263bcc204b03c7c8"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>xx</b></td></tr>
+<tr class="memitem:a9fb9d00fbbf390e0263bcc204b03c7c8"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__matrix.html#a9fb9d00fbbf390e0263bcc204b03c7c8">xx</a></td></tr>
 <tr class="separator:a9fb9d00fbbf390e0263bcc204b03c7c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e1608facba0c31efe99d65811fab570"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8e1608facba0c31efe99d65811fab570"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>yx</b></td></tr>
+<tr class="memitem:a8e1608facba0c31efe99d65811fab570"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__matrix.html#a8e1608facba0c31efe99d65811fab570">yx</a></td></tr>
 <tr class="separator:a8e1608facba0c31efe99d65811fab570"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83a7590defc35766f789fbbf7fc41590"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a83a7590defc35766f789fbbf7fc41590"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>xy</b></td></tr>
+<tr class="memitem:a83a7590defc35766f789fbbf7fc41590"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__matrix.html#a83a7590defc35766f789fbbf7fc41590">xy</a></td></tr>
 <tr class="separator:a83a7590defc35766f789fbbf7fc41590"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a342cbf7f29a65a0d1a2949ef4675008e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a342cbf7f29a65a0d1a2949ef4675008e"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>yy</b></td></tr>
+<tr class="memitem:a342cbf7f29a65a0d1a2949ef4675008e"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__matrix.html#a342cbf7f29a65a0d1a2949ef4675008e">yy</a></td></tr>
 <tr class="separator:a342cbf7f29a65a0d1a2949ef4675008e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c9556645d92e863376a4063a3ad7001"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3c9556645d92e863376a4063a3ad7001"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>x0</b></td></tr>
+<tr class="memitem:a3c9556645d92e863376a4063a3ad7001"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__matrix.html#a3c9556645d92e863376a4063a3ad7001">x0</a></td></tr>
 <tr class="separator:a3c9556645d92e863376a4063a3ad7001"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf19b8ba42d497d3093c3a51b1a32cca"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adf19b8ba42d497d3093c3a51b1a32cca"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>y0</b></td></tr>
+<tr class="memitem:adf19b8ba42d497d3093c3a51b1a32cca"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__matrix.html#adf19b8ba42d497d3093c3a51b1a32cca">y0</a></td></tr>
 <tr class="separator:adf19b8ba42d497d3093c3a51b1a32cca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A matrix structure. </p>
+<p>It contains the members xx, yx, xy, yy, x0 and y0 </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00067">67</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a3c9556645d92e863376a4063a3ad7001"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float x0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The abscissa origin of the matrix </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00073">73</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9fb9d00fbbf390e0263bcc204b03c7c8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float xx</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The abscissa-abscissa translation of the matrix </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00069">69</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a83a7590defc35766f789fbbf7fc41590"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float xy</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The ordiante-abscissa translation of the matrix </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00071">71</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="adf19b8ba42d497d3093c3a51b1a32cca"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float y0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The ordiante origin of the matrix </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00074">74</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8e1608facba0c31efe99d65811fab570"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float yx</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The abscissa-ordiante translation of the matrix </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00070">70</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a342cbf7f29a65a0d1a2949ef4675008e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float yy</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The ordiante-ordiante translation of the matrix </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00072">72</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>Sources/<a class="el" href="estruct_8h_source.html">estruct.h</a></li>
+<li>/Users/Pierre/SourceTree/PdEnhanced/SourcesDev/<a class="el" href="estruct_8h_source.html">estruct.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 13 2013 11:04:47 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 27 2013 09:26:33 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

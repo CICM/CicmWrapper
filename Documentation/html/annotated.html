@@ -23,7 +23,9 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">PdEnhanced
+   &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
+   <div id="projectbrief">Add on for PD</div>
   </td>
  </tr>
  </tbody>
@@ -61,6 +63,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="classes.html"><span>Data&#160;Structure&#160;Index</span></a></li>
+      <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -69,7 +72,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -86,33 +89,39 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock">Here are the data structures with brief descriptions:</div><div class="directory">
 <table class="directory">
 <tr id="row_0_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__eattr.html" target="_self">_eattr</a></td><td class="desc"></td></tr>
-<tr id="row_1_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__ebox.html" target="_self">_ebox</a></td><td class="desc"></td></tr>
+<tr id="row_1_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__ebox.html" target="_self">_ebox</a></td><td class="desc">The Pd Enhanced GUI object </td></tr>
 <tr id="row_2_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__eclass.html" target="_self">_eclass</a></td><td class="desc"></td></tr>
-<tr id="row_3_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__edrawparams.html" target="_self">_edrawparams</a></td><td class="desc"></td></tr>
-<tr id="row_4_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__efont.html" target="_self">_efont</a></td><td class="desc"></td></tr>
-<tr id="row_5_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__egobj.html" target="_self">_egobj</a></td><td class="desc"></td></tr>
-<tr id="row_6_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__elayer.html" target="_self">_elayer</a></td><td class="desc"></td></tr>
-<tr id="row_7_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__epopup.html" target="_self">_epopup</a></td><td class="desc"></td></tr>
-<tr id="row_8_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__erouter.html" target="_self">_erouter</a></td><td class="desc"></td></tr>
-<tr id="row_9_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__etext.html" target="_self">_etext</a></td><td class="desc"></td></tr>
-<tr id="row_10_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__eview.html" target="_self">_eview</a></td><td class="desc"></td></tr>
-<tr id="row_11_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__ewidget.html" target="_self">_ewidget</a></td><td class="desc"></td></tr>
-<tr id="row_12_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__guiconnect.html" target="_self">_guiconnect</a></td><td class="desc"></td></tr>
-<tr id="row_13_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__inlet.html" target="_self">_inlet</a></td><td class="desc"></td></tr>
-<tr id="row_14_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__matrix.html" target="_self">_matrix</a></td><td class="desc"></td></tr>
-<tr id="row_15_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__outconnect.html" target="_self">_outconnect</a></td><td class="desc"></td></tr>
-<tr id="row_16_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__outlet.html" target="_self">_outlet</a></td><td class="desc"></td></tr>
-<tr id="row_17_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__pt.html" target="_self">_pt</a></td><td class="desc"></td></tr>
-<tr id="row_18_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__rect.html" target="_self">_rect</a></td><td class="desc"></td></tr>
-<tr id="row_19_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__rgb.html" target="_self">_rgb</a></td><td class="desc"></td></tr>
-<tr id="row_20_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__rgba.html" target="_self">_rgba</a></td><td class="desc"></td></tr>
-<tr id="row_21_"><td class="entry"><img src="ftv2lastnode.png" alt="\" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="unioninletunion.html" target="_self">inletunion</a></td><td class="desc"></td></tr>
+<tr id="row_3_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__edrawparams.html" target="_self">_edrawparams</a></td><td class="desc">The Pd Enhanced drawing parameters </td></tr>
+<tr id="row_4_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__edspbox.html" target="_self">_edspbox</a></td><td class="desc">The Pd Enhanced GUI DSP object </td></tr>
+<tr id="row_5_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__edspobj.html" target="_self">_edspobj</a></td><td class="desc">The Pd Enhanced Box DSP object </td></tr>
+<tr id="row_6_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__efont.html" target="_self">_efont</a></td><td class="desc"></td></tr>
+<tr id="row_7_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__egobj.html" target="_self">_egobj</a></td><td class="desc">The Pd Enhanced drawing object </td></tr>
+<tr id="row_8_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__elayer.html" target="_self">_elayer</a></td><td class="desc">The Pd Enhanced drawing layer </td></tr>
+<tr id="row_9_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__eobj.html" target="_self">_eobj</a></td><td class="desc">The Pd Enhanced Box object </td></tr>
+<tr id="row_10_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__epopup.html" target="_self">_epopup</a></td><td class="desc"></td></tr>
+<tr id="row_11_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__eproxy.html" target="_self">_eproxy</a></td><td class="desc">The Pd Enhanced Proxy object </td></tr>
+<tr id="row_12_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__erouter.html" target="_self">_erouter</a></td><td class="desc">The Pd Enhanced Router object </td></tr>
+<tr id="row_13_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__etext.html" target="_self">_etext</a></td><td class="desc"></td></tr>
+<tr id="row_14_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__etextfield.html" target="_self">_etextfield</a></td><td class="desc"></td></tr>
+<tr id="row_15_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__ewidget.html" target="_self">_ewidget</a></td><td class="desc"></td></tr>
+<tr id="row_16_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__guiconnect.html" target="_self">_guiconnect</a></td><td class="desc"></td></tr>
+<tr id="row_17_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__hsl.html" target="_self">_hsl</a></td><td class="desc">A hsl color structure </td></tr>
+<tr id="row_18_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__hsla.html" target="_self">_hsla</a></td><td class="desc">A hsla color structure </td></tr>
+<tr id="row_19_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__inlet.html" target="_self">_inlet</a></td><td class="desc"></td></tr>
+<tr id="row_20_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__matrix.html" target="_self">_matrix</a></td><td class="desc">A matrix structure </td></tr>
+<tr id="row_21_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__outconnect.html" target="_self">_outconnect</a></td><td class="desc"></td></tr>
+<tr id="row_22_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__outlet.html" target="_self">_outlet</a></td><td class="desc"></td></tr>
+<tr id="row_23_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__pt.html" target="_self">_pt</a></td><td class="desc">A point structure </td></tr>
+<tr id="row_24_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__rect.html" target="_self">_rect</a></td><td class="desc">A rectangle structure </td></tr>
+<tr id="row_25_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__rgb.html" target="_self">_rgb</a></td><td class="desc">A rgb color structure </td></tr>
+<tr id="row_26_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="struct__rgba.html" target="_self">_rgba</a></td><td class="desc">A rgba color structure </td></tr>
+<tr id="row_27_"><td class="entry"><img src="ftv2lastnode.png" alt="\" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="unioninletunion.html" target="_self">inletunion</a></td><td class="desc"></td></tr>
 </table>
 </div><!-- directory -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 13 2013 11:04:48 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 27 2013 09:26:33 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

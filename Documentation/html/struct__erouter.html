@@ -23,7 +23,9 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">PdEnhanced
+   &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
+   <div id="projectbrief">Add on for PD</div>
   </td>
  </tr>
  </tbody>
@@ -61,6 +63,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="classes.html"><span>Data&#160;Structure&#160;Index</span></a></li>
+      <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -68,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -85,26 +88,79 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">_erouter Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The Pd Enhanced Router object.  
+ <a href="struct__erouter.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="estruct_8h_source.html">estruct.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a337dd8dd1771ebe57e90886d4fdfe92d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a337dd8dd1771ebe57e90886d4fdfe92d"></a>
-t_object&#160;</td><td class="memItemRight" valign="bottom"><b>e_obj</b></td></tr>
+<tr class="memitem:a337dd8dd1771ebe57e90886d4fdfe92d"><td class="memItemLeft" align="right" valign="top">t_object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__erouter.html#a337dd8dd1771ebe57e90886d4fdfe92d">e_obj</a></td></tr>
 <tr class="separator:a337dd8dd1771ebe57e90886d4fdfe92d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef3d4c537a87fdd1319fb505dc77f8c3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aef3d4c537a87fdd1319fb505dc77f8c3"></a>
-t_symbol **&#160;</td><td class="memItemRight" valign="bottom"><b>e_childs</b></td></tr>
-<tr class="separator:aef3d4c537a87fdd1319fb505dc77f8c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae6cef9e2d4de46e690ad868953d0923"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aae6cef9e2d4de46e690ad868953d0923"></a>
-long&#160;</td><td class="memItemRight" valign="bottom"><b>e_nchilds</b></td></tr>
+<tr class="memitem:a5484fdcb775740c1c4dedcd94b4580ab"><td class="memItemLeft" align="right" valign="top">t_object **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__erouter.html#a5484fdcb775740c1c4dedcd94b4580ab">e_childs</a></td></tr>
+<tr class="separator:a5484fdcb775740c1c4dedcd94b4580ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae6cef9e2d4de46e690ad868953d0923"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__erouter.html#aae6cef9e2d4de46e690ad868953d0923">e_nchilds</a></td></tr>
 <tr class="separator:aae6cef9e2d4de46e690ad868953d0923"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The Pd Enhanced Router object. </p>
+<p>It contains the router class and a pointer to all the eobjects loaeded. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00370">370</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a5484fdcb775740c1c4dedcd94b4580ab"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">t_object** e_childs</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The eobj pointer. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00373">373</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aae6cef9e2d4de46e690ad868953d0923"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long e_nchilds</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The number of eobj. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00374">374</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a337dd8dd1771ebe57e90886d4fdfe92d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">t_object e_obj</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The router object. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00372">372</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>Sources/erouter/<a class="el" href="erouter_8h_source.html">erouter.h</a></li>
+<li>/Users/Pierre/SourceTree/PdEnhanced/SourcesDev/<a class="el" href="estruct_8h_source.html">estruct.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 13 2013 11:04:47 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 27 2013 09:26:33 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

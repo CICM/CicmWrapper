@@ -23,7 +23,9 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">PdEnhanced
+   &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
+   <div id="projectbrief">Add on for PD</div>
   </td>
  </tr>
  </tbody>
@@ -61,6 +63,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="classes.html"><span>Data&#160;Structure&#160;Index</span></a></li>
+      <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -68,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -154,6 +157,9 @@ method&#160;</td><td class="memItemRight" valign="bottom"><b>w_getdrawparameters
 <tr class="memitem:a18f2be4123b21b24c9f2673d22eea9fb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a18f2be4123b21b24c9f2673d22eea9fb"></a>
 method&#160;</td><td class="memItemRight" valign="bottom"><b>w_save</b></td></tr>
 <tr class="separator:a18f2be4123b21b24c9f2673d22eea9fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed0f8446884595a1091cae24873ddc39"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aed0f8446884595a1091cae24873ddc39"></a>
+method&#160;</td><td class="memItemRight" valign="bottom"><b>w_dosave</b></td></tr>
+<tr class="separator:aed0f8446884595a1091cae24873ddc39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad375827ec0dc5f2c712ba6f51608a44a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad375827ec0dc5f2c712ba6f51608a44a"></a>
 method&#160;</td><td class="memItemRight" valign="bottom"><b>w_popup</b></td></tr>
 <tr class="separator:ad375827ec0dc5f2c712ba6f51608a44a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -169,14 +175,23 @@ method&#160;</td><td class="memItemRight" valign="bottom"><b>w_oksize</b></td></
 <tr class="memitem:ad60d080025f2fca515c7346761c0ded7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad60d080025f2fca515c7346761c0ded7"></a>
 t_err_method&#160;</td><td class="memItemRight" valign="bottom"><b>w_notify</b></td></tr>
 <tr class="separator:ad60d080025f2fca515c7346761c0ded7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41f7c60b430e128c02fb13ffc5c9199d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a41f7c60b430e128c02fb13ffc5c9199d"></a>
+method&#160;</td><td class="memItemRight" valign="bottom"><b>w_write</b></td></tr>
+<tr class="separator:a41f7c60b430e128c02fb13ffc5c9199d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08b27e9cb459b88a9418c61ac25e75df"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a08b27e9cb459b88a9418c61ac25e75df"></a>
+method&#160;</td><td class="memItemRight" valign="bottom"><b>w_read</b></td></tr>
+<tr class="separator:a08b27e9cb459b88a9418c61ac25e75df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>Sources/<a class="el" href="estruct_8h_source.html">estruct.h</a></li>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00127">127</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
+<li>/Users/Pierre/SourceTree/PdEnhanced/SourcesDev/<a class="el" href="estruct_8h_source.html">estruct.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 13 2013 11:04:47 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 27 2013 09:26:33 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

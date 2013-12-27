@@ -1,0 +1,201 @@
+\hypertarget{eclass_8h}{\section{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/eclass/eclass.h File Reference}
+\label{eclass_8h}\index{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/eclass/eclass.\-h@{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/eclass/eclass.\-h}}
+}
+{\ttfamily \#include \char`\"{}../estruct.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../ebox/ebox.\-h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{eclass_8h_aad95899dfbc7b5b8fe11921643ef46f0}{\#define {\bfseries calcoffset}(x, y)~((long)(\&(((x $\ast$)0\-L)-\/$>$y)))}\label{eclass_8h_aad95899dfbc7b5b8fe11921643ef46f0}
+
+\item 
+\hypertarget{eclass_8h_a91a69e5ebce04da84b905c94367ee9b8}{\#define \hyperlink{eclass_8h_a91a69e5ebce04da84b905c94367ee9b8}{C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-I\-N\-T}(c, name, flags, struct, member)~\hyperlink{eclass_8h_a9c805756b62c34be223985281555ee8d}{eclass\-\_\-new\-\_\-attr\-\_\-typed}(c,name, \char`\"{}int\char`\"{}, 1, 0, flags, calcoffset(struct,member))}\label{eclass_8h_a91a69e5ebce04da84b905c94367ee9b8}
+
+\begin{DoxyCompactList}\small\item\em M\-A\-C\-R\-O T\-O C\-R\-E\-A\-T\-E A\-T\-T\-R\-I\-B\-U\-T\-E\-S. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_aa6128bcf4ae66bb0c3eeeb6e5e9f963c}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-L\-O\-N\-G}(c, name, flags, struct, member)~\hyperlink{eclass_8h_a9c805756b62c34be223985281555ee8d}{eclass\-\_\-new\-\_\-attr\-\_\-typed}(c,name, \char`\"{}long\char`\"{}, 1, 0, flags, calcoffset(struct,member))}\label{eclass_8h_aa6128bcf4ae66bb0c3eeeb6e5e9f963c}
+
+\item 
+\hypertarget{eclass_8h_a0d995a8c0bcd26464c3b5204992dffad}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-F\-L\-O\-A\-T}(c, name, flags, struct, member)~\hyperlink{eclass_8h_a9c805756b62c34be223985281555ee8d}{eclass\-\_\-new\-\_\-attr\-\_\-typed}(c,name, \char`\"{}float\char`\"{}, 1, 0, flags, calcoffset(struct,member))}\label{eclass_8h_a0d995a8c0bcd26464c3b5204992dffad}
+
+\item 
+\hypertarget{eclass_8h_a29b8b161378778b77931fdbf45463447}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-D\-O\-U\-B\-L\-E}(c, name, flags, struct, member)~\hyperlink{eclass_8h_a9c805756b62c34be223985281555ee8d}{eclass\-\_\-new\-\_\-attr\-\_\-typed}(c,name, \char`\"{}double\char`\"{}, 1, 0, flags, calcoffset(struct,member))}\label{eclass_8h_a29b8b161378778b77931fdbf45463447}
+
+\item 
+\hypertarget{eclass_8h_af4a4592ab715ba95a5dcc3097a5c276d}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-R\-G\-B}(c, name, flags, struct, member)~\hyperlink{eclass_8h_a9c805756b62c34be223985281555ee8d}{eclass\-\_\-new\-\_\-attr\-\_\-typed}(c,name, \char`\"{}float\char`\"{}, 3, 0, flags, calcoffset(struct,member))}\label{eclass_8h_af4a4592ab715ba95a5dcc3097a5c276d}
+
+\item 
+\hypertarget{eclass_8h_af9175fc0ce2c420b378c99239e3268f0}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-R\-G\-B\-A}(c, name, flags, struct, member)~\hyperlink{eclass_8h_a9c805756b62c34be223985281555ee8d}{eclass\-\_\-new\-\_\-attr\-\_\-typed}(c,name, \char`\"{}float\char`\"{}, 4, 0, flags, calcoffset(struct,member))}\label{eclass_8h_af9175fc0ce2c420b378c99239e3268f0}
+
+\item 
+\hypertarget{eclass_8h_ad5aa93c5d7fdf1ce29d21cf072907e12}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-S\-Y\-M\-B\-O\-L}(c, name, flags, struct, member)~\hyperlink{eclass_8h_a9c805756b62c34be223985281555ee8d}{eclass\-\_\-new\-\_\-attr\-\_\-typed}(c,name, \char`\"{}symbol\char`\"{}, 1, 0, flags, calcoffset(struct,member))}\label{eclass_8h_ad5aa93c5d7fdf1ce29d21cf072907e12}
+
+\item 
+\hypertarget{eclass_8h_a1b0d09f76092d1307fc350e5bf72f699}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-I\-N\-T\-\_\-\-A\-R\-R\-A\-Y}(c, name, flags, struct, member, size)~\hyperlink{eclass_8h_a9c805756b62c34be223985281555ee8d}{eclass\-\_\-new\-\_\-attr\-\_\-typed}(c,name, \char`\"{}int\char`\"{}, size, 0, flags, calcoffset(struct,member))}\label{eclass_8h_a1b0d09f76092d1307fc350e5bf72f699}
+
+\item 
+\hypertarget{eclass_8h_a568159cd2a30bcca2ebef3df2b2c7954}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-L\-O\-N\-G\-\_\-\-A\-R\-R\-A\-Y}(c, name, flags, struct, member, size)~\hyperlink{eclass_8h_a9c805756b62c34be223985281555ee8d}{eclass\-\_\-new\-\_\-attr\-\_\-typed}(c,name, \char`\"{}long\char`\"{}, size, 0, flags, calcoffset(struct,member))}\label{eclass_8h_a568159cd2a30bcca2ebef3df2b2c7954}
+
+\item 
+\hypertarget{eclass_8h_a3e183634e52ba15c29528c58c3ad4d84}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-F\-L\-O\-A\-T\-\_\-\-A\-R\-R\-A\-Y}(c, name, flags, struct, member, size)~\hyperlink{eclass_8h_a9c805756b62c34be223985281555ee8d}{eclass\-\_\-new\-\_\-attr\-\_\-typed}(c,name, \char`\"{}float\char`\"{}, size, 0, flags, calcoffset(struct,member))}\label{eclass_8h_a3e183634e52ba15c29528c58c3ad4d84}
+
+\item 
+\hypertarget{eclass_8h_a53397114ed7c839fe5fbc30dcd8cfca8}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-D\-O\-U\-B\-L\-E\-\_\-\-A\-R\-R\-A\-Y}(c, name, flags, struct, member, size)~\hyperlink{eclass_8h_a9c805756b62c34be223985281555ee8d}{eclass\-\_\-new\-\_\-attr\-\_\-typed}(c,name, \char`\"{}double\char`\"{}, size, 0, flags, calcoffset(struct,member))}\label{eclass_8h_a53397114ed7c839fe5fbc30dcd8cfca8}
+
+\item 
+\hypertarget{eclass_8h_ab4804fd32ef82883bf99933ccbe147bb}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-S\-Y\-M\-B\-O\-L\-\_\-\-A\-R\-R\-A\-Y}(c, name, flags, struct, member, size)~\hyperlink{eclass_8h_a9c805756b62c34be223985281555ee8d}{eclass\-\_\-new\-\_\-attr\-\_\-typed}(c,name, \char`\"{}symbol\char`\"{}, size, 0, flags, calcoffset(struct,member))}\label{eclass_8h_ab4804fd32ef82883bf99933ccbe147bb}
+
+\item 
+\hypertarget{eclass_8h_a3752d21fb97fdec2d9d6b07499a08d81}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-I\-N\-T\-\_\-\-V\-A\-R\-S\-I\-Z\-E}(c, name, flags, struct, member, size, maxsize)~\hyperlink{eclass_8h_a9c805756b62c34be223985281555ee8d}{eclass\-\_\-new\-\_\-attr\-\_\-typed}(c,name, \char`\"{}int\char`\"{}, calcoffset(struct,size), maxsize, flags, calcoffset(struct,member))}\label{eclass_8h_a3752d21fb97fdec2d9d6b07499a08d81}
+
+\item 
+\hypertarget{eclass_8h_a21ddab63e5b358e79f393f6d9accfe3d}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-L\-O\-N\-G\-\_\-\-V\-A\-R\-S\-I\-Z\-E}(c, name, flags, struct, member, size, maxsize)~\hyperlink{eclass_8h_a9c805756b62c34be223985281555ee8d}{eclass\-\_\-new\-\_\-attr\-\_\-typed}(c,name, \char`\"{}long\char`\"{}, calcoffset(struct,size), maxsize, flags, calcoffset(struct,member))}\label{eclass_8h_a21ddab63e5b358e79f393f6d9accfe3d}
+
+\item 
+\hypertarget{eclass_8h_abd9e03cf84a3f46302adb688345c79ab}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-F\-L\-O\-A\-T\-\_\-\-V\-A\-R\-S\-I\-Z\-E}(c, name, flags, struct, member, size, maxsize)~\hyperlink{eclass_8h_a9c805756b62c34be223985281555ee8d}{eclass\-\_\-new\-\_\-attr\-\_\-typed}(c,name, \char`\"{}float\char`\"{}, calcoffset(struct,size), maxsize, flags, calcoffset(struct,member))}\label{eclass_8h_abd9e03cf84a3f46302adb688345c79ab}
+
+\item 
+\hypertarget{eclass_8h_a59346945552014af54799653f36284c2}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-D\-O\-U\-B\-L\-E\-\_\-\-V\-A\-R\-S\-I\-Z\-E}(c, name, flags, struct, member, size, maxsize)~\hyperlink{eclass_8h_a9c805756b62c34be223985281555ee8d}{eclass\-\_\-new\-\_\-attr\-\_\-typed}(c,name, \char`\"{}double\char`\"{}, calcoffset(struct,size), maxsize, flags, calcoffset(struct,member))}\label{eclass_8h_a59346945552014af54799653f36284c2}
+
+\item 
+\hypertarget{eclass_8h_a3a53a8534d088583aa08b7a3e06591e9}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-S\-Y\-M\-B\-O\-L\-\_\-\-V\-A\-R\-S\-I\-Z\-E}(c, name, flags, struct, member, size, maxsize)~\hyperlink{eclass_8h_a9c805756b62c34be223985281555ee8d}{eclass\-\_\-new\-\_\-attr\-\_\-typed}(c,name, \char`\"{}symbol\char`\"{}, calcoffset(struct,size), maxsize, flags, calcoffset(struct,member))}\label{eclass_8h_a3a53a8534d088583aa08b7a3e06591e9}
+
+\item 
+\hypertarget{eclass_8h_a3cace709289de7ef71c18c930f4ff8b3}{\#define \hyperlink{eclass_8h_a3cace709289de7ef71c18c930f4ff8b3}{C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y}(c, name, flags, categoryname)~\hyperlink{eclass_8h_a124e18305bf57d85df1fb37b35223703}{eclass\-\_\-attr\-\_\-category}(c,name,flags,categoryname)}\label{eclass_8h_a3cace709289de7ef71c18c930f4ff8b3}
+
+\begin{DoxyCompactList}\small\item\em M\-A\-C\-R\-O T\-O D\-E\-F\-I\-N\-E A\-T\-T\-R\-I\-B\-U\-T\-E O\-F A\-T\-T\-R\-I\-B\-U\-E\-S. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_aa301337d282ddf6918df9135d0e8c023}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-O\-R\-D\-E\-R}(c, name, flags, order)~\hyperlink{eclass_8h_a4a719707447f6b534b005cef390a2cf5}{eclass\-\_\-attr\-\_\-order}(c,name,flags,order)}\label{eclass_8h_aa301337d282ddf6918df9135d0e8c023}
+
+\item 
+\hypertarget{eclass_8h_ab73d5efdd012693da6f0de9062f8bc93}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-L\-A\-B\-E\-L}(c, name, flags, label)~\hyperlink{eclass_8h_add32df540eac82aeb67a8ab4c6f39824}{eclass\-\_\-attr\-\_\-label}(c,name,flags,label)}\label{eclass_8h_ab73d5efdd012693da6f0de9062f8bc93}
+
+\item 
+\hypertarget{eclass_8h_a62b306c1f7686d411913b977a9ce5611}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-S\-T\-Y\-L\-E}(c, name, flags, style)~\hyperlink{eclass_8h_add32df540eac82aeb67a8ab4c6f39824}{eclass\-\_\-attr\-\_\-label}(c,name,flags,style)}\label{eclass_8h_a62b306c1f7686d411913b977a9ce5611}
+
+\item 
+\hypertarget{eclass_8h_a96196e25dfbb0920a02531f53770e403}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-D\-E\-F\-A\-U\-L\-T}(c, name, flags, val)~\hyperlink{eclass_8h_a8ba59e2e9685109c89325952a2e0dcc9}{eclass\-\_\-attr\-\_\-default}(c,name,flags,val)}\label{eclass_8h_a96196e25dfbb0920a02531f53770e403}
+
+\item 
+\hypertarget{eclass_8h_af98a4d768e891d94050cc061bc8067c8}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-F\-I\-L\-T\-E\-R\-\_\-\-M\-I\-N}(c, name, value)~\hyperlink{eclass_8h_a4156b71e091aa7c2e85ea6f3c9c22fa1}{eclass\-\_\-attr\-\_\-filter\-\_\-min}(c, name, value)}\label{eclass_8h_af98a4d768e891d94050cc061bc8067c8}
+
+\item 
+\hypertarget{eclass_8h_a93551c2619415f2b856914d92727dfba}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-F\-I\-L\-T\-E\-R\-\_\-\-M\-A\-X}(c, name, value)~\hyperlink{eclass_8h_a684ad130a230384569292d1905964386}{eclass\-\_\-attr\-\_\-filter\-\_\-max}(c, name, value)}\label{eclass_8h_a93551c2619415f2b856914d92727dfba}
+
+\item 
+\hypertarget{eclass_8h_a468630aad7c91817e12f6b440c5c7b0e}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-F\-I\-L\-T\-E\-R\-\_\-\-C\-L\-I\-P}(c, name, minval, maxval)~\hyperlink{eclass_8h_a4156b71e091aa7c2e85ea6f3c9c22fa1}{eclass\-\_\-attr\-\_\-filter\-\_\-min}(c, name, minval); \hyperlink{eclass_8h_a684ad130a230384569292d1905964386}{eclass\-\_\-attr\-\_\-filter\-\_\-max}(c, name, maxval);}\label{eclass_8h_a468630aad7c91817e12f6b440c5c7b0e}
+
+\item 
+\hypertarget{eclass_8h_a84cc15568655a04db22d60d3f3499414}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-S\-A\-V\-E}(c, name, flags)~\hyperlink{eclass_8h_af7f0f504f1193f0da1f3dc1637e40dd8}{eclass\-\_\-attr\-\_\-save}(c,name,flags)}\label{eclass_8h_a84cc15568655a04db22d60d3f3499414}
+
+\item 
+\hypertarget{eclass_8h_a48f11993d7145e40d2b0eed62363233d}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-P\-A\-I\-N\-T}(c, name, flags)~\hyperlink{eclass_8h_a57dd8db4ebb05101ff9c1b4ce402fc95}{eclass\-\_\-attr\-\_\-paint}(c,name,flags)}\label{eclass_8h_a48f11993d7145e40d2b0eed62363233d}
+
+\item 
+\hypertarget{eclass_8h_a53ae87d238c51cada56d704c47302524}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-I\-N\-V\-I\-S\-I\-B\-L\-E}(c, name, flags)~\hyperlink{eclass_8h_a169280b975d00dc6d4808eefb3fc6b90}{eclass\-\_\-attr\-\_\-invisible}(c,name,flags)}\label{eclass_8h_a53ae87d238c51cada56d704c47302524}
+
+\item 
+\hypertarget{eclass_8h_a02e1c3b6d11eeed7f953d76d9e73d450}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-A\-C\-C\-E\-S\-S\-O\-R\-S}(c, name, getter, setter)~\hyperlink{eclass_8h_a1ebc60a6f232280d9424f24f679677f2}{eclass\-\_\-attr\-\_\-accessor}(c,name,(method)getter,(method)setter)}\label{eclass_8h_a02e1c3b6d11eeed7f953d76d9e73d450}
+
+\item 
+\hypertarget{eclass_8h_a55677c851b0822e7852dc3742046b77c}{\#define {\bfseries C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-S\-A\-V\-E\-\_\-\-P\-A\-I\-N\-T}(c, attrname, flags, parsestr)~\{ C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-D\-E\-F\-A\-U\-L\-T(c,attrname,flags,parsestr); C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-S\-A\-V\-E(c,attrname,flags); C\-L\-A\-S\-S\-\_\-\-A\-T\-T\-R\-\_\-\-P\-A\-I\-N\-T(c,attrname,flags); \}}\label{eclass_8h_a55677c851b0822e7852dc3742046b77c}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{eclass_8h_a1e5fa6d3afbb8310e34afb303609507e}{\hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$ \hyperlink{eclass_8h_a1e5fa6d3afbb8310e34afb303609507e}{eclass\-\_\-new} (char $\ast$name, method newmethod, method freemethod, size\-\_\-t size, int flags, t\-\_\-atomtype arg1, int arg2)}\label{eclass_8h_a1e5fa6d3afbb8310e34afb303609507e}
+
+\begin{DoxyCompactList}\small\item\em Allocate the memory and initialize a nex eclass. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_a9b8e4878cad18839be22fe997241096a}{void \hyperlink{eclass_8h_a9b8e4878cad18839be22fe997241096a}{eclass\-\_\-init} (\hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$c, long flags)}\label{eclass_8h_a9b8e4878cad18839be22fe997241096a}
+
+\begin{DoxyCompactList}\small\item\em Initialize an eclass for U\-I behavior. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_a7f6b74245507227a17c49bb2c3f97bf4}{void \hyperlink{eclass_8h_a7f6b74245507227a17c49bb2c3f97bf4}{eclass\-\_\-dspinit} (\hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$c)}\label{eclass_8h_a7f6b74245507227a17c49bb2c3f97bf4}
+
+\begin{DoxyCompactList}\small\item\em Initialize an U\-I eclass for D\-S\-P behavior. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_a5f6ef6904fa78d2feb5c2b5fe9d86976}{void \hyperlink{eclass_8h_a5f6ef6904fa78d2feb5c2b5fe9d86976}{eclassbox\-\_\-dspinit} (\hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$c)}\label{eclass_8h_a5f6ef6904fa78d2feb5c2b5fe9d86976}
+
+\begin{DoxyCompactList}\small\item\em Initialize an box eclass for D\-S\-P behavior. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_ad062dba1c1e3041345c4e425ecc76c02}{void \hyperlink{eclass_8h_ad062dba1c1e3041345c4e425ecc76c02}{eclass\-\_\-addmethod} (\hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$c, method m, char $\ast$name, t\-\_\-atomtype type, long anything)}\label{eclass_8h_ad062dba1c1e3041345c4e425ecc76c02}
+
+\begin{DoxyCompactList}\small\item\em Add methods to an eclass. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_a57074143501bd646992500676fb99569}{t\-\_\-pd\-\_\-err \hyperlink{eclass_8h_a57074143501bd646992500676fb99569}{eclass\-\_\-register} (t\-\_\-symbol $\ast$name, \hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$c)}\label{eclass_8h_a57074143501bd646992500676fb99569}
+
+\begin{DoxyCompactList}\small\item\em Initialize the eclass name space B\-O\-X or N\-O\-B\-O\-X. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_ae2d7c04f22ba0dc712af9bb8ca5c1a7f}{void \hyperlink{eclass_8h_ae2d7c04f22ba0dc712af9bb8ca5c1a7f}{eclass\-\_\-properties\-\_\-dialog} (\hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$c)}\label{eclass_8h_ae2d7c04f22ba0dc712af9bb8ca5c1a7f}
+
+\begin{DoxyCompactList}\small\item\em Initialize the tcl/tk properties dialog window functions // P\-R\-I\-V\-A\-T\-E. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_adadf33675042b107ebc7dbb4e7a7c882}{void {\bfseries ewidget\-\_\-init} (\hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$c)}\label{eclass_8h_adadf33675042b107ebc7dbb4e7a7c882}
+
+\item 
+\hypertarget{eclass_8h_a5d274ec1f74c8e705cc43f3daba657a2}{void {\bfseries ewidget\-\_\-getrect} (t\-\_\-gobj $\ast$z, t\-\_\-glist $\ast$glist, int $\ast$xp1, int $\ast$yp1, int $\ast$xp2, int $\ast$yp2)}\label{eclass_8h_a5d274ec1f74c8e705cc43f3daba657a2}
+
+\item 
+\hypertarget{eclass_8h_a04ffdc05f9b5fe198111a38fc9e58a7e}{void {\bfseries ewidget\-\_\-vis} (t\-\_\-gobj $\ast$z, t\-\_\-glist $\ast$glist, int vis)}\label{eclass_8h_a04ffdc05f9b5fe198111a38fc9e58a7e}
+
+\item 
+\hypertarget{eclass_8h_a690f8b60964e45a76186da98fa5b021f}{void {\bfseries ewidget\-\_\-displace} (t\-\_\-gobj $\ast$z, t\-\_\-glist $\ast$glist, int dx, int dy)}\label{eclass_8h_a690f8b60964e45a76186da98fa5b021f}
+
+\item 
+\hypertarget{eclass_8h_abfd677f99bc223c74d91f232c154aaf9}{void {\bfseries ewidget\-\_\-select} (t\-\_\-gobj $\ast$z, t\-\_\-glist $\ast$glist, int selected)}\label{eclass_8h_abfd677f99bc223c74d91f232c154aaf9}
+
+\item 
+\hypertarget{eclass_8h_ae0ea0c121b81ab9fe0b5c2ca233858e6}{void {\bfseries ewidget\-\_\-delete} (t\-\_\-gobj $\ast$z, t\-\_\-glist $\ast$glist)}\label{eclass_8h_ae0ea0c121b81ab9fe0b5c2ca233858e6}
+
+\item 
+\hypertarget{eclass_8h_a9c805756b62c34be223985281555ee8d}{void \hyperlink{eclass_8h_a9c805756b62c34be223985281555ee8d}{eclass\-\_\-new\-\_\-attr\-\_\-typed} (\hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$c, char $\ast$attrname, char $\ast$type, long size, long maxsize, long flags, long offset)}\label{eclass_8h_a9c805756b62c34be223985281555ee8d}
+
+\begin{DoxyCompactList}\small\item\em Allocate the memory and intializa an new attribute for an eclass (You should prefer to use the M\-A\-C\-R\-O\-S) \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_a936d173d0cd9012a8004758873f2073a}{void \hyperlink{eclass_8h_a936d173d0cd9012a8004758873f2073a}{eclass\-\_\-attr\-\_\-setter} (t\-\_\-object $\ast$x, t\-\_\-symbol $\ast$s, int argc, t\-\_\-atom $\ast$argv)}\label{eclass_8h_a936d173d0cd9012a8004758873f2073a}
+
+\begin{DoxyCompactList}\small\item\em Method to set the attributes. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_a587cfc2752d21823bf3eb7df7e96ead4}{void \hyperlink{eclass_8h_a587cfc2752d21823bf3eb7df7e96ead4}{eclass\-\_\-attr\-\_\-getter} (t\-\_\-object $\ast$x, t\-\_\-symbol $\ast$s, int $\ast$argc, t\-\_\-atom $\ast$$\ast$argv)}\label{eclass_8h_a587cfc2752d21823bf3eb7df7e96ead4}
+
+\begin{DoxyCompactList}\small\item\em Method to get the attributes. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_a124e18305bf57d85df1fb37b35223703}{void \hyperlink{eclass_8h_a124e18305bf57d85df1fb37b35223703}{eclass\-\_\-attr\-\_\-category} (\hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$c, char $\ast$attrname, long flags, char $\ast$category)}\label{eclass_8h_a124e18305bf57d85df1fb37b35223703}
+
+\begin{DoxyCompactList}\small\item\em Initalize the category of an attribute. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_a4a719707447f6b534b005cef390a2cf5}{void \hyperlink{eclass_8h_a4a719707447f6b534b005cef390a2cf5}{eclass\-\_\-attr\-\_\-order} (\hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$c, char $\ast$attrname, long flags, char $\ast$order)}\label{eclass_8h_a4a719707447f6b534b005cef390a2cf5}
+
+\begin{DoxyCompactList}\small\item\em Initalize the order of an attribute. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_add32df540eac82aeb67a8ab4c6f39824}{void \hyperlink{eclass_8h_add32df540eac82aeb67a8ab4c6f39824}{eclass\-\_\-attr\-\_\-label} (\hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$c, char $\ast$attrname, long flags, char $\ast$label)}\label{eclass_8h_add32df540eac82aeb67a8ab4c6f39824}
+
+\begin{DoxyCompactList}\small\item\em Initalize the category of an attribute. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_a3d320f1c95fc5ff9f48b41fc28e2d360}{void \hyperlink{eclass_8h_a3d320f1c95fc5ff9f48b41fc28e2d360}{eclass\-\_\-attr\-\_\-style} (\hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$c, char $\ast$attrname, long flags, char $\ast$style)}\label{eclass_8h_a3d320f1c95fc5ff9f48b41fc28e2d360}
+
+\begin{DoxyCompactList}\small\item\em Initalize the category of an attribute. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_a8ba59e2e9685109c89325952a2e0dcc9}{void \hyperlink{eclass_8h_a8ba59e2e9685109c89325952a2e0dcc9}{eclass\-\_\-attr\-\_\-default} (\hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$c, char $\ast$attrname, long flags, char $\ast$value)}\label{eclass_8h_a8ba59e2e9685109c89325952a2e0dcc9}
+
+\begin{DoxyCompactList}\small\item\em Initalize the default value of an attribute. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_a4156b71e091aa7c2e85ea6f3c9c22fa1}{void \hyperlink{eclass_8h_a4156b71e091aa7c2e85ea6f3c9c22fa1}{eclass\-\_\-attr\-\_\-filter\-\_\-min} (\hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$c, char $\ast$attrname, double value)}\label{eclass_8h_a4156b71e091aa7c2e85ea6f3c9c22fa1}
+
+\begin{DoxyCompactList}\small\item\em Initalize the minimum value of an attribute. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_a684ad130a230384569292d1905964386}{void \hyperlink{eclass_8h_a684ad130a230384569292d1905964386}{eclass\-\_\-attr\-\_\-filter\-\_\-max} (\hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$c, char $\ast$attrname, double value)}\label{eclass_8h_a684ad130a230384569292d1905964386}
+
+\begin{DoxyCompactList}\small\item\em Initalize the maximum value of an attribute. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_af7f0f504f1193f0da1f3dc1637e40dd8}{void \hyperlink{eclass_8h_af7f0f504f1193f0da1f3dc1637e40dd8}{eclass\-\_\-attr\-\_\-save} (\hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$c, char $\ast$attrname, long flags)}\label{eclass_8h_af7f0f504f1193f0da1f3dc1637e40dd8}
+
+\begin{DoxyCompactList}\small\item\em Initalize the attribute to be saved with the object. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_a57dd8db4ebb05101ff9c1b4ce402fc95}{void \hyperlink{eclass_8h_a57dd8db4ebb05101ff9c1b4ce402fc95}{eclass\-\_\-attr\-\_\-paint} (\hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$c, char $\ast$attrname, long flags)}\label{eclass_8h_a57dd8db4ebb05101ff9c1b4ce402fc95}
+
+\begin{DoxyCompactList}\small\item\em Initalize the attribute to redraw the object when its value has changed. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_a169280b975d00dc6d4808eefb3fc6b90}{void \hyperlink{eclass_8h_a169280b975d00dc6d4808eefb3fc6b90}{eclass\-\_\-attr\-\_\-invisible} (\hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$c, char $\ast$attrname, long flags)}\label{eclass_8h_a169280b975d00dc6d4808eefb3fc6b90}
+
+\begin{DoxyCompactList}\small\item\em Initalize the attribute to be invisible in the properties window. \end{DoxyCompactList}\item 
+\hypertarget{eclass_8h_a1ebc60a6f232280d9424f24f679677f2}{void \hyperlink{eclass_8h_a1ebc60a6f232280d9424f24f679677f2}{eclass\-\_\-attr\-\_\-accessor} (\hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$c, char $\ast$attrname, method getter, method setter)}\label{eclass_8h_a1ebc60a6f232280d9424f24f679677f2}
+
+\begin{DoxyCompactList}\small\item\em Initalize the user getter and setter of an attribute. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Pierre Guillot 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\-1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2013-\/2014 
+\end{DoxyDate}
+
+
+Definition in file \hyperlink{eclass_8h_source}{eclass.\-h}.
+

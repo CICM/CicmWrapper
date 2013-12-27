@@ -1,0 +1,133 @@
+\hypertarget{ewidget_8h}{\section{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/eclass/ewidget.h File Reference}
+\label{ewidget_8h}\index{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/eclass/ewidget.\-h@{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/eclass/ewidget.\-h}}
+}
+{\ttfamily \#include \char`\"{}../estruct.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../ebox/ebox.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../epopup/epopup.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{ewidget_8h_adadf33675042b107ebc7dbb4e7a7c882}{ewidget\-\_\-init} (\hyperlink{estruct_8h_a261d794de3821fb7902103ba8ae44ed1}{t\-\_\-eclass} $\ast$c)
+\item 
+void \hyperlink{ewidget_8h_a5d274ec1f74c8e705cc43f3daba657a2}{ewidget\-\_\-getrect} (t\-\_\-gobj $\ast$z, t\-\_\-glist $\ast$glist, int $\ast$xp1, int $\ast$yp1, int $\ast$xp2, int $\ast$yp2)
+\item 
+void \hyperlink{ewidget_8h_a04ffdc05f9b5fe198111a38fc9e58a7e}{ewidget\-\_\-vis} (t\-\_\-gobj $\ast$z, t\-\_\-glist $\ast$glist, int vis)
+\item 
+void \hyperlink{ewidget_8h_a690f8b60964e45a76186da98fa5b021f}{ewidget\-\_\-displace} (t\-\_\-gobj $\ast$z, t\-\_\-glist $\ast$glist, int dx, int dy)
+\item 
+void \hyperlink{ewidget_8h_abfd677f99bc223c74d91f232c154aaf9}{ewidget\-\_\-select} (t\-\_\-gobj $\ast$z, t\-\_\-glist $\ast$glist, int selected)
+\item 
+void \hyperlink{ewidget_8h_ae0ea0c121b81ab9fe0b5c2ca233858e6}{ewidget\-\_\-delete} (t\-\_\-gobj $\ast$z, t\-\_\-glist $\ast$glist)
+\item 
+void \hyperlink{ewidget_8h_a5694b084d55088ea23938adedb7f5d35}{binbuf\-\_\-attr\-\_\-process} (void $\ast$x, t\-\_\-binbuf $\ast$d)
+\item 
+void \hyperlink{ewidget_8h_ab88d4c432cccc353685418e5c3245092}{atoms\-\_\-attr\-\_\-process} (void $\ast$x, long argc, t\-\_\-atom $\ast$argv)
+\item 
+void \hyperlink{ewidget_8h_a204b3bd38f67ad20bea9c746d54446dd}{default\-\_\-attr\-\_\-process} (void $\ast$x)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{ewidget_8h_ab88d4c432cccc353685418e5c3245092}{\index{ewidget.\-h@{ewidget.\-h}!atoms\-\_\-attr\-\_\-process@{atoms\-\_\-attr\-\_\-process}}
+\index{atoms\-\_\-attr\-\_\-process@{atoms\-\_\-attr\-\_\-process}!ewidget.h@{ewidget.\-h}}
+\subsubsection[{atoms\-\_\-attr\-\_\-process}]{\setlength{\rightskip}{0pt plus 5cm}void atoms\-\_\-attr\-\_\-process (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{x, }
+\item[{long}]{argc, }
+\item[{t\-\_\-atom $\ast$}]{argv}
+\end{DoxyParamCaption}
+)}}\label{ewidget_8h_ab88d4c432cccc353685418e5c3245092}
+\hypertarget{ewidget_8h_a5694b084d55088ea23938adedb7f5d35}{\index{ewidget.\-h@{ewidget.\-h}!binbuf\-\_\-attr\-\_\-process@{binbuf\-\_\-attr\-\_\-process}}
+\index{binbuf\-\_\-attr\-\_\-process@{binbuf\-\_\-attr\-\_\-process}!ewidget.h@{ewidget.\-h}}
+\subsubsection[{binbuf\-\_\-attr\-\_\-process}]{\setlength{\rightskip}{0pt plus 5cm}void binbuf\-\_\-attr\-\_\-process (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{x, }
+\item[{t\-\_\-binbuf $\ast$}]{d}
+\end{DoxyParamCaption}
+)}}\label{ewidget_8h_a5694b084d55088ea23938adedb7f5d35}
+\hypertarget{ewidget_8h_a204b3bd38f67ad20bea9c746d54446dd}{\index{ewidget.\-h@{ewidget.\-h}!default\-\_\-attr\-\_\-process@{default\-\_\-attr\-\_\-process}}
+\index{default\-\_\-attr\-\_\-process@{default\-\_\-attr\-\_\-process}!ewidget.h@{ewidget.\-h}}
+\subsubsection[{default\-\_\-attr\-\_\-process}]{\setlength{\rightskip}{0pt plus 5cm}void default\-\_\-attr\-\_\-process (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{x}
+\end{DoxyParamCaption}
+)}}\label{ewidget_8h_a204b3bd38f67ad20bea9c746d54446dd}
+\hypertarget{ewidget_8h_ae0ea0c121b81ab9fe0b5c2ca233858e6}{\index{ewidget.\-h@{ewidget.\-h}!ewidget\-\_\-delete@{ewidget\-\_\-delete}}
+\index{ewidget\-\_\-delete@{ewidget\-\_\-delete}!ewidget.h@{ewidget.\-h}}
+\subsubsection[{ewidget\-\_\-delete}]{\setlength{\rightskip}{0pt plus 5cm}void ewidget\-\_\-delete (
+\begin{DoxyParamCaption}
+\item[{t\-\_\-gobj $\ast$}]{z, }
+\item[{t\-\_\-glist $\ast$}]{glist}
+\end{DoxyParamCaption}
+)}}\label{ewidget_8h_ae0ea0c121b81ab9fe0b5c2ca233858e6}
+
+
+Definition at line 139 of file eclass\-\_\-widget.\-c.
+
+\hypertarget{ewidget_8h_a690f8b60964e45a76186da98fa5b021f}{\index{ewidget.\-h@{ewidget.\-h}!ewidget\-\_\-displace@{ewidget\-\_\-displace}}
+\index{ewidget\-\_\-displace@{ewidget\-\_\-displace}!ewidget.h@{ewidget.\-h}}
+\subsubsection[{ewidget\-\_\-displace}]{\setlength{\rightskip}{0pt plus 5cm}void ewidget\-\_\-displace (
+\begin{DoxyParamCaption}
+\item[{t\-\_\-gobj $\ast$}]{z, }
+\item[{t\-\_\-glist $\ast$}]{glist, }
+\item[{int}]{dx, }
+\item[{int}]{dy}
+\end{DoxyParamCaption}
+)}}\label{ewidget_8h_a690f8b60964e45a76186da98fa5b021f}
+
+
+Definition at line 104 of file eclass\-\_\-widget.\-c.
+
+\hypertarget{ewidget_8h_a5d274ec1f74c8e705cc43f3daba657a2}{\index{ewidget.\-h@{ewidget.\-h}!ewidget\-\_\-getrect@{ewidget\-\_\-getrect}}
+\index{ewidget\-\_\-getrect@{ewidget\-\_\-getrect}!ewidget.h@{ewidget.\-h}}
+\subsubsection[{ewidget\-\_\-getrect}]{\setlength{\rightskip}{0pt plus 5cm}void ewidget\-\_\-getrect (
+\begin{DoxyParamCaption}
+\item[{t\-\_\-gobj $\ast$}]{z, }
+\item[{t\-\_\-glist $\ast$}]{glist, }
+\item[{int $\ast$}]{xp1, }
+\item[{int $\ast$}]{yp1, }
+\item[{int $\ast$}]{xp2, }
+\item[{int $\ast$}]{yp2}
+\end{DoxyParamCaption}
+)}}\label{ewidget_8h_a5d274ec1f74c8e705cc43f3daba657a2}
+
+
+Definition at line 62 of file eclass\-\_\-widget.\-c.
+
+\hypertarget{ewidget_8h_adadf33675042b107ebc7dbb4e7a7c882}{\index{ewidget.\-h@{ewidget.\-h}!ewidget\-\_\-init@{ewidget\-\_\-init}}
+\index{ewidget\-\_\-init@{ewidget\-\_\-init}!ewidget.h@{ewidget.\-h}}
+\subsubsection[{ewidget\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void ewidget\-\_\-init (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-eclass} $\ast$}]{c}
+\end{DoxyParamCaption}
+)}}\label{ewidget_8h_adadf33675042b107ebc7dbb4e7a7c882}
+
+
+Definition at line 29 of file eclass\-\_\-widget.\-c.
+
+\hypertarget{ewidget_8h_abfd677f99bc223c74d91f232c154aaf9}{\index{ewidget.\-h@{ewidget.\-h}!ewidget\-\_\-select@{ewidget\-\_\-select}}
+\index{ewidget\-\_\-select@{ewidget\-\_\-select}!ewidget.h@{ewidget.\-h}}
+\subsubsection[{ewidget\-\_\-select}]{\setlength{\rightskip}{0pt plus 5cm}void ewidget\-\_\-select (
+\begin{DoxyParamCaption}
+\item[{t\-\_\-gobj $\ast$}]{z, }
+\item[{t\-\_\-glist $\ast$}]{glist, }
+\item[{int}]{selected}
+\end{DoxyParamCaption}
+)}}\label{ewidget_8h_abfd677f99bc223c74d91f232c154aaf9}
+
+
+Definition at line 129 of file eclass\-\_\-widget.\-c.
+
+\hypertarget{ewidget_8h_a04ffdc05f9b5fe198111a38fc9e58a7e}{\index{ewidget.\-h@{ewidget.\-h}!ewidget\-\_\-vis@{ewidget\-\_\-vis}}
+\index{ewidget\-\_\-vis@{ewidget\-\_\-vis}!ewidget.h@{ewidget.\-h}}
+\subsubsection[{ewidget\-\_\-vis}]{\setlength{\rightskip}{0pt plus 5cm}void ewidget\-\_\-vis (
+\begin{DoxyParamCaption}
+\item[{t\-\_\-gobj $\ast$}]{z, }
+\item[{t\-\_\-glist $\ast$}]{glist, }
+\item[{int}]{vis}
+\end{DoxyParamCaption}
+)}}\label{ewidget_8h_a04ffdc05f9b5fe198111a38fc9e58a7e}
+
+
+Definition at line 71 of file eclass\-\_\-widget.\-c.
+

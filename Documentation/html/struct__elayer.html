@@ -23,7 +23,9 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">PdEnhanced
+   &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
+   <div id="projectbrief">Add on for PD</div>
   </td>
  </tr>
  </tbody>
@@ -61,6 +63,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="classes.html"><span>Data&#160;Structure&#160;Index</span></a></li>
+      <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -68,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -85,50 +88,215 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">_elayer Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The Pd Enhanced drawing layer.  
+ <a href="struct__elayer.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="estruct_8h_source.html">estruct.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a2a35e154dc0053b0c8078d322ee1b5e3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2a35e154dc0053b0c8078d322ee1b5e3"></a>
-t_object *&#160;</td><td class="memItemRight" valign="bottom"><b>e_owner</b></td></tr>
+<tr class="memitem:a2a35e154dc0053b0c8078d322ee1b5e3"><td class="memItemLeft" align="right" valign="top">t_object *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#a2a35e154dc0053b0c8078d322ee1b5e3">e_owner</a></td></tr>
 <tr class="separator:a2a35e154dc0053b0c8078d322ee1b5e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d8c2140844c7949fe9bc0384b2129d8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6d8c2140844c7949fe9bc0384b2129d8"></a>
-t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><b>e_name</b></td></tr>
+<tr class="memitem:a6d8c2140844c7949fe9bc0384b2129d8"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#a6d8c2140844c7949fe9bc0384b2129d8">e_name</a></td></tr>
 <tr class="separator:a6d8c2140844c7949fe9bc0384b2129d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f5d3d53b83fa9009ede11f8a9902dff"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1f5d3d53b83fa9009ede11f8a9902dff"></a>
-t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><b>e_id</b></td></tr>
+<tr class="memitem:a1f5d3d53b83fa9009ede11f8a9902dff"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#a1f5d3d53b83fa9009ede11f8a9902dff">e_id</a></td></tr>
 <tr class="separator:a1f5d3d53b83fa9009ede11f8a9902dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ebb09ffbaedff41ff95d74f7ebdb71b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6ebb09ffbaedff41ff95d74f7ebdb71b"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>e_state</b></td></tr>
+<tr class="memitem:a6ebb09ffbaedff41ff95d74f7ebdb71b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#a6ebb09ffbaedff41ff95d74f7ebdb71b">e_state</a></td></tr>
 <tr class="separator:a6ebb09ffbaedff41ff95d74f7ebdb71b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaef55281ce06e8d04077acd1e73e484e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaef55281ce06e8d04077acd1e73e484e"></a>
-<a class="el" href="struct__rect.html">t_rect</a>&#160;</td><td class="memItemRight" valign="bottom"><b>e_rect</b></td></tr>
+<tr class="memitem:aaef55281ce06e8d04077acd1e73e484e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__rect.html">t_rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#aaef55281ce06e8d04077acd1e73e484e">e_rect</a></td></tr>
 <tr class="separator:aaef55281ce06e8d04077acd1e73e484e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13dfb00aea95e0dc5b9d1297260a9280"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a13dfb00aea95e0dc5b9d1297260a9280"></a>
-t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><b>e_color</b></td></tr>
+<tr class="memitem:a13dfb00aea95e0dc5b9d1297260a9280"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#a13dfb00aea95e0dc5b9d1297260a9280">e_color</a></td></tr>
 <tr class="separator:a13dfb00aea95e0dc5b9d1297260a9280"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26f97d1c75fc42217031b4936517e928"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a26f97d1c75fc42217031b4936517e928"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>e_width</b></td></tr>
-<tr class="separator:a26f97d1c75fc42217031b4936517e928"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62d53e14693deed3469c69dc3a857493"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a62d53e14693deed3469c69dc3a857493"></a>
-<a class="el" href="struct__matrix.html">t_matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><b>e_matrix</b></td></tr>
+<tr class="memitem:a4f088d61988de49543e814d4b5a74947"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#a4f088d61988de49543e814d4b5a74947">e_line_width</a></td></tr>
+<tr class="separator:a4f088d61988de49543e814d4b5a74947"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62d53e14693deed3469c69dc3a857493"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__matrix.html">t_matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#a62d53e14693deed3469c69dc3a857493">e_matrix</a></td></tr>
 <tr class="separator:a62d53e14693deed3469c69dc3a857493"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a793a735e42cff87ab0df8772c76fe039"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a793a735e42cff87ab0df8772c76fe039"></a>
-<a class="el" href="struct__egobj.html">t_egobj</a>&#160;</td><td class="memItemRight" valign="bottom"><b>e_new_objects</b></td></tr>
+<tr class="memitem:a793a735e42cff87ab0df8772c76fe039"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__egobj.html">t_egobj</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#a793a735e42cff87ab0df8772c76fe039">e_new_objects</a></td></tr>
 <tr class="separator:a793a735e42cff87ab0df8772c76fe039"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f0b120b9e9be17af36ba96a368ffccb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6f0b120b9e9be17af36ba96a368ffccb"></a>
-<a class="el" href="struct__egobj.html">t_egobj</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>e_objects</b></td></tr>
+<tr class="memitem:a6f0b120b9e9be17af36ba96a368ffccb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__egobj.html">t_egobj</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#a6f0b120b9e9be17af36ba96a368ffccb">e_objects</a></td></tr>
 <tr class="separator:a6f0b120b9e9be17af36ba96a368ffccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5b10c31f81ecf9116b72b70b25f9e79"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad5b10c31f81ecf9116b72b70b25f9e79"></a>
-long&#160;</td><td class="memItemRight" valign="bottom"><b>e_number_objects</b></td></tr>
+<tr class="memitem:ad5b10c31f81ecf9116b72b70b25f9e79"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#ad5b10c31f81ecf9116b72b70b25f9e79">e_number_objects</a></td></tr>
 <tr class="separator:ad5b10c31f81ecf9116b72b70b25f9e79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The Pd Enhanced drawing layer. </p>
+<p>It contains the all the informations and the graphical objects to be drawn. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00335">335</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a13dfb00aea95e0dc5b9d1297260a9280"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">t_symbol* e_color</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The layer color. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00343">343</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1f5d3d53b83fa9009ede11f8a9902dff"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">t_symbol* e_id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The layer canvas ID. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00339">339</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4f088d61988de49543e814d4b5a74947"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int e_line_width</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The layer line width. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00344">344</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a62d53e14693deed3469c69dc3a857493"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct__matrix.html">t_matrix</a> e_matrix</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The layer matrix. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00345">345</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6d8c2140844c7949fe9bc0384b2129d8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">t_symbol* e_name</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The layer name. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00338">338</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a793a735e42cff87ab0df8772c76fe039"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct__egobj.html">t_egobj</a> e_new_objects</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The layer new object. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00346">346</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad5b10c31f81ecf9116b72b70b25f9e79"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long e_number_objects</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The number of layer objects. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00348">348</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6f0b120b9e9be17af36ba96a368ffccb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct__egobj.html">t_egobj</a>* e_objects</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The layer objects. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00347">347</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2a35e154dc0053b0c8078d322ee1b5e3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">t_object* e_owner</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The layer owner. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00337">337</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aaef55281ce06e8d04077acd1e73e484e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct__rect.html">t_rect</a> e_rect</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The layer size. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00341">341</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6ebb09ffbaedff41ff95d74f7ebdb71b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int e_state</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The layer state. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00340">340</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>Sources/<a class="el" href="estruct_8h_source.html">estruct.h</a></li>
+<li>/Users/Pierre/SourceTree/PdEnhanced/SourcesDev/<a class="el" href="estruct_8h_source.html">estruct.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 13 2013 11:04:47 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 27 2013 09:26:33 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

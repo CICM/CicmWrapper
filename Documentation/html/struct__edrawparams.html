@@ -23,7 +23,9 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">PdEnhanced
+   &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
+   <div id="projectbrief">Add on for PD</div>
   </td>
  </tr>
  </tbody>
@@ -61,6 +63,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="classes.html"><span>Data&#160;Structure&#160;Index</span></a></li>
+      <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -68,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -85,29 +88,96 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">_edrawparams Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The Pd Enhanced drawing parameters.  
+ <a href="struct__edrawparams.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="estruct_8h_source.html">estruct.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:aabe78053b56e3bf3df55c7b85fa251b2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aabe78053b56e3bf3df55c7b85fa251b2"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>d_cornersize</b></td></tr>
+<tr class="memitem:aabe78053b56e3bf3df55c7b85fa251b2"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__edrawparams.html#aabe78053b56e3bf3df55c7b85fa251b2">d_cornersize</a></td></tr>
 <tr class="separator:aabe78053b56e3bf3df55c7b85fa251b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c360cb962f79a835ed0457d1dad34b5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9c360cb962f79a835ed0457d1dad34b5"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>d_borderthickness</b></td></tr>
+<tr class="memitem:a9c360cb962f79a835ed0457d1dad34b5"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__edrawparams.html#a9c360cb962f79a835ed0457d1dad34b5">d_borderthickness</a></td></tr>
 <tr class="separator:a9c360cb962f79a835ed0457d1dad34b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4ac3d463e5738bdbf0c2bbf15be9ae3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af4ac3d463e5738bdbf0c2bbf15be9ae3"></a>
-<a class="el" href="struct__rgba.html">t_rgba</a>&#160;</td><td class="memItemRight" valign="bottom"><b>d_bordercolor</b></td></tr>
+<tr class="memitem:af4ac3d463e5738bdbf0c2bbf15be9ae3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__rgba.html">t_rgba</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__edrawparams.html#af4ac3d463e5738bdbf0c2bbf15be9ae3">d_bordercolor</a></td></tr>
 <tr class="separator:af4ac3d463e5738bdbf0c2bbf15be9ae3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf0259436a4f71d6659c0447e4b98e2b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaf0259436a4f71d6659c0447e4b98e2b"></a>
-<a class="el" href="struct__rgba.html">t_rgba</a>&#160;</td><td class="memItemRight" valign="bottom"><b>d_boxfillcolor</b></td></tr>
+<tr class="memitem:aaf0259436a4f71d6659c0447e4b98e2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__rgba.html">t_rgba</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__edrawparams.html#aaf0259436a4f71d6659c0447e4b98e2b">d_boxfillcolor</a></td></tr>
 <tr class="separator:aaf0259436a4f71d6659c0447e4b98e2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The Pd Enhanced drawing parameters. </p>
+<p>It contains the default parameters of a ebox. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00356">356</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="af4ac3d463e5738bdbf0c2bbf15be9ae3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct__rgba.html">t_rgba</a> d_bordercolor</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The border color. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00360">360</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9c360cb962f79a835ed0457d1dad34b5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float d_borderthickness</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The border size. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00359">359</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aaf0259436a4f71d6659c0447e4b98e2b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct__rgba.html">t_rgba</a> d_boxfillcolor</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The background color. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00361">361</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aabe78053b56e3bf3df55c7b85fa251b2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float d_cornersize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The corner roundness. </p>
+
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00358">358</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>Sources/<a class="el" href="estruct_8h_source.html">estruct.h</a></li>
+<li>/Users/Pierre/SourceTree/PdEnhanced/SourcesDev/<a class="el" href="estruct_8h_source.html">estruct.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 13 2013 11:04:47 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 27 2013 09:26:33 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

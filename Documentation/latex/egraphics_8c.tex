@@ -1,0 +1,189 @@
+\hypertarget{egraphics_8c}{\section{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/egraphics/egraphics.c File Reference}
+\label{egraphics_8c}\index{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/egraphics/egraphics.\-c@{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/egraphics/egraphics.\-c}}
+}
+{\ttfamily \#include \char`\"{}egraphics.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{egraphics_8c_a06ccd4b8ef74f4ef96efbeaaf15b4063}{egraphics\-\_\-set\-\_\-line\-\_\-width} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g, float width)
+\item 
+void \hyperlink{egraphics_8c_a805ef3d2805a6b7c9f7e3ee40fd75d35}{egraphics\-\_\-set\-\_\-color\-\_\-rgba} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g, \hyperlink{estruct_8h_accd6b4d009fe9b0f43327724b74a60e9}{t\-\_\-rgba} $\ast$rgba)
+\item 
+void \hyperlink{egraphics_8c_a5f4191bc0ee9d896f3ce24e10c908b41}{egraphics\-\_\-set\-\_\-color\-\_\-rgb} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g, \hyperlink{estruct_8h_a64c97a7346581fc410410c5dfa0da40b}{t\-\_\-rgb} $\ast$rgb)
+\item 
+void \hyperlink{egraphics_8c_a1ec6a77244689cf59f7b009da9930459}{egraphics\-\_\-set\-\_\-color\-\_\-hex} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g, t\-\_\-symbol $\ast$hex)
+\item 
+void \hyperlink{egraphics_8c_ad252fdcd1288ea88558bb77555f83e1c}{egraphics\-\_\-set\-\_\-color\-\_\-hsla} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g, \hyperlink{estruct_8h_a9557f487f74eddc14fc9f53c2c519939}{t\-\_\-hsla} $\ast$hsla)
+\item 
+void \hyperlink{egraphics_8c_ac021a4f2f21f0e0319f3cd110885576f}{egraphics\-\_\-set\-\_\-color\-\_\-hsl} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g, \hyperlink{estruct_8h_a436060d8555a57bba994f316a0347800}{t\-\_\-hsl} $\ast$hsl)
+\item 
+void \hyperlink{egraphics_8c_ac9aa595f68f1d03ca7a74f23b50a1b04}{egraphics\-\_\-set\-\_\-line\-\_\-splinestep} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g, float smooth)
+\item 
+void \hyperlink{egraphics_8c_a0b16a66360016dbef85437fe049bf00d}{egraphics\-\_\-paint} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g, int filled, int preserved)
+\item 
+void \hyperlink{egraphics_8c_afaf3e1cc55b7ea47a1f34ec6d01650c6}{egraphics\-\_\-fill\-\_\-preserve} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g)
+\item 
+void \hyperlink{egraphics_8c_a5428828d56d7a09f7e8535de02143584}{egraphics\-\_\-fill} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g)
+\item 
+void \hyperlink{egraphics_8c_af5e3ad739d8921a0f1df4356e8d566a3}{egraphics\-\_\-stroke\-\_\-preserve} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g)
+\item 
+void \hyperlink{egraphics_8c_a47004c493c4e920ae591a7afc04b3f03}{egraphics\-\_\-stroke} (\hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g)
+\item 
+void \hyperlink{egraphics_8c_a7afd32d5469aea841782332cb6434dd0}{etext\-\_\-layout\-\_\-draw} (\hyperlink{estruct_8h_a18c8d269848e474fac68c69e47b9bfea}{t\-\_\-etext} $\ast$textlayout, \hyperlink{estruct_8h_a0ba30760ffa35db50e111d8821078cb8}{t\-\_\-elayer} $\ast$g)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{egraphics_8c_a5428828d56d7a09f7e8535de02143584}{\index{egraphics.\-c@{egraphics.\-c}!egraphics\-\_\-fill@{egraphics\-\_\-fill}}
+\index{egraphics\-\_\-fill@{egraphics\-\_\-fill}!egraphics.c@{egraphics.\-c}}
+\subsubsection[{egraphics\-\_\-fill}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-fill (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{egraphics_8c_a5428828d56d7a09f7e8535de02143584}
+
+
+Definition at line 117 of file egraphics.\-c.
+
+\hypertarget{egraphics_8c_afaf3e1cc55b7ea47a1f34ec6d01650c6}{\index{egraphics.\-c@{egraphics.\-c}!egraphics\-\_\-fill\-\_\-preserve@{egraphics\-\_\-fill\-\_\-preserve}}
+\index{egraphics\-\_\-fill\-\_\-preserve@{egraphics\-\_\-fill\-\_\-preserve}!egraphics.c@{egraphics.\-c}}
+\subsubsection[{egraphics\-\_\-fill\-\_\-preserve}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-fill\-\_\-preserve (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{egraphics_8c_afaf3e1cc55b7ea47a1f34ec6d01650c6}
+
+
+Definition at line 112 of file egraphics.\-c.
+
+\hypertarget{egraphics_8c_a0b16a66360016dbef85437fe049bf00d}{\index{egraphics.\-c@{egraphics.\-c}!egraphics\-\_\-paint@{egraphics\-\_\-paint}}
+\index{egraphics\-\_\-paint@{egraphics\-\_\-paint}!egraphics.c@{egraphics.\-c}}
+\subsubsection[{egraphics\-\_\-paint}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-paint (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g, }
+\item[{int}]{filled, }
+\item[{int}]{preserved}
+\end{DoxyParamCaption}
+)}}\label{egraphics_8c_a0b16a66360016dbef85437fe049bf00d}
+
+
+Definition at line 66 of file egraphics.\-c.
+
+\hypertarget{egraphics_8c_a1ec6a77244689cf59f7b009da9930459}{\index{egraphics.\-c@{egraphics.\-c}!egraphics\-\_\-set\-\_\-color\-\_\-hex@{egraphics\-\_\-set\-\_\-color\-\_\-hex}}
+\index{egraphics\-\_\-set\-\_\-color\-\_\-hex@{egraphics\-\_\-set\-\_\-color\-\_\-hex}!egraphics.c@{egraphics.\-c}}
+\subsubsection[{egraphics\-\_\-set\-\_\-color\-\_\-hex}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-set\-\_\-color\-\_\-hex (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g, }
+\item[{t\-\_\-symbol $\ast$}]{hex}
+\end{DoxyParamCaption}
+)}}\label{egraphics_8c_a1ec6a77244689cf59f7b009da9930459}
+
+
+Definition at line 44 of file egraphics.\-c.
+
+\hypertarget{egraphics_8c_ac021a4f2f21f0e0319f3cd110885576f}{\index{egraphics.\-c@{egraphics.\-c}!egraphics\-\_\-set\-\_\-color\-\_\-hsl@{egraphics\-\_\-set\-\_\-color\-\_\-hsl}}
+\index{egraphics\-\_\-set\-\_\-color\-\_\-hsl@{egraphics\-\_\-set\-\_\-color\-\_\-hsl}!egraphics.c@{egraphics.\-c}}
+\subsubsection[{egraphics\-\_\-set\-\_\-color\-\_\-hsl}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-set\-\_\-color\-\_\-hsl (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g, }
+\item[{{\bf t\-\_\-hsl} $\ast$}]{hsl}
+\end{DoxyParamCaption}
+)}}\label{egraphics_8c_ac021a4f2f21f0e0319f3cd110885576f}
+
+
+Definition at line 55 of file egraphics.\-c.
+
+\hypertarget{egraphics_8c_ad252fdcd1288ea88558bb77555f83e1c}{\index{egraphics.\-c@{egraphics.\-c}!egraphics\-\_\-set\-\_\-color\-\_\-hsla@{egraphics\-\_\-set\-\_\-color\-\_\-hsla}}
+\index{egraphics\-\_\-set\-\_\-color\-\_\-hsla@{egraphics\-\_\-set\-\_\-color\-\_\-hsla}!egraphics.c@{egraphics.\-c}}
+\subsubsection[{egraphics\-\_\-set\-\_\-color\-\_\-hsla}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-set\-\_\-color\-\_\-hsla (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g, }
+\item[{{\bf t\-\_\-hsla} $\ast$}]{hsla}
+\end{DoxyParamCaption}
+)}}\label{egraphics_8c_ad252fdcd1288ea88558bb77555f83e1c}
+
+
+Definition at line 49 of file egraphics.\-c.
+
+\hypertarget{egraphics_8c_a5f4191bc0ee9d896f3ce24e10c908b41}{\index{egraphics.\-c@{egraphics.\-c}!egraphics\-\_\-set\-\_\-color\-\_\-rgb@{egraphics\-\_\-set\-\_\-color\-\_\-rgb}}
+\index{egraphics\-\_\-set\-\_\-color\-\_\-rgb@{egraphics\-\_\-set\-\_\-color\-\_\-rgb}!egraphics.c@{egraphics.\-c}}
+\subsubsection[{egraphics\-\_\-set\-\_\-color\-\_\-rgb}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-set\-\_\-color\-\_\-rgb (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g, }
+\item[{{\bf t\-\_\-rgb} $\ast$}]{rgb}
+\end{DoxyParamCaption}
+)}}\label{egraphics_8c_a5f4191bc0ee9d896f3ce24e10c908b41}
+
+
+Definition at line 39 of file egraphics.\-c.
+
+\hypertarget{egraphics_8c_a805ef3d2805a6b7c9f7e3ee40fd75d35}{\index{egraphics.\-c@{egraphics.\-c}!egraphics\-\_\-set\-\_\-color\-\_\-rgba@{egraphics\-\_\-set\-\_\-color\-\_\-rgba}}
+\index{egraphics\-\_\-set\-\_\-color\-\_\-rgba@{egraphics\-\_\-set\-\_\-color\-\_\-rgba}!egraphics.c@{egraphics.\-c}}
+\subsubsection[{egraphics\-\_\-set\-\_\-color\-\_\-rgba}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-set\-\_\-color\-\_\-rgba (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g, }
+\item[{{\bf t\-\_\-rgba} $\ast$}]{rgba}
+\end{DoxyParamCaption}
+)}}\label{egraphics_8c_a805ef3d2805a6b7c9f7e3ee40fd75d35}
+
+
+Definition at line 34 of file egraphics.\-c.
+
+\hypertarget{egraphics_8c_ac9aa595f68f1d03ca7a74f23b50a1b04}{\index{egraphics.\-c@{egraphics.\-c}!egraphics\-\_\-set\-\_\-line\-\_\-splinestep@{egraphics\-\_\-set\-\_\-line\-\_\-splinestep}}
+\index{egraphics\-\_\-set\-\_\-line\-\_\-splinestep@{egraphics\-\_\-set\-\_\-line\-\_\-splinestep}!egraphics.c@{egraphics.\-c}}
+\subsubsection[{egraphics\-\_\-set\-\_\-line\-\_\-splinestep}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-set\-\_\-line\-\_\-splinestep (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g, }
+\item[{float}]{smooth}
+\end{DoxyParamCaption}
+)}}\label{egraphics_8c_ac9aa595f68f1d03ca7a74f23b50a1b04}
+
+
+Definition at line 61 of file egraphics.\-c.
+
+\hypertarget{egraphics_8c_a06ccd4b8ef74f4ef96efbeaaf15b4063}{\index{egraphics.\-c@{egraphics.\-c}!egraphics\-\_\-set\-\_\-line\-\_\-width@{egraphics\-\_\-set\-\_\-line\-\_\-width}}
+\index{egraphics\-\_\-set\-\_\-line\-\_\-width@{egraphics\-\_\-set\-\_\-line\-\_\-width}!egraphics.c@{egraphics.\-c}}
+\subsubsection[{egraphics\-\_\-set\-\_\-line\-\_\-width}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-set\-\_\-line\-\_\-width (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g, }
+\item[{float}]{width}
+\end{DoxyParamCaption}
+)}}\label{egraphics_8c_a06ccd4b8ef74f4ef96efbeaaf15b4063}
+
+
+Definition at line 29 of file egraphics.\-c.
+
+\hypertarget{egraphics_8c_a47004c493c4e920ae591a7afc04b3f03}{\index{egraphics.\-c@{egraphics.\-c}!egraphics\-\_\-stroke@{egraphics\-\_\-stroke}}
+\index{egraphics\-\_\-stroke@{egraphics\-\_\-stroke}!egraphics.c@{egraphics.\-c}}
+\subsubsection[{egraphics\-\_\-stroke}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-stroke (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{egraphics_8c_a47004c493c4e920ae591a7afc04b3f03}
+
+
+Definition at line 127 of file egraphics.\-c.
+
+\hypertarget{egraphics_8c_af5e3ad739d8921a0f1df4356e8d566a3}{\index{egraphics.\-c@{egraphics.\-c}!egraphics\-\_\-stroke\-\_\-preserve@{egraphics\-\_\-stroke\-\_\-preserve}}
+\index{egraphics\-\_\-stroke\-\_\-preserve@{egraphics\-\_\-stroke\-\_\-preserve}!egraphics.c@{egraphics.\-c}}
+\subsubsection[{egraphics\-\_\-stroke\-\_\-preserve}]{\setlength{\rightskip}{0pt plus 5cm}void egraphics\-\_\-stroke\-\_\-preserve (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{egraphics_8c_af5e3ad739d8921a0f1df4356e8d566a3}
+
+
+Definition at line 122 of file egraphics.\-c.
+
+\hypertarget{egraphics_8c_a7afd32d5469aea841782332cb6434dd0}{\index{egraphics.\-c@{egraphics.\-c}!etext\-\_\-layout\-\_\-draw@{etext\-\_\-layout\-\_\-draw}}
+\index{etext\-\_\-layout\-\_\-draw@{etext\-\_\-layout\-\_\-draw}!egraphics.c@{egraphics.\-c}}
+\subsubsection[{etext\-\_\-layout\-\_\-draw}]{\setlength{\rightskip}{0pt plus 5cm}void etext\-\_\-layout\-\_\-draw (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-etext} $\ast$}]{textlayout, }
+\item[{{\bf t\-\_\-elayer} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{egraphics_8c_a7afd32d5469aea841782332cb6434dd0}
+
+
+Definition at line 132 of file egraphics.\-c.
+
