@@ -1,12 +1,7 @@
 To do :
 
-- Add "resize box with mouse in edit mode"
-- Check Box inlets and outlets positions
 - Round the box and check the border
 - Add flags "invisible bg etc.."
-- Add keys methods (ebox_handle and ebox_window)
-- Add Automatic inspector with attributes
-- Add popmenu
 - Choose between pd tips and a kind of Max assist method
 - Add line caps
 

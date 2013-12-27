@@ -4,10 +4,7 @@
 #X obj 57 21 c.bang @size 16 16 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
-#X text 385 34 output with bang or dblclick;
 #X text -22 -52 An object that retrieve the patcher informations;
-#X text 385 14 Patcher inforamtions are;
-#X text 385 24 retrieved on load and can be;
 #X obj 57 52 c.patcherinfos, f 47;
 #X obj 57 79 c.prepend set;
 #X obj 196 79 c.prepend set;
@@ -39,11 +36,12 @@ of the patcher.;
 #X msg 57 175;
 #X msg 196 145;
 #X msg 336 115;
-#X connect 1 0 6 0;
-#X connect 6 0 7 0;
-#X connect 6 1 8 0;
-#X connect 6 2 9 0;
-#X connect 7 0 14 0;
-#X connect 8 0 15 0;
-#X connect 9 0 16 0;
-#X connect 12 0 13 0;
+#X text 85 21 Bang or double click;
+#X connect 1 0 3 0;
+#X connect 3 0 4 0;
+#X connect 3 1 5 0;
+#X connect 3 2 6 0;
+#X connect 4 0 11 0;
+#X connect 5 0 12 0;
+#X connect 6 0 13 0;
+#X connect 9 0 10 0;

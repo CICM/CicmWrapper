@@ -43,7 +43,6 @@
 #X connect 8 0 3 0;
 #X restore 56 196 pd This is a movie-patcher @movie 8.5 @maker Fellini
 @actors Mastroianni and Aimée;
-#X text 385 14 Patcher arguments and attributes;
 #N canvas 242 569 615 248 This 0;
 #X obj 217 79 route movie maker actors;
 #X obj 57 42 c.patcherargs This is a movie-patcher ! @movie Teorema
@@ -72,8 +71,6 @@
 #X restore 57 240 pd This is a movie-patcher;
 #X text 428 202 Example with defined attributes;
 #X text 218 242 Example with default arguments and attributes;
-#X text 385 24 are retrieved on load and can be;
-#X text 385 34 output with bang or dblclick;
 #X text -24 -31 c.patcherargs retrieves the arguments and the attributes
 of a patcher. It can have default arguments and attributes that will
 be output if they don't exist.;
@@ -104,10 +101,11 @@ be output if they don't exist.;
 #X restore 420 -65 pd clink;
 #X msg 57 115;
 #X msg 202 115;
-#X connect 1 0 17 0;
-#X connect 17 0 18 0;
-#X connect 17 1 19 0;
-#X connect 17 2 2 0;
-#X connect 18 0 23 0;
-#X connect 19 0 24 0;
-#X connect 21 0 22 0;
+#X text 85 22 Bang or double click;
+#X connect 1 0 14 0;
+#X connect 14 0 15 0;
+#X connect 14 1 16 0;
+#X connect 14 2 2 0;
+#X connect 15 0 20 0;
+#X connect 16 0 21 0;
+#X connect 18 0 19 0;
