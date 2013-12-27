@@ -1,81 +1,100 @@
-#N canvas 375 205 634 422 10;
-#X obj -49 -84 cnv 40 552 40 empty empty c.gain~ 3 12 0 18 -228856
+#N canvas 375 205 636 463 10;
+#X obj -49 -124 cnv 40 552 40 empty empty c.gain~ 3 12 0 18 -228856
 -33289 0;
-#X text -37 308 Pd Chocolate by Pierre Guillot | CICM - Université
-Paris 8;
-#X obj 335 7 c.number @size 53 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
-0 @max 8 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
-1 @textcolor 0 0 0 1;
-#X obj 275 87 c.gain~ @size 160 20 @fontname helvetica @fontweight
+#X obj 335 -33 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 0 @max 8 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 275 47 c.gain~ @size 160 20 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @mode 1 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @kncolor
 0.5 0.5 0.5 1;
-#X obj 40 78 c.gain~ @size 20 160 @fontname helvetica @fontweight normal
+#X obj 40 38 c.gain~ @size 20 160 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @mode
 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @kncolor
 0.5 0.5 0.5 1;
-#X obj 55 251 c.number @size 53 17 @fontname helvetica @fontweight
+#X obj 55 211 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 40 -15 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min -90 @max 18 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 40 25 c.number @size 53 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
--90 @max 18 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
-1 @textcolor 0 0 0 1;
-#X msg 335 33 linear \$1;
-#X msg 242 261 \; pd dsp 1;
-#X msg 176 261 \; pd dsp 0;
-#X obj 255 143 c.number~ @size 53 17 @fontname helvetica @fontweight
+#X msg 335 -7 linear \$1;
+#X msg 242 221 \; pd dsp 1;
+#X msg 176 221 \; pd dsp 0;
+#X obj 255 103 c.number~ @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @interval 50
 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 40 281 c.meter~ @size 85 13 @fontname helvetica @fontweight
+#X obj 40 241 c.meter~ @size 85 13 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @interval 50
 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6 0
 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
 1 0.6 0 0.8 @overcolor 1 0 0 0.8;
-#X obj 40 -6 noise~;
-#X text -47 -62 A slider for signal;
-#X text -48 -41 c.gain~ is a slider that allows to control the volume
-of a signal with decibel.;
-#X text 115 250 dB;
-#X text 101 25 dB;
-#X text 62 66 - 18 dB;
-#X text 62 227 - -90 dB;
-#X text 62 94 - 0 dB;
-#X obj -39 13 c.number @size 53 17 @fontname helvetica @fontweight
+#X obj 40 -46 noise~;
+#X text -47 -102 A slider for signal;
+#X text 115 210 dB;
+#X text 101 -15 dB;
+#X text 62 26 - 18 dB;
+#X text 62 187 - -90 dB;
+#X text 62 54 - 0 dB;
+#X obj -39 -27 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min -90 @max 18 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg -39 42 set \$1;
-#X text 395 5 Amplitude;
-#X obj 450 143 c.number @size 53 17 @fontname helvetica @fontweight
+#X msg -39 2 set \$1;
+#X text 395 -35 Amplitude;
+#X obj 450 103 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1;
-#X text 508 142 dB;
-#X obj 255 30 sig~ 1;
-#X obj 335 -17 loadmess 1;
-#X text 68 153 Absolute mousing mode;
-#X text 291 170 Relative mousing mode;
-#X text 141 90 reset to 0 dB.;
-#X text 141 76 Double click to;
-#X text 274 119 0 amp;
-#X text 273 108 |;
-#X text 402 108 |;
-#X text 403 119 1 amp;
-#X obj 274 -73 pddplink @pdchocolate.pd -text Futher information about
-Pd Chocolate;
-#X connect 2 0 7 0;
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 508 102 dB;
+#X obj 255 -10 sig~ 1;
+#X text 68 113 Absolute mousing mode;
+#X text 291 130 Relative mousing mode;
+#X text 141 50 reset to 0 dB.;
+#X text 141 36 Double click to;
+#X text 274 79 0 amp;
+#X text 273 68 |;
+#X text 402 68 |;
+#X text 403 79 1 amp;
+#X obj 335 -57 c.loadmess 1;
+#X obj 390 -112 c.tab @size 57 18 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @orientation
+0 @toggle 0 @items Chocolate @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35
+0.35 1;
+#N canvas 429 244 450 300 clink 0;
+#X obj 33 85 c.patcherinfos;
+#X obj 73 58 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 73 33 inlet;
+#X obj 73 119 c.prepend set;
+#X msg 73 169 \; pd open @Chocolate.pd \$1;
+#X symbolatom 73 141 10 0 0 0 - - -, f 10;
+#X connect 0 1 3 0;
+#X connect 1 0 5 0;
+#X connect 2 0 1 0;
+#X connect 3 0 5 0;
+#X connect 5 0 4 0;
+#X coords 0 300 1 299 70 25 0;
+#X restore 392 -114 pd clink;
+#X text -37 268 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X text -48 -81 c.gain~ is a slider that allows to control the volume
+of a signal with decibel.;
+#X connect 1 0 6 0;
+#X connect 2 0 9 0;
+#X connect 2 1 21 0;
 #X connect 3 0 10 0;
-#X connect 3 1 23 0;
-#X connect 4 0 11 0;
-#X connect 4 1 5 0;
-#X connect 6 0 4 0;
-#X connect 7 0 3 0;
-#X connect 12 0 4 0;
-#X connect 20 0 21 0;
-#X connect 21 0 4 0;
-#X connect 25 0 3 0;
-#X connect 26 0 2 0;
+#X connect 3 1 4 0;
+#X connect 5 0 3 0;
+#X connect 6 0 2 0;
+#X connect 11 0 3 0;
+#X connect 18 0 19 0;
+#X connect 19 0 3 0;
+#X connect 23 0 2 0;
+#X connect 32 0 1 0;
+#X connect 33 0 34 0;

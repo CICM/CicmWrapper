@@ -47,7 +47,6 @@
 #include "m_pd.h"
 #include "m_imp.h"
 #include "g_canvas.h"
-#include "s_stuff.h"
 
 #define EPD_PI  (3.141592653589793238462643383279502884)
 #define EPD_2PI (6.283185307179586476925286766559005)
@@ -84,6 +83,46 @@ EXTERN void canvas_displaceselection(t_canvas *x, int dx, int dy);
 typedef void        (*method)(void* x, ...);
 typedef void*       (*rmethod)(void* x, ...);
 typedef t_pd_err    (*t_err_method)(void* x, ...);
+
+#ifdef _WINDOWS
+
+static char *my_cursorlist[] =
+{
+	"left_ptr",
+    "center_ptr",
+    "sb_v_double_arrow",
+    "plus",
+    "hand2",
+    "circle",
+    "X_cursor",
+    "bottom_side",
+    "bottom_right_corner",
+    "right_side",
+    "double_arrow",
+    "exchange",
+    "xterm"
+};
+
+#else
+
+__attribute__((used)) static char *my_cursorlist[] =
+{
+	"left_ptr",
+    "center_ptr",
+    "sb_v_double_arrow",
+    "plus",
+    "hand2",
+    "circle",
+    "X_cursor",
+    "bottom_side",
+    "bottom_right_corner",
+    "right_side",
+    "double_arrow",
+    "exchange",
+    "xterm"
+};
+
+#endif
 
 struct _guiconnect
 {

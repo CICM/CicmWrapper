@@ -1,45 +1,64 @@
-#N canvas 617 166 586 438 10;
-#X msg 55 -64 \; pd dsp 1;
-#X msg -11 -64 \; pd dsp 0;
-#X msg -16 63 interval \$1;
-#X obj 63 64 osc~ 0.2;
-#X obj -40 -147 cnv 40 552 40 empty empty c.number~ 3 12 0 18 -228856
+#N canvas 617 166 606 432 10;
+#X msg 55 -104 \; pd dsp 1;
+#X msg -11 -104 \; pd dsp 0;
+#X msg -16 23 interval \$1;
+#X obj 83 24 osc~ 0.2;
+#X obj -40 -187 cnv 40 552 40 empty empty c.number~ 3 12 0 18 -228856
 -33289 0;
-#X text -33 228 Pd Chocolate by Pierre Guillot | CICM - Université
-Paris 8;
-#X obj -16 0 loadmess 20;
-#X obj 63 0 loadmess 0.2;
-#X text -21 -25 Tick interval (ms);
-#X obj 63 116 c.number~ @size 53 17 @fontname helvetica @fontweight
+#X text -21 -65 Tick interval (ms);
+#X obj 83 76 c.number~ @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @interval 20
 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 63 183 c.number~ @size 72 17 @fontname helvetica @fontweight
+#X obj 83 143 c.number~ @size 72 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @interval 50
 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj -16 39 c.number @size 53 17 @fontname helvetica @fontweight
+#X obj -16 -1 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 63 39 c.number @size 53 17 @fontname helvetica @fontweight normal
+@min (null) @max (null) @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 83 -1 c.number @size 53 17 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
-nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
-#X obj 111 150 c.number @size 53 17 @fontname helvetica @fontweight
-normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+(null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
-#X text -39 -104 c.number~ is the pd chocolate's signal version of
+#X obj 131 110 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text -39 -144 c.number~ is the pd chocolate's signal version of
 the vanilla nbx.;
-#X text -37 -125 A number box for signal.;
-#X obj 276 -135 pddplink @pdchocolate.pd -text Futher information about
-Pd Chocolate;
-#X connect 2 0 9 0;
-#X connect 3 0 9 0;
-#X connect 6 0 11 0;
-#X connect 7 0 12 0;
-#X connect 9 0 10 0;
-#X connect 9 1 13 0;
-#X connect 11 0 2 0;
-#X connect 12 0 3 0;
+#X text -37 -165 A number box for signal.;
+#X obj -16 -40 c.loadmess 20;
+#X obj 83 -40 c.loadmess 0.2;
+#X obj 409 -175 c.tab @size 57 18 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @orientation
+0 @toggle 0 @items Chocolate @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35
+0.35 1;
+#N canvas 429 244 450 300 clink 0;
+#X obj 33 85 c.patcherinfos;
+#X obj 73 58 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 73 33 inlet;
+#X obj 73 119 c.prepend set;
+#X msg 73 169 \; pd open @Chocolate.pd \$1;
+#X symbolatom 73 141 10 0 0 0 - - -, f 10;
+#X connect 0 1 3 0;
+#X connect 1 0 5 0;
+#X connect 2 0 1 0;
+#X connect 3 0 5 0;
+#X connect 5 0 4 0;
+#X coords 0 300 1 299 70 25 0;
+#X restore 411 -177 pd clink;
+#X text -33 188 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X connect 2 0 6 0;
+#X connect 3 0 6 0;
+#X connect 6 0 7 0;
+#X connect 6 1 10 0;
+#X connect 8 0 2 0;
+#X connect 9 0 3 0;
+#X connect 13 0 8 0;
+#X connect 14 0 9 0;
+#X connect 15 0 16 0;

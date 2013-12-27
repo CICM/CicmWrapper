@@ -30,17 +30,17 @@
 #include "../estruct.h"
 #include "../ebox/ebox.h"
 
-t_epopup* epopupmenu_create(t_ebox* x, t_symbol* name);
+t_epopup* epopupmenu_create(t_eobj* x, t_symbol* name);
 void epopupmenu_setfont(t_epopup *menu, t_efont *font);
 void epopupmenu_additem(t_epopup *menu, int itemid, char *text, char checked, char disabled);
 void epopupmenu_addseperator(t_epopup *menu);
 void epopupmenu_popup(t_epopup *menu, t_pt screen, int defitemid);
-
+/*
 t_etextfield* etextfield_create(t_ebox* x, t_symbol* name, float width, float height);
 void etextfield_setfont(t_etextfield *textfield, t_efont *font);
 void etextfield_settext(t_etextfield *textfield, char* text);
 void etextfield_setstate(t_etextfield *textfield, char state);
 void etextfield_popup(t_etextfield *textfield);
 void etextfield_destroy(t_etextfield *textfield);
-
+*/
 #endif

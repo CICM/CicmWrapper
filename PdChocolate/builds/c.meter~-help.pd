@@ -10,27 +10,23 @@
 -33289 0;
 #X text -12 -72 A peak programme meter for signal;
 #X text 316 158 dB;
-#X text -3 288 Pd Chocolate by Pierre Guillot | CICM - Université Paris
-8;
-#X obj 260 24 loadmess 0.1;
-#X obj 22 14 loadmess 0.3;
 #X obj 22 49 c.number @size 53 17 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
-nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
+(null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
 #X obj 260 58 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1;
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X obj 260 97 sig~ 1;
 #X obj 260 159 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1;
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X obj 22 262 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1;
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X obj 260 128 c.meter~ @size 85 13 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @interval 50
 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6 0
@@ -43,14 +39,37 @@ normal @fontslant regular @fontsize 11 @idname (null) @interval 50
 1 0.6 0 0.8 @overcolor 1 0 0 0.8;
 #X text -14 -51 c.meter~ is the pd chocolate's version of the vanilla
 vu.;
-#X obj 298 -84 pddplink @pdchocolate.pd -text Futher information about
-Pd Chocolate;
-#X connect 1 0 19 0;
+#X obj 260 24 c.loadmess 0.1;
+#X obj 22 14 c.loadmess 0.3;
+#X obj 429 -82 c.tab @size 57 18 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @orientation
+0 @toggle 0 @items Chocolate @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35
+0.35 1;
+#N canvas 429 244 450 300 clink 0;
+#X obj 33 85 c.patcherinfos;
+#X obj 73 58 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 73 33 inlet;
+#X obj 73 119 c.prepend set;
+#X msg 73 169 \; pd open @Chocolate.pd \$1;
+#X symbolatom 73 141 10 0 0 0 - - -, f 10;
+#X connect 0 1 3 0;
+#X connect 1 0 5 0;
+#X connect 2 0 1 0;
+#X connect 3 0 5 0;
+#X connect 5 0 4 0;
+#X coords 0 300 1 299 70 25 0;
+#X restore 431 -84 pd clink;
+#X text -3 288 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X connect 1 0 16 0;
 #X connect 5 0 1 0;
-#X connect 11 0 14 0;
-#X connect 12 0 13 0;
-#X connect 13 0 5 0;
-#X connect 14 0 15 0;
-#X connect 15 0 18 0;
-#X connect 18 0 16 0;
-#X connect 19 0 17 0;
+#X connect 10 0 5 0;
+#X connect 11 0 12 0;
+#X connect 12 0 15 0;
+#X connect 15 0 13 0;
+#X connect 16 0 14 0;
+#X connect 18 0 11 0;
+#X connect 19 0 10 0;
+#X connect 20 0 21 0;

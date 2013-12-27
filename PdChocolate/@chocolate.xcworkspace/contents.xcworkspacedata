@@ -2,57 +2,57 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:cbang/c.bang.xcodeproj">
+      location = "group:c.toggle/c.toggle.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cblackboard/c.blackboard.xcodeproj">
+      location = "group:c.tab/c.tab.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cbreakpoints/c.breakpoints.xcodeproj">
+      location = "group:c.slider/c.slider.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:ccolorpanel/c.colorpanel.xcodeproj">
+      location = "group:c.scope_tilde/c.scope~.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cincdec/c.incdec.xcodeproj">
+      location = "group:c.radio/c.radio.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cknob/c.knob.xcodeproj">
+      location = "group:c.preset/c.preset.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cmeter_tilde/c.meter~.xcodeproj">
+      location = "group:c.plane/c.plane.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cnumber/c.number.xcodeproj">
+      location = "group:c.number_tilde/c.number~.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cnumber_tilde/c.number~.xcodeproj">
+      location = "group:c.number/c.number.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cplane/c.plane.xcodeproj">
+      location = "group:c.menu_ui/c.menu.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cpreset/c.preset.xcodeproj">
+      location = "group:c.meter_tilde/c.meter~.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cradio/c.radio.xcodeproj">
+      location = "group:c.breakpoints/c.breakpoints.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cslider/c.slider.xcodeproj">
+      location = "group:c.knob/c.knob.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:ctoggle/c.toggle.xcodeproj">
+      location = "group:c.incdec/c.incdec.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cgain_tilde/c.gain~.xcodeproj">
+      location = "group:c.gain_tilde/c.gain~.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cmenu/c.menu.xcodeproj">
+      location = "group:c.colorpanel/c.colorpanel.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:ctab/c.tab.xcodeproj">
+      location = "group:c.blackboard/c.blackboard.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:cscope_tilde/c.scope~.xcodeproj">
+      location = "group:c.bang/c.bang.xcodeproj">
    </FileRef>
 </Workspace>

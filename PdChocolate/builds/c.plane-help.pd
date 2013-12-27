@@ -1,78 +1,92 @@
 #N canvas 281 186 558 514 10;
 #X obj -15 -94 cnv 40 552 40 empty empty c.plane 3 12 0 18 -228856
 -33289 0;
-#X text -3 368 Pd Chocolate by Pierre Guillot | CICM - Université Paris
-8;
-#X obj 9 79 pack 0 0;
-#X obj 27 59 t b f;
 #X obj 79 79 r c.plane;
 #X obj 9 334 s x1;
 #X obj 204 333 s y1;
 #X obj 9 -15 r x1;
-#X obj 68 -13 r y1;
-#X msg 68 9 set \$1;
+#X obj 66 -13 r y1;
+#X msg 66 9 set \$1;
 #X msg 9 9 set \$1;
-#X text -14 -51 c.plane (pictslider) allows you to move a point on
-a cartesian c.plane.;
 #X obj 361 230 s c.plane;
-#X text 295 265 Futher information about chocolate;
 #X text 296 -15 Change the boundaries :;
 #X text 296 5 x min \, y min \, x max \, y max;
-#X obj 361 33 loadmess -1;
-#X obj 441 80 loadmess 1;
-#X obj 353 292 @pdchocolate;
 #X obj 9 120 c.plane @size 200 200 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @bound -1 -1 1 1 @ptsize 5 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @ptcolor 0 0 0 1;
-#X obj 68 34 c.number @size 53 17 @fontname helvetica @fontweight normal
+#X obj 66 34 c.number @size 53 17 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
-nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
+(null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
 #X obj 9 34 c.number @size 53 17 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
-nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
-#X obj 382 85 c.number @size 53 17 @fontname helvetica @fontweight
-normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+(null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 386 85 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X obj 361 59 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 424 136 c.number @size 53 17 @fontname helvetica @fontweight
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 436 136 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 403 110 c.number @size 53 17 @fontname helvetica @fontweight
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 411 110 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 361 196 prepend bound;
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X text -12 -72 A plane where you can move a point;
-#X obj 361 165 pak 0 0 0 0;
-#X obj 296 -83 pddplink @pdchocolate.pd -text Futher information about
-Pd Chocolate;
-#X connect 2 0 19 0;
-#X connect 3 0 21 0;
-#X connect 3 1 2 1;
-#X connect 4 0 19 0;
-#X connect 7 0 10 0;
-#X connect 8 0 9 0;
-#X connect 9 0 20 0;
-#X connect 10 0 21 0;
-#X connect 16 0 23 0;
-#X connect 16 0 22 0;
-#X connect 17 0 25 0;
-#X connect 17 0 24 0;
-#X connect 19 0 5 0;
-#X connect 19 1 6 0;
-#X connect 20 0 3 0;
-#X connect 21 0 2 0;
-#X connect 22 0 28 1;
-#X connect 23 0 28 0;
-#X connect 24 0 28 3;
-#X connect 25 0 28 2;
-#X connect 26 0 12 0;
-#X connect 28 0 26 0;
+#X obj 361 33 c.loadmess -1;
+#X obj 449 80 c.loadmess 1;
+#X obj 9 79 c.pak 0 0, f 10;
+#X obj 361 165 c.pak 0 0 0 0;
+#X obj 361 196 c.prepend bound;
+#X obj 429 -83 c.tab @size 57 18 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @orientation
+0 @toggle 0 @items Chocolate @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35
+0.35 1;
+#N canvas 429 244 450 300 clink 0;
+#X obj 33 85 c.patcherinfos;
+#X obj 73 58 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 73 33 inlet;
+#X obj 73 119 c.prepend set;
+#X msg 73 169 \; pd open @Chocolate.pd \$1;
+#X symbolatom 73 141 10 0 0 0 - - -, f 10;
+#X connect 0 1 3 0;
+#X connect 1 0 5 0;
+#X connect 2 0 1 0;
+#X connect 3 0 5 0;
+#X connect 5 0 4 0;
+#X coords 0 300 1 299 70 25 0;
+#X restore 431 -85 pd clink;
+#X text -14 -51 c.plane allows you to move a point on a cartesian plane.
+;
+#X text -3 368 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X connect 1 0 11 0;
+#X connect 4 0 7 0;
+#X connect 5 0 6 0;
+#X connect 6 0 12 0;
+#X connect 7 0 13 0;
+#X connect 11 0 2 0;
+#X connect 11 1 3 0;
+#X connect 12 0 21 1;
+#X connect 13 0 21 0;
+#X connect 14 0 22 1;
+#X connect 15 0 22 0;
+#X connect 16 0 22 3;
+#X connect 17 0 22 2;
+#X connect 19 0 15 0;
+#X connect 19 0 14 0;
+#X connect 20 0 17 0;
+#X connect 20 0 16 0;
+#X connect 21 0 11 0;
+#X connect 22 0 23 0;
+#X connect 23 0 8 0;
+#X connect 24 0 25 0;

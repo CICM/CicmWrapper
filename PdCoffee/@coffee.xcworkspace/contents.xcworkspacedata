@@ -2,18 +2,18 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:loadmess/loadmess.xcodeproj">
+      location = "group:c.loadmess/c.loadmess.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:pak/pak.xcodeproj">
+      location = "group:c.pak/c.pak.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:patcherargs/patcherargs.xcodeproj">
+      location = "group:c.patcherargs/c.patcherargs.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:patcherinfos/patcherinfos.xcodeproj">
+      location = "group:c.patcherinfos/c.patcherinfos.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:prepend/prepend.xcodeproj">
+      location = "group:c.prepend/c.prepend.xcodeproj">
    </FileRef>
 </Workspace>

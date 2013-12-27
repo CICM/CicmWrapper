@@ -28,7 +28,7 @@
 
 void egraphics_set_line_width(t_elayer *g, float width)
 {
-    g->e_width= pd_clip_min(width, 0.);
+    g->e_line_width= pd_clip_min(width, 0.);
 }
 
 void egraphics_set_color_rgba(t_elayer *g, t_rgba *rgba)
@@ -97,7 +97,7 @@ void egraphics_paint(t_elayer *g, int filled, int preserved)
             g->e_objects[index].e_roundness = g->e_new_objects.e_roundness;
             
             g->e_objects[index].e_color = g->e_color;
-            g->e_objects[index].e_width = g->e_width;
+            g->e_objects[index].e_width = g->e_line_width;
             g->e_objects[index].e_text  = g->e_new_objects.e_text;
             
             egraphics_apply_matrix(g, g->e_objects+index);

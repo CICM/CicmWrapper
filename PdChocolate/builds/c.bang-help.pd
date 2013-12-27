@@ -1,33 +1,52 @@
-#N canvas 461 177 561 307 10;
-#X obj -40 -77 cnv 40 552 40 empty empty c.bang 3 12 0 18 -228856 -33289
-0;
-#X text 44 182 Pd Chocolate by Pierre Guillot | CICM - Université Paris
+#N canvas 690 40 625 321 10;
+#X obj -100 -132 cnv 40 552 40 empty empty c.bang 3 12 0 18 -228856
+-33289 0;
+#X text -97 -110 A bang... that's all.;
+#X obj -51 -13 delay 500;
+#X obj -51 -43 c.bang @size 16 16 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj -51 53 delay 500;
+#X obj -51 23 c.bang @size 16 16 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 77 53 delay 500;
+#X obj 77 23 c.bang @size 16 16 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 77 -13 delay 500;
+#X obj 77 -43 c.bang @size 16 16 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X text -99 -88 c.bang do nothing more than vanilla's bang...;
+#X obj 349 -120 c.tab @size 57 18 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @orientation
+0 @toggle 0 @items Chocolate @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35
+0.35 1;
+#N canvas 429 244 450 300 clink 0;
+#X obj 33 85 c.patcherinfos;
+#X obj 73 58 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 73 33 inlet;
+#X obj 73 119 c.prepend set;
+#X msg 73 169 \; pd open @Chocolate.pd \$1;
+#X symbolatom 73 141 10 0 0 0 - - -, f 10;
+#X connect 0 1 3 0;
+#X connect 1 0 5 0;
+#X connect 2 0 1 0;
+#X connect 3 0 5 0;
+#X connect 5 0 4 0;
+#X coords 0 300 1 299 70 25 0;
+#X restore 351 -122 pd clink;
+#X text -16 127 Chocolate by Pierre Guillot | CICM - Université Paris
 8;
-#X text -37 -55 A bang... that's all.;
-#X obj 9 42 delay 500;
-#X obj 9 12 c.bang @size 15 15 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
-#X obj 9 108 delay 500;
-#X obj 9 78 c.bang @size 15 15 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
-#X obj 137 108 delay 500;
-#X obj 137 78 c.bang @size 15 15 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
-#X obj 137 42 delay 500;
-#X obj 137 12 c.bang @size 15 15 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
-#X text -39 -33 c.bang do nothing more than vanilla's bang...;
-#X obj 268 -66 pddplink @pdchocolate.pd -text Futher information about
-Pd Chocolate;
-#X connect 3 0 6 0;
-#X connect 4 0 3 0;
-#X connect 5 0 8 0;
-#X connect 6 0 5 0;
-#X connect 7 0 10 0;
-#X connect 8 0 7 0;
-#X connect 9 0 4 0;
-#X connect 10 0 9 0;
+#X connect 2 0 5 0;
+#X connect 3 0 2 0;
+#X connect 4 0 7 0;
+#X connect 5 0 4 0;
+#X connect 6 0 9 0;
+#X connect 7 0 6 0;
+#X connect 8 0 3 0;
+#X connect 9 0 8 0;
+#X connect 11 0 12 0;

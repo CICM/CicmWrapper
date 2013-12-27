@@ -71,7 +71,7 @@
 #define class_dspinit(class)                        eclassbox_dspinit(class)
 #define class_dspinitjbox(class)                    eclass_dspinit(class)
 #define class_register(name_space, class)           eclass_register(name_space, class)
-#define object_alloc(class)                         ebox_alloc(class)
+#define object_alloc(class)                         eobject_alloc(class)
 #define jbox_new(t_jbox, flags, argc, argv)         ebox_new(t_jbox, flags, argc, argv)
 #define dsp_setupjbox(t_jbox, nins, nouts)          ebox_dspsetup(t_jbox, nins, nouts)
 #define jbox_ready(t_jbox)                          ebox_ready(t_jbox)
@@ -97,7 +97,7 @@
 #define dictionary_new                              binbuf_new
 #define dictionary_free                             binbuf_free
 #define dictionary_write(dict, filename, dir)       binbuf_write(dict, filename, dir, 0)
-#define attr_dictionary_process(object, dict)       binbuf_attr_process(object, dict)
+#define attr_dictionary_process(object, dict)       ebox_attrprocess_viabinbuf(object, dict)
 #define object_dictionaryarg(ac, av)                binbuf_via_atoms(ac, av)
 #define dictionary_copyatoms(d, key, argc, argv)    binbuf_get_attribute(d, key, argc, argv)
 #define dictionary_appendatoms(d, key, argc, argv)  binbuf_append_attribute(d, key, argc, argv)

@@ -1,58 +1,77 @@
-#N canvas 189 170 579 424 10;
-#X obj -25 -74 cnv 40 552 40 empty empty c.incdec 3 12 0 18 -228856
+#N canvas 189 170 625 455 10;
+#X obj -35 -104 cnv 40 552 40 empty empty c.incdec 3 12 0 18 -228856
 -33289 0;
-#X text -13 308 Pd Chocolate by Pierre Guillot | CICM - Université
-Paris 8;
-#X msg 241 61 set \$1;
-#X text -22 -52 A GUI to increment and decrement a value;
-#X text -24 -31 c.incdec increment and decrement a value without stack
+#X msg 231 31 set \$1;
+#X text -32 -82 A GUI to increment and decrement a value;
+#X text -34 -61 c.incdec increment and decrement a value without stack
 overflow.;
-#X text 240 12 Step the value withpout output.;
-#X text 301 69 Output the value;
-#X text 87 12 Set and output the value;
-#X msg 32 125 step \$1;
-#X text 10 59 Set the increment step;
-#X msg 350 129 inc;
-#X msg 342 169 dec;
-#X text 381 127 Increment;
-#X text 376 170 Decrement;
-#X text -18 208 to the c.incdec input and the;
-#X text -18 222 c.incdec output is connected;
-#X obj 205 228 c.incdec @size 17 17 @fontname helvetica @fontweight
+#X text 291 39 Output the value;
+#X text 77 -18 Set and output the value;
+#X msg 22 95 step \$1;
+#X text 0 29 Set the increment step;
+#X msg 340 99 inc;
+#X msg 332 139 dec;
+#X text 371 97 Increment;
+#X text 366 140 Decrement;
+#X text -28 178 to the c.incdec input and the;
+#X text -28 192 c.incdec output is connected;
+#X obj 195 198 c.incdec @size 17 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @step 0.35 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @arcolor 0 0 0 1;
-#X obj 225 228 c.number @size 53 17 @fontname helvetica @fontweight
+#X obj 215 198 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 22 72 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+(null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 32 102 c.number @size 53 17 @fontname helvetica @fontweight
-normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+#X obj 130 4 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+(null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 140 34 c.number @size 53 17 @fontname helvetica @fontweight
-normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 241 34 c.number @size 53 17 @fontname helvetica @fontweight
-normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 32 77 loadmess 0.35;
-#X obj 330 89 c.bang @size 15 15 @fontname helvetica @fontweight normal
+#X obj 231 4 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+0 @max 0 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @textcolor 0 0 0 1;
+#X obj 320 59 c.bang @size 15 15 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
-#X text -17 236 to the number input.;
-#X text -17 194 c.number output is connected;
-#X obj 296 -62 pddplink @pdchocolate.pd -text Futher information about
-Pd Chocolate;
-#X connect 2 0 16 0;
-#X connect 8 0 16 0;
-#X connect 10 0 16 0;
-#X connect 11 0 16 0;
-#X connect 16 0 17 0;
-#X connect 17 0 16 0;
-#X connect 18 0 8 0;
-#X connect 19 0 16 0;
-#X connect 20 0 2 0;
-#X connect 21 0 18 0;
+#X text -27 206 to the number input.;
+#X text -27 164 c.number output is connected;
+#X obj 22 47 c.loadmess 0.35;
+#X obj 399 -92 c.tab @size 57 18 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @orientation
+0 @toggle 0 @items Chocolate @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35
+0.35 1;
+#N canvas 429 244 450 300 clink 0;
+#X obj 33 85 c.patcherinfos;
+#X obj 73 58 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 73 33 inlet;
+#X obj 73 119 c.prepend set;
+#X msg 73 169 \; pd open @Chocolate.pd \$1;
+#X symbolatom 73 141 10 0 0 0 - - -, f 10;
+#X connect 0 1 3 0;
+#X connect 1 0 5 0;
+#X connect 2 0 1 0;
+#X connect 3 0 5 0;
+#X connect 5 0 4 0;
+#X coords 0 300 1 299 70 25 0;
+#X restore 401 -94 pd clink;
+#X text 230 -18 Set the value withpout output.;
+#X text -23 278 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X connect 1 0 14 0;
+#X connect 6 0 14 0;
+#X connect 8 0 14 0;
+#X connect 9 0 14 0;
+#X connect 14 0 15 0;
+#X connect 15 0 14 0;
+#X connect 16 0 6 0;
+#X connect 17 0 14 0;
+#X connect 18 0 1 0;
+#X connect 19 0 14 0;
 #X connect 22 0 16 0;
+#X connect 23 0 24 0;

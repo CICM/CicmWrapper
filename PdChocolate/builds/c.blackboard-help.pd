@@ -1,15 +1,13 @@
-#N canvas 31 154 1359 594 10;
+#N canvas 31 154 1407 598 10;
 #X obj -25 -74 cnv 40 552 40 empty empty c.blackboard 3 12 0 18 -228856
 -33289 0;
-#X text 347 443 Pd Chocolate by Pierre Guillot | CICM - Université
-Paris 8;
 #X obj 27 193 c.blackboard @size 200 200 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @chalkmode 1
 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
 #X obj 124 434 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1;
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X obj 222 432 c.toggle @size 15 15 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5 0.5 0.5
@@ -17,23 +15,23 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 #X obj 124 398 unpack;
 #X obj 157 464 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1;
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X obj 27 434 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1;
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X obj 27 398 unpack;
 #X obj 60 464 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1;
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X msg 125 101 clear;
 #X msg 27 101 reset;
 #X obj 188 97 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min 1 @max nan @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
+@min 1 @max 4.29497e+09 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X obj 264 65 c.colorpanel @size 121 65 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @matrix 10 8 @reverse 0 @saturation 1 @hue 0 @lightness 1 @bgcolor
@@ -74,27 +72,27 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 #X text 462 74 filling;
 #X obj 533 96 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min 1 @max nan @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
+@min 1 @max 4.29497e+09 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X msg 533 129 width \$1;
 #X obj 609 78 c.colorpanel @size 121 65 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @matrix 10 8 @reverse 0 @saturation 1 @hue 0 @lightness 1 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
 #X msg 605 159 color hsl \$1 \$2 \$3;
-#X obj 805 87 c.number @size 53 17 @fontname helvetica @fontweight
+#X obj 808 87 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min 0 @max 200 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @textcolor 0 0 0 1;
-#X obj 824 61 c.number @size 53 17 @fontname helvetica @fontweight
+#X obj 830 61 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min 0 @max 200 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @textcolor 0 0 0 1;
-#X obj 843 111 c.number @size 53 17 @fontname helvetica @fontweight
+#X obj 852 111 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min 0 @max 200 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @textcolor 0 0 0 1;
-#X obj 863 87 c.number @size 53 17 @fontname helvetica @fontweight
+#X obj 874 87 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min 0 @max 200 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @textcolor 0 0 0 1;
@@ -103,12 +101,10 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
 #X msg 787 192 line 4.5 1.8 128 128;
-#X obj 787 164 prepend set;
 #X text 779 23 and the shape then bang;
 #X text 669 223 Other shapes;
 #X text 669 243 path x1 y1 x2 y2 etc.;
 #X text 669 303 arc x1 y1 x2 y2 startangle extendangle;
-#X obj 787 138 pak s f f f f;
 #X msg 672 326 fill 0 \, width 4 \, color hex #D40083 \, arc 10 20
 120 80 45 180;
 #X msg 670 266 fill 1 \, color hsl 0.4 1 0.428571 \, path 70 10 130
@@ -131,39 +127,62 @@ object properties.;
 #X text 632 37 Set the chalk;
 #X text 632 47 color with rgb;
 #X text 632 57 hsl or hex.;
-#X obj 286 -63 pddplink @pdchocolate.pd -text Futher information about
-Pd Chocolate;
-#X connect 2 0 8 0;
-#X connect 2 1 5 0;
-#X connect 2 2 4 0;
-#X connect 5 0 3 0;
-#X connect 5 1 6 0;
-#X connect 8 0 7 0;
-#X connect 8 1 9 0;
-#X connect 10 0 2 0;
-#X connect 11 0 2 0;
+#X obj 787 138 c.pak s f f f f;
+#X obj 787 164 c.prepend set;
+#X obj 429 -63 c.tab @size 57 18 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @orientation
+0 @toggle 0 @items Chocolate @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35
+0.35 1;
+#N canvas 429 244 450 300 clink 0;
+#X obj 33 85 c.patcherinfos;
+#X obj 73 58 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 73 33 inlet;
+#X obj 73 119 c.prepend set;
+#X msg 73 169 \; pd open @Chocolate.pd \$1;
+#X symbolatom 73 141 10 0 0 0 - - -, f 10;
+#X connect 0 1 3 0;
+#X connect 1 0 5 0;
+#X connect 2 0 1 0;
+#X connect 3 0 5 0;
+#X connect 5 0 4 0;
+#X coords 0 300 1 299 70 25 0;
+#X restore 431 -65 pd clink;
+#X text 347 443 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X connect 1 0 7 0;
+#X connect 1 1 4 0;
+#X connect 1 2 3 0;
+#X connect 4 0 2 0;
+#X connect 4 1 5 0;
+#X connect 7 0 6 0;
+#X connect 7 1 8 0;
+#X connect 9 0 1 0;
+#X connect 10 0 1 0;
+#X connect 11 0 15 0;
 #X connect 12 0 16 0;
-#X connect 13 0 17 0;
-#X connect 16 0 2 0;
-#X connect 17 0 2 0;
-#X connect 19 0 18 0;
-#X connect 34 1 55 0;
-#X connect 35 0 18 0;
-#X connect 36 0 35 0;
-#X connect 39 0 40 0;
-#X connect 40 0 18 0;
-#X connect 41 1 42 0;
-#X connect 42 0 18 0;
-#X connect 43 0 55 1;
-#X connect 44 0 55 2;
-#X connect 45 0 55 3;
-#X connect 46 0 55 4;
-#X connect 48 0 49 0;
-#X connect 49 0 18 0;
-#X connect 50 0 49 0;
-#X connect 55 0 50 0;
-#X connect 56 0 18 0;
-#X connect 57 0 18 0;
-#X connect 59 0 58 0;
-#X connect 60 0 58 0;
-#X connect 61 0 58 0;
+#X connect 15 0 1 0;
+#X connect 16 0 1 0;
+#X connect 18 0 17 0;
+#X connect 33 1 69 0;
+#X connect 34 0 17 0;
+#X connect 35 0 34 0;
+#X connect 38 0 39 0;
+#X connect 39 0 17 0;
+#X connect 40 1 41 0;
+#X connect 41 0 17 0;
+#X connect 42 0 69 1;
+#X connect 43 0 69 2;
+#X connect 44 0 69 3;
+#X connect 45 0 69 4;
+#X connect 47 0 48 0;
+#X connect 48 0 17 0;
+#X connect 53 0 17 0;
+#X connect 54 0 17 0;
+#X connect 56 0 55 0;
+#X connect 57 0 55 0;
+#X connect 58 0 55 0;
+#X connect 69 0 70 0;
+#X connect 70 0 48 0;
+#X connect 71 0 72 0;

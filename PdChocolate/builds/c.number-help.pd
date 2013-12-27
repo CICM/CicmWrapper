@@ -1,51 +1,70 @@
-#N canvas 319 169 558 427 10;
-#X text 149 89 Drag the c.number.;
-#X text 149 129 Use shift to increase the precision.;
-#X msg 63 100 set \$1;
-#X text 149 189 Press esc to avoid the change.;
-#X obj -40 -97 cnv 40 552 40 empty empty c.number 3 12 0 18 -228856
+#N canvas 319 169 620 444 10;
+#X text 149 49 Drag the c.number.;
+#X text 149 89 Use shift to increase the precision.;
+#X msg 63 60 set \$1;
+#X text 149 149 Press esc to avoid the change.;
+#X obj -40 -137 cnv 40 552 40 empty empty c.number 3 12 0 18 -228856
 -33289 0;
-#X text -33 278 Pd Chocolate by Pierre Guillot | CICM - Université
-Paris 8;
-#X obj -7 148 c.number @size 84 17 @fontname helvetica @fontweight
+#X obj -7 108 c.number @size 84 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj -7 227 c.number @size 62 17 @fontname helvetica @fontweight
-normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 63 67 c.number @size 53 17 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
-nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
-#X text 149 149 Double click to write the c.number.;
-#X obj -7 24 loadmess -3.14169;
-#X text 149 208 Press the up arraw or the down arrow to increment or
-decrement by 1;
-#X text 149 109 The precision depends on where the user drag.;
-#X text 149 169 Press enter or tab to valid the c.number.;
-#X obj 319 76 c.number @size 53 17 @fontname helvetica @fontweight
-normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min 3 @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
-#X text 314 47 Minimum value;
-#X obj 416 77 c.number @size 53 17 @fontname helvetica @fontweight
-normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
-@min nan @max -10.87 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X text 411 48 Maximum value;
-#X obj -30 89 c.bang @size 15 15 @fontname helvetica @fontweight normal
+#X obj -7 187 c.number @size 62 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 63 27 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+(null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 149 109 Double click to write the c.number.;
+#X text 149 168 Press the up arraw or the down arrow to increment or
+decrement by 1;
+#X text 149 69 The precision depends on where the user drag.;
+#X text 149 129 Press enter or tab to valid the c.number.;
+#X obj 319 36 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 3 @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 314 7 Minimum value;
+#X obj 416 37 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max -10 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 411 8 Maximum value;
+#X obj -30 49 c.bang @size 15 15 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
-#X text -37 -75 A number box with another dragging behavior.;
-#X text -39 -53 c.number is the pd chocolate's version of the vanilla
+#X text -37 -115 A number box with another dragging behavior.;
+#X text -39 -93 c.number is the pd chocolate's version of the vanilla
 nbx.;
-#X obj 276 -85 pddplink @pdchocolate.pd -text Futher information about
-Pd Chocolate;
-#X connect 2 0 6 0;
-#X connect 6 0 7 0;
-#X connect 8 0 2 0;
-#X connect 10 0 6 0;
-#X connect 10 0 8 0;
-#X connect 18 0 6 0;
+#X obj -7 -16 c.loadmess -3.14169;
+#X text -33 238 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X obj 409 -125 c.tab @size 57 18 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @orientation
+0 @toggle 0 @items Chocolate @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35
+0.35 1;
+#N canvas 429 244 450 300 clink 0;
+#X obj 33 85 c.patcherinfos;
+#X obj 73 58 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 73 33 inlet;
+#X obj 73 119 c.prepend set;
+#X msg 73 169 \; pd open @Chocolate.pd \$1;
+#X symbolatom 73 141 10 0 0 0 - - -, f 10;
+#X connect 0 1 3 0;
+#X connect 1 0 5 0;
+#X connect 2 0 1 0;
+#X connect 3 0 5 0;
+#X connect 5 0 4 0;
+#X coords 0 300 1 299 70 25 0;
+#X restore 411 -127 pd clink;
+#X connect 2 0 5 0;
+#X connect 5 0 6 0;
+#X connect 7 0 2 0;
+#X connect 16 0 5 0;
+#X connect 19 0 5 0;
+#X connect 19 0 7 0;
+#X connect 21 0 22 0;

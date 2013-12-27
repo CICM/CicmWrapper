@@ -1,0 +1,41 @@
+#N canvas 345 278 559 414 10;
+#X obj -25 -74 cnv 1 552 40 empty empty c.loadmess 3 12 0 18 -228856
+-33289 0;
+#X text 315 274 Futher information about chocolate;
+#X symbolatom 79 122 10 0 0 0 - - -, f 10;
+#X text 360 112 Change the value and bang.;
+#X text -22 -52 A loadbang for float \, symbol and list.;
+#X text -19 162 With no arguments loadmess is a loadbang;
+#X msg 153 87 set Morrison;
+#X text 255 5 Bang the loadmess;
+#X text 34 29 Dblclick bang the loadmess;
+#X text 264 148 List example;
+#X obj 300 113 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 4.29497e+09 @max 4.29497e+09 @decimal 6 @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 300 30 c.bang @size 15 15 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 47 229 c.toggle @size 15 15 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5 0.5 0.5
+1;
+#X text -13 308 Pd Coffee by Pierre Guillot | CICM - Université Paris
+8;
+#X obj 266 212 prepend set;
+#X msg 266 242 John Lennon love 1968;
+#X obj 79 60 c.loadmess Hendrix;
+#X obj 300 67 c.loadmess 3.14169;
+#X obj 266 171 c.loadmess John Lennon love 1968;
+#X obj 47 190 c.loadmess;
+#X text -24 -31 c.loadmess is the pd coffee's version of the vanilla
+loadbang that accepts arguments (float \, symbol and list).;
+#X obj 388 299 coffee;
+#X connect 6 0 2 0;
+#X connect 11 0 17 0;
+#X connect 14 0 15 0;
+#X connect 16 0 2 0;
+#X connect 17 0 10 0;
+#X connect 18 0 14 0;
+#X connect 19 0 12 0;
