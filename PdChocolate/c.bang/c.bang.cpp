@@ -197,7 +197,7 @@ void draw_background(t_bang *x, t_object *view, t_rect *rect)
         {
             egraphics_set_color_rgba(g, &x->f_color_background);
         }
-        egraphics_circle(g, floor(size)+0.5, floor(size)+0.5, size * 0.9);
+        egraphics_circle(g, floor(size), floor(size), size * 0.9);
         egraphics_fill(g);
         ebox_end_layer((t_ebox*)x, gensym("background_layer"));
 	}

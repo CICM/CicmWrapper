@@ -21,14 +21,14 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 #X msg 236 30 1 0 1 0 0;
 #X msg 316 0 0 1 0 1 1;
 #X obj 236 0 loadbang;
-#X obj 197 32 c.bang @size 15 15 @fontname helvetica @fontweight normal
+#X obj 197 32 c.bang @size 16 16 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
-#X obj 236 93 c.radio @size 15 80 @fontname helvetica @fontweight normal
+#X obj 236 93 c.radio @size 16 80 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname chocolist
 @nitems 5 @mode 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1
 @itcolor 0.5 0.5 0.5 1;
-#X obj -19 129 c.radio @size 140 15 @fontname helvetica @fontweight
+#X obj -19 129 c.radio @size 140 16 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname chocodio
 @nitems 8 @mode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1
 @itcolor 0.5 0.5 0.5 1;
@@ -37,7 +37,7 @@ hradio and vradio.;
 #X obj -19 19 c.loadmess 0;
 #X obj 316 30 c.prepend set;
 #X obj 236 208 c.prepend set;
-#X obj 399 -92 c.tab @size 57 18 @fontname helvetica @fontweight normal
+#X obj 399 -92 c.tab @size 58 18 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @orientation
 0 @toggle 0 @items Chocolate @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35

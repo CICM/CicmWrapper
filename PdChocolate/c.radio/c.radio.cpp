@@ -174,6 +174,10 @@ void radio_oksize(t_radio *x, t_rect *newrect)
     {
         newrect->height = pd_clip_min(newrect->height, x->f_nitems * newrect->width);
     }
+    if((int)newrect->width % 2 == 1)
+        newrect->width++;
+    if((int)newrect->height % 2 == 1)
+        newrect->height++;
 }
 
 void radio_set(t_radio *x, t_symbol* s, long argc, t_atom* argv)
@@ -335,19 +339,19 @@ void draw_background(t_radio *x, t_object *view, t_rect *rect)
         {
             if(x->f_direction)
             {
-                float ratio = rect->width / x->f_nitems;
+                float ratio = floorf(rect->width / x->f_nitems - 0.5);
                 for(i = 0; i < x->f_nitems; i++)
                 {
-                    egraphics_circle(g, (i + 0.5) * ratio, rect->height * 0.5, rect->height * 0.45);
+                    egraphics_circle(g, floorf((i + 0.5) * ratio + 0.5), rect->height * 0.5, rect->height * 0.45);
                     egraphics_fill(g);
                 }
             }
             else
             {
-                float ratio = rect->height / x->f_nitems;
+                float ratio = floorf(rect->height / x->f_nitems - 0.5);
                 for(i = 0; i < x->f_nitems; i++)
                 {
-                    egraphics_circle(g, rect->width * 0.5, (i + 0.5) * ratio, rect->width * 0.45);
+                    egraphics_circle(g, rect->width * 0.5, floorf((i - 0.5) * ratio - 0.5), rect->width * 0.45);
                     egraphics_fill(g);
                 }
             }
@@ -400,24 +404,24 @@ void draw_items(t_radio *x, t_object *view, t_rect *rect)
         {
             if(x->f_direction)
             {
-                float ratio = rect->width / x->f_nitems;
+                float ratio = floorf(rect->width / x->f_nitems - 0.5);
                 for(i = 0; i < x->f_nitems; i++)
                 {
                     if(x->f_items[i])
                     {
-                        egraphics_circle(g, (i + 0.5) * ratio, rect->height * 0.5, rect->height * 0.35);
+                        egraphics_circle(g, floorf((i + 0.5) * ratio + 0.5), rect->height * 0.5, rect->height * 0.35);
                         egraphics_fill(g);
                     }
                 }
             }
             else
             {
-                float ratio = rect->height / x->f_nitems;
+                float ratio = floorf(rect->height / x->f_nitems - 0.5);
                 for(i = 0; i < x->f_nitems; i++)
                 {
                     if(x->f_items[i])
                     {
-                        egraphics_circle(g, rect->width * 0.5, (i + 0.5) * ratio, rect->width * 0.35);
+                        egraphics_circle(g, rect->width * 0.5, floorf((i - 0.5) * ratio - 0.5), rect->width * 0.35);
                         egraphics_fill(g);
                     }
                 }

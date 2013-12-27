@@ -417,6 +417,10 @@ void tab_oksize(t_tab *x, t_rect *newrect)
         newrect->width = pd_clip_min(newrect->width, sys_fontwidth(x->j_box.b_font.c_size) * 3 * pd_clip_min(x->f_items_size, 1));
         newrect->height = pd_clip_min(newrect->height, sys_fontheight(x->j_box.b_font.c_size) + 4);
     }
+    if((int)newrect->width % 2 == 1)
+        newrect->width++;
+    if((int)newrect->height % 2 == 1)
+        newrect->height++;
 }
 
 t_pd_err tab_notify(t_tab *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
