@@ -1,5 +1,5 @@
 /*
- * PdEnhanced - Pure Data Enhanced 
+ * PdEnhanced - Pure Data Enhanced
  *
  * An add-on for Pure Data
  *
@@ -44,6 +44,7 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
     if(argv[0])
         free(argv);
     argc[0] = 0;
+
     for(i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].name == s)
@@ -58,9 +59,9 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
                 if(argc[0] > c->c_attr[i].sizemax)
                     argc[0] = c->c_attr[i].sizemax;
             }
-            
+
             point = (char *)x + c->c_attr[i].offset;
-           
+
             argv[0] = (t_atom *)calloc(argc[0], sizeof(t_atom));
             if(c->c_attr[i].getter)
             {

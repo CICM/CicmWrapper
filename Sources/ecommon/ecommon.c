@@ -129,10 +129,13 @@ void object_attr_setvalueof(t_object *x, t_symbol* s, long argc, t_atom* argv)
 void object_attr_getvalueof(t_object *x, t_symbol *s, long *argc, t_atom **argv)
 {
     char realname[MAXPDSTRING];
-	method getvalue;
+	method getvalue = NULL;
     sprintf(realname, "get%s", s->s_name);
+    argc[0] = 0;
+    argv[0] = NULL;
     getvalue = (method)getfn((t_pd *)x, gensym(realname));
-    getvalue(x, s, argc, argv);
+    if(getvalue)
+        getvalue(x, s, argc, argv);
 }
 
 t_binbuf* binbuf_via_atoms(long ac, t_atom *av)

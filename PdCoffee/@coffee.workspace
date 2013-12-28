@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="Workspace">
+		<Project filename="c.loadmess/c.loadmess.cbp" />
+		<Project filename="c.pak/c.pak.cbp" />
+		<Project filename="c.patcherargs/c.patcherargs.cbp" />
+		<Project filename="c.patcherinfos/c.patcherinfos.cbp" />
+		<Project filename="c.prepend/c.prepend.cbp" />
+	</Workspace>
+</CodeBlocks_workspace_file>

@@ -1,5 +1,5 @@
 /*
- * PdEnhanced - Pure Data Enhanced 
+ * PdEnhanced - Pure Data Enhanced
  *
  * An add-on for Pure Data
  *
@@ -37,7 +37,7 @@
 void ebox_mouse_enter(t_ebox* x)
 {
     t_eclass *c = eobj_getclass(x);
-    
+
     if(!x->b_obj.o_canvas->gl_edit && !x->b_mouse_down)
     {
         sys_vgui("focus %s\n", x->b_drawing_id->s_name);
@@ -55,7 +55,7 @@ void ebox_mouse_enter(t_ebox* x)
 void ebox_mouse_leave(t_ebox* x)
 {
     t_eclass *c = eobj_getclass(x);
-    
+
     if(!x->b_obj.o_canvas->gl_edit && !x->b_mouse_down)
     {
         sys_vgui("focus %s\n", x->b_canvas_id->s_name);
@@ -84,10 +84,10 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     t_atom av[2];
     t_eclass *c = eobj_getclass(x);
     eobj_get_mouse_global_position(x);
-    
+
     x->b_modifiers = (long)atom_getfloat(argv+2);
 #ifdef _WINDOWS
-	
+
 	if(x->b_modifiers >= 131080)
 	{
 		x->b_modifiers -= 131080;
@@ -105,10 +105,10 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
                 ebox_set_cursor(x, 0);
             else
                 ebox_set_cursor(x, 1);
-            
+
             x->b_mouse.x = atom_getfloat(argv);
             x->b_mouse.y = atom_getfloat(argv+1);
-            
+
             if(c->c_widget.w_mousemove)
                 c->c_widget.w_mousemove(x, x->b_obj.o_canvas, x->b_mouse, x->b_modifiers);
         }
@@ -221,10 +221,10 @@ void ebox_mouse_drag(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 void ebox_mouse_down(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     t_eclass *c = eobj_getclass(x);
-	
+
     x->b_modifiers = (long)atom_getfloat(argv+2);
 #ifdef _WINDOWS
-	
+
 	if(x->b_modifiers >= 131080)
 	{
 		x->b_modifiers -= 131080;
@@ -273,10 +273,10 @@ void ebox_mouse_down(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 void ebox_mouse_up(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     t_eclass *c = eobj_getclass(x);
-   
+
     x->b_modifiers = (long)atom_getfloat(argv+2);
 #ifdef _WINDOWS
-	
+
 	if(x->b_modifiers >= 131080)
 	{
 		x->b_modifiers -= 131080;
@@ -284,7 +284,7 @@ void ebox_mouse_up(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 	}
 	else
 		x->b_modifiers -= 8;
-#endif    
+#endif
     if(!x->b_obj.o_canvas->gl_edit)
     {
         x->b_mouse.x = atom_getfloat(argv);
@@ -303,7 +303,7 @@ void ebox_mouse_up(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
             ebox_redraw(x);
         }
     }
-    
+
     x->b_mouse_down = 0;
 }
 
@@ -319,10 +319,10 @@ void ebox_mouse_up(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     t_eclass *c = eobj_getclass(x);
-    
+
     x->b_modifiers = (long)atom_getfloat(argv+2);
 #ifdef _WINDOWS
-	
+
 	if(x->b_modifiers >= 131080)
 	{
 		x->b_modifiers -= 131080;
@@ -330,7 +330,7 @@ void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 	}
 	else
 		x->b_modifiers -= 8;
-#endif    
+#endif
     if(!x->b_obj.o_canvas->gl_edit)
     {
         x->b_mouse.x = atom_getfloat(argv);
@@ -353,12 +353,12 @@ void ebox_mouse_wheel(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     float delta;
     t_eclass *c = eobj_getclass(x);
-    
+
     x->b_modifiers = (long)atom_getfloat(argv+3);
     delta = atom_getfloat(argv+2);
 
 #ifdef _WINDOWS
-	
+
 	if(x->b_modifiers >= 131080)
 	{
 		x->b_modifiers -= 131080;
@@ -391,16 +391,16 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
 {
     int i;
     int right, bottom;
-    
+
     x->b_selected_outlet    = -1;
     x->b_selected_inlet     = -1;
     x->b_selected_item      = EITEM_NONE;
     x->b_move_box = eobj_get_mouse_canvas_position(x);
     sys_vgui("pdtk_canvas_motion %s %i %i 0\n", x->b_canvas_id->s_name, (int)x->b_move_box.x, (int)x->b_move_box.y);
-    
+
     right   = x->b_rect.width + x->b_boxparameters.d_borderthickness * 2.;
     bottom  = x->b_rect.height + x->b_boxparameters.d_borderthickness * 2.;
-    
+
     // TOP //
     if(y_p >= 0 && y_p < 3)
     {
@@ -409,7 +409,7 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
             int pos_x_inlet = 0;
             if(obj_ninlets((t_object *)x) != 1)
                 pos_x_inlet = (int)(i / (float)(obj_ninlets((t_object *)x) - 1) * (x->b_rect.width - 8));
-            
+
             if(x_p >= pos_x_inlet && x_p <= pos_x_inlet +7)
             {
                 x->b_selected_inlet = i;
@@ -436,7 +436,7 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
             int pos_x_outlet = 0;
             if(obj_noutlets((t_object *)x) != 1)
                 pos_x_outlet = (int)(i / (float)(obj_noutlets((t_object *)x) - 1) * (x->b_rect.width - 8));
-            
+
             if(x_p >= pos_x_outlet && x_p <= pos_x_outlet +7)
             {
                 x->b_selected_outlet = i;
@@ -460,7 +460,7 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
         ebox_set_cursor(x, 9);
         return;
     }
-    
+
     // BOX //
     ebox_set_cursor(x, 4);
 
@@ -480,7 +480,7 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
 void ebox_key(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     t_eclass *c = eobj_getclass(x);
-   
+
     if(argc >= 2 && argv && atom_gettype(argv+1) == A_FLOAT)
     {
         if(!x->b_obj.o_canvas->gl_edit)
@@ -574,9 +574,9 @@ void ebox_dosave(t_ebox* x, t_binbuf *b)
     long        argc    = 0;
     t_atom*     argv    = NULL;
     t_eclass *c = eobj_getclass(x);
-    
+
     binbuf_addv(b, "ssiis", gensym("#X"), gensym("obj"), (int)x->b_obj.o_obj.te_xpix, (int)x->b_obj.o_obj.te_ypix, eobj_getclassname(x));
-    
+
     for(i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i].save)
@@ -592,10 +592,10 @@ void ebox_dosave(t_ebox* x, t_binbuf *b)
             }
         }
     }
-    
+
     if(c->c_widget.w_save != NULL)
         c->c_widget.w_save(x, b);
-    
+
     binbuf_addv(b, ";");
 }
 
@@ -695,7 +695,7 @@ t_pd_err ebox_size_set(t_ebox *x, t_object *attr, long argc, t_atom *argv)
                 x->b_rect.height = pd_clip_min(atom_getfloat(argv+1), 4);
         }
     }
-    
+
 	return 0;
 }
 
@@ -740,7 +740,7 @@ void ebox_attrprint(t_ebox* x)
     post("%s attributes :", c->c_class.c_name->s_name);
     for(i = 0; i < c->c_nattr; i++)
     {
-        
+
         post("Label : \"%s\" Name : \"%s\" Type : \"%s\" Size : \"%i\"", c->c_attr[i].label->s_name, c->c_attr[i].name->s_name, c->c_attr[i].type->s_name, c->c_attr[i].size);
     }
 }
@@ -755,13 +755,14 @@ void ebox_attrprint(t_ebox* x)
 void ebox_properties(t_ebox *x, t_glist *glist)
 {
     int i, j;
-    t_atom *argv;
-    long    argc;
+    t_atom *argv = NULL;
+    long    argc = 0;
     t_eclass* c = eobj_getclass(x);
     char buffer[MAXPDSTRING];
     char temp[MAXPDSTRING];
-    
+
     sprintf(buffer, "pdtk_%s_dialog %%s", c->c_class.c_name->s_name);
+
     for(i = 0; i < c->c_nattr; i++)
     {
         object_attr_getvalueof((t_object *)x, c->c_attr[i].name, &argc, &argv);
@@ -769,12 +770,16 @@ void ebox_properties(t_ebox *x, t_glist *glist)
         strcat(buffer, "\"");
         if(argc && argv)
         {
+#ifndef _WINDOWS
+            for(j = 0; j < argc-1; j++)
+#else
             for(j = 0; j < argc; j++)
+#endif
             {
                 atom_string(argv+j, temp, MAXPDSTRING);
                 if(c->c_attr[i].type == gensym("symbol") && strchr(temp, ' '))
                 {
-                    
+
                     strcat(buffer, "'");
                     strcat(buffer, temp);
                     strcat(buffer, "'");
@@ -784,11 +789,12 @@ void ebox_properties(t_ebox *x, t_glist *glist)
                     strcat(buffer, temp);
                 }
                 strcat(buffer, " ");
-            }/*
+            }
+#ifndef _WINDOWS
             atom_string(argv+j, temp, MAXPDSTRING);
             if(c->c_attr[i].type == gensym("symbol") && strchr(temp, ' '))
             {
-                
+
                 strcat(buffer, "'");
                 strcat(buffer, temp);
                 strcat(buffer, "'");
@@ -796,13 +802,16 @@ void ebox_properties(t_ebox *x, t_glist *glist)
             else
             {
                 strcat(buffer, temp);
-            }*/
+            }
+            free(argv);
+            argc = 0;
+#endif
         }
         strcat(buffer, "\"");
     }
     strcat(buffer, "\n");
     //post(buffer);
-    
+
     gfxstub_new(&x->b_obj.o_obj.ob_pd, x, buffer);
 }
 

@@ -1,4 +1,4 @@
-#N canvas 281 186 558 514 10;
+#N canvas 279 191 558 514 10;
 #X obj -15 -94 cnv 40 552 40 empty empty c.plane 3 12 0 18 -228856
 -33289 0;
 #X obj 79 79 r c.plane;
@@ -42,7 +42,7 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 #X text -12 -72 A plane where you can move a point;
 #X obj 361 33 c.loadmess -1;
 #X obj 449 80 c.loadmess 1;
-#X obj 9 79 c.pak 0 0, f 10;
+#X obj 9 79 c.pak 0 0;
 #X obj 361 165 c.pak 0 0 0 0;
 #X obj 361 196 c.prepend bound;
 #X text -14 -51 c.plane allows you to move a point on a cartesian plane.

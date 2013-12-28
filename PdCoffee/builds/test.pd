@@ -1,0 +1,8 @@
+#N canvas 445 237 450 300 10;
+#X obj 126 24 c.loadmess 1;
+#X obj 122 100 c.pak 0 0 0;
+#X obj 129 142 c.prepend set;
+#X msg 190 200;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;

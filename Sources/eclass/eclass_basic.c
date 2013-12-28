@@ -1,5 +1,5 @@
 /*
- * PdEnhanced - Pure Data Enhanced 
+ * PdEnhanced - Pure Data Enhanced
  *
  * An add-on for Pure Data
  *
@@ -70,7 +70,7 @@ post("|________________________________________________|");
 void eclass_init(t_eclass* c, long flags)
 {
     ewidget_init(c);
-    
+
     // DEFAULT ATTRIBUTES //
     CLASS_ATTR_FLOAT_ARRAY  (c, "size", 0, t_ebox, b_rect.width, 2);
     CLASS_ATTR_SYMBOL       (c, "fontname", 0, t_ebox, b_font.c_family);
@@ -78,7 +78,7 @@ void eclass_init(t_eclass* c, long flags)
     CLASS_ATTR_SYMBOL       (c, "fontslant", 0, t_ebox, b_font.c_slant);
     CLASS_ATTR_FLOAT        (c, "fontsize", 0, t_ebox, b_font.c_size);
     CLASS_ATTR_SYMBOL       (c, "idname", 0, t_ebox, b_objuser_id);
-    
+
     CLASS_ATTR_DEFAULT      (c, "size", 0, "100. 100.");
     CLASS_ATTR_FILTER_MIN   (c, "size", 4);
     CLASS_ATTR_SAVE         (c, "size", 0);
@@ -86,47 +86,47 @@ void eclass_init(t_eclass* c, long flags)
     CLASS_ATTR_CATEGORY		(c, "size", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "size", 0, "Patching Size");
     CLASS_ATTR_ACCESSORS    (c, "size", NULL, ebox_size_set);
-    
+
     CLASS_ATTR_DEFAULT      (c, "fontname", 0, "helvetica");
     CLASS_ATTR_SAVE         (c, "fontname", 0);
     CLASS_ATTR_PAINT        (c, "fontname", 0);
     CLASS_ATTR_CATEGORY		(c, "fontname", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontname", 0, "Font Name");
-    
+
     CLASS_ATTR_DEFAULT      (c, "fontweight", 0, "normal");
     CLASS_ATTR_SAVE         (c, "fontweight", 0);
     CLASS_ATTR_PAINT        (c, "fontweight", 0);
     CLASS_ATTR_CATEGORY		(c, "fontweight", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontweight", 0, "Font Weight");
-    
+
     CLASS_ATTR_DEFAULT      (c, "fontslant", 0, "regular");
     CLASS_ATTR_SAVE         (c, "fontslant", 0);
     CLASS_ATTR_PAINT        (c, "fontslant", 0);
     CLASS_ATTR_CATEGORY		(c, "fontslant", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontslant", 0, "Font Slant");
-    
+
     CLASS_ATTR_DEFAULT      (c, "fontsize", 0, "11");
     CLASS_ATTR_FILTER_MIN   (c, "fontsize", 4);
     CLASS_ATTR_SAVE         (c, "fontsize", 0);
     CLASS_ATTR_PAINT        (c, "fontsize", 0);
     CLASS_ATTR_CATEGORY		(c, "fontsize", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontsize", 0, "Font Size");
-    
+
     CLASS_ATTR_DEFAULT      (c, "idname", 0, "(null)");
     CLASS_ATTR_ACCESSORS    (c, "idname", NULL, ebox_set_id);
     CLASS_ATTR_SAVE         (c, "idname", 0);
     CLASS_ATTR_CATEGORY		(c, "idname", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "idname", 0, "Id Name");
-    
+
     // GUI always need this methods //
     class_addmethod((t_class *)c, (t_method)glist_return_erouter,   gensym("erouter"),      A_CANT,  0);
     class_addmethod((t_class *)c, (t_method)ebox_patcher_editmode,  gensym("editmode"),     A_GIMME, 0);
     class_addmethod((t_class *)c, (t_method)ebox_attrprint,         gensym("attrprint"),    A_CANT,  0);
     class_addmethod((t_class *)c, (t_method)ebox_dialog,            gensym("dialog"),       A_GIMME, 0);
-    
+
     class_addmethod((t_class *)c, (t_method)eobj_retreive_gmouse, gensym("gmouse"), A_DEFFLOAT,A_DEFFLOAT,0);
     class_addmethod((t_class *)c, (t_method)eobj_retreive_pmouse, gensym("pmouse"), A_DEFFLOAT,A_DEFFLOAT,0);
-    
+
     class_addmethod((t_class *)c, (t_method)ebox_mouse_enter, gensym("mouseenter"), A_CANT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_leave, gensym("mouseleave"), A_CANT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_move,  gensym("mousemove"),  A_GIMME, 0);
@@ -137,7 +137,7 @@ void eclass_init(t_eclass* c, long flags)
     class_setwidget((t_class *)&c->c_class, (t_widgetbehavior *)&c->c_widget);
     class_setsavefn((t_class *)&c->c_class, (t_savefn)eobj_save);
     class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
-    
+
     sys_vgui("namespace eval eclass%s {} \n", c->c_class.c_name->s_name);
     // GLOBAL MOUSE POSITION //
     sys_gui("proc eobj_gmousepos {target} {\n");
@@ -145,7 +145,7 @@ void eclass_init(t_eclass* c, long flags)
     sys_gui(" set y [winfo pointery .]\n");
     sys_gui(" pdsend \"$target gmouse $x $y\"\n");
     sys_gui("}\n");
-    
+
     // PATCHER MOUSE POSITION //
     sys_vgui("proc eobj_pmousepos {target patcher} {\n");
     sys_gui(" set x [winfo rootx $patcher]\n");
@@ -195,7 +195,7 @@ void eclass_properties_dialog(t_eclass* c)
     int i;
     char buffer[1000];
     char temp[1000];
-    
+
     // DIALOG WINDOW APPLY //
     sys_vgui("proc pdtk_%s_dialog_apply {id} { \n", c->c_class.c_name->s_name);
     sys_gui("set vid [string trimleft $id .]\n");
@@ -204,9 +204,9 @@ void eclass_properties_dialog(t_eclass* c)
         sys_vgui("set var_%s [concat %s_$vid] \n", c->c_attr[i].name->s_name, c->c_attr[i].name->s_name);
         sys_vgui("global $var_%s \n", c->c_attr[i].name->s_name);
     }
-    
+
     sprintf(buffer, "set cmd [concat $id dialog ");
-   
+
     for(i = 0; i < c->c_nattr; i++)
     {
         sprintf(temp, "@%s ", c->c_attr[i].name->s_name);
@@ -218,7 +218,7 @@ void eclass_properties_dialog(t_eclass* c)
     sys_gui(buffer);
     sys_gui("pdsend $cmd\n");
     sys_gui("}\n");
-    
+
     // DIALOG WINDOW CREATION //
     sys_vgui("proc pdtk_%s_dialog {id \n", c->c_class.c_name->s_name);
     for(i = 0; i < c->c_nattr; i++)
@@ -227,7 +227,7 @@ void eclass_properties_dialog(t_eclass* c)
     }
     sys_gui("} {\n");
     sys_gui("set vid [string trimleft $id .]\n");
-    
+
     for(i = 0; i < c->c_nattr; i++)
     {
         sys_vgui("set var_%s [concat %s_$vid]\n", c->c_attr[i].name->s_name, c->c_attr[i].name->s_name);
@@ -247,12 +247,12 @@ void eclass_properties_dialog(t_eclass* c)
         sys_vgui("grid  $id.label%i -in $id.frame -column 1 -row %i\n", i+1, i+1);
         sys_vgui("entry $id.entry%i -textvariable [string trim $var_%s]\n", i+1, c->c_attr[i].name->s_name);
         sys_vgui("grid  $id.entry%i -in $id.frame -column 2 -row %i\n", i+1, i+1);
-        
+
         sys_vgui("bind  $id.entry%i <KeyPress-Return> [concat pdtk_%s_dialog_apply $id]\n",i+1, c->c_class.c_name->s_name);
-       
+
     }
     sys_gui("}\n");
-    
+
 }
 
 //! Initialize the eclass name space BOX or NOBOX
@@ -268,7 +268,7 @@ t_pd_err eclass_register(t_symbol *name, t_eclass *c)
         c->c_box = 0;
     else
         c->c_box = 1;
-    
+
     eclass_properties_dialog(c);
     return 0;
 }
@@ -345,7 +345,7 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
     {
         c->c_widget.w_notify = (t_err_method)m;
     }
-    
+
     else if(gensym(name) == gensym("getdrawparams"))
     {
         c->c_widget.w_getdrawparameters = m;
@@ -404,7 +404,7 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
 		sys_gui("if { ! [file isdirectory $initialdir]} {set initialdir $::env(HOME)}\n");
 		sys_gui("set filename [tk_getSaveFile -initialfile $initialfile -initialdir $initialdir -defaultextension .pd -filetypes $::filetypes]\n");
 		sys_gui("if {$filename eq \"\"} return;\n");
-        
+
 		sys_gui("set extension [file extension $filename]\n");
 		sys_gui("set oldfilename $filename\n");
 
@@ -418,7 +418,7 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
 		sys_gui("set ::filenewdir $dirname\n");
 		sys_gui("::pd_guiprefs::update_recentfiles $filename\n");
 		sys_gui("}\n");
-   
+
         class_addmethod((t_class *)c, (t_method)eobj_write, gensym(name), type, anything);
         class_addmethod((t_class *)c, (t_method)eobj_write, gensym("eobjwriteto"), type, anything);
         c->c_widget.w_write = m;
