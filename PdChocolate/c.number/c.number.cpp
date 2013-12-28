@@ -31,22 +31,22 @@ extern "C"  {
 typedef struct  _number
 {
 	t_ebox      j_box;
-    
+
     void*       f_outlet;
     char        f_mode;
-    
+
     float       f_value;
     float       f_refvalue;
     float       f_deriv;
     float       f_inc;
-    
+
 	char        f_textvalue[256];
-    
+
     long        f_max_decimal;
     long        f_ndecimal;
     t_atom      f_min;
     t_atom      f_max;
-    
+
 	t_rgba		f_color_background;
 	t_rgba		f_color_border;
 	t_rgba		f_color_text;
@@ -87,11 +87,11 @@ void number_preset(t_number *x, t_binbuf *b);
 extern "C" void setup_c0x2enumber(void)
 {
 	t_eclass *c;
-    
+
 	c = eclass_new("c.number", (method)number_new, (method)number_free, (short)sizeof(t_number), 0L, A_GIMME, 0);
-    
+
 	eclass_init(c, 0);
-	
+
 	eclass_addmethod(c, (method) number_assist,          "assist",           A_CANT, 0);
 	eclass_addmethod(c, (method) number_paint,           "paint",            A_CANT, 0);
 	eclass_addmethod(c, (method) number_notify,          "notify",           A_CANT, 0);
@@ -100,32 +100,32 @@ extern "C" void setup_c0x2enumber(void)
     eclass_addmethod(c, (method) number_float,           "float",            A_FLOAT,0);
     eclass_addmethod(c, (method) number_set,             "set",              A_FLOAT,0);
     eclass_addmethod(c, (method) number_output,          "bang",             A_CANT, 0);
-    
+
     eclass_addmethod(c, (method) number_mousedown,        "mousedown",       A_CANT, 0);
     eclass_addmethod(c, (method) number_mousedrag,        "mousedrag",       A_CANT, 0);
     eclass_addmethod(c, (method) number_dblclick,         "dblclick",        A_CANT, 0);
     eclass_addmethod(c, (method) number_key,              "key",             A_CANT, 0);
     eclass_addmethod(c, (method) number_keyfilter,        "keyfilter",       A_CANT, 0);
     eclass_addmethod(c, (method) number_deserted,         "deserted",        A_CANT, 0);
-    
+
     eclass_addmethod(c, (method) number_preset,           "preset",          A_CANT, 0);
-    
+
 	CLASS_ATTR_DEFAULT			(c, "size", 0, "53 13");
-	
+
     CLASS_ATTR_ATOM             (c, "min", 0, t_number, f_min);
 	CLASS_ATTR_ORDER			(c, "min", 0, "3");
 	CLASS_ATTR_LABEL			(c, "min", 0, "Minimum Value");
     CLASS_ATTR_DEFAULT          (c, "min", 0, "(null)");
     CLASS_ATTR_ACCESSORS        (c, "min", NULL, number_min_set);
 	CLASS_ATTR_SAVE				(c, "min", 1);
-    
+
     CLASS_ATTR_ATOM             (c, "max", 0, t_number, f_max);
 	CLASS_ATTR_ORDER			(c, "max", 0, "3");
 	CLASS_ATTR_LABEL			(c, "max", 0, "Maximum Value");
     CLASS_ATTR_DEFAULT          (c, "max", 0, "(null)");
     CLASS_ATTR_ACCESSORS        (c, "max", NULL, number_max_set);
 	CLASS_ATTR_SAVE				(c, "max", 1);
-    
+
     CLASS_ATTR_LONG				(c, "decimal", 0, t_number, f_ndecimal);
 	CLASS_ATTR_ORDER			(c, "decimal", 0, "3");
 	CLASS_ATTR_LABEL			(c, "decimal", 0, "Number of decimal");
@@ -133,22 +133,22 @@ extern "C" void setup_c0x2enumber(void)
 	CLASS_ATTR_FILTER_MIN		(c, "decimal", 0);
     CLASS_ATTR_FILTER_MAX		(c, "decimal", 6);
 	CLASS_ATTR_SAVE				(c, "decimal", 1);
-    
+
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_number, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
-	
+
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_number, f_color_border);
 	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Box Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
-	
+
 	CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_number, f_color_text);
 	CLASS_ATTR_LABEL                (c, "textcolor", 0, "Text Color");
 	CLASS_ATTR_ORDER                (c, "textcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "0. 0. 0. 1.");
-	
+
     eclass_register(CLASS_NOBOX, c);
 	number_class = c;
 }
@@ -158,26 +158,26 @@ void *number_new(t_symbol *s, int argc, t_atom *argv)
 	t_number *x =  NULL;
 	t_binbuf* d;
     long flags;
-    
+
 	if (!(d = binbuf_via_atoms(argc,argv)))
 		return NULL;
-    
+
 	x = (t_number *)eobj_new(number_class);
-    
+
     flags = 0
     | EBOX_GROWINDI
     ;
-    
+
 	ebox_new((t_ebox *)x, flags);
-    
+
     x->f_outlet   = floatout(x);
     x->f_mode     = 0.f;
     sprintf(x->f_textvalue, "0.");
     x->f_value    = 0;
-    
+
 	ebox_attrprocess_viabinbuf(x, d);
 	ebox_ready((t_ebox *)x);
-    
+
 	return (x);
 }
 
@@ -216,7 +216,7 @@ void number_output(t_number *x)
         x->f_value = pd_clip_max(x->f_value, atom_getfloat(&x->f_max));
     if(atom_gettype(&x->f_min) == A_FLOAT)
         x->f_value = pd_clip_min(x->f_value, atom_getfloat(&x->f_min));
-    
+
     outlet_float((t_outlet*)x->f_outlet, (float)x->f_value);
 }
 
@@ -253,7 +253,7 @@ void number_paint(t_number *x, t_object *view)
 	t_rect rect;
     float fontwidth = sys_fontwidth(x->j_box.b_font.c_size);
     ebox_get_rect_for_view((t_ebox *)x, &rect);
-    
+
     x->f_max_decimal = (rect.width - fontwidth - 8) / fontwidth - 2;
     draw_background(x, view, &rect);
 
@@ -268,21 +268,21 @@ void draw_background(t_number *x, t_object *view, t_rect *rect)
     float width;
 	t_elayer *g = ebox_start_layer((t_ebox *)x, gensym("background_layer"), rect->width, rect->height);
 	t_etext *jtl = etext_layout_create();
-    
+
 	if (g && jtl)
 	{
         width = sys_fontwidth(ebox_getfontsize((t_ebox *)x)) + 6;
         etext_layout_set(jtl, "©", &x->j_box.b_font, width / 2. - 1, rect->height / 2. + 2, width, 0, ETEXT_CENTER, ETEXT_JCENTER, ETEXT_NOWRAP);
-        
+
         etext_layout_settextcolor(jtl, &x->f_color_text);
         etext_layout_draw(jtl, g);
-        
+
         egraphics_set_line_width(g, 2);
         egraphics_set_color_rgba(g, &x->f_color_border);
         egraphics_move_to(g, width, 0);
         egraphics_line_to(g, width,  rect->height );
         egraphics_stroke(g);
-        
+
 		ebox_end_layer((t_ebox*)x, gensym("background_layer"));
 	}
 	ebox_paint_layer((t_ebox *)x, gensym("background_layer"), 0., 0.);
@@ -294,7 +294,7 @@ void draw_value_drag(t_number *x, t_object *view, t_rect *rect)
     float width;
 	t_elayer *g = ebox_start_layer((t_ebox *)x, gensym("value_layer"), rect->width, rect->height);
 	t_etext *jtl = etext_layout_create();
-    
+
 	if (g && jtl)
 	{
         int size, inc = 7;
@@ -328,7 +328,7 @@ void draw_value_drag(t_number *x, t_object *view, t_rect *rect)
                 inc = x->f_max_decimal - size;
             if(inc > x->f_ndecimal)
                 inc = x->f_ndecimal;
-            
+
             if(inc == 0 || x->f_value == (int)x->f_value)
                 sprintf(number, "%i.", (int)x->f_value);
             else if(inc == 1)
@@ -345,9 +345,8 @@ void draw_value_drag(t_number *x, t_object *view, t_rect *rect)
                 sprintf(number, "%.6f", x->f_value);
         }
         etext_layout_settextcolor(jtl, &x->f_color_text);
-        
         etext_layout_set(jtl, number, &x->j_box.b_font, width, rect->height / 2. + 1, rect->width - 3, 0, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
-        
+
         etext_layout_draw(jtl, g);
 		ebox_end_layer((t_ebox*)x, gensym("value_layer"));
         etext_layout_destroy(jtl);
@@ -365,9 +364,9 @@ void draw_value_text(t_number *x,  t_object *view, t_rect *rect)
         char number[256];
         sprintf(number, "%s|", x->f_textvalue);
         etext_layout_settextcolor(jtl, &x->f_color_text);
-        
+
         etext_layout_set(jtl, number, &x->j_box.b_font, sys_fontwidth(x->j_box.b_font.c_size) + 8, rect->height / 2., rect->width - 3, 0, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
-        
+
         etext_layout_draw(jtl, g);
 		ebox_end_layer((t_ebox*)x, gensym("value_layer"));
         etext_layout_destroy(jtl);
@@ -388,10 +387,10 @@ void number_mousedown(t_number *x, t_object *patcherview, t_pt pt, long modifier
         x->f_refvalue = x->f_value;
         while(fabs(x->f_refvalue) >= powf(10, n_integer))
             n_integer++;
-        
+
         while(text_width + 6 + i * text_width < pos)
             i++;
-        
+
         if(x->f_refvalue < 0) // due to "-" offset
         {
             if(i < n_integer)
@@ -414,12 +413,12 @@ void number_mousedrag(t_number *x, t_object *patcherview, t_pt pt, long modifier
 {
     x->f_mode = 0;
     ebox_set_cursor((t_ebox *)x, 2);
-    
+
     if(modifiers == EMOD_SHIFT)
         x->f_value = x->f_refvalue + (pt.y - x->f_deriv) * x->f_inc * 0.01;
     else
         x->f_value = x->f_refvalue + (pt.y - x->f_deriv) * x->f_inc * 0.5;
-    
+
     number_output(x);
     ebox_invalidate_layer((t_ebox *)x, gensym("value_layer"));
     ebox_redraw((t_ebox *)x);
@@ -430,7 +429,7 @@ void number_dblclick(t_number *x, t_object *patcherview, t_pt pt, long modifiers
     if(x->f_mode == 0)
     {
         x->f_mode = 1;
-        sprintf(x->f_textvalue, "");
+        strcpy(x->f_textvalue, "");
         ebox_invalidate_layer((t_ebox *)x, gensym("value_layer"));
         ebox_redraw((t_ebox *)x);
     }
@@ -450,7 +449,7 @@ void number_key(t_number *x, t_object *patcherview, char textcharacter, long mod
             x->f_value--;
             number_output(x);
         }
-        
+
     }
     else
     {
@@ -468,10 +467,10 @@ void number_key(t_number *x, t_object *patcherview, char textcharacter, long mod
         else if(isdigit(textcharacter))
         {
             strncat(x->f_textvalue, &textcharacter, 1);
-            
+
         }
     }
-    
+
     ebox_invalidate_layer((t_ebox *)x, gensym("value_layer"));
     ebox_redraw((t_ebox *)x);
 }
@@ -485,19 +484,19 @@ void number_keyfilter(t_number *x, t_object *patcherview, char textcharacter, lo
     {
         if(strlen(x->f_textvalue) > 1)
         {
-            sprintf(x->f_textvalue+strlen(x->f_textvalue)-1, "");
+            strcpy(x->f_textvalue+strlen(x->f_textvalue)-1, "");
         }
         else
-            sprintf(x->f_textvalue, "");
-        
+            strcpy(x->f_textvalue, "");
+
         ebox_invalidate_layer((t_ebox *)x, gensym("value_layer"));
-        ebox_redraw((t_ebox *)x);            
+        ebox_redraw((t_ebox *)x);
     }
     else if (textcharacter == EKEY_TAB || textcharacter == EKEY_ENTER)
     {
         x->f_mode = 0;
         x->f_value = atof(x->f_textvalue);
-        
+
         number_output(x);
         ebox_invalidate_layer((t_ebox *)x, gensym("value_layer"));
         ebox_redraw((t_ebox *)x);
@@ -505,8 +504,8 @@ void number_keyfilter(t_number *x, t_object *patcherview, char textcharacter, lo
     else if (textcharacter == EKEY_ESC)
     {
         x->f_mode = 0;
-        sprintf(x->f_textvalue, "");
-        
+        strcpy(x->f_textvalue, "");
+
         ebox_invalidate_layer((t_ebox *)x, gensym("value_layer"));
         ebox_redraw((t_ebox *)x);
     }
@@ -515,7 +514,7 @@ void number_keyfilter(t_number *x, t_object *patcherview, char textcharacter, lo
 void number_deserted(t_number *x)
 {
     x->f_mode = 0;
-    sprintf(x->f_textvalue, "");
+    strcpy(x->f_textvalue, "");
     ebox_invalidate_layer((t_ebox *)x, gensym("value_layer"));
     ebox_redraw((t_ebox *)x);
 }
@@ -530,13 +529,13 @@ t_pd_err number_min_set(t_number *x, t_object *attr, long ac, t_atom *av)
     if(ac && av && atom_gettype(av) == A_FLOAT)
     {
         x->f_min = av[0];
-        
+
         if(atom_gettype(&x->f_max) == A_FLOAT && atom_getfloat(&x->f_max) < atom_getfloat(&x->f_min))
         {
             x->f_min = x->f_max;
             x->f_max = av[0];
         }
-        
+
         if(atom_gettype(&x->f_max) == A_FLOAT)
             x->f_value = pd_clip_max(x->f_value, atom_getfloat(&x->f_max));
         x->f_value = pd_clip_min(x->f_value, atom_getfloat(&x->f_min));
@@ -555,13 +554,13 @@ t_pd_err number_max_set(t_number *x, t_object *attr, long ac, t_atom *av)
     if(ac && av && atom_gettype(av) == A_FLOAT)
     {
         x->f_max = av[0];
-        
+
         if(atom_gettype(&x->f_min) == A_FLOAT && atom_getfloat(&x->f_max) < atom_getfloat(&x->f_min))
         {
             x->f_max = x->f_min;
             x->f_min = av[0];
         }
-        
+
         if(atom_gettype(&x->f_min) == A_FLOAT)
             x->f_value = pd_clip_min(x->f_value, atom_getfloat(&x->f_min));
         x->f_value = pd_clip_max(x->f_value, atom_getfloat(&x->f_max));

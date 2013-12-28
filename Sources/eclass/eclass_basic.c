@@ -87,7 +87,7 @@ void eclass_init(t_eclass* c, long flags)
     CLASS_ATTR_LABEL		(c, "size", 0, "Patching Size");
     CLASS_ATTR_ACCESSORS    (c, "size", NULL, ebox_size_set);
 
-    CLASS_ATTR_DEFAULT      (c, "fontname", 0, "helvetica");
+    CLASS_ATTR_DEFAULT      (c, "fontname", 0, "Courier");
     CLASS_ATTR_SAVE         (c, "fontname", 0);
     CLASS_ATTR_PAINT        (c, "fontname", 0);
     CLASS_ATTR_CATEGORY		(c, "fontname", 0, "Basic");

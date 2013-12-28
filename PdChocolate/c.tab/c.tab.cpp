@@ -33,16 +33,16 @@ extern "C"  {
 typedef struct  _tab
 {
 	t_ebox      j_box;
-	
+
     t_outlet*   f_out_index;
     t_outlet*   f_out_item;
     t_outlet*   f_out_hover;
-    
+
     t_symbol*   f_items[MAXITEMS];
     long        f_items_size;
     long        f_item_selected;
     long        f_item_hover;
-    
+
     long        f_toggle;
     long        f_orientation;
 	t_rgba		f_color_background;
@@ -68,7 +68,7 @@ void tab_clear(t_tab *x, t_symbol *s, int argc, t_atom *argv);
 void tab_clean(t_tab *x);
 
 void tab_float(t_tab *x, t_floatarg f);
-void tab_symbol(t_tab *x, t_symbol *s, int argc, t_atom *argv);
+void tab_symbol(t_tab *x, t_symbol *s, long argc, t_atom *argv);
 void tab_set(t_tab *x, t_symbol *s, int argc, t_atom *argv);
 void tab_output(t_tab *x);
 
@@ -90,9 +90,9 @@ void tab_preset(t_tab *x, t_binbuf *b);
 extern "C" void setup_c0x2etab(void)
 {
 	t_eclass *c;
-    
+
 	c = eclass_new("c.tab", (method)tab_new, (method)tab_free, (short)sizeof(t_tab), 0L, A_GIMME, 0);
-    
+
     eclass_init(c, 0);
 
 	eclass_addmethod(c, (method) tab_assist,          "assist",           A_CANT, 0);
@@ -100,68 +100,68 @@ extern "C" void setup_c0x2etab(void)
 	eclass_addmethod(c, (method) tab_notify,          "notify",           A_CANT, 0);
     eclass_addmethod(c, (method) tab_getdrawparams,   "getdrawparams",    A_CANT, 0);
     eclass_addmethod(c, (method) tab_oksize,          "oksize",           A_CANT, 0);
-    
+
     eclass_addmethod(c, (method) tab_append,          "append",           A_GIMME,0);
     eclass_addmethod(c, (method) tab_insert,          "insert",           A_GIMME,0);
     eclass_addmethod(c, (method) tab_setitem,         "setitem",          A_GIMME,0);
     eclass_addmethod(c, (method) tab_delete,          "delete",           A_GIMME,0);
     eclass_addmethod(c, (method) tab_clear,           "clear",            A_GIMME,0);
-    
+
     eclass_addmethod(c, (method) tab_float,           "float",            A_FLOAT,0);
     eclass_addmethod(c, (method) tab_symbol,          "anything",         A_GIMME,0);
     eclass_addmethod(c, (method) tab_set,             "set",              A_GIMME,0);
     eclass_addmethod(c, (method) tab_output,          "bang",             A_CANT, 0);
-    
+
     eclass_addmethod(c, (method) tab_mousedown,        "mousedown",       A_CANT, 0);
     eclass_addmethod(c, (method) tab_mouseup,          "mouseup",         A_CANT, 0);
     eclass_addmethod(c, (method) tab_mousemove,        "mousemove",       A_CANT, 0);
     eclass_addmethod(c, (method) tab_mouseleave,       "mouseleave",      A_CANT, 0);
     eclass_addmethod(c, (method) tab_preset,           "preset",          A_CANT, 0);
-    
+
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "100 13");
-    
+
     CLASS_ATTR_LONG                 (c, "orientation", 0, t_tab, f_orientation);
 	CLASS_ATTR_LABEL                (c, "orientation", 0, "Vertical Orientation");
 	CLASS_ATTR_ORDER                (c, "orientation", 0, "1");
     CLASS_ATTR_FILTER_CLIP          (c, "orientation", 0, 1);
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "orientation", 0, "0");
-    
+
     CLASS_ATTR_LONG                 (c, "toggle", 0, t_tab, f_toggle);
 	CLASS_ATTR_LABEL                (c, "toggle", 0, "Toggle Mode");
 	CLASS_ATTR_ORDER                (c, "toggle", 0, "1");
     CLASS_ATTR_FILTER_CLIP          (c, "toggle", 0, 1);
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "toggle", 0, "0");
-    
+
     CLASS_ATTR_SYMBOL_VARSIZE       (c, "items", 0, t_tab, f_items, f_items_size, MAXITEMS);
     CLASS_ATTR_LABEL                (c, "items", 0, "Items");
     CLASS_ATTR_ORDER                (c, "items", 0, "1");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "items", 0, "(null)");
-    
+
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_tab, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
-    
+
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_tab, f_color_border);
 	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Box Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
-	
+
 	CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_tab, f_color_text);
 	CLASS_ATTR_LABEL                (c, "textcolor", 0, "Text Color");
 	CLASS_ATTR_ORDER                (c, "textcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "0. 0. 0. 1.");
-    
+
     CLASS_ATTR_RGBA                 (c, "hocolor", 0, t_tab, f_color_hover);
 	CLASS_ATTR_LABEL                (c, "hocolor", 0, "Hover Color");
 	CLASS_ATTR_ORDER                (c, "hocolor", 0, "4");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "hocolor", 0, "0.5 0.5 0.5 1.");
-    
+
     CLASS_ATTR_RGBA                 (c, "secolor", 0, t_tab, f_color_select);
 	CLASS_ATTR_LABEL                (c, "secolor", 0, "Selection Color");
 	CLASS_ATTR_ORDER                (c, "secolor", 0, "5");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "secolor", 0, "0.35 0.35 0.35 1.");
-	
+
     eclass_register(CLASS_NOBOX, c);
 	tab_class = c;
 }
@@ -171,29 +171,29 @@ void *tab_new(t_symbol *s, int argc, t_atom *argv)
 	t_tab *x =  NULL;
 	t_binbuf* d;
     long flags;
-    
+
 	if (!(d = binbuf_via_atoms(argc,argv)))
 		return NULL;
-    
+
 	x = (t_tab *)eobj_new(tab_class);
-    
+
     flags = 0
     | EBOX_GROWINDI
     ;
 
 	ebox_new((t_ebox *)x, flags);
-    
+
     x->f_out_index  = floatout(x);
     x->f_out_item   = listout(x);
     x->f_out_hover  = floatout(x);
-    
+
     x->f_item_selected = -1;
     x->f_item_hover    = -1;
     x->f_items_size = 0;
     x->j_box.b_rect.width = 100;
 	ebox_attrprocess_viabinbuf(x, d);
 	ebox_ready((t_ebox *)x);
-    
+
 	return (x);
 }
 
@@ -242,12 +242,12 @@ long tab_symbol_exist(t_tab *x, t_symbol* s)
 void tab_append(t_tab *x, t_symbol *s, int argc, t_atom *argv)
 {
     t_symbol* item = atoms_to_sym(argv, argc);
-    
+
     if(argc && argv && tab_symbol_exist(x, item) == -1)
     {
         x->f_items[x->f_items_size] = item;
         x->f_items_size++;
-        
+
         object_attr_setvalueof((t_object *)x, gensym("size"), 0, NULL);
     }
 }
@@ -256,7 +256,7 @@ void tab_insert(t_tab *x, t_symbol *s, int argc, t_atom *argv)
 {
     int i;
     t_symbol* item = atoms_to_sym(argv+1, argc-1);
-    
+
     if(argc > 1 && argv && atom_gettype(argv) == A_FLOAT && atom_getfloat(argv) >= 0 && tab_symbol_exist(x, item) == -1)
     {
         if(atom_getfloat(argv) >= x->f_items_size)
@@ -268,7 +268,7 @@ void tab_insert(t_tab *x, t_symbol *s, int argc, t_atom *argv)
             x->f_items[atom_getint(argv)] = item;
         }
         x->f_items_size++;
-        
+
         object_attr_setvalueof((t_object *)x, gensym("size"), 0, NULL);
     }
 }
@@ -280,7 +280,7 @@ void tab_setitem(t_tab *x, t_symbol *s, int argc, t_atom *argv)
     {
         if(atom_getfloat(argv) >= 0 && atom_getfloat(argv) < x->f_items_size)
             x->f_items[atom_getint(argv)] = item;
-        
+
         ebox_invalidate_layer((t_ebox *)x, gensym("text_layer"));
         ebox_invalidate_layer((t_ebox *)x, gensym("selection_layer"));
         ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
@@ -335,7 +335,9 @@ void tab_clean(t_tab *x)
 
 void tab_setfloat(t_tab *x, t_floatarg f)
 {
-    if(f >= 0 && f < x->f_items_size && x->f_toggle)
+    if(!x->f_toggle)
+        return;
+    if(f >= 0 && f < x->f_items_size)
     {
         x->f_item_selected = f;
         ebox_invalidate_layer((t_ebox *)x, gensym("text_layer"));
@@ -347,7 +349,10 @@ void tab_setfloat(t_tab *x, t_floatarg f)
 
 void tab_setsymbol(t_tab *x, t_symbol* s)
 {
-    long i = tab_symbol_exist(x, s);
+    long i;
+    if(!x->f_toggle)
+        return;
+    i = tab_symbol_exist(x, s);
     if(i != -1)
         x->f_item_selected = i;
     ebox_invalidate_layer((t_ebox *)x, gensym("text_layer"));
@@ -358,20 +363,40 @@ void tab_setsymbol(t_tab *x, t_symbol* s)
 
 void tab_float(t_tab *x, t_floatarg f)
 {
-    tab_setfloat(x, f);
-    tab_output(x);
+    if(x->f_toggle)
+    {
+        tab_setfloat(x, f);
+        tab_output(x);
+    }
+    else if(f >= 0 && f < x->f_items_size)
+    {
+        x->f_item_selected = f;
+        tab_output(x);
+        x->f_item_selected = -1;
+    }
 }
 
-void tab_symbol(t_tab *x, t_symbol *s, int argc, t_atom *argv)
+void tab_symbol(t_tab *x, t_symbol *s, long argc, t_atom *argv)
 {
     int i;
-    t_atom* av = (t_atom *)calloc(argc + 1, sizeof(t_atom));
-    atom_setsym(av, s);
-    for(i = 0; i < argc; i++)
-        av[i+1] = argv[i];
-
-    tab_setsymbol(x, atoms_to_sym(av, argc+1));
-    tab_output(x);
+    i = tab_symbol_exist(x, s);
+    if(x->f_toggle)
+    {
+        if(i != -1)
+            x->f_item_selected = i;
+        ebox_invalidate_layer((t_ebox *)x, gensym("text_layer"));
+        ebox_invalidate_layer((t_ebox *)x, gensym("selection_layer"));
+        ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+        ebox_redraw((t_ebox *)x);
+        tab_output(x);
+    }
+    else if(i != -1)
+    {
+        post(s->s_name);
+        x->f_item_selected = i;
+        tab_output(x);
+        x->f_item_selected = -1;
+    }
 }
 
 void tab_set(t_tab *x, t_symbol *s, int argc, t_atom *argv)
@@ -447,7 +472,7 @@ void tab_paint(t_tab *x, t_object *view)
 	t_rect rect;
 	ebox_get_rect_for_view((t_ebox *)x, &rect);
     tab_clean(x);
- 
+
     draw_selection(x, view, &rect);
     draw_background(x, view, &rect);
     draw_text(x, view, &rect);
@@ -464,7 +489,7 @@ void draw_selection(t_tab *x, t_object *view, t_rect *rect)
             ratio = rect->height / (float)x->f_items_size;
         else
             ratio = rect->width / (float)x->f_items_size;
-        
+
         egraphics_set_line_width(g, 2);
         if(x->f_item_hover != -1)
         {
@@ -475,7 +500,7 @@ void draw_selection(t_tab *x, t_object *view, t_rect *rect)
                 egraphics_rectangle(g, ratio * x->f_item_hover - 1, -2, ratio+2, rect->height+4);
             egraphics_fill(g);
         }
-        
+
         if(x->f_item_selected != -1)
         {
             egraphics_set_color_rgba(g, &x->f_color_select);
@@ -503,7 +528,7 @@ void draw_background(t_tab *x, t_object *view, t_rect *rect)
             ratio = rect->height / (float)x->f_items_size;
         else
             ratio = rect->width / (float)x->f_items_size;
-        
+
         egraphics_set_color_rgba(g, &x->f_color_border);
         egraphics_set_line_width(g, 2);
         for(i = 1; i < x->f_items_size; i++)
@@ -549,7 +574,7 @@ void draw_text(t_tab *x, t_object *view, t_rect *rect)
                 }
             }
         }
-        
+
         ebox_end_layer((t_ebox*)x, gensym("text_layer"));
 	}
 	ebox_paint_layer((t_ebox *)x, gensym("text_layer"), 0., 0.);

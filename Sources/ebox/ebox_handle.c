@@ -70,6 +70,26 @@ void ebox_mouse_leave(t_ebox* x)
     }
 }
 
+long modifier_wrapper(long mod)
+{
+#ifdef __APPLE__
+
+#elif _WINDOWS
+
+	if(mod >= 131080)
+	{
+		xod -= 131080;
+		mod += EMOD_ALT;
+	}
+	else
+		mod -= 8;
+#else
+    mod -= 16;
+#endif
+    //post("MOD : %ld", mod);
+    return mod;
+}
+
 //! The mouse move method called by tcl/tk (PRIVATE)
 /*
  \ @memberof        ebox
@@ -85,17 +105,8 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     t_eclass *c = eobj_getclass(x);
     eobj_get_mouse_global_position(x);
 
-    x->b_modifiers = (long)atom_getfloat(argv+2);
-#ifdef _WINDOWS
+    x->b_modifiers = modifier_wrapper((long)atom_getfloat(argv+2));
 
-	if(x->b_modifiers >= 131080)
-	{
-		x->b_modifiers -= 131080;
-		x->b_modifiers += EMOD_ALT;
-	}
-	else
-		x->b_modifiers -= 8;
-#endif
 
     if(!x->b_obj.o_canvas->gl_edit)
     {
@@ -222,17 +233,7 @@ void ebox_mouse_down(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     t_eclass *c = eobj_getclass(x);
 
-    x->b_modifiers = (long)atom_getfloat(argv+2);
-#ifdef _WINDOWS
-
-	if(x->b_modifiers >= 131080)
-	{
-		x->b_modifiers -= 131080;
-		x->b_modifiers += EMOD_ALT;
-	}
-	else
-		x->b_modifiers -= 8;
-#endif
+    x->b_modifiers = modifier_wrapper((long)atom_getfloat(argv+2));
 
     if(!x->b_obj.o_canvas->gl_edit)
     {
@@ -274,17 +275,8 @@ void ebox_mouse_up(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     t_eclass *c = eobj_getclass(x);
 
-    x->b_modifiers = (long)atom_getfloat(argv+2);
-#ifdef _WINDOWS
+    x->b_modifiers = modifier_wrapper((long)atom_getfloat(argv+2));
 
-	if(x->b_modifiers >= 131080)
-	{
-		x->b_modifiers -= 131080;
-		x->b_modifiers += EMOD_ALT;
-	}
-	else
-		x->b_modifiers -= 8;
-#endif
     if(!x->b_obj.o_canvas->gl_edit)
     {
         x->b_mouse.x = atom_getfloat(argv);
@@ -320,17 +312,8 @@ void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     t_eclass *c = eobj_getclass(x);
 
-    x->b_modifiers = (long)atom_getfloat(argv+2);
-#ifdef _WINDOWS
+    x->b_modifiers = modifier_wrapper((long)atom_getfloat(argv+2));
 
-	if(x->b_modifiers >= 131080)
-	{
-		x->b_modifiers -= 131080;
-		x->b_modifiers += EMOD_ALT;
-	}
-	else
-		x->b_modifiers -= 8;
-#endif
     if(!x->b_obj.o_canvas->gl_edit)
     {
         x->b_mouse.x = atom_getfloat(argv);
@@ -354,21 +337,9 @@ void ebox_mouse_wheel(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     float delta;
     t_eclass *c = eobj_getclass(x);
 
-    x->b_modifiers = (long)atom_getfloat(argv+3);
+    x->b_modifiers = modifier_wrapper((long)atom_getfloat(argv+3));
     delta = atom_getfloat(argv+2);
 
-#ifdef _WINDOWS
-
-	if(x->b_modifiers >= 131080)
-	{
-		x->b_modifiers -= 131080;
-		x->b_modifiers += EMOD_ALT;
-	}
-	else
-		x->b_modifiers -= 8;
-
-	delta /= 120.;
-#endif
     if(!x->b_obj.o_canvas->gl_edit)
     {
         x->b_mouse.x = atom_getfloat(argv);

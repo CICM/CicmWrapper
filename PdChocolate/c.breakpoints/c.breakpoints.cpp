@@ -308,8 +308,8 @@ void breakpoints_next(t_breakpoints *x)
     x->f_output_nextprev++;
     if(x->f_output_nextprev >= x->f_number_of_points)
         x->f_output_nextprev = 0;
-    atom_setfloat(av, (float)x->f_point_ordinate[x->f_output_nextprev]);
-    atom_setfloat(av+1, (float)x->f_point_abscissa[x->f_output_nextprev]);
+    atom_setfloat(av, (float)x->f_point_ordinate[(int)x->f_output_nextprev]);
+    atom_setfloat(av+1, (float)x->f_point_abscissa[(int)x->f_output_nextprev]);
     outlet_list(x->f_out_list, &s_list, 2, av);
 }
 
@@ -319,8 +319,8 @@ void breakpoints_prev(t_breakpoints *x)
     x->f_output_nextprev--;
     if(x->f_output_nextprev < 0)
         x->f_output_nextprev = x->f_number_of_points - 1;
-    atom_setfloat(av, x->f_point_ordinate[x->f_output_nextprev]);
-    atom_setfloat(av+1, x->f_point_abscissa[x->f_output_nextprev]);
+    atom_setfloat(av, (float)x->f_point_ordinate[(int)x->f_output_nextprev]);
+    atom_setfloat(av+1, (float)x->f_point_abscissa[(int)x->f_output_nextprev]);
     outlet_list(x->f_out_list, &s_list, 2, av);
 }
 
@@ -712,7 +712,7 @@ void breakpoints_mousedown(t_breakpoints *x, t_object *patcherview, t_pt pt, lon
 
         }
     }
-    if(modifiers == EMOD_ALT)
+    if(modifiers == EMOD_CTRL)
     {
         atom_setfloat(av, x->f_point_selected);
         breakpoints_remove(x, NULL, 1, av);

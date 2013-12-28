@@ -1,4 +1,4 @@
-#N canvas 148 78 1102 532 10;
+#N canvas 146 83 1102 532 10;
 #X obj -25 -164 cnv 40 552 40 empty empty c.breakpoints 3 12 0 18 -228856
 -33289 0;
 #X msg 37 29 erase;
@@ -7,8 +7,8 @@
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @absrange 0 1000 @ordrange 0 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @ptcolor 0.5 0.5 0.5 1 @licolor 0 0 0 1 @textcolor 0 0 0
-1 @points 0 0 0 0 0 0 1 0 1 0 245 0.46 245 0.46 370 0.87 370 0.87 650
-0.81 650 0.81 920 0 920 0;
+1 @points 0 0 0 0 0 0 1 0 183.673 0.518519 370 0.87 650 0.81 1000 0.0493827
+;
 #X obj 326 224 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
@@ -32,11 +32,8 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @absrange 0 1000 @ordrange 0 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @ptcolor 0.5 0.5 0.5 1 @licolor 0 0 0 1 @textcolor 0 0 0
-1 @points 0 0 0 0 0 0 0 0 0 0 0 0 255 0.39 255 0.39 255 0.39 255 0.39
-375 0.19 375 0.19 450 0.67 450 0.67 490 0.2 490 0.2 530 0.47 530 0.47
-555 0.85 555 0.85 555 0.85 555 0.85 675 0.71 675 0.71 675 0.71 675
-0.71 740 0.34 740 0.34 740 0.34 740 0.34 910 0.59 910 0.59 910 0.59
-910 0.59 1000 0 1000 0 1000 0 1000 0;
+1 @points 0 0 204.082 0.481481 392.857 0.814815 556.122 0.493827 714.286
+0.876543 714.286 0.506173 882.653 0.432099 1000 0 1000 0 1000 0;
 #X text 347 -72 Play;
 #X text 17 -72 Edit;
 #X text 386 -53 Output the interpolated ordinate;
@@ -55,10 +52,8 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @absrange 0 1000 @ordrange -1 2 @bgcolor 0.75 0.75 0.75 1 @bdcolor
 0.5 0.5 0.5 1 @ptcolor 0.5 0.5 0.5 1 @licolor 0 0 0 1 @textcolor 0
-0 0 1 @points 0 2 0 2 0 2 0 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-2 180 -0.07 180 -0.07 180 -0.07 180 -0.07 345 -0.37 345 -0.37 345 -0.37
-345 -0.37 580 -0.49 580 -0.49 580 -0.49 580 -0.49 820 -0.67 820 -0.67
-820 -0.67 820 -0.67 1000 -0.91 1000 -0.91 1000 -0.91 1000 -0.91;
+0 0 1 @points 0 2 122.449 0.888889 316.327 0 785.714 -0.925926 989.796
+-1;
 #X msg 661 -70 absrange 0 1000;
 #X text 760 -71 Change the abscissa range;
 #X msg 681 -49 absrange 0 2000;
@@ -82,7 +77,6 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 #X text 420 28 Output the previous breakpoint;
 #X text 386 -43 for an abscissa (here \, between 0 - 1000);
 #X text 2 259 Click with shift to create a breakpoint;
-#X text 2 279 Click with alt to remove a breakpoint;
 #X msg 47 54 write;
 #X text 88 54 Write function in a file;
 #X msg 57 84 read;
@@ -92,6 +86,7 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 8;
 #X text -24 -121 c.breakpoints allows to create a breakpoint function
 and to use it for line.;
+#X text 2 279 Click with ctrl to remove a breakpoint;
 #X connect 1 0 3 0;
 #X connect 2 0 3 0;
 #X connect 5 0 15 0;
@@ -100,7 +95,7 @@ and to use it for line.;
 #X connect 11 0 3 0;
 #X connect 15 0 4 0;
 #X connect 15 1 19 0;
-#X connect 15 2 55 0;
+#X connect 15 2 54 0;
 #X connect 19 0 20 0;
 #X connect 22 0 15 0;
 #X connect 27 0 26 0;
@@ -113,6 +108,6 @@ and to use it for line.;
 #X connect 39 0 26 0;
 #X connect 44 0 15 0;
 #X connect 46 0 15 0;
-#X connect 51 0 3 0;
-#X connect 53 0 3 0;
-#X connect 55 0 21 0;
+#X connect 50 0 3 0;
+#X connect 52 0 3 0;
+#X connect 54 0 21 0;
