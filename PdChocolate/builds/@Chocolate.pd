@@ -109,8 +109,6 @@ system to write time events.;
 #X text 23 305 c.knob;
 #X text -39 -27 developed to facilitate the creation of signal objects
 and GUI and to improve user interactions.;
-#X text 43 393 Pd Chocolate by Pierre Guillot - CICM | Université
-Paris 8;
 #X text -38 -42 Chocolate is a part of the Pd Enhanced Library;
 #X obj 323 269 c.bang @size 16 16 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
@@ -120,4 +118,6 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @nitems 4 @mode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1
 @itcolor 0.5 0.5 0.5 1;
 #X text -15 17 c.number~;
+#X text 43 393 Chocolate by Pierre Guillot - CICM | Université Paris
+8;
 #X connect 20 0 19 0;

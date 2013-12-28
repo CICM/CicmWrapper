@@ -265,20 +265,22 @@ void number_paint(t_number *x, t_object *view)
 
 void draw_background(t_number *x, t_object *view, t_rect *rect)
 {
+    float width;
 	t_elayer *g = ebox_start_layer((t_ebox *)x, gensym("background_layer"), rect->width, rect->height);
 	t_etext *jtl = etext_layout_create();
     
 	if (g && jtl)
 	{
-        etext_layout_set(jtl, "©", &x->j_box.b_font, 1.5, rect->height / 2., rect->width, 0, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+        width = sys_fontwidth(ebox_getfontsize((t_ebox *)x)) + 6;
+        etext_layout_set(jtl, "©", &x->j_box.b_font, width / 2. - 1, rect->height / 2. + 2, width, 0, ETEXT_CENTER, ETEXT_JCENTER, ETEXT_NOWRAP);
         
         etext_layout_settextcolor(jtl, &x->f_color_text);
         etext_layout_draw(jtl, g);
         
         egraphics_set_line_width(g, 2);
         egraphics_set_color_rgba(g, &x->f_color_border);
-        egraphics_move_to(g, sys_fontwidth(x->j_box.b_font.c_size) + 6, 0);
-        egraphics_line_to(g, sys_fontwidth(x->j_box.b_font.c_size) + 6,  rect->height );
+        egraphics_move_to(g, width, 0);
+        egraphics_line_to(g, width,  rect->height );
         egraphics_stroke(g);
         
 		ebox_end_layer((t_ebox*)x, gensym("background_layer"));
@@ -289,6 +291,7 @@ void draw_background(t_number *x, t_object *view, t_rect *rect)
 
 void draw_value_drag(t_number *x, t_object *view, t_rect *rect)
 {
+    float width;
 	t_elayer *g = ebox_start_layer((t_ebox *)x, gensym("value_layer"), rect->width, rect->height);
 	t_etext *jtl = etext_layout_create();
     
@@ -297,6 +300,7 @@ void draw_value_drag(t_number *x, t_object *view, t_rect *rect)
         int size, inc = 7;
         float peak;
         char number[256];
+        width = sys_fontwidth(ebox_getfontsize((t_ebox *)x)) + 8;
         sprintf(number, "%i", (int)x->f_value);
         size = strlen(number);
         // TRONQUER LE NOMBRE ENTIER
@@ -342,7 +346,7 @@ void draw_value_drag(t_number *x, t_object *view, t_rect *rect)
         }
         etext_layout_settextcolor(jtl, &x->f_color_text);
         
-        etext_layout_set(jtl, number, &x->j_box.b_font, sys_fontwidth(x->j_box.b_font.c_size) + 8, rect->height / 2., rect->width - 3, 0, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+        etext_layout_set(jtl, number, &x->j_box.b_font, width, rect->height / 2. + 1, rect->width - 3, 0, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
         
         etext_layout_draw(jtl, g);
 		ebox_end_layer((t_ebox*)x, gensym("value_layer"));

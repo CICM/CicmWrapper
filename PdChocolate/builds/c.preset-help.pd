@@ -45,19 +45,20 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname chocoslidr
 normal @fontslant regular @fontsize 7 @idname (null) @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor 0.85
 0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset
-[ @index 0 @chococ.plane c.plane list 0.703704 0.277778 @choconum c.number
-float 3.9 @choc.colorpanel c.colorpanel list 3 1 @chocoslidr c.slider
-float 0.458333 @chocodio c.radio float 2 @chocomenu c.menu float 0
-@chocopoints c.breakpoints function 0 0 221.374 0.8 519.084 0.166667
-832.061 0.766667 1000 0 @index 1 @chococ.plane c.plane list -0.592593
+[ @index 0 @chococ.plane c.plane list 1 1 @choconum c.number float
+-52.845 @choc.colorpanel c.colorpanel list 0 0 @chocoslidr c.slider
+float 0.133333 @chocodio c.radio list 1 1 0 0 0 0 0 0 @chocomenu c.menu
+float 0 @chocopoints c.breakpoints function 83.9695 0 190.84 1 335.878
+0 564.885 0.866667 564.885 0 @index 1 @chococ.plane c.plane list -0.592593
 -0.740741 @choconum c.number float -1.345 @choc.colorpanel c.colorpanel
-list 0 2 @chocoslidr c.slider float 0.725 @chocodio c.radio float 5
-@chocomenu c.menu float 1 @chocopoints c.breakpoints function 0 0.933333
-198.473 0 488.55 0.866667 832.061 0.766667 1000 0 @index 2 @chococ.plane
-c.plane list -1 0.851852 @choconum c.number float 50.155 @choc.colorpanel
-c.colorpanel list 1 0 @chocoslidr c.slider float 0.175 @chocodio c.radio
-float 0 @chocomenu c.menu float 0 @chocopoints c.breakpoints function
-0 0.933333 396.947 0 488.55 0.866667 541.985 0 1000 1 ];
+list 0 2 @chocoslidr c.slider float 0.725 @chocodio c.radio list 1
+1 1 0 0 0 0 0 @chocomenu c.menu float 1 @chocopoints c.breakpoints
+function 0 0.933333 198.473 0 488.55 0.866667 832.061 0.766667 1000
+0 @index 2 @chococ.plane c.plane list -1 0.851852 @choconum c.number
+float 50.155 @choc.colorpanel c.colorpanel list 1 0 @chocoslidr c.slider
+float 0.175 @chocodio c.radio list 0 1 1 1 0 0 0 0 @chocomenu c.menu
+float 0 @chocopoints c.breakpoints function 0 0.933333 396.947 0 488.55
+0.866667 541.985 0 1000 1 ];
 #X obj 352 90 r c.preset;
 #X obj 909 133 s c.preset;
 #X msg 908 85 read choco.preset;
@@ -65,9 +66,9 @@ float 0 @chocomenu c.menu float 0 @chocopoints c.breakpoints function
 #X text 850 -4 Use an obsolute or relative path.;
 #X text 850 17 Use only a name to open in the;
 #X text 850 47 Use without name to open a dialog;
-#X obj 230 52 c.radio @size 15 120 @fontname helvetica @fontweight
+#X obj 230 52 c.radio @size 16 128 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname chocodio
-@nitems 8 @mode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1
+@nitems 8 @mode 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1
 @itcolor 0.5 0.5 0.5 1;
 #X text 256 133 Presetname : chocodio;
 #X text 5 6 Object with presets have a preset name;
@@ -91,9 +92,9 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname chocodio
 normal @fontslant regular @fontsize 11 @idname (null) @presetname chocopoints
 @absrange 0 1000 @ordrange 0 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @ptcolor 0.5 0.5 0.5 1 @licolor 0 0 0 1 @textcolor 0 0 0
-1 @points 0 0.933333 396.947 0 488.55 0.866667 541.985 0 1000 1;
-#X msg 705 88 inter \$1;
-#X obj 705 60 c.number @size 53 17 @fontname helvetica @fontweight
+1 @points 83.9695 0 190.84 1 335.878 0 564.885 0.866667 564.885 0;
+#X msg 738 49 inter \$1;
+#X obj 738 21 c.number @size 53 17 @fontname helvetica @fontweight
 normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 @min 1 @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1;
@@ -102,26 +103,7 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 externals in a pacther;
 #X text -13 338 Chocolate by Pierre Guillot | CICM - Université Paris
 8;
-#X obj 409 -83 c.tab @size 57 18 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @orientation
-0 @toggle 0 @items Chocolate @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35
-0.35 1;
-#N canvas 429 244 450 300 clink 0;
-#X obj 33 85 c.patcherinfos;
-#X obj 73 58 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X obj 73 33 inlet;
-#X obj 73 119 c.prepend set;
-#X msg 73 169 \; pd open @Chocolate.pd \$1;
-#X symbolatom 73 141 10 0 0 0 - - -, f 10;
-#X connect 0 1 3 0;
-#X connect 1 0 5 0;
-#X connect 2 0 1 0;
-#X connect 3 0 5 0;
-#X connect 5 0 4 0;
-#X coords 0 300 1 299 70 25 0;
-#X restore 411 -85 pd clink;
+#X text 682 -5 Recall with interpolation;
 #X connect 3 0 20 0;
 #X connect 6 0 20 0;
 #X connect 10 0 3 0;
@@ -134,4 +116,3 @@ externals in a pacther;
 #X connect 44 0 20 0;
 #X connect 45 0 44 0;
 #X connect 46 0 12 0;
-#X connect 49 0 50 0;

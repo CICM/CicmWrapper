@@ -339,19 +339,19 @@ void draw_background(t_radio *x, t_object *view, t_rect *rect)
         {
             if(x->f_direction)
             {
-                float ratio = floorf(rect->width / x->f_nitems - 0.5);
+                float ratio = rect->width / x->f_nitems;
                 for(i = 0; i < x->f_nitems; i++)
                 {
-                    egraphics_circle(g, floorf((i + 0.5) * ratio + 0.5), rect->height * 0.5, rect->height * 0.45);
+                    egraphics_circle(g, (i + 0.5) * ratio, rect->height * 0.5, rect->height * 0.45);
                     egraphics_fill(g);
                 }
             }
             else
             {
-                float ratio = floorf(rect->height / x->f_nitems - 0.5);
+                float ratio = rect->height / x->f_nitems;
                 for(i = 0; i < x->f_nitems; i++)
                 {
-                    egraphics_circle(g, rect->width * 0.5, floorf((i - 0.5) * ratio - 0.5), rect->width * 0.45);
+                    egraphics_circle(g, rect->width * 0.5, (i + 0.5) * ratio, rect->width * 0.45);
                     egraphics_fill(g);
                 }
             }
@@ -404,24 +404,24 @@ void draw_items(t_radio *x, t_object *view, t_rect *rect)
         {
             if(x->f_direction)
             {
-                float ratio = floorf(rect->width / x->f_nitems - 0.5);
+                float ratio = rect->width / x->f_nitems;
                 for(i = 0; i < x->f_nitems; i++)
                 {
                     if(x->f_items[i])
                     {
-                        egraphics_circle(g, floorf((i + 0.5) * ratio + 0.5), rect->height * 0.5, rect->height * 0.35);
+                        egraphics_circle(g, (i + 0.5) * ratio, rect->height * 0.5, rect->height * 0.35);
                         egraphics_fill(g);
                     }
                 }
             }
             else
             {
-                float ratio = floorf(rect->height / x->f_nitems - 0.5);
+                float ratio = rect->height / x->f_nitems;
                 for(i = 0; i < x->f_nitems; i++)
                 {
                     if(x->f_items[i])
                     {
-                        egraphics_circle(g, rect->width * 0.5, floorf((i - 0.5) * ratio - 0.5), rect->width * 0.35);
+                        egraphics_circle(g, rect->width * 0.5, (i + 0.5) * ratio, rect->width * 0.35);
                         egraphics_fill(g);
                     }
                 }
@@ -476,6 +476,7 @@ void radio_preset(t_radio *x, t_binbuf *b)
         binbuf_addv(b, "s", gensym("list"));
         for(i = 0; i < x->f_nitems; i++)
             binbuf_addv(b, "f", (float)x->f_items[i]);
+
     }
     else
     {
@@ -484,7 +485,6 @@ void radio_preset(t_radio *x, t_binbuf *b)
             if(x->f_items[i])
                 binbuf_addv(b, "sf", gensym("float"), (float)i);
         }
-        
     }
 }
 

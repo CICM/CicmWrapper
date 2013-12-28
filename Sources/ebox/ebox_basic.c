@@ -41,6 +41,7 @@ void ebox_new(t_ebox *x, long flags)
     x->b_layers             = NULL;
     x->b_editor_id          = NULL;
     x->b_objuser_id         = gensym("(null)");
+    x->b_objpreset_id       = gensym("(null)");
     eobj_getclass(x)->c_widget.w_dosave = (method)ebox_dosave;
     ebox_attrprocess_default(x);
 }

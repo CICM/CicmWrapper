@@ -610,15 +610,45 @@ void ebox_dosave(t_ebox* x, t_binbuf *b)
 */
 t_pd_err ebox_set_id(t_ebox *x, t_object *attr, long argc, t_atom *argv)
 {
-    if(argc && argv && atom_gettype(argv) == A_SYM)
+    if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) != gensym("(null)"))
     {
 		if(x->b_objuser_id != gensym("(null)"))
 			pd_unbind(&x->b_obj.o_obj.ob_pd, x->b_objuser_id);
-		if(atom_getsym(argv) != gensym("(null)"))
-		{
-			x->b_objuser_id = atom_getsym(argv);
-			pd_bind(&x->b_obj.o_obj.ob_pd, x->b_objuser_id);
-		}
+        x->b_objuser_id = atom_getsym(argv);
+        pd_bind(&x->b_obj.o_obj.ob_pd, x->b_objuser_id);
+    }
+    else
+    {
+        if(x->b_objuser_id != gensym("(null)"))
+			pd_unbind(&x->b_obj.o_obj.ob_pd, x->b_objuser_id);
+        x->b_objuser_id = gensym("(null)");
+    }
+    return 0;
+}
+
+//! The default user preset id method for all ebox called by PD (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The gobj
+ \ @param attr      Nothing (for Max 6 compatibility)
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Always 0 (for the moment)
+ */
+t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, long argc, t_atom *argv)
+{
+    if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) != gensym("(null)"))
+    {
+		if(x->b_objpreset_id != gensym("(null)"))
+			pd_unbind(&x->b_obj.o_obj.ob_pd, x->b_objpreset_id);
+        x->b_objpreset_id = atom_getsym(argv);
+        pd_bind(&x->b_obj.o_obj.ob_pd, x->b_objpreset_id);
+    }
+    else
+    {
+        if(x->b_objpreset_id != gensym("(null)"))
+			pd_unbind(&x->b_obj.o_obj.ob_pd, x->b_objpreset_id);
+        x->b_objpreset_id = gensym("(null)");
     }
     return 0;
 }
@@ -731,14 +761,15 @@ void ebox_properties(t_ebox *x, t_glist *glist)
     char buffer[MAXPDSTRING];
     char temp[MAXPDSTRING];
     
-    sprintf(buffer, "pdtk_%s_dialog %%s ", c->c_class.c_name->s_name);
+    sprintf(buffer, "pdtk_%s_dialog %%s", c->c_class.c_name->s_name);
     for(i = 0; i < c->c_nattr; i++)
     {
         object_attr_getvalueof((t_object *)x, c->c_attr[i].name, &argc, &argv);
-        strcat(buffer, "\"");
+        strcat(buffer, " ");
+        strcat(buffer, "{");
         if(argc && argv)
         {
-            for(j = 0; j < argc; j++)
+            for(j = 0; j < argc - 1; j++)
             {
                 atom_string(argv+j, temp, MAXPDSTRING);
                 if(c->c_attr[i].type == gensym("symbol") && strchr(temp, ' '))
@@ -754,11 +785,24 @@ void ebox_properties(t_ebox *x, t_glist *glist)
                 }
                 strcat(buffer, " ");
             }
+            atom_string(argv+j, temp, MAXPDSTRING);
+            if(c->c_attr[i].type == gensym("symbol") && strchr(temp, ' '))
+            {
+                
+                strcat(buffer, "'");
+                strcat(buffer, temp);
+                strcat(buffer, "'");
+            }
+            else
+            {
+                strcat(buffer, temp);
+            }
         }
-        strcat(buffer, "\"");
-        strcat(buffer, " ");
+        strcat(buffer, "}");
     }
     strcat(buffer, "\n");
+    //post(buffer);
+    
     gfxstub_new(&x->b_obj.o_obj.ob_pd, x, buffer);
 }
 

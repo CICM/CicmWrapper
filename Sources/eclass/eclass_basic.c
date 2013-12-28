@@ -245,7 +245,7 @@ void eclass_properties_dialog(t_eclass* c)
     {
         sys_vgui("label $id.label%i -text \"%s :\"\n", i+1, c->c_attr[i].label->s_name);
         sys_vgui("grid  $id.label%i -in $id.frame -column 1 -row %i\n", i+1, i+1);
-        sys_vgui("entry $id.entry%i -textvariable $var_%s\n", i+1, c->c_attr[i].name->s_name);
+        sys_vgui("entry $id.entry%i -textvariable [string trim $var_%s]\n", i+1, c->c_attr[i].name->s_name);
         sys_vgui("grid  $id.entry%i -in $id.frame -column 2 -row %i\n", i+1, i+1);
         
         sys_vgui("bind  $id.entry%i <KeyPress-Return> [concat pdtk_%s_dialog_apply $id]\n",i+1, c->c_class.c_name->s_name);
@@ -394,6 +394,7 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
         CLASS_ATTR_SAVE         (c, "presetname", 0);
         CLASS_ATTR_CATEGORY		(c, "presetname", 0, "Basic");
         CLASS_ATTR_LABEL		(c, "presetname", 0, "Preset Name");
+        CLASS_ATTR_ACCESSORS    (c, "presetname", NULL, ebox_set_presetid);
         class_addmethod((t_class *)c, (t_method)m, gensym(name), type, anything);
     }
     else if(gensym(name) == gensym("write"))

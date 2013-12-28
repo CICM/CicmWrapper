@@ -217,7 +217,7 @@ void preset_store(t_preset *x, float f)
                 if(z->b_objpreset_id != gensym("(null)") && z->b_objpreset_id != gensym("''"))
                 {
                     sprintf(id, "@%s", z->b_objpreset_id->s_name);
-                    binbuf_addv(x->f_binbuf[index-1], "ss", gensym(id), eobj_getclassname(x));
+                    binbuf_addv(x->f_binbuf[index-1], "ss", gensym(id), eobj_getclassname(z));
                     y->g_pd->c_methods[i].me_fun((t_object *)y, x->f_binbuf[index-1]);
                 }
             }

@@ -66,26 +66,6 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 #X obj -11 49 c.loadmess 2;
 #X obj 201 253 c.prepend set;
 #X obj 410 235 c.prepend set Once upon a time;
-#X obj 409 -83 c.tab @size 57 18 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @orientation
-0 @toggle 0 @items Chocolate @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35
-0.35 1;
-#N canvas 429 244 450 300 clink 0;
-#X obj 33 85 c.patcherinfos;
-#X obj 73 58 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X obj 73 33 inlet;
-#X obj 73 119 c.prepend set;
-#X msg 73 169 \; pd open @Chocolate.pd \$1;
-#X symbolatom 73 141 10 0 0 0 - - -, f 10;
-#X connect 0 1 3 0;
-#X connect 1 0 5 0;
-#X connect 2 0 1 0;
-#X connect 3 0 5 0;
-#X connect 5 0 4 0;
-#X coords 0 300 1 299 70 25 0;
-#X restore 411 -85 pd clink;
 #X text 76 484 Chocolate by Pierre Guillot | CICM - Université Paris
 8;
 #X connect 1 0 8 0;
@@ -108,4 +88,3 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 #X connect 32 0 11 0;
 #X connect 33 0 13 0;
 #X connect 34 0 17 0;
-#X connect 35 0 36 0;

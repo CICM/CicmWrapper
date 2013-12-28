@@ -61,26 +61,6 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 #X text 402 68 |;
 #X text 403 79 1 amp;
 #X obj 335 -57 c.loadmess 1;
-#X obj 390 -112 c.tab @size 57 18 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @orientation
-0 @toggle 0 @items Chocolate @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35
-0.35 1;
-#N canvas 429 244 450 300 clink 0;
-#X obj 33 85 c.patcherinfos;
-#X obj 73 58 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X obj 73 33 inlet;
-#X obj 73 119 c.prepend set;
-#X msg 73 169 \; pd open @Chocolate.pd \$1;
-#X symbolatom 73 141 10 0 0 0 - - -, f 10;
-#X connect 0 1 3 0;
-#X connect 1 0 5 0;
-#X connect 2 0 1 0;
-#X connect 3 0 5 0;
-#X connect 5 0 4 0;
-#X coords 0 300 1 299 70 25 0;
-#X restore 392 -114 pd clink;
 #X text -37 268 Chocolate by Pierre Guillot | CICM - Université Paris
 8;
 #X text -48 -81 c.gain~ is a slider that allows to control the volume
@@ -97,4 +77,3 @@ of a signal with decibel.;
 #X connect 19 0 3 0;
 #X connect 23 0 2 0;
 #X connect 32 0 1 0;
-#X connect 33 0 34 0;
