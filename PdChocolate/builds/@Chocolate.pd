@@ -2,8 +2,6 @@
 #X obj -39 -85 cnv 40 552 40 empty empty Chocolate 3 12 0 18 -228856
 -33289 0;
 #X msg 637 -3 attrprint;
-#X text 349 46 - Drag the border or the corner of the box to resize
-them. Sometimes the width or the height depends of the font size.;
 #X text 349 -26 - Look at the properties window to edit the attributes.
 Use the attrprint message to post the attributes characteristics.;
 #X obj 252 100 c.plane @size 62 62 @fontname helvetica @fontweight
@@ -82,15 +80,9 @@ normal @fontslant regular @fontsize 11 @idname (null) @chalkmode 1
 #X connect 2 0 3 0;
 #X connect 3 0 0 0;
 #X restore 795 131 pd load;
-#X text 349 20 - Inlets and outlets are hidden with "runmode".;
-#X text 349 82 - Popup menu for properties window and help is only
-available with "editmode";
 #X text -36 -63 A set of GUI for those who like vanilla...;
 #X text 144 160 c.number;
 #X text 224 -63 but also want some chocolate;
-#X text 349 112 - Some object are very similar to the vanilla's ones
-but they're compatible with the preset and will be a part of a global
-system to write time events.;
 #X text 263 302 c.menu;
 #X text 316 247 c.bang;
 #X text 397 199 c.slider;
@@ -120,4 +112,14 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 #X text -15 17 c.number~;
 #X text 43 393 Chocolate by Pierre Guillot - CICM | Université Paris
 8;
-#X connect 20 0 19 0;
+#X text 349 92 -The Popup menu (for attributes and help) is only available
+with the "edit mode";
+#X text 349 20 - The inlets and outlets are hidden with the "run mode".
+;
+#X text 349 46 - Drag the border or the corner of the box to resize
+the objects. Sometimes the width or the height depends of the font
+size.;
+#X text 349 122 - Some objects are very similar to the vanilla ones
+but they're compatible with the preset and will be a part of a global
+system to write time events.;
+#X connect 19 0 18 0;

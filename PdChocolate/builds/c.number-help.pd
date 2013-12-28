@@ -39,7 +39,7 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 #X obj -7 -16 c.loadmess -3.14169;
 #X text -33 238 Chocolate by Pierre Guillot | CICM - Université Paris
 8;
-#X text -39 -93 c.number is the chocolate's version of the vanilla
+#X text -39 -93 c.number is the chocolate counterpart of the vanilla
 nbx.;
 #X connect 2 0 5 0;
 #X connect 5 0 6 0;

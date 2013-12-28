@@ -31,7 +31,7 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 #X obj 83 -40 c.loadmess 0.2;
 #X text -33 188 Chocolate by Pierre Guillot | CICM - Université Paris
 8;
-#X text -39 -144 c.number~ is the chocolate's signal version of the
+#X text -39 -144 c.number~ is the chocolate signal counterpart of the
 vanilla nbx.;
 #X connect 2 0 6 0;
 #X connect 3 0 6 0;

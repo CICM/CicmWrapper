@@ -28,30 +28,10 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 #X obj 277 91 c.pak The small message;
 #X obj 277 123 c.prepend set;
 #X obj 72 149 c.prepend set;
-#X text -27 -31 c.pak is the pd coffee's version of the vanilla pack
-with only hot inlets.;
 #X text 65 228 Coffee by Pierre Guillot | CICM - Université Paris 8
 ;
-#X obj 419 -64 c.tab @size 58 18 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @orientation
-0 @toggle 0 @items Coffee @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35
-0.35 1;
-#N canvas 429 244 450 300 clink 0;
-#X obj 33 85 c.patcherinfos;
-#X obj 73 58 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X obj 73 33 inlet;
-#X obj 73 119 c.prepend set;
-#X symbolatom 73 141 10 0 0 0 - - -, f 10;
-#X msg 73 169 \; pd open @Coffee.pd \$1;
-#X connect 0 1 3 0;
-#X connect 1 0 4 0;
-#X connect 2 0 1 0;
-#X connect 3 0 4 0;
-#X connect 4 0 5 0;
-#X coords 0 300 1 299 70 25 0;
-#X restore 420 -65 pd clink;
+#X text -27 -31 c.pak is the pd coffee counterpart of the vanilla pack
+with only hot inlets.;
 #X connect 2 0 9 0;
 #X connect 5 1 10 1;
 #X connect 6 0 9 1;
@@ -61,4 +41,3 @@ with only hot inlets.;
 #X connect 10 0 11 0;
 #X connect 11 0 4 0;
 #X connect 12 0 1 0;
-#X connect 15 0 16 0;

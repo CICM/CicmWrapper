@@ -14,9 +14,7 @@ normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
 1;
 #X text 44 169 Chocolate by Pierre Guillot | CICM - Université Paris
 8;
-#X text -39 -46 c.toggle is the pd chocolate's version of the vanilla
-toggle.;
-#X obj 409 -79 c.tab @size 57 18 @fontname helvetica @fontweight normal
+#X obj 409 -79 c.tab @size 58 18 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @presetname (null) @orientation
 0 @toggle 0 @items Chocolate @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
 0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35
@@ -36,7 +34,9 @@ toggle.;
 #X connect 5 0 4 0;
 #X coords 0 300 1 299 70 25 0;
 #X restore 411 -81 pd clink;
+#X text -39 -46 c.toggle is the chocolate counterpart of the vanilla
+toggle.;
 #X connect 1 0 5 0;
 #X connect 2 0 4 0;
 #X connect 4 0 1 0;
-#X connect 8 0 9 0;
+#X connect 7 0 8 0;
