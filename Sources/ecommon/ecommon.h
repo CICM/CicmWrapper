@@ -88,8 +88,8 @@ typedef t_pd_err    (*t_err_method)(void* x, ...);
 
 static char *my_cursorlist[] =
 {
-	"left_ptr",
-    "center_ptr",
+	"right_ptr",
+    "left_ptr",
     "sb_v_double_arrow",
     "plus",
     "hand2",

@@ -6,13 +6,11 @@
 @fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
 #X text -134 -51 Prepend a float \, symbol or list to a message;
-#X symbolatom 62 70 10 0 0 0 - - -, f 10;
+#X symbolatom 62 70 10 0 0 0 - - -;
 #X msg 350 69 2 3 5 8 13;
 #X msg -93 45 set He's;
 #X msg -93 75 set You're;
 #X text -122 16 Change the prepend message;
-#X msg 200 203 bim bam boum bang;
-#X msg 350 203 1 2 3 5 8 13;
 #X text 19 46 Send a symbol or a float;
 #X text 181 46 Send a bang;
 #X text 342 46 Send a list;
@@ -28,15 +26,17 @@
 8;
 #X text -134 -31 c.prepend is the coffe counterpart of the vanilla
 list trim combined with list prepend.;
-#X connect 2 0 18 0;
-#X connect 4 0 16 0;
-#X connect 5 0 20 0;
-#X connect 6 0 16 0;
-#X connect 7 0 16 0;
-#X connect 15 0 16 0;
+#X msg 200 203;
+#X msg 350 203;
+#X connect 2 0 16 0;
+#X connect 4 0 14 0;
+#X connect 5 0 18 0;
+#X connect 6 0 14 0;
+#X connect 7 0 14 0;
+#X connect 13 0 14 0;
+#X connect 14 0 15 0;
+#X connect 15 0 12 0;
 #X connect 16 0 17 0;
-#X connect 17 0 14 0;
+#X connect 17 0 22 0;
 #X connect 18 0 19 0;
-#X connect 19 0 9 0;
-#X connect 20 0 21 0;
-#X connect 21 0 10 0;
+#X connect 19 0 23 0;

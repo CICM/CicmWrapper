@@ -1,11 +1,11 @@
-#N canvas 393 336 729 408 10;
+#N canvas 311 160 729 408 10;
 #X obj -25 -74 cnv 40 552 40 empty empty c.patcherinfos 3 12 0 18 -228856
 -33289 0;
 #X obj 57 21 c.bang @size 16 16 @fontname helvetica @fontweight normal
 @fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
 #X text -22 -52 An object that retrieve the patcher informations;
-#X obj 57 52 c.patcherinfos, f 47;
+#X obj 57 52 c.patcherinfos;
 #X obj 57 79 c.prepend set;
 #X obj 196 79 c.prepend set;
 #X obj 336 79 c.prepend set;
@@ -13,30 +13,30 @@
 of the patcher.;
 #X text -13 308 Coffee by Pierre Guillot | CICM - Université Paris
 8;
-#X obj 409 -64 c.tab @size 58 18 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname (null) @orientation
-0 @toggle 0 @items Coffee @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35
-0.35 1;
-#N canvas 429 244 450 300 clink 0;
-#X obj 33 85 c.patcherinfos;
-#X obj 73 58 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X obj 73 33 inlet;
-#X obj 73 119 c.prepend set;
-#X symbolatom 73 141 10 0 0 0 - - -, f 10;
-#X msg 73 169 \; pd open @Coffee.pd \$1;
-#X connect 0 1 3 0;
-#X connect 1 0 4 0;
-#X connect 2 0 1 0;
-#X connect 3 0 4 0;
-#X connect 4 0 5 0;
-#X coords 0 300 1 299 70 25 0;
-#X restore 410 -65 pd clink;
+#X text 85 21 Bang or double click;
+#N canvas 565 264 610 300 subpatch 0;
+#X obj 67 31 c.bang @size 16 16 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 67 62 c.patcherinfos;
+#X obj 67 89 c.prepend set;
+#X obj 206 89 c.prepend set;
+#X obj 346 89 c.prepend set;
+#X text 95 31 Bang or double click;
+#X msg 206 155;
+#X msg 346 125;
+#X msg 67 185;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 1 1 3 0;
+#X connect 1 2 4 0;
+#X connect 2 0 8 0;
+#X connect 3 0 6 0;
+#X connect 4 0 7 0;
+#X restore 356 205 pd subpatch;
 #X msg 57 175;
 #X msg 196 145;
 #X msg 336 115;
-#X text 85 21 Bang or double click;
 #X connect 1 0 3 0;
 #X connect 3 0 4 0;
 #X connect 3 1 5 0;
@@ -44,4 +44,3 @@ of the patcher.;
 #X connect 4 0 11 0;
 #X connect 5 0 12 0;
 #X connect 6 0 13 0;
-#X connect 9 0 10 0;

@@ -136,15 +136,16 @@ void patcherargs_output(t_patcherargs *x)
     int i, size = 0, ac = 0;
     t_binbuf *b = NULL;
     t_atom  *av = NULL;
-    t_atom  *out, *argv = NULL;
+    t_atom  *argv = NULL;
     long argc = 0;
     if(x->f_canvas)
     {
         b = x->f_canvas->gl_obj.te_binbuf;
+		
         if(b)
         {
             ac = binbuf_getnatom(b);
-            av   = binbuf_getvec(b);
+            av = binbuf_getvec(b);
             if(atom_gettype(av) == A_SYM && atom_getsym(av) == gensym("pd"))
             {
                 ac--;
@@ -152,49 +153,48 @@ void patcherargs_output(t_patcherargs *x)
             }
             for(i = 0; i < ac; i++)
             {
-                if(atom_gettype(av+i) == A_SYM && atom_getsym(av+i)->s_name[0] == '@')
+                if(atom_gettype(av+i) == A_SYM && strchr(atom_getsym(av+i)->s_name,'@'))
                 {
                     break;
                 }
             }
             size = i;
         }
-        if(size && size >= x->f_argc)
+        if(size > 0 && size >= x->f_argc)
         {
-            outlet_list(x->f_out_args, &s_list, size, av);
+			outlet_list(x->f_out_args, &s_list, size, av);
         }
-        else
+        else if(size > 0)
         {
-            out = (t_atom *)calloc(x->f_argc, sizeof(t_atom *));
-            for(i = 0; i < size; i++)
-                out[i] = av[i];
-            for (; i < x->f_argc; i++)
-                out[i] = x->f_args[i];
-            
-            outlet_list(x->f_out_args, &s_list, x->f_argc, out);
-            free(out);
+			for(i = 0; i < size; i++)
+				x->f_args[i] = av[i];
+			outlet_list(x->f_out_args, &s_list, x->f_argc, x->f_args);
         }
+		else
+		{
+			outlet_list(x->f_out_args, &s_list,x->f_argc, x->f_args);
+		}
+		for(i = 0; i < x->f_n_attrs; i++)
+		{
+			if(size > 0 && ac && av)
+				atoms_get_attribute(ac, av, x->f_attr_name[i], &argc, &argv);
+			if(argc && argv)
+			{
+				outlet_anything(x->f_out_attrs, gensym(x->f_attr_name[i]->s_name+1), argc, argv);
+				free(argv);
+				argc = 0;
+			}
+			else
+			{
+				outlet_anything(x->f_out_attrs, gensym(x->f_attr_name[i]->s_name+1), x->f_attr_size[i], x->f_attr_vals[i]);
+			}
+		}
     }
     else
     {
         outlet_list(x->f_out_args, &s_list, x->f_argc, x->f_args);
         for(i = 0; i < x->f_n_attrs; i++)
             outlet_list(x->f_out_attrs, &s_list, x->f_attr_size[i], x->f_attr_vals[i]);
-    }
-    for(i = 0; i < x->f_n_attrs; i++)
-    {
-        if(size)
-            atoms_get_attribute(ac-size, av+size, x->f_attr_name[i], &argc, &argv);
-        if(argc && argv)
-        {
-            outlet_anything(x->f_out_attrs, gensym(x->f_attr_name[i]->s_name+1), argc, argv);
-            free(argv);
-            argc = 0;
-        }
-        else
-        {
-            outlet_anything(x->f_out_attrs, gensym(x->f_attr_name[i]->s_name+1), x->f_attr_size[i], x->f_attr_vals[i]);
-        }
     }
     outlet_bang(x->f_out_done);
 }

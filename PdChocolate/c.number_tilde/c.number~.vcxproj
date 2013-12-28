@@ -7,42 +7,43 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Sources\eattr\eattr_attr.c" />
-    <ClCompile Include="..\..\Sources\eattr\eattr_getter.c" />
-    <ClCompile Include="..\..\Sources\eattr\eattr_new.c" />
-    <ClCompile Include="..\..\Sources\eattr\eattr_setter.c" />
-    <ClCompile Include="..\..\Sources\ebox\ebox.c" />
     <ClCompile Include="..\..\Sources\ebox\ebox_attr.c" />
+    <ClCompile Include="..\..\Sources\ebox\ebox_basic.c" />
     <ClCompile Include="..\..\Sources\ebox\ebox_draw.c" />
-    <ClCompile Include="..\..\Sources\ebox\ebox_dsp.c" />
     <ClCompile Include="..\..\Sources\ebox\ebox_handle.c" />
     <ClCompile Include="..\..\Sources\ebox\ebox_patcher.c" />
     <ClCompile Include="..\..\Sources\ebox\ebox_window.c" />
-    <ClCompile Include="..\..\Sources\eclass\eclass.c" />
+    <ClCompile Include="..\..\Sources\eclass\eclass_attrgetter.c" />
+    <ClCompile Include="..\..\Sources\eclass\eclass_attrnew.c" />
+    <ClCompile Include="..\..\Sources\eclass\eclass_attroptions.c" />
+    <ClCompile Include="..\..\Sources\eclass\eclass_attrsetter.c" />
+    <ClCompile Include="..\..\Sources\eclass\eclass_basic.c" />
+    <ClCompile Include="..\..\Sources\eclass\eclass_widget.c" />
     <ClCompile Include="..\..\Sources\ecommon\ecommon.c" />
     <ClCompile Include="..\..\Sources\egraphics\egraphics.c" />
     <ClCompile Include="..\..\Sources\egraphics\egraphics_color.c" />
     <ClCompile Include="..\..\Sources\egraphics\egraphics_forms.c" />
     <ClCompile Include="..\..\Sources\egraphics\egraphics_matrix.c" />
     <ClCompile Include="..\..\Sources\egraphics\egraphics_text.c" />
+    <ClCompile Include="..\..\Sources\eobj\eobj_basic.c" />
+    <ClCompile Include="..\..\Sources\eobj\eobj_dsp.c" />
+    <ClCompile Include="..\..\Sources\eobj\eobj_handle.c" />
+    <ClCompile Include="..\..\Sources\eobj\eobj_proxy.c" />
+    <ClCompile Include="..\..\Sources\eobj\eobj_router.c" />
     <ClCompile Include="..\..\Sources\epopup\epopup.c" />
-    <ClCompile Include="..\..\Sources\erouter\erouter.c" />
-    <ClCompile Include="..\..\Sources\ewidget\ewidget.c" />
     <ClCompile Include="c.number~.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Sources\eattr\eattr.h" />
     <ClInclude Include="..\..\Sources\ebox\ebox.h" />
     <ClInclude Include="..\..\Sources\eclass\eclass.h" />
     <ClInclude Include="..\..\Sources\ecommon\eboxflag.h" />
     <ClInclude Include="..\..\Sources\ecommon\ecommon.h" />
     <ClInclude Include="..\..\Sources\egraphics\egraphics.h" />
+    <ClInclude Include="..\..\Sources\eobj\eobj.h" />
     <ClInclude Include="..\..\Sources\epd.h" />
     <ClInclude Include="..\..\Sources\epd_max.h" />
     <ClInclude Include="..\..\Sources\epopup\epopup.h" />
-    <ClInclude Include="..\..\Sources\erouter\erouter.h" />
     <ClInclude Include="..\..\Sources\estruct.h" />
-    <ClInclude Include="..\..\Sources\ewidget\ewidget.h" />
     <ClInclude Include="..\..\Sources\pd_enhanced.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

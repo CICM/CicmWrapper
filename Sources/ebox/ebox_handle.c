@@ -766,10 +766,10 @@ void ebox_properties(t_ebox *x, t_glist *glist)
     {
         object_attr_getvalueof((t_object *)x, c->c_attr[i].name, &argc, &argv);
         strcat(buffer, " ");
-        strcat(buffer, "{");
+        strcat(buffer, "\"");
         if(argc && argv)
         {
-            for(j = 0; j < argc - 1; j++)
+            for(j = 0; j < argc; j++)
             {
                 atom_string(argv+j, temp, MAXPDSTRING);
                 if(c->c_attr[i].type == gensym("symbol") && strchr(temp, ' '))
@@ -784,7 +784,7 @@ void ebox_properties(t_ebox *x, t_glist *glist)
                     strcat(buffer, temp);
                 }
                 strcat(buffer, " ");
-            }
+            }/*
             atom_string(argv+j, temp, MAXPDSTRING);
             if(c->c_attr[i].type == gensym("symbol") && strchr(temp, ' '))
             {
@@ -796,9 +796,9 @@ void ebox_properties(t_ebox *x, t_glist *glist)
             else
             {
                 strcat(buffer, temp);
-            }
+            }*/
         }
-        strcat(buffer, "}");
+        strcat(buffer, "\"");
     }
     strcat(buffer, "\n");
     //post(buffer);
