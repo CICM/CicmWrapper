@@ -123,7 +123,7 @@
 1387810403 source:/home/pierre/Git/PdEnhanced/Sources/ewidget/ewidget.c
 	"ewidget.h"
 
-1387810403 source:/home/pierre/Git/PdEnhanced/PdChocolate/cblackboard/c.blackboard.cpp
+1387810403 source:/home/pierre/Git/PdEnhanced/PdChocolate/cbang/c.bang.cpp
 	"../../../PdEnhanced/Sources/pd_enhanced.h"
 
 1387810403 /home/pierre/Git/PdEnhanced/Sources/pd_enhanced.h
@@ -175,6 +175,6 @@
 1388230877 source:/home/pierre/Git/PdEnhanced/Sources/eobj/eobj_router.c
 	"eobj.h"
 
-1388230877 source:/home/pierre/Git/PdEnhanced/PdChocolate/c.blackboard/c.blackboard.cpp
+1388230877 source:/home/pierre/Git/PdEnhanced/PdChocolate/c.bang/c.bang.cpp
 	"../../../PdEnhanced/Sources/pd_enhanced.h"
 

@@ -46,30 +46,14 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="../../Sources/eattr/eattr.h" />
-		<Unit filename="../../Sources/eattr/eattr_attr.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../../Sources/eattr/eattr_getter.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../../Sources/eattr/eattr_new.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../../Sources/eattr/eattr_setter.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../../Sources/ebox/ebox.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="../../Sources/ebox/ebox.h" />
 		<Unit filename="../../Sources/ebox/ebox_attr.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../../Sources/ebox/ebox_draw.c">
+		<Unit filename="../../Sources/ebox/ebox_basic.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../../Sources/ebox/ebox_dsp.c">
+		<Unit filename="../../Sources/ebox/ebox_draw.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../../Sources/ebox/ebox_handle.c">
@@ -81,10 +65,25 @@
 		<Unit filename="../../Sources/ebox/ebox_window.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../../Sources/eclass/eclass.c">
+		<Unit filename="../../Sources/eclass/eclass.h" />
+		<Unit filename="../../Sources/eclass/eclass_attrgetter.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../../Sources/eclass/eclass.h" />
+		<Unit filename="../../Sources/eclass/eclass_attrnew.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/eclass/eclass_attroptions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/eclass/eclass_attrsetter.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/eclass/eclass_basic.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/eclass/eclass_widget.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="../../Sources/ecommon/eboxflag.h" />
 		<Unit filename="../../Sources/ecommon/ecommon.c">
 			<Option compilerVar="CC" />
@@ -106,21 +105,29 @@
 		<Unit filename="../../Sources/egraphics/egraphics_text.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="../../Sources/eobj/eobj.h" />
+		<Unit filename="../../Sources/eobj/eobj_basic.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/eobj/eobj_dsp.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/eobj/eobj_handle.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/eobj/eobj_proxy.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Sources/eobj/eobj_router.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="../../Sources/epd.h" />
 		<Unit filename="../../Sources/epd_max.h" />
 		<Unit filename="../../Sources/epopup/epopup.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../../Sources/epopup/epopup.h" />
-		<Unit filename="../../Sources/erouter/erouter.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../../Sources/erouter/erouter.h" />
 		<Unit filename="../../Sources/estruct.h" />
-		<Unit filename="../../Sources/ewidget/ewidget.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../../Sources/ewidget/ewidget.h" />
 		<Unit filename="../../Sources/pd_enhanced.h" />
 		<Unit filename="c.knob.cpp" />
 		<Extensions>
