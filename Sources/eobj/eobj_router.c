@@ -73,8 +73,9 @@ void erouter_setup(t_glist* obj)
         my_erouter = x;
         class_addmethod(glist, (t_method)glist_return_erouter, gensym("erouter"), A_GIMME, 0);
         
-        post("Chocolate, Coffee and Caramel by Pierre Guillot");
+        post("Chocolate and Coffee Libraries by Pierre Guillot");
         post("© 2013 - 2014  CICM | Paris 8 University");
+        post("Version Beta 0.1");
     }
 }
 

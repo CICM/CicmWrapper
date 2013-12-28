@@ -3,7 +3,7 @@
 
 ##### Presentation
 
-Pd Enhanced aims to facilitate the creation of objects for Pure Data. It offers an architecture similar to the Max objects that allows to easily create Pure Data objects with a source code for Max objects. One of the main axis is the creation of graphical user interfaces. Pd Chocolate is a small set of externals, not essential but that can be very useful (there’re a vu~ and a nbx~ that don’t have the blink effect of their homologue). The objects are always in developpement so ask if you want a stable version.
+Pd Enhanced aims to facilitate the creation of objects for Pure Data. It offers an architecture similar to the Max objects that allows to easily create Pure Data objects with a source code for Max objects. One of the main axis is the creation of graphical user interfaces. Pd Chocolate and Pd Coffe are externals library, not essential but that can be very useful.
 
 - The inlets/outlets are automatically generated.
 - The background color, border size, border color are easy to set.
@@ -21,17 +21,21 @@ and a lot of other stuff, I can't enumerate everything !
 
 #### To compile :
 
-Add the sources files to your project. Include "pd_enhanced.h" file instead of "m_pd.h". Compile like any PD Project. 
+Add the sources files to your project. Include "pd_enhanced.h" file instead of "m_pd.h". Compile like any Pd Project.
+You can use the projects to compile the externals : XCode for Mac Os, Visual Studio for Windows and Code::Block for Linux.
+Projects are compiled against Pd Extented 0.43 then the externals are not compatible with older versions of Pd but are compatible
+with Pd 0.45. Note that if you compile against Pd 0.45, the externals won't work with Pd 0.43.
 
-###### XCode projects :
+###### XCode && Code::Block projects :
 
 The frameworks and headers search paths are : "$SRCROOT/../../../../SDKs/pd-extended/pd/src".
-The "pd-extented" folder contains the sources of Pure Data. If you want to contribute to the project, it would better to keep the same path.
-Nevertheless, it could be easier to link the project with Pure Data installation in the "Application" folder.
+The "pd-extented" folder contains the sources of Pure Data. If you want to contribute to the project, it would be better to keep the same path.
+If you want to use one of this projects, just duplicate it and change its name.
 
 ###### Visual Studio projects :
 
-The Visual Studio projects are linked with the Pure Data installation folder : "C:\Program Files (x86)\pd\bin\". 
+The Visual Studio projects are linked with the Pure Data installation folder : "C:\Program Files (x86)\pd\bin\".
+This path will change in the futur and will be : "$SRCROOT/../../../../SDKs/pd-extended/pd/src".
 Note that you need to create a pd.lib that you can create from the pd.dll file.
 To create pd.lib :
 
@@ -45,10 +49,6 @@ To create pd.lib :
 - Name the text file "pd.def" and add "EXPORTS" at the first line
 - Tape : "lib /def:pd.def /OUT:pd.lib"
 <p>You will have a pd.lib in the Pure Data installation folder and be able to compile.</p>
-
-###### Linux projects :
-
-It's "under construction" but it should be similar to the vanilla Pd compilation exept that you have to include all the files of the project.
 
 #### ToDo :
 - Update the properties window : attributes order, categories, etc. (low)

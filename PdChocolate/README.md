@@ -8,7 +8,7 @@
 
 ##### Version :
 
-Beta 0.1 for Pure Data for Pure Data 0.43.4 (32 bit) and higher on Mac Os and Windows plateforms.
+Beta 0.1 for Pure Data for Pure Data 0.43.4 (32 bit) and higher on Mac Os, Windows and Linux plateforms.
 
 ##### Author :
 
@@ -37,11 +37,11 @@ The PD Chocolate Library in under the <a title="GNU" href="http://www.gnu.org/co
 - Slider
 - Tab
 - Toggle
-- Textfield (Todo)
-- Filtergraph(Todo)
 - Gain~
 - Meter~
 - Number~
 - Scope
+- Textfield (Todo)
+- Filtergraph(Todo)
 
 
