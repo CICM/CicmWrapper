@@ -6,10 +6,10 @@
 	"../estruct.h"
 	"../ebox/ebox.h"
 
-1387810403 /home/pierre/Git/PdEnhanced/Sources/estruct.h
+1388230877 /home/pierre/Git/PdEnhanced/Sources/estruct.h
 	"ecommon/ecommon.h"
 
-1387871942 /home/pierre/Git/PdEnhanced/Sources/ecommon/ecommon.h
+1388230877 /home/pierre/Git/PdEnhanced/Sources/ecommon/ecommon.h
 	<io.h>
 	<unistd.h>
 	<stdio.h>
@@ -22,7 +22,6 @@
 	"m_pd.h"
 	"m_imp.h"
 	"g_canvas.h"
-	"s_stuff.h"
 	"eboxflag.h"
 
 1359132275 /home/pierre/SDKs/pd-extended/pd/src/m_pd.h
@@ -38,11 +37,10 @@
 
 1387810403 /home/pierre/Git/PdEnhanced/Sources/ecommon/eboxflag.h
 
-1387810403 /home/pierre/Git/PdEnhanced/Sources/ebox/ebox.h
+1388230877 /home/pierre/Git/PdEnhanced/Sources/ebox/ebox.h
 	"../estruct.h"
 	"../egraphics/egraphics.h"
-	"../ewidget/ewidget.h"
-	"../erouter/erouter.h"
+	"../eobj/eobj.h"
 
 1387810403 /home/pierre/Git/PdEnhanced/Sources/egraphics/egraphics.h
 	"../estruct.h"
@@ -52,7 +50,7 @@
 	"../ebox/ebox.h"
 	"../epopup/epopup.h"
 
-1387810403 /home/pierre/Git/PdEnhanced/Sources/epopup/epopup.h
+1388230877 /home/pierre/Git/PdEnhanced/Sources/epopup/epopup.h
 	"../estruct.h"
 	"../ebox/ebox.h"
 
@@ -73,36 +71,35 @@
 1387810403 source:/home/pierre/Git/PdEnhanced/Sources/ebox/ebox.c
 	"ebox.h"
 
-1387810403 source:/home/pierre/Git/PdEnhanced/Sources/ebox/ebox_attr.c
+1388230877 source:/home/pierre/Git/PdEnhanced/Sources/ebox/ebox_attr.c
 	"ebox.h"
 
-1387810403 source:/home/pierre/Git/PdEnhanced/Sources/ebox/ebox_draw.c
+1388230877 source:/home/pierre/Git/PdEnhanced/Sources/ebox/ebox_draw.c
 	"ebox.h"
 
 1387810403 source:/home/pierre/Git/PdEnhanced/Sources/ebox/ebox_dsp.c
 	"ebox.h"
 
-1387810403 source:/home/pierre/Git/PdEnhanced/Sources/ebox/ebox_handle.c
+1388230877 source:/home/pierre/Git/PdEnhanced/Sources/ebox/ebox_handle.c
 	"ebox.h"
 
 1387810403 source:/home/pierre/Git/PdEnhanced/Sources/ebox/ebox_patcher.c
 	"ebox.h"
 
-1387810403 source:/home/pierre/Git/PdEnhanced/Sources/ebox/ebox_window.c
+1388230877 source:/home/pierre/Git/PdEnhanced/Sources/ebox/ebox_window.c
 	"ebox.h"
 
 1387810403 source:/home/pierre/Git/PdEnhanced/Sources/eclass/eclass.c
 	"eclass.h"
 
-1387810403 /home/pierre/Git/PdEnhanced/Sources/eclass/eclass.h
+1388230877 /home/pierre/Git/PdEnhanced/Sources/eclass/eclass.h
 	"../estruct.h"
-	"../eattr/eattr.h"
-	"../erouter/erouter.h"
+	"../ebox/ebox.h"
 
-1387870192 source:/home/pierre/Git/PdEnhanced/Sources/ecommon/ecommon.c
+1388230877 source:/home/pierre/Git/PdEnhanced/Sources/ecommon/ecommon.c
 	"ecommon.h"
 
-1387810403 source:/home/pierre/Git/PdEnhanced/Sources/egraphics/egraphics.c
+1388230877 source:/home/pierre/Git/PdEnhanced/Sources/egraphics/egraphics.c
 	"egraphics.h"
 
 1387810403 source:/home/pierre/Git/PdEnhanced/Sources/egraphics/egraphics_color.c
@@ -117,7 +114,7 @@
 1387810403 source:/home/pierre/Git/PdEnhanced/Sources/egraphics/egraphics_text.c
 	"egraphics.h"
 
-1387810403 source:/home/pierre/Git/PdEnhanced/Sources/epopup/epopup.c
+1388230877 source:/home/pierre/Git/PdEnhanced/Sources/epopup/epopup.c
 	"epopup.h"
 
 1387810403 source:/home/pierre/Git/PdEnhanced/Sources/erouter/erouter.c
@@ -136,5 +133,48 @@
 1387810403 /home/pierre/Git/PdEnhanced/Sources/epd.h
 	"eclass/eclass.h"
 
-1387810403 /home/pierre/Git/PdEnhanced/Sources/epd_max.h
+1388230877 /home/pierre/Git/PdEnhanced/Sources/epd_max.h
+
+1388230877 /home/pierre/Git/PdEnhanced/Sources/eobj/eobj.h
+	"../estruct.h"
+	"../egraphics/egraphics.h"
+
+1388230877 source:/home/pierre/Git/PdEnhanced/Sources/ebox/ebox_basic.c
+	"ebox.h"
+
+1388230877 source:/home/pierre/Git/PdEnhanced/Sources/eclass/eclass_attrgetter.c
+	"eclass.h"
+
+1388230877 source:/home/pierre/Git/PdEnhanced/Sources/eclass/eclass_attrnew.c
+	"eclass.h"
+
+1388230877 source:/home/pierre/Git/PdEnhanced/Sources/eclass/eclass_attroptions.c
+	"eclass.h"
+
+1388230877 source:/home/pierre/Git/PdEnhanced/Sources/eclass/eclass_attrsetter.c
+	"eclass.h"
+
+1388230877 source:/home/pierre/Git/PdEnhanced/Sources/eclass/eclass_basic.c
+	"eclass.h"
+
+1388230877 source:/home/pierre/Git/PdEnhanced/Sources/eclass/eclass_widget.c
+	"eclass.h"
+
+1388230877 source:/home/pierre/Git/PdEnhanced/Sources/eobj/eobj_basic.c
+	"eobj.h"
+
+1388230877 source:/home/pierre/Git/PdEnhanced/Sources/eobj/eobj_dsp.c
+	"eobj.h"
+
+1388230877 source:/home/pierre/Git/PdEnhanced/Sources/eobj/eobj_handle.c
+	"eobj.h"
+
+1388230877 source:/home/pierre/Git/PdEnhanced/Sources/eobj/eobj_proxy.c
+	"eobj.h"
+
+1388230877 source:/home/pierre/Git/PdEnhanced/Sources/eobj/eobj_router.c
+	"eobj.h"
+
+1388230877 source:/home/pierre/Git/PdEnhanced/PdChocolate/c.blackboard/c.blackboard.cpp
+	"../../../PdEnhanced/Sources/pd_enhanced.h"
 
