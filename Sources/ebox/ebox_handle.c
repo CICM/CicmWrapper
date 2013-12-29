@@ -769,6 +769,7 @@ t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *
         }
         ebox_redraw(x);
     }
+    
     return 0;
 }
 
