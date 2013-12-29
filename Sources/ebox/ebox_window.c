@@ -65,7 +65,8 @@ void ebox_bind_events(t_ebox* x)
 {
     t_eclass* c = (t_eclass *)x->b_obj.o_obj.te_g.g_pd;
 	int right = EMOD_CMD;
-#ifdef _APPLE_
+#ifdef __APPLE__
+    
 #elif _WINDOWS
 	right += 8;
 #else
