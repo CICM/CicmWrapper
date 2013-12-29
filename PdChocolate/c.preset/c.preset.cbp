@@ -34,11 +34,13 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-O3" />
+					<Add option="-O2" />
+					<Add option="-O1" />
+					<Add option="-O" />
 					<Add option="-fPIC" />
 					<Add directory="../../../../SDKs/pd-extended/pd/src" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
 					<Add option="-fPIC" />
 				</Linker>
 			</Target>
