@@ -624,6 +624,80 @@ t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, long argc, t_atom *argv)
     return 0;
 }
 
+//! The default user font method for all ebox called by PD (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The gobj
+ \ @param attr      Nothing (for Max 6 compatibility)
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Always 0 (for the moment)
+ */
+t_pd_err ebox_set_font(t_ebox *x, t_object *attr, long argc, t_atom *argv)
+{
+    if(argc && argv && atom_gettype(argv) == A_SYM)
+    {
+		if(atom_getsym(argv) == gensym("(null)"))
+            x->b_font.c_family = gensym(sys_font);
+        else
+            x->b_font.c_family = atom_getsym(argv);
+    }
+    else
+        x->b_font.c_family = gensym(sys_font);
+
+    x->b_font.c_family = gensym(strtok(x->b_font.c_family->s_name," ',.-"));
+    x->b_font.c_family->s_name[0] = toupper(x->b_font.c_family->s_name[0]);
+    return 0;
+}
+
+//! The default user fontweight method for all ebox called by PD (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The gobj
+ \ @param attr      Nothing (for Max 6 compatibility)
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Always 0 (for the moment)
+ */
+t_pd_err ebox_set_fontweight(t_ebox *x, t_object *attr, long argc, t_atom *argv)
+{
+    if(argc && argv && atom_gettype(argv) == A_SYM)
+    {
+		if(atom_getsym(argv) == gensym("bold") || atom_getsym(argv) == gensym("Bold"))
+            x->b_font.c_weight = gensym("bold");
+        else
+            x->b_font.c_weight = gensym("normal");
+    }
+    else
+        x->b_font.c_weight = gensym("normal");
+
+    return 0;
+}
+
+//! The default user fontslant method for all ebox called by PD (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The gobj
+ \ @param attr      Nothing (for Max 6 compatibility)
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Always 0 (for the moment)
+ */
+t_pd_err ebox_set_fontslant(t_ebox *x, t_object *attr, long argc, t_atom *argv)
+{
+    if(argc && argv && atom_gettype(argv) == A_SYM)
+    {
+		if(atom_getsym(argv) == gensym("italic") || atom_getsym(argv) == gensym("Italic"))
+            x->b_font.c_slant = gensym("italic");
+        else
+            x->b_font.c_slant = gensym("roman");
+    }
+    else
+        x->b_font.c_slant = gensym("roman");
+
+    return 0;
+}
+
 //! The default size attribute method of ebox called when an size attribute has changed. This function restrains the width and the height depending of the ebox flags EBOX_GROWNO, EBOX_GROWLINK and EBOX_GROWINDI // PRIVATE
 /*
  \ @memberof        ebox

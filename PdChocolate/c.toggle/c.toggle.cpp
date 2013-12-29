@@ -31,13 +31,13 @@ extern "C"  {
 typedef struct _toggle
 {
 	t_ebox      j_box;
-    
+
     t_outlet*   f_out;
 	t_rgba		f_color_background;
 	t_rgba		f_color_border;
 	t_rgba		f_color_cross;
     char        f_active;
-    
+
 } t_toggle;
 
 t_eclass *toggle_class;
@@ -64,11 +64,11 @@ void toggle_mousedown(t_toggle *x, t_object *patcherview, t_pt pt, long modifier
 extern "C" void setup_c0x2etoggle(void)
 {
 	t_eclass *c;
-    
+
 	c = eclass_new("c.toggle", (method)toggle_new, (method)toggle_free, (short)sizeof(t_toggle), 0L, A_GIMME, 0);
-    
+
 	eclass_init(c, 0);
-	
+
 	eclass_addmethod(c, (method) toggle_assist,          "assist",           A_CANT, 0);
 	eclass_addmethod(c, (method) toggle_paint,           "paint",            A_CANT, 0);
 	eclass_addmethod(c, (method) toggle_notify,          "notify",           A_CANT, 0);
@@ -78,25 +78,25 @@ extern "C" void setup_c0x2etoggle(void)
     eclass_addmethod(c, (method) toggle_bang,            "bang",             A_CANT, 0);
     eclass_addmethod(c, (method) toggle_mousedown,       "mousedown",        A_CANT, 0);
     eclass_addmethod(c, (method) toggle_preset,          "preset",           A_CANT, 0);
-    
+
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "15. 15.");
-    
+
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_toggle, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
-	
+
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_toggle, f_color_border);
 	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Box Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
-	
+
 	CLASS_ATTR_RGBA                 (c, "crcolor", 0, t_toggle, f_color_cross);
 	CLASS_ATTR_LABEL                (c, "crcolor", 0, "Cross Color");
 	CLASS_ATTR_ORDER                (c, "crcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "crcolor", 0, "0.5 0.5 0.5 1.");
-	
-	
+
+
     eclass_register(CLASS_NOBOX, c);
 	toggle_class = c;
 }
@@ -108,7 +108,7 @@ void *toggle_new(t_symbol *s, int argc, t_atom *argv)
     long flags;
 	if (!(d = binbuf_via_atoms(argc,argv)))
 		return NULL;
-    
+
 	x = (t_toggle *)eobj_new(toggle_class);
     flags = 0
     | EBOX_GROWLINK
@@ -116,7 +116,7 @@ void *toggle_new(t_symbol *s, int argc, t_atom *argv)
 	ebox_new((t_ebox *)x, flags);
     x->f_active = 0;
     x->f_out = (t_outlet *)floatout(x);
-    
+
 	ebox_attrprocess_viabinbuf(x, d);
 	ebox_ready((t_ebox *)x);
 	return (x);
@@ -194,7 +194,7 @@ void toggle_paint(t_toggle *x, t_object *view)
 void draw_background(t_toggle *x, t_object *view, t_rect *rect)
 {
 	t_elayer *g = ebox_start_layer((t_ebox *)x, gensym("background_layer"), rect->width, rect->height);
-    
+
 	if (g)
 	{
         if(x->f_active)

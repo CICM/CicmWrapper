@@ -87,23 +87,26 @@ void eclass_init(t_eclass* c, long flags)
     CLASS_ATTR_LABEL		(c, "size", 0, "Patching Size");
     CLASS_ATTR_ACCESSORS    (c, "size", NULL, ebox_size_set);
 
-    CLASS_ATTR_DEFAULT      (c, "fontname", 0, "Courier");
+    CLASS_ATTR_DEFAULT      (c, "fontname", 0, sys_font);
     CLASS_ATTR_SAVE         (c, "fontname", 0);
     CLASS_ATTR_PAINT        (c, "fontname", 0);
     CLASS_ATTR_CATEGORY		(c, "fontname", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontname", 0, "Font Name");
+    CLASS_ATTR_ACCESSORS    (c, "fontname", NULL, ebox_set_font);
 
     CLASS_ATTR_DEFAULT      (c, "fontweight", 0, "normal");
     CLASS_ATTR_SAVE         (c, "fontweight", 0);
     CLASS_ATTR_PAINT        (c, "fontweight", 0);
     CLASS_ATTR_CATEGORY		(c, "fontweight", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontweight", 0, "Font Weight");
+    CLASS_ATTR_ACCESSORS    (c, "fontweight", NULL, ebox_set_fontweight);
 
-    CLASS_ATTR_DEFAULT      (c, "fontslant", 0, "regular");
+    CLASS_ATTR_DEFAULT      (c, "fontslant", 0, "roman");
     CLASS_ATTR_SAVE         (c, "fontslant", 0);
     CLASS_ATTR_PAINT        (c, "fontslant", 0);
     CLASS_ATTR_CATEGORY		(c, "fontslant", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontslant", 0, "Font Slant");
+    CLASS_ATTR_ACCESSORS    (c, "fontslant", NULL, ebox_set_fontslant);
 
     CLASS_ATTR_DEFAULT      (c, "fontsize", 0, "11");
     CLASS_ATTR_FILTER_MIN   (c, "fontsize", 4);

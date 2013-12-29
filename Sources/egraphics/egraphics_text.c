@@ -1,5 +1,5 @@
 /*
- * PdEnhanced - Pure Data Enhanced 
+ * PdEnhanced - Pure Data Enhanced
  *
  * An add-on for Pure Data
  *
@@ -74,7 +74,7 @@ void etext_layout_set(t_etext* textlayout, char* text, t_efont *jfont,  double x
         textlayout->c_anchor = gensym("nw");
     else
         textlayout->c_anchor = gensym("center");
-    
+
     if(justify == ETEXT_JCENTER)
         textlayout->c_justify = gensym("center");
     else if(justify == ETEXT_JRIGHT)
@@ -93,15 +93,15 @@ t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, doubl
 {
     t_efont* new_font = (t_efont *)malloc(sizeof(t_efont));
     new_font[0].c_family = family;
-    
+
     new_font[0].c_slant = slant;
     if(new_font[0].c_slant  != gensym("italic"))
-        new_font[0].c_slant = gensym("regular");
-    
+        new_font[0].c_slant = gensym("roman");
+
     new_font[0].c_weight = weight;
     if(new_font[0].c_weight  != gensym("bold"))
         new_font[0].c_weight = gensym("normal");
-    
+
     new_font[0].c_size = pd_clip_min(size, 1.);
     return new_font;
 }

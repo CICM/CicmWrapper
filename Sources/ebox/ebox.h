@@ -1,5 +1,5 @@
 /*
- * PdEnhanced - Pure Data Enhanced 
+ * PdEnhanced - Pure Data Enhanced
  *
  * An add-on for Pure Data
  *
@@ -99,6 +99,9 @@ void ebox_deserted(t_ebox *x);
 void ebox_dosave(t_ebox* x, t_binbuf *b);
 t_pd_err ebox_set_id(t_ebox *x, t_object *attr, long argc, t_atom *argv);
 t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, long argc, t_atom *argv);
+t_pd_err ebox_set_font(t_ebox *x, t_object *attr, long argc, t_atom *argv);
+t_pd_err ebox_set_fontweight(t_ebox *x, t_object *attr, long argc, t_atom *argv);
+t_pd_err ebox_set_fontslant(t_ebox *x, t_object *attr, long argc, t_atom *argv);
 void ebox_properties(t_ebox *x, t_glist *glist);
 void ebox_dialog(t_ebox *x, t_symbol *s, long argc, t_atom* argv);
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);

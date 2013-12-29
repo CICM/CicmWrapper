@@ -28,7 +28,7 @@ extern "C"  {
 #include "../../../PdEnhanced/Sources/pd_enhanced.h"
 }
 
-#define MAXBINBUF 1024
+#define MAXBINBUF 256
 
 typedef struct _preset
 {
@@ -84,12 +84,15 @@ void preset_mouseleave(t_preset *x, t_object *patcherview, t_pt pt, long modifie
 
 static t_symbol* s_preset;
 static t_symbol* s_null;
+static t_symbol* s_nothing;
 
 extern "C" void setup_c0x2epreset(void)
 {
 	t_eclass *c;
     s_preset = gensym("preset");
     s_null   = gensym("(null)");
+    s_nothing = gensym("''");
+
 	c = eclass_new("c.preset", (method)preset_new, (method)preset_free, (short)sizeof(t_preset), 0L, A_GIMME, 0);
 
 	eclass_init(c, 0);
@@ -198,34 +201,28 @@ void preset_oksize(t_preset *x, t_rect *newrect)
 
 void preset_store(t_preset *x, float f)
 {
-    t_gobj *y;
-    t_ebox *z;
+    t_gobj *y = NULL;
+    t_ebox *z = NULL;
     t_canvas* canvas = eobj_getcanvas(x);
     char id[MAXPDSTRING];
-	int i;
     int index = (int)f;
+    t_gotfn mpreset = NULL;
 
-    if (index < 1 || index > MAXBINBUF)
-        return;
-    if(!x->f_init)
+    if (index < 1 || index > MAXBINBUF || !x->f_init)
         return;
 
     binbuf_clear(x->f_binbuf[index-1]);
-    for (y = canvas->gl_list; y; y = y->g_next)
+    for(y = canvas->gl_list; y; y = y->g_next)
     {
-        for(i = 0; i < y->g_pd->c_nmethod; i++)
+        z = (t_ebox *)y;
+        mpreset = zgetfn(&y->g_pd, s_preset);
+        if(mpreset && z->b_objpreset_id != s_null && z->b_objpreset_id != s_nothing)
         {
-            if(y->g_pd->c_methods[i].me_name == gensym("preset"))
-            {
-                z = (t_ebox *)y;
-                if(z->b_objpreset_id != gensym("(null)") && z->b_objpreset_id != gensym("''"))
-                {
-                    sprintf(id, "@%s", z->b_objpreset_id->s_name);
-                    binbuf_addv(x->f_binbuf[index-1], "ss", gensym(id), eobj_getclassname(z));
-                    y->g_pd->c_methods[i].me_fun((t_object *)y, x->f_binbuf[index-1]);
-                }
-            }
+            sprintf(id, "@%s", z->b_objpreset_id->s_name);
+            binbuf_addv(x->f_binbuf[index-1], "ss", gensym(id), eobj_getclassname(z));
+            mpreset(z, x->f_binbuf[index-1]);
         }
+        mpreset = NULL;
     }
 }
 
@@ -494,6 +491,7 @@ void preset_paint(t_preset *x, t_object *view)
 	ebox_get_rect_for_view((t_ebox *)x, &rect);
     x->f_point_size = ebox_getfontsize((t_ebox *)x);
     draw_background(x, view, &rect);
+    x->f_init = 1;
     x->f_init = 1;
 }
 
