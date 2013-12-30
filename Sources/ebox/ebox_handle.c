@@ -78,7 +78,7 @@ long modifier_wrapper(long mod)
 
 	if(mod >= 131080)
 	{
-		xod -= 131080;
+		mod -= 131080;
 		mod += EMOD_ALT;
 	}
 	else
@@ -717,8 +717,8 @@ t_pd_err ebox_set_fontsize(t_ebox *x, t_object *attr, long argc, t_atom *argv)
         x->b_font.c_sizereal = 11;
 #ifdef __APPLE__
     x->b_font.c_size = x->b_font.c_sizereal;
-#elif   _WINDOWS_
-    x->b_font.c_size = x->b_font.c_sizereal- 1;
+#elif  _WINDOWS
+    x->b_font.c_size = x->b_font.c_sizereal - 1;
 #else
     x->b_font.c_size = x->b_font.c_sizereal - 3;
 #endif

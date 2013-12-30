@@ -193,7 +193,7 @@ void number_oksize(t_number *x, t_rect *newrect)
 {
 #ifdef __APPLE__
     newrect->width = pd_clip_min(newrect->width, sys_fontwidth(x->j_box.b_font.c_size) * 3 + 8);
-#elif _WINDOWS_
+#elif _WINDOWS
     newrect->width = pd_clip_min(newrect->width, sys_fontwidth(x->j_box.b_font.c_size) * 3 + 8);
 #else
     newrect->width = pd_clip_min(newrect->width, sys_fontwidth(x->j_box.b_font.c_size) * 3 + 11);
@@ -260,7 +260,7 @@ void number_paint(t_number *x, t_object *view)
 	t_rect rect;
 #ifdef __APPLE__
     float fontwidth = sys_fontwidth(x->j_box.b_font.c_size);
-#elif _WINDOWS_
+#elif _WINDOWS
     float fontwidth = sys_fontwidth(x->j_box.b_font.c_size);
 #else
     float fontwidth = sys_fontwidth(x->j_box.b_font.c_size) + 3;
@@ -269,7 +269,7 @@ void number_paint(t_number *x, t_object *view)
     ebox_get_rect_for_view((t_ebox *)x, &rect);
 #ifdef __APPLE__
     x->f_max_decimal = (rect.width - fontwidth - 8) / fontwidth - 2;
-#elif _WINDOWS_
+#elif _WINDOWS
     x->f_max_decimal = (rect.width - fontwidth - 8) / fontwidth - 2;
 #else
     x->f_max_decimal = (rect.width - fontwidth - 11) / fontwidth + 1;
@@ -291,7 +291,7 @@ void draw_background(t_number *x, t_object *view, t_rect *rect)
 
 #ifdef __APPLE__
     width = sys_fontwidth(ebox_getfontsize((t_ebox *)x)) + 6;
-#elif _WINDOWS_
+#elif _WINDOWS
     width = sys_fontwidth(ebox_getfontsize((t_ebox *)x)) + 6;
 #else
     width = sys_fontwidth(ebox_getfontsize((t_ebox *)x)) + 9;
@@ -300,8 +300,8 @@ void draw_background(t_number *x, t_object *view, t_rect *rect)
 	{
 #ifdef __APPLE__
     etext_layout_set(jtl, "©", &x->j_box.b_font, width / 2. - 1, rect->height / 2. + 2, width, 0, ETEXT_CENTER, ETEXT_JCENTER, ETEXT_NOWRAP);
-#elif _WINDOWS_
-    etext_layout_set(jtl, "©", &x->j_box.b_font, width / 2. - 1, rect->height / 2. + 2, width, 0, ETEXT_CENTER, ETEXT_JCENTER, ETEXT_NOWRAP);
+#elif _WINDOWS
+    etext_layout_set(jtl, "©", &x->j_box.b_font, width / 2. - 1, rect->height / 2. + 1, width, 0, ETEXT_CENTER, ETEXT_JCENTER, ETEXT_NOWRAP);
 #else
     etext_layout_set(jtl, "©", &x->j_box.b_font, width / 2. - 1, rect->height / 2., width, 0, ETEXT_CENTER, ETEXT_JCENTER, ETEXT_NOWRAP);
 #endif
@@ -328,7 +328,7 @@ void draw_value_drag(t_number *x, t_object *view, t_rect *rect)
 	t_etext *jtl = etext_layout_create();
 #ifdef __APPLE__
     width = sys_fontwidth(ebox_getfontsize((t_ebox *)x)) + 8;
-#elif _WINDOWS_
+#elif _WINDOWS
     width = sys_fontwidth(ebox_getfontsize((t_ebox *)x)) + 8;
 #else
     width = sys_fontwidth(ebox_getfontsize((t_ebox *)x)) + 11;
@@ -385,8 +385,8 @@ void draw_value_drag(t_number *x, t_object *view, t_rect *rect)
         etext_layout_settextcolor(jtl, &x->f_color_text);
 #ifdef __APPLE__
         etext_layout_set(jtl, number, &x->j_box.b_font, width, rect->height / 2. + 1, rect->width - 3, 0, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
-#elif _WINDOWS_
-        etext_layout_set(jtl, number, &x->j_box.b_font, width, rect->height / 2. + 1, rect->width - 3, 0, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+#elif _WINDOWS
+        etext_layout_set(jtl, number, &x->j_box.b_font, width, rect->height / 2., rect->width - 3, 0, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
 #else
         etext_layout_set(jtl, number, &x->j_box.b_font, width, rect->height / 2., rect->width - 3, 0, ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
 #endif
@@ -405,7 +405,7 @@ void draw_value_text(t_number *x,  t_object *view, t_rect *rect)
 	t_etext *jtl = etext_layout_create();
 #ifdef __APPLE__
     width = sys_fontwidth(ebox_getfontsize((t_ebox *)x)) + 8;
-#elif _WINDOWS_
+#elif _WINDOWS
     width = sys_fontwidth(ebox_getfontsize((t_ebox *)x)) + 8;
 #else
     width = sys_fontwidth(ebox_getfontsize((t_ebox *)x)) + 11;

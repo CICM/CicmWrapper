@@ -244,7 +244,7 @@ void draw_background(t_incdec *x, t_object *view, t_rect *rect)
         egraphics_line_to(g, rect->width * 0.9, pd_clip_max(height * 0.9, height - 1));
         egraphics_line_to(g, rect->width * 0.5, pd_clip_min(height* 0.1, 1));
         egraphics_fill(g);
-#elif _WINDOWS_
+#elif _WINDOWS
         height = rect->height / 2. - 2;
         egraphics_move_to(g, rect->width * 0.1, pd_clip_max(height * 0.9, height - 1));
         egraphics_line_to(g, rect->width * 0.9, pd_clip_max(height * 0.9, height - 1));
@@ -270,7 +270,7 @@ void draw_background(t_incdec *x, t_object *view, t_rect *rect)
         egraphics_line_to(g, rect->width * 0.5, pd_clip_max(height * 0.9 + rect->height / 2. + 2.5, rect->height - 1));
         egraphics_fill(g);
 
-#elif _WINDOWS_
+#elif _WINDOWS
         egraphics_move_to(g, rect->width * 0.1, pd_clip_min(height * 0.1 + rect->height / 2. + 2.5, rect->height / 2. + 2.5));
         egraphics_line_to(g, rect->width * 0.9, pd_clip_min(height * 0.1 + rect->height / 2. + 2.5, rect->height / 2. + 2.5));
         egraphics_line_to(g, rect->width * 0.5, pd_clip_max(height * 0.9 + rect->height / 2. + 2.5, rect->height - 1));

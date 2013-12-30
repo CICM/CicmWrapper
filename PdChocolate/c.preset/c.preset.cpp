@@ -521,8 +521,8 @@ void preset_paint(t_preset *x, t_object *view)
 	t_rect rect;
 #ifdef __APPLE__
     x->j_box.b_font.c_size -= 3;
-#elif _WINDOWS_
-    x->j_box.b_font.c_size -= 1;
+#elif _WINDOWS
+    x->j_box.b_font.c_size -= 2;
 #endif
 	ebox_get_rect_for_view((t_ebox *)x, &rect);
     x->f_point_size = ebox_getfontsize((t_ebox *)x);
@@ -531,8 +531,8 @@ void preset_paint(t_preset *x, t_object *view)
     x->f_init = 1;
 #ifdef __APPLE__
     x->j_box.b_font.c_size += 3;
-#elif _WINDOWS_
-    x->j_box.b_font.c_size += 1;
+#elif _WINDOWS
+    x->j_box.b_font.c_size += 2;
 #endif
 }
 

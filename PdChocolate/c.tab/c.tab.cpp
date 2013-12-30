@@ -566,7 +566,7 @@ void draw_text(t_tab *x, t_object *view, t_rect *rect)
                     etext_layout_settextcolor(jtl, &x->f_color_text);
 #ifdef __APPLE__
                     etext_layout_set(jtl, x->f_items[i]->s_name, &x->j_box.b_font, rect->width * 0.5, ratio * (i + 1.) - sys_fontheight(x->j_box.b_font.c_size) * 0.5, rect->width, 0, ETEXT_CENTER, ETEXT_JCENTER, ETEXT_NOWRAP);
-#elif _WINDOWS_
+#elif _WINDOWS
                     etext_layout_set(jtl, x->f_items[i]->s_name, &x->j_box.b_font, rect->width * 0.5, ratio * (i + 1.) - sys_fontheight(x->j_box.b_font.c_size) * 0.5, rect->width, 0, ETEXT_CENTER, ETEXT_JCENTER, ETEXT_NOWRAP);
 #else
                     etext_layout_set(jtl, x->f_items[i]->s_name, &x->j_box.b_font, rect->width * 0.5, ratio * (i + 0.5), rect->width, 0, ETEXT_CENTER, ETEXT_JCENTER, ETEXT_NOWRAP);
