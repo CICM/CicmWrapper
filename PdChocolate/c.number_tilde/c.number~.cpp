@@ -163,7 +163,13 @@ void number_tilde_getdrawparams(t_number_tilde *x, t_object *patcherview, t_edra
 
 void number_tilde_oksize(t_number_tilde *x, t_rect *newrect)
 {
+#ifdef __APPLE__
     newrect->width = pd_clip_min(newrect->width, sys_fontwidth(x->j_box.b_font.c_size) * 3 + 8);
+#elif _WINDOWS_
+    newrect->width = pd_clip_min(newrect->width, sys_fontwidth(x->j_box.b_font.c_size) * 3 + 8);
+#else
+    newrect->width = pd_clip_min(newrect->width, sys_fontwidth(x->j_box.b_font.c_size) * 3 + 11);
+#endif
     newrect->height = sys_fontheight(x->j_box.b_font.c_size) + 4;
 }
 
@@ -235,9 +241,23 @@ t_pd_err number_tilde_notify(t_number_tilde *x, t_symbol *s, t_symbol *msg, void
 void number_tilde_paint(t_number_tilde *x, t_object *view)
 {
 	t_rect rect;
+#ifdef __APPLE__
     float fontwidth = sys_fontwidth(x->j_box.b_font.c_size);
+#elif _WINDOWS_
+    float fontwidth = sys_fontwidth(x->j_box.b_font.c_size);
+#else
+    float fontwidth = sys_fontwidth(x->j_box.b_font.c_size) + 3;
+#endif
+
     ebox_get_rect_for_view((t_ebox *)x, &rect);
+#ifdef __APPLE__
     x->f_max_decimal = (rect.width - fontwidth - 8) / fontwidth - 2;
+#elif _WINDOWS_
+    x->f_max_decimal = (rect.width - fontwidth - 8) / fontwidth - 2;
+#else
+    x->f_max_decimal = (rect.width - fontwidth - 11) / fontwidth + 1;
+#endif
+
     draw_background(x, view, &rect);
     draw_value(x, view, &rect);
 }

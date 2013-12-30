@@ -31,7 +31,7 @@ extern "C" {
 typedef struct _incdec
 {
 	t_ebox      j_box;
-    
+
     t_outlet*   f_out;
     float       f_increment;
     float       f_value;
@@ -40,7 +40,7 @@ typedef struct _incdec
 	t_rgba		f_color_arrow;
     int         f_mouse_down;
     char        f_setted;
-    
+
 } t_incdec;
 
 t_eclass *incdec_class;
@@ -69,11 +69,11 @@ void incdec_mouseup(t_incdec *x, t_object *patcherview, t_pt pt, long modifiers)
 extern "C" void setup_c0x2eincdec(void)
 {
 	t_eclass *c;
-    
+
 	c = eclass_new("c.incdec", (method)incdec_new, (method)incdec_free, (short)sizeof(t_incdec), 0L, A_GIMME, 0);
-    
+
 	eclass_init(c, 0);
-	
+
 	eclass_addmethod(c, (method) incdec_assist,          "assist",           A_CANT, 0);
 	eclass_addmethod(c, (method) incdec_paint,           "paint",            A_CANT, 0);
 	eclass_addmethod(c, (method) incdec_notify,          "notify",           A_CANT, 0);
@@ -86,31 +86,31 @@ extern "C" void setup_c0x2eincdec(void)
     eclass_addmethod(c, (method) incdec_dec,             "dec",              A_CANT, 0);
     eclass_addmethod(c, (method) incdec_mousedown,       "mousedown",        A_CANT, 0);
     eclass_addmethod(c, (method) incdec_mouseup,         "mouseup",          A_CANT, 0);
-    
+
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "13 20");
-	
+
     CLASS_ATTR_FLOAT                (c, "step", 0, t_incdec, f_increment);
 	CLASS_ATTR_LABEL                (c, "step", 0, "Step increment");
     CLASS_ATTR_FILTER_MIN           (c, "step", 0.);
 	CLASS_ATTR_ORDER                (c, "step", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "step", 0, "1.");
-    
+
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_incdec, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
-	
+
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_incdec, f_color_border);
 	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Box Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
-	
+
 	CLASS_ATTR_RGBA                 (c, "arcolor", 0, t_incdec, f_color_arrow);
 	CLASS_ATTR_LABEL                (c, "arcolor", 0, "Arrow Color");
 	CLASS_ATTR_ORDER                (c, "arcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "arcolor", 0, "0. 0. 0. 1.");
-	
-	
+
+
     eclass_register(CLASS_NOBOX, c);
 	incdec_class = c;
 }
@@ -122,13 +122,13 @@ void *incdec_new(t_symbol *s, int argc, t_atom *argv)
     long flags;
 	if (!(d = binbuf_via_atoms(argc,argv)))
 		return NULL;
-    
+
 	x = (t_incdec *)eobj_new(incdec_class);
     flags = 0
     | EBOX_GROWINDI
     ;
 	ebox_new((t_ebox *)x, flags);
-    
+
     x->f_value = 0.;
     x->f_mouse_down = 0;
     x->f_out = (t_outlet *)floatout(x);
@@ -219,7 +219,7 @@ void draw_background(t_incdec *x, t_object *view, t_rect *rect)
 {
     float height;
 	t_elayer *g = ebox_start_layer((t_ebox *)x, gensym("background_layer"), rect->width, rect->height);
-    
+
 	if (g)
 	{
         // Background //
@@ -229,39 +229,65 @@ void draw_background(t_incdec *x, t_object *view, t_rect *rect)
         else if(x->f_mouse_down == -1)
             egraphics_rectangle(g, 0, rect->height / 2., rect->width, rect->height);
         egraphics_fill(g);
-        
-        
+
+
         egraphics_set_color_rgba(g, &x->f_color_arrow);
-        
+
         // Arrow Up //
         if(x->f_mouse_down == 1)
             egraphics_set_color_rgba(g, &x->f_color_background);
         else
             egraphics_set_color_rgba(g, &x->f_color_arrow);
-        
+#ifdef __APPLE__
         height = rect->height / 2. - 2;
-        
         egraphics_move_to(g, rect->width * 0.1, pd_clip_max(height * 0.9, height - 1));
         egraphics_line_to(g, rect->width * 0.9, pd_clip_max(height * 0.9, height - 1));
         egraphics_line_to(g, rect->width * 0.5, pd_clip_min(height* 0.1, 1));
         egraphics_fill(g);
-        
+#elif _WINDOWS_
+        height = rect->height / 2. - 2;
+        egraphics_move_to(g, rect->width * 0.1, pd_clip_max(height * 0.9, height - 1));
+        egraphics_line_to(g, rect->width * 0.9, pd_clip_max(height * 0.9, height - 1));
+        egraphics_line_to(g, rect->width * 0.5, pd_clip_min(height* 0.1, 1));
+        egraphics_fill(g);
+#else
+        height = rect->height / 2.;
+        egraphics_move_to(g, rect->width * 0.1, pd_clip_max(height * 0.9, height - 2));
+        egraphics_line_to(g, rect->width * 0.9, pd_clip_max(height * 0.9, height - 2));
+        egraphics_line_to(g, rect->width * 0.5, pd_clip_min(height* 0.1, 1));
+        egraphics_fill(g);
+#endif
+
+
         // Arrow Down //
         if(x->f_mouse_down == -1)
             egraphics_set_color_rgba(g, &x->f_color_background);
         else
             egraphics_set_color_rgba(g, &x->f_color_arrow);
-        
+#ifdef __APPLE__
         egraphics_move_to(g, rect->width * 0.1, pd_clip_min(height * 0.1 + rect->height / 2. + 2.5, rect->height / 2. + 2.5));
         egraphics_line_to(g, rect->width * 0.9, pd_clip_min(height * 0.1 + rect->height / 2. + 2.5, rect->height / 2. + 2.5));
         egraphics_line_to(g, rect->width * 0.5, pd_clip_max(height * 0.9 + rect->height / 2. + 2.5, rect->height - 1));
         egraphics_fill(g);
-        
+
+#elif _WINDOWS_
+        egraphics_move_to(g, rect->width * 0.1, pd_clip_min(height * 0.1 + rect->height / 2. + 2.5, rect->height / 2. + 2.5));
+        egraphics_line_to(g, rect->width * 0.9, pd_clip_min(height * 0.1 + rect->height / 2. + 2.5, rect->height / 2. + 2.5));
+        egraphics_line_to(g, rect->width * 0.5, pd_clip_max(height * 0.9 + rect->height / 2. + 2.5, rect->height - 1));
+        egraphics_fill(g);
+
+#else
+        egraphics_move_to(g, rect->width * 0.1, pd_clip_min(height * 0.1 + rect->height / 2. + 1, rect->height / 2. + 2.5));
+        egraphics_line_to(g, rect->width * 0.9, pd_clip_min(height * 0.1 + rect->height / 2. + 1, rect->height / 2. + 2.5));
+        egraphics_line_to(g, rect->width * 0.5, pd_clip_max(height * 0.9 + rect->height / 2. + 1, rect->height - 1));
+        egraphics_fill(g);
+#endif
+
         // Middle Line //
         egraphics_set_color_rgba(g, &x->f_color_border);
         egraphics_set_line_width(g, 2);
         egraphics_line_fast(g, 0., rect->height / 2. + 0.5, rect->width, rect->height / 2. + 0.5);
-        
+
         ebox_end_layer((t_ebox*)x, gensym("background_layer"));
 	}
 	ebox_paint_layer((t_ebox *)x, gensym("background_layer"), 0., 0.);
