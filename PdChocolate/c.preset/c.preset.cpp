@@ -519,11 +519,21 @@ t_pd_err preset_notify(t_preset *x, t_symbol *s, t_symbol *msg, void *sender, vo
 void preset_paint(t_preset *x, t_object *view)
 {
 	t_rect rect;
+#ifdef __APPLE__
+    x->j_box.b_font.c_size -= 3;
+#elif _WINDOWS_
+    x->j_box.b_font.c_size -= 1;
+#endif
 	ebox_get_rect_for_view((t_ebox *)x, &rect);
     x->f_point_size = ebox_getfontsize((t_ebox *)x);
     draw_background(x, view, &rect);
     x->f_init = 1;
     x->f_init = 1;
+#ifdef __APPLE__
+    x->j_box.b_font.c_size += 3;
+#elif _WINDOWS_
+    x->j_box.b_font.c_size += 1;
+#endif
 }
 
 void draw_background(t_preset *x, t_object *view, t_rect *rect)

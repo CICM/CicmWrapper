@@ -4,12 +4,11 @@
 #X obj 33 75 - 1;
 #X obj 33 6 loadbang;
 #X text -37 -68 A toggle... that's all.;
-#X obj 33 46 c.toggle @size 15 15 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @presetname chocogll
-@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5 0.5 0.5
-1;
-#X obj 33 108 c.toggle @size 45 45 @fontname helvetica @fontweight
-normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+#X obj 33 46 c.toggle @size 15 15 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @idname (null) @presetname chocogll @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5 0.5 0.5 1;
+#X obj 33 108 c.toggle @size 45 45 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5 0.5 0.5
 1;
 #X text 44 169 Chocolate by Pierre Guillot | CICM - Université Paris

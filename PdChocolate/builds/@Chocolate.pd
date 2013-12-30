@@ -1,4 +1,4 @@
-#N canvas 185 173 1131 507 10;
+#N canvas 199 63 1131 507 10;
 #X obj -39 -85 cnv 40 552 40 empty empty Chocolate 3 12 0 18 -228856
 -33289 0;
 #X msg 637 -3 attrprint;
@@ -11,11 +11,11 @@ normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
 #X obj 192 48 c.incdec @size 15 15 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @idname (null) @step 1 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @arcolor 0 0 0 1;
-#X obj -13 39 c.number~ @size 53 14 @fontname Helvetica @fontweight
+#X obj -13 39 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @idname (null) @interval 50 @decimal
 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
 1;
-#X obj 146 182 c.number @size 53 14 @fontname Helvetica @fontweight
+#X obj 146 182 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
 @min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
@@ -45,7 +45,7 @@ normal @fontslant roman @fontsize 11 @idname (null) @presetname chocogll
 normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
 @mode 0 @min 0 @max 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
 1 @kncolor 0.5 0.5 0.5 1;
-#X obj 266 322 c.menu @size 100 14 @fontname Helvetica @fontweight
+#X obj 266 322 c.menu @size 100 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
 @hover 0 @items chocolate @states 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
@@ -112,14 +112,14 @@ normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
 #X text -15 17 c.number~;
 #X text 43 393 Chocolate by Pierre Guillot - CICM | Université Paris
 8;
-#X text 349 92 -The Popup menu (for attributes and help) is only available
-with the "edit mode";
 #X text 349 20 - The inlets and outlets are hidden with the "run mode".
 ;
-#X text 349 46 - Drag the border or the corner of the box to resize
-the objects. Sometimes the width or the height depends of the font
-size.;
 #X text 349 122 - Some objects are very similar to the vanilla ones
 but they're compatible with the preset and will be a part of a global
 system to write time events.;
+#X text 349 46 - Drag the border (bottom or right) or the corner (bottom-right)
+of the box to resize the objects. Sometimes the width or the height
+depends of the font size.;
+#X text 349 92 -The popup menu (for attributes and help) is only available
+with the "edit mode";
 #X connect 19 0 18 0;

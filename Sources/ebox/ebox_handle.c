@@ -715,7 +715,7 @@ t_pd_err ebox_set_fontsize(t_ebox *x, t_object *attr, long argc, t_atom *argv)
     }
     else
         x->b_font.c_sizereal = 11;
-#ifdef _APPLE_
+#ifdef __APPLE__
     x->b_font.c_size = x->b_font.c_sizereal;
 #elif   _WINDOWS_
     x->b_font.c_size = x->b_font.c_sizereal- 1;
