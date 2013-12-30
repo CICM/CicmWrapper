@@ -1,0 +1,92 @@
+#N canvas 90 129 995 488 10;
+#X msg 302 119 \; pd dsp 0;
+#X msg 368 120 \; pd dsp 1;
+#X obj -15 -174 cnv 40 552 40 empty empty c.scope~ 3 12 0 18 -228856
+-33289 0;
+#X obj 22 -11 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 148 -11 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min 8 @max 8092 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 272 -11 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min 8 @max 8092 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 272 20 bufsig \$1;
+#X msg 148 20 bufdis \$1;
+#X obj 22 83 c.scope~ @size 200 150 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @bufdis 1024 @bufsig
+1024 @range -1 1 @xymode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @sicolor 0 0.6 0 0.8;
+#X msg 374 53 range \$1 \$2;
+#X obj 374 -11 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 431 -11 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 22 20 osc~ 114.8;
+#X text 133 -85 The size of the;
+#X text 133 -73 buffer to display;
+#X text 263 -85 The size of the;
+#X text 263 -73 signal buffer;
+#X text 373 -85 The range to display;
+#X text 372 -73 (minimum and maximum);
+#X text -12 -152 An oscilloscope;
+#X obj 549 83 c.scope~ @size 200 150 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @bufdis 1024 @bufsig
+1024 @range -1 1 @xymode 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @sicolor 0 0.6 0 0.8;
+#X obj 549 28 osc~ 440;
+#X obj 549 49 *~ 0.75;
+#X obj 549 7 c.number @size 53 17 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @idname (null) @presetname (null) @min
+(null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 744 49 *~ 0.75;
+#X obj 744 7 c.number @size 53 17 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @idname (null) @presetname (null) @min
+(null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 744 28 osc~ 780;
+#X text 610 10 Oscilloscope with;
+#X text 610 23 two signals (xymode);
+#X text -14 -131 c.scope~ displays the waveform of a signal.;
+#X obj 22 -46 c.loadmess 126;
+#X obj 148 -46 c.loadmess 1024;
+#X obj 374 -46 c.loadmess -1;
+#X obj 374 21 c.pak -1 1;
+#X obj 431 -46 c.loadmess 1;
+#X text 157 259 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X obj 549 -28 c.loadmess 585;
+#X obj 744 -28 c.loadmess 780.1;
+#X text 765 193 3D Bretzel...;
+#X connect 3 0 12 0;
+#X connect 4 0 7 0;
+#X connect 5 0 6 0;
+#X connect 6 0 8 0;
+#X connect 7 0 8 0;
+#X connect 9 0 8 0;
+#X connect 10 0 33 0;
+#X connect 11 0 33 1;
+#X connect 12 0 8 0;
+#X connect 21 0 22 0;
+#X connect 22 0 20 0;
+#X connect 23 0 21 0;
+#X connect 24 0 20 1;
+#X connect 25 0 26 0;
+#X connect 26 0 24 0;
+#X connect 30 0 3 0;
+#X connect 31 0 4 0;
+#X connect 31 0 5 0;
+#X connect 32 0 10 0;
+#X connect 33 0 9 0;
+#X connect 34 0 11 0;
+#X connect 36 0 23 0;
+#X connect 37 0 25 0;

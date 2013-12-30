@@ -1,0 +1,32 @@
+#N canvas 690 40 625 321 10;
+#X obj -100 -132 cnv 40 552 40 empty empty c.bang 3 12 0 18 -228856
+-33289 0;
+#X text -97 -110 A bang... that's all.;
+#X obj -51 -13 delay 500;
+#X obj -51 -43 c.bang @size 16 16 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj -51 53 delay 500;
+#X obj -51 23 c.bang @size 16 16 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 77 53 delay 500;
+#X obj 77 23 c.bang @size 16 16 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 77 -13 delay 500;
+#X obj 77 -43 c.bang @size 16 16 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X text -16 127 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X text -99 -88 c.bang do nothing more than vanilla bang for the moment...
+;
+#X connect 2 0 5 0;
+#X connect 3 0 2 0;
+#X connect 4 0 7 0;
+#X connect 5 0 4 0;
+#X connect 6 0 9 0;
+#X connect 7 0 6 0;
+#X connect 8 0 3 0;
+#X connect 9 0 8 0;

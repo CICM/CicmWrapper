@@ -1,0 +1,90 @@
+#N canvas 192 140 690 619 10;
+#X obj -25 -94 cnv 40 552 40 empty empty c.menu 3 12 0 18 -228856 -33289
+0;
+#X msg -11 147 set \$1;
+#X msg 291 48 append 17;
+#X msg -11 147 set \$1;
+#X text -22 -72 A menu that display a list of items;
+#X text 88 26 Selection;
+#X text 340 -13 Edition;
+#X msg 172 92 Jimi Hendrix;
+#X obj 106 186 c.menu @size 100 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@hover 0 @items 'Jimi Hendrix' 'Janis Joplin' 'John Lennon' 'Jim Morisson'
+@states 0 0 0 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X msg 106 59 set Janis Joplin;
+#X obj 106 284 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj -11 113 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 0 @max 3 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 50 90 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+0 @max 3 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @textcolor 0 0 0 1;
+#X msg 201 283 Jimi Hendrix;
+#X obj 315 187 c.menu @size 99 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @hover
+0 @items 'in America' 'in the West' @states 0 0 @bgcolor 0.75 0.75
+0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 462 154 clear;
+#X obj 315 284 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 0 @max 4.29497e+09 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 410 282 Once upon a time in America;
+#X msg 251 21 append in Paris \, append in L.A.;
+#X msg 377 86 insert 1 in Tokyo;
+#X msg 401 127 delete 2;
+#X obj 500 89 c.toggle @size 15 15 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5 0.5 0.5
+1;
+#X msg 500 125 state 0 \$1;
+#X msg 369 51 setitem 2 in Mumbai;
+#X obj 92 353 c.menu @size 151 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @hover
+0 @items 'Sunday Morning' 'I m Waiting For The Man' 'Femme Fatale'
+'Venus In Furs' 'Run Run Run' @states 0 0 0 0 0 @bgcolor 0.75 0.75
+0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 161 319 Mousing : Click or Hover;
+#X obj 262 353 c.menu @size 175 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@hover 1 @items 'All Tomorrow' Heroin 'There She Goes' 'I ll Be Your miror'
+'The Black Angel Death Song' 'European Son' @states 0 0 0 0 0 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 460 335 Note that you can use the;
+#X text 460 345 inspector to edit the tab.;
+#X text 460 355 Don't forget that ' and ";
+#X text 460 365 are the separators.;
+#X text -24 -51 c.menu displays a list of item and offers several interactions.
+;
+#X obj -11 49 c.loadmess 2;
+#X obj 201 253 c.prepend set;
+#X obj 410 235 c.prepend set Once upon a time;
+#X text 76 484 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X connect 1 0 8 0;
+#X connect 2 0 14 0;
+#X connect 7 0 8 0;
+#X connect 8 0 10 0;
+#X connect 8 1 33 0;
+#X connect 9 0 8 0;
+#X connect 11 0 1 0;
+#X connect 12 0 8 0;
+#X connect 14 0 16 0;
+#X connect 14 1 34 0;
+#X connect 15 0 14 0;
+#X connect 18 0 14 0;
+#X connect 19 0 14 0;
+#X connect 20 0 14 0;
+#X connect 21 0 22 0;
+#X connect 22 0 14 0;
+#X connect 23 0 14 0;
+#X connect 32 0 11 0;
+#X connect 33 0 13 0;
+#X connect 34 0 17 0;

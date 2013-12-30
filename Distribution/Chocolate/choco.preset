@@ -1,0 +1,27 @@
+@preset [ @index 0 @chococ.plane c.plane list 1 1 @choconum c.number
+float -52.845 @choc.colorpanel c.colorpanel list 0 0 @chocoslidr c.slider
+float 0.133333 @chocodio c.radio list 1 1 0 0 0 0 0 0 @chocomenu c.menu
+float 0 @chocopoints c.breakpoints function 83.9695 0 190.84 1 335.878
+0 564.885 0.866667 564.885 0 @index 1 @chococ.plane c.plane list -0.592593
+-0.740741 @choconum c.number float -1.345 @choc.colorpanel c.colorpanel
+list 0 2 @chocoslidr c.slider float 0.725 @chocodio c.radio list 1
+1 1 0 0 0 0 0 @chocomenu c.menu float 1 @chocopoints c.breakpoints
+function 0 0.933333 198.473 0 488.55 0.866667 832.061 0.766667 1000
+0 @index 2 @chococ.plane c.plane list -1 0.851852 @choconum c.number
+float 50.155 @choc.colorpanel c.colorpanel list 1 0 @chocoslidr c.slider
+float 0.175 @chocodio c.radio list 0 1 1 1 0 0 0 0 @chocomenu c.menu
+float 0 @chocopoints c.breakpoints function 0 0.933333 396.947 0 488.55
+0.866667 541.985 0 1000 1 @index 3 @chococ.plane c.plane list -1 -0.166667
+@choconum c.number float 80.155 @choc.colorpanel c.colorpanel list
+1 1 @chocoslidr c.slider float 0.475 @chocodio c.radio list 0 0 1 1
+1 0 0 0 @chocomenu c.menu float 1 @chocopoints c.breakpoints function
+0 0 213.74 0 488.55 0.866667 694.656 0 1000 0 @index 4 @chococ.plane
+c.plane list -1 -1 @choconum c.number float 100.155 @choc.colorpanel
+c.colorpanel list 1 2 @chocoslidr c.slider float 0.725 @chocodio c.radio
+list 0 0 0 1 1 1 0 0 @chocomenu c.menu float 2 @chocopoints c.breakpoints
+function 0 0.666667 213.74 0 564.885 0 694.656 0 1000 0.533333 @index
+5 @chococ.plane c.plane list -0.0740741 -1 @choconum c.number float
+3100.16 @choc.colorpanel c.colorpanel list 1 3 @chocoslidr c.slider
+float 0.866667 @chocodio c.radio list 0 0 0 0 1 1 1 0 @chocomenu c.menu
+float 3 @chocopoints c.breakpoints function 7.63359 1 374.046 0.5 442.748
+0 702.29 0.633333 954.198 1 ] 

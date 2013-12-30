@@ -1,0 +1,63 @@
+#N canvas 90 129 587 438 10;
+#X obj -49 -122 cnv 40 552 40 empty empty c.slider 3 12 0 18 -228856
+-33289 0;
+#X obj -12 165 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 13 55 the same behavior as;
+#X text 13 81 Except that the default;
+#X text 13 94 range are 0 and 1;
+#X obj -12 -3 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min 0 @max 1 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 203 53 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 202 -28 mousing behavior and;
+#X text 202 -15 reversed minimum and maximum;
+#X obj 349 196 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 349 130 set \$1;
+#X obj 349 106 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj -12 24 c.slider @size 15 120 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@mode 0 @min 0 @max 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @kncolor 0.5 0.5 0.5 1;
+#X obj 203 10 c.slider @size 120 15 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@mode 1 @min 3.6 @max -2.7 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 349 159 c.slider @size 120 15 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname chocoslidr
+@mode 0 @min 0 @max 127 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 307 121 c.bang @size 16 16 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj -12 -34 c.loadmess 0.3;
+#X obj 349 78 c.loadmess 80;
+#X text -37 260 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X text -47 -100 A horizontal or vertical slider;
+#X text -48 -79 c.slider is the chocolate counterpart of the vanilla
+hslider or vslider.;
+#X text 13 68 hslider or vslider.;
+#X text 13 42 c.slider have exactly;
+#X text 202 -41 c.slider with a relative;
+#X connect 5 0 12 0;
+#X connect 10 0 14 0;
+#X connect 11 0 10 0;
+#X connect 12 0 1 0;
+#X connect 13 0 6 0;
+#X connect 14 0 9 0;
+#X connect 15 0 14 0;
+#X connect 16 0 5 0;
+#X connect 17 0 11 0;

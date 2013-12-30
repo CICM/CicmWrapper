@@ -3,7 +3,7 @@
 
 ##### Presentation
 
-Pd Enhanced aims to facilitate the creation of objects for Pure Data. One of the main axis is the creation of graphical user interfaces and signal processing. Pd Chocolate and Pd Coffe are externals libraries not essential but very useful.
+Pd Enhanced aims to facilitate the creation of objects for Pure Data. One of the main axis is the creation of graphical user interfaces and signal processing. Pd Chocolate and Pd Coffee are externals libraries not essential but very useful.
 
 - The inlets/outlets are automatically generated.
 - The background color, border size, border color are easy to set.

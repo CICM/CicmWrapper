@@ -1,0 +1,113 @@
+#N canvas 146 83 1102 532 10;
+#X obj -25 -164 cnv 40 552 40 empty empty c.breakpoints 3 12 0 18 -228856
+-33289 0;
+#X msg 37 29 erase;
+#X msg 29 2 remove 2;
+#X obj 6 134 c.breakpoints @size 200 100 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@absrange 0 1000 @ordrange 0 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @ptcolor 0.5 0.5 0.5 1 @licolor 0 0 0 1 @textcolor 0 0 0
+1 @points 0 0 0 0 0 0 1 0 183.673 0.518519 370 0.87 650 0.81 1000 0.0493827
+;
+#X obj 326 224 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 326 -47 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 353 -18 c.bang @size 16 16 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X text -22 -142 A GUI to edit a breakpoint function;
+#X msg 6 -48 add 733 0.1;
+#X text 87 -48 Add a breakpoint (x \, y);
+#X text 88 2 remove a breakpoint (index);
+#X msg 22 -23 move 4 \$1 \$2;
+#X text 107 -25 Move a breakpoint (index x \, y);
+#X text 78 29 Erase all;
+#X text 2 239 Click and drag on a breakpoint to move it;
+#X obj 326 86 c.breakpoints @size 200 100 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@absrange 0 1000 @ordrange 0 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @ptcolor 0.5 0.5 0.5 1 @licolor 0 0 0 1 @textcolor 0 0 0
+1 @points 0 0 204.082 0.481481 392.857 0.814815 556.122 0.493827 714.286
+0.876543 714.286 0.506173 882.653 0.432099 1000 0 1000 0 1000 0;
+#X text 347 -72 Play;
+#X text 17 -72 Edit;
+#X text 386 -53 Output the interpolated ordinate;
+#X obj 423 221 line;
+#X obj 423 244 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 521 246 0 0 0.839506 229.592 0.39 255 0.19 375 0.67 450 0.2
+490 0.47 530 0.85 555 0.71 675 0.34 740 0.59 910;
+#X msg 387 50 getlist;
+#X text 376 -14 for a line or line~ object;
+#X text 376 -24 Output several formatted lists;
+#X text 438 50 Output the function as one list;
+#X obj 661 134 c.breakpoints @size 200 100 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@absrange 0 1000 @ordrange -1 2 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @ptcolor 0.5 0.5 0.5 1 @licolor 0 0 0 1 @textcolor 0
+0 0 1 @points 0 2 122.449 0.888889 316.327 0 785.714 -0.925926 989.796
+-1;
+#X msg 661 -70 absrange 0 1000;
+#X text 760 -71 Change the abscissa range;
+#X msg 681 -49 absrange 0 2000;
+#X msg 691 -20 ordrange 0 1;
+#X msg 711 1 ordrange -1 2;
+#X text 770 -20 Change the ordinate range;
+#X text 682 -94 Some Properties;
+#X text 812 30 Change the abscissa range;
+#X text 843 80 Change the ordinate range;
+#X msg 741 51 scaleabs 0 2000;
+#X msg 721 30 scaleabs 0 500;
+#X msg 751 80 scaleord 0 1.5;
+#X msg 771 101 scaleord -1 -0.2;
+#X text 842 40 and retain the;
+#X text 842 50 function shape;
+#X text 877 90 and retain the;
+#X text 877 100 function shape;
+#X msg 372 6 next;
+#X text 410 6 Output the next breakpoint;
+#X msg 382 28 prev;
+#X text 420 28 Output the previous breakpoint;
+#X text 386 -43 for an abscissa (here \, between 0 - 1000);
+#X text 2 259 Click with shift to create a breakpoint;
+#X msg 47 54 write;
+#X text 88 54 Write function in a file;
+#X msg 57 84 read;
+#X text 98 84 Read function from a file;
+#X obj 521 203 c.prepend set;
+#X text 174 328 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X text -24 -121 c.breakpoints allows to create a breakpoint function
+and to use it for line.;
+#X text 2 279 Click with ctrl to remove a breakpoint;
+#X connect 1 0 3 0;
+#X connect 2 0 3 0;
+#X connect 5 0 15 0;
+#X connect 6 0 15 0;
+#X connect 8 0 3 0;
+#X connect 11 0 3 0;
+#X connect 15 0 4 0;
+#X connect 15 1 19 0;
+#X connect 15 2 54 0;
+#X connect 19 0 20 0;
+#X connect 22 0 15 0;
+#X connect 27 0 26 0;
+#X connect 29 0 26 0;
+#X connect 30 0 26 0;
+#X connect 31 0 26 0;
+#X connect 36 0 26 0;
+#X connect 37 0 26 0;
+#X connect 38 0 26 0;
+#X connect 39 0 26 0;
+#X connect 44 0 15 0;
+#X connect 46 0 15 0;
+#X connect 50 0 3 0;
+#X connect 52 0 3 0;
+#X connect 54 0 21 0;

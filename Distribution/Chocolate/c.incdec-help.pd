@@ -1,0 +1,56 @@
+#N canvas 187 175 625 455 10;
+#X obj -35 -104 cnv 40 552 40 empty empty c.incdec 3 12 0 18 -228856
+-33289 0;
+#X msg 231 31 set \$1;
+#X text -32 -82 A GUI to increment and decrement a value;
+#X text -34 -61 c.incdec increment and decrement a value without stack
+overflow.;
+#X text 291 39 Output the value;
+#X text 77 -18 Set and output the value;
+#X msg 22 95 step \$1;
+#X text 0 29 Set the increment step;
+#X msg 340 99 inc;
+#X msg 332 139 dec;
+#X text 371 97 Increment;
+#X text 366 140 Decrement;
+#X text -28 178 to the c.incdec input and the;
+#X text -28 192 c.incdec output is connected;
+#X obj 195 198 c.incdec @size 17 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @step 0.3875
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @arcolor 0 0 0 1;
+#X obj 215 198 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 22 72 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+(null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 130 4 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+(null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 231 4 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+(null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 320 59 c.bang @size 16 16 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X text -27 206 to the number input.;
+#X text -27 164 c.number output is connected;
+#X obj 22 47 c.loadmess 0.35;
+#X text 230 -18 Set the value withpout output.;
+#X text -23 278 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X connect 1 0 14 0;
+#X connect 6 0 14 0;
+#X connect 8 0 14 0;
+#X connect 9 0 14 0;
+#X connect 14 0 15 0;
+#X connect 15 0 14 0;
+#X connect 16 0 6 0;
+#X connect 17 0 14 0;
+#X connect 18 0 1 0;
+#X connect 19 0 14 0;
+#X connect 22 0 16 0;

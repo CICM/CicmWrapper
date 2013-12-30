@@ -1,0 +1,89 @@
+#N canvas 231 183 729 408 10;
+#X obj -25 -74 cnv 40 552 40 empty empty c.patcherargs 3 12 0 18 -228856
+-33289 0;
+#X obj 57 21 c.bang @size 16 16 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 348 117 c.bang @size 16 16 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X text -22 -52 An object that retrieve the patcher arguments.;
+#X text 55 136 The argument list;
+#N canvas 555 449 615 248 This 0;
+#X obj 57 42 c.patcherargs;
+#X obj 155 42 c.patcherargs @movie;
+#X obj 286 42 c.patcherargs @maker;
+#X obj 415 42 c.patcherargs @actors;
+#X obj 57 69 c.prepend set;
+#X obj 213 69 c.prepend set;
+#X obj 344 69 c.prepend set;
+#X obj 476 69 c.prepend set;
+#X obj 57 17 c.bang @size 16 16 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X msg 57 105;
+#X msg 213 105;
+#X msg 344 105;
+#X msg 476 105;
+#X connect 0 0 4 0;
+#X connect 1 1 5 0;
+#X connect 2 1 6 0;
+#X connect 3 1 7 0;
+#X connect 4 0 9 0;
+#X connect 5 0 10 0;
+#X connect 6 0 11 0;
+#X connect 7 0 12 0;
+#X connect 8 0 0 0;
+#X connect 8 0 1 0;
+#X connect 8 0 2 0;
+#X connect 8 0 3 0;
+#X restore 56 196 pd This is a movie-patcher @movie 8.5 @maker Fellini
+@actors Mastroianni and AimÃ©e;
+#N canvas 242 569 615 248 This 0;
+#X obj 217 79 route movie maker actors;
+#X obj 57 42 c.patcherargs This is a movie-patcher ! @movie Teorema
+@maker Pasolini @actors Stamp & Mangano & Girotti;
+#X obj 217 115 c.prepend set;
+#X obj 307 115 c.prepend set;
+#X obj 396 115 c.prepend set;
+#X obj 57 77 c.prepend set;
+#X obj 58 21 c.bang @size 16 16 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X msg 57 115;
+#X msg 217 145;
+#X msg 307 145;
+#X msg 396 145;
+#X connect 0 0 2 0;
+#X connect 0 1 3 0;
+#X connect 0 2 4 0;
+#X connect 1 0 5 0;
+#X connect 1 1 0 0;
+#X connect 2 0 8 0;
+#X connect 3 0 9 0;
+#X connect 4 0 10 0;
+#X connect 5 0 7 0;
+#X connect 6 0 1 0;
+#X restore 57 240 pd This is a movie-patcher;
+#X text 428 202 Example with defined attributes;
+#X text 218 242 Example with default arguments and attributes;
+#X obj 57 52 c.patcherargs Once upon a time @where in the west;
+#X obj 57 79 c.prepend set;
+#X obj 202 79 c.prepend set;
+#X text -13 308 Coffee by Pierre Guillot | CICM - Université Paris
+8;
+#X msg 202 115;
+#X text 85 22 Bang or double click;
+#X text -24 -31 c.patcherargs retrieves the arguments and the attributes
+of a patcher. It can have default arguments and attributes that will
+be output the patcher don't have arguments or attributes.;
+#X text 336 136 Bang when the arguments and;
+#X text 336 146 the attributes has been read;
+#X text 194 136 The attribute list;
+#X msg 57 115;
+#X connect 1 0 9 0;
+#X connect 9 0 10 0;
+#X connect 9 1 11 0;
+#X connect 9 2 2 0;
+#X connect 10 0 19 0;
+#X connect 11 0 13 0;

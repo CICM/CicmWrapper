@@ -344,7 +344,7 @@
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../../SDKs/MaxSDK-6.1.1/c74support";
 				"HEADER_SEARCH_PATHS[arch=*]" = "";
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				SDKROOT = macosx;
 			};
 			name = Release;

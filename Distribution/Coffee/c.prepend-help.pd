@@ -1,0 +1,42 @@
+#N canvas 382 258 735 420 10;
+#X obj -135 -73 cnv 40 552 40 empty empty c.prepend 3 12 0 18 -228856
+-33289 0;
+#X text 205 274 Futher information about chocolate;
+#X obj 200 71 c.bang @size 16 16 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X text -134 -51 Prepend a float \, symbol or list to a message;
+#X symbolatom 62 70 10 0 0 0 - - -;
+#X msg 350 69 2 3 5 8 13;
+#X msg -93 45 set He's;
+#X msg -93 75 set You're;
+#X text -122 16 Change the prepend message;
+#X text 19 46 Send a symbol or a float;
+#X text 181 46 Send a bang;
+#X text 342 46 Send a list;
+#X msg 62 203 He's your father;
+#X msg -93 105 set We are;
+#X obj 62 142 c.prepend I'm;
+#X obj 62 168 c.prepend set;
+#X obj 200 142 c.prepend bim bam boum;
+#X obj 200 168 c.prepend set;
+#X obj 350 142 c.prepend 1;
+#X obj 350 168 c.prepend set;
+#X text -123 308 Coffee by Pierre Guillot | CICM - Université Paris
+8;
+#X text -134 -31 c.prepend is the coffe counterpart of the vanilla
+list trim combined with list prepend.;
+#X msg 200 203;
+#X msg 350 203;
+#X connect 2 0 16 0;
+#X connect 4 0 14 0;
+#X connect 5 0 18 0;
+#X connect 6 0 14 0;
+#X connect 7 0 14 0;
+#X connect 13 0 14 0;
+#X connect 14 0 15 0;
+#X connect 15 0 12 0;
+#X connect 16 0 17 0;
+#X connect 17 0 22 0;
+#X connect 18 0 19 0;
+#X connect 19 0 23 0;

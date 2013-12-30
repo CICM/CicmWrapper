@@ -1,0 +1,51 @@
+#N canvas 319 169 620 444 10;
+#X text 149 49 Drag the c.number.;
+#X text 149 89 Use shift to increase the precision.;
+#X msg 63 60 set \$1;
+#X text 149 149 Press esc to avoid the change.;
+#X obj -40 -137 cnv 40 552 40 empty empty c.number 3 12 0 18 -228856
+-33289 0;
+#X obj -7 108 c.number @size 84 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj -7 187 c.number @size 62 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 63 27 c.number @size 53 17 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @idname (null) @presetname (null) @min
+(null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 149 69 The precision depends on where the user drag.;
+#X obj 319 36 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min 3 @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 314 7 Minimum value;
+#X obj 416 37 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max -10 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 411 8 Maximum value;
+#X obj -30 49 c.bang @size 16 16 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X text -37 -115 A number box with another dragging behavior.;
+#X obj -7 -16 c.loadmess -3.14169;
+#X text -33 238 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X text -39 -93 c.number is the chocolate counterpart of the vanilla
+nbx.;
+#X text 149 109 Double click to write the number.;
+#X text 149 129 Press enter or tab to valid the number.;
+#X text 149 168 Press the up arrow or the down arrow to increment or
+decrement by 1;
+#X text 150 211 Note that you need to keep the mouse over the object
+!;
+#X connect 2 0 5 0;
+#X connect 5 0 6 0;
+#X connect 7 0 2 0;
+#X connect 13 0 5 0;
+#X connect 15 0 5 0;
+#X connect 15 0 7 0;

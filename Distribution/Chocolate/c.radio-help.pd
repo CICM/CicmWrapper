@@ -1,0 +1,54 @@
+#N canvas 520 205 587 422 10;
+#X obj -49 -106 cnv 40 552 40 empty empty c.radio 3 12 0 18 -228856
+-33289 0;
+#X obj -19 168 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 236 238 1 0 1 0 0;
+#X obj -19 88 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min 0 @max 7 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X msg 55 87 set \$1;
+#X obj 55 48 c.number @size 53 17 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @idname (null) @presetname (null) @min
+0 @max 7 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @textcolor 0 0 0 1;
+#X text -47 -84 A check list or radio buttons;
+#X text -21 -5 Radio button mode;
+#X text 234 -30 Check list mode;
+#X msg 236 30 1 0 1 0 0;
+#X msg 316 0 0 1 0 1 1;
+#X obj 236 0 loadbang;
+#X obj 197 32 c.bang @size 16 16 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 236 93 c.radio @size 16 80 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @idname (null) @presetname chocolist
+@nitems 5 @mode 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1
+@itcolor 0.5 0.5 0.5 1;
+#X obj -19 129 c.radio @size 140 16 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname chocodio
+@nitems 8 @mode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1
+@itcolor 0.5 0.5 0.5 1;
+#X obj -19 19 c.loadmess 0;
+#X obj 316 30 c.prepend set;
+#X obj 236 208 c.prepend set;
+#X text -37 276 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X text -48 -63 c.radio is the chocolate counterpart of the vanilla
+hradio or vradio.;
+#X connect 3 0 14 0;
+#X connect 4 0 14 0;
+#X connect 5 0 4 0;
+#X connect 9 0 13 0;
+#X connect 10 0 16 0;
+#X connect 11 0 9 0;
+#X connect 12 0 13 0;
+#X connect 13 0 17 0;
+#X connect 14 0 1 0;
+#X connect 15 0 3 0;
+#X connect 15 0 5 0;
+#X connect 16 0 13 0;
+#X connect 17 0 2 0;

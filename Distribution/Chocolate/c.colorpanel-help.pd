@@ -1,0 +1,96 @@
+#N canvas 189 170 789 534 10;
+#X obj -155 -94 cnv 40 552 40 empty empty c.colorpanel 3 12 0 18 -228856
+-33289 0;
+#X obj 362 49 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 0 @max 1 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X msg 362 77 lightness \$1;
+#X obj 362 105 c.colorpanel @size 201 14 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@matrix 20 1 @reverse 0 @saturation 1 @hue 0 @lightness 0.75 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X msg 361 263 hue \$1;
+#X obj 361 238 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 0 @max 1 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 427 238 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 0 @max 1 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X msg 427 263 saturation \$1;
+#X obj 361 308 c.colorpanel @size 201 14 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@matrix 20 1 @reverse 1 @saturation 0 @hue 0.33 @lightness 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X msg -45 257 0.666667 0.75 1;
+#X msg 109 257 0.625 1 0.833333;
+#X obj -45 23 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 0 @max 4.29497e+09 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 6 23 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+0 @max 4.29497e+09 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj -137 295 c.plane @size 85 85 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@bound -1 -1 1 1 @ptsize 5 @bgcolor 0.666667 0.75 1 0 @bdcolor 0.5
+0.5 0.5 1 @ptcolor 0.666667 0.75 1 0;
+#X obj -45 94 c.colorpanel @size 313 131 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@matrix 24 13 @reverse 0 @saturation 1 @hue 0 @lightness 1 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#N canvas 955 409 450 300 colorc.plane 0;
+#X obj 100 49 inlet;
+#X obj 99 177 outlet;
+#X msg 99 84 bgcolor \$1 \$2 \$3;
+#X msg 206 85 ptcolor \$1 \$2 \$3;
+#X connect 0 0 2 0;
+#X connect 0 0 3 0;
+#X connect 2 0 1 0;
+#X connect 3 0 1 0;
+#X restore -137 264 pd colorc.plane;
+#X text -46 276 RGB color;
+#X text 107 276 HSL color;
+#X text 260 276 HEX color;
+#X text -48 -1 Select a color with column and row;
+#X text 88 65 Click to pick a color;
+#X text 367 27 Change the lighness :;
+#X text 359 155 The matrix is reversed and;
+#X text 378 213 and the saturation :;
+#X text 378 203 Change the lighness;
+#X msg 263 257 #AABFFF;
+#X text -152 -72 A GUI to pick color;
+#X text 359 -13 The number of row is equal to 1;
+#X text 359 165 the number of row is equal to 1;
+#X text -154 -51 c.colorpanel displays several colors and allows you
+to pick them.;
+#X obj -45 232 c.prepend set;
+#X obj 109 232 c.prepend set;
+#X obj 263 232 c.prepend set;
+#X obj 361 185 c.loadmess 0.33;
+#X obj 362 8 c.loadmess 0.75;
+#X obj -45 66 c.pak 0 0;
+#X text -12 391 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 4 0 8 0;
+#X connect 5 0 4 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 11 0 35 0;
+#X connect 12 0 35 1;
+#X connect 14 0 15 0;
+#X connect 14 0 30 0;
+#X connect 14 1 31 0;
+#X connect 14 2 32 0;
+#X connect 15 0 13 0;
+#X connect 30 0 9 0;
+#X connect 31 0 10 0;
+#X connect 32 0 25 0;
+#X connect 33 0 5 0;
+#X connect 34 0 1 0;
+#X connect 35 0 14 0;

@@ -1,0 +1,91 @@
+#N canvas 301 82 896 499 10;
+#X obj -125 -186 cnv 40 552 40 empty empty c.tab 3 12 0 18 -228856
+-33289 0;
+#X msg 123 -35 set \$1;
+#X msg 345 -64 append 17;
+#X text -42 -115 Selection;
+#X text 330 -115 Edition;
+#X obj -34 44 c.tab @size 196 34 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @idname (null) @presetname (null) @orientation
+1 @toggle 1 @items 'in America' 'in the West' @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1
+@secolor 0.35 0.35 0.35 1;
+#X obj -34 142 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 123 -66 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min 0 @max 1 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj -90 -52 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min 0 @max 3 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X msg 460 165 Jim Morisson;
+#X obj 305 45 c.tab @size 314 32 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @idname (null) @presetname (null) @orientation
+0 @toggle 0 @items 'Jimi Hendrix' 'Janis Joplin' 'John Lennon' 'Jim Morisson'
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1
+@hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35 0.35 1;
+#X msg 516 12 clear;
+#X obj 305 122 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min 0 @max (null) @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 61 215 Once upon a time in the West;
+#X msg 455 -5 delete 2;
+#X text 562 13 Tab with an horizontal;
+#X text 562 23 orientation in "bang" mode.;
+#X text 30 13 Tab with an vertcial;
+#X text 30 23 orientation in "toggle" mode.;
+#X obj 157 140 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 299 150 Clicked index;
+#X text 458 188 Clicked item;
+#X text 149 164 Hover index;
+#X text 609 136 Hover index;
+#X text -40 170 Selected index;
+#X obj 614 114 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 376 215 Note that you can use the inspector to edit the tab.
+;
+#X text 376 225 Don't forget that ' and " are the separators.;
+#X obj 460 133 c.prepend set;
+#X obj 61 188 c.prepend set Once upon a time;
+#X text 96 278 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X obj 123 -100 c.loadmess 1;
+#X text 50 239 Selected item;
+#X msg 431 -30 insert 1 Lou Reed;
+#X msg 423 -61 setitem 2 Bob Dylan;
+#X msg 305 -91 append Pete TownShend \, append David Gilmour;
+#X msg -34 -91 set in the West;
+#X msg 9 -50 "in America";
+#X text -122 -164 A multiple text buttons or text toogles menu;
+#X text -124 -143 c.tab displays a list of text buttons or text toggles.
+;
+#X connect 1 0 5 0;
+#X connect 2 0 10 0;
+#X connect 5 0 6 0;
+#X connect 5 1 29 0;
+#X connect 5 2 19 0;
+#X connect 7 0 1 0;
+#X connect 8 0 5 0;
+#X connect 10 0 12 0;
+#X connect 10 1 28 0;
+#X connect 10 2 25 0;
+#X connect 11 0 10 0;
+#X connect 14 0 10 0;
+#X connect 28 0 9 0;
+#X connect 29 0 13 0;
+#X connect 31 0 7 0;
+#X connect 33 0 10 0;
+#X connect 34 0 10 0;
+#X connect 35 0 10 0;
+#X connect 36 0 5 0;
+#X connect 37 0 5 0;

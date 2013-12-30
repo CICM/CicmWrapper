@@ -1,0 +1,35 @@
+
+PdEnhanced Libraries
+
+------------------------
+Coffee & Chocolate Beta 0.1
+------------------------
+
+Chocolate : 
+- c.bang
+- c.blackbloard
+- c.colorpanel
+- c.function
+- c.incdec
+- c.knob
+- c.menu
+- c.number
+- c.plane
+- c.Preset
+- c.radio
+- c.slider
+- c.tab
+- c.toggle
+- c.gain~
+- c.meter~
+- c.number~
+- c.scope
+
+Coffee : 
+- c.loadmess
+- c.pak
+- c.patcherargs
+- c.patcherinfos
+- c.prepend
+
+For an overview of Chocolate & Coffee Libraries, please refer to the '@Chocolate' patchs.

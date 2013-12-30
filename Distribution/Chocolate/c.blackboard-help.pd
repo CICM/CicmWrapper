@@ -1,0 +1,167 @@
+#N canvas 31 154 1407 598 10;
+#X obj -25 -74 cnv 40 552 40 empty empty c.blackboard 3 12 0 18 -228856
+-33289 0;
+#X obj 27 193 c.blackboard @size 200 200 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @chalkmode 1
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X obj 124 434 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 222 432 c.toggle @size 15 15 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5 0.5 0.5
+1;
+#X obj 124 398 unpack;
+#X obj 157 464 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 27 434 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 27 398 unpack;
+#X obj 60 464 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 125 101 clear;
+#X msg 27 101 reset;
+#X obj 188 97 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 1 @max 4.29497e+09 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 264 65 c.colorpanel @size 121 65 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@matrix 10 8 @reverse 0 @saturation 1 @hue 0 @lightness 1 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X text -22 -52 A blackboard to draw;
+#X text -24 -31 c.blackboard allows to draw lines with the mouse and
+to create shapes on a blackboard.;
+#X msg 188 130 width \$1;
+#X msg 264 149 color rgb \$1 \$2 \$3;
+#X obj 428 195 c.blackboard @size 200 200 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @chalkmode 0
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X msg 428 97 clear;
+#X text 114 66 Erase the;
+#X text 114 76 blackboard;
+#X text 184 66 Set the;
+#X text 184 76 chalk width;
+#X text 274 175 Set the chalk;
+#X text 4 66 Erase and reset;
+#X text 4 76 the defualt chalk;
+#X text 243 430 Mouse click;
+#X text 128 480 Hover mouse;
+#X text 128 490 coordinates;
+#X text 28 490 coordinates;
+#X text 28 480 Dragging mouse;
+#X text 15 18 Draw with the mouse (chalkmode);
+#X text 435 18 Draw shapes with messages;
+#X obj 746 89 c.menu @size 46 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @hover
+0 @items line rect oval @states 0 0 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 474 130 fill \$1;
+#X obj 474 99 c.toggle @size 15 15 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5 0.5 0.5
+1;
+#X text 462 64 Active;
+#X text 462 74 filling;
+#X obj 533 96 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 1 @max 4.29497e+09 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 533 129 width \$1;
+#X obj 609 78 c.colorpanel @size 121 65 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@matrix 10 8 @reverse 0 @saturation 1 @hue 0 @lightness 1 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X msg 605 159 color hsl \$1 \$2 \$3;
+#X obj 808 87 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 0 @max 200 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 830 61 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 0 @max 200 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 852 111 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 0 @max 200 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 874 87 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 0 @max 200 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X text 779 13 Set the coordinates;
+#X obj 765 167 c.bang @size 16 16 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X msg 787 192 line 4.5 1.8 128 128;
+#X text 779 23 and the shape then bang;
+#X text 669 223 Other shapes;
+#X text 669 243 path x1 y1 x2 y2 etc.;
+#X text 669 303 arc x1 y1 x2 y2 startangle extendangle;
+#X msg 672 326 fill 0 \, width 4 \, color hex #D40083 \, arc 10 20
+120 80 45 180;
+#X msg 670 266 fill 1 \, color hsl 0.4 1 0.428571 \, path 70 10 130
+110 160 80 150 30 70 110;
+#X obj 1053 155 c.blackboard @size 200 281 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @chalkmode 0
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X msg 994 96 clear;
+#X msg 1069 88 image 0 0 image2.gif \, text 60 10 LHOOQ;
+#X msg 1053 54 image 0 0 image1.gif \, text 60 10 La Joconde;
+#X text 642 375 Coordinates are top left (x1 \, y1) and bottom right
+(x2 \, y2);
+#X text 934 449 Font name \, size \, weight and slant depend of the
+object properties.;
+#X text 1045 18 Paint gif images and write text;
+#X text 274 185 color with rgb;
+#X text 274 195 hsl or hex.;
+#X text 529 65 Set the;
+#X text 529 75 chalk width;
+#X text 632 37 Set the chalk;
+#X text 632 47 color with rgb;
+#X text 632 57 hsl or hex.;
+#X obj 787 138 c.pak s f f f f;
+#X obj 787 164 c.prepend set;
+#X text 347 443 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X connect 1 0 7 0;
+#X connect 1 1 4 0;
+#X connect 1 2 3 0;
+#X connect 4 0 2 0;
+#X connect 4 1 5 0;
+#X connect 7 0 6 0;
+#X connect 7 1 8 0;
+#X connect 9 0 1 0;
+#X connect 10 0 1 0;
+#X connect 11 0 15 0;
+#X connect 12 0 16 0;
+#X connect 15 0 1 0;
+#X connect 16 0 1 0;
+#X connect 18 0 17 0;
+#X connect 33 1 69 0;
+#X connect 34 0 17 0;
+#X connect 35 0 34 0;
+#X connect 38 0 39 0;
+#X connect 39 0 17 0;
+#X connect 40 1 41 0;
+#X connect 41 0 17 0;
+#X connect 42 0 69 1;
+#X connect 43 0 69 2;
+#X connect 44 0 69 3;
+#X connect 45 0 69 4;
+#X connect 47 0 48 0;
+#X connect 48 0 17 0;
+#X connect 53 0 17 0;
+#X connect 54 0 17 0;
+#X connect 56 0 55 0;
+#X connect 57 0 55 0;
+#X connect 58 0 55 0;
+#X connect 69 0 70 0;
+#X connect 70 0 48 0;

@@ -1,0 +1,54 @@
+#N canvas 90 129 579 423 10;
+#X msg 367 54 \; pd dsp 0;
+#X obj 22 116 *~ 1.05;
+#X msg 433 55 \; pd dsp 1;
+#X text 73 111 Just to ensure that the;
+#X text 73 121 overled will blink !;
+#X obj 22 80 phasor~ 0.3;
+#X text 79 265 dB;
+#X obj -15 -94 cnv 40 552 40 empty empty c.meter~ 3 12 0 18 -228856
+-33289 0;
+#X text -12 -72 A peak programme meter for signal;
+#X text 316 158 dB;
+#X obj 22 49 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+(null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 260 58 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 260 97 sig~ 1;
+#X obj 260 159 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 22 262 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min (null) @max (null) @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 260 128 c.meter~ @size 85 13 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @interval 50
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6 0
+0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
+1 0.6 0 0.8 @overcolor 1 0 0 0.8;
+#X obj 22 162 c.meter~ @size 13 85 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @interval 50
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6 0
+0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
+1 0.6 0 0.8 @overcolor 1 0 0 0.8;
+#X obj 260 24 c.loadmess 0.1;
+#X obj 22 14 c.loadmess 0.3;
+#X text -3 288 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X text -14 -51 c.meter~ is the chocolate counterpart of the vanilla
+vu.;
+#X connect 1 0 16 0;
+#X connect 5 0 1 0;
+#X connect 10 0 5 0;
+#X connect 11 0 12 0;
+#X connect 12 0 15 0;
+#X connect 15 0 13 0;
+#X connect 16 0 14 0;
+#X connect 17 0 11 0;
+#X connect 18 0 10 0;
