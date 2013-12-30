@@ -76,7 +76,7 @@ void eclass_init(t_eclass* c, long flags)
     CLASS_ATTR_SYMBOL       (c, "fontname", 0, t_ebox, b_font.c_family);
     CLASS_ATTR_SYMBOL       (c, "fontweight", 0, t_ebox, b_font.c_weight);
     CLASS_ATTR_SYMBOL       (c, "fontslant", 0, t_ebox, b_font.c_slant);
-    CLASS_ATTR_FLOAT        (c, "fontsize", 0, t_ebox, b_font.c_size);
+    CLASS_ATTR_FLOAT        (c, "fontsize", 0, t_ebox, b_font.c_sizereal);
     CLASS_ATTR_SYMBOL       (c, "idname", 0, t_ebox, b_objuser_id);
 
     CLASS_ATTR_DEFAULT      (c, "size", 0, "100. 100.");
@@ -114,6 +114,7 @@ void eclass_init(t_eclass* c, long flags)
     CLASS_ATTR_PAINT        (c, "fontsize", 0);
     CLASS_ATTR_CATEGORY		(c, "fontsize", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontsize", 0, "Font Size");
+    CLASS_ATTR_ACCESSORS    (c, "fontsize", NULL, ebox_set_fontsize);
 
     CLASS_ATTR_DEFAULT      (c, "idname", 0, "(null)");
     CLASS_ATTR_ACCESSORS    (c, "idname", NULL, ebox_set_id);

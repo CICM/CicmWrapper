@@ -236,14 +236,6 @@ t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *
     return 0;
 }
 
-t_pd_err binbuf_get_attribute(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv)
-{
-    if(d)
-        return atoms_get_attribute(binbuf_getnatom(d), binbuf_getvec(d), key, argc, argv);
-    else
-        return -1;
-}
-
 t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_atom **argv)
 {
     int i = 0, index  = 0;
@@ -295,6 +287,14 @@ t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_a
     }
 
     return 0;
+}
+
+t_pd_err binbuf_get_attribute(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv)
+{
+    if(d)
+        return atoms_get_attribute(binbuf_getnatom(d), binbuf_getvec(d), key, argc, argv);
+    else
+        return -1;
 }
 
 double pd_clip_min(double aValue, double aMinimum)

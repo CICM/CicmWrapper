@@ -1,10 +1,18 @@
-#N canvas 428 268 450 300 10;
-#X obj 90 136 c.toggle @size 19 19 @fontname helvetica @fontweight
-normal @fontslant regular @fontsize 11 @idname (null) @presetname nono
+#N canvas 426 273 450 300 10;
+#X obj 90 136 c.toggle @size 19 19 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname nono
 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5 0.5 0.5
 1;
-#X obj 215 171 c.preset @size 102 34 @fontname helvetica @fontweight
-normal @fontslant regular @fontsize 7 @idname (null) @bgcolor 0.75
-0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor 0.85
-0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset
-[ ];
+#X obj 215 171 c.preset @size 102 34 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 7 @idname (null) @bgcolor 0.75 0.75
+0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor 0.85 0.85
+0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset [ ]
+;
+#X msg 194 102 store \$1;
+#X text 190 54 Store a preset;
+#X obj 194 77 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
+@min 1 @max (null) @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X connect 2 0 1 0;
+#X connect 4 0 2 0;

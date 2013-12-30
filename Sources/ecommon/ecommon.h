@@ -124,13 +124,6 @@ __attribute__((used)) static char *my_cursorlist[] =
 
 #endif
 
-
-struct _binbuf
-{
-    int b_n;
-    t_atom *b_vec;
-};
-
 struct _guiconnect
 {
     t_object x_obj;

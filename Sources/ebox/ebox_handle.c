@@ -698,6 +698,33 @@ t_pd_err ebox_set_fontslant(t_ebox *x, t_object *attr, long argc, t_atom *argv)
     return 0;
 }
 
+//! The default user fontsize method for all ebox called by PD (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The gobj
+ \ @param attr      Nothing (for Max 6 compatibility)
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Always 0 (for the moment)
+ */
+t_pd_err ebox_set_fontsize(t_ebox *x, t_object *attr, long argc, t_atom *argv)
+{
+    if(argc && argv && atom_gettype(argv) == A_FLOAT)
+    {
+		x->b_font.c_sizereal = pd_clip_min(atom_getfloat(argv), 4);
+    }
+    else
+        x->b_font.c_sizereal = 11;
+#ifdef _APPLE_
+    x->b_font.c_size = x->b_font.c_sizereal;
+#elif   _WINDOWS_
+    x->b_font.c_size = x->b_font.c_sizereal- 1;
+#else
+    x->b_font.c_size = x->b_font.c_sizereal - 3;
+#endif
+    return 0;
+}
+
 //! The default size attribute method of ebox called when an size attribute has changed. This function restrains the width and the height depending of the ebox flags EBOX_GROWNO, EBOX_GROWLINK and EBOX_GROWINDI // PRIVATE
 /*
  \ @memberof        ebox
@@ -769,7 +796,7 @@ t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *
         }
         ebox_redraw(x);
     }
-    
+
     return 0;
 }
 
