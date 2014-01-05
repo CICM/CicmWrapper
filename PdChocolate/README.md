@@ -1,7 +1,7 @@
 ### PD Chocolate for <a title="Pure Data" href="http://msp.ucsd.edu/" target="_blank">Pure Data </a>
 
 <p>A set of GUI externals for those who like vanilla... but also want some chocolate.</p>
-<p>Pd Chocolate is a part of the Pd Enhanced library developed to facilitate the creation of signal objects and GUI and to improve user interactions.</p>
+<p>Chocolate is a part of the Pd Enhanced library developed to facilitate the creation of signal objects and GUI and to improve user interactions.</p>
 <p>Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8</p>
 
 ![Image Pd](https://raw.github.com/pierreguillot/PdEnhanced/master/Ressources/PdChocolate.png "Pd Patch")
@@ -26,7 +26,7 @@ The PD Chocolate Library in under the <a title="GNU" href="http://www.gnu.org/co
 - Bang
 - Blackbloard
 - Colorpanel
-- Function
+- Function (Todo : add curve)
 - Incdec
 - Knob
 - Menu
@@ -43,5 +43,6 @@ The PD Chocolate Library in under the <a title="GNU" href="http://www.gnu.org/co
 - Scope
 - Textfield (Todo)
 - Filtergraph(Todo)
+- Range slider (Todo)
 
 

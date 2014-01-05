@@ -86,7 +86,12 @@ extern "C" void setup_c0x2eincdec(void)
     eclass_addmethod(c, (method) incdec_dec,             "dec",              A_CANT, 0);
     eclass_addmethod(c, (method) incdec_mousedown,       "mousedown",        A_CANT, 0);
     eclass_addmethod(c, (method) incdec_mouseup,         "mouseup",          A_CANT, 0);
-
+    
+    CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
+    CLASS_ATTR_INVISIBLE            (c, "send", 1);
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "13 20");
 
     CLASS_ATTR_FLOAT                (c, "step", 0, t_incdec, f_increment);
@@ -94,22 +99,26 @@ extern "C" void setup_c0x2eincdec(void)
     CLASS_ATTR_FILTER_MIN           (c, "step", 0.);
 	CLASS_ATTR_ORDER                (c, "step", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "step", 0, "1.");
-
+    CLASS_ATTR_STYLE                (c, "step", 0, "number");
+    CLASS_ATTR_STEP                 (c, "step", 0.1);
+    
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_incdec, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
-
+    CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_incdec, f_color_border);
-	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Box Border Color");
+	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
-
+    CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "arcolor", 0, t_incdec, f_color_arrow);
 	CLASS_ATTR_LABEL                (c, "arcolor", 0, "Arrow Color");
 	CLASS_ATTR_ORDER                (c, "arcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "arcolor", 0, "0. 0. 0. 1.");
-
+    CLASS_ATTR_STYLE                (c, "arcolor", 0, "color");
 
     eclass_register(CLASS_NOBOX, c);
 	incdec_class = c;

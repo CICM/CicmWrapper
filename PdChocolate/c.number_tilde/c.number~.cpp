@@ -88,36 +88,41 @@ extern "C" void setup_c0x2enumber_tilde(void)
 
 	CLASS_ATTR_DEFAULT			(c, "size", 0, "53 13");
 
-    CLASS_ATTR_LONG				(c, "interval", 0, t_number_tilde, f_interval);
-	CLASS_ATTR_ORDER			(c, "interval", 0, "2");
-	CLASS_ATTR_LABEL			(c, "interval", 0, "Refresh Interval in Milliseconds");
-	CLASS_ATTR_FILTER_MIN		(c, "interval", 20);
-	CLASS_ATTR_DEFAULT			(c, "interval", 0, "50");
-	CLASS_ATTR_SAVE				(c, "interval", 1);
-
-    CLASS_ATTR_LONG				(c, "decimal", 0, t_number_tilde, f_ndecimal);
-	CLASS_ATTR_ORDER			(c, "decimal", 0, "3");
-	CLASS_ATTR_LABEL			(c, "decimal", 0, "Number of decimal");
-    CLASS_ATTR_DEFAULT          (c, "decimal", 0, "6");
-	CLASS_ATTR_FILTER_MIN		(c, "decimal", 0);
-    CLASS_ATTR_FILTER_MAX		(c, "decimal", 6);
-	CLASS_ATTR_SAVE				(c, "decimal", 1);
-
+    CLASS_ATTR_LONG                 (c, "interval", 0, t_number_tilde, f_interval);
+	CLASS_ATTR_ORDER                (c, "interval", 0, "2");
+	CLASS_ATTR_LABEL                (c, "interval", 0, "Refresh Interval in Milliseconds");
+	CLASS_ATTR_FILTER_MIN           (c, "interval", 20);
+	CLASS_ATTR_DEFAULT              (c, "interval", 0, "50");
+	CLASS_ATTR_SAVE                 (c, "interval", 1);
+    CLASS_ATTR_STYLE                (c, "interval", 0, "number");
+    
+    CLASS_ATTR_LONG                 (c, "decimal", 0, t_number_tilde, f_ndecimal);
+	CLASS_ATTR_ORDER                (c, "decimal", 0, "3");
+	CLASS_ATTR_LABEL                (c, "decimal", 0, "Number of decimal");
+    CLASS_ATTR_DEFAULT              (c, "decimal", 0, "6");
+	CLASS_ATTR_FILTER_MIN           (c, "decimal", 0);
+    CLASS_ATTR_FILTER_MAX           (c, "decimal", 6);
+	CLASS_ATTR_SAVE                 (c, "decimal", 1);
+    CLASS_ATTR_STYLE                (c, "decimal", 0, "number");
+    
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_number_tilde, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
-
+    CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_number_tilde, f_color_border);
-	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Box Border Color");
+	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
-
+    CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_number_tilde, f_color_text);
 	CLASS_ATTR_LABEL                (c, "textcolor", 0, "Text Color");
 	CLASS_ATTR_ORDER                (c, "textcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "0. 0. 0. 1.");
-
+    CLASS_ATTR_STYLE                (c, "textcolor", 0, "color");
+    
     eclass_register(CLASS_NOBOX, c);
 	number_tilde_class = c;
 }
@@ -207,6 +212,8 @@ void number_tilde_tick(t_number_tilde *x)
 void number_tilde_output(t_number_tilde *x)
 {
     outlet_float((t_outlet*)x->f_peaks_outlet, (float)x->f_peak_value);
+    if(ebox_getsender((t_ebox *) x))
+        pd_float(ebox_getsender((t_ebox *) x), (float)x->f_peak_value);
 }
 
 void number_tilde_free(t_number_tilde *x)
@@ -224,7 +231,7 @@ t_pd_err number_tilde_notify(t_number_tilde *x, t_symbol *s, t_symbol *msg, void
 {
 	if (msg == gensym("attr_modified"))
 	{
-		if(s == gensym("bgcolor") || s == gensym("bdcolor") || s == gensym("textcolor"))
+		if(s == gensym("bgcolor") || s == gensym("bdcolor") || s == gensym("textcolor") || s == gensym("fontsize") || s == gensym("fontname") || s == gensym("fontweight") || s == gensym("fontslant"))
 		{
 			ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
 			ebox_invalidate_layer((t_ebox *)x, gensym("value_layer"));

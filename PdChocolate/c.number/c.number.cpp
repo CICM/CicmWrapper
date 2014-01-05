@@ -64,6 +64,7 @@ void number_output(t_number *x);
 t_pd_err number_notify(t_number *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 t_pd_err number_min_set(t_number *x, t_object *attr, long ac, t_atom *av);
 t_pd_err number_max_set(t_number *x, t_object *attr, long ac, t_atom *av);
+t_pd_err number_minmax_set(t_number *x, t_object *attr, long ac, t_atom *av);
 
 void number_getdrawparams(t_number *x, t_object *patcherview, t_edrawparams *params);
 void number_oksize(t_number *x, t_rect *newrect);
@@ -112,43 +113,57 @@ extern "C" void setup_c0x2enumber(void)
 
 	CLASS_ATTR_DEFAULT			(c, "size", 0, "53 13");
 
-    CLASS_ATTR_ATOM             (c, "min", 0, t_number, f_min);
-	CLASS_ATTR_ORDER			(c, "min", 0, "3");
-	CLASS_ATTR_LABEL			(c, "min", 0, "Minimum Value");
-    CLASS_ATTR_DEFAULT          (c, "min", 0, "(null)");
-    CLASS_ATTR_ACCESSORS        (c, "min", NULL, number_min_set);
-	CLASS_ATTR_SAVE				(c, "min", 1);
-
-    CLASS_ATTR_ATOM             (c, "max", 0, t_number, f_max);
-	CLASS_ATTR_ORDER			(c, "max", 0, "3");
-	CLASS_ATTR_LABEL			(c, "max", 0, "Maximum Value");
-    CLASS_ATTR_DEFAULT          (c, "max", 0, "(null)");
-    CLASS_ATTR_ACCESSORS        (c, "max", NULL, number_max_set);
-	CLASS_ATTR_SAVE				(c, "max", 1);
-
-    CLASS_ATTR_LONG				(c, "decimal", 0, t_number, f_ndecimal);
-	CLASS_ATTR_ORDER			(c, "decimal", 0, "3");
-	CLASS_ATTR_LABEL			(c, "decimal", 0, "Number of decimal");
-    CLASS_ATTR_DEFAULT          (c, "decimal", 0, "6");
-	CLASS_ATTR_FILTER_MIN		(c, "decimal", 0);
-    CLASS_ATTR_FILTER_MAX		(c, "decimal", 6);
-	CLASS_ATTR_SAVE				(c, "decimal", 1);
-
+    CLASS_ATTR_ATOM                 (c, "min", 0, t_number, f_min);
+	CLASS_ATTR_ORDER                (c, "min", 0, "3");
+	CLASS_ATTR_LABEL                (c, "min", 0, "Minimum Value");
+    CLASS_ATTR_DEFAULT              (c, "min", 0, "(null)");
+    CLASS_ATTR_ACCESSORS            (c, "min", NULL, number_min_set);
+	CLASS_ATTR_SAVE                 (c, "min", 1);
+    CLASS_ATTR_STYLE                (c, "min", 0, "number");
+    CLASS_ATTR_INVISIBLE            (c, "min", 1);
+    
+    CLASS_ATTR_ATOM                 (c, "max", 0, t_number, f_max);
+	CLASS_ATTR_ORDER                (c, "max", 0, "3");
+	CLASS_ATTR_LABEL                (c, "max", 0, "Maximum Value");
+    CLASS_ATTR_DEFAULT              (c, "max", 0, "(null)");
+    CLASS_ATTR_ACCESSORS            (c, "max", NULL, number_max_set);
+	CLASS_ATTR_SAVE                 (c, "max", 1);
+    CLASS_ATTR_STYLE                (c, "max", 0, "number");
+    CLASS_ATTR_INVISIBLE            (c, "max", 1);
+    
+    CLASS_ATTR_ATOM_ARRAY           (c, "minmax", 0, t_number, f_min, 2);
+	CLASS_ATTR_ORDER                (c, "minmax", 0, "3");
+	CLASS_ATTR_LABEL                (c, "minmax", 0, "Min - Max Values");
+    CLASS_ATTR_DEFAULT              (c, "minmax", 0, "(null) (null)");
+    CLASS_ATTR_ACCESSORS            (c, "minmax", NULL, number_minmax_set);
+	CLASS_ATTR_SAVE                 (c, "minmax", 1);
+    
+    CLASS_ATTR_LONG                 (c, "decimal", 0, t_number, f_ndecimal);
+	CLASS_ATTR_ORDER                (c, "decimal", 0, "3");
+	CLASS_ATTR_LABEL                (c, "decimal", 0, "Number of decimal");
+    CLASS_ATTR_DEFAULT              (c, "decimal", 0, "6");
+	CLASS_ATTR_FILTER_MIN           (c, "decimal", 0);
+    CLASS_ATTR_FILTER_MAX           (c, "decimal", 6);
+	CLASS_ATTR_SAVE                 (c, "decimal", 1);
+    CLASS_ATTR_STYLE                (c, "decimal", 0, "number");
+    
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_number, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
-
+    CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_number, f_color_border);
-	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Box Border Color");
+	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
-
+    CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_number, f_color_text);
 	CLASS_ATTR_LABEL                (c, "textcolor", 0, "Text Color");
 	CLASS_ATTR_ORDER                (c, "textcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "0. 0. 0. 1.");
-
+    CLASS_ATTR_STYLE                (c, "textcolor", 0, "color");
     eclass_register(CLASS_NOBOX, c);
 	number_class = c;
 }
@@ -225,6 +240,8 @@ void number_output(t_number *x)
         x->f_value = pd_clip_min(x->f_value, atom_getfloat(&x->f_min));
 
     outlet_float((t_outlet*)x->f_outlet, (float)x->f_value);
+    if(ebox_getsender((t_ebox *) x))
+        pd_float(ebox_getsender((t_ebox *) x), (float)x->f_value);
 }
 
 void number_free(t_number *x)
@@ -241,12 +258,12 @@ t_pd_err number_notify(t_number *x, t_symbol *s, t_symbol *msg, void *sender, vo
 {
 	if (msg == gensym("attr_modified"))
 	{
-		if(s == gensym("bgcolor") || s == gensym("bdcolor") || s == gensym("textcolor"))
+		if(s == gensym("bgcolor") || s == gensym("bdcolor") || s == gensym("textcolor") || s == gensym("fontsize") || s == gensym("fontname") || s == gensym("fontweight") || s == gensym("fontslant"))
 		{
 			ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
 			ebox_invalidate_layer((t_ebox *)x, gensym("value_layer"));
 		}
-        if(s == gensym("fontsize"))
+        if(s == gensym("fontsize") || s == gensym("fontname"))
         {
             object_attr_setvalueof((t_object *)x, gensym("size"), 0, NULL);
         }
@@ -626,6 +643,27 @@ t_pd_err number_max_set(t_number *x, t_object *attr, long ac, t_atom *av)
     return 0;
 }
 
+t_pd_err number_minmax_set(t_number *x, t_object *attr, long ac, t_atom *av)
+{
+    if(ac == 1)
+    {
+        return number_min_set(x, attr, ac, av);
+    }
+    else if(ac > 1 && av)
+    {
+        number_min_set(x, attr, 1, av);
+        number_max_set(x, attr, 1, av+1);
+    }
+    else
+    {
+        atom_setsym(&x->f_min, gensym("(null)"));
+        atom_setsym(&x->f_max, gensym("(null)"));
+    }
+    
+    ebox_invalidate_layer((t_ebox *)x, gensym("value_layer"));
+    ebox_redraw((t_ebox *)x);
+    return 0;
+}
 
 
 

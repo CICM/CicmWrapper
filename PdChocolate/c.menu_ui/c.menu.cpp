@@ -129,6 +129,7 @@ extern "C" void setup_c0x2emenu(void)
 	CLASS_ATTR_ORDER                (c, "hover", 0, "1");
     CLASS_ATTR_FILTER_CLIP          (c, "hover", 0, 1);
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "hover", 0, "0");
+    CLASS_ATTR_STYLE                (c, "hover", 0, "onoff");
     
     CLASS_ATTR_SYMBOL_VARSIZE       (c, "items", 0, t_menu, f_items, f_items_size, MAXITEMS);
     CLASS_ATTR_LABEL                (c, "items", 0, "Items");
@@ -145,17 +146,20 @@ extern "C" void setup_c0x2emenu(void)
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
+    CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
     
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_menu, f_color_border);
-	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Box Border Color");
+	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
-	
+	CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_menu, f_color_text);
 	CLASS_ATTR_LABEL                (c, "textcolor", 0, "Text Color");
 	CLASS_ATTR_ORDER                (c, "textcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "0. 0. 0. 1.");
-	
+	CLASS_ATTR_STYLE                (c, "textcolor", 0, "color");
+    
     eclass_register(CLASS_NOBOX, c);
 	menu_class = c;
 }
@@ -415,6 +419,8 @@ void menu_output(t_menu *x)
     if(x->f_items_size > 0)
     {
         outlet_float(x->f_out_index, x->f_item_selected);
+        if(ebox_getsender((t_ebox *) x))
+            pd_float(ebox_getsender((t_ebox *) x), (float)x->f_item_selected);
         outlet_symbol(x->f_out_item, x->f_items[x->f_item_selected]);
     }
 }
@@ -445,12 +451,12 @@ t_pd_err menu_notify(t_menu *x, t_symbol *s, t_symbol *msg, void *sender, void *
 {
 	if (msg == gensym("attr_modified"))
 	{
-		if(s == gensym("bgcolor") || s == gensym("bdcolor") || s == gensym("textcolor"))
+		if(s == gensym("bgcolor") || s == gensym("bdcolor") || s == gensym("textcolor") || s == gensym("fontsize") || s == gensym("fontname") || s == gensym("fontweight") || s == gensym("fontslant") || s == gensym("states"))
 		{
             ebox_invalidate_layer((t_ebox *)x, gensym("list_layer"));
 			ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
 		}
-        if(s == gensym("fontsize"))
+        if(s == gensym("fontsize") || s == gensym("items"))
         {
             object_attr_setvalueof((t_object *)x, gensym("size"), 0, NULL);
         }

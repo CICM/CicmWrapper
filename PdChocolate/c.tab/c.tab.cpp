@@ -125,12 +125,14 @@ extern "C" void setup_c0x2etab(void)
 	CLASS_ATTR_ORDER                (c, "orientation", 0, "1");
     CLASS_ATTR_FILTER_CLIP          (c, "orientation", 0, 1);
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "orientation", 0, "0");
-
+    CLASS_ATTR_STYLE                (c, "orientation", 0, "onoff");
+    
     CLASS_ATTR_LONG                 (c, "toggle", 0, t_tab, f_toggle);
 	CLASS_ATTR_LABEL                (c, "toggle", 0, "Toggle Mode");
 	CLASS_ATTR_ORDER                (c, "toggle", 0, "1");
     CLASS_ATTR_FILTER_CLIP          (c, "toggle", 0, 1);
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "toggle", 0, "0");
+    CLASS_ATTR_STYLE                (c, "toggle", 0, "onoff");
 
     CLASS_ATTR_SYMBOL_VARSIZE       (c, "items", 0, t_tab, f_items, f_items_size, MAXITEMS);
     CLASS_ATTR_LABEL                (c, "items", 0, "Items");
@@ -141,27 +143,32 @@ extern "C" void setup_c0x2etab(void)
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
-
+    CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_tab, f_color_border);
-	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Box Border Color");
+	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
-
+    CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_tab, f_color_text);
 	CLASS_ATTR_LABEL                (c, "textcolor", 0, "Text Color");
 	CLASS_ATTR_ORDER                (c, "textcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "0. 0. 0. 1.");
-
+    CLASS_ATTR_STYLE                (c, "textcolor", 0, "color");
+    
     CLASS_ATTR_RGBA                 (c, "hocolor", 0, t_tab, f_color_hover);
 	CLASS_ATTR_LABEL                (c, "hocolor", 0, "Hover Color");
 	CLASS_ATTR_ORDER                (c, "hocolor", 0, "4");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "hocolor", 0, "0.5 0.5 0.5 1.");
-
+    CLASS_ATTR_STYLE                (c, "hocolor", 0, "color");
+    
     CLASS_ATTR_RGBA                 (c, "secolor", 0, t_tab, f_color_select);
 	CLASS_ATTR_LABEL                (c, "secolor", 0, "Selection Color");
 	CLASS_ATTR_ORDER                (c, "secolor", 0, "5");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "secolor", 0, "0.35 0.35 0.35 1.");
-
+    CLASS_ATTR_STYLE                (c, "secolor", 0, "color");
+    
     eclass_register(CLASS_NOBOX, c);
 	tab_class = c;
 }
@@ -417,6 +424,9 @@ void tab_output(t_tab *x)
         outlet_float(x->f_out_index, x->f_item_selected);
         outlet_symbol(x->f_out_item, x->f_items[x->f_item_selected]);
         outlet_float(x->f_out_hover, x->f_item_hover);
+        
+        if(ebox_getsender((t_ebox *) x))
+            pd_float(ebox_getsender((t_ebox *) x), (float)x->f_item_selected);
     }
 }
 
@@ -452,13 +462,13 @@ t_pd_err tab_notify(t_tab *x, t_symbol *s, t_symbol *msg, void *sender, void *da
 {
 	if (msg == gensym("attr_modified"))
 	{
-		if(s == gensym("bgcolor") || s == gensym("bdcolor") || s == gensym("textcolor") || s == gensym("orientation") || s == gensym("hocolor") || s == gensym("secolor"))
+		if(s == gensym("bgcolor") || s == gensym("bdcolor") || s == gensym("textcolor") || s == gensym("orientation") || s == gensym("hocolor") || s == gensym("secolor") || s == gensym("fontsize") || s == gensym("fontname") || s == gensym("fontweight") || s == gensym("fontslant"))
 		{
             ebox_invalidate_layer((t_ebox *)x, gensym("selection_layer"));
             ebox_invalidate_layer((t_ebox *)x, gensym("text_layer"));
 			ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
 		}
-        if(s == gensym("fontsize") || s == gensym("orientation"))
+        if(s == gensym("fontsize") || s == gensym("orientation") || s == gensym("items"))
         {
             object_attr_setvalueof((t_object *)x, gensym("size"), 0, NULL);
         }

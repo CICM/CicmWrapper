@@ -108,6 +108,11 @@ extern "C" void setup_c0x2ecolorpanel(void)
     
     eclass_addmethod(c, (method) colorpanel_preset,          "preset",           A_CANT, 0);
     
+    CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
+    CLASS_ATTR_INVISIBLE            (c, "send", 1);
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "181 105");
 	
     CLASS_ATTR_FLOAT_ARRAY          (c, "matrix", 0, t_colorpanel, f_matrix_sizes, 2);
@@ -123,6 +128,7 @@ extern "C" void setup_c0x2ecolorpanel(void)
 	CLASS_ATTR_ORDER                (c, "reverse", 0, "1");
 	CLASS_ATTR_DEFAULT              (c, "reverse", 0, "0");
     CLASS_ATTR_SAVE                 (c, "reverse", 0);
+    CLASS_ATTR_STYLE                (c, "reverse", 0, "onoff");
     
     CLASS_ATTR_FLOAT                (c, "saturation", 0, t_colorpanel, f_saturation);
 	CLASS_ATTR_LABEL                (c, "saturation", 0, "Saturation");
@@ -130,6 +136,8 @@ extern "C" void setup_c0x2ecolorpanel(void)
 	CLASS_ATTR_ORDER                (c, "saturation", 0, "1");
 	CLASS_ATTR_DEFAULT              (c, "saturation", 0, "1.");
     CLASS_ATTR_SAVE                 (c, "saturation", 0);
+    CLASS_ATTR_STYLE                (c, "saturation", 0, "number");
+    CLASS_ATTR_STEP                 (c, "saturation", 0.1);
     
     CLASS_ATTR_FLOAT                (c, "hue", 0, t_colorpanel, f_hue);
 	CLASS_ATTR_LABEL                (c, "hue", 0, "Fist Hue");
@@ -137,6 +145,8 @@ extern "C" void setup_c0x2ecolorpanel(void)
 	CLASS_ATTR_ORDER                (c, "hue", 0, "1");
 	CLASS_ATTR_DEFAULT              (c, "hue", 0, "0.");
     CLASS_ATTR_SAVE                 (c, "hue", 0);
+    CLASS_ATTR_STYLE                (c, "hue", 0, "number");
+    CLASS_ATTR_STEP                 (c, "hue", 0.1);
     
     CLASS_ATTR_FLOAT                (c, "lightness", 0, t_colorpanel, f_lightness);
 	CLASS_ATTR_LABEL                (c, "lightness", 0, "First Lightness");
@@ -144,17 +154,21 @@ extern "C" void setup_c0x2ecolorpanel(void)
 	CLASS_ATTR_ORDER                (c, "lightness", 0, "1");
 	CLASS_ATTR_DEFAULT              (c, "lightness", 0, "1.");
     CLASS_ATTR_SAVE                 (c, "lightness", 0);
+    CLASS_ATTR_STYLE                (c, "lightness", 0, "number");
+    CLASS_ATTR_STEP                 (c, "lightness", 0.1);
     
     CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_colorpanel, f_color_background);
-	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "BackgB Color");
+	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
+    CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
     
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_colorpanel, f_color_border);
-	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Box Border Color");
+	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
-	
+	CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
+    
     eclass_register(CLASS_NOBOX, c);
 	colorpanel_class = c;
 }

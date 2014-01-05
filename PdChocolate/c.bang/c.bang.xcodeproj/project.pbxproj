@@ -23,7 +23,6 @@
 		8F8C3714186D7969004C3EFE /* eclass_attrsetter.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C36EB186D7969004C3EFE /* eclass_attrsetter.c */; };
 		8F8C3715186D7969004C3EFE /* eclass_basic.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C36EC186D7969004C3EFE /* eclass_basic.c */; };
 		8F8C3716186D7969004C3EFE /* eclass_widget.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C36ED186D7969004C3EFE /* eclass_widget.c */; };
-		8F8C3717186D7969004C3EFE /* ewidget.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8C36EE186D7969004C3EFE /* ewidget.h */; };
 		8F8C3718186D7969004C3EFE /* eboxflag.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8C36F0186D7969004C3EFE /* eboxflag.h */; };
 		8F8C3719186D7969004C3EFE /* ecommon.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C36F1186D7969004C3EFE /* ecommon.c */; };
 		8F8C371A186D7969004C3EFE /* ecommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8C36F2186D7969004C3EFE /* ecommon.h */; };
@@ -65,7 +64,6 @@
 		8F8C36EB186D7969004C3EFE /* eclass_attrsetter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eclass_attrsetter.c; sourceTree = "<group>"; };
 		8F8C36EC186D7969004C3EFE /* eclass_basic.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eclass_basic.c; sourceTree = "<group>"; };
 		8F8C36ED186D7969004C3EFE /* eclass_widget.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eclass_widget.c; sourceTree = "<group>"; };
-		8F8C36EE186D7969004C3EFE /* ewidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ewidget.h; sourceTree = "<group>"; };
 		8F8C36F0186D7969004C3EFE /* eboxflag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eboxflag.h; sourceTree = "<group>"; };
 		8F8C36F1186D7969004C3EFE /* ecommon.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ecommon.c; sourceTree = "<group>"; };
 		8F8C36F2186D7969004C3EFE /* ecommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ecommon.h; sourceTree = "<group>"; };
@@ -162,7 +160,6 @@
 				8F8C36EB186D7969004C3EFE /* eclass_attrsetter.c */,
 				8F8C36EC186D7969004C3EFE /* eclass_basic.c */,
 				8F8C36ED186D7969004C3EFE /* eclass_widget.c */,
-				8F8C36EE186D7969004C3EFE /* ewidget.h */,
 			);
 			path = eclass;
 			sourceTree = "<group>";
@@ -231,7 +228,6 @@
 				8F8C371A186D7969004C3EFE /* ecommon.h in Headers */,
 				8F8C3709186D7969004C3EFE /* ebox.h in Headers */,
 				8F8C372A186D7969004C3EFE /* epopup.h in Headers */,
-				8F8C3717186D7969004C3EFE /* ewidget.h in Headers */,
 				8F8C372B186D7969004C3EFE /* estruct.h in Headers */,
 				8F8C3727186D7969004C3EFE /* epd.h in Headers */,
 				8F8C3728186D7969004C3EFE /* epd_max.h in Headers */,

@@ -90,6 +90,10 @@ extern "C" void setup_c0x2eplane(void)
     
     eclass_addmethod(c, (method) plane_preset,          "preset",           A_CANT, 0);
     
+    CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "120 120");
     
     CLASS_ATTR_FLOAT_ARRAY          (c, "bound", 0, t_plane, f_boundaries, 4);
@@ -103,22 +107,26 @@ extern "C" void setup_c0x2eplane(void)
 	CLASS_ATTR_ORDER                (c, "ptsize", 0, "3");
     CLASS_ATTR_FILTER_CLIP          (c, "ptsize", 5., 50.f);
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "ptsize", 0, "5");
+    CLASS_ATTR_STYLE                (c, "ptsize", 0, "number");
+    CLASS_ATTR_STEP                 (c, "ptsize", 0.5);
     
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_plane, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
-	
+	CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_plane, f_color_border);
-	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Box Border Color");
+	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
-	
+	CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "ptcolor", 0, t_plane, f_color_point);
 	CLASS_ATTR_LABEL                (c, "ptcolor", 0, "Point Color");
 	CLASS_ATTR_ORDER                (c, "ptcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "ptcolor", 0, "0. 0. 0. 1");
-	
+	CLASS_ATTR_STYLE                (c, "ptcolor", 0, "color");
 	
     eclass_register(CLASS_NOBOX, c);
 	plane_class = c;
@@ -193,10 +201,17 @@ void plane_list(t_plane *x, t_symbol *s, long ac, t_atom *av)
 
 void plane_output(t_plane *x)
 {
+    t_atom argv[2];
     if(ebox_isdrawable((t_ebox *)x))
     {
         outlet_float(x->f_out_x, x->f_position.x);
         outlet_float(x->f_out_y, x->f_position.y);
+        if(ebox_getsender((t_ebox *) x))
+        {
+            atom_setfloat(argv, x->f_position.x);
+            atom_setfloat(argv+1, x->f_position.y);
+            pd_list(ebox_getsender((t_ebox *) x), &s_list, 2, argv);
+        }
     }
 }
 

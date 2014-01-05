@@ -122,6 +122,7 @@ extern "C" void setup_c0x2eblackboard(void)
     eclass_addmethod(c, (method) blackboard_mouseleave,      "mouseleave",       A_CANT, 0);
     
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "200 200");
+    CLASS_ATTR_INVISIBLE            (c, "send", 1);
     
     CLASS_ATTR_LONG                 (c, "chalkmode", 0, t_blacboard, f_pen_mode);
 	CLASS_ATTR_LABEL                (c, "chalkmode", 0, "Chalk Mode");
@@ -129,17 +130,19 @@ extern "C" void setup_c0x2eblackboard(void)
 	CLASS_ATTR_ORDER                (c, "chalkmode", 0, "1");
 	CLASS_ATTR_DEFAULT              (c, "chalkmode", 0, "1");
     CLASS_ATTR_SAVE                 (c, "chalkmode", 0);
+    CLASS_ATTR_STYLE                (c, "chalkmode", 0, "onoff");
     
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_blacboard, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
-	
+	CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_blacboard, f_color_border);
-	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Box Border Color");
+	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
-	
+	CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
 	
     eclass_register(CLASS_NOBOX, c);
 	blackboard_class = c;

@@ -89,42 +89,52 @@ extern "C" void setup_c0x2eslider(void)
     eclass_addmethod(c, (method) slider_mousedrag,       "mousedrag",        A_CANT, 0);
     eclass_addmethod(c, (method) slider_preset,          "preset",           A_CANT, 0);
     
+    CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "15. 120.");
     
     CLASS_ATTR_LONG                 (c, "mode", 0, t_slider, f_mode);
-	CLASS_ATTR_LABEL                (c, "mode", 0, "Mousing Mode");
+	CLASS_ATTR_LABEL                (c, "mode", 0, "Relative Mode");
 	CLASS_ATTR_ORDER                (c, "mode", 0, "1");
     CLASS_ATTR_FILTER_CLIP          (c, "mode", 0, 1);
     CLASS_ATTR_DEFAULT              (c, "mode", 0, "0");
     CLASS_ATTR_SAVE                 (c, "mode", 1);
+    CLASS_ATTR_STYLE                (c, "mode", 0, "onoff");
     
     CLASS_ATTR_FLOAT                (c, "min", 0, t_slider, f_min);
 	CLASS_ATTR_LABEL                (c, "min", 0, "Minimum Value");
 	CLASS_ATTR_ORDER                (c, "min", 0, "1");
     CLASS_ATTR_DEFAULT              (c, "min", 0, "0.");
     CLASS_ATTR_SAVE                 (c, "min", 1);
+    CLASS_ATTR_STYLE                (c, "min", 0, "number");
     
     CLASS_ATTR_FLOAT                (c, "max", 0, t_slider, f_max);
 	CLASS_ATTR_LABEL                (c, "max", 0, "Maximum Value");
 	CLASS_ATTR_ORDER                (c, "max", 0, "1");
     CLASS_ATTR_DEFAULT              (c, "max", 0, "1.");
     CLASS_ATTR_SAVE                 (c, "max", 1);
+    CLASS_ATTR_STYLE                (c, "max", 0, "number");
     
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_slider, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
-	
+	CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_slider, f_color_border);
-	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Box Border Color");
+	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
-	
+	CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "kncolor", 0, t_slider, f_color_knob);
 	CLASS_ATTR_LABEL                (c, "kncolor", 0, "Knob Color");
 	CLASS_ATTR_ORDER                (c, "kncolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "kncolor", 0, "0.5 0.5 0.5 1.");
-	
+	CLASS_ATTR_STYLE                (c, "kncolor", 0, "color");
+    
     eclass_register(CLASS_NOBOX, c);
 	slider_class = c;
 }
@@ -211,6 +221,8 @@ void slider_bang(t_slider *x)
 void slider_output(t_slider *x)
 {
     outlet_float((t_outlet*)x->f_out, (float)x->f_value);
+    if(ebox_getsender((t_ebox *) x))
+        pd_float(ebox_getsender((t_ebox *) x), (float)x->f_value);
 }
 
 void slider_free(t_slider *x)

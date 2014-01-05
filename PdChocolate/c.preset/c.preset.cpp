@@ -116,6 +116,7 @@ extern "C" void setup_c0x2epreset(void)
     eclass_addmethod(c, (method) preset_read,            "read",             A_GIMME,0);
     eclass_addmethod(c, (method) preset_write,           "write",            A_GIMME,0);
 
+    CLASS_ATTR_INVISIBLE            (c, "send", 1);
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "102 34");
     CLASS_ATTR_DEFAULT              (c, "fontsize", 0, "7");
 
@@ -123,32 +124,38 @@ extern "C" void setup_c0x2epreset(void)
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
-
+    CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_preset, f_color_border);
-	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Box Border Color");
+	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
-
+    CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_preset, f_color_text);
 	CLASS_ATTR_LABEL                (c, "textcolor", 0, "Text Color");
 	CLASS_ATTR_ORDER                (c, "textcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "0. 0. 0. 1.");
-
+    CLASS_ATTR_STYLE                (c, "textcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "emcolor", 0, t_preset, f_color_button_empty);
 	CLASS_ATTR_LABEL                (c, "emcolor", 0, "Empty Button Color");
 	CLASS_ATTR_ORDER                (c, "emcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "emcolor", 0, "0.85 0.85 0.85 1.");
-
+    CLASS_ATTR_STYLE                (c, "emcolor", 0, "color");
+    
     CLASS_ATTR_RGBA                 (c, "stcolor", 0, t_preset, f_color_button_stored);
 	CLASS_ATTR_LABEL                (c, "stcolor", 0, "Stored Button Color");
 	CLASS_ATTR_ORDER                (c, "stcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "stcolor", 0, "0.5 0.5 0.5 1.");
-
+    CLASS_ATTR_STYLE                (c, "stcolor", 0, "color");
+    
     CLASS_ATTR_RGBA                 (c, "secolor", 0, t_preset, f_color_button_selected);
 	CLASS_ATTR_LABEL                (c, "secolor", 0, "Selected Button Color");
 	CLASS_ATTR_ORDER                (c, "secolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "secolor", 0, "0.15 0.15 0.15 1.");
-
+    CLASS_ATTR_STYLE                (c, "secolor", 0, "color");
+    
     eclass_register(CLASS_NOBOX, c);
 	preset_class = c;
 }
@@ -507,7 +514,7 @@ t_pd_err preset_notify(t_preset *x, t_symbol *s, t_symbol *msg, void *sender, vo
 {
 	if (msg == gensym("attr_modified"))
 	{
-		if(s == gensym("bgcolor") || s == gensym("bdcolor") || s == gensym("btcolor"))
+		if(s == gensym("bgcolor") || s == gensym("bdcolor") || s == gensym("btcolor") || s == gensym("fontsize") || s == gensym("fontname") || s == gensym("fontweight") || s == gensym("fontslant"))
 		{
 			ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
 		}

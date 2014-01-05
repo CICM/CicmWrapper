@@ -80,23 +80,29 @@ extern "C" void setup_c0x2ebang(void)
     eclass_addmethod(c, (method) bang_mousedown,       "mousedown",        A_CANT, 0);
     eclass_addmethod(c, (method) bang_mouseup,         "mouseup",          A_CANT, 0);
     
+    CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "16. 16.");
     
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_bang, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
-	
+	CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_bang, f_color_border);
-	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Box Border Color");
+	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
-	
+	CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "bacolor", 0, t_bang, f_color_bang);
 	CLASS_ATTR_LABEL                (c, "bacolor", 0, "Bang Color");
 	CLASS_ATTR_ORDER                (c, "bacolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bacolor", 0, "0. 0. 0. 1.");
-	
+	CLASS_ATTR_STYLE                (c, "bacolor", 0, "color");
 	
     eclass_register(CLASS_NOBOX, c);
 	bang_class = c;
@@ -147,6 +153,9 @@ void bang_output(t_bang *x, t_symbol* s, long argc, t_atom* argv)
     ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
     ebox_redraw((t_ebox *)x);
     outlet_bang(x->f_out);
+    if(ebox_getsender((t_ebox *) x))
+        pd_bang(ebox_getsender((t_ebox *) x));
+    
     clock_delay(x->f_clock, 100);
 }
 
@@ -210,6 +219,8 @@ void bang_mousedown(t_bang *x, t_object *patcherview, t_pt pt, long modifiers)
     ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
     ebox_redraw((t_ebox *)x);
     outlet_bang(x->f_out);
+    if(ebox_getsender((t_ebox *) x))
+        pd_bang(ebox_getsender((t_ebox *) x));
 }
 
 void bang_mouseup(t_bang *x, t_object *patcherview, t_pt pt, long modifiers)

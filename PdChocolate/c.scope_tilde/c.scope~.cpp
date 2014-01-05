@@ -86,48 +86,59 @@ extern "C" void setup_c0x2escope_tilde(void)
     class_addmethod(c, (method) scope_getdrawparams,   "getdrawparams",    A_CANT, 0);
     class_addmethod(c, (method) scope_oksize,          "oksize",           A_CANT, 0);
     
-	CLASS_ATTR_DEFAULT			(c, "size", 0, "125 100");
+    CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
+    CLASS_ATTR_INVISIBLE            (c, "send", 1);
+	CLASS_ATTR_DEFAULT              (c, "size", 0, "125 100");
     
-    CLASS_ATTR_LONG             (c, "bufdis", 0, t_scope, f_display_size);
-	CLASS_ATTR_ORDER			(c, "bufdis", 0, "1");
-	CLASS_ATTR_LABEL			(c, "bufdis", 0, "Display Buffer Size");
-    CLASS_ATTR_FILTER_CLIP		(c, "bufdis", 2, 8092);
-	CLASS_ATTR_DEFAULT			(c, "bufdis", 0, "256");
-	CLASS_ATTR_SAVE				(c, "bufdis", 1);
-	
-    CLASS_ATTR_LONG				(c, "bufsig", 0, t_scope, f_signal_size);
-	CLASS_ATTR_ORDER			(c, "bufsig", 0, "2");
-	CLASS_ATTR_LABEL			(c, "bufsig", 0, "Signal Buffer Size");
-	CLASS_ATTR_FILTER_CLIP		(c, "bufsig", 2, 8092);
-	CLASS_ATTR_DEFAULT			(c, "bufsig", 0, "256");
-	CLASS_ATTR_SAVE				(c, "bufsig", 1);
+    CLASS_ATTR_LONG                 (c, "bufdis", 0, t_scope, f_display_size);
+	CLASS_ATTR_ORDER                (c, "bufdis", 0, "1");
+	CLASS_ATTR_LABEL                (c, "bufdis", 0, "Display Buffer Size");
+    CLASS_ATTR_FILTER_CLIP          (c, "bufdis", 2, 8092);
+	CLASS_ATTR_DEFAULT              (c, "bufdis", 0, "256");
+	CLASS_ATTR_SAVE                 (c, "bufdis", 1);
+	CLASS_ATTR_STYLE                (c, "bufdis", 0, "number");
     
-    CLASS_ATTR_FLOAT_ARRAY		(c, "range", 0, t_scope, f_range, 2);
-	CLASS_ATTR_ORDER			(c, "range", 0, "2");
-	CLASS_ATTR_LABEL			(c, "range", 0, "Range");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "range", 0, "-1 1");
+    CLASS_ATTR_LONG                 (c, "bufsig", 0, t_scope, f_signal_size);
+	CLASS_ATTR_ORDER                (c, "bufsig", 0, "2");
+	CLASS_ATTR_LABEL                (c, "bufsig", 0, "Signal Buffer Size");
+	CLASS_ATTR_FILTER_CLIP          (c, "bufsig", 2, 8092);
+	CLASS_ATTR_DEFAULT              (c, "bufsig", 0, "256");
+	CLASS_ATTR_SAVE                 (c, "bufsig", 1);
+    CLASS_ATTR_STYLE                (c, "bufsig", 0, "number");
     
-    CLASS_ATTR_LONG				(c, "xymode", 0, t_scope, f_mode);
-	CLASS_ATTR_ORDER			(c, "xymode", 0, "2");
-	CLASS_ATTR_LABEL			(c, "xymode", 0, "XY Mode");
-	CLASS_ATTR_FILTER_CLIP		(c, "xymode", 0, 1);
-	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "xymode", 0, "0.");
+    CLASS_ATTR_FLOAT_ARRAY          (c, "range", 0, t_scope, f_range, 2);
+	CLASS_ATTR_ORDER                (c, "range", 0, "2");
+	CLASS_ATTR_LABEL                (c, "range", 0, "Range");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "range", 0, "-1 1");
     
-	CLASS_ATTR_RGBA				(c, "bgcolor", 0, t_scope, f_color_background);
-	CLASS_ATTR_LABEL			(c, "bgcolor", 0, "Background Color");
-	CLASS_ATTR_ORDER			(c, "bgcolor", 0, "1");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "bgcolor", 0, "0.75 0.75 0.75 1.");
-	
-	CLASS_ATTR_RGBA				(c, "bdcolor", 0, t_scope, f_color_border);
-	CLASS_ATTR_LABEL			(c, "bdcolor", 0, "Box Border Color");
-	CLASS_ATTR_ORDER			(c, "bdcolor", 0, "2");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "bdcolor", 0, "0.5 0.5 0.5 1.");
-	
-	CLASS_ATTR_RGBA				(c, "sicolor", 0, t_scope, f_color_signal);
-	CLASS_ATTR_LABEL			(c, "sicolor", 0, "Signal Color");
-	CLASS_ATTR_ORDER			(c, "sicolor", 0, "3");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "sicolor", 0, "0. 0.6 0. 0.8");
-	
+    CLASS_ATTR_LONG                 (c, "xymode", 0, t_scope, f_mode);
+	CLASS_ATTR_ORDER                (c, "xymode", 0, "2");
+	CLASS_ATTR_LABEL                (c, "xymode", 0, "XY Mode");
+	CLASS_ATTR_FILTER_CLIP          (c, "xymode", 0, 1);
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "xymode", 0, "0.");
+    CLASS_ATTR_STYLE                (c, "xymode", 0, "onoff");
+    
+	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_scope, f_color_background);
+	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
+	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
+	CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
+    
+	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_scope, f_color_border);
+	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
+	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
+	CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
+    
+	CLASS_ATTR_RGBA                 (c, "sicolor", 0, t_scope, f_color_signal);
+	CLASS_ATTR_LABEL                (c, "sicolor", 0, "Signal Color");
+	CLASS_ATTR_ORDER                (c, "sicolor", 0, "3");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "sicolor", 0, "0. 0.6 0. 0.8");
+	CLASS_ATTR_STYLE                (c, "sicolor", 0, "color");
+    
     class_register(CLASS_NOBOX, c);
 	scope_class = c;
 }

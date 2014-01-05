@@ -38,7 +38,7 @@ typedef struct _radio
 	t_rgba		f_color_item;
     char        f_direction;
     long        f_items[256];
-    float       f_nitems;
+    long        f_nitems;
     long        f_mode;
 } t_radio;
 
@@ -89,39 +89,48 @@ extern "C" void setup_c0x2eradio(void)
     eclass_addmethod(c, (method) radio_mousedown,       "mousedown",        A_CANT, 0);
     eclass_addmethod(c, (method) radio_preset,          "preset",           A_CANT, 0);
     
+    CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "15. 120.");
     
-    CLASS_ATTR_FLOAT                (c, "nitems", 0, t_radio, f_nitems);
+    CLASS_ATTR_LONG                 (c, "nitems", 0, t_radio, f_nitems);
 	CLASS_ATTR_LABEL                (c, "nitems", 0, "Number of Items");
     CLASS_ATTR_ACCESSORS			(c, "nitems", NULL, radio_nitems_set);
 	CLASS_ATTR_ORDER                (c, "nitems", 0, "1");
     CLASS_ATTR_FILTER_CLIP          (c, "nitems", 1, 256);
     CLASS_ATTR_DEFAULT              (c, "nitems", 0, "8");
     CLASS_ATTR_SAVE                 (c, "nitems", 1);
+    CLASS_ATTR_STYLE                (c, "nitems", 0, "number");
     
     CLASS_ATTR_LONG                 (c, "mode", 0, t_radio, f_mode);
-	CLASS_ATTR_LABEL                (c, "mode", 0, "Radio / Check List");
+	CLASS_ATTR_LABEL                (c, "mode", 0, "Check List Mode");
     CLASS_ATTR_ACCESSORS			(c, "mode", NULL, radio_mode_set);
 	CLASS_ATTR_ORDER                (c, "mode", 0, "1");
     CLASS_ATTR_FILTER_CLIP          (c, "mode", 0, 1);
     CLASS_ATTR_DEFAULT              (c, "mode", 0, "0");
     CLASS_ATTR_SAVE                 (c, "mode", 1);
+    CLASS_ATTR_STYLE                (c, "mode", 0, "onoff");
     
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_radio, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
-	
+	CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_radio, f_color_border);
-	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Box Border Color");
+	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
-	
+	CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
+    
 	CLASS_ATTR_RGBA                 (c, "itcolor", 0, t_radio, f_color_item);
 	CLASS_ATTR_LABEL                (c, "itcolor", 0, "Item Color");
 	CLASS_ATTR_ORDER                (c, "itcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "itcolor", 0, "0.5 0.5 0.5 1.");
-	
+	CLASS_ATTR_STYLE                (c, "itcolor", 0, "color");
+    
     eclass_register(CLASS_NOBOX, c);
 	radio_class = c;
 }
@@ -254,6 +263,8 @@ void radio_output(t_radio *x)
         for(i = 0; i < x->f_nitems; i++)
             atom_setfloat(av+i, (float)x->f_items[i]);
         outlet_list(x->f_out, &s_list, x->f_nitems, av);
+        if(ebox_getsender((t_ebox *) x))
+            pd_list(ebox_getsender((t_ebox *) x), &s_list, x->f_nitems, av);
     }
     else
     {
@@ -262,6 +273,8 @@ void radio_output(t_radio *x)
             if(x->f_items[i] != 0)
             {
                 outlet_float(x->f_out, (float)i);
+                if(ebox_getsender((t_ebox *) x))
+                    pd_float(ebox_getsender((t_ebox *) x), (float)i);
             }
         }
     }
@@ -491,6 +504,7 @@ void radio_preset(t_radio *x, t_binbuf *b)
 t_pd_err radio_nitems_set(t_radio *x, t_object *attr, long ac, t_atom *av)
 {
 	int i;
+    t_atom argv[2];
     if(ac && av && atom_gettype(av) == A_FLOAT)
     {
         if(pd_clip_minmax(atom_getfloat(av), 1, 256) != x->f_nitems)
@@ -498,9 +512,12 @@ t_pd_err radio_nitems_set(t_radio *x, t_object *attr, long ac, t_atom *av)
             x->f_nitems = pd_clip_minmax(atom_getfloat(av), 1, 256);
             for(i = 0; i < x->f_nitems; i++)
                 x->f_items[i] = 0;
+            
             ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
             ebox_invalidate_layer((t_ebox *)x, gensym("items_layer"));
-            ebox_redraw((t_ebox *)x);
+            atom_setfloat(argv, x->j_box.b_rect.width);
+            atom_setfloat(argv+1, x->j_box.b_rect.height);
+            object_attr_setvalueof((t_object *)x, gensym("size"), 2, argv);
         }
     }
     return 0;

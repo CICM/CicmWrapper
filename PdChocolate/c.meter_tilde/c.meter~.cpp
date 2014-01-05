@@ -88,50 +88,62 @@ extern "C" void setup_c0x2emeter_tilde(void)
     class_addmethod(c, (method) meter_getdrawparams,   "getdrawparams",    A_CANT, 0);
     class_addmethod(c, (method) meter_oksize,          "oksize",           A_CANT, 0);
     
-	CLASS_ATTR_DEFAULT			(c, "size", 0, "13 85");
+    CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
+	CLASS_ATTR_DEFAULT              (c, "size", 0, "13 85");
     
-    CLASS_ATTR_LONG				(c, "interval", 0, t_meter, f_interval);
-	CLASS_ATTR_ORDER			(c, "interval", 0, "1");
-	CLASS_ATTR_LABEL			(c, "interval", 0, "Refresh Interval in Milliseconds");
-	CLASS_ATTR_FILTER_MIN		(c, "interval", 20);
-	CLASS_ATTR_DEFAULT			(c, "interval", 0, "50");
-	CLASS_ATTR_SAVE				(c, "interval", 1);
-	
-	CLASS_ATTR_RGBA				(c, "bgcolor", 0, t_meter, f_color_background);
-	CLASS_ATTR_LABEL			(c, "bgcolor", 0, "Background Color");
-	CLASS_ATTR_ORDER			(c, "bgcolor", 0, "1");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "bgcolor", 0, "0.75 0.75 0.75 1.");
-	
-	CLASS_ATTR_RGBA				(c, "bdcolor", 0, t_meter, f_color_border);
-	CLASS_ATTR_LABEL			(c, "bdcolor", 0, "Box Border Color");
-	CLASS_ATTR_ORDER			(c, "bdcolor", 0, "2");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "bdcolor", 0, "0.5 0.5 0.5 1.");
-	
-	CLASS_ATTR_RGBA				(c, "coldcolor", 0, t_meter, f_color_signal_cold);
-	CLASS_ATTR_LABEL			(c, "coldcolor", 0, "Cold Signal Color");
-	CLASS_ATTR_ORDER			(c, "coldcolor", 0, "3");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "coldcolor", 0, "0. 0.6 0. 0.8");
-	
-	CLASS_ATTR_RGBA				(c, "tepidcolor", 0, t_meter, f_color_signal_tepid);
-	CLASS_ATTR_LABEL			(c, "tepidcolor", 0, "Tepid Signal Color");
-	CLASS_ATTR_ORDER			(c, "tepidcolor", 0, "4");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "tepidcolor", 0, "0.6 0.73 0. 0.8");
-	
-	CLASS_ATTR_RGBA				(c, "warmcolor", 0, t_meter, f_color_signal_warm);
-	CLASS_ATTR_LABEL			(c, "warmcolor", 0, "Warm Signal Color");
-	CLASS_ATTR_ORDER			(c, "warmcolor", 0, "5");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "warmcolor", 0, ".85 .85 0. 0.8");
-	
-	CLASS_ATTR_RGBA				(c, "hotcolor", 0, t_meter, f_color_signal_hot);
-	CLASS_ATTR_LABEL			(c, "hotcolor", 0, "Hot Signal Color");
-	CLASS_ATTR_ORDER			(c, "hotcolor", 0, "6");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "hotcolor", 0, "1. 0.6 0. 0.8");
-	
-	CLASS_ATTR_RGBA				(c, "overcolor", 0, t_meter, f_color_signal_over);
-	CLASS_ATTR_LABEL			(c, "overcolor", 0, "Overload Signal Color");
-	CLASS_ATTR_ORDER			(c, "overcolor", 0, "7");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT(c, "overcolor", 0, "1. 0. 0. 0.8");
-	
+    CLASS_ATTR_LONG                 (c, "interval", 0, t_meter, f_interval);
+	CLASS_ATTR_ORDER                (c, "interval", 0, "1");
+	CLASS_ATTR_LABEL                (c, "interval", 0, "Refresh Interval in Milliseconds");
+	CLASS_ATTR_FILTER_MIN           (c, "interval", 20);
+	CLASS_ATTR_DEFAULT              (c, "interval", 0, "50");
+	CLASS_ATTR_SAVE                 (c, "interval", 1);
+	CLASS_ATTR_STYLE                (c, "interval", 0, "number");
+    
+	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_meter, f_color_background);
+	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
+	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
+	CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
+    
+	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_meter, f_color_border);
+	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
+	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
+	CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
+    
+	CLASS_ATTR_RGBA                 (c, "coldcolor", 0, t_meter, f_color_signal_cold);
+	CLASS_ATTR_LABEL                (c, "coldcolor", 0, "Cold Signal Color");
+	CLASS_ATTR_ORDER                (c, "coldcolor", 0, "3");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "coldcolor", 0, "0. 0.6 0. 0.8");
+	CLASS_ATTR_STYLE                (c, "coldcolor", 0, "color");
+    
+	CLASS_ATTR_RGBA                 (c, "tepidcolor", 0, t_meter, f_color_signal_tepid);
+	CLASS_ATTR_LABEL                (c, "tepidcolor", 0, "Tepid Signal Color");
+	CLASS_ATTR_ORDER                (c, "tepidcolor", 0, "4");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "tepidcolor", 0, "0.6 0.73 0. 0.8");
+	CLASS_ATTR_STYLE                (c, "tepidcolor", 0, "color");
+    
+	CLASS_ATTR_RGBA                 (c, "warmcolor", 0, t_meter, f_color_signal_warm);
+	CLASS_ATTR_LABEL                (c, "warmcolor", 0, "Warm Signal Color");
+	CLASS_ATTR_ORDER                (c, "warmcolor", 0, "5");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "warmcolor", 0, ".85 .85 0. 0.8");
+	CLASS_ATTR_STYLE                (c, "warmcolor", 0, "color");
+    
+	CLASS_ATTR_RGBA                 (c, "hotcolor", 0, t_meter, f_color_signal_hot);
+	CLASS_ATTR_LABEL                (c, "hotcolor", 0, "Hot Signal Color");
+	CLASS_ATTR_ORDER                (c, "hotcolor", 0, "6");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "hotcolor", 0, "1. 0.6 0. 0.8");
+	CLASS_ATTR_STYLE                (c, "hotcolor", 0, "color");
+    
+	CLASS_ATTR_RGBA                 (c, "overcolor", 0, t_meter, f_color_signal_over);
+	CLASS_ATTR_LABEL                (c, "overcolor", 0, "Overload Signal Color");
+	CLASS_ATTR_ORDER                (c, "overcolor", 0, "7");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "overcolor", 0, "1. 0. 0. 0.8");
+	CLASS_ATTR_STYLE                (c, "overcolor", 0, "color");
+    
     class_register(CLASS_NOBOX, c);
 	meter_class = c;
 }
@@ -249,6 +261,8 @@ void meter_tick(t_meter *x)
 void meter_output(t_meter *x)
 {
     outlet_float((t_outlet*)x->f_peaks_outlet, (float)x->f_peak_value);
+    if(ebox_getsender((t_ebox *) x))
+        pd_float(ebox_getsender((t_ebox *) x), (float)x->f_peak_value);
 }
 
 void meter_free(t_meter *x)

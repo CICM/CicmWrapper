@@ -53,8 +53,8 @@ void ebox_attrprocess_viatoms(void *x, long argc, t_atom *argv)
             free(defv);
             defv = NULL;
         }
-        else
-            object_attr_setvalueof((t_object *)x, c->c_attr[i].name, 0, NULL);
+        //else
+        //    object_attr_setvalueof((t_object *)x, c->c_attr[i].name, 0, NULL);
     }
 }
 
@@ -85,8 +85,8 @@ void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)
             free(defv);
             defv = NULL;
         }
-        else
-           object_attr_setvalueof((t_object *)x, c->c_attr[i].name, 0, NULL);
+        //else
+        //   object_attr_setvalueof((t_object *)x, c->c_attr[i].name, 0, NULL);
     }
 }
 

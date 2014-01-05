@@ -40,7 +40,8 @@ void ebox_new(t_ebox *x, long flags)
     x->b_number_of_layers   = 0;
     x->b_layers             = NULL;
     x->b_editor_id          = NULL;
-    x->b_objuser_id         = gensym("(null)");
+    x->b_receive_id         = gensym("(null)");
+    x->b_send_id         = gensym("(null)");
     x->b_objpreset_id       = gensym("(null)");
     eobj_getclass(x)->c_widget.w_dosave = (method)ebox_dosave;
     ebox_attrprocess_default(x);
@@ -81,8 +82,8 @@ void ebox_ready(t_ebox *x)
 void ebox_free(t_ebox* x)
 {
     gfxstub_deleteforkey(x);
-	if(x->b_objuser_id != gensym("(null)"))
-		pd_unbind(&x->b_obj.o_obj.ob_pd, x->b_objuser_id);
+	if(x->b_receive_id != gensym("(null)"))
+		pd_unbind(&x->b_obj.o_obj.ob_pd, x->b_receive_id);
 	eobj_detach_torouter((t_object *)x);
     if(eobj_isdsp(x))
         eobj_dspfree(x);
@@ -131,6 +132,21 @@ t_symbol* ebox_getfontweight(t_ebox* x)
 float ebox_getfontsize(t_ebox* x)
 {
     return x->b_font.c_size;
+}
+
+//! Retrieve the sender object
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox
+ \ @return          The font size
+ */
+t_pd* ebox_getsender(t_ebox* x)
+{
+    if(x->b_send_id != gensym("(null)") && x->b_send_id->s_thing)
+    {
+        return x->b_send_id->s_thing;
+    }
+    return NULL;
 }
 
 //! Retrieve if an ebox is drawable

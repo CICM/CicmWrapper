@@ -174,14 +174,16 @@ typedef struct _eattr
     long            offset;
     long            sizemax;
     long            size;
-
+    
 	method			getter;
 	method			setter;
     long            clipped;
 	double          minimum;
     double          maximum;
+    double          step;
     t_symbol*       defvals;
-
+    t_symbol**      itemslist;
+    long            itemssize;
 } t_eattr;
 
 typedef struct _eclass
@@ -262,11 +264,11 @@ typedef enum _etextjustify_flags
 
 typedef struct _efont
 {
+    float       c_size;
+    long        c_sizereal;
     t_symbol*   c_family;   // times, helvetica, ect...
     t_symbol*   c_slant;    // regular, italic
     t_symbol*   c_weight;   // normal, bold
-    float       c_size;
-    float       c_sizereal;
 } t_efont;
 
 typedef struct _epopup
@@ -438,7 +440,8 @@ typedef struct _ebox
 {
     t_eobj              b_obj;              /*!< The Pd Enhanced object. */
 
-    t_symbol*           b_objuser_id;       /*!< The object user ID. */
+    t_symbol*           b_receive_id;       /*!< The object user ID. */
+    t_symbol*           b_send_id;       /*!< The object send ID. */
     t_symbol*           b_objpreset_id;     /*!< The object preset ID. */
 
     t_symbol*           b_canvas_id;        /*!< The canvas ID. */
@@ -479,7 +482,8 @@ typedef struct _edspbox
 {
     t_eobj              b_obj;              /*!< The Pd Enhanced DSP object. */
 
-    t_symbol*           b_objuser_id;       /*!< The object user ID. */
+    t_symbol*           b_receive_id;       /*!< The object user ID. */
+    t_symbol*           b_send_id;       /*!< The object send ID. */
     t_symbol*           b_objpreset_id;     /*!< The object preset ID. */
 
     t_symbol*           b_canvas_id;        /*!< The canvas ID. */
