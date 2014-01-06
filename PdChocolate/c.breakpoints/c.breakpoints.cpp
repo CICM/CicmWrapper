@@ -39,6 +39,8 @@ typedef struct _breakpoints
 
     t_pt        f_size;
     t_pt        f_mouse;
+    long        f_outline_mode;
+    t_symbol*   f_outline;
     float       f_point_abscissa[MAXPOINTS];
     float       f_point_ordinate[MAXPOINTS];
     int         f_number_of_points;
@@ -153,6 +155,13 @@ extern "C" void setup_c0x2ebreakpoints(void)
 	CLASS_ATTR_ORDER                (c, "ordrange", 0, "2");
 	CLASS_ATTR_LABEL                (c, "ordrange", 0, "Ordinate Range");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "ordrange", 0, "0. 1.");
+    
+    CLASS_ATTR_SYMBOL               (c, "outline", 0, t_breakpoints, f_outline);
+	CLASS_ATTR_ORDER                (c, "outline", 0, "2");
+	CLASS_ATTR_LABEL                (c, "outline", 0, "Outline");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "outline", 0, "Linear");
+    CLASS_ATTR_ITEMS                (c, "outline", 0, "Linear Cosine Cubic");
+    CLASS_ATTR_STYLE                (c, "outline", 0, "menu");
 
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_breakpoints, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
@@ -197,6 +206,7 @@ void *breakpoints_new(t_symbol *s, int argc, t_atom *argv)
 		return NULL;
 
 	x = (t_breakpoints *)eobj_new(breakpoints_class);
+    x->f_outline_mode = 0;
     flags = 0
     | EBOX_GROWINDI
     ;
@@ -214,7 +224,7 @@ void *breakpoints_new(t_symbol *s, int argc, t_atom *argv)
     x->f_point_last_created = -1;
     x->f_mouse.x = -666666;
     x->f_mouse.y = -666666;
-
+    
     x->f_clock = clock_new(x, (t_method)breakpoints_inc);
 
     ebox_attrprocess_viabinbuf(x, d);
@@ -243,21 +253,104 @@ void breakpoints_oksize(t_breakpoints *x, t_rect *newrect)
     newrect->height = pd_clip_min(newrect->height, 15.);
 }
 
-void breakpoints_float(t_breakpoints *x, float f)
+float breakpoints_linear(t_breakpoints *x, float f)
 {
     int i;
-    float ratio, result;
-    f = pd_clip_minmax(f, x->f_range_abscissa[0], x->f_range_abscissa[1]);
+    float ratio;
     for(i = 0; i < x->f_number_of_points - 1; i++)
     {
         if(f >= x->f_point_abscissa[i] && f <= x->f_point_abscissa[i+1])
         {
             ratio = (f - x->f_point_abscissa[i]) / (x->f_point_abscissa[i+1] - x->f_point_abscissa[i]);
-            result = x->f_point_ordinate[i] * (1. - ratio) + x->f_point_ordinate[i+1] * (ratio);
-            outlet_float(x->f_out_float, result);
-            return;
+            return x->f_point_ordinate[i] * (1. - ratio) + x->f_point_ordinate[i+1] * (ratio);
         }
     }
+    return 0;
+}
+
+float breakpoints_cosine(t_breakpoints *x, float f)
+{
+    int i;
+    float ratio1, ratio2;
+    for(i = 0; i < x->f_number_of_points - 1; i++)
+    {
+        if(f >= x->f_point_abscissa[i] && f <= x->f_point_abscissa[i+1])
+        {
+            ratio1 = (f - x->f_point_abscissa[i]) / (x->f_point_abscissa[i+1] - x->f_point_abscissa[i]);
+            ratio2 = (1.f - cosf(ratio1 * EPD_PI)) * 0.5f;
+            return x->f_point_ordinate[i] * (1.f - ratio2) + x->f_point_ordinate[i+1] * ratio2;
+        }
+    }
+    return 0;
+}
+
+float breakpoints_cubic(t_breakpoints *x, float f)
+{
+    int i;
+    float ratio1, ratio2;
+    float y0, y1, y2, y3;
+    float a0, a1, a2, a3;
+    
+    for(i = 0; i < x->f_number_of_points - 1; i++)
+    {
+        if(f >= x->f_point_abscissa[i] && f <= x->f_point_abscissa[i+1])
+        {
+            ratio1 = (f - x->f_point_abscissa[i]) / (x->f_point_abscissa[i+1] - x->f_point_abscissa[i]);
+            ratio2 = ratio1*ratio1;
+            if(i == 0)
+            {
+                y1 = y0 = x->f_point_ordinate[i];
+                y2 = x->f_point_ordinate[i+1];
+                y3 = x->f_point_ordinate[i+2];
+            }
+            else if(i == x->f_number_of_points - 2)
+            {
+                y0 = x->f_point_ordinate[i-1];
+                y1 = x->f_point_ordinate[i];
+                y3 = y2 = x->f_point_ordinate[i+1];
+            }
+            else
+            {
+                y0 = x->f_point_ordinate[i-1];
+                y1 = x->f_point_ordinate[i];
+                y2 = x->f_point_ordinate[i+1];
+                y3 = x->f_point_ordinate[i+2];
+            }
+            
+            a0 = y3 - y2 - y0 + y1;
+            a1 = y0 - y1 - a0;
+            a2 = y2 - y0;
+            a3 = y1;
+            
+            return a0 * ratio1 * ratio2 + a1 * ratio2 + a2 * ratio1 + a3;
+        }
+    }
+    return 0;
+}
+
+float breakpoints_interpolation(t_breakpoints *x, float f)
+{
+    f = pd_clip_minmax(f, x->f_range_abscissa[0], x->f_range_abscissa[1]);
+    if(x->f_outline_mode == 0)
+        return breakpoints_linear(x, f);
+    else if(x->f_outline_mode == 1 || x->f_number_of_points == 2)
+        return breakpoints_cosine(x, f);
+    else
+        return breakpoints_cubic(x, f);
+}
+
+void breakpoints_float(t_breakpoints *x, float f)
+{
+    float result;
+    if(x->f_number_of_points == 0)
+        return;
+    if(x->f_number_of_points == 1)
+    {
+        outlet_float(x->f_out_float, x->f_point_ordinate[0]);
+        return;
+    }
+    result = breakpoints_interpolation(x, f);
+    outlet_float(x->f_out_float, result);
 }
 
 void breakpoints_getlist(t_breakpoints *x)
@@ -552,6 +645,23 @@ t_pd_err breakpoints_notify(t_breakpoints *x, t_symbol *s, t_symbol *msg, void *
             }
             ebox_invalidate_layer((t_ebox *)x, gensym("points_layer"));
         }
+        if(s == gensym("outline"))
+        {
+            if(x->f_outline == gensym("Cosine"))
+            {
+                x->f_outline_mode = 1;
+            }
+            else if(x->f_outline == gensym("Cubic"))
+            {
+                x->f_outline_mode = 2;
+            }
+            else
+            {
+                x->f_outline = gensym("Linear");
+                x->f_outline_mode = 0;
+            }
+            ebox_invalidate_layer((t_ebox *)x, gensym("points_layer"));
+        }
         ebox_redraw((t_ebox *)x);
 	}
 	return 0;
@@ -608,10 +718,12 @@ void draw_points(t_breakpoints *x, t_object *view, t_rect *rect)
 {
     int i;
     float abs, ord;
+    float max, inc;
+    float abs2;
     float ratiox, ratioy;
     float height = sys_fontheight(ebox_getfontsize((t_ebox *)x)) + 2;
 	t_elayer *g = ebox_start_layer((t_ebox *)x, gensym("points_layer"), rect->width, rect->height);
-
+    
 	if (g && x->f_number_of_points)
 	{
         ratiox = (rect->width - 4.) / (x->f_range_abscissa[1] - x->f_range_abscissa[0]);
@@ -619,17 +731,48 @@ void draw_points(t_breakpoints *x, t_object *view, t_rect *rect)
 
         egraphics_set_line_width(g, 2);
         egraphics_set_color_rgba(g, &x->f_color_line);
-        abs = (x->f_point_abscissa[0] - x->f_range_abscissa[0]) * ratiox + 2.;
-        ord = rect->height - (x->f_point_ordinate[0] - x->f_range_ordinate[0]) * ratioy - 2.;
-        egraphics_move_to(g, abs, ord);
-        for(i = 0; i < x->f_number_of_points; i++)
+        
+        if(x->f_outline_mode == 0)
         {
-            abs = (x->f_point_abscissa[i] - x->f_range_abscissa[0]) * ratiox + 2.;
-            ord = rect->height - (x->f_point_ordinate[i] - x->f_range_ordinate[0]) * ratioy - 2.;
-
-            egraphics_line_to(g, abs, ord);
+            abs = (x->f_point_abscissa[0] - x->f_range_abscissa[0]) * ratiox + 2.;
+            ord = rect->height - (x->f_point_ordinate[0] - x->f_range_ordinate[0]) * ratioy - 2.;
+            egraphics_move_to(g, abs, ord);
+            for(i = 0; i < x->f_number_of_points; i++)
+            {
+                abs = (x->f_point_abscissa[i] - x->f_range_abscissa[0]) * ratiox + 2.;
+                ord = rect->height - (x->f_point_ordinate[i] - x->f_range_ordinate[0]) * ratioy - 2.;
+                egraphics_line_to(g, abs, ord);
+            }
+            egraphics_stroke(g);
         }
-        egraphics_stroke(g);
+        else if (x->f_outline_mode == 1 || x->f_outline_mode == 2)
+        {
+            abs = (x->f_point_abscissa[0] - x->f_range_abscissa[0]) * ratiox + 2.;
+            ord = rect->height - (x->f_point_ordinate[0] - x->f_range_ordinate[0]) * ratioy - 2.;
+            egraphics_move_to(g, abs, ord);
+            
+            max = (x->f_point_abscissa[x->f_number_of_points-1] - x->f_range_ordinate[0]) * ratiox + 2.;
+            inc = (x->f_point_abscissa[x->f_number_of_points-1] - x->f_point_abscissa[0]) / (float)(max - abs);
+            abs2 = x->f_point_abscissa[0]+inc;
+            if(x->f_point_abscissa[x->f_number_of_points-1] == x->f_point_abscissa[x->f_number_of_points-2])
+            {
+                for(i = abs; i <= max && abs2 <= x->f_point_abscissa[x->f_number_of_points-1]+inc; i++, abs2 += inc)
+                {
+                    ord = rect->height - (breakpoints_interpolation(x, abs2) - x->f_range_ordinate[0]) * ratioy - 2.;
+                    egraphics_line_to(g, i, ord);
+                }
+            }
+            else
+            {
+                for(i = abs; i <= max && abs2 <= x->f_point_abscissa[x->f_number_of_points-1]; i++, abs2 += inc)
+                {
+                    ord = rect->height - (breakpoints_interpolation(x, abs2) - x->f_range_ordinate[0]) * ratioy - 2.;
+                    egraphics_line_to(g, i, ord);
+                }
+            }
+            
+            egraphics_stroke(g);
+        }
 
         egraphics_set_color_rgba(g, &x->f_color_point);
         for(i = 0; i < x->f_number_of_points; i++)
