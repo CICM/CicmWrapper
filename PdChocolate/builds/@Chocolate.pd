@@ -60,27 +60,27 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5
 0.5 0.5 1 @secolor 0.35 0.35 0.35 1;
 #X obj 711 325 c.scope~ @size 84 58 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send êj' @bufdis
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @bufdis
 256 @bufsig 256 @range -1 1 @xymode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
 0.5 0.5 0.5 1 @sicolor 0 0.6 0 0.8;
 #X obj 613 200 c.breakpoints @size 98 60 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @absrange 0 1000 @ordrange 0 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor
-0.5 0.5 0.5 1 @ptcolor 0.5 0.5 0.5 1 @licolor 0 0 0 1 @textcolor 0
-0 0 1 @points 20.5479 0 260.274 0.444444 554.794 0.271605 595.89 0.839506
-863.014 0.740741 1000 0.160494;
-#X obj 789 105 c.blackboard @size 70 65 @fontname Helvetica @fontweight
+(null) @absrange 0 1000 @ordrange 0 1 @outline Linear @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @ptcolor 0.5 0.5 0.5 1 @licolor
+0 0 0 1 @textcolor 0 0 0 1 @points 20.5479 0 260.274 0.444444 554.794
+0.271605 595.89 0.839506 863.014 0.740741 1000 0.160494;
+#X obj 790 106 c.blackboard @size 70 65 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @chalkmode
 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
 #N canvas 558 159 450 300 load 0;
 #X msg 116 146 image 0 0 chocolate2.gif;
 #X obj 116 182 outlet;
-#X obj 116 79 loadbang;
-#X obj 116 110 delay 500;
+#X obj 116 79 c.loadmess;
+#X obj 116 110 delay 1000;
 #X connect 0 0 1 0;
 #X connect 2 0 3 0;
 #X connect 3 0 0 0;
-#X restore 795 131 pd load;
+#X restore 795 121 pd load;
 #X text -36 -63 A set of GUI for those who like vanilla...;
 #X text 144 160 c.number;
 #X text 224 -63 but also want some chocolate;
