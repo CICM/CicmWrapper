@@ -54,7 +54,6 @@ void *eobj_new(t_eclass *c)
     sprintf(buffer,"#%s%lx", c->c_class.c_name->s_name, (long unsigned int)z);
     z->o_id = gensym(buffer);
     pd_bind(&z->o_obj.ob_pd, z->o_id);
-    erouter_setup(z->o_canvas);
     eobj_attach_torouter((t_object *)z);
     sprintf(buffer,".x%lx.c", (long unsigned int)z->o_canvas);
     z->o_canvas_id = gensym(buffer);

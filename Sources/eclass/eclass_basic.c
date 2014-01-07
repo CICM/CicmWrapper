@@ -48,6 +48,7 @@ t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t siz
     c->c_box   = 0;
     c->c_attr  = (t_eattr *)malloc(sizeof(t_eattr));
     eproxy_setup(c);
+    erouter_setup();
     return c;
 }
 
@@ -128,7 +129,6 @@ void eclass_init(t_eclass* c, long flags)
     CLASS_ATTR_LABEL		(c, "send", 0, "Send Symbol");
 
     // GUI always need this methods //
-    class_addmethod((t_class *)c, (t_method)glist_return_erouter,   gensym("erouter"),      A_CANT,  0);
     class_addmethod((t_class *)c, (t_method)ebox_patcher_editmode,  gensym("editmode"),     A_GIMME, 0);
     class_addmethod((t_class *)c, (t_method)ebox_attrprint,         gensym("attrprint"),    A_CANT,  0);
     class_addmethod((t_class *)c, (t_method)ebox_dialog,            gensym("dialog"),       A_GIMME, 0);

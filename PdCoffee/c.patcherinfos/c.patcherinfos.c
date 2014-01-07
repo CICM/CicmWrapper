@@ -24,7 +24,7 @@
  *
  */
 
-#include "../../../PdEnhanced/Sources/pd_enhanced.h"
+#include "../../../PdEnhanced/Sources/cicm_wrapper.h"
 
 typedef struct  _patcherinfos
 {
@@ -57,6 +57,7 @@ void setup_c0x2epatcherinfos(void)
     eclass_addmethod(c, (method)patcherinfos_click,       "click",      A_CANT, 0);
     
     eclass_register(CLASS_BOX, c);
+    erouter_add_libary(gensym("chocolate"), "Chocolate and Coffee Libraries by Pierre Guillot", "© 2013 - 2014  CICM | Paris 8 University", "Version Beta 0.1");
 	patcherinfos_class = c;
 }
 

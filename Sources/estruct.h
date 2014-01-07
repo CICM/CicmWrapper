@@ -376,6 +376,8 @@ typedef struct _erouter
     t_object            e_obj;          /*!< The router object. */
     t_object**          e_childs;       /*!< The eobj pointer. */
     long                e_nchilds;      /*!< The number of eobj. */
+    t_symbol**          e_libraries;    /*!< The libraries names. */
+    long                e_nlibraries;   /*!< The number of libraries. */
 }t_erouter;
 
 /**

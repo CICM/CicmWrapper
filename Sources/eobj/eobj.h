@@ -99,12 +99,12 @@ void eobj_dsp_add(t_edspobj *x, t_symbol* s, t_object* obj, method m, long flags
  * ROUTER
  *********************************/
 
+void erouter_add_libary(t_symbol* name, char* message, char* copyright, char* version);
 void eobj_attach_torouter(t_object* child);
 void eobj_detach_torouter(t_object* child);
 
 //! @cond
-t_erouter* glist_return_erouter(t_object* glist);
-void erouter_setup(t_glist* obj);
+void erouter_setup();
 void erouter_free(t_erouter *x);
 void erouter_anything(t_erouter *x, t_symbol *s, long argc, t_atom *argv);
 //! @endcond

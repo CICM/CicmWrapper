@@ -26,37 +26,15 @@
 
 #include "eobj.h"
 
-t_erouter* my_erouter;
 t_class *erouter_class;
 
-t_erouter* glist_return_erouter(t_object* glist)
+void erouter_setup()
 {
-    return my_erouter;
-}
-
-void erouter_setup(t_glist* obj)
-{
-    int i;
     t_erouter *x;
-    rmethod nrmethod = NULL;
-    t_class* glist = obj->gl_obj.te_g.g_pd;
     t_class* c = NULL;
-    if(!glist)
-    {
+    if(gensym("erouter1572")->s_thing != NULL)
         return;
-    }
-    
-    for(i = 0; i < glist->c_nmethod; i++)
-    {
-        if(glist->c_methods[i].me_name == gensym("erouter"))
-        {
-            nrmethod = (rmethod)glist->c_methods[i].me_fun;
-            my_erouter = (t_erouter*)nrmethod(obj);
-            if(my_erouter != NULL)
-                return;
-        }
-    }
-
+        
     c = class_new(gensym("erouter"), NULL, (t_method)erouter_free, sizeof(t_erouter), CLASS_PD, A_NULL);
     if (c)
     {
@@ -69,14 +47,39 @@ void erouter_setup(t_glist* obj)
         pd_bind(&x->e_obj.ob_pd, gensym("#erouter"));
         x->e_nchilds    = 0;
         x->e_childs     = NULL;
-        
-        my_erouter = x;
-        class_addmethod(glist, (t_method)glist_return_erouter, gensym("erouter"), A_GIMME, 0);
-        
-        post("Chocolate and Coffee Libraries by Pierre Guillot");
-        post("© 2013 - 2014  CICM | Paris 8 University");
-        post("Version Beta 0.1");
+        x->e_nlibraries = 0;
+        x->e_libraries  = NULL;
+        pd_bind(&x->e_obj.te_g.g_pd, gensym("erouter1572"));
     }
+}
+
+void erouter_add_libary(t_symbol* name, char* message, char* copyright, char* version)
+{
+    int i;
+    if(gensym("erouter1572")->s_thing == NULL)
+        erouter_setup();
+    t_erouter *x = (t_erouter *)gensym("erouter1572")->s_thing;
+    for(i = 0; i < x->e_nlibraries; i++)
+    {
+        if(x->e_libraries[i] == name)
+            return;
+    }
+    if(x->e_nlibraries == 0)
+    {
+        x->e_libraries = (t_symbol **)malloc(sizeof(t_symbol *));
+        x->e_libraries[0] = name;
+        x->e_nlibraries = 1;
+    }
+    else
+    {
+        x->e_libraries = (t_symbol **)realloc(x->e_libraries,(x->e_nlibraries + 1) * sizeof(t_symbol *));
+        x->e_libraries[x->e_nlibraries] = name;
+        x->e_nlibraries++;
+    }
+    
+    post(message);
+    post(copyright);
+    post(version);
 }
 
 void erouter_free(t_erouter *x)
@@ -91,7 +94,9 @@ void erouter_free(t_erouter *x)
 void eobj_detach_torouter(t_object* child)
 {
     int i;
-    t_erouter *x = my_erouter;
+    if(gensym("erouter1572")->s_thing == NULL)
+        erouter_setup();
+    t_erouter *x = (t_erouter *)gensym("erouter1572")->s_thing;
     if(x)
     {
         for(i = 0; i < x->e_nchilds; i++)
@@ -107,7 +112,9 @@ void eobj_detach_torouter(t_object* child)
 void eobj_attach_torouter(t_object* child)
 {
     int i;
-    t_erouter *x = my_erouter;
+    if(gensym("erouter1572")->s_thing == NULL)
+        erouter_setup();
+    t_erouter *x = (t_erouter *)gensym("erouter1572")->s_thing;
     for(i = 0; i < x->e_nchilds; i++)
     {
         if(x->e_childs[i] == child)
@@ -161,7 +168,9 @@ void eobj_attach_torouter(t_object* child)
 
 long erouter_getnobjects()
 {
-    t_erouter *x = my_erouter;
+    if(gensym("erouter1572")->s_thing == NULL)
+        erouter_setup();
+    t_erouter *x = (t_erouter *)gensym("erouter1572")->s_thing;
     if(x)
         return x->e_nchilds;
     else
@@ -170,7 +179,9 @@ long erouter_getnobjects()
 
 t_object* erouter_getobject(long index)
 {
-    t_erouter *x = my_erouter;
+    if(gensym("erouter1572")->s_thing == NULL)
+        erouter_setup();
+    t_erouter *x = (t_erouter *)gensym("erouter1572")->s_thing;
     if(x)
     {
        if(index >= 0 && index < x->e_nchilds)

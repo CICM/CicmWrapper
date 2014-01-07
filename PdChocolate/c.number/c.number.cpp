@@ -165,6 +165,7 @@ extern "C" void setup_c0x2enumber(void)
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "0. 0. 0. 1.");
     CLASS_ATTR_STYLE                (c, "textcolor", 0, "color");
     eclass_register(CLASS_NOBOX, c);
+    erouter_add_libary(gensym("chocolate"), "Chocolate and Coffee Libraries by Pierre Guillot", "© 2013 - 2014  CICM | Paris 8 University", "Version Beta 0.1");
 	number_class = c;
 }
 

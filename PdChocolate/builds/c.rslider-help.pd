@@ -1,4 +1,4 @@
-#N canvas 229 223 587 438 10;
+#N canvas 229 223 588 460 10;
 #X obj -59 -122 cnv 40 552 40 empty empty c.rslider 3 12 0 18 -228856
 -33289 0;
 #X msg 344 28 set \$1;
@@ -51,7 +51,7 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 0 0 0.505898 1 @kncolor 0 0.252949 0.505898 1;
 #X msg 425 26 set 45 78;
 #X obj 344 238 c.prepend set;
-#X msg 344 271 125.58 78;
+#X msg 344 271 15.9701 101.904;
 #X text 22 244 Inversed boundaries;
 #X text 379 187 List output mode;
 #X text 130 -23 Click with shift to move the closest knob;

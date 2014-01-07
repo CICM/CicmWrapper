@@ -43,7 +43,6 @@
 		8F8C3729186D7969004C3EFE /* epopup.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C3704186D7969004C3EFE /* epopup.c */; };
 		8F8C372A186D7969004C3EFE /* epopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8C3705186D7969004C3EFE /* epopup.h */; };
 		8F8C372B186D7969004C3EFE /* estruct.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8C3706186D7969004C3EFE /* estruct.h */; };
-		8F8C372C186D7969004C3EFE /* pd_enhanced.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8C3708186D7969004C3EFE /* pd_enhanced.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,7 +83,6 @@
 		8F8C3704186D7969004C3EFE /* epopup.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = epopup.c; sourceTree = "<group>"; };
 		8F8C3705186D7969004C3EFE /* epopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = epopup.h; sourceTree = "<group>"; };
 		8F8C3706186D7969004C3EFE /* estruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = estruct.h; sourceTree = "<group>"; };
-		8F8C3708186D7969004C3EFE /* pd_enhanced.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pd_enhanced.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +128,6 @@
 				8F8C3703186D7969004C3EFE /* epopup */,
 				8F8C3706186D7969004C3EFE /* estruct.h */,
 				8F8C3707186D7969004C3EFE /* ewidget */,
-				8F8C3708186D7969004C3EFE /* pd_enhanced.h */,
 			);
 			name = Sources;
 			path = ../../Sources;
@@ -223,7 +220,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F8C372C186D7969004C3EFE /* pd_enhanced.h in Headers */,
 				8F8C3718186D7969004C3EFE /* eboxflag.h in Headers */,
 				8F8C371A186D7969004C3EFE /* ecommon.h in Headers */,
 				8F8C3709186D7969004C3EFE /* ebox.h in Headers */,
