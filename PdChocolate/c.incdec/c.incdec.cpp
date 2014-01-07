@@ -1,7 +1,7 @@
 /*
- * PdEnhanced - Pure Data Enhanced
+ * CicmWrapper
  *
- * An add-on for Pure Data
+ * A wrapper for Pure Data
  *
  * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8
  * All rights reserved.
@@ -25,7 +25,7 @@
  */
 
 extern "C" {
-#include "../../../PdEnhanced/Sources/pd_enhanced.h"
+#include "../../../PdEnhanced/Sources/cicm_wrapper.h"
 }
 
 typedef struct _incdec

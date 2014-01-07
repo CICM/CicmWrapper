@@ -43,7 +43,7 @@
 		8F8C37C9186D7B76004C3EFE /* epopup.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C37A4186D7B76004C3EFE /* epopup.c */; };
 		8F8C37CA186D7B76004C3EFE /* epopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8C37A5186D7B76004C3EFE /* epopup.h */; };
 		8F8C37CB186D7B76004C3EFE /* estruct.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8C37A6186D7B76004C3EFE /* estruct.h */; };
-		8F8C37CC186D7B76004C3EFE /* pd_enhanced.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8C37A8186D7B76004C3EFE /* pd_enhanced.h */; };
+		8F8C37CC186D7B76004C3EFE /* cicm_wrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8C37A8186D7B76004C3EFE /* cicm_wrapper.h */; };
 		8FE1B1ED17F6353500A3E466 /* c.breakpoints.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE1B1EC17F6353500A3E466 /* c.breakpoints.cpp */; };
 /* End PBXBuildFile section */
 
@@ -85,7 +85,7 @@
 		8F8C37A4186D7B76004C3EFE /* epopup.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = epopup.c; sourceTree = "<group>"; };
 		8F8C37A5186D7B76004C3EFE /* epopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = epopup.h; sourceTree = "<group>"; };
 		8F8C37A6186D7B76004C3EFE /* estruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = estruct.h; sourceTree = "<group>"; };
-		8F8C37A8186D7B76004C3EFE /* pd_enhanced.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pd_enhanced.h; sourceTree = "<group>"; };
+		8F8C37A8186D7B76004C3EFE /* cicm_wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cicm_wrapper.h; sourceTree = "<group>"; };
 		8FE1B1EC17F6353500A3E466 /* c.breakpoints.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = c.breakpoints.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,7 +132,7 @@
 				8F8C37A3186D7B76004C3EFE /* epopup */,
 				8F8C37A6186D7B76004C3EFE /* estruct.h */,
 				8F8C37A7186D7B76004C3EFE /* ewidget */,
-				8F8C37A8186D7B76004C3EFE /* pd_enhanced.h */,
+				8F8C37A8186D7B76004C3EFE /* cicm_wrapper.h */,
 			);
 			name = Sources;
 			path = ../../Sources;
@@ -226,7 +226,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F8C37CC186D7B76004C3EFE /* pd_enhanced.h in Headers */,
+				8F8C37CC186D7B76004C3EFE /* cicm_wrapper.h in Headers */,
 				8F8C37B8186D7B76004C3EFE /* eboxflag.h in Headers */,
 				8F8C37BA186D7B76004C3EFE /* ecommon.h in Headers */,
 				8F8C37A9186D7B76004C3EFE /* ebox.h in Headers */,

@@ -1,7 +1,7 @@
 /*
- * PdEnhanced - Pure Data Enhanced 
+ * CicmWrapper
  *
- * An add-on for Pure Data
+ * A wrapper for Pure Data
  *
  * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8
  * All rights reserved.
@@ -71,7 +71,7 @@
 #define class_dspinit(class)                        eclassbox_dspinit(class)
 #define class_dspinitjbox(class)                    eclass_dspinit(class)
 #define class_register(name_space, class)           eclass_register(name_space, class)
-#define object_alloc(class)                         eobject_alloc(class)
+#define object_alloc(class)                         eobj_new(class)
 #define jbox_new(t_jbox, flags, argc, argv)         ebox_new(t_jbox, flags, argc, argv)
 #define dsp_setupjbox(t_jbox, nins, nouts)          ebox_dspsetup(t_jbox, nins, nouts)
 #define jbox_ready(t_jbox)                          ebox_ready(t_jbox)

@@ -1,7 +1,7 @@
 /*
- * PdEnhanced - Pure Data Enhanced 
+ * CicmWrapper
  *
- * An add-on for Pure Data
+ * A wrapper for Pure Data
  *
  * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8
  * All rights reserved.
@@ -308,7 +308,7 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
             {
                 /*
                 //sys_vgui("set %s [image create photo -file %s%s.%s]\n", image->c_name->s_name, path->s_name, name->s_name, image->c_ext->s_name);
-                sys_vgui("%s create image %d %d -anchor nw -image [image create photo -file /Users/Pierre/SourceTree/PdEnhanced/PdChocolate/builds/colorpicker.gif] -tags { %s %s }\n",
+                sys_vgui("%s create image %d %d -anchor nw -image [image create photo -file /Users/Pierre/SourceTree/CicmWrapper/PdChocolate/builds/colorpicker.gif] -tags { %s %s }\n",
                          x->b_drawing_id->s_name,
                          (int)(gobj->e_points[0].x + x_p + bdsize),
                          (int)(gobj->e_points[0].y + y_p + bdsize),

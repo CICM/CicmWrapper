@@ -1,7 +1,7 @@
 /*
- * PdEnhanced - Pure Data Enhanced
+ * CicmWrapper - Pure Data Enhanced
  *
- * An add-on for Pure Data
+ * A wrapper for Pure Data
  *
  * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8
  * All rights reserved.
@@ -26,7 +26,7 @@
 
 /**
  * @file estruct.h
- * @brief The header that contains all the principals structures of PdEnhanced
+ * @brief The header that contains all the principals structures of CicmWrapper
  * @details All the principals structures are defined in this file.
  * @author Pierre Guillot
  */
@@ -311,7 +311,7 @@ typedef enum
 
 /**
  * @struct _egobj
- * @brief The Pd Enhanced drawing object.
+ * @brief The CICM drawing object.
  * @details It contains the all the informations to be drawn.
  */
 typedef struct _egobj
@@ -333,7 +333,7 @@ typedef struct _egobj
 
 /**
  * @struct _elayer
- * @brief The Pd Enhanced drawing layer.
+ * @brief The CICM drawing layer.
  * @details It contains the all the informations and the graphical objects to be drawn.
  */
 typedef struct _elayer
@@ -354,7 +354,7 @@ typedef struct _elayer
 
 /**
  * @struct _edrawparams
- * @brief The Pd Enhanced drawing parameters.
+ * @brief The CICM drawing parameters.
  * @details It contains the default parameters of a ebox.
  */
 typedef struct _edrawparams
@@ -368,7 +368,7 @@ typedef struct _edrawparams
 
 /**
  * @struct _erouter
- * @brief The Pd Enhanced Router object.
+ * @brief The CICM Router object.
  * @details It contains the router class and a pointer to all the eobjects loaeded.
  */
 typedef struct _erouter
@@ -380,7 +380,7 @@ typedef struct _erouter
 
 /**
  * @struct _eproxy
- * @brief The Pd Enhanced Proxy object.
+ * @brief The CICM Proxy object.
  * @details It contains the proxy class, the eobj owner and the index of the proxy.
  */
 typedef struct _eproxy
@@ -393,7 +393,7 @@ typedef struct _eproxy
 
 /**
  * @struct _eobj
- * @brief The Pd Enhanced Box object.
+ * @brief The CICM Box object.
  * @details It contains the Pd object, the canvas pointer and members for proxy inlets.
  * This should be used for no graphical object that don't have signal processing methods.
  */
@@ -410,13 +410,13 @@ typedef struct _eobj
 
 /**
  * @struct _edspobj
- * @brief The Pd Enhanced Box DSP object.
- * @details It contains the Pd Enhanced object with all the members for signal processing.
+ * @brief The CICM Box DSP object.
+ * @details It contains the CICM object with all the members for signal processing.
  * This should be used for no graphical object that have signal processing methods.
  */
 typedef struct _edspobj
 {
-    t_eobj              d_obj;              /*!< The Pd Enhanced object. */
+    t_eobj              d_obj;              /*!< The CICM object. */
 
     t_inlet*            d_inlets[256];      /*!< The array of signal inlets. */
     t_outlet*           d_outlets[256];     /*!< The array of signal outlets. */
@@ -432,16 +432,16 @@ typedef struct _edspobj
 
 /**
  * @struct _ebox
- * @brief The Pd Enhanced GUI object.
- * @details It contains the Pd Enhanced object with all the members for graphical behavior.
+ * @brief The CICM GUI object.
+ * @details It contains the CICM object with all the members for graphical behavior.
  * This should be used for graphical object that don't have signal processing methods.
  */
 typedef struct _ebox
 {
-    t_eobj              b_obj;              /*!< The Pd Enhanced object. */
+    t_eobj              b_obj;              /*!< The CICM object. */
 
     t_symbol*           b_receive_id;       /*!< The object user ID. */
-    t_symbol*           b_send_id;       /*!< The object send ID. */
+    t_symbol*           b_send_id;          /*!< The object send ID. */
     t_symbol*           b_objpreset_id;     /*!< The object preset ID. */
 
     t_symbol*           b_canvas_id;        /*!< The canvas ID. */
@@ -474,13 +474,13 @@ typedef struct _ebox
 
 /**
  * @struct _edspbox
- * @brief The Pd Enhanced GUI DSP object.
- * @details It contains the Pd Enhanced object with all the members for graphical behavior and signal processing.
+ * @brief The CICM GUI DSP object.
+ * @details It contains the CICM object with all the members for graphical behavior and signal processing.
  * This should be used for graphical object that have signal processing methods.
  */
 typedef struct _edspbox
 {
-    t_eobj              b_obj;              /*!< The Pd Enhanced DSP object. */
+    t_eobj              b_obj;              /*!< The CICM DSP object. */
 
     t_symbol*           b_receive_id;       /*!< The object user ID. */
     t_symbol*           b_send_id;       /*!< The object send ID. */
