@@ -84,13 +84,11 @@ void canvas_deletelines_for_io(t_canvas *x, t_text *text, t_inlet *inp, t_outlet
     linetraverser_start(&t, x);
     while ((oc = linetraverser_next(&t)))
     {
-        if ((t.tr_ob == text && t.tr_outlet == outp) ||
-            (t.tr_ob2 == text && t.tr_inlet == inp))
+        if ((t.tr_ob == text && t.tr_outlet == outp) || (t.tr_ob2 == text && t.tr_inlet == inp))
         {
-            if (glist_isvisible(x))
+            if(glist_isvisible(x))
             {
-                sys_vgui(".x%lx.c delete l%lx\n",
-                         glist_getcanvas(x), oc);
+                sys_vgui(".x%lx.c delete l%lx\n", glist_getcanvas(x), oc);
             }
             obj_disconnect(t.tr_ob, t.tr_outno, t.tr_ob2, t.tr_inno);
         }

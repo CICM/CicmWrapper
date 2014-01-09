@@ -73,7 +73,6 @@ void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)
     long defc       = 0;
     t_atom* defv    = NULL;
     t_eclass* c     = eobj_getclass(x);
-    
     for(i = 0; i < c->c_nattr; i++)
     {
         sprintf(attr_name, "@%s", c->c_attr[i].name->s_name);
@@ -85,8 +84,6 @@ void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)
             free(defv);
             defv = NULL;
         }
-        //else
-        //   object_attr_setvalueof((t_object *)x, c->c_attr[i].name, 0, NULL);
     }
 }
 

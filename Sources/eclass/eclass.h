@@ -36,6 +36,7 @@
 
 #include "../estruct.h"
 #include "../ebox/ebox.h"
+#include "../epopup/epopup.h"
 
 /*********************************
  * OBJECT

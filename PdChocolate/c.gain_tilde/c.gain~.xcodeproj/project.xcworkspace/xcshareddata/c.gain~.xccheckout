@@ -5,19 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>B9D13A03-BD24-48C1-89B2-6D71368F0E93</string>
+	<string>17F19B59-5BF2-41C7-880B-EA96A6384E63</string>
 	<key>IDESourceControlProjectName</key>
 	<string>c.gain~</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>B00C15B8-C5DD-4E03-A341-94D84D620B54</key>
+		<key>0D1092E7-FC82-482C-919A-817591BFB604</key>
 		<string>https://github.com/pierreguillot/PdEnhanced.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>PdChocolate/c.gain_tilde/c.gain~.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>B00C15B8-C5DD-4E03-A341-94D84D620B54</key>
+		<key>0D1092E7-FC82-482C-919A-817591BFB604</key>
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>B00C15B8-C5DD-4E03-A341-94D84D620B54</string>
+	<string>0D1092E7-FC82-482C-919A-817591BFB604</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>B00C15B8-C5DD-4E03-A341-94D84D620B54</string>
+			<string>0D1092E7-FC82-482C-919A-817591BFB604</string>
 			<key>IDESourceControlWCCName</key>
 			<string>PdEnhanced</string>
 		</dict>

@@ -781,6 +781,7 @@ t_pd_err ebox_size_set(t_ebox *x, t_object *attr, long argc, t_atom *argv)
                     x->b_rect.width  =  width;
                 }
             }
+            
         }
         else if (x->b_flags & EBOX_GROWINDI)
         {

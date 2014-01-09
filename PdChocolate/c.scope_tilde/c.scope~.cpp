@@ -62,7 +62,7 @@ void scope_tick(t_scope *x);
 
 t_pd_err scope_notify(t_scope *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
-void scope_getdrawparams(t_scope *x, t_object *patcherview, t_jboxdrawparams *params);
+void scope_getdrawparams(t_scope *x, t_object *patcherview, t_edrawparams *params);
 void scope_oksize(t_scope *x, t_rect *newrect);
 
 void scope_paint(t_scope *x, t_object *view);
@@ -74,17 +74,17 @@ extern "C" void setup_c0x2escope_tilde(void)
 {
 	t_eclass *c;
     
-	c = class_new("c.scope~", (method)scope_new, (method)scope_free, (short)sizeof(t_scope), 0L, A_GIMME, 0);
+	c = eclass_new("c.scope~", (method)scope_new, (method)scope_free, (short)sizeof(t_scope), 0L, A_GIMME, 0);
 
 	eclass_dspinit(c);
 	eclass_init(c, 0);
 	
-	class_addmethod(c, (method) scope_dsp,             "dsp",              A_CANT, 0);
-	class_addmethod(c, (method) scope_assist,          "assist",           A_CANT, 0);
-	class_addmethod(c, (method) scope_paint,           "paint",            A_CANT, 0);
-	class_addmethod(c, (method) scope_notify,          "notify",           A_CANT, 0);
-    class_addmethod(c, (method) scope_getdrawparams,   "getdrawparams",    A_CANT, 0);
-    class_addmethod(c, (method) scope_oksize,          "oksize",           A_CANT, 0);
+	eclass_addmethod(c, (method) scope_dsp,             "dsp",              A_CANT, 0);
+	eclass_addmethod(c, (method) scope_assist,          "assist",           A_CANT, 0);
+	eclass_addmethod(c, (method) scope_paint,           "paint",            A_CANT, 0);
+	eclass_addmethod(c, (method) scope_notify,          "notify",           A_CANT, 0);
+    eclass_addmethod(c, (method) scope_getdrawparams,   "getdrawparams",    A_CANT, 0);
+    eclass_addmethod(c, (method) scope_oksize,          "oksize",           A_CANT, 0);
     
     CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
     CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
@@ -139,7 +139,7 @@ extern "C" void setup_c0x2escope_tilde(void)
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "sicolor", 0, "0. 0.6 0. 0.8");
 	CLASS_ATTR_STYLE                (c, "sicolor", 0, "color");
     
-    class_register(CLASS_NOBOX, c);
+    eclass_register(CLASS_NOBOX, c);
 	scope_class = c;
 }
 
@@ -221,7 +221,7 @@ void scope_perform(t_scope *x, t_object *dsp, float **ins, long ni, float **outs
 void scope_tick(t_scope *x)
 {
 	ebox_invalidate_layer((t_ebox *)x, gensym("signal_layer"));
-	ebox_redraw((t_jbox *)x);
+	ebox_redraw((t_ebox *)x);
     
 	if(!sys_getdspstate())
     {
@@ -232,7 +232,7 @@ void scope_tick(t_scope *x)
 
 void scope_free(t_scope *x)
 {
-	ebox_free((t_jbox *)x);
+	ebox_free((t_ebox *)x);
     clock_free(x->f_clock);
     free(x->f_buffer_x);
     free(x->f_buffer_y);

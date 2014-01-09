@@ -445,7 +445,7 @@ typedef struct _ebox
     t_symbol*           b_receive_id;       /*!< The object user ID. */
     t_symbol*           b_send_id;          /*!< The object send ID. */
     t_symbol*           b_objpreset_id;     /*!< The object preset ID. */
-
+    
     t_symbol*           b_canvas_id;        /*!< The canvas ID. */
     t_symbol*           b_drawing_id;       /*!< The drawing ID. */
     t_symbol*           b_editor_id;        /*!< The editor ID. */
@@ -483,7 +483,7 @@ typedef struct _ebox
 typedef struct _edspbox
 {
     t_eobj              b_obj;              /*!< The CICM DSP object. */
-
+    
     t_symbol*           b_receive_id;       /*!< The object user ID. */
     t_symbol*           b_send_id;       /*!< The object send ID. */
     t_symbol*           b_objpreset_id;     /*!< The object preset ID. */

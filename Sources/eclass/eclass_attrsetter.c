@@ -82,7 +82,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                     }
                 }
             }
-            
+ 
             if(c->c_attr[i].setter)
             {
                 c->c_attr[i].setter(x, c->c_attr[i].obj, argc, argv);
@@ -164,7 +164,6 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                 
                 ebox_redraw(z);
             }
-            
         }
     }
 }

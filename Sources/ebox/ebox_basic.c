@@ -41,7 +41,7 @@ void ebox_new(t_ebox *x, long flags)
     x->b_layers             = NULL;
     x->b_editor_id          = NULL;
     x->b_receive_id         = gensym("(null)");
-    x->b_send_id         = gensym("(null)");
+    x->b_send_id            = gensym("(null)");
     x->b_objpreset_id       = gensym("(null)");
     eobj_getclass(x)->c_widget.w_dosave = (method)ebox_dosave;
     ebox_attrprocess_default(x);
@@ -69,7 +69,8 @@ void ebox_ready(t_ebox *x)
     x->b_boxparameters.d_borderthickness = 1;
     x->b_boxparameters.d_boxfillcolor = rgba_white;
     x->b_boxparameters.d_cornersize = 0;
-    c->c_widget.w_getdrawparameters(x, NULL, &x->b_boxparameters);
+    if(c->c_widget.w_getdrawparameters)
+        c->c_widget.w_getdrawparameters(x, NULL, &x->b_boxparameters);
     x->b_ready_to_draw = 1;
 }
 

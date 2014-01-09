@@ -28,6 +28,7 @@
 #define DEF_M_EPD
 
 #include "epd.h"
-#include "epd_max.h"
+#include "ecommon/ecommon.h"
+//#include "epd_max.h"
 
 #endif

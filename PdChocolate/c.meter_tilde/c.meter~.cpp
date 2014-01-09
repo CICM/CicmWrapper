@@ -76,17 +76,17 @@ extern "C" void setup_c0x2emeter_tilde(void)
 {
 	t_eclass *c;
     
-	c = class_new("c.meter~", (method)meter_new, (method)meter_free, (short)sizeof(t_meter), 0L, A_GIMME, 0);
+	c = eclass_new("c.meter~", (method)meter_new, (method)meter_free, (short)sizeof(t_meter), 0L, A_GIMME, 0);
 
 	eclass_dspinit(c);
 	eclass_init(c, 0);
 	
-	class_addmethod(c, (method) meter_dsp,             "dsp",              A_CANT, 0);
-	class_addmethod(c, (method) meter_assist,          "assist",           A_CANT, 0);
-	class_addmethod(c, (method) meter_paint,           "paint",            A_CANT, 0);
-	class_addmethod(c, (method) meter_notify,          "notify",           A_CANT, 0);
-    class_addmethod(c, (method) meter_getdrawparams,   "getdrawparams",    A_CANT, 0);
-    class_addmethod(c, (method) meter_oksize,          "oksize",           A_CANT, 0);
+	eclass_addmethod(c, (method) meter_dsp,             "dsp",              A_CANT, 0);
+	eclass_addmethod(c, (method) meter_assist,          "assist",           A_CANT, 0);
+	eclass_addmethod(c, (method) meter_paint,           "paint",            A_CANT, 0);
+	eclass_addmethod(c, (method) meter_notify,          "notify",           A_CANT, 0);
+    eclass_addmethod(c, (method) meter_getdrawparams,   "getdrawparams",    A_CANT, 0);
+    eclass_addmethod(c, (method) meter_oksize,          "oksize",           A_CANT, 0);
     
     CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
     CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
@@ -144,7 +144,8 @@ extern "C" void setup_c0x2emeter_tilde(void)
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "overcolor", 0, "1. 0. 0. 0.8");
 	CLASS_ATTR_STYLE                (c, "overcolor", 0, "color");
     
-    class_register(CLASS_NOBOX, c);
+    eclass_register(CLASS_NOBOX, c);
+    erouter_add_libary(gensym("chocolate"), "Chocolate and Coffee Libraries by Pierre Guillot", "© 2013 - 2014  CICM | Paris 8 University", "Version Beta 0.1");
 	meter_class = c;
 }
 
