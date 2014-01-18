@@ -37,7 +37,7 @@
 */
 void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
 {
-	int i, j, size;
+	long i, j, size;
     char *point;
     long *point_size;
     t_ebox* z   = (t_ebox *)x;

@@ -230,7 +230,7 @@ t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *
         av[i+1] = argv[i];
     }
 
-    binbuf_add(d, ac, av);
+    binbuf_add(d, (int)ac, av);
     return 0;
 }
 
