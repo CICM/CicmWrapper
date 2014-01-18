@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>PdEnhanced: /Users/Pierre/SourceTree/PdEnhanced/SourcesDev/eclass/eclass_attroptions.c Source File</title>
+<title>CICM Wrapper: /Users/Pierre/SourceTree/PdEnhanced/Sources/eclass/eclass_attroptions.c Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,10 +22,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">PdEnhanced
+   <div id="projectname">CICM Wrapper
    &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
-   <div id="projectbrief">Add on for PD</div>
+   <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
  </tr>
  </tbody>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -81,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_a4a890ee75b887c5396ee96d929275cc.html">SourcesDev</a></li><li class="navelem"><a class="el" href="dir_572ae551e81dc3bc8578f0ab771353bc.html">eclass</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_26b4c6508c94607a9ec0ebc023e49a5e.html">eclass</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -90,9 +90,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * PdEnhanced - Pure Data Enhanced </span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * CicmWrapper</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * An add-on for Pure Data</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * A wrapper for Pure Data</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * All rights reserved.</span></div>
@@ -217,164 +217,264 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    {</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <span class="keywordflow">if</span>(c-&gt;c_attr[i].name == gensym(attrname))</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        {</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            c-&gt;c_attr[i].style = gensym(style);</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            return ;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        }</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    }</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;}</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="comment"> \ @memberof        eattr</span></div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="comment"> \ @param c         The eclass pointer</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="comment"> \ @param attrname  The attribute name</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="comment"> \ @param value     The minimum value of the attribute</span></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00148"></a><span class="lineno"><a class="line" href="eclass_8h.html#a4156b71e091aa7c2e85ea6f3c9c22fa1">  148</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="eclass_8h.html#a4156b71e091aa7c2e85ea6f3c9c22fa1">eclass_attr_filter_min</a>(<a class="code" href="struct__eclass.html">t_eclass</a>* c, <span class="keywordtype">char</span>* attrname, <span class="keywordtype">double</span> value)</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;{</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keywordtype">int</span> i;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordflow">for</span>(i = 0; i &lt; c-&gt;c_nattr; i++)</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    {</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        <span class="keywordflow">if</span>(c-&gt;c_attr[i].name == gensym(attrname))</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        {</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;            <span class="keywordflow">if</span>(c-&gt;c_attr[i].clipped == 0)</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                c-&gt;c_attr[i].clipped = 1;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(c-&gt;c_attr[i].clipped == 2)</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                c-&gt;c_attr[i].clipped = 3;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            c-&gt;c_attr[i].minimum = value;</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            return ;</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        }</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    }</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;}</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="comment"> \ @memberof        eattr</span></div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="comment"> \ @param c         The eclass pointer</span></div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="comment"> \ @param attrname  The attribute name</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="comment"> \ @param value     The maximum value of the attribute</span></div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="eclass_8h.html#a684ad130a230384569292d1905964386">  174</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="eclass_8h.html#a684ad130a230384569292d1905964386">eclass_attr_filter_max</a>(<a class="code" href="struct__eclass.html">t_eclass</a>* c, <span class="keywordtype">char</span>* attrname, <span class="keywordtype">double</span> value)</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;{</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keywordtype">int</span> i;</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keywordflow">for</span>(i = 0; i &lt; c-&gt;c_nattr; i++)</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    {</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <span class="keywordflow">if</span>(c-&gt;c_attr[i].name == gensym(attrname))</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        {</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;            <span class="keywordflow">if</span>(c-&gt;c_attr[i].clipped == 0)</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                c-&gt;c_attr[i].clipped = 2;</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(c-&gt;c_attr[i].clipped == 1)</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                c-&gt;c_attr[i].clipped = 3;</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;            </div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            c-&gt;c_attr[i].maximum = value;</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;            return ;</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        }</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    }</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;}</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="comment"> \ @memberof        eattr</span></div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="comment"> \ @param c         The eclass pointer</span></div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="comment"> \ @param attrname  The attribute name</span></div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="comment"> \ @param flags     The flags of the attribute</span></div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00200"></a><span class="lineno"><a class="line" href="eclass_8h.html#af7f0f504f1193f0da1f3dc1637e40dd8">  200</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="eclass_8h.html#af7f0f504f1193f0da1f3dc1637e40dd8">eclass_attr_save</a>(<a class="code" href="struct__eclass.html">t_eclass</a>* c, <span class="keywordtype">char</span>* attrname, <span class="keywordtype">long</span> flags)</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;{</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="keywordtype">int</span> i;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <span class="keywordflow">for</span>(i = 0; i &lt; c-&gt;c_nattr; i++)</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    {</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        <span class="keywordflow">if</span>(c-&gt;c_attr[i].name == gensym(attrname))</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        {</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            c-&gt;c_attr[i].save = 1;</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;            return ;</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        }</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    }</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;}</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;<span class="comment"> \ @memberof        eattr</span></div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;<span class="comment"> \ @param c         The eclass pointer</span></div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="comment"> \ @param attrname  The attribute name</span></div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;<span class="comment"> \ @param flags     The flags of the attribute</span></div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00221"></a><span class="lineno"><a class="line" href="eclass_8h.html#a57dd8db4ebb05101ff9c1b4ce402fc95">  221</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="eclass_8h.html#a57dd8db4ebb05101ff9c1b4ce402fc95">eclass_attr_paint</a>(<a class="code" href="struct__eclass.html">t_eclass</a>* c, <span class="keywordtype">char</span>* attrname, <span class="keywordtype">long</span> flags)</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;{</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <span class="keywordtype">int</span> i;</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keywordflow">for</span>(i = 0; i &lt; c-&gt;c_nattr; i++)</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    {</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        <span class="keywordflow">if</span>(c-&gt;c_attr[i].name == gensym(attrname))</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        {</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;            c-&gt;c_attr[i].paint = 1;</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;            return ;</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        }</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    }</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;}</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="comment"> \ @memberof        eattr</span></div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<span class="comment"> \ @param c         The eclass pointer</span></div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;<span class="comment"> \ @param attrname  The attribute name</span></div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;<span class="comment"> \ @param flags     The flags of the attribute</span></div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00242"></a><span class="lineno"><a class="line" href="eclass_8h.html#a169280b975d00dc6d4808eefb3fc6b90">  242</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="eclass_8h.html#a169280b975d00dc6d4808eefb3fc6b90">eclass_attr_invisible</a>(<a class="code" href="struct__eclass.html">t_eclass</a>* c, <span class="keywordtype">char</span>* attrname, <span class="keywordtype">long</span> flags)</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;{</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keywordtype">int</span> i;</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordflow">for</span>(i = 0; i &lt; c-&gt;c_nattr; i++)</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    {</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        <span class="keywordflow">if</span>(c-&gt;c_attr[i].name == gensym(attrname))</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        {</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;            c-&gt;c_attr[i].invisible = 1;</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;            return ;</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        }</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    }</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;}</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;<span class="comment"> \ @memberof        eattr</span></div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;<span class="comment"> \ @param c         The eclass pointer</span></div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;<span class="comment"> \ @param attrname  The attribute name</span></div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;<span class="comment"> \ @param getter    The getter function</span></div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;<span class="comment"> \ @param setter    The setter function</span></div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00264"></a><span class="lineno"><a class="line" href="eclass_8h.html#a1ebc60a6f232280d9424f24f679677f2">  264</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="eclass_8h.html#a1ebc60a6f232280d9424f24f679677f2">eclass_attr_accessor</a>(<a class="code" href="struct__eclass.html">t_eclass</a>* c, <span class="keywordtype">char</span>* attrname, method getter, method setter)</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;{</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <span class="keywordtype">int</span> i;</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    <span class="keywordflow">for</span>(i = 0; i &lt; c-&gt;c_nattr; i++)</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    {</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        <span class="keywordflow">if</span>(c-&gt;c_attr[i].name == gensym(attrname))</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        {</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;            <span class="keywordflow">if</span>(getter != NULL)</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;                c-&gt;c_attr[i].getter = getter;</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;            <span class="keywordflow">if</span>(setter != NULL)</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;                c-&gt;c_attr[i].setter = setter;</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;            return ;</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        }</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    }</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;}</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;</div>
-<div class="ttc" id="struct__eclass_html"><div class="ttname"><a href="struct__eclass.html">_eclass</a></div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00187">estruct.h:187</a></div></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            <span class="keywordflow">if</span>(gensym(style) == gensym(<span class="stringliteral">&quot;checkbutton&quot;</span>) || gensym(style) == gensym(<span class="stringliteral">&quot;onoff&quot;</span>))</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            {</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                c-&gt;c_attr[i].style = gensym(<span class="stringliteral">&quot;checkbutton&quot;</span>);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            }</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(gensym(style) == gensym(<span class="stringliteral">&quot;rgb&quot;</span>) || gensym(style) == gensym(<span class="stringliteral">&quot;rgba&quot;</span>) || gensym(style) == gensym(<span class="stringliteral">&quot;color&quot;</span>))</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            {</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                c-&gt;c_attr[i].style = gensym(<span class="stringliteral">&quot;color&quot;</span>);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            }</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(gensym(style) == gensym(<span class="stringliteral">&quot;spinbox&quot;</span>) || gensym(style) == gensym(<span class="stringliteral">&quot;number&quot;</span>))</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;            {</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                c-&gt;c_attr[i].style = gensym(<span class="stringliteral">&quot;number&quot;</span>);</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            }</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(gensym(style) == gensym(<span class="stringliteral">&quot;menu&quot;</span>))</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            {</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                c-&gt;c_attr[i].style = gensym(<span class="stringliteral">&quot;menu&quot;</span>);</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            }</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            {</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                c-&gt;c_attr[i].style = gensym(<span class="stringliteral">&quot;entry&quot;</span>);</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            }</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            return ;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        }</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    }</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;}</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="comment"> \ @memberof        eattr</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="comment"> \ @param c         The eclass pointer</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="comment"> \ @param attrname  The attribute name</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment"> \ @param flags     The flags of the attribute</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment"> \ @param style     The style of the attribute</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno"><a class="line" href="eclass_8h.html#afb73461be4ad9a42304db9d209781173">  168</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="eclass_8h.html#afb73461be4ad9a42304db9d209781173">eclass_attr_itemlist</a>(<a class="code" href="struct__eclass.html">t_eclass</a>* c, <span class="keywordtype">char</span>* attrname, <span class="keywordtype">long</span> flags, <span class="keywordtype">char</span>* list)</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;{</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordtype">int</span> i, j = 0;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordtype">char</span>* pch;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keywordtype">int</span> size = 0;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordflow">for</span>(i = 0; i &lt; c-&gt;c_nattr; i++)</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    {</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="keywordflow">if</span>(c-&gt;c_attr[i].name == gensym(attrname))</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        {</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;            pch = strtok(gensym(list)-&gt;s_name,<span class="stringliteral">&quot; ,&quot;</span>);</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            </div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;            <span class="keywordflow">while</span>(pch != NULL)</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;            {</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                pch = strtok(NULL, <span class="stringliteral">&quot; ,&quot;</span>);</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                size++;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;            }</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;            <span class="keywordflow">if</span>(size &gt; 0)</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;            {</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                <span class="keywordflow">if</span>(c-&gt;c_attr[i].itemssize)</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                {</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                    c-&gt;c_attr[i].itemslist = (t_symbol **)realloc(c-&gt;c_attr[i].itemslist, size * <span class="keyword">sizeof</span>(t_symbol *));</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                    <span class="keywordflow">if</span>(c-&gt;c_attr[i].itemslist)</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                        c-&gt;c_attr[i].itemssize = size;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                }</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                {</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                    c-&gt;c_attr[i].itemslist = (t_symbol **)calloc(size, <span class="keyword">sizeof</span>(t_symbol *));</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                    <span class="keywordflow">if</span>(c-&gt;c_attr[i].itemslist)</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                        c-&gt;c_attr[i].itemssize = size;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                }</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                <span class="keywordflow">if</span>(c-&gt;c_attr[i].itemssize)</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                {</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                    pch = strtok(gensym(list)-&gt;s_name,<span class="stringliteral">&quot; ,&quot;</span>);</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                    <span class="keywordflow">while</span>(pch != NULL)</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;                    {</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;                        c-&gt;c_attr[i].itemslist[j] = gensym(pch);</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;                        pch = strtok(NULL, <span class="stringliteral">&quot; ,&quot;</span>);</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;                        j++;</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;                    }</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;                }</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;                </div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            }</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;            {</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;                <span class="keywordflow">if</span>(c-&gt;c_attr[i].itemssize)</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;                    free(c-&gt;c_attr[i].itemslist);</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;                c-&gt;c_attr[i].itemssize = 0;</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;            }</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;            return ;</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        }</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    }</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;}</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;<span class="comment"> \ @memberof        eattr</span></div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;<span class="comment"> \ @param c         The eclass pointer</span></div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="comment"> \ @param attrname  The attribute name</span></div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="comment"> \ @param value     The minimum value of the attribute</span></div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00229"></a><span class="lineno"><a class="line" href="eclass_8h.html#a4156b71e091aa7c2e85ea6f3c9c22fa1">  229</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="eclass_8h.html#a4156b71e091aa7c2e85ea6f3c9c22fa1">eclass_attr_filter_min</a>(<a class="code" href="struct__eclass.html">t_eclass</a>* c, <span class="keywordtype">char</span>* attrname, <span class="keywordtype">double</span> value)</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;{</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <span class="keywordtype">int</span> i;</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keywordflow">for</span>(i = 0; i &lt; c-&gt;c_nattr; i++)</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    {</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        <span class="keywordflow">if</span>(c-&gt;c_attr[i].name == gensym(attrname))</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        {</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;            <span class="keywordflow">if</span>(c-&gt;c_attr[i].clipped == 0)</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;                c-&gt;c_attr[i].clipped = 1;</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(c-&gt;c_attr[i].clipped == 2)</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;                c-&gt;c_attr[i].clipped = 3;</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;            </div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;            c-&gt;c_attr[i].minimum = value;</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;            return ;</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        }</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    }</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;}</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="comment"> \ @memberof        eattr</span></div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="comment"> \ @param c         The eclass pointer</span></div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="comment"> \ @param attrname  The attribute name</span></div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="comment"> \ @param value     The maximum value of the attribute</span></div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00255"></a><span class="lineno"><a class="line" href="eclass_8h.html#a684ad130a230384569292d1905964386">  255</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="eclass_8h.html#a684ad130a230384569292d1905964386">eclass_attr_filter_max</a>(<a class="code" href="struct__eclass.html">t_eclass</a>* c, <span class="keywordtype">char</span>* attrname, <span class="keywordtype">double</span> value)</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;{</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="keywordtype">int</span> i;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="keywordflow">for</span>(i = 0; i &lt; c-&gt;c_nattr; i++)</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    {</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        <span class="keywordflow">if</span>(c-&gt;c_attr[i].name == gensym(attrname))</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        {</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;            <span class="keywordflow">if</span>(c-&gt;c_attr[i].clipped == 0)</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;                c-&gt;c_attr[i].clipped = 2;</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(c-&gt;c_attr[i].clipped == 1)</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                c-&gt;c_attr[i].clipped = 3;</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            </div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;            c-&gt;c_attr[i].maximum = value;</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;            return ;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        }</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    }</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;}</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="comment"> \ @memberof        eattr</span></div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="comment"> \ @param c         The eclass pointer</span></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="comment"> \ @param attrname  The attribute name</span></div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="comment"> \ @param value     The maximum value of the attribute</span></div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00281"></a><span class="lineno"><a class="line" href="eclass_8h.html#a316954f0b313c349a1666330404a5e67">  281</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="eclass_8h.html#a316954f0b313c349a1666330404a5e67">eclass_attr_step</a>(<a class="code" href="struct__eclass.html">t_eclass</a>* c, <span class="keywordtype">char</span>* attrname, <span class="keywordtype">double</span> value)</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;{</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <span class="keywordtype">int</span> i;</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <span class="keywordflow">for</span>(i = 0; i &lt; c-&gt;c_nattr; i++)</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    {</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        <span class="keywordflow">if</span>(c-&gt;c_attr[i].name == gensym(attrname))</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        {</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;            c-&gt;c_attr[i].step = value;</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;            return ;</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        }</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    }</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;}</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;<span class="comment"> \ @memberof        eattr</span></div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;<span class="comment"> \ @param c         The eclass pointer</span></div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;<span class="comment"> \ @param attrname  The attribute name</span></div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;<span class="comment"> \ @param flags     The flags of the attribute</span></div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00302"></a><span class="lineno"><a class="line" href="eclass_8h.html#af7f0f504f1193f0da1f3dc1637e40dd8">  302</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="eclass_8h.html#af7f0f504f1193f0da1f3dc1637e40dd8">eclass_attr_save</a>(<a class="code" href="struct__eclass.html">t_eclass</a>* c, <span class="keywordtype">char</span>* attrname, <span class="keywordtype">long</span> flags)</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;{</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="keywordtype">int</span> i;</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="keywordflow">for</span>(i = 0; i &lt; c-&gt;c_nattr; i++)</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    {</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        <span class="keywordflow">if</span>(c-&gt;c_attr[i].name == gensym(attrname))</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;        {</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;            c-&gt;c_attr[i].save = 1;</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;            return ;</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        }</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    }</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;}</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="comment"> \ @memberof        eattr</span></div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="comment"> \ @param c         The eclass pointer</span></div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="comment"> \ @param attrname  The attribute name</span></div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="comment"> \ @param flags     The flags of the attribute</span></div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00323"></a><span class="lineno"><a class="line" href="eclass_8h.html#a57dd8db4ebb05101ff9c1b4ce402fc95">  323</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="eclass_8h.html#a57dd8db4ebb05101ff9c1b4ce402fc95">eclass_attr_paint</a>(<a class="code" href="struct__eclass.html">t_eclass</a>* c, <span class="keywordtype">char</span>* attrname, <span class="keywordtype">long</span> flags)</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;{</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    <span class="keywordtype">int</span> i;</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <span class="keywordflow">for</span>(i = 0; i &lt; c-&gt;c_nattr; i++)</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    {</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        <span class="keywordflow">if</span>(c-&gt;c_attr[i].name == gensym(attrname))</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;        {</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;            c-&gt;c_attr[i].paint = 1;</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;            return ;</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        }</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    }</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;}</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;<span class="comment"> \ @memberof        eattr</span></div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="comment"> \ @param c         The eclass pointer</span></div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;<span class="comment"> \ @param attrname  The attribute name</span></div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="comment"> \ @param flags     The flags of the attribute</span></div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00344"></a><span class="lineno"><a class="line" href="eclass_8h.html#a169280b975d00dc6d4808eefb3fc6b90">  344</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="eclass_8h.html#a169280b975d00dc6d4808eefb3fc6b90">eclass_attr_invisible</a>(<a class="code" href="struct__eclass.html">t_eclass</a>* c, <span class="keywordtype">char</span>* attrname, <span class="keywordtype">long</span> flags)</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;{</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    <span class="keywordtype">int</span> i;</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    <span class="keywordflow">for</span>(i = 0; i &lt; c-&gt;c_nattr; i++)</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    {</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;        <span class="keywordflow">if</span>(c-&gt;c_attr[i].name == gensym(attrname))</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;        {</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;            c-&gt;c_attr[i].invisible = 1;</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;            return ;</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        }</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;    }</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;}</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="comment"> \ @memberof        eattr</span></div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;<span class="comment"> \ @param c         The eclass pointer</span></div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="comment"> \ @param attrname  The attribute name</span></div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="comment"> \ @param getter    The getter function</span></div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<span class="comment"> \ @param setter    The setter function</span></div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00366"></a><span class="lineno"><a class="line" href="eclass_8h.html#a1ebc60a6f232280d9424f24f679677f2">  366</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="eclass_8h.html#a1ebc60a6f232280d9424f24f679677f2">eclass_attr_accessor</a>(<a class="code" href="struct__eclass.html">t_eclass</a>* c, <span class="keywordtype">char</span>* attrname, method getter, method setter)</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;{</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    <span class="keywordtype">int</span> i;</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    <span class="keywordflow">for</span>(i = 0; i &lt; c-&gt;c_nattr; i++)</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    {</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;        <span class="keywordflow">if</span>(c-&gt;c_attr[i].name == gensym(attrname))</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;        {</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;            c-&gt;c_attr[i].getter = getter;</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;            c-&gt;c_attr[i].setter = setter;</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;            return ;</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;        }</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    }</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;}</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;</div>
+<div class="ttc" id="struct__eclass_html"><div class="ttname"><a href="struct__eclass.html">_eclass</a></div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00189">estruct.h:189</a></div></div>
 <div class="ttc" id="eclass_8h_html"><div class="ttname"><a href="eclass_8h.html">eclass.h</a></div></div>
-<div class="ttc" id="eclass_8h_html_a57dd8db4ebb05101ff9c1b4ce402fc95"><div class="ttname"><a href="eclass_8h.html#a57dd8db4ebb05101ff9c1b4ce402fc95">eclass_attr_paint</a></div><div class="ttdeci">void eclass_attr_paint(t_eclass *c, char *attrname, long flags)</div><div class="ttdoc">Initalize the attribute to redraw the object when its value has changed. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00221">eclass_attroptions.c:221</a></div></div>
+<div class="ttc" id="eclass_8h_html_a57dd8db4ebb05101ff9c1b4ce402fc95"><div class="ttname"><a href="eclass_8h.html#a57dd8db4ebb05101ff9c1b4ce402fc95">eclass_attr_paint</a></div><div class="ttdeci">void eclass_attr_paint(t_eclass *c, char *attrname, long flags)</div><div class="ttdoc">Initalize the attribute to redraw the object when its value has changed. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00323">eclass_attroptions.c:323</a></div></div>
+<div class="ttc" id="eclass_8h_html_afb73461be4ad9a42304db9d209781173"><div class="ttname"><a href="eclass_8h.html#afb73461be4ad9a42304db9d209781173">eclass_attr_itemlist</a></div><div class="ttdeci">void eclass_attr_itemlist(t_eclass *c, char *attrname, long flags, char *list)</div><div class="ttdoc">Initalize the items list of an attribute. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00168">eclass_attroptions.c:168</a></div></div>
 <div class="ttc" id="eclass_8h_html_a4a719707447f6b534b005cef390a2cf5"><div class="ttname"><a href="eclass_8h.html#a4a719707447f6b534b005cef390a2cf5">eclass_attr_order</a></div><div class="ttdeci">void eclass_attr_order(t_eclass *c, char *attrname, long flags, char *order)</div><div class="ttdoc">Initalize the order of an attribute. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00082">eclass_attroptions.c:82</a></div></div>
-<div class="ttc" id="eclass_8h_html_a1ebc60a6f232280d9424f24f679677f2"><div class="ttname"><a href="eclass_8h.html#a1ebc60a6f232280d9424f24f679677f2">eclass_attr_accessor</a></div><div class="ttdeci">void eclass_attr_accessor(t_eclass *c, char *attrname, method getter, method setter)</div><div class="ttdoc">Initalize the user getter and setter of an attribute. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00264">eclass_attroptions.c:264</a></div></div>
-<div class="ttc" id="eclass_8h_html_a684ad130a230384569292d1905964386"><div class="ttname"><a href="eclass_8h.html#a684ad130a230384569292d1905964386">eclass_attr_filter_max</a></div><div class="ttdeci">void eclass_attr_filter_max(t_eclass *c, char *attrname, double value)</div><div class="ttdoc">Initalize the maximum value of an attribute. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00174">eclass_attroptions.c:174</a></div></div>
+<div class="ttc" id="eclass_8h_html_a1ebc60a6f232280d9424f24f679677f2"><div class="ttname"><a href="eclass_8h.html#a1ebc60a6f232280d9424f24f679677f2">eclass_attr_accessor</a></div><div class="ttdeci">void eclass_attr_accessor(t_eclass *c, char *attrname, method getter, method setter)</div><div class="ttdoc">Initalize the user getter and setter of an attribute. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00366">eclass_attroptions.c:366</a></div></div>
+<div class="ttc" id="eclass_8h_html_a684ad130a230384569292d1905964386"><div class="ttname"><a href="eclass_8h.html#a684ad130a230384569292d1905964386">eclass_attr_filter_max</a></div><div class="ttdeci">void eclass_attr_filter_max(t_eclass *c, char *attrname, double value)</div><div class="ttdoc">Initalize the maximum value of an attribute. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00255">eclass_attroptions.c:255</a></div></div>
 <div class="ttc" id="eclass_8h_html_add32df540eac82aeb67a8ab4c6f39824"><div class="ttname"><a href="eclass_8h.html#add32df540eac82aeb67a8ab4c6f39824">eclass_attr_label</a></div><div class="ttdeci">void eclass_attr_label(t_eclass *c, char *attrname, long flags, char *label)</div><div class="ttdoc">Initalize the category of an attribute. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00105">eclass_attroptions.c:105</a></div></div>
 <div class="ttc" id="eclass_8h_html_a124e18305bf57d85df1fb37b35223703"><div class="ttname"><a href="eclass_8h.html#a124e18305bf57d85df1fb37b35223703">eclass_attr_category</a></div><div class="ttdeci">void eclass_attr_category(t_eclass *c, char *attrname, long flags, char *category)</div><div class="ttdoc">Initalize the category of an attribute. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00060">eclass_attroptions.c:60</a></div></div>
 <div class="ttc" id="eclass_8h_html_a8ba59e2e9685109c89325952a2e0dcc9"><div class="ttname"><a href="eclass_8h.html#a8ba59e2e9685109c89325952a2e0dcc9">eclass_attr_default</a></div><div class="ttdeci">void eclass_attr_default(t_eclass *c, char *attrname, long flags, char *value)</div><div class="ttdoc">Initalize the default value of an attribute. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00038">eclass_attroptions.c:38</a></div></div>
 <div class="ttc" id="eclass_8h_html_a3d320f1c95fc5ff9f48b41fc28e2d360"><div class="ttname"><a href="eclass_8h.html#a3d320f1c95fc5ff9f48b41fc28e2d360">eclass_attr_style</a></div><div class="ttdeci">void eclass_attr_style(t_eclass *c, char *attrname, long flags, char *style)</div><div class="ttdoc">Initalize the category of an attribute. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00127">eclass_attroptions.c:127</a></div></div>
-<div class="ttc" id="eclass_8h_html_a169280b975d00dc6d4808eefb3fc6b90"><div class="ttname"><a href="eclass_8h.html#a169280b975d00dc6d4808eefb3fc6b90">eclass_attr_invisible</a></div><div class="ttdeci">void eclass_attr_invisible(t_eclass *c, char *attrname, long flags)</div><div class="ttdoc">Initalize the attribute to be invisible in the properties window. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00242">eclass_attroptions.c:242</a></div></div>
-<div class="ttc" id="eclass_8h_html_af7f0f504f1193f0da1f3dc1637e40dd8"><div class="ttname"><a href="eclass_8h.html#af7f0f504f1193f0da1f3dc1637e40dd8">eclass_attr_save</a></div><div class="ttdeci">void eclass_attr_save(t_eclass *c, char *attrname, long flags)</div><div class="ttdoc">Initalize the attribute to be saved with the object. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00200">eclass_attroptions.c:200</a></div></div>
-<div class="ttc" id="eclass_8h_html_a4156b71e091aa7c2e85ea6f3c9c22fa1"><div class="ttname"><a href="eclass_8h.html#a4156b71e091aa7c2e85ea6f3c9c22fa1">eclass_attr_filter_min</a></div><div class="ttdeci">void eclass_attr_filter_min(t_eclass *c, char *attrname, double value)</div><div class="ttdoc">Initalize the minimum value of an attribute. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00148">eclass_attroptions.c:148</a></div></div>
+<div class="ttc" id="eclass_8h_html_a169280b975d00dc6d4808eefb3fc6b90"><div class="ttname"><a href="eclass_8h.html#a169280b975d00dc6d4808eefb3fc6b90">eclass_attr_invisible</a></div><div class="ttdeci">void eclass_attr_invisible(t_eclass *c, char *attrname, long flags)</div><div class="ttdoc">Initalize the attribute to be invisible in the properties window. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00344">eclass_attroptions.c:344</a></div></div>
+<div class="ttc" id="eclass_8h_html_af7f0f504f1193f0da1f3dc1637e40dd8"><div class="ttname"><a href="eclass_8h.html#af7f0f504f1193f0da1f3dc1637e40dd8">eclass_attr_save</a></div><div class="ttdeci">void eclass_attr_save(t_eclass *c, char *attrname, long flags)</div><div class="ttdoc">Initalize the attribute to be saved with the object. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00302">eclass_attroptions.c:302</a></div></div>
+<div class="ttc" id="eclass_8h_html_a4156b71e091aa7c2e85ea6f3c9c22fa1"><div class="ttname"><a href="eclass_8h.html#a4156b71e091aa7c2e85ea6f3c9c22fa1">eclass_attr_filter_min</a></div><div class="ttdeci">void eclass_attr_filter_min(t_eclass *c, char *attrname, double value)</div><div class="ttdoc">Initalize the minimum value of an attribute. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00229">eclass_attroptions.c:229</a></div></div>
+<div class="ttc" id="eclass_8h_html_a316954f0b313c349a1666330404a5e67"><div class="ttname"><a href="eclass_8h.html#a316954f0b313c349a1666330404a5e67">eclass_attr_step</a></div><div class="ttdeci">void eclass_attr_step(t_eclass *c, char *attrname, double value)</div><div class="ttdoc">Initalize the step value of an attribute. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00281">eclass_attroptions.c:281</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 27 2013 09:26:33 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jan 18 2014 08:38:18 for CICM Wrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

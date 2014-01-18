@@ -63,8 +63,8 @@ void setup_c0x2epatcherargs(void)
     eclass_addmethod(c, (method)patcherargs_output,      "bang",       A_CANT, 0);
     eclass_addmethod(c, (method)patcherargs_click,       "click",      A_CANT, 0);
     
-    eclass_register(CLASS_BOX, c);
-    erouter_add_libary(gensym("chocolate"), "Chocolate and Coffee Libraries by Pierre Guillot", "© 2013 - 2014  CICM | Paris 8 University", "Version Beta 0.1");
+    eclass_register(CLASS_OBJ, c);
+    cicm_post();
 	patcherargs_class = c;
 }
 

@@ -3,7 +3,7 @@
 }
 
 
-The Pd Enhanced G\-U\-I D\-S\-P object.  
+The C\-I\-C\-M G\-U\-I D\-S\-P object.  
 
 
 
@@ -13,9 +13,11 @@ The Pd Enhanced G\-U\-I D\-S\-P object.
 \subsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{struct__edspobj}{t\-\_\-edspobj} \hyperlink{struct__edspbox_a8a991907db2d274664740c5f19569148}{b\-\_\-obj}
+\hyperlink{struct__eobj}{t\-\_\-eobj} \hyperlink{struct__edspbox_a384a670299e98768527fbe457de9a38a}{b\-\_\-obj}
 \item 
-t\-\_\-symbol $\ast$ \hyperlink{struct__edspbox_ae324f65e10196cc7e166652e8d7d394d}{b\-\_\-objuser\-\_\-id}
+t\-\_\-symbol $\ast$ \hyperlink{struct__edspbox_a3fb2b6968877ffd009753ccc0fe96769}{b\-\_\-receive\-\_\-id}
+\item 
+t\-\_\-symbol $\ast$ \hyperlink{struct__edspbox_ac59460230e622f821660b599e2f96ca9}{b\-\_\-send\-\_\-id}
 \item 
 t\-\_\-symbol $\ast$ \hyperlink{struct__edspbox_adc377263d208d1051f4a0997868b1155}{b\-\_\-objpreset\-\_\-id}
 \item 
@@ -55,20 +57,44 @@ long \hyperlink{struct__edspbox_ad230697acdd2d00abb2dc18dd38089d8}{b\-\_\-modifi
 \item 
 char \hyperlink{struct__edspbox_a234ea03e103bd45f5fa1d27b8e69b5dd}{b\-\_\-ready\-\_\-to\-\_\-draw}
 \item 
+\hypertarget{struct__edspbox_a4478423a97430b84acbf374f9089f51f}{char {\bfseries b\-\_\-isinsubcanvas}}\label{struct__edspbox_a4478423a97430b84acbf374f9089f51f}
+
+\item 
 \hyperlink{struct__edrawparams}{t\-\_\-edrawparams} \hyperlink{struct__edspbox_a01fa53a36dc717c81755d805a868ad9d}{b\-\_\-boxparameters}
 \item 
 \hyperlink{struct__elayer}{t\-\_\-elayer} $\ast$ \hyperlink{struct__edspbox_ad80949f483467d74761a9e321300d64e}{b\-\_\-layers}
 \item 
 long \hyperlink{struct__edspbox_a84105957ca11a224cf734f350fb23ac9}{b\-\_\-number\-\_\-of\-\_\-layers}
+\item 
+t\-\_\-inlet $\ast$ \hyperlink{struct__edspbox_af58ea0594fc028861443f36dc2d1ebf4}{d\-\_\-inlets} \mbox{[}256\mbox{]}
+\item 
+t\-\_\-outlet $\ast$ \hyperlink{struct__edspbox_a529a1e3597eb3ee79f6cabef51f41ef9}{d\-\_\-outlets} \mbox{[}256\mbox{]}
+\item 
+float \hyperlink{struct__edspbox_aaa8c8ad1277112523fd01b5058e0fcb5}{d\-\_\-float}
+\item 
+long \hyperlink{struct__edspbox_a0bb016ebe02ce3d3a0965a19c1d8476d}{d\-\_\-dsp\-\_\-size}
+\item 
+t\-\_\-int \hyperlink{struct__edspbox_a6c9361ef0820022b61cd7894d641c029}{d\-\_\-dsp\-\_\-vectors} \mbox{[}262\mbox{]}
+\item 
+long \hyperlink{struct__edspbox_af3409f354253e5753dbba6b22472972e}{d\-\_\-dsp\-\_\-flag}
+\item 
+void $\ast$ \hyperlink{struct__edspbox_ab056760f93f95b4edc3a8dddd0b5b62f}{d\-\_\-dsp\-\_\-user\-\_\-param}
+\item 
+t\-\_\-float $\ast$ \hyperlink{struct__edspbox_aebb3e36050cca90ec2bbfc8226198ca8}{d\-\_\-sigs\-\_\-out} \mbox{[}256\mbox{]}
+\item 
+method \hyperlink{struct__edspbox_ae13acca7c0f073f1030545ce368e6e03}{d\-\_\-perform\-\_\-method}
+\item 
+\hypertarget{struct__edspbox_a4c692fd24facbf12d763b7f8d813c266}{long {\bfseries d\-\_\-misc}}\label{struct__edspbox_a4c692fd24facbf12d763b7f8d813c266}
+
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-The Pd Enhanced G\-U\-I D\-S\-P object. 
+The C\-I\-C\-M G\-U\-I D\-S\-P object. 
 
-It contains the Pd Enhanced object with all the members for graphical behavior and signal processing. This should be used for graphical object that have signal processing methods. 
+It contains the C\-I\-C\-M object with all the members for graphical behavior and signal processing. This should be used for graphical object that have signal processing methods. 
 
-Definition at line 475 of file estruct.\-h.
+Definition at line 483 of file estruct.\-h.
 
 
 
@@ -78,171 +104,241 @@ Definition at line 475 of file estruct.\-h.
 \subsubsection[{b\-\_\-all\-\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-symbol$\ast$ b\-\_\-all\-\_\-id}}\label{struct__edspbox_a0f63dcf604135dd4fbfbf43eaed53c1a}
 The global I\-D. 
 
-Definition at line 486 of file estruct.\-h.
+Definition at line 495 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_a01fa53a36dc717c81755d805a868ad9d}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-boxparameters@{b\-\_\-boxparameters}}
 \index{b\-\_\-boxparameters@{b\-\_\-boxparameters}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-boxparameters}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-edrawparams} b\-\_\-boxparameters}}\label{struct__edspbox_a01fa53a36dc717c81755d805a868ad9d}
 The ebox parameters. 
 
-Definition at line 503 of file estruct.\-h.
+Definition at line 513 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_ac0251c6969a1032f8f50d076e909fb3e}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-canvas\-\_\-id@{b\-\_\-canvas\-\_\-id}}
 \index{b\-\_\-canvas\-\_\-id@{b\-\_\-canvas\-\_\-id}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-canvas\-\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-symbol$\ast$ b\-\_\-canvas\-\_\-id}}\label{struct__edspbox_ac0251c6969a1032f8f50d076e909fb3e}
 The canvas I\-D. 
 
-Definition at line 482 of file estruct.\-h.
+Definition at line 491 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_a153f9c9929d722ecb29217f3fb0914c9}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-drawing\-\_\-id@{b\-\_\-drawing\-\_\-id}}
 \index{b\-\_\-drawing\-\_\-id@{b\-\_\-drawing\-\_\-id}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-drawing\-\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-symbol$\ast$ b\-\_\-drawing\-\_\-id}}\label{struct__edspbox_a153f9c9929d722ecb29217f3fb0914c9}
 The drawing I\-D. 
 
-Definition at line 483 of file estruct.\-h.
+Definition at line 492 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_adf8c80c6ea45ad810c754984d98830ff}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-editor\-\_\-id@{b\-\_\-editor\-\_\-id}}
 \index{b\-\_\-editor\-\_\-id@{b\-\_\-editor\-\_\-id}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-editor\-\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-symbol$\ast$ b\-\_\-editor\-\_\-id}}\label{struct__edspbox_adf8c80c6ea45ad810c754984d98830ff}
 The editor I\-D. 
 
-Definition at line 484 of file estruct.\-h.
+Definition at line 493 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_abdae234dbd983dfbfb0592858c4ff026}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-flags@{b\-\_\-flags}}
 \index{b\-\_\-flags@{b\-\_\-flags}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-flags}]{\setlength{\rightskip}{0pt plus 5cm}long b\-\_\-flags}}\label{struct__edspbox_abdae234dbd983dfbfb0592858c4ff026}
 The ebox flags. 
 
-Definition at line 488 of file estruct.\-h.
+Definition at line 497 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_a4071412a20456f5fcafe2a91cdef11c3}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-font@{b\-\_\-font}}
 \index{b\-\_\-font@{b\-\_\-font}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-font}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-efont} b\-\_\-font}}\label{struct__edspbox_a4071412a20456f5fcafe2a91cdef11c3}
 The ebox font. 
 
-Definition at line 491 of file estruct.\-h.
+Definition at line 500 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_ad80949f483467d74761a9e321300d64e}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-layers@{b\-\_\-layers}}
 \index{b\-\_\-layers@{b\-\_\-layers}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-layers}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-elayer}$\ast$ b\-\_\-layers}}\label{struct__edspbox_ad80949f483467d74761a9e321300d64e}
 The ebox layers. 
 
-Definition at line 505 of file estruct.\-h.
+Definition at line 515 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_ad230697acdd2d00abb2dc18dd38089d8}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-modifiers@{b\-\_\-modifiers}}
 \index{b\-\_\-modifiers@{b\-\_\-modifiers}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-modifiers}]{\setlength{\rightskip}{0pt plus 5cm}long b\-\_\-modifiers}}\label{struct__edspbox_ad230697acdd2d00abb2dc18dd38089d8}
 The modifiers pressed. 
 
-Definition at line 500 of file estruct.\-h.
+Definition at line 509 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_a8831d355ec1dbb2dca9a68268a977965}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-mouse@{b\-\_\-mouse}}
 \index{b\-\_\-mouse@{b\-\_\-mouse}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-mouse}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-pt} b\-\_\-mouse}}\label{struct__edspbox_a8831d355ec1dbb2dca9a68268a977965}
 The mouse position. 
 
-Definition at line 497 of file estruct.\-h.
+Definition at line 506 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_a1dc439a4d35e98f78370c81ceadc8ea0}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-mouse\-\_\-down@{b\-\_\-mouse\-\_\-down}}
 \index{b\-\_\-mouse\-\_\-down@{b\-\_\-mouse\-\_\-down}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-mouse\-\_\-down}]{\setlength{\rightskip}{0pt plus 5cm}char b\-\_\-mouse\-\_\-down}}\label{struct__edspbox_a1dc439a4d35e98f78370c81ceadc8ea0}
 The mouse state. 
 
-Definition at line 499 of file estruct.\-h.
+Definition at line 508 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_a2b028829ae54f8ccede6bb0d5903f7fd}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-move\-\_\-box@{b\-\_\-move\-\_\-box}}
 \index{b\-\_\-move\-\_\-box@{b\-\_\-move\-\_\-box}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-move\-\_\-box}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-pt} b\-\_\-move\-\_\-box}}\label{struct__edspbox_a2b028829ae54f8ccede6bb0d5903f7fd}
 The box moving position. 
 
-Definition at line 498 of file estruct.\-h.
+Definition at line 507 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_a84105957ca11a224cf734f350fb23ac9}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-number\-\_\-of\-\_\-layers@{b\-\_\-number\-\_\-of\-\_\-layers}}
 \index{b\-\_\-number\-\_\-of\-\_\-layers@{b\-\_\-number\-\_\-of\-\_\-layers}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-number\-\_\-of\-\_\-layers}]{\setlength{\rightskip}{0pt plus 5cm}long b\-\_\-number\-\_\-of\-\_\-layers}}\label{struct__edspbox_a84105957ca11a224cf734f350fb23ac9}
 The ebox number of layers. 
 
-Definition at line 506 of file estruct.\-h.
+Definition at line 516 of file estruct.\-h.
 
-\hypertarget{struct__edspbox_a8a991907db2d274664740c5f19569148}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-obj@{b\-\_\-obj}}
+\hypertarget{struct__edspbox_a384a670299e98768527fbe457de9a38a}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-obj@{b\-\_\-obj}}
 \index{b\-\_\-obj@{b\-\_\-obj}!_edspbox@{\-\_\-edspbox}}
-\subsubsection[{b\-\_\-obj}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-edspobj} b\-\_\-obj}}\label{struct__edspbox_a8a991907db2d274664740c5f19569148}
-The Pd Enhanced D\-S\-P object. 
+\subsubsection[{b\-\_\-obj}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-eobj} b\-\_\-obj}}\label{struct__edspbox_a384a670299e98768527fbe457de9a38a}
+The C\-I\-C\-M D\-S\-P object. 
 
-Definition at line 477 of file estruct.\-h.
+Definition at line 485 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_adc377263d208d1051f4a0997868b1155}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-objpreset\-\_\-id@{b\-\_\-objpreset\-\_\-id}}
 \index{b\-\_\-objpreset\-\_\-id@{b\-\_\-objpreset\-\_\-id}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-objpreset\-\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-symbol$\ast$ b\-\_\-objpreset\-\_\-id}}\label{struct__edspbox_adc377263d208d1051f4a0997868b1155}
 The object preset I\-D. 
 
-Definition at line 480 of file estruct.\-h.
-
-\hypertarget{struct__edspbox_ae324f65e10196cc7e166652e8d7d394d}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-objuser\-\_\-id@{b\-\_\-objuser\-\_\-id}}
-\index{b\-\_\-objuser\-\_\-id@{b\-\_\-objuser\-\_\-id}!_edspbox@{\-\_\-edspbox}}
-\subsubsection[{b\-\_\-objuser\-\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-symbol$\ast$ b\-\_\-objuser\-\_\-id}}\label{struct__edspbox_ae324f65e10196cc7e166652e8d7d394d}
-The object user I\-D. 
-
-Definition at line 479 of file estruct.\-h.
+Definition at line 489 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_a234ea03e103bd45f5fa1d27b8e69b5dd}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-ready\-\_\-to\-\_\-draw@{b\-\_\-ready\-\_\-to\-\_\-draw}}
 \index{b\-\_\-ready\-\_\-to\-\_\-draw@{b\-\_\-ready\-\_\-to\-\_\-draw}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-ready\-\_\-to\-\_\-draw}]{\setlength{\rightskip}{0pt plus 5cm}char b\-\_\-ready\-\_\-to\-\_\-draw}}\label{struct__edspbox_a234ea03e103bd45f5fa1d27b8e69b5dd}
 The ebox state for drawing. 
 
-Definition at line 502 of file estruct.\-h.
+Definition at line 511 of file estruct.\-h.
+
+\hypertarget{struct__edspbox_a3fb2b6968877ffd009753ccc0fe96769}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-receive\-\_\-id@{b\-\_\-receive\-\_\-id}}
+\index{b\-\_\-receive\-\_\-id@{b\-\_\-receive\-\_\-id}!_edspbox@{\-\_\-edspbox}}
+\subsubsection[{b\-\_\-receive\-\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-symbol$\ast$ b\-\_\-receive\-\_\-id}}\label{struct__edspbox_a3fb2b6968877ffd009753ccc0fe96769}
+The object user I\-D. 
+
+Definition at line 487 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_abc70ff46c135ee9f377a038bbc05a33e}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-rect@{b\-\_\-rect}}
 \index{b\-\_\-rect@{b\-\_\-rect}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-rect}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-rect} b\-\_\-rect}}\label{struct__edspbox_abc70ff46c135ee9f377a038bbc05a33e}
 The ebox rectangle. 
 
-Definition at line 489 of file estruct.\-h.
+Definition at line 498 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_a2a0a15d3bc005cd4f815088b230b5ebd}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-rect\-\_\-last@{b\-\_\-rect\-\_\-last}}
 \index{b\-\_\-rect\-\_\-last@{b\-\_\-rect\-\_\-last}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-rect\-\_\-last}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-rect} b\-\_\-rect\-\_\-last}}\label{struct__edspbox_a2a0a15d3bc005cd4f815088b230b5ebd}
 The ebox previous rectangle. 
 
-Definition at line 490 of file estruct.\-h.
+Definition at line 499 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_acc1a127070b19ccf6e222d7349c84c96}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-selected\-\_\-box@{b\-\_\-selected\-\_\-box}}
 \index{b\-\_\-selected\-\_\-box@{b\-\_\-selected\-\_\-box}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-selected\-\_\-box}]{\setlength{\rightskip}{0pt plus 5cm}int b\-\_\-selected\-\_\-box}}\label{struct__edspbox_acc1a127070b19ccf6e222d7349c84c96}
 The selected state 
 
-Definition at line 492 of file estruct.\-h.
+Definition at line 501 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_a0cebb4789c213079e0490e86c10c2893}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-selected\-\_\-inlet@{b\-\_\-selected\-\_\-inlet}}
 \index{b\-\_\-selected\-\_\-inlet@{b\-\_\-selected\-\_\-inlet}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-selected\-\_\-inlet}]{\setlength{\rightskip}{0pt plus 5cm}int b\-\_\-selected\-\_\-inlet}}\label{struct__edspbox_a0cebb4789c213079e0490e86c10c2893}
 The inlet selected. 
 
-Definition at line 494 of file estruct.\-h.
+Definition at line 503 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_a1f65b6d093e53fd85bed085ce0c5dd8e}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-selected\-\_\-item@{b\-\_\-selected\-\_\-item}}
 \index{b\-\_\-selected\-\_\-item@{b\-\_\-selected\-\_\-item}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-selected\-\_\-item}]{\setlength{\rightskip}{0pt plus 5cm}int b\-\_\-selected\-\_\-item}}\label{struct__edspbox_a1f65b6d093e53fd85bed085ce0c5dd8e}
 The items selected. 
 
-Definition at line 493 of file estruct.\-h.
+Definition at line 502 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_acbf0482cb9c6e192e2059775acc1ac86}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-selected\-\_\-outlet@{b\-\_\-selected\-\_\-outlet}}
 \index{b\-\_\-selected\-\_\-outlet@{b\-\_\-selected\-\_\-outlet}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-selected\-\_\-outlet}]{\setlength{\rightskip}{0pt plus 5cm}int b\-\_\-selected\-\_\-outlet}}\label{struct__edspbox_acbf0482cb9c6e192e2059775acc1ac86}
 The outlet selected. 
 
-Definition at line 495 of file estruct.\-h.
+Definition at line 504 of file estruct.\-h.
+
+\hypertarget{struct__edspbox_ac59460230e622f821660b599e2f96ca9}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-send\-\_\-id@{b\-\_\-send\-\_\-id}}
+\index{b\-\_\-send\-\_\-id@{b\-\_\-send\-\_\-id}!_edspbox@{\-\_\-edspbox}}
+\subsubsection[{b\-\_\-send\-\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-symbol$\ast$ b\-\_\-send\-\_\-id}}\label{struct__edspbox_ac59460230e622f821660b599e2f96ca9}
+The object send I\-D. 
+
+Definition at line 488 of file estruct.\-h.
 
 \hypertarget{struct__edspbox_a7033df943e798c68e3a6117785c2d79e}{\index{\-\_\-edspbox@{\-\_\-edspbox}!b\-\_\-window\-\_\-id@{b\-\_\-window\-\_\-id}}
 \index{b\-\_\-window\-\_\-id@{b\-\_\-window\-\_\-id}!_edspbox@{\-\_\-edspbox}}
 \subsubsection[{b\-\_\-window\-\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-symbol$\ast$ b\-\_\-window\-\_\-id}}\label{struct__edspbox_a7033df943e798c68e3a6117785c2d79e}
 The window I\-D. 
 
-Definition at line 485 of file estruct.\-h.
+Definition at line 494 of file estruct.\-h.
+
+\hypertarget{struct__edspbox_af3409f354253e5753dbba6b22472972e}{\index{\-\_\-edspbox@{\-\_\-edspbox}!d\-\_\-dsp\-\_\-flag@{d\-\_\-dsp\-\_\-flag}}
+\index{d\-\_\-dsp\-\_\-flag@{d\-\_\-dsp\-\_\-flag}!_edspbox@{\-\_\-edspbox}}
+\subsubsection[{d\-\_\-dsp\-\_\-flag}]{\setlength{\rightskip}{0pt plus 5cm}long d\-\_\-dsp\-\_\-flag}}\label{struct__edspbox_af3409f354253e5753dbba6b22472972e}
+The flags to initialize the perform method. 
+
+Definition at line 523 of file estruct.\-h.
+
+\hypertarget{struct__edspbox_a0bb016ebe02ce3d3a0965a19c1d8476d}{\index{\-\_\-edspbox@{\-\_\-edspbox}!d\-\_\-dsp\-\_\-size@{d\-\_\-dsp\-\_\-size}}
+\index{d\-\_\-dsp\-\_\-size@{d\-\_\-dsp\-\_\-size}!_edspbox@{\-\_\-edspbox}}
+\subsubsection[{d\-\_\-dsp\-\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}long d\-\_\-dsp\-\_\-size}}\label{struct__edspbox_a0bb016ebe02ce3d3a0965a19c1d8476d}
+The number of signal inlets and outlets. 
+
+Definition at line 521 of file estruct.\-h.
+
+\hypertarget{struct__edspbox_ab056760f93f95b4edc3a8dddd0b5b62f}{\index{\-\_\-edspbox@{\-\_\-edspbox}!d\-\_\-dsp\-\_\-user\-\_\-param@{d\-\_\-dsp\-\_\-user\-\_\-param}}
+\index{d\-\_\-dsp\-\_\-user\-\_\-param@{d\-\_\-dsp\-\_\-user\-\_\-param}!_edspbox@{\-\_\-edspbox}}
+\subsubsection[{d\-\_\-dsp\-\_\-user\-\_\-param}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ d\-\_\-dsp\-\_\-user\-\_\-param}}\label{struct__edspbox_ab056760f93f95b4edc3a8dddd0b5b62f}
+The user parameters to pass through the perform method. 
+
+Definition at line 524 of file estruct.\-h.
+
+\hypertarget{struct__edspbox_a6c9361ef0820022b61cd7894d641c029}{\index{\-\_\-edspbox@{\-\_\-edspbox}!d\-\_\-dsp\-\_\-vectors@{d\-\_\-dsp\-\_\-vectors}}
+\index{d\-\_\-dsp\-\_\-vectors@{d\-\_\-dsp\-\_\-vectors}!_edspbox@{\-\_\-edspbox}}
+\subsubsection[{d\-\_\-dsp\-\_\-vectors}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-int d\-\_\-dsp\-\_\-vectors\mbox{[}262\mbox{]}}}\label{struct__edspbox_a6c9361ef0820022b61cd7894d641c029}
+The vector that contains all the pointers for the perform method. 
+
+Definition at line 522 of file estruct.\-h.
+
+\hypertarget{struct__edspbox_aaa8c8ad1277112523fd01b5058e0fcb5}{\index{\-\_\-edspbox@{\-\_\-edspbox}!d\-\_\-float@{d\-\_\-float}}
+\index{d\-\_\-float@{d\-\_\-float}!_edspbox@{\-\_\-edspbox}}
+\subsubsection[{d\-\_\-float}]{\setlength{\rightskip}{0pt plus 5cm}float d\-\_\-float}}\label{struct__edspbox_aaa8c8ad1277112523fd01b5058e0fcb5}
+The float member to initialize the signal method. 
+
+Definition at line 520 of file estruct.\-h.
+
+\hypertarget{struct__edspbox_af58ea0594fc028861443f36dc2d1ebf4}{\index{\-\_\-edspbox@{\-\_\-edspbox}!d\-\_\-inlets@{d\-\_\-inlets}}
+\index{d\-\_\-inlets@{d\-\_\-inlets}!_edspbox@{\-\_\-edspbox}}
+\subsubsection[{d\-\_\-inlets}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-inlet$\ast$ d\-\_\-inlets\mbox{[}256\mbox{]}}}\label{struct__edspbox_af58ea0594fc028861443f36dc2d1ebf4}
+The array of signal inlets. 
+
+Definition at line 518 of file estruct.\-h.
+
+\hypertarget{struct__edspbox_a529a1e3597eb3ee79f6cabef51f41ef9}{\index{\-\_\-edspbox@{\-\_\-edspbox}!d\-\_\-outlets@{d\-\_\-outlets}}
+\index{d\-\_\-outlets@{d\-\_\-outlets}!_edspbox@{\-\_\-edspbox}}
+\subsubsection[{d\-\_\-outlets}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-outlet$\ast$ d\-\_\-outlets\mbox{[}256\mbox{]}}}\label{struct__edspbox_a529a1e3597eb3ee79f6cabef51f41ef9}
+The array of signal outlets. 
+
+Definition at line 519 of file estruct.\-h.
+
+\hypertarget{struct__edspbox_ae13acca7c0f073f1030545ce368e6e03}{\index{\-\_\-edspbox@{\-\_\-edspbox}!d\-\_\-perform\-\_\-method@{d\-\_\-perform\-\_\-method}}
+\index{d\-\_\-perform\-\_\-method@{d\-\_\-perform\-\_\-method}!_edspbox@{\-\_\-edspbox}}
+\subsubsection[{d\-\_\-perform\-\_\-method}]{\setlength{\rightskip}{0pt plus 5cm}method d\-\_\-perform\-\_\-method}}\label{struct__edspbox_ae13acca7c0f073f1030545ce368e6e03}
+The user perform method. 
+
+Definition at line 526 of file estruct.\-h.
+
+\hypertarget{struct__edspbox_aebb3e36050cca90ec2bbfc8226198ca8}{\index{\-\_\-edspbox@{\-\_\-edspbox}!d\-\_\-sigs\-\_\-out@{d\-\_\-sigs\-\_\-out}}
+\index{d\-\_\-sigs\-\_\-out@{d\-\_\-sigs\-\_\-out}!_edspbox@{\-\_\-edspbox}}
+\subsubsection[{d\-\_\-sigs\-\_\-out}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-float$\ast$ d\-\_\-sigs\-\_\-out\mbox{[}256\mbox{]}}}\label{struct__edspbox_aebb3e36050cca90ec2bbfc8226198ca8}
+The array of signal vectors. 
+
+Definition at line 525 of file estruct.\-h.
 
 
 
 The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
 \item 
-/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/\hyperlink{estruct_8h}{estruct.\-h}\end{DoxyCompactItemize}
+/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources/\hyperlink{estruct_8h}{estruct.\-h}\end{DoxyCompactItemize}

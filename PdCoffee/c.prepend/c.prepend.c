@@ -62,8 +62,8 @@ void setup_c0x2eprepend(void)
     eclass_addmethod(c, (method)prepend_symbol,      "symbol",         A_SYMBOL,0);
     eclass_addmethod(c, (method)prepend_bang,        "bang",           A_CANT,  0);
     
-    eclass_register(CLASS_BOX, c);
-    erouter_add_libary(gensym("chocolate"), "Chocolate and Coffee Libraries by Pierre Guillot", "© 2013 - 2014  CICM | Paris 8 University", "Version Beta 0.1");
+    eclass_register(CLASS_OBJ, c);
+    cicm_post();
 	prepend_class = c;
 }
 

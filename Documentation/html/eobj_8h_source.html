@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>PdEnhanced: /Users/Pierre/SourceTree/PdEnhanced/SourcesDev/eobj/eobj.h Source File</title>
+<title>CICM Wrapper: /Users/Pierre/SourceTree/PdEnhanced/Sources/eobj/eobj.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,10 +22,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">PdEnhanced
+   <div id="projectname">CICM Wrapper
    &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
-   <div id="projectbrief">Add on for PD</div>
+   <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
  </tr>
  </tbody>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -81,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_a4a890ee75b887c5396ee96d929275cc.html">SourcesDev</a></li><li class="navelem"><a class="el" href="dir_4b88d0c735788c560bdcf8b49b4502ed.html">eobj</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_7bcfcc48ea8ecdee8f839dc9b497c3d6.html">eobj</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -90,9 +90,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 <a href="eobj_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * PdEnhanced - Pure Data Enhanced </span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * CicmWrapper</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * An add-on for Pure Data</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * A wrapper for Pure Data</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * All rights reserved.</span></div>
@@ -120,98 +120,101 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;../estruct.h&quot;</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &quot;../egraphics/egraphics.h&quot;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">/*********************************</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment"> * OBJECT</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment"> *********************************/</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keywordtype">void</span> *<a class="code" href="eobj_8h.html#affefa86aef6fc6491c9878cf21906dbc">eobj_new</a>(<a class="code" href="struct__eclass.html">t_eclass</a> *c);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keywordtype">void</span> <a class="code" href="eobj_8h.html#ab269804f09b184c738c3088889d8908c">eobj_free</a>(<span class="keywordtype">void</span> *x);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keywordtype">void</span> <a class="code" href="eobj_8h.html#a3945be07a276dd22b13c86e6a4906a0e">eobj_inletnew</a>(<span class="keywordtype">void</span>* x);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="eobj_8h.html#a1014e3284b70c9680b9b048157190ca7">eobj_getproxy</a>(<span class="keywordtype">void</span>* x);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<a class="code" href="struct__eclass.html">t_eclass</a>* <a class="code" href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a>(<span class="keywordtype">void</span>* x);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;t_symbol* <a class="code" href="eobj_8h.html#afc245e0b61a0420c6c776ad2a9337eb2">eobj_getclassname</a>(<span class="keywordtype">void</span>* x);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keywordtype">char</span> <a class="code" href="eobj_8h.html#a20b15e9d4cfff43d7c99ec64f8da3ced">eobj_isbox</a>(<span class="keywordtype">void</span> *x);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keywordtype">char</span> <a class="code" href="eobj_8h.html#a27eee54891735b101bf16018272d379c">eobj_isdsp</a>(<span class="keywordtype">void</span> *x);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">/*********************************</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment"> * HANDLE</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment"> *********************************/</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<a class="code" href="struct__pt.html">t_pt</a> <a class="code" href="eobj_8h.html#afa853a6c824e824b8217010bce5b97a5">eobj_get_mouse_global_position</a>(<span class="keywordtype">void</span>* x);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<a class="code" href="struct__pt.html">t_pt</a> <a class="code" href="eobj_8h.html#a8054a835864160d4c9f8afad9d68ccd0">eobj_get_mouse_canvas_position</a>(<span class="keywordtype">void</span>* x);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keywordtype">void</span> eobj_save(<a class="code" href="struct__eobj.html">t_eobj</a>* x, t_binbuf *b);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keywordtype">void</span> eobj_dosave(<a class="code" href="struct__eobj.html">t_eobj</a>* x, t_binbuf *b);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keywordtype">void</span> eobj_retreive_gmouse(<a class="code" href="struct__eobj.html">t_eobj</a>* x, <span class="keywordtype">float</span> x_p, <span class="keywordtype">float</span> y_p);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keywordtype">void</span> eobj_retreive_pmouse(<a class="code" href="struct__eobj.html">t_eobj</a>* x, <span class="keywordtype">float</span> x_p, <span class="keywordtype">float</span> y_p);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keywordtype">void</span> eobj_popup(<a class="code" href="struct__eobj.html">t_eobj</a>* x, t_symbol* s, <span class="keywordtype">float</span> itemid);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keywordtype">void</span> eobj_write(<a class="code" href="struct__eobj.html">t_eobj</a>* x, t_symbol* s, <span class="keywordtype">long</span> argc, t_atom* argv);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keywordtype">void</span> eobj_read(<a class="code" href="struct__eobj.html">t_eobj</a>* x, t_symbol* s, <span class="keywordtype">long</span> argc, t_atom* argv);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">/*********************************</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment"> * PROXY</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment"> *********************************/</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keywordtype">void</span> eproxy_setup(<a class="code" href="struct__eclass.html">t_eclass</a>* c);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keywordtype">void</span> eproxy_anything(<a class="code" href="struct__eproxy.html">t_eproxy</a> *x, t_symbol *s, <span class="keywordtype">int</span> argc, t_atom *argv);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keywordtype">void</span> *eproxy_new(t_symbol *s, <span class="keywordtype">int</span> argc, t_atom *argv);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keywordtype">void</span> eproxy_init(<a class="code" href="struct__eproxy.html">t_eproxy</a> *x, <span class="keywordtype">void</span> *owner, <span class="keywordtype">int</span> index);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">/*********************************</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment"> * DSP</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment"> *********************************/</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keywordtype">void</span> <a class="code" href="eobj_8h.html#a75990a2c2f4f51a081904dce5c5e14b4">eobj_dspsetup</a>(<span class="keywordtype">void</span> *x, <span class="keywordtype">long</span> nins, <span class="keywordtype">long</span> nouts);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="keywordtype">void</span> <a class="code" href="eobj_8h.html#ad1252e017dafb1443ae6806909808d04">eobj_dspfree</a>(<span class="keywordtype">void</span> *x);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keywordtype">void</span> <a class="code" href="eobj_8h.html#a5e86c6f25b1ad53b29d490942ccbc5e9">eobj_resize_inputs</a>(<span class="keywordtype">void</span> *x, <span class="keywordtype">long</span> nins);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keywordtype">void</span> <a class="code" href="eobj_8h.html#a8dd9873ea10d828254e741bf069c3ea4">eobj_resize_outputs</a>(<span class="keywordtype">void</span> *x, <span class="keywordtype">long</span> nouts);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keywordtype">void</span> eobj_dsp(<a class="code" href="struct__edspobj.html">t_edspobj</a> *x, t_signal **sp);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;t_int* eobj_perform(t_int* w);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="keywordtype">void</span> eobj_getconnections(<a class="code" href="struct__edspobj.html">t_edspobj</a>* x, <span class="keywordtype">short</span>* count);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keywordtype">void</span> eobj_dsp_add(<a class="code" href="struct__edspobj.html">t_edspobj</a> *x, t_symbol* s, t_object* obj, method m, <span class="keywordtype">long</span> flags, <span class="keywordtype">void</span> *userparam);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">/*********************************</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment"> * ROUTER</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment"> *********************************/</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="keywordtype">void</span> eobj_attach_torouter(t_object* child);</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keywordtype">void</span> eobj_detach_torouter(t_object* child);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#include &quot;../ecommon/ecommon.h&quot;</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">/*********************************</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment"> * OBJECT</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"> *********************************/</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keywordtype">void</span> *<a class="code" href="eobj_8h.html#affefa86aef6fc6491c9878cf21906dbc">eobj_new</a>(<a class="code" href="struct__eclass.html">t_eclass</a> *c);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keywordtype">void</span> <a class="code" href="eobj_8h.html#ab269804f09b184c738c3088889d8908c">eobj_free</a>(<span class="keywordtype">void</span> *x);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keywordtype">void</span> <a class="code" href="eobj_8h.html#a3945be07a276dd22b13c86e6a4906a0e">eobj_inletnew</a>(<span class="keywordtype">void</span>* x);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="eobj_8h.html#a1014e3284b70c9680b9b048157190ca7">eobj_getproxy</a>(<span class="keywordtype">void</span>* x);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<a class="code" href="struct__eclass.html">t_eclass</a>* <a class="code" href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a>(<span class="keywordtype">void</span>* x);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;t_symbol* <a class="code" href="eobj_8h.html#afc245e0b61a0420c6c776ad2a9337eb2">eobj_getclassname</a>(<span class="keywordtype">void</span>* x);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;t_canvas* <a class="code" href="eobj_8h.html#ab25a83fb692fadad78681501a274f45f">eobj_getcanvas</a>(<span class="keywordtype">void</span> *x);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keywordtype">char</span> <a class="code" href="eobj_8h.html#a20b15e9d4cfff43d7c99ec64f8da3ced">eobj_isbox</a>(<span class="keywordtype">void</span> *x);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keywordtype">char</span> <a class="code" href="eobj_8h.html#a27eee54891735b101bf16018272d379c">eobj_isdsp</a>(<span class="keywordtype">void</span> *x);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">/*********************************</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment"> * HANDLE</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment"> *********************************/</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<a class="code" href="struct__pt.html">t_pt</a> <a class="code" href="eobj_8h.html#afa853a6c824e824b8217010bce5b97a5">eobj_get_mouse_global_position</a>(<span class="keywordtype">void</span>* x);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<a class="code" href="struct__pt.html">t_pt</a> <a class="code" href="eobj_8h.html#a8054a835864160d4c9f8afad9d68ccd0">eobj_get_mouse_canvas_position</a>(<span class="keywordtype">void</span>* x);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keywordtype">void</span> eobj_save(<a class="code" href="struct__eobj.html">t_eobj</a>* x, t_binbuf *b);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keywordtype">void</span> eobj_dosave(<a class="code" href="struct__eobj.html">t_eobj</a>* x, t_binbuf *b);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keywordtype">void</span> eobj_retreive_gmouse(<a class="code" href="struct__eobj.html">t_eobj</a>* x, <span class="keywordtype">float</span> x_p, <span class="keywordtype">float</span> y_p);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keywordtype">void</span> eobj_retreive_pmouse(<a class="code" href="struct__eobj.html">t_eobj</a>* x, <span class="keywordtype">float</span> x_p, <span class="keywordtype">float</span> y_p);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keywordtype">void</span> eobj_popup(<a class="code" href="struct__eobj.html">t_eobj</a>* x, t_symbol* s, <span class="keywordtype">float</span> itemid);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keywordtype">void</span> eobj_write(<a class="code" href="struct__eobj.html">t_eobj</a>* x, t_symbol* s, <span class="keywordtype">long</span> argc, t_atom* argv);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keywordtype">void</span> eobj_read(<a class="code" href="struct__eobj.html">t_eobj</a>* x, t_symbol* s, <span class="keywordtype">long</span> argc, t_atom* argv);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">/*********************************</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment"> * PROXY</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment"> *********************************/</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keywordtype">void</span> eproxy_setup(<a class="code" href="struct__eclass.html">t_eclass</a>* c);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keywordtype">void</span> eproxy_anything(<a class="code" href="struct__eproxy.html">t_eproxy</a> *x, t_symbol *s, <span class="keywordtype">int</span> argc, t_atom *argv);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keywordtype">void</span> *eproxy_new(t_symbol *s, <span class="keywordtype">int</span> argc, t_atom *argv);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keywordtype">void</span> eproxy_init(<a class="code" href="struct__eproxy.html">t_eproxy</a> *x, <span class="keywordtype">void</span> *owner, <span class="keywordtype">int</span> index);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">/*********************************</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment"> * DSP</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment"> *********************************/</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keywordtype">void</span> <a class="code" href="eobj_8h.html#a75990a2c2f4f51a081904dce5c5e14b4">eobj_dspsetup</a>(<span class="keywordtype">void</span> *x, <span class="keywordtype">long</span> nins, <span class="keywordtype">long</span> nouts);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keywordtype">void</span> <a class="code" href="eobj_8h.html#ad1252e017dafb1443ae6806909808d04">eobj_dspfree</a>(<span class="keywordtype">void</span> *x);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keywordtype">void</span> <a class="code" href="eobj_8h.html#a5e86c6f25b1ad53b29d490942ccbc5e9">eobj_resize_inputs</a>(<span class="keywordtype">void</span> *x, <span class="keywordtype">long</span> nins);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keywordtype">void</span> <a class="code" href="eobj_8h.html#a8dd9873ea10d828254e741bf069c3ea4">eobj_resize_outputs</a>(<span class="keywordtype">void</span> *x, <span class="keywordtype">long</span> nouts);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="keywordtype">void</span> eobj_dsp(<span class="keywordtype">void</span> *x, t_signal **sp);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;t_int* eobj_perform(t_int* w);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;t_int* eobj_perform_box(t_int* w);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="keywordtype">void</span> eobj_getconnections(<span class="keywordtype">void</span>* x, <span class="keywordtype">short</span>* count);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keywordtype">void</span> eobj_dsp_add(<span class="keywordtype">void</span> *x, t_symbol* s, t_object* obj, method m, <span class="keywordtype">long</span> flags, <span class="keywordtype">void</span> *userparam);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment">/*********************************</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment"> * ROUTER</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment"> *********************************/</span></div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<a class="code" href="struct__erouter.html">t_erouter</a>* glist_return_erouter(t_object* glist);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keywordtype">void</span> erouter_setup(t_glist* obj);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keywordtype">void</span> erouter_free(<a class="code" href="struct__erouter.html">t_erouter</a> *x);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="keywordtype">void</span> erouter_anything(<a class="code" href="struct__erouter.html">t_erouter</a> *x, t_symbol *s, <span class="keywordtype">long</span> argc, t_atom *argv);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keywordtype">void</span> erouter_add_libary(t_symbol* name, <span class="keywordtype">char</span>* message, <span class="keywordtype">char</span>* copyright, <span class="keywordtype">char</span>* version);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keywordtype">void</span> eobj_attach_torouter(t_object* child);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keywordtype">void</span> eobj_detach_torouter(t_object* child);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="keywordtype">void</span> erouter_setup();</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keywordtype">void</span> erouter_free(<a class="code" href="struct__erouter.html">t_erouter</a> *x);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="keywordtype">void</span> erouter_anything(<a class="code" href="struct__erouter.html">t_erouter</a> *x, t_symbol *s, <span class="keywordtype">long</span> argc, t_atom *argv);</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
-<div class="ttc" id="struct__eobj_html"><div class="ttname"><a href="struct__eobj.html">_eobj</a></div><div class="ttdoc">The Pd Enhanced Box object. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00396">estruct.h:396</a></div></div>
-<div class="ttc" id="eobj_8h_html_a20b15e9d4cfff43d7c99ec64f8da3ced"><div class="ttname"><a href="eobj_8h.html#a20b15e9d4cfff43d7c99ec64f8da3ced">eobj_isbox</a></div><div class="ttdeci">char eobj_isbox(void *x)</div><div class="ttdoc">Retreive if an eobj is a GUI or not. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00140">eobj_basic.c:140</a></div></div>
-<div class="ttc" id="struct__eclass_html"><div class="ttname"><a href="struct__eclass.html">_eclass</a></div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00187">estruct.h:187</a></div></div>
-<div class="ttc" id="eobj_8h_html_ab269804f09b184c738c3088889d8908c"><div class="ttname"><a href="eobj_8h.html#ab269804f09b184c738c3088889d8908c">eobj_free</a></div><div class="ttdeci">void eobj_free(void *x)</div><div class="ttdoc">The eobj deletion function. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00072">eobj_basic.c:72</a></div></div>
-<div class="ttc" id="eobj_8h_html_a5e86c6f25b1ad53b29d490942ccbc5e9"><div class="ttname"><a href="eobj_8h.html#a5e86c6f25b1ad53b29d490942ccbc5e9">eobj_resize_inputs</a></div><div class="ttdeci">void eobj_resize_inputs(void *x, long nins)</div><div class="ttdoc">Resize the number of signal inputs of an edspobj. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__dsp_8c_source.html#l00076">eobj_dsp.c:76</a></div></div>
-<div class="ttc" id="struct__edspobj_html"><div class="ttname"><a href="struct__edspobj.html">_edspobj</a></div><div class="ttdoc">The Pd Enhanced Box DSP object. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00413">estruct.h:413</a></div></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
+<div class="ttc" id="eobj_8h_html_ab25a83fb692fadad78681501a274f45f"><div class="ttname"><a href="eobj_8h.html#ab25a83fb692fadad78681501a274f45f">eobj_getcanvas</a></div><div class="ttdeci">t_canvas * eobj_getcanvas(void *x)</div><div class="ttdoc">Retreive the canvas of an eobj. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00139">eobj_basic.c:139</a></div></div>
+<div class="ttc" id="struct__eobj_html"><div class="ttname"><a href="struct__eobj.html">_eobj</a></div><div class="ttdoc">The CICM Box object. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00402">estruct.h:402</a></div></div>
+<div class="ttc" id="eobj_8h_html_a20b15e9d4cfff43d7c99ec64f8da3ced"><div class="ttname"><a href="eobj_8h.html#a20b15e9d4cfff43d7c99ec64f8da3ced">eobj_isbox</a></div><div class="ttdeci">char eobj_isbox(void *x)</div><div class="ttdoc">Retreive if an eobj is a GUI or not. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00152">eobj_basic.c:152</a></div></div>
+<div class="ttc" id="struct__eclass_html"><div class="ttname"><a href="struct__eclass.html">_eclass</a></div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00189">estruct.h:189</a></div></div>
+<div class="ttc" id="eobj_8h_html_ab269804f09b184c738c3088889d8908c"><div class="ttname"><a href="eobj_8h.html#ab269804f09b184c738c3088889d8908c">eobj_free</a></div><div class="ttdeci">void eobj_free(void *x)</div><div class="ttdoc">The eobj deletion function. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00071">eobj_basic.c:71</a></div></div>
+<div class="ttc" id="eobj_8h_html_a5e86c6f25b1ad53b29d490942ccbc5e9"><div class="ttname"><a href="eobj_8h.html#a5e86c6f25b1ad53b29d490942ccbc5e9">eobj_resize_inputs</a></div><div class="ttdeci">void eobj_resize_inputs(void *x, long nins)</div><div class="ttdoc">Resize the number of signal inputs of an edspobj. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__dsp_8c_source.html#l00103">eobj_dsp.c:103</a></div></div>
 <div class="ttc" id="eobj_8h_html_a8054a835864160d4c9f8afad9d68ccd0"><div class="ttname"><a href="eobj_8h.html#a8054a835864160d4c9f8afad9d68ccd0">eobj_get_mouse_canvas_position</a></div><div class="ttdeci">t_pt eobj_get_mouse_canvas_position(void *x)</div><div class="ttdoc">Retrieve the canvas mouse position. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__handle_8c_source.html#l00051">eobj_handle.c:51</a></div></div>
-<div class="ttc" id="struct__eproxy_html"><div class="ttname"><a href="struct__eproxy.html">_eproxy</a></div><div class="ttdoc">The Pd Enhanced Proxy object. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00382">estruct.h:382</a></div></div>
-<div class="ttc" id="eobj_8h_html_a1014e3284b70c9680b9b048157190ca7"><div class="ttname"><a href="eobj_8h.html#a1014e3284b70c9680b9b048157190ca7">eobj_getproxy</a></div><div class="ttdeci">int eobj_getproxy(void *x)</div><div class="ttdoc">Retreive the index of the proxy that received the last message. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00101">eobj_basic.c:101</a></div></div>
-<div class="ttc" id="eobj_8h_html_a19f71253f4c7e6c2f6353e819815faf4"><div class="ttname"><a href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a></div><div class="ttdeci">t_eclass * eobj_getclass(void *x)</div><div class="ttdoc">Retrieve the eclass of an eobj. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00114">eobj_basic.c:114</a></div></div>
+<div class="ttc" id="struct__eproxy_html"><div class="ttname"><a href="struct__eproxy.html">_eproxy</a></div><div class="ttdoc">The CICM Proxy object. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00388">estruct.h:388</a></div></div>
+<div class="ttc" id="eobj_8h_html_a1014e3284b70c9680b9b048157190ca7"><div class="ttname"><a href="eobj_8h.html#a1014e3284b70c9680b9b048157190ca7">eobj_getproxy</a></div><div class="ttdeci">int eobj_getproxy(void *x)</div><div class="ttdoc">Retreive the index of the proxy that received the last message. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00100">eobj_basic.c:100</a></div></div>
+<div class="ttc" id="eobj_8h_html_a19f71253f4c7e6c2f6353e819815faf4"><div class="ttname"><a href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a></div><div class="ttdeci">t_eclass * eobj_getclass(void *x)</div><div class="ttdoc">Retrieve the eclass of an eobj. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00113">eobj_basic.c:113</a></div></div>
 <div class="ttc" id="struct__pt_html"><div class="ttname"><a href="struct__pt.html">_pt</a></div><div class="ttdoc">A point structure. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00043">estruct.h:43</a></div></div>
-<div class="ttc" id="eobj_8h_html_a27eee54891735b101bf16018272d379c"><div class="ttname"><a href="eobj_8h.html#a27eee54891735b101bf16018272d379c">eobj_isdsp</a></div><div class="ttdeci">char eobj_isdsp(void *x)</div><div class="ttdoc">Retreive if an eobj is a DSP object or not. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00154">eobj_basic.c:154</a></div></div>
-<div class="ttc" id="struct__erouter_html"><div class="ttname"><a href="struct__erouter.html">_erouter</a></div><div class="ttdoc">The Pd Enhanced Router object. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00370">estruct.h:370</a></div></div>
-<div class="ttc" id="eobj_8h_html_a3945be07a276dd22b13c86e6a4906a0e"><div class="ttname"><a href="eobj_8h.html#a3945be07a276dd22b13c86e6a4906a0e">eobj_inletnew</a></div><div class="ttdeci">void eobj_inletnew(void *x)</div><div class="ttdoc">Add a proxy inlet to an eobj. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00086">eobj_basic.c:86</a></div></div>
+<div class="ttc" id="eobj_8h_html_a27eee54891735b101bf16018272d379c"><div class="ttname"><a href="eobj_8h.html#a27eee54891735b101bf16018272d379c">eobj_isdsp</a></div><div class="ttdeci">char eobj_isdsp(void *x)</div><div class="ttdoc">Retreive if an eobj is a DSP object or not. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00166">eobj_basic.c:166</a></div></div>
+<div class="ttc" id="struct__erouter_html"><div class="ttname"><a href="struct__erouter.html">_erouter</a></div><div class="ttdoc">The CICM Router object. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00374">estruct.h:374</a></div></div>
+<div class="ttc" id="eobj_8h_html_a3945be07a276dd22b13c86e6a4906a0e"><div class="ttname"><a href="eobj_8h.html#a3945be07a276dd22b13c86e6a4906a0e">eobj_inletnew</a></div><div class="ttdeci">void eobj_inletnew(void *x)</div><div class="ttdoc">Add a proxy inlet to an eobj. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00085">eobj_basic.c:85</a></div></div>
 <div class="ttc" id="eobj_8h_html_a75990a2c2f4f51a081904dce5c5e14b4"><div class="ttname"><a href="eobj_8h.html#a75990a2c2f4f51a081904dce5c5e14b4">eobj_dspsetup</a></div><div class="ttdeci">void eobj_dspsetup(void *x, long nins, long nouts)</div><div class="ttdoc">Initialize an edspobj. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__dsp_8c_source.html#l00037">eobj_dsp.c:37</a></div></div>
 <div class="ttc" id="eobj_8h_html_afa853a6c824e824b8217010bce5b97a5"><div class="ttname"><a href="eobj_8h.html#afa853a6c824e824b8217010bce5b97a5">eobj_get_mouse_global_position</a></div><div class="ttdeci">t_pt eobj_get_mouse_global_position(void *x)</div><div class="ttdoc">Retrieve the global mouse position. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__handle_8c_source.html#l00038">eobj_handle.c:38</a></div></div>
-<div class="ttc" id="eobj_8h_html_afc245e0b61a0420c6c776ad2a9337eb2"><div class="ttname"><a href="eobj_8h.html#afc245e0b61a0420c6c776ad2a9337eb2">eobj_getclassname</a></div><div class="ttdeci">t_symbol * eobj_getclassname(void *x)</div><div class="ttdoc">Retrieve the classe name of an eobj. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00127">eobj_basic.c:127</a></div></div>
-<div class="ttc" id="eobj_8h_html_a8dd9873ea10d828254e741bf069c3ea4"><div class="ttname"><a href="eobj_8h.html#a8dd9873ea10d828254e741bf069c3ea4">eobj_resize_outputs</a></div><div class="ttdeci">void eobj_resize_outputs(void *x, long nouts)</div><div class="ttdoc">Resize the number of signal outputs of an edspobj. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__dsp_8c_source.html#l00107">eobj_dsp.c:107</a></div></div>
-<div class="ttc" id="eobj_8h_html_ad1252e017dafb1443ae6806909808d04"><div class="ttname"><a href="eobj_8h.html#ad1252e017dafb1443ae6806909808d04">eobj_dspfree</a></div><div class="ttdeci">void eobj_dspfree(void *x)</div><div class="ttdoc">Free an edspobj (note that if the object is also an UI, you don&amp;#39;t need to call ebox_free()) ...</div><div class="ttdef"><b>Definition:</b> <a href="eobj__dsp_8c_source.html#l00061">eobj_dsp.c:61</a></div></div>
+<div class="ttc" id="eobj_8h_html_afc245e0b61a0420c6c776ad2a9337eb2"><div class="ttname"><a href="eobj_8h.html#afc245e0b61a0420c6c776ad2a9337eb2">eobj_getclassname</a></div><div class="ttdeci">t_symbol * eobj_getclassname(void *x)</div><div class="ttdoc">Retrieve the classe name of an eobj. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00126">eobj_basic.c:126</a></div></div>
+<div class="ttc" id="eobj_8h_html_a8dd9873ea10d828254e741bf069c3ea4"><div class="ttname"><a href="eobj_8h.html#a8dd9873ea10d828254e741bf069c3ea4">eobj_resize_outputs</a></div><div class="ttdeci">void eobj_resize_outputs(void *x, long nouts)</div><div class="ttdoc">Resize the number of signal outputs of an edspobj. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__dsp_8c_source.html#l00159">eobj_dsp.c:159</a></div></div>
+<div class="ttc" id="eobj_8h_html_ad1252e017dafb1443ae6806909808d04"><div class="ttname"><a href="eobj_8h.html#ad1252e017dafb1443ae6806909808d04">eobj_dspfree</a></div><div class="ttdeci">void eobj_dspfree(void *x)</div><div class="ttdoc">Free an edspobj (note that if the object is also an UI, you don&amp;#39;t need to call ebox_free()) ...</div><div class="ttdef"><b>Definition:</b> <a href="eobj__dsp_8c_source.html#l00079">eobj_dsp.c:79</a></div></div>
 <div class="ttc" id="eobj_8h_html_affefa86aef6fc6491c9878cf21906dbc"><div class="ttname"><a href="eobj_8h.html#affefa86aef6fc6491c9878cf21906dbc">eobj_new</a></div><div class="ttdeci">void * eobj_new(t_eclass *c)</div><div class="ttdoc">The eobj creation function. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00036">eobj_basic.c:36</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 27 2013 09:26:33 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jan 18 2014 08:38:18 for CICM Wrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

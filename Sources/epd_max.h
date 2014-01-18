@@ -54,8 +54,8 @@
 #define t_jbox              t_ebox
 #define t_pxobject          t_ebox
 
-#define CLASS_BOX				gensym("box")
-#define CLASS_NOBOX				gensym("nobox")
+//#define CLASS_OBJ				gensym("box")
+//#define CLASS_BOX				gensym("nobox")
 #define Z_NO_INPLACE 1
 #define Z_PUT_LAST 2
 #define Z_PUT_FIRST 4

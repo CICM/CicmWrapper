@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>PdEnhanced: /Users/Pierre/SourceTree/PdEnhanced/SourcesDev/eobj/eobj_handle.c Source File</title>
+<title>CICM Wrapper: /Users/Pierre/SourceTree/PdEnhanced/Sources/eobj/eobj_handle.c Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,10 +22,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">PdEnhanced
+   <div id="projectname">CICM Wrapper
    &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
-   <div id="projectbrief">Add on for PD</div>
+   <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
  </tr>
  </tbody>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -81,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_a4a890ee75b887c5396ee96d929275cc.html">SourcesDev</a></li><li class="navelem"><a class="el" href="dir_4b88d0c735788c560bdcf8b49b4502ed.html">eobj</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_7bcfcc48ea8ecdee8f839dc9b497c3d6.html">eobj</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -90,9 +90,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * PdEnhanced - Pure Data Enhanced </span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * CicmWrapper</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * An add-on for Pure Data</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * A wrapper for Pure Data</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * All rights reserved.</span></div>
@@ -299,23 +299,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;</div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;</div>
-<div class="ttc" id="struct__eobj_html"><div class="ttname"><a href="struct__eobj.html">_eobj</a></div><div class="ttdoc">The Pd Enhanced Box object. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00396">estruct.h:396</a></div></div>
-<div class="ttc" id="struct__eclass_html"><div class="ttname"><a href="struct__eclass.html">_eclass</a></div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00187">estruct.h:187</a></div></div>
+<div class="ttc" id="struct__eobj_html"><div class="ttname"><a href="struct__eobj.html">_eobj</a></div><div class="ttdoc">The CICM Box object. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00402">estruct.h:402</a></div></div>
+<div class="ttc" id="struct__eclass_html"><div class="ttname"><a href="struct__eclass.html">_eclass</a></div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00189">estruct.h:189</a></div></div>
 <div class="ttc" id="eobj_8h_html_a8054a835864160d4c9f8afad9d68ccd0"><div class="ttname"><a href="eobj_8h.html#a8054a835864160d4c9f8afad9d68ccd0">eobj_get_mouse_canvas_position</a></div><div class="ttdeci">t_pt eobj_get_mouse_canvas_position(void *x)</div><div class="ttdoc">Retrieve the canvas mouse position. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__handle_8c_source.html#l00051">eobj_handle.c:51</a></div></div>
-<div class="ttc" id="struct__eobj_html_a8cffa8f3338cca7779ab922dab19227c"><div class="ttname"><a href="struct__eobj.html#a8cffa8f3338cca7779ab922dab19227c">_eobj::o_obj</a></div><div class="ttdeci">t_object o_obj</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00398">estruct.h:398</a></div></div>
-<div class="ttc" id="eobj_8h_html_a19f71253f4c7e6c2f6353e819815faf4"><div class="ttname"><a href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a></div><div class="ttdeci">t_eclass * eobj_getclass(void *x)</div><div class="ttdoc">Retrieve the eclass of an eobj. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00114">eobj_basic.c:114</a></div></div>
-<div class="ttc" id="struct__eobj_html_ab7f7ce6beaff87d1baca1a619b9a7ebf"><div class="ttname"><a href="struct__eobj.html#ab7f7ce6beaff87d1baca1a619b9a7ebf">_eobj::o_canvas_id</a></div><div class="ttdeci">t_symbol * o_canvas_id</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00401">estruct.h:401</a></div></div>
+<div class="ttc" id="struct__eobj_html_a8cffa8f3338cca7779ab922dab19227c"><div class="ttname"><a href="struct__eobj.html#a8cffa8f3338cca7779ab922dab19227c">_eobj::o_obj</a></div><div class="ttdeci">t_object o_obj</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00404">estruct.h:404</a></div></div>
+<div class="ttc" id="eobj_8h_html_a19f71253f4c7e6c2f6353e819815faf4"><div class="ttname"><a href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a></div><div class="ttdeci">t_eclass * eobj_getclass(void *x)</div><div class="ttdoc">Retrieve the eclass of an eobj. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00113">eobj_basic.c:113</a></div></div>
+<div class="ttc" id="struct__eobj_html_ab7f7ce6beaff87d1baca1a619b9a7ebf"><div class="ttname"><a href="struct__eobj.html#ab7f7ce6beaff87d1baca1a619b9a7ebf">_eobj::o_canvas_id</a></div><div class="ttdeci">t_symbol * o_canvas_id</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00407">estruct.h:407</a></div></div>
 <div class="ttc" id="struct__pt_html"><div class="ttname"><a href="struct__pt.html">_pt</a></div><div class="ttdoc">A point structure. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00043">estruct.h:43</a></div></div>
 <div class="ttc" id="struct__pt_html_aa4f0d3eebc3c443f9be81bf48561a217"><div class="ttname"><a href="struct__pt.html#aa4f0d3eebc3c443f9be81bf48561a217">_pt::y</a></div><div class="ttdeci">float y</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00046">estruct.h:46</a></div></div>
-<div class="ttc" id="struct__eobj_html_a4ac1a6544ba0591b83cbf38bc1349e74"><div class="ttname"><a href="struct__eobj.html#a4ac1a6544ba0591b83cbf38bc1349e74">_eobj::o_canvas</a></div><div class="ttdeci">t_canvas * o_canvas</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00400">estruct.h:400</a></div></div>
+<div class="ttc" id="struct__eobj_html_a4ac1a6544ba0591b83cbf38bc1349e74"><div class="ttname"><a href="struct__eobj.html#a4ac1a6544ba0591b83cbf38bc1349e74">_eobj::o_canvas</a></div><div class="ttdeci">t_canvas * o_canvas</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00406">estruct.h:406</a></div></div>
 <div class="ttc" id="eobj_8h_html_afa853a6c824e824b8217010bce5b97a5"><div class="ttname"><a href="eobj_8h.html#afa853a6c824e824b8217010bce5b97a5">eobj_get_mouse_global_position</a></div><div class="ttdeci">t_pt eobj_get_mouse_global_position(void *x)</div><div class="ttdoc">Retrieve the global mouse position. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__handle_8c_source.html#l00038">eobj_handle.c:38</a></div></div>
 <div class="ttc" id="eobj_8h_html"><div class="ttname"><a href="eobj_8h.html">eobj.h</a></div></div>
-<div class="ttc" id="struct__eobj_html_a024c5a2d6d2dcdf531f05a0e711cce68"><div class="ttname"><a href="struct__eobj.html#a024c5a2d6d2dcdf531f05a0e711cce68">_eobj::o_id</a></div><div class="ttdeci">t_symbol * o_id</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00399">estruct.h:399</a></div></div>
+<div class="ttc" id="struct__eobj_html_a024c5a2d6d2dcdf531f05a0e711cce68"><div class="ttname"><a href="struct__eobj.html#a024c5a2d6d2dcdf531f05a0e711cce68">_eobj::o_id</a></div><div class="ttdeci">t_symbol * o_id</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00405">estruct.h:405</a></div></div>
 <div class="ttc" id="struct__pt_html_ad0da36b2558901e21e7a30f6c227a45e"><div class="ttname"><a href="struct__pt.html#ad0da36b2558901e21e7a30f6c227a45e">_pt::x</a></div><div class="ttdeci">float x</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00045">estruct.h:45</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 27 2013 09:26:33 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jan 18 2014 08:38:18 for CICM Wrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

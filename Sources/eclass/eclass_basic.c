@@ -26,7 +26,7 @@
 
 #include "eclass.h"
 
-//! Allocate the memory and initialize a nex eclass
+//! Allocate the memory and initialize a new eclass
 /*
  \ @memberof            eclass
  \ @param name          The eclass name
@@ -36,7 +36,7 @@
  \ @param flags         The class flags
  \ @param arg1          The type of parameters the new function
  \ @param arg2          Another argument
- \ @return              this function return the new eclass
+ \ @return              This function return the new eclass
 */
 t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t size, int flags, t_atomtype arg1, int arg2)
 {
@@ -384,9 +384,9 @@ void eclass_properties_dialog(t_eclass* c)
 t_pd_err eclass_register(t_symbol *name, t_eclass *c)
 {
     if(name == gensym("box"))
-        c->c_box = 0;
-    else
         c->c_box = 1;
+    else
+        c->c_box = 0;
 
     eclass_properties_dialog(c);
     return 0;

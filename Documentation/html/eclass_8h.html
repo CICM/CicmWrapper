@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>PdEnhanced: /Users/Pierre/SourceTree/PdEnhanced/SourcesDev/eclass/eclass.h File Reference</title>
+<title>CICM Wrapper: /Users/Pierre/SourceTree/PdEnhanced/Sources/eclass/eclass.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,10 +22,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">PdEnhanced
+   <div id="projectname">CICM Wrapper
    &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
-   <div id="projectbrief">Add on for PD</div>
+   <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
  </tr>
  </tbody>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -81,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_a4a890ee75b887c5396ee96d929275cc.html">SourcesDev</a></li><li class="navelem"><a class="el" href="dir_572ae551e81dc3bc8578f0ab771353bc.html">eclass</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_26b4c6508c94607a9ec0ebc023e49a5e.html">eclass</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -94,6 +94,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="estruct_8h_source.html">../estruct.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="ebox_8h_source.html">../ebox/ebox.h</a>&quot;</code><br/>
+<code>#include &quot;../epopup/epopup.h&quot;</code><br/>
 </div>
 <p><a href="eclass_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -124,6 +125,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ad5aa93c5d7fdf1ce29d21cf072907e12"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad5aa93c5d7fdf1ce29d21cf072907e12"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CLASS_ATTR_SYMBOL</b>(c, name, flags, struct, member)&#160;&#160;&#160;<a class="el" href="eclass_8h.html#a9c805756b62c34be223985281555ee8d">eclass_new_attr_typed</a>(c,name, &quot;symbol&quot;, 1, 0, flags, calcoffset(struct,member))</td></tr>
 <tr class="separator:ad5aa93c5d7fdf1ce29d21cf072907e12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bff37c381b6bca6136d8bcc8fc392cb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8bff37c381b6bca6136d8bcc8fc392cb"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CLASS_ATTR_ATOM</b>(c, name, flags, struct, member)&#160;&#160;&#160;<a class="el" href="eclass_8h.html#a9c805756b62c34be223985281555ee8d">eclass_new_attr_typed</a>(c,name, &quot;atom&quot;, 1, 0, flags, calcoffset(struct,member))</td></tr>
+<tr class="separator:a8bff37c381b6bca6136d8bcc8fc392cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b0d09f76092d1307fc350e5bf72f699"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1b0d09f76092d1307fc350e5bf72f699"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CLASS_ATTR_INT_ARRAY</b>(c, name, flags, struct, member, size)&#160;&#160;&#160;<a class="el" href="eclass_8h.html#a9c805756b62c34be223985281555ee8d">eclass_new_attr_typed</a>(c,name, &quot;int&quot;, size, 0, flags, calcoffset(struct,member))</td></tr>
 <tr class="separator:a1b0d09f76092d1307fc350e5bf72f699"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -139,6 +143,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ab4804fd32ef82883bf99933ccbe147bb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab4804fd32ef82883bf99933ccbe147bb"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CLASS_ATTR_SYMBOL_ARRAY</b>(c, name, flags, struct, member, size)&#160;&#160;&#160;<a class="el" href="eclass_8h.html#a9c805756b62c34be223985281555ee8d">eclass_new_attr_typed</a>(c,name, &quot;symbol&quot;, size, 0, flags, calcoffset(struct,member))</td></tr>
 <tr class="separator:ab4804fd32ef82883bf99933ccbe147bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2307da755e85e6d05e4f5499128e0404"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2307da755e85e6d05e4f5499128e0404"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CLASS_ATTR_ATOM_ARRAY</b>(c, name, flags, struct, member, size)&#160;&#160;&#160;<a class="el" href="eclass_8h.html#a9c805756b62c34be223985281555ee8d">eclass_new_attr_typed</a>(c,name, &quot;atom&quot;, size, 0, flags, calcoffset(struct,member))</td></tr>
+<tr class="separator:a2307da755e85e6d05e4f5499128e0404"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3752d21fb97fdec2d9d6b07499a08d81"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3752d21fb97fdec2d9d6b07499a08d81"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CLASS_ATTR_INT_VARSIZE</b>(c, name, flags, struct, member, size, maxsize)&#160;&#160;&#160;<a class="el" href="eclass_8h.html#a9c805756b62c34be223985281555ee8d">eclass_new_attr_typed</a>(c,name, &quot;int&quot;, calcoffset(struct,size), maxsize, flags, calcoffset(struct,member))</td></tr>
 <tr class="separator:a3752d21fb97fdec2d9d6b07499a08d81"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,6 +161,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a3a53a8534d088583aa08b7a3e06591e9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3a53a8534d088583aa08b7a3e06591e9"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CLASS_ATTR_SYMBOL_VARSIZE</b>(c, name, flags, struct, member, size, maxsize)&#160;&#160;&#160;<a class="el" href="eclass_8h.html#a9c805756b62c34be223985281555ee8d">eclass_new_attr_typed</a>(c,name, &quot;symbol&quot;, calcoffset(struct,size), maxsize, flags, calcoffset(struct,member))</td></tr>
 <tr class="separator:a3a53a8534d088583aa08b7a3e06591e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07013d3f32c85a5aee1c40cb24dcb060"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a07013d3f32c85a5aee1c40cb24dcb060"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CLASS_ATTR_ATOM_VARSIZE</b>(c, name, flags, struct, member, size, maxsize)&#160;&#160;&#160;<a class="el" href="eclass_8h.html#a9c805756b62c34be223985281555ee8d">eclass_new_attr_typed</a>(c,name, &quot;atom&quot;, calcoffset(struct,size), maxsize, flags, calcoffset(struct,member))</td></tr>
+<tr class="separator:a07013d3f32c85a5aee1c40cb24dcb060"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cace709289de7ef71c18c930f4ff8b3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3cace709289de7ef71c18c930f4ff8b3"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eclass_8h.html#a3cace709289de7ef71c18c930f4ff8b3">CLASS_ATTR_CATEGORY</a>(c, name, flags, categoryname)&#160;&#160;&#160;<a class="el" href="eclass_8h.html#a124e18305bf57d85df1fb37b35223703">eclass_attr_category</a>(c,name,flags,categoryname)</td></tr>
 <tr class="memdesc:a3cace709289de7ef71c18c930f4ff8b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">MACRO TO DEFINE ATTRIBUTE OF ATTRIBUES. <br/></td></tr>
@@ -165,7 +175,7 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CLASS_ATTR_LABEL</b>(c, name, flags, label)&#160;&#160;&#160;<a class="el" href="eclass_8h.html#add32df540eac82aeb67a8ab4c6f39824">eclass_attr_label</a>(c,name,flags,label)</td></tr>
 <tr class="separator:ab73d5efdd012693da6f0de9062f8bc93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62b306c1f7686d411913b977a9ce5611"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a62b306c1f7686d411913b977a9ce5611"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CLASS_ATTR_STYLE</b>(c, name, flags, style)&#160;&#160;&#160;<a class="el" href="eclass_8h.html#add32df540eac82aeb67a8ab4c6f39824">eclass_attr_label</a>(c,name,flags,style)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CLASS_ATTR_STYLE</b>(c, name, flags, style)&#160;&#160;&#160;<a class="el" href="eclass_8h.html#a3d320f1c95fc5ff9f48b41fc28e2d360">eclass_attr_style</a>(c,name,flags,style)</td></tr>
 <tr class="separator:a62b306c1f7686d411913b977a9ce5611"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96196e25dfbb0920a02531f53770e403"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a96196e25dfbb0920a02531f53770e403"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CLASS_ATTR_DEFAULT</b>(c, name, flags, val)&#160;&#160;&#160;<a class="el" href="eclass_8h.html#a8ba59e2e9685109c89325952a2e0dcc9">eclass_attr_default</a>(c,name,flags,val)</td></tr>
@@ -179,6 +189,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a468630aad7c91817e12f6b440c5c7b0e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a468630aad7c91817e12f6b440c5c7b0e"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CLASS_ATTR_FILTER_CLIP</b>(c, name, minval, maxval)&#160;&#160;&#160;<a class="el" href="eclass_8h.html#a4156b71e091aa7c2e85ea6f3c9c22fa1">eclass_attr_filter_min</a>(c, name, minval); <a class="el" href="eclass_8h.html#a684ad130a230384569292d1905964386">eclass_attr_filter_max</a>(c, name, maxval);</td></tr>
 <tr class="separator:a468630aad7c91817e12f6b440c5c7b0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4584ff42b2768749a43c91cae694ce19"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4584ff42b2768749a43c91cae694ce19"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CLASS_ATTR_STEP</b>(c, name, value)&#160;&#160;&#160;<a class="el" href="eclass_8h.html#a316954f0b313c349a1666330404a5e67">eclass_attr_step</a>(c, name, value)</td></tr>
+<tr class="separator:a4584ff42b2768749a43c91cae694ce19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84cc15568655a04db22d60d3f3499414"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a84cc15568655a04db22d60d3f3499414"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CLASS_ATTR_SAVE</b>(c, name, flags)&#160;&#160;&#160;<a class="el" href="eclass_8h.html#af7f0f504f1193f0da1f3dc1637e40dd8">eclass_attr_save</a>(c,name,flags)</td></tr>
 <tr class="separator:a84cc15568655a04db22d60d3f3499414"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -191,6 +204,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a02e1c3b6d11eeed7f953d76d9e73d450"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a02e1c3b6d11eeed7f953d76d9e73d450"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CLASS_ATTR_ACCESSORS</b>(c, name, getter, setter)&#160;&#160;&#160;<a class="el" href="eclass_8h.html#a1ebc60a6f232280d9424f24f679677f2">eclass_attr_accessor</a>(c,name,(method)getter,(method)setter)</td></tr>
 <tr class="separator:a02e1c3b6d11eeed7f953d76d9e73d450"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2797a6977dc65bc3b70eaf6f42a474d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac2797a6977dc65bc3b70eaf6f42a474d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CLASS_ATTR_ITEMS</b>(c, name, flags, list)&#160;&#160;&#160;<a class="el" href="eclass_8h.html#afb73461be4ad9a42304db9d209781173">eclass_attr_itemlist</a>(c,name,flags, list)</td></tr>
+<tr class="separator:ac2797a6977dc65bc3b70eaf6f42a474d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55677c851b0822e7852dc3742046b77c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a55677c851b0822e7852dc3742046b77c"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CLASS_ATTR_DEFAULT_SAVE_PAINT</b>(c, attrname, flags, parsestr)&#160;&#160;&#160;{ CLASS_ATTR_DEFAULT(c,attrname,flags,parsestr); CLASS_ATTR_SAVE(c,attrname,flags); CLASS_ATTR_PAINT(c,attrname,flags); }</td></tr>
 <tr class="separator:a55677c851b0822e7852dc3742046b77c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -283,6 +299,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecla
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eclass_8h.html#a684ad130a230384569292d1905964386">eclass_attr_filter_max</a> (<a class="el" href="struct__eclass.html">t_eclass</a> *c, char *attrname, double value)</td></tr>
 <tr class="memdesc:a684ad130a230384569292d1905964386"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initalize the maximum value of an attribute. <br/></td></tr>
 <tr class="separator:a684ad130a230384569292d1905964386"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a316954f0b313c349a1666330404a5e67"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a316954f0b313c349a1666330404a5e67"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eclass_8h.html#a316954f0b313c349a1666330404a5e67">eclass_attr_step</a> (<a class="el" href="struct__eclass.html">t_eclass</a> *c, char *attrname, double value)</td></tr>
+<tr class="memdesc:a316954f0b313c349a1666330404a5e67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initalize the step value of an attribute. <br/></td></tr>
+<tr class="separator:a316954f0b313c349a1666330404a5e67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7f0f504f1193f0da1f3dc1637e40dd8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af7f0f504f1193f0da1f3dc1637e40dd8"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eclass_8h.html#af7f0f504f1193f0da1f3dc1637e40dd8">eclass_attr_save</a> (<a class="el" href="struct__eclass.html">t_eclass</a> *c, char *attrname, long flags)</td></tr>
 <tr class="memdesc:af7f0f504f1193f0da1f3dc1637e40dd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initalize the attribute to be saved with the object. <br/></td></tr>
@@ -299,6 +319,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecla
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eclass_8h.html#a1ebc60a6f232280d9424f24f679677f2">eclass_attr_accessor</a> (<a class="el" href="struct__eclass.html">t_eclass</a> *c, char *attrname, method getter, method setter)</td></tr>
 <tr class="memdesc:a1ebc60a6f232280d9424f24f679677f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initalize the user getter and setter of an attribute. <br/></td></tr>
 <tr class="separator:a1ebc60a6f232280d9424f24f679677f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb73461be4ad9a42304db9d209781173"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afb73461be4ad9a42304db9d209781173"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eclass_8h.html#afb73461be4ad9a42304db9d209781173">eclass_attr_itemlist</a> (<a class="el" href="struct__eclass.html">t_eclass</a> *c, char *attrname, long flags, char *list)</td></tr>
+<tr class="memdesc:afb73461be4ad9a42304db9d209781173"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initalize the items list of an attribute. <br/></td></tr>
+<tr class="separator:afb73461be4ad9a42304db9d209781173"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Pierre Guillot </dd></dl>
@@ -309,7 +333,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecla
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 27 2013 09:26:33 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jan 18 2014 08:38:18 for CICM Wrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

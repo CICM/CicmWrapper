@@ -27,6 +27,8 @@
 #ifndef DEF_EPD
 #define DEF_EPD
 
+#define cicm_post() erouter_add_libary(gensym("CICM"), "CICM Libraries by Pierre Guillot", "© 2013 - 2014  CICM | Paris 8 University", "Version 0.2")
+#define hoa_post() erouter_add_libary(gensym("HOA"), "HOA Library by Julien Colafrancesco, Pierre Guillot & Eliott Paris", "© 2012 - 2014  CICM | Paris 8 University", "Version 1.1")
 #include "eclass/eclass.h"
 
 #endif

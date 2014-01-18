@@ -104,8 +104,8 @@ extern "C" void setup_c0x2ebang(void)
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bacolor", 0, "0. 0. 0. 1.");
 	CLASS_ATTR_STYLE                (c, "bacolor", 0, "color");
 	
-    eclass_register(CLASS_NOBOX, c);
-    erouter_add_libary(gensym("chocolate"), "Chocolate and Coffee Libraries by Pierre Guillot", "© 2013 - 2014  CICM | Paris 8 University", "Version Beta 0.1");
+    eclass_register(CLASS_BOX, c);
+    cicm_post();
 	bang_class = c;
 }
 
@@ -142,9 +142,9 @@ void bang_oksize(t_bang *x, t_rect *newrect)
 {
     newrect->width = pd_clip_min(newrect->width, 16.);
     newrect->height = pd_clip_min(newrect->height, 16.);
-    if((int)newrect->width % 2 == 1)
+    if((int)newrect->width % 2 == 0)
         newrect->width++;
-    if((int)newrect->height % 2 == 1)
+    if((int)newrect->height % 2 == 0)
         newrect->height++;
 }
 
@@ -207,7 +207,7 @@ void draw_background(t_bang *x, t_object *view, t_rect *rect)
         {
             egraphics_set_color_rgba(g, &x->f_color_background);
         }
-        egraphics_circle(g, floor(size), floor(size), size * 0.9);
+        egraphics_circle(g, floor(size + 0.5), floor(size+ 0.5), size * 0.9);
         egraphics_fill(g);
         ebox_end_layer((t_ebox*)x, gensym("background_layer"));
 	}

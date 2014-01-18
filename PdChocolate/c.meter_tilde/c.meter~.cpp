@@ -144,8 +144,8 @@ extern "C" void setup_c0x2emeter_tilde(void)
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "overcolor", 0, "1. 0. 0. 0.8");
 	CLASS_ATTR_STYLE                (c, "overcolor", 0, "color");
     
-    eclass_register(CLASS_NOBOX, c);
-    erouter_add_libary(gensym("chocolate"), "Chocolate and Coffee Libraries by Pierre Guillot", "© 2013 - 2014  CICM | Paris 8 University", "Version Beta 0.1");
+    eclass_register(CLASS_BOX, c);
+    cicm_post();
 	meter_class = c;
 }
 
