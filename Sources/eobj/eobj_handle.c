@@ -50,9 +50,19 @@ t_pt eobj_get_mouse_global_position(void* x)
  */
 t_pt eobj_get_mouse_canvas_position(void* x)
 {
-    t_eobj* z  = (t_eobj *)x;
     t_pt point;
-    sys_vgui("eobj_pmousepos %s %s\n", z->o_id->s_name, z->o_canvas_id->s_name);
+    t_eobj* obj  = (t_eobj *)x;
+    t_ebox* box = (t_ebox*)x;
+    if(eobj_isbox(x))
+    {
+        sys_vgui("eobj_pmousepos %s %s\n", obj->o_id->s_name, box->b_canvas_id->s_name);
+    }
+    else
+    {
+        sys_vgui("eobj_pmousepos %s %s\n", obj->o_id->s_name, obj->o_canvas_id->s_name);
+    }
+    
+    
     point.x = mouse_global_pos.x - mouse_patcher_pos.x;
     point.y = mouse_global_pos.y - mouse_patcher_pos.y;
     return point;

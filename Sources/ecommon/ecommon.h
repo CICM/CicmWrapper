@@ -43,6 +43,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdarg.h>
+#include <fcntl.h>
 
 #include "m_pd.h"
 #include "m_imp.h"

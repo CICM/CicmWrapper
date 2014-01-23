@@ -37,12 +37,14 @@ void ebox_new(t_ebox *x, long flags)
 {
     x->b_flags = flags;
     x->b_ready_to_draw      = 0;
+    x->b_have_window        = 0;
     x->b_number_of_layers   = 0;
     x->b_layers             = NULL;
     x->b_editor_id          = NULL;
     x->b_receive_id         = gensym("(null)");
     x->b_send_id            = gensym("(null)");
     x->b_objpreset_id       = gensym("(null)");
+    x->b_visible            = 1;
     eobj_getclass(x)->c_widget.w_dosave = (method)ebox_dosave;
     ebox_attrprocess_default(x);
 }
@@ -158,9 +160,9 @@ t_pd* ebox_getsender(t_ebox* x)
  */
 char ebox_isdrawable(t_ebox* x)
 {
-    if(eobj_isbox(x))
+    if(eobj_isbox(x) && x->b_obj.o_canvas)
     {
-        if(x->b_obj.o_canvas && x->b_ready_to_draw && glist_isvisible(x->b_obj.o_canvas))
+        if(x->b_ready_to_draw && glist_isvisible(x->b_obj.o_canvas))
             return 1;
     }
     return 0;

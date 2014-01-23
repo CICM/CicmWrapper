@@ -1,0 +1,201 @@
+#N canvas 161 153 1100 489 10;
+#X obj -25 -74 cnv 40 552 40 empty empty preset 3 12 0 18 -228856 -33289
+0;
+#X text -13 358 Pd Chocolate by Pierre Guillot | CICM - Université
+Paris 8;
+#X text 630 -57 Futher information about chocolate;
+#X text -22 -52 A GUI to save and recall presets;
+#X text -24 -31 Save and recall presets of the Chocolate externals
+in a pacther;
+#X text 371 31 Recall a preset;
+#X obj 367 4 loadmess 1;
+#X msg 474 28 store \$1;
+#X text 470 -20 Store a preset;
+#X text 555 4 Clear a preset;
+#X msg 560 52 clear \$1;
+#X text 622 55 Clear all presets;
+#X obj 703 -32 @pdchocolate;
+#X obj 28 103 c.plane @size 120 120 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname chococ.plane
+@bound -1 -1 1 1 @ptsize 5 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @ptcolor 0 0 0 1;
+#X obj 201 218 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname choconum
+@min nan @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 474 3 c.number @size 53 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname (null) @min
+1 @max nan @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @textcolor 0 0 0 1;
+#X msg 623 78 clearall;
+#X obj 367 53 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 1 @max nan @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 560 25 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 1 @max nan @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X text 261 217 Presetname : choconum;
+#X text 24 76 Presetname : chococ.plane;
+#X obj 3 263 c.colorpanel @size 73 53 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname choc.colorpanel
+@matrix 4 4 @reverse 0 @saturation 1 @hue 0 @lightness 1 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X text 81 281 Presetname : choc.colorpanel;
+#X text 422 273 Presetname : chocoslidr;
+#X obj 295 273 c.slider @size 120 15 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname chocoslidr
+@mode 0 @min 0 @max 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @kncolor 0.5 0.5 0.5 1;
+#X obj 474 147 c.preset @size 102 34 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 7 @idname (null) @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor 0.85
+0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset
+[ @index 0 @chococ.plane c.plane list 0.703704 0.277778 @choconum c.number
+float 3.9 @choc.colorpanel c.colorpanel list 3 1 @chocoslidr c.slider
+float 0.458333 @chocodio c.radio float 2 @chocomenu c.menu float 0
+@chocopoints c.breakpoints function 0 0 221.374 0.8 519.084 0.166667
+832.061 0.766667 1000 0 @index 1 @chococ.plane c.plane list -0.592593
+-0.740741 @choconum c.number float -1.345 @choc.colorpanel c.colorpanel
+list 0 2 @chocoslidr c.slider float 0.725 @chocodio c.radio float 5
+@chocomenu c.menu float 0 @chocopoints c.breakpoints function 0 0.933333
+198.473 0 488.55 0.866667 832.061 0.766667 1000 0 @index 2 @chococ.plane
+c.plane list -0.592593 -0.740741 @choconum c.number float -1.345 @choc.colorpanel
+c.colorpanel list 0 2 @chocoslidr c.slider float 0.725 @chocodio c.radio
+float 5 @chocomenu c.menu float 0 @chocopoints c.breakpoints function
+0 0.933333 396.947 0 488.55 0.866667 541.985 0 1000 1 ];
+#X obj 352 110 r c.preset;
+#X obj 909 153 s c.preset;
+#X msg 908 105 read choco.preset;
+#X msg 854 105 write;
+#X text 850 16 Use an obsolute or relative path.;
+#X text 850 37 Use only a name to open in the;
+#X text 850 67 Use without name to open a dialog;
+#X obj 230 72 c.radio @size 15 120 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname chocodio
+@nitems 8 @mode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1
+@itcolor 0.5 0.5 0.5 1;
+#X text 256 153 Presetname : chocodio;
+#X text 5 26 Object with presets have a preset name;
+#X text 4 39 attribute. They can share the same;
+#X text 6 51 preset name so be careful.;
+#X text 850 -4 Read and write preset files :;
+#X text 850 47 patcher folder.;
+#X text 850 77 window.;
+#X text 587 137 Click on a preset to recall it.;
+#X text 587 157 Click with shift on a preset to store it.;
+#X text 587 177 Click with alt on a preset to clear it.;
+#X text 710 214 Important : Current presets are saved with the patch.
+;
+#X obj 269 322 c.menu @size 47 17 @fontname helvetica @fontweight normal
+@fontslant regular @fontsize 11 @idname (null) @presetname chocomenu
+@hover 0 @items cho co la te @states 0 0 0 0 @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 325 323 Presetname : chocomenu;
+#X text 639 318 Presetname: chocopoints;
+#X obj 498 302 c.breakpoints @size 135 49 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname chocopoints
+@absrange 0 1000 @ordrange 0 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @ptcolor 0.5 0.5 0.5 1 @licolor 0 0 0 1 @textcolor 0 0 0
+1 @points 0 0.933333 396.947 0 488.55 0.866667 541.985 0 1000 1;
+#X msg 705 108 inter \$1;
+#X obj 705 80 c.number @size 53 17 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@min 1 @max nan @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X text 261 217 Presetname : choconum;
+#X text 24 76 Presetname : chococ.plane;
+#X obj 3 263 c.colorpanel @size 73 53 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname choc.colorpanel
+@matrix 4 4 @reverse 0 @saturation 1 @hue 0 @lightness 1 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X text 81 281 Presetname : choc.colorpanel;
+#X text 422 273 Presetname : chocoslidr;
+#X obj 295 273 c.slider @size 120 15 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname chocoslidr
+@mode 0 @min 0 @max 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @kncolor 0.5 0.5 0.5 1;
+#X obj 474 147 c.preset @size 102 34 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 7 @idname (null) @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor 0.85
+0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset
+[ @index 0 @chococ.plane c.plane list 0.703704 0.277778 @choconum c.number
+float 3.9 @choc.colorpanel c.colorpanel list 3 1 @chocoslidr c.slider
+float 0.458333 @chocodio c.radio float 2 @chocomenu c.menu float 0
+@chocopoints c.breakpoints function 0 0 221.374 0.8 519.084 0.166667
+832.061 0.766667 1000 0 @index 1 @chococ.plane c.plane list -0.592593
+-0.740741 @choconum c.number float -1.345 @choc.colorpanel c.colorpanel
+list 0 2 @chocoslidr c.slider float 0.725 @chocodio c.radio float 5
+@chocomenu c.menu float 0 @chocopoints c.breakpoints function 0 0.933333
+198.473 0 488.55 0.866667 832.061 0.766667 1000 0 @index 2 @chococ.plane
+c.plane list -0.592593 -0.740741 @choconum c.number float -1.345 @choc.colorpanel
+c.colorpanel list 0 2 @chocoslidr c.slider float 0.725 @chocodio c.radio
+float 5 @chocomenu c.menu float 0 @chocopoints c.breakpoints function
+0 0.933333 396.947 0 488.55 0.866667 541.985 0 1000 1 ];
+#X obj 352 110 r c.preset;
+#X obj 909 153 s c.preset;
+#X msg 908 105 read choco.preset;
+#X msg 854 105 write;
+#X text 850 16 Use an obsolute or relative path.;
+#X text 850 37 Use only a name to open in the;
+#X text 850 67 Use without name to open a dialog;
+#X obj 230 72 c.radio @size 15 120 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@nitems 8 @mode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1
+@itcolor 0.5 0.5 0.5 1;
+#X text 261 217 Presetname : choconum;
+#X text 24 76 Presetname : chococ.plane;
+#X obj 3 263 c.colorpanel @size 73 53 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname choc.colorpanel
+@matrix 4 4 @reverse 0 @saturation 1 @hue 0 @lightness 1 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X text 81 281 Presetname : choc.colorpanel;
+#X text 422 273 Presetname : chocoslidr;
+#X obj 295 273 c.slider @size 120 15 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname chocoslidr
+@mode 0 @min 0 @max 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @kncolor 0.5 0.5 0.5 1;
+#X obj 474 147 c.preset @size 102 34 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 7 @idname (null) @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor 0.85
+0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset
+[ @index 0 @chococ.plane c.plane list 0.703704 0.277778 @choconum c.number
+float 3.9 @choc.colorpanel c.colorpanel list 3 1 @chocoslidr c.slider
+float 0.458333 @chocodio c.radio float 2 @chocomenu c.menu float 0
+@chocopoints c.breakpoints function 0 0 221.374 0.8 519.084 0.166667
+832.061 0.766667 1000 0 @index 1 @chococ.plane c.plane list -0.592593
+-0.740741 @choconum c.number float -1.345 @choc.colorpanel c.colorpanel
+list 0 2 @chocoslidr c.slider float 0.725 @chocodio c.radio float 5
+@chocomenu c.menu float 0 @chocopoints c.breakpoints function 0 0.933333
+198.473 0 488.55 0.866667 832.061 0.766667 1000 0 @index 2 @chococ.plane
+c.plane list -0.592593 -0.740741 @choconum c.number float -1.345 @choc.colorpanel
+c.colorpanel list 0 2 @chocoslidr c.slider float 0.725 @chocodio c.radio
+float 5 @chocomenu c.menu float 0 @chocopoints c.breakpoints function
+0 0.933333 396.947 0 488.55 0.866667 541.985 0 1000 1 ];
+#X obj 352 110 r c.preset;
+#X obj 909 153 s c.preset;
+#X msg 908 105 read choco.preset;
+#X msg 854 105 write;
+#X text 850 16 Use an obsolute or relative path.;
+#X text 850 37 Use only a name to open in the;
+#X text 850 67 Use without name to open a dialog;
+#X obj 230 72 c.radio @size 15 120 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @presetname (null)
+@nitems 8 @mode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1
+@itcolor 0.5 0.5 0.5 1;
+#X obj 820 276 c.orpheus @size 100 100 @fontname helvetica @fontweight
+normal @fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X connect 6 0 17 0;
+#X connect 7 0 25 0;
+#X connect 10 0 25 0;
+#X connect 15 0 7 0;
+#X connect 16 0 25 0;
+#X connect 17 0 25 0;
+#X connect 18 0 10 0;
+#X connect 26 0 25 0;
+#X connect 28 0 27 0;
+#X connect 29 0 27 0;
+#X connect 49 0 25 0;
+#X connect 50 0 49 0;

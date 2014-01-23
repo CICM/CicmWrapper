@@ -8,6 +8,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -65,6 +72,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>Globals</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('egraphics_8h_source.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -79,11 +101,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_f1848ecb810f36544fe7cc9ff59203d3.html">egraphics</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">egraphics.h</div>  </div>
@@ -132,7 +149,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keywordtype">void</span> egraphics_set_line_width(<a class="code" href="struct__elayer.html">t_elayer</a> *g, <span class="keywordtype">float</span> width);</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keywordtype">void</span> egraphics_set_color_rgba(<a class="code" href="struct__elayer.html">t_elayer</a> *g, <a class="code" href="struct__rgba.html">t_rgba</a> *rgba);</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keywordtype">void</span> egraphics_set_color_rgb(<a class="code" href="struct__elayer.html">t_elayer</a> *g, <a class="code" href="struct__rgb.html">t_rgb</a> *rgb);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keywordtype">void</span> egraphics_set_color_hex(<a class="code" href="struct__elayer.html">t_elayer</a> *g, t_symbol *hex);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keywordtype">void</span> egraphics_set_color_hex(<a class="code" href="struct__elayer.html">t_elayer</a> *g, <a class="code" href="struct__symbol.html">t_symbol</a> *hex);</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keywordtype">void</span> egraphics_set_color_hsla(<a class="code" href="struct__elayer.html">t_elayer</a> *g, <a class="code" href="struct__hsla.html">t_hsla</a> *hsla);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keywordtype">void</span> egraphics_set_color_hsl(<a class="code" href="struct__elayer.html">t_elayer</a> *g, <a class="code" href="struct__hsl.html">t_hsl</a> *hsl);</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keywordtype">void</span> egraphics_rotate(<a class="code" href="struct__elayer.html">t_elayer</a> *g, <span class="keywordtype">float</span> angle);</div>
@@ -161,7 +178,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keywordtype">void</span> etext_layout_destroy(<a class="code" href="struct__etext.html">t_etext</a>* textlayout);</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keywordtype">void</span> etext_layout_set(<a class="code" href="struct__etext.html">t_etext</a>* textlayout, <span class="keywordtype">char</span>* text, <a class="code" href="struct__efont.html">t_efont</a> *jfont,  <span class="keywordtype">double</span> x, <span class="keywordtype">double</span> y, <span class="keywordtype">double</span> width,  <span class="keywordtype">double</span> height, t_etextanchor_flags anchor, t_etextjustify_flags justify, t_etextwrap_flags wrap);</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keywordtype">void</span> etext_layout_settextcolor(<a class="code" href="struct__etext.html">t_etext</a>* textlayout, <a class="code" href="struct__rgba.html">t_rgba</a>* color);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<a class="code" href="struct__efont.html">t_efont</a>* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, <span class="keywordtype">double</span> size);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<a class="code" href="struct__efont.html">t_efont</a>* efont_create(<a class="code" href="struct__symbol.html">t_symbol</a>* family, <a class="code" href="struct__symbol.html">t_symbol</a>* slant, <a class="code" href="struct__symbol.html">t_symbol</a>* weight, <span class="keywordtype">double</span> size);</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keywordtype">void</span> efont_destroy(<a class="code" href="struct__efont.html">t_efont</a>* font);</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">// COLOR //</span></div>
@@ -220,14 +237,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="struct__elayer_html"><div class="ttname"><a href="struct__elayer.html">_elayer</a></div><div class="ttdoc">The CICM drawing layer. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00339">estruct.h:339</a></div></div>
 <div class="ttc" id="struct__rgba_html"><div class="ttname"><a href="struct__rgba.html">_rgba</a></div><div class="ttdoc">A rgba color structure. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00094">estruct.h:94</a></div></div>
 <div class="ttc" id="struct__hsl_html"><div class="ttname"><a href="struct__hsl.html">_hsl</a></div><div class="ttdoc">A hsl color structure. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00107">estruct.h:107</a></div></div>
+<div class="ttc" id="struct__symbol_html"><div class="ttname"><a href="struct__symbol.html">_symbol</a></div><div class="ttdef"><b>Definition:</b> <a href="m__pd_8h_source.html#l00108">m_pd.h:108</a></div></div>
 <div class="ttc" id="struct__etext_html"><div class="ttname"><a href="struct__etext.html">_etext</a></div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00286">estruct.h:286</a></div></div>
 <div class="ttc" id="struct__rgb_html"><div class="ttname"><a href="struct__rgb.html">_rgb</a></div><div class="ttdoc">A rgb color structure. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00082">estruct.h:82</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 18 2014 08:38:18 for CICM Wrapper by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_f1848ecb810f36544fe7cc9ff59203d3.html">egraphics</a></li><li class="navelem"><b>egraphics.h</b></li>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:45 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

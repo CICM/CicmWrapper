@@ -8,6 +8,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -65,6 +72,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>Globals</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('ebox__attr_8c_source.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -79,11 +101,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_a715551f008a258e8c98b20824bea57f.html">ebox</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">ebox_attr.c</div>  </div>
@@ -124,12 +141,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> \ @param argv      The atoms array</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="ebox_8h.html#aaadcd402f89629bffe2e127cff2258a3">   37</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="ebox_8h.html#aaadcd402f89629bffe2e127cff2258a3">ebox_attrprocess_viatoms</a>(<span class="keywordtype">void</span> *x, <span class="keywordtype">long</span> argc, t_atom *argv)</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="ebox_8h.html#aaadcd402f89629bffe2e127cff2258a3">   37</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="ebox_8h.html#aaadcd402f89629bffe2e127cff2258a3">ebox_attrprocess_viatoms</a>(<span class="keywordtype">void</span> *x, <span class="keywordtype">long</span> argc, <a class="code" href="struct__atom.html">t_atom</a> *argv)</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;{</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">int</span>     i;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">char</span>    buffer[MAXPDSTRING];</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">long</span>    defc        = 0;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    t_atom* defv        = NULL;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="struct__atom.html">t_atom</a>* defv        = NULL;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="struct__eclass.html">t_eclass</a>* c         = <a class="code" href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a>(x);</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    </div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">for</span>(i = 0; i &lt; c-&gt;c_nattr; i++)</div>
@@ -138,7 +155,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        atoms_get_attribute(argc, argv, gensym(buffer), &amp;defc, &amp;defv);</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">if</span>(defc &amp;&amp; defv)</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            object_attr_setvalueof((t_object *)x, c-&gt;c_attr[i].name, defc, defv);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            object_attr_setvalueof((<a class="code" href="struct__text.html">t_object</a> *)x, c-&gt;c_attr[i].name, defc, defv);</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            defc = 0;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            free(defv);</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            defv = NULL;</div>
@@ -160,7 +177,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">char</span> attr_name[256];</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    </div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">long</span> defc       = 0;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    t_atom* defv    = NULL;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="struct__atom.html">t_atom</a>* defv    = NULL;</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="struct__eclass.html">t_eclass</a>* c     = <a class="code" href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a>(x);</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">for</span>(i = 0; i &lt; c-&gt;c_nattr; i++)</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    {</div>
@@ -168,7 +185,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        binbuf_get_attribute(d, gensym(attr_name), &amp;defc, &amp;defv);</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">if</span>(defc &amp;&amp; defv)</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            object_attr_setvalueof((t_object *)x, c-&gt;c_attr[i].name, defc, defv);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            object_attr_setvalueof((<a class="code" href="struct__text.html">t_object</a> *)x, c-&gt;c_attr[i].name, defc, defv);</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            defc = 0;</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            free(defv);</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            defv = NULL;</div>
@@ -185,7 +202,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;{</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordtype">int</span> i, j, k;</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordtype">long</span> defc       = 0;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    t_atom* defv    = NULL;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <a class="code" href="struct__atom.html">t_atom</a>* defv    = NULL;</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="struct__eclass.html">t_eclass</a>* c     = <a class="code" href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a>(x);</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    </div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordflow">for</span>(i = 0; i &lt; c-&gt;c_nattr; i++)</div>
@@ -193,7 +210,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordflow">if</span>(c-&gt;c_attr[i].defvals)</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        {</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            defc = c-&gt;c_attr[i].size;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            defv = (t_atom *)calloc(defc, <span class="keyword">sizeof</span>(t_atom));</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            defv = (<a class="code" href="struct__atom.html">t_atom</a> *)calloc(defc, <span class="keyword">sizeof</span>(<a class="code" href="struct__atom.html">t_atom</a>));</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            <span class="keywordflow">if</span>(defc &amp;&amp; defv)</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            {</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                <span class="keywordtype">char</span> check = 0;</div>
@@ -215,7 +232,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                        atom_setfloat(defv+j, val);</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                    }</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                }</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                object_attr_setvalueof((t_object *)x, c-&gt;c_attr[i].name, defc, defv);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                object_attr_setvalueof((<a class="code" href="struct__text.html">t_object</a> *)x, c-&gt;c_attr[i].name, defc, defv);</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                defc = 0;</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                free(defv);</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                defv = NULL;</div>
@@ -231,16 +248,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;</div>
 <div class="ttc" id="struct__eclass_html"><div class="ttname"><a href="struct__eclass.html">_eclass</a></div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00189">estruct.h:189</a></div></div>
 <div class="ttc" id="ebox_8h_html_a94834d7d80f2c35be6ab111d5fbd5f50"><div class="ttname"><a href="ebox_8h.html#a94834d7d80f2c35be6ab111d5fbd5f50">ebox_attrprocess_default</a></div><div class="ttdeci">void ebox_attrprocess_default(void *x)</div><div class="ttdoc">Change the attributes with their defaults values. </div><div class="ttdef"><b>Definition:</b> <a href="ebox__attr_8c_source.html#l00096">ebox_attr.c:96</a></div></div>
+<div class="ttc" id="struct__atom_html"><div class="ttname"><a href="struct__atom.html">_atom</a></div><div class="ttdef"><b>Definition:</b> <a href="m__pd_8h_source.html#l00189">m_pd.h:189</a></div></div>
 <div class="ttc" id="ebox_8h_html"><div class="ttname"><a href="ebox_8h.html">ebox.h</a></div></div>
 <div class="ttc" id="eobj_8h_html_a19f71253f4c7e6c2f6353e819815faf4"><div class="ttname"><a href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a></div><div class="ttdeci">t_eclass * eobj_getclass(void *x)</div><div class="ttdoc">Retrieve the eclass of an eobj. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00113">eobj_basic.c:113</a></div></div>
 <div class="ttc" id="ebox_8h_html_a252f271a59fa9d45cfa9587ab7e46e67"><div class="ttname"><a href="ebox_8h.html#a252f271a59fa9d45cfa9587ab7e46e67">ebox_attrprocess_viabinbuf</a></div><div class="ttdeci">void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)</div><div class="ttdoc">Change the attributes with a binbuf. </div><div class="ttdef"><b>Definition:</b> <a href="ebox__attr_8c_source.html#l00068">ebox_attr.c:68</a></div></div>
+<div class="ttc" id="struct__text_html"><div class="ttname"><a href="struct__text.html">_text</a></div><div class="ttdef"><b>Definition:</b> <a href="m__pd_8h_source.html#l00232">m_pd.h:232</a></div></div>
 <div class="ttc" id="ebox_8h_html_aaadcd402f89629bffe2e127cff2258a3"><div class="ttname"><a href="ebox_8h.html#aaadcd402f89629bffe2e127cff2258a3">ebox_attrprocess_viatoms</a></div><div class="ttdeci">void ebox_attrprocess_viatoms(void *x, long argc, t_atom *argv)</div><div class="ttdoc">Change the attributes with an array of atoms. </div><div class="ttdef"><b>Definition:</b> <a href="ebox__attr_8c_source.html#l00037">ebox_attr.c:37</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 18 2014 08:38:18 for CICM Wrapper by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_a715551f008a258e8c98b20824bea57f.html">ebox</a></li><li class="navelem"><b>ebox_attr.c</b></li>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:45 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

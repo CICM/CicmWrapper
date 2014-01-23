@@ -451,7 +451,7 @@ typedef struct _ebox
     t_symbol*           b_editor_id;        /*!< The editor ID. */
     t_symbol*           b_window_id;        /*!< The window ID. */
     t_symbol*           b_all_id;           /*!< The global ID. */
-
+    
     long                b_flags;            /*!< The ebox flags. */
     t_rect              b_rect;             /*!< The ebox rectangle. */
     t_rect              b_rect_last;        /*!< The ebox previous rectangle. */
@@ -465,8 +465,10 @@ typedef struct _ebox
     t_pt                b_move_box;         /*!< The box moving position. */
     char                b_mouse_down;       /*!< The mouse state. */
     long                b_modifiers;        /*!< The modifiers pressed. */
-
+    
+    char                b_visible;          /*!< The visible State. */
     char                b_ready_to_draw;    /*!< The ebox state for drawing. */
+    char                b_have_window;      /*!< The ebox window state. */
     char                b_isinsubcanvas;
     t_edrawparams       b_boxparameters;    /*!< The ebox parameters. */
 
@@ -508,7 +510,9 @@ typedef struct _edspbox
     char                b_mouse_down;       /*!< The mouse state. */
     long                b_modifiers;        /*!< The modifiers pressed. */
 
+    char                b_visible;          /*!< The visible State. */
     char                b_ready_to_draw;    /*!< The ebox state for drawing. */
+    char                b_have_window;      /*!< The ebox window state. */
     char                b_isinsubcanvas;
     t_edrawparams       b_boxparameters;    /*!< The ebox parameters. */
 

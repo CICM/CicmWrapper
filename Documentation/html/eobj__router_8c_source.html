@@ -8,6 +8,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -65,6 +72,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>Globals</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('eobj__router_8c_source.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -79,11 +101,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_7bcfcc48ea8ecdee8f839dc9b497c3d6.html">eobj</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">eobj_router.c</div>  </div>
@@ -144,7 +161,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keywordtype">void</span> erouter_add_libary(t_symbol* name, <span class="keywordtype">char</span>* message, <span class="keywordtype">char</span>* copyright, <span class="keywordtype">char</span>* version)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keywordtype">void</span> erouter_add_libary(<a class="code" href="struct__symbol.html">t_symbol</a>* name, <span class="keywordtype">char</span>* message, <span class="keywordtype">char</span>* copyright, <span class="keywordtype">char</span>* version)</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;{</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">int</span> i;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">if</span>(gensym(<span class="stringliteral">&quot;erouter1572&quot;</span>)-&gt;s_thing == NULL)</div>
@@ -157,13 +174,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">if</span>(x-&gt;<a class="code" href="struct__erouter.html#a8b3fb033a6ba10fb08f5353a71dec2c7">e_nlibraries</a> == 0)</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        x-&gt;<a class="code" href="struct__erouter.html#ad4cb6c25f09dfe6806fde606969accd5">e_libraries</a> = (t_symbol **)malloc(<span class="keyword">sizeof</span>(t_symbol *));</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        x-&gt;<a class="code" href="struct__erouter.html#ad4cb6c25f09dfe6806fde606969accd5">e_libraries</a> = (<a class="code" href="struct__symbol.html">t_symbol</a> **)malloc(<span class="keyword">sizeof</span>(<a class="code" href="struct__symbol.html">t_symbol</a> *));</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        x-&gt;<a class="code" href="struct__erouter.html#ad4cb6c25f09dfe6806fde606969accd5">e_libraries</a>[0] = name;</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        x-&gt;<a class="code" href="struct__erouter.html#a8b3fb033a6ba10fb08f5353a71dec2c7">e_nlibraries</a> = 1;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">else</span></div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        x-&gt;<a class="code" href="struct__erouter.html#ad4cb6c25f09dfe6806fde606969accd5">e_libraries</a> = (t_symbol **)realloc(x-&gt;<a class="code" href="struct__erouter.html#ad4cb6c25f09dfe6806fde606969accd5">e_libraries</a>,(x-&gt;<a class="code" href="struct__erouter.html#a8b3fb033a6ba10fb08f5353a71dec2c7">e_nlibraries</a> + 1) * <span class="keyword">sizeof</span>(t_symbol *));</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        x-&gt;<a class="code" href="struct__erouter.html#ad4cb6c25f09dfe6806fde606969accd5">e_libraries</a> = (<a class="code" href="struct__symbol.html">t_symbol</a> **)realloc(x-&gt;<a class="code" href="struct__erouter.html#ad4cb6c25f09dfe6806fde606969accd5">e_libraries</a>,(x-&gt;<a class="code" href="struct__erouter.html#a8b3fb033a6ba10fb08f5353a71dec2c7">e_nlibraries</a> + 1) * <span class="keyword">sizeof</span>(<a class="code" href="struct__symbol.html">t_symbol</a> *));</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        x-&gt;<a class="code" href="struct__erouter.html#ad4cb6c25f09dfe6806fde606969accd5">e_libraries</a>[x-&gt;<a class="code" href="struct__erouter.html#a8b3fb033a6ba10fb08f5353a71dec2c7">e_nlibraries</a>] = name;</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        x-&gt;<a class="code" href="struct__erouter.html#a8b3fb033a6ba10fb08f5353a71dec2c7">e_nlibraries</a>++;</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    }</div>
@@ -182,7 +199,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    }</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keywordtype">void</span> eobj_detach_torouter(t_object* child)</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keywordtype">void</span> eobj_detach_torouter(<a class="code" href="struct__text.html">t_object</a>* child)</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;{</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordtype">int</span> i;</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">if</span>(gensym(<span class="stringliteral">&quot;erouter1572&quot;</span>)-&gt;s_thing == NULL)</div>
@@ -200,7 +217,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keywordtype">void</span> eobj_attach_torouter(t_object* child)</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keywordtype">void</span> eobj_attach_torouter(<a class="code" href="struct__text.html">t_object</a>* child)</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;{</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">int</span> i;</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">if</span>(gensym(<span class="stringliteral">&quot;erouter1572&quot;</span>)-&gt;s_thing == NULL)</div>
@@ -216,7 +233,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    }</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordflow">if</span>(!x-&gt;<a class="code" href="struct__erouter.html#aae6cef9e2d4de46e690ad868953d0923">e_nchilds</a> || x-&gt;<a class="code" href="struct__erouter.html#a5484fdcb775740c1c4dedcd94b4580ab">e_childs</a> == NULL)</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    {</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        x-&gt;<a class="code" href="struct__erouter.html#a5484fdcb775740c1c4dedcd94b4580ab">e_childs</a> = (t_object **)calloc(1, <span class="keyword">sizeof</span>(t_object *));</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        x-&gt;<a class="code" href="struct__erouter.html#a5484fdcb775740c1c4dedcd94b4580ab">e_childs</a> = (<a class="code" href="struct__text.html">t_object</a> **)calloc(1, <span class="keyword">sizeof</span>(<a class="code" href="struct__text.html">t_object</a> *));</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keywordflow">if</span>(x-&gt;<a class="code" href="struct__erouter.html#a5484fdcb775740c1c4dedcd94b4580ab">e_childs</a>)</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        {</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            x-&gt;<a class="code" href="struct__erouter.html#a5484fdcb775740c1c4dedcd94b4580ab">e_childs</a>[0]  = child;</div>
@@ -242,7 +259,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            }</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        }</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        </div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        x-&gt;<a class="code" href="struct__erouter.html#a5484fdcb775740c1c4dedcd94b4580ab">e_childs</a> = (t_object **)realloc(x-&gt;<a class="code" href="struct__erouter.html#a5484fdcb775740c1c4dedcd94b4580ab">e_childs</a>, (x-&gt;<a class="code" href="struct__erouter.html#aae6cef9e2d4de46e690ad868953d0923">e_nchilds</a> + 1) * <span class="keyword">sizeof</span>(t_object *));</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        x-&gt;<a class="code" href="struct__erouter.html#a5484fdcb775740c1c4dedcd94b4580ab">e_childs</a> = (<a class="code" href="struct__text.html">t_object</a> **)realloc(x-&gt;<a class="code" href="struct__erouter.html#a5484fdcb775740c1c4dedcd94b4580ab">e_childs</a>, (x-&gt;<a class="code" href="struct__erouter.html#aae6cef9e2d4de46e690ad868953d0923">e_nchilds</a> + 1) * <span class="keyword">sizeof</span>(<a class="code" href="struct__text.html">t_object</a> *));</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <span class="keywordflow">if</span>(x-&gt;<a class="code" href="struct__erouter.html#a5484fdcb775740c1c4dedcd94b4580ab">e_childs</a>)</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        {</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;            x-&gt;<a class="code" href="struct__erouter.html#a5484fdcb775740c1c4dedcd94b4580ab">e_childs</a>[x-&gt;<a class="code" href="struct__erouter.html#aae6cef9e2d4de46e690ad868953d0923">e_nchilds</a>]  = child;</div>
@@ -268,7 +285,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;}</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;t_object* erouter_getobject(<span class="keywordtype">long</span> index)</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<a class="code" href="struct__text.html">t_object</a>* erouter_getobject(<span class="keywordtype">long</span> index)</div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;{</div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keywordflow">if</span>(gensym(<span class="stringliteral">&quot;erouter1572&quot;</span>)-&gt;s_thing == NULL)</div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        erouter_setup();</div>
@@ -281,7 +298,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keywordflow">return</span> NULL;</div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;}</div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="keywordtype">void</span> erouter_anything(<a class="code" href="struct__erouter.html">t_erouter</a> *x, t_symbol *s, <span class="keywordtype">long</span> argc, t_atom *argv)</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="keywordtype">void</span> erouter_anything(<a class="code" href="struct__erouter.html">t_erouter</a> *x, <a class="code" href="struct__symbol.html">t_symbol</a> *s, <span class="keywordtype">long</span> argc, <a class="code" href="struct__atom.html">t_atom</a> *argv)</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;{</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keywordtype">int</span> i;</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <a class="code" href="struct__eobj.html">t_eobj</a>* z;</div>
@@ -309,20 +326,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;</div>
 <div class="ttc" id="struct__erouter_html_a8b3fb033a6ba10fb08f5353a71dec2c7"><div class="ttname"><a href="struct__erouter.html#a8b3fb033a6ba10fb08f5353a71dec2c7">_erouter::e_nlibraries</a></div><div class="ttdeci">long e_nlibraries</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00380">estruct.h:380</a></div></div>
 <div class="ttc" id="struct__eobj_html"><div class="ttname"><a href="struct__eobj.html">_eobj</a></div><div class="ttdoc">The CICM Box object. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00402">estruct.h:402</a></div></div>
+<div class="ttc" id="struct__atom_html"><div class="ttname"><a href="struct__atom.html">_atom</a></div><div class="ttdef"><b>Definition:</b> <a href="m__pd_8h_source.html#l00189">m_pd.h:189</a></div></div>
 <div class="ttc" id="struct__eobj_html_a8cffa8f3338cca7779ab922dab19227c"><div class="ttname"><a href="struct__eobj.html#a8cffa8f3338cca7779ab922dab19227c">_eobj::o_obj</a></div><div class="ttdeci">t_object o_obj</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00404">estruct.h:404</a></div></div>
 <div class="ttc" id="struct__erouter_html_a337dd8dd1771ebe57e90886d4fdfe92d"><div class="ttname"><a href="struct__erouter.html#a337dd8dd1771ebe57e90886d4fdfe92d">_erouter::e_obj</a></div><div class="ttdeci">t_object e_obj</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00376">estruct.h:376</a></div></div>
 <div class="ttc" id="struct__erouter_html"><div class="ttname"><a href="struct__erouter.html">_erouter</a></div><div class="ttdoc">The CICM Router object. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00374">estruct.h:374</a></div></div>
 <div class="ttc" id="struct__erouter_html_aae6cef9e2d4de46e690ad868953d0923"><div class="ttname"><a href="struct__erouter.html#aae6cef9e2d4de46e690ad868953d0923">_erouter::e_nchilds</a></div><div class="ttdeci">long e_nchilds</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00378">estruct.h:378</a></div></div>
 <div class="ttc" id="eobj_8h_html"><div class="ttname"><a href="eobj_8h.html">eobj.h</a></div></div>
 <div class="ttc" id="struct__erouter_html_a5484fdcb775740c1c4dedcd94b4580ab"><div class="ttname"><a href="struct__erouter.html#a5484fdcb775740c1c4dedcd94b4580ab">_erouter::e_childs</a></div><div class="ttdeci">t_object ** e_childs</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00377">estruct.h:377</a></div></div>
+<div class="ttc" id="struct__symbol_html"><div class="ttname"><a href="struct__symbol.html">_symbol</a></div><div class="ttdef"><b>Definition:</b> <a href="m__pd_8h_source.html#l00108">m_pd.h:108</a></div></div>
+<div class="ttc" id="struct__text_html"><div class="ttname"><a href="struct__text.html">_text</a></div><div class="ttdef"><b>Definition:</b> <a href="m__pd_8h_source.html#l00232">m_pd.h:232</a></div></div>
 <div class="ttc" id="struct__eobj_html_a024c5a2d6d2dcdf531f05a0e711cce68"><div class="ttname"><a href="struct__eobj.html#a024c5a2d6d2dcdf531f05a0e711cce68">_eobj::o_id</a></div><div class="ttdeci">t_symbol * o_id</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00405">estruct.h:405</a></div></div>
 <div class="ttc" id="struct__erouter_html_ad4cb6c25f09dfe6806fde606969accd5"><div class="ttname"><a href="struct__erouter.html#ad4cb6c25f09dfe6806fde606969accd5">_erouter::e_libraries</a></div><div class="ttdeci">t_symbol ** e_libraries</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00379">estruct.h:379</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 18 2014 08:38:18 for CICM Wrapper by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_7bcfcc48ea8ecdee8f839dc9b497c3d6.html">eobj</a></li><li class="navelem"><b>eobj_router.c</b></li>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:45 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

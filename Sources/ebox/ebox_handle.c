@@ -195,6 +195,18 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
             }
         }
     }
+    else
+    {
+        x->b_move_box = eobj_get_mouse_canvas_position(x);
+        if(!x->b_mouse_down)
+        {
+            sys_vgui("pdtk_canvas_motion %s %i %i 0\n", x->b_canvas_id->s_name, (int)x->b_move_box.x, (int)x->b_move_box.y);
+        }
+        else
+        {
+            sys_vgui("pdtk_canvas_motion %s %i %i 1\n", x->b_canvas_id->s_name, (int)x->b_move_box.x, (int)x->b_move_box.y);
+        }
+    }
 }
 
 //! The mouse drag method called via mouse move method when mouse down (PRIVATE)
@@ -242,7 +254,7 @@ void ebox_mouse_down(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
         if(c->c_widget.w_mousedown)
             c->c_widget.w_mousedown(x, x->b_obj.o_canvas, x->b_mouse, x->b_modifiers);
     }
-    else if(!x->b_isinsubcanvas)
+    else
     {
         x->b_mouse.x = atom_getfloat(argv);
         x->b_mouse.y = atom_getfloat(argv+1);
@@ -284,7 +296,7 @@ void ebox_mouse_up(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
         if(c->c_widget.w_mouseup)
             c->c_widget.w_mouseup(x, x->b_obj.o_canvas, x->b_mouse, x->b_modifiers);
     }
-    else if(!x->b_isinsubcanvas)
+    else
     {
         x->b_move_box = eobj_get_mouse_canvas_position(x);
         sys_vgui("pdtk_canvas_mouseup %s %i %i 0\n", x->b_canvas_id->s_name, (int)x->b_move_box.x, (int)x->b_move_box.y);
@@ -534,7 +546,7 @@ void ebox_deserted(t_ebox *x)
 //! The default save method for UI ebox (PRIVATE)
 /*
  \ @memberof        ebox
- \ @param z         The gobj
+ \ @param x         The ebox pointer
  \ @param b         The binbuf
  \ @return          Nothing
 */
@@ -568,6 +580,46 @@ void ebox_dosave(t_ebox* x, t_binbuf *b)
         c->c_widget.w_save(x, b);
 
     binbuf_addv(b, ";");
+}
+
+//! The method to move an UI ebox (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param newx      The new abscissa
+ \ @param newy      The new ordinate
+ \ @return          Nothing
+ */
+void ebox_pos(t_ebox* x, int newx, int newy)
+{
+    x->b_rect.x = newx;
+    x->b_rect.y = newy;
+    x->b_obj.o_obj.te_xpix = newx;
+    x->b_obj.o_obj.te_ypix = newy;
+    
+    ebox_move(x);
+}
+
+//! The method to show or hide an UI ebox (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param vis       The visible state
+ \ @return          Nothing
+ */
+void ebox_vis(t_ebox* x, int vis)
+{
+    vis = pd_clip_minmax(vis, 0, 1);
+    if(x->b_visible != vis)
+    {
+        x->b_visible = vis;
+        if(x->b_visible && x->b_ready_to_draw && x->b_obj.o_canvas)
+        {
+            canvas_redraw(x->b_obj.o_canvas);
+        }
+        else
+            ebox_erase(x);
+    }
 }
 
 //! The default user id method for all ebox called by PD (PRIVATE)

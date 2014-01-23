@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>FD8A1889-2334-47E6-BADC-4510BD49954C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>c.spectrum~</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>C94DECC4-2D1D-4AF5-A9E1-C881808B125E</key>
+		<string>https://github.com/pierreguillot/PdEnhanced.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Chocolate/c.spectrum_tilde/c.spectrum~.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>C94DECC4-2D1D-4AF5-A9E1-C881808B125E</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/pierreguillot/PdEnhanced.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>C94DECC4-2D1D-4AF5-A9E1-C881808B125E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C94DECC4-2D1D-4AF5-A9E1-C881808B125E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>PdEnhanced</string>
+		</dict>
+	</array>
+</dict>
+</plist>

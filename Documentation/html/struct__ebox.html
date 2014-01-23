@@ -8,6 +8,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -66,6 +73,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('struct__ebox.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -80,7 +102,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
@@ -98,21 +119,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Data Fields</h2></td></tr>
 <tr class="memitem:a384a670299e98768527fbe457de9a38a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__eobj.html">t_eobj</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#a384a670299e98768527fbe457de9a38a">b_obj</a></td></tr>
 <tr class="separator:a384a670299e98768527fbe457de9a38a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fb2b6968877ffd009753ccc0fe96769"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#a3fb2b6968877ffd009753ccc0fe96769">b_receive_id</a></td></tr>
+<tr class="memitem:a3fb2b6968877ffd009753ccc0fe96769"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__symbol.html">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#a3fb2b6968877ffd009753ccc0fe96769">b_receive_id</a></td></tr>
 <tr class="separator:a3fb2b6968877ffd009753ccc0fe96769"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac59460230e622f821660b599e2f96ca9"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#ac59460230e622f821660b599e2f96ca9">b_send_id</a></td></tr>
+<tr class="memitem:ac59460230e622f821660b599e2f96ca9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__symbol.html">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#ac59460230e622f821660b599e2f96ca9">b_send_id</a></td></tr>
 <tr class="separator:ac59460230e622f821660b599e2f96ca9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc377263d208d1051f4a0997868b1155"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#adc377263d208d1051f4a0997868b1155">b_objpreset_id</a></td></tr>
+<tr class="memitem:adc377263d208d1051f4a0997868b1155"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__symbol.html">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#adc377263d208d1051f4a0997868b1155">b_objpreset_id</a></td></tr>
 <tr class="separator:adc377263d208d1051f4a0997868b1155"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0251c6969a1032f8f50d076e909fb3e"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#ac0251c6969a1032f8f50d076e909fb3e">b_canvas_id</a></td></tr>
+<tr class="memitem:ac0251c6969a1032f8f50d076e909fb3e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__symbol.html">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#ac0251c6969a1032f8f50d076e909fb3e">b_canvas_id</a></td></tr>
 <tr class="separator:ac0251c6969a1032f8f50d076e909fb3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a153f9c9929d722ecb29217f3fb0914c9"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#a153f9c9929d722ecb29217f3fb0914c9">b_drawing_id</a></td></tr>
+<tr class="memitem:a153f9c9929d722ecb29217f3fb0914c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__symbol.html">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#a153f9c9929d722ecb29217f3fb0914c9">b_drawing_id</a></td></tr>
 <tr class="separator:a153f9c9929d722ecb29217f3fb0914c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf8c80c6ea45ad810c754984d98830ff"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#adf8c80c6ea45ad810c754984d98830ff">b_editor_id</a></td></tr>
+<tr class="memitem:adf8c80c6ea45ad810c754984d98830ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__symbol.html">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#adf8c80c6ea45ad810c754984d98830ff">b_editor_id</a></td></tr>
 <tr class="separator:adf8c80c6ea45ad810c754984d98830ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7033df943e798c68e3a6117785c2d79e"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#a7033df943e798c68e3a6117785c2d79e">b_window_id</a></td></tr>
+<tr class="memitem:a7033df943e798c68e3a6117785c2d79e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__symbol.html">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#a7033df943e798c68e3a6117785c2d79e">b_window_id</a></td></tr>
 <tr class="separator:a7033df943e798c68e3a6117785c2d79e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f63dcf604135dd4fbfbf43eaed53c1a"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#a0f63dcf604135dd4fbfbf43eaed53c1a">b_all_id</a></td></tr>
+<tr class="memitem:a0f63dcf604135dd4fbfbf43eaed53c1a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__symbol.html">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#a0f63dcf604135dd4fbfbf43eaed53c1a">b_all_id</a></td></tr>
 <tr class="separator:a0f63dcf604135dd4fbfbf43eaed53c1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abdae234dbd983dfbfb0592858c4ff026"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__ebox.html#abdae234dbd983dfbfb0592858c4ff026">b_flags</a></td></tr>
 <tr class="separator:abdae234dbd983dfbfb0592858c4ff026"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,7 +182,7 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>b_isinsubcanvas</b></
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* b_all_id</td>
+          <td class="memname"><a class="el" href="struct__symbol.html">t_symbol</a>* b_all_id</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -191,7 +212,7 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>b_isinsubcanvas</b></
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* b_canvas_id</td>
+          <td class="memname"><a class="el" href="struct__symbol.html">t_symbol</a>* b_canvas_id</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -206,7 +227,7 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>b_isinsubcanvas</b></
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* b_drawing_id</td>
+          <td class="memname"><a class="el" href="struct__symbol.html">t_symbol</a>* b_drawing_id</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -221,7 +242,7 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>b_isinsubcanvas</b></
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* b_editor_id</td>
+          <td class="memname"><a class="el" href="struct__symbol.html">t_symbol</a>* b_editor_id</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -371,7 +392,7 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>b_isinsubcanvas</b></
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* b_objpreset_id</td>
+          <td class="memname"><a class="el" href="struct__symbol.html">t_symbol</a>* b_objpreset_id</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -401,7 +422,7 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>b_isinsubcanvas</b></
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* b_receive_id</td>
+          <td class="memname"><a class="el" href="struct__symbol.html">t_symbol</a>* b_receive_id</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -506,7 +527,7 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>b_isinsubcanvas</b></
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* b_send_id</td>
+          <td class="memname"><a class="el" href="struct__symbol.html">t_symbol</a>* b_send_id</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -521,7 +542,7 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>b_isinsubcanvas</b></
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* b_window_id</td>
+          <td class="memname"><a class="el" href="struct__symbol.html">t_symbol</a>* b_window_id</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -535,11 +556,15 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>b_isinsubcanvas</b></
 <li>/Users/Pierre/SourceTree/PdEnhanced/Sources/<a class="el" href="estruct_8h_source.html">estruct.h</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 18 2014 08:38:18 for CICM Wrapper by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="struct__ebox.html">_ebox</a></li>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:45 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -1,8 +1,29 @@
 var searchData=
 [
   ['bangout',['bangout',['../ecommon_8c.html#a0c96e74d82ce768dc821431475a809e6',1,'bangout(void *x):&#160;ecommon.c'],['../ecommon_8h.html#a0c96e74d82ce768dc821431475a809e6',1,'bangout(void *x):&#160;ecommon.c']]],
-  ['binbuf_5fappend_5fattribute',['binbuf_append_attribute',['../ecommon_8c.html#afdd4ccf2a10d0498398fa516fea63814',1,'binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *argv):&#160;ecommon.c'],['../ecommon_8h.html#afdd4ccf2a10d0498398fa516fea63814',1,'binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *argv):&#160;ecommon.c']]],
-  ['binbuf_5fattr_5fprocess',['binbuf_attr_process',['../ewidget_8h.html#a5694b084d55088ea23938adedb7f5d35',1,'ewidget.h']]],
-  ['binbuf_5fget_5fattribute',['binbuf_get_attribute',['../ecommon_8c.html#a5a87476f848a0a9daa40bbc2a7ba9d8c',1,'binbuf_get_attribute(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv):&#160;ecommon.c'],['../ecommon_8h.html#a5a87476f848a0a9daa40bbc2a7ba9d8c',1,'binbuf_get_attribute(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv):&#160;ecommon.c']]],
-  ['binbuf_5fvia_5fatoms',['binbuf_via_atoms',['../ecommon_8c.html#acb81aa1a92e922bb2f1cad995a394014',1,'binbuf_via_atoms(long ac, t_atom *av):&#160;ecommon.c'],['../ecommon_8h.html#acb81aa1a92e922bb2f1cad995a394014',1,'binbuf_via_atoms(long ac, t_atom *av):&#160;ecommon.c']]]
+  ['binbuf_5fadd',['binbuf_add',['../m__pd_8h.html#a35695fba26e38a1fdc55509906e6cd91',1,'m_pd.h']]],
+  ['binbuf_5faddbinbuf',['binbuf_addbinbuf',['../m__pd_8h.html#a81431605d74078c3ed666fa19c76f5d2',1,'m_pd.h']]],
+  ['binbuf_5faddsemi',['binbuf_addsemi',['../m__pd_8h.html#a87f942d7b74eff92421c22c18bd656b7',1,'m_pd.h']]],
+  ['binbuf_5faddv',['binbuf_addv',['../m__pd_8h.html#ae83d46fca1b62349cf91c94e6d64d31c',1,'m_pd.h']]],
+  ['binbuf_5fappend_5fattribute',['binbuf_append_attribute',['../ecommon_8c.html#afdd4ccf2a10d0498398fa516fea63814',1,'binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *argv):&#160;ecommon.c'],['../ecommon_8h.html#a154cf9d20bb67c945d033ac2bc685077',1,'binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *argv):&#160;ecommon.c']]],
+  ['binbuf_5fclear',['binbuf_clear',['../m__pd_8h.html#a593aca984c535cecf988957c53e573ed',1,'m_pd.h']]],
+  ['binbuf_5fduplicate',['binbuf_duplicate',['../m__pd_8h.html#a78808425aaef84b000ae0745f3904915',1,'m_pd.h']]],
+  ['binbuf_5feval',['binbuf_eval',['../m__pd_8h.html#a0feb46e4aa683b5198791ddc9c829ade',1,'m_pd.h']]],
+  ['binbuf_5fevalfile',['binbuf_evalfile',['../m__pd_8h.html#af885502deda315c10ba9398507dc4b33',1,'m_pd.h']]],
+  ['binbuf_5ffree',['binbuf_free',['../m__pd_8h.html#add86d3e0c8c7f4e377301d5e2d855a69',1,'m_pd.h']]],
+  ['binbuf_5fget_5fattribute',['binbuf_get_attribute',['../ecommon_8c.html#a5a87476f848a0a9daa40bbc2a7ba9d8c',1,'binbuf_get_attribute(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv):&#160;ecommon.c'],['../ecommon_8h.html#a9d130044d14865e619bbb11b6b04be8e',1,'binbuf_get_attribute(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv):&#160;ecommon.c']]],
+  ['binbuf_5fgetnatom',['binbuf_getnatom',['../m__pd_8h.html#a8af19e103011b13caa30eba101044006',1,'m_pd.h']]],
+  ['binbuf_5fgettext',['binbuf_gettext',['../m__pd_8h.html#a95c58d7d2e94ccc3d06ca8494711b4c5',1,'m_pd.h']]],
+  ['binbuf_5fgetvec',['binbuf_getvec',['../m__pd_8h.html#a60fd69560b908436db1b4357b4967993',1,'m_pd.h']]],
+  ['binbuf_5fnew',['binbuf_new',['../m__pd_8h.html#a3be9e183b1054e204ec896ff3e0ff7de',1,'m_pd.h']]],
+  ['binbuf_5fprint',['binbuf_print',['../m__pd_8h.html#a7863b58958e28e340493acb0f8886353',1,'m_pd.h']]],
+  ['binbuf_5fread',['binbuf_read',['../m__pd_8h.html#aea33341c567c52dfc382f91fba125c36',1,'m_pd.h']]],
+  ['binbuf_5fread_5fvia_5fcanvas',['binbuf_read_via_canvas',['../m__pd_8h.html#ad30d3c057530b897bca9cbf3f9b86c51',1,'m_pd.h']]],
+  ['binbuf_5fread_5fvia_5fpath',['binbuf_read_via_path',['../m__pd_8h.html#aeabf944946f6a568c814699dc601b13d',1,'m_pd.h']]],
+  ['binbuf_5frealizedollsym',['binbuf_realizedollsym',['../m__pd_8h.html#a59020d95413b271e2e181eda1d162357',1,'m_pd.h']]],
+  ['binbuf_5frestore',['binbuf_restore',['../m__pd_8h.html#a237d44b667cf26ec0909eb54bf8f3ab9',1,'m_pd.h']]],
+  ['binbuf_5ftext',['binbuf_text',['../m__pd_8h.html#aef348b4a593ebd7d02e6bda61dbb0604',1,'m_pd.h']]],
+  ['binbuf_5fvia_5fatoms',['binbuf_via_atoms',['../ecommon_8c.html#acb81aa1a92e922bb2f1cad995a394014',1,'binbuf_via_atoms(long ac, t_atom *av):&#160;ecommon.c'],['../ecommon_8h.html#acb81aa1a92e922bb2f1cad995a394014',1,'binbuf_via_atoms(long ac, t_atom *av):&#160;ecommon.c']]],
+  ['binbuf_5fwrite',['binbuf_write',['../m__pd_8h.html#aacb6016dcafbb9b7c5547dd0f13bf6b2',1,'m_pd.h']]],
+  ['bug',['bug',['../m__pd_8h.html#a3e4d99cc272e4a5cb21332f8bda27ec8',1,'m_pd.h']]]
 ];

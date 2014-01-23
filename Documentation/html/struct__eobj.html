@@ -8,6 +8,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -66,6 +73,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('struct__eobj.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -80,7 +102,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
@@ -96,13 +117,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a8cffa8f3338cca7779ab922dab19227c"><td class="memItemLeft" align="right" valign="top">t_object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__eobj.html#a8cffa8f3338cca7779ab922dab19227c">o_obj</a></td></tr>
+<tr class="memitem:a8cffa8f3338cca7779ab922dab19227c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__text.html">t_object</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__eobj.html#a8cffa8f3338cca7779ab922dab19227c">o_obj</a></td></tr>
 <tr class="separator:a8cffa8f3338cca7779ab922dab19227c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a024c5a2d6d2dcdf531f05a0e711cce68"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__eobj.html#a024c5a2d6d2dcdf531f05a0e711cce68">o_id</a></td></tr>
+<tr class="memitem:a024c5a2d6d2dcdf531f05a0e711cce68"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__symbol.html">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__eobj.html#a024c5a2d6d2dcdf531f05a0e711cce68">o_id</a></td></tr>
 <tr class="separator:a024c5a2d6d2dcdf531f05a0e711cce68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ac1a6544ba0591b83cbf38bc1349e74"><td class="memItemLeft" align="right" valign="top">t_canvas *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__eobj.html#a4ac1a6544ba0591b83cbf38bc1349e74">o_canvas</a></td></tr>
 <tr class="separator:a4ac1a6544ba0591b83cbf38bc1349e74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7f7ce6beaff87d1baca1a619b9a7ebf"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__eobj.html#ab7f7ce6beaff87d1baca1a619b9a7ebf">o_canvas_id</a></td></tr>
+<tr class="memitem:ab7f7ce6beaff87d1baca1a619b9a7ebf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__symbol.html">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__eobj.html#ab7f7ce6beaff87d1baca1a619b9a7ebf">o_canvas_id</a></td></tr>
 <tr class="separator:ab7f7ce6beaff87d1baca1a619b9a7ebf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9435dcf0a1aed105a4c38d24dfc65dbf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__eproxy.html">t_eproxy</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__eobj.html#a9435dcf0a1aed105a4c38d24dfc65dbf">o_proxy</a> [256]</td></tr>
 <tr class="separator:a9435dcf0a1aed105a4c38d24dfc65dbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -137,7 +158,7 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* o_canvas_id</td>
+          <td class="memname"><a class="el" href="struct__symbol.html">t_symbol</a>* o_canvas_id</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -167,7 +188,7 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* o_id</td>
+          <td class="memname"><a class="el" href="struct__symbol.html">t_symbol</a>* o_id</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -197,7 +218,7 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_object o_obj</td>
+          <td class="memname"><a class="el" href="struct__text.html">t_object</a> o_obj</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -226,11 +247,15 @@ Data Fields</h2></td></tr>
 <li>/Users/Pierre/SourceTree/PdEnhanced/Sources/<a class="el" href="estruct_8h_source.html">estruct.h</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 18 2014 08:38:18 for CICM Wrapper by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="struct__eobj.html">_eobj</a></li>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:45 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

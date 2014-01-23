@@ -1,5 +1,5 @@
-\hypertarget{epd__max_8h}{\section{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/epd\-\_\-max.h File Reference}
-\label{epd__max_8h}\index{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/epd\-\_\-max.\-h@{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/epd\-\_\-max.\-h}}
+\hypertarget{epd__max_8h}{\section{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources/epd\-\_\-max.h File Reference}
+\label{epd__max_8h}\index{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources/epd\-\_\-max.\-h@{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources/epd\-\_\-max.\-h}}
 }
 \subsection*{Macros}
 \begin{DoxyCompactItemize}
@@ -50,10 +50,6 @@
 \item 
 \#define \hyperlink{epd__max_8h_abe02de53612652c07a97cbb948515118}{t\-\_\-pxobject}~\hyperlink{estruct_8h_a7e9080d551b06530af7cb6f574e90bbe}{t\-\_\-ebox}
 \item 
-\#define \hyperlink{epd__max_8h_af640c99a1fceb8158c2d1e77381b0320}{C\-L\-A\-S\-S\-\_\-\-B\-O\-X}~gensym(\char`\"{}box\char`\"{})
-\item 
-\#define \hyperlink{epd__max_8h_a090d3cbc4f137661806fc1b72249a791}{C\-L\-A\-S\-S\-\_\-\-N\-O\-B\-O\-X}~gensym(\char`\"{}nobox\char`\"{})
-\item 
 \#define \hyperlink{epd__max_8h_a15695d5ba6bd17ae2e4ac01fff6d2b32}{Z\-\_\-\-N\-O\-\_\-\-I\-N\-P\-L\-A\-C\-E}~1
 \item 
 \#define \hyperlink{epd__max_8h_a38363d9e8d77f8f0fcec1a7a1d008977}{Z\-\_\-\-P\-U\-T\-\_\-\-L\-A\-S\-T}~2
@@ -78,7 +74,7 @@
 \item 
 \#define \hyperlink{epd__max_8h_ae973711003c161ea563b61ee477c8298}{class\-\_\-register}(name\-\_\-space, class)~\hyperlink{eclass__basic_8c_a57074143501bd646992500676fb99569}{eclass\-\_\-register}(name\-\_\-space, class)
 \item 
-\#define \hyperlink{epd__max_8h_a675fd1afe43e2163ff32ac182fb7dfbf}{object\-\_\-alloc}(class)~eobject\-\_\-alloc(class)
+\#define \hyperlink{epd__max_8h_a675fd1afe43e2163ff32ac182fb7dfbf}{object\-\_\-alloc}(class)~\hyperlink{eobj__basic_8c_a238c42e70bfd0c1b7a8763fb11a1ab92}{eobj\-\_\-new}(class)
 \item 
 \#define \hyperlink{epd__max_8h_ad51d4b22977dc37870ed3d963852276b}{jbox\-\_\-new}(\hyperlink{epd__max_8h_aa307803f930bc183ed163f1115269785}{t\-\_\-jbox}, flags, argc, argv)~\hyperlink{ebox__basic_8c_a41d93d79bee7bc568342f46742a294ba}{ebox\-\_\-new}(\hyperlink{epd__max_8h_aa307803f930bc183ed163f1115269785}{t\-\_\-jbox}, flags, argc, argv)
 \item 
@@ -96,7 +92,7 @@
 \item 
 \#define \hyperlink{epd__max_8h_a21b532629a764e88ebe1e19bcc0e1d74}{jbox\-\_\-resize\-\_\-outputs}(\hyperlink{epd__max_8h_aa307803f930bc183ed163f1115269785}{t\-\_\-jbox}, nouts)~ebox\-\_\-resize\-\_\-outputs(\hyperlink{epd__max_8h_aa307803f930bc183ed163f1115269785}{t\-\_\-jbox}, nouts)
 \item 
-\#define \hyperlink{epd__max_8h_a7578ce558dc0e4bb6e0f3f1cf37f0d49}{jbox\-\_\-get\-\_\-rect\-\_\-for\-\_\-view}(t\-\_\-object, view, rect)~\hyperlink{ebox__draw_8c_ab84d1f52b2d9f92b470cfb01dd0667c9}{ebox\-\_\-get\-\_\-rect\-\_\-for\-\_\-view}(t\-\_\-object, view, rect)
+\#define \hyperlink{epd__max_8h_a7578ce558dc0e4bb6e0f3f1cf37f0d49}{jbox\-\_\-get\-\_\-rect\-\_\-for\-\_\-view}(\hyperlink{m__pd_8h_ad7f403f6e266b9c78b530883e1d0d60e}{t\-\_\-object}, view, rect)~\hyperlink{ebox__draw_8c_ab84d1f52b2d9f92b470cfb01dd0667c9}{ebox\-\_\-get\-\_\-rect\-\_\-for\-\_\-view}(\hyperlink{m__pd_8h_ad7f403f6e266b9c78b530883e1d0d60e}{t\-\_\-object}, view, rect)
 \item 
 \#define \hyperlink{epd__max_8h_a273daa24545541267c06baf790c00018}{jmouse\-\_\-setcursor}(patcherview, \hyperlink{epd__max_8h_aa307803f930bc183ed163f1115269785}{t\-\_\-jbox}, mode)~\hyperlink{ebox__basic_8c_a32fed7f05e48552976eb909820176a3b}{ebox\-\_\-set\-\_\-cursor}(\hyperlink{epd__max_8h_aa307803f930bc183ed163f1115269785}{t\-\_\-jbox}, mode)
 \item 
@@ -118,21 +114,21 @@
 \item 
 \#define \hyperlink{epd__max_8h_a8a59fc89bce2d638e79c3e8e97c8c330}{jbox\-\_\-get\-\_\-fontsize}(object)~ebox\-\_\-font\-\_\-size(object)
 \item 
-\#define \hyperlink{epd__max_8h_a5c403e19fef55e07c20806e688079b7c}{t\-\_\-dictionary}~t\-\_\-binbuf
+\#define \hyperlink{epd__max_8h_a5c403e19fef55e07c20806e688079b7c}{t\-\_\-dictionary}~\hyperlink{m__pd_8h_aa4364f246b174209f0c245282174b122}{t\-\_\-binbuf}
 \item 
-\#define \hyperlink{epd__max_8h_a1a657cbff69822f1e22eba66a0a71dd5}{dictionary\-\_\-new}~binbuf\-\_\-new
+\#define \hyperlink{epd__max_8h_a1a657cbff69822f1e22eba66a0a71dd5}{dictionary\-\_\-new}~\hyperlink{m__pd_8h_a3be9e183b1054e204ec896ff3e0ff7de}{binbuf\-\_\-new}
 \item 
-\#define \hyperlink{epd__max_8h_a32fcbd3016ea279fbf38cdb2882ccb51}{dictionary\-\_\-free}~binbuf\-\_\-free
+\#define \hyperlink{epd__max_8h_a32fcbd3016ea279fbf38cdb2882ccb51}{dictionary\-\_\-free}~\hyperlink{m__pd_8h_add86d3e0c8c7f4e377301d5e2d855a69}{binbuf\-\_\-free}
 \item 
-\#define \hyperlink{epd__max_8h_a5e12823697c3d49c057fc2c4b319bb3d}{dictionary\-\_\-write}(dict, filename, dir)~binbuf\-\_\-write(dict, filename, dir, 0)
+\#define \hyperlink{epd__max_8h_a5e12823697c3d49c057fc2c4b319bb3d}{dictionary\-\_\-write}(dict, filename, dir)~\hyperlink{m__pd_8h_aacb6016dcafbb9b7c5547dd0f13bf6b2}{binbuf\-\_\-write}(dict, filename, dir, 0)
 \item 
 \#define \hyperlink{epd__max_8h_a9b48420b102d1c7639b9614cce1553a1}{attr\-\_\-dictionary\-\_\-process}(object, dict)~\hyperlink{ebox__attr_8c_a252f271a59fa9d45cfa9587ab7e46e67}{ebox\-\_\-attrprocess\-\_\-viabinbuf}(object, dict)
 \item 
 \#define \hyperlink{epd__max_8h_a8da9e496eba7ec0e3a37ef8ae9a7bfd3}{object\-\_\-dictionaryarg}(ac, av)~\hyperlink{ecommon_8h_acb81aa1a92e922bb2f1cad995a394014}{binbuf\-\_\-via\-\_\-atoms}(ac, av)
 \item 
-\#define \hyperlink{epd__max_8h_af4ba956eb4596b20735e413180a2e179}{dictionary\-\_\-copyatoms}(d, key, argc, argv)~\hyperlink{ecommon_8h_a5a87476f848a0a9daa40bbc2a7ba9d8c}{binbuf\-\_\-get\-\_\-attribute}(d, key, argc, argv)
+\#define \hyperlink{epd__max_8h_af4ba956eb4596b20735e413180a2e179}{dictionary\-\_\-copyatoms}(d, key, argc, argv)~\hyperlink{ecommon_8h_a9d130044d14865e619bbb11b6b04be8e}{binbuf\-\_\-get\-\_\-attribute}(d, key, argc, argv)
 \item 
-\#define \hyperlink{epd__max_8h_a72f12c2bdc59e9fa949774451c9a95f4}{dictionary\-\_\-appendatoms}(d, key, argc, argv)~\hyperlink{ecommon_8h_afdd4ccf2a10d0498398fa516fea63814}{binbuf\-\_\-append\-\_\-attribute}(d, key, argc, argv)
+\#define \hyperlink{epd__max_8h_a72f12c2bdc59e9fa949774451c9a95f4}{dictionary\-\_\-appendatoms}(d, key, argc, argv)~\hyperlink{ecommon_8h_a154cf9d20bb67c945d033ac2bc685077}{binbuf\-\_\-append\-\_\-attribute}(d, key, argc, argv)
 \item 
 \#define \hyperlink{epd__max_8h_a2d3df900ff7e62071d5cacd06a8a089e}{jgraphics\-\_\-set\-\_\-line\-\_\-width}~\hyperlink{egraphics_8h_a06ccd4b8ef74f4ef96efbeaaf15b4063}{egraphics\-\_\-set\-\_\-line\-\_\-width}
 \item 
@@ -254,13 +250,6 @@ Definition at line 162 of file epd\-\_\-max.\-h.
 
 Definition at line 68 of file epd\-\_\-max.\-h.
 
-\hypertarget{epd__max_8h_af640c99a1fceb8158c2d1e77381b0320}{\index{epd\-\_\-max.\-h@{epd\-\_\-max.\-h}!C\-L\-A\-S\-S\-\_\-\-B\-O\-X@{C\-L\-A\-S\-S\-\_\-\-B\-O\-X}}
-\index{C\-L\-A\-S\-S\-\_\-\-B\-O\-X@{C\-L\-A\-S\-S\-\_\-\-B\-O\-X}!epd_max.h@{epd\-\_\-max.\-h}}
-\subsubsection[{C\-L\-A\-S\-S\-\_\-\-B\-O\-X}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-L\-A\-S\-S\-\_\-\-B\-O\-X~gensym(\char`\"{}box\char`\"{})}}\label{epd__max_8h_af640c99a1fceb8158c2d1e77381b0320}
-
-
-Definition at line 57 of file epd\-\_\-max.\-h.
-
 \hypertarget{epd__max_8h_a8577391b4b4aaeb12948bb98f3727f94}{\index{epd\-\_\-max.\-h@{epd\-\_\-max.\-h}!class\-\_\-dspinit@{class\-\_\-dspinit}}
 \index{class\-\_\-dspinit@{class\-\_\-dspinit}!epd_max.h@{epd\-\_\-max.\-h}}
 \subsubsection[{class\-\_\-dspinit}]{\setlength{\rightskip}{0pt plus 5cm}\#define class\-\_\-dspinit(
@@ -289,13 +278,6 @@ Definition at line 72 of file epd\-\_\-max.\-h.
 
 
 Definition at line 67 of file epd\-\_\-max.\-h.
-
-\hypertarget{epd__max_8h_a090d3cbc4f137661806fc1b72249a791}{\index{epd\-\_\-max.\-h@{epd\-\_\-max.\-h}!C\-L\-A\-S\-S\-\_\-\-N\-O\-B\-O\-X@{C\-L\-A\-S\-S\-\_\-\-N\-O\-B\-O\-X}}
-\index{C\-L\-A\-S\-S\-\_\-\-N\-O\-B\-O\-X@{C\-L\-A\-S\-S\-\_\-\-N\-O\-B\-O\-X}!epd_max.h@{epd\-\_\-max.\-h}}
-\subsubsection[{C\-L\-A\-S\-S\-\_\-\-N\-O\-B\-O\-X}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-L\-A\-S\-S\-\_\-\-N\-O\-B\-O\-X~gensym(\char`\"{}nobox\char`\"{})}}\label{epd__max_8h_a090d3cbc4f137661806fc1b72249a791}
-
-
-Definition at line 58 of file epd\-\_\-max.\-h.
 
 \hypertarget{epd__max_8h_ae973711003c161ea563b61ee477c8298}{\index{epd\-\_\-max.\-h@{epd\-\_\-max.\-h}!class\-\_\-register@{class\-\_\-register}}
 \index{class\-\_\-register@{class\-\_\-register}!epd_max.h@{epd\-\_\-max.\-h}}
@@ -339,14 +321,14 @@ Definition at line 102 of file epd\-\_\-max.\-h.
 
 \hypertarget{epd__max_8h_a32fcbd3016ea279fbf38cdb2882ccb51}{\index{epd\-\_\-max.\-h@{epd\-\_\-max.\-h}!dictionary\-\_\-free@{dictionary\-\_\-free}}
 \index{dictionary\-\_\-free@{dictionary\-\_\-free}!epd_max.h@{epd\-\_\-max.\-h}}
-\subsubsection[{dictionary\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}\#define dictionary\-\_\-free~binbuf\-\_\-free}}\label{epd__max_8h_a32fcbd3016ea279fbf38cdb2882ccb51}
+\subsubsection[{dictionary\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}\#define dictionary\-\_\-free~{\bf binbuf\-\_\-free}}}\label{epd__max_8h_a32fcbd3016ea279fbf38cdb2882ccb51}
 
 
 Definition at line 98 of file epd\-\_\-max.\-h.
 
 \hypertarget{epd__max_8h_a1a657cbff69822f1e22eba66a0a71dd5}{\index{epd\-\_\-max.\-h@{epd\-\_\-max.\-h}!dictionary\-\_\-new@{dictionary\-\_\-new}}
 \index{dictionary\-\_\-new@{dictionary\-\_\-new}!epd_max.h@{epd\-\_\-max.\-h}}
-\subsubsection[{dictionary\-\_\-new}]{\setlength{\rightskip}{0pt plus 5cm}\#define dictionary\-\_\-new~binbuf\-\_\-new}}\label{epd__max_8h_a1a657cbff69822f1e22eba66a0a71dd5}
+\subsubsection[{dictionary\-\_\-new}]{\setlength{\rightskip}{0pt plus 5cm}\#define dictionary\-\_\-new~{\bf binbuf\-\_\-new}}}\label{epd__max_8h_a1a657cbff69822f1e22eba66a0a71dd5}
 
 
 Definition at line 97 of file epd\-\_\-max.\-h.
@@ -359,7 +341,7 @@ Definition at line 97 of file epd\-\_\-max.\-h.
 \item[{}]{filename, }
 \item[{}]{dir}
 \end{DoxyParamCaption}
-)~binbuf\-\_\-write(dict, filename, dir, 0)}}\label{epd__max_8h_a5e12823697c3d49c057fc2c4b319bb3d}
+)~{\bf binbuf\-\_\-write}(dict, filename, dir, 0)}}\label{epd__max_8h_a5e12823697c3d49c057fc2c4b319bb3d}
 
 
 Definition at line 99 of file epd\-\_\-max.\-h.
@@ -524,11 +506,11 @@ Definition at line 94 of file epd\-\_\-max.\-h.
 \index{jbox\-\_\-get\-\_\-rect\-\_\-for\-\_\-view@{jbox\-\_\-get\-\_\-rect\-\_\-for\-\_\-view}!epd_max.h@{epd\-\_\-max.\-h}}
 \subsubsection[{jbox\-\_\-get\-\_\-rect\-\_\-for\-\_\-view}]{\setlength{\rightskip}{0pt plus 5cm}\#define jbox\-\_\-get\-\_\-rect\-\_\-for\-\_\-view(
 \begin{DoxyParamCaption}
-\item[{}]{t\-\_\-object, }
+\item[{}]{{\bf t\-\_\-object}, }
 \item[{}]{view, }
 \item[{}]{rect}
 \end{DoxyParamCaption}
-)~{\bf ebox\-\_\-get\-\_\-rect\-\_\-for\-\_\-view}(t\-\_\-object, view, rect)}}\label{epd__max_8h_a7578ce558dc0e4bb6e0f3f1cf37f0d49}
+)~{\bf ebox\-\_\-get\-\_\-rect\-\_\-for\-\_\-view}({\bf t\-\_\-object}, view, rect)}}\label{epd__max_8h_a7578ce558dc0e4bb6e0f3f1cf37f0d49}
 
 
 Definition at line 83 of file epd\-\_\-max.\-h.
@@ -1112,7 +1094,7 @@ Definition at line 157 of file epd\-\_\-max.\-h.
 \begin{DoxyParamCaption}
 \item[{}]{class}
 \end{DoxyParamCaption}
-)~eobject\-\_\-alloc(class)}}\label{epd__max_8h_a675fd1afe43e2163ff32ac182fb7dfbf}
+)~{\bf eobj\-\_\-new}(class)}}\label{epd__max_8h_a675fd1afe43e2163ff32ac182fb7dfbf}
 
 
 Definition at line 74 of file epd\-\_\-max.\-h.
@@ -1131,7 +1113,7 @@ Definition at line 101 of file epd\-\_\-max.\-h.
 
 \hypertarget{epd__max_8h_a5c403e19fef55e07c20806e688079b7c}{\index{epd\-\_\-max.\-h@{epd\-\_\-max.\-h}!t\-\_\-dictionary@{t\-\_\-dictionary}}
 \index{t\-\_\-dictionary@{t\-\_\-dictionary}!epd_max.h@{epd\-\_\-max.\-h}}
-\subsubsection[{t\-\_\-dictionary}]{\setlength{\rightskip}{0pt plus 5cm}\#define t\-\_\-dictionary~t\-\_\-binbuf}}\label{epd__max_8h_a5c403e19fef55e07c20806e688079b7c}
+\subsubsection[{t\-\_\-dictionary}]{\setlength{\rightskip}{0pt plus 5cm}\#define t\-\_\-dictionary~{\bf t\-\_\-binbuf}}}\label{epd__max_8h_a5c403e19fef55e07c20806e688079b7c}
 
 
 Definition at line 96 of file epd\-\_\-max.\-h.

@@ -8,6 +8,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -65,6 +72,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>Globals</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('eclass__attroptions_8c_source.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -79,11 +101,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_26b4c6508c94607a9ec0ebc023e49a5e.html">eclass</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">eclass_attroptions.c</div>  </div>
@@ -270,13 +287,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;            {</div>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                <span class="keywordflow">if</span>(c-&gt;c_attr[i].itemssize)</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                {</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                    c-&gt;c_attr[i].itemslist = (t_symbol **)realloc(c-&gt;c_attr[i].itemslist, size * <span class="keyword">sizeof</span>(t_symbol *));</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                    c-&gt;c_attr[i].itemslist = (<a class="code" href="struct__symbol.html">t_symbol</a> **)realloc(c-&gt;c_attr[i].itemslist, size * <span class="keyword">sizeof</span>(<a class="code" href="struct__symbol.html">t_symbol</a> *));</div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                    <span class="keywordflow">if</span>(c-&gt;c_attr[i].itemslist)</div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                        c-&gt;c_attr[i].itemssize = size;</div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                }</div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                <span class="keywordflow">else</span></div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                {</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                    c-&gt;c_attr[i].itemslist = (t_symbol **)calloc(size, <span class="keyword">sizeof</span>(t_symbol *));</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                    c-&gt;c_attr[i].itemslist = (<a class="code" href="struct__symbol.html">t_symbol</a> **)calloc(size, <span class="keyword">sizeof</span>(<a class="code" href="struct__symbol.html">t_symbol</a> *));</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                    <span class="keywordflow">if</span>(c-&gt;c_attr[i].itemslist)</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                        c-&gt;c_attr[i].itemssize = size;</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                }</div>
@@ -466,17 +483,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="eclass_8h_html_add32df540eac82aeb67a8ab4c6f39824"><div class="ttname"><a href="eclass_8h.html#add32df540eac82aeb67a8ab4c6f39824">eclass_attr_label</a></div><div class="ttdeci">void eclass_attr_label(t_eclass *c, char *attrname, long flags, char *label)</div><div class="ttdoc">Initalize the category of an attribute. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00105">eclass_attroptions.c:105</a></div></div>
 <div class="ttc" id="eclass_8h_html_a124e18305bf57d85df1fb37b35223703"><div class="ttname"><a href="eclass_8h.html#a124e18305bf57d85df1fb37b35223703">eclass_attr_category</a></div><div class="ttdeci">void eclass_attr_category(t_eclass *c, char *attrname, long flags, char *category)</div><div class="ttdoc">Initalize the category of an attribute. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00060">eclass_attroptions.c:60</a></div></div>
 <div class="ttc" id="eclass_8h_html_a8ba59e2e9685109c89325952a2e0dcc9"><div class="ttname"><a href="eclass_8h.html#a8ba59e2e9685109c89325952a2e0dcc9">eclass_attr_default</a></div><div class="ttdeci">void eclass_attr_default(t_eclass *c, char *attrname, long flags, char *value)</div><div class="ttdoc">Initalize the default value of an attribute. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00038">eclass_attroptions.c:38</a></div></div>
+<div class="ttc" id="struct__symbol_html"><div class="ttname"><a href="struct__symbol.html">_symbol</a></div><div class="ttdef"><b>Definition:</b> <a href="m__pd_8h_source.html#l00108">m_pd.h:108</a></div></div>
 <div class="ttc" id="eclass_8h_html_a3d320f1c95fc5ff9f48b41fc28e2d360"><div class="ttname"><a href="eclass_8h.html#a3d320f1c95fc5ff9f48b41fc28e2d360">eclass_attr_style</a></div><div class="ttdeci">void eclass_attr_style(t_eclass *c, char *attrname, long flags, char *style)</div><div class="ttdoc">Initalize the category of an attribute. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00127">eclass_attroptions.c:127</a></div></div>
 <div class="ttc" id="eclass_8h_html_a169280b975d00dc6d4808eefb3fc6b90"><div class="ttname"><a href="eclass_8h.html#a169280b975d00dc6d4808eefb3fc6b90">eclass_attr_invisible</a></div><div class="ttdeci">void eclass_attr_invisible(t_eclass *c, char *attrname, long flags)</div><div class="ttdoc">Initalize the attribute to be invisible in the properties window. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00344">eclass_attroptions.c:344</a></div></div>
 <div class="ttc" id="eclass_8h_html_af7f0f504f1193f0da1f3dc1637e40dd8"><div class="ttname"><a href="eclass_8h.html#af7f0f504f1193f0da1f3dc1637e40dd8">eclass_attr_save</a></div><div class="ttdeci">void eclass_attr_save(t_eclass *c, char *attrname, long flags)</div><div class="ttdoc">Initalize the attribute to be saved with the object. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00302">eclass_attroptions.c:302</a></div></div>
 <div class="ttc" id="eclass_8h_html_a4156b71e091aa7c2e85ea6f3c9c22fa1"><div class="ttname"><a href="eclass_8h.html#a4156b71e091aa7c2e85ea6f3c9c22fa1">eclass_attr_filter_min</a></div><div class="ttdeci">void eclass_attr_filter_min(t_eclass *c, char *attrname, double value)</div><div class="ttdoc">Initalize the minimum value of an attribute. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00229">eclass_attroptions.c:229</a></div></div>
 <div class="ttc" id="eclass_8h_html_a316954f0b313c349a1666330404a5e67"><div class="ttname"><a href="eclass_8h.html#a316954f0b313c349a1666330404a5e67">eclass_attr_step</a></div><div class="ttdeci">void eclass_attr_step(t_eclass *c, char *attrname, double value)</div><div class="ttdoc">Initalize the step value of an attribute. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attroptions_8c_source.html#l00281">eclass_attroptions.c:281</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 18 2014 08:38:18 for CICM Wrapper by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_26b4c6508c94607a9ec0ebc023e49a5e.html">eclass</a></li><li class="navelem"><b>eclass_attroptions.c</b></li>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:45 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

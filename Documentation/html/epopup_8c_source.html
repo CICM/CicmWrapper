@@ -8,6 +8,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -65,6 +72,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>Globals</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('epopup_8c_source.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -79,11 +101,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_f798b92cb94fb6443d2f8514709dcb0a.html">epopup</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">epopup.c</div>  </div>
@@ -117,7 +134,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &quot;epopup.h&quot;</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<a class="code" href="struct__epopup.html">t_epopup</a>* epopupmenu_create(<a class="code" href="struct__eobj.html">t_eobj</a>* x, t_symbol* name)</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<a class="code" href="struct__epopup.html">t_epopup</a>* epopupmenu_create(<a class="code" href="struct__eobj.html">t_eobj</a>* x, <a class="code" href="struct__symbol.html">t_symbol</a>* name)</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="struct__epopup.html">t_epopup</a>* menu = (<a class="code" href="struct__epopup.html">t_epopup</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="struct__epopup.html">t_epopup</a>));</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    menu-&gt;c_send = x-&gt;<a class="code" href="struct__eobj.html#a024c5a2d6d2dcdf531f05a0e711cce68">o_id</a>;</div>
@@ -197,14 +214,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="struct__efont_html"><div class="ttname"><a href="struct__efont.html">_efont</a></div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00265">estruct.h:265</a></div></div>
 <div class="ttc" id="struct__pt_html_aa4f0d3eebc3c443f9be81bf48561a217"><div class="ttname"><a href="struct__pt.html#aa4f0d3eebc3c443f9be81bf48561a217">_pt::y</a></div><div class="ttdeci">float y</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00046">estruct.h:46</a></div></div>
 <div class="ttc" id="struct__epopup_html"><div class="ttname"><a href="struct__epopup.html">_epopup</a></div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00274">estruct.h:274</a></div></div>
+<div class="ttc" id="struct__symbol_html"><div class="ttname"><a href="struct__symbol.html">_symbol</a></div><div class="ttdef"><b>Definition:</b> <a href="m__pd_8h_source.html#l00108">m_pd.h:108</a></div></div>
 <div class="ttc" id="struct__eobj_html_a024c5a2d6d2dcdf531f05a0e711cce68"><div class="ttname"><a href="struct__eobj.html#a024c5a2d6d2dcdf531f05a0e711cce68">_eobj::o_id</a></div><div class="ttdeci">t_symbol * o_id</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00405">estruct.h:405</a></div></div>
 <div class="ttc" id="struct__pt_html_ad0da36b2558901e21e7a30f6c227a45e"><div class="ttname"><a href="struct__pt.html#ad0da36b2558901e21e7a30f6c227a45e">_pt::x</a></div><div class="ttdeci">float x</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00045">estruct.h:45</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 18 2014 08:38:18 for CICM Wrapper by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_f798b92cb94fb6443d2f8514709dcb0a.html">epopup</a></li><li class="navelem"><b>epopup.c</b></li>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:45 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -17,7 +17,7 @@ int \hyperlink{eobj_8h_a1014e3284b70c9680b9b048157190ca7}{eobj\-\_\-getproxy} (v
 \begin{DoxyCompactList}\small\item\em Retreive the index of the proxy that received the last message. \end{DoxyCompactList}\item 
 \hyperlink{struct__eclass}{t\-\_\-eclass} $\ast$ \hyperlink{eobj_8h_a19f71253f4c7e6c2f6353e819815faf4}{eobj\-\_\-getclass} (void $\ast$x)
 \begin{DoxyCompactList}\small\item\em Retrieve the eclass of an eobj. \end{DoxyCompactList}\item 
-t\-\_\-symbol $\ast$ \hyperlink{eobj_8h_afc245e0b61a0420c6c776ad2a9337eb2}{eobj\-\_\-getclassname} (void $\ast$x)
+\hyperlink{struct__symbol}{t\-\_\-symbol} $\ast$ \hyperlink{eobj_8h_afc245e0b61a0420c6c776ad2a9337eb2}{eobj\-\_\-getclassname} (void $\ast$x)
 \begin{DoxyCompactList}\small\item\em Retrieve the classe name of an eobj. \end{DoxyCompactList}\item 
 t\-\_\-canvas $\ast$ \hyperlink{eobj_8h_ab25a83fb692fadad78681501a274f45f}{eobj\-\_\-getcanvas} (void $\ast$x)
 \begin{DoxyCompactList}\small\item\em Retreive the canvas of an eobj. \end{DoxyCompactList}\item 
@@ -43,13 +43,13 @@ char \hyperlink{eobj_8h_a27eee54891735b101bf16018272d379c}{eobj\-\_\-isdsp} (voi
 \hypertarget{eobj_8h_a8dd9873ea10d828254e741bf069c3ea4}{void \hyperlink{eobj_8h_a8dd9873ea10d828254e741bf069c3ea4}{eobj\-\_\-resize\-\_\-outputs} (void $\ast$x, long nouts)}\label{eobj_8h_a8dd9873ea10d828254e741bf069c3ea4}
 
 \begin{DoxyCompactList}\small\item\em Resize the number of signal outputs of an edspobj. \end{DoxyCompactList}\item 
-\hypertarget{eobj_8h_affba5eb866f8a1f9a0d46ea7b2aafe99}{void {\bfseries erouter\-\_\-add\-\_\-libary} (t\-\_\-symbol $\ast$name, char $\ast$message, char $\ast$copyright, char $\ast$version)}\label{eobj_8h_affba5eb866f8a1f9a0d46ea7b2aafe99}
+\hypertarget{eobj_8h_affba5eb866f8a1f9a0d46ea7b2aafe99}{void {\bfseries erouter\-\_\-add\-\_\-libary} (\hyperlink{struct__symbol}{t\-\_\-symbol} $\ast$name, char $\ast$message, char $\ast$copyright, char $\ast$version)}\label{eobj_8h_affba5eb866f8a1f9a0d46ea7b2aafe99}
 
 \item 
-\hypertarget{eobj_8h_ad4c3c75dca5619d489f1507da9ad1ad9}{void {\bfseries eobj\-\_\-attach\-\_\-torouter} (t\-\_\-object $\ast$child)}\label{eobj_8h_ad4c3c75dca5619d489f1507da9ad1ad9}
+\hypertarget{eobj_8h_ad4c3c75dca5619d489f1507da9ad1ad9}{void {\bfseries eobj\-\_\-attach\-\_\-torouter} (\hyperlink{struct__text}{t\-\_\-object} $\ast$child)}\label{eobj_8h_ad4c3c75dca5619d489f1507da9ad1ad9}
 
 \item 
-\hypertarget{eobj_8h_a2935cf0b7c8b0e90774c9b67553f682d}{void {\bfseries eobj\-\_\-detach\-\_\-torouter} (t\-\_\-object $\ast$child)}\label{eobj_8h_a2935cf0b7c8b0e90774c9b67553f682d}
+\hypertarget{eobj_8h_a2935cf0b7c8b0e90774c9b67553f682d}{void {\bfseries eobj\-\_\-detach\-\_\-torouter} (\hyperlink{struct__text}{t\-\_\-object} $\ast$child)}\label{eobj_8h_a2935cf0b7c8b0e90774c9b67553f682d}
 
 \end{DoxyCompactItemize}
 
@@ -142,7 +142,7 @@ Definition at line 113 of file eobj\-\_\-basic.\-c.
 
 \hypertarget{eobj_8h_afc245e0b61a0420c6c776ad2a9337eb2}{\index{eobj.\-h@{eobj.\-h}!eobj\-\_\-getclassname@{eobj\-\_\-getclassname}}
 \index{eobj\-\_\-getclassname@{eobj\-\_\-getclassname}!eobj.h@{eobj.\-h}}
-\subsubsection[{eobj\-\_\-getclassname}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-symbol $\ast$ eobj\-\_\-getclassname (
+\subsubsection[{eobj\-\_\-getclassname}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-symbol} $\ast$ eobj\-\_\-getclassname (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{x}
 \end{DoxyParamCaption}

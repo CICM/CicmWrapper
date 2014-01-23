@@ -8,6 +8,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -65,6 +72,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>Globals</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('ebox__handle_8c_source.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -79,11 +101,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_a715551f008a258e8c98b20824bea57f.html">ebox</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">ebox_handle.c</div>  </div>
@@ -186,9 +203,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment"> \ @param argv      The array of atoms</span></div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keywordtype">void</span> ebox_mouse_move(<a class="code" href="struct__ebox.html">t_ebox</a>* x, t_symbol* s, <span class="keywordtype">long</span> argc, t_atom* argv)</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keywordtype">void</span> ebox_mouse_move(<a class="code" href="struct__ebox.html">t_ebox</a>* x, <a class="code" href="struct__symbol.html">t_symbol</a>* s, <span class="keywordtype">long</span> argc, <a class="code" href="struct__atom.html">t_atom</a>* argv)</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;{</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    t_atom av[2];</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <a class="code" href="struct__atom.html">t_atom</a> av[2];</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <a class="code" href="struct__eclass.html">t_eclass</a> *c = <a class="code" href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a>(x);</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <a class="code" href="eobj_8h.html#afa853a6c824e824b8217010bce5b97a5">eobj_get_mouse_global_position</a>(x);</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
@@ -292,7 +309,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="comment"> \ @param argv      The array of atoms</span></div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="keywordtype">void</span> ebox_mouse_drag(<a class="code" href="struct__ebox.html">t_ebox</a>* x, t_symbol* s, <span class="keywordtype">long</span> argc, t_atom* argv)</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="keywordtype">void</span> ebox_mouse_drag(<a class="code" href="struct__ebox.html">t_ebox</a>* x, <a class="code" href="struct__symbol.html">t_symbol</a>* s, <span class="keywordtype">long</span> argc, <a class="code" href="struct__atom.html">t_atom</a>* argv)</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;{</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <a class="code" href="struct__eclass.html">t_eclass</a> *c = <a class="code" href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a>(x);</div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    x-&gt;<a class="code" href="struct__ebox.html#ad230697acdd2d00abb2dc18dd38089d8">b_modifiers</a> -= 256;</div>
@@ -314,7 +331,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;<span class="comment"> \ @param argv      The array of atoms</span></div>
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="keywordtype">void</span> ebox_mouse_down(<a class="code" href="struct__ebox.html">t_ebox</a>* x, t_symbol* s, <span class="keywordtype">long</span> argc, t_atom* argv)</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="keywordtype">void</span> ebox_mouse_down(<a class="code" href="struct__ebox.html">t_ebox</a>* x, <a class="code" href="struct__symbol.html">t_symbol</a>* s, <span class="keywordtype">long</span> argc, <a class="code" href="struct__atom.html">t_atom</a>* argv)</div>
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;{</div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <a class="code" href="struct__eclass.html">t_eclass</a> *c = <a class="code" href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a>(x);</div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;</div>
@@ -355,7 +372,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="comment"> \ @param argv      The array of atoms</span></div>
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="keywordtype">void</span> ebox_mouse_up(<a class="code" href="struct__ebox.html">t_ebox</a>* x, t_symbol* s, <span class="keywordtype">long</span> argc, t_atom* argv)</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="keywordtype">void</span> ebox_mouse_up(<a class="code" href="struct__ebox.html">t_ebox</a>* x, <a class="code" href="struct__symbol.html">t_symbol</a>* s, <span class="keywordtype">long</span> argc, <a class="code" href="struct__atom.html">t_atom</a>* argv)</div>
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;{</div>
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <a class="code" href="struct__eclass.html">t_eclass</a> *c = <a class="code" href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a>(x);</div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;</div>
@@ -391,7 +408,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="comment"> \ @param argv      The array of atoms</span></div>
 <div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
 <div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;<span class="keywordtype">void</span> ebox_mouse_dblclick(<a class="code" href="struct__ebox.html">t_ebox</a>* x, t_symbol* s, <span class="keywordtype">long</span> argc, t_atom* argv)</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;<span class="keywordtype">void</span> ebox_mouse_dblclick(<a class="code" href="struct__ebox.html">t_ebox</a>* x, <a class="code" href="struct__symbol.html">t_symbol</a>* s, <span class="keywordtype">long</span> argc, <a class="code" href="struct__atom.html">t_atom</a>* argv)</div>
 <div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;{</div>
 <div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    <a class="code" href="struct__eclass.html">t_eclass</a> *c = <a class="code" href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a>(x);</div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;</div>
@@ -414,7 +431,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;<span class="comment"> \ @param argv      The array of atoms</span></div>
 <div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
 <div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;<span class="keywordtype">void</span> ebox_mouse_wheel(<a class="code" href="struct__ebox.html">t_ebox</a>* x, t_symbol* s, <span class="keywordtype">long</span> argc, t_atom* argv)</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;<span class="keywordtype">void</span> ebox_mouse_wheel(<a class="code" href="struct__ebox.html">t_ebox</a>* x, <a class="code" href="struct__symbol.html">t_symbol</a>* s, <span class="keywordtype">long</span> argc, <a class="code" href="struct__atom.html">t_atom</a>* argv)</div>
 <div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;{</div>
 <div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    <span class="keywordtype">float</span> delta;</div>
 <div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    <a class="code" href="struct__eclass.html">t_eclass</a> *c = <a class="code" href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a>(x);</div>
@@ -456,11 +473,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    <span class="comment">// TOP //</span></div>
 <div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    <span class="keywordflow">if</span>(y_p &gt;= 0 &amp;&amp; y_p &lt; 3)</div>
 <div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    {</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;        <span class="keywordflow">for</span>(i = 0; i &lt; obj_noutlets((t_object *)x); i++)</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;        <span class="keywordflow">for</span>(i = 0; i &lt; obj_noutlets((<a class="code" href="struct__text.html">t_object</a> *)x); i++)</div>
 <div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;        {</div>
 <div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;            <span class="keywordtype">int</span> pos_x_inlet = 0;</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;            <span class="keywordflow">if</span>(obj_ninlets((t_object *)x) != 1)</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;                pos_x_inlet = (<span class="keywordtype">int</span>)(i / (float)(obj_ninlets((t_object *)x) - 1) * (x-&gt;<a class="code" href="struct__ebox.html#abc70ff46c135ee9f377a038bbc05a33e">b_rect</a>.<a class="code" href="struct__rect.html#ae426f00e82704fa09578f5446e22d915">width</a> - 8));</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;            <span class="keywordflow">if</span>(obj_ninlets((<a class="code" href="struct__text.html">t_object</a> *)x) != 1)</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;                pos_x_inlet = (<span class="keywordtype">int</span>)(i / (float)(obj_ninlets((<a class="code" href="struct__text.html">t_object</a> *)x) - 1) * (x-&gt;<a class="code" href="struct__ebox.html#abc70ff46c135ee9f377a038bbc05a33e">b_rect</a>.<a class="code" href="struct__rect.html#ae426f00e82704fa09578f5446e22d915">width</a> - 8));</div>
 <div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;</div>
 <div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;            <span class="keywordflow">if</span>(x_p &gt;= pos_x_inlet &amp;&amp; x_p &lt;= pos_x_inlet +7)</div>
 <div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;            {</div>
@@ -483,11 +500,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    <span class="comment">// BOTTOM //</span></div>
 <div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span>(y_p &gt; bottom - 3 &amp;&amp; y_p &lt; bottom)</div>
 <div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    {</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;        <span class="keywordflow">for</span>(i = 0; i &lt; obj_noutlets((t_object *)x); i++)</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;        <span class="keywordflow">for</span>(i = 0; i &lt; obj_noutlets((<a class="code" href="struct__text.html">t_object</a> *)x); i++)</div>
 <div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;        {</div>
 <div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;            <span class="keywordtype">int</span> pos_x_outlet = 0;</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;            <span class="keywordflow">if</span>(obj_noutlets((t_object *)x) != 1)</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;                pos_x_outlet = (<span class="keywordtype">int</span>)(i / (float)(obj_noutlets((t_object *)x) - 1) * (x-&gt;<a class="code" href="struct__ebox.html#abc70ff46c135ee9f377a038bbc05a33e">b_rect</a>.<a class="code" href="struct__rect.html#ae426f00e82704fa09578f5446e22d915">width</a> - 8));</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;            <span class="keywordflow">if</span>(obj_noutlets((<a class="code" href="struct__text.html">t_object</a> *)x) != 1)</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;                pos_x_outlet = (<span class="keywordtype">int</span>)(i / (float)(obj_noutlets((<a class="code" href="struct__text.html">t_object</a> *)x) - 1) * (x-&gt;<a class="code" href="struct__ebox.html#abc70ff46c135ee9f377a038bbc05a33e">b_rect</a>.<a class="code" href="struct__rect.html#ae426f00e82704fa09578f5446e22d915">width</a> - 8));</div>
 <div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;</div>
 <div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;            <span class="keywordflow">if</span>(x_p &gt;= pos_x_outlet &amp;&amp; x_p &lt;= pos_x_outlet +7)</div>
 <div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;            {</div>
@@ -528,7 +545,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;<span class="comment"> \ @param argv      The array of atoms</span></div>
 <div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
 <div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;<span class="keywordtype">void</span> ebox_key(<a class="code" href="struct__ebox.html">t_ebox</a>* x, t_symbol* s, <span class="keywordtype">long</span> argc, t_atom* argv)</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;<span class="keywordtype">void</span> ebox_key(<a class="code" href="struct__ebox.html">t_ebox</a>* x, <a class="code" href="struct__symbol.html">t_symbol</a>* s, <span class="keywordtype">long</span> argc, <a class="code" href="struct__atom.html">t_atom</a>* argv)</div>
 <div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;{</div>
 <div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    <a class="code" href="struct__eclass.html">t_eclass</a> *c = <a class="code" href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a>(x);</div>
 <div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;</div>
@@ -621,7 +638,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;    <span class="keywordtype">int</span>         i;</div>
 <div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;    <span class="keywordtype">char</span>        attr_name[MAXPDSTRING];</div>
 <div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;    <span class="keywordtype">long</span>        argc    = 0;</div>
-<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;    t_atom*     argv    = NULL;</div>
+<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;    <a class="code" href="struct__atom.html">t_atom</a>*     argv    = NULL;</div>
 <div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;    <a class="code" href="struct__eclass.html">t_eclass</a> *c = <a class="code" href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a>(x);</div>
 <div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;</div>
 <div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;    binbuf_addv(b, <span class="stringliteral">&quot;ssiis&quot;</span>, gensym(<span class="stringliteral">&quot;#X&quot;</span>), gensym(<span class="stringliteral">&quot;obj&quot;</span>), (<span class="keywordtype">int</span>)x-&gt;<a class="code" href="struct__ebox.html#a384a670299e98768527fbe457de9a38a">b_obj</a>.<a class="code" href="struct__eobj.html#a8cffa8f3338cca7779ab922dab19227c">o_obj</a>.te_xpix, (<span class="keywordtype">int</span>)x-&gt;<a class="code" href="struct__ebox.html#a384a670299e98768527fbe457de9a38a">b_obj</a>.<a class="code" href="struct__eobj.html#a8cffa8f3338cca7779ab922dab19227c">o_obj</a>.te_ypix, <a class="code" href="eobj_8h.html#afc245e0b61a0420c6c776ad2a9337eb2">eobj_getclassname</a>(x));</div>
@@ -631,7 +648,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;        <span class="keywordflow">if</span>(c-&gt;c_attr[i].save)</div>
 <div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;        {</div>
 <div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;            sprintf(attr_name, <span class="stringliteral">&quot;@%s&quot;</span>, c-&gt;c_attr[i].name-&gt;s_name);</div>
-<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;            object_attr_getvalueof((t_object *)x, c-&gt;c_attr[i].name, &amp;argc, &amp;argv);</div>
+<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;            object_attr_getvalueof((<a class="code" href="struct__text.html">t_object</a> *)x, c-&gt;c_attr[i].name, &amp;argc, &amp;argv);</div>
 <div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;            <span class="keywordflow">if</span>(argc &amp;&amp; argv)</div>
 <div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;            {</div>
 <div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;                binbuf_append_attribute(b, gensym(attr_name), argc, argv);</div>
@@ -656,7 +673,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;<span class="comment"> \ @param argv      The array of atoms</span></div>
 <div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;<span class="comment"> \ @return          Always 0 (for the moment)</span></div>
 <div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;t_pd_err ebox_set_receiveid(<a class="code" href="struct__ebox.html">t_ebox</a> *x, t_object *attr, <span class="keywordtype">long</span> argc, t_atom *argv)</div>
+<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;t_pd_err ebox_set_receiveid(<a class="code" href="struct__ebox.html">t_ebox</a> *x, <a class="code" href="struct__text.html">t_object</a> *attr, <span class="keywordtype">long</span> argc, <a class="code" href="struct__atom.html">t_atom</a> *argv)</div>
 <div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;{</div>
 <div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;    <span class="keywordflow">if</span>(argc &amp;&amp; argv &amp;&amp; atom_gettype(argv) == A_SYM &amp;&amp; atom_getsym(argv) != gensym(<span class="stringliteral">&quot;(null)&quot;</span>))</div>
 <div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;    {</div>
@@ -682,7 +699,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;<span class="comment"> \ @param argv      The array of atoms</span></div>
 <div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;<span class="comment"> \ @return          Always 0 (for the moment)</span></div>
 <div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;t_pd_err ebox_set_sendid(<a class="code" href="struct__ebox.html">t_ebox</a> *x, t_object *attr, <span class="keywordtype">long</span> argc, t_atom *argv)</div>
+<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;t_pd_err ebox_set_sendid(<a class="code" href="struct__ebox.html">t_ebox</a> *x, <a class="code" href="struct__text.html">t_object</a> *attr, <span class="keywordtype">long</span> argc, <a class="code" href="struct__atom.html">t_atom</a> *argv)</div>
 <div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;{</div>
 <div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;    <span class="keywordflow">if</span>(argc &amp;&amp; argv &amp;&amp; atom_gettype(argv) == A_SYM &amp;&amp; atom_getsym(argv) != gensym(<span class="stringliteral">&quot;(null)&quot;</span>))</div>
 <div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;    {</div>
@@ -704,7 +721,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;<span class="comment"> \ @param argv      The array of atoms</span></div>
 <div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;<span class="comment"> \ @return          Always 0 (for the moment)</span></div>
 <div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;t_pd_err ebox_set_presetid(<a class="code" href="struct__ebox.html">t_ebox</a> *x, t_object *attr, <span class="keywordtype">long</span> argc, t_atom *argv)</div>
+<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;t_pd_err ebox_set_presetid(<a class="code" href="struct__ebox.html">t_ebox</a> *x, <a class="code" href="struct__text.html">t_object</a> *attr, <span class="keywordtype">long</span> argc, <a class="code" href="struct__atom.html">t_atom</a> *argv)</div>
 <div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;{</div>
 <div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;    <span class="keywordflow">if</span>(argc &amp;&amp; argv &amp;&amp; atom_gettype(argv) == A_SYM &amp;&amp; atom_getsym(argv) != gensym(<span class="stringliteral">&quot;(null)&quot;</span>))</div>
 <div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;    {</div>
@@ -730,7 +747,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;<span class="comment"> \ @param argv      The array of atoms</span></div>
 <div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;<span class="comment"> \ @return          Always 0 (for the moment)</span></div>
 <div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;t_pd_err ebox_set_font(<a class="code" href="struct__ebox.html">t_ebox</a> *x, t_object *attr, <span class="keywordtype">long</span> argc, t_atom *argv)</div>
+<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;t_pd_err ebox_set_font(<a class="code" href="struct__ebox.html">t_ebox</a> *x, <a class="code" href="struct__text.html">t_object</a> *attr, <span class="keywordtype">long</span> argc, <a class="code" href="struct__atom.html">t_atom</a> *argv)</div>
 <div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;{</div>
 <div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;    <span class="keywordflow">if</span>(argc &amp;&amp; argv &amp;&amp; atom_gettype(argv) == A_SYM)</div>
 <div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;    {</div>
@@ -755,7 +772,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;<span class="comment"> \ @param argv      The array of atoms</span></div>
 <div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;<span class="comment"> \ @return          Always 0 (for the moment)</span></div>
 <div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;t_pd_err ebox_set_fontweight(<a class="code" href="struct__ebox.html">t_ebox</a> *x, t_object *attr, <span class="keywordtype">long</span> argc, t_atom *argv)</div>
+<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;t_pd_err ebox_set_fontweight(<a class="code" href="struct__ebox.html">t_ebox</a> *x, <a class="code" href="struct__text.html">t_object</a> *attr, <span class="keywordtype">long</span> argc, <a class="code" href="struct__atom.html">t_atom</a> *argv)</div>
 <div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;{</div>
 <div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;    <span class="keywordflow">if</span>(argc &amp;&amp; argv &amp;&amp; atom_gettype(argv) == A_SYM)</div>
 <div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;    {</div>
@@ -778,7 +795,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;<span class="comment"> \ @param argv      The array of atoms</span></div>
 <div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;<span class="comment"> \ @return          Always 0 (for the moment)</span></div>
 <div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;t_pd_err ebox_set_fontslant(<a class="code" href="struct__ebox.html">t_ebox</a> *x, t_object *attr, <span class="keywordtype">long</span> argc, t_atom *argv)</div>
+<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;t_pd_err ebox_set_fontslant(<a class="code" href="struct__ebox.html">t_ebox</a> *x, <a class="code" href="struct__text.html">t_object</a> *attr, <span class="keywordtype">long</span> argc, <a class="code" href="struct__atom.html">t_atom</a> *argv)</div>
 <div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;{</div>
 <div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;    <span class="keywordflow">if</span>(argc &amp;&amp; argv &amp;&amp; atom_gettype(argv) == A_SYM)</div>
 <div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;    {</div>
@@ -801,7 +818,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;<span class="comment"> \ @param argv      The array of atoms</span></div>
 <div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;<span class="comment"> \ @return          Always 0 (for the moment)</span></div>
 <div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;t_pd_err ebox_set_fontsize(<a class="code" href="struct__ebox.html">t_ebox</a> *x, t_object *attr, <span class="keywordtype">long</span> argc, t_atom *argv)</div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;t_pd_err ebox_set_fontsize(<a class="code" href="struct__ebox.html">t_ebox</a> *x, <a class="code" href="struct__text.html">t_object</a> *attr, <span class="keywordtype">long</span> argc, <a class="code" href="struct__atom.html">t_atom</a> *argv)</div>
 <div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;{</div>
 <div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;    <span class="keywordflow">if</span>(argc &amp;&amp; argv &amp;&amp; atom_gettype(argv) == A_FLOAT)</div>
 <div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;    {</div>
@@ -827,7 +844,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;<span class="comment"> \ @param argv      The array of atoms that contains the new width and the new height</span></div>
 <div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;<span class="comment"> \ @return          Always 0 (for the moment)</span></div>
 <div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;t_pd_err ebox_size_set(<a class="code" href="struct__ebox.html">t_ebox</a> *x, t_object *attr, <span class="keywordtype">long</span> argc, t_atom *argv)</div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;t_pd_err ebox_size_set(<a class="code" href="struct__ebox.html">t_ebox</a> *x, <a class="code" href="struct__text.html">t_object</a> *attr, <span class="keywordtype">long</span> argc, <a class="code" href="struct__atom.html">t_atom</a> *argv)</div>
 <div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;{</div>
 <div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;    <span class="keywordtype">float</span> width, height;</div>
 <div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;    <span class="keywordflow">if</span>(argc &amp;&amp; argv)</div>
@@ -874,7 +891,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;<span class="comment"> \ @param data      Nothing (for Max 6 compatibility)</span></div>
 <div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;<span class="comment"> \ @return          Always 0 (for the moment)</span></div>
 <div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;t_pd_err ebox_notify(<a class="code" href="struct__ebox.html">t_ebox</a> *x, t_symbol *s, t_symbol *msg, <span class="keywordtype">void</span> *sender, <span class="keywordtype">void</span> *data)</div>
+<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;t_pd_err ebox_notify(<a class="code" href="struct__ebox.html">t_ebox</a> *x, <a class="code" href="struct__symbol.html">t_symbol</a> *s, <a class="code" href="struct__symbol.html">t_symbol</a> *msg, <span class="keywordtype">void</span> *sender, <span class="keywordtype">void</span> *data)</div>
 <div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;{</div>
 <div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;    <a class="code" href="struct__eclass.html">t_eclass</a>* c = <a class="code" href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a>(x);</div>
 <div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;    <span class="keywordflow">if</span>(s == gensym(<span class="stringliteral">&quot;size&quot;</span>))</div>
@@ -885,7 +902,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="ebox_8h.html#a5dfc5eda4b4c22de02f1fa0a996ebf7b">ebox_isdrawable</a>(x))</div>
 <div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;        {</div>
 <div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160;            sys_vgui(<span class="stringliteral">&quot;%s itemconfigure %s -width %d -height %d\n&quot;</span>, x-&gt;<a class="code" href="struct__ebox.html#ac0251c6969a1032f8f50d076e909fb3e">b_canvas_id</a>-&gt;s_name, x-&gt;<a class="code" href="struct__ebox.html#a7033df943e798c68e3a6117785c2d79e">b_window_id</a>-&gt;s_name, (<span class="keywordtype">int</span>)(x-&gt;<a class="code" href="struct__ebox.html#abc70ff46c135ee9f377a038bbc05a33e">b_rect</a>.<a class="code" href="struct__rect.html#ae426f00e82704fa09578f5446e22d915">width</a> + x-&gt;<a class="code" href="struct__ebox.html#a01fa53a36dc717c81755d805a868ad9d">b_boxparameters</a>.<a class="code" href="struct__edrawparams.html#a9c360cb962f79a835ed0457d1dad34b5">d_borderthickness</a> * 2.), (<span class="keywordtype">int</span>)(x-&gt;<a class="code" href="struct__ebox.html#abc70ff46c135ee9f377a038bbc05a33e">b_rect</a>.<a class="code" href="struct__rect.html#a48083b65ac9a863566dc3e3fff09a5b4">height</a> + x-&gt;<a class="code" href="struct__ebox.html#a01fa53a36dc717c81755d805a868ad9d">b_boxparameters</a>.<a class="code" href="struct__edrawparams.html#a9c360cb962f79a835ed0457d1dad34b5">d_borderthickness</a> * 2.));</div>
-<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;            canvas_fixlinesfor(x-&gt;<a class="code" href="struct__ebox.html#a384a670299e98768527fbe457de9a38a">b_obj</a>.<a class="code" href="struct__eobj.html#a4ac1a6544ba0591b83cbf38bc1349e74">o_canvas</a>, (t_text *)x);</div>
+<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;            canvas_fixlinesfor(x-&gt;<a class="code" href="struct__ebox.html#a384a670299e98768527fbe457de9a38a">b_obj</a>.<a class="code" href="struct__eobj.html#a4ac1a6544ba0591b83cbf38bc1349e74">o_canvas</a>, (<a class="code" href="struct__text.html">t_text</a> *)x);</div>
 <div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;        }</div>
 <div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;        <a class="code" href="ebox_8h.html#a3b61efe7c688334e267b0e66dcf22e00">ebox_redraw</a>(x);</div>
 <div class="line"><a name="l00822"></a><span class="lineno">  822</span>&#160;    }</div>
@@ -919,7 +936,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;<span class="keywordtype">void</span> ebox_properties(<a class="code" href="struct__ebox.html">t_ebox</a> *x, t_glist *glist)</div>
 <div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;{</div>
 <div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;    <span class="keywordtype">int</span> i, j;</div>
-<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;    t_atom *argv = NULL;</div>
+<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;    <a class="code" href="struct__atom.html">t_atom</a> *argv = NULL;</div>
 <div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;    <span class="keywordtype">long</span>    argc = 0;</div>
 <div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;    <a class="code" href="struct__eclass.html">t_eclass</a>* c = <a class="code" href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a>(x);</div>
 <div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;    <span class="keywordtype">char</span> buffer[MAXPDSTRING];</div>
@@ -931,7 +948,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;    {</div>
 <div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;        <span class="keywordflow">if</span>(!c-&gt;c_attr[i].invisible)</div>
 <div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;        {</div>
-<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;            object_attr_getvalueof((t_object *)x, c-&gt;c_attr[i].name, &amp;argc, &amp;argv);</div>
+<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;            object_attr_getvalueof((<a class="code" href="struct__text.html">t_object</a> *)x, c-&gt;c_attr[i].name, &amp;argc, &amp;argv);</div>
 <div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;            strcat(buffer, <span class="stringliteral">&quot; &quot;</span>);</div>
 <div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;            strcat(buffer, <span class="stringliteral">&quot;\&quot;&quot;</span>);</div>
 <div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;            <span class="keywordflow">if</span>(argc &amp;&amp; argv)</div>
@@ -988,12 +1005,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00922"></a><span class="lineno">  922</span>&#160;<span class="comment"> \ @param s         Nothing (for Max 6 compatibility)</span></div>
 <div class="line"><a name="l00923"></a><span class="lineno">  923</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
 <div class="line"><a name="l00924"></a><span class="lineno">  924</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00925"></a><span class="lineno">  925</span>&#160;<span class="keywordtype">void</span> ebox_dialog(<a class="code" href="struct__ebox.html">t_ebox</a> *x, t_symbol *s, <span class="keywordtype">long</span> argc, t_atom* argv)</div>
+<div class="line"><a name="l00925"></a><span class="lineno">  925</span>&#160;<span class="keywordtype">void</span> ebox_dialog(<a class="code" href="struct__ebox.html">t_ebox</a> *x, <a class="code" href="struct__symbol.html">t_symbol</a> *s, <span class="keywordtype">long</span> argc, <a class="code" href="struct__atom.html">t_atom</a>* argv)</div>
 <div class="line"><a name="l00926"></a><span class="lineno">  926</span>&#160;{</div>
 <div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;    <span class="keywordtype">int</span> i;</div>
 <div class="line"><a name="l00928"></a><span class="lineno">  928</span>&#160;    <span class="keywordtype">int</span> attrindex;</div>
 <div class="line"><a name="l00929"></a><span class="lineno">  929</span>&#160;    <a class="code" href="struct__eclass.html">t_eclass</a>* c = <a class="code" href="eobj_8h.html#a19f71253f4c7e6c2f6353e819815faf4">eobj_getclass</a>(x);</div>
-<div class="line"><a name="l00930"></a><span class="lineno">  930</span>&#160;    t_atom *av;</div>
+<div class="line"><a name="l00930"></a><span class="lineno">  930</span>&#160;    <a class="code" href="struct__atom.html">t_atom</a> *av;</div>
 <div class="line"><a name="l00931"></a><span class="lineno">  931</span>&#160;    <span class="keywordtype">long</span> ac;</div>
 <div class="line"><a name="l00932"></a><span class="lineno">  932</span>&#160;    <span class="keywordtype">char</span> buffer[MAXPDSTRING];</div>
 <div class="line"><a name="l00933"></a><span class="lineno">  933</span>&#160;    <span class="keywordtype">char</span> temp[MAXPDSTRING];</div>
@@ -1007,7 +1024,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00941"></a><span class="lineno">  941</span>&#160;            attrindex = (int)atom_getfloat(argv+1) - 1;</div>
 <div class="line"><a name="l00942"></a><span class="lineno">  942</span>&#160;            <span class="keywordflow">if</span>(attrindex &gt;= 0 &amp;&amp; attrindex &lt; c-&gt;c_nattr)</div>
 <div class="line"><a name="l00943"></a><span class="lineno">  943</span>&#160;            {</div>
-<div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;                object_attr_getvalueof((t_object *)x, c-&gt;c_attr[attrindex].name, &amp;ac, &amp;av);</div>
+<div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;                object_attr_getvalueof((<a class="code" href="struct__text.html">t_object</a> *)x, c-&gt;c_attr[attrindex].name, &amp;ac, &amp;av);</div>
 <div class="line"><a name="l00945"></a><span class="lineno">  945</span>&#160;                <span class="keywordflow">if</span>(ac &amp;&amp; av)</div>
 <div class="line"><a name="l00946"></a><span class="lineno">  946</span>&#160;                {</div>
 <div class="line"><a name="l00947"></a><span class="lineno">  947</span>&#160;                    <span class="keywordflow">if</span>(c-&gt;c_attr[attrindex].style == gensym(<span class="stringliteral">&quot;checkbutton&quot;</span>))</div>
@@ -1072,6 +1089,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="struct__ebox_html_a1dc439a4d35e98f78370c81ceadc8ea0"><div class="ttname"><a href="struct__ebox.html#a1dc439a4d35e98f78370c81ceadc8ea0">_ebox::b_mouse_down</a></div><div class="ttdeci">char b_mouse_down</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00466">estruct.h:466</a></div></div>
 <div class="ttc" id="struct__ebox_html_a8831d355ec1dbb2dca9a68268a977965"><div class="ttname"><a href="struct__ebox.html#a8831d355ec1dbb2dca9a68268a977965">_ebox::b_mouse</a></div><div class="ttdeci">t_pt b_mouse</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00464">estruct.h:464</a></div></div>
 <div class="ttc" id="ebox_8h_html_a3b61efe7c688334e267b0e66dcf22e00"><div class="ttname"><a href="ebox_8h.html#a3b61efe7c688334e267b0e66dcf22e00">ebox_redraw</a></div><div class="ttdeci">void ebox_redraw(t_ebox *x)</div><div class="ttdoc">Indicate that an UI ebox should be redraw. </div><div class="ttdef"><b>Definition:</b> <a href="ebox__draw_8c_source.html#l00035">ebox_draw.c:35</a></div></div>
+<div class="ttc" id="struct__atom_html"><div class="ttname"><a href="struct__atom.html">_atom</a></div><div class="ttdef"><b>Definition:</b> <a href="m__pd_8h_source.html#l00189">m_pd.h:189</a></div></div>
 <div class="ttc" id="struct__ebox_html_a2b028829ae54f8ccede6bb0d5903f7fd"><div class="ttname"><a href="struct__ebox.html#a2b028829ae54f8ccede6bb0d5903f7fd">_ebox::b_move_box</a></div><div class="ttdeci">t_pt b_move_box</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00465">estruct.h:465</a></div></div>
 <div class="ttc" id="eobj_8h_html_a8054a835864160d4c9f8afad9d68ccd0"><div class="ttname"><a href="eobj_8h.html#a8054a835864160d4c9f8afad9d68ccd0">eobj_get_mouse_canvas_position</a></div><div class="ttdeci">t_pt eobj_get_mouse_canvas_position(void *x)</div><div class="ttdoc">Retrieve the canvas mouse position. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__handle_8c_source.html#l00051">eobj_handle.c:51</a></div></div>
 <div class="ttc" id="struct__rgb_html_a322e0de27f54901aa172ae487dba2914"><div class="ttname"><a href="struct__rgb.html#a322e0de27f54901aa172ae487dba2914">_rgb::blue</a></div><div class="ttdeci">float blue</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00086">estruct.h:86</a></div></div>
@@ -1095,10 +1113,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="eobj_8h_html_afa853a6c824e824b8217010bce5b97a5"><div class="ttname"><a href="eobj_8h.html#afa853a6c824e824b8217010bce5b97a5">eobj_get_mouse_global_position</a></div><div class="ttdeci">t_pt eobj_get_mouse_global_position(void *x)</div><div class="ttdoc">Retrieve the global mouse position. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__handle_8c_source.html#l00038">eobj_handle.c:38</a></div></div>
 <div class="ttc" id="eobj_8h_html_afc245e0b61a0420c6c776ad2a9337eb2"><div class="ttname"><a href="eobj_8h.html#afc245e0b61a0420c6c776ad2a9337eb2">eobj_getclassname</a></div><div class="ttdeci">t_symbol * eobj_getclassname(void *x)</div><div class="ttdoc">Retrieve the classe name of an eobj. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00126">eobj_basic.c:126</a></div></div>
 <div class="ttc" id="struct__ebox_html_ad230697acdd2d00abb2dc18dd38089d8"><div class="ttname"><a href="struct__ebox.html#ad230697acdd2d00abb2dc18dd38089d8">_ebox::b_modifiers</a></div><div class="ttdeci">long b_modifiers</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00467">estruct.h:467</a></div></div>
+<div class="ttc" id="struct__symbol_html"><div class="ttname"><a href="struct__symbol.html">_symbol</a></div><div class="ttdef"><b>Definition:</b> <a href="m__pd_8h_source.html#l00108">m_pd.h:108</a></div></div>
 <div class="ttc" id="struct__ebox_html_adc377263d208d1051f4a0997868b1155"><div class="ttname"><a href="struct__ebox.html#adc377263d208d1051f4a0997868b1155">_ebox::b_objpreset_id</a></div><div class="ttdeci">t_symbol * b_objpreset_id</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00447">estruct.h:447</a></div></div>
 <div class="ttc" id="struct__ebox_html_a7033df943e798c68e3a6117785c2d79e"><div class="ttname"><a href="struct__ebox.html#a7033df943e798c68e3a6117785c2d79e">_ebox::b_window_id</a></div><div class="ttdeci">t_symbol * b_window_id</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00452">estruct.h:452</a></div></div>
 <div class="ttc" id="struct__ebox_html_a234ea03e103bd45f5fa1d27b8e69b5dd"><div class="ttname"><a href="struct__ebox.html#a234ea03e103bd45f5fa1d27b8e69b5dd">_ebox::b_ready_to_draw</a></div><div class="ttdeci">char b_ready_to_draw</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00469">estruct.h:469</a></div></div>
 <div class="ttc" id="ebox_8h_html_a5dfc5eda4b4c22de02f1fa0a996ebf7b"><div class="ttname"><a href="ebox_8h.html#a5dfc5eda4b4c22de02f1fa0a996ebf7b">ebox_isdrawable</a></div><div class="ttdeci">char ebox_isdrawable(t_ebox *x)</div><div class="ttdoc">Retrieve if an ebox is drawable. </div><div class="ttdef"><b>Definition:</b> <a href="ebox__basic_8c_source.html#l00159">ebox_basic.c:159</a></div></div>
+<div class="ttc" id="struct__text_html"><div class="ttname"><a href="struct__text.html">_text</a></div><div class="ttdef"><b>Definition:</b> <a href="m__pd_8h_source.html#l00232">m_pd.h:232</a></div></div>
 <div class="ttc" id="struct__ebox_html_ac59460230e622f821660b599e2f96ca9"><div class="ttname"><a href="struct__ebox.html#ac59460230e622f821660b599e2f96ca9">_ebox::b_send_id</a></div><div class="ttdeci">t_symbol * b_send_id</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00446">estruct.h:446</a></div></div>
 <div class="ttc" id="struct__ebox_html_a4071412a20456f5fcafe2a91cdef11c3"><div class="ttname"><a href="struct__ebox.html#a4071412a20456f5fcafe2a91cdef11c3">_ebox::b_font</a></div><div class="ttdeci">t_efont b_font</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00458">estruct.h:458</a></div></div>
 <div class="ttc" id="ebox_8h_html_aaadcd402f89629bffe2e127cff2258a3"><div class="ttname"><a href="ebox_8h.html#aaadcd402f89629bffe2e127cff2258a3">ebox_attrprocess_viatoms</a></div><div class="ttdeci">void ebox_attrprocess_viatoms(void *x, long argc, t_atom *argv)</div><div class="ttdoc">Change the attributes with an array of atoms. </div><div class="ttdef"><b>Definition:</b> <a href="ebox__attr_8c_source.html#l00037">ebox_attr.c:37</a></div></div>
@@ -1106,11 +1126,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="struct__rgb_html"><div class="ttname"><a href="struct__rgb.html">_rgb</a></div><div class="ttdoc">A rgb color structure. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00082">estruct.h:82</a></div></div>
 <div class="ttc" id="struct__ebox_html_a01fa53a36dc717c81755d805a868ad9d"><div class="ttname"><a href="struct__ebox.html#a01fa53a36dc717c81755d805a868ad9d">_ebox::b_boxparameters</a></div><div class="ttdeci">t_edrawparams b_boxparameters</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00471">estruct.h:471</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 18 2014 08:38:18 for CICM Wrapper by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_a715551f008a258e8c98b20824bea57f.html">ebox</a></li><li class="navelem"><b>ebox_handle.c</b></li>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:45 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

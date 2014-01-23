@@ -1,0 +1,47 @@
+#N canvas 674 71 683 423 10;
+#X obj -15 -114 cnv 40 552 40 empty empty c.spectrum~ 3 12 0 18 -228856
+-33289 0;
+#X text 197 268 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X obj 22 76 c.spectrum~ @size 250 100 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive spectrum @send (null)
+@window Hanning @amp Decibel @logfreq 1 @interval 100 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @spcolor 0.16995 0.355709 0.501945
+1;
+#X msg 307 137 amp \$1;
+#X msg 421 137 window \$1;
+#X obj 421 102 c.menu @size 100 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @hover 0 @items Square Hanning Hamming Blackman @states 0 0
+0 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0
+0 1;
+#X obj 307 102 c.menu @size 100 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @hover 0 @items Magnitude Power Decibel @states 0 0 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text -12 -92 A spectroscope;
+#X text -14 -71 c.spectrum~ is a spectroscope.;
+#X obj 307 175 s spectrum;
+#X obj 421 175 s spectrum;
+#X obj 537 175 s spectrum;
+#X obj 537 103 c.toggle @size 15 15 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5
+0.5 0.5 1;
+#X msg 537 137 logfreq \$1;
+#X obj 307 63 c.loadmess 2;
+#X obj 421 63 c.loadmess 1;
+#X obj 537 63 c.loadmess 1;
+#X obj 22 196 EzDacMono;
+#X obj 22 -39 EzSound;
+#X connect 3 0 9 0;
+#X connect 4 0 10 0;
+#X connect 5 0 4 0;
+#X connect 6 0 3 0;
+#X connect 12 0 13 0;
+#X connect 13 0 11 0;
+#X connect 14 0 6 0;
+#X connect 15 0 5 0;
+#X connect 16 0 12 0;
+#X connect 18 0 2 0;
+#X connect 18 0 17 0;

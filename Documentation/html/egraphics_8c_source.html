@@ -8,6 +8,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -65,6 +72,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>Globals</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('egraphics_8c_source.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -79,11 +101,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_f1848ecb810f36544fe7cc9ff59203d3.html">egraphics</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">egraphics.c</div>  </div>
@@ -132,7 +149,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    g-&gt;<a class="code" href="struct__elayer.html#a13dfb00aea95e0dc5b9d1297260a9280">e_color</a> = gensym(rgb_to_hex(*rgb));</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keywordtype">void</span> egraphics_set_color_hex(<a class="code" href="struct__elayer.html">t_elayer</a> *g, t_symbol *hex)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keywordtype">void</span> egraphics_set_color_hex(<a class="code" href="struct__elayer.html">t_elayer</a> *g, <a class="code" href="struct__symbol.html">t_symbol</a> *hex)</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;{</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    g-&gt;<a class="code" href="struct__elayer.html#a13dfb00aea95e0dc5b9d1297260a9280">e_color</a> = hex;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
@@ -270,6 +287,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="struct__hsl_html"><div class="ttname"><a href="struct__hsl.html">_hsl</a></div><div class="ttdoc">A hsl color structure. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00107">estruct.h:107</a></div></div>
 <div class="ttc" id="struct__egobj_html_a13dfb00aea95e0dc5b9d1297260a9280"><div class="ttname"><a href="struct__egobj.html#a13dfb00aea95e0dc5b9d1297260a9280">_egobj::e_color</a></div><div class="ttdeci">t_symbol * e_color</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00321">estruct.h:321</a></div></div>
 <div class="ttc" id="struct__egobj_html_a216eff6ab0216b35e215bd1c1b8fb0d0"><div class="ttname"><a href="struct__egobj.html#a216eff6ab0216b35e215bd1c1b8fb0d0">_egobj::e_npoints</a></div><div class="ttdeci">long e_npoints</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00325">estruct.h:325</a></div></div>
+<div class="ttc" id="struct__symbol_html"><div class="ttname"><a href="struct__symbol.html">_symbol</a></div><div class="ttdef"><b>Definition:</b> <a href="m__pd_8h_source.html#l00108">m_pd.h:108</a></div></div>
 <div class="ttc" id="struct__egobj_html_a4bf02b4e1a6c0c7723b5ed198f45e0b0"><div class="ttname"><a href="struct__egobj.html#a4bf02b4e1a6c0c7723b5ed198f45e0b0">_egobj::e_font</a></div><div class="ttdeci">t_efont e_font</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00327">estruct.h:327</a></div></div>
 <div class="ttc" id="struct__egobj_html_ab2c5a6f93a125c4862295e28aad05a74"><div class="ttname"><a href="struct__egobj.html#ab2c5a6f93a125c4862295e28aad05a74">_egobj::e_roundness</a></div><div class="ttdeci">float e_roundness</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00326">estruct.h:326</a></div></div>
 <div class="ttc" id="struct__elayer_html_ad5b10c31f81ecf9116b72b70b25f9e79"><div class="ttname"><a href="struct__elayer.html#ad5b10c31f81ecf9116b72b70b25f9e79">_elayer::e_number_objects</a></div><div class="ttdeci">long e_number_objects</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00352">estruct.h:352</a></div></div>
@@ -279,11 +297,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="struct__pt_html_ad0da36b2558901e21e7a30f6c227a45e"><div class="ttname"><a href="struct__pt.html#ad0da36b2558901e21e7a30f6c227a45e">_pt::x</a></div><div class="ttdeci">float x</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00045">estruct.h:45</a></div></div>
 <div class="ttc" id="struct__rgb_html"><div class="ttname"><a href="struct__rgb.html">_rgb</a></div><div class="ttdoc">A rgb color structure. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00082">estruct.h:82</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 18 2014 08:38:18 for CICM Wrapper by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_f1848ecb810f36544fe7cc9ff59203d3.html">egraphics</a></li><li class="navelem"><b>egraphics.c</b></li>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:45 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

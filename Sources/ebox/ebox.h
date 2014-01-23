@@ -98,6 +98,8 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key);
 void ebox_key(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
 void ebox_deserted(t_ebox *x);
 void ebox_dosave(t_ebox* x, t_binbuf *b);
+void ebox_pos(t_ebox* x, int newx, int newy);
+void ebox_vis(t_ebox* x, int vis);
 t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, long argc, t_atom *argv);
 t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, long argc, t_atom *argv);
 t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, long argc, t_atom *argv);

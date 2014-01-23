@@ -77,6 +77,7 @@ var searchData=
   ['eclass_5fproperties_5fdialog',['eclass_properties_dialog',['../eclass_8h.html#ae2d7c04f22ba0dc712af9bb8ca5c1a7f',1,'eclass_basic.c']]],
   ['eclass_5fregister',['eclass_register',['../eclass_8h.html#a57074143501bd646992500676fb99569',1,'eclass_basic.c']]],
   ['eclassbox_5fdspinit',['eclassbox_dspinit',['../eclass_8h.html#a5f6ef6904fa78d2feb5c2b5fe9d86976',1,'eclass_basic.c']]],
+  ['efft_2eh',['efft.h',['../efft_8h.html',1,'']]],
   ['egraphics_5ftypes',['egraphics_types',['../estruct_8h.html#acc57a0407e8e1eaa69028654742baf3f',1,'estruct.h']]],
   ['eobj_2eh',['eobj.h',['../eobj_8h.html',1,'']]],
   ['eobj_5fdspfree',['eobj_dspfree',['../eobj_8h.html#ad1252e017dafb1443ae6806909808d04',1,'eobj_dsp.c']]],

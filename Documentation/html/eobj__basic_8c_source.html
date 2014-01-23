@@ -8,6 +8,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -65,6 +72,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>Globals</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('eobj__basic_8c_source.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -79,11 +101,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_7bcfcc48ea8ecdee8f839dc9b497c3d6.html">eobj</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">eobj_basic.c</div>  </div>
@@ -129,8 +146,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">if</span> (c-&gt;c_class.c_patchable)</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        ((t_object *)x)-&gt;ob_inlet = 0;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        ((t_object *)x)-&gt;ob_outlet = 0;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        ((<a class="code" href="struct__text.html">t_object</a> *)x)-&gt;ob_inlet = 0;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        ((<a class="code" href="struct__text.html">t_object</a> *)x)-&gt;ob_outlet = 0;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    z = (<a class="code" href="struct__eobj.html">t_eobj</a> *)x;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    z-&gt;<a class="code" href="struct__eobj.html#a5959b8f1e0726d2a7d82a4d39ae803bb">o_nproxy</a> = 0;</div>
@@ -138,7 +155,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    sprintf(buffer,<span class="stringliteral">&quot;#%s%lx&quot;</span>, c-&gt;c_class.c_name-&gt;s_name, (<span class="keywordtype">long</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>)z);</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    z-&gt;o_id = gensym(buffer);</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    pd_bind(&amp;z-&gt;o_obj.ob_pd, z-&gt;o_id);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    eobj_attach_torouter((t_object *)z);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    eobj_attach_torouter((<a class="code" href="struct__text.html">t_object</a> *)z);</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    sprintf(buffer,<span class="stringliteral">&quot;.x%lx.c&quot;</span>, (<span class="keywordtype">long</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>)z-&gt;o_canvas);</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    z-&gt;o_canvas_id = gensym(buffer);</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    c-&gt;c_widget.w_dosave = (method)eobj_dosave;</div>
@@ -149,7 +166,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;{</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="struct__eobj.html">t_eobj</a>*     z = (<a class="code" href="struct__eobj.html">t_eobj</a> *)x;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    pd_unbind(&amp;z-&gt;<a class="code" href="struct__eobj.html#a8cffa8f3338cca7779ab922dab19227c">o_obj</a>.ob_pd, z-&gt;<a class="code" href="struct__eobj.html#a024c5a2d6d2dcdf531f05a0e711cce68">o_id</a>);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    eobj_detach_torouter((t_object *)x);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    eobj_detach_torouter((<a class="code" href="struct__text.html">t_object</a> *)x);</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
 <div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="eobj_8h.html#a3945be07a276dd22b13c86e6a4906a0e">   85</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="eobj_8h.html#a3945be07a276dd22b13c86e6a4906a0e">eobj_inletnew</a>(<span class="keywordtype">void</span>* x)</div>
@@ -172,7 +189,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">return</span> (<a class="code" href="struct__eclass.html">t_eclass</a> *)z-&gt;<a class="code" href="struct__eobj.html#a8cffa8f3338cca7779ab922dab19227c">o_obj</a>.te_g.g_pd;</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
-<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="eobj_8h.html#afc245e0b61a0420c6c776ad2a9337eb2">  126</a></span>&#160;t_symbol* <a class="code" href="eobj_8h.html#afc245e0b61a0420c6c776ad2a9337eb2">eobj_getclassname</a>(<span class="keywordtype">void</span>* x)</div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="eobj_8h.html#afc245e0b61a0420c6c776ad2a9337eb2">  126</a></span>&#160;<a class="code" href="struct__symbol.html">t_symbol</a>* <a class="code" href="eobj_8h.html#afc245e0b61a0420c6c776ad2a9337eb2">eobj_getclassname</a>(<span class="keywordtype">void</span>* x)</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;{</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <a class="code" href="struct__eobj.html">t_eobj</a> *z = (<a class="code" href="struct__eobj.html">t_eobj</a> *)x;</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">return</span> gensym(z-&gt;<a class="code" href="struct__eobj.html#a8cffa8f3338cca7779ab922dab19227c">o_obj</a>.te_g.g_pd-&gt;c_name-&gt;s_name);</div>
@@ -221,16 +238,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="struct__eobj_html_a4ac1a6544ba0591b83cbf38bc1349e74"><div class="ttname"><a href="struct__eobj.html#a4ac1a6544ba0591b83cbf38bc1349e74">_eobj::o_canvas</a></div><div class="ttdeci">t_canvas * o_canvas</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00406">estruct.h:406</a></div></div>
 <div class="ttc" id="eobj_8h_html"><div class="ttname"><a href="eobj_8h.html">eobj.h</a></div></div>
 <div class="ttc" id="eobj_8h_html_afc245e0b61a0420c6c776ad2a9337eb2"><div class="ttname"><a href="eobj_8h.html#afc245e0b61a0420c6c776ad2a9337eb2">eobj_getclassname</a></div><div class="ttdeci">t_symbol * eobj_getclassname(void *x)</div><div class="ttdoc">Retrieve the classe name of an eobj. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00126">eobj_basic.c:126</a></div></div>
+<div class="ttc" id="struct__symbol_html"><div class="ttname"><a href="struct__symbol.html">_symbol</a></div><div class="ttdef"><b>Definition:</b> <a href="m__pd_8h_source.html#l00108">m_pd.h:108</a></div></div>
 <div class="ttc" id="struct__eobj_html_a9435dcf0a1aed105a4c38d24dfc65dbf"><div class="ttname"><a href="struct__eobj.html#a9435dcf0a1aed105a4c38d24dfc65dbf">_eobj::o_proxy</a></div><div class="ttdeci">t_eproxy o_proxy[256]</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00408">estruct.h:408</a></div></div>
 <div class="ttc" id="eobj_8h_html_affefa86aef6fc6491c9878cf21906dbc"><div class="ttname"><a href="eobj_8h.html#affefa86aef6fc6491c9878cf21906dbc">eobj_new</a></div><div class="ttdeci">void * eobj_new(t_eclass *c)</div><div class="ttdoc">The eobj creation function. </div><div class="ttdef"><b>Definition:</b> <a href="eobj__basic_8c_source.html#l00036">eobj_basic.c:36</a></div></div>
+<div class="ttc" id="struct__text_html"><div class="ttname"><a href="struct__text.html">_text</a></div><div class="ttdef"><b>Definition:</b> <a href="m__pd_8h_source.html#l00232">m_pd.h:232</a></div></div>
 <div class="ttc" id="struct__eobj_html_a024c5a2d6d2dcdf531f05a0e711cce68"><div class="ttname"><a href="struct__eobj.html#a024c5a2d6d2dcdf531f05a0e711cce68">_eobj::o_id</a></div><div class="ttdeci">t_symbol * o_id</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00405">estruct.h:405</a></div></div>
 <div class="ttc" id="struct__eobj_html_a32a8921c66d63fcccc9df035f6b9160f"><div class="ttname"><a href="struct__eobj.html#a32a8921c66d63fcccc9df035f6b9160f">_eobj::o_current_proxy</a></div><div class="ttdeci">long o_current_proxy</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00410">estruct.h:410</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 18 2014 08:38:18 for CICM Wrapper by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_7bcfcc48ea8ecdee8f839dc9b497c3d6.html">eobj</a></li><li class="navelem"><b>eobj_basic.c</b></li>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:45 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

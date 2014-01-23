@@ -4,10 +4,17 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>PdEnhanced: Globals</title>
+<title>CICM Wrapper: Globals</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -22,9 +29,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">PdEnhanced
+   <div id="projectname">CICM Wrapper
    &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
+   <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
  </tr>
  </tbody>
@@ -86,24 +94,44 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals_0x66.html#index_f"><span>f</span></a></li>
       <li><a href="globals_0x67.html#index_g"><span>g</span></a></li>
       <li><a href="globals_0x68.html#index_h"><span>h</span></a></li>
+      <li><a href="globals_0x69.html#index_i"><span>i</span></a></li>
       <li><a href="globals_0x6a.html#index_j"><span>j</span></a></li>
       <li><a href="globals_0x6c.html#index_l"><span>l</span></a></li>
       <li><a href="globals_0x6d.html#index_m"><span>m</span></a></li>
+      <li><a href="globals_0x6e.html#index_n"><span>n</span></a></li>
       <li><a href="globals_0x6f.html#index_o"><span>o</span></a></li>
       <li><a href="globals_0x70.html#index_p"><span>p</span></a></li>
+      <li><a href="globals_0x71.html#index_q"><span>q</span></a></li>
       <li><a href="globals_0x72.html#index_r"><span>r</span></a></li>
       <li><a href="globals_0x73.html#index_s"><span>s</span></a></li>
       <li><a href="globals_0x74.html#index_t"><span>t</span></a></li>
+      <li><a href="globals_0x75.html#index_u"><span>u</span></a></li>
+      <li><a href="globals_0x76.html#index_v"><span>v</span></a></li>
+      <li><a href="globals_0x77.html#index_w"><span>w</span></a></li>
       <li><a href="globals_0x7a.html#index_z"><span>z</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('globals_0x62.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -120,28 +148,94 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="ecommon_8c.html#a0c96e74d82ce768dc821431475a809e6">ecommon.c</a>
 , <a class="el" href="ecommon_8h.html#a0c96e74d82ce768dc821431475a809e6">ecommon.h</a>
 </li>
+<li>binbuf_add()
+: <a class="el" href="m__pd_8h.html#a35695fba26e38a1fdc55509906e6cd91">m_pd.h</a>
+</li>
+<li>binbuf_addbinbuf()
+: <a class="el" href="m__pd_8h.html#a81431605d74078c3ed666fa19c76f5d2">m_pd.h</a>
+</li>
+<li>binbuf_addsemi()
+: <a class="el" href="m__pd_8h.html#a87f942d7b74eff92421c22c18bd656b7">m_pd.h</a>
+</li>
+<li>binbuf_addv()
+: <a class="el" href="m__pd_8h.html#ae83d46fca1b62349cf91c94e6d64d31c">m_pd.h</a>
+</li>
 <li>binbuf_append_attribute()
-: <a class="el" href="ecommon_8h.html#afdd4ccf2a10d0498398fa516fea63814">ecommon.h</a>
+: <a class="el" href="ecommon_8h.html#a154cf9d20bb67c945d033ac2bc685077">ecommon.h</a>
 , <a class="el" href="ecommon_8c.html#afdd4ccf2a10d0498398fa516fea63814">ecommon.c</a>
 </li>
-<li>binbuf_attr_process()
-: <a class="el" href="ewidget_8h.html#a5694b084d55088ea23938adedb7f5d35">ewidget.h</a>
+<li>binbuf_clear()
+: <a class="el" href="m__pd_8h.html#a593aca984c535cecf988957c53e573ed">m_pd.h</a>
+</li>
+<li>binbuf_duplicate()
+: <a class="el" href="m__pd_8h.html#a78808425aaef84b000ae0745f3904915">m_pd.h</a>
+</li>
+<li>binbuf_eval()
+: <a class="el" href="m__pd_8h.html#a0feb46e4aa683b5198791ddc9c829ade">m_pd.h</a>
+</li>
+<li>binbuf_evalfile()
+: <a class="el" href="m__pd_8h.html#af885502deda315c10ba9398507dc4b33">m_pd.h</a>
+</li>
+<li>binbuf_free()
+: <a class="el" href="m__pd_8h.html#add86d3e0c8c7f4e377301d5e2d855a69">m_pd.h</a>
 </li>
 <li>binbuf_get_attribute()
 : <a class="el" href="ecommon_8c.html#a5a87476f848a0a9daa40bbc2a7ba9d8c">ecommon.c</a>
-, <a class="el" href="ecommon_8h.html#a5a87476f848a0a9daa40bbc2a7ba9d8c">ecommon.h</a>
+, <a class="el" href="ecommon_8h.html#a9d130044d14865e619bbb11b6b04be8e">ecommon.h</a>
+</li>
+<li>binbuf_getnatom()
+: <a class="el" href="m__pd_8h.html#a8af19e103011b13caa30eba101044006">m_pd.h</a>
+</li>
+<li>binbuf_gettext()
+: <a class="el" href="m__pd_8h.html#a95c58d7d2e94ccc3d06ca8494711b4c5">m_pd.h</a>
+</li>
+<li>binbuf_getvec()
+: <a class="el" href="m__pd_8h.html#a60fd69560b908436db1b4357b4967993">m_pd.h</a>
+</li>
+<li>binbuf_new()
+: <a class="el" href="m__pd_8h.html#a3be9e183b1054e204ec896ff3e0ff7de">m_pd.h</a>
+</li>
+<li>binbuf_print()
+: <a class="el" href="m__pd_8h.html#a7863b58958e28e340493acb0f8886353">m_pd.h</a>
+</li>
+<li>binbuf_read()
+: <a class="el" href="m__pd_8h.html#aea33341c567c52dfc382f91fba125c36">m_pd.h</a>
+</li>
+<li>binbuf_read_via_canvas()
+: <a class="el" href="m__pd_8h.html#ad30d3c057530b897bca9cbf3f9b86c51">m_pd.h</a>
+</li>
+<li>binbuf_read_via_path()
+: <a class="el" href="m__pd_8h.html#aeabf944946f6a568c814699dc601b13d">m_pd.h</a>
+</li>
+<li>binbuf_realizedollsym()
+: <a class="el" href="m__pd_8h.html#a59020d95413b271e2e181eda1d162357">m_pd.h</a>
+</li>
+<li>binbuf_restore()
+: <a class="el" href="m__pd_8h.html#a237d44b667cf26ec0909eb54bf8f3ab9">m_pd.h</a>
+</li>
+<li>binbuf_text()
+: <a class="el" href="m__pd_8h.html#aef348b4a593ebd7d02e6bda61dbb0604">m_pd.h</a>
 </li>
 <li>binbuf_via_atoms()
-: <a class="el" href="ecommon_8h.html#acb81aa1a92e922bb2f1cad995a394014">ecommon.h</a>
-, <a class="el" href="ecommon_8c.html#acb81aa1a92e922bb2f1cad995a394014">ecommon.c</a>
+: <a class="el" href="ecommon_8c.html#acb81aa1a92e922bb2f1cad995a394014">ecommon.c</a>
+, <a class="el" href="ecommon_8h.html#acb81aa1a92e922bb2f1cad995a394014">ecommon.h</a>
+</li>
+<li>binbuf_write()
+: <a class="el" href="m__pd_8h.html#aacb6016dcafbb9b7c5547dd0f13bf6b2">m_pd.h</a>
+</li>
+<li>bug()
+: <a class="el" href="m__pd_8h.html#a3e4d99cc272e4a5cb21332f8bda27ec8">m_pd.h</a>
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 27 2013 09:25:27 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:06 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

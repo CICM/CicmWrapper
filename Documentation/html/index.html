@@ -8,6 +8,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -60,6 +67,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     </ul>
   </div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('index.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -79,24 +100,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Presentation </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>The CICM wrapper is a C/TK library that aims to facilitate the creation of objects for Pure Data. One of the main axis is the creation of graphical user interfaces and signal processing. Chocolate and Coffee are externals libraries not essential but very useful.</p>
-<p>Some good features :</p>
-<ul>
-<li>The inlets/outlets are automatically generated.</li>
-<li>The background color, border size, border color are easy to set.</li>
-<li>The GUI objects can be resized with click and drag.</li>
-<li>The graphics API use layers and "clip" the drawings within the box boundaries.</li>
-<li>The attributes (size, colors, values and whatever you want) are saved with the patch.</li>
-<li>The inlets/outlets are dynamics.</li>
-<li>The management of mouse motion and keys is simplified.</li>
-<li>The convertion from Max to Pd and from Pd to Max 6 is really easy. and a lot of other stuff, I can't enumerate everything ! </li>
-</ul>
+<div class="textblock"><p>The CICM wrapper is a C/TK library that aims to facilitate the creation of objects for Pure Data. One of the main axis is the creation of graphical user interfaces and signal processing. </p>
 </div></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 18 2014 08:38:18 for CICM Wrapper by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:45 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -36,7 +36,7 @@ void ebox_redraw(t_ebox *x)
 {
     t_eclass* c = eobj_getclass(x);
     
-    if(ebox_isdrawable(x))
+    if(ebox_isdrawable(x) && x->b_have_window)
     {
         ebox_invalidate_layer(x, gensym("eboxbd"));
         ebox_invalidate_layer(x, gensym("eboxio"));
@@ -489,9 +489,10 @@ void ebox_update(t_ebox *x)
 */
 void ebox_erase(t_ebox* x)
 {
-    if(x->b_obj.o_canvas && glist_isvisible(x->b_obj.o_canvas))
+    if(x->b_obj.o_canvas && glist_isvisible(x->b_obj.o_canvas) && x->b_have_window)
     {
         sys_vgui("destroy %s \n", x->b_drawing_id->s_name);
+        x->b_have_window = 0;
     }
     if(x->b_layers)
 	{

@@ -8,6 +8,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -66,6 +73,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('unioninletunion.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -80,7 +102,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
@@ -92,19 +113,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a034ef76c9ac47aad410c151b1a3072ed"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a034ef76c9ac47aad410c151b1a3072ed"></a>
-t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><b>iu_symto</b></td></tr>
+<a class="el" href="struct__symbol.html">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>iu_symto</b></td></tr>
 <tr class="separator:a034ef76c9ac47aad410c151b1a3072ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a765f6acce4359fbeaebd130279fdd899"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a765f6acce4359fbeaebd130279fdd899"></a>
-t_gpointer *&#160;</td><td class="memItemRight" valign="bottom"><b>iu_pointerslot</b></td></tr>
+<a class="el" href="struct__gpointer.html">t_gpointer</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>iu_pointerslot</b></td></tr>
 <tr class="separator:a765f6acce4359fbeaebd130279fdd899"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ea31644c26b1c46f9541353b293d3f6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4ea31644c26b1c46f9541353b293d3f6"></a>
 t_float *&#160;</td><td class="memItemRight" valign="bottom"><b>iu_floatslot</b></td></tr>
 <tr class="separator:a4ea31644c26b1c46f9541353b293d3f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a347eb160d2e6d55719beabdae51a2ac9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a347eb160d2e6d55719beabdae51a2ac9"></a>
-t_symbol **&#160;</td><td class="memItemRight" valign="bottom"><b>iu_symslot</b></td></tr>
+<a class="el" href="struct__symbol.html">t_symbol</a> **&#160;</td><td class="memItemRight" valign="bottom"><b>iu_symslot</b></td></tr>
 <tr class="separator:a347eb160d2e6d55719beabdae51a2ac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5bed621c07aa6838a05e81384933715"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa5bed621c07aa6838a05e81384933715"></a>
-t_blob **&#160;</td><td class="memItemRight" valign="bottom"><b>iu_blobslot</b></td></tr>
+<a class="el" href="struct__blob.html">t_blob</a> **&#160;</td><td class="memItemRight" valign="bottom"><b>iu_blobslot</b></td></tr>
 <tr class="separator:aa5bed621c07aa6838a05e81384933715"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b62c62214438358765fee52d88ac7c5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4b62c62214438358765fee52d88ac7c5"></a>
 t_float&#160;</td><td class="memItemRight" valign="bottom"><b>iu_floatsignalvalue</b></td></tr>
@@ -117,11 +138,15 @@ t_float&#160;</td><td class="memItemRight" valign="bottom"><b>iu_floatsignalvalu
 <li>/Users/Pierre/SourceTree/PdEnhanced/Sources/ecommon/<a class="el" href="ecommon_8h_source.html">ecommon.h</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 18 2014 08:38:18 for CICM Wrapper by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="unioninletunion.html">inletunion</a></li>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:45 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

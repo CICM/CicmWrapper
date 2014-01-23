@@ -8,6 +8,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -65,6 +72,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>Globals</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('eclass_8h.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -79,11 +101,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_26b4c6508c94607a9ec0ebc023e49a5e.html">eclass</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
@@ -215,7 +232,7 @@ Macros</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a1e5fa6d3afbb8310e34afb303609507e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1e5fa6d3afbb8310e34afb303609507e"></a>
 <a class="el" href="struct__eclass.html">t_eclass</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eclass_8h.html#a1e5fa6d3afbb8310e34afb303609507e">eclass_new</a> (char *name, method newmethod, method freemethod, size_t size, int flags, t_atomtype arg1, int arg2)</td></tr>
-<tr class="memdesc:a1e5fa6d3afbb8310e34afb303609507e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate the memory and initialize a nex eclass. <br/></td></tr>
+<tr class="memdesc:a1e5fa6d3afbb8310e34afb303609507e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate the memory and initialize a new eclass. <br/></td></tr>
 <tr class="separator:a1e5fa6d3afbb8310e34afb303609507e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b8e4878cad18839be22fe997241096a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9b8e4878cad18839be22fe997241096a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eclass_8h.html#a9b8e4878cad18839be22fe997241096a">eclass_init</a> (<a class="el" href="struct__eclass.html">t_eclass</a> *c, long flags)</td></tr>
@@ -234,7 +251,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecla
 <tr class="memdesc:ad062dba1c1e3041345c4e425ecc76c02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add methods to an eclass. <br/></td></tr>
 <tr class="separator:ad062dba1c1e3041345c4e425ecc76c02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57074143501bd646992500676fb99569"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a57074143501bd646992500676fb99569"></a>
-t_pd_err&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eclass_8h.html#a57074143501bd646992500676fb99569">eclass_register</a> (t_symbol *name, <a class="el" href="struct__eclass.html">t_eclass</a> *c)</td></tr>
+t_pd_err&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eclass_8h.html#a57074143501bd646992500676fb99569">eclass_register</a> (<a class="el" href="struct__symbol.html">t_symbol</a> *name, <a class="el" href="struct__eclass.html">t_eclass</a> *c)</td></tr>
 <tr class="memdesc:a57074143501bd646992500676fb99569"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the eclass name space BOX or NOBOX. <br/></td></tr>
 <tr class="separator:a57074143501bd646992500676fb99569"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2d7c04f22ba0dc712af9bb8ca5c1a7f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae2d7c04f22ba0dc712af9bb8ca5c1a7f"></a>
@@ -245,30 +262,30 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecla
 void&#160;</td><td class="memItemRight" valign="bottom"><b>ewidget_init</b> (<a class="el" href="struct__eclass.html">t_eclass</a> *c)</td></tr>
 <tr class="separator:adadf33675042b107ebc7dbb4e7a7c882"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d274ec1f74c8e705cc43f3daba657a2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5d274ec1f74c8e705cc43f3daba657a2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ewidget_getrect</b> (t_gobj *z, t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ewidget_getrect</b> (<a class="el" href="struct__gobj.html">t_gobj</a> *z, t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2)</td></tr>
 <tr class="separator:a5d274ec1f74c8e705cc43f3daba657a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04ffdc05f9b5fe198111a38fc9e58a7e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a04ffdc05f9b5fe198111a38fc9e58a7e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ewidget_vis</b> (t_gobj *z, t_glist *glist, int vis)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ewidget_vis</b> (<a class="el" href="struct__gobj.html">t_gobj</a> *z, t_glist *glist, int vis)</td></tr>
 <tr class="separator:a04ffdc05f9b5fe198111a38fc9e58a7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a690f8b60964e45a76186da98fa5b021f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a690f8b60964e45a76186da98fa5b021f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ewidget_displace</b> (t_gobj *z, t_glist *glist, int dx, int dy)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ewidget_displace</b> (<a class="el" href="struct__gobj.html">t_gobj</a> *z, t_glist *glist, int dx, int dy)</td></tr>
 <tr class="separator:a690f8b60964e45a76186da98fa5b021f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abfd677f99bc223c74d91f232c154aaf9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abfd677f99bc223c74d91f232c154aaf9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ewidget_select</b> (t_gobj *z, t_glist *glist, int selected)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ewidget_select</b> (<a class="el" href="struct__gobj.html">t_gobj</a> *z, t_glist *glist, int selected)</td></tr>
 <tr class="separator:abfd677f99bc223c74d91f232c154aaf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0ea0c121b81ab9fe0b5c2ca233858e6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae0ea0c121b81ab9fe0b5c2ca233858e6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ewidget_delete</b> (t_gobj *z, t_glist *glist)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ewidget_delete</b> (<a class="el" href="struct__gobj.html">t_gobj</a> *z, t_glist *glist)</td></tr>
 <tr class="separator:ae0ea0c121b81ab9fe0b5c2ca233858e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c805756b62c34be223985281555ee8d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9c805756b62c34be223985281555ee8d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eclass_8h.html#a9c805756b62c34be223985281555ee8d">eclass_new_attr_typed</a> (<a class="el" href="struct__eclass.html">t_eclass</a> *c, char *attrname, char *type, long size, long maxsize, long flags, long offset)</td></tr>
 <tr class="memdesc:a9c805756b62c34be223985281555ee8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate the memory and intializa an new attribute for an eclass (You should prefer to use the MACROS) <br/></td></tr>
 <tr class="separator:a9c805756b62c34be223985281555ee8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a936d173d0cd9012a8004758873f2073a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a936d173d0cd9012a8004758873f2073a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eclass_8h.html#a936d173d0cd9012a8004758873f2073a">eclass_attr_setter</a> (t_object *x, t_symbol *s, int argc, t_atom *argv)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eclass_8h.html#a936d173d0cd9012a8004758873f2073a">eclass_attr_setter</a> (<a class="el" href="struct__text.html">t_object</a> *x, <a class="el" href="struct__symbol.html">t_symbol</a> *s, int argc, <a class="el" href="struct__atom.html">t_atom</a> *argv)</td></tr>
 <tr class="memdesc:a936d173d0cd9012a8004758873f2073a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to set the attributes. <br/></td></tr>
 <tr class="separator:a936d173d0cd9012a8004758873f2073a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a587cfc2752d21823bf3eb7df7e96ead4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a587cfc2752d21823bf3eb7df7e96ead4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eclass_8h.html#a587cfc2752d21823bf3eb7df7e96ead4">eclass_attr_getter</a> (t_object *x, t_symbol *s, int *argc, t_atom **argv)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eclass_8h.html#a587cfc2752d21823bf3eb7df7e96ead4">eclass_attr_getter</a> (<a class="el" href="struct__text.html">t_object</a> *x, <a class="el" href="struct__symbol.html">t_symbol</a> *s, int *argc, <a class="el" href="struct__atom.html">t_atom</a> **argv)</td></tr>
 <tr class="memdesc:a587cfc2752d21823bf3eb7df7e96ead4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to get the attributes. <br/></td></tr>
 <tr class="separator:a587cfc2752d21823bf3eb7df7e96ead4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a124e18305bf57d85df1fb37b35223703"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a124e18305bf57d85df1fb37b35223703"></a>
@@ -331,11 +348,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecla
 
 <p>Definition in file <a class="el" href="eclass_8h_source.html">eclass.h</a>.</p>
 </div></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 18 2014 08:38:18 for CICM Wrapper by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_26b4c6508c94607a9ec0ebc023e49a5e.html">eclass</a></li><li class="navelem"><a class="el" href="eclass_8h.html">eclass.h</a></li>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:45 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>
