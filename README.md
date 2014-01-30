@@ -21,12 +21,16 @@ and a lot of other stuff, I can't enumerate everything !
 
 #### To compile :
 
-Add the sources files to your project. Include "pd_enhanced.h" file instead of "m_pd.h". Compile like any Pd Project.
+Add the sources files to your project. Include "cicm_wrapper.h" file instead of "m_pd.h". Compile like any Pd Project.
 You can use the projects to compile the externals : XCode for Mac Os, Visual Studio for Windows and Code::Block for Linux.
 Projects are compiled against Pd Extented 0.43 then the externals are not compatible with older versions of Pd but are compatible
 with Pd 0.45. Note that if you compile against Pd 0.45, the externals won't work with Pd 0.43.
 
-###### XCode && Code::Block projects :
+###### XCode projects :
+
+The projects don't have any dependency except the CICM Wrapper. If you want to compile a project, just open it and compile. You can use the workspaces to compile all the chocolate objets or all the coffee objects.
+
+###### Code::Block projects :
 
 The frameworks and headers search paths are : "$SRCROOT/../../../../SDKs/pd-extended/pd/src".
 The "pd-extented" folder contains the sources of Pure Data. If you want to contribute to the project, it would be better to keep the same path.
@@ -51,6 +55,7 @@ To create pd.lib :
 <p>You will have a pd.lib in the Pure Data installation folder and be able to compile.</p>
 
 #### ToDo :
+
 - Update the properties window : attributes order, categories, etc. (low)
 - Find the connection with the object to send a "count" (like Max count) in dsp method. (medium)
 - Secure the resize i/o method. (low)

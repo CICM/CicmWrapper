@@ -3,21 +3,21 @@
 -33289 0;
 #X text -97 -110 A bang... that's all.;
 #X obj -51 -13 delay 500;
-#X obj -51 -43 c.bang @size 16 16 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj -51 -43 c.bang @size 17 17 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
 #X obj -51 53 delay 500;
-#X obj -51 23 c.bang @size 16 16 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj -51 23 c.bang @size 17 17 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
 #X obj 77 53 delay 500;
-#X obj 77 23 c.bang @size 16 16 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 77 23 c.bang @size 17 17 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
 #X obj 77 -13 delay 500;
-#X obj 77 -43 c.bang @size 16 16 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 77 -43 c.bang @size 17 17 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
 #X text -16 127 Chocolate by Pierre Guillot | CICM - Université Paris
 8;
 #X text -99 -88 c.bang do nothing more than vanilla bang for the moment...

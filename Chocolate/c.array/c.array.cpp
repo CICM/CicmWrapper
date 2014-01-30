@@ -36,12 +36,9 @@ typedef struct _carray
 	t_rgba		f_color_border;
 	
     t_symbol*   f_name;
-    float       f_ms;
-    long        f_channels;
-    
-    t_clock*    f_clock;
-    char        f_active;
-    
+    t_garray*   f_array;
+    t_float*    f_buffer;
+    int         f_buffer_size;
 } t_carray;
 
 t_eclass *carray_class;
@@ -53,12 +50,14 @@ void carray_assist(t_carray *x, void *b, long m, long a, char *s);
 void carray_output(t_carray *x, t_symbol* s, long argc, t_atom* argv);
 
 t_pd_err carray_notify(t_carray *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
+t_pd_err carray_buffer_set(t_carray *x, t_eattr *attr, long argc, t_atom* argv);
 
 void carray_getdrawparams(t_carray *x, t_object *patcherview, t_edrawparams *params);
 void carray_oksize(t_carray *x, t_rect *newrect);
 
 void carray_paint(t_carray *x, t_object *view);
 void draw_background(t_carray *x,  t_object *view, t_rect *rect);
+void draw_buffer(t_carray *x, t_object *view, t_rect *rect);
 
 void carray_mousedown(t_carray *x, t_object *patcherview, t_pt pt, long modifiers);
 void carray_mouseup(t_carray *x, t_object *patcherview, t_pt pt, long modifiers);
@@ -90,6 +89,12 @@ extern "C" void setup_c0x2earray(void)
     CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "16. 16.");
     
+    CLASS_ATTR_SYMBOL               (c, "array", 0, t_carray, f_name);
+    CLASS_ATTR_ACCESSORS            (c, "array", NULL, carray_buffer_set);
+	CLASS_ATTR_LABEL                (c, "array", 0, "Array Name");
+	CLASS_ATTR_ORDER                (c, "array", 0, "1");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "array", 0, "(null)");
+    
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_carray, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
@@ -117,12 +122,10 @@ void *carray_new(t_symbol *s, int argc, t_atom *argv)
     
 	x = (t_carray *)eobj_new(carray_class);
     flags = 0
-    | EBOX_GROWLINK
+    | EBOX_GROWINDI
     ;
 	ebox_new((t_ebox *)x, flags);
     x->f_out = (t_outlet *)bangout((t_object *)x);
-    x->f_active = 0;
-    x->f_clock          = clock_new(x,(t_method)carray_mouseup);
 	ebox_attrprocess_viabinbuf(x, d);
 	ebox_ready((t_ebox *)x);
 	return (x);
@@ -133,7 +136,7 @@ void carray_getdrawparams(t_carray *x, t_object *patcherview, t_edrawparams *par
 	params->d_borderthickness   = 2;
 	params->d_cornersize        = 2;
     params->d_bordercolor       = x->f_color_border;
-    params->d_boxfillcolor      = x->f_color_border;
+    params->d_boxfillcolor      = x->f_color_background;
 }
 
 void carray_oksize(t_carray *x, t_rect *newrect)
@@ -148,17 +151,15 @@ void carray_oksize(t_carray *x, t_rect *newrect)
 
 void carray_output(t_carray *x, t_symbol* s, long argc, t_atom* argv)
 {
-    x->f_active = 1;
+    post("Array : %s, Size : %i", x->f_name->s_name, x->f_buffer_size);
+    ebox_invalidate_layer((t_ebox*)x, gensym("buffer_layer"));
     ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
     ebox_redraw((t_ebox *)x);
-    
-    clock_delay(x->f_clock, 100);
 }
 
 void carray_free(t_carray *x)
 {
 	ebox_free((t_ebox *)x);
-    clock_free(x->f_clock);
 }
 
 void carray_assist(t_carray *x, void *b, long m, long a, char *s)
@@ -184,6 +185,7 @@ void carray_paint(t_carray *x, t_object *view)
 	t_rect rect;
 	ebox_get_rect_for_view((t_ebox *)x, &rect);
     draw_background(x, view, &rect);
+    draw_buffer(x, view, &rect);
 }
 
 void draw_background(t_carray *x, t_object *view, t_rect *rect)
@@ -197,20 +199,81 @@ void draw_background(t_carray *x, t_object *view, t_rect *rect)
 	ebox_paint_layer((t_ebox *)x, gensym("background_layer"), 0., 0.);
 }
 
+void draw_buffer(t_carray *x, t_object *view, t_rect *rect)
+{
+    int i;
+    float x1, y1;
+	t_elayer *g = ebox_start_layer((t_ebox *)x, gensym("buffer_layer"), rect->width, rect->height);
+    
+	if(g)
+	{
+        post("%ld %i", (long)x->f_buffer, x->f_buffer_size);
+        if(x->f_buffer_size && x->f_buffer)
+        {
+            egraphics_set_line_width(g, 2);
+            y1 = (x->f_buffer[0] * 0.5f + 0.5f) * rect->height;
+            egraphics_move_to(g, 0, rect->height - x->f_buffer[0] * rect->height);
+            for(i = 1; i < x->f_buffer_size; i++)
+            {
+                x1 = ((float)i / (float)x->f_buffer_size) * rect->width;
+                y1 = (x->f_buffer[i] * 0.5f + 0.5f) * rect->height;
+                egraphics_line_to(g, x1, y1);
+                post("%f", x->f_buffer[i]);
+            }
+            egraphics_stroke(g);
+            
+            post("array draw");
+        }
+        
+        ebox_end_layer((t_ebox*)x, gensym("buffer_layer"));
+	}
+	ebox_paint_layer((t_ebox *)x, gensym("buffer_layer"), 0., 0.);
+}
+
 void carray_mousedown(t_carray *x, t_object *patcherview, t_pt pt, long modifiers)
 {
-    x->f_active = 1;
     ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
     ebox_redraw((t_ebox *)x);
 }
 
 void carray_mouseup(t_carray *x, t_object *patcherview, t_pt pt, long modifiers)
 {
-    x->f_active = 0;
     ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
     ebox_redraw((t_ebox *)x);
 }
 
+t_pd_err carray_buffer_set(t_carray *x, t_eattr *attr, long argc, t_atom* argv)
+{
+    int i;
+    x->f_array = NULL;
+    if(argc && argv && atom_gettype(argv) == A_SYM)
+    {
+        x->f_name = atom_getsym(argv);
+        if(!(x->f_array  = (t_garray *)pd_findbyclass(x->f_name, garray_class)))
+        {
+            x->f_array = NULL;
+            x->f_name = gensym("(null)");
+            x->f_buffer_size = 0;
+            x->f_buffer = NULL;
+        }
+        else if(!garray_getfloatarray(x->f_array, &x->f_buffer_size, &x->f_buffer))
+        {
+            x->f_array = NULL;
+            x->f_name = gensym("(null)");
+            x->f_buffer_size = 0;
+            x->f_buffer = NULL;
+        }
+        else
+        {
+            for(i = 0; i < x->f_buffer_size; i++)
+                post("%f", x->f_buffer[i]);
+            ebox_invalidate_layer((t_ebox*)x, gensym("buffer_layer"));
+            ebox_redraw((t_ebox*)x);
+        }
+    }
+
+    return 0;
+}
 
 
 

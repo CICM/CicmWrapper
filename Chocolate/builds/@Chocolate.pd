@@ -1,4 +1,4 @@
-#N canvas 66 60 1290 531 10;
+#N canvas 218 188 1290 531 10;
 #X obj -39 -85 cnv 40 552 40 empty empty Chocolate 3 12 0 18 -228856
 -33289 0;
 #X msg 637 -3 attrprint;

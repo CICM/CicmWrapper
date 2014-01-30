@@ -164,6 +164,10 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                 
                 ebox_redraw(z);
             }
+            if(eobj_isbox(x) && ebox_isdrawable((t_ebox*) x))
+            {
+                canvas_dirty(eobj_getcanvas(x), 1);
+            }
         }
     }
 }

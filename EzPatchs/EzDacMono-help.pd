@@ -1,0 +1,11 @@
+#N canvas 613 175 560 271 10;
+#X obj -100 -132 cnv 40 552 40 empty empty EzDacMono 3 12 0 18 -228856
+-33289 0;
+#X obj -54 10 EzDacMono;
+#X text -97 -110 An abstraction for dac;
+#X obj -54 -27 osc~ 220;
+#X text -85 105 CICM Libraries | CICM - Université Paris 8 - Labex
+Arts H2H;
+#X text -99 -89 EzDacMono is an abstraction to output one signal to
+a stereo output.;
+#X connect 3 0 1 0;

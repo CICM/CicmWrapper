@@ -701,7 +701,7 @@
 		B951C93359D9298F438E6CFB /* juce_AiffAudioFormat.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_AiffAudioFormat.cpp; path = ../../JuceLibraryCode/modules/juce_audio_formats/codecs/juce_AiffAudioFormat.cpp; sourceTree = SOURCE_ROOT; };
 		B95F2A6C8166E2E872DFF73C /* juce_ApplicationCommandTarget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ApplicationCommandTarget.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/commands/juce_ApplicationCommandTarget.h; sourceTree = SOURCE_ROOT; };
 		B97C203D65F98CB35E37A62A /* juce_GenericAudioProcessorEditor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_GenericAudioProcessorEditor.cpp; path = ../../JuceLibraryCode/modules/juce_audio_processors/processors/juce_GenericAudioProcessorEditor.cpp; sourceTree = SOURCE_ROOT; };
-		B986FF00A07FD74A31E87565 /* jbang.component */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jbang.component; sourceTree = BUILT_PRODUCTS_DIR; };
+		B986FF00A07FD74A31E87565 /* jbang.pd_darwin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jbang.pd_darwin; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9A3BB091AE54DA2110FCD7A /* juce_FlacAudioFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_FlacAudioFormat.h; path = ../../JuceLibraryCode/modules/juce_audio_formats/codecs/juce_FlacAudioFormat.h; sourceTree = SOURCE_ROOT; };
 		B9A667AAB22C9F19101A477B /* juce_TargetPlatform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_TargetPlatform.h; path = ../../JuceLibraryCode/modules/juce_core/system/juce_TargetPlatform.h; sourceTree = SOURCE_ROOT; };
 		B9BB04AC3DB4ED2FFF043754 /* juce_LocalisedStrings.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_LocalisedStrings.cpp; path = ../../JuceLibraryCode/modules/juce_core/text/juce_LocalisedStrings.cpp; sourceTree = SOURCE_ROOT; };
@@ -2300,7 +2300,7 @@
 		B4E61129384FC30D1768432E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B986FF00A07FD74A31E87565 /* jbang.component */,
+				B986FF00A07FD74A31E87565 /* jbang.pd_darwin */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2717,7 +2717,7 @@
 			name = jbang;
 			productInstallPath = "$(HOME)/Library/Audio/Plug-Ins/Components/";
 			productName = jbang;
-			productReference = B986FF00A07FD74A31E87565 /* jbang.component */;
+			productReference = B986FF00A07FD74A31E87565 /* jbang.pd_darwin */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -2854,7 +2854,7 @@
 				OTHER_LDFLAGS = "-bundle";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\"";
 				SDKROOT_ppc = macosx10.5;
-				WRAPPER_EXTENSION = component;
+				WRAPPER_EXTENSION = pd_darwin;
 			};
 			name = Debug;
 		};
@@ -2907,7 +2907,7 @@
 				OTHER_LDFLAGS = "-bundle";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\"";
 				SDKROOT_ppc = macosx10.5;
-				WRAPPER_EXTENSION = component;
+				WRAPPER_EXTENSION = pd_darwin;
 			};
 			name = Release;
 		};

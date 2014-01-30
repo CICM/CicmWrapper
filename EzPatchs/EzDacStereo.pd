@@ -1,0 +1,113 @@
+#N canvas 735 62 658 474 10;
+#X obj 103 103 c.blackboard @size 86 83 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @chalkmode
+1 @bgcolor 0.897178 0.897178 0.897178 1 @bdcolor 0.897178 0.897178
+0.897178 1;
+#X obj 170 167 c.toggle @size 15 15 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5
+0.5 0.5 1;
+#X obj 287 21 inlet~;
+#X obj 347 21 inlet~;
+#X obj 107 107 c.gain~ @size 78 14 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 244 156 c.gain~ @size 83 14 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 344 156 c.gain~ @size 83 14 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 298 223 dac~;
+#X obj 107 147 c.meter~ @size 78 14 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6
+0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
+1 0.6 0 0.8 @overcolor 1 0 0 0.8;
+#X obj 107 127 c.meter~ @size 78 14 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6
+0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
+1 0.6 0 0.8 @overcolor 1 0 0 0.8;
+#X msg 170 223 \; pd dsp \$1;
+#X obj 234 238 r pd;
+#X obj 278 270 route dsp;
+#X msg 269 309 set \$1;
+#X obj 406 335 +;
+#X msg 402 397 \; pd audio-properties;
+#X obj 405 362 sel 2;
+#X obj 422 234 > 5;
+#X obj 502 233 < 63;
+#X obj 422 200 unpack 0 0;
+#X obj 412 308 * 0;
+#X obj 462 308 * 0;
+#X obj 435 274 t b f;
+#X obj 485 274 t b f;
+#X obj 485 335 t b f;
+#X obj 455 234 > 65;
+#X obj 542 233 < 82;
+#X obj 470 71 loadbang;
+#X obj 469 145 metro 20;
+#X msg 464 112 1;
+#X msg 535 140 0;
+#X obj 496 103 delay 2000;
+#X msg 17 -21 clear \, color rgb 0.5 0.5 0.5 \, text 8 69 DSP : \$1
+% \, fill 0 \, width 2 \, rect 5 65 63 82;
+#X msg 409 129 0;
+#X obj 142 328 cputime;
+#X obj 142 272 metro 1000;
+#X obj 142 300 t b b;
+#X obj 142 388 * 0.1;
+#X obj 142 357 int;
+#X msg 585 147 \; pd dsp 0;
+#X connect 0 0 19 0;
+#X connect 1 0 10 0;
+#X connect 2 0 5 0;
+#X connect 3 0 6 0;
+#X connect 4 1 5 0;
+#X connect 4 1 6 0;
+#X connect 5 0 7 0;
+#X connect 5 0 8 0;
+#X connect 6 0 7 1;
+#X connect 6 0 9 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 12 0 35 0;
+#X connect 13 0 1 0;
+#X connect 14 0 16 0;
+#X connect 16 0 15 0;
+#X connect 17 0 20 0;
+#X connect 18 0 22 0;
+#X connect 19 0 17 0;
+#X connect 19 0 18 0;
+#X connect 19 1 25 0;
+#X connect 19 1 26 0;
+#X connect 20 0 14 0;
+#X connect 21 0 24 0;
+#X connect 22 0 20 0;
+#X connect 22 1 20 1;
+#X connect 23 0 21 0;
+#X connect 23 1 21 1;
+#X connect 24 0 14 0;
+#X connect 24 1 14 1;
+#X connect 25 0 21 0;
+#X connect 26 0 23 0;
+#X connect 27 0 29 0;
+#X connect 27 0 31 0;
+#X connect 27 0 39 0;
+#X connect 28 0 33 0;
+#X connect 29 0 28 0;
+#X connect 30 0 28 0;
+#X connect 31 0 30 0;
+#X connect 32 0 0 0;
+#X connect 33 0 32 0;
+#X connect 34 0 38 0;
+#X connect 35 0 36 0;
+#X connect 36 0 34 0;
+#X connect 36 1 34 1;
+#X connect 37 0 32 0;
+#X connect 38 0 37 0;
+#X coords 0 -1 1 1 91 88 2 100 100;

@@ -1,0 +1,14 @@
+#N canvas 613 175 559 222 10;
+#X obj -100 -132 cnv 40 552 40 empty empty EzDsp 3 12 0 18 -228856
+-33289 0;
+#X text -83 40 CICM Libraries | CICM - Université Paris 8 - Labex Arts
+H2H;
+#X obj -72 -49 EzDSP;
+#X obj 55 -50 osc~ 0.1;
+#X obj 55 -12 c.number~ @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X text -97 -110 An abstraction for dsp;
+#X text -99 -89 EzDsp is an abstraction to turn on or off the dsp;
+#X connect 3 0 4 0;
