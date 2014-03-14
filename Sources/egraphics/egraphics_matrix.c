@@ -43,10 +43,14 @@ void egraphics_set_matrix(t_elayer *g, const t_matrix* matrix)
 
 void egraphics_rotate(t_elayer *g, float angle)
 {
-    g->e_matrix.xx += cosf(angle);
-    g->e_matrix.yx += sinf(angle);
-    g->e_matrix.xy += -sinf(angle);
-    g->e_matrix.yy += cosf(angle);
+    const float cosRad = cosf(angle);
+    const float sinRad = sinf(angle);
+    t_matrix temp = g->e_matrix;
+    
+    g->e_matrix.xx = temp.xx * cosRad - temp.yx * sinRad;
+    g->e_matrix.yx = temp.xx * sinRad + temp.yx * cosRad;
+    g->e_matrix.xy = temp.xy * cosRad - temp.yy * sinRad;
+    g->e_matrix.yy = temp.xy * sinRad + temp.yy * cosRad;
 }
 
 

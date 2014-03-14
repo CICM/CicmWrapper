@@ -251,9 +251,9 @@ void eobj_dsp(void *x, t_signal **sp)
             box->d_dsp_vectors[i] = (t_int)(sp[i - 6]->s_vec);
         }
         if(box->d_perform_method != NULL && box->d_misc == E_INPLACE)
-            dsp_addv(eobj_perform_box, (int)obj->d_dsp_size, obj->d_dsp_vectors);
+            dsp_addv(eobj_perform_box, (int)box->d_dsp_size, box->d_dsp_vectors);
         else if(box->d_perform_method != NULL && box->d_misc == E_NO_INPLACE)
-            dsp_addv(eobj_perform_box_no_inplace, (int)obj->d_dsp_size, obj->d_dsp_vectors);
+            dsp_addv(eobj_perform_box_no_inplace, (int)box->d_dsp_size, box->d_dsp_vectors);
     }
     else
     {
