@@ -63,10 +63,13 @@
 
 #define ASSIST_INLET        1
 #define ASSIST_OUTLET       2
+
 #define E_NO_INPLACE        1
 #define E_PUT_LAST          2
 #define E_PUT_FIRST         4
 #define E_IGNORE_DISABLE    8
+#define E_NO_INPLACE_REVERSED 16
+
 #define CLASS_OBJ           gensym("obj")
 #define CLASS_BOX			gensym("box")
 
