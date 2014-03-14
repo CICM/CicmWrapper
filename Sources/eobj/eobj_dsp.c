@@ -54,6 +54,7 @@ void eobj_dspsetup(void *x, long nins, long nouts)
             box->d_outlets[i] = outlet_new(&box->b_obj.o_obj, &s_signal);
         
         box->d_dsp_size = obj_nsiginlets(&box->b_obj.o_obj) + obj_nsigoutlets(&box->b_obj.o_obj) + 6;
+        box->d_misc = E_INPLACE;
     }
     else
     {
@@ -68,8 +69,9 @@ void eobj_dspsetup(void *x, long nins, long nouts)
             obj->d_outlets[i] = outlet_new(&obj->d_obj.o_obj, &s_signal);
         
         obj->d_dsp_size = obj_nsiginlets(&obj->d_obj.o_obj) + obj_nsigoutlets(&obj->d_obj.o_obj) + 6;
+        obj->d_misc = E_INPLACE;
     }
-    
+
 }
 
 //! Free an edspobj (note that if the object is also an UI, you don't need to call ebox_free())
@@ -248,8 +250,10 @@ void eobj_dsp(void *x, t_signal **sp)
         {
             box->d_dsp_vectors[i] = (t_int)(sp[i - 6]->s_vec);
         }
-        
-        dsp_addv(eobj_perform_box, (int)box->d_dsp_size, box->d_dsp_vectors);
+        if(box->d_perform_method != NULL && box->d_misc == E_INPLACE)
+            dsp_addv(eobj_perform_box, (int)obj->d_dsp_size, obj->d_dsp_vectors);
+        else if(box->d_perform_method != NULL && box->d_misc == E_NO_INPLACE)
+            dsp_addv(eobj_perform_box_no_inplace, (int)obj->d_dsp_size, obj->d_dsp_vectors);
     }
     else
     {
@@ -269,8 +273,10 @@ void eobj_dsp(void *x, t_signal **sp)
         {
             obj->d_dsp_vectors[i] = (t_int)(sp[i - 6]->s_vec);
         }
-        
-        dsp_addv(eobj_perform, (int)obj->d_dsp_size, obj->d_dsp_vectors);
+        if(obj->d_perform_method != NULL && obj->d_misc == E_INPLACE)
+            dsp_addv(eobj_perform, (int)obj->d_dsp_size, obj->d_dsp_vectors);
+        else if(obj->d_perform_method != NULL && obj->d_misc == E_NO_INPLACE)
+            dsp_addv(eobj_perform_no_inplace, (int)obj->d_dsp_size, obj->d_dsp_vectors);
     }
     
 	free(count);
@@ -284,7 +290,6 @@ void eobj_dsp(void *x, t_signal **sp)
 */
 t_int* eobj_perform(t_int* w)
 {
-	int i, j;
     t_edspobj* x            = (t_edspobj *)(w[1]);
     long nsamples           = (long)(w[2]);
     long flag               = (long)(w[3]);
@@ -294,25 +299,34 @@ t_int* eobj_perform(t_int* w)
     t_float** ins           = (t_float **)(&w[7]);
     t_float** outs          = (t_float **)(&w[7 + nins]);
     
-    if(x->d_misc == E_NO_INPLACE)
+    x->d_perform_method(x, NULL, ins, nins, outs, nouts, nsamples, flag, user_p);
+
+    return w + (x->d_dsp_size + 1);
+}
+
+//! The perform method for no inplace(PRIVATE)
+/*
+ \ @memberof    edspobj
+ \ @param w     The pointer sent by the dsp method
+ \ @return      Nothing
+ */
+t_int* eobj_perform_no_inplace(t_int* w)
+{
+    int i;
+    t_edspobj* x            = (t_edspobj *)(w[1]);
+    long nsamples           = (long)(w[2]);
+    long flag               = (long)(w[3]);
+    void* user_p            = (void *)(w[4]);
+    long nins               = (long)(w[5]);
+    long nouts              = (long)(w[6]);
+    t_float** ins           = (t_float **)(&w[7]);
+    t_float** outs          = (t_float **)(&w[7 + nins]);
+    
+    x->d_perform_method(x, NULL, ins, nins, x->d_sigs_out, nouts, nsamples, flag, user_p);
+
+    for(i = 0; i < nouts; i++)
     {
-        t_float *outs_real, *outs_perf;
-        if(x->d_perform_method != NULL)
-            x->d_perform_method(x, NULL, ins, nins, x->d_sigs_out, nouts, nsamples, flag, user_p);
-        for(i = 0; i < nouts; i++)
-        {
-            outs_perf = x->d_sigs_out[i];
-            outs_real = outs[i];
-            for(j = 0; j < nsamples; j++)
-            {
-                outs_real[j] = outs_perf[j];
-            }
-        }
-    }
-    else
-    {
-        if(x->d_perform_method != NULL)
-            x->d_perform_method(x, NULL, ins, nins, outs, nouts, nsamples, flag, user_p);
+        memcpy(outs[i], x->d_sigs_out[i], nsamples * sizeof(t_float));
     }
     return w + (x->d_dsp_size + 1);
 }
@@ -325,7 +339,6 @@ t_int* eobj_perform(t_int* w)
  */
 t_int* eobj_perform_box(t_int* w)
 {
-	int i, j;
     t_edspbox* x            = (t_edspbox *)(w[1]);
     long nsamples           = (long)(w[2]);
     long flag               = (long)(w[3]);
@@ -334,26 +347,37 @@ t_int* eobj_perform_box(t_int* w)
     long nouts              = (long)(w[6]);
     t_float** ins           = (t_float **)(&w[7]);
     t_float** outs          = (t_float **)(&w[7 + nins]);
-    if(x->d_misc == E_NO_INPLACE)
+
+    x->d_perform_method(x, NULL, ins, nins, outs, nouts, nsamples, flag, user_p);
+    
+    return w + (x->d_dsp_size + 1);
+}
+
+//! The perform method for box no inplace(PRIVATE)
+/*
+ \ @memberof    edspobj
+ \ @param w     The pointer sent by the dsp method
+ \ @return      Nothing
+ */
+t_int* eobj_perform_box_no_inplace(t_int* w)
+{
+    int i;
+    t_edspbox* x            = (t_edspbox *)(w[1]);
+    long nsamples           = (long)(w[2]);
+    long flag               = (long)(w[3]);
+    void* user_p            = (void *)(w[4]);
+    long nins               = (long)(w[5]);
+    long nouts              = (long)(w[6]);
+    t_float** ins           = (t_float **)(&w[7]);
+    t_float** outs          = (t_float **)(&w[7 + nins]);
+   
+    x->d_perform_method(x, NULL, ins, nins, x->d_sigs_out, nouts, nsamples, flag, user_p);
+    
+    for(i = 0; i < nouts; i++)
     {
-        t_float *outs_real, *outs_perf;
-        if(x->d_perform_method != NULL)
-            x->d_perform_method(x, NULL, ins, nins, x->d_sigs_out, nouts, nsamples, flag, user_p);
-        for(i = 0; i < nouts; i++)
-        {
-            outs_perf = x->d_sigs_out[i];
-            outs_real = outs[i];
-            for(j = 0; j < nsamples; j++)
-            {
-                outs_real[j] = outs_perf[j];
-            }
-        }
+        memcpy(outs[i], x->d_sigs_out[i], nsamples * sizeof(t_float));
     }
-    else
-    {
-        if(x->d_perform_method != NULL)
-            x->d_perform_method(x, NULL, ins, nins, outs, nouts, nsamples, flag, user_p);
-    }
+   
     return w + (x->d_dsp_size + 1);
 }
 

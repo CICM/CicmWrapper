@@ -92,7 +92,10 @@ void eobj_resize_outputs(void *x, long nouts);
 //! @cond
 void eobj_dsp(void *x, t_signal **sp);
 t_int* eobj_perform(t_int* w);
+t_int* eobj_perform_no_inplace(t_int* w);
+
 t_int* eobj_perform_box(t_int* w);
+t_int* eobj_perform_box_no_inplace(t_int* w);
 void eobj_getconnections(void* x, short* count);
 void eobj_dsp_add(void *x, t_symbol* s, t_object* obj, method m, long flags, void *userparam);
 //! @endcond
