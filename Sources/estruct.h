@@ -428,6 +428,7 @@ typedef struct _edspobj
     long                d_dsp_flag;         /*!< The flags to initialize the perform method. */
     void*               d_dsp_user_param;   /*!< The user parameters to pass through the perform method. */
     t_float*            d_sigs_out[256];    /*!< The array of signal vectors. */
+    t_float*            d_sigs_real;        /*!< The real array of signal. */
     method              d_perform_method;   /*!< The user perform method. */
     long                d_misc;
 }t_edspobj;
@@ -526,7 +527,8 @@ typedef struct _edspbox
     t_int               d_dsp_vectors[262]; /*!< The vector that contains all the pointers for the perform method. */
     long                d_dsp_flag;         /*!< The flags to initialize the perform method. */
     void*               d_dsp_user_param;   /*!< The user parameters to pass through the perform method. */
-    t_float*            d_sigs_out[256];    /*!< The array of signal vectors. */
+    t_float*            d_sigs_out[256];    /*!< The arrays of signal vectors. */
+    t_float*            d_sigs_real;        /*!< The real array of signal. */
     method              d_perform_method;   /*!< The user perform method. */
     long                d_misc;
 }t_edspbox;

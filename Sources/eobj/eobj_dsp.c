@@ -45,8 +45,9 @@ void eobj_dspsetup(void *x, long nins, long nouts)
     {
         box->d_perform_method = NULL;
         box->d_misc           = 1;
+        box->d_sigs_real      = (t_float *)calloc(256 * 8192, sizeof(t_float));
         for( i = 0; i < 256; i++)
-            box->d_sigs_out[i] = (t_float *)calloc(8192, sizeof(t_float));
+            box->d_sigs_out[i] = box->d_sigs_real+i*8192;
         for(i = 1; i < nins; i++)
             box->d_inlets[i] = signalinlet_new(&box->b_obj.o_obj, box->d_float);
         for(i = 0; i < nouts; i++)
@@ -58,8 +59,9 @@ void eobj_dspsetup(void *x, long nins, long nouts)
     {
         obj->d_perform_method = NULL;
         obj->d_misc           = 1;
+        obj->d_sigs_real      = (t_float *)calloc(256 * 8192, sizeof(t_float));
         for( i = 0; i < 256; i++)
-            obj->d_sigs_out[i] = (t_float *)calloc(8192, sizeof(t_float));
+            obj->d_sigs_out[i] = obj->d_sigs_real+i*8192;
         for(i = 1; i < nins; i++)
             obj->d_inlets[i] = signalinlet_new(&obj->d_obj.o_obj, obj->d_float);
         for(i = 0; i < nouts; i++)
@@ -78,18 +80,15 @@ void eobj_dspsetup(void *x, long nins, long nouts)
 */
 void eobj_dspfree(void *x)
 {
-    int i;
     t_edspobj* obj = (t_edspobj *)x;
     t_edspbox* box = (t_edspbox *)x;
     if(eobj_isbox(x))
     {
-        for(i = 0; i < 256; i++)
-            free(box->d_sigs_out[i]);
+        free(box->d_sigs_real);
     }
     else
     {
-        for(i = 0; i < 256; i++)
-            free(obj->d_sigs_out[i]);
+        free(obj->d_sigs_real);
     }
 }
 
@@ -294,6 +293,7 @@ t_int* eobj_perform(t_int* w)
     long nouts              = (long)(w[6]);
     t_float** ins           = (t_float **)(&w[7]);
     t_float** outs          = (t_float **)(&w[7 + nins]);
+    
     if(x->d_misc == E_NO_INPLACE)
     {
         t_float *outs_real, *outs_perf;
