@@ -153,8 +153,10 @@ t_symbol* symbol_from_fsymbol(t_symbol* s);
 t_atom* fatoms_from_atoms(long ac, t_atom* av);
 long atoms_from_fatoms(long ac, t_atom* av);
 long binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *argv);
-long atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_atom **argv);
-long binbuf_get_attribute(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv);
+t_pd_err atoms_has_key(long ac, t_atom* av, t_symbol *key);
+t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_atom **argv);
+t_pd_err binbuf_has_key(t_binbuf *d, t_symbol *key);
+t_pd_err binbuf_get_attribute(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv);
 t_binbuf* binbuf_via_atoms(long ac, t_atom *av);
 
 double pd_clip_min(double aValue, double aMinimum);

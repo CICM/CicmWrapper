@@ -234,6 +234,30 @@ t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *
     return 0;
 }
 
+t_pd_err atoms_has_key(long ac, t_atom* av, t_symbol *key)
+{
+    int i;
+    if(ac && av)
+    {
+        for(i = 0; i < ac; i++)
+        {
+            if(atom_gettype(av+i) == A_SYM && atom_getsym(av+i) == key)
+            {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+t_pd_err binbuf_has_key(t_binbuf *d, t_symbol *key)
+{
+    if(d)
+        return atoms_has_key(binbuf_getnatom(d), binbuf_getvec(d), key);
+    else
+        return -1;
+}
+
 t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_atom **argv)
 {
     int i = 0, index  = 0;
