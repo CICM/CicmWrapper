@@ -44,7 +44,7 @@
 
 void *eobj_new(t_eclass *c);
 void eobj_free(void *x);
-void eobj_inletnew(void* x);
+t_eproxy* eobj_proxynew(void* x);
 int  eobj_getproxy(void* x);
 t_eclass* eobj_getclass(void* x);
 t_symbol* eobj_getclassname(void* x);
@@ -74,10 +74,33 @@ void eobj_read(t_eobj* x, t_symbol* s, long argc, t_atom* argv);
  *********************************/
 
 //! @cond
-void eproxy_setup(t_eclass* c);
+
+void inlet_wrong(t_inlet *x, t_symbol *s);
+void new_inlet_bang(t_inlet *x);
+void new_inlet_pointer(t_inlet *x, t_gpointer *gp);
+void new_inlet_float(t_inlet *x, t_float f);
+void new_inlet_symbol(t_inlet *x, t_symbol *s);
+void new_inlet_list(t_inlet *x, t_symbol *s, int argc, t_atom *argv);
+void new_inlet_anything(t_inlet *x, t_symbol *s, int argc, t_atom *argv);
+
+void eproxy_setup();
 void eproxy_anything(t_eproxy *x, t_symbol *s, int argc, t_atom *argv);
-void *eproxy_new(t_symbol *s, int argc, t_atom *argv);
-void eproxy_init(t_eproxy *x, void *owner, int index);
+t_eproxy* eproxy_new(void *owner);
+t_eproxy* eproxy_signalnew(void *owner, float f);
+void eproxy_free(t_eproxy* proxy);
+
+/*
+void proxlet_init();
+t_proxlet *proxlet_new(t_object *owner);
+t_proxlet *signalproxlet_new(t_object *owner, t_float f);
+void proxlet_free(t_proxlet *x);
+
+void proxlet_bang(t_proxlet *x);
+void proxlet_float(t_proxlet *x, t_float f);
+void proxlet_symbol(t_proxlet *x, t_symbol *s);
+void proxlet_list(t_proxlet *x, t_symbol *s, int argc, t_atom *argv);
+void proxlet_anything(t_proxlet *x, t_symbol *s, int argc, t_atom *argv);
+ */
 //! @endcond
 
 /*********************************
@@ -88,6 +111,10 @@ void eobj_dspsetup(void *x, long nins, long nouts);
 void eobj_dspfree(void *x);
 void eobj_resize_inputs(void *x, long nins);
 void eobj_resize_outputs(void *x, long nouts);
+t_eproxy* eobj_getdspinlet(void *x, long index);
+t_outlet* eobj_getdspoutlet(void *x, long index);
+t_sample* eobj_getsignalinput(void *x, long index);
+t_sample* eobj_getsignaloutput(void *x, long index);
 
 //! @cond
 void eobj_dsp(void *x, t_signal **sp);

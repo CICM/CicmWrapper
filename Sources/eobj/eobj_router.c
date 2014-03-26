@@ -32,6 +32,7 @@ void erouter_setup()
 {
     t_erouter *x;
     t_class* c = NULL;
+    
     if(gensym("erouter1572")->s_thing != NULL)
         return;
         
@@ -50,6 +51,7 @@ void erouter_setup()
         x->e_nlibraries = 0;
         x->e_libraries  = NULL;
         pd_bind(&x->e_obj.te_g.g_pd, gensym("erouter1572"));
+        eproxy_setup();
     }
 }
 

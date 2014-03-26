@@ -397,8 +397,7 @@ EXTERN void gpointer_unset(t_gpointer *gp);
 EXTERN int gpointer_check(const t_gpointer *gp, int headok);
 
 /* ----------------- patchable "objects" -------------- */
-EXTERN t_inlet *inlet_new(t_object *owner, t_pd *dest, t_symbol *s1,
-    t_symbol *s2);
+EXTERN t_inlet *inlet_new(t_object *owner, t_pd *dest, t_symbol *s1,t_symbol *s2);
 EXTERN t_inlet *pointerinlet_new(t_object *owner, t_gpointer *gp);
 EXTERN t_inlet *floatinlet_new(t_object *owner, t_float *fp);
 EXTERN t_inlet *symbolinlet_new(t_object *owner, t_symbol **sp);

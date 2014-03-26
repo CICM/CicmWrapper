@@ -389,9 +389,17 @@ typedef struct _eproxy
 {
 	t_pd        p_pd;       /*!< The class object. */
 	t_object*   p_owner;    /*!< The pointer to the eobj owner. */
+    t_inlet*    p_inlet;    /*!< The pointer to the inlet. */
     int         p_index;    /*!< The index of the proxy. */
 } t_eproxy;
 
+/*
+typedef struct _proxlet
+{
+    t_inlet p_inlet;
+    int     p_index;
+} t_proxlet;
+ */
 
 /**
  * @struct _eobj
@@ -420,7 +428,7 @@ typedef struct _edspobj
 {
     t_eobj              d_obj;              /*!< The CICM object. */
 
-    t_inlet*            d_inlets[256];      /*!< The array of signal inlets. */
+    t_inlet*            d_inlets[256];      /*!< The array of proxy signal inlets. */
     t_outlet*           d_outlets[256];     /*!< The array of signal outlets. */
     float               d_float;            /*!< The float member to initialize the signal method. */
     long                d_dsp_size;         /*!< The number of signal inlets and outlets. */
@@ -488,7 +496,7 @@ typedef struct _edspbox
     t_eobj              b_obj;              /*!< The CICM DSP object. */
     
     t_symbol*           b_receive_id;       /*!< The object user ID. */
-    t_symbol*           b_send_id;       /*!< The object send ID. */
+    t_symbol*           b_send_id;          /*!< The object send ID. */
     t_symbol*           b_objpreset_id;     /*!< The object preset ID. */
 
     t_symbol*           b_canvas_id;        /*!< The canvas ID. */
@@ -520,7 +528,7 @@ typedef struct _edspbox
     t_elayer*           b_layers;           /*!< The ebox layers. */
     long                b_number_of_layers; /*!< The ebox number of layers. */
 
-    t_inlet*            d_inlets[256];      /*!< The array of signal inlets. */
+    t_inlet*            d_inlets[256];      /*!< The array of proxy signal inlets. */
     t_outlet*           d_outlets[256];     /*!< The array of signal outlets. */
     float               d_float;            /*!< The float member to initialize the signal method. */
     long                d_dsp_size;         /*!< The number of signal inlets and outlets. */
