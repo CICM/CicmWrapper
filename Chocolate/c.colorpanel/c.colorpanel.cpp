@@ -28,8 +28,8 @@
 #define round(val)  floor(val + 0.5)
 #endif
 
-extern "C" {
-#include "../../../PdEnhanced/Sources/cicm_wrapper.h"
+extern "C"  {
+#include "../../Sources/cicm_wrapper.h"
 }
 
 typedef struct  _colorpanel

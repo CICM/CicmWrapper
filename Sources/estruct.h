@@ -414,8 +414,8 @@ typedef struct _eobj
     t_canvas*           o_canvas;           /*!< The canvas that own the object. */
     t_symbol*           o_canvas_id;        /*!< The canvas ID. */
     t_eproxy            o_proxy[256];       /*!< The array of proxy inlets. */
-    long                o_nproxy;           /*!< The number of proxy inlets. */
-    long                o_current_proxy;    /*!< The index of the current proxy inlet used */
+    int                 o_nproxy;           /*!< The number of proxy inlets. */
+    int                 o_current_proxy;    /*!< The index of the current proxy inlet used */
 }t_eobj;
 
 /**

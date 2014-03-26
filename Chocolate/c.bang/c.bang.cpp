@@ -24,9 +24,10 @@
  *
  */
 
-extern "C" {
-#include "../../../PdEnhanced/Sources/cicm_wrapper.h"
+extern "C"  {
+#include "../../Sources/cicm_wrapper.h"
 }
+
 typedef struct _bang
 {
 	t_ebox      j_box;

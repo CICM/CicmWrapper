@@ -25,7 +25,7 @@
  */
 
 extern "C"  {
-#include "../../../PdEnhanced/Sources/cicm_wrapper.h"
+#include "../../Sources/cicm_wrapper.h"
 }
 
 typedef struct _slider
@@ -161,7 +161,7 @@ void *slider_new(t_symbol *s, int argc, t_atom *argv)
     | EBOX_GROWINDI
     ;
 	ebox_new((t_ebox *)x, flags);
-    eobj_inletnew(x);
+    eobj_proxynew(x);
     x->f_out_left = (t_outlet *)listout(x);
     x->f_out_right = (t_outlet *)floatout(x);
     

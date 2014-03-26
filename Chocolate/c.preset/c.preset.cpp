@@ -25,7 +25,7 @@
  */
 
 extern "C"  {
-#include "../../../PdEnhanced/Sources/cicm_wrapper.h"
+#include "../../Sources/cicm_wrapper.h"
 }
 
 #define MAXBINBUF 256
@@ -82,9 +82,9 @@ void preset_mousemove(t_preset *x, t_object *patcherview, t_pt pt, long modifier
 void preset_mousedown(t_preset *x, t_object *patcherview, t_pt pt, long modifiers);
 void preset_mouseleave(t_preset *x, t_object *patcherview, t_pt pt, long modifiers);
 
-static t_symbol* s_preset;
-static t_symbol* s_null;
-static t_symbol* s_nothing;
+t_symbol* s_preset;
+t_symbol* s_null;
+t_symbol* s_nothing;
 
 extern "C" void setup_c0x2epreset(void)
 {
@@ -218,16 +218,20 @@ void preset_store(t_preset *x, float f)
     if (index < 1 || index > MAXBINBUF || !x->f_init)
         return;
 
-    binbuf_clear(x->f_binbuf[index-1]);
+    if(binbuf_getnatom(x->f_binbuf[index-1]))
+        binbuf_clear(x->f_binbuf[index-1]);
     for(y = eobj_getcanvas(x)->gl_list; y; y = y->g_next)
     {
         z = (t_ebox *)y;
         mpreset = zgetfn(&y->g_pd, s_preset);
-        if(mpreset && z->b_objpreset_id != s_null && z->b_objpreset_id != s_nothing)
+        if(mpreset && z->b_objpreset_id != NULL)
         {
-            sprintf(id, "@%s", z->b_objpreset_id->s_name);
-            binbuf_addv(x->f_binbuf[index-1], "ss", gensym(id), eobj_getclassname(z));
-            mpreset(z, x->f_binbuf[index-1]);
+            if(z->b_objpreset_id != s_null && z->b_objpreset_id != s_nothing)
+            {
+                sprintf(id, "@%s", z->b_objpreset_id->s_name);
+                binbuf_addv(x->f_binbuf[index-1], "ss", gensym(id), eobj_getclassname(z));
+                mpreset(z, x->f_binbuf[index-1]);
+            }
         }
         mpreset = NULL;
     }

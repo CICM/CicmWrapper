@@ -263,7 +263,7 @@
 		5913846615DAA36D0029AD16 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 			};
 			buildConfigurationList = 5913846915DAA36D0029AD16 /* Build configuration list for PBXProject "c.incdec" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -352,7 +352,6 @@
 		5913847515DAA36D0029AD16 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /;
