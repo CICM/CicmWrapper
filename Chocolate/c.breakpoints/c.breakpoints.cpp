@@ -23,8 +23,8 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  */
-extern "C" {
-#include "../../../PdEnhanced/Sources/cicm_wrapper.h"
+extern "C"  {
+#include "../../Sources/cicm_wrapper.h"
 }
 #define MAXPOINTS 256
 
@@ -75,20 +75,20 @@ void breakpoints_prev(t_breakpoints *x);
 void breakpoints_getlist(t_breakpoints *x);
 
 void breakpoints_erase(t_breakpoints *x);
-void breakpoints_add(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv);
-void breakpoints_move(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv);
-void breakpoints_remove(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv);
+void breakpoints_add(t_breakpoints *x, t_symbol* s, int argc, t_atom* argv);
+void breakpoints_move(t_breakpoints *x, t_symbol* s, int argc, t_atom* argv);
+void breakpoints_remove(t_breakpoints *x, t_symbol* s, int argc, t_atom* argv);
 
-void breakpoints_scaleabs(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv);
-void breakpoints_scaleord(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv);
+void breakpoints_scaleabs(t_breakpoints *x, t_symbol* s, int argc, t_atom* argv);
+void breakpoints_scaleord(t_breakpoints *x, t_symbol* s, int argc, t_atom* argv);
 
 t_pd_err breakpoints_notify(t_breakpoints *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void breakpoints_preset(t_breakpoints *x, t_binbuf *b);
 void breakpoints_save(t_breakpoints *x, t_binbuf *d);
 void breakpoints_init(t_breakpoints *x, t_binbuf *d);
-void breakpoints_function(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv);
-void breakpoints_write(t_breakpoints *x, t_symbol *s, long argc, t_atom *argv);
-void breakpoints_read(t_breakpoints *x, t_symbol *s, long argc, t_atom *argv);
+void breakpoints_function(t_breakpoints *x, t_symbol* s, int argc, t_atom* argv);
+void breakpoints_write(t_breakpoints *x, t_symbol *s, int argc, t_atom *argv);
+void breakpoints_read(t_breakpoints *x, t_symbol *s, int argc, t_atom *argv);
 
 void breakpoints_getdrawparams(t_breakpoints *x, t_object *patcherview, t_edrawparams *params);
 void breakpoints_oksize(t_breakpoints *x, t_rect *newrect);
@@ -431,7 +431,7 @@ void breakpoints_erase(t_breakpoints *x)
     ebox_redraw((t_ebox *)x);
 }
 
-void breakpoints_add(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv)
+void breakpoints_add(t_breakpoints *x, t_symbol* s, int argc, t_atom* argv)
 {
     int index, i;
     float abs, ord;
@@ -483,7 +483,7 @@ void breakpoints_add(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv)
     }
 }
 
-void breakpoints_remove(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv)
+void breakpoints_remove(t_breakpoints *x, t_symbol* s, int argc, t_atom* argv)
 {
     int index, i;
     if(x->f_number_of_points == MAXPOINTS)
@@ -509,7 +509,7 @@ void breakpoints_remove(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv)
     }
 }
 
-void breakpoints_move(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv)
+void breakpoints_move(t_breakpoints *x, t_symbol* s, int argc, t_atom* argv)
 {
     int index;
     float abs, ord;
@@ -552,7 +552,7 @@ void breakpoints_move(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv)
     }
 }
 
-void breakpoints_scaleabs(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv)
+void breakpoints_scaleabs(t_breakpoints *x, t_symbol* s, int argc, t_atom* argv)
 {
     int i;
     float min, max, ratio;
@@ -576,7 +576,7 @@ void breakpoints_scaleabs(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv
 
 }
 
-void breakpoints_scaleord(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv)
+void breakpoints_scaleord(t_breakpoints *x, t_symbol* s, int argc, t_atom* argv)
 {
     int i;
     float min, max, ratio;
@@ -951,7 +951,7 @@ void breakpoints_save(t_breakpoints *x, t_binbuf *d)
     }
 }
 
-void breakpoints_read(t_breakpoints *x, t_symbol *s, long argc, t_atom *argv)
+void breakpoints_read(t_breakpoints *x, t_symbol *s, int argc, t_atom *argv)
 {
     t_binbuf *d = binbuf_new();
     if(d && argv && argc && atom_gettype(argv) == A_SYM)
@@ -969,7 +969,7 @@ void breakpoints_read(t_breakpoints *x, t_symbol *s, long argc, t_atom *argv)
         binbuf_free(d);
 }
 
-void breakpoints_write(t_breakpoints *x, t_symbol *s, long argc, t_atom *argv)
+void breakpoints_write(t_breakpoints *x, t_symbol *s, int argc, t_atom *argv)
 {
     t_binbuf *d = binbuf_new();
     if(d && argv && argc && atom_gettype(argv) == A_SYM)
@@ -985,7 +985,7 @@ void breakpoints_write(t_breakpoints *x, t_symbol *s, long argc, t_atom *argv)
 
 }
 
-void breakpoints_function(t_breakpoints *x, t_symbol* s, long argc, t_atom* argv)
+void breakpoints_function(t_breakpoints *x, t_symbol* s, int argc, t_atom* argv)
 {
     t_binbuf* b = binbuf_new();
 

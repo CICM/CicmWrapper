@@ -25,7 +25,7 @@
  */
 
 extern "C"  {
-#include "../../../PdEnhanced/Sources/cicm_wrapper.h"
+#include "../../Sources/cicm_wrapper.h"
 }
 
 #define MAXITEMS 100

@@ -53,7 +53,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
             else
             {
                 if(argc > c->c_attr[i].sizemax)
-                    argc = c->c_attr[i].sizemax;
+                    argc = (int)c->c_attr[i].sizemax;
                 size = argc;
                 point = (char *)x + c->c_attr[i].size;
                 point_size = (long *)point;

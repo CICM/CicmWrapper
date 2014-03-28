@@ -55,9 +55,9 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
             else
             {
                 point = (char *)x + c->c_attr[i].size;
-                argc[0] = (long)point[0];
+                argc[0] = (int)point[0];
                 if(argc[0] > c->c_attr[i].sizemax)
-                    argc[0] = c->c_attr[i].sizemax;
+                    argc[0] = (int)c->c_attr[i].sizemax;
             }
 
             point = (char *)x + c->c_attr[i].offset;

@@ -25,9 +25,8 @@
  */
 
 extern "C"  {
-
-#include "../../../PdEnhanced/Sources/cicm_wrapper.h"
-    extern t_symbol *sys_libdir;
+#include "../../Sources/cicm_wrapper.h"
+extern t_symbol *sys_libdir;
 }
 
 typedef struct  _blacboard

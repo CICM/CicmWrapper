@@ -5,19 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>5C10D35E-018F-466F-A817-4D7A6212E120</string>
+	<string>692F68AD-0E6C-4735-8654-C29605298060</string>
 	<key>IDESourceControlProjectName</key>
-	<string>c.number</string>
+	<string>c.patcherargs</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>FCC4D1DA-55FE-4379-A617-D77B64EB89E6</key>
+		<key>D6D67BA0-2385-4DB4-9B8F-7C09CD19FC67</key>
 		<string>https://github.com/CICM/CicmWrapper.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Chocolate/c.number/c.number.xcodeproj/project.xcworkspace</string>
+	<string>Coffee/c.patcherargs/c.patcherargs.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>FCC4D1DA-55FE-4379-A617-D77B64EB89E6</key>
+		<key>D6D67BA0-2385-4DB4-9B8F-7C09CD19FC67</key>
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>FCC4D1DA-55FE-4379-A617-D77B64EB89E6</string>
+	<string>D6D67BA0-2385-4DB4-9B8F-7C09CD19FC67</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>FCC4D1DA-55FE-4379-A617-D77B64EB89E6</string>
+			<string>D6D67BA0-2385-4DB4-9B8F-7C09CD19FC67</string>
 			<key>IDESourceControlWCCName</key>
 			<string>CicmWrapper</string>
 		</dict>

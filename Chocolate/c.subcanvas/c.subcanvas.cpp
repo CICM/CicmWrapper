@@ -272,8 +272,6 @@ t_pd_err subcanvas_canvas_set(t_subcanvas *x, t_eattr *attr, long argc, t_atom* 
         }
     }
 
-    
-
     return 0;
 }
 

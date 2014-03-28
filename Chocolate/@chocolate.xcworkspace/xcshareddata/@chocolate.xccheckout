@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>8F09DE84-F275-4452-B562-3425D0CFA8A1</string>
+	<string>15C1C58E-3266-41F0-A8DC-794B13186331</string>
 	<key>IDESourceControlProjectName</key>
 	<string>@chocolate</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>0D1092E7-FC82-482C-919A-817591BFB604</key>
-		<string>https://github.com/pierreguillot/PdEnhanced.git</string>
+		<key>EE2CBC78-99BB-49CE-9611-07FAEF519207</key>
+		<string>https://github.com/CICM/CicmWrapper.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Chocolate/@chocolate.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>0D1092E7-FC82-482C-919A-817591BFB604</key>
+		<key>EE2CBC78-99BB-49CE-9611-07FAEF519207</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/pierreguillot/PdEnhanced.git</string>
+	<string>https://github.com/CICM/CicmWrapper.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>0D1092E7-FC82-482C-919A-817591BFB604</string>
+	<string>EE2CBC78-99BB-49CE-9611-07FAEF519207</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>0D1092E7-FC82-482C-919A-817591BFB604</string>
+			<string>EE2CBC78-99BB-49CE-9611-07FAEF519207</string>
 			<key>IDESourceControlWCCName</key>
-			<string>PdEnhanced</string>
+			<string>CicmWrapper</string>
 		</dict>
 	</array>
 </dict>
