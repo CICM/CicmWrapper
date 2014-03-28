@@ -217,10 +217,11 @@ long atoms_from_fatoms(long ac, t_atom* av)
     return j;
 }
 
+
 t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *argv)
 {
     int i;
-
+    
     long ac = argc+1;
     t_atom* av = (t_atom *)calloc(ac, sizeof(t_atom));
     atom_setsym(av, key);
@@ -229,12 +230,49 @@ t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *
     {
         av[i+1] = argv[i];
     }
-
+    
     binbuf_add(d, (int)ac, av);
     return 0;
 }
 
-t_pd_err atoms_has_key(long ac, t_atom* av, t_symbol *key)
+long atoms_get_attributes_offset(long ac, t_atom* av)
+{
+    long i;
+    for(i = 0; i < ac; i++)
+    {
+        if(atom_gettype(av+i) == A_SYM && atom_getsym(av+i)->s_name[0] == '@')
+        {
+            break;
+        }
+    }
+    return pd_clip_minmax(i, 0, ac-1);
+}
+
+long binbuf_get_attributes_offset(t_binbuf *d)
+{
+    return atoms_get_attributes_offset(binbuf_getnatom(d), binbuf_getvec(d));
+}
+
+long atoms_get_nattributes(long ac, t_atom* av)
+{
+    long i, j;
+    for(i = 0, j = 0; i < ac; i++)
+    {
+        if(atom_gettype(av+i) == A_SYM && atom_getsym(av+i)->s_name[0] == '@')
+        {
+            j++;
+        }
+    }
+    return j;
+}
+
+long binbuf_get_nattributes(t_binbuf *d)
+{
+    return atoms_get_nattributes(binbuf_getnatom(d), binbuf_getvec(d));
+}
+
+
+t_pd_err atoms_has_attribute(long ac, t_atom* av, t_symbol *key)
 {
     int i;
     if(ac && av)
@@ -250,10 +288,10 @@ t_pd_err atoms_has_key(long ac, t_atom* av, t_symbol *key)
     return 0;
 }
 
-t_pd_err binbuf_has_key(t_binbuf *d, t_symbol *key)
+t_pd_err binbuf_has_attribute(t_binbuf *d, t_symbol *key)
 {
     if(d)
-        return atoms_has_key(binbuf_getnatom(d), binbuf_getvec(d), key);
+        return atoms_has_attribute(binbuf_getnatom(d), binbuf_getvec(d), key);
     else
         return -1;
 }
