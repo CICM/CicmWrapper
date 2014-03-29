@@ -245,7 +245,7 @@ long atoms_get_attributes_offset(long ac, t_atom* av)
             break;
         }
     }
-    return pd_clip_minmax(i, 0, ac-1);
+    return pd_clip_minmax(i, 0, ac);
 }
 
 long binbuf_get_attributes_offset(t_binbuf *d)
@@ -269,6 +269,28 @@ long atoms_get_nattributes(long ac, t_atom* av)
 long binbuf_get_nattributes(t_binbuf *d)
 {
     return atoms_get_nattributes(binbuf_getnatom(d), binbuf_getvec(d));
+}
+
+long atoms_get_keys(long ac, t_atom* av, t_symbol*** s)
+{
+    long i, j;
+    int size = atoms_get_nattributes(ac, av);
+    s[0] = malloc(size * sizeof(t_symbol *));
+    
+    for(i = 0, j = 0; i < ac; i++)
+    {
+        if(atom_gettype(av+i) == A_SYM && atom_getsym(av+i)->s_name[0] == '@')
+        {
+            s[0][j] = atom_getsym(av+i);
+            j++;
+        }
+    }
+    return size;
+}
+
+long binbuf_get_key(t_binbuf *d, t_symbol*** s)
+{
+    return atoms_get_keys(binbuf_getnatom(d), binbuf_getvec(d), s);
 }
 
 

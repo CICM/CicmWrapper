@@ -167,6 +167,9 @@ t_pd_err binbuf_has_attribute(t_binbuf *d, t_symbol *key);
 t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_atom **argv);
 t_pd_err binbuf_get_attribute(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv);
 
+long atoms_get_keys(long ac, t_atom* av, t_symbol*** s);
+long binbuf_get_key(t_binbuf *d, t_symbol*** s);
+
 t_binbuf* binbuf_via_atoms(long ac, t_atom *av);
 
 double pd_clip_min(double aValue, double aMinimum);
