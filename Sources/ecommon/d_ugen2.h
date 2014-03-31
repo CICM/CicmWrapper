@@ -70,13 +70,14 @@ typedef struct _dspcontext
 }t_dspcontext;
 
 t_dspcontext* dsp_context_new();
-void dsp_context_addcanvas(t_dspcontext* dc, t_canvas *cnv);
-void dsp_context_addobject(t_dspcontext *dc, t_object *obj);
+void dsp_context_addbox(t_dspcontext *dc, t_object *obj);
 void dsp_context_addconnection(t_dspcontext *dc, t_object *x1, int outno, t_object *x2,  int inno);
+void dsp_context_addcanvas(t_dspcontext* dc, t_canvas *cnv);
 void dsp_context_removecanvas(t_dspcontext *dc);
 void dsp_context_free(t_dspcontext *dc);
 void dsp_context_compile(t_dspcontext *dc);
 void dsp_context_compilebox(t_dspcontext *dc, t_ugenbox *u);
+int dsp_context_getboxindex(t_dspcontext *dc, t_ugenbox *x);
 
 t_signal *signal_new(int n, t_float sr);
 void signal_setborrowed(t_signal *sig, t_signal *sig2);

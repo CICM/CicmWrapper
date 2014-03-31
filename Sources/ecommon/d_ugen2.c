@@ -14,25 +14,86 @@
 
 #include "d_ugen.h"
 
-extern t_class *canvas_class;
+extern t_class *vinlet_class, *voutlet_class, *canvas_class;
+static void ugen_doit(t_dspcontext *dc, t_ugenbox *u);
 t_float *obj_findsignalscalar(t_object *x, int m);
+int ugen_loud;
 
 // Create a DSP Context
 t_dspcontext* dsp_context_new()
 {
     t_dspcontext *dc = (t_dspcontext *)getbytes(sizeof(*dc));
-    
     dc->dc_ugenlist = 0;
     dc->dc_toplevel = 1;
     dc->dc_iosigs = NULL;
     dc->dc_ninlets = 0;
     dc->dc_noutlets = 0;
     dc->dc_parentcontext = NULL;
+    
     return dc;
 }
 
-// Add a boxe to a DSP Context //
-void dsp_context_addobject(t_dspcontext *dc, t_object *obj)
+// Add a canvas to a DSP Context //
+void dsp_context_addcanvas(t_dspcontext* dc, t_canvas *cnv)
+{
+    t_linetraverser t;
+    t_gobj          *y;
+    t_object        *ob;
+    t_symbol        *dspsym = gensym("dsp");
+    t_outconnect    *oc;
+    char            block_alert = 0;
+    char            inlet_alert = 0;
+    char            outlet_alert = 0;
+    if(dc && cnv)
+    {
+        for(y = cnv->gl_list; y; y = y->g_next)
+        {
+            if((ob = pd_checkobject(&y->g_pd)) && zgetfn(&y->g_pd, dspsym))
+            {
+                if(ob->te_g.g_pd->c_name == gensym("block~"))
+                {
+                    if(!block_alert)
+                        pd_error(ob, "block~ are not allowed in hoa.process~.");
+                    block_alert = 1;
+                }
+                else if(ob->te_g.g_pd->c_name == gensym("inlet"))
+                {
+                    if(!inlet_alert)
+                        pd_error(ob, "inlet~ are not allowed in hoa.process~.");
+                    inlet_alert = 1;
+                }
+                else if(ob->te_g.g_pd->c_name == gensym("outlet"))
+                {
+                    if(!outlet_alert)
+                        pd_error(ob, "outlet~ are not allowed in hoa.process~.");
+                    outlet_alert = 1;
+                }
+                else
+                    dsp_context_addbox(dc, ob);
+            }
+        }
+        
+        linetraverser_start(&t, cnv);
+        while((oc = linetraverser_next(&t)))
+        {
+            if (obj_issignaloutlet(t.tr_ob, t.tr_outno))
+                dsp_context_addconnection(dc, t.tr_ob, t.tr_outno, t.tr_ob2, t.tr_inno);
+        }
+    }
+}
+
+// Get the index of a box, or -1 if it's not on the list //
+int dsp_context_getboxindex(t_dspcontext *dc, t_ugenbox *x)
+{
+    int ret;
+    t_ugenbox *u;
+    for (u = dc->dc_ugenlist, ret = 0; u; u = u->u_next, ret++)
+        if (u == x) return (ret);
+    return (-1);
+}
+
+// Add a box to a DSP Context //
+void dsp_context_addbox(t_dspcontext *dc, t_object *obj)
 {
     t_ugenbox *x = (t_ugenbox *)getbytes(sizeof *x);
     int i;
@@ -61,7 +122,7 @@ void dsp_context_addobject(t_dspcontext *dc, t_object *obj)
 
 // Add a connection to a DSP Context //
 void dsp_context_addconnection(t_dspcontext *dc, t_object *x1, int outno, t_object *x2,
-                               int inno)
+                  int inno)
 {
     t_ugenbox       *u1;
     t_ugenbox       *u2;
@@ -80,7 +141,7 @@ void dsp_context_addconnection(t_dspcontext *dc, t_object *x1, int outno, t_obje
     }
     if (sigoutno < 0 || sigoutno >= u1->u_nout || siginno >= u2->u_nin)
     {
-        bug("dsp_context_addconnection %s %s %d %d (%d %d)", class_getname(x1->ob_pd),  class_getname(x2->ob_pd), sigoutno, siginno, u1->u_nout, u2->u_nin);
+        bug("ugen_connect %s %s %d %d (%d %d)", class_getname(x1->ob_pd),  class_getname(x2->ob_pd), sigoutno, siginno, u1->u_nout, u2->u_nin);
     }
     uout = u1->u_out + sigoutno;
     uin = u2->u_in + siginno;
@@ -95,61 +156,6 @@ void dsp_context_addconnection(t_dspcontext *dc, t_object *x1, int outno, t_obje
     // update inlet and outlet counts  //
     uout->o_nconnect++;
     uin->i_nconnect++;
-}
-
-// Add a canvas to a DSP Context //
-void dsp_context_addcanvas(t_dspcontext* dc, t_canvas *cnv)
-{
-    t_linetraverser t;
-    t_gobj          *y;
-    t_object        *ob;
-    t_symbol        *dspsym = gensym("dsp");
-    t_outconnect    *oc;
-    char            block_alert = 0;
-    char            inlet_alert = 0;
-    char            outlet_alert = 0;
-    
-    if(!dc)
-        return;
-    
-    if(dc && cnv)
-    {
-        for(y = cnv->gl_list; y; y = y->g_next)
-        {
-            if((ob = pd_checkobject(&y->g_pd)) && zgetfn(&y->g_pd, dspsym))
-            {
-                if(ob->te_g.g_pd->c_name == gensym("block~"))
-                {
-                    if(!block_alert)
-                        pd_error(ob, "block~ are not allowed in hoa.process~.");
-                    block_alert = 1;
-                }
-                else if(ob->te_g.g_pd->c_name == gensym("inlet"))
-                {
-                    if(!inlet_alert)
-                        pd_error(ob, "inlet~ are not allowed in hoa.process~.");
-                    inlet_alert = 1;
-                }
-                else if(ob->te_g.g_pd->c_name == gensym("outlet"))
-                {
-                    if(!outlet_alert)
-                        pd_error(ob, "outlet~ are not allowed in hoa.process~.");
-                    outlet_alert = 1;
-                }
-                else
-                {
-                    dsp_context_addobject(dc, ob);
-                }
-            }
-        }
-        
-        linetraverser_start(&t, cnv);
-        while((oc = linetraverser_next(&t)))
-        {
-            if (obj_issignaloutlet(t.tr_ob, t.tr_outno))
-                dsp_context_addconnection(dc, t.tr_ob, t.tr_outno, t.tr_ob2, t.tr_inno);
-        }
-    }
 }
 
 // Remove the canvas from a DSP Context //
@@ -246,18 +252,16 @@ void dsp_context_compile(t_dspcontext *dc)
     // Do the sort //
     for(u = dc->dc_ugenlist; u; u = u->u_next)
     {
-        //post(u->u_obj->te_g.g_pd->c_name->s_name);
         // Check that we have no connected signal inlets //
         if(u->u_done)
             continue;
         for(uin = u->u_in, i = u->u_nin; i--; uin++)
         {
             if (uin->i_nconnect)
-            {
                 goto next;
-            }
         }
-        dsp_context_compilebox(dc, u);
+        ugen_doit(dc, u);
+        //dsp_context_compilebox(dc, u);
     next: ;
     }
     
@@ -283,27 +287,39 @@ void dsp_context_compile(t_dspcontext *dc)
     }
 }
 
-// Put a ugenbox on the chain, recursively putting any others on that this one might uncover. //
-void dsp_context_compilebox(t_dspcontext *dc, t_ugenbox *u)
+/* put a ugenbox on the chain, recursively putting any others on that
+ this one might uncover. */
+static void ugen_doit(t_dspcontext *dc, t_ugenbox *u)
 {
     t_sigoutlet *uout;
     t_siginlet *uin;
     t_sigoutconnect *oc;
-    t_float *scalar;
+    t_class *class = pd_class(&u->u_obj->ob_pd);
+    int i, n;
+    /* suppress creating new signals for the outputs of signal
+     inlets and subpatchs; except in the case we're an inlet and "blocking"
+     is set.  We don't yet know if a subcanvas will be "blocking" so there
+     we delay new signal creation, which will be handled by calling
+     signal_setborrowed in the ugen_done_graph routine below. */
+    int nonewsigs = (class == canvas_class && !(dc->dc_reblock));
+    /* when we encounter a subcanvas or a signal outlet, suppress freeing
+     the input signals as they may be "borrowed" for the super or sub
+     patch; same exception as above, but also if we're "switched" we
+     have to do a copy rather than a borrow.  */
+    int nofreesigs = (class == canvas_class &&  !(dc->dc_reblock || dc->dc_switched));
     t_signal **insig, **outsig, **sig, *s1, *s2, *s3;
     t_ugenbox *u2;
     
-    t_class *class = pd_class(&u->u_obj->ob_pd);
-    int i, n;
-    int nonewsigs = (class == canvas_class || class->c_name == gensym("canvas"));
-    int nofreesigs = (class == canvas_class || class->c_name == gensym("canvas"));
-
-    // Scalar to signal //
-    for(i = 0, uin = u->u_in; i < u->u_nin; i++, uin++)
+    if (ugen_loud) post("doit %s %d %d", class_getname(class), nofreesigs,
+                        nonewsigs);
+    for (i = 0, uin = u->u_in; i < u->u_nin; i++, uin++)
     {
-        if(!uin->i_nconnect)
+        if (!uin->i_nconnect)
         {
+            t_float *scalar;
             s3 = signal_new(dc->dc_vecsize, dc->dc_srate);
+            /* post("%s: unconnected signal inlet set to zero",
+             class_getname(u->u_obj->ob_pd)); */
             if((scalar = obj_findsignalscalar(u->u_obj, i)))
                 dsp_add_scalarcopy(scalar, s3->s_vec, s3->s_n);
             else
@@ -312,7 +328,6 @@ void dsp_context_compilebox(t_dspcontext *dc, t_ugenbox *u)
             s3->s_refcount = 1;
         }
     }
-    
     insig = (t_signal **)getbytes((u->u_nin + u->u_nout) * sizeof(t_signal *));
     outsig = insig + u->u_nin;
     for (sig = insig, uin = u->u_in, i = u->u_nin; i--; sig++, uin++)
@@ -320,33 +335,50 @@ void dsp_context_compilebox(t_dspcontext *dc, t_ugenbox *u)
         int newrefcount;
         *sig = uin->i_signal;
         newrefcount = --(*sig)->s_refcount;
+        /* if the reference count went to zero, we free the signal now,
+         unless it's a subcanvas or outlet; these might keep the
+         signal around to send to objects connected to them.  In this
+         case we increment the reference count; the corresponding decrement
+         is in sig_makereusable(). */
         if (nofreesigs)
             (*sig)->s_refcount++;
         else if (!newrefcount)
             signal_makereusable(*sig);
     }
-    
     for (sig = outsig, uout = u->u_out, i = u->u_nout; i--; sig++, uout++)
     {
+        /* similarly, for outlets of subcanvases we delay creating
+         them; instead we create "borrowed" ones so that the refcount
+         is known.  The subcanvas replaces the fake signal with one showing
+         where the output data actually is, to avoid having to copy it.
+         For any other object, we just allocate a new output vector;
+         since we've already freed the inputs the objects might get called
+         "in place." */
         if (nonewsigs)
         {
-            *sig = uout->o_signal = signal_new(0, dc->dc_srate);
+            *sig = uout->o_signal =
+            signal_new(0, dc->dc_srate);
         }
         else
             *sig = uout->o_signal = signal_new(dc->dc_vecsize, dc->dc_srate);
-        
         (*sig)->s_refcount = uout->o_nconnect;
     }
-
+    /* now call the DSP scheduling routine for the ugen.  This
+     routine must fill in "borrowed" signal outputs in case it's either
+     a subcanvas or a signal inlet. */
     mess1(&u->u_obj->ob_pd, gensym("dsp"), insig);
+    
+    /* if any output signals aren't connected to anyone, free them
+     now; otherwise they'll either get freed when the reference count
+     goes back to zero, or even later as explained above. */
     
     for (sig = outsig, uout = u->u_out, i = u->u_nout; i--; sig++, uout++)
     {
         if (!(*sig)->s_refcount)
             signal_makereusable(*sig);
     }
-    
-    // Pass it on and trip anyone whose last inlet was filled //
+
+    /* pass it on and trip anyone whose last inlet was filled */
     for (uout = u->u_out, i = u->u_nout; i--; uout++)
     {
         s1 = uout->o_signal;
@@ -354,8 +386,7 @@ void dsp_context_compilebox(t_dspcontext *dc, t_ugenbox *u)
         {
             u2 = oc->oc_who;
             uin = &u2->u_in[oc->oc_inno];
-            
-            // If there's already someone here, sum the two //
+            /* if there's already someone here, sum the two */
             if((s2 = uin->i_signal))
             {
                 s1->s_refcount--;
@@ -375,17 +406,134 @@ void dsp_context_compilebox(t_dspcontext *dc, t_ugenbox *u)
             }
             else uin->i_signal = s1;
             uin->i_ngot++;
-            
-            // If we didn't fill this inlet don't bother yet //
+            /* if we didn't fill this inlet don't bother yet */
             if (uin->i_ngot < uin->i_nconnect)
                 goto notyet;
-            // if there's more than one, check them all //
+            /* if there's more than one, check them all */
             if (u2->u_nin > 1)
             {
                 for (uin = u2->u_in, n = u2->u_nin; n--; uin++)
                     if (uin->i_ngot < uin->i_nconnect) goto notyet;
             }
-            // so now we can schedule the ugen. //
+            /* so now we can schedule the ugen.  */
+            ugen_doit(dc, u2);
+        notyet: ;
+        }
+    }
+    t_freebytes(insig,(u->u_nin + u->u_nout) * sizeof(t_signal *));
+    u->u_done = 1;
+}
+
+// Put a ugenbox on the chain, recursively putting any others on that this one might uncover. //
+void dsp_context_compilebox(t_dspcontext *dc, t_ugenbox *u)
+{
+    
+    int i, n;
+    t_sigoutlet *uout;
+    t_siginlet *uin;
+    t_sigoutconnect *oc;
+    t_signal **insig, **outsig, **sig, *s1, *s2, *s3;
+    t_ugenbox *u2;
+    
+    for(i = 0, uin = u->u_in; i < u->u_nin; i++, uin++)
+    {
+        if(!uin->i_nconnect)
+        {
+            t_float *scalar;
+            s3 = signal_new(dc->dc_vecsize, dc->dc_srate);
+            
+            if((scalar = obj_findsignalscalar(u->u_obj, i)))
+                dsp_add_scalarcopy(scalar, s3->s_vec, s3->s_n);
+            else
+                dsp_add_zero(s3->s_vec, s3->s_n);
+            
+            uin->i_signal = s3;
+            s3->s_refcount = 1;
+        }
+    }
+    
+    insig = (t_signal **)getbytes((u->u_nin + u->u_nout) * sizeof(t_signal *));
+    outsig = insig + u->u_nin;
+    
+    for (sig = insig, uin = u->u_in, i = u->u_nin; i--; sig++, uin++)
+    {
+        int newrefcount;
+        *sig = uin->i_signal;
+        newrefcount = --(*sig)->s_refcount;
+        /* if the reference count went to zero, we free the signal now,
+         unless it's a subcanvas or outlet; these might keep the
+         signal around to send to objects connected to them.  In this
+         case we increment the reference count; the corresponding decrement
+         is in sig_makereusable(). */
+        if (!newrefcount && (u->u_obj->te_g.g_pd->c_name != gensym("hoa.in~") || u->u_obj->te_g.g_pd->c_name != gensym("hoa.out~")))
+            signal_makereusable(*sig);
+    }
+    for (sig = outsig, uout = u->u_out, i = u->u_nout; i--; sig++, uout++)
+    {
+        /* similarly, for outlets of subcanvases we delay creating
+         them; instead we create "borrowed" ones so that the refcount
+         is known.  The subcanvas replaces the fake signal with one showing
+         where the output data actually is, to avoid having to copy it.
+         For any other object, we just allocate a new output vector;
+         since we've already freed the inputs the objects might get called
+         "in place." */
+        
+        *sig = uout->o_signal = signal_new(dc->dc_vecsize, dc->dc_srate);
+        (*sig)->s_refcount = uout->o_nconnect;
+    }
+    /* now call the DSP scheduling routine for the ugen.  This
+     routine must fill in "borrowed" signal outputs in case it's either
+     a subcanvas or a signal inlet. */
+    mess1(&u->u_obj->ob_pd, gensym("dsp"), insig);
+    
+    /* if any output signals aren't connected to anyone, free them
+     now; otherwise they'll either get freed when the reference count
+     goes back to zero, or even later as explained above. */
+    
+    for (sig = outsig, uout = u->u_out, i = u->u_nout; i--; sig++, uout++)
+    {
+        if (!(*sig)->s_refcount)
+            signal_makereusable(*sig);
+    }
+    
+    /* pass it on and trip anyone whose last inlet was filled */
+    for (uout = u->u_out, i = u->u_nout; i--; uout++)
+    {
+        s1 = uout->o_signal;
+        for (oc = uout->o_connections; oc; oc = oc->oc_next)
+        {
+            u2 = oc->oc_who;
+            uin = &u2->u_in[oc->oc_inno];
+            /* if there's already someone here, sum the two */
+            if((s2 = uin->i_signal))
+            {
+                s1->s_refcount--;
+                s2->s_refcount--;
+                if (!signal_compatible(s1, s2))
+                {
+                    pd_error(u->u_obj, "%s: incompatible signal inputs",
+                             class_getname(u->u_obj->ob_pd));
+                    return;
+                }
+                s3 = signal_newlike(s1);
+                dsp_add_plus(s1->s_vec, s2->s_vec, s3->s_vec, s1->s_n);
+                uin->i_signal = s3;
+                s3->s_refcount = 1;
+                if (!s1->s_refcount) signal_makereusable(s1);
+                if (!s2->s_refcount) signal_makereusable(s2);
+            }
+            else uin->i_signal = s1;
+            uin->i_ngot++;
+            /* if we didn't fill this inlet don't bother yet */
+            if (uin->i_ngot < uin->i_nconnect)
+                goto notyet;
+            /* if there's more than one, check them all */
+            if (u2->u_nin > 1)
+            {
+                for (uin = u2->u_in, n = u2->u_nin; n--; uin++)
+                    if (uin->i_ngot < uin->i_nconnect) goto notyet;
+            }
+            /* so now we can schedule the ugen.  */
             dsp_context_compilebox(dc, u2);
         notyet: ;
         }
@@ -394,26 +542,73 @@ void dsp_context_compilebox(t_dspcontext *dc, t_ugenbox *u)
     u->u_done = 1;
 }
 
+t_int *zero_perform(t_int *w)   /* zero out a vector */
+{
+    t_sample *out = (t_sample *)(w[1]);
+    int n = (int)(w[2]);
+    while (n--) *out++ = 0; 
+    return (w+3);
+}
+
+t_int *zero_perf8(t_int *w)
+{
+    t_sample *out = (t_sample *)(w[1]);
+    int n = (int)(w[2]);
+    
+    for (; n; n -= 8, out += 8)
+    {
+        out[0] = 0;
+        out[1] = 0;
+        out[2] = 0;
+        out[3] = 0;
+        out[4] = 0;
+        out[5] = 0;
+        out[6] = 0;
+        out[7] = 0;
+    }
+    return (w+3);
+}
+
+void dsp_add_zero(t_sample *out, int n)
+{
+    if (n&7)
+        dsp_add(zero_perform, 2, out, n);
+    else        
+        dsp_add(zero_perf8, 2, out, n);
+}
+
+/* ---------------- signals ---------------------------- */
+
+int ilog2(int n)
+{
+    int r = -1;
+    if (n <= 0) return(0);
+    while (n)
+    {
+        r++;
+        n >>= 1;
+    }
+    return (r);
+}
+
     /* list of signals which can be reused, sorted by buffer size */
 t_signal *signal_freelist[MAXLOGSIG+1];
     /* list of reusable "borrowed" signals (which don't own sample buffers) */
-t_signal *signal_freeborrowed = NULL;
+t_signal *signal_freeborrowed;
     /* list of all signals allocated (not including "borrowed" ones) */
-t_signal *signal_usedlist = NULL;
+t_signal *signal_usedlist;
 
 /* call this when DSP is stopped to free all the signals */
 void signal_cleanup(void)
 {
     t_signal *sig;
     int i;
-    while((sig = signal_usedlist))
+    while ((sig = signal_usedlist))
     {
         signal_usedlist = sig->s_nextused;
-        
-        //if (!sig->s_isborrowed)
-        //    t_freebytes(sig->s_vec, sig->s_vecsize * sizeof (*sig->s_vec));
-        
-        //t_freebytes(sig, sizeof *sig);
+        if (!sig->s_isborrowed)
+            t_freebytes(sig->s_vec, sig->s_vecsize * sizeof (*sig->s_vec));
+        t_freebytes(sig, sizeof *sig);
     }
     for (i = 0; i <= MAXLOGSIG; i++)
         signal_freelist[i] = 0;
@@ -443,7 +638,7 @@ void signal_makereusable(t_signal *sig)
         }
     }
 #endif
-   
+    if (ugen_loud) post("free %lx: %d", sig, sig->s_isborrowed);
     if (sig->s_isborrowed)
     {
             /* if the signal is borrowed, decrement the borrowed-from signal's
@@ -473,7 +668,6 @@ void signal_makereusable(t_signal *sig)
 
 t_signal *signal_new(int n, t_float sr)
 {
-    int i;
     int logn, vecsize = 0;
     t_signal *ret, **whichlist;
     logn = ilog2(n);
@@ -498,9 +692,6 @@ t_signal *signal_new(int n, t_float sr)
         if (n)
         {
             ret->s_vec = (t_sample *)getbytes(vecsize * sizeof (*ret->s_vec));
-            for(i = 0; i < vecsize; i++)
-                ret->s_vec[i] = 0;
-            
             ret->s_isborrowed = 0;
         }
         else
@@ -516,7 +707,7 @@ t_signal *signal_new(int n, t_float sr)
     ret->s_sr = sr;
     ret->s_refcount = 0;
     ret->s_borrowedfrom = 0;
-   
+    if (ugen_loud) post("new %lx: %d", ret, ret->s_isborrowed);
     return (ret);
 }
 
@@ -541,8 +732,6 @@ int signal_compatible(t_signal *s1, t_signal *s2)
 {
     return (s1->s_n == s2->s_n && s1->s_sr == s2->s_sr);
 }
-
-
 
 
 
