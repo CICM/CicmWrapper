@@ -24,7 +24,7 @@
  *
  */
 
-#include "../../../PdEnhanced/Sources/cicm_wrapper.h"
+#include "../../Sources/cicm_wrapper.h"
 
 typedef struct  _pak
 {
@@ -105,7 +105,7 @@ void *pak_new(t_symbol *s, int argc, t_atom *argv)
         }
         for(i = 1; i < x->f_argc; i++)
         {
-            eobj_inletnew((t_ebox *)x);
+            eobj_proxynew(x);
             if(atom_gettype(argv+i) == A_SYM && (atom_getsym(argv+i) == gensym("f") || atom_getsym(argv+i) == gensym("float")))
             {
                 x->f_selectors[i] = 0;
