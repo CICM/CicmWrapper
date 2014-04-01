@@ -205,6 +205,10 @@ long atoms_from_fatoms(long ac, t_atom* av)
                 atom_setsym(av+j, gensym(buffer));
 
             }
+            else if(strcmp(s->s_name, "[") || strcmp(s->s_name, "]"))
+            {
+                j--;
+            }
             else
             {
                 atom_setsym(av+j, symbol_from_fsymbol(s));
@@ -288,7 +292,7 @@ long atoms_get_keys(long ac, t_atom* av, t_symbol*** s)
     return size;
 }
 
-long binbuf_get_key(t_binbuf *d, t_symbol*** s)
+long binbuf_get_keys(t_binbuf *d, t_symbol*** s)
 {
     return atoms_get_keys(binbuf_getnatom(d), binbuf_getvec(d), s);
 }
@@ -318,28 +322,39 @@ t_pd_err binbuf_has_attribute(t_binbuf *d, t_symbol *key)
         return -1;
 }
 
-t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_atom **argv)
+long atoms_get_attribute_index(long ac, t_atom *av, t_symbol *key)
 {
-    int i = 0, index  = 0;
-    argc[0]     = 0;
-    argv[0]     = NULL;
-
+    int i;
     if(ac && av)
     {
         for(i = 0; i < ac; i++)
         {
             if(atom_gettype(av+i) == A_SYM && atom_getsym(av+i) == key)
             {
-                index = i + 1;
+                return i;
                 break;
             }
         }
     }
+    return -1;
+}
 
-    if(index)
+long binbuf_get_attribute_index(t_binbuf *d, t_symbol *key)
+{
+    return atoms_get_attribute_index(binbuf_getnatom(d), binbuf_getvec(d), key);
+}
+
+t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_atom **argv)
+{
+    int i = 0, index  = 0;
+    argc[0]     = 0;
+    argv[0]     = NULL;
+
+    index = atoms_get_attribute_index(ac, av, key) + 1;
+    if(index > 0)
     {
         i = index;
-        while (i < ac && atom_getsym(av+i)->s_name[0] != '@')
+        while(i < ac && atom_getsym(av+i)->s_name[0] != '@')
         {
             i++;
             argc[0]++;
@@ -351,15 +366,17 @@ t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_a
         argv[0] = NULL;
         return -1;
     }
-
+    
     if(argc[0])
     {
         argv[0] = (t_atom *)calloc(argc[0], sizeof(t_atom));
         for (i = 0; i < argc[0]; i++)
         {
             argv[0][i] = av[i+index];
+            
         }
         argc[0] = atoms_from_fatoms(argc[0], argv[0]);
+        argv[0] = (t_atom *)realloc(argv[0], argc[0] * sizeof(t_atom));
     }
     else
     {
@@ -367,7 +384,7 @@ t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_a
         argv[0] = NULL;
         return -1;
     }
-
+    
     return 0;
 }
 

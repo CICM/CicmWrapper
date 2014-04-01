@@ -49,8 +49,8 @@ void eobj_dspsetup(void *x, long nins, long nouts)
         box->d_sigs_real      = (t_float *)calloc(256 * 8192, sizeof(t_float));
         for( i = 0; i < 256; i++)
             box->d_sigs_out[i] = box->d_sigs_real+i*8192;
-        for(i = 0; i < nins; i++)
-            box->d_inlets[i] = (eproxy_signalnew(&box->b_obj.o_obj, box->d_float))->p_inlet;//signalinlet_new(&box->b_obj.o_obj, box->d_float);
+        for(i = obj_nsiginlets((t_object *)x); i < nins; i++)
+            box->d_inlets[i] = eproxy_signalnew(&box->b_obj.o_obj, box->d_float);
         for(i = 0; i < nouts; i++)
             box->d_outlets[i] = outlet_new(&box->b_obj.o_obj, &s_signal);
         
@@ -64,8 +64,8 @@ void eobj_dspsetup(void *x, long nins, long nouts)
         obj->d_sigs_real      = (t_float *)calloc(256 * 8192, sizeof(t_float));
         for( i = 0; i < 256; i++)
             obj->d_sigs_out[i] = obj->d_sigs_real+i*8192;
-        for(i = 0; i < nins; i++)
-            obj->d_inlets[i] = (eproxy_signalnew(&obj->d_obj.o_obj, obj->d_float))->p_inlet;
+        for(i = obj_nsiginlets((t_object *)x); i < nins; i++)
+            obj->d_inlets[i] = eproxy_signalnew(&box->b_obj.o_obj, box->d_float);
         for(i = 0; i < nouts; i++)
             obj->d_outlets[i] = outlet_new(&obj->d_obj.o_obj, &s_signal);
         
@@ -116,7 +116,7 @@ void eobj_resize_inputs(void *x, long nins)
         {
             for(i = obj_nsiginlets(&box->b_obj.o_obj); i < nins; i++)
             {
-                box->d_inlets[i] = signalinlet_new(&box->b_obj.o_obj, box->d_float);
+                box->d_inlets[i] = eproxy_signalnew(&box->b_obj.o_obj, box->d_float);
             }
         }
         else if(nins < obj_nsiginlets(&box->b_obj.o_obj))
@@ -124,7 +124,7 @@ void eobj_resize_inputs(void *x, long nins)
             for(i = obj_nsiginlets(&box->b_obj.o_obj) - 1; i >= nins; i--)
             {
                 canvas_deletelines_for_io(box->b_obj.o_canvas, (t_text *)x, (t_inlet *)box->d_inlets[i], NULL);
-                inlet_free(box->d_inlets[i]);
+                eproxy_free(box->d_inlets[i]);
             }
         }
         box->d_dsp_size = obj_nsiginlets(&box->b_obj.o_obj) + obj_nsigoutlets(&box->b_obj.o_obj) + 6;
@@ -136,7 +136,7 @@ void eobj_resize_inputs(void *x, long nins)
         {
             for(i = obj_nsiginlets(&obj->d_obj.o_obj); i < nins; i++)
             {
-                obj->d_inlets[i] = signalinlet_new(&obj->d_obj.o_obj, obj->d_float);
+                obj->d_inlets[i] = eproxy_signalnew(&box->b_obj.o_obj, box->d_float);
             }
         }
         else if(nins < obj_nsiginlets(&obj->d_obj.o_obj))
@@ -144,7 +144,7 @@ void eobj_resize_inputs(void *x, long nins)
             for(i = obj_nsiginlets(&obj->d_obj.o_obj) - 1; i >= nins; i--)
             {
                 canvas_deletelines_for_io(obj->d_obj.o_canvas, (t_text *)x, (t_inlet *)obj->d_inlets[i], NULL);
-                inlet_free(obj->d_inlets[i]);
+                eproxy_free(obj->d_inlets[i]);
             }
         }
         obj->d_dsp_size = obj_nsiginlets(&obj->d_obj.o_obj) + obj_nsigoutlets(&obj->d_obj.o_obj) + 6;

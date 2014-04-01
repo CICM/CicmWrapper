@@ -237,6 +237,7 @@ t_eproxy* eproxy_signalnew(void *owner, float f)
 void eproxy_free(t_eproxy* proxy)
 {
     inlet_free(proxy->p_inlet);
+    t_freebytes(proxy, sizeof(*proxy));
 }
 
 //! Anything method of the proxy inlet
