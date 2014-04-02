@@ -47,6 +47,7 @@ t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t siz
     c->c_dsp   = 0;
     c->c_box   = 0;
     c->c_attr  = (t_eattr *)malloc(sizeof(t_eattr));
+
     eproxy_setup();
     erouter_setup();
     return c;
@@ -175,7 +176,6 @@ void eclass_init(t_eclass* c, long flags)
 void eclass_dspinit(t_eclass* c)
 {
     c->c_dsp = 1;
-    c->c_class.c_firstin = 0;
     CLASS_MAINSIGNALIN((t_class *)c, t_edspbox, d_float);
     class_addmethod((t_class *)c, (t_method)eobj_dsp, gensym("dsp"), A_CANT, 0);
     class_addmethod((t_class *)c, (t_method)eobj_dsp_add, gensym("dsp_add"), A_NULL, 0);
@@ -191,7 +191,6 @@ void eclass_dspinit(t_eclass* c)
 void eclassbox_dspinit(t_eclass* c)
 {
     c->c_dsp = 1;
-    c->c_class.c_firstin = 0;
     CLASS_MAINSIGNALIN((t_class *)c, t_edspobj, d_float);
     class_addmethod((t_class *)c, (t_method)eobj_dsp, gensym("dsp"), A_CANT, 0);
     class_addmethod((t_class *)c, (t_method)eobj_dsp_add, gensym("dsp_add"), A_NULL, 0);

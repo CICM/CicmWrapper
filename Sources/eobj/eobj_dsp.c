@@ -123,7 +123,7 @@ void eobj_resize_inputs(void *x, long nins)
         {
             for(i = obj_nsiginlets(&box->b_obj.o_obj) - 1; i >= nins; i--)
             {
-                canvas_deletelines_for_io(box->b_obj.o_canvas, (t_text *)x, (t_inlet *)box->d_inlets[i], NULL);
+                canvas_deletelines_for_io(box->b_obj.o_canvas, (t_text *)x, (t_inlet *)box->d_inlets[i]->p_inlet, NULL);
                 eproxy_free(box->d_inlets[i]);
             }
         }
@@ -143,7 +143,7 @@ void eobj_resize_inputs(void *x, long nins)
         {
             for(i = obj_nsiginlets(&obj->d_obj.o_obj) - 1; i >= nins; i--)
             {
-                canvas_deletelines_for_io(obj->d_obj.o_canvas, (t_text *)x, (t_inlet *)obj->d_inlets[i], NULL);
+                canvas_deletelines_for_io(obj->d_obj.o_canvas, (t_text *)x, (t_inlet *)obj->d_inlets[i]->p_inlet, NULL);
                 eproxy_free(obj->d_inlets[i]);
             }
         }
@@ -280,12 +280,27 @@ void eobj_dsp(void *x, t_signal **sp)
 {
     int i;
     short* count;
+    t_linetraverser t;
+    t_outconnect    *oc;
     t_edspobj* obj = (t_edspobj *)x;
     t_edspbox* box = (t_edspbox *)x;
     t_eclass *c    = eobj_getclass(x);
+    
+    
     if(eobj_isbox(x))
     {
         count = (short*)calloc((obj_nsiginlets(&box->b_obj.o_obj) + obj_nsigoutlets(&box->b_obj.o_obj)), sizeof(short));
+        for(int i = 0; i < (obj_nsiginlets(&box->b_obj.o_obj) + obj_nsigoutlets(&box->b_obj.o_obj)); i++)
+            count[i] = 0;
+        
+        linetraverser_start(&t, eobj_getcanvas(x));
+        while((oc = linetraverser_next(&t)))
+        {
+            if(t.tr_ob2 == x && obj_issignaloutlet(t.tr_ob, t.tr_outno))
+            {
+                count[t.tr_inno] = 1;
+            }
+        }
         
         box->d_dsp_vectors[0] = (t_int)x;
         box->d_dsp_vectors[1] = (t_int)sp[0]->s_n;
@@ -299,7 +314,7 @@ void eobj_dsp(void *x, t_signal **sp)
         }
         
         if(c->c_widget.w_dsp != NULL)
-            c->c_widget.w_dsp(x, x, &count, sp[0]->s_sr, sp[0]->s_n, 0);
+            c->c_widget.w_dsp(x, x, count, sp[0]->s_sr, sp[0]->s_n, 0);
         
         if(box->d_perform_method != NULL && box->d_misc == E_INPLACE)
             dsp_addv(eobj_perform_box, (int)box->d_dsp_size, box->d_dsp_vectors);
@@ -309,6 +324,18 @@ void eobj_dsp(void *x, t_signal **sp)
     else
     {
         count = (short*)calloc((obj_nsiginlets(&obj->d_obj.o_obj) + obj_nsigoutlets(&obj->d_obj.o_obj)), sizeof(short));
+        
+        for(int i = 0; i < (obj_nsiginlets(&box->b_obj.o_obj) + obj_nsigoutlets(&box->b_obj.o_obj)); i++)
+            count[i] = 0;
+        
+        linetraverser_start(&t, eobj_getcanvas(x));
+        while((oc = linetraverser_next(&t)))
+        {
+            if(t.tr_ob2 == x && obj_issignaloutlet(t.tr_ob, t.tr_outno))
+            {
+                count[t.tr_inno] = 1;
+            }
+        }
         
         obj->d_dsp_vectors[0] = (t_int)x;
         obj->d_dsp_vectors[1] = (t_int)sp[0]->s_n;
@@ -323,7 +350,7 @@ void eobj_dsp(void *x, t_signal **sp)
         }
         
         if(c->c_widget.w_dsp != NULL)
-            c->c_widget.w_dsp(x, x, &count, sp[0]->s_sr, sp[0]->s_n, 0);
+            c->c_widget.w_dsp(x, x, count, sp[0]->s_sr, sp[0]->s_n, 0);
         
         if(obj->d_perform_method != NULL && obj->d_misc == E_INPLACE)
             dsp_addv(eobj_perform, (int)obj->d_dsp_size, obj->d_dsp_vectors);

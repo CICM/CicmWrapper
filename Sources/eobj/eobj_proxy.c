@@ -193,7 +193,7 @@ t_eproxy* eproxy_new(void *owner)
     inlet_class->c_listmethod = (t_listmethod)new_inlet_list;
     inlet_class->c_anymethod = (t_anymethod)new_inlet_anything;
     z->o_nproxy++;
-    return &z->o_proxy[z->o_nproxy];
+    return &z->o_proxy[z->o_nproxy-1];
 }
 
 //! Intialize a signal proxy inlet
@@ -210,7 +210,7 @@ t_eproxy* eproxy_signalnew(void *owner, float f)
     z->o_proxy[z->o_nproxy].p_owner = (t_object *)owner;
 	z->o_proxy[z->o_nproxy].p_pd    = eproxy_class;
     z->o_proxy[z->o_nproxy].p_index = z->o_nproxy;
-   
+    
     z->o_proxy[z->o_nproxy].p_inlet = inlet_new(&z->o_obj, &z->o_proxy[z->o_nproxy].p_pd, &s_signal, &s_signal);
     z->o_proxy[z->o_nproxy].p_inlet->i_un.iu_floatsignalvalue = f;
     
@@ -224,7 +224,7 @@ t_eproxy* eproxy_signalnew(void *owner, float f)
     inlet_class->c_anymethod = (t_anymethod)new_inlet_anything;
     z->o_nproxy++;
     
-    return &z->o_proxy[z->o_nproxy];
+    return &z->o_proxy[z->o_nproxy-1];
 }
 
 //! Free a proxy inlet
@@ -236,8 +236,9 @@ t_eproxy* eproxy_signalnew(void *owner, float f)
  */
 void eproxy_free(t_eproxy* proxy)
 {
+    t_eobj *z   = (t_eobj *)proxy->p_owner;
+    z->o_nproxy--;
     inlet_free(proxy->p_inlet);
-    t_freebytes(proxy, sizeof(*proxy));
 }
 
 //! Anything method of the proxy inlet

@@ -202,21 +202,20 @@ long atoms_from_fatoms(long ac, t_atom* av)
                     }
                     while(pch == NULL && i < ac);
                 }
-                atom_setsym(av+j, gensym(buffer));
+                atom_setsym(av+j++, gensym(buffer));
 
             }
-            else if(strcmp(s->s_name, "[") || strcmp(s->s_name, "]"))
+            else if(!strcmp(s->s_name, "[") || !strcmp(s->s_name, "]"))
             {
-                j--;
+                ;
             }
             else
             {
-                atom_setsym(av+j, symbol_from_fsymbol(s));
+                atom_setsym(av+j++, symbol_from_fsymbol(s));
             }
         }
         else
-            av[j] = av[i];
-        j++;
+            av[j++] = av[i];
     }
     return j;
 }
@@ -366,17 +365,22 @@ t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_a
         argv[0] = NULL;
         return -1;
     }
-    
+
     if(argc[0])
     {
         argv[0] = (t_atom *)calloc(argc[0], sizeof(t_atom));
         for (i = 0; i < argc[0]; i++)
         {
             argv[0][i] = av[i+index];
-            
         }
         argc[0] = atoms_from_fatoms(argc[0], argv[0]);
         argv[0] = (t_atom *)realloc(argv[0], argc[0] * sizeof(t_atom));
+        if(!argv[0])
+        {
+            argc[0] = 0;
+            argv[0] = NULL;
+            return -1;
+        }
     }
     else
     {
@@ -384,7 +388,7 @@ t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_a
         argv[0] = NULL;
         return -1;
     }
-    
+
     return 0;
 }
 

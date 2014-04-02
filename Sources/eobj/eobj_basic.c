@@ -43,7 +43,7 @@ void *eobj_new(t_eclass *c)
     x   = (t_pd *)t_getbytes(c->c_class.c_size);
     *x  = (t_pd)c;
     
-    if (c->c_class.c_patchable)
+    if(c->c_class.c_patchable)
     {
         ((t_object *)x)->ob_inlet = 0;
         ((t_object *)x)->ob_outlet = 0;

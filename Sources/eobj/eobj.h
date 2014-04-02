@@ -111,7 +111,7 @@ void eobj_dspsetup(void *x, long nins, long nouts);
 void eobj_dspfree(void *x);
 void eobj_resize_inputs(void *x, long nins);
 void eobj_resize_outputs(void *x, long nouts);
-t_eproxy* eobj_getdspinlet(void *x, long index);
+t_eproxy* eobj_getdspproxlet(void *x, long index);
 t_outlet* eobj_getdspoutlet(void *x, long index);
 t_sample* eobj_getsignalinput(void *x, long index);
 t_sample* eobj_getsignaloutput(void *x, long index);
