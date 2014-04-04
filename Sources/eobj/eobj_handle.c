@@ -26,6 +26,17 @@
 
 #include "eobj.h"
 
+typedef struct _namelist    /* element in a linked list of stored strings */
+{
+    struct _namelist *nl_next;  /* next in list */
+    char *nl_string;            /* the string */
+} t_namelist;
+
+extern t_namelist *sys_externlist;
+extern t_namelist *sys_searchpath;
+extern t_namelist *sys_staticpath;
+extern t_namelist *sys_helppath;
+
 static t_pt mouse_global_pos;
 static t_pt mouse_patcher_pos;
 
@@ -162,9 +173,11 @@ void eobj_write(t_eobj* x, t_symbol* s, long argc, t_atom* argv)
     t_atom av[1];
     t_eclass* c = eobj_getclass(x);
     
+    // The file name is defined
     if(argc && argv && atom_gettype(argv) == A_SYM)
     {
         pch = strpbrk(atom_getsym(argv)->s_name, "/\"");
+        // The folder seems defined
         if(pch != NULL)
         {
             atom_setsym(av, atom_getsym(argv));
@@ -172,6 +185,7 @@ void eobj_write(t_eobj* x, t_symbol* s, long argc, t_atom* argv)
                 c->c_widget.w_write(x, s, 1, av);
             return;
         }
+        // The folder isn't defined so write it in the canvas folder
         else
         {
             sprintf(buf, "%s/%s", canvas_getdir(x->o_canvas)->s_name, atom_getsym(argv)->s_name);
@@ -181,7 +195,11 @@ void eobj_write(t_eobj* x, t_symbol* s, long argc, t_atom* argv)
             return;
         }
     }
-    sys_vgui("eobj_saveas %s nothing nothing\n", x->o_id->s_name);
+    // The file name is not defined so we popup a window
+    else
+    {
+        sys_vgui("eobj_saveas %s nothing nothing\n", x->o_id->s_name);
+    }
 }
 
 //! The default read method for all eobj called by PD (PRIVATE)
@@ -198,28 +216,66 @@ void eobj_read(t_eobj* x, t_symbol* s, long argc, t_atom* argv)
     char buf[MAXPDSTRING];
     char* pch;
     t_atom av[1];
+    t_namelist* var;
     t_eclass* c = eobj_getclass(x);
     
+    // Name
     if(argc && argv && atom_gettype(argv) == A_SYM)
     {
-        pch = strpbrk(atom_getsym(argv)->s_name, "/\"");
-        if(pch != NULL)
+        // Valid path
+        if((access(atom_getsym(argv)->s_name, O_RDONLY) != -1))
         {
-            atom_setsym(av, atom_getsym(argv));
             if(c->c_widget.w_read)
-                c->c_widget.w_read(x, s, 1, av);
-            return;
+                c->c_widget.w_read(x, s, 1, argv);
         }
+        // Invalid path or no path
         else
         {
-            sprintf(buf, "%s/%s", canvas_getdir(x->o_canvas)->s_name, atom_getsym(argv)->s_name);
-            atom_setsym(av, gensym(buf));
-            if(c->c_widget.w_read)
-                c->c_widget.w_read(x, s, 1, av);
-            return;
+            // Wrong path but we don't care
+            pch = strpbrk(atom_getsym(argv)->s_name, "/\"");
+            if(pch != NULL)
+            {
+                if(c->c_widget.w_read)
+                    c->c_widget.w_read(x, s, 1, argv);
+            }
+            else
+            {
+                // Look in the canvas folder
+                sprintf(buf, "%s/%s", canvas_getdir(x->o_canvas)->s_name, atom_getsym(argv)->s_name);
+                if((access(buf, O_RDONLY) != -1))
+                {
+                    atom_setsym(av, gensym(buf));
+                    if(c->c_widget.w_read)
+                        c->c_widget.w_read(x, s, 1, av);
+                    return;
+                }
+                // Look in the search path
+                var = sys_searchpath;
+                while (var)
+                {
+                    sprintf(buf, "%s/%s", var->nl_string, atom_getsym(argv)->s_name);
+                    if((access(buf, O_RDONLY) != -1))
+                    {
+                        atom_setsym(av, gensym(buf));
+                        if(c->c_widget.w_read)
+                            c->c_widget.w_read(x, s, 1, av);
+                        return;
+                    }
+                    var = var->nl_next;
+                }
+                
+                // Nothing work but we don't care
+                if(c->c_widget.w_read)
+                    c->c_widget.w_read(x, s, 1, av);
+                return;
+            }
         }
     }
-    sys_vgui("eobj_openfrom %s\n", x->o_id->s_name);
+    // No name so we popup a window
+    else
+    {
+        sys_vgui("eobj_openfrom %s\n", x->o_id->s_name);
+    }
 }
 
 //! @endcond
