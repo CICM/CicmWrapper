@@ -236,7 +236,7 @@ void preset_store(t_preset *x, float f)
         mpreset = NULL;
     }
 }
-
+/*
 t_pd_err pratoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_atom **argv)
 {
     int i = 0, index  = 0;
@@ -281,7 +281,7 @@ t_pd_err prbinbuf_get_attribute(t_binbuf *d, t_symbol *key, long *argc, t_atom *
     else
         return -1;
 }
-
+*/
 void preset_float(t_preset *x, float f)
 {
     long ac = 0;
@@ -308,7 +308,7 @@ void preset_float(t_preset *x, float f)
         if(mpreset && z->b_objpreset_id != s_null && z->b_objpreset_id != s_nothing)
         {
             sprintf(id, "@%s", z->b_objpreset_id->s_name);
-            prbinbuf_get_attribute(b, gensym(id), &ac, &av);
+            binbuf_get_attribute(b, gensym(id), &ac, &av);
             if(ac > 1 && av && atom_gettype(av) == A_SYM && atom_gettype(av+1) == A_SYM)
             {
                 if(eobj_getclassname(z) == atom_getsym(av))
@@ -362,7 +362,7 @@ void preset_interpolate(t_preset *x, float f)
     {
         z = (t_ebox *)y;
         mpreset = zgetfn(&y->g_pd, s_preset);
-            // We find a preset method so we can send preset //
+        // We find a preset method so we can send preset //
         if(mpreset && z->b_objpreset_id != s_null && z->b_objpreset_id != s_nothing)
         {
             sprintf(id, "@%s", z->b_objpreset_id->s_name);
@@ -378,7 +378,7 @@ void preset_interpolate(t_preset *x, float f)
                 if(binbuf_getnatom(x->f_binbuf[j]))
                 {
                     // We get the preset //
-                    prbinbuf_get_attribute(x->f_binbuf[j], gensym(id), &acdo, &avdo);
+                    binbuf_get_attribute(x->f_binbuf[j], gensym(id), &acdo, &avdo);
                     if(acdo >= 2 && avdo && atom_gettype(avdo) == A_SYM && atom_gettype(avdo+1) == A_SYM)
                     {
                         // If the object is in the preset we record the preset else we skip this preset //
@@ -403,7 +403,7 @@ void preset_interpolate(t_preset *x, float f)
                 if(binbuf_getnatom(x->f_binbuf[j]))
                 {
                     // We get the preset //
-                    prbinbuf_get_attribute(x->f_binbuf[j], gensym(id), &acup, &avup);
+                    binbuf_get_attribute(x->f_binbuf[j], gensym(id), &acup, &avup);
                     if(acup >= 2 && avup && atom_gettype(avup) == A_SYM && atom_gettype(avup+1) == A_SYM)
                     {
                         // If the object is in the preset we record the preset else we skip this preset //

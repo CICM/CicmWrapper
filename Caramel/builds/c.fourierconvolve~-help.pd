@@ -1,0 +1,37 @@
+#N canvas 548 285 826 486 10;
+#X obj -100 -132 cnv 40 552 40 empty empty c.bang 3 12 0 18 -228856
+-33289 0;
+#X text -97 -110 A bang... that's all.;
+#X text 320 217 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X text -99 -88 c.bang do nothing more than vanilla bang for the moment...
+;
+#X obj -64 272 c.number~ @size 79 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X msg 265 19 \; pd dsp 1;
+#X msg 265 59 \; pd dsp 0;
+#N canvas 0 22 665 459 (subpatch) 0;
+#X array response 374520 float 2;
+#X coords 0 1 374520 -1 200 140 1 0 0;
+#X restore 361 17 graph;
+#X obj 368 -21 soundfiler;
+#X msg 388 -65 read -resize Cistern.wav response;
+#X msg 408 -45 read -resize SmallRoom.wav response;
+#X obj -30 96 dac~;
+#X obj -49 48 -~;
+#X msg 575 -21;
+#X msg 104 -13 set response;
+#X msg 368 -84 read -resize Chapel.wav response;
+#X obj 30 35 c.fourierconvolve~ response 0 16384;
+#X obj 22 -42 phasor~ 0.4;
+#X connect 9 0 8 0;
+#X connect 10 0 8 0;
+#X connect 13 0 8 0;
+#X connect 14 0 16 0;
+#X connect 15 0 8 0;
+#X connect 16 0 11 0;
+#X connect 16 0 11 1;
+#X connect 16 0 4 0;
+#X connect 17 0 16 0;

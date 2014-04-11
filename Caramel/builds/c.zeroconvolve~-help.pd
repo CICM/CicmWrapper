@@ -1,0 +1,117 @@
+#N canvas 373 127 947 697 10;
+#X obj -100 -132 cnv 40 552 40 empty empty c.bang 3 12 0 18 -228856
+-33289 0;
+#X text -97 -110 A bang... that's all.;
+#X text -16 127 Chocolate by Pierre Guillot | CICM - Université Paris
+8;
+#X text -99 -88 c.bang do nothing more than vanilla bang for the moment...
+;
+#X msg 265 19 \; pd dsp 1;
+#X msg 265 59 \; pd dsp 0;
+#N canvas 0 22 665 459 (subpatch) 0;
+#X array \$0-zero.response 220499 float 2;
+#X coords 0 1 220499 -1 200 140 1 0 0;
+#X restore 361 17 graph;
+#X obj 368 -21 soundfiler;
+#X obj 297 441 dac~;
+#X obj 19 204 c.timeconvolve~ \$0-zero.response 0 64;
+#X obj 253 204 c.fourierconvolve~ \$0-zero.response 64 64;
+#X obj 250 227 c.fourierconvolve~ \$0-zero.response 128 128;
+#X obj 522 -108 symbol \$0-zero.response;
+#X msg 368 -84 read -resize Chapel.wav \$1;
+#X obj 519 -126 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 250 257 c.fourierconvolve~ \$0-zero.response 256 256;
+#X obj 295 374 +~;
+#X obj 250 287 c.fourierconvolve~ \$0-zero.response 512 512;
+#X obj 523 204 c.fourierconvolve~ \$0-zero.response 1024 1024;
+#X obj 520 227 c.fourierconvolve~ \$0-zero.response 2048 2048;
+#X obj 520 257 c.fourierconvolve~ \$0-zero.response 4096 4096;
+#X obj 520 287 c.fourierconvolve~ \$0-zero.response 8192 8192;
+#X obj 682 -108 symbol \$0-zero.response;
+#X obj 679 -126 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 567 -65 read -resize Cistern.wav \$1;
+#X msg 691 55 16384;
+#X msg 693 97;
+#X obj 520 348 c.fourierconvolve~ \$0-zero.response 32768 32768;
+#X obj 520 318 c.fourierconvolve~ \$0-zero.response 16384 16384;
+#X obj 94 414 c.scope~ @size 125 100 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @bufdis
+256 @bufsig 256 @range -1 1 @xymode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @sicolor 0 0.6 0 0.8;
+#X msg 408 -45 read -resize SmallRoom.wav \$1;
+#X obj 682 -18 symbol \$0-zero.response;
+#X obj 679 -36 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 520 378 c.fourierconvolve~ \$0-zero.response 65536 65536;
+#X obj 22 23 c.gain~ @size 135 14 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 520 408 c.fourierconvolve~ \$0-zero.response 131072 131072;
+#X obj 351 445 c.number~ @size 130 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 46 -64 phasor~ 0.3;
+#X obj 35 -18 *~ 3;
+#X obj -54 166 symbol \$0-zero.response;
+#X obj -57 148 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj -11 228 c.prepend set;
+#X connect 9 0 16 0;
+#X connect 10 0 16 0;
+#X connect 11 0 16 0;
+#X connect 12 0 13 0;
+#X connect 13 0 7 0;
+#X connect 14 0 12 0;
+#X connect 15 0 16 0;
+#X connect 16 0 36 0;
+#X connect 16 0 29 0;
+#X connect 16 0 8 0;
+#X connect 17 0 16 0;
+#X connect 18 0 16 0;
+#X connect 19 0 16 0;
+#X connect 20 0 16 0;
+#X connect 21 0 16 0;
+#X connect 22 0 24 0;
+#X connect 23 0 22 0;
+#X connect 24 0 7 0;
+#X connect 27 0 16 0;
+#X connect 28 0 16 0;
+#X connect 30 0 7 0;
+#X connect 31 0 30 0;
+#X connect 32 0 31 0;
+#X connect 33 0 16 0;
+#X connect 34 0 9 0;
+#X connect 34 0 10 0;
+#X connect 34 0 11 0;
+#X connect 34 0 15 0;
+#X connect 34 0 18 0;
+#X connect 34 0 19 0;
+#X connect 34 0 20 0;
+#X connect 34 0 21 0;
+#X connect 34 0 28 0;
+#X connect 34 0 27 0;
+#X connect 34 0 33 0;
+#X connect 34 0 35 0;
+#X connect 34 0 17 0;
+#X connect 35 0 16 0;
+#X connect 37 0 38 0;
+#X connect 38 0 34 0;
+#X connect 39 0 41 0;
+#X connect 40 0 39 0;
+#X connect 41 0 9 0;
+#X connect 41 0 10 0;
+#X connect 41 0 35 0;
+#X connect 41 0 33 0;
+#X connect 41 0 27 0;
+#X connect 41 0 28 0;
+#X connect 41 0 21 0;
+#X connect 41 0 20 0;
+#X connect 41 0 19 0;
+#X connect 41 0 18 0;
+#X connect 41 0 17 0;
+#X connect 41 0 15 0;
+#X connect 41 0 11 0;
