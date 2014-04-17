@@ -131,7 +131,6 @@ void eobj_dsp_add(void *x, t_symbol* s, t_object* obj, method m, long flags, voi
  * ROUTER
  *********************************/
 
-void erouter_add_libary(t_symbol* name, char* message, char* copyright, char* version);
 void eobj_attach_torouter(t_object* child);
 void eobj_detach_torouter(t_object* child);
 

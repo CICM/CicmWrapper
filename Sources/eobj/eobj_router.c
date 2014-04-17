@@ -55,35 +55,6 @@ void erouter_setup()
     }
 }
 
-void erouter_add_libary(t_symbol* name, char* message, char* copyright, char* version)
-{
-    int i;
-    if(gensym("erouter1572")->s_thing == NULL)
-        erouter_setup();
-    t_erouter *x = (t_erouter *)gensym("erouter1572")->s_thing;
-    for(i = 0; i < x->e_nlibraries; i++)
-    {
-        if(x->e_libraries[i] == name)
-            return;
-    }
-    if(x->e_nlibraries == 0)
-    {
-        x->e_libraries = (t_symbol **)malloc(sizeof(t_symbol *));
-        x->e_libraries[0] = name;
-        x->e_nlibraries = 1;
-    }
-    else
-    {
-        x->e_libraries = (t_symbol **)realloc(x->e_libraries,(x->e_nlibraries + 1) * sizeof(t_symbol *));
-        x->e_libraries[x->e_nlibraries] = name;
-        x->e_nlibraries++;
-    }
-    
-    post(message);
-    post(copyright);
-    post(version);
-}
-
 void erouter_free(t_erouter *x)
 {
 	if(x->e_childs)

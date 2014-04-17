@@ -142,7 +142,10 @@ void new_inlet_list(t_inlet *x, t_symbol *s, int argc, t_atom *argv)
         pd_typedmess((t_pd *)x->i_dest, s, argc, argv);
     }
     else if (!x->i_symfrom)
-        pd_list(x->i_dest, s, argc, argv);
+    {
+        typedmess(x->i_dest, s, argc, argv);
+        //pd_list(x->i_dest, s, argc, argv);
+    }
     else if (!argc)
         new_inlet_bang(x);
     else if (argc==1 && argv->a_type == A_FLOAT)
@@ -150,6 +153,7 @@ void new_inlet_list(t_inlet *x, t_symbol *s, int argc, t_atom *argv)
     else if (argc==1 && argv->a_type == A_SYMBOL)
         new_inlet_symbol(x, atom_getsymbol(argv));
     else inlet_wrong(x, &s_list);
+    
 }
 
 void new_inlet_anything(t_inlet *x, t_symbol *s, int argc, t_atom *argv)

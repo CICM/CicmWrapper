@@ -27,7 +27,6 @@
 #ifndef DEF_EPD
 #define DEF_EPD
 
-#define cicm_post() erouter_add_libary(gensym("CICM"), "CICM Libraries by Pierre Guillot", "© 2013 - 2014  CICM | Paris 8 University", "Version 0.2")
 #include "eclass/eclass.h"
 
 #endif

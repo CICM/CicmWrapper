@@ -1,6 +1,0 @@
-#N canvas 174 164 450 300 10;
-#X obj 211 144 print subcnv;
-#X obj 74 184 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0 256;
-#X obj 295 226 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0 256;
