@@ -1,5 +1,24 @@
 
-PdEnhanced Libraries
+Cream Library
+
+For an overview of Chocolate, Coffee and Caramel Libraries, please refer to the "@patchs".
+
+------------------------
+Coffee & Chocolate Beta 0.2
+------------------------
+General :
+Property window, proxy inlets, preset function, etc...
+A lot of stuff can't enum everything, look at the commit...
+
+Chocolate :
+- c.rslider
+- c.blackboard updated
+- c.function updated
+- c.preset updated
+
+Caramel :
+- c.freeverb~
+- c.convolve~
 
 ------------------------
 Coffee & Chocolate Beta 0.1
@@ -15,7 +34,7 @@ Chocolate :
 - c.menu
 - c.number
 - c.plane
-- c.Preset
+- c.preset
 - c.radio
 - c.slider
 - c.tab
@@ -32,4 +51,3 @@ Coffee :
 - c.patcherinfos
 - c.prepend
 
-For an overview of Chocolate & Coffee Libraries, please refer to the '@Chocolate' patchs.
