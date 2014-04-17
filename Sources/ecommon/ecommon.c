@@ -282,7 +282,7 @@ long binbuf_get_nattributes(t_binbuf *d)
 long atoms_get_keys(long ac, t_atom* av, t_symbol*** s)
 {
     long i, j;
-    int size = atoms_get_nattributes(ac, av);
+    long size = atoms_get_nattributes(ac, av);
     s[0] = malloc(size * sizeof(t_symbol *));
     
     for(i = 0, j = 0; i < ac; i++)
@@ -350,7 +350,7 @@ long binbuf_get_attribute_index(t_binbuf *d, t_symbol *key)
 
 t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_atom **argv)
 {
-    int i = 0, index  = 0;
+    long i = 0, index  = 0;
     argc[0]     = 0;
     argv[0]     = NULL;
 

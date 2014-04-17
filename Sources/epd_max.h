@@ -82,10 +82,10 @@
 #define jbox_resize_outputs(t_jbox, nouts)          ebox_resize_outputs(t_jbox, nouts)
 #define jbox_get_rect_for_view(t_object, view, rect) ebox_get_rect_for_view(t_object, view, rect)
 #define jmouse_setcursor(patcherview, t_jbox, mode) ebox_set_cursor(t_jbox, mode)
-#define jbox_start_layer                            ebox_start_layer
-#define jbox_end_layer                              ebox_end_layer
-#define jbox_invalidate_layer                       ebox_invalidate_layer
-#define jbox_paint_layer                            ebox_paint_layer
+#define jbox_start_layer(box, view, name, x, y)     ebox_start_layer((t_ebox *)box, name, x, y)
+#define jbox_end_layer(box, view, name)             ebox_end_layer((t_ebox *)box, name)
+#define jbox_invalidate_layer(box, view, name)      ebox_invalidate_layer((t_ebox *)box, name)
+#define jbox_paint_layer(box, view, name, x, y)     ebox_paint_layer((t_ebox *)box, name, x, y)
 #define jbox_notify(object, s, msg, sender, data)   ebox_notify(object, s, msg, sender, data)
 
 #define jbox_get_fontname(object)                   ebox_get_fontname(object)

@@ -29,6 +29,22 @@ extern "C"  {
 extern t_symbol *sys_libdir;
 }
 
+extern "C"
+{
+    typedef struct _namelist    /* element in a linked list of stored strings */
+    {
+        struct _namelist *nl_next;  /* next in list */
+        char *nl_string;            /* the string */
+    } t_namelist;
+    
+    extern t_namelist *sys_externlist;
+    extern t_namelist *sys_searchpath;
+    extern t_namelist *sys_staticpath;
+    extern t_namelist *sys_helppath;
+    extern t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
+}
+
+
 typedef struct  _blacboard
 {
 	t_ebox      j_box;
@@ -403,8 +419,12 @@ void blackboard_arc(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 void blackboard_image(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 {
     char path[MAXPDSTRING];
+    t_namelist* temp;
     if(!ebox_isdrawable((t_ebox *)x) || x->j_box.b_editor_id == NULL)
+    {
         return;
+    }
+
     if(argc > 2 && argv)
     {
         if(atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT && atom_gettype(argv+2) == A_SYM)
@@ -413,22 +433,27 @@ void blackboard_image(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
             if(access(path, O_RDONLY) != -1)
             {
                 sys_vgui("%s create image %d %d -anchor nw -image [image create photo -file %s] -tags %s\n", x->j_box.b_drawing_id->s_name,  (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), path, x->j_box.b_all_id->s_name);
+                ebox_redraw((t_ebox *)x);
+                return;
             }
-            else
+            sprintf(path, "%s/%s", canvas_getdir(x->j_box.b_obj.o_canvas)->s_name, atom_getsym(argv+2)->s_name);
+            if(access(path, O_RDONLY) != -1)
             {
-                sprintf(path, "%s/%s", canvas_getdir(x->j_box.b_obj.o_canvas)->s_name, atom_getsym(argv+2)->s_name);
+                sys_vgui("%s create image %d %d -anchor nw -image [image create photo -file %s] -tags %s\n", x->j_box.b_drawing_id->s_name,  (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), path, x->j_box.b_all_id->s_name);
+                ebox_redraw((t_ebox *)x);
+                return;
+            }
+            temp = sys_searchpath;
+            while(temp)
+            {
+                sprintf(path, "%s/%s",temp->nl_string, atom_getsym(argv+2)->s_name);
                 if(access(path, O_RDONLY) != -1)
                 {
                     sys_vgui("%s create image %d %d -anchor nw -image [image create photo -file %s] -tags %s\n", x->j_box.b_drawing_id->s_name,  (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), path, x->j_box.b_all_id->s_name);
+                    ebox_redraw((t_ebox *)x);
+                    return;
                 }
-                else
-                {
-                    sprintf(path, "%s/others/%s", sys_libdir->s_name,atom_getsym(argv+2)->s_name);
-                    if(access(path, O_RDONLY) != -1)
-                    {
-                        sys_vgui("%s create image %d %d -anchor nw -image [image create photo -file %s] -tags %s\n", x->j_box.b_drawing_id->s_name,  (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), path, x->j_box.b_all_id->s_name);
-                    }
-                }
+                temp = temp->nl_next;
             }
             
             ebox_redraw((t_ebox *)x);

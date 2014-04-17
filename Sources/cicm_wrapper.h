@@ -29,6 +29,6 @@
 
 #include "epd.h"
 #include "ecommon/ecommon.h"
-//#include "epd_max.h"
+#include "epd_max.h"
 
 #endif

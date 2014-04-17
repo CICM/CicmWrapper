@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		59FB02F817A7FAA9001E977D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FB02F717A7FAA9001E977D /* Accelerate.framework */; };
+		8F54115F18F990E800716618 /* AudioFFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F54115718F990E800716618 /* AudioFFT.cpp */; };
+		8F54116018F990E800716618 /* AudioFFT.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F54115818F990E800716618 /* AudioFFT.h */; };
+		8F54116118F990E800716618 /* FFTConvolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F54115918F990E800716618 /* FFTConvolver.cpp */; };
+		8F54116218F990E800716618 /* FFTConvolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F54115A18F990E800716618 /* FFTConvolver.h */; };
+		8F54116318F990E800716618 /* TwoStageFFTConvolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F54115B18F990E800716618 /* TwoStageFFTConvolver.cpp */; };
+		8F54116418F990E800716618 /* TwoStageFFTConvolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F54115C18F990E800716618 /* TwoStageFFTConvolver.h */; };
+		8F54116518F990E800716618 /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F54115D18F990E800716618 /* Utilities.cpp */; };
+		8F54116618F990E800716618 /* Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F54115E18F990E800716618 /* Utilities.h */; };
 		8F8C3849186D7EC2004C3EFE /* ebox.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8C381F186D7EC1004C3EFE /* ebox.h */; };
 		8F8C384A186D7EC2004C3EFE /* ebox_attr.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C3820186D7EC1004C3EFE /* ebox_attr.c */; };
 		8F8C384B186D7EC2004C3EFE /* ebox_basic.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C3821186D7EC1004C3EFE /* ebox_basic.c */; };
@@ -49,6 +57,14 @@
 /* Begin PBXFileReference section */
 		5913846F15DAA36D0029AD16 /* c.convolve~.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "c.convolve~.pd_darwin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FB02F717A7FAA9001E977D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		8F54115718F990E800716618 /* AudioFFT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFFT.cpp; sourceTree = "<group>"; };
+		8F54115818F990E800716618 /* AudioFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFFT.h; sourceTree = "<group>"; };
+		8F54115918F990E800716618 /* FFTConvolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FFTConvolver.cpp; sourceTree = "<group>"; };
+		8F54115A18F990E800716618 /* FFTConvolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFTConvolver.h; sourceTree = "<group>"; };
+		8F54115B18F990E800716618 /* TwoStageFFTConvolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwoStageFFTConvolver.cpp; sourceTree = "<group>"; };
+		8F54115C18F990E800716618 /* TwoStageFFTConvolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoStageFFTConvolver.h; sourceTree = "<group>"; };
+		8F54115D18F990E800716618 /* Utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utilities.cpp; sourceTree = "<group>"; };
+		8F54115E18F990E800716618 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		8F8C381F186D7EC1004C3EFE /* ebox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ebox.h; sourceTree = "<group>"; };
 		8F8C3820186D7EC1004C3EFE /* ebox_attr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ebox_attr.c; sourceTree = "<group>"; };
 		8F8C3821186D7EC1004C3EFE /* ebox_basic.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ebox_basic.c; sourceTree = "<group>"; };
@@ -103,6 +119,14 @@
 			isa = PBXGroup;
 			children = (
 				8FB730CE180953EB00830C7B /* c.convolve~.cpp */,
+				8F54115718F990E800716618 /* AudioFFT.cpp */,
+				8F54115818F990E800716618 /* AudioFFT.h */,
+				8F54115918F990E800716618 /* FFTConvolver.cpp */,
+				8F54115A18F990E800716618 /* FFTConvolver.h */,
+				8F54115B18F990E800716618 /* TwoStageFFTConvolver.cpp */,
+				8F54115C18F990E800716618 /* TwoStageFFTConvolver.h */,
+				8F54115D18F990E800716618 /* Utilities.cpp */,
+				8F54115E18F990E800716618 /* Utilities.h */,
 				8F8C381D186D7EC1004C3EFE /* Sources */,
 				59FB02F717A7FAA9001E977D /* Accelerate.framework */,
 				5913847015DAA36D0029AD16 /* Products */,
@@ -225,10 +249,14 @@
 			files = (
 				8F8C386C186D7EC2004C3EFE /* pd_enhanced.h in Headers */,
 				8F8C3858186D7EC2004C3EFE /* eboxflag.h in Headers */,
+				8F54116018F990E800716618 /* AudioFFT.h in Headers */,
 				8F8C385A186D7EC2004C3EFE /* ecommon.h in Headers */,
 				8F8C3849186D7EC2004C3EFE /* ebox.h in Headers */,
 				8F8C386A186D7EC2004C3EFE /* epopup.h in Headers */,
 				8F8C386B186D7EC2004C3EFE /* estruct.h in Headers */,
+				8F54116218F990E800716618 /* FFTConvolver.h in Headers */,
+				8F54116418F990E800716618 /* TwoStageFFTConvolver.h in Headers */,
+				8F54116618F990E800716618 /* Utilities.h in Headers */,
 				8F8C3867186D7EC2004C3EFE /* epd.h in Headers */,
 				8F8C3868186D7EC2004C3EFE /* epd_max.h in Headers */,
 				8F8C3850186D7EC2004C3EFE /* eclass.h in Headers */,
@@ -292,13 +320,16 @@
 				8F8C3852186D7EC2004C3EFE /* eclass_attrnew.c in Sources */,
 				8F8C384B186D7EC2004C3EFE /* ebox_basic.c in Sources */,
 				8F8C384E186D7EC2004C3EFE /* ebox_patcher.c in Sources */,
+				8F54115F18F990E800716618 /* AudioFFT.cpp in Sources */,
 				8F8C384F186D7EC2004C3EFE /* ebox_window.c in Sources */,
 				8F8C3860186D7EC2004C3EFE /* egraphics_text.c in Sources */,
 				8F8C385D186D7EC2004C3EFE /* egraphics_color.c in Sources */,
+				8F54116318F990E800716618 /* TwoStageFFTConvolver.cpp in Sources */,
 				8F8C385E186D7EC2004C3EFE /* egraphics_forms.c in Sources */,
 				8F8C3859186D7EC2004C3EFE /* ecommon.c in Sources */,
 				8F8C384D186D7EC2004C3EFE /* ebox_handle.c in Sources */,
 				8F8C3851186D7EC2004C3EFE /* eclass_attrgetter.c in Sources */,
+				8F54116118F990E800716618 /* FFTConvolver.cpp in Sources */,
 				8F8C3865186D7EC2004C3EFE /* eobj_proxy.c in Sources */,
 				8F8C3855186D7EC2004C3EFE /* eclass_basic.c in Sources */,
 				8F8C3863186D7EC2004C3EFE /* eobj_dsp.c in Sources */,
@@ -306,6 +337,7 @@
 				8F8C3862186D7EC2004C3EFE /* eobj_basic.c in Sources */,
 				8F8C385F186D7EC2004C3EFE /* egraphics_matrix.c in Sources */,
 				8F8C3864186D7EC2004C3EFE /* eobj_handle.c in Sources */,
+				8F54116518F990E800716618 /* Utilities.cpp in Sources */,
 				8F8C385B186D7EC2004C3EFE /* egraphics.c in Sources */,
 				8F8C384A186D7EC2004C3EFE /* ebox_attr.c in Sources */,
 				8FB730CF180953EB00830C7B /* c.convolve~.cpp in Sources */,
@@ -359,7 +391,8 @@
 				EXECUTABLE_EXTENSION = pd_darwin;
 				EXECUTABLE_PREFIX = "";
 				FRAMEWORK_SEARCH_PATHS = "";
-				GCC_PREPROCESSOR_DEFINITIONS = NO_PUB;
+				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_PREPROCESSOR_DEFINITIONS = AUDIOFFT_APPLE_ACCELERATE;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = "";
 				"HEADER_SEARCH_PATHS[arch=*]" = "";
