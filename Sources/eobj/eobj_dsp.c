@@ -290,7 +290,7 @@ void eobj_dsp(void *x, t_signal **sp)
     if(eobj_isbox(x))
     {
         count = (short*)calloc((obj_nsiginlets(&box->b_obj.o_obj) + obj_nsigoutlets(&box->b_obj.o_obj)), sizeof(short));
-        for(int i = 0; i < (obj_nsiginlets(&box->b_obj.o_obj) + obj_nsigoutlets(&box->b_obj.o_obj)); i++)
+        for(i = 0; i < (obj_nsiginlets(&box->b_obj.o_obj) + obj_nsigoutlets(&box->b_obj.o_obj)); i++)
             count[i] = 0;
         
         linetraverser_start(&t, eobj_getcanvas(x));
@@ -325,7 +325,7 @@ void eobj_dsp(void *x, t_signal **sp)
     {
         count = (short*)calloc((obj_nsiginlets(&obj->d_obj.o_obj) + obj_nsigoutlets(&obj->d_obj.o_obj)), sizeof(short));
         
-        for(int i = 0; i < (obj_nsiginlets(&box->b_obj.o_obj) + obj_nsigoutlets(&box->b_obj.o_obj)); i++)
+        for(i = 0; i < (obj_nsiginlets(&box->b_obj.o_obj) + obj_nsigoutlets(&box->b_obj.o_obj)); i++)
             count[i] = 0;
         
         linetraverser_start(&t, eobj_getcanvas(x));

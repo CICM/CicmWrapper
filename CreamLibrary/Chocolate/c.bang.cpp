@@ -189,7 +189,7 @@ void bang_paint(t_bang *x, t_object *view)
 	ebox_get_rect_for_view((t_ebox *)x, &rect);
     draw_background(x, view, &rect);
 }
-/*
+
 void draw_background(t_bang *x, t_object *view, t_rect *rect)
 {
     float size;
@@ -210,7 +210,7 @@ void draw_background(t_bang *x, t_object *view, t_rect *rect)
         ebox_end_layer((t_ebox*)x, gensym("background_layer"));
 	}
 	ebox_paint_layer((t_ebox *)x, gensym("background_layer"), 0., 0.);
-}*/
+}
 
 void bang_mousedown(t_bang *x, t_object *patcherview, t_pt pt, long modifiers)
 {
@@ -228,7 +228,7 @@ void bang_mouseup(t_bang *x, t_object *patcherview, t_pt pt, long modifiers)
     ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
     ebox_redraw((t_ebox *)x);
 }
-
+/*
 // Fonction qui dessine l'arrière plan de l'objet
 void draw_background(t_bang *x, t_object *view, t_rect *rect)
 {
@@ -276,7 +276,7 @@ void mouse_down(t_bang *x, t_object *view, t_pt pt, long modifiers)
     
     outlet_bang(x->f_out);
 }
-
+*/
 
 
 

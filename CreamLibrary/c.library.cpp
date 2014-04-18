@@ -61,7 +61,7 @@ extern "C" void setup_c0x2elibrary(void)
     setup_c0x2epatcherargs();
     setup_c0x2epatcherinfos();
     setup_c0x2eprepend();
-    
+    /*
     var = sys_searchpath;
     while (var)
     {
@@ -79,6 +79,6 @@ extern "C" void setup_c0x2elibrary(void)
             return;
         }
         var = var->nl_next;
-    }
+    }*/
 }
 

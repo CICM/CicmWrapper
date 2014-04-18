@@ -67,9 +67,10 @@ void erouter_free(t_erouter *x)
 void eobj_detach_torouter(t_object* child)
 {
     int i;
+	t_erouter *x = NULL;
     if(gensym("erouter1572")->s_thing == NULL)
         erouter_setup();
-    t_erouter *x = (t_erouter *)gensym("erouter1572")->s_thing;
+    x = (t_erouter *)gensym("erouter1572")->s_thing;
     if(x)
     {
         for(i = 0; i < x->e_nchilds; i++)
@@ -85,9 +86,10 @@ void eobj_detach_torouter(t_object* child)
 void eobj_attach_torouter(t_object* child)
 {
     int i;
+	t_erouter *x = NULL;
     if(gensym("erouter1572")->s_thing == NULL)
         erouter_setup();
-    t_erouter *x = (t_erouter *)gensym("erouter1572")->s_thing;
+    x = (t_erouter *)gensym("erouter1572")->s_thing;
     for(i = 0; i < x->e_nchilds; i++)
     {
         if(x->e_childs[i] == child)
@@ -141,9 +143,10 @@ void eobj_attach_torouter(t_object* child)
 
 long erouter_getnobjects()
 {
+	t_erouter *x = NULL;
     if(gensym("erouter1572")->s_thing == NULL)
         erouter_setup();
-    t_erouter *x = (t_erouter *)gensym("erouter1572")->s_thing;
+    x = (t_erouter *)gensym("erouter1572")->s_thing;
     if(x)
         return x->e_nchilds;
     else
@@ -152,9 +155,10 @@ long erouter_getnobjects()
 
 t_object* erouter_getobject(long index)
 {
+	t_erouter *x = NULL;
     if(gensym("erouter1572")->s_thing == NULL)
         erouter_setup();
-    t_erouter *x = (t_erouter *)gensym("erouter1572")->s_thing;
+    x = (t_erouter *)gensym("erouter1572")->s_thing;
     if(x)
     {
        if(index >= 0 && index < x->e_nchilds)

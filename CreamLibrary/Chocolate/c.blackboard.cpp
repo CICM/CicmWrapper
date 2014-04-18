@@ -36,12 +36,12 @@ extern "C"
         struct _namelist *nl_next;  /* next in list */
         char *nl_string;            /* the string */
     } t_namelist;
-    
-    extern t_namelist *sys_externlist;
+
+#ifdef _APPLE_
     extern t_namelist *sys_searchpath;
-    extern t_namelist *sys_staticpath;
-    extern t_namelist *sys_helppath;
-    extern t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
+#else
+	t_namelist *sys_searchpath = NULL;
+#endif
 }
 
 

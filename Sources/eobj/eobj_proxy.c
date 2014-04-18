@@ -71,10 +71,10 @@ void new_inlet_pointer(t_inlet *x, t_gpointer *gp)
     else if (*x->i_dest == eproxy_class)
     {
         t_atom a;
-        SETPOINTER(&a, gp);
         t_eproxy* proxy = (t_eproxy *)x->i_dest;
         t_eobj *z = (t_eobj *)proxy->p_owner;
         z->o_current_proxy = proxy->p_index;
+		SETPOINTER(&a, gp);
         pd_typedmess((t_pd *)x->i_dest, &s_pointer, 1, &a);
     }
     else inlet_wrong(x, &s_pointer);
@@ -87,10 +87,10 @@ void new_inlet_float(t_inlet *x, t_float f)
     else if (*x->i_dest == eproxy_class)
     {
         t_atom a;
-        SETFLOAT(&a, f);
         t_eproxy* proxy = (t_eproxy *)x->i_dest;
         t_eobj *z = (t_eobj *)proxy->p_owner;
         z->o_current_proxy = proxy->p_index;
+		SETFLOAT(&a, f);
         pd_typedmess((t_pd *)x->i_dest, &s_float, 1, &a);
     }
     else if (x->i_symfrom == &s_signal)
@@ -121,10 +121,10 @@ void new_inlet_symbol(t_inlet *x, t_symbol *s)
     else if (*x->i_dest == eproxy_class)
     {
         t_atom a;
-        SETSYMBOL(&a, s);
         t_eproxy* proxy = (t_eproxy *)x->i_dest;
         t_eobj *z = (t_eobj *)proxy->p_owner;
         z->o_current_proxy = proxy->p_index;
+		SETSYMBOL(&a, s);
         pd_typedmess((t_pd *)x->i_dest, &s_symbol, 1, &a);
     }
     else inlet_wrong(x, &s_symbol);
