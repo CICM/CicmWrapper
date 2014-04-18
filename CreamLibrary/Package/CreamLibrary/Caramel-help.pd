@@ -1,4 +1,4 @@
-#N canvas 176 332 899 504 10;
+#N canvas 172 263 899 504 10;
 #X obj -19 -64 cnv 40 552 40 empty empty Caramel 3 12 0 18 -228856
 -33289 0;
 #X text -16 -42 A set of objects for those who like vanilla...;
