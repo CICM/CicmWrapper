@@ -4,7 +4,7 @@ Cream Library
 For an overview of Chocolate, Coffee and Caramel Libraries, please refer to the "@patchs".
 
 ------------------------
-Beta 0.2
+Alpha 0.2
 ------------------------
 General :
 Property window, proxy inlets, preset function, etc...
