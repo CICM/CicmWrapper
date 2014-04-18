@@ -96,7 +96,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
-    <UseIntelIPP>Sequential</UseIntelIPP>
+    <UseIntelIPP>false</UseIntelIPP>
     <UseIntelMKL>No</UseIntelMKL>
     <PlatformToolset>v100</PlatformToolset>
     <WholeProgramOptimization>false</WholeProgramOptimization>
