@@ -150,6 +150,7 @@ void *blackboard_new(t_symbol *s, int argc, t_atom *argv)
 {
 	t_blacboard *x =  NULL;
 	t_binbuf* d;
+
     long flags;
 	if (!(d = binbuf_via_atoms(argc,argv)))
 		return NULL;
