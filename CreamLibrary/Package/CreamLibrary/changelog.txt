@@ -1,0 +1,53 @@
+
+Cream Library
+
+For an overview of Chocolate, Coffee and Caramel Libraries, please refer to the "@patchs".
+
+------------------------
+Beta 0.2
+------------------------
+General :
+Property window, proxy inlets, preset function, etc...
+A lot of stuff can't enum everything, look at the commit...
+
+Chocolate :
+- c.rslider
+- c.blackboard updated
+- c.function updated
+- c.preset updated
+
+Caramel :
+- c.freeverb~
+- c.convolve~
+
+------------------------
+Beta 0.1
+------------------------
+
+Chocolate : 
+- c.bang
+- c.blackbloard
+- c.colorpanel
+- c.function
+- c.incdec
+- c.knob
+- c.menu
+- c.number
+- c.plane
+- c.preset
+- c.radio
+- c.slider
+- c.tab
+- c.toggle
+- c.gain~
+- c.meter~
+- c.number~
+- c.scope
+
+Coffee : 
+- c.loadmess
+- c.pak
+- c.patcherargs
+- c.patcherinfos
+- c.prepend
+

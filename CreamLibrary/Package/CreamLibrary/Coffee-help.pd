@@ -1,0 +1,20 @@
+#N canvas 518 97 899 504 10;
+#X obj -19 -64 cnv 40 552 40 empty empty Coffee 3 12 0 18 -228856 -33289
+0;
+#X text -16 -42 A set of objects for those who like vanilla...;
+#X text 264 -42 but can't stay awake;
+#X obj -2 63 c.loadmess coffee;
+#X text 113 63 c.loadmess;
+#X obj 36 97 c.pak s f s f;
+#X text 131 97 c.pak;
+#X obj 71 130 c.prepend caramel;
+#X text 190 130 c.prepend;
+#X text 170 197 c.patcherinfos;
+#X text -7 394 Coffee by Pierre Guillot | CICM - Université Paris 8
+;
+#X text -18 -21 Coffee is a part of the Pd Enhanced library developed
+to facilitate the creation of signal objects and GUI and to improve
+user interactions.;
+#X obj 106 164 c.canvasargs;
+#X text 200 165 c.canvasargs;
+#X obj 71 197 c.canvasinfos;

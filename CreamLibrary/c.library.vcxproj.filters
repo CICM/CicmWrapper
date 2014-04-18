@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Chocolate\c.bang.cpp">
+      <Filter>Chocolate</Filter>
+    </ClCompile>
+    <ClCompile Include="Chocolate\c.blackboard.cpp">
+      <Filter>Chocolate</Filter>
+    </ClCompile>
+    <ClCompile Include="Chocolate\c.breakpoints.cpp">
+      <Filter>Chocolate</Filter>
+    </ClCompile>
+    <ClCompile Include="Chocolate\c.colorpanel.cpp">
+      <Filter>Chocolate</Filter>
+    </ClCompile>
+    <ClCompile Include="Chocolate\c.gain_tilde.cpp">
+      <Filter>Chocolate</Filter>
+    </ClCompile>
+    <ClCompile Include="Chocolate\c.incdec.cpp">
+      <Filter>Chocolate</Filter>
+    </ClCompile>
+    <ClCompile Include="Chocolate\c.knob.cpp">
+      <Filter>Chocolate</Filter>
+    </ClCompile>
+    <ClCompile Include="Chocolate\c.menu.cpp">
+      <Filter>Chocolate</Filter>
+    </ClCompile>
+    <ClCompile Include="Chocolate\c.meter_tilde.cpp">
+      <Filter>Chocolate</Filter>
+    </ClCompile>
+    <ClCompile Include="Chocolate\c.number.cpp">
+      <Filter>Chocolate</Filter>
+    </ClCompile>
+    <ClCompile Include="Chocolate\c.number_tilde.cpp">
+      <Filter>Chocolate</Filter>
+    </ClCompile>
+    <ClCompile Include="Chocolate\c.plane.cpp">
+      <Filter>Chocolate</Filter>
+    </ClCompile>
+    <ClCompile Include="Chocolate\c.preset.cpp">
+      <Filter>Chocolate</Filter>
+    </ClCompile>
+    <ClCompile Include="Chocolate\c.radio.cpp">
+      <Filter>Chocolate</Filter>
+    </ClCompile>
+    <ClCompile Include="Chocolate\c.rslider.cpp">
+      <Filter>Chocolate</Filter>
+    </ClCompile>
+    <ClCompile Include="Chocolate\c.scope_tilde.cpp">
+      <Filter>Chocolate</Filter>
+    </ClCompile>
+    <ClCompile Include="Chocolate\c.slider.cpp">
+      <Filter>Chocolate</Filter>
+    </ClCompile>
+    <ClCompile Include="Chocolate\c.tab.cpp">
+      <Filter>Chocolate</Filter>
+    </ClCompile>
+    <ClCompile Include="Chocolate\c.toggle.cpp">
+      <Filter>Chocolate</Filter>
+    </ClCompile>
+    <ClCompile Include="Coffee\c.loadmess.cpp">
+      <Filter>Coffee</Filter>
+    </ClCompile>
+    <ClCompile Include="Coffee\c.pak.cpp">
+      <Filter>Coffee</Filter>
+    </ClCompile>
+    <ClCompile Include="Coffee\c.patcherargs.cpp">
+      <Filter>Coffee</Filter>
+    </ClCompile>
+    <ClCompile Include="Coffee\c.patcherinfos.cpp">
+      <Filter>Coffee</Filter>
+    </ClCompile>
+    <ClCompile Include="Coffee\c.prepend.cpp">
+      <Filter>Coffee</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ebox\ebox_attr.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ebox\ebox_basic.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ebox\ebox_draw.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ebox\ebox_handle.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ebox\ebox_patcher.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ebox\ebox_window.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\eclass\eclass_attrgetter.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\eclass\eclass_attrnew.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\eclass\eclass_attroptions.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\eclass\eclass_attrsetter.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\eclass\eclass_basic.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\eclass\eclass_widget.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ecommon\d_ugen.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ecommon\ecommon.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\egraphics\egraphics.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\egraphics\egraphics_color.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\egraphics\egraphics_forms.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\egraphics\egraphics_matrix.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\egraphics\egraphics_text.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\eobj\eobj_basic.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\eobj\eobj_dsp.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\eobj\eobj_handle.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\eobj\eobj_proxy.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\eobj\eobj_router.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\epopup\epopup.c">
+      <Filter>PdEnhanced</Filter>
+    </ClCompile>
+    <ClCompile Include="c.library.cpp" />
+    <ClCompile Include="Caramel\c.freeverb_tilde.cpp">
+      <Filter>Caramel</Filter>
+    </ClCompile>
+    <ClCompile Include="Caramel\AudioFFT.cpp">
+      <Filter>Caramel</Filter>
+    </ClCompile>
+    <ClCompile Include="Caramel\c.convolve_tilde.cpp">
+      <Filter>Caramel</Filter>
+    </ClCompile>
+    <ClCompile Include="Caramel\FFTConvolver.cpp">
+      <Filter>Caramel</Filter>
+    </ClCompile>
+    <ClCompile Include="Caramel\Utilities.cpp">
+      <Filter>Caramel</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="PdEnhanced">
+      <UniqueIdentifier>{7a712497-9f51-4ad4-adab-e1ce7e8e4c3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Chocolate">
+      <UniqueIdentifier>{3adf5a40-522f-49a2-8160-9b9fa475c9af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Coffee">
+      <UniqueIdentifier>{9cc51515-b959-4ee9-889a-fe752c409847}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Caramel">
+      <UniqueIdentifier>{bde52776-46b2-4808-9b75-d6167c23b91c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Sources\cicm_wrapper.h">
+      <Filter>PdEnhanced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\ebox\ebox.h">
+      <Filter>PdEnhanced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\eclass\eclass.h">
+      <Filter>PdEnhanced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\ecommon\d_ugen.h">
+      <Filter>PdEnhanced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\ecommon\eboxflag.h">
+      <Filter>PdEnhanced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\ecommon\ecommon.h">
+      <Filter>PdEnhanced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\ecommon\g_canvas.h">
+      <Filter>PdEnhanced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\ecommon\m_imp.h">
+      <Filter>PdEnhanced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\ecommon\m_pd.h">
+      <Filter>PdEnhanced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\egraphics\egraphics.h">
+      <Filter>PdEnhanced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\eobj\eobj.h">
+      <Filter>PdEnhanced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\epd.h">
+      <Filter>PdEnhanced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\epd_max.h">
+      <Filter>PdEnhanced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\epopup\epopup.h">
+      <Filter>PdEnhanced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\estruct.h">
+      <Filter>PdEnhanced</Filter>
+    </ClInclude>
+    <ClInclude Include="c.library.h" />
+    <ClInclude Include="Caramel\AudioFFT.h">
+      <Filter>Caramel</Filter>
+    </ClInclude>
+    <ClInclude Include="Caramel\Utilities.h">
+      <Filter>Caramel</Filter>
+    </ClInclude>
+    <ClInclude Include="Caramel\FFTConvolver.h">
+      <Filter>Caramel</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

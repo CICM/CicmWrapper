@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>CA65CF38-A744-47E5-9DB4-97B76DAEA6D1</string>
+	<key>IDESourceControlProjectName</key>
+	<string>hoa.2d.encoder~</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>5AC12ECB-5460-4B5E-8154-94683A8E0834</key>
+		<string>https://github.com/CICM/CicmWrapper.git</string>
+		<key>CAF8F436-935A-49C8-8C86-B137892D9797</key>
+		<string>https://github.com/CICM/HoaLibrary.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>PureData/PD2D/hoaEncoder/hoa.2d.encoder~.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>5AC12ECB-5460-4B5E-8154-94683A8E0834</key>
+		<string>../../../../../ThirdParty/PureData</string>
+		<key>CAF8F436-935A-49C8-8C86-B137892D9797</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/CICM/HoaLibrary.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>CAF8F436-935A-49C8-8C86-B137892D9797</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CAF8F436-935A-49C8-8C86-B137892D9797</string>
+			<key>IDESourceControlWCCName</key>
+			<string>HoaLibrary</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5AC12ECB-5460-4B5E-8154-94683A8E0834</string>
+			<key>IDESourceControlWCCName</key>
+			<string>PureData</string>
+		</dict>
+	</array>
+</dict>
+</plist>

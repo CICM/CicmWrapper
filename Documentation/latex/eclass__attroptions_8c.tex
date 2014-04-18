@@ -1,5 +1,5 @@
-\hypertarget{eclass__attroptions_8c}{\section{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/eclass/eclass\-\_\-attroptions.c File Reference}
-\label{eclass__attroptions_8c}\index{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/eclass/eclass\-\_\-attroptions.\-c@{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/eclass/eclass\-\_\-attroptions.\-c}}
+\hypertarget{eclass__attroptions_8c}{\section{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources/eclass/eclass\-\_\-attroptions.c File Reference}
+\label{eclass__attroptions_8c}\index{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources/eclass/eclass\-\_\-attroptions.\-c@{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources/eclass/eclass\-\_\-attroptions.\-c}}
 }
 {\ttfamily \#include \char`\"{}eclass.\-h\char`\"{}}\\*
 \subsection*{Functions}
@@ -15,10 +15,14 @@ void \hyperlink{eclass__attroptions_8c_a7cc85365482c25f063236b8813b1ff61}{eclass
 \begin{DoxyCompactList}\small\item\em Initalize the category of an attribute. \end{DoxyCompactList}\item 
 void \hyperlink{eclass__attroptions_8c_a3d320f1c95fc5ff9f48b41fc28e2d360}{eclass\-\_\-attr\-\_\-style} (\hyperlink{estruct_8h_a261d794de3821fb7902103ba8ae44ed1}{t\-\_\-eclass} $\ast$c, char $\ast$attrname, long flags, char $\ast$style)
 \begin{DoxyCompactList}\small\item\em Initalize the category of an attribute. \end{DoxyCompactList}\item 
+void \hyperlink{eclass__attroptions_8c_afb73461be4ad9a42304db9d209781173}{eclass\-\_\-attr\-\_\-itemlist} (\hyperlink{estruct_8h_a261d794de3821fb7902103ba8ae44ed1}{t\-\_\-eclass} $\ast$c, char $\ast$attrname, long flags, char $\ast$list)
+\begin{DoxyCompactList}\small\item\em Initalize the items list of an attribute. \end{DoxyCompactList}\item 
 void \hyperlink{eclass__attroptions_8c_a4156b71e091aa7c2e85ea6f3c9c22fa1}{eclass\-\_\-attr\-\_\-filter\-\_\-min} (\hyperlink{estruct_8h_a261d794de3821fb7902103ba8ae44ed1}{t\-\_\-eclass} $\ast$c, char $\ast$attrname, double value)
 \begin{DoxyCompactList}\small\item\em Initalize the minimum value of an attribute. \end{DoxyCompactList}\item 
 void \hyperlink{eclass__attroptions_8c_a684ad130a230384569292d1905964386}{eclass\-\_\-attr\-\_\-filter\-\_\-max} (\hyperlink{estruct_8h_a261d794de3821fb7902103ba8ae44ed1}{t\-\_\-eclass} $\ast$c, char $\ast$attrname, double value)
 \begin{DoxyCompactList}\small\item\em Initalize the maximum value of an attribute. \end{DoxyCompactList}\item 
+void \hyperlink{eclass__attroptions_8c_a316954f0b313c349a1666330404a5e67}{eclass\-\_\-attr\-\_\-step} (\hyperlink{estruct_8h_a261d794de3821fb7902103ba8ae44ed1}{t\-\_\-eclass} $\ast$c, char $\ast$attrname, double value)
+\begin{DoxyCompactList}\small\item\em Initalize the step value of an attribute. \end{DoxyCompactList}\item 
 void \hyperlink{eclass__attroptions_8c_af7f0f504f1193f0da1f3dc1637e40dd8}{eclass\-\_\-attr\-\_\-save} (\hyperlink{estruct_8h_a261d794de3821fb7902103ba8ae44ed1}{t\-\_\-eclass} $\ast$c, char $\ast$attrname, long flags)
 \begin{DoxyCompactList}\small\item\em Initalize the attribute to be saved with the object. \end{DoxyCompactList}\item 
 void \hyperlink{eclass__attroptions_8c_a57dd8db4ebb05101ff9c1b4ce402fc95}{eclass\-\_\-attr\-\_\-paint} (\hyperlink{estruct_8h_a261d794de3821fb7902103ba8ae44ed1}{t\-\_\-eclass} $\ast$c, char $\ast$attrname, long flags)
@@ -46,7 +50,7 @@ Initalize the user getter and setter of an attribute.
 
 
 
-Definition at line 264 of file eclass\-\_\-attroptions.\-c.
+Definition at line 366 of file eclass\-\_\-attroptions.\-c.
 
 \hypertarget{eclass__attroptions_8c_a124e18305bf57d85df1fb37b35223703}{\index{eclass\-\_\-attroptions.\-c@{eclass\-\_\-attroptions.\-c}!eclass\-\_\-attr\-\_\-category@{eclass\-\_\-attr\-\_\-category}}
 \index{eclass\-\_\-attr\-\_\-category@{eclass\-\_\-attr\-\_\-category}!eclass_attroptions.c@{eclass\-\_\-attroptions.\-c}}
@@ -99,7 +103,7 @@ Initalize the maximum value of an attribute.
 
 
 
-Definition at line 174 of file eclass\-\_\-attroptions.\-c.
+Definition at line 255 of file eclass\-\_\-attroptions.\-c.
 
 \hypertarget{eclass__attroptions_8c_a4156b71e091aa7c2e85ea6f3c9c22fa1}{\index{eclass\-\_\-attroptions.\-c@{eclass\-\_\-attroptions.\-c}!eclass\-\_\-attr\-\_\-filter\-\_\-min@{eclass\-\_\-attr\-\_\-filter\-\_\-min}}
 \index{eclass\-\_\-attr\-\_\-filter\-\_\-min@{eclass\-\_\-attr\-\_\-filter\-\_\-min}!eclass_attroptions.c@{eclass\-\_\-attroptions.\-c}}
@@ -116,7 +120,7 @@ Initalize the minimum value of an attribute.
 
 
 
-Definition at line 148 of file eclass\-\_\-attroptions.\-c.
+Definition at line 229 of file eclass\-\_\-attroptions.\-c.
 
 \hypertarget{eclass__attroptions_8c_a169280b975d00dc6d4808eefb3fc6b90}{\index{eclass\-\_\-attroptions.\-c@{eclass\-\_\-attroptions.\-c}!eclass\-\_\-attr\-\_\-invisible@{eclass\-\_\-attr\-\_\-invisible}}
 \index{eclass\-\_\-attr\-\_\-invisible@{eclass\-\_\-attr\-\_\-invisible}!eclass_attroptions.c@{eclass\-\_\-attroptions.\-c}}
@@ -133,7 +137,25 @@ Initalize the attribute to be invisible in the properties window.
 
 
 
-Definition at line 242 of file eclass\-\_\-attroptions.\-c.
+Definition at line 344 of file eclass\-\_\-attroptions.\-c.
+
+\hypertarget{eclass__attroptions_8c_afb73461be4ad9a42304db9d209781173}{\index{eclass\-\_\-attroptions.\-c@{eclass\-\_\-attroptions.\-c}!eclass\-\_\-attr\-\_\-itemlist@{eclass\-\_\-attr\-\_\-itemlist}}
+\index{eclass\-\_\-attr\-\_\-itemlist@{eclass\-\_\-attr\-\_\-itemlist}!eclass_attroptions.c@{eclass\-\_\-attroptions.\-c}}
+\subsubsection[{eclass\-\_\-attr\-\_\-itemlist}]{\setlength{\rightskip}{0pt plus 5cm}void eclass\-\_\-attr\-\_\-itemlist (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-eclass} $\ast$}]{c, }
+\item[{char $\ast$}]{attrname, }
+\item[{long}]{flags, }
+\item[{char $\ast$}]{list}
+\end{DoxyParamCaption}
+)}}\label{eclass__attroptions_8c_afb73461be4ad9a42304db9d209781173}
+
+
+Initalize the items list of an attribute. 
+
+
+
+Definition at line 168 of file eclass\-\_\-attroptions.\-c.
 
 \hypertarget{eclass__attroptions_8c_a7cc85365482c25f063236b8813b1ff61}{\index{eclass\-\_\-attroptions.\-c@{eclass\-\_\-attroptions.\-c}!eclass\-\_\-attr\-\_\-label@{eclass\-\_\-attr\-\_\-label}}
 \index{eclass\-\_\-attr\-\_\-label@{eclass\-\_\-attr\-\_\-label}!eclass_attroptions.c@{eclass\-\_\-attroptions.\-c}}
@@ -186,7 +208,7 @@ Initalize the attribute to redraw the object when its value has changed.
 
 
 
-Definition at line 221 of file eclass\-\_\-attroptions.\-c.
+Definition at line 323 of file eclass\-\_\-attroptions.\-c.
 
 \hypertarget{eclass__attroptions_8c_af7f0f504f1193f0da1f3dc1637e40dd8}{\index{eclass\-\_\-attroptions.\-c@{eclass\-\_\-attroptions.\-c}!eclass\-\_\-attr\-\_\-save@{eclass\-\_\-attr\-\_\-save}}
 \index{eclass\-\_\-attr\-\_\-save@{eclass\-\_\-attr\-\_\-save}!eclass_attroptions.c@{eclass\-\_\-attroptions.\-c}}
@@ -203,7 +225,24 @@ Initalize the attribute to be saved with the object.
 
 
 
-Definition at line 200 of file eclass\-\_\-attroptions.\-c.
+Definition at line 302 of file eclass\-\_\-attroptions.\-c.
+
+\hypertarget{eclass__attroptions_8c_a316954f0b313c349a1666330404a5e67}{\index{eclass\-\_\-attroptions.\-c@{eclass\-\_\-attroptions.\-c}!eclass\-\_\-attr\-\_\-step@{eclass\-\_\-attr\-\_\-step}}
+\index{eclass\-\_\-attr\-\_\-step@{eclass\-\_\-attr\-\_\-step}!eclass_attroptions.c@{eclass\-\_\-attroptions.\-c}}
+\subsubsection[{eclass\-\_\-attr\-\_\-step}]{\setlength{\rightskip}{0pt plus 5cm}void eclass\-\_\-attr\-\_\-step (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-eclass} $\ast$}]{c, }
+\item[{char $\ast$}]{attrname, }
+\item[{double}]{value}
+\end{DoxyParamCaption}
+)}}\label{eclass__attroptions_8c_a316954f0b313c349a1666330404a5e67}
+
+
+Initalize the step value of an attribute. 
+
+
+
+Definition at line 281 of file eclass\-\_\-attroptions.\-c.
 
 \hypertarget{eclass__attroptions_8c_a3d320f1c95fc5ff9f48b41fc28e2d360}{\index{eclass\-\_\-attroptions.\-c@{eclass\-\_\-attroptions.\-c}!eclass\-\_\-attr\-\_\-style@{eclass\-\_\-attr\-\_\-style}}
 \index{eclass\-\_\-attr\-\_\-style@{eclass\-\_\-attr\-\_\-style}!eclass_attroptions.c@{eclass\-\_\-attroptions.\-c}}

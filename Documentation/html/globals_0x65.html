@@ -4,10 +4,17 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>PdEnhanced: Globals</title>
+<title>CICM Wrapper: Globals</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -22,9 +29,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">PdEnhanced
+   <div id="projectname">CICM Wrapper
    &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
+   <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
  </tr>
  </tbody>
@@ -86,24 +94,44 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals_0x66.html#index_f"><span>f</span></a></li>
       <li><a href="globals_0x67.html#index_g"><span>g</span></a></li>
       <li><a href="globals_0x68.html#index_h"><span>h</span></a></li>
+      <li><a href="globals_0x69.html#index_i"><span>i</span></a></li>
       <li><a href="globals_0x6a.html#index_j"><span>j</span></a></li>
       <li><a href="globals_0x6c.html#index_l"><span>l</span></a></li>
       <li><a href="globals_0x6d.html#index_m"><span>m</span></a></li>
+      <li><a href="globals_0x6e.html#index_n"><span>n</span></a></li>
       <li><a href="globals_0x6f.html#index_o"><span>o</span></a></li>
       <li><a href="globals_0x70.html#index_p"><span>p</span></a></li>
+      <li><a href="globals_0x71.html#index_q"><span>q</span></a></li>
       <li><a href="globals_0x72.html#index_r"><span>r</span></a></li>
       <li><a href="globals_0x73.html#index_s"><span>s</span></a></li>
       <li><a href="globals_0x74.html#index_t"><span>t</span></a></li>
+      <li><a href="globals_0x75.html#index_u"><span>u</span></a></li>
+      <li><a href="globals_0x76.html#index_v"><span>v</span></a></li>
+      <li><a href="globals_0x77.html#index_w"><span>w</span></a></li>
       <li><a href="globals_0x7a.html#index_z"><span>z</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('globals_0x65.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -198,6 +226,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="ebox_8h.html#a9c342220af24e63f950d098e44e8f596">ebox.h</a>
 , <a class="el" href="ebox__basic_8c.html#a9c342220af24e63f950d098e44e8f596">ebox_basic.c</a>
 </li>
+<li>ebox_getsender()
+: <a class="el" href="ebox_8h.html#ae583313b1ea4f06fe42aa7a0ed5772e6">ebox.h</a>
+, <a class="el" href="ebox__basic_8c.html#ae583313b1ea4f06fe42aa7a0ed5772e6">ebox_basic.c</a>
+</li>
 <li>EBOX_GROWINDI
 : <a class="el" href="eboxflag_8h.html#ae0a7c780f9a6cf60d27d913520679ea2">eboxflag.h</a>
 </li>
@@ -261,12 +293,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="ebox__window_8c.html#ab967838bddfe1d49f9bfdc0c64b26e11">ebox_window.c</a>
 </li>
 <li>eclass_addmethod()
-: <a class="el" href="eclass_8h.html#ad062dba1c1e3041345c4e425ecc76c02">eclass.h</a>
-, <a class="el" href="eclass__basic_8c.html#ad062dba1c1e3041345c4e425ecc76c02">eclass_basic.c</a>
+: <a class="el" href="eclass__basic_8c.html#ad062dba1c1e3041345c4e425ecc76c02">eclass_basic.c</a>
+, <a class="el" href="eclass_8h.html#ad062dba1c1e3041345c4e425ecc76c02">eclass.h</a>
 </li>
 <li>eclass_attr_accessor()
-: <a class="el" href="eclass__attroptions_8c.html#a1ebc60a6f232280d9424f24f679677f2">eclass_attroptions.c</a>
-, <a class="el" href="eclass_8h.html#a1ebc60a6f232280d9424f24f679677f2">eclass.h</a>
+: <a class="el" href="eclass_8h.html#a1ebc60a6f232280d9424f24f679677f2">eclass.h</a>
+, <a class="el" href="eclass__attroptions_8c.html#a1ebc60a6f232280d9424f24f679677f2">eclass_attroptions.c</a>
 </li>
 <li>eclass_attr_category()
 : <a class="el" href="eclass_8h.html#a124e18305bf57d85df1fb37b35223703">eclass.h</a>
@@ -292,6 +324,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="eclass_8h.html#a169280b975d00dc6d4808eefb3fc6b90">eclass.h</a>
 , <a class="el" href="eclass__attroptions_8c.html#a169280b975d00dc6d4808eefb3fc6b90">eclass_attroptions.c</a>
 </li>
+<li>eclass_attr_itemlist()
+: <a class="el" href="eclass_8h.html#afb73461be4ad9a42304db9d209781173">eclass.h</a>
+, <a class="el" href="eclass__attroptions_8c.html#afb73461be4ad9a42304db9d209781173">eclass_attroptions.c</a>
+</li>
 <li>eclass_attr_label()
 : <a class="el" href="eclass_8h.html#add32df540eac82aeb67a8ab4c6f39824">eclass.h</a>
 , <a class="el" href="eclass__attroptions_8c.html#a7cc85365482c25f063236b8813b1ff61">eclass_attroptions.c</a>
@@ -311,6 +347,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>eclass_attr_setter()
 : <a class="el" href="eclass_8h.html#a936d173d0cd9012a8004758873f2073a">eclass.h</a>
 , <a class="el" href="eclass__attrsetter_8c.html#a936d173d0cd9012a8004758873f2073a">eclass_attrsetter.c</a>
+</li>
+<li>eclass_attr_step()
+: <a class="el" href="eclass_8h.html#a316954f0b313c349a1666330404a5e67">eclass.h</a>
+, <a class="el" href="eclass__attroptions_8c.html#a316954f0b313c349a1666330404a5e67">eclass_attroptions.c</a>
 </li>
 <li>eclass_attr_style()
 : <a class="el" href="eclass_8h.html#a3d320f1c95fc5ff9f48b41fc28e2d360">eclass.h</a>
@@ -343,6 +383,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>eclassbox_dspinit()
 : <a class="el" href="eclass_8h.html#a5f6ef6904fa78d2feb5c2b5fe9d86976">eclass.h</a>
 , <a class="el" href="eclass__basic_8c.html#a5f6ef6904fa78d2feb5c2b5fe9d86976">eclass_basic.c</a>
+</li>
+<li>efft_getlog2()
+: <a class="el" href="efft_8c.html#a0e1d6692ee63aff52e3f78d6e6e3408c">efft.c</a>
+, <a class="el" href="efft_8h.html#a0e1d6692ee63aff52e3f78d6e6e3408c">efft.h</a>
 </li>
 <li>efont_create()
 : <a class="el" href="egraphics_8h.html#abe6c4703fa92c2ee2d6484656aa861df">egraphics.h</a>
@@ -395,8 +439,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="egraphics__forms_8c.html#a1edd7b565474683c2c20a0ea92770ab0">egraphics_forms.c</a>
 </li>
 <li>egraphics_line_to()
-: <a class="el" href="egraphics__forms_8c.html#ae7850b71992b31e3a6d51225898837ae">egraphics_forms.c</a>
-, <a class="el" href="egraphics_8h.html#ae7850b71992b31e3a6d51225898837ae">egraphics.h</a>
+: <a class="el" href="egraphics_8h.html#ae7850b71992b31e3a6d51225898837ae">egraphics.h</a>
+, <a class="el" href="egraphics__forms_8c.html#ae7850b71992b31e3a6d51225898837ae">egraphics_forms.c</a>
 </li>
 <li>egraphics_matrix_init()
 : <a class="el" href="egraphics_8h.html#ae15ed4eb8d3f6c1553af04e76d2fc3f6">egraphics.h</a>
@@ -453,16 +497,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="egraphics_8h.html#ac9aa595f68f1d03ca7a74f23b50a1b04">egraphics.h</a>
 </li>
 <li>egraphics_set_line_width()
-: <a class="el" href="egraphics_8h.html#a06ccd4b8ef74f4ef96efbeaaf15b4063">egraphics.h</a>
-, <a class="el" href="egraphics_8c.html#a06ccd4b8ef74f4ef96efbeaaf15b4063">egraphics.c</a>
+: <a class="el" href="egraphics_8c.html#a06ccd4b8ef74f4ef96efbeaaf15b4063">egraphics.c</a>
+, <a class="el" href="egraphics_8h.html#a06ccd4b8ef74f4ef96efbeaaf15b4063">egraphics.h</a>
 </li>
 <li>egraphics_set_matrix()
 : <a class="el" href="egraphics_8h.html#a295b1353ebcec8566fae79f70c6ead7d">egraphics.h</a>
 , <a class="el" href="egraphics__matrix_8c.html#a295b1353ebcec8566fae79f70c6ead7d">egraphics_matrix.c</a>
 </li>
 <li>egraphics_stroke()
-: <a class="el" href="egraphics_8h.html#a47004c493c4e920ae591a7afc04b3f03">egraphics.h</a>
-, <a class="el" href="egraphics_8c.html#a47004c493c4e920ae591a7afc04b3f03">egraphics.c</a>
+: <a class="el" href="egraphics_8c.html#a47004c493c4e920ae591a7afc04b3f03">egraphics.c</a>
+, <a class="el" href="egraphics_8h.html#a47004c493c4e920ae591a7afc04b3f03">egraphics.h</a>
 </li>
 <li>egraphics_stroke_preserve()
 : <a class="el" href="egraphics_8c.html#af5e3ad739d8921a0f1df4356e8d566a3">egraphics.c</a>
@@ -525,9 +569,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>EMOD_SHIFT
 : <a class="el" href="estruct_8h.html#acc0db00ade06e9b2ea02a0f4b34c32e9a0f27cd10af8267f700a35d02e72ccecd">estruct.h</a>
 </li>
+<li>endpost()
+: <a class="el" href="m__pd_8h.html#ac3a51d43b7d1183250700b59941c2508">m_pd.h</a>
+</li>
 <li>eobj_attach_torouter()
-: <a class="el" href="eobj__router_8c.html#ad4c3c75dca5619d489f1507da9ad1ad9">eobj_router.c</a>
-, <a class="el" href="eobj_8h.html#ad4c3c75dca5619d489f1507da9ad1ad9">eobj.h</a>
+: <a class="el" href="eobj_8h.html#ad4c3c75dca5619d489f1507da9ad1ad9">eobj.h</a>
+, <a class="el" href="eobj__router_8c.html#ad4c3c75dca5619d489f1507da9ad1ad9">eobj_router.c</a>
 </li>
 <li>eobj_detach_torouter()
 : <a class="el" href="eobj_8h.html#a2935cf0b7c8b0e90774c9b67553f682d">eobj.h</a>
@@ -538,20 +585,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="eobj__dsp_8c.html#ad1252e017dafb1443ae6806909808d04">eobj_dsp.c</a>
 </li>
 <li>eobj_dspsetup()
-: <a class="el" href="eobj__dsp_8c.html#a75990a2c2f4f51a081904dce5c5e14b4">eobj_dsp.c</a>
-, <a class="el" href="eobj_8h.html#a75990a2c2f4f51a081904dce5c5e14b4">eobj.h</a>
+: <a class="el" href="eobj_8h.html#a75990a2c2f4f51a081904dce5c5e14b4">eobj.h</a>
+, <a class="el" href="eobj__dsp_8c.html#a75990a2c2f4f51a081904dce5c5e14b4">eobj_dsp.c</a>
 </li>
 <li>eobj_free()
-: <a class="el" href="eobj_8h.html#ab269804f09b184c738c3088889d8908c">eobj.h</a>
-, <a class="el" href="eobj__basic_8c.html#ab269804f09b184c738c3088889d8908c">eobj_basic.c</a>
+: <a class="el" href="eobj__basic_8c.html#ab269804f09b184c738c3088889d8908c">eobj_basic.c</a>
+, <a class="el" href="eobj_8h.html#ab269804f09b184c738c3088889d8908c">eobj.h</a>
 </li>
 <li>eobj_get_mouse_canvas_position()
 : <a class="el" href="eobj_8h.html#a8054a835864160d4c9f8afad9d68ccd0">eobj.h</a>
 , <a class="el" href="eobj__handle_8c.html#a8054a835864160d4c9f8afad9d68ccd0">eobj_handle.c</a>
 </li>
 <li>eobj_get_mouse_global_position()
-: <a class="el" href="eobj_8h.html#afa853a6c824e824b8217010bce5b97a5">eobj.h</a>
-, <a class="el" href="eobj__handle_8c.html#afa853a6c824e824b8217010bce5b97a5">eobj_handle.c</a>
+: <a class="el" href="eobj__handle_8c.html#afa853a6c824e824b8217010bce5b97a5">eobj_handle.c</a>
+, <a class="el" href="eobj_8h.html#afa853a6c824e824b8217010bce5b97a5">eobj.h</a>
+</li>
+<li>eobj_getcanvas()
+: <a class="el" href="eobj_8h.html#ab25a83fb692fadad78681501a274f45f">eobj.h</a>
+, <a class="el" href="eobj__basic_8c.html#a0f3a573a8af2dd681f9a32f722dec258">eobj_basic.c</a>
 </li>
 <li>eobj_getclass()
 : <a class="el" href="eobj__basic_8c.html#a81d0e76ad4e7ef75e16c56847f9913f4">eobj_basic.c</a>
@@ -570,24 +621,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="eobj__basic_8c.html#a3945be07a276dd22b13c86e6a4906a0e">eobj_basic.c</a>
 </li>
 <li>eobj_isbox()
-: <a class="el" href="eobj__basic_8c.html#a20b15e9d4cfff43d7c99ec64f8da3ced">eobj_basic.c</a>
-, <a class="el" href="eobj_8h.html#a20b15e9d4cfff43d7c99ec64f8da3ced">eobj.h</a>
+: <a class="el" href="eobj_8h.html#a20b15e9d4cfff43d7c99ec64f8da3ced">eobj.h</a>
+, <a class="el" href="eobj__basic_8c.html#a20b15e9d4cfff43d7c99ec64f8da3ced">eobj_basic.c</a>
 </li>
 <li>eobj_isdsp()
-: <a class="el" href="eobj__basic_8c.html#a27eee54891735b101bf16018272d379c">eobj_basic.c</a>
-, <a class="el" href="eobj_8h.html#a27eee54891735b101bf16018272d379c">eobj.h</a>
+: <a class="el" href="eobj_8h.html#a27eee54891735b101bf16018272d379c">eobj.h</a>
+, <a class="el" href="eobj__basic_8c.html#a27eee54891735b101bf16018272d379c">eobj_basic.c</a>
 </li>
 <li>eobj_new()
-: <a class="el" href="eobj_8h.html#affefa86aef6fc6491c9878cf21906dbc">eobj.h</a>
-, <a class="el" href="eobj__basic_8c.html#a238c42e70bfd0c1b7a8763fb11a1ab92">eobj_basic.c</a>
+: <a class="el" href="eobj__basic_8c.html#a238c42e70bfd0c1b7a8763fb11a1ab92">eobj_basic.c</a>
+, <a class="el" href="eobj_8h.html#affefa86aef6fc6491c9878cf21906dbc">eobj.h</a>
 </li>
 <li>eobj_resize_inputs()
 : <a class="el" href="eobj__dsp_8c.html#a5e86c6f25b1ad53b29d490942ccbc5e9">eobj_dsp.c</a>
 , <a class="el" href="eobj_8h.html#a5e86c6f25b1ad53b29d490942ccbc5e9">eobj.h</a>
 </li>
 <li>eobj_resize_outputs()
-: <a class="el" href="eobj__dsp_8c.html#a8dd9873ea10d828254e741bf069c3ea4">eobj_dsp.c</a>
-, <a class="el" href="eobj_8h.html#a8dd9873ea10d828254e741bf069c3ea4">eobj.h</a>
+: <a class="el" href="eobj_8h.html#a8dd9873ea10d828254e741bf069c3ea4">eobj.h</a>
+, <a class="el" href="eobj__dsp_8c.html#a8dd9873ea10d828254e741bf069c3ea4">eobj_dsp.c</a>
 </li>
 <li>EPD_2PI
 : <a class="el" href="ecommon_8h.html#aee7fe789366c3073e1c32f7b7620addd">ecommon.h</a>
@@ -609,20 +660,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="epopup_8c.html#ab2d41582d86167be97ec19c38881b5a3">epopup.c</a>
 </li>
 <li>epopupmenu_addseperator()
-: <a class="el" href="epopup_8c.html#a61f1161638d9ebc87e0be7e0ac6fc827">epopup.c</a>
-, <a class="el" href="epopup_8h.html#a61f1161638d9ebc87e0be7e0ac6fc827">epopup.h</a>
+: <a class="el" href="epopup_8h.html#a61f1161638d9ebc87e0be7e0ac6fc827">epopup.h</a>
+, <a class="el" href="epopup_8c.html#a61f1161638d9ebc87e0be7e0ac6fc827">epopup.c</a>
 </li>
 <li>epopupmenu_create()
 : <a class="el" href="epopup_8h.html#aee1de955319d280fff8a50d08b50e4bd">epopup.h</a>
 , <a class="el" href="epopup_8c.html#aee1de955319d280fff8a50d08b50e4bd">epopup.c</a>
 </li>
 <li>epopupmenu_popup()
-: <a class="el" href="epopup_8c.html#ad1ceb246a2d02c28f317e4512601781d">epopup.c</a>
-, <a class="el" href="epopup_8h.html#ad1ceb246a2d02c28f317e4512601781d">epopup.h</a>
+: <a class="el" href="epopup_8h.html#ad1ceb246a2d02c28f317e4512601781d">epopup.h</a>
+, <a class="el" href="epopup_8c.html#ad1ceb246a2d02c28f317e4512601781d">epopup.c</a>
 </li>
 <li>epopupmenu_setfont()
 : <a class="el" href="epopup_8h.html#a8d3071b97298a2954df0551e30f6a94d">epopup.h</a>
 , <a class="el" href="epopup_8c.html#a8d3071b97298a2954df0551e30f6a94d">epopup.c</a>
+</li>
+<li>erouter_add_libary()
+: <a class="el" href="eobj_8h.html#affba5eb866f8a1f9a0d46ea7b2aafe99">eobj.h</a>
+, <a class="el" href="eobj__router_8c.html#affba5eb866f8a1f9a0d46ea7b2aafe99">eobj_router.c</a>
 </li>
 <li>erouter_anything()
 : <a class="el" href="eobj__router_8c.html#a6ef94284b1ba16c72331eed447001a35">eobj_router.c</a>
@@ -640,7 +695,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="eobj__router_8c.html#a7442aadd781c7ec05b08a7446609a610">eobj_router.c</a>
 </li>
 <li>erouter_setup()
-: <a class="el" href="eobj__router_8c.html#a7529f36ba20fe195b32a622427cf423c">eobj_router.c</a>
+: <a class="el" href="eobj__router_8c.html#a732973da28c2bb06b2825c85129a1293">eobj_router.c</a>
+</li>
+<li>error()
+: <a class="el" href="m__pd_8h.html#a62da26087ac7b125bdf1519b3200195a">m_pd.h</a>
+</li>
+<li>espectrum_decibel()
+: <a class="el" href="efft_8c.html#a07a548d8708e07e9e1556b062dd0a990">efft.c</a>
+, <a class="el" href="efft_8h.html#a07a548d8708e07e9e1556b062dd0a990">efft.h</a>
+</li>
+<li>espectrum_magnitude()
+: <a class="el" href="efft_8c.html#aaac111022d058830b91d2df0b7efd11b">efft.c</a>
+, <a class="el" href="efft_8h.html#aaac111022d058830b91d2df0b7efd11b">efft.h</a>
+</li>
+<li>espectrum_power()
+: <a class="el" href="efft_8c.html#ae350b2aa199008f42bcc65dc0bee03b3">efft.c</a>
+, <a class="el" href="efft_8h.html#ae350b2aa199008f42bcc65dc0bee03b3">efft.h</a>
 </li>
 <li>ETEXT_CENTER
 : <a class="el" href="estruct_8h.html#a1eac262c0ce6c5556017d41984832a3fa0bb492a5b33a28c1bfb500f800aedee6">estruct.h</a>
@@ -664,20 +734,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="estruct_8h.html#ab7b7849377f35c24a62b6986c569443fa32075979c40ea20e385c54e548110386">estruct.h</a>
 </li>
 <li>etext_layout_create()
-: <a class="el" href="egraphics_8h.html#aac0fb6c3fcc99c73ed24117e55ee3007">egraphics.h</a>
-, <a class="el" href="egraphics__text_8c.html#aac0fb6c3fcc99c73ed24117e55ee3007">egraphics_text.c</a>
+: <a class="el" href="egraphics__text_8c.html#aac0fb6c3fcc99c73ed24117e55ee3007">egraphics_text.c</a>
+, <a class="el" href="egraphics_8h.html#aac0fb6c3fcc99c73ed24117e55ee3007">egraphics.h</a>
 </li>
 <li>etext_layout_destroy()
-: <a class="el" href="egraphics__text_8c.html#aa0db7897a34ede0e88090217e266d43a">egraphics_text.c</a>
-, <a class="el" href="egraphics_8h.html#aa0db7897a34ede0e88090217e266d43a">egraphics.h</a>
+: <a class="el" href="egraphics_8h.html#aa0db7897a34ede0e88090217e266d43a">egraphics.h</a>
+, <a class="el" href="egraphics__text_8c.html#aa0db7897a34ede0e88090217e266d43a">egraphics_text.c</a>
 </li>
 <li>etext_layout_draw()
 : <a class="el" href="egraphics_8h.html#a7afd32d5469aea841782332cb6434dd0">egraphics.h</a>
 , <a class="el" href="egraphics_8c.html#a7afd32d5469aea841782332cb6434dd0">egraphics.c</a>
 </li>
 <li>etext_layout_set()
-: <a class="el" href="egraphics__text_8c.html#a72d9cb99d09ddca4f3c24cba2025e9e7">egraphics_text.c</a>
-, <a class="el" href="egraphics_8h.html#a72d9cb99d09ddca4f3c24cba2025e9e7">egraphics.h</a>
+: <a class="el" href="egraphics_8h.html#a72d9cb99d09ddca4f3c24cba2025e9e7">egraphics.h</a>
+, <a class="el" href="egraphics__text_8c.html#a72d9cb99d09ddca4f3c24cba2025e9e7">egraphics_text.c</a>
 </li>
 <li>etext_layout_settextcolor()
 : <a class="el" href="egraphics_8h.html#a6dc133480bb28bcd659eba01716e43e4">egraphics.h</a>
@@ -706,41 +776,92 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>ewidget_delete()
 : <a class="el" href="eclass__widget_8c.html#ae0ea0c121b81ab9fe0b5c2ca233858e6">eclass_widget.c</a>
-, <a class="el" href="ewidget_8h.html#ae0ea0c121b81ab9fe0b5c2ca233858e6">ewidget.h</a>
 , <a class="el" href="eclass_8h.html#ae0ea0c121b81ab9fe0b5c2ca233858e6">eclass.h</a>
 </li>
 <li>ewidget_displace()
-: <a class="el" href="ewidget_8h.html#a690f8b60964e45a76186da98fa5b021f">ewidget.h</a>
-, <a class="el" href="eclass__widget_8c.html#a690f8b60964e45a76186da98fa5b021f">eclass_widget.c</a>
+: <a class="el" href="eclass__widget_8c.html#a690f8b60964e45a76186da98fa5b021f">eclass_widget.c</a>
 , <a class="el" href="eclass_8h.html#a690f8b60964e45a76186da98fa5b021f">eclass.h</a>
 </li>
 <li>ewidget_getrect()
 : <a class="el" href="eclass__widget_8c.html#a5d274ec1f74c8e705cc43f3daba657a2">eclass_widget.c</a>
 , <a class="el" href="eclass_8h.html#a5d274ec1f74c8e705cc43f3daba657a2">eclass.h</a>
-, <a class="el" href="ewidget_8h.html#a5d274ec1f74c8e705cc43f3daba657a2">ewidget.h</a>
 </li>
 <li>ewidget_init()
 : <a class="el" href="eclass_8h.html#adadf33675042b107ebc7dbb4e7a7c882">eclass.h</a>
-, <a class="el" href="ewidget_8h.html#adadf33675042b107ebc7dbb4e7a7c882">ewidget.h</a>
 , <a class="el" href="eclass__widget_8c.html#adadf33675042b107ebc7dbb4e7a7c882">eclass_widget.c</a>
 </li>
 <li>ewidget_select()
-: <a class="el" href="eclass__widget_8c.html#abfd677f99bc223c74d91f232c154aaf9">eclass_widget.c</a>
-, <a class="el" href="eclass_8h.html#abfd677f99bc223c74d91f232c154aaf9">eclass.h</a>
-, <a class="el" href="ewidget_8h.html#abfd677f99bc223c74d91f232c154aaf9">ewidget.h</a>
+: <a class="el" href="eclass_8h.html#abfd677f99bc223c74d91f232c154aaf9">eclass.h</a>
+, <a class="el" href="eclass__widget_8c.html#abfd677f99bc223c74d91f232c154aaf9">eclass_widget.c</a>
 </li>
 <li>ewidget_vis()
-: <a class="el" href="ewidget_8h.html#a04ffdc05f9b5fe198111a38fc9e58a7e">ewidget.h</a>
-, <a class="el" href="eclass__widget_8c.html#a04ffdc05f9b5fe198111a38fc9e58a7e">eclass_widget.c</a>
+: <a class="el" href="eclass__widget_8c.html#a04ffdc05f9b5fe198111a38fc9e58a7e">eclass_widget.c</a>
 , <a class="el" href="eclass_8h.html#a04ffdc05f9b5fe198111a38fc9e58a7e">eclass.h</a>
+</li>
+<li>ewindow_bartlett()
+: <a class="el" href="efft_8h.html#a5b820b4b4c207880349e8842034d9f98">efft.h</a>
+, <a class="el" href="efft_8c.html#a5b820b4b4c207880349e8842034d9f98">efft.c</a>
+</li>
+<li>ewindow_bartlettHann()
+: <a class="el" href="efft_8c.html#a8996b166a3e79c14e280df2701414944">efft.c</a>
+, <a class="el" href="efft_8h.html#a8996b166a3e79c14e280df2701414944">efft.h</a>
+</li>
+<li>ewindow_blackman()
+: <a class="el" href="efft_8c.html#af2d1a522b97073ff8b273b705e61821e">efft.c</a>
+, <a class="el" href="efft_8h.html#af2d1a522b97073ff8b273b705e61821e">efft.h</a>
+</li>
+<li>ewindow_gaussian()
+: <a class="el" href="efft_8c.html#a14f7e954efe563ac1c26ac6cb76e7461">efft.c</a>
+, <a class="el" href="efft_8h.html#a14f7e954efe563ac1c26ac6cb76e7461">efft.h</a>
+</li>
+<li>ewindow_halfsinus()
+: <a class="el" href="efft_8h.html#af144f80531fe9bd44e06036e07b0cd6f">efft.h</a>
+, <a class="el" href="efft_8c.html#af144f80531fe9bd44e06036e07b0cd6f">efft.c</a>
+</li>
+<li>ewindow_hamming()
+: <a class="el" href="efft_8c.html#ac36e17ceb2a6ee4a192499fe152f40bd">efft.c</a>
+, <a class="el" href="efft_8h.html#ac36e17ceb2a6ee4a192499fe152f40bd">efft.h</a>
+</li>
+<li>ewindow_hanning()
+: <a class="el" href="efft_8h.html#a6a2ef3cd844988670a06f1618eae0461">efft.h</a>
+, <a class="el" href="efft_8c.html#a6a2ef3cd844988670a06f1618eae0461">efft.c</a>
+</li>
+<li>ewindow_lanczos()
+: <a class="el" href="efft_8c.html#a461d3787960e324c5f6f95e0b8ea06d9">efft.c</a>
+, <a class="el" href="efft_8h.html#a461d3787960e324c5f6f95e0b8ea06d9">efft.h</a>
+</li>
+<li>ewindow_sinus()
+: <a class="el" href="efft_8h.html#ac0e85199493c9ea0942511d1b2468083">efft.h</a>
+, <a class="el" href="efft_8c.html#ac0e85199493c9ea0942511d1b2468083">efft.c</a>
+</li>
+<li>ewindow_square()
+: <a class="el" href="efft_8h.html#a31dc24442cf7717b86f9b013f26bed66">efft.h</a>
+, <a class="el" href="efft_8c.html#a31dc24442cf7717b86f9b013f26bed66">efft.c</a>
+</li>
+<li>ewindow_triangular()
+: <a class="el" href="efft_8h.html#a6b248e100353009993c0fccfe98953cf">efft.h</a>
+, <a class="el" href="efft_8c.html#a6b248e100353009993c0fccfe98953cf">efft.c</a>
+</li>
+<li>ewindow_tukey()
+: <a class="el" href="efft_8h.html#a2e3403931a4b683c1602d3af829980cc">efft.h</a>
+, <a class="el" href="efft_8c.html#a2e3403931a4b683c1602d3af829980cc">efft.c</a>
+</li>
+<li>EXTERN
+: <a class="el" href="m__pd_8h.html#a77366c1bd428629dc898e188bfd182a3">m_pd.h</a>
+</li>
+<li>EXTERN_STRUCT
+: <a class="el" href="m__pd_8h.html#a23dd74158d184977334557b0c9c2abdd">m_pd.h</a>
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 27 2013 09:25:27 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:06 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -1,0 +1,56 @@
+#N canvas 543 133 676 417 10;
+#X obj -28 -74 cnv 40 552 40 empty empty c.convolve~ 3 12 0 18 -228856
+-33289 0;
+#X text 65 298 Coffee by Pierre Guillot | CICM - Université Paris 8
+;
+#X text -26 -53 A zero latency convolution;
+#X text -27 -31 c.convolve~ uses the HiFi-LoFi convolution reverb implementation.
+;
+#X obj 382 156 table \$0-ir;
+#X obj 382 133 soundfiler;
+#X obj 382 19 openpanel;
+#X obj 382 80 pack s s;
+#X obj 382 39 t s b;
+#X obj 383 -2 c.bang @size 17 17 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 32 181 dac~;
+#X msg 477 131 \; pd dsp 1;
+#X msg 477 172 \; pd dsp 0;
+#X msg 382 102 read -resize \$1 \$2;
+#X obj 427 58 symbol \$0-ir;
+#X obj 32 49 phasor~ 1;
+#X obj 32 112 c.convolve~ \$0-ir normalize;
+#X text 1 15 set the buffer;
+#X msg 201 66 normalize \$1;
+#X obj 201 31 c.toggle @size 15 15 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5
+0.5 0.5 1;
+#X text 156 2 normalize the ir;
+#X text 117 149 arg 1 : the buffer name;
+#X text 117 169 arg 2 (faculative) : normalize;
+#X text 414 -4 load an ir;
+#X obj 113 42 symbol \$0-ir;
+#X obj 113 18 c.bang @size 17 17 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X msg 113 65 set \$1;
+#X text 7 222 Sorry \, the implementation is not enough optimized on
+Windows and Linux. I'm going to put mine for the next release but for
+the moment it's a little bit buggy.;
+#X connect 6 0 8 0;
+#X connect 7 0 13 0;
+#X connect 8 0 7 0;
+#X connect 8 1 14 0;
+#X connect 9 0 6 0;
+#X connect 13 0 5 0;
+#X connect 14 0 7 1;
+#X connect 15 0 16 0;
+#X connect 16 0 10 0;
+#X connect 16 0 10 1;
+#X connect 18 0 16 0;
+#X connect 19 0 18 0;
+#X connect 24 0 26 0;
+#X connect 25 0 24 0;
+#X connect 26 0 16 0;

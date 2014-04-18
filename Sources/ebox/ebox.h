@@ -1,7 +1,7 @@
 /*
- * PdEnhanced - Pure Data Enhanced
+ * CicmWrapper - Pure Data Enhanced
  *
- * An add-on for Pure Data
+ * A wrapper for Pure Data
  *
  * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8
  * All rights reserved.
@@ -48,6 +48,7 @@ void ebox_free(t_ebox* x);
 t_symbol* ebox_getfontname(t_ebox* x);
 t_symbol* ebox_getfontslant(t_ebox* x);
 t_symbol* ebox_getfontweight(t_ebox* x);
+t_pd* ebox_getsender(t_ebox* x);
 char ebox_isdrawable(t_ebox* x);
 float ebox_getfontsize(t_ebox* x);
 void ebox_set_cursor(t_ebox* x, int mode);;
@@ -97,7 +98,10 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key);
 void ebox_key(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
 void ebox_deserted(t_ebox *x);
 void ebox_dosave(t_ebox* x, t_binbuf *b);
-t_pd_err ebox_set_id(t_ebox *x, t_object *attr, long argc, t_atom *argv);
+void ebox_pos(t_ebox* x, int newx, int newy);
+void ebox_vis(t_ebox* x, int vis);
+t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, long argc, t_atom *argv);
+t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, long argc, t_atom *argv);
 t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, long argc, t_atom *argv);
 t_pd_err ebox_set_font(t_ebox *x, t_object *attr, long argc, t_atom *argv);
 t_pd_err ebox_set_fontweight(t_ebox *x, t_object *attr, long argc, t_atom *argv);

@@ -1,7 +1,7 @@
 /*
- * PdEnhanced - Pure Data Enhanced 
+ * CicmWrapper
  *
- * An add-on for Pure Data
+ * A wrapper for Pure Data
  *
  * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8
  * All rights reserved.
@@ -36,6 +36,7 @@
 
 #include "../estruct.h"
 #include "../ebox/ebox.h"
+#include "../epopup/epopup.h"
 
 /*********************************
  * OBJECT
@@ -80,11 +81,12 @@ void eclass_attr_style(t_eclass* c, char* attrname, long flags, char* style);
 void eclass_attr_default(t_eclass* c, char* attrname, long flags, char* value);
 void eclass_attr_filter_min(t_eclass* c, char* attrname, double value);
 void eclass_attr_filter_max(t_eclass* c, char* attrname, double value);
+void eclass_attr_step(t_eclass* c, char* attrname, double value);
 void eclass_attr_save(t_eclass* c, char* attrname, long flags);
 void eclass_attr_paint(t_eclass* c, char* attrname, long flags);
 void eclass_attr_invisible(t_eclass* c, char* attrname, long flags);
 void eclass_attr_accessor(t_eclass* c, char* attrname, method getter, method setter);
-
+void eclass_attr_itemlist(t_eclass* c, char* attrname, long flags, char* list);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //! MACRO TO CREATE ATTRIBUTES
@@ -153,15 +155,17 @@ eclass_new_attr_typed(c,name, "atom", calcoffset(struct,size), maxsize, flags, c
 #define CLASS_ATTR_CATEGORY(c,name,flags,categoryname)  eclass_attr_category(c,name,flags,categoryname)
 #define CLASS_ATTR_ORDER(c,name,flags,order)            eclass_attr_order(c,name,flags,order)
 #define CLASS_ATTR_LABEL(c,name,flags,label)            eclass_attr_label(c,name,flags,label)
-#define CLASS_ATTR_STYLE(c,name,flags,style)            eclass_attr_label(c,name,flags,style)
+#define CLASS_ATTR_STYLE(c,name,flags,style)            eclass_attr_style(c,name,flags,style)
 #define CLASS_ATTR_DEFAULT(c,name,flags,val)            eclass_attr_default(c,name,flags,val)
 #define CLASS_ATTR_FILTER_MIN(c, name, value)           eclass_attr_filter_min(c, name, value)
 #define CLASS_ATTR_FILTER_MAX(c, name, value)           eclass_attr_filter_max(c, name, value)
 #define CLASS_ATTR_FILTER_CLIP(c, name, minval, maxval) eclass_attr_filter_min(c, name, minval); eclass_attr_filter_max(c, name, maxval);
+#define CLASS_ATTR_STEP(c, name, value)                 eclass_attr_step(c, name, value)
 #define CLASS_ATTR_SAVE(c,name,flags)                   eclass_attr_save(c,name,flags)
 #define CLASS_ATTR_PAINT(c,name,flags)                  eclass_attr_paint(c,name,flags)
 #define CLASS_ATTR_INVISIBLE(c,name,flags)              eclass_attr_invisible(c,name,flags)
 #define CLASS_ATTR_ACCESSORS(c,name,getter,setter)      eclass_attr_accessor(c,name,(method)getter,(method)setter)
+#define CLASS_ATTR_ITEMS(c,name,flags, list)            eclass_attr_itemlist(c,name,flags, list)
 
 #define CLASS_ATTR_DEFAULT_SAVE_PAINT(c,attrname,flags,parsestr) \
 { CLASS_ATTR_DEFAULT(c,attrname,flags,parsestr); CLASS_ATTR_SAVE(c,attrname,flags); CLASS_ATTR_PAINT(c,attrname,flags); }

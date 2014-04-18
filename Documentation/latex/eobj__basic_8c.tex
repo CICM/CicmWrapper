@@ -1,5 +1,5 @@
-\hypertarget{eobj__basic_8c}{\section{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/eobj/eobj\-\_\-basic.c File Reference}
-\label{eobj__basic_8c}\index{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/eobj/eobj\-\_\-basic.\-c@{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/eobj/eobj\-\_\-basic.\-c}}
+\hypertarget{eobj__basic_8c}{\section{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources/eobj/eobj\-\_\-basic.c File Reference}
+\label{eobj__basic_8c}\index{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources/eobj/eobj\-\_\-basic.\-c@{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources/eobj/eobj\-\_\-basic.\-c}}
 }
 {\ttfamily \#include \char`\"{}eobj.\-h\char`\"{}}\\*
 \subsection*{Functions}
@@ -15,8 +15,10 @@ int \hyperlink{eobj__basic_8c_a1014e3284b70c9680b9b048157190ca7}{eobj\-\_\-getpr
 \begin{DoxyCompactList}\small\item\em Retreive the index of the proxy that received the last message. \end{DoxyCompactList}\item 
 \hyperlink{estruct_8h_a261d794de3821fb7902103ba8ae44ed1}{t\-\_\-eclass} $\ast$ \hyperlink{eobj__basic_8c_a81d0e76ad4e7ef75e16c56847f9913f4}{eobj\-\_\-getclass} (void $\ast$x)
 \begin{DoxyCompactList}\small\item\em Retrieve the eclass of an eobj. \end{DoxyCompactList}\item 
-t\-\_\-symbol $\ast$ \hyperlink{eobj__basic_8c_a746850962ff25ecc81bf61f26281f3ea}{eobj\-\_\-getclassname} (void $\ast$x)
+\hyperlink{m__pd_8h_a2db18d99dc6ea00736f0a356270160ba}{t\-\_\-symbol} $\ast$ \hyperlink{eobj__basic_8c_a746850962ff25ecc81bf61f26281f3ea}{eobj\-\_\-getclassname} (void $\ast$x)
 \begin{DoxyCompactList}\small\item\em Retrieve the classe name of an eobj. \end{DoxyCompactList}\item 
+\hyperlink{m__pd_8h_afc86fc309b3f7a01b7825ec451ab4714}{t\-\_\-canvas} $\ast$ \hyperlink{eobj__basic_8c_a0f3a573a8af2dd681f9a32f722dec258}{eobj\-\_\-getcanvas} (void $\ast$x)
+\begin{DoxyCompactList}\small\item\em Retreive the canvas of an eobj. \end{DoxyCompactList}\item 
 char \hyperlink{eobj__basic_8c_a20b15e9d4cfff43d7c99ec64f8da3ced}{eobj\-\_\-isbox} (void $\ast$x)
 \begin{DoxyCompactList}\small\item\em Retreive if an eobj is a G\-U\-I or not. \end{DoxyCompactList}\item 
 char \hyperlink{eobj__basic_8c_a27eee54891735b101bf16018272d379c}{eobj\-\_\-isdsp} (void $\ast$x)
@@ -45,7 +47,30 @@ This function return nothing
 \end{DoxyReturn}
 
 
-Definition at line 72 of file eobj\-\_\-basic.\-c.
+Definition at line 71 of file eobj\-\_\-basic.\-c.
+
+\hypertarget{eobj__basic_8c_a0f3a573a8af2dd681f9a32f722dec258}{\index{eobj\-\_\-basic.\-c@{eobj\-\_\-basic.\-c}!eobj\-\_\-getcanvas@{eobj\-\_\-getcanvas}}
+\index{eobj\-\_\-getcanvas@{eobj\-\_\-getcanvas}!eobj_basic.c@{eobj\-\_\-basic.\-c}}
+\subsubsection[{eobj\-\_\-getcanvas}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-canvas}$\ast$ eobj\-\_\-getcanvas (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{x}
+\end{DoxyParamCaption}
+)}}\label{eobj__basic_8c_a0f3a573a8af2dd681f9a32f722dec258}
+
+
+Retreive the canvas of an eobj. 
+
+Directly access to the canvas structure 
+\begin{DoxyParams}{Parameters}
+{\em x} & The eobj pointer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+This function return a pointer to canvas of the eobj 
+\end{DoxyReturn}
+
+
+Definition at line 139 of file eobj\-\_\-basic.\-c.
 
 \hypertarget{eobj__basic_8c_a81d0e76ad4e7ef75e16c56847f9913f4}{\index{eobj\-\_\-basic.\-c@{eobj\-\_\-basic.\-c}!eobj\-\_\-getclass@{eobj\-\_\-getclass}}
 \index{eobj\-\_\-getclass@{eobj\-\_\-getclass}!eobj_basic.c@{eobj\-\_\-basic.\-c}}
@@ -58,7 +83,7 @@ Definition at line 72 of file eobj\-\_\-basic.\-c.
 
 Retrieve the eclass of an eobj. 
 
-Directly acces to eclass structure 
+Directly access to eclass structure 
 \begin{DoxyParams}{Parameters}
 {\em x} & The eobj pointer \\
 \hline
@@ -68,11 +93,11 @@ This function return a pointer to the eclass of the eobj
 \end{DoxyReturn}
 
 
-Definition at line 114 of file eobj\-\_\-basic.\-c.
+Definition at line 113 of file eobj\-\_\-basic.\-c.
 
 \hypertarget{eobj__basic_8c_a746850962ff25ecc81bf61f26281f3ea}{\index{eobj\-\_\-basic.\-c@{eobj\-\_\-basic.\-c}!eobj\-\_\-getclassname@{eobj\-\_\-getclassname}}
 \index{eobj\-\_\-getclassname@{eobj\-\_\-getclassname}!eobj_basic.c@{eobj\-\_\-basic.\-c}}
-\subsubsection[{eobj\-\_\-getclassname}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-symbol$\ast$ eobj\-\_\-getclassname (
+\subsubsection[{eobj\-\_\-getclassname}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-symbol}$\ast$ eobj\-\_\-getclassname (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{x}
 \end{DoxyParamCaption}
@@ -81,7 +106,7 @@ Definition at line 114 of file eobj\-\_\-basic.\-c.
 
 Retrieve the classe name of an eobj. 
 
-Directly acces to the name of the eclass structure 
+Directly access to the name of the eclass structure 
 \begin{DoxyParams}{Parameters}
 {\em x} & The eobj pointer \\
 \hline
@@ -91,7 +116,7 @@ This function return the name of the class of the eobj
 \end{DoxyReturn}
 
 
-Definition at line 127 of file eobj\-\_\-basic.\-c.
+Definition at line 126 of file eobj\-\_\-basic.\-c.
 
 \hypertarget{eobj__basic_8c_a1014e3284b70c9680b9b048157190ca7}{\index{eobj\-\_\-basic.\-c@{eobj\-\_\-basic.\-c}!eobj\-\_\-getproxy@{eobj\-\_\-getproxy}}
 \index{eobj\-\_\-getproxy@{eobj\-\_\-getproxy}!eobj_basic.c@{eobj\-\_\-basic.\-c}}
@@ -114,7 +139,7 @@ This function return nothing
 \end{DoxyReturn}
 
 
-Definition at line 101 of file eobj\-\_\-basic.\-c.
+Definition at line 100 of file eobj\-\_\-basic.\-c.
 
 \hypertarget{eobj__basic_8c_a3945be07a276dd22b13c86e6a4906a0e}{\index{eobj\-\_\-basic.\-c@{eobj\-\_\-basic.\-c}!eobj\-\_\-inletnew@{eobj\-\_\-inletnew}}
 \index{eobj\-\_\-inletnew@{eobj\-\_\-inletnew}!eobj_basic.c@{eobj\-\_\-basic.\-c}}
@@ -137,7 +162,7 @@ This function return nothing
 \end{DoxyReturn}
 
 
-Definition at line 86 of file eobj\-\_\-basic.\-c.
+Definition at line 85 of file eobj\-\_\-basic.\-c.
 
 \hypertarget{eobj__basic_8c_a20b15e9d4cfff43d7c99ec64f8da3ced}{\index{eobj\-\_\-basic.\-c@{eobj\-\_\-basic.\-c}!eobj\-\_\-isbox@{eobj\-\_\-isbox}}
 \index{eobj\-\_\-isbox@{eobj\-\_\-isbox}!eobj_basic.c@{eobj\-\_\-basic.\-c}}
@@ -160,7 +185,7 @@ This function return 1 if the eobj is a G\-U\-I and 0 if not
 \end{DoxyReturn}
 
 
-Definition at line 140 of file eobj\-\_\-basic.\-c.
+Definition at line 152 of file eobj\-\_\-basic.\-c.
 
 \hypertarget{eobj__basic_8c_a27eee54891735b101bf16018272d379c}{\index{eobj\-\_\-basic.\-c@{eobj\-\_\-basic.\-c}!eobj\-\_\-isdsp@{eobj\-\_\-isdsp}}
 \index{eobj\-\_\-isdsp@{eobj\-\_\-isdsp}!eobj_basic.c@{eobj\-\_\-basic.\-c}}
@@ -183,7 +208,7 @@ This function return 1 if the eobj is a D\-S\-P object and 0 if not
 \end{DoxyReturn}
 
 
-Definition at line 154 of file eobj\-\_\-basic.\-c.
+Definition at line 166 of file eobj\-\_\-basic.\-c.
 
 \hypertarget{eobj__basic_8c_a238c42e70bfd0c1b7a8763fb11a1ab92}{\index{eobj\-\_\-basic.\-c@{eobj\-\_\-basic.\-c}!eobj\-\_\-new@{eobj\-\_\-new}}
 \index{eobj\-\_\-new@{eobj\-\_\-new}!eobj_basic.c@{eobj\-\_\-basic.\-c}}

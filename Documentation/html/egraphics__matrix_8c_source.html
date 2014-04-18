@@ -4,10 +4,17 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>PdEnhanced: /Users/Pierre/SourceTree/PdEnhanced/SourcesDev/egraphics/egraphics_matrix.c Source File</title>
+<title>CICM Wrapper: /Users/Pierre/SourceTree/PdEnhanced/Sources/egraphics/egraphics_matrix.c Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -22,10 +29,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">PdEnhanced
+   <div id="projectname">CICM Wrapper
    &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
-   <div id="projectbrief">Add on for PD</div>
+   <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
  </tr>
  </tbody>
@@ -65,12 +72,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>Globals</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('egraphics__matrix_8c_source.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -79,20 +101,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_a4a890ee75b887c5396ee96d929275cc.html">SourcesDev</a></li><li class="navelem"><a class="el" href="dir_de24c9a7e64c874a1be122adcb4d9224.html">egraphics</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">egraphics_matrix.c</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * PdEnhanced - Pure Data Enhanced </span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * CicmWrapper</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * An add-on for Pure Data</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * A wrapper for Pure Data</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * All rights reserved.</span></div>
@@ -158,25 +175,29 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
 <div class="ttc" id="struct__matrix_html"><div class="ttname"><a href="struct__matrix.html">_matrix</a></div><div class="ttdoc">A matrix structure. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00067">estruct.h:67</a></div></div>
-<div class="ttc" id="struct__egobj_html_a579eafd42827c9bdcddc613774309ad3"><div class="ttname"><a href="struct__egobj.html#a579eafd42827c9bdcddc613774309ad3">_egobj::e_points</a></div><div class="ttdeci">t_pt * e_points</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00320">estruct.h:320</a></div></div>
-<div class="ttc" id="struct__egobj_html"><div class="ttname"><a href="struct__egobj.html">_egobj</a></div><div class="ttdoc">The Pd Enhanced drawing object. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00313">estruct.h:313</a></div></div>
+<div class="ttc" id="struct__egobj_html_a579eafd42827c9bdcddc613774309ad3"><div class="ttname"><a href="struct__egobj.html#a579eafd42827c9bdcddc613774309ad3">_egobj::e_points</a></div><div class="ttdeci">t_pt * e_points</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00324">estruct.h:324</a></div></div>
+<div class="ttc" id="struct__egobj_html"><div class="ttname"><a href="struct__egobj.html">_egobj</a></div><div class="ttdoc">The CICM drawing object. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00317">estruct.h:317</a></div></div>
 <div class="ttc" id="struct__matrix_html_a83a7590defc35766f789fbbf7fc41590"><div class="ttname"><a href="struct__matrix.html#a83a7590defc35766f789fbbf7fc41590">_matrix::xy</a></div><div class="ttdeci">float xy</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00071">estruct.h:71</a></div></div>
 <div class="ttc" id="struct__matrix_html_a9fb9d00fbbf390e0263bcc204b03c7c8"><div class="ttname"><a href="struct__matrix.html#a9fb9d00fbbf390e0263bcc204b03c7c8">_matrix::xx</a></div><div class="ttdeci">float xx</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00069">estruct.h:69</a></div></div>
-<div class="ttc" id="struct__elayer_html"><div class="ttname"><a href="struct__elayer.html">_elayer</a></div><div class="ttdoc">The Pd Enhanced drawing layer. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00335">estruct.h:335</a></div></div>
+<div class="ttc" id="struct__elayer_html"><div class="ttname"><a href="struct__elayer.html">_elayer</a></div><div class="ttdoc">The CICM drawing layer. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00339">estruct.h:339</a></div></div>
 <div class="ttc" id="struct__pt_html_aa4f0d3eebc3c443f9be81bf48561a217"><div class="ttname"><a href="struct__pt.html#aa4f0d3eebc3c443f9be81bf48561a217">_pt::y</a></div><div class="ttdeci">float y</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00046">estruct.h:46</a></div></div>
 <div class="ttc" id="struct__matrix_html_a8e1608facba0c31efe99d65811fab570"><div class="ttname"><a href="struct__matrix.html#a8e1608facba0c31efe99d65811fab570">_matrix::yx</a></div><div class="ttdeci">float yx</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00070">estruct.h:70</a></div></div>
 <div class="ttc" id="struct__matrix_html_adf19b8ba42d497d3093c3a51b1a32cca"><div class="ttname"><a href="struct__matrix.html#adf19b8ba42d497d3093c3a51b1a32cca">_matrix::y0</a></div><div class="ttdeci">float y0</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00074">estruct.h:74</a></div></div>
 <div class="ttc" id="struct__matrix_html_a342cbf7f29a65a0d1a2949ef4675008e"><div class="ttname"><a href="struct__matrix.html#a342cbf7f29a65a0d1a2949ef4675008e">_matrix::yy</a></div><div class="ttdeci">float yy</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00072">estruct.h:72</a></div></div>
-<div class="ttc" id="struct__egobj_html_a216eff6ab0216b35e215bd1c1b8fb0d0"><div class="ttname"><a href="struct__egobj.html#a216eff6ab0216b35e215bd1c1b8fb0d0">_egobj::e_npoints</a></div><div class="ttdeci">long e_npoints</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00321">estruct.h:321</a></div></div>
-<div class="ttc" id="struct__elayer_html_a62d53e14693deed3469c69dc3a857493"><div class="ttname"><a href="struct__elayer.html#a62d53e14693deed3469c69dc3a857493">_elayer::e_matrix</a></div><div class="ttdeci">t_matrix e_matrix</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00345">estruct.h:345</a></div></div>
+<div class="ttc" id="struct__egobj_html_a216eff6ab0216b35e215bd1c1b8fb0d0"><div class="ttname"><a href="struct__egobj.html#a216eff6ab0216b35e215bd1c1b8fb0d0">_egobj::e_npoints</a></div><div class="ttdeci">long e_npoints</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00325">estruct.h:325</a></div></div>
+<div class="ttc" id="struct__elayer_html_a62d53e14693deed3469c69dc3a857493"><div class="ttname"><a href="struct__elayer.html#a62d53e14693deed3469c69dc3a857493">_elayer::e_matrix</a></div><div class="ttdeci">t_matrix e_matrix</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00349">estruct.h:349</a></div></div>
 <div class="ttc" id="struct__matrix_html_a3c9556645d92e863376a4063a3ad7001"><div class="ttname"><a href="struct__matrix.html#a3c9556645d92e863376a4063a3ad7001">_matrix::x0</a></div><div class="ttdeci">float x0</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00073">estruct.h:73</a></div></div>
 <div class="ttc" id="struct__pt_html_ad0da36b2558901e21e7a30f6c227a45e"><div class="ttname"><a href="struct__pt.html#ad0da36b2558901e21e7a30f6c227a45e">_pt::x</a></div><div class="ttdeci">float x</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00045">estruct.h:45</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 27 2013 09:26:33 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_f1848ecb810f36544fe7cc9ff59203d3.html">egraphics</a></li><li class="navelem"><b>egraphics_matrix.c</b></li>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:45 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

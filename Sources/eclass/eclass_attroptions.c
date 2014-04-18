@@ -1,7 +1,7 @@
 /*
- * PdEnhanced - Pure Data Enhanced 
+ * CicmWrapper
  *
- * An add-on for Pure Data
+ * A wrapper for Pure Data
  *
  * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8
  * All rights reserved.
@@ -131,7 +131,88 @@ void eclass_attr_style(t_eclass* c, char* attrname, long flags, char* style)
     {
         if(c->c_attr[i].name == gensym(attrname))
         {
-            c->c_attr[i].style = gensym(style);
+            if(gensym(style) == gensym("checkbutton") || gensym(style) == gensym("onoff"))
+            {
+                c->c_attr[i].style = gensym("checkbutton");
+            }
+            else if(gensym(style) == gensym("rgb") || gensym(style) == gensym("rgba") || gensym(style) == gensym("color"))
+            {
+                c->c_attr[i].style = gensym("color");
+            }
+            else if(gensym(style) == gensym("spinbox") || gensym(style) == gensym("number"))
+            {
+                c->c_attr[i].style = gensym("number");
+            }
+            else if(gensym(style) == gensym("menu"))
+            {
+                c->c_attr[i].style = gensym("menu");
+            }
+            else
+            {
+                c->c_attr[i].style = gensym("entry");
+            }
+            return ;
+        }
+    }
+}
+
+//! Initalize the items list of an attribute
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param flags     The flags of the attribute
+ \ @param style     The style of the attribute
+ \ @return          Nothing
+ */
+void eclass_attr_itemlist(t_eclass* c, char* attrname, long flags, char* list)
+{
+	int i, j = 0;
+    char* pch;
+    int size = 0;
+    for(i = 0; i < c->c_nattr; i++)
+    {
+        if(c->c_attr[i].name == gensym(attrname))
+        {
+            pch = strtok(gensym(list)->s_name," ,");
+            
+            while(pch != NULL)
+            {
+                pch = strtok(NULL, " ,");
+                size++;
+            }
+            if(size > 0)
+            {
+                if(c->c_attr[i].itemssize)
+                {
+                    c->c_attr[i].itemslist = (t_symbol **)realloc(c->c_attr[i].itemslist, size * sizeof(t_symbol *));
+                    if(c->c_attr[i].itemslist)
+                        c->c_attr[i].itemssize = size;
+                }
+                else
+                {
+                    c->c_attr[i].itemslist = (t_symbol **)calloc(size, sizeof(t_symbol *));
+                    if(c->c_attr[i].itemslist)
+                        c->c_attr[i].itemssize = size;
+                }
+                if(c->c_attr[i].itemssize)
+                {
+                    pch = strtok(gensym(list)->s_name," ,");
+                    while(pch != NULL)
+                    {
+                        c->c_attr[i].itemslist[j] = gensym(pch);
+                        pch = strtok(NULL, " ,");
+                        j++;
+                    }
+                }
+                
+            }
+            else
+            {
+                if(c->c_attr[i].itemssize)
+                    free(c->c_attr[i].itemslist);
+                c->c_attr[i].itemssize = 0;
+            }
             return ;
         }
     }
@@ -184,6 +265,27 @@ void eclass_attr_filter_max(t_eclass* c, char* attrname, double value)
                 c->c_attr[i].clipped = 3;
             
             c->c_attr[i].maximum = value;
+            return ;
+        }
+    }
+}
+
+//! Initalize the step value of an attribute
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param value     The maximum value of the attribute
+ \ @return          Nothing
+ */
+void eclass_attr_step(t_eclass* c, char* attrname, double value)
+{
+	int i;
+    for(i = 0; i < c->c_nattr; i++)
+    {
+        if(c->c_attr[i].name == gensym(attrname))
+        {
+            c->c_attr[i].step = value;
             return ;
         }
     }
@@ -268,10 +370,8 @@ void eclass_attr_accessor(t_eclass* c, char* attrname, method getter, method set
     {
         if(c->c_attr[i].name == gensym(attrname))
         {
-            if(getter != NULL)
-                c->c_attr[i].getter = getter;
-            if(setter != NULL)
-                c->c_attr[i].setter = setter;
+            c->c_attr[i].getter = getter;
+            c->c_attr[i].setter = setter;
             return ;
         }
     }

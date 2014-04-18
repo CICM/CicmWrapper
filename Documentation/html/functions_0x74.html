@@ -4,10 +4,17 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>PdEnhanced: Data Fields</title>
+<title>CICM Wrapper: Data Fields</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -22,9 +29,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">PdEnhanced
+   <div id="projectname">CICM Wrapper
    &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
+   <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
  </tr>
  </tbody>
@@ -82,6 +90,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_0x67.html#index_g"><span>g</span></a></li>
       <li><a href="functions_0x68.html#index_h"><span>h</span></a></li>
       <li><a href="functions_0x69.html#index_i"><span>i</span></a></li>
+      <li><a href="functions_0x6b.html#index_k"><span>k</span></a></li>
       <li><a href="functions_0x6c.html#index_l"><span>l</span></a></li>
       <li><a href="functions_0x6d.html#index_m"><span>m</span></a></li>
       <li><a href="functions_0x6e.html#index_n"><span>n</span></a></li>
@@ -90,18 +99,33 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_0x72.html#index_r"><span>r</span></a></li>
       <li><a href="functions_0x73.html#index_s"><span>s</span></a></li>
       <li class="current"><a href="functions_0x74.html#index_t"><span>t</span></a></li>
+      <li><a href="functions_0x75.html#index_u"><span>u</span></a></li>
       <li><a href="functions_0x77.html#index_w"><span>w</span></a></li>
       <li><a href="functions_0x78.html#index_x"><span>x</span></a></li>
       <li><a href="functions_0x79.html#index_y"><span>y</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('functions_0x74.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -114,16 +138,127 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock">Here is a list of all struct and union fields with links to the structures/unions they belong to:</div>
 
 <h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
+<li>t_list
+: <a class="el" href="struct__template.html#a64e7c8d2ea3ad17f852bf1f1102731bd">_template</a>
+</li>
+<li>t_n
+: <a class="el" href="struct__template.html#ab22a7280fe72a94f1db35f889292c0e4">_template</a>
+</li>
+<li>t_pdobj
+: <a class="el" href="struct__template.html#a523956abc441585473db1105cdd31b3b">_template</a>
+</li>
+<li>t_sym
+: <a class="el" href="struct__template.html#a8fd73f58b60b098e93eb4dc5ae168774">_template</a>
+</li>
+<li>t_vec
+: <a class="el" href="struct__template.html#a6b89c6e8e4bd81d3b82d976846f3e212">_template</a>
+</li>
+<li>te_binbuf
+: <a class="el" href="struct__text.html#abd723d92731b3203626cd3659d803979">_text</a>
+</li>
+<li>te_g
+: <a class="el" href="struct__text.html#a2a1d03c47dc522ee54abf232b686d967">_text</a>
+</li>
+<li>te_inlet
+: <a class="el" href="struct__text.html#a974a2ba622d24866ec9ff114cd8b6304">_text</a>
+</li>
+<li>te_outlet
+: <a class="el" href="struct__text.html#abd5fa9b012cb076294ca3a02619b0c08">_text</a>
+</li>
+<li>te_type
+: <a class="el" href="struct__text.html#af7108f5ddfff3bb67e5c350d29ceb9a5">_text</a>
+</li>
+<li>te_width
+: <a class="el" href="struct__text.html#a5b41ab2c4ac78a6337d9b3c9439c46ff">_text</a>
+</li>
+<li>te_xpix
+: <a class="el" href="struct__text.html#abfa7d8a29cf174c52ff21e300bbc6024">_text</a>
+</li>
+<li>te_ypix
+: <a class="el" href="struct__text.html#a1b09541116146f438ed8967942e375e0">_text</a>
+</li>
+<li>tr_inlet
+: <a class="el" href="struct__linetraverser.html#a4fa9a07ae8382f5970921b93766a4fc7">_linetraverser</a>
+</li>
+<li>tr_inno
+: <a class="el" href="struct__linetraverser.html#a54370688e45041a5cafb075c56f7997a">_linetraverser</a>
+</li>
+<li>tr_lx1
+: <a class="el" href="struct__linetraverser.html#a2f86f670e790709fc2d6f003f966aef7">_linetraverser</a>
+</li>
+<li>tr_lx2
+: <a class="el" href="struct__linetraverser.html#a5f877b215cdc0b44493240adfc58b327">_linetraverser</a>
+</li>
+<li>tr_ly1
+: <a class="el" href="struct__linetraverser.html#a7d256a036e8bdf631405c7d0bcea2128">_linetraverser</a>
+</li>
+<li>tr_ly2
+: <a class="el" href="struct__linetraverser.html#a75ff2a7de9a746caae89af5586704e03">_linetraverser</a>
+</li>
+<li>tr_nextoc
+: <a class="el" href="struct__linetraverser.html#a5cc8251b3aea5cbaeefe8a2a8f7f3f5b">_linetraverser</a>
+</li>
+<li>tr_nextoutno
+: <a class="el" href="struct__linetraverser.html#a6186a0805c5669487dc10a1da2d83032">_linetraverser</a>
+</li>
+<li>tr_nin
+: <a class="el" href="struct__linetraverser.html#a25b81d3e4568e6879ea770124b09d1f7">_linetraverser</a>
+</li>
+<li>tr_nout
+: <a class="el" href="struct__linetraverser.html#a6f203653280ae83a8c951dc446fc0c43">_linetraverser</a>
+</li>
+<li>tr_ob
+: <a class="el" href="struct__linetraverser.html#adf952ddaf411380804510b0d45a195e1">_linetraverser</a>
+</li>
+<li>tr_ob2
+: <a class="el" href="struct__linetraverser.html#a327e8034e3aa2f78469cfa590aa927dc">_linetraverser</a>
+</li>
+<li>tr_outlet
+: <a class="el" href="struct__linetraverser.html#a1cc16318a7e99ed543dfd52cddf27321">_linetraverser</a>
+</li>
+<li>tr_outno
+: <a class="el" href="struct__linetraverser.html#a252de2fd60ee37cbf4dae599cda9e0bd">_linetraverser</a>
+</li>
+<li>tr_x
+: <a class="el" href="struct__linetraverser.html#ad39c9a9d997342cf9fed65d8cba8343e">_linetraverser</a>
+</li>
+<li>tr_x11
+: <a class="el" href="struct__linetraverser.html#a709b4cb466892af9a6776fed02f135d9">_linetraverser</a>
+</li>
+<li>tr_x12
+: <a class="el" href="struct__linetraverser.html#a8e964a29e793847d50f128311766032d">_linetraverser</a>
+</li>
+<li>tr_x21
+: <a class="el" href="struct__linetraverser.html#a270239a4194cd2f1cd2b2883e4295255">_linetraverser</a>
+</li>
+<li>tr_x22
+: <a class="el" href="struct__linetraverser.html#a497934fb11faefa4f5de4fdd2b6c5950">_linetraverser</a>
+</li>
+<li>tr_y11
+: <a class="el" href="struct__linetraverser.html#ab300844421f91a46772ac5b8f887fcef">_linetraverser</a>
+</li>
+<li>tr_y12
+: <a class="el" href="struct__linetraverser.html#ab6baf82116944436ec9a97c00aee4533">_linetraverser</a>
+</li>
+<li>tr_y21
+: <a class="el" href="struct__linetraverser.html#a80d2c832bcbef19cae94d69b5710a5eb">_linetraverser</a>
+</li>
+<li>tr_y22
+: <a class="el" href="struct__linetraverser.html#af0bc85810866adb1150bc34d34480b99">_linetraverser</a>
+</li>
 <li>type
 : <a class="el" href="struct__eattr.html#a6e9f41f359f7588f11d1e2ab8c745599">_eattr</a>
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 27 2013 09:25:27 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:06 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

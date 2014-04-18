@@ -1,7 +1,7 @@
 /*
- * PdEnhanced - Pure Data Enhanced 
+ * CicmWrapper
  *
- * An add-on for Pure Data
+ * A wrapper for Pure Data
  *
  * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8
  * All rights reserved.
@@ -37,7 +37,7 @@
 */
 void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
 {
-	int i, j, size;
+	long i, j, size;
     char *point;
     long *point_size;
     t_ebox* z   = (t_ebox *)x;
@@ -53,7 +53,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
             else
             {
                 if(argc > c->c_attr[i].sizemax)
-                    argc = c->c_attr[i].sizemax;
+                    argc = (int)c->c_attr[i].sizemax;
                 size = argc;
                 point = (char *)x + c->c_attr[i].size;
                 point_size = (long *)point;
@@ -82,7 +82,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                     }
                 }
             }
-            
+ 
             if(c->c_attr[i].setter)
             {
                 c->c_attr[i].setter(x, c->c_attr[i].obj, argc, argv);
@@ -164,7 +164,10 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                 
                 ebox_redraw(z);
             }
-            
+            if(eobj_isbox(x) && ebox_isdrawable((t_ebox*) x))
+            {
+                canvas_dirty(eobj_getcanvas(x), 1);
+            }
         }
     }
 }

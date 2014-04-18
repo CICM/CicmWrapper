@@ -1,7 +1,7 @@
 /*
- * PdEnhanced - Pure Data Enhanced 
+ * CicmWrapper
  *
- * An add-on for Pure Data
+ * A wrapper for Pure Data
  *
  * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8
  * All rights reserved.
@@ -36,6 +36,7 @@
 
 #include "../estruct.h"
 #include "../egraphics/egraphics.h"
+#include "../ecommon/ecommon.h"
 
 /*********************************
  * OBJECT
@@ -43,7 +44,7 @@
 
 void *eobj_new(t_eclass *c);
 void eobj_free(void *x);
-void eobj_inletnew(void* x);
+t_eproxy* eobj_proxynew(void* x);
 int  eobj_getproxy(void* x);
 t_eclass* eobj_getclass(void* x);
 t_symbol* eobj_getclassname(void* x);
@@ -73,10 +74,33 @@ void eobj_read(t_eobj* x, t_symbol* s, long argc, t_atom* argv);
  *********************************/
 
 //! @cond
-void eproxy_setup(t_eclass* c);
+
+void inlet_wrong(t_inlet *x, t_symbol *s);
+void new_inlet_bang(t_inlet *x);
+void new_inlet_pointer(t_inlet *x, t_gpointer *gp);
+void new_inlet_float(t_inlet *x, t_float f);
+void new_inlet_symbol(t_inlet *x, t_symbol *s);
+void new_inlet_list(t_inlet *x, t_symbol *s, int argc, t_atom *argv);
+void new_inlet_anything(t_inlet *x, t_symbol *s, int argc, t_atom *argv);
+
+void eproxy_setup();
 void eproxy_anything(t_eproxy *x, t_symbol *s, int argc, t_atom *argv);
-void *eproxy_new(t_symbol *s, int argc, t_atom *argv);
-void eproxy_init(t_eproxy *x, void *owner, int index);
+t_eproxy* eproxy_new(void *owner);
+t_eproxy* eproxy_signalnew(void *owner, float f);
+void eproxy_free(t_eproxy* proxy);
+
+/*
+void proxlet_init();
+t_proxlet *proxlet_new(t_object *owner);
+t_proxlet *signalproxlet_new(t_object *owner, t_float f);
+void proxlet_free(t_proxlet *x);
+
+void proxlet_bang(t_proxlet *x);
+void proxlet_float(t_proxlet *x, t_float f);
+void proxlet_symbol(t_proxlet *x, t_symbol *s);
+void proxlet_list(t_proxlet *x, t_symbol *s, int argc, t_atom *argv);
+void proxlet_anything(t_proxlet *x, t_symbol *s, int argc, t_atom *argv);
+ */
 //! @endcond
 
 /*********************************
@@ -87,12 +111,20 @@ void eobj_dspsetup(void *x, long nins, long nouts);
 void eobj_dspfree(void *x);
 void eobj_resize_inputs(void *x, long nins);
 void eobj_resize_outputs(void *x, long nouts);
+t_eproxy* eobj_getdspproxlet(void *x, long index);
+t_outlet* eobj_getdspoutlet(void *x, long index);
+t_sample* eobj_getsignalinput(void *x, long index);
+t_sample* eobj_getsignaloutput(void *x, long index);
 
 //! @cond
-void eobj_dsp(t_edspobj *x, t_signal **sp);
+void eobj_dsp(void *x, t_signal **sp);
 t_int* eobj_perform(t_int* w);
-void eobj_getconnections(t_edspobj* x, short* count);
-void eobj_dsp_add(t_edspobj *x, t_symbol* s, t_object* obj, method m, long flags, void *userparam);
+t_int* eobj_perform_no_inplace(t_int* w);
+
+t_int* eobj_perform_box(t_int* w);
+t_int* eobj_perform_box_no_inplace(t_int* w);
+void eobj_getconnections(void* x, short* count);
+void eobj_dsp_add(void *x, t_symbol* s, t_object* obj, method m, long flags, void *userparam);
 //! @endcond
 
 /*********************************
@@ -103,8 +135,7 @@ void eobj_attach_torouter(t_object* child);
 void eobj_detach_torouter(t_object* child);
 
 //! @cond
-t_erouter* glist_return_erouter(t_object* glist);
-void erouter_setup(t_glist* obj);
+void erouter_setup();
 void erouter_free(t_erouter *x);
 void erouter_anything(t_erouter *x, t_symbol *s, long argc, t_atom *argv);
 //! @endcond

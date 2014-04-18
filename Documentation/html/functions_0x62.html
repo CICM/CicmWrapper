@@ -4,10 +4,17 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>PdEnhanced: Data Fields</title>
+<title>CICM Wrapper: Data Fields</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -22,9 +29,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">PdEnhanced
+   <div id="projectname">CICM Wrapper
    &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
+   <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
  </tr>
  </tbody>
@@ -82,6 +90,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_0x67.html#index_g"><span>g</span></a></li>
       <li><a href="functions_0x68.html#index_h"><span>h</span></a></li>
       <li><a href="functions_0x69.html#index_i"><span>i</span></a></li>
+      <li><a href="functions_0x6b.html#index_k"><span>k</span></a></li>
       <li><a href="functions_0x6c.html#index_l"><span>l</span></a></li>
       <li><a href="functions_0x6d.html#index_m"><span>m</span></a></li>
       <li><a href="functions_0x6e.html#index_n"><span>n</span></a></li>
@@ -90,18 +99,33 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_0x72.html#index_r"><span>r</span></a></li>
       <li><a href="functions_0x73.html#index_s"><span>s</span></a></li>
       <li><a href="functions_0x74.html#index_t"><span>t</span></a></li>
+      <li><a href="functions_0x75.html#index_u"><span>u</span></a></li>
       <li><a href="functions_0x77.html#index_w"><span>w</span></a></li>
       <li><a href="functions_0x78.html#index_x"><span>x</span></a></li>
       <li><a href="functions_0x79.html#index_y"><span>y</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('functions_0x62.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -142,9 +166,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="struct__ebox.html#a4071412a20456f5fcafe2a91cdef11c3">_ebox</a>
 , <a class="el" href="struct__edspbox.html#a4071412a20456f5fcafe2a91cdef11c3">_edspbox</a>
 </li>
+<li>b_isinsubcanvas
+: <a class="el" href="struct__edspbox.html#a4478423a97430b84acbf374f9089f51f">_edspbox</a>
+, <a class="el" href="struct__ebox.html#a4478423a97430b84acbf374f9089f51f">_ebox</a>
+</li>
 <li>b_layers
-: <a class="el" href="struct__edspbox.html#ad80949f483467d74761a9e321300d64e">_edspbox</a>
-, <a class="el" href="struct__ebox.html#ad80949f483467d74761a9e321300d64e">_ebox</a>
+: <a class="el" href="struct__ebox.html#ad80949f483467d74761a9e321300d64e">_ebox</a>
+, <a class="el" href="struct__edspbox.html#ad80949f483467d74761a9e321300d64e">_edspbox</a>
 </li>
 <li>b_modifiers
 : <a class="el" href="struct__ebox.html#ad230697acdd2d00abb2dc18dd38089d8">_ebox</a>
@@ -168,43 +196,47 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>b_obj
 : <a class="el" href="struct__ebox.html#a384a670299e98768527fbe457de9a38a">_ebox</a>
-, <a class="el" href="struct__edspbox.html#a8a991907db2d274664740c5f19569148">_edspbox</a>
+, <a class="el" href="struct__edspbox.html#a384a670299e98768527fbe457de9a38a">_edspbox</a>
 </li>
 <li>b_objpreset_id
-: <a class="el" href="struct__ebox.html#adc377263d208d1051f4a0997868b1155">_ebox</a>
-, <a class="el" href="struct__edspbox.html#adc377263d208d1051f4a0997868b1155">_edspbox</a>
-</li>
-<li>b_objuser_id
-: <a class="el" href="struct__edspbox.html#ae324f65e10196cc7e166652e8d7d394d">_edspbox</a>
-, <a class="el" href="struct__ebox.html#ae324f65e10196cc7e166652e8d7d394d">_ebox</a>
+: <a class="el" href="struct__edspbox.html#adc377263d208d1051f4a0997868b1155">_edspbox</a>
+, <a class="el" href="struct__ebox.html#adc377263d208d1051f4a0997868b1155">_ebox</a>
 </li>
 <li>b_ready_to_draw
 : <a class="el" href="struct__ebox.html#a234ea03e103bd45f5fa1d27b8e69b5dd">_ebox</a>
 , <a class="el" href="struct__edspbox.html#a234ea03e103bd45f5fa1d27b8e69b5dd">_edspbox</a>
+</li>
+<li>b_receive_id
+: <a class="el" href="struct__ebox.html#a3fb2b6968877ffd009753ccc0fe96769">_ebox</a>
+, <a class="el" href="struct__edspbox.html#a3fb2b6968877ffd009753ccc0fe96769">_edspbox</a>
 </li>
 <li>b_rect
 : <a class="el" href="struct__ebox.html#abc70ff46c135ee9f377a038bbc05a33e">_ebox</a>
 , <a class="el" href="struct__edspbox.html#abc70ff46c135ee9f377a038bbc05a33e">_edspbox</a>
 </li>
 <li>b_rect_last
-: <a class="el" href="struct__edspbox.html#a2a0a15d3bc005cd4f815088b230b5ebd">_edspbox</a>
-, <a class="el" href="struct__ebox.html#a2a0a15d3bc005cd4f815088b230b5ebd">_ebox</a>
+: <a class="el" href="struct__ebox.html#a2a0a15d3bc005cd4f815088b230b5ebd">_ebox</a>
+, <a class="el" href="struct__edspbox.html#a2a0a15d3bc005cd4f815088b230b5ebd">_edspbox</a>
 </li>
 <li>b_selected_box
 : <a class="el" href="struct__edspbox.html#acc1a127070b19ccf6e222d7349c84c96">_edspbox</a>
 , <a class="el" href="struct__ebox.html#acc1a127070b19ccf6e222d7349c84c96">_ebox</a>
 </li>
 <li>b_selected_inlet
-: <a class="el" href="struct__ebox.html#a0cebb4789c213079e0490e86c10c2893">_ebox</a>
-, <a class="el" href="struct__edspbox.html#a0cebb4789c213079e0490e86c10c2893">_edspbox</a>
+: <a class="el" href="struct__edspbox.html#a0cebb4789c213079e0490e86c10c2893">_edspbox</a>
+, <a class="el" href="struct__ebox.html#a0cebb4789c213079e0490e86c10c2893">_ebox</a>
 </li>
 <li>b_selected_item
-: <a class="el" href="struct__ebox.html#a1f65b6d093e53fd85bed085ce0c5dd8e">_ebox</a>
-, <a class="el" href="struct__edspbox.html#a1f65b6d093e53fd85bed085ce0c5dd8e">_edspbox</a>
+: <a class="el" href="struct__edspbox.html#a1f65b6d093e53fd85bed085ce0c5dd8e">_edspbox</a>
+, <a class="el" href="struct__ebox.html#a1f65b6d093e53fd85bed085ce0c5dd8e">_ebox</a>
 </li>
 <li>b_selected_outlet
 : <a class="el" href="struct__ebox.html#acbf0482cb9c6e192e2059775acc1ac86">_ebox</a>
 , <a class="el" href="struct__edspbox.html#acbf0482cb9c6e192e2059775acc1ac86">_edspbox</a>
+</li>
+<li>b_send_id
+: <a class="el" href="struct__ebox.html#ac59460230e622f821660b599e2f96ca9">_ebox</a>
+, <a class="el" href="struct__edspbox.html#ac59460230e622f821660b599e2f96ca9">_edspbox</a>
 </li>
 <li>b_window_id
 : <a class="el" href="struct__ebox.html#a7033df943e798c68e3a6117785c2d79e">_ebox</a>
@@ -214,13 +246,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="struct__rgb.html#a322e0de27f54901aa172ae487dba2914">_rgb</a>
 , <a class="el" href="struct__rgba.html#a322e0de27f54901aa172ae487dba2914">_rgba</a>
 </li>
+<li>buffer
+: <a class="el" href="struct__resample.html#ad3f952f1432d55dde1e47bf4ed4296fb">_resample</a>
+</li>
+<li>bufsize
+: <a class="el" href="struct__resample.html#a199ab88d4ca8eab30e1cb7d35edacca5">_resample</a>
+</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 27 2013 09:25:27 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:06 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

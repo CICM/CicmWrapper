@@ -1,7 +1,7 @@
 /*
- * PdEnhanced - Pure Data Enhanced
+ * CicmWrapper - Pure Data Enhanced
  *
- * An add-on for Pure Data
+ * A wrapper for Pure Data
  *
  * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8
  * All rights reserved.
@@ -124,7 +124,6 @@ void ebox_create_widget(t_ebox* x)
 */
 void ebox_create_window(t_ebox* x, t_glist* glist)
 {
-    erouter_setup(glist);
     eobj_attach_torouter((t_object *)x);
     ebox_tk_ids(x, glist_getcanvas(glist));
     ebox_create_widget(x);
@@ -153,13 +152,12 @@ void ebox_create_window(t_ebox* x, t_glist* glist)
              (int)(x->b_rect.height + x->b_boxparameters.d_borderthickness * 2.));
 
     x->b_modifiers = 0;
-
 #ifdef _WINDOWS
 
 #else
     sys_vgui("focus -force %s\n", x->b_canvas_id->s_name);
 #endif
-
+    x->b_have_window = 1;
 }
 
 

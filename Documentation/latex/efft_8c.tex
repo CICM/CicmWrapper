@@ -1,0 +1,239 @@
+\hypertarget{efft_8c}{\section{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources/efft.c File Reference}
+\label{efft_8c}\index{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources/efft.\-c@{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources/efft.\-c}}
+}
+{\ttfamily \#include \char`\"{}efft.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{efft_8c_a31dc24442cf7717b86f9b013f26bed66}{ewindow\-\_\-square} (float $\ast$window, int size)
+\item 
+void \hyperlink{efft_8c_a6a2ef3cd844988670a06f1618eae0461}{ewindow\-\_\-hanning} (float $\ast$window, int size)
+\item 
+void \hyperlink{efft_8c_ac36e17ceb2a6ee4a192499fe152f40bd}{ewindow\-\_\-hamming} (float $\ast$window, int size)
+\item 
+void \hyperlink{efft_8c_a2e3403931a4b683c1602d3af829980cc}{ewindow\-\_\-tukey} (float $\ast$window, int size)
+\item 
+void \hyperlink{efft_8c_af144f80531fe9bd44e06036e07b0cd6f}{ewindow\-\_\-halfsinus} (float $\ast$window, int size)
+\item 
+void \hyperlink{efft_8c_ac0e85199493c9ea0942511d1b2468083}{ewindow\-\_\-sinus} (float $\ast$window, int size)
+\item 
+void \hyperlink{efft_8c_a461d3787960e324c5f6f95e0b8ea06d9}{ewindow\-\_\-lanczos} (float $\ast$window, int size)
+\item 
+void \hyperlink{efft_8c_a6b248e100353009993c0fccfe98953cf}{ewindow\-\_\-triangular} (float $\ast$window, int size)
+\item 
+void \hyperlink{efft_8c_a5b820b4b4c207880349e8842034d9f98}{ewindow\-\_\-bartlett} (float $\ast$window, int size)
+\item 
+void \hyperlink{efft_8c_a14f7e954efe563ac1c26ac6cb76e7461}{ewindow\-\_\-gaussian} (float $\ast$window, int size)
+\item 
+void \hyperlink{efft_8c_a8996b166a3e79c14e280df2701414944}{ewindow\-\_\-bartlett\-Hann} (float $\ast$window, int size)
+\item 
+void \hyperlink{efft_8c_af2d1a522b97073ff8b273b705e61821e}{ewindow\-\_\-blackman} (float $\ast$window, int size)
+\item 
+void \hyperlink{efft_8c_aaac111022d058830b91d2df0b7efd11b}{espectrum\-\_\-magnitude} (float $\ast$spectrum, float $\ast$real, float $\ast$imag, int size)
+\item 
+void \hyperlink{efft_8c_ae350b2aa199008f42bcc65dc0bee03b3}{espectrum\-\_\-power} (float $\ast$spectrum, float $\ast$real, float $\ast$imag, int size)
+\item 
+void \hyperlink{efft_8c_a07a548d8708e07e9e1556b062dd0a990}{espectrum\-\_\-decibel} (float $\ast$spectrum, float $\ast$real, float $\ast$imag, int size)
+\item 
+int \hyperlink{efft_8c_a0e1d6692ee63aff52e3f78d6e6e3408c}{efft\-\_\-getlog2} (long size)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{efft_8c_a0e1d6692ee63aff52e3f78d6e6e3408c}{\index{efft.\-c@{efft.\-c}!efft\-\_\-getlog2@{efft\-\_\-getlog2}}
+\index{efft\-\_\-getlog2@{efft\-\_\-getlog2}!efft.c@{efft.\-c}}
+\subsubsection[{efft\-\_\-getlog2}]{\setlength{\rightskip}{0pt plus 5cm}int efft\-\_\-getlog2 (
+\begin{DoxyParamCaption}
+\item[{long}]{size}
+\end{DoxyParamCaption}
+)}}\label{efft_8c_a0e1d6692ee63aff52e3f78d6e6e3408c}
+
+
+Definition at line 144 of file efft.\-c.
+
+\hypertarget{efft_8c_a07a548d8708e07e9e1556b062dd0a990}{\index{efft.\-c@{efft.\-c}!espectrum\-\_\-decibel@{espectrum\-\_\-decibel}}
+\index{espectrum\-\_\-decibel@{espectrum\-\_\-decibel}!efft.c@{efft.\-c}}
+\subsubsection[{espectrum\-\_\-decibel}]{\setlength{\rightskip}{0pt plus 5cm}void espectrum\-\_\-decibel (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{spectrum, }
+\item[{float $\ast$}]{real, }
+\item[{float $\ast$}]{imag, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{efft_8c_a07a548d8708e07e9e1556b062dd0a990}
+
+
+Definition at line 131 of file efft.\-c.
+
+\hypertarget{efft_8c_aaac111022d058830b91d2df0b7efd11b}{\index{efft.\-c@{efft.\-c}!espectrum\-\_\-magnitude@{espectrum\-\_\-magnitude}}
+\index{espectrum\-\_\-magnitude@{espectrum\-\_\-magnitude}!efft.c@{efft.\-c}}
+\subsubsection[{espectrum\-\_\-magnitude}]{\setlength{\rightskip}{0pt plus 5cm}void espectrum\-\_\-magnitude (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{spectrum, }
+\item[{float $\ast$}]{real, }
+\item[{float $\ast$}]{imag, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{efft_8c_aaac111022d058830b91d2df0b7efd11b}
+
+
+Definition at line 117 of file efft.\-c.
+
+\hypertarget{efft_8c_ae350b2aa199008f42bcc65dc0bee03b3}{\index{efft.\-c@{efft.\-c}!espectrum\-\_\-power@{espectrum\-\_\-power}}
+\index{espectrum\-\_\-power@{espectrum\-\_\-power}!efft.c@{efft.\-c}}
+\subsubsection[{espectrum\-\_\-power}]{\setlength{\rightskip}{0pt plus 5cm}void espectrum\-\_\-power (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{spectrum, }
+\item[{float $\ast$}]{real, }
+\item[{float $\ast$}]{imag, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{efft_8c_ae350b2aa199008f42bcc65dc0bee03b3}
+
+
+Definition at line 123 of file efft.\-c.
+
+\hypertarget{efft_8c_a5b820b4b4c207880349e8842034d9f98}{\index{efft.\-c@{efft.\-c}!ewindow\-\_\-bartlett@{ewindow\-\_\-bartlett}}
+\index{ewindow\-\_\-bartlett@{ewindow\-\_\-bartlett}!efft.c@{efft.\-c}}
+\subsubsection[{ewindow\-\_\-bartlett}]{\setlength{\rightskip}{0pt plus 5cm}void ewindow\-\_\-bartlett (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{window, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{efft_8c_a5b820b4b4c207880349e8842034d9f98}
+
+
+Definition at line 86 of file efft.\-c.
+
+\hypertarget{efft_8c_a8996b166a3e79c14e280df2701414944}{\index{efft.\-c@{efft.\-c}!ewindow\-\_\-bartlett\-Hann@{ewindow\-\_\-bartlett\-Hann}}
+\index{ewindow\-\_\-bartlett\-Hann@{ewindow\-\_\-bartlett\-Hann}!efft.c@{efft.\-c}}
+\subsubsection[{ewindow\-\_\-bartlett\-Hann}]{\setlength{\rightskip}{0pt plus 5cm}void ewindow\-\_\-bartlett\-Hann (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{window, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{efft_8c_a8996b166a3e79c14e280df2701414944}
+
+
+Definition at line 99 of file efft.\-c.
+
+\hypertarget{efft_8c_af2d1a522b97073ff8b273b705e61821e}{\index{efft.\-c@{efft.\-c}!ewindow\-\_\-blackman@{ewindow\-\_\-blackman}}
+\index{ewindow\-\_\-blackman@{ewindow\-\_\-blackman}!efft.c@{efft.\-c}}
+\subsubsection[{ewindow\-\_\-blackman}]{\setlength{\rightskip}{0pt plus 5cm}void ewindow\-\_\-blackman (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{window, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{efft_8c_af2d1a522b97073ff8b273b705e61821e}
+
+
+Definition at line 108 of file efft.\-c.
+
+\hypertarget{efft_8c_a14f7e954efe563ac1c26ac6cb76e7461}{\index{efft.\-c@{efft.\-c}!ewindow\-\_\-gaussian@{ewindow\-\_\-gaussian}}
+\index{ewindow\-\_\-gaussian@{ewindow\-\_\-gaussian}!efft.c@{efft.\-c}}
+\subsubsection[{ewindow\-\_\-gaussian}]{\setlength{\rightskip}{0pt plus 5cm}void ewindow\-\_\-gaussian (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{window, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{efft_8c_a14f7e954efe563ac1c26ac6cb76e7461}
+
+
+Definition at line 92 of file efft.\-c.
+
+\hypertarget{efft_8c_af144f80531fe9bd44e06036e07b0cd6f}{\index{efft.\-c@{efft.\-c}!ewindow\-\_\-halfsinus@{ewindow\-\_\-halfsinus}}
+\index{ewindow\-\_\-halfsinus@{ewindow\-\_\-halfsinus}!efft.c@{efft.\-c}}
+\subsubsection[{ewindow\-\_\-halfsinus}]{\setlength{\rightskip}{0pt plus 5cm}void ewindow\-\_\-halfsinus (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{window, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{efft_8c_af144f80531fe9bd44e06036e07b0cd6f}
+
+
+Definition at line 62 of file efft.\-c.
+
+\hypertarget{efft_8c_ac36e17ceb2a6ee4a192499fe152f40bd}{\index{efft.\-c@{efft.\-c}!ewindow\-\_\-hamming@{ewindow\-\_\-hamming}}
+\index{ewindow\-\_\-hamming@{ewindow\-\_\-hamming}!efft.c@{efft.\-c}}
+\subsubsection[{ewindow\-\_\-hamming}]{\setlength{\rightskip}{0pt plus 5cm}void ewindow\-\_\-hamming (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{window, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{efft_8c_ac36e17ceb2a6ee4a192499fe152f40bd}
+
+
+Definition at line 42 of file efft.\-c.
+
+\hypertarget{efft_8c_a6a2ef3cd844988670a06f1618eae0461}{\index{efft.\-c@{efft.\-c}!ewindow\-\_\-hanning@{ewindow\-\_\-hanning}}
+\index{ewindow\-\_\-hanning@{ewindow\-\_\-hanning}!efft.c@{efft.\-c}}
+\subsubsection[{ewindow\-\_\-hanning}]{\setlength{\rightskip}{0pt plus 5cm}void ewindow\-\_\-hanning (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{window, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{efft_8c_a6a2ef3cd844988670a06f1618eae0461}
+
+
+Definition at line 36 of file efft.\-c.
+
+\hypertarget{efft_8c_a461d3787960e324c5f6f95e0b8ea06d9}{\index{efft.\-c@{efft.\-c}!ewindow\-\_\-lanczos@{ewindow\-\_\-lanczos}}
+\index{ewindow\-\_\-lanczos@{ewindow\-\_\-lanczos}!efft.c@{efft.\-c}}
+\subsubsection[{ewindow\-\_\-lanczos}]{\setlength{\rightskip}{0pt plus 5cm}void ewindow\-\_\-lanczos (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{window, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{efft_8c_a461d3787960e324c5f6f95e0b8ea06d9}
+
+
+Definition at line 74 of file efft.\-c.
+
+\hypertarget{efft_8c_ac0e85199493c9ea0942511d1b2468083}{\index{efft.\-c@{efft.\-c}!ewindow\-\_\-sinus@{ewindow\-\_\-sinus}}
+\index{ewindow\-\_\-sinus@{ewindow\-\_\-sinus}!efft.c@{efft.\-c}}
+\subsubsection[{ewindow\-\_\-sinus}]{\setlength{\rightskip}{0pt plus 5cm}void ewindow\-\_\-sinus (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{window, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{efft_8c_ac0e85199493c9ea0942511d1b2468083}
+
+
+Definition at line 68 of file efft.\-c.
+
+\hypertarget{efft_8c_a31dc24442cf7717b86f9b013f26bed66}{\index{efft.\-c@{efft.\-c}!ewindow\-\_\-square@{ewindow\-\_\-square}}
+\index{ewindow\-\_\-square@{ewindow\-\_\-square}!efft.c@{efft.\-c}}
+\subsubsection[{ewindow\-\_\-square}]{\setlength{\rightskip}{0pt plus 5cm}void ewindow\-\_\-square (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{window, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{efft_8c_a31dc24442cf7717b86f9b013f26bed66}
+
+
+Definition at line 30 of file efft.\-c.
+
+\hypertarget{efft_8c_a6b248e100353009993c0fccfe98953cf}{\index{efft.\-c@{efft.\-c}!ewindow\-\_\-triangular@{ewindow\-\_\-triangular}}
+\index{ewindow\-\_\-triangular@{ewindow\-\_\-triangular}!efft.c@{efft.\-c}}
+\subsubsection[{ewindow\-\_\-triangular}]{\setlength{\rightskip}{0pt plus 5cm}void ewindow\-\_\-triangular (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{window, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{efft_8c_a6b248e100353009993c0fccfe98953cf}
+
+
+Definition at line 80 of file efft.\-c.
+
+\hypertarget{efft_8c_a2e3403931a4b683c1602d3af829980cc}{\index{efft.\-c@{efft.\-c}!ewindow\-\_\-tukey@{ewindow\-\_\-tukey}}
+\index{ewindow\-\_\-tukey@{ewindow\-\_\-tukey}!efft.c@{efft.\-c}}
+\subsubsection[{ewindow\-\_\-tukey}]{\setlength{\rightskip}{0pt plus 5cm}void ewindow\-\_\-tukey (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{window, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{efft_8c_a2e3403931a4b683c1602d3af829980cc}
+
+
+Definition at line 48 of file efft.\-c.
+

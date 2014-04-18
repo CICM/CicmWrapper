@@ -4,10 +4,17 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>PdEnhanced: /Users/Pierre/SourceTree/PdEnhanced/SourcesDev/eobj/eobj_proxy.c Source File</title>
+<title>CICM Wrapper: /Users/Pierre/SourceTree/PdEnhanced/Sources/eobj/eobj_proxy.c Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -22,10 +29,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">PdEnhanced
+   <div id="projectname">CICM Wrapper
    &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
-   <div id="projectbrief">Add on for PD</div>
+   <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
  </tr>
  </tbody>
@@ -65,12 +72,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>Globals</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('eobj__proxy_8c_source.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -79,20 +101,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_a4a890ee75b887c5396ee96d929275cc.html">SourcesDev</a></li><li class="navelem"><a class="el" href="dir_4b88d0c735788c560bdcf8b49b4502ed.html">eobj</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">eobj_proxy.c</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * PdEnhanced - Pure Data Enhanced </span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * CicmWrapper</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * An add-on for Pure Data</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * A wrapper for Pure Data</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * All rights reserved.</span></div>
@@ -129,7 +146,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keywordtype">void</span> eproxy_init(<a class="code" href="struct__eproxy.html">t_eproxy</a> *x, <span class="keywordtype">void</span> *owner, <span class="keywordtype">int</span> index)</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;{</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    x-&gt;<a class="code" href="struct__eproxy.html#aafbddf848d70a14ab336be2b19cc535f">p_owner</a> = (t_object *)owner;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    x-&gt;<a class="code" href="struct__eproxy.html#aafbddf848d70a14ab336be2b19cc535f">p_owner</a> = (<a class="code" href="struct__text.html">t_object</a> *)owner;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    x-&gt;<a class="code" href="struct__eproxy.html#a818a512bafab5b368d1fa0bca9872451">p_pd</a>    = eproxy_class;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    x-&gt;<a class="code" href="struct__eproxy.html#adf4f65c8db21f49ab60d62fedcfa9192">p_index</a> = index;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
@@ -141,7 +158,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment"> * @param argv  The array of atoms unusued</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment"> * @return      This function return nothing</span></div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keywordtype">void</span> *eproxy_new(t_symbol *s, <span class="keywordtype">int</span> argc, t_atom *argv)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keywordtype">void</span> *eproxy_new(<a class="code" href="struct__symbol.html">t_symbol</a> *s, <span class="keywordtype">int</span> argc, <a class="code" href="struct__atom.html">t_atom</a> *argv)</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;{</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="struct__eproxy.html">t_eproxy</a> *x = NULL;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    x = (<a class="code" href="struct__eproxy.html">t_eproxy</a> *)pd_new(eproxy_class);</div>
@@ -157,7 +174,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment"> * @return      This function return nothing</span></div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment"> * @details     This function record the current index of the proxy and call the eobj method correspondinf to the selector.</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keywordtype">void</span> eproxy_anything(<a class="code" href="struct__eproxy.html">t_eproxy</a> *x, t_symbol *s, <span class="keywordtype">int</span> argc, t_atom *argv)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keywordtype">void</span> eproxy_anything(<a class="code" href="struct__eproxy.html">t_eproxy</a> *x, <a class="code" href="struct__symbol.html">t_symbol</a> *s, <span class="keywordtype">int</span> argc, <a class="code" href="struct__atom.html">t_atom</a> *argv)</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;{</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="struct__eobj.html">t_eobj</a> *z = (<a class="code" href="struct__eobj.html">t_eobj</a> *)x-&gt;<a class="code" href="struct__eproxy.html#aafbddf848d70a14ab336be2b19cc535f">p_owner</a>;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    z-&gt;<a class="code" href="struct__eobj.html#a32a8921c66d63fcccc9df035f6b9160f">o_current_proxy</a> = x-&gt;<a class="code" href="struct__eproxy.html#adf4f65c8db21f49ab60d62fedcfa9192">p_index</a>;</div>
@@ -185,20 +202,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
-<div class="ttc" id="struct__eproxy_html_aafbddf848d70a14ab336be2b19cc535f"><div class="ttname"><a href="struct__eproxy.html#aafbddf848d70a14ab336be2b19cc535f">_eproxy::p_owner</a></div><div class="ttdeci">t_object * p_owner</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00385">estruct.h:385</a></div></div>
-<div class="ttc" id="struct__eobj_html"><div class="ttname"><a href="struct__eobj.html">_eobj</a></div><div class="ttdoc">The Pd Enhanced Box object. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00396">estruct.h:396</a></div></div>
-<div class="ttc" id="struct__eclass_html"><div class="ttname"><a href="struct__eclass.html">_eclass</a></div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00187">estruct.h:187</a></div></div>
-<div class="ttc" id="struct__eproxy_html_a818a512bafab5b368d1fa0bca9872451"><div class="ttname"><a href="struct__eproxy.html#a818a512bafab5b368d1fa0bca9872451">_eproxy::p_pd</a></div><div class="ttdeci">t_pd p_pd</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00384">estruct.h:384</a></div></div>
-<div class="ttc" id="struct__eproxy_html"><div class="ttname"><a href="struct__eproxy.html">_eproxy</a></div><div class="ttdoc">The Pd Enhanced Proxy object. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00382">estruct.h:382</a></div></div>
-<div class="ttc" id="struct__eproxy_html_adf4f65c8db21f49ab60d62fedcfa9192"><div class="ttname"><a href="struct__eproxy.html#adf4f65c8db21f49ab60d62fedcfa9192">_eproxy::p_index</a></div><div class="ttdeci">int p_index</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00386">estruct.h:386</a></div></div>
+<div class="ttc" id="struct__eproxy_html_aafbddf848d70a14ab336be2b19cc535f"><div class="ttname"><a href="struct__eproxy.html#aafbddf848d70a14ab336be2b19cc535f">_eproxy::p_owner</a></div><div class="ttdeci">t_object * p_owner</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00391">estruct.h:391</a></div></div>
+<div class="ttc" id="struct__eobj_html"><div class="ttname"><a href="struct__eobj.html">_eobj</a></div><div class="ttdoc">The CICM Box object. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00402">estruct.h:402</a></div></div>
+<div class="ttc" id="struct__eclass_html"><div class="ttname"><a href="struct__eclass.html">_eclass</a></div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00189">estruct.h:189</a></div></div>
+<div class="ttc" id="struct__eproxy_html_a818a512bafab5b368d1fa0bca9872451"><div class="ttname"><a href="struct__eproxy.html#a818a512bafab5b368d1fa0bca9872451">_eproxy::p_pd</a></div><div class="ttdeci">t_pd p_pd</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00390">estruct.h:390</a></div></div>
+<div class="ttc" id="struct__atom_html"><div class="ttname"><a href="struct__atom.html">_atom</a></div><div class="ttdef"><b>Definition:</b> <a href="m__pd_8h_source.html#l00189">m_pd.h:189</a></div></div>
+<div class="ttc" id="struct__eproxy_html"><div class="ttname"><a href="struct__eproxy.html">_eproxy</a></div><div class="ttdoc">The CICM Proxy object. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00388">estruct.h:388</a></div></div>
+<div class="ttc" id="struct__eproxy_html_adf4f65c8db21f49ab60d62fedcfa9192"><div class="ttname"><a href="struct__eproxy.html#adf4f65c8db21f49ab60d62fedcfa9192">_eproxy::p_index</a></div><div class="ttdeci">int p_index</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00392">estruct.h:392</a></div></div>
 <div class="ttc" id="eobj_8h_html"><div class="ttname"><a href="eobj_8h.html">eobj.h</a></div></div>
-<div class="ttc" id="struct__eobj_html_a32a8921c66d63fcccc9df035f6b9160f"><div class="ttname"><a href="struct__eobj.html#a32a8921c66d63fcccc9df035f6b9160f">_eobj::o_current_proxy</a></div><div class="ttdeci">long o_current_proxy</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00404">estruct.h:404</a></div></div>
+<div class="ttc" id="struct__symbol_html"><div class="ttname"><a href="struct__symbol.html">_symbol</a></div><div class="ttdef"><b>Definition:</b> <a href="m__pd_8h_source.html#l00108">m_pd.h:108</a></div></div>
+<div class="ttc" id="struct__text_html"><div class="ttname"><a href="struct__text.html">_text</a></div><div class="ttdef"><b>Definition:</b> <a href="m__pd_8h_source.html#l00232">m_pd.h:232</a></div></div>
+<div class="ttc" id="struct__eobj_html_a32a8921c66d63fcccc9df035f6b9160f"><div class="ttname"><a href="struct__eobj.html#a32a8921c66d63fcccc9df035f6b9160f">_eobj::o_current_proxy</a></div><div class="ttdeci">long o_current_proxy</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00410">estruct.h:410</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 27 2013 09:26:33 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_7bcfcc48ea8ecdee8f839dc9b497c3d6.html">eobj</a></li><li class="navelem"><b>eobj_proxy.c</b></li>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:45 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

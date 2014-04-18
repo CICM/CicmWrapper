@@ -4,10 +4,17 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>PdEnhanced: /Users/Pierre/SourceTree/PdEnhanced/SourcesDev/ebox/ebox_basic.c File Reference</title>
+<title>CICM Wrapper: /Users/Pierre/SourceTree/PdEnhanced/Sources/ebox/ebox_basic.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -22,9 +29,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">PdEnhanced
+   <div id="projectname">CICM Wrapper
    &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
+   <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
  </tr>
  </tbody>
@@ -64,12 +72,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>Globals</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('ebox__basic_8c.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -78,11 +101,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_a4a890ee75b887c5396ee96d929275cc.html">SourcesDev</a></li><li class="navelem"><a class="el" href="dir_12f8335e6602db849b5483ec18526216.html">ebox</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
@@ -105,18 +123,21 @@ Functions</h2></td></tr>
 <tr class="memitem:af23211541198cfe590300b42e758c94e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ebox__basic_8c.html#af23211541198cfe590300b42e758c94e">ebox_free</a> (<a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *x)</td></tr>
 <tr class="memdesc:af23211541198cfe590300b42e758c94e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free an UI ebox.  <a href="#af23211541198cfe590300b42e758c94e">More...</a><br/></td></tr>
 <tr class="separator:af23211541198cfe590300b42e758c94e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cc07b9de1e8355c9120a5e6b72c200e"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ebox__basic_8c.html#a9cc07b9de1e8355c9120a5e6b72c200e">ebox_getfontname</a> (<a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *x)</td></tr>
+<tr class="memitem:a9cc07b9de1e8355c9120a5e6b72c200e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ebox__basic_8c.html#a9cc07b9de1e8355c9120a5e6b72c200e">ebox_getfontname</a> (<a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *x)</td></tr>
 <tr class="memdesc:a9cc07b9de1e8355c9120a5e6b72c200e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the font name of an ebox.  <a href="#a9cc07b9de1e8355c9120a5e6b72c200e">More...</a><br/></td></tr>
 <tr class="separator:a9cc07b9de1e8355c9120a5e6b72c200e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ec93cf41296bde221592db0c9fc1e27"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ebox__basic_8c.html#a4ec93cf41296bde221592db0c9fc1e27">ebox_getfontslant</a> (<a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *x)</td></tr>
+<tr class="memitem:a4ec93cf41296bde221592db0c9fc1e27"><td class="memItemLeft" align="right" valign="top"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ebox__basic_8c.html#a4ec93cf41296bde221592db0c9fc1e27">ebox_getfontslant</a> (<a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *x)</td></tr>
 <tr class="memdesc:a4ec93cf41296bde221592db0c9fc1e27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the font slant of an ebox.  <a href="#a4ec93cf41296bde221592db0c9fc1e27">More...</a><br/></td></tr>
 <tr class="separator:a4ec93cf41296bde221592db0c9fc1e27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c342220af24e63f950d098e44e8f596"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ebox__basic_8c.html#a9c342220af24e63f950d098e44e8f596">ebox_getfontweight</a> (<a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *x)</td></tr>
+<tr class="memitem:a9c342220af24e63f950d098e44e8f596"><td class="memItemLeft" align="right" valign="top"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ebox__basic_8c.html#a9c342220af24e63f950d098e44e8f596">ebox_getfontweight</a> (<a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *x)</td></tr>
 <tr class="memdesc:a9c342220af24e63f950d098e44e8f596"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the font weight of an ebox.  <a href="#a9c342220af24e63f950d098e44e8f596">More...</a><br/></td></tr>
 <tr class="separator:a9c342220af24e63f950d098e44e8f596"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a187b43c8efeafc2fe9ff928b3fa81b21"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ebox__basic_8c.html#a187b43c8efeafc2fe9ff928b3fa81b21">ebox_getfontsize</a> (<a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *x)</td></tr>
 <tr class="memdesc:a187b43c8efeafc2fe9ff928b3fa81b21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the font size of an ebox.  <a href="#a187b43c8efeafc2fe9ff928b3fa81b21">More...</a><br/></td></tr>
 <tr class="separator:a187b43c8efeafc2fe9ff928b3fa81b21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae583313b1ea4f06fe42aa7a0ed5772e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="m__pd_8h.html#ac085bef486c0e262349075ffce8a9752">t_pd</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ebox__basic_8c.html#ae583313b1ea4f06fe42aa7a0ed5772e6">ebox_getsender</a> (<a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *x)</td></tr>
+<tr class="memdesc:ae583313b1ea4f06fe42aa7a0ed5772e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the sender object.  <a href="#ae583313b1ea4f06fe42aa7a0ed5772e6">More...</a><br/></td></tr>
+<tr class="separator:ae583313b1ea4f06fe42aa7a0ed5772e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5dfc5eda4b4c22de02f1fa0a996ebf7b"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ebox__basic_8c.html#a5dfc5eda4b4c22de02f1fa0a996ebf7b">ebox_isdrawable</a> (<a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *x)</td></tr>
 <tr class="memdesc:a5dfc5eda4b4c22de02f1fa0a996ebf7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve if an ebox is drawable.  <a href="#a5dfc5eda4b4c22de02f1fa0a996ebf7b">More...</a><br/></td></tr>
 <tr class="separator:a5dfc5eda4b4c22de02f1fa0a996ebf7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,7 +162,7 @@ Functions</h2></td></tr>
 
 <p>Free an UI ebox. </p>
 
-<p>Definition at line <a class="el" href="ebox__basic_8c_source.html#l00080">80</a> of file <a class="el" href="ebox__basic_8c_source.html">ebox_basic.c</a>.</p>
+<p>Definition at line <a class="el" href="ebox__basic_8c_source.html#l00083">83</a> of file <a class="el" href="ebox__basic_8c_source.html">ebox_basic.c</a>.</p>
 
 </div>
 </div>
@@ -150,7 +171,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* ebox_getfontname </td>
+          <td class="memname"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a>* ebox_getfontname </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *&#160;</td>
           <td class="paramname"><em>x</em></td><td>)</td>
@@ -161,7 +182,7 @@ Functions</h2></td></tr>
 
 <p>Retrieve the font name of an ebox. </p>
 
-<p>Definition at line <a class="el" href="ebox__basic_8c_source.html#l00097">97</a> of file <a class="el" href="ebox__basic_8c_source.html">ebox_basic.c</a>.</p>
+<p>Definition at line <a class="el" href="ebox__basic_8c_source.html#l00100">100</a> of file <a class="el" href="ebox__basic_8c_source.html">ebox_basic.c</a>.</p>
 
 </div>
 </div>
@@ -181,7 +202,7 @@ Functions</h2></td></tr>
 
 <p>Retrieve the font size of an ebox. </p>
 
-<p>Definition at line <a class="el" href="ebox__basic_8c_source.html#l00130">130</a> of file <a class="el" href="ebox__basic_8c_source.html">ebox_basic.c</a>.</p>
+<p>Definition at line <a class="el" href="ebox__basic_8c_source.html#l00133">133</a> of file <a class="el" href="ebox__basic_8c_source.html">ebox_basic.c</a>.</p>
 
 </div>
 </div>
@@ -190,7 +211,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* ebox_getfontslant </td>
+          <td class="memname"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a>* ebox_getfontslant </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *&#160;</td>
           <td class="paramname"><em>x</em></td><td>)</td>
@@ -201,7 +222,7 @@ Functions</h2></td></tr>
 
 <p>Retrieve the font slant of an ebox. </p>
 
-<p>Definition at line <a class="el" href="ebox__basic_8c_source.html#l00108">108</a> of file <a class="el" href="ebox__basic_8c_source.html">ebox_basic.c</a>.</p>
+<p>Definition at line <a class="el" href="ebox__basic_8c_source.html#l00111">111</a> of file <a class="el" href="ebox__basic_8c_source.html">ebox_basic.c</a>.</p>
 
 </div>
 </div>
@@ -210,7 +231,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* ebox_getfontweight </td>
+          <td class="memname"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a>* ebox_getfontweight </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *&#160;</td>
           <td class="paramname"><em>x</em></td><td>)</td>
@@ -221,7 +242,27 @@ Functions</h2></td></tr>
 
 <p>Retrieve the font weight of an ebox. </p>
 
-<p>Definition at line <a class="el" href="ebox__basic_8c_source.html#l00119">119</a> of file <a class="el" href="ebox__basic_8c_source.html">ebox_basic.c</a>.</p>
+<p>Definition at line <a class="el" href="ebox__basic_8c_source.html#l00122">122</a> of file <a class="el" href="ebox__basic_8c_source.html">ebox_basic.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae583313b1ea4f06fe42aa7a0ed5772e6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="m__pd_8h.html#ac085bef486c0e262349075ffce8a9752">t_pd</a>* ebox_getsender </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieve the sender object. </p>
+
+<p>Definition at line <a class="el" href="ebox__basic_8c_source.html#l00144">144</a> of file <a class="el" href="ebox__basic_8c_source.html">ebox_basic.c</a>.</p>
 
 </div>
 </div>
@@ -241,7 +282,7 @@ Functions</h2></td></tr>
 
 <p>Retrieve if an ebox is drawable. </p>
 
-<p>Definition at line <a class="el" href="ebox__basic_8c_source.html#l00141">141</a> of file <a class="el" href="ebox__basic_8c_source.html">ebox_basic.c</a>.</p>
+<p>Definition at line <a class="el" href="ebox__basic_8c_source.html#l00159">159</a> of file <a class="el" href="ebox__basic_8c_source.html">ebox_basic.c</a>.</p>
 
 </div>
 </div>
@@ -291,7 +332,7 @@ Functions</h2></td></tr>
 
 <p>Indicate that an ebox is ready. </p>
 
-<p>Definition at line <a class="el" href="ebox__basic_8c_source.html#l00054">54</a> of file <a class="el" href="ebox__basic_8c_source.html">ebox_basic.c</a>.</p>
+<p>Definition at line <a class="el" href="ebox__basic_8c_source.html#l00056">56</a> of file <a class="el" href="ebox__basic_8c_source.html">ebox_basic.c</a>.</p>
 
 </div>
 </div>
@@ -321,16 +362,20 @@ Functions</h2></td></tr>
 
 <p>Change the cursor. </p>
 
-<p>Definition at line <a class="el" href="ebox__basic_8c_source.html#l00158">158</a> of file <a class="el" href="ebox__basic_8c_source.html">ebox_basic.c</a>.</p>
+<p>Definition at line <a class="el" href="ebox__basic_8c_source.html#l00176">176</a> of file <a class="el" href="ebox__basic_8c_source.html">ebox_basic.c</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 27 2013 09:25:27 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_a715551f008a258e8c98b20824bea57f.html">ebox</a></li><li class="navelem"><a class="el" href="ebox__basic_8c.html">ebox_basic.c</a></li>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:06 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

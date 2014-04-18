@@ -4,10 +4,17 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>PdEnhanced: /Users/Pierre/SourceTree/PdEnhanced/SourcesDev/eclass/eclass_attrsetter.c Source File</title>
+<title>CICM Wrapper: /Users/Pierre/SourceTree/PdEnhanced/Sources/eclass/eclass_attrsetter.c Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -22,10 +29,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">PdEnhanced
+   <div id="projectname">CICM Wrapper
    &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
-   <div id="projectbrief">Add on for PD</div>
+   <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
  </tr>
  </tbody>
@@ -65,12 +72,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>Globals</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('eclass__attrsetter_8c_source.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -79,20 +101,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_a4a890ee75b887c5396ee96d929275cc.html">SourcesDev</a></li><li class="navelem"><a class="el" href="dir_572ae551e81dc3bc8578f0ab771353bc.html">eclass</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">eclass_attrsetter.c</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * PdEnhanced - Pure Data Enhanced </span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * CicmWrapper</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * An add-on for Pure Data</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * A wrapper for Pure Data</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * All rights reserved.</span></div>
@@ -125,9 +142,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> \ @param argv      The array of atoms that contains the attributes values</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> \ @return          Nothing</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="eclass_8h.html#a936d173d0cd9012a8004758873f2073a">   38</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="eclass_8h.html#a936d173d0cd9012a8004758873f2073a">eclass_attr_setter</a>(t_object* x, t_symbol *s, <span class="keywordtype">int</span> argc, t_atom *argv)</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="eclass_8h.html#a936d173d0cd9012a8004758873f2073a">   38</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="eclass_8h.html#a936d173d0cd9012a8004758873f2073a">eclass_attr_setter</a>(<a class="code" href="struct__text.html">t_object</a>* x, <a class="code" href="struct__symbol.html">t_symbol</a> *s, <span class="keywordtype">int</span> argc, <a class="code" href="struct__atom.html">t_atom</a> *argv)</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">int</span> i, j, size;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">long</span> i, j, size;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">char</span> *point;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">long</span> *point_size;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="struct__ebox.html">t_ebox</a>* z   = (<a class="code" href="struct__ebox.html">t_ebox</a> *)x;</div>
@@ -137,7 +154,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    {</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">if</span>(c-&gt;c_attr[i].name == s)</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            t_symbol* type = c-&gt;c_attr[i].type;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <a class="code" href="struct__symbol.html">t_symbol</a>* type = c-&gt;c_attr[i].type;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <span class="keywordflow">if</span>(c-&gt;c_attr[i].sizemax == 0)</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                size = c-&gt;c_attr[i].size;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keywordflow">else</span></div>
@@ -172,7 +189,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                    }</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                }</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="keywordflow">if</span>(c-&gt;c_attr[i].setter)</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            {</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                c-&gt;c_attr[i].setter(x, c-&gt;c_attr[i].obj, argc, argv);</div>
@@ -223,7 +240,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            }</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(type == gensym(<span class="stringliteral">&quot;symbol&quot;</span>))</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            {</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                t_symbol** pointor = (t_symbol **)point;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                <a class="code" href="struct__symbol.html">t_symbol</a>** pointor = (<a class="code" href="struct__symbol.html">t_symbol</a> **)point;</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                <span class="keywordflow">for</span>(j = 0; j &lt; size &amp;&amp; j &lt; argc; j++)</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                {</div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                    <span class="keywordflow">if</span>(atom_gettype(argv+j) == A_SYM)</div>
@@ -232,40 +249,54 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                    }</div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                }</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;            }</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            </div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            ebox_notify(z, s, gensym(<span class="stringliteral">&quot;attr_modified&quot;</span>), NULL, NULL);</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            <span class="keywordflow">if</span>(c-&gt;c_widget.w_notify != NULL)</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                c-&gt;c_widget.w_notify(x, s, gensym(<span class="stringliteral">&quot;attr_modified&quot;</span>), NULL, NULL);</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            </div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            <span class="keywordflow">if</span>(c-&gt;c_attr[i].paint)</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            {</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                <span class="keywordflow">if</span>(c-&gt;c_widget.w_oksize != NULL)</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                    c-&gt;c_widget.w_oksize(x, &amp;z-&gt;<a class="code" href="struct__ebox.html#abc70ff46c135ee9f377a038bbc05a33e">b_rect</a>);</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                <span class="keywordflow">if</span>(c-&gt;c_widget.w_getdrawparameters != NULL)</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                    c-&gt;c_widget.w_getdrawparameters(x, NULL, &amp;z-&gt;<a class="code" href="struct__ebox.html#a01fa53a36dc717c81755d805a868ad9d">b_boxparameters</a>);</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                </div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                <a class="code" href="ebox_8h.html#a3b61efe7c688334e267b0e66dcf22e00">ebox_redraw</a>(z);</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            }</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        }</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    }</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;}</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;</div>
-<div class="ttc" id="struct__eclass_html"><div class="ttname"><a href="struct__eclass.html">_eclass</a></div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00187">estruct.h:187</a></div></div>
-<div class="ttc" id="struct__ebox_html"><div class="ttname"><a href="struct__ebox.html">_ebox</a></div><div class="ttdoc">The Pd Enhanced GUI object. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00435">estruct.h:435</a></div></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(type == gensym(<span class="stringliteral">&quot;atom&quot;</span>))</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            {</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                <a class="code" href="struct__atom.html">t_atom</a>* pointor = (<a class="code" href="struct__atom.html">t_atom</a> *)point;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                <span class="keywordflow">for</span>(j = 0; j &lt; size &amp;&amp; j &lt; argc; j++)</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                {</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                    pointor[j] = argv[j];</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                }</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            }</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            </div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            ebox_notify(z, s, gensym(<span class="stringliteral">&quot;attr_modified&quot;</span>), NULL, NULL);</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;            <span class="keywordflow">if</span>(c-&gt;c_widget.w_notify != NULL)</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                c-&gt;c_widget.w_notify(x, s, gensym(<span class="stringliteral">&quot;attr_modified&quot;</span>), NULL, NULL);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;            </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            <span class="keywordflow">if</span>(c-&gt;c_attr[i].paint)</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            {</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                <span class="keywordflow">if</span>(c-&gt;c_widget.w_oksize != NULL)</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                    c-&gt;c_widget.w_oksize(x, &amp;z-&gt;<a class="code" href="struct__ebox.html#abc70ff46c135ee9f377a038bbc05a33e">b_rect</a>);</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                <span class="keywordflow">if</span>(c-&gt;c_widget.w_getdrawparameters != NULL)</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                    c-&gt;c_widget.w_getdrawparameters(x, NULL, &amp;z-&gt;<a class="code" href="struct__ebox.html#a01fa53a36dc717c81755d805a868ad9d">b_boxparameters</a>);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                </div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                <a class="code" href="ebox_8h.html#a3b61efe7c688334e267b0e66dcf22e00">ebox_redraw</a>(z);</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;            }</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        }</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    }</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;}</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;</div>
+<div class="ttc" id="struct__eclass_html"><div class="ttname"><a href="struct__eclass.html">_eclass</a></div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00189">estruct.h:189</a></div></div>
+<div class="ttc" id="struct__ebox_html"><div class="ttname"><a href="struct__ebox.html">_ebox</a></div><div class="ttdoc">The CICM GUI object. </div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00441">estruct.h:441</a></div></div>
 <div class="ttc" id="eclass_8h_html"><div class="ttname"><a href="eclass_8h.html">eclass.h</a></div></div>
 <div class="ttc" id="ebox_8h_html_a3b61efe7c688334e267b0e66dcf22e00"><div class="ttname"><a href="ebox_8h.html#a3b61efe7c688334e267b0e66dcf22e00">ebox_redraw</a></div><div class="ttdeci">void ebox_redraw(t_ebox *x)</div><div class="ttdoc">Indicate that an UI ebox should be redraw. </div><div class="ttdef"><b>Definition:</b> <a href="ebox__draw_8c_source.html#l00035">ebox_draw.c:35</a></div></div>
-<div class="ttc" id="struct__ebox_html_abc70ff46c135ee9f377a038bbc05a33e"><div class="ttname"><a href="struct__ebox.html#abc70ff46c135ee9f377a038bbc05a33e">_ebox::b_rect</a></div><div class="ttdeci">t_rect b_rect</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00449">estruct.h:449</a></div></div>
-<div class="ttc" id="struct__eobj_html_a8cffa8f3338cca7779ab922dab19227c"><div class="ttname"><a href="struct__eobj.html#a8cffa8f3338cca7779ab922dab19227c">_eobj::o_obj</a></div><div class="ttdeci">t_object o_obj</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00398">estruct.h:398</a></div></div>
+<div class="ttc" id="struct__atom_html"><div class="ttname"><a href="struct__atom.html">_atom</a></div><div class="ttdef"><b>Definition:</b> <a href="m__pd_8h_source.html#l00189">m_pd.h:189</a></div></div>
+<div class="ttc" id="struct__ebox_html_abc70ff46c135ee9f377a038bbc05a33e"><div class="ttname"><a href="struct__ebox.html#abc70ff46c135ee9f377a038bbc05a33e">_ebox::b_rect</a></div><div class="ttdeci">t_rect b_rect</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00456">estruct.h:456</a></div></div>
+<div class="ttc" id="struct__eobj_html_a8cffa8f3338cca7779ab922dab19227c"><div class="ttname"><a href="struct__eobj.html#a8cffa8f3338cca7779ab922dab19227c">_eobj::o_obj</a></div><div class="ttdeci">t_object o_obj</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00404">estruct.h:404</a></div></div>
 <div class="ttc" id="eclass_8h_html_a936d173d0cd9012a8004758873f2073a"><div class="ttname"><a href="eclass_8h.html#a936d173d0cd9012a8004758873f2073a">eclass_attr_setter</a></div><div class="ttdeci">void eclass_attr_setter(t_object *x, t_symbol *s, int argc, t_atom *argv)</div><div class="ttdoc">Method to set the attributes. </div><div class="ttdef"><b>Definition:</b> <a href="eclass__attrsetter_8c_source.html#l00038">eclass_attrsetter.c:38</a></div></div>
-<div class="ttc" id="struct__ebox_html_a384a670299e98768527fbe457de9a38a"><div class="ttname"><a href="struct__ebox.html#a384a670299e98768527fbe457de9a38a">_ebox::b_obj</a></div><div class="ttdeci">t_eobj b_obj</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00437">estruct.h:437</a></div></div>
-<div class="ttc" id="struct__ebox_html_a01fa53a36dc717c81755d805a868ad9d"><div class="ttname"><a href="struct__ebox.html#a01fa53a36dc717c81755d805a868ad9d">_ebox::b_boxparameters</a></div><div class="ttdeci">t_edrawparams b_boxparameters</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00463">estruct.h:463</a></div></div>
+<div class="ttc" id="struct__ebox_html_a384a670299e98768527fbe457de9a38a"><div class="ttname"><a href="struct__ebox.html#a384a670299e98768527fbe457de9a38a">_ebox::b_obj</a></div><div class="ttdeci">t_eobj b_obj</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00443">estruct.h:443</a></div></div>
+<div class="ttc" id="struct__symbol_html"><div class="ttname"><a href="struct__symbol.html">_symbol</a></div><div class="ttdef"><b>Definition:</b> <a href="m__pd_8h_source.html#l00108">m_pd.h:108</a></div></div>
+<div class="ttc" id="struct__text_html"><div class="ttname"><a href="struct__text.html">_text</a></div><div class="ttdef"><b>Definition:</b> <a href="m__pd_8h_source.html#l00232">m_pd.h:232</a></div></div>
+<div class="ttc" id="struct__ebox_html_a01fa53a36dc717c81755d805a868ad9d"><div class="ttname"><a href="struct__ebox.html#a01fa53a36dc717c81755d805a868ad9d">_ebox::b_boxparameters</a></div><div class="ttdeci">t_edrawparams b_boxparameters</div><div class="ttdef"><b>Definition:</b> <a href="estruct_8h_source.html#l00471">estruct.h:471</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 27 2013 09:26:33 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_26b4c6508c94607a9ec0ebc023e49a5e.html">eclass</a></li><li class="navelem"><b>eclass_attrsetter.c</b></li>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:45 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

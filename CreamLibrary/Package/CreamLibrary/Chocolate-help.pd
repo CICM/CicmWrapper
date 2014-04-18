@@ -1,0 +1,126 @@
+#N canvas 199 63 1131 507 10;
+#X obj -39 -85 cnv 40 552 40 empty empty Chocolate 3 12 0 18 -228856
+-33289 0;
+#X msg 637 -3 attrprint;
+#X text 349 -26 - Look at the properties window to edit the attributes.
+Use the attrprint message to post the attributes characteristics.;
+#X obj 252 100 c.plane @size 62 62 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @bound -1 -1 1 1 @ptsize 5 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @ptcolor 0 0 0 1;
+#X obj 192 48 c.incdec @size 15 15 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @step
+1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @arcolor 0 0 0 1
+;
+#X obj -13 39 c.number~ @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 146 182 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 125 258 c.colorpanel @size 97 51 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @matrix 8 5 @reverse 0 @saturation 1 @hue 0 @lightness 1 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X obj 26 326 c.knob @size 50 50 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @endless 0 @mode 0 @min 0 @max 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @necolor 0.5 0.5 0.5 1;
+#X obj 43 96 c.meter~ @size 85 13 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6
+0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
+1 0.6 0 0.8 @overcolor 1 0 0 0.8;
+#X obj -21 155 c.preset @size 102 34 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 10 @receive (null) @send (null) @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor
+0.85 0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset
+[ ];
+#X obj 23 250 c.toggle @size 15 15 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+chocogll @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor
+0.5 0.5 0.5 1;
+#X obj 400 219 c.slider @size 120 15 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @mode 0 @min 0 @max 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 266 322 c.menu @size 100 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @hover 0 @items chocolate @states 0 @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 456 330 c.gain~ @size 179 22 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 857 249 c.tab @size 118 34 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @orientation 1 @toggle 0 @items vanilla pistachio @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5
+0.5 0.5 1 @secolor 0.35 0.35 0.35 1;
+#X obj 711 325 c.scope~ @size 84 58 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @bufdis
+256 @bufsig 256 @range -1 1 @xymode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @sicolor 0 0.6 0 0.8;
+#X obj 613 200 c.breakpoints @size 98 60 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @absrange 0 1000 @ordrange 0 1 @outline Linear @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @ptcolor 0.5 0.5 0.5 1 @licolor
+0 0 0 1 @textcolor 0 0 0 1 @points 20.5479 0 260.274 0.444444 554.794
+0.271605 595.89 0.839506 863.014 0.740741 1000 0.160494;
+#X obj 789 105 c.blackboard @size 70 65 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @chalkmode
+1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#N canvas 558 159 450 300 load 0;
+#X msg 116 146 image 0 0 chocolate2.gif;
+#X obj 116 182 outlet;
+#X obj 116 79 loadbang;
+#X obj 116 110 delay 500;
+#X connect 0 0 1 0;
+#X connect 2 0 3 0;
+#X connect 3 0 0 0;
+#X restore 795 131 pd load;
+#X text -36 -63 A set of GUI for those who like vanilla...;
+#X text 144 160 c.number;
+#X text 224 -63 but also want some chocolate;
+#X text 263 302 c.menu;
+#X text 316 247 c.bang;
+#X text 397 199 c.slider;
+#X text 854 231 c.tab;
+#X text 452 310 c.gain~;
+#X text 707 305 c.scope~;
+#X text 609 180 c.breakpoints;
+#X text 785 86 c.blackboard;
+#X text 249 80 c.plane;
+#X text 188 30 c.incdec;
+#X text 39 76 c.meter~;
+#X text -23 135 c.preset;
+#X text 20 231 c.toggle;
+#X text 121 237 c.colorpanel;
+#X text 909 106 c.radio;
+#X text 23 305 c.knob;
+#X text -39 -27 developed to facilitate the creation of signal objects
+and GUI and to improve user interactions.;
+#X obj 323 269 c.bang @size 17 17 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 900 127 c.radio @size 82 16 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @nitems 4 @mode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @itcolor 0.5 0.5 0.5 1;
+#X text -15 17 c.number~;
+#X text 43 393 Chocolate by Pierre Guillot - CICM | Université Paris
+8;
+#X text 349 20 - The inlets and outlets are hidden with the "run mode".
+;
+#X text 349 122 - Some objects are very similar to the vanilla ones
+but they're compatible with the preset and will be a part of a global
+system to write time events.;
+#X text 349 46 - Drag the border (bottom or right) or the corner (bottom-right)
+of the box to resize the objects. Sometimes the width or the height
+depends of the font size.;
+#X text 349 92 -The popup menu (for attributes and help) is only available
+with the "edit mode";
+#X text -38 -42 Chocolate is a part of the Cicm Wrapper;
+#X connect 19 0 18 0;

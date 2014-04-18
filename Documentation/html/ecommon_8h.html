@@ -4,10 +4,17 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>PdEnhanced: /Users/Pierre/SourceTree/PdEnhanced/SourcesDev/ecommon/ecommon.h File Reference</title>
+<title>CICM Wrapper: /Users/Pierre/SourceTree/PdEnhanced/Sources/ecommon/ecommon.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -22,9 +29,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">PdEnhanced
+   <div id="projectname">CICM Wrapper
    &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
+   <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
  </tr>
  </tbody>
@@ -64,12 +72,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>Globals</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('ecommon_8h.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -78,11 +101,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_a4a890ee75b887c5396ee96d929275cc.html">SourcesDev</a></li><li class="navelem"><a class="el" href="dir_c56ac8ba310289a777e5bd7c9b66fff8.html">ecommon</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
@@ -101,9 +119,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &lt;ctype.h&gt;</code><br/>
 <code>#include &lt;string.h&gt;</code><br/>
 <code>#include &lt;stdarg.h&gt;</code><br/>
-<code>#include &quot;m_pd.h&quot;</code><br/>
-<code>#include &quot;m_imp.h&quot;</code><br/>
-<code>#include &quot;g_canvas.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="m__pd_8h_source.html">m_pd.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="m__imp_8h_source.html">m_imp.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="g__canvas_8h_source.html">g_canvas.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="eboxflag_8h_source.html">eboxflag.h</a>&quot;</code><br/>
 </div>
 <p><a href="ecommon_8h_source.html">Go to the source code of this file.</a></p>
@@ -133,9 +151,9 @@ Macros</h2></td></tr>
 <tr class="separator:af56f9389a284ec15c8511966bc4be055"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6fdc48cf1a6d76d3136fdc3489964cf5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a6fdc48cf1a6d76d3136fdc3489964cf5">EPD_MAX_SIGS</a>&#160;&#160;&#160;256</td></tr>
 <tr class="separator:a6fdc48cf1a6d76d3136fdc3489964cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99cb8e9ace79244abefa1562131b15f9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a99cb8e9ace79244abefa1562131b15f9">A_LONG</a>&#160;&#160;&#160;A_FLOAT</td></tr>
+<tr class="memitem:a99cb8e9ace79244abefa1562131b15f9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a99cb8e9ace79244abefa1562131b15f9">A_LONG</a>&#160;&#160;&#160;<a class="el" href="m__pd_8h.html#af04c9af457d12f1f4b68f9b90c252937a0b3aa0ab8104573dfc9cb70b5b08031f">A_FLOAT</a></td></tr>
 <tr class="separator:a99cb8e9ace79244abefa1562131b15f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a094d4d4929088e76787e599efffb42ba"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a094d4d4929088e76787e599efffb42ba">A_SYM</a>&#160;&#160;&#160;A_SYMBOL</td></tr>
+<tr class="memitem:a094d4d4929088e76787e599efffb42ba"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a094d4d4929088e76787e599efffb42ba">A_SYM</a>&#160;&#160;&#160;<a class="el" href="m__pd_8h.html#af04c9af457d12f1f4b68f9b90c252937a2a3d0cfb689b3968ed25b1e60468c0a5">A_SYMBOL</a></td></tr>
 <tr class="separator:a094d4d4929088e76787e599efffb42ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a458e4680987e741cdb2075ddda51229b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a458e4680987e741cdb2075ddda51229b">t_pd_err</a>&#160;&#160;&#160;long</td></tr>
 <tr class="separator:a458e4680987e741cdb2075ddda51229b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,21 +169,25 @@ Macros</h2></td></tr>
 <tr class="separator:a4cd9034b6ce39e7c1bb038a68eb085e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad81ac00a32b06bd24b49f287bacf0c0a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#ad81ac00a32b06bd24b49f287bacf0c0a">E_IGNORE_DISABLE</a>&#160;&#160;&#160;8</td></tr>
 <tr class="separator:ad81ac00a32b06bd24b49f287bacf0c0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a738d26bda33303928d2253294fdfa8c8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a738d26bda33303928d2253294fdfa8c8">atom_setfloat</a>(atom, float)&#160;&#160;&#160;SETFLOAT(atom, float)</td></tr>
+<tr class="memitem:a84e10c76881b7d695e1888761b4c4fa3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a84e10c76881b7d695e1888761b4c4fa3">CLASS_OBJ</a>&#160;&#160;&#160;<a class="el" href="m__pd_8h.html#a4449f71b80468e7d6e79a67193e65e0b">gensym</a>(&quot;obj&quot;)</td></tr>
+<tr class="separator:a84e10c76881b7d695e1888761b4c4fa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af640c99a1fceb8158c2d1e77381b0320"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#af640c99a1fceb8158c2d1e77381b0320">CLASS_BOX</a>&#160;&#160;&#160;<a class="el" href="m__pd_8h.html#a4449f71b80468e7d6e79a67193e65e0b">gensym</a>(&quot;box&quot;)</td></tr>
+<tr class="separator:af640c99a1fceb8158c2d1e77381b0320"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a738d26bda33303928d2253294fdfa8c8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a738d26bda33303928d2253294fdfa8c8">atom_setfloat</a>(atom, float)&#160;&#160;&#160;<a class="el" href="m__pd_8h.html#a05734a139dc5a46277d74a246152973d">SETFLOAT</a>(atom, float)</td></tr>
 <tr class="separator:a738d26bda33303928d2253294fdfa8c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd7038701590d4633f581d7fcb9e6c37"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#abd7038701590d4633f581d7fcb9e6c37">atom_setlong</a>(atom, long)&#160;&#160;&#160;SETFLOAT(atom, (float)long)</td></tr>
+<tr class="memitem:abd7038701590d4633f581d7fcb9e6c37"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#abd7038701590d4633f581d7fcb9e6c37">atom_setlong</a>(atom, long)&#160;&#160;&#160;<a class="el" href="m__pd_8h.html#a05734a139dc5a46277d74a246152973d">SETFLOAT</a>(atom, (float)long)</td></tr>
 <tr class="separator:abd7038701590d4633f581d7fcb9e6c37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5279a79510bba5dae1357bbff9c5d6fc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a5279a79510bba5dae1357bbff9c5d6fc">atom_setsym</a>(atom, sym)&#160;&#160;&#160;SETSYMBOL(atom, sym)</td></tr>
+<tr class="memitem:a5279a79510bba5dae1357bbff9c5d6fc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a5279a79510bba5dae1357bbff9c5d6fc">atom_setsym</a>(atom, sym)&#160;&#160;&#160;<a class="el" href="m__pd_8h.html#aec2c448b0e50db2ae193411a20246242">SETSYMBOL</a>(atom, sym)</td></tr>
 <tr class="separator:a5279a79510bba5dae1357bbff9c5d6fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09a5f37fffc0dbae66a8d7b98e82b69d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a09a5f37fffc0dbae66a8d7b98e82b69d">atom_getlong</a>(atom)&#160;&#160;&#160;(long)atom_getfloat(atom)</td></tr>
+<tr class="memitem:a09a5f37fffc0dbae66a8d7b98e82b69d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a09a5f37fffc0dbae66a8d7b98e82b69d">atom_getlong</a>(atom)&#160;&#160;&#160;(long)<a class="el" href="m__pd_8h.html#a4d4ed29a8c162eebdccd665cfb99b82a">atom_getfloat</a>(atom)</td></tr>
 <tr class="separator:a09a5f37fffc0dbae66a8d7b98e82b69d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd881692f3175d3b43a151ee57e21a18"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#acd881692f3175d3b43a151ee57e21a18">atom_gettype</a>(atom)&#160;&#160;&#160;(atom)[0].a_type</td></tr>
 <tr class="separator:acd881692f3175d3b43a151ee57e21a18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8dbaa02067ab4b9c815fe1b9264d5439"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a8dbaa02067ab4b9c815fe1b9264d5439">atom_getsym</a>(atom)&#160;&#160;&#160;atom_getsymbol(atom)</td></tr>
+<tr class="memitem:a8dbaa02067ab4b9c815fe1b9264d5439"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a8dbaa02067ab4b9c815fe1b9264d5439">atom_getsym</a>(atom)&#160;&#160;&#160;<a class="el" href="m__pd_8h.html#a60069340bef560b7affd119d1fd71ce5">atom_getsymbol</a>(atom)</td></tr>
 <tr class="separator:a8dbaa02067ab4b9c815fe1b9264d5439"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86bbd052fd9f43c41e9ef7d592a7afc2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a86bbd052fd9f43c41e9ef7d592a7afc2">object_error</a>&#160;&#160;&#160;pd_error</td></tr>
+<tr class="memitem:a86bbd052fd9f43c41e9ef7d592a7afc2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a86bbd052fd9f43c41e9ef7d592a7afc2">object_error</a>&#160;&#160;&#160;<a class="el" href="m__pd_8h.html#afa1189b524e9ecbb41b4d4a363b3da02">pd_error</a></td></tr>
 <tr class="separator:a86bbd052fd9f43c41e9ef7d592a7afc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6cc2aa084ad8e43418fb9d1633e372b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#ae6cc2aa084ad8e43418fb9d1633e372b">sys_getdspstate</a>()&#160;&#160;&#160;canvas_dspstate</td></tr>
+<tr class="memitem:ae6cc2aa084ad8e43418fb9d1633e372b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#ae6cc2aa084ad8e43418fb9d1633e372b">sys_getdspstate</a>()&#160;&#160;&#160;<a class="el" href="m__pd_8h.html#a4a087b3cde1e9637bcd33c95af6e5114">canvas_dspstate</a></td></tr>
 <tr class="separator:ae6cc2aa084ad8e43418fb9d1633e372b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a947b6a000d91cba3d4e2243221b9272e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a947b6a000d91cba3d4e2243221b9272e">layer_getname</a>(layer)&#160;&#160;&#160;layer.c_name-&gt;s_name</td></tr>
 <tr class="separator:a947b6a000d91cba3d4e2243221b9272e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -178,54 +200,50 @@ Typedefs</h2></td></tr>
 <tr class="separator:ab1d8a64ecf75ff5e30ec8ee685f03179"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52f2ce5a6ad0a11120342cb795591b38"><td class="memItemLeft" align="right" valign="top">typedef void *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a52f2ce5a6ad0a11120342cb795591b38">rmethod</a> )(void *x,...)</td></tr>
 <tr class="separator:a52f2ce5a6ad0a11120342cb795591b38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7f4eea7a5f9f7cb027d04eee4572888"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="ecommon_8h.html#a458e4680987e741cdb2075ddda51229b">t_pd_err</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#ad7f4eea7a5f9f7cb027d04eee4572888">t_err_method</a> )(void *x,...)</td></tr>
-<tr class="separator:ad7f4eea7a5f9f7cb027d04eee4572888"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ea5aaf2f69ff3f6b8e032a0521e1950"><td class="memItemLeft" align="right" valign="top">typedef long(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a8ea5aaf2f69ff3f6b8e032a0521e1950">t_err_method</a> )(void *x,...)</td></tr>
+<tr class="separator:a8ea5aaf2f69ff3f6b8e032a0521e1950"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:abb404574d2f0daad5abed601f4dfb357"><td class="memItemLeft" align="right" valign="top">EXTERN void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#abb404574d2f0daad5abed601f4dfb357">canvas_displaceselection</a> (t_canvas *x, int dx, int dy)</td></tr>
-<tr class="separator:abb404574d2f0daad5abed601f4dfb357"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a290459369c57ae361da0e16ab8e3b67e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a290459369c57ae361da0e16ab8e3b67e">__attribute__</a> ((used)) static char *my_cursorlist[] = {0.3, 0.3, 0.3, 1.}</td></tr>
-<tr class="separator:a290459369c57ae361da0e16ab8e3b67e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55ef15be4b15368563c3c90377b3c4ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a55ef15be4b15368563c3c90377b3c4ad">outlet_int</a> (t_outlet *outlet, int val)</td></tr>
+<tr class="memitem:a55ef15be4b15368563c3c90377b3c4ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a55ef15be4b15368563c3c90377b3c4ad">outlet_int</a> (<a class="el" href="m__pd_8h.html#a46dc692dc9e70ff60679462933409d90">t_outlet</a> *outlet, int val)</td></tr>
 <tr class="separator:a55ef15be4b15368563c3c90377b3c4ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6ac723b8bd77cc26fa013df393212ab"><td class="memItemLeft" align="right" valign="top">t_outlet *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#ab6ac723b8bd77cc26fa013df393212ab">symbolout</a> (void *x)</td></tr>
+<tr class="memitem:ab6ac723b8bd77cc26fa013df393212ab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="m__pd_8h.html#a46dc692dc9e70ff60679462933409d90">t_outlet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#ab6ac723b8bd77cc26fa013df393212ab">symbolout</a> (void *x)</td></tr>
 <tr class="separator:ab6ac723b8bd77cc26fa013df393212ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac55a87b662aeec1301f2519e148d5922"><td class="memItemLeft" align="right" valign="top">t_outlet *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#ac55a87b662aeec1301f2519e148d5922">listout</a> (void *x)</td></tr>
+<tr class="memitem:ac55a87b662aeec1301f2519e148d5922"><td class="memItemLeft" align="right" valign="top"><a class="el" href="m__pd_8h.html#a46dc692dc9e70ff60679462933409d90">t_outlet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#ac55a87b662aeec1301f2519e148d5922">listout</a> (void *x)</td></tr>
 <tr class="separator:ac55a87b662aeec1301f2519e148d5922"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa527e5fc2f6730f5973b66ca322cfbc3"><td class="memItemLeft" align="right" valign="top">t_outlet *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#aa527e5fc2f6730f5973b66ca322cfbc3">floatout</a> (void *x)</td></tr>
+<tr class="memitem:aa527e5fc2f6730f5973b66ca322cfbc3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="m__pd_8h.html#a46dc692dc9e70ff60679462933409d90">t_outlet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#aa527e5fc2f6730f5973b66ca322cfbc3">floatout</a> (void *x)</td></tr>
 <tr class="separator:aa527e5fc2f6730f5973b66ca322cfbc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c96e74d82ce768dc821431475a809e6"><td class="memItemLeft" align="right" valign="top">t_outlet *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a0c96e74d82ce768dc821431475a809e6">bangout</a> (void *x)</td></tr>
+<tr class="memitem:a0c96e74d82ce768dc821431475a809e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="m__pd_8h.html#a46dc692dc9e70ff60679462933409d90">t_outlet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a0c96e74d82ce768dc821431475a809e6">bangout</a> (void *x)</td></tr>
 <tr class="separator:a0c96e74d82ce768dc821431475a809e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f92ea4eb9354f0a83b86b718fc7e1a1"><td class="memItemLeft" align="right" valign="top">t_outlet *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a2f92ea4eb9354f0a83b86b718fc7e1a1">anythingout</a> (void *x)</td></tr>
+<tr class="memitem:a2f92ea4eb9354f0a83b86b718fc7e1a1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="m__pd_8h.html#a46dc692dc9e70ff60679462933409d90">t_outlet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a2f92ea4eb9354f0a83b86b718fc7e1a1">anythingout</a> (void *x)</td></tr>
 <tr class="separator:a2f92ea4eb9354f0a83b86b718fc7e1a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16c90f22690cdce6c698af830d8a3a0d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a16c90f22690cdce6c698af830d8a3a0d">obj_isfloatoutlet</a> (t_object *x, int m)</td></tr>
+<tr class="memitem:a16c90f22690cdce6c698af830d8a3a0d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a16c90f22690cdce6c698af830d8a3a0d">obj_isfloatoutlet</a> (<a class="el" href="m__pd_8h.html#ad7f403f6e266b9c78b530883e1d0d60e">t_object</a> *x, int m)</td></tr>
 <tr class="separator:a16c90f22690cdce6c698af830d8a3a0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca574f2182f23cf5a8c527bdeb7f9de8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#aca574f2182f23cf5a8c527bdeb7f9de8">obj_isfloatinlet</a> (t_object *x, int m)</td></tr>
+<tr class="memitem:aca574f2182f23cf5a8c527bdeb7f9de8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#aca574f2182f23cf5a8c527bdeb7f9de8">obj_isfloatinlet</a> (<a class="el" href="m__pd_8h.html#ad7f403f6e266b9c78b530883e1d0d60e">t_object</a> *x, int m)</td></tr>
 <tr class="separator:aca574f2182f23cf5a8c527bdeb7f9de8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ef9107c3abfb9b6a47c52df28a2c5ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a5ef9107c3abfb9b6a47c52df28a2c5ef">canvas_deletelines_for_io</a> (t_canvas *x, t_text *text, t_inlet *inp, t_outlet *outp)</td></tr>
+<tr class="memitem:a5ef9107c3abfb9b6a47c52df28a2c5ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a5ef9107c3abfb9b6a47c52df28a2c5ef">canvas_deletelines_for_io</a> (<a class="el" href="m__pd_8h.html#afc86fc309b3f7a01b7825ec451ab4714">t_canvas</a> *x, <a class="el" href="m__pd_8h.html#a9e953231a85890e8c466aa68d3345b5c">t_text</a> *text, <a class="el" href="m__pd_8h.html#a9cce84dada7a58c1b60ee4b8964445fe">t_inlet</a> *inp, <a class="el" href="m__pd_8h.html#a46dc692dc9e70ff60679462933409d90">t_outlet</a> *outp)</td></tr>
 <tr class="separator:a5ef9107c3abfb9b6a47c52df28a2c5ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1421d9b47627735246620816e14c583"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#ad1421d9b47627735246620816e14c583">object_method</a> (void *x, t_symbol *s, void *z, <a class="el" href="ecommon_8h.html#ab1d8a64ecf75ff5e30ec8ee685f03179">method</a> <a class="el" href="ecommon_8h.html#ab1d8a64ecf75ff5e30ec8ee685f03179">method</a>, long number, void *other)</td></tr>
+<tr class="memitem:ad1421d9b47627735246620816e14c583"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#ad1421d9b47627735246620816e14c583">object_method</a> (void *x, <a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *s, void *z, <a class="el" href="ecommon_8h.html#ab1d8a64ecf75ff5e30ec8ee685f03179">method</a> <a class="el" href="ecommon_8h.html#ab1d8a64ecf75ff5e30ec8ee685f03179">method</a>, long number, void *other)</td></tr>
 <tr class="separator:ad1421d9b47627735246620816e14c583"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25294ad2c3ae990aee1609847a11395d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a25294ad2c3ae990aee1609847a11395d">object_attr_setvalueof</a> (t_object *x, t_symbol *s, long argc, t_atom *argv)</td></tr>
+<tr class="memitem:a25294ad2c3ae990aee1609847a11395d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a25294ad2c3ae990aee1609847a11395d">object_attr_setvalueof</a> (<a class="el" href="m__pd_8h.html#ad7f403f6e266b9c78b530883e1d0d60e">t_object</a> *x, <a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *s, long argc, <a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *argv)</td></tr>
 <tr class="separator:a25294ad2c3ae990aee1609847a11395d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fb846c57f360ca1f353fd826da37c5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a3fb846c57f360ca1f353fd826da37c5c">object_attr_getvalueof</a> (t_object *x, t_symbol *s, long *argc, t_atom **argv)</td></tr>
+<tr class="memitem:a3fb846c57f360ca1f353fd826da37c5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a3fb846c57f360ca1f353fd826da37c5c">object_attr_getvalueof</a> (<a class="el" href="m__pd_8h.html#ad7f403f6e266b9c78b530883e1d0d60e">t_object</a> *x, <a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *s, long *argc, <a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> **argv)</td></tr>
 <tr class="separator:a3fb846c57f360ca1f353fd826da37c5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96f1e194af2eca2ae922a17e7b585aeb"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a96f1e194af2eca2ae922a17e7b585aeb">fsymbol_from_symbol</a> (t_symbol *s)</td></tr>
+<tr class="memitem:a96f1e194af2eca2ae922a17e7b585aeb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a96f1e194af2eca2ae922a17e7b585aeb">fsymbol_from_symbol</a> (<a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *s)</td></tr>
 <tr class="separator:a96f1e194af2eca2ae922a17e7b585aeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a405bcb340ca01ca40cc1c3021e27f4dc"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a405bcb340ca01ca40cc1c3021e27f4dc">symbol_from_fsymbol</a> (t_symbol *s)</td></tr>
+<tr class="memitem:a405bcb340ca01ca40cc1c3021e27f4dc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a405bcb340ca01ca40cc1c3021e27f4dc">symbol_from_fsymbol</a> (<a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *s)</td></tr>
 <tr class="separator:a405bcb340ca01ca40cc1c3021e27f4dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af318654ccad94694fcc86d939b84d3eb"><td class="memItemLeft" align="right" valign="top">t_atom *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#af318654ccad94694fcc86d939b84d3eb">fatoms_from_atoms</a> (long ac, t_atom *av)</td></tr>
+<tr class="memitem:af318654ccad94694fcc86d939b84d3eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#af318654ccad94694fcc86d939b84d3eb">fatoms_from_atoms</a> (long ac, <a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *av)</td></tr>
 <tr class="separator:af318654ccad94694fcc86d939b84d3eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9ea351cde70743df42dd82d5e562392"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#ab9ea351cde70743df42dd82d5e562392">atoms_from_fatoms</a> (long ac, t_atom *av)</td></tr>
+<tr class="memitem:ab9ea351cde70743df42dd82d5e562392"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#ab9ea351cde70743df42dd82d5e562392">atoms_from_fatoms</a> (long ac, <a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *av)</td></tr>
 <tr class="separator:ab9ea351cde70743df42dd82d5e562392"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afdd4ccf2a10d0498398fa516fea63814"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ecommon_8h.html#a458e4680987e741cdb2075ddda51229b">t_pd_err</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#afdd4ccf2a10d0498398fa516fea63814">binbuf_append_attribute</a> (t_binbuf *d, t_symbol *key, long argc, t_atom *argv)</td></tr>
-<tr class="separator:afdd4ccf2a10d0498398fa516fea63814"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45d30d8b6f5da3592617ee5bb795a595"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ecommon_8h.html#a458e4680987e741cdb2075ddda51229b">t_pd_err</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a45d30d8b6f5da3592617ee5bb795a595">atoms_get_attribute</a> (long ac, t_atom *av, t_symbol *key, long *argc, t_atom **argv)</td></tr>
-<tr class="separator:a45d30d8b6f5da3592617ee5bb795a595"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a87476f848a0a9daa40bbc2a7ba9d8c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ecommon_8h.html#a458e4680987e741cdb2075ddda51229b">t_pd_err</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a5a87476f848a0a9daa40bbc2a7ba9d8c">binbuf_get_attribute</a> (t_binbuf *d, t_symbol *key, long *argc, t_atom **argv)</td></tr>
-<tr class="separator:a5a87476f848a0a9daa40bbc2a7ba9d8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb81aa1a92e922bb2f1cad995a394014"><td class="memItemLeft" align="right" valign="top">t_binbuf *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#acb81aa1a92e922bb2f1cad995a394014">binbuf_via_atoms</a> (long ac, t_atom *av)</td></tr>
+<tr class="memitem:a154cf9d20bb67c945d033ac2bc685077"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a154cf9d20bb67c945d033ac2bc685077">binbuf_append_attribute</a> (<a class="el" href="m__pd_8h.html#aa4364f246b174209f0c245282174b122">t_binbuf</a> *d, <a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *key, long argc, <a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *argv)</td></tr>
+<tr class="separator:a154cf9d20bb67c945d033ac2bc685077"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad14b75355457501ad5803cd420addf75"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#ad14b75355457501ad5803cd420addf75">atoms_get_attribute</a> (long ac, <a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *av, <a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *key, long *argc, <a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> **argv)</td></tr>
+<tr class="separator:ad14b75355457501ad5803cd420addf75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d130044d14865e619bbb11b6b04be8e"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a9d130044d14865e619bbb11b6b04be8e">binbuf_get_attribute</a> (<a class="el" href="m__pd_8h.html#aa4364f246b174209f0c245282174b122">t_binbuf</a> *d, <a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *key, long *argc, <a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> **argv)</td></tr>
+<tr class="separator:a9d130044d14865e619bbb11b6b04be8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb81aa1a92e922bb2f1cad995a394014"><td class="memItemLeft" align="right" valign="top"><a class="el" href="m__pd_8h.html#aa4364f246b174209f0c245282174b122">t_binbuf</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#acb81aa1a92e922bb2f1cad995a394014">binbuf_via_atoms</a> (long ac, <a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *av)</td></tr>
 <tr class="separator:acb81aa1a92e922bb2f1cad995a394014"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf903379e311a82f9751e5a46b2c1fe7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#aaf903379e311a82f9751e5a46b2c1fe7">pd_clip_min</a> (double aValue, double aMinimum)</td></tr>
 <tr class="separator:aaf903379e311a82f9751e5a46b2c1fe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -241,6 +259,8 @@ Functions</h2></td></tr>
 <tr class="separator:aad8a5cc41128597ac09f6237a44f48ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef0008cfecf157b30a23b75e2809de34"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#aef0008cfecf157b30a23b75e2809de34">pd_angle</a> (double x, double y)</td></tr>
 <tr class="separator:aef0008cfecf157b30a23b75e2809de34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a290459369c57ae361da0e16ab8e3b67e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecommon_8h.html#a290459369c57ae361da0e16ab8e3b67e">__attribute__</a> ((used)) static char *my_cursorlist[] = {0.3, 0.3, 0.3, 1.}</td></tr>
+<tr class="separator:a290459369c57ae361da0e16ab8e3b67e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="a99cb8e9ace79244abefa1562131b15f9"></a>
@@ -248,12 +268,12 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define A_LONG&#160;&#160;&#160;A_FLOAT</td>
+          <td class="memname">#define A_LONG&#160;&#160;&#160;<a class="el" href="m__pd_8h.html#af04c9af457d12f1f4b68f9b90c252937a0b3aa0ab8104573dfc9cb70b5b08031f">A_FLOAT</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00056">56</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00059">59</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -262,12 +282,12 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define A_SYM&#160;&#160;&#160;A_SYMBOL</td>
+          <td class="memname">#define A_SYM&#160;&#160;&#160;<a class="el" href="m__pd_8h.html#af04c9af457d12f1f4b68f9b90c252937a2a3d0cfb689b3968ed25b1e60468c0a5">A_SYMBOL</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00057">57</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00060">60</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -281,7 +301,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00059">59</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00063">63</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -295,7 +315,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00060">60</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00064">64</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -308,12 +328,12 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">atom</td><td>)</td>
-          <td>&#160;&#160;&#160;(long)atom_getfloat(atom)</td>
+          <td>&#160;&#160;&#160;(long)<a class="el" href="m__pd_8h.html#a4d4ed29a8c162eebdccd665cfb99b82a">atom_getfloat</a>(atom)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00071">71</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00075">75</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -326,12 +346,12 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">atom</td><td>)</td>
-          <td>&#160;&#160;&#160;atom_getsymbol(atom)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="m__pd_8h.html#a60069340bef560b7affd119d1fd71ce5">atom_getsymbol</a>(atom)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00073">73</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00077">77</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -349,7 +369,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00072">72</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00076">76</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -372,12 +392,12 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;SETFLOAT(atom, float)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="m__pd_8h.html#a05734a139dc5a46277d74a246152973d">SETFLOAT</a>(atom, float)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00068">68</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00072">72</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -400,12 +420,12 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;SETFLOAT(atom, (float)long)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="m__pd_8h.html#a05734a139dc5a46277d74a246152973d">SETFLOAT</a>(atom, (float)long)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00069">69</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00073">73</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -428,12 +448,40 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;SETSYMBOL(atom, sym)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="m__pd_8h.html#aec2c448b0e50db2ae193411a20246242">SETSYMBOL</a>(atom, sym)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00074">74</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af640c99a1fceb8158c2d1e77381b0320"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLASS_BOX&#160;&#160;&#160;<a class="el" href="m__pd_8h.html#a4449f71b80468e7d6e79a67193e65e0b">gensym</a>(&quot;box&quot;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Definition at line <a class="el" href="ecommon_8h_source.html#l00070">70</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a84e10c76881b7d695e1888761b4c4fa3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLASS_OBJ&#160;&#160;&#160;<a class="el" href="m__pd_8h.html#a4449f71b80468e7d6e79a67193e65e0b">gensym</a>(&quot;obj&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00069">69</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -447,7 +495,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00064">64</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00068">68</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -461,7 +509,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00061">61</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00065">65</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -475,7 +523,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00063">63</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00067">67</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -489,7 +537,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00062">62</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00066">66</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -503,7 +551,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00052">52</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00054">54</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -517,7 +565,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00055">55</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00057">57</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -531,7 +579,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00051">51</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00053">53</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -545,7 +593,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00053">53</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00055">55</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -559,7 +607,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00054">54</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00056">56</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -577,7 +625,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00078">78</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00082">82</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -595,7 +643,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00079">79</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00083">83</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -604,12 +652,12 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define object_error&#160;&#160;&#160;pd_error</td>
+          <td class="memname">#define object_error&#160;&#160;&#160;<a class="el" href="m__pd_8h.html#afa1189b524e9ecbb41b4d4a363b3da02">pd_error</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00075">75</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00079">79</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -621,12 +669,12 @@ Functions</h2></td></tr>
           <td class="memname">#define sys_getdspstate</td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td>&#160;&#160;&#160;canvas_dspstate</td>
+          <td>&#160;&#160;&#160;<a class="el" href="m__pd_8h.html#a4a087b3cde1e9637bcd33c95af6e5114">canvas_dspstate</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00076">76</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00080">80</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -640,7 +688,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00058">58</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00061">61</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -655,7 +703,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00083">83</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00127">127</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -669,21 +717,21 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00084">84</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00128">128</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ad7f4eea7a5f9f7cb027d04eee4572888"></a>
+<a class="anchor" id="a8ea5aaf2f69ff3f6b8e032a0521e1950"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="ecommon_8h.html#a458e4680987e741cdb2075ddda51229b">t_pd_err</a>(* t_err_method)(void *x,...)</td>
+          <td class="memname">typedef long(* t_err_method)(void *x,...)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00085">85</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8h_source.html#l00129">129</a> of file <a class="el" href="ecommon_8h_source.html">ecommon.h</a>.</p>
 
 </div>
 </div>
@@ -709,7 +757,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_outlet* anythingout </td>
+          <td class="memname"><a class="el" href="m__pd_8h.html#a46dc692dc9e70ff60679462933409d90">t_outlet</a>* anythingout </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>x</em></td><td>)</td>
@@ -735,7 +783,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_atom *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *&#160;</td>
           <td class="paramname"><em>av</em>&#160;</td>
         </tr>
         <tr>
@@ -746,16 +794,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00175">175</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00176">176</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a45d30d8b6f5da3592617ee5bb795a595"></a>
+<a class="anchor" id="ad14b75355457501ad5803cd420addf75"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ecommon_8h.html#a458e4680987e741cdb2075ddda51229b">t_pd_err</a> atoms_get_attribute </td>
+          <td class="memname">long atoms_get_attribute </td>
           <td>(</td>
           <td class="paramtype">long&#160;</td>
           <td class="paramname"><em>ac</em>, </td>
@@ -763,13 +811,13 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_atom *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *&#160;</td>
           <td class="paramname"><em>av</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_symbol *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *&#160;</td>
           <td class="paramname"><em>key</em>, </td>
         </tr>
         <tr>
@@ -781,7 +829,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_atom **&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> **&#160;</td>
           <td class="paramname"><em>argv</em>&#160;</td>
         </tr>
         <tr>
@@ -792,7 +840,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00243">243</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00237">237</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
 
 </div>
 </div>
@@ -801,7 +849,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_outlet* bangout </td>
+          <td class="memname"><a class="el" href="m__pd_8h.html#a46dc692dc9e70ff60679462933409d90">t_outlet</a>* bangout </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>x</em></td><td>)</td>
@@ -814,20 +862,20 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="afdd4ccf2a10d0498398fa516fea63814"></a>
+<a class="anchor" id="a154cf9d20bb67c945d033ac2bc685077"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ecommon_8h.html#a458e4680987e741cdb2075ddda51229b">t_pd_err</a> binbuf_append_attribute </td>
+          <td class="memname">long binbuf_append_attribute </td>
           <td>(</td>
-          <td class="paramtype">t_binbuf *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#aa4364f246b174209f0c245282174b122">t_binbuf</a> *&#160;</td>
           <td class="paramname"><em>d</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_symbol *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *&#160;</td>
           <td class="paramname"><em>key</em>, </td>
         </tr>
         <tr>
@@ -839,7 +887,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_atom *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *&#160;</td>
           <td class="paramname"><em>argv</em>&#160;</td>
         </tr>
         <tr>
@@ -850,24 +898,24 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00219">219</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00220">220</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a5a87476f848a0a9daa40bbc2a7ba9d8c"></a>
+<a class="anchor" id="a9d130044d14865e619bbb11b6b04be8e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ecommon_8h.html#a458e4680987e741cdb2075ddda51229b">t_pd_err</a> binbuf_get_attribute </td>
+          <td class="memname">long binbuf_get_attribute </td>
           <td>(</td>
-          <td class="paramtype">t_binbuf *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#aa4364f246b174209f0c245282174b122">t_binbuf</a> *&#160;</td>
           <td class="paramname"><em>d</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_symbol *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *&#160;</td>
           <td class="paramname"><em>key</em>, </td>
         </tr>
         <tr>
@@ -879,7 +927,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_atom **&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> **&#160;</td>
           <td class="paramname"><em>argv</em>&#160;</td>
         </tr>
         <tr>
@@ -890,7 +938,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00236">236</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00290">290</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
 
 </div>
 </div>
@@ -899,7 +947,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_binbuf* binbuf_via_atoms </td>
+          <td class="memname"><a class="el" href="m__pd_8h.html#aa4364f246b174209f0c245282174b122">t_binbuf</a>* binbuf_via_atoms </td>
           <td>(</td>
           <td class="paramtype">long&#160;</td>
           <td class="paramname"><em>ac</em>, </td>
@@ -907,7 +955,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_atom *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *&#160;</td>
           <td class="paramname"><em>av</em>&#160;</td>
         </tr>
         <tr>
@@ -918,7 +966,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00138">138</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00139">139</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
 
 </div>
 </div>
@@ -929,25 +977,25 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void canvas_deletelines_for_io </td>
           <td>(</td>
-          <td class="paramtype">t_canvas *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#afc86fc309b3f7a01b7825ec451ab4714">t_canvas</a> *&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_text *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a9e953231a85890e8c466aa68d3345b5c">t_text</a> *&#160;</td>
           <td class="paramname"><em>text</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_inlet *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a9cce84dada7a58c1b60ee4b8964445fe">t_inlet</a> *&#160;</td>
           <td class="paramname"><em>inp</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_outlet *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a46dc692dc9e70ff60679462933409d90">t_outlet</a> *&#160;</td>
           <td class="paramname"><em>outp</em>&#160;</td>
         </tr>
         <tr>
@@ -962,44 +1010,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="abb404574d2f0daad5abed601f4dfb357"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">EXTERN void canvas_displaceselection </td>
-          <td>(</td>
-          <td class="paramtype">t_canvas *&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dy</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="af318654ccad94694fcc86d939b84d3eb"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_atom* fatoms_from_atoms </td>
+          <td class="memname"><a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a>* fatoms_from_atoms </td>
           <td>(</td>
           <td class="paramtype">long&#160;</td>
           <td class="paramname"><em>ac</em>, </td>
@@ -1007,7 +1023,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_atom *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *&#160;</td>
           <td class="paramname"><em>av</em>&#160;</td>
         </tr>
         <tr>
@@ -1018,7 +1034,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00162">162</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00163">163</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
 
 </div>
 </div>
@@ -1027,7 +1043,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_outlet* floatout </td>
+          <td class="memname"><a class="el" href="m__pd_8h.html#a46dc692dc9e70ff60679462933409d90">t_outlet</a>* floatout </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>x</em></td><td>)</td>
@@ -1045,16 +1061,16 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* fsymbol_from_symbol </td>
+          <td class="memname"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a>* fsymbol_from_symbol </td>
           <td>(</td>
-          <td class="paramtype">t_symbol *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *&#160;</td>
           <td class="paramname"><em>s</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00145">145</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00146">146</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
 
 </div>
 </div>
@@ -1063,7 +1079,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_outlet* listout </td>
+          <td class="memname"><a class="el" href="m__pd_8h.html#a46dc692dc9e70ff60679462933409d90">t_outlet</a>* listout </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>x</em></td><td>)</td>
@@ -1083,7 +1099,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int obj_isfloatinlet </td>
           <td>(</td>
-          <td class="paramtype">t_object *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#ad7f403f6e266b9c78b530883e1d0d60e">t_object</a> *&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
@@ -1111,7 +1127,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int obj_isfloatoutlet </td>
           <td>(</td>
-          <td class="paramtype">t_object *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#ad7f403f6e266b9c78b530883e1d0d60e">t_object</a> *&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
@@ -1139,13 +1155,13 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void object_attr_getvalueof </td>
           <td>(</td>
-          <td class="paramtype">t_object *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#ad7f403f6e266b9c78b530883e1d0d60e">t_object</a> *&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_symbol *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *&#160;</td>
           <td class="paramname"><em>s</em>, </td>
         </tr>
         <tr>
@@ -1157,7 +1173,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_atom **&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> **&#160;</td>
           <td class="paramname"><em>argv</em>&#160;</td>
         </tr>
         <tr>
@@ -1168,7 +1184,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00129">129</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00127">127</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
 
 </div>
 </div>
@@ -1179,13 +1195,13 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void object_attr_setvalueof </td>
           <td>(</td>
-          <td class="paramtype">t_object *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#ad7f403f6e266b9c78b530883e1d0d60e">t_object</a> *&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_symbol *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *&#160;</td>
           <td class="paramname"><em>s</em>, </td>
         </tr>
         <tr>
@@ -1197,7 +1213,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_atom *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *&#160;</td>
           <td class="paramname"><em>argv</em>&#160;</td>
         </tr>
         <tr>
@@ -1208,7 +1224,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00123">123</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00121">121</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
 
 </div>
 </div>
@@ -1225,7 +1241,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_symbol *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *&#160;</td>
           <td class="paramname"><em>s</em>, </td>
         </tr>
         <tr>
@@ -1260,7 +1276,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00100">100</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00098">98</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
 
 </div>
 </div>
@@ -1271,7 +1287,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void outlet_int </td>
           <td>(</td>
-          <td class="paramtype">t_outlet *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a46dc692dc9e70ff60679462933409d90">t_outlet</a> *&#160;</td>
           <td class="paramname"><em>outlet</em>, </td>
         </tr>
         <tr>
@@ -1316,7 +1332,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00316">316</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00319">319</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
 
 </div>
 </div>
@@ -1344,7 +1360,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00326">326</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00329">329</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
 
 </div>
 </div>
@@ -1372,7 +1388,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00303">303</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00306">306</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
 
 </div>
 </div>
@@ -1400,7 +1416,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00295">295</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00298">298</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
 
 </div>
 </div>
@@ -1434,7 +1450,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00342">342</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00345">345</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
 
 </div>
 </div>
@@ -1462,7 +1478,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00311">311</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00314">314</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
 
 </div>
 </div>
@@ -1490,7 +1506,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00321">321</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00324">324</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
 
 </div>
 </div>
@@ -1499,16 +1515,16 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* symbol_from_fsymbol </td>
+          <td class="memname"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a>* symbol_from_fsymbol </td>
           <td>(</td>
-          <td class="paramtype">t_symbol *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *&#160;</td>
           <td class="paramname"><em>s</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00157">157</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
+<p>Definition at line <a class="el" href="ecommon_8c_source.html#l00158">158</a> of file <a class="el" href="ecommon_8c_source.html">ecommon.c</a>.</p>
 
 </div>
 </div>
@@ -1517,7 +1533,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_outlet* symbolout </td>
+          <td class="memname"><a class="el" href="m__pd_8h.html#a46dc692dc9e70ff60679462933409d90">t_outlet</a>* symbolout </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>x</em></td><td>)</td>
@@ -1531,11 +1547,15 @@ Functions</h2></td></tr>
 </div>
 </div>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 27 2013 09:25:27 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_a2eefb556bcc7bb2cad11c4f82898e79.html">ecommon</a></li><li class="navelem"><a class="el" href="ecommon_8h.html">ecommon.h</a></li>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:06 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

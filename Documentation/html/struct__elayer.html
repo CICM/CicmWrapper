@@ -4,10 +4,17 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>PdEnhanced: _elayer Struct Reference</title>
+<title>CICM Wrapper: _elayer Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -22,10 +29,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">PdEnhanced
+   <div id="projectname">CICM Wrapper
    &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
-   <div id="projectbrief">Add on for PD</div>
+   <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
  </tr>
  </tbody>
@@ -66,12 +73,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('struct__elayer.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -80,7 +102,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
@@ -89,24 +110,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>The Pd Enhanced drawing layer.  
+<p>The CICM drawing layer.  
  <a href="struct__elayer.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="estruct_8h_source.html">estruct.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a2a35e154dc0053b0c8078d322ee1b5e3"><td class="memItemLeft" align="right" valign="top">t_object *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#a2a35e154dc0053b0c8078d322ee1b5e3">e_owner</a></td></tr>
+<tr class="memitem:a2a35e154dc0053b0c8078d322ee1b5e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__text.html">t_object</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#a2a35e154dc0053b0c8078d322ee1b5e3">e_owner</a></td></tr>
 <tr class="separator:a2a35e154dc0053b0c8078d322ee1b5e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d8c2140844c7949fe9bc0384b2129d8"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#a6d8c2140844c7949fe9bc0384b2129d8">e_name</a></td></tr>
+<tr class="memitem:a6d8c2140844c7949fe9bc0384b2129d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__symbol.html">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#a6d8c2140844c7949fe9bc0384b2129d8">e_name</a></td></tr>
 <tr class="separator:a6d8c2140844c7949fe9bc0384b2129d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f5d3d53b83fa9009ede11f8a9902dff"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#a1f5d3d53b83fa9009ede11f8a9902dff">e_id</a></td></tr>
+<tr class="memitem:a1f5d3d53b83fa9009ede11f8a9902dff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__symbol.html">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#a1f5d3d53b83fa9009ede11f8a9902dff">e_id</a></td></tr>
 <tr class="separator:a1f5d3d53b83fa9009ede11f8a9902dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ebb09ffbaedff41ff95d74f7ebdb71b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#a6ebb09ffbaedff41ff95d74f7ebdb71b">e_state</a></td></tr>
 <tr class="separator:a6ebb09ffbaedff41ff95d74f7ebdb71b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaef55281ce06e8d04077acd1e73e484e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__rect.html">t_rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#aaef55281ce06e8d04077acd1e73e484e">e_rect</a></td></tr>
 <tr class="separator:aaef55281ce06e8d04077acd1e73e484e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13dfb00aea95e0dc5b9d1297260a9280"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#a13dfb00aea95e0dc5b9d1297260a9280">e_color</a></td></tr>
+<tr class="memitem:a13dfb00aea95e0dc5b9d1297260a9280"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__symbol.html">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#a13dfb00aea95e0dc5b9d1297260a9280">e_color</a></td></tr>
 <tr class="separator:a13dfb00aea95e0dc5b9d1297260a9280"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f088d61988de49543e814d4b5a74947"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__elayer.html#a4f088d61988de49543e814d4b5a74947">e_line_width</a></td></tr>
 <tr class="separator:a4f088d61988de49543e814d4b5a74947"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,23 +141,23 @@ Data Fields</h2></td></tr>
 <tr class="separator:ad5b10c31f81ecf9116b72b70b25f9e79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The Pd Enhanced drawing layer. </p>
+<div class="textblock"><p>The CICM drawing layer. </p>
 <p>It contains the all the informations and the graphical objects to be drawn. </p>
 
-<p>Definition at line <a class="el" href="estruct_8h_source.html#l00335">335</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00339">339</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a13dfb00aea95e0dc5b9d1297260a9280"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* e_color</td>
+          <td class="memname"><a class="el" href="struct__symbol.html">t_symbol</a>* e_color</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>The layer color. </p>
 
-<p>Definition at line <a class="el" href="estruct_8h_source.html#l00343">343</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00347">347</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
 
 </div>
 </div>
@@ -145,13 +166,13 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* e_id</td>
+          <td class="memname"><a class="el" href="struct__symbol.html">t_symbol</a>* e_id</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>The layer canvas ID. </p>
 
-<p>Definition at line <a class="el" href="estruct_8h_source.html#l00339">339</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00343">343</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
 
 </div>
 </div>
@@ -166,7 +187,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 <p>The layer line width. </p>
 
-<p>Definition at line <a class="el" href="estruct_8h_source.html#l00344">344</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00348">348</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
 
 </div>
 </div>
@@ -181,7 +202,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 <p>The layer matrix. </p>
 
-<p>Definition at line <a class="el" href="estruct_8h_source.html#l00345">345</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00349">349</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
 
 </div>
 </div>
@@ -190,13 +211,13 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* e_name</td>
+          <td class="memname"><a class="el" href="struct__symbol.html">t_symbol</a>* e_name</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>The layer name. </p>
 
-<p>Definition at line <a class="el" href="estruct_8h_source.html#l00338">338</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00342">342</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
 
 </div>
 </div>
@@ -211,7 +232,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 <p>The layer new object. </p>
 
-<p>Definition at line <a class="el" href="estruct_8h_source.html#l00346">346</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00350">350</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
 
 </div>
 </div>
@@ -226,7 +247,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 <p>The number of layer objects. </p>
 
-<p>Definition at line <a class="el" href="estruct_8h_source.html#l00348">348</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00352">352</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
 
 </div>
 </div>
@@ -241,7 +262,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 <p>The layer objects. </p>
 
-<p>Definition at line <a class="el" href="estruct_8h_source.html#l00347">347</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00351">351</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
 
 </div>
 </div>
@@ -250,13 +271,13 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_object* e_owner</td>
+          <td class="memname"><a class="el" href="struct__text.html">t_object</a>* e_owner</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>The layer owner. </p>
 
-<p>Definition at line <a class="el" href="estruct_8h_source.html#l00337">337</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00341">341</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
 
 </div>
 </div>
@@ -271,7 +292,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 <p>The layer size. </p>
 
-<p>Definition at line <a class="el" href="estruct_8h_source.html#l00341">341</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00345">345</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
 
 </div>
 </div>
@@ -286,19 +307,23 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 <p>The layer state. </p>
 
-<p>Definition at line <a class="el" href="estruct_8h_source.html#l00340">340</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
+<p>Definition at line <a class="el" href="estruct_8h_source.html#l00344">344</a> of file <a class="el" href="estruct_8h_source.html">estruct.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>/Users/Pierre/SourceTree/PdEnhanced/SourcesDev/<a class="el" href="estruct_8h_source.html">estruct.h</a></li>
+<li>/Users/Pierre/SourceTree/PdEnhanced/Sources/<a class="el" href="estruct_8h_source.html">estruct.h</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 27 2013 09:26:33 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="struct__elayer.html">_elayer</a></li>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:45 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

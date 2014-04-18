@@ -1,7 +1,7 @@
 /*
- * PdEnhanced - Pure Data Enhanced
+ * CicmWrapper - Pure Data Enhanced
  *
- * An add-on for Pure Data
+ * A wrapper for Pure Data
  *
  * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8
  * All rights reserved.
@@ -26,7 +26,7 @@
 
 /**
  * @file estruct.h
- * @brief The header that contains all the principals structures of PdEnhanced
+ * @brief The header that contains all the principals structures of CicmWrapper
  * @details All the principals structures are defined in this file.
  * @author Pierre Guillot
  */
@@ -174,14 +174,16 @@ typedef struct _eattr
     long            offset;
     long            sizemax;
     long            size;
-
+    
 	method			getter;
 	method			setter;
     long            clipped;
 	double          minimum;
     double          maximum;
+    double          step;
     t_symbol*       defvals;
-
+    t_symbol**      itemslist;
+    long            itemssize;
 } t_eattr;
 
 typedef struct _eclass
@@ -262,11 +264,11 @@ typedef enum _etextjustify_flags
 
 typedef struct _efont
 {
+    float       c_size;
+    long        c_sizereal;
     t_symbol*   c_family;   // times, helvetica, ect...
     t_symbol*   c_slant;    // regular, italic
     t_symbol*   c_weight;   // normal, bold
-    float       c_size;
-    float       c_sizereal;
 } t_efont;
 
 typedef struct _epopup
@@ -309,7 +311,7 @@ typedef enum
 
 /**
  * @struct _egobj
- * @brief The Pd Enhanced drawing object.
+ * @brief The CICM drawing object.
  * @details It contains the all the informations to be drawn.
  */
 typedef struct _egobj
@@ -331,7 +333,7 @@ typedef struct _egobj
 
 /**
  * @struct _elayer
- * @brief The Pd Enhanced drawing layer.
+ * @brief The CICM drawing layer.
  * @details It contains the all the informations and the graphical objects to be drawn.
  */
 typedef struct _elayer
@@ -352,7 +354,7 @@ typedef struct _elayer
 
 /**
  * @struct _edrawparams
- * @brief The Pd Enhanced drawing parameters.
+ * @brief The CICM drawing parameters.
  * @details It contains the default parameters of a ebox.
  */
 typedef struct _edrawparams
@@ -366,7 +368,7 @@ typedef struct _edrawparams
 
 /**
  * @struct _erouter
- * @brief The Pd Enhanced Router object.
+ * @brief The CICM Router object.
  * @details It contains the router class and a pointer to all the eobjects loaeded.
  */
 typedef struct _erouter
@@ -374,24 +376,34 @@ typedef struct _erouter
     t_object            e_obj;          /*!< The router object. */
     t_object**          e_childs;       /*!< The eobj pointer. */
     long                e_nchilds;      /*!< The number of eobj. */
+    t_symbol**          e_libraries;    /*!< The libraries names. */
+    long                e_nlibraries;   /*!< The number of libraries. */
 }t_erouter;
 
 /**
  * @struct _eproxy
- * @brief The Pd Enhanced Proxy object.
+ * @brief The CICM Proxy object.
  * @details It contains the proxy class, the eobj owner and the index of the proxy.
  */
 typedef struct _eproxy
 {
 	t_pd        p_pd;       /*!< The class object. */
 	t_object*   p_owner;    /*!< The pointer to the eobj owner. */
+    t_inlet*    p_inlet;    /*!< The pointer to the inlet. */
     int         p_index;    /*!< The index of the proxy. */
 } t_eproxy;
 
+/*
+typedef struct _proxlet
+{
+    t_inlet p_inlet;
+    int     p_index;
+} t_proxlet;
+ */
 
 /**
  * @struct _eobj
- * @brief The Pd Enhanced Box object.
+ * @brief The CICM Box object.
  * @details It contains the Pd object, the canvas pointer and members for proxy inlets.
  * This should be used for no graphical object that don't have signal processing methods.
  */
@@ -402,21 +414,21 @@ typedef struct _eobj
     t_canvas*           o_canvas;           /*!< The canvas that own the object. */
     t_symbol*           o_canvas_id;        /*!< The canvas ID. */
     t_eproxy            o_proxy[256];       /*!< The array of proxy inlets. */
-    long                o_nproxy;           /*!< The number of proxy inlets. */
-    long                o_current_proxy;    /*!< The index of the current proxy inlet used */
+    int                 o_nproxy;           /*!< The number of proxy inlets. */
+    int                 o_current_proxy;    /*!< The index of the current proxy inlet used */
 }t_eobj;
 
 /**
  * @struct _edspobj
- * @brief The Pd Enhanced Box DSP object.
- * @details It contains the Pd Enhanced object with all the members for signal processing.
+ * @brief The CICM Box DSP object.
+ * @details It contains the CICM object with all the members for signal processing.
  * This should be used for no graphical object that have signal processing methods.
  */
 typedef struct _edspobj
 {
-    t_eobj              d_obj;              /*!< The Pd Enhanced object. */
+    t_eobj              d_obj;              /*!< The CICM object. */
 
-    t_inlet*            d_inlets[256];      /*!< The array of signal inlets. */
+    t_eproxy*           d_inlets[256];      /*!< The array of proxy signal inlets. */
     t_outlet*           d_outlets[256];     /*!< The array of signal outlets. */
     float               d_float;            /*!< The float member to initialize the signal method. */
     long                d_dsp_size;         /*!< The number of signal inlets and outlets. */
@@ -424,29 +436,31 @@ typedef struct _edspobj
     long                d_dsp_flag;         /*!< The flags to initialize the perform method. */
     void*               d_dsp_user_param;   /*!< The user parameters to pass through the perform method. */
     t_float*            d_sigs_out[256];    /*!< The array of signal vectors. */
+    t_float*            d_sigs_real;        /*!< The real array of signal. */
     method              d_perform_method;   /*!< The user perform method. */
     long                d_misc;
 }t_edspobj;
 
 /**
  * @struct _ebox
- * @brief The Pd Enhanced GUI object.
- * @details It contains the Pd Enhanced object with all the members for graphical behavior.
+ * @brief The CICM GUI object.
+ * @details It contains the CICM object with all the members for graphical behavior.
  * This should be used for graphical object that don't have signal processing methods.
  */
 typedef struct _ebox
 {
-    t_eobj              b_obj;              /*!< The Pd Enhanced object. */
+    t_eobj              b_obj;              /*!< The CICM object. */
 
-    t_symbol*           b_objuser_id;       /*!< The object user ID. */
+    t_symbol*           b_receive_id;       /*!< The object user ID. */
+    t_symbol*           b_send_id;          /*!< The object send ID. */
     t_symbol*           b_objpreset_id;     /*!< The object preset ID. */
-
+    
     t_symbol*           b_canvas_id;        /*!< The canvas ID. */
     t_symbol*           b_drawing_id;       /*!< The drawing ID. */
     t_symbol*           b_editor_id;        /*!< The editor ID. */
     t_symbol*           b_window_id;        /*!< The window ID. */
     t_symbol*           b_all_id;           /*!< The global ID. */
-
+    
     long                b_flags;            /*!< The ebox flags. */
     t_rect              b_rect;             /*!< The ebox rectangle. */
     t_rect              b_rect_last;        /*!< The ebox previous rectangle. */
@@ -460,8 +474,10 @@ typedef struct _ebox
     t_pt                b_move_box;         /*!< The box moving position. */
     char                b_mouse_down;       /*!< The mouse state. */
     long                b_modifiers;        /*!< The modifiers pressed. */
-
+    
+    char                b_visible;          /*!< The visible State. */
     char                b_ready_to_draw;    /*!< The ebox state for drawing. */
+    char                b_have_window;      /*!< The ebox window state. */
     char                b_isinsubcanvas;
     t_edrawparams       b_boxparameters;    /*!< The ebox parameters. */
 
@@ -471,15 +487,16 @@ typedef struct _ebox
 
 /**
  * @struct _edspbox
- * @brief The Pd Enhanced GUI DSP object.
- * @details It contains the Pd Enhanced object with all the members for graphical behavior and signal processing.
+ * @brief The CICM GUI DSP object.
+ * @details It contains the CICM object with all the members for graphical behavior and signal processing.
  * This should be used for graphical object that have signal processing methods.
  */
 typedef struct _edspbox
 {
-    t_eobj              b_obj;              /*!< The Pd Enhanced DSP object. */
-
-    t_symbol*           b_objuser_id;       /*!< The object user ID. */
+    t_eobj              b_obj;              /*!< The CICM DSP object. */
+    
+    t_symbol*           b_receive_id;       /*!< The object user ID. */
+    t_symbol*           b_send_id;          /*!< The object send ID. */
     t_symbol*           b_objpreset_id;     /*!< The object preset ID. */
 
     t_symbol*           b_canvas_id;        /*!< The canvas ID. */
@@ -502,21 +519,24 @@ typedef struct _edspbox
     char                b_mouse_down;       /*!< The mouse state. */
     long                b_modifiers;        /*!< The modifiers pressed. */
 
+    char                b_visible;          /*!< The visible State. */
     char                b_ready_to_draw;    /*!< The ebox state for drawing. */
+    char                b_have_window;      /*!< The ebox window state. */
     char                b_isinsubcanvas;
     t_edrawparams       b_boxparameters;    /*!< The ebox parameters. */
 
     t_elayer*           b_layers;           /*!< The ebox layers. */
     long                b_number_of_layers; /*!< The ebox number of layers. */
 
-    t_inlet*            d_inlets[256];      /*!< The array of signal inlets. */
+    t_eproxy*           d_inlets[256];      /*!< The array of proxy signal inlets. */
     t_outlet*           d_outlets[256];     /*!< The array of signal outlets. */
     float               d_float;            /*!< The float member to initialize the signal method. */
     long                d_dsp_size;         /*!< The number of signal inlets and outlets. */
     t_int               d_dsp_vectors[262]; /*!< The vector that contains all the pointers for the perform method. */
     long                d_dsp_flag;         /*!< The flags to initialize the perform method. */
     void*               d_dsp_user_param;   /*!< The user parameters to pass through the perform method. */
-    t_float*            d_sigs_out[256];    /*!< The array of signal vectors. */
+    t_float*            d_sigs_out[256];    /*!< The arrays of signal vectors. */
+    t_float*            d_sigs_real;        /*!< The real array of signal. */
     method              d_perform_method;   /*!< The user perform method. */
     long                d_misc;
 }t_edspbox;

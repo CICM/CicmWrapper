@@ -1,5 +1,5 @@
-\hypertarget{ecommon_8h}{\section{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/ecommon/ecommon.h File Reference}
-\label{ecommon_8h}\index{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/ecommon/ecommon.\-h@{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources\-Dev/ecommon/ecommon.\-h}}
+\hypertarget{ecommon_8h}{\section{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources/ecommon/ecommon.h File Reference}
+\label{ecommon_8h}\index{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources/ecommon/ecommon.\-h@{/\-Users/\-Pierre/\-Source\-Tree/\-Pd\-Enhanced/\-Sources/ecommon/ecommon.\-h}}
 }
 {\ttfamily \#include $<$unistd.\-h$>$}\\*
 {\ttfamily \#include $<$stdio.\-h$>$}\\*
@@ -39,9 +39,9 @@ struct \hyperlink{struct__outlet}{\-\_\-outlet}
 \item 
 \#define \hyperlink{ecommon_8h_a6fdc48cf1a6d76d3136fdc3489964cf5}{E\-P\-D\-\_\-\-M\-A\-X\-\_\-\-S\-I\-G\-S}~256
 \item 
-\#define \hyperlink{ecommon_8h_a99cb8e9ace79244abefa1562131b15f9}{A\-\_\-\-L\-O\-N\-G}~A\-\_\-\-F\-L\-O\-A\-T
+\#define \hyperlink{ecommon_8h_a99cb8e9ace79244abefa1562131b15f9}{A\-\_\-\-L\-O\-N\-G}~\hyperlink{m__pd_8h_af04c9af457d12f1f4b68f9b90c252937a0b3aa0ab8104573dfc9cb70b5b08031f}{A\-\_\-\-F\-L\-O\-A\-T}
 \item 
-\#define \hyperlink{ecommon_8h_a094d4d4929088e76787e599efffb42ba}{A\-\_\-\-S\-Y\-M}~A\-\_\-\-S\-Y\-M\-B\-O\-L
+\#define \hyperlink{ecommon_8h_a094d4d4929088e76787e599efffb42ba}{A\-\_\-\-S\-Y\-M}~\hyperlink{m__pd_8h_af04c9af457d12f1f4b68f9b90c252937a2a3d0cfb689b3968ed25b1e60468c0a5}{A\-\_\-\-S\-Y\-M\-B\-O\-L}
 \item 
 \#define \hyperlink{ecommon_8h_a458e4680987e741cdb2075ddda51229b}{t\-\_\-pd\-\_\-err}~long
 \item 
@@ -57,21 +57,25 @@ struct \hyperlink{struct__outlet}{\-\_\-outlet}
 \item 
 \#define \hyperlink{ecommon_8h_ad81ac00a32b06bd24b49f287bacf0c0a}{E\-\_\-\-I\-G\-N\-O\-R\-E\-\_\-\-D\-I\-S\-A\-B\-L\-E}~8
 \item 
-\#define \hyperlink{ecommon_8h_a738d26bda33303928d2253294fdfa8c8}{atom\-\_\-setfloat}(atom, float)~S\-E\-T\-F\-L\-O\-A\-T(atom, float)
+\#define \hyperlink{ecommon_8h_a84e10c76881b7d695e1888761b4c4fa3}{C\-L\-A\-S\-S\-\_\-\-O\-B\-J}~\hyperlink{m__pd_8h_a4449f71b80468e7d6e79a67193e65e0b}{gensym}(\char`\"{}obj\char`\"{})
 \item 
-\#define \hyperlink{ecommon_8h_abd7038701590d4633f581d7fcb9e6c37}{atom\-\_\-setlong}(atom, long)~S\-E\-T\-F\-L\-O\-A\-T(atom, (float)long)
+\#define \hyperlink{ecommon_8h_af640c99a1fceb8158c2d1e77381b0320}{C\-L\-A\-S\-S\-\_\-\-B\-O\-X}~\hyperlink{m__pd_8h_a4449f71b80468e7d6e79a67193e65e0b}{gensym}(\char`\"{}box\char`\"{})
 \item 
-\#define \hyperlink{ecommon_8h_a5279a79510bba5dae1357bbff9c5d6fc}{atom\-\_\-setsym}(atom, sym)~S\-E\-T\-S\-Y\-M\-B\-O\-L(atom, sym)
+\#define \hyperlink{ecommon_8h_a738d26bda33303928d2253294fdfa8c8}{atom\-\_\-setfloat}(atom, float)~\hyperlink{m__pd_8h_a05734a139dc5a46277d74a246152973d}{S\-E\-T\-F\-L\-O\-A\-T}(atom, float)
 \item 
-\#define \hyperlink{ecommon_8h_a09a5f37fffc0dbae66a8d7b98e82b69d}{atom\-\_\-getlong}(atom)~(long)atom\-\_\-getfloat(atom)
+\#define \hyperlink{ecommon_8h_abd7038701590d4633f581d7fcb9e6c37}{atom\-\_\-setlong}(atom, long)~\hyperlink{m__pd_8h_a05734a139dc5a46277d74a246152973d}{S\-E\-T\-F\-L\-O\-A\-T}(atom, (float)long)
+\item 
+\#define \hyperlink{ecommon_8h_a5279a79510bba5dae1357bbff9c5d6fc}{atom\-\_\-setsym}(atom, sym)~\hyperlink{m__pd_8h_aec2c448b0e50db2ae193411a20246242}{S\-E\-T\-S\-Y\-M\-B\-O\-L}(atom, sym)
+\item 
+\#define \hyperlink{ecommon_8h_a09a5f37fffc0dbae66a8d7b98e82b69d}{atom\-\_\-getlong}(atom)~(long)\hyperlink{m__pd_8h_a4d4ed29a8c162eebdccd665cfb99b82a}{atom\-\_\-getfloat}(atom)
 \item 
 \#define \hyperlink{ecommon_8h_acd881692f3175d3b43a151ee57e21a18}{atom\-\_\-gettype}(atom)~(atom)\mbox{[}0\mbox{]}.a\-\_\-type
 \item 
-\#define \hyperlink{ecommon_8h_a8dbaa02067ab4b9c815fe1b9264d5439}{atom\-\_\-getsym}(atom)~atom\-\_\-getsymbol(atom)
+\#define \hyperlink{ecommon_8h_a8dbaa02067ab4b9c815fe1b9264d5439}{atom\-\_\-getsym}(atom)~\hyperlink{m__pd_8h_a60069340bef560b7affd119d1fd71ce5}{atom\-\_\-getsymbol}(atom)
 \item 
-\#define \hyperlink{ecommon_8h_a86bbd052fd9f43c41e9ef7d592a7afc2}{object\-\_\-error}~pd\-\_\-error
+\#define \hyperlink{ecommon_8h_a86bbd052fd9f43c41e9ef7d592a7afc2}{object\-\_\-error}~\hyperlink{m__pd_8h_afa1189b524e9ecbb41b4d4a363b3da02}{pd\-\_\-error}
 \item 
-\#define \hyperlink{ecommon_8h_ae6cc2aa084ad8e43418fb9d1633e372b}{sys\-\_\-getdspstate}()~canvas\-\_\-dspstate
+\#define \hyperlink{ecommon_8h_ae6cc2aa084ad8e43418fb9d1633e372b}{sys\-\_\-getdspstate}()~\hyperlink{m__pd_8h_a4a087b3cde1e9637bcd33c95af6e5114}{canvas\-\_\-dspstate}
 \item 
 \#define \hyperlink{ecommon_8h_a947b6a000d91cba3d4e2243221b9272e}{layer\-\_\-getname}(layer)~layer.\-c\-\_\-name-\/$>$s\-\_\-name
 \item 
@@ -84,54 +88,50 @@ typedef void($\ast$ \hyperlink{ecommon_8h_ab1d8a64ecf75ff5e30ec8ee685f03179}{met
 \item 
 typedef void $\ast$($\ast$ \hyperlink{ecommon_8h_a52f2ce5a6ad0a11120342cb795591b38}{rmethod} )(void $\ast$x,...)
 \item 
-typedef \hyperlink{ecommon_8h_a458e4680987e741cdb2075ddda51229b}{t\-\_\-pd\-\_\-err}($\ast$ \hyperlink{ecommon_8h_ad7f4eea7a5f9f7cb027d04eee4572888}{t\-\_\-err\-\_\-method} )(void $\ast$x,...)
+typedef long($\ast$ \hyperlink{ecommon_8h_a8ea5aaf2f69ff3f6b8e032a0521e1950}{t\-\_\-err\-\_\-method} )(void $\ast$x,...)
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-E\-X\-T\-E\-R\-N void \hyperlink{ecommon_8h_abb404574d2f0daad5abed601f4dfb357}{canvas\-\_\-displaceselection} (t\-\_\-canvas $\ast$x, int dx, int dy)
+void \hyperlink{ecommon_8h_a55ef15be4b15368563c3c90377b3c4ad}{outlet\-\_\-int} (\hyperlink{m__pd_8h_a46dc692dc9e70ff60679462933409d90}{t\-\_\-outlet} $\ast$outlet, int val)
 \item 
-\hyperlink{ecommon_8h_a290459369c57ae361da0e16ab8e3b67e}{\-\_\-\-\_\-attribute\-\_\-\-\_\-} ((used)) static char $\ast$my\-\_\-cursorlist\mbox{[}$\,$\mbox{]} = \{0.\-3, 0.\-3, 0.\-3, 1.\}
+\hyperlink{m__pd_8h_a46dc692dc9e70ff60679462933409d90}{t\-\_\-outlet} $\ast$ \hyperlink{ecommon_8h_ab6ac723b8bd77cc26fa013df393212ab}{symbolout} (void $\ast$x)
 \item 
-void \hyperlink{ecommon_8h_a55ef15be4b15368563c3c90377b3c4ad}{outlet\-\_\-int} (t\-\_\-outlet $\ast$outlet, int val)
+\hyperlink{m__pd_8h_a46dc692dc9e70ff60679462933409d90}{t\-\_\-outlet} $\ast$ \hyperlink{ecommon_8h_ac55a87b662aeec1301f2519e148d5922}{listout} (void $\ast$x)
 \item 
-t\-\_\-outlet $\ast$ \hyperlink{ecommon_8h_ab6ac723b8bd77cc26fa013df393212ab}{symbolout} (void $\ast$x)
+\hyperlink{m__pd_8h_a46dc692dc9e70ff60679462933409d90}{t\-\_\-outlet} $\ast$ \hyperlink{ecommon_8h_aa527e5fc2f6730f5973b66ca322cfbc3}{floatout} (void $\ast$x)
 \item 
-t\-\_\-outlet $\ast$ \hyperlink{ecommon_8h_ac55a87b662aeec1301f2519e148d5922}{listout} (void $\ast$x)
+\hyperlink{m__pd_8h_a46dc692dc9e70ff60679462933409d90}{t\-\_\-outlet} $\ast$ \hyperlink{ecommon_8h_a0c96e74d82ce768dc821431475a809e6}{bangout} (void $\ast$x)
 \item 
-t\-\_\-outlet $\ast$ \hyperlink{ecommon_8h_aa527e5fc2f6730f5973b66ca322cfbc3}{floatout} (void $\ast$x)
+\hyperlink{m__pd_8h_a46dc692dc9e70ff60679462933409d90}{t\-\_\-outlet} $\ast$ \hyperlink{ecommon_8h_a2f92ea4eb9354f0a83b86b718fc7e1a1}{anythingout} (void $\ast$x)
 \item 
-t\-\_\-outlet $\ast$ \hyperlink{ecommon_8h_a0c96e74d82ce768dc821431475a809e6}{bangout} (void $\ast$x)
+int \hyperlink{ecommon_8h_a16c90f22690cdce6c698af830d8a3a0d}{obj\-\_\-isfloatoutlet} (\hyperlink{m__pd_8h_ad7f403f6e266b9c78b530883e1d0d60e}{t\-\_\-object} $\ast$x, int m)
 \item 
-t\-\_\-outlet $\ast$ \hyperlink{ecommon_8h_a2f92ea4eb9354f0a83b86b718fc7e1a1}{anythingout} (void $\ast$x)
+int \hyperlink{ecommon_8h_aca574f2182f23cf5a8c527bdeb7f9de8}{obj\-\_\-isfloatinlet} (\hyperlink{m__pd_8h_ad7f403f6e266b9c78b530883e1d0d60e}{t\-\_\-object} $\ast$x, int m)
 \item 
-int \hyperlink{ecommon_8h_a16c90f22690cdce6c698af830d8a3a0d}{obj\-\_\-isfloatoutlet} (t\-\_\-object $\ast$x, int m)
+void \hyperlink{ecommon_8h_a5ef9107c3abfb9b6a47c52df28a2c5ef}{canvas\-\_\-deletelines\-\_\-for\-\_\-io} (\hyperlink{m__pd_8h_afc86fc309b3f7a01b7825ec451ab4714}{t\-\_\-canvas} $\ast$x, \hyperlink{m__pd_8h_a9e953231a85890e8c466aa68d3345b5c}{t\-\_\-text} $\ast$text, \hyperlink{m__pd_8h_a9cce84dada7a58c1b60ee4b8964445fe}{t\-\_\-inlet} $\ast$inp, \hyperlink{m__pd_8h_a46dc692dc9e70ff60679462933409d90}{t\-\_\-outlet} $\ast$outp)
 \item 
-int \hyperlink{ecommon_8h_aca574f2182f23cf5a8c527bdeb7f9de8}{obj\-\_\-isfloatinlet} (t\-\_\-object $\ast$x, int m)
+void $\ast$ \hyperlink{ecommon_8h_ad1421d9b47627735246620816e14c583}{object\-\_\-method} (void $\ast$x, \hyperlink{m__pd_8h_a2db18d99dc6ea00736f0a356270160ba}{t\-\_\-symbol} $\ast$s, void $\ast$z, \hyperlink{ecommon_8h_ab1d8a64ecf75ff5e30ec8ee685f03179}{method} \hyperlink{ecommon_8h_ab1d8a64ecf75ff5e30ec8ee685f03179}{method}, long number, void $\ast$other)
 \item 
-void \hyperlink{ecommon_8h_a5ef9107c3abfb9b6a47c52df28a2c5ef}{canvas\-\_\-deletelines\-\_\-for\-\_\-io} (t\-\_\-canvas $\ast$x, t\-\_\-text $\ast$text, t\-\_\-inlet $\ast$inp, t\-\_\-outlet $\ast$outp)
+void \hyperlink{ecommon_8h_a25294ad2c3ae990aee1609847a11395d}{object\-\_\-attr\-\_\-setvalueof} (\hyperlink{m__pd_8h_ad7f403f6e266b9c78b530883e1d0d60e}{t\-\_\-object} $\ast$x, \hyperlink{m__pd_8h_a2db18d99dc6ea00736f0a356270160ba}{t\-\_\-symbol} $\ast$s, long argc, \hyperlink{m__pd_8h_a551a350aa0901b990791fd13ae62ad01}{t\-\_\-atom} $\ast$argv)
 \item 
-void $\ast$ \hyperlink{ecommon_8h_ad1421d9b47627735246620816e14c583}{object\-\_\-method} (void $\ast$x, t\-\_\-symbol $\ast$s, void $\ast$z, \hyperlink{ecommon_8h_ab1d8a64ecf75ff5e30ec8ee685f03179}{method} \hyperlink{ecommon_8h_ab1d8a64ecf75ff5e30ec8ee685f03179}{method}, long number, void $\ast$other)
+void \hyperlink{ecommon_8h_a3fb846c57f360ca1f353fd826da37c5c}{object\-\_\-attr\-\_\-getvalueof} (\hyperlink{m__pd_8h_ad7f403f6e266b9c78b530883e1d0d60e}{t\-\_\-object} $\ast$x, \hyperlink{m__pd_8h_a2db18d99dc6ea00736f0a356270160ba}{t\-\_\-symbol} $\ast$s, long $\ast$argc, \hyperlink{m__pd_8h_a551a350aa0901b990791fd13ae62ad01}{t\-\_\-atom} $\ast$$\ast$argv)
 \item 
-void \hyperlink{ecommon_8h_a25294ad2c3ae990aee1609847a11395d}{object\-\_\-attr\-\_\-setvalueof} (t\-\_\-object $\ast$x, t\-\_\-symbol $\ast$s, long argc, t\-\_\-atom $\ast$argv)
+\hyperlink{m__pd_8h_a2db18d99dc6ea00736f0a356270160ba}{t\-\_\-symbol} $\ast$ \hyperlink{ecommon_8h_a96f1e194af2eca2ae922a17e7b585aeb}{fsymbol\-\_\-from\-\_\-symbol} (\hyperlink{m__pd_8h_a2db18d99dc6ea00736f0a356270160ba}{t\-\_\-symbol} $\ast$s)
 \item 
-void \hyperlink{ecommon_8h_a3fb846c57f360ca1f353fd826da37c5c}{object\-\_\-attr\-\_\-getvalueof} (t\-\_\-object $\ast$x, t\-\_\-symbol $\ast$s, long $\ast$argc, t\-\_\-atom $\ast$$\ast$argv)
+\hyperlink{m__pd_8h_a2db18d99dc6ea00736f0a356270160ba}{t\-\_\-symbol} $\ast$ \hyperlink{ecommon_8h_a405bcb340ca01ca40cc1c3021e27f4dc}{symbol\-\_\-from\-\_\-fsymbol} (\hyperlink{m__pd_8h_a2db18d99dc6ea00736f0a356270160ba}{t\-\_\-symbol} $\ast$s)
 \item 
-t\-\_\-symbol $\ast$ \hyperlink{ecommon_8h_a96f1e194af2eca2ae922a17e7b585aeb}{fsymbol\-\_\-from\-\_\-symbol} (t\-\_\-symbol $\ast$s)
+\hyperlink{m__pd_8h_a551a350aa0901b990791fd13ae62ad01}{t\-\_\-atom} $\ast$ \hyperlink{ecommon_8h_af318654ccad94694fcc86d939b84d3eb}{fatoms\-\_\-from\-\_\-atoms} (long ac, \hyperlink{m__pd_8h_a551a350aa0901b990791fd13ae62ad01}{t\-\_\-atom} $\ast$av)
 \item 
-t\-\_\-symbol $\ast$ \hyperlink{ecommon_8h_a405bcb340ca01ca40cc1c3021e27f4dc}{symbol\-\_\-from\-\_\-fsymbol} (t\-\_\-symbol $\ast$s)
+long \hyperlink{ecommon_8h_ab9ea351cde70743df42dd82d5e562392}{atoms\-\_\-from\-\_\-fatoms} (long ac, \hyperlink{m__pd_8h_a551a350aa0901b990791fd13ae62ad01}{t\-\_\-atom} $\ast$av)
 \item 
-t\-\_\-atom $\ast$ \hyperlink{ecommon_8h_af318654ccad94694fcc86d939b84d3eb}{fatoms\-\_\-from\-\_\-atoms} (long ac, t\-\_\-atom $\ast$av)
+long \hyperlink{ecommon_8h_a154cf9d20bb67c945d033ac2bc685077}{binbuf\-\_\-append\-\_\-attribute} (\hyperlink{m__pd_8h_aa4364f246b174209f0c245282174b122}{t\-\_\-binbuf} $\ast$d, \hyperlink{m__pd_8h_a2db18d99dc6ea00736f0a356270160ba}{t\-\_\-symbol} $\ast$key, long argc, \hyperlink{m__pd_8h_a551a350aa0901b990791fd13ae62ad01}{t\-\_\-atom} $\ast$argv)
 \item 
-long \hyperlink{ecommon_8h_ab9ea351cde70743df42dd82d5e562392}{atoms\-\_\-from\-\_\-fatoms} (long ac, t\-\_\-atom $\ast$av)
+long \hyperlink{ecommon_8h_ad14b75355457501ad5803cd420addf75}{atoms\-\_\-get\-\_\-attribute} (long ac, \hyperlink{m__pd_8h_a551a350aa0901b990791fd13ae62ad01}{t\-\_\-atom} $\ast$av, \hyperlink{m__pd_8h_a2db18d99dc6ea00736f0a356270160ba}{t\-\_\-symbol} $\ast$key, long $\ast$argc, \hyperlink{m__pd_8h_a551a350aa0901b990791fd13ae62ad01}{t\-\_\-atom} $\ast$$\ast$argv)
 \item 
-\hyperlink{ecommon_8h_a458e4680987e741cdb2075ddda51229b}{t\-\_\-pd\-\_\-err} \hyperlink{ecommon_8h_afdd4ccf2a10d0498398fa516fea63814}{binbuf\-\_\-append\-\_\-attribute} (t\-\_\-binbuf $\ast$d, t\-\_\-symbol $\ast$key, long argc, t\-\_\-atom $\ast$argv)
+long \hyperlink{ecommon_8h_a9d130044d14865e619bbb11b6b04be8e}{binbuf\-\_\-get\-\_\-attribute} (\hyperlink{m__pd_8h_aa4364f246b174209f0c245282174b122}{t\-\_\-binbuf} $\ast$d, \hyperlink{m__pd_8h_a2db18d99dc6ea00736f0a356270160ba}{t\-\_\-symbol} $\ast$key, long $\ast$argc, \hyperlink{m__pd_8h_a551a350aa0901b990791fd13ae62ad01}{t\-\_\-atom} $\ast$$\ast$argv)
 \item 
-\hyperlink{ecommon_8h_a458e4680987e741cdb2075ddda51229b}{t\-\_\-pd\-\_\-err} \hyperlink{ecommon_8h_a45d30d8b6f5da3592617ee5bb795a595}{atoms\-\_\-get\-\_\-attribute} (long ac, t\-\_\-atom $\ast$av, t\-\_\-symbol $\ast$key, long $\ast$argc, t\-\_\-atom $\ast$$\ast$argv)
-\item 
-\hyperlink{ecommon_8h_a458e4680987e741cdb2075ddda51229b}{t\-\_\-pd\-\_\-err} \hyperlink{ecommon_8h_a5a87476f848a0a9daa40bbc2a7ba9d8c}{binbuf\-\_\-get\-\_\-attribute} (t\-\_\-binbuf $\ast$d, t\-\_\-symbol $\ast$key, long $\ast$argc, t\-\_\-atom $\ast$$\ast$argv)
-\item 
-t\-\_\-binbuf $\ast$ \hyperlink{ecommon_8h_acb81aa1a92e922bb2f1cad995a394014}{binbuf\-\_\-via\-\_\-atoms} (long ac, t\-\_\-atom $\ast$av)
+\hyperlink{m__pd_8h_aa4364f246b174209f0c245282174b122}{t\-\_\-binbuf} $\ast$ \hyperlink{ecommon_8h_acb81aa1a92e922bb2f1cad995a394014}{binbuf\-\_\-via\-\_\-atoms} (long ac, \hyperlink{m__pd_8h_a551a350aa0901b990791fd13ae62ad01}{t\-\_\-atom} $\ast$av)
 \item 
 double \hyperlink{ecommon_8h_aaf903379e311a82f9751e5a46b2c1fe7}{pd\-\_\-clip\-\_\-min} (double a\-Value, double a\-Minimum)
 \item 
@@ -146,37 +146,39 @@ double \hyperlink{ecommon_8h_a72e8fce89a53e376a0f87aed4b0db839}{pd\-\_\-abscissa
 double \hyperlink{ecommon_8h_aad8a5cc41128597ac09f6237a44f48ad}{pd\-\_\-radius} (double x, double y)
 \item 
 double \hyperlink{ecommon_8h_aef0008cfecf157b30a23b75e2809de34}{pd\-\_\-angle} (double x, double y)
+\item 
+\hyperlink{ecommon_8h_a290459369c57ae361da0e16ab8e3b67e}{\-\_\-\-\_\-attribute\-\_\-\-\_\-} ((used)) static char $\ast$my\-\_\-cursorlist\mbox{[}$\,$\mbox{]} = \{0.\-3, 0.\-3, 0.\-3, 1.\}
 \end{DoxyCompactItemize}
 
 
 \subsection{Macro Definition Documentation}
 \hypertarget{ecommon_8h_a99cb8e9ace79244abefa1562131b15f9}{\index{ecommon.\-h@{ecommon.\-h}!A\-\_\-\-L\-O\-N\-G@{A\-\_\-\-L\-O\-N\-G}}
 \index{A\-\_\-\-L\-O\-N\-G@{A\-\_\-\-L\-O\-N\-G}!ecommon.h@{ecommon.\-h}}
-\subsubsection[{A\-\_\-\-L\-O\-N\-G}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\-\_\-\-L\-O\-N\-G~A\-\_\-\-F\-L\-O\-A\-T}}\label{ecommon_8h_a99cb8e9ace79244abefa1562131b15f9}
+\subsubsection[{A\-\_\-\-L\-O\-N\-G}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\-\_\-\-L\-O\-N\-G~{\bf A\-\_\-\-F\-L\-O\-A\-T}}}\label{ecommon_8h_a99cb8e9ace79244abefa1562131b15f9}
 
 
-Definition at line 56 of file ecommon.\-h.
+Definition at line 59 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_a094d4d4929088e76787e599efffb42ba}{\index{ecommon.\-h@{ecommon.\-h}!A\-\_\-\-S\-Y\-M@{A\-\_\-\-S\-Y\-M}}
 \index{A\-\_\-\-S\-Y\-M@{A\-\_\-\-S\-Y\-M}!ecommon.h@{ecommon.\-h}}
-\subsubsection[{A\-\_\-\-S\-Y\-M}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\-\_\-\-S\-Y\-M~A\-\_\-\-S\-Y\-M\-B\-O\-L}}\label{ecommon_8h_a094d4d4929088e76787e599efffb42ba}
+\subsubsection[{A\-\_\-\-S\-Y\-M}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\-\_\-\-S\-Y\-M~{\bf A\-\_\-\-S\-Y\-M\-B\-O\-L}}}\label{ecommon_8h_a094d4d4929088e76787e599efffb42ba}
 
 
-Definition at line 57 of file ecommon.\-h.
+Definition at line 60 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_a0ec07046c15a9fa06d58460dea29f0d2}{\index{ecommon.\-h@{ecommon.\-h}!A\-S\-S\-I\-S\-T\-\_\-\-I\-N\-L\-E\-T@{A\-S\-S\-I\-S\-T\-\_\-\-I\-N\-L\-E\-T}}
 \index{A\-S\-S\-I\-S\-T\-\_\-\-I\-N\-L\-E\-T@{A\-S\-S\-I\-S\-T\-\_\-\-I\-N\-L\-E\-T}!ecommon.h@{ecommon.\-h}}
 \subsubsection[{A\-S\-S\-I\-S\-T\-\_\-\-I\-N\-L\-E\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\-S\-S\-I\-S\-T\-\_\-\-I\-N\-L\-E\-T~1}}\label{ecommon_8h_a0ec07046c15a9fa06d58460dea29f0d2}
 
 
-Definition at line 59 of file ecommon.\-h.
+Definition at line 63 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_a0293d51a5dd1848956ece45ea8189225}{\index{ecommon.\-h@{ecommon.\-h}!A\-S\-S\-I\-S\-T\-\_\-\-O\-U\-T\-L\-E\-T@{A\-S\-S\-I\-S\-T\-\_\-\-O\-U\-T\-L\-E\-T}}
 \index{A\-S\-S\-I\-S\-T\-\_\-\-O\-U\-T\-L\-E\-T@{A\-S\-S\-I\-S\-T\-\_\-\-O\-U\-T\-L\-E\-T}!ecommon.h@{ecommon.\-h}}
 \subsubsection[{A\-S\-S\-I\-S\-T\-\_\-\-O\-U\-T\-L\-E\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\-S\-S\-I\-S\-T\-\_\-\-O\-U\-T\-L\-E\-T~2}}\label{ecommon_8h_a0293d51a5dd1848956ece45ea8189225}
 
 
-Definition at line 60 of file ecommon.\-h.
+Definition at line 64 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_a09a5f37fffc0dbae66a8d7b98e82b69d}{\index{ecommon.\-h@{ecommon.\-h}!atom\-\_\-getlong@{atom\-\_\-getlong}}
 \index{atom\-\_\-getlong@{atom\-\_\-getlong}!ecommon.h@{ecommon.\-h}}
@@ -184,10 +186,10 @@ Definition at line 60 of file ecommon.\-h.
 \begin{DoxyParamCaption}
 \item[{}]{atom}
 \end{DoxyParamCaption}
-)~(long)atom\-\_\-getfloat(atom)}}\label{ecommon_8h_a09a5f37fffc0dbae66a8d7b98e82b69d}
+)~(long){\bf atom\-\_\-getfloat}(atom)}}\label{ecommon_8h_a09a5f37fffc0dbae66a8d7b98e82b69d}
 
 
-Definition at line 71 of file ecommon.\-h.
+Definition at line 75 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_a8dbaa02067ab4b9c815fe1b9264d5439}{\index{ecommon.\-h@{ecommon.\-h}!atom\-\_\-getsym@{atom\-\_\-getsym}}
 \index{atom\-\_\-getsym@{atom\-\_\-getsym}!ecommon.h@{ecommon.\-h}}
@@ -195,10 +197,10 @@ Definition at line 71 of file ecommon.\-h.
 \begin{DoxyParamCaption}
 \item[{}]{atom}
 \end{DoxyParamCaption}
-)~atom\-\_\-getsymbol(atom)}}\label{ecommon_8h_a8dbaa02067ab4b9c815fe1b9264d5439}
+)~{\bf atom\-\_\-getsymbol}(atom)}}\label{ecommon_8h_a8dbaa02067ab4b9c815fe1b9264d5439}
 
 
-Definition at line 73 of file ecommon.\-h.
+Definition at line 77 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_acd881692f3175d3b43a151ee57e21a18}{\index{ecommon.\-h@{ecommon.\-h}!atom\-\_\-gettype@{atom\-\_\-gettype}}
 \index{atom\-\_\-gettype@{atom\-\_\-gettype}!ecommon.h@{ecommon.\-h}}
@@ -209,7 +211,7 @@ Definition at line 73 of file ecommon.\-h.
 )~(atom)\mbox{[}0\mbox{]}.a\-\_\-type}}\label{ecommon_8h_acd881692f3175d3b43a151ee57e21a18}
 
 
-Definition at line 72 of file ecommon.\-h.
+Definition at line 76 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_a738d26bda33303928d2253294fdfa8c8}{\index{ecommon.\-h@{ecommon.\-h}!atom\-\_\-setfloat@{atom\-\_\-setfloat}}
 \index{atom\-\_\-setfloat@{atom\-\_\-setfloat}!ecommon.h@{ecommon.\-h}}
@@ -218,10 +220,10 @@ Definition at line 72 of file ecommon.\-h.
 \item[{}]{atom, }
 \item[{}]{float}
 \end{DoxyParamCaption}
-)~S\-E\-T\-F\-L\-O\-A\-T(atom, float)}}\label{ecommon_8h_a738d26bda33303928d2253294fdfa8c8}
+)~{\bf S\-E\-T\-F\-L\-O\-A\-T}(atom, float)}}\label{ecommon_8h_a738d26bda33303928d2253294fdfa8c8}
 
 
-Definition at line 68 of file ecommon.\-h.
+Definition at line 72 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_abd7038701590d4633f581d7fcb9e6c37}{\index{ecommon.\-h@{ecommon.\-h}!atom\-\_\-setlong@{atom\-\_\-setlong}}
 \index{atom\-\_\-setlong@{atom\-\_\-setlong}!ecommon.h@{ecommon.\-h}}
@@ -230,10 +232,10 @@ Definition at line 68 of file ecommon.\-h.
 \item[{}]{atom, }
 \item[{}]{long}
 \end{DoxyParamCaption}
-)~S\-E\-T\-F\-L\-O\-A\-T(atom, (float)long)}}\label{ecommon_8h_abd7038701590d4633f581d7fcb9e6c37}
+)~{\bf S\-E\-T\-F\-L\-O\-A\-T}(atom, (float)long)}}\label{ecommon_8h_abd7038701590d4633f581d7fcb9e6c37}
 
 
-Definition at line 69 of file ecommon.\-h.
+Definition at line 73 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_a5279a79510bba5dae1357bbff9c5d6fc}{\index{ecommon.\-h@{ecommon.\-h}!atom\-\_\-setsym@{atom\-\_\-setsym}}
 \index{atom\-\_\-setsym@{atom\-\_\-setsym}!ecommon.h@{ecommon.\-h}}
@@ -242,73 +244,87 @@ Definition at line 69 of file ecommon.\-h.
 \item[{}]{atom, }
 \item[{}]{sym}
 \end{DoxyParamCaption}
-)~S\-E\-T\-S\-Y\-M\-B\-O\-L(atom, sym)}}\label{ecommon_8h_a5279a79510bba5dae1357bbff9c5d6fc}
+)~{\bf S\-E\-T\-S\-Y\-M\-B\-O\-L}(atom, sym)}}\label{ecommon_8h_a5279a79510bba5dae1357bbff9c5d6fc}
+
+
+Definition at line 74 of file ecommon.\-h.
+
+\hypertarget{ecommon_8h_af640c99a1fceb8158c2d1e77381b0320}{\index{ecommon.\-h@{ecommon.\-h}!C\-L\-A\-S\-S\-\_\-\-B\-O\-X@{C\-L\-A\-S\-S\-\_\-\-B\-O\-X}}
+\index{C\-L\-A\-S\-S\-\_\-\-B\-O\-X@{C\-L\-A\-S\-S\-\_\-\-B\-O\-X}!ecommon.h@{ecommon.\-h}}
+\subsubsection[{C\-L\-A\-S\-S\-\_\-\-B\-O\-X}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-L\-A\-S\-S\-\_\-\-B\-O\-X~{\bf gensym}(\char`\"{}box\char`\"{})}}\label{ecommon_8h_af640c99a1fceb8158c2d1e77381b0320}
 
 
 Definition at line 70 of file ecommon.\-h.
+
+\hypertarget{ecommon_8h_a84e10c76881b7d695e1888761b4c4fa3}{\index{ecommon.\-h@{ecommon.\-h}!C\-L\-A\-S\-S\-\_\-\-O\-B\-J@{C\-L\-A\-S\-S\-\_\-\-O\-B\-J}}
+\index{C\-L\-A\-S\-S\-\_\-\-O\-B\-J@{C\-L\-A\-S\-S\-\_\-\-O\-B\-J}!ecommon.h@{ecommon.\-h}}
+\subsubsection[{C\-L\-A\-S\-S\-\_\-\-O\-B\-J}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-L\-A\-S\-S\-\_\-\-O\-B\-J~{\bf gensym}(\char`\"{}obj\char`\"{})}}\label{ecommon_8h_a84e10c76881b7d695e1888761b4c4fa3}
+
+
+Definition at line 69 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_ad81ac00a32b06bd24b49f287bacf0c0a}{\index{ecommon.\-h@{ecommon.\-h}!E\-\_\-\-I\-G\-N\-O\-R\-E\-\_\-\-D\-I\-S\-A\-B\-L\-E@{E\-\_\-\-I\-G\-N\-O\-R\-E\-\_\-\-D\-I\-S\-A\-B\-L\-E}}
 \index{E\-\_\-\-I\-G\-N\-O\-R\-E\-\_\-\-D\-I\-S\-A\-B\-L\-E@{E\-\_\-\-I\-G\-N\-O\-R\-E\-\_\-\-D\-I\-S\-A\-B\-L\-E}!ecommon.h@{ecommon.\-h}}
 \subsubsection[{E\-\_\-\-I\-G\-N\-O\-R\-E\-\_\-\-D\-I\-S\-A\-B\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\-\_\-\-I\-G\-N\-O\-R\-E\-\_\-\-D\-I\-S\-A\-B\-L\-E~8}}\label{ecommon_8h_ad81ac00a32b06bd24b49f287bacf0c0a}
 
 
-Definition at line 64 of file ecommon.\-h.
+Definition at line 68 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_a687405488b6fde738399806767130ead}{\index{ecommon.\-h@{ecommon.\-h}!E\-\_\-\-N\-O\-\_\-\-I\-N\-P\-L\-A\-C\-E@{E\-\_\-\-N\-O\-\_\-\-I\-N\-P\-L\-A\-C\-E}}
 \index{E\-\_\-\-N\-O\-\_\-\-I\-N\-P\-L\-A\-C\-E@{E\-\_\-\-N\-O\-\_\-\-I\-N\-P\-L\-A\-C\-E}!ecommon.h@{ecommon.\-h}}
 \subsubsection[{E\-\_\-\-N\-O\-\_\-\-I\-N\-P\-L\-A\-C\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\-\_\-\-N\-O\-\_\-\-I\-N\-P\-L\-A\-C\-E~1}}\label{ecommon_8h_a687405488b6fde738399806767130ead}
 
 
-Definition at line 61 of file ecommon.\-h.
+Definition at line 65 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_a4cd9034b6ce39e7c1bb038a68eb085e5}{\index{ecommon.\-h@{ecommon.\-h}!E\-\_\-\-P\-U\-T\-\_\-\-F\-I\-R\-S\-T@{E\-\_\-\-P\-U\-T\-\_\-\-F\-I\-R\-S\-T}}
 \index{E\-\_\-\-P\-U\-T\-\_\-\-F\-I\-R\-S\-T@{E\-\_\-\-P\-U\-T\-\_\-\-F\-I\-R\-S\-T}!ecommon.h@{ecommon.\-h}}
 \subsubsection[{E\-\_\-\-P\-U\-T\-\_\-\-F\-I\-R\-S\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\-\_\-\-P\-U\-T\-\_\-\-F\-I\-R\-S\-T~4}}\label{ecommon_8h_a4cd9034b6ce39e7c1bb038a68eb085e5}
 
 
-Definition at line 63 of file ecommon.\-h.
+Definition at line 67 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_a343b03f76ac8d677ad0169c98c0115be}{\index{ecommon.\-h@{ecommon.\-h}!E\-\_\-\-P\-U\-T\-\_\-\-L\-A\-S\-T@{E\-\_\-\-P\-U\-T\-\_\-\-L\-A\-S\-T}}
 \index{E\-\_\-\-P\-U\-T\-\_\-\-L\-A\-S\-T@{E\-\_\-\-P\-U\-T\-\_\-\-L\-A\-S\-T}!ecommon.h@{ecommon.\-h}}
 \subsubsection[{E\-\_\-\-P\-U\-T\-\_\-\-L\-A\-S\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\-\_\-\-P\-U\-T\-\_\-\-L\-A\-S\-T~2}}\label{ecommon_8h_a343b03f76ac8d677ad0169c98c0115be}
 
 
-Definition at line 62 of file ecommon.\-h.
+Definition at line 66 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_aee7fe789366c3073e1c32f7b7620addd}{\index{ecommon.\-h@{ecommon.\-h}!E\-P\-D\-\_\-2\-P\-I@{E\-P\-D\-\_\-2\-P\-I}}
 \index{E\-P\-D\-\_\-2\-P\-I@{E\-P\-D\-\_\-2\-P\-I}!ecommon.h@{ecommon.\-h}}
 \subsubsection[{E\-P\-D\-\_\-2\-P\-I}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\-P\-D\-\_\-2\-P\-I~(6.\-283185307179586476925286766559005)}}\label{ecommon_8h_aee7fe789366c3073e1c32f7b7620addd}
 
 
-Definition at line 52 of file ecommon.\-h.
+Definition at line 54 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_a6fdc48cf1a6d76d3136fdc3489964cf5}{\index{ecommon.\-h@{ecommon.\-h}!E\-P\-D\-\_\-\-M\-A\-X\-\_\-\-S\-I\-G\-S@{E\-P\-D\-\_\-\-M\-A\-X\-\_\-\-S\-I\-G\-S}}
 \index{E\-P\-D\-\_\-\-M\-A\-X\-\_\-\-S\-I\-G\-S@{E\-P\-D\-\_\-\-M\-A\-X\-\_\-\-S\-I\-G\-S}!ecommon.h@{ecommon.\-h}}
 \subsubsection[{E\-P\-D\-\_\-\-M\-A\-X\-\_\-\-S\-I\-G\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\-P\-D\-\_\-\-M\-A\-X\-\_\-\-S\-I\-G\-S~256}}\label{ecommon_8h_a6fdc48cf1a6d76d3136fdc3489964cf5}
 
 
-Definition at line 55 of file ecommon.\-h.
+Definition at line 57 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_af72803075e849d2faf6acad0ad5a715a}{\index{ecommon.\-h@{ecommon.\-h}!E\-P\-D\-\_\-\-P\-I@{E\-P\-D\-\_\-\-P\-I}}
 \index{E\-P\-D\-\_\-\-P\-I@{E\-P\-D\-\_\-\-P\-I}!ecommon.h@{ecommon.\-h}}
 \subsubsection[{E\-P\-D\-\_\-\-P\-I}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\-P\-D\-\_\-\-P\-I~(3.\-141592653589793238462643383279502884)}}\label{ecommon_8h_af72803075e849d2faf6acad0ad5a715a}
 
 
-Definition at line 51 of file ecommon.\-h.
+Definition at line 53 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_a531fcd6b7e2da393287b9a529ffc52e6}{\index{ecommon.\-h@{ecommon.\-h}!E\-P\-D\-\_\-\-P\-I2@{E\-P\-D\-\_\-\-P\-I2}}
 \index{E\-P\-D\-\_\-\-P\-I2@{E\-P\-D\-\_\-\-P\-I2}!ecommon.h@{ecommon.\-h}}
 \subsubsection[{E\-P\-D\-\_\-\-P\-I2}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\-P\-D\-\_\-\-P\-I2~(1.\-57079632679489661923132169163975144)}}\label{ecommon_8h_a531fcd6b7e2da393287b9a529ffc52e6}
 
 
-Definition at line 53 of file ecommon.\-h.
+Definition at line 55 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_af56f9389a284ec15c8511966bc4be055}{\index{ecommon.\-h@{ecommon.\-h}!E\-P\-D\-\_\-\-P\-I4@{E\-P\-D\-\_\-\-P\-I4}}
 \index{E\-P\-D\-\_\-\-P\-I4@{E\-P\-D\-\_\-\-P\-I4}!ecommon.h@{ecommon.\-h}}
 \subsubsection[{E\-P\-D\-\_\-\-P\-I4}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\-P\-D\-\_\-\-P\-I4~(0.\-785398163397448309615660845819875721)}}\label{ecommon_8h_af56f9389a284ec15c8511966bc4be055}
 
 
-Definition at line 54 of file ecommon.\-h.
+Definition at line 56 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_a947b6a000d91cba3d4e2243221b9272e}{\index{ecommon.\-h@{ecommon.\-h}!layer\-\_\-getname@{layer\-\_\-getname}}
 \index{layer\-\_\-getname@{layer\-\_\-getname}!ecommon.h@{ecommon.\-h}}
@@ -319,7 +335,7 @@ Definition at line 54 of file ecommon.\-h.
 )~layer.\-c\-\_\-name-\/$>$s\-\_\-name}}\label{ecommon_8h_a947b6a000d91cba3d4e2243221b9272e}
 
 
-Definition at line 78 of file ecommon.\-h.
+Definition at line 82 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_ac8e18de82372597c9c8cd9fadbf12b16}{\index{ecommon.\-h@{ecommon.\-h}!layer\-\_\-getsize@{layer\-\_\-getsize}}
 \index{layer\-\_\-getsize@{layer\-\_\-getsize}!ecommon.h@{ecommon.\-h}}
@@ -330,14 +346,14 @@ Definition at line 78 of file ecommon.\-h.
 )~layer.\-c\-\_\-atom.\-size()}}\label{ecommon_8h_ac8e18de82372597c9c8cd9fadbf12b16}
 
 
-Definition at line 79 of file ecommon.\-h.
+Definition at line 83 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_a86bbd052fd9f43c41e9ef7d592a7afc2}{\index{ecommon.\-h@{ecommon.\-h}!object\-\_\-error@{object\-\_\-error}}
 \index{object\-\_\-error@{object\-\_\-error}!ecommon.h@{ecommon.\-h}}
-\subsubsection[{object\-\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}\#define object\-\_\-error~pd\-\_\-error}}\label{ecommon_8h_a86bbd052fd9f43c41e9ef7d592a7afc2}
+\subsubsection[{object\-\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}\#define object\-\_\-error~{\bf pd\-\_\-error}}}\label{ecommon_8h_a86bbd052fd9f43c41e9ef7d592a7afc2}
 
 
-Definition at line 75 of file ecommon.\-h.
+Definition at line 79 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_ae6cc2aa084ad8e43418fb9d1633e372b}{\index{ecommon.\-h@{ecommon.\-h}!sys\-\_\-getdspstate@{sys\-\_\-getdspstate}}
 \index{sys\-\_\-getdspstate@{sys\-\_\-getdspstate}!ecommon.h@{ecommon.\-h}}
@@ -345,17 +361,17 @@ Definition at line 75 of file ecommon.\-h.
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)~canvas\-\_\-dspstate}}\label{ecommon_8h_ae6cc2aa084ad8e43418fb9d1633e372b}
+)~{\bf canvas\-\_\-dspstate}}}\label{ecommon_8h_ae6cc2aa084ad8e43418fb9d1633e372b}
 
 
-Definition at line 76 of file ecommon.\-h.
+Definition at line 80 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_a458e4680987e741cdb2075ddda51229b}{\index{ecommon.\-h@{ecommon.\-h}!t\-\_\-pd\-\_\-err@{t\-\_\-pd\-\_\-err}}
 \index{t\-\_\-pd\-\_\-err@{t\-\_\-pd\-\_\-err}!ecommon.h@{ecommon.\-h}}
 \subsubsection[{t\-\_\-pd\-\_\-err}]{\setlength{\rightskip}{0pt plus 5cm}\#define t\-\_\-pd\-\_\-err~long}}\label{ecommon_8h_a458e4680987e741cdb2075ddda51229b}
 
 
-Definition at line 58 of file ecommon.\-h.
+Definition at line 61 of file ecommon.\-h.
 
 
 
@@ -365,21 +381,21 @@ Definition at line 58 of file ecommon.\-h.
 \subsubsection[{method}]{\setlength{\rightskip}{0pt plus 5cm}typedef void($\ast$ method)(void $\ast$x,...)}}\label{ecommon_8h_ab1d8a64ecf75ff5e30ec8ee685f03179}
 
 
-Definition at line 83 of file ecommon.\-h.
+Definition at line 127 of file ecommon.\-h.
 
 \hypertarget{ecommon_8h_a52f2ce5a6ad0a11120342cb795591b38}{\index{ecommon.\-h@{ecommon.\-h}!rmethod@{rmethod}}
 \index{rmethod@{rmethod}!ecommon.h@{ecommon.\-h}}
 \subsubsection[{rmethod}]{\setlength{\rightskip}{0pt plus 5cm}typedef void$\ast$($\ast$ rmethod)(void $\ast$x,...)}}\label{ecommon_8h_a52f2ce5a6ad0a11120342cb795591b38}
 
 
-Definition at line 84 of file ecommon.\-h.
+Definition at line 128 of file ecommon.\-h.
 
-\hypertarget{ecommon_8h_ad7f4eea7a5f9f7cb027d04eee4572888}{\index{ecommon.\-h@{ecommon.\-h}!t\-\_\-err\-\_\-method@{t\-\_\-err\-\_\-method}}
+\hypertarget{ecommon_8h_a8ea5aaf2f69ff3f6b8e032a0521e1950}{\index{ecommon.\-h@{ecommon.\-h}!t\-\_\-err\-\_\-method@{t\-\_\-err\-\_\-method}}
 \index{t\-\_\-err\-\_\-method@{t\-\_\-err\-\_\-method}!ecommon.h@{ecommon.\-h}}
-\subsubsection[{t\-\_\-err\-\_\-method}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf t\-\_\-pd\-\_\-err}($\ast$ t\-\_\-err\-\_\-method)(void $\ast$x,...)}}\label{ecommon_8h_ad7f4eea7a5f9f7cb027d04eee4572888}
+\subsubsection[{t\-\_\-err\-\_\-method}]{\setlength{\rightskip}{0pt plus 5cm}typedef long($\ast$ t\-\_\-err\-\_\-method)(void $\ast$x,...)}}\label{ecommon_8h_a8ea5aaf2f69ff3f6b8e032a0521e1950}
 
 
-Definition at line 85 of file ecommon.\-h.
+Definition at line 129 of file ecommon.\-h.
 
 
 
@@ -393,7 +409,7 @@ Definition at line 85 of file ecommon.\-h.
 ) = \{0.\-3, 0.\-3, 0.\-3, 1.\}}}\label{ecommon_8h_a290459369c57ae361da0e16ab8e3b67e}
 \hypertarget{ecommon_8h_a2f92ea4eb9354f0a83b86b718fc7e1a1}{\index{ecommon.\-h@{ecommon.\-h}!anythingout@{anythingout}}
 \index{anythingout@{anythingout}!ecommon.h@{ecommon.\-h}}
-\subsubsection[{anythingout}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-outlet$\ast$ anythingout (
+\subsubsection[{anythingout}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-outlet}$\ast$ anythingout (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{x}
 \end{DoxyParamCaption}
@@ -407,31 +423,31 @@ Definition at line 54 of file ecommon.\-c.
 \subsubsection[{atoms\-\_\-from\-\_\-fatoms}]{\setlength{\rightskip}{0pt plus 5cm}long atoms\-\_\-from\-\_\-fatoms (
 \begin{DoxyParamCaption}
 \item[{long}]{ac, }
-\item[{t\-\_\-atom $\ast$}]{av}
+\item[{{\bf t\-\_\-atom} $\ast$}]{av}
 \end{DoxyParamCaption}
 )}}\label{ecommon_8h_ab9ea351cde70743df42dd82d5e562392}
 
 
-Definition at line 175 of file ecommon.\-c.
+Definition at line 176 of file ecommon.\-c.
 
-\hypertarget{ecommon_8h_a45d30d8b6f5da3592617ee5bb795a595}{\index{ecommon.\-h@{ecommon.\-h}!atoms\-\_\-get\-\_\-attribute@{atoms\-\_\-get\-\_\-attribute}}
+\hypertarget{ecommon_8h_ad14b75355457501ad5803cd420addf75}{\index{ecommon.\-h@{ecommon.\-h}!atoms\-\_\-get\-\_\-attribute@{atoms\-\_\-get\-\_\-attribute}}
 \index{atoms\-\_\-get\-\_\-attribute@{atoms\-\_\-get\-\_\-attribute}!ecommon.h@{ecommon.\-h}}
-\subsubsection[{atoms\-\_\-get\-\_\-attribute}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-pd\-\_\-err} atoms\-\_\-get\-\_\-attribute (
+\subsubsection[{atoms\-\_\-get\-\_\-attribute}]{\setlength{\rightskip}{0pt plus 5cm}long atoms\-\_\-get\-\_\-attribute (
 \begin{DoxyParamCaption}
 \item[{long}]{ac, }
-\item[{t\-\_\-atom $\ast$}]{av, }
-\item[{t\-\_\-symbol $\ast$}]{key, }
+\item[{{\bf t\-\_\-atom} $\ast$}]{av, }
+\item[{{\bf t\-\_\-symbol} $\ast$}]{key, }
 \item[{long $\ast$}]{argc, }
-\item[{t\-\_\-atom $\ast$$\ast$}]{argv}
+\item[{{\bf t\-\_\-atom} $\ast$$\ast$}]{argv}
 \end{DoxyParamCaption}
-)}}\label{ecommon_8h_a45d30d8b6f5da3592617ee5bb795a595}
+)}}\label{ecommon_8h_ad14b75355457501ad5803cd420addf75}
 
 
-Definition at line 243 of file ecommon.\-c.
+Definition at line 237 of file ecommon.\-c.
 
 \hypertarget{ecommon_8h_a0c96e74d82ce768dc821431475a809e6}{\index{ecommon.\-h@{ecommon.\-h}!bangout@{bangout}}
 \index{bangout@{bangout}!ecommon.h@{ecommon.\-h}}
-\subsubsection[{bangout}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-outlet$\ast$ bangout (
+\subsubsection[{bangout}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-outlet}$\ast$ bangout (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{x}
 \end{DoxyParamCaption}
@@ -440,84 +456,75 @@ Definition at line 243 of file ecommon.\-c.
 
 Definition at line 49 of file ecommon.\-c.
 
-\hypertarget{ecommon_8h_afdd4ccf2a10d0498398fa516fea63814}{\index{ecommon.\-h@{ecommon.\-h}!binbuf\-\_\-append\-\_\-attribute@{binbuf\-\_\-append\-\_\-attribute}}
+\hypertarget{ecommon_8h_a154cf9d20bb67c945d033ac2bc685077}{\index{ecommon.\-h@{ecommon.\-h}!binbuf\-\_\-append\-\_\-attribute@{binbuf\-\_\-append\-\_\-attribute}}
 \index{binbuf\-\_\-append\-\_\-attribute@{binbuf\-\_\-append\-\_\-attribute}!ecommon.h@{ecommon.\-h}}
-\subsubsection[{binbuf\-\_\-append\-\_\-attribute}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-pd\-\_\-err} binbuf\-\_\-append\-\_\-attribute (
+\subsubsection[{binbuf\-\_\-append\-\_\-attribute}]{\setlength{\rightskip}{0pt plus 5cm}long binbuf\-\_\-append\-\_\-attribute (
 \begin{DoxyParamCaption}
-\item[{t\-\_\-binbuf $\ast$}]{d, }
-\item[{t\-\_\-symbol $\ast$}]{key, }
+\item[{{\bf t\-\_\-binbuf} $\ast$}]{d, }
+\item[{{\bf t\-\_\-symbol} $\ast$}]{key, }
 \item[{long}]{argc, }
-\item[{t\-\_\-atom $\ast$}]{argv}
+\item[{{\bf t\-\_\-atom} $\ast$}]{argv}
 \end{DoxyParamCaption}
-)}}\label{ecommon_8h_afdd4ccf2a10d0498398fa516fea63814}
+)}}\label{ecommon_8h_a154cf9d20bb67c945d033ac2bc685077}
 
 
-Definition at line 219 of file ecommon.\-c.
+Definition at line 220 of file ecommon.\-c.
 
-\hypertarget{ecommon_8h_a5a87476f848a0a9daa40bbc2a7ba9d8c}{\index{ecommon.\-h@{ecommon.\-h}!binbuf\-\_\-get\-\_\-attribute@{binbuf\-\_\-get\-\_\-attribute}}
+\hypertarget{ecommon_8h_a9d130044d14865e619bbb11b6b04be8e}{\index{ecommon.\-h@{ecommon.\-h}!binbuf\-\_\-get\-\_\-attribute@{binbuf\-\_\-get\-\_\-attribute}}
 \index{binbuf\-\_\-get\-\_\-attribute@{binbuf\-\_\-get\-\_\-attribute}!ecommon.h@{ecommon.\-h}}
-\subsubsection[{binbuf\-\_\-get\-\_\-attribute}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-pd\-\_\-err} binbuf\-\_\-get\-\_\-attribute (
+\subsubsection[{binbuf\-\_\-get\-\_\-attribute}]{\setlength{\rightskip}{0pt plus 5cm}long binbuf\-\_\-get\-\_\-attribute (
 \begin{DoxyParamCaption}
-\item[{t\-\_\-binbuf $\ast$}]{d, }
-\item[{t\-\_\-symbol $\ast$}]{key, }
+\item[{{\bf t\-\_\-binbuf} $\ast$}]{d, }
+\item[{{\bf t\-\_\-symbol} $\ast$}]{key, }
 \item[{long $\ast$}]{argc, }
-\item[{t\-\_\-atom $\ast$$\ast$}]{argv}
+\item[{{\bf t\-\_\-atom} $\ast$$\ast$}]{argv}
 \end{DoxyParamCaption}
-)}}\label{ecommon_8h_a5a87476f848a0a9daa40bbc2a7ba9d8c}
+)}}\label{ecommon_8h_a9d130044d14865e619bbb11b6b04be8e}
 
 
-Definition at line 236 of file ecommon.\-c.
+Definition at line 290 of file ecommon.\-c.
 
 \hypertarget{ecommon_8h_acb81aa1a92e922bb2f1cad995a394014}{\index{ecommon.\-h@{ecommon.\-h}!binbuf\-\_\-via\-\_\-atoms@{binbuf\-\_\-via\-\_\-atoms}}
 \index{binbuf\-\_\-via\-\_\-atoms@{binbuf\-\_\-via\-\_\-atoms}!ecommon.h@{ecommon.\-h}}
-\subsubsection[{binbuf\-\_\-via\-\_\-atoms}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-binbuf$\ast$ binbuf\-\_\-via\-\_\-atoms (
+\subsubsection[{binbuf\-\_\-via\-\_\-atoms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-binbuf}$\ast$ binbuf\-\_\-via\-\_\-atoms (
 \begin{DoxyParamCaption}
 \item[{long}]{ac, }
-\item[{t\-\_\-atom $\ast$}]{av}
+\item[{{\bf t\-\_\-atom} $\ast$}]{av}
 \end{DoxyParamCaption}
 )}}\label{ecommon_8h_acb81aa1a92e922bb2f1cad995a394014}
 
 
-Definition at line 138 of file ecommon.\-c.
+Definition at line 139 of file ecommon.\-c.
 
 \hypertarget{ecommon_8h_a5ef9107c3abfb9b6a47c52df28a2c5ef}{\index{ecommon.\-h@{ecommon.\-h}!canvas\-\_\-deletelines\-\_\-for\-\_\-io@{canvas\-\_\-deletelines\-\_\-for\-\_\-io}}
 \index{canvas\-\_\-deletelines\-\_\-for\-\_\-io@{canvas\-\_\-deletelines\-\_\-for\-\_\-io}!ecommon.h@{ecommon.\-h}}
 \subsubsection[{canvas\-\_\-deletelines\-\_\-for\-\_\-io}]{\setlength{\rightskip}{0pt plus 5cm}void canvas\-\_\-deletelines\-\_\-for\-\_\-io (
 \begin{DoxyParamCaption}
-\item[{t\-\_\-canvas $\ast$}]{x, }
-\item[{t\-\_\-text $\ast$}]{text, }
-\item[{t\-\_\-inlet $\ast$}]{inp, }
-\item[{t\-\_\-outlet $\ast$}]{outp}
+\item[{{\bf t\-\_\-canvas} $\ast$}]{x, }
+\item[{{\bf t\-\_\-text} $\ast$}]{text, }
+\item[{{\bf t\-\_\-inlet} $\ast$}]{inp, }
+\item[{{\bf t\-\_\-outlet} $\ast$}]{outp}
 \end{DoxyParamCaption}
 )}}\label{ecommon_8h_a5ef9107c3abfb9b6a47c52df28a2c5ef}
 
 
 Definition at line 80 of file ecommon.\-c.
 
-\hypertarget{ecommon_8h_abb404574d2f0daad5abed601f4dfb357}{\index{ecommon.\-h@{ecommon.\-h}!canvas\-\_\-displaceselection@{canvas\-\_\-displaceselection}}
-\index{canvas\-\_\-displaceselection@{canvas\-\_\-displaceselection}!ecommon.h@{ecommon.\-h}}
-\subsubsection[{canvas\-\_\-displaceselection}]{\setlength{\rightskip}{0pt plus 5cm}E\-X\-T\-E\-R\-N void canvas\-\_\-displaceselection (
-\begin{DoxyParamCaption}
-\item[{t\-\_\-canvas $\ast$}]{x, }
-\item[{int}]{dx, }
-\item[{int}]{dy}
-\end{DoxyParamCaption}
-)}}\label{ecommon_8h_abb404574d2f0daad5abed601f4dfb357}
 \hypertarget{ecommon_8h_af318654ccad94694fcc86d939b84d3eb}{\index{ecommon.\-h@{ecommon.\-h}!fatoms\-\_\-from\-\_\-atoms@{fatoms\-\_\-from\-\_\-atoms}}
 \index{fatoms\-\_\-from\-\_\-atoms@{fatoms\-\_\-from\-\_\-atoms}!ecommon.h@{ecommon.\-h}}
-\subsubsection[{fatoms\-\_\-from\-\_\-atoms}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-atom$\ast$ fatoms\-\_\-from\-\_\-atoms (
+\subsubsection[{fatoms\-\_\-from\-\_\-atoms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-atom}$\ast$ fatoms\-\_\-from\-\_\-atoms (
 \begin{DoxyParamCaption}
 \item[{long}]{ac, }
-\item[{t\-\_\-atom $\ast$}]{av}
+\item[{{\bf t\-\_\-atom} $\ast$}]{av}
 \end{DoxyParamCaption}
 )}}\label{ecommon_8h_af318654ccad94694fcc86d939b84d3eb}
 
 
-Definition at line 162 of file ecommon.\-c.
+Definition at line 163 of file ecommon.\-c.
 
 \hypertarget{ecommon_8h_aa527e5fc2f6730f5973b66ca322cfbc3}{\index{ecommon.\-h@{ecommon.\-h}!floatout@{floatout}}
 \index{floatout@{floatout}!ecommon.h@{ecommon.\-h}}
-\subsubsection[{floatout}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-outlet$\ast$ floatout (
+\subsubsection[{floatout}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-outlet}$\ast$ floatout (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{x}
 \end{DoxyParamCaption}
@@ -528,18 +535,18 @@ Definition at line 44 of file ecommon.\-c.
 
 \hypertarget{ecommon_8h_a96f1e194af2eca2ae922a17e7b585aeb}{\index{ecommon.\-h@{ecommon.\-h}!fsymbol\-\_\-from\-\_\-symbol@{fsymbol\-\_\-from\-\_\-symbol}}
 \index{fsymbol\-\_\-from\-\_\-symbol@{fsymbol\-\_\-from\-\_\-symbol}!ecommon.h@{ecommon.\-h}}
-\subsubsection[{fsymbol\-\_\-from\-\_\-symbol}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-symbol$\ast$ fsymbol\-\_\-from\-\_\-symbol (
+\subsubsection[{fsymbol\-\_\-from\-\_\-symbol}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-symbol}$\ast$ fsymbol\-\_\-from\-\_\-symbol (
 \begin{DoxyParamCaption}
-\item[{t\-\_\-symbol $\ast$}]{s}
+\item[{{\bf t\-\_\-symbol} $\ast$}]{s}
 \end{DoxyParamCaption}
 )}}\label{ecommon_8h_a96f1e194af2eca2ae922a17e7b585aeb}
 
 
-Definition at line 145 of file ecommon.\-c.
+Definition at line 146 of file ecommon.\-c.
 
 \hypertarget{ecommon_8h_ac55a87b662aeec1301f2519e148d5922}{\index{ecommon.\-h@{ecommon.\-h}!listout@{listout}}
 \index{listout@{listout}!ecommon.h@{ecommon.\-h}}
-\subsubsection[{listout}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-outlet$\ast$ listout (
+\subsubsection[{listout}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-outlet}$\ast$ listout (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{x}
 \end{DoxyParamCaption}
@@ -552,7 +559,7 @@ Definition at line 39 of file ecommon.\-c.
 \index{obj\-\_\-isfloatinlet@{obj\-\_\-isfloatinlet}!ecommon.h@{ecommon.\-h}}
 \subsubsection[{obj\-\_\-isfloatinlet}]{\setlength{\rightskip}{0pt plus 5cm}int obj\-\_\-isfloatinlet (
 \begin{DoxyParamCaption}
-\item[{t\-\_\-object $\ast$}]{x, }
+\item[{{\bf t\-\_\-object} $\ast$}]{x, }
 \item[{int}]{m}
 \end{DoxyParamCaption}
 )}}\label{ecommon_8h_aca574f2182f23cf5a8c527bdeb7f9de8}
@@ -564,7 +571,7 @@ Definition at line 66 of file ecommon.\-c.
 \index{obj\-\_\-isfloatoutlet@{obj\-\_\-isfloatoutlet}!ecommon.h@{ecommon.\-h}}
 \subsubsection[{obj\-\_\-isfloatoutlet}]{\setlength{\rightskip}{0pt plus 5cm}int obj\-\_\-isfloatoutlet (
 \begin{DoxyParamCaption}
-\item[{t\-\_\-object $\ast$}]{x, }
+\item[{{\bf t\-\_\-object} $\ast$}]{x, }
 \item[{int}]{m}
 \end{DoxyParamCaption}
 )}}\label{ecommon_8h_a16c90f22690cdce6c698af830d8a3a0d}
@@ -576,36 +583,36 @@ Definition at line 59 of file ecommon.\-c.
 \index{object\-\_\-attr\-\_\-getvalueof@{object\-\_\-attr\-\_\-getvalueof}!ecommon.h@{ecommon.\-h}}
 \subsubsection[{object\-\_\-attr\-\_\-getvalueof}]{\setlength{\rightskip}{0pt plus 5cm}void object\-\_\-attr\-\_\-getvalueof (
 \begin{DoxyParamCaption}
-\item[{t\-\_\-object $\ast$}]{x, }
-\item[{t\-\_\-symbol $\ast$}]{s, }
+\item[{{\bf t\-\_\-object} $\ast$}]{x, }
+\item[{{\bf t\-\_\-symbol} $\ast$}]{s, }
 \item[{long $\ast$}]{argc, }
-\item[{t\-\_\-atom $\ast$$\ast$}]{argv}
+\item[{{\bf t\-\_\-atom} $\ast$$\ast$}]{argv}
 \end{DoxyParamCaption}
 )}}\label{ecommon_8h_a3fb846c57f360ca1f353fd826da37c5c}
 
 
-Definition at line 129 of file ecommon.\-c.
+Definition at line 127 of file ecommon.\-c.
 
 \hypertarget{ecommon_8h_a25294ad2c3ae990aee1609847a11395d}{\index{ecommon.\-h@{ecommon.\-h}!object\-\_\-attr\-\_\-setvalueof@{object\-\_\-attr\-\_\-setvalueof}}
 \index{object\-\_\-attr\-\_\-setvalueof@{object\-\_\-attr\-\_\-setvalueof}!ecommon.h@{ecommon.\-h}}
 \subsubsection[{object\-\_\-attr\-\_\-setvalueof}]{\setlength{\rightskip}{0pt plus 5cm}void object\-\_\-attr\-\_\-setvalueof (
 \begin{DoxyParamCaption}
-\item[{t\-\_\-object $\ast$}]{x, }
-\item[{t\-\_\-symbol $\ast$}]{s, }
+\item[{{\bf t\-\_\-object} $\ast$}]{x, }
+\item[{{\bf t\-\_\-symbol} $\ast$}]{s, }
 \item[{long}]{argc, }
-\item[{t\-\_\-atom $\ast$}]{argv}
+\item[{{\bf t\-\_\-atom} $\ast$}]{argv}
 \end{DoxyParamCaption}
 )}}\label{ecommon_8h_a25294ad2c3ae990aee1609847a11395d}
 
 
-Definition at line 123 of file ecommon.\-c.
+Definition at line 121 of file ecommon.\-c.
 
 \hypertarget{ecommon_8h_ad1421d9b47627735246620816e14c583}{\index{ecommon.\-h@{ecommon.\-h}!object\-\_\-method@{object\-\_\-method}}
 \index{object\-\_\-method@{object\-\_\-method}!ecommon.h@{ecommon.\-h}}
 \subsubsection[{object\-\_\-method}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ object\-\_\-method (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{x, }
-\item[{t\-\_\-symbol $\ast$}]{s, }
+\item[{{\bf t\-\_\-symbol} $\ast$}]{s, }
 \item[{void $\ast$}]{z, }
 \item[{{\bf method}}]{method, }
 \item[{long}]{number, }
@@ -614,13 +621,13 @@ Definition at line 123 of file ecommon.\-c.
 )}}\label{ecommon_8h_ad1421d9b47627735246620816e14c583}
 
 
-Definition at line 100 of file ecommon.\-c.
+Definition at line 98 of file ecommon.\-c.
 
 \hypertarget{ecommon_8h_a55ef15be4b15368563c3c90377b3c4ad}{\index{ecommon.\-h@{ecommon.\-h}!outlet\-\_\-int@{outlet\-\_\-int}}
 \index{outlet\-\_\-int@{outlet\-\_\-int}!ecommon.h@{ecommon.\-h}}
 \subsubsection[{outlet\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}void outlet\-\_\-int (
 \begin{DoxyParamCaption}
-\item[{t\-\_\-outlet $\ast$}]{outlet, }
+\item[{{\bf t\-\_\-outlet} $\ast$}]{outlet, }
 \item[{int}]{val}
 \end{DoxyParamCaption}
 )}}\label{ecommon_8h_a55ef15be4b15368563c3c90377b3c4ad}
@@ -638,7 +645,7 @@ Definition at line 29 of file ecommon.\-c.
 )}}\label{ecommon_8h_a72e8fce89a53e376a0f87aed4b0db839}
 
 
-Definition at line 316 of file ecommon.\-c.
+Definition at line 319 of file ecommon.\-c.
 
 \hypertarget{ecommon_8h_aef0008cfecf157b30a23b75e2809de34}{\index{ecommon.\-h@{ecommon.\-h}!pd\-\_\-angle@{pd\-\_\-angle}}
 \index{pd\-\_\-angle@{pd\-\_\-angle}!ecommon.h@{ecommon.\-h}}
@@ -650,7 +657,7 @@ Definition at line 316 of file ecommon.\-c.
 )}}\label{ecommon_8h_aef0008cfecf157b30a23b75e2809de34}
 
 
-Definition at line 326 of file ecommon.\-c.
+Definition at line 329 of file ecommon.\-c.
 
 \hypertarget{ecommon_8h_add3283aa6ba04d08137864cafe6f6f9d}{\index{ecommon.\-h@{ecommon.\-h}!pd\-\_\-clip\-\_\-max@{pd\-\_\-clip\-\_\-max}}
 \index{pd\-\_\-clip\-\_\-max@{pd\-\_\-clip\-\_\-max}!ecommon.h@{ecommon.\-h}}
@@ -662,7 +669,7 @@ Definition at line 326 of file ecommon.\-c.
 )}}\label{ecommon_8h_add3283aa6ba04d08137864cafe6f6f9d}
 
 
-Definition at line 303 of file ecommon.\-c.
+Definition at line 306 of file ecommon.\-c.
 
 \hypertarget{ecommon_8h_aaf903379e311a82f9751e5a46b2c1fe7}{\index{ecommon.\-h@{ecommon.\-h}!pd\-\_\-clip\-\_\-min@{pd\-\_\-clip\-\_\-min}}
 \index{pd\-\_\-clip\-\_\-min@{pd\-\_\-clip\-\_\-min}!ecommon.h@{ecommon.\-h}}
@@ -674,7 +681,7 @@ Definition at line 303 of file ecommon.\-c.
 )}}\label{ecommon_8h_aaf903379e311a82f9751e5a46b2c1fe7}
 
 
-Definition at line 295 of file ecommon.\-c.
+Definition at line 298 of file ecommon.\-c.
 
 \hypertarget{ecommon_8h_adf6baaf432492f82f3d1b0d8e9926322}{\index{ecommon.\-h@{ecommon.\-h}!pd\-\_\-clip\-\_\-minmax@{pd\-\_\-clip\-\_\-minmax}}
 \index{pd\-\_\-clip\-\_\-minmax@{pd\-\_\-clip\-\_\-minmax}!ecommon.h@{ecommon.\-h}}
@@ -687,7 +694,7 @@ Definition at line 295 of file ecommon.\-c.
 )}}\label{ecommon_8h_adf6baaf432492f82f3d1b0d8e9926322}
 
 
-Definition at line 342 of file ecommon.\-c.
+Definition at line 345 of file ecommon.\-c.
 
 \hypertarget{ecommon_8h_a6b912f648381e0f6aec8a74f3b728af1}{\index{ecommon.\-h@{ecommon.\-h}!pd\-\_\-ordinate@{pd\-\_\-ordinate}}
 \index{pd\-\_\-ordinate@{pd\-\_\-ordinate}!ecommon.h@{ecommon.\-h}}
@@ -699,7 +706,7 @@ Definition at line 342 of file ecommon.\-c.
 )}}\label{ecommon_8h_a6b912f648381e0f6aec8a74f3b728af1}
 
 
-Definition at line 311 of file ecommon.\-c.
+Definition at line 314 of file ecommon.\-c.
 
 \hypertarget{ecommon_8h_aad8a5cc41128597ac09f6237a44f48ad}{\index{ecommon.\-h@{ecommon.\-h}!pd\-\_\-radius@{pd\-\_\-radius}}
 \index{pd\-\_\-radius@{pd\-\_\-radius}!ecommon.h@{ecommon.\-h}}
@@ -711,22 +718,22 @@ Definition at line 311 of file ecommon.\-c.
 )}}\label{ecommon_8h_aad8a5cc41128597ac09f6237a44f48ad}
 
 
-Definition at line 321 of file ecommon.\-c.
+Definition at line 324 of file ecommon.\-c.
 
 \hypertarget{ecommon_8h_a405bcb340ca01ca40cc1c3021e27f4dc}{\index{ecommon.\-h@{ecommon.\-h}!symbol\-\_\-from\-\_\-fsymbol@{symbol\-\_\-from\-\_\-fsymbol}}
 \index{symbol\-\_\-from\-\_\-fsymbol@{symbol\-\_\-from\-\_\-fsymbol}!ecommon.h@{ecommon.\-h}}
-\subsubsection[{symbol\-\_\-from\-\_\-fsymbol}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-symbol$\ast$ symbol\-\_\-from\-\_\-fsymbol (
+\subsubsection[{symbol\-\_\-from\-\_\-fsymbol}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-symbol}$\ast$ symbol\-\_\-from\-\_\-fsymbol (
 \begin{DoxyParamCaption}
-\item[{t\-\_\-symbol $\ast$}]{s}
+\item[{{\bf t\-\_\-symbol} $\ast$}]{s}
 \end{DoxyParamCaption}
 )}}\label{ecommon_8h_a405bcb340ca01ca40cc1c3021e27f4dc}
 
 
-Definition at line 157 of file ecommon.\-c.
+Definition at line 158 of file ecommon.\-c.
 
 \hypertarget{ecommon_8h_ab6ac723b8bd77cc26fa013df393212ab}{\index{ecommon.\-h@{ecommon.\-h}!symbolout@{symbolout}}
 \index{symbolout@{symbolout}!ecommon.h@{ecommon.\-h}}
-\subsubsection[{symbolout}]{\setlength{\rightskip}{0pt plus 5cm}t\-\_\-outlet$\ast$ symbolout (
+\subsubsection[{symbolout}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-outlet}$\ast$ symbolout (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{x}
 \end{DoxyParamCaption}

@@ -1,0 +1,34 @@
+#N canvas 543 133 642 350 10;
+#X obj -28 -74 cnv 40 552 40 empty empty c.freeverb~ 3 12 0 18 -228856
+-33289 0;
+#X text 65 228 Coffee by Pierre Guillot | CICM - Université Paris 8
+;
+#X obj 97 182 dac~;
+#X msg 477 131 \; pd dsp 1;
+#X msg 477 172 \; pd dsp 0;
+#X obj 32 49 phasor~ 1;
+#X text -26 -53 A freeverb implementation;
+#X text -27 -31 c.freeverb~ uses the freeverb algorithm.;
+#X obj 32 112 c.freeverb~ left;
+#X obj 142 112 c.freeverb~ right;
+#X text 282 106 arg 1 : right or left;
+#X msg 164 48 roomsize \$1;
+#X obj 164 17 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 244 17 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 244 48 damp \$1;
+#X connect 5 0 8 0;
+#X connect 5 0 9 0;
+#X connect 8 0 2 0;
+#X connect 9 0 2 1;
+#X connect 11 0 9 0;
+#X connect 11 0 8 0;
+#X connect 12 0 11 0;
+#X connect 13 0 14 0;
+#X connect 14 0 9 0;
+#X connect 14 0 8 0;

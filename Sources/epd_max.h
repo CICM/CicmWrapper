@@ -1,7 +1,7 @@
 /*
- * PdEnhanced - Pure Data Enhanced 
+ * CicmWrapper
  *
- * An add-on for Pure Data
+ * A wrapper for Pure Data
  *
  * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8
  * All rights reserved.
@@ -54,8 +54,8 @@
 #define t_jbox              t_ebox
 #define t_pxobject          t_ebox
 
-#define CLASS_BOX				gensym("box")
-#define CLASS_NOBOX				gensym("nobox")
+//#define CLASS_OBJ				gensym("box")
+//#define CLASS_BOX				gensym("nobox")
 #define Z_NO_INPLACE 1
 #define Z_PUT_LAST 2
 #define Z_PUT_FIRST 4
@@ -71,7 +71,7 @@
 #define class_dspinit(class)                        eclassbox_dspinit(class)
 #define class_dspinitjbox(class)                    eclass_dspinit(class)
 #define class_register(name_space, class)           eclass_register(name_space, class)
-#define object_alloc(class)                         eobject_alloc(class)
+#define object_alloc(class)                         eobj_new(class)
 #define jbox_new(t_jbox, flags, argc, argv)         ebox_new(t_jbox, flags, argc, argv)
 #define dsp_setupjbox(t_jbox, nins, nouts)          ebox_dspsetup(t_jbox, nins, nouts)
 #define jbox_ready(t_jbox)                          ebox_ready(t_jbox)
@@ -82,10 +82,10 @@
 #define jbox_resize_outputs(t_jbox, nouts)          ebox_resize_outputs(t_jbox, nouts)
 #define jbox_get_rect_for_view(t_object, view, rect) ebox_get_rect_for_view(t_object, view, rect)
 #define jmouse_setcursor(patcherview, t_jbox, mode) ebox_set_cursor(t_jbox, mode)
-#define jbox_start_layer                            ebox_start_layer
-#define jbox_end_layer                              ebox_end_layer
-#define jbox_invalidate_layer                       ebox_invalidate_layer
-#define jbox_paint_layer                            ebox_paint_layer
+#define jbox_start_layer(box, view, name, x, y)     ebox_start_layer((t_ebox *)box, name, x, y)
+#define jbox_end_layer(box, view, name)             ebox_end_layer((t_ebox *)box, name)
+#define jbox_invalidate_layer(box, view, name)      ebox_invalidate_layer((t_ebox *)box, name)
+#define jbox_paint_layer(box, view, name, x, y)     ebox_paint_layer((t_ebox *)box, name, x, y)
 #define jbox_notify(object, s, msg, sender, data)   ebox_notify(object, s, msg, sender, data)
 
 #define jbox_get_fontname(object)                   ebox_get_fontname(object)

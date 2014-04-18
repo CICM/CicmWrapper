@@ -4,10 +4,17 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>PdEnhanced: /Users/Pierre/SourceTree/PdEnhanced/SourcesDev/ebox/ebox_patcher.c File Reference</title>
+<title>CICM Wrapper: /Users/Pierre/SourceTree/PdEnhanced/Sources/ebox/ebox_patcher.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -22,9 +29,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">PdEnhanced
+   <div id="projectname">CICM Wrapper
    &#160;<span id="projectnumber">Beta 0.1</span>
    </div>
+   <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
  </tr>
  </tbody>
@@ -64,12 +72,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>Globals</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('ebox__patcher_8c.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -78,11 +101,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_a4a890ee75b887c5396ee96d929275cc.html">SourcesDev</a></li><li class="navelem"><a class="el" href="dir_12f8335e6602db849b5483ec18526216.html">ebox</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
@@ -96,19 +114,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a238d26e6c68e5e076d68550aaed93de4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ebox__patcher_8c.html#a238d26e6c68e5e076d68550aaed93de4">ebox_patcher_editmode</a> (<a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *x, t_symbol *s, long argc, t_atom *argv)</td></tr>
+<tr class="memitem:a238d26e6c68e5e076d68550aaed93de4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ebox__patcher_8c.html#a238d26e6c68e5e076d68550aaed93de4">ebox_patcher_editmode</a> (<a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *x, <a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *s, long argc, <a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *argv)</td></tr>
 <tr class="memdesc:a238d26e6c68e5e076d68550aaed93de4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the patcher notification when editmode has changed (PRIVATE)  <a href="#a238d26e6c68e5e076d68550aaed93de4">More...</a><br/></td></tr>
 <tr class="separator:a238d26e6c68e5e076d68550aaed93de4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e2f9a1e29c6a534ee88fb398a73b321"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ebox__patcher_8c.html#a1e2f9a1e29c6a534ee88fb398a73b321">ebox_patcher_motion</a> (<a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *x, t_symbol *s, long argc, t_atom *argv)</td></tr>
+<tr class="memitem:a1e2f9a1e29c6a534ee88fb398a73b321"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ebox__patcher_8c.html#a1e2f9a1e29c6a534ee88fb398a73b321">ebox_patcher_motion</a> (<a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *x, <a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *s, long argc, <a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *argv)</td></tr>
 <tr class="memdesc:a1e2f9a1e29c6a534ee88fb398a73b321"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the patcher notification when mouse has moved (PRIVATE)  <a href="#a1e2f9a1e29c6a534ee88fb398a73b321">More...</a><br/></td></tr>
 <tr class="separator:a1e2f9a1e29c6a534ee88fb398a73b321"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a178bae5a8f3dfd07a8e0310a0f64c4bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ebox__patcher_8c.html#a178bae5a8f3dfd07a8e0310a0f64c4bd">ebox_patcher_key</a> (<a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *x, t_symbol *s, long argc, t_atom *argv)</td></tr>
+<tr class="memitem:a178bae5a8f3dfd07a8e0310a0f64c4bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ebox__patcher_8c.html#a178bae5a8f3dfd07a8e0310a0f64c4bd">ebox_patcher_key</a> (<a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *x, <a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *s, long argc, <a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *argv)</td></tr>
 <tr class="memdesc:a178bae5a8f3dfd07a8e0310a0f64c4bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the patcher notification when keys has been pressed (PRIVATE)  <a href="#a178bae5a8f3dfd07a8e0310a0f64c4bd">More...</a><br/></td></tr>
 <tr class="separator:a178bae5a8f3dfd07a8e0310a0f64c4bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e522523147e8daaddc4225fc4d2dda5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ebox__patcher_8c.html#a9e522523147e8daaddc4225fc4d2dda5">ebox_patcher_mouse</a> (<a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *x, t_symbol *s, long argc, t_atom *argv)</td></tr>
+<tr class="memitem:a9e522523147e8daaddc4225fc4d2dda5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ebox__patcher_8c.html#a9e522523147e8daaddc4225fc4d2dda5">ebox_patcher_mouse</a> (<a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *x, <a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *s, long argc, <a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *argv)</td></tr>
 <tr class="memdesc:a9e522523147e8daaddc4225fc4d2dda5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the patcher notification when mouse has been pressed (PRIVATE)  <a href="#a9e522523147e8daaddc4225fc4d2dda5">More...</a><br/></td></tr>
 <tr class="separator:a9e522523147e8daaddc4225fc4d2dda5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04a3e1d11ed535867c985d3596723e54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ebox__patcher_8c.html#a04a3e1d11ed535867c985d3596723e54">ebox_patcher_focus</a> (<a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *x, t_symbol *s, long argc, t_atom *argv)</td></tr>
+<tr class="memitem:a04a3e1d11ed535867c985d3596723e54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ebox__patcher_8c.html#a04a3e1d11ed535867c985d3596723e54">ebox_patcher_focus</a> (<a class="el" href="estruct_8h.html#a7e9080d551b06530af7cb6f574e90bbe">t_ebox</a> *x, <a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *s, long argc, <a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *argv)</td></tr>
 <tr class="memdesc:a04a3e1d11ed535867c985d3596723e54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the patcher notification when focus has changed (PRIVATE)  <a href="#a04a3e1d11ed535867c985d3596723e54">More...</a><br/></td></tr>
 <tr class="separator:a04a3e1d11ed535867c985d3596723e54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -126,7 +144,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_symbol *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *&#160;</td>
           <td class="paramname"><em>s</em>, </td>
         </tr>
         <tr>
@@ -138,7 +156,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_atom *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *&#160;</td>
           <td class="paramname"><em>argv</em>&#160;</td>
         </tr>
         <tr>
@@ -168,7 +186,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_symbol *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *&#160;</td>
           <td class="paramname"><em>s</em>, </td>
         </tr>
         <tr>
@@ -180,7 +198,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_atom *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *&#160;</td>
           <td class="paramname"><em>argv</em>&#160;</td>
         </tr>
         <tr>
@@ -210,7 +228,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_symbol *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *&#160;</td>
           <td class="paramname"><em>s</em>, </td>
         </tr>
         <tr>
@@ -222,7 +240,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_atom *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *&#160;</td>
           <td class="paramname"><em>argv</em>&#160;</td>
         </tr>
         <tr>
@@ -252,7 +270,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_symbol *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *&#160;</td>
           <td class="paramname"><em>s</em>, </td>
         </tr>
         <tr>
@@ -264,7 +282,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_atom *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *&#160;</td>
           <td class="paramname"><em>argv</em>&#160;</td>
         </tr>
         <tr>
@@ -294,7 +312,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_symbol *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a2db18d99dc6ea00736f0a356270160ba">t_symbol</a> *&#160;</td>
           <td class="paramname"><em>s</em>, </td>
         </tr>
         <tr>
@@ -306,7 +324,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_atom *&#160;</td>
+          <td class="paramtype"><a class="el" href="m__pd_8h.html#a551a350aa0901b990791fd13ae62ad01">t_atom</a> *&#160;</td>
           <td class="paramname"><em>argv</em>&#160;</td>
         </tr>
         <tr>
@@ -324,11 +342,15 @@ Functions</h2></td></tr>
 </div>
 </div>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 27 2013 09:25:27 for PdEnhanced by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.5
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_937900b87e0c7a5fa01190c395fb83f7.html">Sources</a></li><li class="navelem"><a class="el" href="dir_a715551f008a258e8c98b20824bea57f.html">ebox</a></li><li class="navelem"><a class="el" href="ebox__patcher_8c.html">ebox_patcher.c</a></li>
+    <li class="footer">Generated on Mon Jan 20 2014 15:33:06 for CICM Wrapper by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 /*
- * PdEnhanced - Pure Data Enhanced
+ * CicmWrapper - Pure Data Enhanced
  *
- * An add-on for Pure Data
+ * A wrapper for Pure Data
  *
  * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8
  * All rights reserved.
@@ -78,7 +78,7 @@ long modifier_wrapper(long mod)
 
 	if(mod >= 131080)
 	{
-		xod -= 131080;
+		mod -= 131080;
 		mod += EMOD_ALT;
 	}
 	else
@@ -195,6 +195,18 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
             }
         }
     }
+    else
+    {
+        x->b_move_box = eobj_get_mouse_canvas_position(x);
+        if(!x->b_mouse_down)
+        {
+            sys_vgui("pdtk_canvas_motion %s %i %i 0\n", x->b_canvas_id->s_name, (int)x->b_move_box.x, (int)x->b_move_box.y);
+        }
+        else
+        {
+            sys_vgui("pdtk_canvas_motion %s %i %i 1\n", x->b_canvas_id->s_name, (int)x->b_move_box.x, (int)x->b_move_box.y);
+        }
+    }
 }
 
 //! The mouse drag method called via mouse move method when mouse down (PRIVATE)
@@ -242,7 +254,7 @@ void ebox_mouse_down(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
         if(c->c_widget.w_mousedown)
             c->c_widget.w_mousedown(x, x->b_obj.o_canvas, x->b_mouse, x->b_modifiers);
     }
-    else if(!x->b_isinsubcanvas)
+    else
     {
         x->b_mouse.x = atom_getfloat(argv);
         x->b_mouse.y = atom_getfloat(argv+1);
@@ -284,7 +296,7 @@ void ebox_mouse_up(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
         if(c->c_widget.w_mouseup)
             c->c_widget.w_mouseup(x, x->b_obj.o_canvas, x->b_mouse, x->b_modifiers);
     }
-    else if(!x->b_isinsubcanvas)
+    else
     {
         x->b_move_box = eobj_get_mouse_canvas_position(x);
         sys_vgui("pdtk_canvas_mouseup %s %i %i 0\n", x->b_canvas_id->s_name, (int)x->b_move_box.x, (int)x->b_move_box.y);
@@ -534,7 +546,7 @@ void ebox_deserted(t_ebox *x)
 //! The default save method for UI ebox (PRIVATE)
 /*
  \ @memberof        ebox
- \ @param z         The gobj
+ \ @param x         The ebox pointer
  \ @param b         The binbuf
  \ @return          Nothing
 */
@@ -570,6 +582,46 @@ void ebox_dosave(t_ebox* x, t_binbuf *b)
     binbuf_addv(b, ";");
 }
 
+//! The method to move an UI ebox (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param newx      The new abscissa
+ \ @param newy      The new ordinate
+ \ @return          Nothing
+ */
+void ebox_pos(t_ebox* x, int newx, int newy)
+{
+    x->b_rect.x = newx;
+    x->b_rect.y = newy;
+    x->b_obj.o_obj.te_xpix = newx;
+    x->b_obj.o_obj.te_ypix = newy;
+    
+    ebox_move(x);
+}
+
+//! The method to show or hide an UI ebox (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param vis       The visible state
+ \ @return          Nothing
+ */
+void ebox_vis(t_ebox* x, int vis)
+{
+    vis = pd_clip_minmax(vis, 0, 1);
+    if(x->b_visible != vis)
+    {
+        x->b_visible = vis;
+        if(x->b_visible && x->b_ready_to_draw && x->b_obj.o_canvas)
+        {
+            canvas_redraw(x->b_obj.o_canvas);
+        }
+        else
+            ebox_erase(x);
+    }
+}
+
 //! The default user id method for all ebox called by PD (PRIVATE)
 /*
  \ @memberof        ebox
@@ -579,21 +631,44 @@ void ebox_dosave(t_ebox* x, t_binbuf *b)
  \ @param argv      The array of atoms
  \ @return          Always 0 (for the moment)
 */
-t_pd_err ebox_set_id(t_ebox *x, t_object *attr, long argc, t_atom *argv)
+t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, long argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) != gensym("(null)"))
     {
-		if(x->b_objuser_id != gensym("(null)"))
-			pd_unbind(&x->b_obj.o_obj.ob_pd, x->b_objuser_id);
-        x->b_objuser_id = atom_getsym(argv);
-        pd_bind(&x->b_obj.o_obj.ob_pd, x->b_objuser_id);
+		if(x->b_receive_id != gensym("(null)"))
+			pd_unbind(&x->b_obj.o_obj.ob_pd, x->b_receive_id);
+        x->b_receive_id = atom_getsym(argv);
+        pd_bind(&x->b_obj.o_obj.ob_pd, x->b_receive_id);
     }
     else
     {
-        if(x->b_objuser_id != gensym("(null)"))
-			pd_unbind(&x->b_obj.o_obj.ob_pd, x->b_objuser_id);
-        x->b_objuser_id = gensym("(null)");
+        if(x->b_receive_id != gensym("(null)"))
+			pd_unbind(&x->b_obj.o_obj.ob_pd, x->b_receive_id);
+        x->b_receive_id = gensym("(null)");
     }
+    return 0;
+}
+
+//! The default user send id method for all ebox called by PD (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The gobj
+ \ @param attr      Nothing (for Max 6 compatibility)
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Always 0 (for the moment)
+ */
+t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, long argc, t_atom *argv)
+{
+    if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) != gensym("(null)"))
+    {
+        x->b_send_id = atom_getsym(argv);
+    }
+    else
+    {
+        x->b_send_id = gensym("(null)");
+    }
+
     return 0;
 }
 
@@ -638,12 +713,12 @@ t_pd_err ebox_set_font(t_ebox *x, t_object *attr, long argc, t_atom *argv)
     if(argc && argv && atom_gettype(argv) == A_SYM)
     {
 		if(atom_getsym(argv) == gensym("(null)"))
-            x->b_font.c_family = gensym(sys_font);
+            x->b_font.c_family = gensym("Helvetica");
         else
             x->b_font.c_family = atom_getsym(argv);
     }
     else
-        x->b_font.c_family = gensym(sys_font);
+        x->b_font.c_family = gensym("Helvetica");
 
     x->b_font.c_family = gensym(strtok(x->b_font.c_family->s_name," ',.-"));
     x->b_font.c_family->s_name[0] = toupper(x->b_font.c_family->s_name[0]);
@@ -717,8 +792,8 @@ t_pd_err ebox_set_fontsize(t_ebox *x, t_object *attr, long argc, t_atom *argv)
         x->b_font.c_sizereal = 11;
 #ifdef __APPLE__
     x->b_font.c_size = x->b_font.c_sizereal;
-#elif   _WINDOWS_
-    x->b_font.c_size = x->b_font.c_sizereal- 1;
+#elif  _WINDOWS
+    x->b_font.c_size = x->b_font.c_sizereal - 1;
 #else
     x->b_font.c_size = x->b_font.c_sizereal - 3;
 #endif
@@ -758,6 +833,7 @@ t_pd_err ebox_size_set(t_ebox *x, t_object *attr, long argc, t_atom *argv)
                     x->b_rect.width  =  width;
                 }
             }
+            
         }
         else if (x->b_flags & EBOX_GROWINDI)
         {
@@ -838,21 +914,38 @@ void ebox_properties(t_ebox *x, t_glist *glist)
 
     for(i = 0; i < c->c_nattr; i++)
     {
-        object_attr_getvalueof((t_object *)x, c->c_attr[i].name, &argc, &argv);
-        strcat(buffer, " ");
-        strcat(buffer, "\"");
-        if(argc && argv)
+        if(!c->c_attr[i].invisible)
         {
-#ifndef _WINDOWS
-            for(j = 0; j < argc-1; j++)
-#else
-            for(j = 0; j < argc; j++)
-#endif
+            object_attr_getvalueof((t_object *)x, c->c_attr[i].name, &argc, &argv);
+            strcat(buffer, " ");
+            strcat(buffer, "\"");
+            if(argc && argv)
             {
+#ifndef _WINDOWS
+                for(j = 0; j < argc-1; j++)
+#else
+                    for(j = 0; j < argc; j++)
+#endif
+                    {
+                        atom_string(argv+j, temp, MAXPDSTRING);
+                        if(c->c_attr[i].type == gensym("symbol") && strchr(temp, ' '))
+                        {
+                            
+                            strcat(buffer, "'");
+                            strcat(buffer, temp);
+                            strcat(buffer, "'");
+                        }
+                        else
+                        {
+                            strcat(buffer, temp);
+                        }
+                        strcat(buffer, " ");
+                    }
+#ifndef _WINDOWS
                 atom_string(argv+j, temp, MAXPDSTRING);
                 if(c->c_attr[i].type == gensym("symbol") && strchr(temp, ' '))
                 {
-
+                    
                     strcat(buffer, "'");
                     strcat(buffer, temp);
                     strcat(buffer, "'");
@@ -861,26 +954,12 @@ void ebox_properties(t_ebox *x, t_glist *glist)
                 {
                     strcat(buffer, temp);
                 }
-                strcat(buffer, " ");
-            }
-#ifndef _WINDOWS
-            atom_string(argv+j, temp, MAXPDSTRING);
-            if(c->c_attr[i].type == gensym("symbol") && strchr(temp, ' '))
-            {
-
-                strcat(buffer, "'");
-                strcat(buffer, temp);
-                strcat(buffer, "'");
-            }
-            else
-            {
-                strcat(buffer, temp);
-            }
-            free(argv);
-            argc = 0;
+                free(argv);
+                argc = 0;
 #endif
+            }
+            strcat(buffer, "\"");
         }
-        strcat(buffer, "\"");
     }
     strcat(buffer, "\n");
     //post(buffer);
@@ -897,10 +976,69 @@ void ebox_properties(t_ebox *x, t_glist *glist)
  */
 void ebox_dialog(t_ebox *x, t_symbol *s, long argc, t_atom* argv)
 {
-    if(argc && argv)
+    int i;
+    int attrindex;
+    t_eclass* c = eobj_getclass(x);
+    t_atom *av;
+    long ac;
+    char buffer[MAXPDSTRING];
+    char temp[MAXPDSTRING];
+    t_rgb color;
+    
+    if(argc > 2 && argv)
     {
         ebox_attrprocess_viatoms(x, argc, argv);
-        ebox_properties(x, NULL);
+        if(atom_gettype(argv) == A_SYM && atom_gettype(argv+1) ==A_FLOAT)
+        {
+            attrindex = (int)atom_getfloat(argv+1) - 1;
+            if(attrindex >= 0 && attrindex < c->c_nattr)
+            {
+                object_attr_getvalueof((t_object *)x, c->c_attr[attrindex].name, &ac, &av);
+                if(ac && av)
+                {
+                    if(c->c_attr[attrindex].style == gensym("checkbutton"))
+                    {
+                        if(atom_getfloat(av) == 0)
+                            sys_vgui("%s.sele%i.selec deselect \n", atom_getsym(argv)->s_name, attrindex+1);
+                        else
+                            sys_vgui("%s.sele%i.selec select \n", atom_getsym(argv)->s_name, attrindex+1);
+                    }
+                    else if(c->c_attr[attrindex].style == gensym("color"))
+                    {
+                        color.red = atom_getfloat(av);
+                        color.green = atom_getfloat(av+1);
+                        color.blue = atom_getfloat(av+2);
+                        sys_vgui("%s.sele%i.selec configure -readonlybackground %s \n", atom_getsym(argv)->s_name, attrindex+1, rgb_to_hex(color));
+                    }
+                    else if(c->c_attr[attrindex].style == gensym("menu"))
+                    {
+                        atom_string(av, buffer, MAXPDSTRING);
+                        for(i = 1; i < ac; i++)
+                        {
+                            atom_string(av+i, temp, MAXPDSTRING);
+                            strcat(buffer, " ");
+                            strcat(buffer, temp);
+                        }
+                        sys_vgui("%s.sele%i.selec delete 0 end \n", atom_getsym(argv)->s_name, attrindex+1);
+                        sys_vgui("%s.sele%i.selec insert 0 \"%s\" \n", atom_getsym(argv)->s_name, attrindex+1, buffer);
+                    }
+                    else
+                    {
+                        atom_string(av, buffer, MAXPDSTRING);
+                        for(i = 1; i < ac; i++)
+                        {
+                            atom_string(av+i, temp, MAXPDSTRING);
+                            strcat(buffer, " ");
+                            strcat(buffer, temp);
+                        }
+                        sys_vgui("%s.sele%i.selec delete 0 end \n", atom_getsym(argv)->s_name, attrindex+1);
+                        sys_vgui("%s.sele%i.selec insert 0 \"%s\" \n", atom_getsym(argv)->s_name, attrindex+1, buffer);
+                        
+                    }
+                }
+                
+            }
+        }
     }
 }
 

@@ -1,7 +1,7 @@
 /*
- * PdEnhanced - Pure Data Enhanced 
+ * CicmWrapper
  *
- * An add-on for Pure Data
+ * A wrapper for Pure Data
  *
  * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8
  * All rights reserved.
@@ -72,10 +72,9 @@ void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
 {
     t_ebox* x   = (t_ebox *)z;
     t_eclass* c = eobj_getclass(x);
-    
     if(vis)
     {
-        if(eobj_isbox(x) && x->b_ready_to_draw)
+        if(eobj_isbox(x) && x->b_ready_to_draw && x->b_visible)
         {
 			ebox_create_window(x, glist);
             ebox_invalidate_all(x);
