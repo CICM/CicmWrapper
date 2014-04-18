@@ -25,25 +25,6 @@
  */
 
 #include "../c.library.h"
-extern "C"  {
-extern t_symbol *sys_libdir;
-}
-
-extern "C"
-{
-    typedef struct _namelist    /* element in a linked list of stored strings */
-    {
-        struct _namelist *nl_next;  /* next in list */
-        char *nl_string;            /* the string */
-    } t_namelist;
-
-#ifdef _APPLE_
-    extern t_namelist *sys_searchpath;
-#else
-	t_namelist *sys_searchpath = NULL;
-#endif
-}
-
 
 typedef struct  _blacboard
 {
@@ -417,8 +398,12 @@ void blackboard_arc(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 
 void blackboard_image(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 {
+	int fd;
     char path[MAXPDSTRING];
-    t_namelist* temp;
+	char name[MAXPDSTRING];
+	char *nameptr;
+	char *pch;
+
     if(!ebox_isdrawable((t_ebox *)x) || x->j_box.b_editor_id == NULL)
     {
         return;
@@ -442,20 +427,19 @@ void blackboard_image(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
                 ebox_redraw((t_ebox *)x);
                 return;
             }
-            temp = sys_searchpath;
-            while(temp)
-            {
-                sprintf(path, "%s/%s",temp->nl_string, atom_getsym(argv+2)->s_name);
-                if(access(path, O_RDONLY) != -1)
-                {
-                    sys_vgui("%s create image %d %d -anchor nw -image [image create photo -file %s] -tags %s\n", x->j_box.b_drawing_id->s_name,  (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), path, x->j_box.b_all_id->s_name);
-                    ebox_redraw((t_ebox *)x);
-                    return;
-                }
-                temp = temp->nl_next;
-            }
-            
-            ebox_redraw((t_ebox *)x);
+			sprintf(name, "%s", atom_getsym(argv+2)->s_name);
+			if(!strncmp(name+strlen(name)-4, ".gif", 4))
+			{
+				strncpy(name+strlen(name)-4, "\0", 4);
+			}
+			post(name);
+			fd = open_via_path(canvas_getdir(x->j_box.b_obj.o_canvas)->s_name, name,  ".gif", path, &nameptr, MAXPDSTRING, 0);
+            if(fd >= 0)
+			{
+				sys_vgui("%s create image %d %d -anchor nw -image [image create photo -file %s/%s.gif] -tags %s\n", x->j_box.b_drawing_id->s_name,  (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), path, name, x->j_box.b_all_id->s_name);
+                ebox_redraw((t_ebox *)x);
+				return;
+			}
         }
     }
     
