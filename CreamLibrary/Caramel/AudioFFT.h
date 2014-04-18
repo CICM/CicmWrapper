@@ -89,6 +89,9 @@
 
 #include <cstddef>
 
+#ifdef _APPLE_
+#define AUDIOFFT_APPLE_ACCELERATE
+#endif
 
 #if defined(AUDIOFFT_APPLE_ACCELERATE)
   #define AUDIOFFT_APPLE_ACCELERATE_USED

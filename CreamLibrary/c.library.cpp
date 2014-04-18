@@ -34,7 +34,9 @@ extern "C"
 	void setup_c0x2elibrary(void)
 	{
 		char path[MAXPDSTRING];
+#ifdef _WINDOWS
 		t_canvasenvironment *e = NULL;
+#endif
 		t_namelist* var = NULL;
     
 		post("Cream Library by Pierre Guillot");
@@ -73,26 +75,9 @@ extern "C"
 		setup_c0x2epatcherinfos();
 		setup_c0x2eprepend();
 
-#ifndef _WINDOWS
-		var = sys_searchpath;
-		while (var)
-		{
-			sprintf(path, "%s/CreamLibrary",var->nl_string);
-			if(strncmp(var->nl_string, "CreamLibrary", 10) == 0)
-			{
-				sprintf(path, "%s/misc", var->nl_string);
-				namelist_append(sys_searchpath, path, 1);
-				return;
-			}
-			else if(access(path, O_RDONLY) != -1)
-			{
-				sprintf(path, "%s/CreamLibrary/misc", var->nl_string);
-				namelist_append(sys_searchpath, path, 1);
-				return;
-			}
-			var = var->nl_next;
-		}
-#else
+#ifdef _WINDOWS
+
+        
 		if(!canvas_getcurrent())
 			return;
 		
@@ -117,6 +102,26 @@ extern "C"
 				}
 				var = var->nl_next;
 			}
+		}
+#else
+        
+		var = sys_searchpath;
+		while (var)
+		{
+			sprintf(path, "%s/CreamLibrary",var->nl_string);
+			if(strncmp(var->nl_string, "CreamLibrary", 10) == 0)
+			{
+				sprintf(path, "%s/misc", var->nl_string);
+				namelist_append(sys_searchpath, path, 1);
+				return;
+			}
+			else if(access(path, O_RDONLY) != -1)
+			{
+				sprintf(path, "%s/CreamLibrary/misc", var->nl_string);
+				namelist_append(sys_searchpath, path, 1);
+				return;
+			}
+			var = var->nl_next;
 		}
 #endif
 	}

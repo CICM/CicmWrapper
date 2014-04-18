@@ -102,7 +102,6 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @chalkmode
 #X text 23 305 c.knob;
 #X text -39 -27 developed to facilitate the creation of signal objects
 and GUI and to improve user interactions.;
-#X text -38 -42 Chocolate is a part of the Pd Enhanced Library;
 #X obj 323 269 c.bang @size 17 17 @fontname Helvetica @fontweight normal
 @fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
@@ -123,4 +122,5 @@ of the box to resize the objects. Sometimes the width or the height
 depends of the font size.;
 #X text 349 92 -The popup menu (for attributes and help) is only available
 with the "edit mode";
+#X text -38 -42 Chocolate is a part of the Cicm Wrapper;
 #X connect 19 0 18 0;
