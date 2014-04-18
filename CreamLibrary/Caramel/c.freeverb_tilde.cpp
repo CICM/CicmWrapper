@@ -245,7 +245,6 @@ extern "C"  void setup_c0x2efreeverb_tilde(void)
 	c = eclass_new("c.freeverb~", (method)freeverb_new, (method)freeverb_free, (short)sizeof(t_freeverb), 0L, A_GIMME, 0);
     
     eclass_dspinit(c);
-	
     eclass_addmethod(c, (method) freeverb_dsp,             "dsp",              A_CANT, 0);
 	eclass_addmethod(c, (method) freeverb_assist,          "assist",           A_CANT, 0);
     
@@ -253,7 +252,7 @@ extern "C"  void setup_c0x2efreeverb_tilde(void)
     eclass_addmethod(c, (method) freeverb_damp,            "damp",             A_FLOAT, 0);
     eclass_addmethod(c, (method) freeverb_freeze,          "freeze",           A_FLOAT, 0);
     
-    eclass_register(CLASS_BOX, c);
+    eclass_register(CLASS_OBJ, c);
 	freeverb_class = c;
 }
 
@@ -262,6 +261,7 @@ void *freeverb_new(t_symbol *s, int argc, t_atom *argv)
 	t_freeverb *x =  NULL;
 
 	x = (t_freeverb *)eobj_new(freeverb_class);
+	
     eobj_dspsetup((t_ebox *)x, 1, 1);
     
     if(argc && argv && atom_gettype(argv) == A_FLOAT)
@@ -274,9 +274,9 @@ void *freeverb_new(t_symbol *s, int argc, t_atom *argv)
     else if(argc && argv && atom_gettype(argv) == A_SYM)
     {
         if(atom_getsym(argv) == gensym("right"))
-            x->f_freeverb = new Freeverb(0);
-        else
             x->f_freeverb = new Freeverb(1);
+        else
+            x->f_freeverb = new Freeverb(0);
     }
     else
         x->f_freeverb = new Freeverb(0);    

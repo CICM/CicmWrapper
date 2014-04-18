@@ -97,7 +97,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <UseIntelIPP>Sequential</UseIntelIPP>
-    <UseIntelMKL>Sequential</UseIntelMKL>
+    <UseIntelMKL>No</UseIntelMKL>
     <PlatformToolset>v100</PlatformToolset>
     <WholeProgramOptimization>false</WholeProgramOptimization>
   </PropertyGroup>
@@ -183,7 +183,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/MACHINE:I386  /EXPORT:setup_c0x2elibrary %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>C:\Program Files (x86)\pd\bin\pd.lib;/LTCG;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\Sources\ecommon\pd.lib;libfftw3f-3.lib;/LTCG;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>Package/CreamLibrary/$(ProjectName).dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>..\PdEnhanced\Sources;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

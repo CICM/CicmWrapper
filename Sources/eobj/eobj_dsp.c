@@ -65,7 +65,7 @@ void eobj_dspsetup(void *x, long nins, long nouts)
         for( i = 0; i < 256; i++)
             obj->d_sigs_out[i] = obj->d_sigs_real+i*8192;
         for(i = obj_nsiginlets((t_object *)x); i < nins; i++)
-            obj->d_inlets[i] = eproxy_signalnew(&box->b_obj.o_obj, box->d_float);
+			obj->d_inlets[i] = eproxy_signalnew(&box->b_obj.o_obj, box->d_float);
         for(i = 0; i < nouts; i++)
             obj->d_outlets[i] = outlet_new(&obj->d_obj.o_obj, &s_signal);
         

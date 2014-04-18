@@ -91,6 +91,8 @@
 
 #ifdef _APPLE_
 #define AUDIOFFT_APPLE_ACCELERATE
+#elif _WINDOWS
+#define AUDIOFFT_OOURA
 #endif
 
 #if defined(AUDIOFFT_APPLE_ACCELERATE)
@@ -107,7 +109,6 @@
   #define AUDIOFFT_OOURA_USED
   #include <vector>
 #endif
-
 
 namespace audiofft
 {
