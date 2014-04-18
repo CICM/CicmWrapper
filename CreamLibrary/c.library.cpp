@@ -14,11 +14,22 @@ extern "C"
         char *nl_string;            /* the string */
     } t_namelist;
     
+    struct _canvasenvironment
+    {
+        t_symbol *ce_dir;      /* directory patch lives in */
+        int ce_argc;           /* number of "$" arguments */
+        t_atom *ce_argv;       /* array of "$" arguments */
+        int ce_dollarzero;     /* value of "$0" */
+        t_namelist *ce_path;   /* search path */
+    };
+    
     extern t_namelist *sys_externlist;
     extern t_namelist *sys_searchpath;
     extern t_namelist *sys_staticpath;
     extern t_namelist *sys_helppath;
     extern t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
+    extern t_namelist *namelist_append(t_namelist *listwas, const char *s, int allowdup);
+    extern t_symbol* sys_libdir;
 }
 
 extern "C" void setup_c0x2elibrary(void)
@@ -70,17 +81,41 @@ extern "C" void setup_c0x2elibrary(void)
         if(strncmp(var->nl_string, "CreamLibrary", 10) == 0)
         {
             sprintf(path, "%s/misc", var->nl_string);
-            namelist_append_files(sys_searchpath, path);
+            namelist_append(sys_searchpath, path, 1);
             return;
         }
         else if(access(path, O_RDONLY) != -1)
         {
             sprintf(path, "%s/CreamLibrary/misc", var->nl_string);
-            namelist_append_files(sys_searchpath, path);
+            namelist_append(sys_searchpath, path, 1);
             return;
         }
         var = var->nl_next;
     }
+#else
+    t_canvasenvironment *e = canvas_getenv(canvas_getcurrent());
+    if(e)
+    {
+        var = e->ce_path;
+        while (var)
+        {
+            sprintf(path, "%s/CreamLibrary",var->nl_string);
+            if(strncmp(var->nl_string, "CreamLibrary", 10) == 0)
+            {
+                sprintf(path, "%s/misc", var->nl_string);
+                namelist_append(sys_searchpath, path, 1);
+                return;
+            }
+            else if(access(path, O_RDONLY) != -1)
+            {
+                sprintf(path, "%s/CreamLibrary/misc", var->nl_string);
+                namelist_append(sys_searchpath, path, 1);
+                return;
+            }
+            var = var->nl_next;
+        }
+    }
 #endif
+    
 }
 

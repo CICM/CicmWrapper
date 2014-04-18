@@ -402,7 +402,6 @@ void blackboard_image(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
     char path[MAXPDSTRING];
 	char name[MAXPDSTRING];
 	char *nameptr;
-	char *pch;
 
     if(!ebox_isdrawable((t_ebox *)x) || x->j_box.b_editor_id == NULL)
     {
@@ -432,7 +431,7 @@ void blackboard_image(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 			{
 				strncpy(name+strlen(name)-4, "\0", 4);
 			}
-			post(name);
+
 			fd = open_via_path(canvas_getdir(x->j_box.b_obj.o_canvas)->s_name, name,  ".gif", path, &nameptr, MAXPDSTRING, 0);
             if(fd >= 0)
 			{
