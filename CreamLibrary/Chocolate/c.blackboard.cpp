@@ -26,6 +26,8 @@
 
 #include "../c.library.h"
 
+#define MAX_COMMANDS 2048
+
 typedef struct  _blacboard
 {
 	t_ebox      j_box;
@@ -46,7 +48,7 @@ typedef struct  _blacboard
     
     t_rgba		f_color_background;
 	t_rgba		f_color_border;
-    char*       f_instructions[256];
+    char*       f_instructions[MAX_COMMANDS];
     int         f_ninstructions;
 } t_blacboard;
 
@@ -175,7 +177,7 @@ void *blackboard_new(t_symbol *s, int argc, t_atom *argv)
     x->f_color      = gensym("#000000");
     x->f_fill       = 0;
     x->f_ninstructions = 0;
-    for(int i = 0; i < 256; i++)
+    for(int i = 0; i < MAX_COMMANDS; i++)
     {
         x->f_instructions[i] = (char *)malloc(MAXPDSTRING * sizeof(char));
     }
@@ -218,7 +220,7 @@ void blackboard_output(t_blacboard *x)
 void blackboard_free(t_blacboard *x)
 {
 	ebox_free((t_ebox *)x);
-    for(int i = 0; i < 256; i++)
+    for(int i = 0; i < MAX_COMMANDS; i++)
     {
         free(x->f_instructions[i]);
     }
@@ -244,7 +246,8 @@ void blackboard_clear(t_blacboard *x)
     if(!ebox_isdrawable((t_ebox *)x) || x->j_box.b_editor_id == NULL)
         return;
     
-    sys_vgui("%s delete %s\n", x->j_box.b_drawing_id->s_name, x->j_box.b_all_id->s_name);
+    sys_vgui("%s delete %snopen\n", x->j_box.b_drawing_id->s_name, x->j_box.b_all_id->s_name);
+    sys_vgui("%s delete %spen\n", x->j_box.b_drawing_id->s_name, x->j_box.b_all_id->s_name);
     
     for(int i = 0; i < x->f_ninstructions; i++)
         sprintf(x->f_instructions[i], "\n");
@@ -312,7 +315,7 @@ void blackboard_fill(t_blacboard *x, float f)
 
 void blackboard_line(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 {
-    if(x->f_ninstructions >= 256)
+    if(x->f_ninstructions >= MAX_COMMANDS)
     {
         object_error(x, "%s too many drawing commands.", eobj_getclassname(x)->s_name);
         return;
@@ -334,7 +337,7 @@ void blackboard_path(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
     int i;
     char text[MAXPDSTRING];
 
-    if(x->f_ninstructions >= 256)
+    if(x->f_ninstructions >= MAX_COMMANDS)
     {
         object_error(x, "%s too many drawing commands.", eobj_getclassname(x)->s_name);
         return;
@@ -373,7 +376,7 @@ void blackboard_path(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 
 void blackboard_rect(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 {
-    if(x->f_ninstructions >= 256)
+    if(x->f_ninstructions >= MAX_COMMANDS)
     {
         object_error(x, "%s too many drawing commands.", eobj_getclassname(x)->s_name);
         return;
@@ -396,7 +399,7 @@ void blackboard_rect(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 
 void blackboard_oval(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 {
-    if(x->f_ninstructions >= 256)
+    if(x->f_ninstructions >= MAX_COMMANDS)
     {
         object_error(x, "%s too many drawing commands.", eobj_getclassname(x)->s_name);
         return;
@@ -419,7 +422,7 @@ void blackboard_oval(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 
 void blackboard_arc(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 {
-    if(x->f_ninstructions >= 256)
+    if(x->f_ninstructions >= MAX_COMMANDS)
     {
         object_error(x, "%s too many drawing commands.", eobj_getclassname(x)->s_name);
         return;
@@ -447,7 +450,7 @@ void blackboard_image(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 	char name[MAXPDSTRING];
 	char *nameptr;
     
-    if(x->f_ninstructions >= 256)
+    if(x->f_ninstructions >= MAX_COMMANDS)
     {
         object_error(x, "%s too many drawing commands.", eobj_getclassname(x)->s_name);
         return;
@@ -500,7 +503,7 @@ void blackboard_text(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
     int i;
     char buffer[MAXPDSTRING];
     
-    if(x->f_ninstructions >= 256)
+    if(x->f_ninstructions >= MAX_COMMANDS)
     {
         object_error(x, "%s too many drawing commands.", eobj_getclassname(x)->s_name);
         return;
@@ -532,21 +535,20 @@ void blackboard_text(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 void blackboard_pen(t_blacboard *x)
 {
     sys_vgui("%s create line %d %d %d %d ", x->j_box.b_drawing_id->s_name, (int)(x->f_pen_old.x), (int)(x->f_pen_old.y), (int)(x->f_pen_new.x), (int)(x->f_pen_new.y));
-    sys_vgui("-fill %s -width %d -tags %s\n", x->f_color->s_name, (int)x->f_width,  x->j_box.b_all_id->s_name);
+    sys_vgui("-fill %s -width %d -tags %spen\n", x->f_color->s_name, (int)x->f_width,  x->j_box.b_all_id->s_name);
 }
 
 void blackboard_paint(t_blacboard *x, t_object *view)
 {
 	t_rect rect;
 	ebox_get_rect_for_view((t_ebox *)x, &rect);
-    if(!ebox_isdrawable((t_ebox *)x) || x->j_box.b_editor_id == NULL)
-        return;
     
-    sys_vgui("%s delete %s\n", x->j_box.b_drawing_id->s_name, x->j_box.b_all_id->s_name);
+    sys_vgui("%s delete %snopen\n", x->j_box.b_drawing_id->s_name, x->j_box.b_all_id->s_name);
     for(int i = 0; i < x->f_ninstructions; i++)
     {
-        sys_vgui("%s %s -tags %s\n", x->j_box.b_drawing_id->s_name, x->f_instructions[i], x->j_box.b_all_id->s_name);
+        sys_vgui("%s %s -tags %snopen\n", x->j_box.b_drawing_id->s_name, x->f_instructions[i], x->j_box.b_all_id->s_name);
     }
+
     x->f_box = rect;
 }
 

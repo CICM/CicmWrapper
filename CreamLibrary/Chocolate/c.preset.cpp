@@ -292,8 +292,14 @@ void preset_float(t_preset *x, float f)
     int index = (int)f;
     t_binbuf* b = NULL;
 
-    if(index < 1 || index > MAXBINBUF || !x->f_init || x->f_binbuf_selected == index)
+    if(!x->f_init)
         return;
+    
+    if(index < 1)
+        index = 1;
+    else if(index > MAXBINBUF)
+        index = MAXBINBUF;
+    
     b = x->f_binbuf[index-1];
     if(binbuf_getnatom(b) == 0 || binbuf_getvec(b) == NULL)
         return;
@@ -334,8 +340,10 @@ void preset_interpolate(t_preset *x, float f)
     char id[MAXPDSTRING];
     int i, j, indexdo, indexup, realdo, realup;
     float ratio;
+    
     if(!x->f_init)
         return;
+    
     max = -1;
     for(i = MAXBINBUF-1; i >= 0; i--)
     {
@@ -348,15 +356,14 @@ void preset_interpolate(t_preset *x, float f)
     if(max < 1)
         return;
 
-    f = pd_clip_minmax(f, 1, max);
-
     indexdo = pd_clip_minmax(floorf(f)-1, 0, max-1);
     indexup = pd_clip_minmax(ceilf(f)-1, 0, max-1);
-    if(indexdo == indexup)
+    if(indexdo == indexup || f <= 1 || f >= max)
     {
         preset_float(x, f);
         return;
     }
+    
     x->f_binbuf_selected = indexup;
     
     // Look for all the objects in a canvas //
