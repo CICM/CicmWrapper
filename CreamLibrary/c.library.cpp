@@ -73,6 +73,7 @@ extern "C"
 		setup_c0x2epak();
 		setup_c0x2epatcherargs();
 		setup_c0x2epatcherinfos();
+        //setup_c0x2epatchermess();
 		setup_c0x2eprepend();
 
 #ifdef _WINDOWS
