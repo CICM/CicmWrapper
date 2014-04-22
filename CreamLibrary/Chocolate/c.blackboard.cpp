@@ -44,9 +44,10 @@ typedef struct  _blacboard
     t_outlet*   f_out_drag;
     t_outlet*   f_out_down;
     
-    
     t_rgba		f_color_background;
 	t_rgba		f_color_border;
+    char*       f_instructions[256];
+    int         f_ninstructions;
 } t_blacboard;
 
 t_eclass *blackboard_class;
@@ -173,9 +174,16 @@ void *blackboard_new(t_symbol *s, int argc, t_atom *argv)
     x->f_width      = 1;
     x->f_color      = gensym("#000000");
     x->f_fill       = 0;
+    x->f_ninstructions = 0;
+    for(int i = 0; i < 256; i++)
+    {
+        x->f_instructions[i] = (char *)malloc(MAXPDSTRING * sizeof(char));
+    }
     
 	ebox_attrprocess_viabinbuf(x, d);
 	ebox_ready((t_ebox *)x);
+    
+    
 	return (x);
 }
 
@@ -210,6 +218,10 @@ void blackboard_output(t_blacboard *x)
 void blackboard_free(t_blacboard *x)
 {
 	ebox_free((t_ebox *)x);
+    for(int i = 0; i < 256; i++)
+    {
+        free(x->f_instructions[i]);
+    }
 }
 
 void blackboard_assist(t_blacboard *x, void *b, long m, long a, char *s)
@@ -221,10 +233,6 @@ t_pd_err blackboard_notify(t_blacboard *x, t_symbol *s, t_symbol *msg, void *sen
 {
 	if (msg == gensym("attr_modified"))
 	{
-		if(s == gensym("bgcolor") || s == gensym("bdcolor"))
-		{
-			ebox_invalidate_layer((t_ebox *)x, gensym("point_layer"));
-		}
         ebox_redraw((t_ebox *)x);
         
 	}
@@ -235,7 +243,13 @@ void blackboard_clear(t_blacboard *x)
 {
     if(!ebox_isdrawable((t_ebox *)x) || x->j_box.b_editor_id == NULL)
         return;
+    
     sys_vgui("%s delete %s\n", x->j_box.b_drawing_id->s_name, x->j_box.b_all_id->s_name);
+    
+    for(int i = 0; i < x->f_ninstructions; i++)
+        sprintf(x->f_instructions[i], "\n");
+    x->f_ninstructions = 0;
+    
     ebox_redraw((t_ebox *)x);
 }
 
@@ -298,14 +312,18 @@ void blackboard_fill(t_blacboard *x, float f)
 
 void blackboard_line(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 {
-    if(!ebox_isdrawable((t_ebox *)x) || x->j_box.b_editor_id == NULL)
+    if(x->f_ninstructions >= 256)
+    {
+        object_error(x, "%s too many drawing commands.", eobj_getclassname(x)->s_name);
         return;
+    }
+    
     if(argc > 3 && argv)
     {
         if (atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT && atom_gettype(argv+2) == A_FLOAT && atom_gettype(argv+3) == A_FLOAT)
         {
-            sys_vgui("%s create line %d %d %d %d ", x->j_box.b_drawing_id->s_name, (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), (int)atom_getfloat(argv+2), (int)atom_getfloat(argv+3));
-            sys_vgui("-fill %s -width %d -tags %s\n", x->f_color->s_name, (int)x->f_width,  x->j_box.b_all_id->s_name);
+            sprintf(x->f_instructions[x->f_ninstructions], "create line %d %d %d %d -fill %s -width %d", (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), (int)atom_getfloat(argv+2), (int)atom_getfloat(argv+3), x->f_color->s_name, (int)x->f_width);
+            x->f_ninstructions++;
         }
         ebox_redraw((t_ebox *)x);
     }
@@ -314,27 +332,40 @@ void blackboard_line(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 void blackboard_path(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 {
     int i;
-    if(!ebox_isdrawable((t_ebox *)x) || x->j_box.b_editor_id == NULL)
+    char text[MAXPDSTRING];
+
+    if(x->f_ninstructions >= 256)
+    {
+        object_error(x, "%s too many drawing commands.", eobj_getclassname(x)->s_name);
         return;
+    }
+    
     if(argc > 3 && argv)
     {
         if (atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT && atom_gettype(argv+2) == A_FLOAT && atom_gettype(argv+3) == A_FLOAT)
         {
             if(x->f_fill)
-                sys_vgui("%s create polygon %d %d %d %d ", x->j_box.b_drawing_id->s_name, (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), (int)atom_getfloat(argv+2), (int)atom_getfloat(argv+3));
+                sprintf(x->f_instructions[x->f_ninstructions], "create polygon %d %d %d %d ", (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), (int)atom_getfloat(argv+2), (int)atom_getfloat(argv+3));
             else
-                sys_vgui("%s create line  %d %d %d %d", x->j_box.b_drawing_id->s_name, (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), (int)atom_getfloat(argv+2), (int)atom_getfloat(argv+3));
+                sprintf(x->f_instructions[x->f_ninstructions], "create line  %d %d %d %d", (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), (int)atom_getfloat(argv+2), (int)atom_getfloat(argv+3));
             
             for(i = 4; i < argc; i += 2)
             {
                 if(argc > i+1 && atom_gettype(argv+i) == A_FLOAT && atom_gettype(argv+i+1) == A_FLOAT)
-                    sys_vgui("%d %d ", (int)atom_getfloat(argv+i), (int)atom_getfloat(argv+i+1));
+                {
+                    sprintf(text, "%d %d ", (int)atom_getfloat(argv+i), (int)atom_getfloat(argv+i+1));
+                    strcat(x->f_instructions[x->f_ninstructions], text);
+                }
             }
             
             if(x->f_fill)
-                sys_vgui("-fill %s -width 0 -tags %s\n", x->f_color->s_name,  x->j_box.b_all_id->s_name);
+                sprintf(text, "-fill %s -width 0 ", x->f_color->s_name);
             else
-                sys_vgui("-fill %s -width %d -tags %s\n", x->f_color->s_name, (int)x->f_width, x->j_box.b_all_id->s_name);
+                sprintf(text, "-fill %s -width %d", x->f_color->s_name, (int)x->f_width);
+            
+            strcat(x->f_instructions[x->f_ninstructions], text);
+
+            x->f_ninstructions++;
             ebox_redraw((t_ebox *)x);
         }
     }
@@ -342,18 +373,22 @@ void blackboard_path(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 
 void blackboard_rect(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 {
-    if(!ebox_isdrawable((t_ebox *)x) || x->j_box.b_editor_id == NULL)
+    if(x->f_ninstructions >= 256)
+    {
+        object_error(x, "%s too many drawing commands.", eobj_getclassname(x)->s_name);
         return;
+    }
+    
     if(argc > 3 && argv)
     {
         if (atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT && atom_gettype(argv+2) == A_FLOAT && atom_gettype(argv+3) == A_FLOAT)
         {
-            sys_vgui("%s create rectangle %d %d %d %d ", x->j_box.b_drawing_id->s_name, (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), (int)atom_getfloat(argv+2), (int)atom_getfloat(argv+3));
-            
             if(x->f_fill)
-                sys_vgui("-fill %s -width 0 -tags %s\n", x->f_color->s_name,  x->j_box.b_all_id->s_name);
+                sprintf(x->f_instructions[x->f_ninstructions],"create rectangle %d %d %d %d -fill %s -width 0", (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), (int)atom_getfloat(argv+2), (int)atom_getfloat(argv+3), x->f_color->s_name);
             else
-                sys_vgui("-outline %s -width %d -tags %s\n", x->f_color->s_name, (int)x->f_width, x->j_box.b_all_id->s_name);
+                sprintf(x->f_instructions[x->f_ninstructions],"create rectangle %d %d %d %d -outline %s -width %d", (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), (int)atom_getfloat(argv+2), (int)atom_getfloat(argv+3), x->f_color->s_name, (int)x->f_width);
+            
+            x->f_ninstructions++;
             ebox_redraw((t_ebox *)x);
         }
     }
@@ -361,18 +396,22 @@ void blackboard_rect(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 
 void blackboard_oval(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 {
-    if(!ebox_isdrawable((t_ebox *)x)|| x->j_box.b_editor_id == NULL)
+    if(x->f_ninstructions >= 256)
+    {
+        object_error(x, "%s too many drawing commands.", eobj_getclassname(x)->s_name);
         return;
+    }
+
     if(argc > 3 && argv)
     {
         if (atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT && atom_gettype(argv+2) == A_FLOAT && atom_gettype(argv+3) == A_FLOAT)
         {
-            sys_vgui("%s create oval %d %d %d %d ", x->j_box.b_drawing_id->s_name, (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), (int)atom_getfloat(argv+2), (int)atom_getfloat(argv+3));
-            
             if(x->f_fill)
-                sys_vgui("-fill %s -width 0 -tags %s\n", x->f_color->s_name,  x->j_box.b_all_id->s_name);
+                sprintf(x->f_instructions[x->f_ninstructions],"create oval %d %d %d %d -fill %s -width 0", (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), (int)atom_getfloat(argv+2), (int)atom_getfloat(argv+3), x->f_color->s_name);
             else
-                sys_vgui("-outline %s -width %d -tags %s\n", x->f_color->s_name, (int)x->f_width, x->j_box.b_all_id->s_name);
+                sprintf(x->f_instructions[x->f_ninstructions],"create oval %d %d %d %d -outline %s -width %d", (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), (int)atom_getfloat(argv+2), (int)atom_getfloat(argv+3), x->f_color->s_name, (int)x->f_width);
+            
+            x->f_ninstructions++;
             ebox_redraw((t_ebox *)x);
         }
     }
@@ -380,18 +419,22 @@ void blackboard_oval(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 
 void blackboard_arc(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 {
-    if(!ebox_isdrawable((t_ebox *)x) || x->j_box.b_editor_id == NULL)
+    if(x->f_ninstructions >= 256)
+    {
+        object_error(x, "%s too many drawing commands.", eobj_getclassname(x)->s_name);
         return;
+    }
+    
     if(argc > 5 && argv)
     {
         if (atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT && atom_gettype(argv+2) == A_FLOAT && atom_gettype(argv+3) == A_FLOAT && atom_gettype(argv+4) == A_FLOAT && atom_gettype(argv+5) == A_FLOAT)
         {
-            sys_vgui("%s create arc %d %d %d %d -start %d -extent %d ", x->j_box.b_drawing_id->s_name, (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), (int)atom_getfloat(argv+2), (int)atom_getfloat(argv+3), (int)atom_getfloat(argv+4), (int)atom_getfloat(argv+5));
-        
             if(x->f_fill)
-                sys_vgui("-style pieslice -fill %s -width 0 -tags %s\n", x->f_color->s_name,  x->j_box.b_all_id->s_name);
+                sprintf(x->f_instructions[x->f_ninstructions], "create arc %d %d %d %d -start %d -extent %d -style pieslice -fill %s -width 0", (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), (int)atom_getfloat(argv+2), (int)atom_getfloat(argv+3), (int)atom_getfloat(argv+4), (int)atom_getfloat(argv+5), x->f_color->s_name);
             else
-                sys_vgui("-style arc -outline %s -width %d -tags %s\n", x->f_color->s_name, (int)x->f_width, x->j_box.b_all_id->s_name);
+                sprintf(x->f_instructions[x->f_ninstructions], "create arc %d %d %d %d -start %d -extent %d -style arc -outline %s -width %d", (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), (int)atom_getfloat(argv+2), (int)atom_getfloat(argv+3), (int)atom_getfloat(argv+4), (int)atom_getfloat(argv+5), x->f_color->s_name, (int)x->f_width);
+        
+            x->f_ninstructions++;
             ebox_redraw((t_ebox *)x);
         }
     }
@@ -403,9 +446,10 @@ void blackboard_image(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
     char path[MAXPDSTRING];
 	char name[MAXPDSTRING];
 	char *nameptr;
-
-    if(!ebox_isdrawable((t_ebox *)x) || x->j_box.b_editor_id == NULL)
+    
+    if(x->f_ninstructions >= 256)
     {
+        object_error(x, "%s too many drawing commands.", eobj_getclassname(x)->s_name);
         return;
     }
 
@@ -416,14 +460,18 @@ void blackboard_image(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
             sprintf(path, "%s",atom_getsym(argv+2)->s_name);
             if(access(path, O_RDONLY) != -1)
             {
-                sys_vgui("%s create image %d %d -anchor nw -image [image create photo -file %s] -tags %s\n", x->j_box.b_drawing_id->s_name,  (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), path, x->j_box.b_all_id->s_name);
+                sprintf(x->f_instructions[x->f_ninstructions], "create image %d %d -anchor nw -image [image create photo -file %s]", (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), path);
+                
+                x->f_ninstructions++;
                 ebox_redraw((t_ebox *)x);
                 return;
             }
             sprintf(path, "%s/%s", canvas_getdir(x->j_box.b_obj.o_canvas)->s_name, atom_getsym(argv+2)->s_name);
             if(access(path, O_RDONLY) != -1)
             {
-                sys_vgui("%s create image %d %d -anchor nw -image [image create photo -file %s] -tags %s\n", x->j_box.b_drawing_id->s_name,  (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), path, x->j_box.b_all_id->s_name);
+                sprintf(x->f_instructions[x->f_ninstructions], "create image %d %d -anchor nw -image [image create photo -file %s]", (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), path);
+                
+                x->f_ninstructions++;
                 ebox_redraw((t_ebox *)x);
                 return;
             }
@@ -436,7 +484,9 @@ void blackboard_image(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 			fd = open_via_path(canvas_getdir(x->j_box.b_obj.o_canvas)->s_name, name,  ".gif", path, &nameptr, MAXPDSTRING, 0);
             if(fd >= 0)
 			{
-				sys_vgui("%s create image %d %d -anchor nw -image [image create photo -file %s/%s.gif] -tags %s\n", x->j_box.b_drawing_id->s_name,  (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), path, name, x->j_box.b_all_id->s_name);
+                sprintf(x->f_instructions[x->f_ninstructions], "create image %d %d -anchor nw -image [image create photo -file %s/%s.gif]", (int)atom_getfloat(argv), (int)atom_getfloat(argv+1), path, name);
+                
+                x->f_ninstructions++;
                 ebox_redraw((t_ebox *)x);
 				return;
 			}
@@ -449,21 +499,33 @@ void blackboard_text(t_blacboard *x, t_symbol *s, int argc, t_atom *argv)
 {
     int i;
     char buffer[MAXPDSTRING];
-    if(!ebox_isdrawable((t_ebox *)x) || x->j_box.b_editor_id == NULL)
+    
+    if(x->f_ninstructions >= 256)
+    {
+        object_error(x, "%s too many drawing commands.", eobj_getclassname(x)->s_name);
         return;
+    }
+    
     if(argc > 2 && argv)
     {
         if (atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT)
         {
-            sys_vgui("%s create text %d %d -anchor nw -text {", x->j_box.b_drawing_id->s_name, (int)atom_getfloat(argv), (int)atom_getfloat(argv+1));
+            sprintf(x->f_instructions[x->f_ninstructions], "create text %d %d -anchor nw -text {", (int)atom_getfloat(argv), (int)atom_getfloat(argv+1));
+            
             for(i = 2; i < argc; i++)
             {
                 atom_string(argv+i, buffer, MAXPDSTRING);
-                sys_vgui("%s ", buffer);
+                strcat(x->f_instructions[x->f_ninstructions], " ");
+                strcat(x->f_instructions[x->f_ninstructions], buffer);
             }
-            sys_vgui("} -font {%s %d %s} -fill %s -tags %s\n", x->j_box.b_font.c_family->s_name, (int)x->j_box.b_font.c_size, x->j_box.b_font.c_weight->s_name, x->f_color->s_name, x->j_box.b_all_id->s_name);
+            
+            sprintf(buffer, "} -font {%s %d %s} -fill %s", x->j_box.b_font.c_family->s_name, (int)x->j_box.b_font.c_size, x->j_box.b_font.c_weight->s_name, x->f_color->s_name);
+            strcat(x->f_instructions[x->f_ninstructions], buffer);
+            
+            x->f_ninstructions++;
+            ebox_redraw((t_ebox *)x);
         }
-        ebox_redraw((t_ebox *)x);
+        
     }
 }
 
@@ -471,13 +533,20 @@ void blackboard_pen(t_blacboard *x)
 {
     sys_vgui("%s create line %d %d %d %d ", x->j_box.b_drawing_id->s_name, (int)(x->f_pen_old.x), (int)(x->f_pen_old.y), (int)(x->f_pen_new.x), (int)(x->f_pen_new.y));
     sys_vgui("-fill %s -width %d -tags %s\n", x->f_color->s_name, (int)x->f_width,  x->j_box.b_all_id->s_name);
-    ebox_redraw((t_ebox *)x);
 }
 
 void blackboard_paint(t_blacboard *x, t_object *view)
 {
 	t_rect rect;
 	ebox_get_rect_for_view((t_ebox *)x, &rect);
+    if(!ebox_isdrawable((t_ebox *)x) || x->j_box.b_editor_id == NULL)
+        return;
+    
+    sys_vgui("%s delete %s\n", x->j_box.b_drawing_id->s_name, x->j_box.b_all_id->s_name);
+    for(int i = 0; i < x->f_ninstructions; i++)
+    {
+        sys_vgui("%s %s -tags %s\n", x->j_box.b_drawing_id->s_name, x->f_instructions[i], x->j_box.b_all_id->s_name);
+    }
     x->f_box = rect;
 }
 
