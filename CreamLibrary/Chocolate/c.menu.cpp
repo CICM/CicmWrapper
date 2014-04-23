@@ -60,8 +60,8 @@ void menu_assist(t_menu *x, void *b, long m, long a, char *s);
 
 t_pd_err menu_notify(t_menu *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 t_pd_err menu_states_set(t_menu *x, t_object *attr, long ac, t_atom *av);
-//t_pd_err menu_items_set(t_menu *x, t_object *attr, long ac, t_atom *av); Perhaps we'll need later ?
-//t_pd_err menu_items_get(t_menu *x, t_object *attr, long* ac, t_atom **av);
+t_pd_err menu_items_set(t_menu *x, t_object *attr, long ac, t_atom *av);
+t_pd_err menu_items_get(t_menu *x, t_object *attr, long* ac, t_atom **av);
 
 void menu_append(t_menu *x, t_symbol *s, int argc, t_atom *argv);
 void menu_insert(t_menu *x, t_symbol *s, int argc, t_atom *argv);
@@ -131,6 +131,7 @@ extern "C" void setup_c0x2emenu(void)
     
     CLASS_ATTR_SYMBOL_VARSIZE       (c, "items", 0, t_menu, f_items, f_items_size, MAXITEMS);
     CLASS_ATTR_LABEL                (c, "items", 0, "Items");
+    CLASS_ATTR_ACCESSORS            (c, "items", menu_items_get, menu_items_set);
     CLASS_ATTR_ORDER                (c, "items", 0, "1");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "items", 0, "(null)");
     
@@ -636,38 +637,40 @@ void menu_preset(t_menu *x, t_binbuf *b)
 {
     binbuf_addv(b, "sf", gensym("float"), (float)x->f_item_selected);
 }
-/*
+
 t_pd_err menu_items_set(t_menu *x, t_object *attr, long ac, t_atom *av)
 {
-    int nvalid_items;
+    char text[MAXPDSTRING];
     menu_clear(x, NULL, 0, NULL);
+
     if(ac && av)
     {
         for(int i = 0; i < ac; i++)
         {
-            
+            atom_string(av+i, text, MAXPDSTRING);
+            x->f_items[i] = gensym(text);
         }
+        
     }
+    
+    x->f_items_size = ac;
     return 0;
 }
-
 
 t_pd_err menu_items_get(t_menu *x, t_object *attr, long* ac, t_atom **av)
 {
     int i;
-    char buf[MAXPDSTRING];
     if(*av)
         free(av);
     *ac = x->f_items_size;
     av[0] = (t_atom *)calloc(*ac, sizeof(t_atom));
     for(i = 0; i < *ac; i++)
     {
-        sprintf(buf, "'%s'", x->f_items[i]->s_name);
         atom_setsym(av[0]+i, x->f_items[i]);
     }
     
     return 0;
-}*/
+}
 
 
 
