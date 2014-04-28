@@ -479,12 +479,16 @@ void number_mousedrag(t_number *x, t_object *patcherview, t_pt pt, long modifier
 {
     x->f_mode = 0;
     ebox_set_cursor((t_ebox *)x, 2);
-
+    float value;
     if(modifiers == EMOD_SHIFT)
-        x->f_value = x->f_refvalue + (pt.y - x->f_deriv) * x->f_inc * 0.01;
+        value = x->f_refvalue + (pt.y - x->f_deriv) * x->f_inc * 0.01;
     else
-        x->f_value = x->f_refvalue + (pt.y - x->f_deriv) * x->f_inc * 0.5;
+        value = x->f_refvalue + (pt.y - x->f_deriv) * x->f_inc * 0.5;
 
+    if(PD_BADFLOAT(value) || PD_BIGORSMALL(value))
+        return;
+    
+    x->f_value = value;
     number_output(x);
     ebox_invalidate_layer((t_ebox *)x, gensym("value_layer"));
     ebox_redraw((t_ebox *)x);

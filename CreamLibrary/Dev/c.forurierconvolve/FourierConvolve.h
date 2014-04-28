@@ -23,7 +23,7 @@
 #endif
 
 extern "C" {
-#include "../../Sources/cicm_wrapper.h"
+#include "../../../Sources/cicm_wrapper.h"
 }
 namespace Cicm
 {
@@ -68,9 +68,8 @@ public:
         ~FourierConvolve();
     
         void setIr(float *buffer, int size);
-        void setIr(double *buffer, int size);
         
-        void prepareToPlay();
+        void prepare(int vectorsize);
         void perform(float* input, float* output, int sampleframes);
         void performAdd(float* input, float* output, int sampleframes);
         
