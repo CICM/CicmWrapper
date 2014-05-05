@@ -99,9 +99,6 @@
   #define AUDIOFFT_APPLE_ACCELERATE_USED
   #include <Accelerate/Accelerate.h>
   #include <vector>
-#elif AUDIOFFT_FFTW3
-  #define AUDIOFFT_FFTW3_USED
-  #include <fftw3.h>
 #else
   #ifndef AUDIOFFT_OOURA
     #define AUDIOFFT_OOURA
