@@ -128,6 +128,19 @@ struct _outlet
     t_symbol *o_sym;
 };
 
+typedef struct _namelist    /* element in a linked list of stored strings */
+{
+    struct _namelist *nl_next;  /* next in list */
+    char *nl_string;            /* the string */
+} t_namelist;
+
+EXTERN t_namelist *sys_externlist;
+EXTERN t_namelist *sys_searchpath;
+EXTERN t_namelist *sys_staticpath;
+EXTERN t_namelist *sys_helppath;
+EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
+EXTERN t_canvas *canvas_list;       /* list of all root canvases */
+
 typedef void        (*method)(void* x, ...);
 typedef void*       (*rmethod)(void* x, ...);
 typedef long        (*t_err_method)(void* x, ...);
@@ -182,6 +195,7 @@ double pd_ordinate(double radius, double angle);
 double pd_abscissa(double radius, double angle);
 double pd_radius(double x, double y);
 double pd_angle(double x, double y);
+void pd_library_add_folder(char* libraryname, char* folder);
 
 #ifdef _WINDOWS
 
