@@ -360,12 +360,13 @@ void breakpoints_getlist(t_breakpoints *x)
     if(x->f_number_of_points)
     {
         av = (t_atom *)calloc(x->f_number_of_points * 2, sizeof(t_atom));
-        for(i = 0, j = 2; i < x->f_number_of_points; j += 2, i++)
+        for(i = 0, j = 0; i < x->f_number_of_points; j += 2, i++)
         {
             atom_setfloat(av+j, x->f_point_ordinate[i]);
             atom_setfloat(av+j+1, x->f_point_abscissa[i]);
         }
         outlet_list(x->f_out_function, &s_list, x->f_number_of_points * 2, av);
+		free(av);
     }
 }
 
