@@ -23,13 +23,11 @@ extern "C"
         t_namelist *ce_path;   /* search path */
     };
     
-    extern t_namelist *sys_externlist;
-    extern t_namelist *sys_searchpath;
-    extern t_namelist *sys_staticpath;
-    extern t_namelist *sys_helppath;
-    extern t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
-    extern t_namelist *namelist_append(t_namelist *listwas, const char *s, int allowdup);
-    extern t_symbol* sys_libdir;
+    EXTERN t_namelist *sys_externlist;
+    EXTERN t_namelist *sys_searchpath;
+    EXTERN t_namelist *sys_staticpath;
+    EXTERN t_namelist *sys_helppath;
+    EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
 	
 	void setup_c0x2elibrary(void)
 	{
