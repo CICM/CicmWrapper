@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
+	<File name="c.library.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="832" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="../Sources/ecommon/m_pd.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="11059" topLine="330" />
+		</Cursor>
+	</File>
 	<File name="Chocolate/c.preset.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="8439" topLine="220" />
+			<Cursor1 position="8575" topLine="214" />
+		</Cursor>
+	</File>
+	<File name="Chocolate/c.rslider.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="15223" topLine="430" />
+		</Cursor>
+	</File>
+	<File name="Chocolate/c.toggle.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7493" topLine="227" />
+		</Cursor>
+	</File>
+	<File name="Chocolate/c.scope_tilde.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5660" topLine="121" />
+		</Cursor>
+	</File>
+	<File name="Chocolate/c.bang.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="18" />
 		</Cursor>
 	</File>
 	<File name="Chocolate/c.knob.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="15" />
+		</Cursor>
+	</File>
+	<File name="../Sources/eclass/eclass_basic.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2280" topLine="57" />
 		</Cursor>
 	</File>
 	<File name="Chocolate/c.number_tilde.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -19,41 +54,6 @@
 	<File name="../Sources/ecommon/d_ugen.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Chocolate/c.bang.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="18" />
-		</Cursor>
-	</File>
-	<File name="../Sources/eclass/eclass_basic.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2280" topLine="57" />
-		</Cursor>
-	</File>
-	<File name="Chocolate/c.toggle.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="7353" topLine="226" />
-		</Cursor>
-	</File>
-	<File name="c.library.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="832" topLine="18" />
-		</Cursor>
-	</File>
-	<File name="Chocolate/c.scope_tilde.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5660" topLine="121" />
-		</Cursor>
-	</File>
-	<File name="Chocolate/c.rslider.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="15223" topLine="430" />
-		</Cursor>
-	</File>
-	<File name="../Sources/ecommon/m_pd.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="11063" topLine="332" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

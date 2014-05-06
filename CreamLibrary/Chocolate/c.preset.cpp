@@ -32,7 +32,7 @@ typedef struct _preset
 {
 	t_ebox      j_box;
 
-    t_binbuf**  f_binbuf;
+    t_binbuf*   f_binbuf[256];
     int         f_nbinbufs;
     int         f_binbuf_selected;
     int         f_binbuf_hover;
@@ -175,8 +175,6 @@ void *preset_new(t_symbol *s, int argc, t_atom *argv)
     | EBOX_GROWINDI
     ;
 	ebox_new((t_ebox *)x, flags);
-
-    x->f_binbuf = (t_binbuf **)calloc(MAXBINBUF, sizeof(t_binbuf *));
 
     for(i = 0; i < MAXBINBUF; i++)
         x->f_binbuf[i]  = binbuf_new();
@@ -529,7 +527,6 @@ void preset_free(t_preset *x)
 	ebox_free((t_ebox *)x);
     for(i = 0; i < MAXBINBUF; i++)
         binbuf_free(x->f_binbuf[i]);
-    free(x->f_binbuf);
 }
 
 void preset_assist(t_preset *x, void *b, long m, long a, char *s)
