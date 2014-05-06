@@ -136,7 +136,7 @@ t_eclass* eobj_getclass(void* x)
 t_symbol* eobj_getclassname(void* x)
 {
     t_eobj *z = (t_eobj *)x;
-    return gensym(z->o_obj.te_g.g_pd->c_name->s_name);
+    return z->o_obj.te_g.g_pd->c_name;
 }
 
 /*!

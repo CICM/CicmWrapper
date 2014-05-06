@@ -463,6 +463,28 @@ double pd_clip_minmax(double aValue, double aMinimum, double aMaximum)
         return aValue;
 }
 
+void pd_library_add_folder(char* libraryname, char* folder)
+{
+	char path[MAXPDSTRING];
+	t_namelist* var = sys_searchpath;
+	while (var)
+	{
+		sprintf(path, "%s/%s",var->nl_string, libraryname);
+		if(strncmp(var->nl_string, libraryname, strlen(libraryname)) == 0)
+		{
+			sprintf(path, "%s/%s", var->nl_string, folder);
+			namelist_append_files(sys_searchpath, path);
+			return;
+		}
+		else if(access(path, O_RDONLY) != -1)
+		{
+			sprintf(path, "%s/%s/%s", var->nl_string, libraryname, folder);
+			namelist_append_files(sys_searchpath, path);
+			return;
+		}
+		var = var->nl_next;
+	}
+}
 
 
 
