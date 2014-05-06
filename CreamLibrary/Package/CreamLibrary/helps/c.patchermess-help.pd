@@ -1,0 +1,15 @@
+#N canvas 311 160 729 408 10;
+#X obj -25 -74 cnv 40 552 40 empty empty c.patcherinfos 3 12 0 18 -228856
+-33289 0;
+#X text -13 308 Coffee by Pierre Guillot | CICM - Université Paris
+8;
+#X obj 57 189 c.patchermess;
+#X obj 317 108 c.canvasinfos;
+#X obj 317 136 c.prepend set;
+#X msg 317 165;
+#X msg 57 145 text 20 120 zaoz zaza;
+#X text -22 -52 An object that send messages to the patcher.;
+#X text -24 -31 c.patcherinfos send messages to the patcher.;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 6 0 2 0;

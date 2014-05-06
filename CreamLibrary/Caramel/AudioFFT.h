@@ -95,13 +95,10 @@
 #define AUDIOFFT_FFTW3
 #endif
 
-#if defined(AUDIOFFT_APPLE_ACCELERATE)
+#ifdef _APPLE_
   #define AUDIOFFT_APPLE_ACCELERATE_USED
   #include <Accelerate/Accelerate.h>
   #include <vector>
-#elif defined (AUDIOFFT_FFTW3)
-  #define AUDIOFFT_FFTW3_USED
-  #include <fftw3.h>
 #else
   #ifndef AUDIOFFT_OOURA
     #define AUDIOFFT_OOURA

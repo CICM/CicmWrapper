@@ -26,17 +26,6 @@
 
 #include "eobj.h"
 
-typedef struct _namelist    /* element in a linked list of stored strings */
-{
-    struct _namelist *nl_next;  /* next in list */
-    char *nl_string;            /* the string */
-} t_namelist;
-
-extern t_namelist *sys_externlist;
-extern t_namelist *sys_searchpath;
-extern t_namelist *sys_staticpath;
-extern t_namelist *sys_helppath;
-
 static t_pt mouse_global_pos;
 static t_pt mouse_patcher_pos;
 

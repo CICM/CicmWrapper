@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		59FB02F817A7FAA9001E977D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FB02F717A7FAA9001E977D /* Accelerate.framework */; };
 		8F26F18B17E76274005FCB97 /* c.library.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F26F18A17E76273005FCB97 /* c.library.cpp */; };
+		8F53164C1906F50A00734AD6 /* c.patchermess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F53164B1906F50A00734AD6 /* c.patchermess.cpp */; };
 		8FB8EAF819007A1E005FAF6A /* cicm_wrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EAC619007A1E005FAF6A /* cicm_wrapper.h */; };
 		8FB8EAF919007A1E005FAF6A /* ebox.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EAC819007A1E005FAF6A /* ebox.h */; };
 		8FB8EAFA19007A1E005FAF6A /* ebox_attr.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8EAC919007A1E005FAF6A /* ebox_attr.c */; };
@@ -90,6 +91,7 @@
 		5913846F15DAA36D0029AD16 /* c.library.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = c.library.pd_darwin; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FB02F717A7FAA9001E977D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		8F26F18A17E76273005FCB97 /* c.library.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = c.library.cpp; sourceTree = "<group>"; };
+		8F53164B1906F50A00734AD6 /* c.patchermess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = c.patchermess.cpp; sourceTree = "<group>"; };
 		8FB8EAC619007A1E005FAF6A /* cicm_wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cicm_wrapper.h; sourceTree = "<group>"; };
 		8FB8EAC819007A1E005FAF6A /* ebox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ebox.h; sourceTree = "<group>"; };
 		8FB8EAC919007A1E005FAF6A /* ebox_attr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ebox_attr.c; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 				8FB8EB6B190080E9005FAF6A /* c.pak.cpp */,
 				8FB8EB6C190080E9005FAF6A /* c.patcherargs.cpp */,
 				8FB8EB6D190080E9005FAF6A /* c.patcherinfos.cpp */,
+				8F53164B1906F50A00734AD6 /* c.patchermess.cpp */,
 				8FB8EB6E190080E9005FAF6A /* c.prepend.cpp */,
 			);
 			path = Coffee;
@@ -454,6 +457,7 @@
 				8FB8EB5919007B04005FAF6A /* c.number_tilde.cpp in Sources */,
 				8FB8EB1119007A1E005FAF6A /* efft.c in Sources */,
 				8FB8EB5119007B04005FAF6A /* c.breakpoints.cpp in Sources */,
+				8F53164C1906F50A00734AD6 /* c.patchermess.cpp in Sources */,
 				8FB8EB1A19007A1E005FAF6A /* eobj_basic.c in Sources */,
 				8FB8EB0119007A1E005FAF6A /* eclass_attrgetter.c in Sources */,
 				8FB8EB1519007A1E005FAF6A /* egraphics_color.c in Sources */,

@@ -25,7 +25,7 @@
  */
 
 extern "C" {
-#include "../../Sources/cicm_wrapper.h"
+#include "../../../Sources/cicm_wrapper.h"
 }
 
 #include "FourierConvolve.h"
@@ -78,9 +78,9 @@ void *fourierconvolve_new(t_symbol *s, int argc, t_atom *argv)
     if(argc > 1 && argv && atom_gettype(argv+1) == A_FLOAT)
         n_instances = pd_clip_min(atom_getfloat(argv+1), 1);
     if(argc > 2 && argv && atom_gettype(argv+2) == A_FLOAT)
-        ir_size = pd_clip_min(atom_getfloat(argv+2), 0);
+        ir_size = pd_clip_min(atom_getfloat(argv+2), 2);
     if(argc > 3 && argv && atom_gettype(argv+3) == A_FLOAT)
-        ir_offset = pd_clip_min(atom_getfloat(argv+3), 2);
+        ir_offset = pd_clip_min(atom_getfloat(argv+3), 0);
     
     x->f_convolve = new Cicm::FourierConvolve(n_instances, ir_size, ir_offset);
     
@@ -138,7 +138,7 @@ void fourierconvolve_perform(t_fourierconvolve *x, t_object *d, float **ins, lon
 void fourierconvolve_dsp(t_fourierconvolve *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
     fourierconvolve_set_do(x, x->f_buffer_name, 1);
-    x->f_convolve->prepareToPlay();
+    x->f_convolve->prepare(maxvectorsize);
     object_method(dsp, gensym("dsp_add"), x, (method)fourierconvolve_perform, 0, NULL);
 }
 

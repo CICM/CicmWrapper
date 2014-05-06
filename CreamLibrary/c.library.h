@@ -42,6 +42,7 @@ extern "C" void setup_c0x2eloadmess(void);
 extern "C" void setup_c0x2epak(void);
 extern "C" void setup_c0x2epatcherargs(void);
 extern "C" void setup_c0x2epatcherinfos(void);
+//extern "C" void setup_c0x2epatchermess(void);
 extern "C" void setup_c0x2eprepend(void);
 
 #endif

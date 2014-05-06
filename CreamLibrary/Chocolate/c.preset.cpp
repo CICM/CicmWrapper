@@ -81,6 +81,7 @@ void preset_mousedown(t_preset *x, t_object *patcherview, t_pt pt, long modifier
 void preset_mouseleave(t_preset *x, t_object *patcherview, t_pt pt, long modifiers);
 
 t_symbol* s_preset;
+t_symbol* s_interpolate;
 t_symbol* s_null;
 t_symbol* s_nothing;
 
@@ -90,7 +91,8 @@ extern "C" void setup_c0x2epreset(void)
     s_preset = gensym("preset");
     s_null   = gensym("(null)");
     s_nothing = gensym("''");
-
+    s_interpolate = gensym("interpolate");
+    
 	c = eclass_new("c.preset", (method)preset_new, (method)preset_free, (short)sizeof(t_preset), 0L, A_GIMME, 0);
 
 	eclass_init(c, 0);
@@ -290,8 +292,14 @@ void preset_float(t_preset *x, float f)
     int index = (int)f;
     t_binbuf* b = NULL;
 
-    if(index < 1 || index > MAXBINBUF || !x->f_init || x->f_binbuf_selected == index)
+    if(!x->f_init)
         return;
+    
+    if(index < 1)
+        index = 1;
+    else if(index > MAXBINBUF)
+        index = MAXBINBUF;
+    
     b = x->f_binbuf[index-1];
     if(binbuf_getnatom(b) == 0 || binbuf_getvec(b) == NULL)
         return;
@@ -325,13 +333,17 @@ void preset_interpolate(t_preset *x, float f)
     t_gobj *y;
     t_ebox *z;
     t_gotfn mpreset = NULL;
+    t_gotfn minterp = NULL;
+    
     long acdo, acup, ac, max;
     t_atom *avdo, *avup, *av;
     char id[MAXPDSTRING];
     int i, j, indexdo, indexup, realdo, realup;
     float ratio;
+    
     if(!x->f_init)
         return;
+    
     max = -1;
     for(i = MAXBINBUF-1; i >= 0; i--)
     {
@@ -344,16 +356,16 @@ void preset_interpolate(t_preset *x, float f)
     if(max < 1)
         return;
 
-    f = pd_clip_minmax(f, 1, max);
-
     indexdo = pd_clip_minmax(floorf(f)-1, 0, max-1);
     indexup = pd_clip_minmax(ceilf(f)-1, 0, max-1);
-    if(indexdo == indexup)
+    if(indexdo == indexup || f <= 1 || f >= max)
     {
         preset_float(x, f);
         return;
     }
+    
     x->f_binbuf_selected = indexup;
+    
     // Look for all the objects in a canvas //
     for (y = eobj_getcanvas(x)->gl_list; y; y = y->g_next)
     {
@@ -421,31 +433,42 @@ void preset_interpolate(t_preset *x, float f)
             // If we have the 2 presets with the same selector for this object then we make an interpolation //
             if(acdo && acup && atom_getsym(avdo+1) == atom_getsym(avup+1))
             {
-                ratio = (float)(f - (realdo + 1)) / (float)(realup - realdo);
-                ac = acdo;
-                av = (t_atom *)calloc(ac, sizeof(t_atom));
-                atom_setsym(av+1, atom_getsym(avdo+1));
-                for(j = 2; j < ac; j++)
+                minterp = zgetfn(&y->g_pd, s_interpolate);
+                if(minterp)
                 {
-                    if(j < acup)
+                    t_atom theta;
+                    ratio = (float)(f - (realdo + 1)) / (float)(realup - realdo);
+                    atom_setfloat(&theta, ratio);
+                    minterp((t_pd *)z, (short)acdo-2, avdo+2, (short)acup-2, avup+2, theta);
+                }
+                else
+                {
+                    ratio = (float)(f - (realdo + 1)) / (float)(realup - realdo);
+                    ac = acdo;
+                    av = (t_atom *)calloc(ac, sizeof(t_atom));
+                    atom_setsym(av+1, atom_getsym(avdo+1));
+                    for(j = 2; j < ac; j++)
                     {
-                        if(atom_gettype(avdo+j) == A_FLOAT && atom_gettype(avup+j) == A_FLOAT )
+                        if(j < acup)
                         {
-                            atom_setfloat(av+j, atom_getfloat(avdo+j) * (1. - ratio) + atom_getfloat(avup+j) * ratio);
+                            if(atom_gettype(avdo+j) == A_FLOAT && atom_gettype(avup+j) == A_FLOAT )
+                            {
+                                atom_setfloat(av+j, atom_getfloat(avdo+j) * (1. - ratio) + atom_getfloat(avup+j) * ratio);
+                            }
+                            else
+                            {
+                                av[j] = avdo[j];
+                            }
                         }
                         else
                         {
                             av[j] = avdo[j];
                         }
                     }
-                    else
-                    {
-                        av[j] = avdo[j];
-                    }
+                    
+                    pd_typedmess((t_pd *)z, atom_getsym(av+1), ac-2, av+2);
+                    free(av);
                 }
-
-                pd_typedmess((t_pd *)z, atom_getsym(av+1), ac-2, av+2);
-                free(av);
             }
             // If we have only the smallest preset for this object //
             else if(acdo)
