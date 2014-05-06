@@ -7,15 +7,15 @@
 #include "c.library.h"
 
 extern "C" void setup_c0x2elibrary(void)
-{    
+{
 	post("Cream Library by Pierre Guillot");
 	post("© 2013 - 2014  CICM | Paris 8 University");
 	post("Version 0.2");
-    
+
 	// Caramel
 	setup_c0x2econvolve_tilde();
 	setup_c0x2efreeverb_tilde();
-    
+
 	// Chocolate
 	setup_c0x2ebang();
 	setup_c0x2eblackboard();
@@ -36,7 +36,7 @@ extern "C" void setup_c0x2elibrary(void)
 	setup_c0x2eslider();
 	setup_c0x2etab();
 	setup_c0x2etoggle();
-    
+
 	// Coffee
 	setup_c0x2eloadmess();
 	setup_c0x2epak();
@@ -45,6 +45,6 @@ extern "C" void setup_c0x2elibrary(void)
     //setup_c0x2epatchermess();
 	setup_c0x2eprepend();
 
-    pd_library_add_folder("CreamLibrary", "misc");    
+    pd_library_add_folder("CreamLibrary", "misc");
 }
 

@@ -31,7 +31,7 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="Package/CreamLibrary/Linux64/$(PROJECT_NAME).pd_linux" prefix_auto="0" extension_auto="0" />
+				<Option output="Package/CreamLibrary/$(PROJECT_NAME).pd_linux" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="Linux" />
 				<Option object_output="Linux" />
 				<Option type="3" />
@@ -39,14 +39,15 @@
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
-					<Add option="-O3" />
+					<Add option="-O2" />
 					<Add option="-fPIC" />
-					<Add directory="../../../SDKs/pd-extended/pd/src" />
+					<Add option="-O6" />
+					<Add option="-funroll-loops" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
 					<Add option="-fPIC" />
-					<Add directory="../../../SDKs/pd-extended/pd/src" />
+					<Add option="-rdynamic" />
+					<Add option="-shared" />
 				</Linker>
 			</Target>
 			<Target title="Release32">
@@ -202,9 +203,7 @@
 		<Unit filename="c.library.h" />
 		<Extensions>
 			<envvars />
-			<code_completion>
-				<search_path add="../../../SDKs/pd-extended/pd/src" />
-			</code_completion>
+			<code_completion />
 			<debugger />
 			<lib_finder disable_auto="1" />
 		</Extensions>

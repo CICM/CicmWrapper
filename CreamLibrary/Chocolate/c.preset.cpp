@@ -92,7 +92,7 @@ extern "C" void setup_c0x2epreset(void)
     s_null   = gensym("(null)");
     s_nothing = gensym("''");
     s_interpolate = gensym("interpolate");
-    
+
 	c = eclass_new("c.preset", (method)preset_new, (method)preset_free, (short)sizeof(t_preset), 0L, A_GIMME, 0);
 
 	eclass_init(c, 0);
@@ -125,37 +125,37 @@ extern "C" void setup_c0x2epreset(void)
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
     CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
-    
+
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_preset, f_color_border);
 	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
     CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
-    
+
 	CLASS_ATTR_RGBA                 (c, "textcolor", 0, t_preset, f_color_text);
 	CLASS_ATTR_LABEL                (c, "textcolor", 0, "Text Color");
 	CLASS_ATTR_ORDER                (c, "textcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "textcolor", 0, "0. 0. 0. 1.");
     CLASS_ATTR_STYLE                (c, "textcolor", 0, "color");
-    
+
 	CLASS_ATTR_RGBA                 (c, "emcolor", 0, t_preset, f_color_button_empty);
 	CLASS_ATTR_LABEL                (c, "emcolor", 0, "Empty Button Color");
 	CLASS_ATTR_ORDER                (c, "emcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "emcolor", 0, "0.85 0.85 0.85 1.");
     CLASS_ATTR_STYLE                (c, "emcolor", 0, "color");
-    
+
     CLASS_ATTR_RGBA                 (c, "stcolor", 0, t_preset, f_color_button_stored);
 	CLASS_ATTR_LABEL                (c, "stcolor", 0, "Stored Button Color");
 	CLASS_ATTR_ORDER                (c, "stcolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "stcolor", 0, "0.5 0.5 0.5 1.");
     CLASS_ATTR_STYLE                (c, "stcolor", 0, "color");
-    
+
     CLASS_ATTR_RGBA                 (c, "secolor", 0, t_preset, f_color_button_selected);
 	CLASS_ATTR_LABEL                (c, "secolor", 0, "Selected Button Color");
 	CLASS_ATTR_ORDER                (c, "secolor", 0, "3");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "secolor", 0, "0.15 0.15 0.15 1.");
     CLASS_ATTR_STYLE                (c, "secolor", 0, "color");
-    
+
     eclass_register(CLASS_BOX, c);
 	preset_class = c;
 }
@@ -217,13 +217,15 @@ void preset_store(t_preset *x, float f)
     if (index < 1 || index > MAXBINBUF || !x->f_init)
         return;
 
+
     if(binbuf_getnatom(x->f_binbuf[index-1]))
         binbuf_clear(x->f_binbuf[index-1]);
+
     for(y = eobj_getcanvas(x)->gl_list; y; y = y->g_next)
     {
         z = (t_ebox *)y;
         mpreset = zgetfn(&y->g_pd, s_preset);
-        if(mpreset && z->b_objpreset_id != NULL)
+        if(mpreset && z->b_objpreset_id)
         {
             if(z->b_objpreset_id != s_null && z->b_objpreset_id != s_nothing)
             {
@@ -294,12 +296,12 @@ void preset_float(t_preset *x, float f)
 
     if(!x->f_init)
         return;
-    
+
     if(index < 1)
         index = 1;
     else if(index > MAXBINBUF)
         index = MAXBINBUF;
-    
+
     b = x->f_binbuf[index-1];
     if(binbuf_getnatom(b) == 0 || binbuf_getvec(b) == NULL)
         return;
@@ -334,16 +336,16 @@ void preset_interpolate(t_preset *x, float f)
     t_ebox *z;
     t_gotfn mpreset = NULL;
     t_gotfn minterp = NULL;
-    
+
     long acdo, acup, ac, max;
     t_atom *avdo, *avup, *av;
     char id[MAXPDSTRING];
     int i, j, indexdo, indexup, realdo, realup;
     float ratio;
-    
+
     if(!x->f_init)
         return;
-    
+
     max = -1;
     for(i = MAXBINBUF-1; i >= 0; i--)
     {
@@ -363,9 +365,9 @@ void preset_interpolate(t_preset *x, float f)
         preset_float(x, f);
         return;
     }
-    
+
     x->f_binbuf_selected = indexup;
-    
+
     // Look for all the objects in a canvas //
     for (y = eobj_getcanvas(x)->gl_list; y; y = y->g_next)
     {
@@ -465,7 +467,7 @@ void preset_interpolate(t_preset *x, float f)
                             av[j] = avdo[j];
                         }
                     }
-                    
+
                     pd_typedmess((t_pd *)z, atom_getsym(av+1), ac-2, av+2);
                     free(av);
                 }

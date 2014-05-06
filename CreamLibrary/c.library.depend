@@ -10,7 +10,7 @@
 1397832034 /home/pierre/Git/PdEnhanced/Sources/estruct.h
 	"ecommon/ecommon.h"
 
-1397832034 /home/pierre/Git/PdEnhanced/Sources/ecommon/ecommon.h
+1399363393 /home/pierre/Git/PdEnhanced/Sources/ecommon/ecommon.h
 	<io.h>
 	<unistd.h>
 	<stdio.h>
@@ -33,7 +33,7 @@
 
 1397832034 /home/pierre/Git/PdEnhanced/Sources/ecommon/m_imp.h
 
-1397832034 /home/pierre/Git/PdEnhanced/Sources/ecommon/g_canvas.h
+1399363393 /home/pierre/Git/PdEnhanced/Sources/ecommon/g_canvas.h
 
 1397832034 /home/pierre/Git/PdEnhanced/Sources/ecommon/eboxflag.h
 
@@ -97,7 +97,7 @@
 	<stdlib.h>
 	<stdarg.h>
 
-1397832034 source:/home/pierre/Git/PdEnhanced/Sources/ecommon/ecommon.c
+1399363393 source:/home/pierre/Git/PdEnhanced/Sources/ecommon/ecommon.c
 	"ecommon.h"
 
 1397832034 source:/home/pierre/Git/PdEnhanced/Sources/egraphics/egraphics.c
@@ -115,13 +115,13 @@
 1397832034 source:/home/pierre/Git/PdEnhanced/Sources/egraphics/egraphics_text.c
 	"egraphics.h"
 
-1397832034 source:/home/pierre/Git/PdEnhanced/Sources/eobj/eobj_basic.c
+1399363393 source:/home/pierre/Git/PdEnhanced/Sources/eobj/eobj_basic.c
 	"eobj.h"
 
 1397832034 source:/home/pierre/Git/PdEnhanced/Sources/eobj/eobj_dsp.c
 	"eobj.h"
 
-1397832034 source:/home/pierre/Git/PdEnhanced/Sources/eobj/eobj_handle.c
+1399363393 source:/home/pierre/Git/PdEnhanced/Sources/eobj/eobj_handle.c
 	"eobj.h"
 
 1397832034 source:/home/pierre/Git/PdEnhanced/Sources/eobj/eobj_proxy.c
@@ -133,16 +133,15 @@
 1397832034 source:/home/pierre/Git/PdEnhanced/Sources/epopup/epopup.c
 	"epopup.h"
 
-1397832034 source:/home/pierre/Git/PdEnhanced/CreamLibrary/c.library.cpp
+1399366322 source:/home/pierre/Git/PdEnhanced/CreamLibrary/c.library.cpp
 	"c.library.h"
 
-1397832034 /home/pierre/Git/PdEnhanced/CreamLibrary/c.library.h
+1399363393 /home/pierre/Git/PdEnhanced/CreamLibrary/c.library.h
 	"../Sources/cicm_wrapper.h"
 
-1397832035 /home/pierre/Git/PdEnhanced/Sources/cicm_wrapper.h
+1399363393 /home/pierre/Git/PdEnhanced/Sources/cicm_wrapper.h
 	"epd.h"
 	"ecommon/ecommon.h"
-	"epd_max.h"
 
 1397832034 /home/pierre/Git/PdEnhanced/Sources/epd.h
 	"eclass/eclass.h"
@@ -155,14 +154,13 @@
 	<cmath>
 	<cstring>
 
-1397832034 /home/pierre/Git/PdEnhanced/CreamLibrary/Caramel/AudioFFT.h
+1399363393 /home/pierre/Git/PdEnhanced/CreamLibrary/Caramel/AudioFFT.h
 	<cstddef>
 	<Accelerate/Accelerate.h>
 	<vector>
-	<fftw3.h>
 	<vector>
 
-1397832034 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Caramel/c.convolve_tilde.cpp
+1399363393 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Caramel/c.convolve_tilde.cpp
 	"../c.library.h"
 	<algorithm>
 	<cstring>
@@ -202,7 +200,7 @@
 1397832035 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.bang.cpp
 	"../c.library.h"
 
-1397832035 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.blackboard.cpp
+1399363393 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.blackboard.cpp
 	"../c.library.h"
 
 1397832035 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.breakpoints.cpp
@@ -220,13 +218,13 @@
 1397832035 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.knob.cpp
 	"../c.library.h"
 
-1397832035 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.menu.cpp
+1399363393 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.menu.cpp
 	"../c.library.h"
 
 1397832035 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.meter_tilde.cpp
 	"../c.library.h"
 
-1397832035 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.number.cpp
+1399363393 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.number.cpp
 	"../c.library.h"
 
 1397832035 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.number_tilde.cpp
@@ -235,7 +233,7 @@
 1397832035 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.plane.cpp
 	"../c.library.h"
 
-1397832035 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.preset.cpp
+1399370142 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.preset.cpp
 	"../c.library.h"
 
 1397832035 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.radio.cpp
@@ -244,7 +242,7 @@
 1397832034 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.rslider.cpp
 	"../c.library.h"
 
-1397832035 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.scope_tilde.cpp
+1399366671 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.scope_tilde.cpp
 	"../c.library.h"
 
 1397832035 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.slider.cpp
@@ -253,13 +251,13 @@
 1397832035 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.tab.cpp
 	"../c.library.h"
 
-1397832034 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.toggle.cpp
+1399370121 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Chocolate/c.toggle.cpp
 	"../c.library.h"
 
 1397832035 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Coffee/c.loadmess.cpp
 	"../c.library.h"
 
-1397832035 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Coffee/c.pak.cpp
+1399363393 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Coffee/c.pak.cpp
 	"../c.library.h"
 
 1397832035 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Coffee/c.patcherargs.cpp

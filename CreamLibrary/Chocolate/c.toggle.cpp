@@ -84,19 +84,19 @@ extern "C" void setup_c0x2etoggle(void)
     CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
     CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "15. 15.");
-    
+
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_toggle, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
 	CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.75 0.75 0.75 1.");
     CLASS_ATTR_STYLE                (c, "bgcolor", 0, "color");
-    
+
 	CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_toggle, f_color_border);
 	CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
 	CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.5 0.5 0.5 1.");
     CLASS_ATTR_STYLE                (c, "bdcolor", 0, "color");
-    
+
 	CLASS_ATTR_RGBA                 (c, "crcolor", 0, t_toggle, f_color_cross);
 	CLASS_ATTR_LABEL                (c, "crcolor", 0, "Cross Color");
 	CLASS_ATTR_ORDER                (c, "crcolor", 0, "3");
