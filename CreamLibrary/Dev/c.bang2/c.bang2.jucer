@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="axgz9f" name="c.bang" projectType="audioplug" version="2.0"
+              bundleIdentifier="com.cicm.cbang" includeBinaryInAppConfig="0"
+              buildVST="0" buildVST3="0" buildAU="0" buildRTAS="0" buildAAX="0"
+              pluginName="c.bang" pluginDesc="bang" pluginManufacturer="cicm"
+              pluginManufacturerEmail="support@yourcompany.com" pluginManufacturerCode="Pier"
+              pluginCode="Plug" pluginChannelConfigs="{1, 1}, {2, 2}" pluginIsSynth="0"
+              pluginWantsMidiIn="0" pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="0"
+              pluginEditorRequiresKeys="0" pluginAUExportPrefix="CbangAU" pluginRTASCategory=""
+              aaxIdentifier="com.cicm.bang" pluginAAXCategory="AAX_ePlugInCategory_Dynamics"
+              jucerVersion="3.1.0">
+  <MAINGROUP id="LySPAm" name="c.bang">
+    <FILE id="T07bfd" name="c.bang2.cpp" compile="1" resource="0" file="c.bang2.cpp"/>
+    <GROUP id="{09869512-1A0D-2FD6-604B-B3F3F65BD56A}" name="Sources">
+      <FILE id="zcaF08" name="cicm_wrapper.h" compile="0" resource="0" file="../../../Sources/cicm_wrapper.h"/>
+      <GROUP id="{A4C4D607-BC87-6AEA-B0E7-0FA301FF0A32}" name="ebox">
+        <FILE id="GWpRY1" name="ebox.h" compile="0" resource="0" file="../../../Sources/ebox/ebox.h"/>
+        <FILE id="fqYRm8" name="ebox_attr.c" compile="1" resource="0" file="../../../Sources/ebox/ebox_attr.c"/>
+        <FILE id="oU5EZM" name="ebox_basic.c" compile="1" resource="0" file="../../../Sources/ebox/ebox_basic.c"/>
+        <FILE id="IhdArL" name="ebox_draw.c" compile="1" resource="0" file="../../../Sources/ebox/ebox_draw.c"/>
+        <FILE id="scnGvZ" name="ebox_handle.c" compile="1" resource="0" file="../../../Sources/ebox/ebox_handle.c"/>
+        <FILE id="j9Wo0i" name="ebox_patcher.c" compile="1" resource="0" file="../../../Sources/ebox/ebox_patcher.c"/>
+        <FILE id="uhGfqH" name="ebox_window.c" compile="1" resource="0" file="../../../Sources/ebox/ebox_window.c"/>
+      </GROUP>
+      <GROUP id="{5804D1CF-FE76-C4CE-1600-D064EB016535}" name="eclass">
+        <FILE id="ixTxZi" name="eclass.h" compile="0" resource="0" file="../../../Sources/eclass/eclass.h"/>
+        <FILE id="ZuUy61" name="eclass_attrgetter.c" compile="1" resource="0"
+              file="../../../Sources/eclass/eclass_attrgetter.c"/>
+        <FILE id="jRXSWP" name="eclass_attrnew.c" compile="1" resource="0"
+              file="../../../Sources/eclass/eclass_attrnew.c"/>
+        <FILE id="JTpOYc" name="eclass_attroptions.c" compile="1" resource="0"
+              file="../../../Sources/eclass/eclass_attroptions.c"/>
+        <FILE id="wJ0cFQ" name="eclass_attrsetter.c" compile="1" resource="0"
+              file="../../../Sources/eclass/eclass_attrsetter.c"/>
+        <FILE id="qPaCke" name="eclass_basic.c" compile="1" resource="0" file="../../../Sources/eclass/eclass_basic.c"/>
+        <FILE id="lWuUV6" name="eclass_widget.c" compile="1" resource="0" file="../../../Sources/eclass/eclass_widget.c"/>
+      </GROUP>
+      <GROUP id="{47E41AC8-05CA-7688-7217-4B71763EB5AF}" name="ecommon">
+        <FILE id="c8QmD2" name="d_ugen.c" compile="1" resource="0" file="../../../Sources/ecommon/d_ugen.c"/>
+        <FILE id="XRoD7h" name="d_ugen.h" compile="0" resource="0" file="../../../Sources/ecommon/d_ugen.h"/>
+        <FILE id="H0tMbC" name="eboxflag.h" compile="0" resource="0" file="../../../Sources/ecommon/eboxflag.h"/>
+        <FILE id="gsBOPC" name="ecommon.c" compile="1" resource="0" file="../../../Sources/ecommon/ecommon.c"/>
+        <FILE id="CcNOcU" name="ecommon.h" compile="0" resource="0" file="../../../Sources/ecommon/ecommon.h"/>
+        <FILE id="OKoB92" name="g_canvas.h" compile="0" resource="0" file="../../../Sources/ecommon/g_canvas.h"/>
+        <FILE id="Op4xwU" name="m_imp.h" compile="0" resource="0" file="../../../Sources/ecommon/m_imp.h"/>
+        <FILE id="u2r8gS" name="m_pd.h" compile="0" resource="0" file="../../../Sources/ecommon/m_pd.h"/>
+        <FILE id="RtoR4W" name="pd.def" compile="0" resource="1" file="../../../Sources/ecommon/pd.def"/>
+        <FILE id="tICzmr" name="pd.dll" compile="0" resource="1" file="../../../Sources/ecommon/pd.dll"/>
+      </GROUP>
+      <FILE id="SaSq28" name="efft.c" compile="1" resource="0" file="../../../Sources/efft.c"/>
+      <FILE id="dQQDro" name="efft.h" compile="0" resource="0" file="../../../Sources/efft.h"/>
+      <GROUP id="{435681FC-B35D-C924-AB39-5D94403954E1}" name="egraphics">
+        <FILE id="lfIESL" name="egraphics.c" compile="1" resource="0" file="../../../Sources/egraphics/egraphics.c"/>
+        <FILE id="EBrMgf" name="egraphics.h" compile="0" resource="0" file="../../../Sources/egraphics/egraphics.h"/>
+        <FILE id="sKbvJB" name="egraphics_color.c" compile="1" resource="0"
+              file="../../../Sources/egraphics/egraphics_color.c"/>
+        <FILE id="dBmntR" name="egraphics_forms.c" compile="1" resource="0"
+              file="../../../Sources/egraphics/egraphics_forms.c"/>
+        <FILE id="Lndyup" name="egraphics_matrix.c" compile="1" resource="0"
+              file="../../../Sources/egraphics/egraphics_matrix.c"/>
+        <FILE id="HQ8UTX" name="egraphics_text.c" compile="1" resource="0"
+              file="../../../Sources/egraphics/egraphics_text.c"/>
+      </GROUP>
+      <GROUP id="{3CC706C7-B777-066D-5C84-D3AA6874BA5C}" name="eobj">
+        <FILE id="bNO34g" name="eobj.h" compile="0" resource="0" file="../../../Sources/eobj/eobj.h"/>
+        <FILE id="W6SOLU" name="eobj_basic.c" compile="1" resource="0" file="../../../Sources/eobj/eobj_basic.c"/>
+        <FILE id="BCymEz" name="eobj_dsp.c" compile="1" resource="0" file="../../../Sources/eobj/eobj_dsp.c"/>
+        <FILE id="gH6qnA" name="eobj_handle.c" compile="1" resource="0" file="../../../Sources/eobj/eobj_handle.c"/>
+        <FILE id="huFq25" name="eobj_proxy.c" compile="1" resource="0" file="../../../Sources/eobj/eobj_proxy.c"/>
+        <FILE id="cVBQEM" name="eobj_router.c" compile="1" resource="0" file="../../../Sources/eobj/eobj_router.c"/>
+      </GROUP>
+      <FILE id="HR7cxB" name="epd.h" compile="0" resource="0" file="../../../Sources/epd.h"/>
+      <FILE id="HrfyW3" name="epd_max.h" compile="0" resource="0" file="../../../Sources/epd_max.h"/>
+      <GROUP id="{DE4BFB9D-0723-202B-60FC-7D41D02B0599}" name="epopup">
+        <FILE id="kF0IRY" name="epopup.c" compile="1" resource="0" file="../../../Sources/epopup/epopup.c"/>
+        <FILE id="SeiuY6" name="epopup.h" compile="0" resource="0" file="../../../Sources/epopup/epopup.h"/>
+      </GROUP>
+      <FILE id="qq5Gc1" name="estruct.h" compile="0" resource="0" file="../../../Sources/estruct.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="../HoaScope" extraFrameworks="Accelerate" extraDefs=""
+               extraLinkerFlags="&#10;" extraCompilerFlags="-Wall &#10;-Wextra &#10;-Wno-unused-parameter &#10;-Wno-four-char-constants &#10;-Wno-unknown-pragmas&#10;-Wmost"
+               customPList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;&#10;&lt;plist version=&quot;1.0&quot;&gt;&#10;&lt;dict&gt;&#10;&#9;&lt;key&gt;CFBundleDevelopmentRegion&lt;/key&gt;&#10;&#9;&lt;string&gt;English&lt;/string&gt;&#10;&#9;&lt;key&gt;CFBundleExecutable&lt;/key&gt;&#10;&#9;&lt;string&gt;${PRODUCT_NAME}&lt;/string&gt;&#10;&#9;&lt;key&gt;CFBundleIconFile&lt;/key&gt;&#10;&#9;&lt;string&gt;&lt;/string&gt;&#10;&#9;&lt;key&gt;CFBundleIdentifier&lt;/key&gt;&#10;&#9;&lt;string&gt;com.cicm.${PRODUCT_NAME}&lt;/string&gt;&#10;&#9;&lt;key&gt;CFBundleInfoDictionaryVersion&lt;/key&gt;&#10;&#9;&lt;string&gt;6.0&lt;/string&gt;&#10;&#9;&lt;key&gt;CFBundleLongVersionString&lt;/key&gt;&#10;&#9;&lt;string&gt;${PRODUCT_NAME} ${PRODUCT_VERSION}, CICM&lt;/string&gt;&#10;&#9;&lt;key&gt;CFBundlePackageType&lt;/key&gt;&#10;&#9;&lt;string&gt;iLaX&lt;/string&gt;&#10;&#9;&lt;key&gt;CFBundleShortVersionString&lt;/key&gt;&#10;&#9;&lt;string&gt;${PRODUCT_VERSION}&lt;/string&gt;&#10;&#9;&lt;key&gt;CFBundleSignature&lt;/key&gt;&#10;&#9;&lt;string&gt;max2&lt;/string&gt;&#10;&#9;&lt;key&gt;CFBundleVersion&lt;/key&gt;&#10;&#9;&lt;string&gt;${PRODUCT_VERSION}&lt;/string&gt;&#10;&#9;&lt;key&gt;CSResourcesFileMapped&lt;/key&gt;&#10;&#9;&lt;true/&gt;&#10;&lt;/dict&gt;&#10;&lt;/plist&gt;"
+               externalLibraries="">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="default" osxArchitecture="64BitUniversal"
+                       isDebug="1" optimisation="1" targetName="c.bang" customXcodeFlags=""
+                       headerPath="../../../Sources/**&#10;" libraryPath="../../../Sources/**"
+                       binaryPath=""/>
+        <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="default" osxArchitecture="64BitUniversal"
+                       isDebug="0" optimisation="3" targetName="c.bang" headerPath="../../../Sources/**"
+                       customXcodeFlags="" libraryPath="../../../Sources/**"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../ThirdParty/JuceModules"/>
+        <MODULEPATH id="juce_events" path="../../../ThirdParty/JuceModules"/>
+        <MODULEPATH id="juce_graphics" path="../../../ThirdParty/JuceModules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../ThirdParty/JuceModules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../ThirdParty/JuceModules"/>
+        <MODULEPATH id="juce_opengl" path="../../../ThirdParty/JuceModules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../ThirdParty/JuceModules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULES id="juce_core" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_QUICKTIME="disabled"/>
+</JUCERPROJECT>

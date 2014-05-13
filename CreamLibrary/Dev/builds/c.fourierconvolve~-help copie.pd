@@ -1,0 +1,59 @@
+#N canvas 524 74 827 683 10;
+#X obj -28 -74 cnv 40 552 40 empty empty c.convolve~ 3 12 0 18 -228856
+-33289 0;
+#X text 83 613 Coffee by Pierre Guillot | CICM - Université Paris 8
+;
+#X text -26 -53 A zero latency convolution;
+#X text -27 -31 c.convolve~ uses the HiFi-LoFi convolution reverb implementation.
+;
+#X obj 382 156 table \$0-ir;
+#X obj 382 133 soundfiler;
+#X obj 382 19 openpanel;
+#X obj 382 80 pack s s;
+#X obj 382 39 t s b;
+#X obj 383 -2 c.bang @size 17 17 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 152 496 dac~;
+#X msg 477 131 \; pd dsp 1;
+#X msg 477 172 \; pd dsp 0;
+#X msg 382 102 read -resize \$1 \$2;
+#X obj 427 58 symbol \$0-ir;
+#X text 1 15 set the buffer;
+#X msg 201 66 normalize \$1;
+#X obj 201 31 c.toggle @size 15 15 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5
+0.5 0.5 1;
+#X text 156 2 normalize the ir;
+#X text 414 -4 load an ir;
+#X obj 113 42 symbol \$0-ir;
+#X obj 113 18 c.bang @size 17 17 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X msg 113 65 set \$1;
+#X obj 323 -28 c.loadmess read -resize SmallRoom.wav \$0-ir;
+#X obj 453 22 c.loadmess read -resize Chapel.wav \$0-ir;
+#X obj 30 94 *~ 1;
+#X obj 74 89 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 29 55 phasor~ 0.3;
+#X obj 167 230 c.fourierconvolve~ \$0-ir 2 8192 8192;
+#X connect 6 0 8 0;
+#X connect 7 0 13 0;
+#X connect 8 0 7 0;
+#X connect 8 1 14 0;
+#X connect 9 0 6 0;
+#X connect 13 0 5 0;
+#X connect 14 0 7 1;
+#X connect 17 0 16 0;
+#X connect 20 0 22 0;
+#X connect 21 0 20 0;
+#X connect 22 0 28 0;
+#X connect 23 0 5 0;
+#X connect 24 0 5 0;
+#X connect 25 0 28 0;
+#X connect 26 0 25 1;
+#X connect 27 0 25 0;
+#X connect 28 0 10 0;
+#X connect 28 0 10 1;

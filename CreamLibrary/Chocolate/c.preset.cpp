@@ -209,78 +209,37 @@ void preset_store(t_preset *x, float f)
     t_gobj *y = NULL;
     t_ebox *z = NULL;
     t_gotfn mpreset = NULL;
+    t_atom av[2];
+    t_binbuf *b;
     char id[MAXPDSTRING];
-    int index = (int)f;
+    int index = (int)(f - 1);
 
-    if (index < 1 || index > MAXBINBUF || !x->f_init)
-        return;
-
-
-    if(binbuf_getnatom(x->f_binbuf[index-1]))
-        binbuf_clear(x->f_binbuf[index-1]);
-
-    for(y = eobj_getcanvas(x)->gl_list; y; y = y->g_next)
+    if(index >= 0 && index < MAXBINBUF && x->f_init)
     {
-        z = (t_ebox *)y;
-        mpreset = zgetfn(&y->g_pd, s_preset);
-        if(mpreset && z->b_objpreset_id)
+        b = x->f_binbuf[index];
+        if(binbuf_getnatom(b))
+            binbuf_clear(b);
+        
+        for(y = eobj_getcanvas(x)->gl_list; y; y = y->g_next)
         {
-            if(z->b_objpreset_id != s_null && z->b_objpreset_id != s_nothing)
+            z = (t_ebox *)y;
+            mpreset = zgetfn(&y->g_pd, s_preset);
+            if(mpreset && z->b_objpreset_id)
             {
-                sprintf(id, "@%s", z->b_objpreset_id->s_name);
-                binbuf_addv(x->f_binbuf[index-1], "ss", gensym(id), eobj_getclassname(z));
-                mpreset(z, x->f_binbuf[index-1]);
+                if(z->b_objpreset_id != s_null && z->b_objpreset_id != s_nothing)
+                {
+                    sprintf(id, "@%s", z->b_objpreset_id->s_name);
+                    atom_setsym(av, gensym(id));
+                    atom_setsym(av+1, eobj_getclassname(z));
+                    binbuf_add(b, 2, av);
+                    mpreset(z, b);
+                }
             }
+            mpreset = NULL;
         }
-        mpreset = NULL;
     }
 }
-/*
-t_pd_err pratoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_atom **argv)
-{
-    int i = 0, index  = 0;
-    argc[0]     = 0;
-    argv[0]     = NULL;
 
-    if(ac && av)
-    {
-        for(i = 0; i < ac; i++)
-        {
-            if(atom_gettype(av+i) == A_SYM && atom_getsym(av+i) == key)
-            {
-                index = i + 1;
-                break;
-            }
-        }
-        if(index)
-        {
-            i = index;
-            while (i < ac && atom_getsym(av+i)->s_name[0] != '@')
-            {
-                i++;
-                argc[0]++;
-            }
-             if(argc[0])
-            {
-                argv[0] = av+index;
-                return 0;
-            }
-        }
-    }
-
-    argc[0] = 0;
-    argv[0] = NULL;
-    return -1;
-}
-
-t_pd_err prbinbuf_get_attribute(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv)
-{
-    if(d)
-        return pratoms_get_attribute(binbuf_getnatom(d), binbuf_getvec(d), key, argc, argv);
-    else
-        return -1;
-}
-*/
 void preset_float(t_preset *x, float f)
 {
     long ac = 0;
@@ -318,6 +277,7 @@ void preset_float(t_preset *x, float f)
             {
                 if(eobj_getclassname(z) == atom_getsym(av))
                     pd_typedmess((t_pd *)z, atom_getsym(av+1), ac-2, av+2);
+                free(av);
                 av = NULL;
                 ac = 0;
             }

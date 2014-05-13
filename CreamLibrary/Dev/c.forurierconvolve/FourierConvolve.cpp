@@ -159,156 +159,44 @@ namespace Cicm
         int window_size = m_window_size;
         float* real_in  = m_input_real;
         float* real_out = m_output_real;
+        int ninstance   = m_number_of_instances;
+        int inc         = floor(sampleframes / (ir_size * ninstance));
         
         if(!m_can_process)
-            goto clean;
-        
-        if(sampleframes > ir_size)
-            goto next;
-        
-        // Save the sample in the input real array
-        cblas_scopy(sampleframes, input, 1, real_in + m_index, 1);
-        // Write the sample from the output real array
-        cblas_scopy(sampleframes, real_out + m_index, 1, output, 1);
-        
-        m_index += sampleframes;
-        // If the input real array has been filled
-        if(m_index >= ir_size)
         {
-            m_index = 0;
-            int ninstance       = m_number_of_instances;
-            float* real_saved   = m_output_saved;
-            float* temp_out     = m_temp_output;
-            DSPSplitComplex impulse_split;
-            impulse_split.realp =  m_impulse_complex;
-            impulse_split.imagp =  m_impulse_complex + ir_size;
-            // Zero-pad the input real array
-            vDSP_vclr(real_in + ir_size, 1, ir_size);
-            
-            // Perform the FFT forward
-            vDSP_ctoz((DSPComplex *)real_in, 2, &m_input_split, 1, ir_size);
-            vDSP_fft_zrip(m_fft_handle, &m_input_split, 1, m_order, FFT_FORWARD);
-            
-            // For the 1st instance
-            // Perform the multiplication
-            float preserve_ir, preserve_si;
-            preserve_ir = impulse_split.imagp[0];
-            impulse_split.imagp[0] = 0;
-            preserve_si = m_input_split.imagp[0];
-            m_input_split.imagp[0] = 0;
-            
-            vDSP_zvmul(&m_input_split, 1, &impulse_split, 1, &m_output_split, 1, ir_size, 1);
-  
-            m_output_split.imagp[0] = preserve_ir * preserve_si;
-            impulse_split.imagp[0] = preserve_ir;
-            
-            // Perform the FFT inverse
-            vDSP_fft_zrip(m_fft_handle, &m_output_split, 1, m_order, FFT_INVERSE);
-            vDSP_ztoc(&m_output_split, 1, (DSPComplex *)real_out, 2, ir_size);
-            
-            // Scale the result by 1 / (8 * window_size)
-            //vDSP_vsmul(real_out, 1, &m_scale, real_out, 1, window_size);
-            
-            // Add the saved results to the output real array
-            vDSP_vadd(real_out, 1, real_saved, 1, real_out, 1, ir_size);
-            
-            // Save the end of the result
-            cblas_scopy(ir_size, real_out + ir_size, 1, real_saved, 1);
-            
-            // For each other instance
-            for(int i = 1; i < ninstance; i++)
-            {
-                real_saved = m_output_saved + (i - 1) * ir_size;
-                impulse_split.realp = m_impulse_complex + i * window_size;
-                impulse_split.imagp = impulse_split.realp + ir_size;
-                
-                // Perform the multiplication
-                preserve_ir = impulse_split.imagp[0];
-                impulse_split.imagp[0] = 0;
-                //preserve_si = m_input_split.imagp[0];
-                //m_input_split.imagp[0] = 0;
-                
-                vDSP_zvmul(&m_input_split, 1, &impulse_split, 1, &m_output_split, 1, ir_size, 1);
-                
-                m_output_split.imagp[0] = preserve_ir * preserve_si;
-                impulse_split.imagp[0] = preserve_ir;
-                
-                // Perform the FFT inverse
-                vDSP_fft_zrip(m_fft_handle, &m_output_split, 1, m_order, FFT_INVERSE);
-                
-                // Clear the output real array
-                vDSP_ztoc(&m_output_split, 1, (DSPComplex *)temp_out, 2, ir_size);
-                
-                // Scale the result by 1 / (8 * window_size)
-                //vDSP_vsmul(temp_out, 1, &m_scale, temp_out, 1, window_size);
-                
-                // Move the previous saved result to -irsize
-                vDSP_vadd(real_saved, 1, real_saved+ir_size, 1, real_saved, 1, ir_size);
-                
-                // Clear the previous saved result
-                vDSP_vclr(real_saved + ir_size, 1, ir_size);
-                
-                // Add the new result to the saved array
-                vDSP_vadd(real_saved, 1, temp_out, 1, real_saved, 1, window_size);
-            }
+            memset(output, 0, sampleframes * sizeof(float));
+            return;
         }
-        
-        return;
-        
-    next:
-        
-        for(int i = 0; i < sampleframes; i += ir_size)
+        else if(sampleframes <= ir_size)
         {
             // Save the sample in the input real array
-            cblas_scopy(ir_size, input+i, 1, real_in, 1);
+            cblas_scopy(sampleframes, input, 1, real_in + m_index, 1);
             // Write the sample from the output real array
-            cblas_scopy(ir_size, real_out, 1, output+i, 1);
-            int ninstance       = m_number_of_instances;
-            float* real_saved   = m_output_saved;
-            float* temp_out     = m_temp_output;
-            DSPSplitComplex impulse_split;
-            impulse_split.realp =  m_impulse_complex;
-            impulse_split.imagp =  m_impulse_complex + ir_size;
-            // Zero-pad the input real array
-            vDSP_vclr(real_in + ir_size, 1, ir_size);
+            cblas_scopy(sampleframes, real_out + m_index, 1, output, 1);
             
-            // Perform the FFT forward
-            vDSP_ctoz((DSPComplex *)real_in, 2, &m_input_split, 1, ir_size);
-            vDSP_fft_zrip(m_fft_handle, &m_input_split, 1, m_order, FFT_FORWARD);
-            
-            // For the 1st instance
-            // Perform the multiplication
-            float preserve_ir, preserve_si;
-            preserve_ir = impulse_split.imagp[0];
-            impulse_split.imagp[0] = 0;
-            preserve_si = m_input_split.imagp[0];
-            m_input_split.imagp[0] = 0;
-            
-            vDSP_zvmul(&m_input_split, 1, &impulse_split, 1, &m_output_split, 1, ir_size, 1);
-            
-            m_output_split.imagp[0] = preserve_ir * preserve_si;
-            impulse_split.imagp[0] = preserve_ir;
-            
-            // Perform the FFT inverse
-            vDSP_fft_zrip(m_fft_handle, &m_output_split, 1, m_order, FFT_INVERSE);
-            vDSP_ztoc(&m_output_split, 1, (DSPComplex *)real_out, 2, ir_size);
-            
-            // Scale the result by 1 / (8 * window_size)
-            vDSP_vsmul(real_out, 1, &m_scale, real_out, 1, window_size);
-            
-            // Add the saved results to the output real array
-            vDSP_vadd(real_out, 1, real_saved, 1, real_out, 1, ir_size);
-            
-            // Save the end of the result
-            cblas_scopy(ir_size, real_out + ir_size, 1, real_saved, 1);
-            
-            // For each other instance
-            for(int i = 1; i < ninstance; i++)
+            int index = m_index / inc;
+            post("index %i", index);
+            m_index += sampleframes;
+            // If the input real array has been filled
+            if(m_index >= ir_size)
             {
-                impulse_split.realp += window_size;
-                impulse_split.imagp += window_size;
+                m_index = 0;
                 
+                float* real_saved   = m_output_saved;
+                float* temp_out     = m_temp_output;
+                DSPSplitComplex impulse_split;
+                impulse_split.realp =  m_impulse_complex;
+                impulse_split.imagp =  m_impulse_complex + ir_size;
+                // Zero-pad the input real array
+                vDSP_vclr(real_in + ir_size, 1, ir_size);
+                
+                // Perform the FFT forward
+                vDSP_ctoz((DSPComplex *)real_in, 2, &m_input_split, 1, ir_size);
+                vDSP_fft_zrip(m_fft_handle, &m_input_split, 1, m_order, FFT_FORWARD);
+                
+                // For the 1st instance
                 // Perform the multiplication
+                float preserve_ir, preserve_si;
                 preserve_ir = impulse_split.imagp[0];
                 impulse_split.imagp[0] = 0;
                 preserve_si = m_input_split.imagp[0];
@@ -321,29 +209,139 @@ namespace Cicm
                 
                 // Perform the FFT inverse
                 vDSP_fft_zrip(m_fft_handle, &m_output_split, 1, m_order, FFT_INVERSE);
-                
-                // Clear the output real array
-                vDSP_ztoc(&m_output_split, 1, (DSPComplex *)temp_out, 2, ir_size);
+                vDSP_ztoc(&m_output_split, 1, (DSPComplex *)real_out, 2, ir_size);
                 
                 // Scale the result by 1 / (8 * window_size)
-                vDSP_vsmul(temp_out, 1, &m_scale, temp_out, 1, window_size);
+                //vDSP_vsmul(real_out, 1, &m_scale, real_out, 1, window_size);
                 
-                // Move the previous saved result to -irsize
-                vDSP_vadd(real_saved, 1, real_saved+ir_size, 1, real_saved, 1, ir_size);
+                // Add the saved results to the output real array
+                vDSP_vadd(real_out, 1, real_saved, 1, real_out, 1, ir_size);
                 
-                // Clear the previous saved result
-                vDSP_vclr(real_saved + ir_size, 1, ir_size);
+                // Save the end of the result
+                cblas_scopy(ir_size, real_out + ir_size, 1, real_saved, 1);
                 
-                // Add the new result to the saved array
-                vDSP_vadd(real_saved, 1, temp_out, 1, real_saved, 1, window_size);
-                real_saved += ir_size;
+                // For each other instance
+                for(int i = 1; i < ninstance; i++)
+                {
+                    real_saved = m_output_saved + (i - 1) * ir_size;
+                    impulse_split.realp = m_impulse_complex + i * window_size;
+                    impulse_split.imagp = impulse_split.realp + ir_size;
+                    
+                    // Perform the multiplication
+                    preserve_ir = impulse_split.imagp[0];
+                    impulse_split.imagp[0] = 0;
+                    //preserve_si = m_input_split.imagp[0];
+                    //m_input_split.imagp[0] = 0;
+                    
+                    vDSP_zvmul(&m_input_split, 1, &impulse_split, 1, &m_output_split, 1, ir_size, 1);
+                    
+                    m_output_split.imagp[0] = preserve_ir * preserve_si;
+                    impulse_split.imagp[0] = preserve_ir;
+                    
+                    // Perform the FFT inverse
+                    vDSP_fft_zrip(m_fft_handle, &m_output_split, 1, m_order, FFT_INVERSE);
+                    
+                    // Clear the output real array
+                    vDSP_ztoc(&m_output_split, 1, (DSPComplex *)temp_out, 2, ir_size);
+                    
+                    // Scale the result by 1 / (8 * window_size)
+                    //vDSP_vsmul(temp_out, 1, &m_scale, temp_out, 1, window_size);
+                    
+                    // Move the previous saved result to -irsize
+                    vDSP_vadd(real_saved, 1, real_saved+ir_size, 1, real_saved, 1, ir_size);
+                    
+                    // Clear the previous saved result
+                    vDSP_vclr(real_saved + ir_size, 1, ir_size);
+                    
+                    // Add the new result to the saved array
+                    vDSP_vadd(real_saved, 1, temp_out, 1, real_saved, 1, window_size);
+                }
             }
         }
-        return;
-        
-    clean:
-        memset(output, 0, sampleframes * sizeof(float));
-        
+        else
+        {
+            for(int i = 0; i < sampleframes; i += ir_size)
+            {
+                // Save the sample in the input real array
+                cblas_scopy(ir_size, input+i, 1, real_in, 1);
+                // Write the sample from the output real array
+                cblas_scopy(ir_size, real_out, 1, output+i, 1);
+                float* real_saved   = m_output_saved;
+                float* temp_out     = m_temp_output;
+                DSPSplitComplex impulse_split;
+                impulse_split.realp =  m_impulse_complex;
+                impulse_split.imagp =  m_impulse_complex + ir_size;
+                // Zero-pad the input real array
+                vDSP_vclr(real_in + ir_size, 1, ir_size);
+                
+                // Perform the FFT forward
+                vDSP_ctoz((DSPComplex *)real_in, 2, &m_input_split, 1, ir_size);
+                vDSP_fft_zrip(m_fft_handle, &m_input_split, 1, m_order, FFT_FORWARD);
+                
+                // For the 1st instance
+                // Perform the multiplication
+                float preserve_ir, preserve_si;
+                preserve_ir = impulse_split.imagp[0];
+                impulse_split.imagp[0] = 0;
+                preserve_si = m_input_split.imagp[0];
+                m_input_split.imagp[0] = 0;
+                
+                vDSP_zvmul(&m_input_split, 1, &impulse_split, 1, &m_output_split, 1, ir_size, 1);
+                
+                m_output_split.imagp[0] = preserve_ir * preserve_si;
+                impulse_split.imagp[0] = preserve_ir;
+                
+                // Perform the FFT inverse
+                vDSP_fft_zrip(m_fft_handle, &m_output_split, 1, m_order, FFT_INVERSE);
+                vDSP_ztoc(&m_output_split, 1, (DSPComplex *)real_out, 2, ir_size);
+                
+                // Scale the result by 1 / (8 * window_size)
+                vDSP_vsmul(real_out, 1, &m_scale, real_out, 1, window_size);
+                
+                // Add the saved results to the output real array
+                vDSP_vadd(real_out, 1, real_saved, 1, real_out, 1, ir_size);
+                
+                // Save the end of the result
+                cblas_scopy(ir_size, real_out + ir_size, 1, real_saved, 1);
+                
+                // For each other instance
+                for(int i = 1; i < ninstance; i++)
+                {
+                    impulse_split.realp += window_size;
+                    impulse_split.imagp += window_size;
+                    
+                    // Perform the multiplication
+                    preserve_ir = impulse_split.imagp[0];
+                    impulse_split.imagp[0] = 0;
+                    preserve_si = m_input_split.imagp[0];
+                    m_input_split.imagp[0] = 0;
+                    
+                    vDSP_zvmul(&m_input_split, 1, &impulse_split, 1, &m_output_split, 1, ir_size, 1);
+                    
+                    m_output_split.imagp[0] = preserve_ir * preserve_si;
+                    impulse_split.imagp[0] = preserve_ir;
+                    
+                    // Perform the FFT inverse
+                    vDSP_fft_zrip(m_fft_handle, &m_output_split, 1, m_order, FFT_INVERSE);
+                    
+                    // Clear the output real array
+                    vDSP_ztoc(&m_output_split, 1, (DSPComplex *)temp_out, 2, ir_size);
+                    
+                    // Scale the result by 1 / (8 * window_size)
+                    vDSP_vsmul(temp_out, 1, &m_scale, temp_out, 1, window_size);
+                    
+                    // Move the previous saved result to -irsize
+                    vDSP_vadd(real_saved, 1, real_saved+ir_size, 1, real_saved, 1, ir_size);
+                    
+                    // Clear the previous saved result
+                    vDSP_vclr(real_saved + ir_size, 1, ir_size);
+                    
+                    // Add the new result to the saved array
+                    vDSP_vadd(real_saved, 1, temp_out, 1, real_saved, 1, window_size);
+                    real_saved += ir_size;
+                }
+            }
+        }
     }
     
     void FourierConvolve::performAdd(float* input, float* output, int sampleframes)
