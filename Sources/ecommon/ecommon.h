@@ -36,6 +36,10 @@
 #include <unistd.h>
 #endif
 
+#include "m_pd.h"
+#include "m_imp.h"
+#include "g_canvas.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -44,10 +48,6 @@
 #include <string.h>
 #include <stdarg.h>
 #include <fcntl.h>
-
-#include "m_pd.h"
-#include "m_imp.h"
-#include "g_canvas.h"
 
 #include "eboxflag.h"
 

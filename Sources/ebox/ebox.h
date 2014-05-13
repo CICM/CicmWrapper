@@ -51,7 +51,7 @@ t_symbol* ebox_getfontweight(t_ebox* x);
 t_pd* ebox_getsender(t_ebox* x);
 char ebox_isdrawable(t_ebox* x);
 float ebox_getfontsize(t_ebox* x);
-void ebox_set_cursor(t_ebox* x, int mode);;
+void ebox_set_cursor(t_ebox* x, int mode);
 
 /*********************************
  * ATTRIBUTES

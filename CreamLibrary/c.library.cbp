@@ -6,48 +6,19 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Debug">
-				<Option output="Package/CreamLibrary/$(PROJECT_NAME).pd_linux" prefix_auto="0" extension_auto="0" />
-				<Option working_dir="Linux" />
-				<Option object_output="Linux" />
-				<Option type="3" />
-				<Option compiler="gcc" />
-				<Option createDefFile="1" />
-				<Option createStaticLib="1" />
-				<Option projectLinkerOptionsRelation="2" />
-				<Compiler>
-					<Add option="-O3" />
-					<Add option="-Wall" />
-					<Add option="-g" />
-					<Add option="-fPIC" />
-					<Add directory="../../../SDKs/pd-extended/pd/src" />
-					<Add directory="/usr/include/x86_64-linux-gnu/" />
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8/" />
-				</Compiler>
-				<Linker>
-					<Add option="-fPIC" />
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8/" />
-					<Add directory="../../../SDKs/pd-extended/pd/src" />
-				</Linker>
-			</Target>
 			<Target title="Release">
 				<Option output="Package/CreamLibrary/$(PROJECT_NAME).pd_linux" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="Linux" />
 				<Option object_output="Linux" />
 				<Option type="3" />
 				<Option compiler="gcc" />
-				<Option createDefFile="1" />
-				<Option createStaticLib="1" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-O3" />
 					<Add option="-fPIC" />
-					<Add option="-O6" />
-					<Add option="-funroll-loops" />
 				</Compiler>
 				<Linker>
+					<Add option="-s" />
 					<Add option="-fPIC" />
-					<Add option="-rdynamic" />
-					<Add option="-shared" />
 				</Linker>
 			</Target>
 			<Target title="Release32">
@@ -56,8 +27,6 @@
 				<Option object_output="Linux" />
 				<Option type="3" />
 				<Option compiler="gcc" />
-				<Option createDefFile="1" />
-				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-O3" />
 					<Add option="-fPIC" />
@@ -73,8 +42,11 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-Wall" />
+			<Add option="-O3" />
 		</Compiler>
+		<Linker>
+			<Add option="-s" />
+		</Linker>
 		<Unit filename="../Sources/cicm_wrapper.h" />
 		<Unit filename="../Sources/ebox/ebox.h" />
 		<Unit filename="../Sources/ebox/ebox_attr.c">
@@ -123,9 +95,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../Sources/ecommon/ecommon.h" />
-		<Unit filename="../Sources/ecommon/g_canvas.h" />
-		<Unit filename="../Sources/ecommon/m_imp.h" />
-		<Unit filename="../Sources/ecommon/m_pd.h" />
 		<Unit filename="../Sources/efft.h" />
 		<Unit filename="../Sources/egraphics/egraphics.c">
 			<Option compilerVar="CC" />

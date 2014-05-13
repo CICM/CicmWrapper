@@ -24,8 +24,8 @@
  *
  */
 
-#include "../c.library.h"
 
+#include "../c.library.h"
 #define MAXBINBUF 256
 
 typedef struct _preset
@@ -177,7 +177,10 @@ void *preset_new(t_symbol *s, int argc, t_atom *argv)
 	ebox_new((t_ebox *)x, flags);
 
     for(i = 0; i < MAXBINBUF; i++)
+    {
         x->f_binbuf[i]  = binbuf_new();
+    }
+
 
     x->f_nbinbufs = 0;
     x->f_binbuf_selected = 0;
@@ -219,7 +222,7 @@ void preset_store(t_preset *x, float f)
         b = x->f_binbuf[index];
         if(binbuf_getnatom(b))
             binbuf_clear(b);
-        
+
         for(y = eobj_getcanvas(x)->gl_list; y; y = y->g_next)
         {
             z = (t_ebox *)y;

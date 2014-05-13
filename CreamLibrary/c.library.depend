@@ -269,3 +269,274 @@
 1397832035 source:/home/pierre/Git/PdEnhanced/CreamLibrary/Coffee/c.prepend.cpp
 	"../c.library.h"
 
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/ebox/ebox_attr.c
+	"ebox.h"
+
+1400003228 /home/pierre/Git/CicmWrapper/Sources/ebox/ebox.h
+	"../estruct.h"
+	"../egraphics/egraphics.h"
+	"../eobj/eobj.h"
+
+1400003261 /home/pierre/Git/CicmWrapper/Sources/estruct.h
+	"ecommon/ecommon.h"
+
+1399992496 /home/pierre/Git/CicmWrapper/Sources/ecommon/ecommon.h
+	<io.h>
+	<unistd.h>
+	"m_pd.h"
+	"m_imp.h"
+	"g_canvas.h"
+	<stdio.h>
+	<stdlib.h>
+	<stdint.h>
+	<math.h>
+	<ctype.h>
+	<string.h>
+	<stdarg.h>
+	<fcntl.h>
+	"eboxflag.h"
+
+1399390475 /home/pierre/Git/CicmWrapper/Sources/ecommon/m_pd.h
+	<stddef.h>
+	<stdint.h>
+	<stdio.h>
+
+1397832034 /home/pierre/Git/CicmWrapper/Sources/ecommon/m_imp.h
+
+1399363393 /home/pierre/Git/CicmWrapper/Sources/ecommon/g_canvas.h
+
+1397832034 /home/pierre/Git/CicmWrapper/Sources/ecommon/eboxflag.h
+
+1397832034 /home/pierre/Git/CicmWrapper/Sources/egraphics/egraphics.h
+	"../estruct.h"
+
+1399986229 /home/pierre/Git/CicmWrapper/Sources/eobj/eobj.h
+	"../estruct.h"
+	"../egraphics/egraphics.h"
+	"../ecommon/ecommon.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/ebox/ebox_basic.c
+	"ebox.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/ebox/ebox_draw.c
+	"ebox.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/ebox/ebox_handle.c
+	"ebox.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/ebox/ebox_patcher.c
+	"ebox.h"
+
+1399390056 source:/home/pierre/Git/CicmWrapper/Sources/ebox/ebox_window.c
+	"ebox.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/eclass/eclass_attrgetter.c
+	"eclass.h"
+
+1397832034 /home/pierre/Git/CicmWrapper/Sources/eclass/eclass.h
+	"../estruct.h"
+	"../ebox/ebox.h"
+	"../epopup/epopup.h"
+
+1397832034 /home/pierre/Git/CicmWrapper/Sources/epopup/epopup.h
+	"../estruct.h"
+	"../ebox/ebox.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/eclass/eclass_attrnew.c
+	"eclass.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/eclass/eclass_attroptions.c
+	"eclass.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/eclass/eclass_attrsetter.c
+	"eclass.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/eclass/eclass_basic.c
+	"eclass.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/eclass/eclass_widget.c
+	"eclass.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/ecommon/d_ugen.c
+	"d_ugen.h"
+
+1397832034 /home/pierre/Git/CicmWrapper/Sources/ecommon/d_ugen.h
+	"m_pd.h"
+	"m_imp.h"
+	"g_canvas.h"
+	<stdlib.h>
+	<stdarg.h>
+
+1399363393 source:/home/pierre/Git/CicmWrapper/Sources/ecommon/ecommon.c
+	"ecommon.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/egraphics/egraphics.c
+	"egraphics.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/egraphics/egraphics_color.c
+	"egraphics.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/egraphics/egraphics_forms.c
+	"egraphics.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/egraphics/egraphics_matrix.c
+	"egraphics.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/egraphics/egraphics_text.c
+	"egraphics.h"
+
+1399363393 source:/home/pierre/Git/CicmWrapper/Sources/eobj/eobj_basic.c
+	"eobj.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/eobj/eobj_dsp.c
+	"eobj.h"
+
+1399363393 source:/home/pierre/Git/CicmWrapper/Sources/eobj/eobj_handle.c
+	"eobj.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/eobj/eobj_proxy.c
+	"eobj.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/eobj/eobj_router.c
+	"eobj.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/Sources/epopup/epopup.c
+	"epopup.h"
+
+1399366322 source:/home/pierre/Git/CicmWrapper/CreamLibrary/c.library.cpp
+	"c.library.h"
+
+1399363393 /home/pierre/Git/CicmWrapper/CreamLibrary/c.library.h
+	"../Sources/cicm_wrapper.h"
+
+1399363393 /home/pierre/Git/CicmWrapper/Sources/cicm_wrapper.h
+	"epd.h"
+	"ecommon/ecommon.h"
+
+1397832034 /home/pierre/Git/CicmWrapper/Sources/epd.h
+	"eclass/eclass.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Caramel/AudioFFT.cpp
+	"AudioFFT.h"
+	<cassert>
+	<cmath>
+	<cstring>
+
+1399363393 /home/pierre/Git/CicmWrapper/CreamLibrary/Caramel/AudioFFT.h
+	<cstddef>
+	<Accelerate/Accelerate.h>
+	<vector>
+	<vector>
+
+1399363393 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Caramel/c.convolve_tilde.cpp
+	"../c.library.h"
+	<algorithm>
+	<cstring>
+	<numeric>
+	<vector>
+	<cmath>
+	<cstdio>
+	<cstdlib>
+	"FFTConvolver.h"
+	"Utilities.h"
+
+1397832034 /home/pierre/Git/CicmWrapper/CreamLibrary/Caramel/FFTConvolver.h
+	"AudioFFT.h"
+	"Utilities.h"
+	<vector>
+
+1397832034 /home/pierre/Git/CicmWrapper/CreamLibrary/Caramel/Utilities.h
+	<algorithm>
+	<cassert>
+	<cstddef>
+	<cstring>
+	<new>
+	<xmmintrin.h>
+
+1397832034 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Caramel/c.freeverb_tilde.cpp
+	"../c.library.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Caramel/FFTConvolver.cpp
+	"FFTConvolver.h"
+	<cassert>
+	<cmath>
+	<xmmintrin.h>
+
+1397832034 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Caramel/Utilities.cpp
+	"Utilities.h"
+
+1397832035 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Chocolate/c.bang.cpp
+	"../c.library.h"
+
+1399363393 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Chocolate/c.blackboard.cpp
+	"../c.library.h"
+
+1399390056 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Chocolate/c.breakpoints.cpp
+	"../c.library.h"
+
+1397832035 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Chocolate/c.colorpanel.cpp
+	"../c.library.h"
+
+1397832035 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Chocolate/c.gain_tilde.cpp
+	"../c.library.h"
+
+1397832035 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Chocolate/c.incdec.cpp
+	"../c.library.h"
+
+1397832035 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Chocolate/c.knob.cpp
+	"../c.library.h"
+
+1399363393 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Chocolate/c.menu.cpp
+	"../c.library.h"
+
+1397832035 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Chocolate/c.meter_tilde.cpp
+	"../c.library.h"
+
+1399363393 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Chocolate/c.number.cpp
+	"../c.library.h"
+
+1397832035 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Chocolate/c.number_tilde.cpp
+	"../c.library.h"
+
+1397832035 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Chocolate/c.plane.cpp
+	"../c.library.h"
+
+1397832035 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Chocolate/c.radio.cpp
+	"../c.library.h"
+
+1397832034 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Chocolate/c.rslider.cpp
+	"../c.library.h"
+
+1399366671 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Chocolate/c.scope_tilde.cpp
+	"../c.library.h"
+
+1397832035 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Chocolate/c.slider.cpp
+	"../c.library.h"
+
+1397832035 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Chocolate/c.tab.cpp
+	"../c.library.h"
+
+1399391392 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Chocolate/c.toggle.cpp
+	"../c.library.h"
+
+1397832035 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Coffee/c.loadmess.cpp
+	"../c.library.h"
+
+1399363393 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Coffee/c.pak.cpp
+	"../c.library.h"
+
+1397832035 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Coffee/c.patcherargs.cpp
+	"../c.library.h"
+
+1397832035 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Coffee/c.patcherinfos.cpp
+	"../c.library.h"
+
+1397832035 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Coffee/c.prepend.cpp
+	"../c.library.h"
+
+1400004028 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Chocolate/c.preset.cpp
+	"../c.library.h"
+
+1399978903 source:/home/pierre/Git/CicmWrapper/CreamLibrary/Chocolate/c.preset.c
+	"../c.library.h"
+

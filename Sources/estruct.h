@@ -174,7 +174,7 @@ typedef struct _eattr
     long            offset;
     long            sizemax;
     long            size;
-    
+
 	method			getter;
 	method			setter;
     long            clipped;
@@ -203,7 +203,7 @@ typedef enum _emod_flags
     EMOD_MAJ            = 2,
     EMOD_CTRL           = 4,
     EMOD_CMD            = 8,
-    EMOD_ALT            = 16,
+    EMOD_ALT            = 16
 } t_emod_flags;
 
 typedef enum _ekey_flags
@@ -211,7 +211,7 @@ typedef enum _ekey_flags
     EKEY_DEL      = 0,
 	EKEY_TAB      = 1,
     EKEY_ENTER    = 2,
-    EKEY_ESC      = 3,
+    EKEY_ESC      = 3
 
 } t_ekey_flags;
 
@@ -223,7 +223,7 @@ typedef enum _eselitem_flags
     EITEM_OUTLET  = 3,
     EITEM_BOTTOM  = 4,
     EITEM_CORNER  = 5,
-    EITEM_RIGHT   = 6,
+    EITEM_RIGHT   = 6
 
 } t_eselitem_flags;
 
@@ -232,7 +232,7 @@ typedef enum _elayer_flags
 	EGRAPHICS_OPEN      = 0,
 	EGRAPHICS_CLOSE     = -1,
 	EGRAPHICS_INVALID   = -2,
-    EGRAPHICS_TODRAW    = -3,
+    EGRAPHICS_TODRAW    = -3
 } t_elayer_flags;
 
 typedef enum _etextanchor_flags
@@ -306,7 +306,7 @@ typedef enum
     E_GOBJ_ARC                  ,   /*!< This is an arc. */
     E_GOBJ_OVAL                 ,   /*!< This is an oval. */
     E_GOBJ_TEXT                 ,   /*!< This is a text. */
-    E_GOBJ_IMAG                 ,   /*!< This is an image. */
+    E_GOBJ_IMAG                    /*!< This is an image. */
 } egraphics_types;
 
 /**
@@ -454,13 +454,13 @@ typedef struct _ebox
     t_symbol*           b_receive_id;       /*!< The object user ID. */
     t_symbol*           b_send_id;          /*!< The object send ID. */
     t_symbol*           b_objpreset_id;     /*!< The object preset ID. */
-    
+
     t_symbol*           b_canvas_id;        /*!< The canvas ID. */
     t_symbol*           b_drawing_id;       /*!< The drawing ID. */
     t_symbol*           b_editor_id;        /*!< The editor ID. */
     t_symbol*           b_window_id;        /*!< The window ID. */
     t_symbol*           b_all_id;           /*!< The global ID. */
-    
+
     long                b_flags;            /*!< The ebox flags. */
     t_rect              b_rect;             /*!< The ebox rectangle. */
     t_rect              b_rect_last;        /*!< The ebox previous rectangle. */
@@ -474,7 +474,7 @@ typedef struct _ebox
     t_pt                b_move_box;         /*!< The box moving position. */
     char                b_mouse_down;       /*!< The mouse state. */
     long                b_modifiers;        /*!< The modifiers pressed. */
-    
+
     char                b_visible;          /*!< The visible State. */
     char                b_ready_to_draw;    /*!< The ebox state for drawing. */
     char                b_have_window;      /*!< The ebox window state. */
@@ -494,7 +494,7 @@ typedef struct _ebox
 typedef struct _edspbox
 {
     t_eobj              b_obj;              /*!< The CICM DSP object. */
-    
+
     t_symbol*           b_receive_id;       /*!< The object user ID. */
     t_symbol*           b_send_id;          /*!< The object send ID. */
     t_symbol*           b_objpreset_id;     /*!< The object preset ID. */
