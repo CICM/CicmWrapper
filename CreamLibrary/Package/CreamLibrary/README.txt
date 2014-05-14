@@ -14,9 +14,9 @@ http://www.univ-paris8.fr/
 
 ------------------------------------------------------------------------------------------
 
-To install the Cream Library, copy the "CreamLibrary" folders in your Pd extra folder and add the startup flag "c.library". 
-On Linux and Mac Os, the "misc" subfolder will be added to your preference paths automatically. 
-On Windows you have to do it yourself or to copy the content of the "misc" folder into the "CreamLibrary" folder. 
+Installation :
+Copy the "CreamLibrary" folder in your Pure Data "package" folder and add "c.library" in startup preferences. You can also copy the "CreamLibrary" folder in another folder than the default package folder, then you have to add this folder in the path preferences and add "CreamLibrary/c.library" in the startup preferences. For PD-Extented, use the startup flags "-lib c.library" or "-lib CreamLibrary/c.library". 
+
 On Linux 32 bits, you have to replace the "c.library.pd_linux" in the CreamLibrary folder by the one that is in the "Linux32" subfolder.
 
 This libraries should work for Pd 0.43 and higher - Mac Os, Windows and Linux. 
