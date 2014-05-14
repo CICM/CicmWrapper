@@ -209,12 +209,13 @@ void preset_oksize(t_preset *x, t_rect *newrect)
 
 void preset_store(t_preset *x, float f)
 {
+    t_binbuf *b;
+    char id[MAXPDSTRING];
     t_gobj *y = NULL;
     t_ebox *z = NULL;
     t_gotfn mpreset = NULL;
     t_atom av[2];
-    t_binbuf *b;
-    char id[MAXPDSTRING];
+
     int index = (int)(f - 1);
 
     if(index >= 0 && index < MAXBINBUF && x->f_init)

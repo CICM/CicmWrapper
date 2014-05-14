@@ -157,7 +157,9 @@ t_symbol* fsymbol_from_symbol(t_symbol* s)
 
 t_symbol* symbol_from_fsymbol(t_symbol* s)
 {
-    return gensym(strtok(s->s_name," '\""));
+    char buf[MAXPDSTRING];
+    sprintf(buf, "%s",s->s_name);
+    return gensym(strtok(buf," '\""));
 }
 
 t_atom* fatoms_from_atoms(long ac, t_atom* av)
@@ -229,7 +231,7 @@ long atoms_from_fatoms(long ac, t_atom* av)
 t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *argv)
 {
     int i;
-    
+
     long ac = argc+1;
     t_atom* av = (t_atom *)calloc(ac, sizeof(t_atom));
     atom_setsym(av, key);
@@ -238,7 +240,7 @@ t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *
     {
         av[i+1] = argv[i];
     }
-    
+
     binbuf_add(d, (int)ac, av);
     return 0;
 }
@@ -284,7 +286,7 @@ long atoms_get_keys(long ac, t_atom* av, t_symbol*** s)
     long i, j;
     long size = atoms_get_nattributes(ac, av);
     s[0] = malloc(size * sizeof(t_symbol *));
-    
+
     for(i = 0, j = 0; i < ac; i++)
     {
         if(atom_gettype(av+i) == A_SYM && atom_getsym(av+i)->s_name[0] == '@')
@@ -380,7 +382,7 @@ t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_a
         }
         argc[0] = atoms_from_fatoms(argc[0], argv[0]);
         argv[0] = (t_atom *)realloc(argv[0], argc[0] * sizeof(t_atom));
-        
+
         if(!argv[0])
         {
             argc[0] = 0;

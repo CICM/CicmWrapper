@@ -234,8 +234,11 @@ void toggle_mousedown(t_toggle *x, t_object *patcherview, t_pt pt, long modifier
 
 void toggle_preset(t_toggle *x, t_binbuf *b)
 {
-    binbuf_addv(b, "sf", gensym("float"), (float)x->f_active);
-    //post("preset toogle %ld %ld %s %f", (long)x, (long)b, gensym("float")->s_name, (float)x->f_active);
+    t_atom av[2];
+    atom_setsym(av, gensym("float"));
+    atom_setfloat(av+1, x->f_active);
+
+    binbuf_add(b, 2, av);
 }
 
 
