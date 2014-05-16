@@ -475,17 +475,35 @@ void pd_library_add_folder(char* libraryname, char* folder)
 		if(strncmp(var->nl_string, libraryname, strlen(libraryname)) == 0)
 		{
 			sprintf(path, "%s/%s", var->nl_string, folder);
-			namelist_append_files(sys_searchpath, path);
+			namelist_append_files(sys_staticpath, path);
 			return;
 		}
 		else if(access(path, O_RDONLY) != -1)
 		{
 			sprintf(path, "%s/%s/%s", var->nl_string, libraryname, folder);
-			namelist_append_files(sys_searchpath, path);
+			namelist_append_files(sys_staticpath, path);
 			return;
 		}
 		var = var->nl_next;
 	}
+    var = sys_staticpath;
+    while (var)
+    {
+        sprintf(path, "%s/%s",var->nl_string, libraryname);
+		if(strncmp(var->nl_string, libraryname, strlen(libraryname)) == 0)
+		{
+			sprintf(path, "%s/%s", var->nl_string, folder);
+			namelist_append_files(sys_staticpath, path);
+			return;
+		}
+		else if(access(path, O_RDONLY) != -1)
+		{
+			sprintf(path, "%s/%s/%s", var->nl_string, libraryname, folder);
+			namelist_append_files(sys_staticpath, path);
+			return;
+		}
+		var = var->nl_next;
+    }
 }
 
 
