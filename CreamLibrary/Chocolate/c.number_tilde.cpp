@@ -325,7 +325,7 @@ void draw_value(t_number_tilde *x, t_object *view, t_rect *rect)
                 inc = x->f_ndecimal;
 
             if(inc == 0)
-                sprintf(number, "%i.", (int)x->f_peak_value);
+                sprintf(number, "%i", (int)x->f_peak_value);
             else if(inc == 1)
                 sprintf(number, "%.1f", x->f_peak_value);
             else if(inc == 2)

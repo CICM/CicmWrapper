@@ -1,0 +1,33 @@
+#N canvas 409 207 407 256 10;
+#X obj -691 -1821 c.patcherinfos;
+#X obj -691 -1838 loadbang;
+#X obj -691 -1838 c.help.header;
+#X obj -689 -1704 c.tab @size 398 36 @fontname Monaco @fontweight normal
+@fontslant roman @fontsize 13 @receive (null) @send (null) @presetname
+(null) @orientation 0 @toggle 1 @items Chocolate Caramel Coffee @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @hocolor
+0.5 0.5 0.5 1 @secolor 0.35 0.35 0.35 1;
+#N canvas 698 181 450 300 c.open.hel 0;
+#X obj -259 -281 makefilename %s-help.pd;
+#X obj -259 -248 pack s s;
+#X obj -232 -321 c.patcherinfos;
+#X obj -259 -342 t s b;
+#X msg -259 -221 \; pd open \$1 \$2;
+#X obj -287 -407 inlet;
+#X connect 0 0 1 0;
+#X connect 1 0 4 0;
+#X connect 2 1 1 1;
+#X connect 3 0 0 0;
+#X connect 3 1 2 0;
+#X connect 5 0 3 0;
+#X restore -515 -1689 pd c.open.hel;
+#X obj -664 -1650 c.help.pub;
+#X text -690 -1795 The Cream library is a set of objects made with
+the CICM Wrapper developed to facilitate the creation of signal objects
+and GUI and to improve user interactions. The GUI part of the library
+is Chocolate \, the DSP part of the library is Caramel and the Patching/Data
+part of the library is Coffee.;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X connect 3 1 4 0;
+#X coords 0 -2.14748e+09 1 -2.14748e+09 100 60 0;

@@ -29,7 +29,7 @@
 
 typedef struct _bang
 {
-	t_ebox      j_box;
+	t_jbox      j_box;
     
     t_outlet*   f_out;
 	t_rgba		f_color_background;
@@ -236,23 +236,23 @@ void draw_background(t_bang *x, t_object *view, t_rect *rect)
     float radius = rect->width * 0.5;
     
     // Creation d'un nouveau calque défini par le symbol "background_layer"
-	t_elayer *g = ebox_start_layer((t_ebox *)x, gensym("background_layer"), rect->width, rect->height);
-    //t_jgraphics *g = jbox_start_layer((t_object *)x, view, gensym("background_layer"), rect->width, rect->height);
+	//t_elayer *g = ebox_start_layer((t_ebox *)x, gensym("background_layer"), rect->width, rect->height);
+    t_jgraphics *g = jbox_start_layer((t_object *)x, view, gensym("background_layer"), rect->width, rect->height);
     
     // Si le calque est nouveau ou a été invalidé, il est possible de le redéfinir
 	if (g)
 	{
         // Definition de la couleur utilisée
-        egraphics_set_color_rgba(g, &x->f_color_background);
-        //jgraphics_set_source_jrgba(g, &x->f_color_background);
+        //egraphics_set_color_rgba(g, &x->f_color_background);
+        jgraphics_set_source_jrgba(g, &x->f_color_background);
         
         // Création d'un cercle
-        egraphics_arc(g, radius, radius, radius * 0.9, 0, EPD_2PI);
-        // jgraphics_arc(g, radius, radius, radius * 0.9, 0, EPD_2PI);
+        //egraphics_arc(g, radius, radius, radius * 0.9, 0, EPD_2PI);
+        jgraphics_arc(g, radius, radius, radius * 0.9, 0, EPD_2PI);
         
         // Ajout du cercle dans le calque en remplissant
-        egraphics_fill(g);
-        // jgraphics_fill(g);
+        //egraphics_fill(g);
+         jgraphics_fill(g);
         
         ebox_end_layer((t_ebox*)x, gensym("background_layer"));
         //jbox_end_layer((t_jbox*)x, view, gensym("background_layer"));
@@ -267,16 +267,16 @@ void draw_background(t_bang *x, t_object *view, t_rect *rect)
 void mouse_down(t_bang *x, t_object *view, t_pt pt, long modifiers)
 {
     // Invalidation du calque de l'arrière plan de l'objet
-    ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
-    //jbox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
+    //ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+    jbox_invalidate_layer((t_object *)x, NULL, gensym("background_layer"));
     
     // Notification à l'objet de redessiner
-    ebox_redraw((t_ebox *)x);
-    // jbox_redraw((t_jbox *)x);
+    //ebox_redraw((t_ebox *)x);
+    jbox_redraw((t_jbox *)x);
     
     outlet_bang(x->f_out);
-}
-*/
+}*/
+
 
 
 

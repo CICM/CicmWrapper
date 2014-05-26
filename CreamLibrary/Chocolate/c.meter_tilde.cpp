@@ -212,7 +212,7 @@ void meter_dsp(t_meter *x, t_object *dsp, short *count, double samplerate, long 
 
 void meter_perform(t_meter *x, t_object *dsp, float **ins, long ni, float **outs, long no, long nsamples, long f,void *up)
 {
-	int i;
+    int i;
     float peak = fabs(ins[0][0]);
     for(i = 1; i < nsamples; i++)
     {
@@ -225,11 +225,11 @@ void meter_perform(t_meter *x, t_object *dsp, float **ins, long ni, float **outs
     else
         x->f_peak_value = -90.;
 
-	if (x->f_startclock)
-	{
-		x->f_startclock = 0;
-		clock_delay(x->f_clock, 0);
-	}
+    if (x->f_startclock)
+    {
+        x->f_startclock = 0;
+        clock_delay(x->f_clock, 0);
+    }
 }
 
 void meter_tick(t_meter *x)

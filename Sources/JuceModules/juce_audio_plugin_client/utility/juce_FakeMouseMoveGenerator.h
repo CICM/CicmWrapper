@@ -34,11 +34,13 @@ class FakeMouseMoveGenerator  : private Timer
 public:
     FakeMouseMoveGenerator()
     {
+        post("hi");
         startTimer (1000 / 30);
     }
 
     void timerCallback() override
     {
+        post("hi");
         // workaround for carbon windows not getting mouse-moves..
         const Point<int> screenPos (Desktop::getInstance().getMainMouseSource().getScreenPosition());
 

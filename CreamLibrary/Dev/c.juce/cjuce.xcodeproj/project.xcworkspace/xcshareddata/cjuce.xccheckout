@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>8F9DA0AA-9911-43A7-911E-546716C072D0</string>
+	<key>IDESourceControlProjectName</key>
+	<string>cjuce</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>30EA55B4-3931-415B-89BA-A287EDB71E4F</key>
+		<string>https://github.com/CICM/CicmWrapper.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>CreamLibrary/Dev/c.juce/cjuce.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>30EA55B4-3931-415B-89BA-A287EDB71E4F</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/CICM/CicmWrapper.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>30EA55B4-3931-415B-89BA-A287EDB71E4F</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>30EA55B4-3931-415B-89BA-A287EDB71E4F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CicmWrapper</string>
+		</dict>
+	</array>
+</dict>
+</plist>
