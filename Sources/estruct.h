@@ -191,6 +191,7 @@ typedef struct _eclass
     t_class     c_class;
     char        c_box;
     char        c_dsp;
+    char        c_juce;
     t_ewidget   c_widget;
     t_eattr*    c_attr;
     long        c_nattr;
@@ -540,9 +541,6 @@ typedef struct _edspbox
     method              d_perform_method;   /*!< The user perform method. */
     long                d_misc;
 }t_edspbox;
-
-
-
 
 
 #endif

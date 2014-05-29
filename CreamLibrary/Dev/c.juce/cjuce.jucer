@@ -3,84 +3,82 @@
 <JUCERPROJECT id="h94TLq" name="cjuce" projectType="dll" version="0.1" bundleIdentifier="com.cicm.c_juce"
               includeBinaryInAppConfig="0" buildVST="0" buildAU="0" pluginName="c.juce"
               pluginDesc="cjuce" pluginManufacturer="CICM" pluginManufacturerCode="CICM"
-              pluginCode="cicm" pluginChannelConfigs="{1, 1}, {2, 2}" pluginIsSynth="0"
+              pluginCode="cicm" pluginChannelConfigs="{1, 1}, {2, 2}" pluginIsSynth="1"
               pluginWantsMidiIn="0" pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="0"
               pluginEditorRequiresKeys="0" pluginAUExportPrefix="c_juceAU"
               pluginRTASCategory="" aaxIdentifier="com.yourcompany.c_juce"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="3.1.0"
-              companyName="CICM">
+              companyName="CICM" buildVST3="0" buildRTAS="0" buildAAX="0">
   <MAINGROUP id="WbNJYm" name="cjuce">
     <FILE id="Zjxnpb" name="c.juce.cpp" compile="1" resource="0" file="c.juce.cpp"/>
-    <FILE id="aEsgLG" name="startup.mm" compile="1" resource="0" file="startup.mm"/>
-    <GROUP id="{47699CEC-3578-64BA-67D5-5F772F22A8DB}" name="CicmWrapper">
-      <GROUP id="{12210A54-097C-EF1D-EA86-468116F8F1FC}" name="juceBox">
-        <FILE id="Hqvgoo" name="jucebox_wrapper.cpp" compile="1" resource="0"
-              file="../../../Sources/juceBox/jucebox_wrapper.cpp"/>
-        <FILE id="JIfYzB" name="jucebox_wrapper.h" compile="1" resource="0"
-              file="../../../Sources/juceBox/jucebox_wrapper.h"/>
+    <GROUP id="{053E932F-3CF1-4F2B-EED1-E29188575273}" name="Sources">
+      <FILE id="pQMtxu" name="cicm_wrapper.h" compile="0" resource="0" file="../../../Sources/cicm_wrapper.h"/>
+      <GROUP id="{4D4AD42E-AA4D-76C2-68C7-A998581D5E66}" name="ebox">
+        <FILE id="YpfByx" name="ebox.h" compile="0" resource="0" file="../../../Sources/ebox/ebox.h"/>
+        <FILE id="y1EhMw" name="ebox_attr.c" compile="1" resource="0" file="../../../Sources/ebox/ebox_attr.c"/>
+        <FILE id="YoxIhN" name="ebox_basic.c" compile="1" resource="0" file="../../../Sources/ebox/ebox_basic.c"/>
+        <FILE id="of7ji0" name="ebox_draw.c" compile="1" resource="0" file="../../../Sources/ebox/ebox_draw.c"/>
+        <FILE id="wghy1h" name="ebox_handle.c" compile="1" resource="0" file="../../../Sources/ebox/ebox_handle.c"/>
+        <FILE id="KNO8b9" name="ebox_patcher.c" compile="1" resource="0" file="../../../Sources/ebox/ebox_patcher.c"/>
+        <FILE id="W1ykuC" name="ebox_window.c" compile="1" resource="0" file="../../../Sources/ebox/ebox_window.c"/>
       </GROUP>
-      <FILE id="y4Udaa" name="cicm_wrapper.h" compile="1" resource="0" file="../../../Sources/cicm_wrapper.h"/>
-      <GROUP id="{9F3C94DB-3A2D-3DA8-B5C2-A8A709BDDD15}" name="ebox">
-        <FILE id="TbGJRX" name="ebox.h" compile="1" resource="0" file="../../../Sources/ebox/ebox.h"/>
-        <FILE id="VN3fqt" name="ebox_attr.c" compile="1" resource="0" file="../../../Sources/ebox/ebox_attr.c"/>
-        <FILE id="DLfgcz" name="ebox_basic.c" compile="1" resource="0" file="../../../Sources/ebox/ebox_basic.c"/>
-        <FILE id="h1S5pL" name="ebox_draw.c" compile="1" resource="0" file="../../../Sources/ebox/ebox_draw.c"/>
-        <FILE id="DC6anN" name="ebox_handle.c" compile="1" resource="0" file="../../../Sources/ebox/ebox_handle.c"/>
-        <FILE id="EGNInU" name="ebox_patcher.c" compile="1" resource="0" file="../../../Sources/ebox/ebox_patcher.c"/>
-        <FILE id="T7Z1XF" name="ebox_window.c" compile="1" resource="0" file="../../../Sources/ebox/ebox_window.c"/>
-      </GROUP>
-      <GROUP id="{F890EDFE-8A6D-25E8-5D90-C99E9AB88FB9}" name="eclass">
-        <FILE id="HDJhJR" name="eclass.h" compile="1" resource="0" file="../../../Sources/eclass/eclass.h"/>
-        <FILE id="Rcq6j8" name="eclass_attrgetter.c" compile="1" resource="0"
+      <GROUP id="{E1A8DB31-9BEC-4C9E-62CA-239638BCEB17}" name="eclass">
+        <FILE id="id7Brx" name="eclass.h" compile="0" resource="0" file="../../../Sources/eclass/eclass.h"/>
+        <FILE id="EzlzXg" name="eclass_attrgetter.c" compile="1" resource="0"
               file="../../../Sources/eclass/eclass_attrgetter.c"/>
-        <FILE id="o08sDk" name="eclass_attrnew.c" compile="1" resource="0"
+        <FILE id="jIB9bE" name="eclass_attrnew.c" compile="1" resource="0"
               file="../../../Sources/eclass/eclass_attrnew.c"/>
-        <FILE id="oMiNLK" name="eclass_attroptions.c" compile="1" resource="0"
+        <FILE id="fsBXC0" name="eclass_attroptions.c" compile="1" resource="0"
               file="../../../Sources/eclass/eclass_attroptions.c"/>
-        <FILE id="ue3SGk" name="eclass_attrsetter.c" compile="1" resource="0"
+        <FILE id="da9fMN" name="eclass_attrsetter.c" compile="1" resource="0"
               file="../../../Sources/eclass/eclass_attrsetter.c"/>
-        <FILE id="YHENEm" name="eclass_basic.c" compile="1" resource="0" file="../../../Sources/eclass/eclass_basic.c"/>
-        <FILE id="cZAjzh" name="eclass_widget.c" compile="1" resource="0" file="../../../Sources/eclass/eclass_widget.c"/>
+        <FILE id="m8IFUK" name="eclass_basic.c" compile="1" resource="0" file="../../../Sources/eclass/eclass_basic.c"/>
+        <FILE id="CMg15P" name="eclass_widget.c" compile="1" resource="0" file="../../../Sources/eclass/eclass_widget.c"/>
       </GROUP>
-      <GROUP id="{B52CBBD0-B92F-C85C-281E-D8B3C431E110}" name="ecommon">
-        <FILE id="Pi6UkM" name="d_ugen.c" compile="1" resource="0" file="../../../Sources/ecommon/d_ugen.c"/>
-        <FILE id="EpwN2V" name="d_ugen.h" compile="1" resource="0" file="../../../Sources/ecommon/d_ugen.h"/>
-        <FILE id="vsKF5O" name="eboxflag.h" compile="1" resource="0" file="../../../Sources/ecommon/eboxflag.h"/>
-        <FILE id="zedN4D" name="ecommon.c" compile="1" resource="0" file="../../../Sources/ecommon/ecommon.c"/>
-        <FILE id="tgirt5" name="ecommon.h" compile="1" resource="0" file="../../../Sources/ecommon/ecommon.h"/>
-        <FILE id="q1VmT4" name="g_canvas.h" compile="1" resource="0" file="../../../Sources/ecommon/g_canvas.h"/>
-        <FILE id="VD8jQ5" name="m_imp.h" compile="1" resource="0" file="../../../Sources/ecommon/m_imp.h"/>
-        <FILE id="HrHxV6" name="m_pd.h" compile="1" resource="0" file="../../../Sources/ecommon/m_pd.h"/>
+      <GROUP id="{80A40835-D0B0-BD39-C437-FB3C511D5B00}" name="ecommon">
+        <FILE id="JNEA71" name="d_ugen.c" compile="1" resource="0" file="../../../Sources/ecommon/d_ugen.c"/>
+        <FILE id="JNC64i" name="d_ugen.h" compile="0" resource="0" file="../../../Sources/ecommon/d_ugen.h"/>
+        <FILE id="pLfeEP" name="eboxflag.h" compile="0" resource="0" file="../../../Sources/ecommon/eboxflag.h"/>
+        <FILE id="rcNKLC" name="ecommon.c" compile="1" resource="0" file="../../../Sources/ecommon/ecommon.c"/>
+        <FILE id="CNR3T0" name="ecommon.h" compile="0" resource="0" file="../../../Sources/ecommon/ecommon.h"/>
+        <FILE id="vGYNjY" name="g_canvas.h" compile="0" resource="0" file="../../../Sources/ecommon/g_canvas.h"/>
+        <FILE id="yox52K" name="m_imp.h" compile="0" resource="0" file="../../../Sources/ecommon/m_imp.h"/>
+        <FILE id="vFRLmx" name="m_pd.h" compile="0" resource="0" file="../../../Sources/ecommon/m_pd.h"/>
       </GROUP>
-      <FILE id="lJ1V1V" name="efft.c" compile="1" resource="0" file="../../../Sources/efft.c"/>
-      <FILE id="tUNPdF" name="efft.h" compile="1" resource="0" file="../../../Sources/efft.h"/>
-      <GROUP id="{EDFD9611-6FFE-5732-19ED-66BB18C16C7B}" name="egraphics">
-        <FILE id="bpH0Hq" name="egraphics.c" compile="1" resource="0" file="../../../Sources/egraphics/egraphics.c"/>
-        <FILE id="Ayl2Pd" name="egraphics.h" compile="1" resource="0" file="../../../Sources/egraphics/egraphics.h"/>
-        <FILE id="RQpySv" name="egraphics_color.c" compile="1" resource="0"
+      <GROUP id="{0F6B4B5C-BED2-2A7C-512E-EE2EED993A83}" name="egraphics">
+        <FILE id="dQBzOX" name="egraphics.c" compile="1" resource="0" file="../../../Sources/egraphics/egraphics.c"/>
+        <FILE id="JC8AHa" name="egraphics.h" compile="0" resource="0" file="../../../Sources/egraphics/egraphics.h"/>
+        <FILE id="lJhLys" name="egraphics_color.c" compile="1" resource="0"
               file="../../../Sources/egraphics/egraphics_color.c"/>
-        <FILE id="XnCLDl" name="egraphics_forms.c" compile="1" resource="0"
+        <FILE id="Yi9x4K" name="egraphics_forms.c" compile="1" resource="0"
               file="../../../Sources/egraphics/egraphics_forms.c"/>
-        <FILE id="m0tTM7" name="egraphics_matrix.c" compile="1" resource="0"
+        <FILE id="NyQSRs" name="egraphics_matrix.c" compile="1" resource="0"
               file="../../../Sources/egraphics/egraphics_matrix.c"/>
-        <FILE id="p4asrB" name="egraphics_text.c" compile="1" resource="0"
+        <FILE id="JhV8F8" name="egraphics_text.c" compile="1" resource="0"
               file="../../../Sources/egraphics/egraphics_text.c"/>
       </GROUP>
-      <GROUP id="{D3EE4F00-A1AA-B790-E781-D28D26BFE98B}" name="eobj">
-        <FILE id="gAR9ag" name="eobj.h" compile="1" resource="0" file="../../../Sources/eobj/eobj.h"/>
-        <FILE id="F4Pgw8" name="eobj_basic.c" compile="1" resource="0" file="../../../Sources/eobj/eobj_basic.c"/>
-        <FILE id="hC3kJQ" name="eobj_dsp.c" compile="1" resource="0" file="../../../Sources/eobj/eobj_dsp.c"/>
-        <FILE id="h15I1F" name="eobj_handle.c" compile="1" resource="0" file="../../../Sources/eobj/eobj_handle.c"/>
-        <FILE id="i5voAf" name="eobj_proxy.c" compile="1" resource="0" file="../../../Sources/eobj/eobj_proxy.c"/>
-        <FILE id="pMNTWg" name="eobj_router.c" compile="1" resource="0" file="../../../Sources/eobj/eobj_router.c"/>
+      <GROUP id="{2611937E-4E8C-22D8-F91C-BD91402B9302}" name="ejucebox">
+        <FILE id="Cgef0d" name="ejucebox.h" compile="0" resource="0" file="../../../Sources/ejucebox/ejucebox.h"/>
+        <FILE id="Ii5a0o" name="ejucebox_basic.cpp" compile="1" resource="0"
+              file="../../../Sources/ejucebox/ejucebox_basic.cpp"/>
+        <FILE id="RSE0m0" name="ejucebox_startup.mm" compile="1" resource="0"
+              file="../../../Sources/ejucebox/ejucebox_startup.mm"/>
       </GROUP>
-      <FILE id="kE7hKH" name="epd_max.h" compile="1" resource="0" file="../../../Sources/epd_max.h"/>
-      <FILE id="xI0ZpT" name="epd.h" compile="1" resource="0" file="../../../Sources/epd.h"/>
-      <GROUP id="{3A811916-6979-4778-9C45-D7BDB7001C71}" name="epopup">
-        <FILE id="kGF2oT" name="epopup.c" compile="1" resource="0" file="../../../Sources/epopup/epopup.c"/>
-        <FILE id="mNbTOp" name="epopup.h" compile="1" resource="0" file="../../../Sources/epopup/epopup.h"/>
+      <GROUP id="{8183AE40-D39B-64FD-B14A-BE056C110967}" name="eobj">
+        <FILE id="Gw2u5u" name="eobj.h" compile="0" resource="0" file="../../../Sources/eobj/eobj.h"/>
+        <FILE id="FeT4pu" name="eobj_basic.c" compile="1" resource="0" file="../../../Sources/eobj/eobj_basic.c"/>
+        <FILE id="Hoybte" name="eobj_dsp.c" compile="1" resource="0" file="../../../Sources/eobj/eobj_dsp.c"/>
+        <FILE id="AbVv4Y" name="eobj_handle.c" compile="1" resource="0" file="../../../Sources/eobj/eobj_handle.c"/>
+        <FILE id="MHwswY" name="eobj_proxy.c" compile="1" resource="0" file="../../../Sources/eobj/eobj_proxy.c"/>
+        <FILE id="jgwz2E" name="eobj_router.c" compile="1" resource="0" file="../../../Sources/eobj/eobj_router.c"/>
       </GROUP>
-      <FILE id="bsqwuL" name="estruct.h" compile="1" resource="0" file="../../../Sources/estruct.h"/>
+      <FILE id="ZlF7aR" name="epd.h" compile="0" resource="0" file="../../../Sources/epd.h"/>
+      <FILE id="m7b4y7" name="epd_max.h" compile="0" resource="0" file="../../../Sources/epd_max.h"/>
+      <GROUP id="{5141F48D-C173-DC86-FD2A-8EE5AAC998CA}" name="epopup">
+        <FILE id="zYiQJB" name="epopup.c" compile="1" resource="0" file="../../../Sources/epopup/epopup.c"/>
+        <FILE id="XPPllW" name="epopup.h" compile="0" resource="0" file="../../../Sources/epopup/epopup.h"/>
+      </GROUP>
+      <FILE id="qhcUcI" name="estruct.h" compile="0" resource="0" file="../../../Sources/estruct.h"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>
@@ -103,13 +101,15 @@
                JUCE_PLUGINHOST_AU="disabled"/>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="../c.juce" extraLinkerFlags="-undefined dynamic_lookup"
-               extraFrameworks="Accelerate" extraDefs="" extraCompilerFlags=""
+               extraFrameworks="Accelerate" extraDefs="JUCE_WRAPPER" extraCompilerFlags=""
                customPList="">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="default" osxArchitecture="64BitUniversal"
-                       isDebug="1" optimisation="1" targetName="c.juce" customXcodeFlags="MACOSX_DEPLOYMENT_TARGET = 10.6,EXECUTABLE_EXTENSION = pd_darwin, MACH_O_TYPE = mh_dylib"/>
+                       isDebug="1" optimisation="1" targetName="c.juce" customXcodeFlags="MACOSX_DEPLOYMENT_TARGET = 10.6,EXECUTABLE_EXTENSION = pd_darwin, MACH_O_TYPE = mh_dylib"
+                       headerPath="JuceLibraryCode"/>
         <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="default" osxArchitecture="64BitUniversal"
-                       isDebug="0" optimisation="3" targetName="c.juce" customXcodeFlags="MACOSX_DEPLOYMENT_TARGET = 10.6,EXECUTABLE_EXTENSION = pd_darwin, MACH_O_TYPE = mh_dylib"/>
+                       isDebug="0" optimisation="3" targetName="c.juce" customXcodeFlags="MACOSX_DEPLOYMENT_TARGET = 10.6,EXECUTABLE_EXTENSION = pd_darwin, MACH_O_TYPE = mh_dylib"
+                       headerPath="JuceLibraryCode"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_opengl" path="../../../../../juce/modules"/>

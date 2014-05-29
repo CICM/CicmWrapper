@@ -7,64 +7,57 @@
 #ifndef DEF_JUCEBOX_WRAPPER
 #define DEF_JUCEBOX_WRAPPER
 
+#ifdef JUCE_WRAPPER
+
 extern "C" {
-#include "../cicm_wrapper.h"
+#include "../epd.h"
+#include "../ecommon/ecommon.h"
+#include "../epd_max.h"
 }
-#include "../JuceLibraryCode/JuceHeader.h"
+
+#include <JuceHeader.h>
 
 using namespace juce;
 extern void initialiseMac(void);
-extern void componentCreateWindow (Component* comp);
 
 class PdJuceComponent : public Component
 {
 private:
     t_ebox*  m_box;
-    
-    Colour ecolor_to_jcolor(t_rgba color)
-    {
-        return Colour::fromFloatRGBA(color.red, color.green, color.blue, color.alpha);
-    }
+    Colour ecolor_to_jcolor(t_rgba color);
     
 public:
     
-	PdJuceComponent(t_ebox* owner) : Component()
-    {
-        m_box = owner;
-        setBounds(100, 100, 300, 300);
-        addToDesktop(ComponentPeer::StyleFlags::windowIgnoresMouseClicks | ComponentPeer::StyleFlags::windowIsTemporary);
-        setEnabled(true);
-        setAlwaysOnTop(true);
-        setVisible (true);
-        toFront(false);
-        setOpaque(false);
-    }
-    
-    void paint (Graphics& g)
-    {
-        Path region;
-        region.addRectangle(0, 0, 300, 300);
-        g.reduceClipRegion(region, AffineTransform::identity);
-        g.setColour(ecolor_to_jcolor(m_box->b_boxparameters.d_boxfillcolor));
-        g.fillAll();
-
-        
-        float bordersize = m_box->b_boxparameters.d_borderthickness;
-        g.setColour(ecolor_to_jcolor(m_box->b_boxparameters.d_bordercolor));
-        g.drawRect(bordersize, bordersize, getWidth() - bordersize, getHeight() - bordersize, bordersize);
-    }
-    
-    ~PdJuceComponent()
-    {
-        
-    }
+	PdJuceComponent(t_ebox* owner);
+    void paint (Graphics& g);
+    ~PdJuceComponent();
 };
 
 
-void jucebox_initclass(t_eclass* c, method paint, long flags);
-void jucebox_new(t_jucebox* x);
-void jucebox_free(t_jucebox* x);
-void jucebox_paint(t_jucebox* x, t_object *patcherview);
-void jucebox_setsize(t_jucebox* x);
+typedef struct _jucebox
+{
+	t_ebox              j_box;
+	PdJuceComponent*    j_component;
+} t_jucebox;
+
+typedef struct _dspjucebox
+{
+	t_edspbox           j_box;
+	PdJuceComponent*    j_component;
+} t_dspjucebox;
+
+void ejucebox_new(t_jucebox* x);
+void ejucebox_initclass(t_eclass* c, method paint, long flags);
+void ejucebox_free(t_jucebox* x);
+void ejucebox_paint(t_jucebox* x, t_object *patcherview);
+void ejucebox_change(t_jucebox* x, void* wm);
+
+void ejucewidget_vis(t_gobj *z, t_glist *glist, int vis);
+void ejucewidget_displace(t_gobj *z, t_glist *glist, int dx, int dy);
+void ejucewidget_select(t_gobj *z, t_glist *glist, int selected);
+void ejucewidget_delete(t_gobj *z, t_glist *glist);
+
+#endif
+
 
 #endif

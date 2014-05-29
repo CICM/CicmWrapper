@@ -28,6 +28,7 @@
 #ifndef DEF_EPD_COMMON
 #define DEF_EPD_COMMON
 
+
 #ifdef _WIN32
 #define snprintf _snprintf
 #include <io.h>
