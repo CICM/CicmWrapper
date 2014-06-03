@@ -29,6 +29,7 @@
 
 #include "epd.h"
 #include "ecommon/ecommon.h"
+#ifdef CICMWRAPPER_MAXCONVERTER
 #include "epd_max.h"
-
+#endif
 #endif
