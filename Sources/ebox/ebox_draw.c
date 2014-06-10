@@ -35,7 +35,7 @@
 void ebox_redraw(t_ebox *x)
 {
     t_eclass* c = eobj_getclass(x);
-    if(!c->c_juce && ebox_isdrawable(x) && x->b_have_window)
+    if(ebox_isdrawable(x) && x->b_have_window)
     {
         ebox_invalidate_layer(x, gensym("eboxbd"));
         ebox_invalidate_layer(x, gensym("eboxio"));
@@ -46,10 +46,6 @@ void ebox_redraw(t_ebox *x)
         ebox_draw_border(x);
         if(x->b_obj.o_canvas->gl_edit)
             ebox_draw_iolets(x);
-    }
-    else if(c->c_juce)
-    {
-        c->c_widget.w_paint(x, (t_object *)x->b_obj.o_canvas);
     }
 }
 

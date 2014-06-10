@@ -156,6 +156,8 @@ typedef struct _ewidget
     t_err_method    w_notify;
     method          w_write;
     method          w_read;
+    t_err_method    w_notify_juce;
+    method          w_paint_juce;
 } t_ewidget;
 
 typedef struct _eattr

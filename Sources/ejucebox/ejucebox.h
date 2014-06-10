@@ -20,19 +20,19 @@ extern "C" {
 using namespace juce;
 extern void initialiseMac(void);
 
+#include "../JuceLibraryCode/JuceHeader.h"
+#include <OpenGL/gl.h>
+
 class PdJuceComponent : public Component
 {
 private:
     t_ebox*  m_box;
-    Colour ecolor_to_jcolor(t_rgba color);
-    
 public:
     
 	PdJuceComponent(t_ebox* owner);
     void paint (Graphics& g);
     ~PdJuceComponent();
 };
-
 
 typedef struct _jucebox
 {
@@ -46,16 +46,46 @@ typedef struct _dspjucebox
 	PdJuceComponent*    j_component;
 } t_dspjucebox;
 
-void ejucebox_new(t_jucebox* x);
-void ejucebox_initclass(t_eclass* c, method paint, long flags);
+void ejucebox_new(t_jucebox* x, long flags);
+void ejucebox_initclass(t_eclass* c, long flags);
 void ejucebox_free(t_jucebox* x);
 void ejucebox_paint(t_jucebox* x, t_object *patcherview);
-void ejucebox_change(t_jucebox* x, void* wm);
+t_pd_err ejucebox_notify(t_jucebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
-void ejucewidget_vis(t_gobj *z, t_glist *glist, int vis);
-void ejucewidget_displace(t_gobj *z, t_glist *glist, int dx, int dy);
-void ejucewidget_select(t_gobj *z, t_glist *glist, int selected);
-void ejucewidget_delete(t_gobj *z, t_glist *glist);
+class PdOpenGlComponent : public juce::Component, public OpenGLRenderer
+{
+private:
+    OpenGLContext*      m_context;
+    Image*              m_image;
+    OpenGLFrameBuffer*  m_buffer;
+	float m_scale;
+public:
+	PdOpenGlComponent();
+	Image makeScreenshot(t_object* x, double width, double height);
+	
+    void setActive(){ m_context->makeActive();}
+    inline char isActive() const { return (char)m_context->isActive(); }
+    inline char isContextOk() const { return (char)(m_context == m_context->getCurrentContext()); }
+	
+	void newOpenGLContextCreated(){};
+    void renderOpenGL(){m_scale = m_context->getRenderingScale();};
+	void openGLContextClosing(){};
+    void setBounds (const int x, const int y, int w, int h);
+    ~PdOpenGlComponent();
+};
+
+typedef struct _openglbox
+{
+	t_ebox              j_box;
+	PdOpenGlComponent*  j_component;
+} t_openglbox;
+
+void eopenglbox_initclass(t_eclass* c, long flags);
+void eopenglbox_new(t_openglbox* x, long flags);
+void eopenglbox_free(t_openglbox* x);
+void eopenglbox_paint(t_openglbox* x, t_object *patcherview);
+t_pd_err eopenglbox_notify(t_jucebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
+
 
 #endif
 

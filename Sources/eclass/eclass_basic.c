@@ -463,7 +463,10 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
     }
     else if(gensym(name) == gensym("paint"))
     {
-        c->c_widget.w_paint = m;
+        if(c->c_juce)
+            c->c_widget.w_paint_juce = m;
+        else
+            c->c_widget.w_paint = m;
     }
     else if(gensym(name) == gensym("assist"))
     {
@@ -471,7 +474,10 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
     }
     else if(gensym(name) == gensym("notify"))
     {
-        c->c_widget.w_notify = (t_err_method)m;
+        if(c->c_juce)
+            c->c_widget.w_notify_juce = (t_err_method)m;
+        else
+            c->c_widget.w_notify = (t_err_method)m;
     }
 
     else if(gensym(name) == gensym("getdrawparams"))

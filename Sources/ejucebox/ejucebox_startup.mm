@@ -20,10 +20,9 @@
 void initialiseMac();
 void initialiseMac()
 {
-#if ! JUCE_64BIT
     [NSApplication sharedApplication];
     NSApplicationLoad();
-#endif
+    NSUpdateDynamicServices();
 }
 
 void hideWindow (void* comp);
