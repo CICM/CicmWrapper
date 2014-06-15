@@ -37,6 +37,10 @@
 #include <unistd.h>
 #endif
 
+#ifdef _WINDOWS
+	#pragma warning(disable:4091)
+#endif
+
 #include "m_pd.h"
 #include "m_imp.h"
 #include "g_canvas.h"
