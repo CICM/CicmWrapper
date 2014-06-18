@@ -27,8 +27,8 @@
 #include "Delaunay.h"
 #include "../c.library.h"
 
-
 #define MAXPOINTS 256
+using namespace Cicm;
 
 typedef struct _voronoy
 {
@@ -173,8 +173,6 @@ void voronoy_assist(t_voronoy *x, void *b, long m, long a, char *s)
 
 t_pd_err voronoy_notify(t_voronoy *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
-    int i, j;
-    float max;
 	if (msg == gensym("attr_modified"))
 	{
 		if(s == gensym("bgcolor") || s == gensym("bdcolor") || s == gensym("ptcolor") || s == gensym("licolor"))
