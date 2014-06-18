@@ -62,35 +62,71 @@ namespace Cicm
 	void Delaunay::evaluateTriangle(int i, int j, int k)
 	{
 		int size = points.size();
-		double abs, ord, dist_ij, dist_ik, dist_jk, angle;
+		double abs, ord;
+		double ix = points[i].x, iy = points[i].y, jx = points[j].x, jy = points[j].y, kx = points[k].x, ky = points[k].y;
+		double D = (ix - kx) * (jy - ky) - (jx - kx) * (iy - ky);
+		double circle_abscissa = (((ix - kx) * (ix + kx) + (iy - ky) * (iy + ky)) / 2 * (jy - ky) 
+    -  ((jx - kx) * (jx + kx) + (jy - ky) * (jy + ky)) / 2 * (iy - ky))  / D;
+		double circle_ordinate = (((jx - kx) * (jx + kx) + (jy - ky) * (jy + ky)) / 2 * (ix - kx)
+    -  ((ix - kx) * (ix + kx) + (iy - ky) * (iy + ky)) / 2 * (jx - kx))
+    / D;
+
+
+		
+		/*
 		double ix = points[i].x, iy = points[i].y, jx = points[j].x, jy = points[j].y, kx = points[k].x, ky = points[k].y;
 		
-		abs = (jx - ix);
-		ord = (jy - iy);
-		dist_ij = sqrt(abs * abs + ord * ord);
-		abs = (kx - ix);
-		ord = (ky - iy);
-		dist_ik = sqrt(abs * abs + ord * ord);
-		abs = (kx - jx);
-		ord = (ky - jy);
-		dist_jk = sqrt(abs * abs + ord * ord);
-		angle =  acos((dist_ij * dist_ij + dist_ik * dist_ik - dist_jk * dist_jk) / (2 * dist_ij * dist_ik));
+		double tempi = (ix * ix + iy * ix), tempj = (jx * jx + jy * jy), tempk = (kx * kx + ky * ky);
+		double tempjk = (jy - ky), tempki = (ky - iy), tempij = (iy - jy);
 
-		double circle_radius = dist_ij / ( 2. * sin(angle));
-		//double circle_abscissa = points[i].x + (points[j].x - points[i].x) * 0.5;
-		//double circle_ordinate = circle_radius + points[i].y;
-		double delta = 2. * (ix * (jy - ky) + jx * (ky - iy) + kx * (iy - jy));
-		double circle_abscissa = ((ix * ix + iy * ix) * (jy - ky) + (jx * jx + jy * jy) * (ky - iy) + (kx * kx + ky * ky) * (iy - jy)) / delta;
-		double circle_ordinate = ((ix * ix + iy * ix) * (ky - jy) + (jx * jx + jy * jy) * (iy - ky) + (kx * kx + ky * ky) * (jy - iy)) / delta;
-		post("abs %f ord %f", circle_abscissa, circle_ordinate);
+		double delta = 2. * (ix * tempjk + jx * tempki + kx * tempij);
+		double circle_abscissa = (tempi * tempjk + tempj * tempki + tempk * tempij) / delta;
+		double circle_ordinate = (tempi * (ky - jy) + tempj * (iy - ky) + tempk * (jy - iy)) / delta;
+
+		abs = circle_abscissa - ix;
+		ord = circle_ordinate - iy;
+		*/
+
+		/*
+		double xba, yba, xca, yca;
+		double balength, calength;
+		double denominator;
+		double xcirca, ycirca;
+
+		xba = points[j].x - points[i].x;
+		yba = points[j].y - points[i].y;
+		xca = points[k].x - points[i].x;
+		yca = points[k].y - points[i].y;
+
+		balength = xba * xba + yba * yba;
+		calength = xca * xca + yca * yca;
+
+		#ifdef EXACT
+		denominator = 0.5 / orient2d(b, c, a);
+		#else
+		denominator = 0.5 / (xba * yca - yba * xca);
+		#endif
+
+		xcirca = (yca * balength - yba * calength) * denominator;
+		ycirca = (xba * calength - xca * balength) * denominator;
+		double circle_abscissa = xcirca;
+		double circle_ordinate = ycirca;
+		*/
+		abs = circle_abscissa - points[i].x;
+		ord = circle_ordinate - points[i].y;
+		double circle_radius = sqrt(abs * abs + ord * ord);
+
 		// If one point is inside the circle, the circle is exclude.
 		for(int l = 0; l < size; l++)
 		{
-			abs = circle_abscissa - points[l].x;
-			ord = circle_ordinate - points[l].y;
-			if(sqrt(abs * abs + ord * ord) < circle_radius)
+			if(l != i && l != j && l != k)
 			{
-				return;
+				abs = circle_abscissa - points[l].x;
+				ord = circle_ordinate - points[l].y;
+				if(sqrt(abs * abs + ord * ord) < circle_radius)
+				{
+					return;
+				}
 			}
 		}
 
