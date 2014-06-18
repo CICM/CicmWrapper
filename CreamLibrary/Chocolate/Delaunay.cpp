@@ -47,11 +47,11 @@ namespace Cicm
 	void Delaunay::perform()
 	{
 		int size = points.size();
-		for(int i = 0; i < size - 3; i++)
+		for(int i = 0; i < size - 2; i++)
 		{
-			for(int j = i+1; j < size - 2; j++)
+			for(int j = i+1; j < size - 1; j++)
 			{
-				for(int k = j+1; k < size - 1; k++)
+				for(int k = j+1; k < size; k++)
 				{
 					evaluateTriangle(i, j, k);
 				}
@@ -62,30 +62,27 @@ namespace Cicm
 	void Delaunay::evaluateTriangle(int i, int j, int k)
 	{
 		int size = points.size();
-		double abs, ord, dist, angle, azi1, azi2;
+		double abs, ord, dist_ij, dist_ik, dist_jk, angle;
 		double ix = points[i].x, iy = points[i].y, jx = points[j].x, jy = points[j].y, kx = points[k].x, ky = points[k].y;
 		
 		abs = (jx - ix);
-		ord = (jx - iy);
-		dist = sqrt(abs * abs + ord * ord);
-		if(abs == 0 && ord == 0)
-			azi1 = 0;
-		else
-			azi1 = atan2(abs, ord);
+		ord = (jy - iy);
+		dist_ij = sqrt(abs * abs + ord * ord);
 		abs = (kx - ix);
-		ord = (kx - iy);
-		if(abs == 0 && ord == 0)
-			azi2 = 0;
-		else
-			azi2 = atan2(abs, ord);
-		angle =  azi1 - azi2;
-		if(angle > Pi)
-			angle = Pi - angle;
+		ord = (ky - iy);
+		dist_ik = sqrt(abs * abs + ord * ord);
+		abs = (kx - jx);
+		ord = (ky - jy);
+		dist_jk = sqrt(abs * abs + ord * ord);
+		angle =  acos((dist_ij * dist_ij + dist_ik * dist_ik - dist_jk * dist_jk) / (2 * dist_ij * dist_ik));
 
-		double circle_radius = dist / sin(angle);
-		double circle_abscissa = circle_radius + dist * 0.5;
-		double circle_ordinate = circle_radius + points[i].y;
-		
+		double circle_radius = dist_ij / ( 2. * sin(angle));
+		//double circle_abscissa = points[i].x + (points[j].x - points[i].x) * 0.5;
+		//double circle_ordinate = circle_radius + points[i].y;
+		double delta = 2. * (ix * (jy - ky) + jx * (ky - iy) + kx * (iy - jy));
+		double circle_abscissa = ((ix * ix + iy * ix) * (jy - ky) + (jx * jx + jy * jy) * (ky - iy) + (kx * kx + ky * ky) * (iy - jy)) / delta;
+		double circle_ordinate = ((ix * ix + iy * ix) * (ky - jy) + (jx * jx + jy * jy) * (iy - ky) + (kx * kx + ky * ky) * (jy - iy)) / delta;
+		post("abs %f ord %f", circle_abscissa, circle_ordinate);
 		// If one point is inside the circle, the circle is exclude.
 		for(int l = 0; l < size; l++)
 		{

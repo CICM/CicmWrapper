@@ -61,6 +61,8 @@
     <ClCompile Include="Chocolate\c.slider.cpp" />
     <ClCompile Include="Chocolate\c.tab.cpp" />
     <ClCompile Include="Chocolate\c.toggle.cpp" />
+    <ClCompile Include="Chocolate\c.voronoy.cpp" />
+    <ClCompile Include="Chocolate\Delaunay.cpp" />
     <ClCompile Include="Coffee\c.loadmess.cpp" />
     <ClCompile Include="Coffee\c.pak.cpp" />
     <ClCompile Include="Coffee\c.patcherargs.cpp" />
@@ -87,6 +89,7 @@
     <ClInclude Include="Caramel\AudioFFT.h" />
     <ClInclude Include="Caramel\FFTConvolver.h" />
     <ClInclude Include="Caramel\Utilities.h" />
+    <ClInclude Include="Chocolate\Delaunay.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B05BC6DD-018B-4BE9-BA64-D5BE00CECD66}</ProjectGuid>

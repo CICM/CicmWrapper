@@ -15,6 +15,7 @@
 #include <math.h>
 #include <string>
 #include <assert.h>
+#include "../c.library.h"
 
 namespace Cicm
 {
@@ -81,9 +82,39 @@ namespace Cicm
 			return circles.size();
 		};
 
+		double getCircleAbscissa(unsigned int index) const
+		{
+			assert(index < circles.size());
+			return circles[index].x;
+		};
+
+		double getCircleOrdinate(unsigned int index) const
+		{
+			assert(index < circles.size());
+			return circles[index].y;
+		};
+
+		double getCircleRadius(unsigned int index) const
+		{
+			assert(index < circles.size());
+			return circles[index].r;
+		};
+
 		unsigned int getNumberOfPoints() const
 		{
 			return points.size();
+		};
+
+		double getPointAbscissa(unsigned int index) const
+		{
+			assert(index < points.size());
+			return points[index].x;
+		};
+
+		double getPointOrdinate(unsigned int index) const
+		{
+			assert(index < points.size());
+			return points[index].y;
 		};
 
 		unsigned int getPointNumberOfCircles(unsigned int _index_point) const

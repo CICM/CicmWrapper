@@ -42,7 +42,7 @@ typedef struct _voronoy
 	t_rgba		f_color_background;
 	t_rgba		f_color_border;
 	t_rgba		f_color_point;
-    t_rgba		f_color_line;
+    t_rgba		f_color_delaunay;
 	Cicm::Delaunay* f_delaunay;
 } t_voronoy;
 
@@ -78,7 +78,7 @@ extern "C" void setup_c0x2evoronoy(void)
 	eclass_addmethod(c, (method) voronoy_list,			  "list",			  A_GIMME,0);
 
     CLASS_ATTR_INVISIBLE            (c, "send", 1);
-	CLASS_ATTR_DEFAULT              (c, "size", 0, "150. 100.");
+	CLASS_ATTR_DEFAULT              (c, "size", 0, "150. 150.");
 
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_voronoy, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
@@ -98,11 +98,11 @@ extern "C" void setup_c0x2evoronoy(void)
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "ptcolor", 0, "0.5 0.5 0.5 1.");
     CLASS_ATTR_STYLE                (c, "ptcolor", 0, "color");
     
-    CLASS_ATTR_RGBA                 (c, "licolor", 0, t_voronoy, f_color_line);
-	CLASS_ATTR_LABEL                (c, "licolor", 0, "Line Color");
-	CLASS_ATTR_ORDER                (c, "licolor", 0, "4");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "licolor", 0, "0. 0. 0. 1.");
-    CLASS_ATTR_STYLE                (c, "licolor", 0, "color");
+    CLASS_ATTR_RGBA                 (c, "decolor", 0, t_voronoy, f_color_delaunay);
+	CLASS_ATTR_LABEL                (c, "decolor", 0, "Delaunay Color");
+	CLASS_ATTR_ORDER                (c, "decolor", 0, "4");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "decolor", 0, "0. 0. 0. 1.");
+    CLASS_ATTR_STYLE                (c, "decolor", 0, "color");
     
     eclass_register(CLASS_BOX, c);
 	voronoy_class = c;
@@ -119,7 +119,7 @@ void *voronoy_new(t_symbol *s, int argc, t_atom *argv)
 	x = (t_voronoy *)eobj_new(voronoy_class);
 
 	flags = 0
-    | EBOX_GROWINDI
+    | EBOX_GROWLINK
     ;
 	ebox_new((t_ebox *)x, flags);
 
@@ -203,15 +203,26 @@ void draw_points(t_voronoy *x, t_object *view, t_rect *rect)
 {
 	t_elayer *g = ebox_start_layer((t_ebox *)x, gensym("points_layer"), rect->width, rect->height);
     t_matrix transform;
-
+	float factor = rect->width * 0.25;
 	if (g)
 	{
 		egraphics_matrix_init(&transform, 1, 0, 0, -1, rect->width * .5, rect->width * .5);
         egraphics_set_matrix(g, &transform);
 
+		egraphics_set_color_rgba(g, &x->f_color_point);
 		for(int i = 0; i < x->f_delaunay->getNumberOfPoints(); i++)
 		{
-			;
+			egraphics_circle(g, x->f_delaunay->getPointAbscissa(i) * factor, x->f_delaunay->getPointOrdinate(i) * factor, 3);
+			egraphics_fill(g);
+		}
+
+		egraphics_set_color_rgba(g, &x->f_color_delaunay);
+		for(int i = 0; i < x->f_delaunay->getNumberOfCircles(); i++)
+		{
+			egraphics_circle(g, x->f_delaunay->getCircleAbscissa(i) * factor, x->f_delaunay->getCircleOrdinate(i) * factor, 3);
+			egraphics_fill(g);
+			egraphics_circle(g, x->f_delaunay->getCircleAbscissa(i) * factor, x->f_delaunay->getCircleOrdinate(i) * factor,  x->f_delaunay->getCircleRadius(i) * factor);
+			egraphics_stroke(g);
 		}
 
 		ebox_end_layer((t_ebox*)x,  gensym("points_layer"));

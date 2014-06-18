@@ -36,7 +36,7 @@ extern "C" void setup_c0x2escope_tilde(void);
 extern "C" void setup_c0x2eslider(void);
 extern "C" void setup_c0x2etab(void);
 extern "C" void setup_c0x2etoggle(void);
-//extern "C" void setup_c0x2evoronoy(void);
+extern "C" void setup_c0x2evoronoy(void);
 
 // Coffee
 extern "C" void setup_c0x2eloadmess(void);

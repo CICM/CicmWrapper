@@ -36,7 +36,7 @@ extern "C" void setup_c0x2elibrary(void)
 	setup_c0x2eslider();
 	setup_c0x2etab();
 	setup_c0x2etoggle();
-	//setup_c0x2evoronoy();
+	setup_c0x2evoronoy();
 
 	// Coffee
 	setup_c0x2eloadmess();
