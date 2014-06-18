@@ -15,6 +15,7 @@
 #include <math.h>
 #include <string>
 #include <assert.h>
+#include <algorithm>
 #include "../c.library.h"
 
 namespace Cicm
@@ -32,13 +33,35 @@ namespace Cicm
 			double x;
 			double y;
 			double r;
-			std::vector<DelaunayPoint *> points;
+			std::vector<DelaunayPoint> points;
+			DelaunayPoint* pt;
 
-			DelaunayCircle(double _x, double _y, double _r){
+			DelaunayCircle(double _x, double _y, double _r)
+			{
 				x = _x;
 				y = _y;
 				r = _r;
 			};
+
+			static bool compare(DelaunayCircle c1, DelaunayCircle c2)
+			{
+				double azi1, azi2, x = 0, y = 0;
+				if(c1.pt)
+				{
+					x = c1.pt->x;
+					y = c1.pt->y;
+				}
+				if(c1.x - x == 0 && c1.y - y == 0)
+					azi1 = 0;
+				else
+					azi1 = atan2(c1.y - y, c1.x -x);
+				if(c2.x - x == 0 && c2.y - y == 0)
+					azi2 = 0;
+				else
+					azi2 = atan2(c2.y - y, c2.x - x);
+				return azi1 < azi2;
+			};
+
 			~DelaunayCircle()
 			{
 				points.clear();
@@ -50,7 +73,7 @@ namespace Cicm
 		public :
 			double x;
 			double y;
-			std::vector<DelaunayCircle *> circles;
+			std::vector<DelaunayCircle> circles;
 
 			DelaunayPoint(double _x, double _y){
 				x = _x;
@@ -117,32 +140,25 @@ namespace Cicm
 			return points[index].y;
 		};
 
-		unsigned int getPointNumberOfCircles(unsigned int _index_point) const
+		unsigned int getPointNumberOfCircles(unsigned int index) const
 		{
-			assert(_index_point < points.size());
-			return points[_index_point].circles.size();
-		};
-		/*
-		double getPointCircleAzimuth(unsigned int _index_point, unsigned int _index_circle) const
-		{
-			assert(_index_point < points.size());
-			assert(_index_circle < points[_index_point].circles.size());
-			if (points[_index_point].circles[_index_circle].x == 0 && points[_index_point].circles[_index_circle].y == 0);
-				return 0;
-			else
-				return atan2(points[_index_point].circles[_index_circle].y, points[_index_point].circles[_index_circle].x);
+			assert(index < points.size());
+			return points[index].circles.size();
 		};
 
-		double getPointCircleElevation(unsigned int _index_point, unsigned int _index_circle) const
+		double getPointCircleAbscissa(unsigned int index, unsigned int index2) const
 		{
-			assert(_index_point < points.size());
-			assert(_index_circle < points[_index_point].circles.size());
-			double radius = sqrt(points[_index_point].circles[_index_circle].x * points[_index_point].circles[_index_circle].x + points[_index_point].circles[_index_circle].x * points[_index_point].circles[_index_circle].x);
-			if (radius <= 0)
-				return radius * HOA_PI2;
-			else
-				return (1. - radius) * HOA_PI2;
-		};*/
+			assert(index < points.size());
+			assert(index2 < points[index].circles.size());
+			return  points[index].circles[index2].x;
+		};
+
+		double getPointCircleOrdinate(unsigned int index, unsigned int index2) const
+		{
+			assert(index < points.size());
+			assert(index2 < points[index].circles.size());
+			return points[index].circles[index2].y;
+		};
 	};
 }
 

@@ -147,11 +147,7 @@ void voronoy_list(t_voronoy *x, t_symbol *s, int argc, t_atom *argv)
 			x->f_delaunay->addPoint(atom_getfloat(argv+i), atom_getfloat(argv+i+1));
 	}
 	x->f_delaunay->perform();
-	post("Number of circles : %i", x->f_delaunay->getNumberOfCircles());
-	for(int i = 0; i < x->f_delaunay->getNumberOfPoints(); i++)
-	{
-		post("circle %i : %i", i, x->f_delaunay->getPointNumberOfCircles(i));
-	}
+
 	ebox_invalidate_layer((t_ebox *)x, gensym("points_layer"));
     ebox_redraw((t_ebox *)x);
 }
@@ -208,21 +204,34 @@ void draw_points(t_voronoy *x, t_object *view, t_rect *rect)
 	{
 		egraphics_matrix_init(&transform, 1, 0, 0, -1, rect->width * .5, rect->width * .5);
         egraphics_set_matrix(g, &transform);
+		egraphics_set_color_rgba(g, &x->f_color_delaunay);
 
-		egraphics_set_color_rgba(g, &x->f_color_point);
 		for(int i = 0; i < x->f_delaunay->getNumberOfPoints(); i++)
 		{
 			egraphics_circle(g, x->f_delaunay->getPointAbscissa(i) * factor, x->f_delaunay->getPointOrdinate(i) * factor, 3);
 			egraphics_fill(g);
-		}
 
-		egraphics_set_color_rgba(g, &x->f_color_delaunay);
+			if(x->f_delaunay->getPointNumberOfCircles(i))
+			{
+				//post(" %i %f %f", i, x->f_delaunay->getPointCircleAbscissa(i, 0) * factor, x->f_delaunay->getPointCircleOrdinate(i, 0) * factor);
+				egraphics_move_to(g, x->f_delaunay->getPointCircleAbscissa(i, 0) * factor, x->f_delaunay->getPointCircleOrdinate(i, 0) * factor);
+				for(int j = 1; j < x->f_delaunay->getPointNumberOfCircles(i); j++)
+				{
+					egraphics_line_to(g, x->f_delaunay->getPointCircleAbscissa(i, j) * factor, x->f_delaunay->getPointCircleOrdinate(i, j) * factor);
+					//post(" %i %f %f", i, x->f_delaunay->getPointCircleAbscissa(i, j) * factor, x->f_delaunay->getPointCircleOrdinate(i, j) * factor);
+				}
+				egraphics_close_path(g);
+				egraphics_stroke(g);
+			}
+		}
+		
+		egraphics_set_color_rgba(g, &x->f_color_point);
 		for(int i = 0; i < x->f_delaunay->getNumberOfCircles(); i++)
 		{
 			egraphics_circle(g, x->f_delaunay->getCircleAbscissa(i) * factor, x->f_delaunay->getCircleOrdinate(i) * factor, 3);
 			egraphics_fill(g);
-			egraphics_circle(g, x->f_delaunay->getCircleAbscissa(i) * factor, x->f_delaunay->getCircleOrdinate(i) * factor,  x->f_delaunay->getCircleRadius(i) * factor);
-			egraphics_stroke(g);
+			//egraphics_circle(g, x->f_delaunay->getCircleAbscissa(i) * factor, x->f_delaunay->getCircleOrdinate(i) * factor,  x->f_delaunay->getCircleRadius(i) * factor);
+			//egraphics_stroke(g);
 		}
 
 		ebox_end_layer((t_ebox*)x,  gensym("points_layer"));

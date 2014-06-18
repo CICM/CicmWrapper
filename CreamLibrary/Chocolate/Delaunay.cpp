@@ -57,63 +57,28 @@ namespace Cicm
 				}
 			}
 		}
+		for(int i = 0; i < size; i++)
+		{
+			for(int j = 0; j < points[i].circles.size(); j++)
+				points[i].circles[j].pt = &points[i];
+			std::sort(points[i].circles.begin(), points[i].circles.end(), DelaunayCircle::compare);
+		}
 	};
 
 	void Delaunay::evaluateTriangle(int i, int j, int k)
 	{
 		int size = points.size();
-		double abs, ord;
+		double abs, ord, circle_abscissa, circle_ordinate;
 		double ix = points[i].x, iy = points[i].y, jx = points[j].x, jy = points[j].y, kx = points[k].x, ky = points[k].y;
 		double D = (ix - kx) * (jy - ky) - (jx - kx) * (iy - ky);
-		double circle_abscissa = (((ix - kx) * (ix + kx) + (iy - ky) * (iy + ky)) / 2 * (jy - ky) 
-    -  ((jx - kx) * (jx + kx) + (jy - ky) * (jy + ky)) / 2 * (iy - ky))  / D;
-		double circle_ordinate = (((jx - kx) * (jx + kx) + (jy - ky) * (jy + ky)) / 2 * (ix - kx)
-    -  ((ix - kx) * (ix + kx) + (iy - ky) * (iy + ky)) / 2 * (jx - kx))
-    / D;
-
-
+		if(!D)
+			D = 0.0000001;
 		
-		/*
-		double ix = points[i].x, iy = points[i].y, jx = points[j].x, jy = points[j].y, kx = points[k].x, ky = points[k].y;
+		circle_abscissa = (((ix - kx) * (ix + kx) + (iy - ky) * (iy + ky)) / 2 * (jy - ky) - ((jx - kx) * (jx + kx) + (jy - ky) * (jy + ky)) / 2 * (iy - ky)) / D;
+		circle_ordinate = (((jx - kx) * (jx + kx) + (jy - ky) * (jy + ky)) / 2 * (ix - kx) - ((ix - kx) * (ix + kx) + (iy - ky) * (iy + ky)) / 2 * (jx - kx)) / D;
 		
-		double tempi = (ix * ix + iy * ix), tempj = (jx * jx + jy * jy), tempk = (kx * kx + ky * ky);
-		double tempjk = (jy - ky), tempki = (ky - iy), tempij = (iy - jy);
-
-		double delta = 2. * (ix * tempjk + jx * tempki + kx * tempij);
-		double circle_abscissa = (tempi * tempjk + tempj * tempki + tempk * tempij) / delta;
-		double circle_ordinate = (tempi * (ky - jy) + tempj * (iy - ky) + tempk * (jy - iy)) / delta;
-
 		abs = circle_abscissa - ix;
 		ord = circle_ordinate - iy;
-		*/
-
-		/*
-		double xba, yba, xca, yca;
-		double balength, calength;
-		double denominator;
-		double xcirca, ycirca;
-
-		xba = points[j].x - points[i].x;
-		yba = points[j].y - points[i].y;
-		xca = points[k].x - points[i].x;
-		yca = points[k].y - points[i].y;
-
-		balength = xba * xba + yba * yba;
-		calength = xca * xca + yca * yca;
-
-		#ifdef EXACT
-		denominator = 0.5 / orient2d(b, c, a);
-		#else
-		denominator = 0.5 / (xba * yca - yba * xca);
-		#endif
-
-		xcirca = (yca * balength - yba * calength) * denominator;
-		ycirca = (xba * calength - xca * balength) * denominator;
-		double circle_abscissa = xcirca;
-		double circle_ordinate = ycirca;
-		*/
-		abs = circle_abscissa - points[i].x;
-		ord = circle_ordinate - points[i].y;
 		double circle_radius = sqrt(abs * abs + ord * ord);
 
 		// If one point is inside the circle, the circle is exclude.
@@ -132,13 +97,13 @@ namespace Cicm
 
 		// Else, the points save the circle and the circle save the the points.
 		DelaunayCircle circle = DelaunayCircle(circle_abscissa, circle_ordinate, circle_radius);
-		circle.points.push_back(&points[i]);
-		circle.points.push_back(&points[j]);
-		circle.points.push_back(&points[k]);
 		circles.push_back(circle);
-		points[i].circles.push_back(&circle);
-		points[j].circles.push_back(&circle);
-		points[k].circles.push_back(&circle);
+		circle.points.push_back(points[i]);
+		circle.points.push_back(points[j]);
+		circle.points.push_back(points[k]);
+		points[i].circles.push_back(circle);
+		points[j].circles.push_back(circle);
+		points[k].circles.push_back(circle);
 	};    
 }
 
