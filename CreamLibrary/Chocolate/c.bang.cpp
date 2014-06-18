@@ -29,7 +29,7 @@
 
 typedef struct _bang
 {
-	t_jbox      j_box;
+	t_ebox      j_box;
     
     t_outlet*   f_out;
 	t_rgba		f_color_background;
