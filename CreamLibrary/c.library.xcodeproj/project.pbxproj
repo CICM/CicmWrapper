@@ -11,8 +11,8 @@
 		8F26F18B17E76274005FCB97 /* c.library.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F26F18A17E76273005FCB97 /* c.library.cpp */; };
 		8F53164C1906F50A00734AD6 /* c.patchermess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F53164B1906F50A00734AD6 /* c.patchermess.cpp */; };
 		8F714B031951FB6800C1D9D0 /* c.voronoy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F714B001951FB6800C1D9D0 /* c.voronoy.cpp */; };
-		8F714B0B1951FC1F00C1D9D0 /* Delaunay.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F714B0A1951FC1F00C1D9D0 /* Delaunay.h */; };
-		8F714B0D1951FC3800C1D9D0 /* Delaunay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F714B0C1951FC3800C1D9D0 /* Delaunay.cpp */; };
+		8F714B0B1951FC1F00C1D9D0 /* Voronoy.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F714B0A1951FC1F00C1D9D0 /* Voronoy.h */; };
+		8F714B0D1951FC3800C1D9D0 /* Voronoy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F714B0C1951FC3800C1D9D0 /* Voronoy.cpp */; };
 		8FB8EAF819007A1E005FAF6A /* cicm_wrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EAC619007A1E005FAF6A /* cicm_wrapper.h */; };
 		8FB8EAF919007A1E005FAF6A /* ebox.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EAC819007A1E005FAF6A /* ebox.h */; };
 		8FB8EAFA19007A1E005FAF6A /* ebox_attr.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8EAC919007A1E005FAF6A /* ebox_attr.c */; };
@@ -94,8 +94,8 @@
 		8F26F18A17E76273005FCB97 /* c.library.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = c.library.cpp; sourceTree = "<group>"; };
 		8F53164B1906F50A00734AD6 /* c.patchermess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = c.patchermess.cpp; sourceTree = "<group>"; };
 		8F714B001951FB6800C1D9D0 /* c.voronoy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = c.voronoy.cpp; sourceTree = "<group>"; };
-		8F714B0A1951FC1F00C1D9D0 /* Delaunay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Delaunay.h; sourceTree = "<group>"; };
-		8F714B0C1951FC3800C1D9D0 /* Delaunay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Delaunay.cpp; sourceTree = "<group>"; };
+		8F714B0A1951FC1F00C1D9D0 /* Voronoy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Voronoy.h; sourceTree = "<group>"; };
+		8F714B0C1951FC3800C1D9D0 /* Voronoy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Voronoy.cpp; sourceTree = "<group>"; };
 		8FB8EAC619007A1E005FAF6A /* cicm_wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cicm_wrapper.h; sourceTree = "<group>"; };
 		8FB8EAC819007A1E005FAF6A /* ebox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ebox.h; sourceTree = "<group>"; };
 		8FB8EAC919007A1E005FAF6A /* ebox_attr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ebox_attr.c; sourceTree = "<group>"; };
@@ -339,8 +339,8 @@
 				8FB8EB3F19007B04005FAF6A /* c.tab.cpp */,
 				8FB8EB4019007B04005FAF6A /* c.toggle.cpp */,
 				8F714B001951FB6800C1D9D0 /* c.voronoy.cpp */,
-				8F714B0C1951FC3800C1D9D0 /* Delaunay.cpp */,
-				8F714B0A1951FC1F00C1D9D0 /* Delaunay.h */,
+				8F714B0C1951FC3800C1D9D0 /* Voronoy.cpp */,
+				8F714B0A1951FC1F00C1D9D0 /* Voronoy.h */,
 			);
 			path = Chocolate;
 			sourceTree = "<group>";
@@ -376,7 +376,7 @@
 				8FB8EB4E19007B04005FAF6A /* Utilities.h in Headers */,
 				8FB8EB1F19007A1E005FAF6A /* epd.h in Headers */,
 				8FB8EB0E19007A1E005FAF6A /* g_canvas.h in Headers */,
-				8F714B0B1951FC1F00C1D9D0 /* Delaunay.h in Headers */,
+				8F714B0B1951FC1F00C1D9D0 /* Voronoy.h in Headers */,
 				8FB8EB0D19007A1E005FAF6A /* ecommon.h in Headers */,
 				8FB8EB6819007B1E005FAF6A /* c.library.h in Headers */,
 				8FB8EB0019007A1E005FAF6A /* eclass.h in Headers */,
@@ -492,7 +492,7 @@
 				8FB8EB5C19007B04005FAF6A /* c.radio.cpp in Sources */,
 				8F26F18B17E76274005FCB97 /* c.library.cpp in Sources */,
 				8FB8EAFC19007A1E005FAF6A /* ebox_draw.c in Sources */,
-				8F714B0D1951FC3800C1D9D0 /* Delaunay.cpp in Sources */,
+				8F714B0D1951FC3800C1D9D0 /* Voronoy.cpp in Sources */,
 				8FB8EB1C19007A1E005FAF6A /* eobj_handle.c in Sources */,
 				8FB8EB5519007B04005FAF6A /* c.knob.cpp in Sources */,
 				8FB8EB4B19007B04005FAF6A /* FFTConvolver.cpp in Sources */,

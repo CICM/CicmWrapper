@@ -30,12 +30,12 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
 #X obj 494 366 t l l;
 #X msg 302 473 0.859 0.652 -0.259 0.871 0.476 0.224 -0.283 0.72 -0.796
 -0.665 0.223 -0.245 0.246 -0.412 0.886 -0.655;
-#X obj 495 430 sel 20;
-#X obj 560 112 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
-10 -262144 -1 -1 8 256;
+#X obj 560 112 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
 #X obj 557 137 t f f;
 #X obj 585 162 * 2;
-#X msg 505 116 8;
+#X msg 505 116 20;
+#X obj 495 430 sel 40;
 #X connect 4 0 3 0;
 #X connect 5 0 3 0;
 #X connect 6 0 3 0;
@@ -50,16 +50,16 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
 #X connect 14 0 15 0;
 #X connect 15 0 19 0;
 #X connect 16 0 22 0;
-#X connect 18 0 23 0;
+#X connect 18 0 27 0;
 #X connect 19 0 8 0;
 #X connect 20 0 11 0;
 #X connect 21 0 18 0;
 #X connect 21 0 16 0;
 #X connect 21 1 8 1;
 #X connect 22 0 3 0;
-#X connect 23 0 8 1;
-#X connect 24 0 25 0;
-#X connect 25 0 20 0;
-#X connect 25 1 26 0;
-#X connect 26 0 23 1;
-#X connect 27 0 20 0;
+#X connect 23 0 24 0;
+#X connect 24 0 20 0;
+#X connect 24 1 25 0;
+#X connect 25 0 27 1;
+#X connect 26 0 20 0;
+#X connect 27 0 8 1;

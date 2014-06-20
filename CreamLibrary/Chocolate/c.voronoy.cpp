@@ -24,7 +24,7 @@
  *
  */
 
-#include "Delaunay.h"
+#include "Voronoy.h"
 #include "../c.library.h"
 
 #define MAXPOINTS 256
@@ -42,8 +42,8 @@ typedef struct _voronoy
 	t_rgba		f_color_background;
 	t_rgba		f_color_border;
 	t_rgba		f_color_point;
-    t_rgba		f_color_delaunay;
-	Cicm::Delaunay* f_delaunay;
+    t_rgba		f_color_voronoy;
+	Cicm::Voronoy* f_voronoy;
 } t_voronoy;
 
 t_eclass *voronoy_class;
@@ -98,8 +98,8 @@ extern "C" void setup_c0x2evoronoy(void)
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "ptcolor", 0, "0.5 0.5 0.5 1.");
     CLASS_ATTR_STYLE                (c, "ptcolor", 0, "color");
     
-    CLASS_ATTR_RGBA                 (c, "decolor", 0, t_voronoy, f_color_delaunay);
-	CLASS_ATTR_LABEL                (c, "decolor", 0, "Delaunay Color");
+    CLASS_ATTR_RGBA                 (c, "decolor", 0, t_voronoy, f_color_voronoy);
+	CLASS_ATTR_LABEL                (c, "decolor", 0, "Voronoy Color");
 	CLASS_ATTR_ORDER                (c, "decolor", 0, "4");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "decolor", 0, "0. 0. 0. 1.");
     CLASS_ATTR_STYLE                (c, "decolor", 0, "color");
@@ -125,7 +125,7 @@ void *voronoy_new(t_symbol *s, int argc, t_atom *argv)
 
     x->f_out_float = (t_outlet *)floatout(x);
     x->f_out_list = (t_outlet *)listout(x);
-    x->f_delaunay = new Cicm::Delaunay();
+    x->f_voronoy = new Cicm::Voronoy(Cicm::Voronoy::Plane);
 
     ebox_attrprocess_viabinbuf(x, d);
 	ebox_ready((t_ebox *)x);
@@ -135,18 +135,18 @@ void *voronoy_new(t_symbol *s, int argc, t_atom *argv)
 void voronoy_free(t_voronoy *x)
 {
 	ebox_free((t_ebox *)x);
-	delete x->f_delaunay;
+	delete x->f_voronoy;
 }
 
 void voronoy_list(t_voronoy *x, t_symbol *s, int argc, t_atom *argv)
 {
-	x->f_delaunay->clear();
+	x->f_voronoy->clear();
 	for(int i = 0; i < argc - 1; i+= 2)
 	{
 		if(atom_gettype(argv+i) == atom_gettype(argv+i+1) == A_FLOAT)
-			x->f_delaunay->addPoint(atom_getfloat(argv+i), atom_getfloat(argv+i+1));
+			x->f_voronoy->addPointCartesian(atom_getfloat(argv+i), atom_getfloat(argv+i+1));
 	}
-	x->f_delaunay->perform();
+	x->f_voronoy->perform();
 
 	ebox_invalidate_layer((t_ebox *)x, gensym("points_layer"));
     ebox_redraw((t_ebox *)x);
@@ -202,21 +202,21 @@ void draw_points(t_voronoy *x, t_object *view, t_rect *rect)
 	{
 		egraphics_matrix_init(&transform, 1, 0, 0, -1, rect->width * .5, rect->width * .5);
         egraphics_set_matrix(g, &transform);
-		egraphics_set_color_rgba(g, &x->f_color_delaunay);
+		egraphics_set_color_rgba(g, &x->f_color_voronoy);
 
-		for(int i = 0; i < x->f_delaunay->getNumberOfPoints(); i++)
+		for(int i = 0; i < x->f_voronoy->getNumberOfPoints(); i++)
 		{
-			egraphics_circle(g, x->f_delaunay->getPointAbscissa(i) * factor, x->f_delaunay->getPointOrdinate(i) * factor, 3);
+			egraphics_circle(g, x->f_voronoy->getPointAbscissa(i) * factor, x->f_voronoy->getPointOrdinate(i) * factor, 3);
 			egraphics_fill(g);
 
-			if(x->f_delaunay->getPointNumberOfCircles(i))
+			if(x->f_voronoy->getPointVoronoyLenght(i))
 			{
-				//post(" %i %f %f", i, x->f_delaunay->getPointCircleAbscissa(i, 0) * factor, x->f_delaunay->getPointCircleOrdinate(i, 0) * factor);
-				egraphics_move_to(g, x->f_delaunay->getPointCircleAbscissa(i, 0) * factor, x->f_delaunay->getPointCircleOrdinate(i, 0) * factor);
-				for(int j = 1; j < x->f_delaunay->getPointNumberOfCircles(i); j++)
+				//post(" %i %f %f", i, x->f_voronoy->getPointVoronoyAbscissa(i, 0) * factor, x->f_voronoy->getPointCircleOrdinate(i, 0) * factor);
+				egraphics_move_to(g, x->f_voronoy->getPointVoronoyAbscissa(i, 0) * factor, x->f_voronoy->getPointVoronoyOrdinate(i, 0) * factor);
+				for(int j = 1; j < x->f_voronoy->getPointVoronoyLenght(i); j++)
 				{
-					egraphics_line_to(g, x->f_delaunay->getPointCircleAbscissa(i, j) * factor, x->f_delaunay->getPointCircleOrdinate(i, j) * factor);
-					//post(" %i %f %f", i, x->f_delaunay->getPointCircleAbscissa(i, j) * factor, x->f_delaunay->getPointCircleOrdinate(i, j) * factor);
+					egraphics_line_to(g, x->f_voronoy->getPointVoronoyAbscissa(i, j) * factor, x->f_voronoy->getPointVoronoyOrdinate(i, j) * factor);
+					//post(" %i %f %f", i, x->f_voronoy->getPointCircleAbscissa(i, j) * factor, x->f_voronoy->getPointCircleOrdinate(i, j) * factor);
 				}
 				egraphics_close_path(g);
 				egraphics_stroke(g);
@@ -224,13 +224,6 @@ void draw_points(t_voronoy *x, t_object *view, t_rect *rect)
 		}
 		
 		egraphics_set_color_rgba(g, &x->f_color_point);
-		for(int i = 0; i < x->f_delaunay->getNumberOfCircles(); i++)
-		{
-			egraphics_circle(g, x->f_delaunay->getCircleAbscissa(i) * factor, x->f_delaunay->getCircleOrdinate(i) * factor, 3);
-			egraphics_fill(g);
-			//egraphics_circle(g, x->f_delaunay->getCircleAbscissa(i) * factor, x->f_delaunay->getCircleOrdinate(i) * factor,  x->f_delaunay->getCircleRadius(i) * factor);
-			//egraphics_stroke(g);
-		}
 
 		ebox_end_layer((t_ebox*)x,  gensym("points_layer"));
 	}

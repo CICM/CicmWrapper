@@ -4,8 +4,8 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#ifndef __DEF_DELAUNAY__
-#define __DEF_DELAUNAY__
+#ifndef __DEF_Voronoy__
+#define __DEF_Voronoy__
 
 #include <iostream>
 #include <vector>
@@ -20,30 +20,24 @@
 
 namespace Cicm
 {
-	//! The Delaunay triangulation and Voronoy diagram.
+	//! The Voronoy triangulation and Voronoy diagram.
     /**
      */
-	class Delaunay
+	class Voronoy
 	{
 	private :
-		class DelaunayPoint;
-		class DelaunayCircle
+		class VoronoyPoint;
+		class VoronoyCircle
 		{
 		public :
 			double x;
 			double y;
 			double r;
-			std::vector<DelaunayPoint> points;
-			DelaunayPoint* pt;
-
-			DelaunayCircle(double _x, double _y, double _r)
-			{
-				x = _x;
-				y = _y;
-				r = _r;
-			};
-
-			static bool compare(DelaunayCircle c1, DelaunayCircle c2)
+			VoronoyPoint* pt;
+			VoronoyCircle(double _x, double _y, double _r);
+            ~VoronoyCircle();
+            
+			static bool compare(VoronoyCircle c1, VoronoyCircle c2)
 			{
 				double azi1, azi2, x = 0, y = 0;
 				if(c1.pt)
@@ -61,67 +55,40 @@ namespace Cicm
 					azi2 = atan2(c2.y - y, c2.x - x);
 				return azi1 < azi2;
 			};
-
-			~DelaunayCircle()
-			{
-				points.clear();
-			};
 		};
 
-		class DelaunayPoint
+		class VoronoyPoint
 		{
 		public :
 			double x;
 			double y;
-			std::vector<DelaunayCircle> circles;
-
-			DelaunayPoint(double _x, double _y){
-				x = _x;
-				y = _y;
-			};
-
-			~DelaunayPoint()
-			{
-				circles.clear();
-			};
+			std::vector<VoronoyCircle> circles;
+			VoronoyPoint(double _x, double _y);
+			~VoronoyPoint();
 		};
+        
+    public :
+        enum Mode
+        {
+            Plane    = 0,
+            Circle   = 1,
+            Sphere   = 2
+        };
+    private :
 
-		std::vector<DelaunayPoint> points;
-		std::vector<DelaunayCircle> circles;
-
-		void evaluateTriangle(int i, int j, int k);
+		std::vector<VoronoyPoint> points;
+        std::vector<VoronoyPoint> points_bottom;
+        Mode  mode;
+		void evaluateTriangle(int i, int j, int k, bool top = 1);
 
 	public :
-		Delaunay();
-		~Delaunay();
+		Voronoy(Mode mode);
+		~Voronoy();
 
 		void clear();
-		//void addPoint(double azimuth, double elevation, bool bottom = 0);
-		void addPoint(double abscissa, double ordinate);
+        void addPointCartesian(double abscissa, double ordinate, double height = 0);
+        void addPointPolar(double radius, double azimuth, double elevation = 0);
 		void perform();
-
-		unsigned int getNumberOfCircles() const
-		{
-			return circles.size();
-		};
-
-		double getCircleAbscissa(unsigned int index) const
-		{
-			assert(index < circles.size());
-			return circles[index].x;
-		};
-
-		double getCircleOrdinate(unsigned int index) const
-		{
-			assert(index < circles.size());
-			return circles[index].y;
-		};
-
-		double getCircleRadius(unsigned int index) const
-		{
-			assert(index < circles.size());
-			return circles[index].r;
-		};
 
 		unsigned int getNumberOfPoints() const
 		{
@@ -140,20 +107,20 @@ namespace Cicm
 			return points[index].y;
 		};
 
-		unsigned int getPointNumberOfCircles(unsigned int index) const
+		unsigned int getPointVoronoyLenght(unsigned int index) const
 		{
 			assert(index < points.size());
 			return points[index].circles.size();
 		};
 
-		double getPointCircleAbscissa(unsigned int index, unsigned int index2) const
+		double getPointVoronoyAbscissa(unsigned int index, unsigned int index2) const
 		{
 			assert(index < points.size());
 			assert(index2 < points[index].circles.size());
 			return  points[index].circles[index2].x;
 		};
 
-		double getPointCircleOrdinate(unsigned int index, unsigned int index2) const
+		double getPointVoronoyOrdinate(unsigned int index, unsigned int index2) const
 		{
 			assert(index < points.size());
 			assert(index2 < points[index].circles.size());
