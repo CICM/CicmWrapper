@@ -590,13 +590,15 @@ void ebox_dosave(t_ebox* x, t_binbuf *b)
  \ @param newy      The new ordinate
  \ @return          Nothing
  */
-void ebox_pos(t_ebox* x, int newx, int newy)
+void ebox_pos(t_ebox* x, float newx, float newy)
 {
+    post("new %i %i", newx, newy);
+    post("1 %f %f %i %i", x->b_rect.x, x->b_rect.y, x->b_obj.o_obj.te_xpix, x->b_obj.o_obj.te_ypix);
     x->b_rect.x = newx;
     x->b_rect.y = newy;
     x->b_obj.o_obj.te_xpix = newx;
     x->b_obj.o_obj.te_ypix = newy;
-    
+    post("2 %f %f %i %i", x->b_rect.x, x->b_rect.y, x->b_obj.o_obj.te_xpix, x->b_obj.o_obj.te_ypix);
     ebox_move(x);
 }
 
