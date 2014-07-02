@@ -58,6 +58,10 @@ void *eobj_new(t_eclass *c)
     sprintf(buffer,".x%lx.c", (long unsigned int)z->o_canvas);
     z->o_canvas_id = gensym(buffer);
     c->c_widget.w_dosave = (method)eobj_dosave;
+    z->o_clock = clock_new(z, (t_method)eobj_tick);
+    z->o_mouse_canvas.x = 0;
+    z->o_mouse_canvas.y = 0;
+    
     return (x);
 }
 
@@ -74,6 +78,7 @@ void eobj_free(void *x)
     
     pd_unbind(&z->o_obj.ob_pd, z->o_id);
     eobj_detach_torouter((t_object *)x);
+    clock_free(z->o_clock);
 }
 
 /*

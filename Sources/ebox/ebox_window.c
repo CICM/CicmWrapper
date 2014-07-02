@@ -76,7 +76,7 @@ void ebox_bind_events(t_ebox* x)
     sys_vgui("bind %s <Button-3> {pdsend {%s mousedown %%x %%y %i}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name, right);
     sys_vgui("bind %s <Button-2> {pdsend {%s mousedown %%x %%y %i}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name, right);
     sys_vgui("bind %s <Button-1> {pdsend {%s mousedown %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
-    sys_vgui("bind %s <ButtonRelease>   {pdsend {%s mouseup     %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
+    sys_vgui("bind %s <ButtonRelease> {pdsend {%s mouseup %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
     sys_vgui("bind %s <Motion> {pdsend {%s mousemove %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
 
     sys_vgui("bind %s <Enter> {pdsend {%s mouseenter}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);

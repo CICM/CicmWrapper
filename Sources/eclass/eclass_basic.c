@@ -55,6 +55,8 @@ t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t siz
    
     sprintf(help, "helps/%s", c->c_class.c_name->s_name);
     class_sethelpsymbol((t_class *)c, gensym(help));
+    
+    class_addmethod((t_class *)c, (t_method)eobj_mousecanvas,  gensym("canvasmouse"), A_FLOAT, A_FLOAT, 0);
     return c;
 }
 
@@ -139,9 +141,6 @@ void eclass_init(t_eclass* c, long flags)
     class_addmethod((t_class *)c, (t_method)ebox_attrprint,         gensym("attrprint"),    A_CANT,  0);
     class_addmethod((t_class *)c, (t_method)ebox_dialog,            gensym("dialog"),       A_GIMME, 0);
 
-    class_addmethod((t_class *)c, (t_method)eobj_retreive_gmouse, gensym("gmouse"), A_DEFFLOAT,A_DEFFLOAT,0);
-    class_addmethod((t_class *)c, (t_method)eobj_retreive_pmouse, gensym("pmouse"), A_DEFFLOAT,A_DEFFLOAT,0);
-
     class_addmethod((t_class *)c, (t_method)ebox_mouse_enter, gensym("mouseenter"), A_CANT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_leave, gensym("mouseleave"), A_CANT, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_move,  gensym("mousemove"),  A_GIMME, 0);
@@ -155,21 +154,6 @@ void eclass_init(t_eclass* c, long flags)
     class_setwidget((t_class *)&c->c_class, (t_widgetbehavior *)&c->c_widget);
     class_setsavefn((t_class *)&c->c_class, (t_savefn)eobj_save);
     class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
-
-    sys_vgui("namespace eval eclass%s {} \n", c->c_class.c_name->s_name);
-    // GLOBAL MOUSE POSITION //
-    sys_gui("proc eobj_gmousepos {target} {\n");
-    sys_gui(" set x [winfo pointerx .]\n");
-    sys_gui(" set y [winfo pointery .]\n");
-    sys_gui(" pdsend \"$target gmouse $x $y\"\n");
-    sys_gui("}\n");
-
-    // PATCHER MOUSE POSITION //
-    sys_vgui("proc eobj_pmousepos {target patcher} {\n");
-    sys_gui(" set x [winfo rootx $patcher]\n");
-    sys_gui(" set y [winfo rooty $patcher]\n");
-    sys_gui(" pdsend \"$target pmouse $x $y\"\n");
-    sys_gui("}\n");
 }
 
 //! Initialize an UI eclass for DSP behavior

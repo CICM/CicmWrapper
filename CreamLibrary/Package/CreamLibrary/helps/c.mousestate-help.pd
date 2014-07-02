@@ -1,0 +1,70 @@
+#N canvas 86 269 592 423 10;
+#X obj -25 -74 cnv 10 552 40 empty empty c.mousestate 3 12 0 18 -228856
+-33289 0;
+#X text -13 308 Coffee by Pierre Guillot | CICM - Université Paris
+8;
+#X text -22 -52 An informer about the mouse state.;
+#X obj 164 156 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 189 186 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 213 216 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 238 246 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 140 211 c.toggle @size 15 15 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5
+0.5 0.5 1;
+#X msg 42 74 poll;
+#X msg 82 74 nopoll;
+#X msg 140 74 mode 0;
+#X msg 200 74 mode 1;
+#X msg 300 74 zero;
+#X msg 360 74 reset;
+#X obj 140 118 c.mousestate --------;
+#X obj 263 156 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text -24 -31 c.mousestate retrieves the mouse state informations.
+;
+#X text 40 40 the mouse state;
+#X text 40 30 Poll/nopoll;
+#X text 140 30 Window origin : 0 or;
+#X text 140 40 canvas ordigin.;
+#X text 300 40 and reset restaures the default ones.;
+#X text 300 30 Zero sets the origin to the current position;
+#X text 162 180 x;
+#X text 125 227 Mouse;
+#X text 125 237 Pressed;
+#X text 185 240 delta x;
+#X text 210 270 delta y;
+#X text 187 210 y;
+#X text 258 181 modifiers :;
+#X text 365 164 none : 0;
+#X text 365 174 shift : 1;
+#X text 365 184 maj : 2;
+#X text 365 194 ctrl : 4;
+#X text 365 204 cmd : 8;
+#X text 365 214 alt : 16;
+#X connect 8 0 14 0;
+#X connect 9 0 14 0;
+#X connect 10 0 14 0;
+#X connect 11 0 14 0;
+#X connect 12 0 14 0;
+#X connect 13 0 14 0;
+#X connect 14 0 7 0;
+#X connect 14 1 3 0;
+#X connect 14 2 4 0;
+#X connect 14 3 5 0;
+#X connect 14 4 6 0;
+#X connect 14 5 15 0;

@@ -10,6 +10,7 @@
 		59FB02F817A7FAA9001E977D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FB02F717A7FAA9001E977D /* Accelerate.framework */; };
 		8F26F18B17E76274005FCB97 /* c.library.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F26F18A17E76273005FCB97 /* c.library.cpp */; };
 		8F53164C1906F50A00734AD6 /* c.patchermess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F53164B1906F50A00734AD6 /* c.patchermess.cpp */; };
+		8F5DB22519630E41005DE808 /* c.mousestate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F5DB22419630E41005DE808 /* c.mousestate.cpp */; };
 		8F714B031951FB6800C1D9D0 /* c.voronoy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F714B001951FB6800C1D9D0 /* c.voronoy.cpp */; };
 		8F714B0B1951FC1F00C1D9D0 /* Voronoy.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F714B0A1951FC1F00C1D9D0 /* Voronoy.h */; };
 		8F714B0D1951FC3800C1D9D0 /* Voronoy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F714B0C1951FC3800C1D9D0 /* Voronoy.cpp */; };
@@ -93,6 +94,7 @@
 		59FB02F717A7FAA9001E977D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		8F26F18A17E76273005FCB97 /* c.library.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = c.library.cpp; sourceTree = "<group>"; };
 		8F53164B1906F50A00734AD6 /* c.patchermess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = c.patchermess.cpp; sourceTree = "<group>"; };
+		8F5DB22419630E41005DE808 /* c.mousestate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = c.mousestate.cpp; sourceTree = "<group>"; };
 		8F714B001951FB6800C1D9D0 /* c.voronoy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = c.voronoy.cpp; sourceTree = "<group>"; };
 		8F714B0A1951FC1F00C1D9D0 /* Voronoy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Voronoy.h; sourceTree = "<group>"; };
 		8F714B0C1951FC3800C1D9D0 /* Voronoy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Voronoy.cpp; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				8FB8EB6A190080E9005FAF6A /* c.loadmess.cpp */,
+				8F5DB22419630E41005DE808 /* c.mousestate.cpp */,
 				8FB8EB6B190080E9005FAF6A /* c.pak.cpp */,
 				8FB8EB6C190080E9005FAF6A /* c.patcherargs.cpp */,
 				8FB8EB6D190080E9005FAF6A /* c.patcherinfos.cpp */,
@@ -477,6 +480,7 @@
 				8FB8EB1819007A1E005FAF6A /* egraphics_text.c in Sources */,
 				8FB8EB5B19007B04005FAF6A /* c.preset.cpp in Sources */,
 				8FB8EB1319007A1E005FAF6A /* egraphics.c in Sources */,
+				8F5DB22519630E41005DE808 /* c.mousestate.cpp in Sources */,
 				8FB8EB4D19007B04005FAF6A /* Utilities.cpp in Sources */,
 				8FB8EB2119007A1E005FAF6A /* epopup.c in Sources */,
 				8FB8EB5719007B04005FAF6A /* c.meter_tilde.cpp in Sources */,

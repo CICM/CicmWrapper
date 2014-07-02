@@ -26,9 +26,6 @@
 
 #include "eobj.h"
 
-static t_pt mouse_global_pos;
-static t_pt mouse_patcher_pos;
-
 //! Retrieve the global mouse position
 /*
  \ @memberof        eobj
@@ -37,9 +34,8 @@ static t_pt mouse_patcher_pos;
  */
 t_pt eobj_get_mouse_global_position(void* x)
 {
-    t_eobj* z  = (t_eobj *)x;
-	sys_vgui("eobj_gmousepos %s\n", z->o_id->s_name);
-    return mouse_global_pos;
+    t_pt point = erouter_getmouse_global_position();
+    return point;
 }
 
 //! Retrieve the canvas mouse position
@@ -50,53 +46,33 @@ t_pt eobj_get_mouse_global_position(void* x)
  */
 t_pt eobj_get_mouse_canvas_position(void* x)
 {
-    t_pt point;
-    t_eobj* obj  = (t_eobj *)x;
-    t_ebox* box = (t_ebox*)x;
-    if(eobj_isbox(x))
-    {
-        sys_vgui("eobj_pmousepos %s %s\n", obj->o_id->s_name, box->b_canvas_id->s_name);
-    }
-    else
-    {
-        sys_vgui("eobj_pmousepos %s %s\n", obj->o_id->s_name, obj->o_canvas_id->s_name);
-    }
-    
-    
-    point.x = mouse_global_pos.x - mouse_patcher_pos.x;
-    point.y = mouse_global_pos.y - mouse_patcher_pos.y;
-    return point;
+    t_eobj *obj = (t_eobj *)x;
+    return obj->o_mouse_canvas;
+}
+
+//! Retrieve the mouse status
+/*
+ \ @memberof        eobj
+ \ @param x         The eobj pointer
+ \ @return          This function return 1 is the mouse is down and 0 if not
+ */
+char eobj_get_mouse_status(void* x)
+{
+    return erouter_getmouse_status();
+}
+
+//! Retrieve the mouse status
+/*
+ \ @memberof        eobj
+ \ @param x         The eobj pointer
+ \ @return          This function return the mouse modifiers
+ */
+long eobj_get_mouse_modifier(void* x)
+{
+    return erouter_getmouse_modifier();
 }
 
 //! @cond
-
-//! The global mouse position method called by tcl/tk (PRIVATE)
-/*
- \ @memberof        eobj
- \ @param x         The eobj pointer
- \ @param x_p       The abscissa of the mouse position
- \ @param y_p       The ordinate of the mouse position
- \ @return          Nothing
-*/
-void eobj_retreive_gmouse(t_eobj* x, float x_p, float y_p)
-{
-    mouse_global_pos.x = x_p;
-    mouse_global_pos.y = y_p;
-}
-
-//! The canvas mouse position method called by tcl/tk (PRIVATE)
-/*
- \ @memberof        eobj
- \ @param x         The eobj pointer
- \ @param x_p       The abscissa of the mouse position
- \ @param y_p       The ordinate of the mouse position
- \ @return          Nothing
-*/
-void eobj_retreive_pmouse(t_eobj* x, float x_p, float y_p)
-{
-    mouse_patcher_pos.x = x_p;
-    mouse_patcher_pos.y = y_p;
-}
 
 //! The popup method called by tcl/tk (PRIVATE)
 /*
@@ -267,6 +243,40 @@ void eobj_read(t_eobj* x, t_symbol* s, long argc, t_atom* argv)
     }
 }
 
+void eobj_poll_mouse(void* x)
+{
+    t_eobj* obj  = (t_eobj *)x;
+    clock_set(obj->o_clock, 20.);
+}
+
+
+void eobj_nopoll_mouse(void* x)
+{
+    t_eobj* obj  = (t_eobj *)x;
+    clock_unset(obj->o_clock);
+}
+
+void eobj_tick(t_eobj* x)
+{
+    t_eobj* obj  = (t_eobj *)x;
+    t_ebox* box = (t_ebox*)x;
+    if(eobj_isbox(x))
+    {
+        sys_vgui("eobj_canvas_mouse %s %s\n", box->b_obj.o_id->s_name, box->b_canvas_id->s_name);
+        clock_delay(box->b_obj.o_clock, 20.);
+    }
+    else
+    {
+        sys_vgui("eobj_canvas_mouse %s %s\n", obj->o_id->s_name, obj->o_canvas_id->s_name);
+        clock_delay(obj->o_clock, 20.);
+    }
+}
+
+void eobj_mousecanvas(t_eobj* x, float px, float py)
+{
+    x->o_mouse_canvas.x = px;
+    x->o_mouse_canvas.y = py;
+}
 //! @endcond
 
 

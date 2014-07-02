@@ -44,7 +44,10 @@ void ebox_mouse_enter(t_ebox* x)
         if(c->c_widget.w_mouseenter)
             c->c_widget.w_mouseenter(x);
     }
+    else if(x->b_obj.o_canvas->gl_edit)   
+        eobj_poll_mouse(x);
 }
+
 
 //! The mouse leave method called by tcl/tk (PRIVATE)
 /*
@@ -63,10 +66,12 @@ void ebox_mouse_leave(t_ebox* x)
             c->c_widget.w_mouseleave(x);
 
         ebox_set_cursor(x, 0);
+        eobj_nopoll_mouse(x);
     }
     else if(x->b_obj.o_canvas->gl_edit && !x->b_mouse_down)
     {
         ebox_set_cursor(x, 4);
+        eobj_nopoll_mouse(x);
     }
 }
 

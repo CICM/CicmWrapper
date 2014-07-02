@@ -381,6 +381,7 @@ typedef struct _erouter
     long                e_nchilds;      /*!< The number of eobj. */
     t_symbol**          e_libraries;    /*!< The libraries names. */
     long                e_nlibraries;   /*!< The number of libraries. */
+    t_clock*            e_clock;        /*!< The clock for mouse position. */
 }t_erouter;
 
 /**
@@ -419,6 +420,8 @@ typedef struct _eobj
     t_eproxy            o_proxy[256];       /*!< The array of proxy inlets. */
     int                 o_nproxy;           /*!< The number of proxy inlets. */
     int                 o_current_proxy;    /*!< The index of the current proxy inlet used */
+    t_clock*            o_clock;            /*!< The clock for mouse canvas position */
+    t_pt                o_mouse_canvas;     /*!< The mouse canvas position */
 }t_eobj;
 
 /**

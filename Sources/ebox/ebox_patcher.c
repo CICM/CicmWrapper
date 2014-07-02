@@ -35,6 +35,10 @@
 void ebox_patcher_editmode(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     ebox_redraw(x);
+    if(x->b_obj.o_canvas->gl_edit)
+        eobj_poll_mouse(x);
+    else
+        eobj_nopoll_mouse(x);
 }
 
 //! Get the patcher notification when mouse has moved (PRIVATE)

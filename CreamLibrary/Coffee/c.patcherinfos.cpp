@@ -26,6 +26,7 @@
 
 #include "../c.library.h"
 
+
 typedef struct  _patcherinfos
 {
 	t_eobj      j_box;
@@ -71,11 +72,121 @@ extern "C" void setup_c0x2epatcherinfos(void)
 	patcherinfos_class = c;
 }
 
+void canvas_setgraph(t_glist *x, int flag, int nogoprect)
+{
+    if (!flag && glist_isgraph(x))
+    {
+        int hadeditor = (x->gl_editor != 0);
+        if (hadeditor)
+            canvas_destroy_editor(x);
+        if (x->gl_owner && !x->gl_loading && glist_isvisible(x->gl_owner))
+            gobj_vis(&x->gl_gobj, x->gl_owner, 0);
+        x->gl_isgraph = 0;
+        if (x->gl_owner && !x->gl_loading && glist_isvisible(x->gl_owner))
+        {
+            gobj_vis(&x->gl_gobj, x->gl_owner, 1);
+            canvas_fixlinesfor(x->gl_owner, &x->gl_obj);
+        }
+    }
+    else if (flag)
+    {
+        if (x->gl_pixwidth <= 0)
+            x->gl_pixwidth = GLIST_DEFGRAPHWIDTH;
+        
+        if (x->gl_pixheight <= 0)
+            x->gl_pixheight = GLIST_DEFGRAPHHEIGHT;
+        
+        if (x->gl_owner && !x->gl_loading && glist_isvisible(x->gl_owner))
+            gobj_vis(&x->gl_gobj, x->gl_owner, 0);
+        x->gl_isgraph = 1;
+        x->gl_hidetext = !(!(flag&2));
+        x->gl_goprect = !nogoprect;
+        if (glist_isvisible(x) && x->gl_goprect)
+            glist_redraw(x);
+        if (x->gl_owner && !x->gl_loading && glist_isvisible(x->gl_owner))
+        {
+            gobj_vis(&x->gl_gobj, x->gl_owner, 1);
+            canvas_fixlinesfor(x->gl_owner, &x->gl_obj);
+        }
+    }
+}
+
 void canvas_dialog_alias(t_glist *x, t_symbol *s, int argc, t_atom *argv)
 {
     t_gobj *y = NULL;
     t_patcherinfos *z = NULL;
-    cnv_method(x, s, argc, argv);
+    
+    t_float xperpix, yperpix, x1, y1, x2, y2, xpix, ypix, xmargin, ymargin;
+    int graphme, redraw = 0;
+    
+    xperpix = atom_getfloatarg(0, argc, argv);
+    yperpix = atom_getfloatarg(1, argc, argv);
+    graphme = (int)(atom_getfloatarg(2, argc, argv));
+    x1 = atom_getfloatarg(3, argc, argv);
+    y1 = atom_getfloatarg(4, argc, argv);
+    x2 = atom_getfloatarg(5, argc, argv);
+    y2 = atom_getfloatarg(6, argc, argv);
+    xpix = atom_getfloatarg(7, argc, argv);
+    ypix = atom_getfloatarg(8, argc, argv);
+    xmargin = atom_getfloatarg(9, argc, argv);
+    ymargin = atom_getfloatarg(10, argc, argv);
+    
+    x->gl_pixwidth = xpix;
+    x->gl_pixheight = ypix;
+    x->gl_xmargin = xmargin;
+    x->gl_ymargin = ymargin;
+    
+    yperpix = -yperpix;
+    if (xperpix == 0)
+        xperpix = 1;
+    if (yperpix == 0)
+        yperpix = 1;
+    
+    if (graphme)
+    {
+        if (x1 != x2)
+            x->gl_x1 = x1, x->gl_x2 = x2;
+        else x->gl_x1 = 0, x->gl_x2 = 1;
+        if (y1 != y2)
+            x->gl_y1 = y1, x->gl_y2 = y2;
+        else x->gl_y1 = 0, x->gl_y2 = 1;
+    }
+    else
+    {
+        if (xperpix != glist_dpixtodx(x, 1) || yperpix != glist_dpixtody(x, 1))
+            redraw = 1;
+        if (xperpix > 0)
+        {
+            x->gl_x1 = 0;
+            x->gl_x2 = xperpix;
+        }
+        else
+        {
+            x->gl_x1 = -xperpix * (x->gl_screenx2 - x->gl_screenx1);
+            x->gl_x2 = x->gl_x1 + xperpix;
+        }
+        if (yperpix > 0)
+        {
+            x->gl_y1 = 0;
+            x->gl_y2 = yperpix;
+        }
+        else
+        {
+            x->gl_y1 = -yperpix * (x->gl_screeny2 - x->gl_screeny1);
+            x->gl_y2 = x->gl_y1 + yperpix;
+        }
+    }
+    /* LATER avoid doing 2 redraws here (possibly one inside setgraph) */
+    canvas_setgraph(x, graphme, 0);
+    canvas_dirty(x, 1);
+    if (x->gl_havewindow)
+        canvas_redraw(x);
+    else if (glist_isvisible(x->gl_owner))
+    {
+        gobj_vis(&x->gl_gobj, x->gl_owner, 0);
+        gobj_vis(&x->gl_gobj, x->gl_owner, 1);
+    }
+    
     for(y = x->gl_list; y; y = y->g_next)
     {
         if(eobj_getclassname(y) == gensym("c.patcherinfos"))

@@ -18,3 +18,4 @@ user interactions.;
 #X obj 106 164 c.canvasargs;
 #X text 200 165 c.canvasargs;
 #X obj 71 197 c.canvasinfos;
+#X obj 45 229 c.mousestate;

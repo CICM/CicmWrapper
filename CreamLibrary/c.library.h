@@ -45,5 +45,6 @@ extern "C" void setup_c0x2epatcherargs(void);
 extern "C" void setup_c0x2epatcherinfos(void);
 //extern "C" void setup_c0x2epatchermess(void);
 extern "C" void setup_c0x2eprepend(void);
+extern "C" void setup_c0x2emousestate(void);
 
 #endif

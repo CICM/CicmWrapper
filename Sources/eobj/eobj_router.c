@@ -26,31 +26,86 @@
 
 #include "eobj.h"
 
-t_class *erouter_class;
+static t_class *erouter_class;
+static t_symbol* erouter1572_sym;
+static t_pt erouter_mouse_topcanvas_position;
+static t_pt erouter_mouse_global_position;
+static long erouter_mouse_modifier;
+static char erouter_mouse_down;
 
 void erouter_setup()
 {
     t_erouter *x;
     t_class* c = NULL;
+    int right = EMOD_CMD;
+#ifdef __APPLE__
     
-    if(gensym("erouter1572")->s_thing != NULL)
+#elif _WINDOWS
+	right += 8;
+#else
+    right += 16;
+#endif
+    
+    erouter1572_sym = gensym("erouter1572");
+    
+    if(erouter1572_sym->s_thing != NULL)
         return;
         
     c = class_new(gensym("erouter"), NULL, (t_method)erouter_free, sizeof(t_erouter), CLASS_PD, A_NULL);
     if (c)
     {
-        class_addmethod(c, (t_method)eobj_attach_torouter,  gensym("ebox_attach"), A_GIMME, 0);
-        class_addmethod(c, (t_method)eobj_detach_torouter,  gensym("ebox_detach"), A_GIMME, 0);
+        class_addmethod(c, (t_method)erouter_mousedown,         gensym("mousedown"), A_GIMME, 0);
+        class_addmethod(c, (t_method)erouter_mouseup,           gensym("mouseup"), A_GIMME, 0);
+        class_addmethod(c, (t_method)erouter_mousemove,         gensym("mousemove"), A_GIMME, 0);
+        class_addmethod(c, (t_method)erouter_mouseglobal,       gensym("globalmouse"), A_FLOAT, A_FLOAT, 0);
+        class_addmethod(c, (t_method)erouter_mousetopcanvas,    gensym("topcanvasmouse"), A_FLOAT, A_FLOAT, 0);
+        
         class_addanything(c, erouter_anything);
         erouter_class = c;
         
         x = (t_erouter *)pd_new(erouter_class);
         pd_bind(&x->e_obj.ob_pd, gensym("#erouter"));
+        pd_bind(&x->e_obj.te_g.g_pd, erouter1572_sym);
+        
         x->e_nchilds    = 0;
         x->e_childs     = NULL;
         x->e_nlibraries = 0;
         x->e_libraries  = NULL;
-        pd_bind(&x->e_obj.te_g.g_pd, gensym("erouter1572"));
+        x->e_clock      = clock_new(x, (t_method)erouter_tick);
+        clock_set(x->e_clock, 20);
+        
+        sys_vgui("bind all <Button-3> {pdsend {%s mousedown %%x %%y %i}}\n", erouter1572_sym->s_name, right);
+        sys_vgui("bind all <Button-2> {pdsend {%s mousedown %%x %%y %i}}\n", erouter1572_sym->s_name, right);
+        sys_vgui("bind all <Button-1> {pdsend {%s mousedown %%x %%y %%s}}\n", erouter1572_sym->s_name);
+        sys_vgui("bind all <ButtonRelease> {pdsend {%s mouseup %%x %%y %%s}}\n", erouter1572_sym->s_name);
+        sys_vgui("bind all <Motion> {pdsend {%s mousemove %%x %%y %%s}}\n", erouter1572_sym->s_name);
+        
+        sys_gui("namespace eval erouter1572 {} \n");
+        
+        // PATCHER MOUSE POSITION //
+        sys_vgui("proc eobj_canvas_mouse {target patcher} {\n");
+        sys_gui(" set rx [winfo rootx $patcher]\n");
+        sys_gui(" set ry [winfo rooty $patcher]\n");
+        sys_gui(" set x  [winfo pointerx .]\n");
+        sys_gui(" set y  [winfo pointery .]\n");
+        sys_gui(" pdsend \"$target canvasmouse  [expr $x - $rx] [expr $y - $ry] \"\n");
+        sys_gui("}\n");
+        
+        // GLOBAL MOUSE POSITION //
+        sys_gui("proc erouter_global_mouse {} {\n");
+        sys_gui(" set x [winfo pointerx .]\n");
+        sys_gui(" set y [winfo pointery .]\n");
+        sys_vgui(" pdsend \"%s globalmouse $x $y\"\n", erouter1572_sym->s_name);
+        sys_gui("}\n");
+        
+        // TOP CANVAS MOUSE POSITION //
+        sys_gui("proc erouter_topcanvas_mouse {} {\n");
+        sys_gui(" set patcher [focus]\n");
+        sys_gui(" set x [winfo rootx [winfo name .]]\n");
+        sys_gui(" set y [winfo rooty [winfo name .]]\n");
+        sys_vgui(" pdsend \"%s topcanvasmouse $x $y\"\n", erouter1572_sym->s_name);
+        sys_gui("}\n");
+        
         eproxy_setup();
     }
 }
@@ -62,6 +117,7 @@ void erouter_free(t_erouter *x)
 		free(x->e_childs);
 		x->e_childs = NULL;
 	}
+    clock_free(x->e_clock);
 }
 
 void eobj_detach_torouter(t_object* child)
@@ -112,7 +168,6 @@ void eobj_attach_torouter(t_object* child)
             x->e_childs     = NULL;
             x->e_nchilds    = 0;
             return;
-            //post("erouter can't attach to %s", x->e_childs[i]->s_name);
         }
     }
     else
@@ -136,7 +191,6 @@ void eobj_attach_torouter(t_object* child)
         {
             x->e_childs     = NULL;
             x->e_nchilds    = 0;
-            //post("erouter can't attach to %s", x->e_childs[i]->s_name);
         }
     }
 }
@@ -191,5 +245,109 @@ void erouter_anything(t_erouter *x, t_symbol *s, long argc, t_atom *argv)
         }
     }
 }
+
+void erouter_mousedown(t_erouter *x, t_symbol *s, int argc, t_atom *argv)
+{
+    erouter_mouse_down = 1;
+    erouter_mouse_modifier = (long)atom_getfloat(argv+2);
+#ifdef __APPLE__
+    
+#elif _WINDOWS
+    
+	if(erouter_mouse_modifier >= 131080)
+	{
+		erouter_mouse_modifier -= 131080;
+		erouter_mouse_modifier += EMOD_ALT;
+	}
+	else
+		erouter_mouse_modifier -= 8;
+#else
+    erouter_mouse_modifier -= 16;
+#endif
+}
+
+void erouter_mouseup(t_erouter *x, t_symbol *s, int argc, t_atom *argv)
+{
+    erouter_mouse_down = 0;
+    erouter_mouse_modifier = (long)atom_getfloat(argv+2);
+#ifdef __APPLE__
+    
+#elif _WINDOWS
+    
+	if(erouter_mouse_modifier >= 131080)
+	{
+		erouter_mouse_modifier -= 131080;
+		erouter_mouse_modifier += EMOD_ALT;
+	}
+	else
+		erouter_mouse_modifier -= 8;
+#else
+    erouter_mouse_modifier -= 16;
+#endif
+}
+
+void erouter_mousemove(t_erouter *x, t_symbol *s, int argc, t_atom *argv)
+{
+    erouter_mouse_modifier = (long)atom_getfloat(argv+2);
+#ifdef __APPLE__
+    
+#elif _WINDOWS
+    
+	if(erouter_mouse_modifier >= 131080)
+	{
+		erouter_mouse_modifier -= 131080;
+		erouter_mouse_modifier += EMOD_ALT;
+	}
+	else
+		erouter_mouse_modifier -= 8;
+#else
+    erouter_mouse_modifier -= 16;
+#endif
+}
+
+void erouter_tick(t_erouter * x)
+{
+    sys_gui("erouter_global_mouse\n");
+    clock_delay(x->e_clock, 20.);
+}
+
+void erouter_mouseglobal(t_erouter *x, float px, float py)
+{
+    erouter_mouse_global_position.x = px;
+    erouter_mouse_global_position.y = py;
+}
+
+void erouter_mousetopcanvas(t_erouter *x, float px, float py)
+{
+    erouter_mouse_topcanvas_position.x = px;
+    erouter_mouse_topcanvas_position.y = py;
+}
+
+t_pt erouter_getmouse_global_position()
+{
+    return erouter_mouse_global_position;
+}
+
+t_pt erouter_getmouse_topcanvas_position()
+{
+    return erouter_mouse_topcanvas_position;
+}
+
+long erouter_getmouse_modifier()
+{
+    if(erouter_mouse_modifier >= 256)
+        return erouter_mouse_modifier - 256;
+    else
+        return erouter_mouse_modifier;
+}
+
+char erouter_getmouse_status()
+{
+    return erouter_mouse_down;
+}
+
+
+
+
 
 

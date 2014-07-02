@@ -58,15 +58,19 @@ char eobj_isdsp(void *x);
 
 t_pt eobj_get_mouse_global_position(void* x);
 t_pt eobj_get_mouse_canvas_position(void* x);
+char eobj_get_mouse_status(void* x);
+long eobj_get_mouse_modifier(void* x);
 
 //! @cond
 void eobj_save(t_eobj* x, t_binbuf *b);
 void eobj_dosave(t_eobj* x, t_binbuf *b);
-void eobj_retreive_gmouse(t_eobj* x, float x_p, float y_p);
-void eobj_retreive_pmouse(t_eobj* x, float x_p, float y_p);
 void eobj_popup(t_eobj* x, t_symbol* s, float itemid);
 void eobj_write(t_eobj* x, t_symbol* s, long argc, t_atom* argv);
 void eobj_read(t_eobj* x, t_symbol* s, long argc, t_atom* argv);
+void eobj_tick(t_eobj* x);
+void eobj_poll_mouse(void* x);
+void eobj_nopoll_mouse(void* x);
+void eobj_mousecanvas(t_eobj* x, float px, float py);
 //! @endcond
 
 /*********************************
@@ -138,6 +142,19 @@ void eobj_detach_torouter(t_object* child);
 void erouter_setup();
 void erouter_free(t_erouter *x);
 void erouter_anything(t_erouter *x, t_symbol *s, long argc, t_atom *argv);
+
+void erouter_tick(t_erouter * x);
+void erouter_mousedown(t_erouter *x, t_symbol *s, int argc, t_atom *argv);
+void erouter_mouseup(t_erouter *x, t_symbol *s, int argc, t_atom *argv);
+void erouter_mousemove(t_erouter *x, t_symbol *s, int argc, t_atom *argv);
+
+void erouter_mouseglobal(t_erouter *x, float px, float py);
+void erouter_mousetopcanvas(t_erouter *x, float px, float py);
+
+t_pt erouter_getmouse_topcanvas_position();
+t_pt erouter_getmouse_global_position();
+long erouter_getmouse_modifier();
+char erouter_getmouse_status();
 //! @endcond
 
 #endif
