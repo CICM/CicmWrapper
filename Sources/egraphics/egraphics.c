@@ -65,42 +65,39 @@ void egraphics_set_line_splinestep(t_elayer *g, float smooth)
 
 void egraphics_paint(t_elayer *g, int filled, int preserved)
 {
-	int i, index;
+    t_egobj* nobj;
     if(g->e_new_objects.e_type != E_GOBJ_INVALID)
     {
         g->e_objects = (t_egobj *)realloc(g->e_objects, (g->e_number_objects + 1) * sizeof(t_egobj));
         if(g->e_objects)
         {
-            index = (int)g->e_number_objects;
+            nobj = g->e_objects + g->e_number_objects;
             g->e_number_objects++;
             if (filled)
             {
-                g->e_objects[index].e_filled = 1;
+                nobj->e_filled = 1;
             }
             else
             {
-                g->e_objects[index].e_filled = 0;
+                nobj->e_filled = 0;
             }
-            g->e_objects[index].e_type      = g->e_new_objects.e_type;
-            g->e_objects[index].e_roundness = g->e_new_objects.e_roundness;
-            g->e_objects[index].e_npoints   = g->e_new_objects.e_npoints;
-            g->e_objects[index].e_points = (t_pt*)calloc(g->e_objects[index].e_npoints, sizeof(t_pt));
-            if(!g->e_objects[index].e_points)
+            nobj->e_type      = g->e_new_objects.e_type;
+            nobj->e_roundness = g->e_new_objects.e_roundness;
+            nobj->e_npoints   = g->e_new_objects.e_npoints;
+            nobj->e_points = (t_pt*)calloc(nobj->e_npoints, sizeof(t_pt));
+            if(!nobj->e_points)
             {
-                g->e_objects[index].e_type = E_GOBJ_INVALID;
+                nobj->e_type = E_GOBJ_INVALID;
                 return;
             }
-            for(i = 0; i < g->e_objects[index].e_npoints; i++)
-            {
-                g->e_objects[index].e_points[i]   = g->e_new_objects.e_points[i];
-            }
-            g->e_objects[index].e_roundness = g->e_new_objects.e_roundness;
+            memcpy(nobj->e_points, g->e_new_objects.e_points, sizeof(t_pt) * nobj->e_npoints);
+            nobj->e_roundness = g->e_new_objects.e_roundness;
             
-            g->e_objects[index].e_color = g->e_color;
-            g->e_objects[index].e_width = g->e_line_width;
-            g->e_objects[index].e_text  = g->e_new_objects.e_text;
+            nobj->e_color = g->e_color;
+            nobj->e_width = g->e_line_width;
+            nobj->e_text  = g->e_new_objects.e_text;
             
-            egraphics_apply_matrix(g, g->e_objects+index);
+            egraphics_apply_matrix(g, nobj);
             if(!preserved)
             {
                 g->e_new_objects.e_roundness = 0;
