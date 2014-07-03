@@ -76,9 +76,9 @@ void eobj_free(void *x)
 {
     t_eobj*     z = (t_eobj *)x;
     
+    clock_free(z->o_clock);
     pd_unbind(&z->o_obj.ob_pd, z->o_id);
     eobj_detach_torouter((t_object *)x);
-    clock_free(z->o_clock);
 }
 
 /*

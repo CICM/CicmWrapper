@@ -176,7 +176,7 @@ typedef struct _eattr
     long            offset;
     long            sizemax;
     long            size;
-
+    
 	method			getter;
 	method			setter;
     long            clipped;
@@ -215,7 +215,7 @@ typedef enum _ekey_flags
 	EKEY_TAB      = 1,
     EKEY_ENTER    = 2,
     EKEY_ESC      = 3
-
+    
 } t_ekey_flags;
 
 typedef enum _eselitem_flags
@@ -227,7 +227,7 @@ typedef enum _eselitem_flags
     EITEM_BOTTOM  = 4,
     EITEM_CORNER  = 5,
     EITEM_RIGHT   = 6
-
+    
 } t_eselitem_flags;
 
 typedef enum _elayer_flags
@@ -249,7 +249,7 @@ typedef enum _etextanchor_flags
 	ETEXT_LEFT          = 6, // first element of text = x
     ETEXT_RIGHT         = 7, // last element of text = x
 	ETEXT_CENTER        = 8  // center element of text = x
-
+    
 } t_etextanchor_flags;
 
 typedef enum _etextwrap_flags
@@ -323,7 +323,7 @@ typedef struct _egobj
     int             e_filled;       /*!< The filled state of the graphical object. */
     t_symbol*       e_color;        /*!< The color of the graphical object. */
     float           e_width;        /*!< The line width of the graphical object. */
-
+    
 	t_pt*           e_points;       /*!< The points of the graphical object. */
     long            e_npoints;      /*!< The number of points of the graphical object. */
     float           e_roundness;    /*!< The roundness of the graphical object. */
@@ -331,7 +331,7 @@ typedef struct _egobj
     t_symbol*       e_anchor;       /*!< The anchor of the graphical object. */
     t_symbol*       e_justify;      /*!< The justification of the graphical object. */
     t_symbol*       e_text;         /*!< The text of the graphical object. */
-
+    
 } t_egobj;
 
 /**
@@ -346,7 +346,7 @@ typedef struct _elayer
     t_symbol*           e_id;               /*!< The layer canvas ID. */
     int                 e_state;            /*!< The layer state. */
     t_rect              e_rect;             /*!< The layer size. */
-
+    
     t_symbol*           e_color;            /*!< The layer color. */
     int                 e_line_width;       /*!< The layer line width. */
     t_matrix            e_matrix;           /*!< The layer matrix. */
@@ -366,7 +366,7 @@ typedef struct _edrawparams
 	float       d_borderthickness;  /*!< The border size. */
 	t_rgba      d_bordercolor;      /*!< The border color. */
 	t_rgba      d_boxfillcolor;     /*!< The background color. */
-
+    
 } t_edrawparams;
 
 /**
@@ -382,6 +382,10 @@ typedef struct _erouter
     t_symbol**          e_libraries;    /*!< The libraries names. */
     long                e_nlibraries;   /*!< The number of libraries. */
     t_clock*            e_clock;        /*!< The clock for mouse position. */
+    t_pt                e_mouse_topcanvas_position;
+    t_pt                e_mouse_global_position;
+    long                e_mouse_modifier;
+    char                e_mouse_down;
 }t_erouter;
 
 /**
@@ -398,11 +402,11 @@ typedef struct _eproxy
 } t_eproxy;
 
 /*
-typedef struct _proxlet
-{
-    t_inlet p_inlet;
-    int     p_index;
-} t_proxlet;
+ typedef struct _proxlet
+ {
+ t_inlet p_inlet;
+ int     p_index;
+ } t_proxlet;
  */
 
 /**
@@ -433,7 +437,7 @@ typedef struct _eobj
 typedef struct _edspobj
 {
     t_eobj              d_obj;              /*!< The CICM object. */
-
+    
     t_eproxy*           d_inlets[256];      /*!< The array of proxy signal inlets. */
     t_outlet*           d_outlets[256];     /*!< The array of signal outlets. */
     float               d_float;            /*!< The float member to initialize the signal method. */
@@ -456,17 +460,17 @@ typedef struct _edspobj
 typedef struct _ebox
 {
     t_eobj              b_obj;              /*!< The CICM object. */
-
+    
     t_symbol*           b_receive_id;       /*!< The object user ID. */
     t_symbol*           b_send_id;          /*!< The object send ID. */
     t_symbol*           b_objpreset_id;     /*!< The object preset ID. */
-
+    
     t_symbol*           b_canvas_id;        /*!< The canvas ID. */
     t_symbol*           b_drawing_id;       /*!< The drawing ID. */
     t_symbol*           b_editor_id;        /*!< The editor ID. */
     t_symbol*           b_window_id;        /*!< The window ID. */
     t_symbol*           b_all_id;           /*!< The global ID. */
-
+    
     long                b_flags;            /*!< The ebox flags. */
     t_rect              b_rect;             /*!< The ebox rectangle. */
     t_rect              b_rect_last;        /*!< The ebox previous rectangle. */
@@ -475,18 +479,18 @@ typedef struct _ebox
     int                 b_selected_item;    /*!< The items selected. */
     int                 b_selected_inlet;   /*!< The inlet selected. */
     int                 b_selected_outlet;  /*!< The outlet selected. */
-
+    
     t_pt                b_mouse;            /*!< The mouse position. */
     t_pt                b_move_box;         /*!< The box moving position. */
     char                b_mouse_down;       /*!< The mouse state. */
     long                b_modifiers;        /*!< The modifiers pressed. */
-
+    
     char                b_visible;          /*!< The visible State. */
     char                b_ready_to_draw;    /*!< The ebox state for drawing. */
     char                b_have_window;      /*!< The ebox window state. */
     char                b_isinsubcanvas;
     t_edrawparams       b_boxparameters;    /*!< The ebox parameters. */
-
+    
     t_elayer*           b_layers;           /*!< The ebox layers. */
     long                b_number_of_layers; /*!< The ebox number of layers. */
 }t_ebox;
@@ -500,17 +504,17 @@ typedef struct _ebox
 typedef struct _edspbox
 {
     t_eobj              b_obj;              /*!< The CICM DSP object. */
-
+    
     t_symbol*           b_receive_id;       /*!< The object user ID. */
     t_symbol*           b_send_id;          /*!< The object send ID. */
     t_symbol*           b_objpreset_id;     /*!< The object preset ID. */
-
+    
     t_symbol*           b_canvas_id;        /*!< The canvas ID. */
     t_symbol*           b_drawing_id;       /*!< The drawing ID. */
     t_symbol*           b_editor_id;        /*!< The editor ID. */
     t_symbol*           b_window_id;        /*!< The window ID. */
     t_symbol*           b_all_id;           /*!< The global ID. */
-
+    
     long                b_flags;            /*!< The ebox flags. */
     t_rect              b_rect;             /*!< The ebox rectangle. */
     t_rect              b_rect_last;        /*!< The ebox previous rectangle. */
@@ -519,21 +523,21 @@ typedef struct _edspbox
     int                 b_selected_item;    /*!< The items selected. */
     int                 b_selected_inlet;   /*!< The inlet selected. */
     int                 b_selected_outlet;  /*!< The outlet selected. */
-
+    
     t_pt                b_mouse;            /*!< The mouse position. */
     t_pt                b_move_box;         /*!< The box moving position. */
     char                b_mouse_down;       /*!< The mouse state. */
     long                b_modifiers;        /*!< The modifiers pressed. */
-
+    
     char                b_visible;          /*!< The visible State. */
     char                b_ready_to_draw;    /*!< The ebox state for drawing. */
     char                b_have_window;      /*!< The ebox window state. */
     char                b_isinsubcanvas;
     t_edrawparams       b_boxparameters;    /*!< The ebox parameters. */
-
+    
     t_elayer*           b_layers;           /*!< The ebox layers. */
     long                b_number_of_layers; /*!< The ebox number of layers. */
-
+    
     t_eproxy*           d_inlets[256];      /*!< The array of proxy signal inlets. */
     t_outlet*           d_outlets[256];     /*!< The array of signal outlets. */
     float               d_float;            /*!< The float member to initialize the signal method. */

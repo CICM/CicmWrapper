@@ -28,10 +28,6 @@
 
 static t_class *erouter_class;
 static t_symbol* erouter1572_sym;
-static t_pt erouter_mouse_topcanvas_position;
-static t_pt erouter_mouse_global_position;
-static long erouter_mouse_modifier;
-static char erouter_mouse_down;
 
 void erouter_setup()
 {
@@ -50,7 +46,7 @@ void erouter_setup()
     
     if(erouter1572_sym->s_thing != NULL)
         return;
-        
+    
     c = class_new(gensym("erouter"), NULL, (t_method)erouter_free, sizeof(t_erouter), CLASS_PD, A_NULL);
     if (c)
     {
@@ -124,9 +120,9 @@ void eobj_detach_torouter(t_object* child)
 {
     int i;
 	t_erouter *x = NULL;
-    if(gensym("erouter1572")->s_thing == NULL)
+    if(erouter1572_sym->s_thing == NULL)
         erouter_setup();
-    x = (t_erouter *)gensym("erouter1572")->s_thing;
+    x = (t_erouter *)erouter1572_sym->s_thing;
     if(x)
     {
         for(i = 0; i < x->e_nchilds; i++)
@@ -143,9 +139,9 @@ void eobj_attach_torouter(t_object* child)
 {
     int i;
 	t_erouter *x = NULL;
-    if(gensym("erouter1572")->s_thing == NULL)
+    if(erouter1572_sym->s_thing == NULL)
         erouter_setup();
-    x = (t_erouter *)gensym("erouter1572")->s_thing;
+    x = (t_erouter *)erouter1572_sym->s_thing;
     for(i = 0; i < x->e_nchilds; i++)
     {
         if(x->e_childs[i] == child)
@@ -198,9 +194,9 @@ void eobj_attach_torouter(t_object* child)
 long erouter_getnobjects()
 {
 	t_erouter *x = NULL;
-    if(gensym("erouter1572")->s_thing == NULL)
+    if(erouter1572_sym->s_thing == NULL)
         erouter_setup();
-    x = (t_erouter *)gensym("erouter1572")->s_thing;
+    x = (t_erouter *)erouter1572_sym->s_thing;
     if(x)
         return x->e_nchilds;
     else
@@ -210,13 +206,13 @@ long erouter_getnobjects()
 t_object* erouter_getobject(long index)
 {
 	t_erouter *x = NULL;
-    if(gensym("erouter1572")->s_thing == NULL)
+    if(erouter1572_sym->s_thing == NULL)
         erouter_setup();
-    x = (t_erouter *)gensym("erouter1572")->s_thing;
+    x = (t_erouter *)erouter1572_sym->s_thing;
     if(x)
     {
-       if(index >= 0 && index < x->e_nchilds)
-           return x->e_childs[index];
+        if(index >= 0 && index < x->e_nchilds)
+            return x->e_childs[index];
     }
     return NULL;
 }
@@ -248,60 +244,60 @@ void erouter_anything(t_erouter *x, t_symbol *s, long argc, t_atom *argv)
 
 void erouter_mousedown(t_erouter *x, t_symbol *s, int argc, t_atom *argv)
 {
-    erouter_mouse_down = 1;
-    erouter_mouse_modifier = (long)atom_getfloat(argv+2);
+    x->e_mouse_down = 1;
+    x->e_mouse_modifier = (long)atom_getfloat(argv+2);
 #ifdef __APPLE__
     
 #elif _WINDOWS
     
-	if(erouter_mouse_modifier >= 131080)
+	if(x->e_mouse_modifier >= 131080)
 	{
-		erouter_mouse_modifier -= 131080;
-		erouter_mouse_modifier += EMOD_ALT;
+		x->e_mouse_modifier -= 131080;
+		x->e_mouse_modifier += EMOD_ALT;
 	}
 	else
-		erouter_mouse_modifier -= 8;
+		x->e_mouse_modifier -= 8;
 #else
-    erouter_mouse_modifier -= 16;
+    x->e_mouse_modifier -= 16;
 #endif
 }
 
 void erouter_mouseup(t_erouter *x, t_symbol *s, int argc, t_atom *argv)
 {
-    erouter_mouse_down = 0;
-    erouter_mouse_modifier = (long)atom_getfloat(argv+2);
+    x->e_mouse_down = 0;
+    x->e_mouse_modifier = (long)atom_getfloat(argv+2);
 #ifdef __APPLE__
     
 #elif _WINDOWS
     
-	if(erouter_mouse_modifier >= 131080)
+	if(x->e_mouse_modifier >= 131080)
 	{
-		erouter_mouse_modifier -= 131080;
-		erouter_mouse_modifier += EMOD_ALT;
+		x->e_mouse_modifier -= 131080;
+		x->e_mouse_modifier += EMOD_ALT;
 	}
 	else
-		erouter_mouse_modifier -= 8;
+		x->e_mouse_modifier -= 8;
 #else
-    erouter_mouse_modifier -= 16;
+    x->e_mouse_modifier -= 16;
 #endif
 }
 
 void erouter_mousemove(t_erouter *x, t_symbol *s, int argc, t_atom *argv)
 {
-    erouter_mouse_modifier = (long)atom_getfloat(argv+2);
+    x->e_mouse_modifier = (long)atom_getfloat(argv+2);
 #ifdef __APPLE__
     
 #elif _WINDOWS
     
-	if(erouter_mouse_modifier >= 131080)
+	if(x->e_mouse_modifier >= 131080)
 	{
-		erouter_mouse_modifier -= 131080;
-		erouter_mouse_modifier += EMOD_ALT;
+		x->e_mouse_modifier -= 131080;
+		x->e_mouse_modifier += EMOD_ALT;
 	}
 	else
-		erouter_mouse_modifier -= 8;
+		x->e_mouse_modifier -= 8;
 #else
-    erouter_mouse_modifier -= 16;
+    x->e_mouse_modifier -= 16;
 #endif
 }
 
@@ -313,37 +309,87 @@ void erouter_tick(t_erouter * x)
 
 void erouter_mouseglobal(t_erouter *x, float px, float py)
 {
-    erouter_mouse_global_position.x = px;
-    erouter_mouse_global_position.y = py;
+    x->e_mouse_global_position.x = px;
+    x->e_mouse_global_position.y = py;
 }
 
 void erouter_mousetopcanvas(t_erouter *x, float px, float py)
 {
-    erouter_mouse_topcanvas_position.x = px;
-    erouter_mouse_topcanvas_position.y = py;
+    x->e_mouse_topcanvas_position.x = px;
+    x->e_mouse_topcanvas_position.y = py;
 }
 
 t_pt erouter_getmouse_global_position()
 {
-    return erouter_mouse_global_position;
+    t_pt pt;
+    t_erouter *x = NULL;
+    if(erouter1572_sym->s_thing == NULL)
+        erouter_setup();
+    x = (t_erouter *)erouter1572_sym->s_thing;
+    if(x)
+    {
+        return x->e_mouse_global_position;
+    }
+    else
+    {
+        pt.x = 0;
+        pt.y = 0;
+        return pt;
+    }
 }
 
 t_pt erouter_getmouse_topcanvas_position()
 {
-    return erouter_mouse_topcanvas_position;
+    t_pt pt;
+    t_erouter *x = NULL;
+    if(erouter1572_sym->s_thing == NULL)
+        erouter_setup();
+    x = (t_erouter *)erouter1572_sym->s_thing;
+    if(x)
+    {
+        return x->e_mouse_topcanvas_position;
+    }
+    else
+    {
+        pt.x = 0;
+        pt.y = 0;
+        return pt;
+    }
 }
 
 long erouter_getmouse_modifier()
 {
-    if(erouter_mouse_modifier >= 256)
-        return erouter_mouse_modifier - 256;
+    t_erouter *x = NULL;
+    if(erouter1572_sym->s_thing == NULL)
+        erouter_setup();
+    x = (t_erouter *)erouter1572_sym->s_thing;
+    if(x)
+    {
+        if(x->e_mouse_modifier >= 256)
+            return x->e_mouse_modifier - 256;
+        else
+            return x->e_mouse_modifier;
+    }
     else
-        return erouter_mouse_modifier;
+    {
+        return 0;
+    }
 }
 
 char erouter_getmouse_status()
 {
-    return erouter_mouse_down;
+    t_erouter *x = NULL;
+    if(erouter1572_sym->s_thing == NULL)
+        erouter_setup();
+    x = (t_erouter *)erouter1572_sym->s_thing;
+    if(x)
+    {
+        return x->e_mouse_down;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 
