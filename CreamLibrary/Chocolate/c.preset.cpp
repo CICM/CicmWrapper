@@ -26,13 +26,13 @@
 
 
 #include "../c.library.h"
-#define MAXBINBUF 256
+#define MAXBINBUF 2048
 
 typedef struct _preset
 {
 	t_ebox      j_box;
 
-    t_binbuf*   f_binbuf[256];
+    t_binbuf*   f_binbuf[2048];
     int         f_nbinbufs;
     int         f_binbuf_selected;
     int         f_binbuf_hover;
@@ -118,7 +118,7 @@ extern "C" void setup_c0x2epreset(void)
 
     CLASS_ATTR_INVISIBLE            (c, "send", 1);
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "102 34");
-    CLASS_ATTR_DEFAULT              (c, "fontsize", 0, "7");
+    CLASS_ATTR_DEFAULT              (c, "fontsize", 0, "10");
 
 	CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_preset, f_color_background);
 	CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
@@ -476,6 +476,7 @@ void preset_clearall(t_preset *x)
         binbuf_clear(x->f_binbuf[i]);
     if(!x->f_init)
         return;
+    x->f_binbuf_selected = 0;
     ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
     ebox_redraw((t_ebox *)x);
 }
@@ -683,14 +684,13 @@ void preset_read(t_preset *x, t_symbol *s, long argc, t_atom *argv)
     if(d && argv && argc && atom_gettype(argv) == A_SYM)
     {
         if(binbuf_read(d, atom_getsym(argv)->s_name, "", 0))
-        {
             object_error(x, "preset : %s read failed", atom_getsym(argv)->s_name);
-        }
         else
         {
             preset_init(x, d);
             ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
             ebox_redraw((t_ebox *)x);
+            post("preset : read %s.", atom_getsym(argv)->s_name);
         }
     }
     if(d)
@@ -704,9 +704,10 @@ void preset_write(t_preset *x, t_symbol *s, long argc, t_atom *argv)
     {
         preset_save(x, d);
         if(binbuf_write(d, atom_getsym(argv)->s_name, "", 0))
-        {
             object_error(x, "preset : %s write failed", atom_getsym(argv)->s_name);
-        }
+        else
+            post("preset : write %s.", atom_getsym(argv)->s_name);
+            
     }
     if(d)
         binbuf_free(d);

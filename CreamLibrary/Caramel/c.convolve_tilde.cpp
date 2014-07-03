@@ -100,14 +100,17 @@ void convolve_set_do(t_convolve *x, t_symbol *s, char dsp)
     t_garray *a = NULL;
     x->f_buffer_name = s;
     int buffer_size;
-    float* buffer_sample;
+    t_word* buffer;
     float* temp;
+    if(!s)
+        return;
+    
     if (!(a = (t_garray *)pd_findbyclass(x->f_buffer_name, garray_class)))
     {
         object_error(x, "c.convolve~: %s no such array.", x->f_buffer_name->s_name);
         return;
     }
-    else if (!garray_getfloatarray(a, &buffer_size, &buffer_sample))
+    else if (!garray_getfloatwords(a, &buffer_size, &buffer))
     {
         object_error(x, "c.convolve~: %s array is empty.", x->f_buffer_name->s_name);
         return;
@@ -119,7 +122,10 @@ void convolve_set_do(t_convolve *x, t_symbol *s, char dsp)
             dsp_state = canvas_suspend_dsp();
         
         temp = (float *)malloc(buffer_size * sizeof(float));
-        memcpy(temp, buffer_sample, buffer_size * sizeof(float));
+        for(int i = 0; i < buffer_size; i++)
+        {
+            temp[i] = buffer[i].w_float;
+        }
         if(x->f_normalize)
         {
             float max = 0;
@@ -175,7 +181,8 @@ void convolve_perform(t_convolve *x, t_object *d, float **ins, long ni, float **
 void convolve_dsp(t_convolve *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
     convolve_set_do(x, x->f_buffer_name, 1);
-    object_method(dsp, gensym("dsp_add"), x, (method)convolve_perform, 0, NULL);
+    if(x->f_buffer_name)
+        object_method(dsp, gensym("dsp_add"), x, (method)convolve_perform, 0, NULL);
 }
 
 

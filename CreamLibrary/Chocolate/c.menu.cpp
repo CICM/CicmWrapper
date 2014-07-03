@@ -660,8 +660,6 @@ t_pd_err menu_items_set(t_menu *x, t_object *attr, long ac, t_atom *av)
 t_pd_err menu_items_get(t_menu *x, t_object *attr, long* ac, t_atom **av)
 {
     int i;
-    if(*av)
-        free(av);
     *ac = x->f_items_size;
     av[0] = (t_atom *)calloc(*ac, sizeof(t_atom));
     for(i = 0; i < *ac; i++)
