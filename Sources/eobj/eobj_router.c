@@ -84,7 +84,7 @@ void erouter_setup()
         sys_gui(" set ry [winfo rooty $patcher]\n");
         sys_gui(" set x  [winfo pointerx .]\n");
         sys_gui(" set y  [winfo pointery .]\n");
-        sys_gui(" pdsend \"$target canvasmouse  [expr $x - $rx] [expr $y - $ry] \"\n");
+        sys_vgui(" pdsend \"%s $target canvasmouse [expr $x - $rx] [expr $y - $ry] \"\n", erouter1572_sym->s_name);
         sys_gui("}\n");
         
         // GLOBAL MOUSE POSITION //

@@ -272,10 +272,10 @@ void eobj_tick(t_eobj* x)
     }
 }
 
-void eobj_mousecanvas(t_eobj* x, float px, float py)
+void eobj_mousecanvas(t_eobj* x, t_symbol* s, long argc, t_atom* argv)
 {
-    x->o_mouse_canvas.x = px;
-    x->o_mouse_canvas.y = py;
+    x->o_mouse_canvas.x = atom_getfloat(argv);
+    x->o_mouse_canvas.y = atom_getfloat(argv+1);
 }
 //! @endcond
 

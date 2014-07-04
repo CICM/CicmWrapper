@@ -70,7 +70,7 @@ void eobj_read(t_eobj* x, t_symbol* s, long argc, t_atom* argv);
 void eobj_tick(t_eobj* x);
 void eobj_poll_mouse(void* x);
 void eobj_nopoll_mouse(void* x);
-void eobj_mousecanvas(t_eobj* x, float px, float py);
+void eobj_mousecanvas(t_eobj* x, t_symbol* s, long argc, t_atom* argv);
 //! @endcond
 
 /*********************************
