@@ -60,7 +60,6 @@ void erouter_setup()
         erouter_class = c;
         
         x = (t_erouter *)pd_new(erouter_class);
-        pd_bind(&x->e_obj.ob_pd, gensym("#erouter"));
         pd_bind(&x->e_obj.te_g.g_pd, erouter1572_sym);
         
         x->e_nchilds    = 0;
