@@ -262,8 +262,15 @@ void eobj_tick(t_eobj* x)
     t_ebox* box = (t_ebox*)x;
     if(eobj_isbox(x))
     {
-        sys_vgui("eobj_canvas_mouse %s %s\n", box->b_obj.o_id->s_name, box->b_canvas_id->s_name);
-        clock_delay(box->b_obj.o_clock, 20.);
+        if(box->b_ready_to_draw && glist_isvisible(box->b_obj.o_canvas))
+        {
+            sys_vgui("eobj_canvas_mouse %s %s\n", box->b_obj.o_id->s_name, box->b_canvas_id->s_name);
+            clock_delay(box->b_obj.o_clock, 20.);
+        }
+        else
+        {
+            eobj_nopoll_mouse(x);
+        }
     }
     else
     {
