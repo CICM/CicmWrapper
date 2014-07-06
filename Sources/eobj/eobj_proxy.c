@@ -29,6 +29,7 @@
 #include "eobj.h"
 
 t_class *eproxy_class;
+t_symbol* eproxy1572_sym;
 
 void inlet_wrong(t_inlet *x, t_symbol *s)
 {
@@ -180,6 +181,12 @@ t_eproxy* eproxy_new(void *owner)
 {
     t_class* inlet_class;
     t_eobj *z = (t_eobj *)owner;
+    eproxy1572_sym = gensym("eproxy1572");
+    if(!eproxy1572_sym->s_thing)
+        eproxy_setup();
+    else
+        eproxy_class = (t_class *)eproxy1572_sym->s_thing;
+    
     z->o_proxy[z->o_nproxy].p_owner = (t_object *)owner;
 	z->o_proxy[z->o_nproxy].p_pd    = eproxy_class;
     z->o_proxy[z->o_nproxy].p_index = z->o_nproxy;
@@ -209,6 +216,12 @@ t_eproxy* eproxy_signalnew(void *owner, float f)
 {
     t_class* inlet_class;
     t_eobj *z = (t_eobj *)owner;
+    eproxy1572_sym = gensym("eproxy1572");
+    if(!eproxy1572_sym->s_thing)
+        eproxy_setup();
+    else
+        eproxy_class = (t_class *)eproxy1572_sym->s_thing;
+    
     z->o_proxy[z->o_nproxy].p_owner = (t_object *)owner;
 	z->o_proxy[z->o_nproxy].p_pd    = eproxy_class;
     z->o_proxy[z->o_nproxy].p_index = z->o_nproxy;
@@ -217,14 +230,14 @@ t_eproxy* eproxy_signalnew(void *owner, float f)
     z->o_proxy[z->o_nproxy].p_inlet->i_un.iu_floatsignalvalue = f;
     
     inlet_class = z->o_proxy[z->o_nproxy].p_inlet->i_pd;
-
+    
     inlet_class->c_bangmethod = (t_bangmethod)new_inlet_bang;
     inlet_class->c_pointermethod = (t_pointermethod)new_inlet_pointer;
     inlet_class->c_floatmethod = (t_floatmethod)new_inlet_float;
     inlet_class->c_symbolmethod = (t_symbolmethod)new_inlet_symbol;
     inlet_class->c_listmethod = (t_listmethod)new_inlet_list;
     inlet_class->c_anymethod = (t_anymethod)new_inlet_anything;
-
+    
     z->o_nproxy++;
     
     return &z->o_proxy[z->o_nproxy-1];
@@ -298,7 +311,10 @@ void eproxy_list(t_eproxy *x, t_symbol* s, int argc, t_atom* argv)
  */
 void eproxy_setup()
 {
+    eproxy1572_sym = gensym("eproxy1572");
+    
 	eproxy_class = class_new(gensym("eproxy"), NULL, (t_method)NULL, sizeof(t_eproxy), CLASS_PD, A_GIMME, 0);
+    eproxy1572_sym->s_thing = (t_class **)eproxy_class;
 	class_addanything(eproxy_class, (t_method)eproxy_anything);
     class_addbang(eproxy_class,  (t_method)eproxy_bang);
     class_addfloat(eproxy_class,  (t_method)eproxy_float);

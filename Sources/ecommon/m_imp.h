@@ -42,7 +42,7 @@ struct _class
     t_pointermethod c_pointermethod;
     t_floatmethod c_floatmethod;
     t_symbolmethod c_symbolmethod;
-    t_blobmethod c_blobmethod;  /* MP20061226 blob type */
+    //t_blobmethod c_blobmethod;  /* MP20061226 blob type */
     t_listmethod c_listmethod;
     t_anymethod c_anymethod;
     struct _widgetbehavior *c_wb;       /* "gobjs" only */
