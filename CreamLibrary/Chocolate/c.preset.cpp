@@ -189,7 +189,7 @@ void *preset_new(t_symbol *s, int argc, t_atom *argv)
     preset_init(x, d);
 	ebox_attrprocess_viabinbuf(x, d);
 	ebox_ready((t_ebox *)x);
-
+    x->f_init = 1;
 	return (x);
 }
 
@@ -218,7 +218,7 @@ void preset_store(t_preset *x, float f)
 
     int index = (int)(f - 1);
 
-    if(index >= 0 && index < MAXBINBUF && x->f_init)
+    if(index >= 0 && index < MAXBINBUF)
     {
         b = x->f_binbuf[index];
         if(binbuf_getnatom(b))
@@ -288,6 +288,7 @@ void preset_float(t_preset *x, float f)
         }
         mpreset = NULL;
     }
+    
     ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
     ebox_redraw((t_ebox *)x);
 }
@@ -524,7 +525,7 @@ void preset_paint(t_preset *x, t_object *view)
     x->f_point_size = ebox_getfontsize((t_ebox *)x);
     draw_background(x, view, &rect);
     x->f_init = 1;
-    x->f_init = 1;
+
 #ifdef __APPLE__
     x->j_box.b_font.c_size += 3;
 #elif _WINDOWS
