@@ -41,9 +41,15 @@
 	#pragma warning(disable:4091)
 #endif
 
+#ifdef PD_EXTENTED
+#include "pd-extented/m_pd.h"
+#include "pd-extented/m_imp.h"
+#include "pd-extented/g_canvas.h"
+#else
 #include "m_pd.h"
 #include "m_imp.h"
 #include "g_canvas.h"
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -105,7 +111,9 @@ union inletunion
     t_gpointer *iu_pointerslot;
     t_float *iu_floatslot;
     t_symbol **iu_symslot;
+#ifdef PD_BLOBS
     t_blob **iu_blobslot; /* MP 20061226 blob type */
+#endif
     t_float iu_floatsignalvalue;
 };
 

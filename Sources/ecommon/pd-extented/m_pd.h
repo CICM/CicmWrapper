@@ -9,10 +9,9 @@ extern "C" {
 #endif
 
 #define PD_MAJOR_VERSION 0
-#define PD_MINOR_VERSION 45
+#define PD_MINOR_VERSION 43
 #define PD_BUGFIX_VERSION 4
-#define PD_TEST_VERSION ""
-extern int pd_compatibilitylevel;   /* e.g., 43 for pd 0.43 compatibility */
+#define PD_TEST_VERSION "extended"
 
 /* old name for "MSW" flag -- we have to take it for the sake of many old
 "nmakefiles" for externs, which will define NT and not MSW */
@@ -68,6 +67,8 @@ typedef unsigned __int8   uint8_t;
 typedef unsigned __int16  uint16_t;
 typedef unsigned __int32  uint32_t;
 typedef unsigned __int64  uint64_t;
+#elif defined(IRIX)
+typedef long int32_t;  /* a data type that has 32 bits */
 #else
 # include <stdint.h>
 #endif
@@ -83,17 +84,17 @@ typedef unsigned __int64  uint64_t;
 #define PD_LONGINTTYPE long
 #endif
 
-#if !defined(PD_FLOATSIZE)
+#if !defined(PD_FLOAT_PRECISION)
   /* normally, our floats (t_float, t_sample,...) are 32bit */
-# define PD_FLOATSIZE 32
+# define PD_FLOAT_PRECISION 32
 #endif
 
-#if PD_FLOATSIZE == 32
+#if PD_FLOAT_PRECISION == 32
 # define PD_FLOATTYPE float
 /* an unsigned int of the same size as FLOATTYPE: */
 # define PD_FLOATUINTTYPE unsigned int
 
-#elif PD_FLOATSIZE == 64
+#elif PD_FLOAT_PRECISION == 64
 # define PD_FLOATTYPE double
 # define PD_FLOATUINTTYPE unsigned long
 #else
@@ -137,7 +138,7 @@ typedef struct _gstub
 typedef struct _gpointer           /* pointer to a gobj in a glist */
 {
     union
-    {   
+    {
         struct _scalar *gp_scalar;  /* scalar we're in (if glist) */
         union word *gp_w;           /* raw data (if array) */
     } gp_un;
@@ -145,14 +146,25 @@ typedef struct _gpointer           /* pointer to a gobj in a glist */
     t_gstub *gp_stub;               /* stub which points to glist/array */
 } t_gpointer;
 
+#define PD_BLOBS 1 /* MP20070211 Use this to test for blob capability */
+/* MP20061223 blob type: */
+typedef struct _blob /* pointer to a blob */
+{
+   unsigned long s_length; /* length of blob in bytes */
+   unsigned char *s_data; /* pointer to 1st byte of blob */
+} t_blob;
+/* ...MP20061223 blob type */
+
+
 typedef union word
 {
     t_float w_float;
     t_symbol *w_symbol;
     t_gpointer *w_gpointer;
     t_array *w_array;
-    struct _binbuf *w_binbuf;
+    struct _glist *w_list;
     int w_index;
+    t_blob *w_blob; /* MP20061223 blob type */
 } t_word;
 
 typedef enum
@@ -165,10 +177,11 @@ typedef enum
     A_COMMA,
     A_DEFFLOAT,
     A_DEFSYM,
-    A_DOLLAR, 
+    A_DOLLAR,
     A_DOLLSYM,
     A_GIMME,
-    A_CANT
+    A_CANT,
+    A_BLOB /* MP20061223 blob type */
 }  t_atomtype;
 
 #define A_DEFSYMBOL A_DEFSYM    /* better name for this */
@@ -255,6 +268,7 @@ EXTERN t_pd pd_canvasmaker;     /* factory for creating canvases */
 EXTERN t_symbol s_pointer;
 EXTERN t_symbol s_float;
 EXTERN t_symbol s_symbol;
+EXTERN t_symbol s_blob;
 EXTERN t_symbol s_bang;
 EXTERN t_symbol s_list;
 EXTERN t_symbol s_anything;
@@ -298,6 +312,7 @@ EXTERN void *resizebytes(void *x, size_t oldsize, size_t newsize);
 #define SETFLOAT(atom, f) ((atom)->a_type = A_FLOAT, (atom)->a_w.w_float = (f))
 #define SETSYMBOL(atom, s) ((atom)->a_type = A_SYMBOL, \
     (atom)->a_w.w_symbol = (s))
+#define SETBLOB(atom, st) ((atom)->a_type = A_BLOB, (atom)->a_w.w_blob = (st)) /* MP 20061226 blob type */
 #define SETDOLLAR(atom, n) ((atom)->a_type = A_DOLLAR, \
     (atom)->a_w.w_index = (n))
 #define SETDOLLSYM(atom, s) ((atom)->a_type = A_DOLLSYM, \
@@ -306,6 +321,7 @@ EXTERN void *resizebytes(void *x, size_t oldsize, size_t newsize);
 EXTERN t_float atom_getfloat(t_atom *a);
 EXTERN t_int atom_getint(t_atom *a);
 EXTERN t_symbol *atom_getsymbol(t_atom *a);
+EXTERN t_blob *atom_getblob(t_atom *a);/* MP 20070108 blob type */
 EXTERN t_symbol *atom_gensym(t_atom *a);
 EXTERN t_float atom_getfloatarg(int which, int argc, t_atom *argv);
 EXTERN t_int atom_getintarg(int which, int argc, t_atom *argv);
@@ -330,7 +346,6 @@ EXTERN void binbuf_restore(t_binbuf *x, int argc, t_atom *argv);
 EXTERN void binbuf_print(t_binbuf *x);
 EXTERN int binbuf_getnatom(t_binbuf *x);
 EXTERN t_atom *binbuf_getvec(t_binbuf *x);
-EXTERN int binbuf_resize(t_binbuf *x, int newsize);
 EXTERN void binbuf_eval(t_binbuf *x, t_pd *target, int argc, t_atom *argv);
 EXTERN int binbuf_read(t_binbuf *b, char *filename, char *dirname,
     int crflag);
@@ -350,12 +365,9 @@ EXTERN t_clock *clock_new(void *owner, t_method fn);
 EXTERN void clock_set(t_clock *x, double systime);
 EXTERN void clock_delay(t_clock *x, double delaytime);
 EXTERN void clock_unset(t_clock *x);
-EXTERN void clock_setunit(t_clock *x, double timeunit, int sampflag);
 EXTERN double clock_getlogicaltime(void);
 EXTERN double clock_getsystime(void); /* OBSOLETE; use clock_getlogicaltime() */
 EXTERN double clock_gettimesince(double prevsystime);
-EXTERN double clock_gettimesincewithunits(double prevsystime,
-    double units, int sampflag);
 EXTERN double clock_getsystimeafter(double delaytime);
 EXTERN void clock_free(t_clock *x);
 
@@ -373,6 +385,7 @@ EXTERN void pd_bang(t_pd *x);
 EXTERN void pd_pointer(t_pd *x, t_gpointer *gp);
 EXTERN void pd_float(t_pd *x, t_float f);
 EXTERN void pd_symbol(t_pd *x, t_symbol *s);
+EXTERN void pd_blob(t_pd *x, t_blob *st); /* MP 20061226 blob type */
 EXTERN void pd_list(t_pd *x, t_symbol *s, int argc, t_atom *argv);
 EXTERN void pd_anything(t_pd *x, t_symbol *s, int argc, t_atom *argv);
 #define pd_class(x) (*(x))
@@ -384,8 +397,7 @@ EXTERN void gpointer_unset(t_gpointer *gp);
 EXTERN int gpointer_check(const t_gpointer *gp, int headok);
 
 /* ----------------- patchable "objects" -------------- */
-EXTERN t_inlet *inlet_new(t_object *owner, t_pd *dest, t_symbol *s1,
-    t_symbol *s2);
+EXTERN t_inlet *inlet_new(t_object *owner, t_pd *dest, t_symbol *s1,t_symbol *s2);
 EXTERN t_inlet *pointerinlet_new(t_object *owner, t_gpointer *gp);
 EXTERN t_inlet *floatinlet_new(t_object *owner, t_float *fp);
 EXTERN t_inlet *symbolinlet_new(t_object *owner, t_symbol **sp);
@@ -397,6 +409,7 @@ EXTERN void outlet_bang(t_outlet *x);
 EXTERN void outlet_pointer(t_outlet *x, t_gpointer *gp);
 EXTERN void outlet_float(t_outlet *x, t_float f);
 EXTERN void outlet_symbol(t_outlet *x, t_symbol *s);
+EXTERN void outlet_blob(t_outlet *x, t_blob *st); /* MP 20061226 blob type */
 EXTERN void outlet_list(t_outlet *x, t_symbol *s, int argc, t_atom *argv);
 EXTERN void outlet_anything(t_outlet *x, t_symbol *s, int argc, t_atom *argv);
 EXTERN t_symbol *outlet_getsymbol(t_outlet *x);
@@ -445,7 +458,7 @@ EXTERN t_parentwidgetbehavior *pd_getparentwidget(t_pd *x);
 
 EXTERN t_class *class_new(t_symbol *name, t_newmethod newmethod,
     t_method freemethod, size_t size, int flags, t_atomtype arg1, ...);
-EXTERN void class_addcreator(t_newmethod newmethod, t_symbol *s, 
+EXTERN void class_addcreator(t_newmethod newmethod, t_symbol *s,
     t_atomtype type1, ...);
 EXTERN void class_addmethod(t_class *c, t_method fn, t_symbol *sel,
     t_atomtype arg1, ...);
@@ -453,6 +466,7 @@ EXTERN void class_addbang(t_class *c, t_method fn);
 EXTERN void class_addpointer(t_class *c, t_method fn);
 EXTERN void class_doaddfloat(t_class *c, t_method fn);
 EXTERN void class_addsymbol(t_class *c, t_method fn);
+EXTERN void class_addblob(t_class *c, t_method fn);/* MP 20061226 blob type */
 EXTERN void class_addlist(t_class *c, t_method fn);
 EXTERN void class_addanything(t_class *c, t_method fn);
 EXTERN void class_sethelpsymbol(t_class *c, t_symbol *s);
@@ -461,7 +475,6 @@ EXTERN void class_setparentwidget(t_class *c, t_parentwidgetbehavior *w);
 EXTERN t_parentwidgetbehavior *class_parentwidget(t_class *c);
 EXTERN char *class_getname(t_class *c);
 EXTERN char *class_gethelpname(t_class *c);
-EXTERN char *class_gethelpdir(t_class *c);
 EXTERN void class_setdrawcommand(t_class *c);
 EXTERN int class_isdrawcommand(t_class *c);
 EXTERN void class_domainsignalin(t_class *c, int onset);
@@ -473,8 +486,6 @@ EXTERN void class_set_extern_dir(t_symbol *s);
 typedef void (*t_savefn)(t_gobj *x, t_binbuf *b);
 EXTERN void class_setsavefn(t_class *c, t_savefn f);
 EXTERN t_savefn class_getsavefn(t_class *c);
-EXTERN void obj_saveformat(t_object *x, t_binbuf *bb); /* add format to bb */
-
         /* prototype for functions to open properties dialogs */
 typedef void (*t_propertiesfn)(t_gobj *x, struct _glist *glist);
 EXTERN void class_setpropertiesfn(t_class *c, t_propertiesfn f);
@@ -485,6 +496,7 @@ EXTERN t_propertiesfn class_getpropertiesfn(t_class *c);
 #define class_addpointer(x, y) class_addpointer((x), (t_method)(y))
 #define class_addfloat(x, y) class_doaddfloat((x), (t_method)(y))
 #define class_addsymbol(x, y) class_addsymbol((x), (t_method)(y))
+#define class_addblob(x, y) class_addblob((x), (t_method)(y)) /* MP20061226 blob type */
 #define class_addlist(x, y) class_addlist((x), (t_method)(y))
 #define class_addanything(x, y) class_addanything((x), (t_method)(y))
 #endif
@@ -527,7 +539,7 @@ EXTERN int sys_close(int fd);
 EXTERN FILE *sys_fopen(const char *filename, const char *mode);
 EXTERN int sys_fclose(FILE *stream);
 
-/* ------------  threading ------------------- */ 
+/* ------------  threading ------------------- */
 EXTERN void sys_lock(void);
 EXTERN void sys_unlock(void);
 EXTERN int sys_trylock(void);
@@ -627,7 +639,7 @@ EXTERN t_float dbtopow(t_float);
 
 EXTERN t_float q8_sqrt(t_float);
 EXTERN t_float q8_rsqrt(t_float);
-#ifndef N32     
+#ifndef N32
 EXTERN t_float qsqrt(t_float);  /* old names kept for extern compatibility */
 EXTERN t_float qrsqrt(t_float);
 #endif
@@ -647,8 +659,6 @@ EXTERN void garray_resize(t_garray *x, t_floatarg f);  /* avoid; use this: */
 EXTERN void garray_resize_long(t_garray *x, long n);   /* better version */
 EXTERN void garray_usedindsp(t_garray *x);
 EXTERN void garray_setsaveit(t_garray *x, int saveit);
-EXTERN t_glist *garray_getglist(t_garray *x);
-EXTERN t_array *garray_getarray(t_garray *x);
 EXTERN t_class *scalar_class;
 
 EXTERN t_float *value_get(t_symbol *s);
@@ -692,10 +702,9 @@ defined, there is a "te_xpix" field in objects, not a "te_xpos" as before: */
 
 #define PD_USE_TE_XPIX
 
-#ifndef _MSC_VER /* Microoft compiler can't handle "inline" function/macros */
-#if defined(__i386__) || defined(__x86_64__) || defined(__arm__)
+#if defined(__i386__) || defined(__x86_64__)
 /* a test for NANs and denormals.  Should only be necessary on i386. */
-# if PD_FLOATSIZE == 32
+# if PD_FLOAT_PRECISION == 32
 static inline int PD_BADFLOAT(t_sample f) {
   t_sampleint_union u;
   u.f=f;
@@ -716,13 +725,7 @@ static inline int PD_BIGORSMALL(t_sample f) {
 # define PD_BADFLOAT(f) 0
 # define PD_BIGORSMALL(f) 0
 #endif
-#else   /* _MSC_VER */
-#define PD_BADFLOAT(f) ((((*(unsigned int*)&(f))&0x7f800000)==0) || \
-    (((*(unsigned int*)&(f))&0x7f800000)==0x7f800000))
-/* more stringent test: anything not between 1e-19 and 1e19 in absolute val */
-#define PD_BIGORSMALL(f) ((((*(unsigned int*)&(f))&0x60000000)==0) || \
-    (((*(unsigned int*)&(f))&0x60000000)==0x60000000))
-#endif /* _MSC_VER */
+
     /* get version number at run time */
 EXTERN void sys_getversion(int *major, int *minor, int *bugfix);
 

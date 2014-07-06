@@ -235,6 +235,7 @@ t_eproxy* eproxy_signalnew(void *owner, float f)
     inlet_class->c_pointermethod = (t_pointermethod)new_inlet_pointer;
     inlet_class->c_floatmethod = (t_floatmethod)new_inlet_float;
     inlet_class->c_symbolmethod = (t_symbolmethod)new_inlet_symbol;
+
     inlet_class->c_listmethod = (t_listmethod)new_inlet_list;
     inlet_class->c_anymethod = (t_anymethod)new_inlet_anything;
     

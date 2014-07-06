@@ -36,6 +36,9 @@ glist has its own window, even if miniaturized.
 /* NOTE: this file describes Pd implementation details which may change
 in future releases.  The public (stable) API is in m_pd.h. */  
 
+#ifndef _DEF_GCANVAS_H_
+#define _DEF_GCANVAS_H_
+
 #if defined(_LANGUAGE_C_PLUS_PLUS) || defined(__cplusplus)
 extern "C" {
 #endif
@@ -75,7 +78,12 @@ EXTERN_STRUCT _canvasenvironment;
 
 EXTERN_STRUCT _fielddesc;
 #define t_fielddesc struct _fielddesc
-
+/*
+// jsarlo
+EXTERN_STRUCT _magicGlass;
+#define t_magicGlass struct _magicGlass
+// end jsarlo
+*/
 typedef struct _selection
 {
     t_gobj *sel_what;
@@ -119,7 +127,6 @@ typedef struct _editor
 #define MA_REGION  3    /* selection region */
 #define MA_PASSOUT 4    /* send on to e_grab */
 #define MA_DRAGTEXT 5   /* drag in text editor to alter selection */
-#define MA_RESIZE  6    /* drag to resize */
 
 /* editor structure for "garrays".  We don't bother to delete and regenerate
 this structure when the "garray" becomes invisible or visible, although we
@@ -187,7 +194,11 @@ struct _glist
     unsigned int gl_goprect:1;      /* draw rectangle for graph-on-parent */
     unsigned int gl_isgraph:1;      /* show as graph on parent */
     unsigned int gl_hidetext:1;     /* hide object-name + args when doing graph on parent */
-    unsigned int gl_private:1;      /* private flag used in x_scalar.c */
+    /*
+    // jsarlo
+    t_magicGlass *gl_magic_glass;   // magic glass object //
+    // end jsarlo
+    */
 };
 
 #define gl_gobj gl_obj.te_g
@@ -197,7 +208,7 @@ struct _glist
 
 #define DT_FLOAT 0
 #define DT_SYMBOL 1
-#define DT_TEXT 2
+#define DT_LIST 2
 #define DT_ARRAY 3
 
 typedef struct _dataslot
@@ -333,11 +344,11 @@ struct _parentwidgetbehavior
 #define CURSOR_EDITMODE_NOTHING 4
 #define CURSOR_EDITMODE_CONNECT 5
 #define CURSOR_EDITMODE_DISCONNECT 6
-#define CURSOR_EDITMODE_RESIZE 7
 EXTERN void canvas_setcursor(t_glist *x, unsigned int cursornum);
 
+extern t_canvas *canvas_editing;    /* last canvas to start text edting */ 
 extern t_canvas *canvas_whichfind;  /* last canvas we did a find in */ 
-extern t_canvas *canvas_list;       /* list of all root canvases */
+//extern t_canvas *canvas_list;       /* list of all root canvases */
 extern t_class *vinlet_class, *voutlet_class;
 extern int glist_valid;         /* incremented when pointers might be stale */
 
@@ -492,7 +503,7 @@ EXTERN void canvas_loadbang(t_canvas *x);
 EXTERN int canvas_hitbox(t_canvas *x, t_gobj *y, int xpos, int ypos,
     int *x1p, int *y1p, int *x2p, int *y2p);
 EXTERN int canvas_setdeleting(t_canvas *x, int flag);
-
+    
 typedef void (*t_undofn)(t_canvas *canvas, void *buf,
     int action);        /* a function that does UNDO/REDO */
 #define UNDO_FREE 0                     /* free current undo/redo buffer */
@@ -510,8 +521,6 @@ EXTERN void canvas_disconnect(t_canvas *x,
 EXTERN int canvas_isconnected (t_canvas *x,
     t_text *ob1, int n1, t_text *ob2, int n2);
 EXTERN void canvas_selectinrect(t_canvas *x, int lox, int loy, int hix, int hiy);
-
-EXTERN t_glist *pd_checkglist(t_pd *x);
 
 
 /* ---- functions on canvasses as objects  --------------------- */
@@ -537,8 +546,6 @@ EXTERN t_garray *graph_array(t_glist *gl, t_symbol *s, t_symbol *tmpl,
 EXTERN t_array *array_new(t_symbol *templatesym, t_gpointer *parent);
 EXTERN void array_resize(t_array *x, int n);
 EXTERN void array_free(t_array *x);
-EXTERN void array_redraw(t_array *a, t_glist *glist);
-EXTERN void array_resize_and_redraw(t_array *array, t_glist *glist, int n);
 
 /* --------------------- gpointers and stubs ---------------- */
 EXTERN t_gstub *gstub_new(t_glist *gl, t_array *a);
@@ -555,12 +562,14 @@ EXTERN t_scalar *scalar_new(t_glist *owner,
 EXTERN void word_free(t_word *wp, t_template *tmpl);
 EXTERN void scalar_getbasexy(t_scalar *x, t_float *basex, t_float *basey);
 EXTERN void scalar_redraw(t_scalar *x, t_glist *glist);
-EXTERN void canvas_writescalar(t_symbol *templatesym, t_word *w, t_binbuf *b,
-    int amarrayelement);
-EXTERN int canvas_readscalar(t_glist *x, int natoms, t_atom *vec,
-    int *p_nextmsg, int selectit);
 
 /* ------helper routines for "garrays" and "plots" -------------- */
+EXTERN int array_doclick(t_array *array, t_glist *glist, t_scalar *sc, t_array *ap,
+    t_symbol *elemtemplatesym,
+    t_float linewidth, t_float xloc, t_float xinc, t_float yloc, t_float scalarvis,
+    t_fielddesc *xfield, t_fielddesc *yfield, t_fielddesc *wfield,
+    int xpix, int ypix, int shift, int alt, int dbl, int doit);
+
 EXTERN void array_getcoordinate(t_glist *glist,
     char *elem, int xonset, int yonset, int wonset, int indx,
     t_float basex, t_float basey, t_float xinc,
@@ -620,4 +629,6 @@ EXTERN t_symbol *iemgui_dollar2raute(t_symbol *s);
 
 #if defined(_LANGUAGE_C_PLUS_PLUS) || defined(__cplusplus)
 }
+#endif
+
 #endif
