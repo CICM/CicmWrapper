@@ -11,10 +11,17 @@
     interconnections.
 */
 
-
+#ifndef __m_pd_h_
+#ifdef PD_EXTENTED
+#include "pd-extented/m_pd.h"
+#include "pd-extented/m_imp.h"
+#include "pd-extented/g_canvas.h"
+#else
 #include "m_pd.h"
 #include "m_imp.h"
 #include "g_canvas.h"
+#endif
+#endif
 #include <stdlib.h>
 #include <stdarg.h>
 
