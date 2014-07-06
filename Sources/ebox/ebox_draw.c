@@ -498,7 +498,6 @@ void ebox_erase(t_ebox* x)
 		free(x->b_layers);
 		x->b_layers = NULL;
 	}
-    eobj_nopoll_mouse(x);
     x->b_number_of_layers = 0;
 }
 

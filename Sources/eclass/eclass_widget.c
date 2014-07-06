@@ -97,6 +97,7 @@ void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
     }
     else
     {
+        eobj_nopoll_mouse(x);
         ebox_erase(x);
     }
     canvas_fixlinesfor(glist_getcanvas(glist), (t_text*)x);
@@ -140,6 +141,7 @@ void ewidget_select(t_gobj *z, t_glist *glist, int selected)
 void ewidget_delete(t_gobj *z, t_glist *glist)
 {
     t_ebox *x = (t_ebox *)z;
+    eobj_nopoll_mouse(x);
     ebox_erase(x);
     canvas_deletelinesfor(glist, (t_text *)z);
 }
