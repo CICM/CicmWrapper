@@ -6,11 +6,17 @@
 
 #include "c.library.h"
 
+char creamversion[] = "Beta 0.3";
+#ifdef PD_EXTENTED
+char pdversion[] = "Pd-Extented";
+#else
+char pdversion[] = "Pd-Vanilla";
+#endif
 extern "C" void setup_c0x2elibrary(void)
 {
 	post("Cream Library by Pierre Guillot");
 	post("© 2013 - 2014  CICM | Paris 8 University");
-	post("Version 0.2");
+    post("Version %s (%s) for %s",creamversion, __DATE__, pdversion);
 
 	// Caramel
 	setup_c0x2econvolve_tilde();

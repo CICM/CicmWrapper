@@ -75,16 +75,13 @@
 		8FAC0BE11969731800E09ACB /* FFTConvolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8EB2919007B04005FAF6A /* FFTConvolver.cpp */; };
 		8FAC0BE31969731800E09ACB /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FB02F717A7FAA9001E977D /* Accelerate.framework */; };
 		8FAC0BE51969731800E09ACB /* eobj.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EAEC19007A1E005FAF6A /* eobj.h */; };
-		8FAC0BE61969731800E09ACB /* m_pd.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EAE119007A1E005FAF6A /* m_pd.h */; };
 		8FAC0BE71969731800E09ACB /* FFTConvolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EB2A19007B04005FAF6A /* FFTConvolver.h */; };
-		8FAC0BE81969731800E09ACB /* m_imp.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EAE019007A1E005FAF6A /* m_imp.h */; };
 		8FAC0BE91969731800E09ACB /* eboxflag.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EADC19007A1E005FAF6A /* eboxflag.h */; };
 		8FAC0BEA1969731800E09ACB /* d_ugen.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EAD919007A1E005FAF6A /* d_ugen.h */; };
 		8FAC0BEB1969731800E09ACB /* epd_max.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EAF319007A1E005FAF6A /* epd_max.h */; };
 		8FAC0BEC1969731800E09ACB /* epopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EAF619007A1E005FAF6A /* epopup.h */; };
 		8FAC0BED1969731800E09ACB /* Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EB2C19007B04005FAF6A /* Utilities.h */; };
 		8FAC0BEE1969731800E09ACB /* epd.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EAF219007A1E005FAF6A /* epd.h */; };
-		8FAC0BEF1969731800E09ACB /* g_canvas.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EADF19007A1E005FAF6A /* g_canvas.h */; };
 		8FAC0BF01969731800E09ACB /* Voronoy.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F714B0A1951FC1F00C1D9D0 /* Voronoy.h */; };
 		8FAC0BF11969731800E09ACB /* ecommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EADE19007A1E005FAF6A /* ecommon.h */; };
 		8FAC0BF21969731800E09ACB /* c.library.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EB6719007B1E005FAF6A /* c.library.h */; };
@@ -114,9 +111,6 @@
 		8FB8EB0B19007A1E005FAF6A /* eboxflag.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EADC19007A1E005FAF6A /* eboxflag.h */; };
 		8FB8EB0C19007A1E005FAF6A /* ecommon.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8EADD19007A1E005FAF6A /* ecommon.c */; };
 		8FB8EB0D19007A1E005FAF6A /* ecommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EADE19007A1E005FAF6A /* ecommon.h */; };
-		8FB8EB0E19007A1E005FAF6A /* g_canvas.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EADF19007A1E005FAF6A /* g_canvas.h */; };
-		8FB8EB0F19007A1E005FAF6A /* m_imp.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EAE019007A1E005FAF6A /* m_imp.h */; };
-		8FB8EB1019007A1E005FAF6A /* m_pd.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EAE119007A1E005FAF6A /* m_pd.h */; };
 		8FB8EB1319007A1E005FAF6A /* egraphics.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8EAE519007A1E005FAF6A /* egraphics.c */; };
 		8FB8EB1419007A1E005FAF6A /* egraphics.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EAE619007A1E005FAF6A /* egraphics.h */; };
 		8FB8EB1519007A1E005FAF6A /* egraphics_color.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8EAE719007A1E005FAF6A /* egraphics_color.c */; };
@@ -199,9 +193,6 @@
 		8FB8EADC19007A1E005FAF6A /* eboxflag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eboxflag.h; sourceTree = "<group>"; };
 		8FB8EADD19007A1E005FAF6A /* ecommon.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ecommon.c; sourceTree = "<group>"; };
 		8FB8EADE19007A1E005FAF6A /* ecommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ecommon.h; sourceTree = "<group>"; };
-		8FB8EADF19007A1E005FAF6A /* g_canvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = g_canvas.h; sourceTree = "<group>"; };
-		8FB8EAE019007A1E005FAF6A /* m_imp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = m_imp.h; sourceTree = "<group>"; };
-		8FB8EAE119007A1E005FAF6A /* m_pd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = m_pd.h; sourceTree = "<group>"; };
 		8FB8EAE519007A1E005FAF6A /* egraphics.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = egraphics.c; sourceTree = "<group>"; };
 		8FB8EAE619007A1E005FAF6A /* egraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egraphics.h; sourceTree = "<group>"; };
 		8FB8EAE719007A1E005FAF6A /* egraphics_color.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = egraphics_color.c; sourceTree = "<group>"; };
@@ -351,9 +342,6 @@
 				8FB8EADC19007A1E005FAF6A /* eboxflag.h */,
 				8FB8EADD19007A1E005FAF6A /* ecommon.c */,
 				8FB8EADE19007A1E005FAF6A /* ecommon.h */,
-				8FB8EADF19007A1E005FAF6A /* g_canvas.h */,
-				8FB8EAE019007A1E005FAF6A /* m_imp.h */,
-				8FB8EAE119007A1E005FAF6A /* m_pd.h */,
 			);
 			path = ecommon;
 			sourceTree = "<group>";
@@ -459,16 +447,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FB8EB1919007A1E005FAF6A /* eobj.h in Headers */,
-				8FB8EB1019007A1E005FAF6A /* m_pd.h in Headers */,
 				8FB8EB4C19007B04005FAF6A /* FFTConvolver.h in Headers */,
-				8FB8EB0F19007A1E005FAF6A /* m_imp.h in Headers */,
 				8FB8EB0B19007A1E005FAF6A /* eboxflag.h in Headers */,
 				8FB8EB0819007A1E005FAF6A /* d_ugen.h in Headers */,
 				8FB8EB2019007A1E005FAF6A /* epd_max.h in Headers */,
 				8FB8EB2219007A1E005FAF6A /* epopup.h in Headers */,
 				8FB8EB4E19007B04005FAF6A /* Utilities.h in Headers */,
 				8FB8EB1F19007A1E005FAF6A /* epd.h in Headers */,
-				8FB8EB0E19007A1E005FAF6A /* g_canvas.h in Headers */,
 				8F714B0B1951FC1F00C1D9D0 /* Voronoy.h in Headers */,
 				8FB8EB0D19007A1E005FAF6A /* ecommon.h in Headers */,
 				8FB8EB6819007B1E005FAF6A /* c.library.h in Headers */,
@@ -486,16 +471,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FAC0BE51969731800E09ACB /* eobj.h in Headers */,
-				8FAC0BE61969731800E09ACB /* m_pd.h in Headers */,
 				8FAC0BE71969731800E09ACB /* FFTConvolver.h in Headers */,
-				8FAC0BE81969731800E09ACB /* m_imp.h in Headers */,
 				8FAC0BE91969731800E09ACB /* eboxflag.h in Headers */,
 				8FAC0BEA1969731800E09ACB /* d_ugen.h in Headers */,
 				8FAC0BEB1969731800E09ACB /* epd_max.h in Headers */,
 				8FAC0BEC1969731800E09ACB /* epopup.h in Headers */,
 				8FAC0BED1969731800E09ACB /* Utilities.h in Headers */,
 				8FAC0BEE1969731800E09ACB /* epd.h in Headers */,
-				8FAC0BEF1969731800E09ACB /* g_canvas.h in Headers */,
 				8FAC0BF01969731800E09ACB /* Voronoy.h in Headers */,
 				8FAC0BF11969731800E09ACB /* ecommon.h in Headers */,
 				8FAC0BF21969731800E09ACB /* c.library.h in Headers */,
@@ -748,7 +730,7 @@
 				EXECUTABLE_EXTENSION = pd_darwin;
 				EXECUTABLE_PREFIX = "";
 				FRAMEWORK_SEARCH_PATHS = "";
-				GCC_PREPROCESSOR_DEFINITIONS = NO_PUB;
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = "";
 				"HEADER_SEARCH_PATHS[arch=*]" = "";
