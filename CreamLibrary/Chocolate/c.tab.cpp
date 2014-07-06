@@ -397,7 +397,6 @@ void tab_symbol(t_tab *x, t_symbol *s, long argc, t_atom *argv)
     }
     else if(i != -1)
     {
-        post(s->s_name);
         x->f_item_selected = i;
         tab_output(x);
         x->f_item_selected = -1;

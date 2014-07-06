@@ -217,15 +217,14 @@ t_eproxy* eproxy_signalnew(void *owner, float f)
     z->o_proxy[z->o_nproxy].p_inlet->i_un.iu_floatsignalvalue = f;
     
     inlet_class = z->o_proxy[z->o_nproxy].p_inlet->i_pd;
-    post("0 : class %s adress %ld list method %ld", inlet_class->c_name->s_name, (long)inlet_class, (long)inlet_class->c_listmethod);
+
     inlet_class->c_bangmethod = (t_bangmethod)new_inlet_bang;
     inlet_class->c_pointermethod = (t_pointermethod)new_inlet_pointer;
     inlet_class->c_floatmethod = (t_floatmethod)new_inlet_float;
     inlet_class->c_symbolmethod = (t_symbolmethod)new_inlet_symbol;
     inlet_class->c_listmethod = (t_listmethod)new_inlet_list;
     inlet_class->c_anymethod = (t_anymethod)new_inlet_anything;
-    (*(t_pd *)z->o_proxy[z->o_nproxy].p_inlet)->c_listmethod = (t_listmethod)new_inlet_list;
-    post("0 : class %s adress %ld list method %ld", inlet_class->c_name->s_name, (long)inlet_class, (long)inlet_class->c_listmethod);
+
     z->o_nproxy++;
     
     return &z->o_proxy[z->o_nproxy-1];
