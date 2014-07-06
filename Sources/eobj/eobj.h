@@ -93,18 +93,6 @@ t_eproxy* eproxy_new(void *owner);
 t_eproxy* eproxy_signalnew(void *owner, float f);
 void eproxy_free(t_eproxy* proxy);
 
-/*
-void proxlet_init();
-t_proxlet *proxlet_new(t_object *owner);
-t_proxlet *signalproxlet_new(t_object *owner, t_float f);
-void proxlet_free(t_proxlet *x);
-
-void proxlet_bang(t_proxlet *x);
-void proxlet_float(t_proxlet *x, t_float f);
-void proxlet_symbol(t_proxlet *x, t_symbol *s);
-void proxlet_list(t_proxlet *x, t_symbol *s, int argc, t_atom *argv);
-void proxlet_anything(t_proxlet *x, t_symbol *s, int argc, t_atom *argv);
- */
 //! @endcond
 
 /*********************************

@@ -50,7 +50,6 @@ t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t siz
     c->c_juce  = 0;
     c->c_attr  = (t_eattr *)malloc(sizeof(t_eattr));
 
-    eproxy_setup();
     erouter_setup();
    
     sprintf(help, "helps/%s", c->c_class.c_name->s_name);

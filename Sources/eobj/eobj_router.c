@@ -44,7 +44,7 @@ void erouter_setup()
     
     erouter1572_sym = gensym("erouter1572");
     
-    if(erouter1572_sym->s_thing != NULL)
+    if(erouter1572_sym->s_thing)
         return;
     
     c = class_new(gensym("erouter"), NULL, (t_method)erouter_free, sizeof(t_erouter), CLASS_PD, A_NULL);
@@ -61,6 +61,7 @@ void erouter_setup()
         
         x = (t_erouter *)pd_new(erouter_class);
         pd_bind(&x->e_obj.te_g.g_pd, erouter1572_sym);
+        erouter1572_sym->s_thing = (t_class **)x;
         
         x->e_nchilds    = 0;
         x->e_childs     = NULL;
@@ -145,7 +146,6 @@ void eobj_attach_torouter(t_object* child)
     {
         if(x->e_childs[i] == child)
         {
-            //post("erouter already attach to %s", x->e_childs[i]->s_name);
             return;
         }
     }

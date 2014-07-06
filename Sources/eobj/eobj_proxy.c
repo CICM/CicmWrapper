@@ -28,8 +28,6 @@
 
 #include "eobj.h"
 
-//t_class *proxlet_class;
-
 t_class *eproxy_class;
 
 void inlet_wrong(t_inlet *x, t_symbol *s)
@@ -187,7 +185,6 @@ t_eproxy* eproxy_new(void *owner)
     z->o_proxy[z->o_nproxy].p_index = z->o_nproxy;
     z->o_proxy[z->o_nproxy].p_inlet = inlet_new(&z->o_obj, &z->o_proxy[z->o_nproxy].p_pd, NULL, NULL);
     
-    
     inlet_class = z->o_proxy[z->o_nproxy].p_inlet->i_pd;
     
     inlet_class->c_bangmethod = (t_bangmethod)new_inlet_bang;
@@ -196,6 +193,7 @@ t_eproxy* eproxy_new(void *owner)
     inlet_class->c_symbolmethod = (t_symbolmethod)new_inlet_symbol;
     inlet_class->c_listmethod = (t_listmethod)new_inlet_list;
     inlet_class->c_anymethod = (t_anymethod)new_inlet_anything;
+    
     z->o_nproxy++;
     return &z->o_proxy[z->o_nproxy-1];
 }
@@ -219,13 +217,15 @@ t_eproxy* eproxy_signalnew(void *owner, float f)
     z->o_proxy[z->o_nproxy].p_inlet->i_un.iu_floatsignalvalue = f;
     
     inlet_class = z->o_proxy[z->o_nproxy].p_inlet->i_pd;
-    
+    post("0 : class %s adress %ld list method %ld", inlet_class->c_name->s_name, (long)inlet_class, (long)inlet_class->c_listmethod);
     inlet_class->c_bangmethod = (t_bangmethod)new_inlet_bang;
     inlet_class->c_pointermethod = (t_pointermethod)new_inlet_pointer;
     inlet_class->c_floatmethod = (t_floatmethod)new_inlet_float;
     inlet_class->c_symbolmethod = (t_symbolmethod)new_inlet_symbol;
     inlet_class->c_listmethod = (t_listmethod)new_inlet_list;
     inlet_class->c_anymethod = (t_anymethod)new_inlet_anything;
+    (*(t_pd *)z->o_proxy[z->o_nproxy].p_inlet)->c_listmethod = (t_listmethod)new_inlet_list;
+    post("0 : class %s adress %ld list method %ld", inlet_class->c_name->s_name, (long)inlet_class, (long)inlet_class->c_listmethod);
     z->o_nproxy++;
     
     return &z->o_proxy[z->o_nproxy-1];
@@ -262,6 +262,35 @@ void eproxy_anything(t_eproxy *x, t_symbol *s, int argc, t_atom *argv)
 	pd_typedmess((t_pd *)x->p_owner, s, argc, argv);
 }
 
+
+void eproxy_bang(t_eproxy *x)
+{
+    t_eobj *z = (t_eobj *)x->p_owner;
+    z->o_current_proxy = x->p_index;
+    pd_bang((t_pd *)x->p_owner);
+}
+
+void eproxy_float(t_eproxy *x, float f)
+{
+    t_eobj *z = (t_eobj *)x->p_owner;
+    z->o_current_proxy = x->p_index;
+    pd_float((t_pd *)x->p_owner, f);
+}
+
+void eproxy_symbol(t_eproxy *x, t_symbol* s)
+{
+    t_eobj *z = (t_eobj *)x->p_owner;
+    z->o_current_proxy = x->p_index;
+    pd_symbol((t_pd *)x->p_owner, s);
+}
+
+void eproxy_list(t_eproxy *x, t_symbol* s, int argc, t_atom* argv)
+{
+    t_eobj *z = (t_eobj *)x->p_owner;
+    z->o_current_proxy = x->p_index;
+    pd_list((t_pd *)x->p_owner, s, argc, argv);
+}
+
 //! Initialize the proxy inlet classe
 /*
  * @memberof    eobj
@@ -270,104 +299,14 @@ void eproxy_anything(t_eproxy *x, t_symbol *s, int argc, t_atom *argv)
  */
 void eproxy_setup()
 {
-	eproxy_class = class_new(gensym("eproxy"), NULL, (t_method)NULL, sizeof(t_eproxy), 0, A_GIMME, 0);
+	eproxy_class = class_new(gensym("eproxy"), NULL, (t_method)NULL, sizeof(t_eproxy), CLASS_PD, A_GIMME, 0);
 	class_addanything(eproxy_class, (t_method)eproxy_anything);
+    class_addbang(eproxy_class,  (t_method)eproxy_bang);
+    class_addfloat(eproxy_class,  (t_method)eproxy_float);
+    class_addsymbol(eproxy_class,  (t_method)eproxy_symbol);
+    class_addlist(eproxy_class, (t_method)eproxy_list);
 }
 
-/*
-void proxlet_init()
-{
-    proxlet_class = class_new(gensym("proxlet"), 0, 0,  sizeof(t_proxlet), CLASS_PD, 0);
-    class_addbang(proxlet_class, proxlet_bang);
-    class_addfloat(proxlet_class, proxlet_float);
-    class_addsymbol(proxlet_class, proxlet_symbol);
-    class_addlist(proxlet_class, proxlet_list);
-    class_addanything(proxlet_class, proxlet_anything);
-}
-
-t_proxlet *proxlet_new(t_object *owner)
-{
-    t_proxlet *x = (t_proxlet *)inlet_new(owner, (t_pd *)owner, NULL, NULL);
-    x = resizebytes(x, sizeof(t_inlet), sizeof(t_proxlet));
- 
-    x->p_inlet.i_pd->c_bangmethod = (t_bangmethod)proxlet_bang;
-    x->p_inlet.i_pd->c_floatmethod = (t_floatmethod)proxlet_float;
-    x->p_inlet.i_pd->c_symbolmethod = (t_symbolmethod)proxlet_symbol;
-    x->p_inlet.i_pd->c_listmethod = (t_listmethod)proxlet_list;
-    x->p_inlet.i_pd->c_anymethod = (t_anymethod)proxlet_anything;
- 
-    x->p_index = obj_ninlets(owner) - 1;
-    return (x);
-}
-
-t_proxlet *signalproxlet_new(t_object *owner, t_float f)
-{
-    t_proxlet *x = proxlet_new(owner);
-    x->p_inlet.i_un.iu_symto = &s_signal;
-    x->p_inlet.i_symfrom = &s_signal;
-    x->p_inlet.i_un.iu_floatsignalvalue = f;
-    return (x);
-}
-
-void proxlet_bang(t_proxlet *x)
-{
-    ((t_eobj *)x->p_inlet.i_dest)->o_current_proxy = x->p_index;
-    pd_bang(x->p_inlet.i_dest);
-}
-
-void proxlet_float(t_proxlet *x, t_float f)
-{
-    ((t_eobj *)x->p_inlet.i_dest)->o_current_proxy = x->p_index;
-    pd_float(x->p_inlet.i_dest, f);
-}
-
-void proxlet_symbol(t_proxlet *x, t_symbol *s)
-{
-    ((t_eobj *)x->p_inlet.i_dest)->o_current_proxy = x->p_index;
-    pd_symbol(x->p_inlet.i_dest, s);
-}
-
-void proxlet_list(t_proxlet *x, t_symbol *s, int argc, t_atom *argv)
-{
-    ((t_eobj *)x->p_inlet.i_dest)->o_current_proxy = x->p_index;
-    if (x->p_inlet.i_symfrom == &s_list || x->p_inlet.i_symfrom == &s_float || x->p_inlet.i_symfrom == &s_symbol || x->p_inlet.i_symfrom == &s_pointer)
-        pd_typedmess(x->p_inlet.i_dest, x->p_inlet.i_un.iu_symto, argc, argv);
-    else if (!x->p_inlet.i_un.iu_symto)
-        pd_typedmess(x->p_inlet.i_dest, s, argc, argv);
-    else if (!argc)
-        proxlet_bang(x);
-    else if (argc==1 && argv->a_type == A_FLOAT)
-        proxlet_float(x, atom_getfloat(argv));
-    else if (argc==1 && argv->a_type == A_SYMBOL)
-        proxlet_symbol(x, atom_getsymbol(argv));
-}
-
-void proxlet_anything(t_proxlet *x, t_symbol *s, int argc, t_atom *argv)
-{
-    ((t_eobj *)x->p_inlet.i_dest)->o_current_proxy = x->p_index;
-    if (x->p_inlet.i_symfrom == s)
-        pd_typedmess(x->p_inlet.i_dest, x->p_inlet.i_un.iu_symto, argc, argv);
-    else if (!x->p_inlet.i_symfrom)
-        pd_typedmess(x->p_inlet.i_dest, s, argc, argv);
-}
-
-void proxlet_free(t_proxlet *x)
-{
-    t_object *y = x->p_inlet.i_owner;
-    t_inlet *x2;
-    if (y->ob_inlet == (t_inlet *)x)
-        y->ob_inlet = x->p_inlet.i_next;
-    else for (x2 = y->ob_inlet; x2; x2 = x2->i_next)
-    {
-        if(x2->i_next == (t_inlet *)x)
-        {
-            x2->i_next = x->p_inlet.i_next;
-            break;
-        }
-    }
-    t_freebytes(x, sizeof(*x));
-}
-*/
 //! @endcond
 
 
