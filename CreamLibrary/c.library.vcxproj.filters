@@ -164,11 +164,8 @@
     <ClCompile Include="Caramel\Utilities.cpp">
       <Filter>Caramel</Filter>
     </ClCompile>
-    <ClCompile Include="Chocolate\Delaunay.cpp">
-      <Filter>Chocolate</Filter>
-    </ClCompile>
-    <ClCompile Include="Chocolate\c.voronoy.cpp">
-      <Filter>Chocolate</Filter>
+    <ClCompile Include="Coffee\c.mousestate.cpp">
+      <Filter>Coffee</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -204,15 +201,6 @@
     <ClInclude Include="..\Sources\ecommon\ecommon.h">
       <Filter>PdEnhanced</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\ecommon\g_canvas.h">
-      <Filter>PdEnhanced</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\ecommon\m_imp.h">
-      <Filter>PdEnhanced</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Sources\ecommon\m_pd.h">
-      <Filter>PdEnhanced</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\egraphics\egraphics.h">
       <Filter>PdEnhanced</Filter>
     </ClInclude>
@@ -240,9 +228,6 @@
     </ClInclude>
     <ClInclude Include="Caramel\FFTConvolver.h">
       <Filter>Caramel</Filter>
-    </ClInclude>
-    <ClInclude Include="Chocolate\Delaunay.h">
-      <Filter>Chocolate</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

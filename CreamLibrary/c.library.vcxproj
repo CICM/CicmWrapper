@@ -5,6 +5,10 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_extented|Win32">
+      <Configuration>Release_extented</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
@@ -61,9 +65,8 @@
     <ClCompile Include="Chocolate\c.slider.cpp" />
     <ClCompile Include="Chocolate\c.tab.cpp" />
     <ClCompile Include="Chocolate\c.toggle.cpp" />
-    <ClCompile Include="Chocolate\c.voronoy.cpp" />
-    <ClCompile Include="Chocolate\Delaunay.cpp" />
     <ClCompile Include="Coffee\c.loadmess.cpp" />
+    <ClCompile Include="Coffee\c.mousestate.cpp" />
     <ClCompile Include="Coffee\c.pak.cpp" />
     <ClCompile Include="Coffee\c.patcherargs.cpp" />
     <ClCompile Include="Coffee\c.patcherinfos.cpp" />
@@ -76,9 +79,6 @@
     <ClInclude Include="..\Sources\ecommon\d_ugen.h" />
     <ClInclude Include="..\Sources\ecommon\eboxflag.h" />
     <ClInclude Include="..\Sources\ecommon\ecommon.h" />
-    <ClInclude Include="..\Sources\ecommon\g_canvas.h" />
-    <ClInclude Include="..\Sources\ecommon\m_imp.h" />
-    <ClInclude Include="..\Sources\ecommon\m_pd.h" />
     <ClInclude Include="..\Sources\egraphics\egraphics.h" />
     <ClInclude Include="..\Sources\eobj\eobj.h" />
     <ClInclude Include="..\Sources\epd.h" />
@@ -89,7 +89,6 @@
     <ClInclude Include="Caramel\AudioFFT.h" />
     <ClInclude Include="Caramel\FFTConvolver.h" />
     <ClInclude Include="Caramel\Utilities.h" />
-    <ClInclude Include="Chocolate\Delaunay.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B05BC6DD-018B-4BE9-BA64-D5BE00CECD66}</ProjectGuid>
@@ -97,6 +96,14 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseIntelIPP>false</UseIntelIPP>
+    <UseIntelMKL>No</UseIntelMKL>
+    <PlatformToolset>v100</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_extented|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <UseIntelIPP>false</UseIntelIPP>
@@ -116,6 +123,9 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_extented|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -125,7 +135,9 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../builds/</OutDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release_extented|Win32'">false</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Package\CreamLibrary\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release_extented|Win32'">Package\CreamLibrary\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -188,6 +200,41 @@
       <AdditionalOptions>/MACHINE:I386  /EXPORT:setup_c0x2elibrary %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>..\Sources\ecommon\pd.lib;libfftw3f-3.lib;/LTCG;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>Package/CreamLibrary/$(ProjectName).dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>..\PdEnhanced\Sources;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_extented|Win32'">
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_USRDLL;NT;PD;CICMWRAPPER_MAXCONVERTER;PD_EXTENTED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level1</WarningLevel>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <ExceptionHandling>SyncCThrow</ExceptionHandling>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/MACHINE:I386  /EXPORT:setup_c0x2elibrary %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>..\Sources\ecommon\pd.lib;libfftw3f-3.lib;/LTCG;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>Package/CreamLibrary/pd-extented/$(ProjectName).dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>..\PdEnhanced\Sources;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
