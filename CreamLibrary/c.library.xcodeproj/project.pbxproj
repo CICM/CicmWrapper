@@ -11,9 +11,6 @@
 		8F26F18B17E76274005FCB97 /* c.library.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F26F18A17E76273005FCB97 /* c.library.cpp */; };
 		8F53164C1906F50A00734AD6 /* c.patchermess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F53164B1906F50A00734AD6 /* c.patchermess.cpp */; };
 		8F5DB22519630E41005DE808 /* c.mousestate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F5DB22419630E41005DE808 /* c.mousestate.cpp */; };
-		8F714B031951FB6800C1D9D0 /* c.voronoy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F714B001951FB6800C1D9D0 /* c.voronoy.cpp */; };
-		8F714B0B1951FC1F00C1D9D0 /* Voronoy.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F714B0A1951FC1F00C1D9D0 /* Voronoy.h */; };
-		8F714B0D1951FC3800C1D9D0 /* Voronoy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F714B0C1951FC3800C1D9D0 /* Voronoy.cpp */; };
 		8FAC0BA71969731800E09ACB /* c.gain_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8EB3219007B04005FAF6A /* c.gain_tilde.cpp */; };
 		8FAC0BA81969731800E09ACB /* c.patcherinfos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8EB6D190080E9005FAF6A /* c.patcherinfos.cpp */; };
 		8FAC0BA91969731800E09ACB /* eclass_widget.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8EAD619007A1E005FAF6A /* eclass_widget.c */; };
@@ -42,7 +39,6 @@
 		8FAC0BC01969731800E09ACB /* egraphics_matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8EAE919007A1E005FAF6A /* egraphics_matrix.c */; };
 		8FAC0BC11969731800E09ACB /* c.tab.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8EB3F19007B04005FAF6A /* c.tab.cpp */; };
 		8FAC0BC21969731800E09ACB /* c.slider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8EB3E19007B04005FAF6A /* c.slider.cpp */; };
-		8FAC0BC31969731800E09ACB /* c.voronoy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F714B001951FB6800C1D9D0 /* c.voronoy.cpp */; };
 		8FAC0BC41969731800E09ACB /* eobj_router.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8EAF119007A1E005FAF6A /* eobj_router.c */; };
 		8FAC0BC51969731800E09ACB /* c.scope_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8EB3D19007B04005FAF6A /* c.scope_tilde.cpp */; };
 		8FAC0BC61969731800E09ACB /* eclass_basic.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8EAD519007A1E005FAF6A /* eclass_basic.c */; };
@@ -69,7 +65,6 @@
 		8FAC0BDB1969731800E09ACB /* c.radio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8EB3B19007B04005FAF6A /* c.radio.cpp */; };
 		8FAC0BDC1969731800E09ACB /* c.library.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F26F18A17E76273005FCB97 /* c.library.cpp */; };
 		8FAC0BDD1969731800E09ACB /* ebox_draw.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8EACB19007A1E005FAF6A /* ebox_draw.c */; };
-		8FAC0BDE1969731800E09ACB /* Voronoy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F714B0C1951FC3800C1D9D0 /* Voronoy.cpp */; };
 		8FAC0BDF1969731800E09ACB /* eobj_handle.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8EAEF19007A1E005FAF6A /* eobj_handle.c */; };
 		8FAC0BE01969731800E09ACB /* c.knob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8EB3419007B04005FAF6A /* c.knob.cpp */; };
 		8FAC0BE11969731800E09ACB /* FFTConvolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8EB2919007B04005FAF6A /* FFTConvolver.cpp */; };
@@ -82,7 +77,6 @@
 		8FAC0BEC1969731800E09ACB /* epopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EAF619007A1E005FAF6A /* epopup.h */; };
 		8FAC0BED1969731800E09ACB /* Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EB2C19007B04005FAF6A /* Utilities.h */; };
 		8FAC0BEE1969731800E09ACB /* epd.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EAF219007A1E005FAF6A /* epd.h */; };
-		8FAC0BF01969731800E09ACB /* Voronoy.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F714B0A1951FC1F00C1D9D0 /* Voronoy.h */; };
 		8FAC0BF11969731800E09ACB /* ecommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EADE19007A1E005FAF6A /* ecommon.h */; };
 		8FAC0BF21969731800E09ACB /* c.library.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EB6719007B1E005FAF6A /* c.library.h */; };
 		8FAC0BF31969731800E09ACB /* eclass.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB8EAD019007A1E005FAF6A /* eclass.h */; };
@@ -169,9 +163,6 @@
 		8F26F18A17E76273005FCB97 /* c.library.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = c.library.cpp; sourceTree = "<group>"; };
 		8F53164B1906F50A00734AD6 /* c.patchermess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = c.patchermess.cpp; sourceTree = "<group>"; };
 		8F5DB22419630E41005DE808 /* c.mousestate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = c.mousestate.cpp; sourceTree = "<group>"; };
-		8F714B001951FB6800C1D9D0 /* c.voronoy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = c.voronoy.cpp; sourceTree = "<group>"; };
-		8F714B0A1951FC1F00C1D9D0 /* Voronoy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Voronoy.h; sourceTree = "<group>"; };
-		8F714B0C1951FC3800C1D9D0 /* Voronoy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Voronoy.cpp; sourceTree = "<group>"; };
 		8FAC0BFB1969731800E09ACB /* c.library.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = c.library.pd_darwin; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FB8EAC619007A1E005FAF6A /* cicm_wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cicm_wrapper.h; sourceTree = "<group>"; };
 		8FB8EAC819007A1E005FAF6A /* ebox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ebox.h; sourceTree = "<group>"; };
@@ -418,9 +409,6 @@
 				8FB8EB3E19007B04005FAF6A /* c.slider.cpp */,
 				8FB8EB3F19007B04005FAF6A /* c.tab.cpp */,
 				8FB8EB4019007B04005FAF6A /* c.toggle.cpp */,
-				8F714B001951FB6800C1D9D0 /* c.voronoy.cpp */,
-				8F714B0C1951FC3800C1D9D0 /* Voronoy.cpp */,
-				8F714B0A1951FC1F00C1D9D0 /* Voronoy.h */,
 			);
 			path = Chocolate;
 			sourceTree = "<group>";
@@ -454,7 +442,6 @@
 				8FB8EB2219007A1E005FAF6A /* epopup.h in Headers */,
 				8FB8EB4E19007B04005FAF6A /* Utilities.h in Headers */,
 				8FB8EB1F19007A1E005FAF6A /* epd.h in Headers */,
-				8F714B0B1951FC1F00C1D9D0 /* Voronoy.h in Headers */,
 				8FB8EB0D19007A1E005FAF6A /* ecommon.h in Headers */,
 				8FB8EB6819007B1E005FAF6A /* c.library.h in Headers */,
 				8FB8EB0019007A1E005FAF6A /* eclass.h in Headers */,
@@ -478,7 +465,6 @@
 				8FAC0BEC1969731800E09ACB /* epopup.h in Headers */,
 				8FAC0BED1969731800E09ACB /* Utilities.h in Headers */,
 				8FAC0BEE1969731800E09ACB /* epd.h in Headers */,
-				8FAC0BF01969731800E09ACB /* Voronoy.h in Headers */,
 				8FAC0BF11969731800E09ACB /* ecommon.h in Headers */,
 				8FAC0BF21969731800E09ACB /* c.library.h in Headers */,
 				8FAC0BF31969731800E09ACB /* eclass.h in Headers */,
@@ -586,7 +572,6 @@
 				8FB8EB1719007A1E005FAF6A /* egraphics_matrix.c in Sources */,
 				8FB8EB6019007B04005FAF6A /* c.tab.cpp in Sources */,
 				8FB8EB5F19007B04005FAF6A /* c.slider.cpp in Sources */,
-				8F714B031951FB6800C1D9D0 /* c.voronoy.cpp in Sources */,
 				8FB8EB1E19007A1E005FAF6A /* eobj_router.c in Sources */,
 				8FB8EB5E19007B04005FAF6A /* c.scope_tilde.cpp in Sources */,
 				8FB8EB0519007A1E005FAF6A /* eclass_basic.c in Sources */,
@@ -613,7 +598,6 @@
 				8FB8EB5C19007B04005FAF6A /* c.radio.cpp in Sources */,
 				8F26F18B17E76274005FCB97 /* c.library.cpp in Sources */,
 				8FB8EAFC19007A1E005FAF6A /* ebox_draw.c in Sources */,
-				8F714B0D1951FC3800C1D9D0 /* Voronoy.cpp in Sources */,
 				8FB8EB1C19007A1E005FAF6A /* eobj_handle.c in Sources */,
 				8FB8EB5519007B04005FAF6A /* c.knob.cpp in Sources */,
 				8FB8EB4B19007B04005FAF6A /* FFTConvolver.cpp in Sources */,
@@ -652,7 +636,6 @@
 				8FAC0BC01969731800E09ACB /* egraphics_matrix.c in Sources */,
 				8FAC0BC11969731800E09ACB /* c.tab.cpp in Sources */,
 				8FAC0BC21969731800E09ACB /* c.slider.cpp in Sources */,
-				8FAC0BC31969731800E09ACB /* c.voronoy.cpp in Sources */,
 				8FAC0BC41969731800E09ACB /* eobj_router.c in Sources */,
 				8FAC0BC51969731800E09ACB /* c.scope_tilde.cpp in Sources */,
 				8FAC0BC61969731800E09ACB /* eclass_basic.c in Sources */,
@@ -679,7 +662,6 @@
 				8FAC0BDB1969731800E09ACB /* c.radio.cpp in Sources */,
 				8FAC0BDC1969731800E09ACB /* c.library.cpp in Sources */,
 				8FAC0BDD1969731800E09ACB /* ebox_draw.c in Sources */,
-				8FAC0BDE1969731800E09ACB /* Voronoy.cpp in Sources */,
 				8FAC0BDF1969731800E09ACB /* eobj_handle.c in Sources */,
 				8FAC0BE01969731800E09ACB /* c.knob.cpp in Sources */,
 				8FAC0BE11969731800E09ACB /* FFTConvolver.cpp in Sources */,
