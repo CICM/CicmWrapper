@@ -1,2 +1,0 @@
-c.convolve~-help.pd c.convolve~ A zero latency convolution.;
-c.freeverb~-help.pd c.freeverb~ A freeverb implementation.;
