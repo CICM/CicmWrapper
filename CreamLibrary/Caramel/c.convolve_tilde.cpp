@@ -64,7 +64,8 @@ extern "C"  void setup_c0x2econvolve_tilde(void)
 	c = eclass_new("c.convolve~", (method)convolve_new, (method)convolve_free, (short)sizeof(t_convolve), 0L, A_GIMME, 0);
     
     eclass_dspinit(c);
-	
+	cream_initclass(c);
+    
     eclass_addmethod(c, (method) convolve_dsp,       "dsp",              A_CANT, 0);
     eclass_addmethod(c, (method) convolve_set,       "set",              A_SYM,  0);
     eclass_addmethod(c, (method) convolve_normalize, "normalize",        A_LONG, 0);

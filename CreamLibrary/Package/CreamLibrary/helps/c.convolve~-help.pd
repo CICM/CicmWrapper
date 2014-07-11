@@ -1,8 +1,6 @@
 #N canvas 543 133 676 417 10;
 #X obj -28 -74 cnv 40 552 40 empty empty c.convolve~ 3 12 0 18 -228856
 -33289 0;
-#X text 65 298 Coffee by Pierre Guillot | CICM - Université Paris 8
-;
 #X text -26 -53 A zero latency convolution;
 #X text -27 -31 c.convolve~ uses the HiFi-LoFi convolution reverb implementation.
 ;
@@ -39,18 +37,20 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X text 7 222 Sorry \, the implementation is not enough optimized on
 Windows and Linux. I'm going to put mine for the next release but for
 the moment it's a little bit buggy.;
-#X connect 6 0 8 0;
-#X connect 7 0 13 0;
-#X connect 8 0 7 0;
-#X connect 8 1 14 0;
-#X connect 9 0 6 0;
-#X connect 13 0 5 0;
-#X connect 14 0 7 1;
-#X connect 15 0 16 0;
-#X connect 16 0 10 0;
-#X connect 16 0 10 1;
-#X connect 18 0 16 0;
-#X connect 19 0 18 0;
-#X connect 24 0 26 0;
-#X connect 25 0 24 0;
-#X connect 26 0 16 0;
+#X text 65 298 Caramel by Pierre Guillot | CICM - Université Paris
+8;
+#X connect 5 0 7 0;
+#X connect 6 0 12 0;
+#X connect 7 0 6 0;
+#X connect 7 1 13 0;
+#X connect 8 0 5 0;
+#X connect 12 0 4 0;
+#X connect 13 0 6 1;
+#X connect 14 0 15 0;
+#X connect 15 0 9 0;
+#X connect 15 0 9 1;
+#X connect 17 0 15 0;
+#X connect 18 0 17 0;
+#X connect 23 0 25 0;
+#X connect 24 0 23 0;
+#X connect 25 0 15 0;

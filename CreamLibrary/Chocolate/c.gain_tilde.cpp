@@ -91,6 +91,7 @@ extern "C"  void setup_c0x2egain_tilde(void)
     
     eclass_dspinit(c);
 	eclass_init(c, 0);
+    cream_initclass(c);
 	
     eclass_addmethod(c, (method) gain_dsp,             "dsp",              A_CANT, 0);
 	eclass_addmethod(c, (method) gain_assist,          "assist",           A_CANT, 0);

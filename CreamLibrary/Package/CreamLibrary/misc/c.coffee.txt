@@ -1,0 +1,7 @@
+c.loadmess-help.pd c.loadmess A loadbang for float symbol and list.;
+c.mousestate-help.pd c.mousestate An informer about the mouse state.;
+c.pak-help.pd c.pak Combine several atoms into one message.;
+c.patcherargs-help.pd c.patcherargs An object that retrieve the patcher arguments.;
+c.patcherinfos-help.pd c.patcherinfos An object that retrieve the patcher informations.;
+c.patchermess-help.pd c.patchermess An object that send messages to the patcher.;
+c.prepend-help.pd c.prepend Prepend a float symbol or list to a message.

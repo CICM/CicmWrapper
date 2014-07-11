@@ -81,6 +81,7 @@ extern "C" void setup_c0x2erslider(void)
 	c = eclass_new("c.rslider", (method)rslider_new, (method)rslider_free, (short)sizeof(t_rslider), 0L, A_GIMME, 0);
     
 	eclass_init(c, 0);
+    cream_initclass(c);
 	
 	eclass_addmethod(c, (method) rslider_assist,          "assist",           A_CANT, 0);
 	eclass_addmethod(c, (method) rslider_paint,           "paint",            A_CANT, 0);

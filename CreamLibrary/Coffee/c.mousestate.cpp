@@ -59,7 +59,8 @@ extern "C" void setup_c0x2emousestate(void)
 	t_eclass *c;
     
 	c = eclass_new("c.mousestate", (method)mousestate_new, (method)mousestate_free, (short)sizeof(t_mousestate), 0L, A_GIMME, 0);
-
+    cream_initclass(c);
+    
     eclass_addmethod(c, (method) mousestate_assist,     "assist",          A_CANT, 0);
     eclass_addmethod(c, (method) mousestate_poll,       "poll",            A_CANT, 0);
     eclass_addmethod(c, (method) mousestate_nopoll,     "nopoll",          A_CANT, 0);

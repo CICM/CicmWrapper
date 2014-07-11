@@ -96,6 +96,7 @@ extern "C" void setup_c0x2epreset(void)
 	c = eclass_new("c.preset", (method)preset_new, (method)preset_free, (short)sizeof(t_preset), 0L, A_GIMME, 0);
 
 	eclass_init(c, 0);
+    cream_initclass(c);
 
 	eclass_addmethod(c, (method) preset_assist,          "assist",           A_CANT, 0);
 	eclass_addmethod(c, (method) preset_paint,           "paint",            A_CANT, 0);

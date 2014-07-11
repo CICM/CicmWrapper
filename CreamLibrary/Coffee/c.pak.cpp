@@ -52,6 +52,8 @@ extern "C" void setup_c0x2epak(void)
 	t_eclass *c;
     
 	c = eclass_new("c.pak", (method)pak_new, (method)pak_free, (short)sizeof(t_pak), CLASS_NOINLET, A_GIMME, 0);
+    cream_initclass(c);
+    
     eclass_addmethod(c, (method)pak_anything,    "anything",       A_GIMME, 0);
     eclass_addmethod(c, (method)pak_list,        "list",           A_GIMME, 0);
     eclass_addmethod(c, (method)pak_float,       "float",          A_FLOAT, 0);

@@ -110,7 +110,8 @@ extern "C" void setup_c0x2ebreakpoints(void)
 	c = eclass_new("c.breakpoints", (method)breakpoints_new, (method)breakpoints_free, (short)sizeof(t_breakpoints), 0L, A_GIMME, 0);
 
 	eclass_init(c, 0);
-
+    cream_initclass(c);
+    
 	eclass_addmethod(c, (method) breakpoints_assist,          "assist",           A_CANT, 0);
 	eclass_addmethod(c, (method) breakpoints_paint,           "paint",            A_CANT, 0);
 	eclass_addmethod(c, (method) breakpoints_notify,          "notify",           A_CANT, 0);

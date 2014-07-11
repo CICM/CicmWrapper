@@ -76,6 +76,7 @@ extern "C" void setup_c0x2escope_tilde(void)
 
 	eclass_dspinit(c);
 	eclass_init(c, 0);
+    cream_initclass(c);
 
 	eclass_addmethod(c, (method) scope_dsp,             "dsp",              A_CANT, 0);
 	eclass_addmethod(c, (method) scope_assist,          "assist",           A_CANT, 0);

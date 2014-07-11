@@ -92,6 +92,7 @@ extern "C" void setup_c0x2etab(void)
 	c = eclass_new("c.tab", (method)tab_new, (method)tab_free, (short)sizeof(t_tab), 0L, A_GIMME, 0);
 
     eclass_init(c, 0);
+    cream_initclass(c);
 
 	eclass_addmethod(c, (method) tab_assist,          "assist",           A_CANT, 0);
 	eclass_addmethod(c, (method) tab_paint,           "paint",            A_CANT, 0);
@@ -214,6 +215,36 @@ void tab_assist(t_tab *x, void *b, long m, long a, char *s)
 
 // MENU GESTION //
 
+void tab_sizemustchange(t_tab *x)
+{
+    t_rect rect;
+    ebox_get_rect_for_view((t_ebox *)x, &rect);
+    if(x->f_orientation)
+    {
+        if(rect.width < sys_fontwidth(x->j_box.b_font.c_size) * 3 || rect.height < (sys_fontheight(x->j_box.b_font.c_size) + 4) * pd_clip_min(x->f_items_size, 1))
+            object_attr_setvalueof((t_object *)x, gensym("size"), 0, NULL);
+        else
+        {
+            ebox_invalidate_layer((t_ebox *)x, gensym("text_layer"));
+            ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+            ebox_invalidate_layer((t_ebox *)x, gensym("selection_layer"));
+            ebox_redraw((t_ebox *)x);
+        }
+    }
+    else
+    {
+        if(rect.width < sys_fontwidth(x->j_box.b_font.c_size) * 3 * pd_clip_min(x->f_items_size, 1) || rect.height < (sys_fontheight(x->j_box.b_font.c_size) + 4) * sys_fontheight(x->j_box.b_font.c_size) + 4)
+            object_attr_setvalueof((t_object *)x, gensym("size"), 0, NULL);
+        else
+        {
+            ebox_invalidate_layer((t_ebox *)x, gensym("text_layer"));
+            ebox_invalidate_layer((t_ebox *)x, gensym("background_layer"));
+            ebox_invalidate_layer((t_ebox *)x, gensym("selection_layer"));
+            ebox_redraw((t_ebox *)x);
+        }
+    }
+}
+
 t_symbol* tab_atoms_to_sym(t_atom* argv, long argc)
 {
     int i;
@@ -252,8 +283,7 @@ void tab_append(t_tab *x, t_symbol *s, int argc, t_atom *argv)
     {
         x->f_items[x->f_items_size] = item;
         x->f_items_size++;
-
-        object_attr_setvalueof((t_object *)x, gensym("size"), 0, NULL);
+        tab_sizemustchange(x);
     }
 }
 
@@ -274,7 +304,7 @@ void tab_insert(t_tab *x, t_symbol *s, int argc, t_atom *argv)
         }
         x->f_items_size++;
 
-        object_attr_setvalueof((t_object *)x, gensym("size"), 0, NULL);
+        tab_sizemustchange(x);
     }
 }
 
@@ -306,7 +336,7 @@ void tab_delete(t_tab *x, t_symbol *s, int argc, t_atom *argv)
             for(i = x->f_items_size; i < MAXITEMS; i++)
                 x->f_items[i] = gensym("(null)");
         }
-        object_attr_setvalueof((t_object *)x, gensym("size"), 0, NULL);
+        tab_sizemustchange(x);
     }
 }
 
@@ -318,7 +348,7 @@ void tab_clear(t_tab *x, t_symbol *s, int argc, t_atom *argv)
         x->f_items[i] = gensym("(null)");
     }
     x->f_items_size = 0;
-    object_attr_setvalueof((t_object *)x, gensym("size"), 0, NULL);
+    tab_sizemustchange(x);
 }
 
 void tab_clean(t_tab *x)
@@ -449,12 +479,6 @@ void tab_oksize(t_tab *x, t_rect *newrect)
         newrect->width = pd_clip_min(newrect->width, sys_fontwidth(x->j_box.b_font.c_size) * 3 * pd_clip_min(x->f_items_size, 1));
         newrect->height = pd_clip_min(newrect->height, sys_fontheight(x->j_box.b_font.c_size) + 4);
     }
-    /*
-    if((int)newrect->width % 2 == 1)
-        newrect->width++;
-    if((int)newrect->height % 2 == 1)
-        newrect->height++;
-     */
 }
 
 t_pd_err tab_notify(t_tab *x, t_symbol *s, t_symbol *msg, void *sender, void *data)

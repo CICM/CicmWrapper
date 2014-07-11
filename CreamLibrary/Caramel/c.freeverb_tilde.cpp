@@ -245,6 +245,8 @@ extern "C"  void setup_c0x2efreeverb_tilde(void)
 	c = eclass_new("c.freeverb~", (method)freeverb_new, (method)freeverb_free, (short)sizeof(t_freeverb), 0L, A_GIMME, 0);
     
     eclass_dspinit(c);
+    cream_initclass(c);
+    
     eclass_addmethod(c, (method) freeverb_dsp,             "dsp",              A_CANT, 0);
 	eclass_addmethod(c, (method) freeverb_assist,          "assist",           A_CANT, 0);
     

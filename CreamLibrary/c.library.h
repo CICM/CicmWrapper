@@ -12,6 +12,8 @@ extern "C"
 #include "../Sources/cicm_wrapper.h"
 }
 
+void cream_initclass(t_eclass* c);
+
 // Caramel
 extern "C" void setup_c0x2econvolve_tilde(void);
 extern "C" void setup_c0x2efreeverb_tilde(void);

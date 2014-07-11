@@ -6,33 +6,34 @@
 #X text -42 -115 Selection;
 #X text 330 -115 Edition;
 #X obj -34 44 c.tab @size 196 34 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @idname (null) @presetname (null) @orientation
-1 @toggle 1 @items 'in America' 'in the West' @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1
-@secolor 0.35 0.35 0.35 1;
+@fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @orientation 1 @toggle 1 @items 'in America' 'in the West' @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @hocolor
+0.5 0.5 0.5 1 @secolor 0.35 0.35 0.35 1;
 #X obj -34 142 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
-@min (null) @max (null) @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
-0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X obj 123 -66 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
-@min 0 @max 1 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min 0 @max 1 @minmax 0 1 @decimal 0 @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X obj -90 -52 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
-@min 0 @max 3 @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min 0 @max 3 @minmax 0 3 @decimal 0 @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X msg 460 165 Jim Morisson;
 #X obj 305 45 c.tab @size 314 32 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @idname (null) @presetname (null) @orientation
-0 @toggle 0 @items 'Jimi Hendrix' 'Janis Joplin' 'John Lennon' 'Jim Morisson'
-@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1
-@hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35 0.35 1;
+@fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @orientation 0 @toggle 0 @items 'Jimi Hendrix' 'Janis Joplin'
+'John Lennon' 'Jim Morisson' @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
+0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35
+0.35 1;
 #X msg 516 12 clear;
 #X obj 305 122 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
-@min 0 @max (null) @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5
-0.5 0.5 1 @textcolor 0 0 0 1;
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min 0 @max (null) @minmax 0 (null) @decimal 0 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X msg 61 215 Once upon a time in the West;
 #X msg 455 -5 delete 2;
 #X text 562 13 Tab with an horizontal;
@@ -40,18 +41,18 @@ normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
 #X text 30 13 Tab with an vertcial;
 #X text 30 23 orientation in "toggle" mode.;
 #X obj 157 140 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
-@min (null) @max (null) @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
-0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X text 299 150 Clicked index;
 #X text 458 188 Clicked item;
 #X text 149 164 Hover index;
 #X text 609 136 Hover index;
 #X text -40 170 Selected index;
 #X obj 614 114 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
-@min (null) @max (null) @decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor
-0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X text 376 215 Note that you can use the inspector to edit the tab.
 ;
 #X text 376 225 Don't forget that ' and " are the separators.;
@@ -66,9 +67,9 @@ normal @fontslant roman @fontsize 11 @idname (null) @presetname (null)
 #X msg 305 -91 append Pete TownShend \, append David Gilmour;
 #X msg -34 -91 set in the West;
 #X msg 9 -50 "in America";
-#X text -122 -164 A multiple text buttons or text toogles menu;
 #X text -124 -143 c.tab displays a list of text buttons or text toggles.
 ;
+#X text -122 -164 A multiple text buttons or text toggles menu.;
 #X connect 1 0 5 0;
 #X connect 2 0 10 0;
 #X connect 5 0 6 0;

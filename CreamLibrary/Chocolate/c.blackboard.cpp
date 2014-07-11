@@ -94,7 +94,8 @@ extern "C" void setup_c0x2eblackboard(void)
     
 	c = eclass_new("c.blackboard", (method)blackboard_new, (method)blackboard_free, (short)sizeof(t_blacboard), 0L, A_GIMME, 0);
 	eclass_init(c, 0);
-	
+    cream_initclass(c);
+    
 	eclass_addmethod(c, (method) blackboard_assist,          "assist",           A_CANT, 0);
 	eclass_addmethod(c, (method) blackboard_paint,           "paint",            A_CANT, 0);
 	eclass_addmethod(c, (method) blackboard_notify,          "notify",           A_CANT, 0);

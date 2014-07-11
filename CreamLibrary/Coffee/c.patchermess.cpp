@@ -46,6 +46,7 @@ extern "C" void setup_c0x2epatchermess(void)
     
 	c = eclass_new("c.patchermess", (method)patchermess_new, (method)patchermess_free, (short)sizeof(t_patchermess), 0L, A_GIMME, 0);
     class_addcreator((t_newmethod)patchermess_new, gensym("c.canvasmess"), A_GIMME, 0);
+    cream_initclass(c);
     
     eclass_addmethod(c, (method)patchermess_anything, "anything", A_GIMME, 0);
     

@@ -89,6 +89,7 @@ extern "C" void setup_c0x2ecolorpanel(void)
     
 	c = eclass_new("c.colorpanel", (method)colorpanel_new, (method)colorpanel_free, (short)sizeof(t_colorpanel), 0L, A_GIMME, 0);
 	eclass_init(c, 0);
+    cream_initclass(c);
 	
 	eclass_addmethod(c, (method) colorpanel_assist,          "assist",           A_CANT, 0);
 	eclass_addmethod(c, (method) colorpanel_paint,           "paint",            A_CANT, 0);

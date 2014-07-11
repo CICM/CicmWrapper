@@ -6,6 +6,13 @@
 
 #include "c.library.h"
 
+void cream_initclass(t_eclass* c)
+{
+    char help[MAXPDSTRING];
+    sprintf(help, "helps/%s", c->c_class.c_name->s_name);
+    class_sethelpsymbol((t_class *)c, gensym(help));
+}
+
 char creamversion[] = "Beta 0.3";
 #ifdef PD_EXTENTED
 char pdversion[] = "Pd-Extented";

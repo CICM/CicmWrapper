@@ -66,7 +66,8 @@ extern "C" void setup_c0x2ebang(void)
 	c = eclass_new("c.bang", (method)bang_new, (method)bang_free, (short)sizeof(t_bang), 0L, A_GIMME, 0);
     
 	eclass_init(c, 0);
-	
+    cream_initclass(c);
+    
 	eclass_addmethod(c, (method) bang_assist,          "assist",           A_CANT, 0);
 	eclass_addmethod(c, (method) bang_paint,           "paint",            A_CANT, 0);
 	eclass_addmethod(c, (method) bang_notify,          "notify",           A_CANT, 0);

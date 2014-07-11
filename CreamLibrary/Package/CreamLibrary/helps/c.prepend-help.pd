@@ -2,11 +2,10 @@
 #X obj -135 -73 cnv 40 552 40 empty empty c.prepend 3 12 0 18 -228856
 -33289 0;
 #X text 205 274 Futher information about chocolate;
-#X obj 200 71 c.bang @size 16 16 @fontname helvetica @fontweight normal
-@fontslant regular @fontsize 11 @idname (null) @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
-#X text -134 -51 Prepend a float \, symbol or list to a message;
-#X symbolatom 62 70 10 0 0 0 - - -;
+#X obj 200 71 c.bang @size 17 17 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X symbolatom 62 70 10 0 0 0 - - -, f 10;
 #X msg 350 69 2 3 5 8 13;
 #X msg -93 45 set He's;
 #X msg -93 75 set You're;
@@ -28,15 +27,16 @@
 list trim combined with list prepend.;
 #X msg 200 203;
 #X msg 350 203;
-#X connect 2 0 16 0;
-#X connect 4 0 14 0;
-#X connect 5 0 18 0;
-#X connect 6 0 14 0;
-#X connect 7 0 14 0;
+#X text -134 -51 Prepend a float \, symbol or list to a message.;
+#X connect 2 0 15 0;
+#X connect 3 0 13 0;
+#X connect 4 0 17 0;
+#X connect 5 0 13 0;
+#X connect 6 0 13 0;
+#X connect 12 0 13 0;
 #X connect 13 0 14 0;
-#X connect 14 0 15 0;
-#X connect 15 0 12 0;
-#X connect 16 0 17 0;
-#X connect 17 0 22 0;
-#X connect 18 0 19 0;
-#X connect 19 0 23 0;
+#X connect 14 0 11 0;
+#X connect 15 0 16 0;
+#X connect 16 0 21 0;
+#X connect 17 0 18 0;
+#X connect 18 0 22 0;
