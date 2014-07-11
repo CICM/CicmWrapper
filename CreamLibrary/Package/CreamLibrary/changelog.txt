@@ -1,11 +1,22 @@
 
 Cream Library
 
-For an overview of Chocolate, Coffee and Caramel Libraries, please refer to the "@patchs".
+For an overview of Chocolate, Coffee and Caramel Libraries, please refer to the « c.library-help.pd ».
 
 ------------------------
-Alpha 0.2
+Beta 0.3
 ------------------------
+
+Small bugs and helps 
+Vanilla and Extended separate
+
+Coffee
+- c.mousestate
+
+------------------------
+Beta 0.2
+------------------------
+
 General :
 Property window, proxy inlets, preset function, etc...
 A lot of stuff can't enum everything, look at the commit...
