@@ -1,4 +1,4 @@
-#N canvas 588 70 497 725 10;
+#N canvas 588 70 412 721 10;
 #X obj -701 -1821 c.patcherinfos;
 #X obj -701 -1838 loadbang;
 #X obj -700 -1699 c.tab @size 398 36 @fontname Monaco @fontweight normal
@@ -9,7 +9,7 @@
 #X obj -687 -1220 c.help.pub;
 #X obj -700 -1659 c.tab @size 398 371 @fontname Monaco @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @orientation 1 @toggle 0 @items c.bang c.blackboard c.breakpoint
+(null) @orientation 1 @toggle 0 @items c.bang c.blackboard c.breakpoints
 c.colorpanel c.gain~ c.incdec c.knob c.menu c.meter~ c.number c.number~
 c.plane c.preset c.radio c.scope~ c.slider c.tab c.toggle @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @hocolor
