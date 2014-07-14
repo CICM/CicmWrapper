@@ -44,17 +44,17 @@
 #ifdef PD_EXTENTED
 #ifndef __m_pd_h_
 #include "pd-extented/m_pd.h"
-#endif
 #include "pd-extented/m_imp.h"
 #include "pd-extented/g_canvas.h"
 #include "pd-extented/s_stuff.h"
+#endif
 #else
 #ifndef __m_pd_h_
 #include "m_pd.h"
-#endif
 #include "m_imp.h"
 #include "g_canvas.h"
 #include "s_stuff.h"
+#endif
 #endif
 
 #include <stdio.h>
