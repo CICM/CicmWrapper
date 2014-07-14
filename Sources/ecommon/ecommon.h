@@ -42,13 +42,19 @@
 #endif
 
 #ifdef PD_EXTENTED
+#ifndef __m_pd_h_
 #include "pd-extented/m_pd.h"
+#endif
 #include "pd-extented/m_imp.h"
 #include "pd-extented/g_canvas.h"
+#include "pd-extented/s_stuff.h"
 #else
+#ifndef __m_pd_h_
 #include "m_pd.h"
+#endif
 #include "m_imp.h"
 #include "g_canvas.h"
+#include "s_stuff.h"
 #endif
 
 #include <stdio.h>
@@ -140,12 +146,6 @@ struct _outlet
     t_outconnect *o_connections;
     t_symbol *o_sym;
 };
-
-typedef struct _namelist    /* element in a linked list of stored strings */
-{
-    struct _namelist *nl_next;  /* next in list */
-    char *nl_string;            /* the string */
-} t_namelist;
 
 EXTERN t_namelist *sys_externlist;
 EXTERN t_namelist *sys_searchpath;
