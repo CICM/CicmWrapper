@@ -151,10 +151,9 @@ EXTERN t_namelist *sys_externlist;
 EXTERN t_namelist *sys_searchpath;
 EXTERN t_namelist *sys_helppath;
 EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
-
-EXTERN t_canvas *canvas_list;
 */
 
+EXTERN t_canvas *canvas_list;
 EXTERN t_namelist *sys_staticpath;
 
 typedef void        (*method)(void* x, ...);
