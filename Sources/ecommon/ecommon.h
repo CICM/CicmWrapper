@@ -98,7 +98,7 @@
 #define atom_getsym(atom)           atom_getsymbol(atom)
 
 #define object_error            pd_error
-#define sys_getdspstate()       canvas_dspstate
+#define sys_getdspstate()       pd_getdspstate()
 
 #define layer_getname(layer) layer.c_name->s_name
 #define layer_getsize(layer) layer.c_atom.size()
@@ -211,6 +211,7 @@ double pd_abscissa(double radius, double angle);
 double pd_radius(double x, double y);
 double pd_angle(double x, double y);
 void pd_library_add_folder(char* libraryname, char* folder);
+int pd_getdspstate();
 
 #ifdef _WINDOWS
 
