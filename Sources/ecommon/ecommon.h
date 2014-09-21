@@ -144,7 +144,14 @@ EXTERN t_namelist *sys_helppath;
 EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
 */
 
+// WARNING ! the #if/else statement below is intended as a workaround for Vanilla compatibility
+// it should be better to detect Pd fork (vanilla, extended or even l2ork)
+// and then define canvas_list according to the version of each
+#if PD_MINOR_VERSION >= 46
+# define canvas_list pd_this->pd_canvaslist
+#else
 EXTERN t_canvas *canvas_list;
+#endif
 EXTERN t_namelist *sys_staticpath;
 
 typedef void        (*method)(void* x, ...);
