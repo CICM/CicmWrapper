@@ -89,7 +89,6 @@
 #define atom_getsym(atom)           atom_getsymbol(atom)
 
 #define object_error            pd_error
-#define sys_getdspstate()       pd_getdspstate()
 
 #define layer_getname(layer) layer.c_name->s_name
 #define layer_getsize(layer) layer.c_atom.size()
@@ -149,7 +148,9 @@ EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
 // and then define canvas_list according to the version of each
 #if PD_MINOR_VERSION >= 46
 # define canvas_list pd_this->pd_canvaslist
+# define sys_getdspstate()       pd_this->pd_dspstate
 #else
+# define sys_getdspstate()       pd_dspstate
 EXTERN t_canvas *canvas_list;
 #endif
 EXTERN t_namelist *sys_staticpath;
@@ -209,7 +210,6 @@ double pd_abscissa(double radius, double angle);
 double pd_radius(double x, double y);
 double pd_angle(double x, double y);
 void pd_library_add_folder(char* libraryname, char* folder);
-int pd_getdspstate();
 
 #ifdef _WINDOWS
 

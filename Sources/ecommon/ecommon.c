@@ -506,11 +506,5 @@ void pd_library_add_folder(char* libraryname, char* folder)
     }
 }
 
-int pd_getdspstate(){
-  // return canvas_dspstate;
-  return 1;
-}
-
-
 
 
