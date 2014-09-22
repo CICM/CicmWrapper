@@ -13,15 +13,9 @@
 
 
 #ifndef __m_pd_h_
-#ifdef PD_EXTENDED
-#include "pd-extended/m_pd.h"
-#include "pd-extended/m_imp.h"
-#include "pd-extended/g_canvas.h"
-#else
 #include "m_pd.h"
 #include "m_imp.h"
 #include "g_canvas.h"
-#endif
 #endif
 #include <stdlib.h>
 #include <stdarg.h>
