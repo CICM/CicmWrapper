@@ -2,7 +2,6 @@ AUTOMAKE_OPTIONS = foreign
 noinst_LTLIBRARIES = libebox.la
 
 libebox_la_CFLAGS = @PD_CPPFLAGS@ -O2 -fPIC -fpermissive 
-#~libebox_la_LDFLAGS = @PD_LDFLAGS@ -static -fPIC
 libebox_la_LDFLAGS = 
 
 libebox_la_SOURCES = ebox_attr.c \
