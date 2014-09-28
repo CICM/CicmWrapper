@@ -98,7 +98,6 @@
 #define atom_getsym(atom)           atom_getsymbol(atom)
 
 #define object_error            pd_error
-#define sys_getdspstate()       canvas_dspstate
 
 #define layer_getname(layer) layer.c_name->s_name
 #define layer_getsize(layer) layer.c_atom.size()
@@ -160,6 +159,7 @@ typedef void        (*method)(void* x, ...);
 typedef void*       (*rmethod)(void* x, ...);
 typedef long        (*t_err_method)(void* x, ...);
 
+int sys_getdspstate();
 void outlet_int(t_outlet* outlet, int val);
 t_outlet* symbolout(void *x);
 t_outlet *listout(void *x);
