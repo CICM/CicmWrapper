@@ -1,14 +1,9 @@
 dnl Process this file with autoconf to produce a configure script.
-## replace the email below with authors' emails
-AC_INIT([hoa], 2.1-git, musique@univ-paris8.fr,[hoa],[https://github.com/CICM/HoaLibrary])
+AC_INIT([CicmWrapper], 0.2.1-git, Pierre Guillot,[CicmWrapper],[https://github.com/CICM/CicmWrapper])
 
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR(config)
 AC_CONFIG_FILES([Sources/Makefile Sources/ebox/Makefile Sources/eclass/Makefile Sources/ecommon/Makefile Sources/egraphics/Makefile Sources/eobj/Makefile Sources/epopup/Makefile])
-
-#~AC_CONFIG_FILES([Package/HoaLibrary/help/Makefile Package/HoaLibrary/help/tutorial/Makefile])
-#~AC_CONFIG_FILES([hoa.library-meta.pd])
-
 
 AC_SUBST(PD_CPPFLAGS)
 AC_SUBST(PD_LDFLAGS)
@@ -51,7 +46,5 @@ else
   PD_CPPFLAGS=`pkg-config --cflags pd`
   PD_LDFLAGS=`pkg-config --libs pd`
 fi
-
-#~AC_CHECK_LIB([blas], [cblas_scopy],,)
 
 AC_OUTPUT(Makefile)
