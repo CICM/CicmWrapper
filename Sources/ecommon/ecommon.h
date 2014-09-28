@@ -41,12 +41,12 @@
 	#pragma warning(disable:4091)
 #endif
 
-#ifdef PD_EXTENTED
+#ifdef PD_EXTENDED
 #ifndef __m_pd_h_
-#include "pd-extented/m_pd.h"
-#include "pd-extented/m_imp.h"
-#include "pd-extented/g_canvas.h"
-#include "pd-extented/s_stuff.h"
+#include "pd-extended/m_pd.h"
+#include "pd-extended/m_imp.h"
+#include "pd-extended/g_canvas.h"
+#include "pd-extended/s_stuff.h"
 #endif
 #else
 #ifndef __m_pd_h_
