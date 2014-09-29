@@ -26,6 +26,14 @@
 
 #include "ecommon.h"
 
+int sys_getdspstate()
+{
+#ifdef PD_EXTENDED
+    return canvas_dspstate;
+#else
+    return pd_this->pd_dspstate;
+#endif
+}
 void outlet_int(t_outlet* outlet, int val)
 {
     outlet_float(outlet, val);
