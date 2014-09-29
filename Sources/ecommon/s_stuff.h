@@ -16,14 +16,14 @@ typedef struct _namelist    /* element in a linked list of stored strings */
 } t_namelist;
 
 t_namelist *namelist_append(t_namelist *listwas, const char *s, int allowdup);
-EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
+t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
 void namelist_free(t_namelist *listwas);
 char *namelist_get(t_namelist *namelist, int n);
 void sys_setextrapath(const char *p);
 extern int sys_usestdpath;
-EXTERN t_namelist *sys_externlist;
-EXTERN t_namelist *sys_searchpath;
-EXTERN t_namelist *sys_helppath;
+extern t_namelist *sys_externlist;
+extern t_namelist *sys_searchpath;
+extern t_namelist *sys_helppath;
 int sys_open_absolute(const char *name, const char* ext,
     char *dirresult, char **nameresult, unsigned int size, int bin, int *fdp);
 int sys_trytoopenone(const char *dir, const char *name, const char* ext,
