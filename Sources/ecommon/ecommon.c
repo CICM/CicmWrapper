@@ -28,8 +28,6 @@
 
 int sys_getdspstate()
 {
-    int major, minor, bugfix;
-    sys_getversion(&major, &minor, &bugfix);
 #ifdef PD_EXTENDED
     return canvas_dspstate;
 #else

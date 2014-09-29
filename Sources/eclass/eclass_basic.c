@@ -137,11 +137,11 @@ void eclass_init(t_eclass* c, long flags)
 
     // GUI always need this methods //
     class_addmethod((t_class *)c, (t_method)ebox_patcher_editmode,  gensym("editmode"),     A_GIMME, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_attrprint,         gensym("attrprint"),    A_CANT,  0);
+    class_addmethod((t_class *)c, (t_method)ebox_attrprint,         gensym("attrprint"),    A_NULL,  0);
     class_addmethod((t_class *)c, (t_method)ebox_dialog,            gensym("dialog"),       A_GIMME, 0);
 
-    class_addmethod((t_class *)c, (t_method)ebox_mouse_enter, gensym("mouseenter"), A_CANT, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_mouse_leave, gensym("mouseleave"), A_CANT, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_mouse_enter, gensym("mouseenter"), A_NULL, 0);
+    class_addmethod((t_class *)c, (t_method)ebox_mouse_leave, gensym("mouseleave"), A_NULL, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_move,  gensym("mousemove"),  A_GIMME, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_down,  gensym("mousedown"),  A_GIMME, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_up,    gensym("mouseup"),    A_GIMME, 0);
@@ -165,7 +165,7 @@ void eclass_dspinit(t_eclass* c)
 {
     c->c_dsp = 1;
     CLASS_MAINSIGNALIN((t_class *)c, t_edspbox, d_float);
-    class_addmethod((t_class *)c, (t_method)eobj_dsp, gensym("dsp"), A_CANT, 0);
+    class_addmethod((t_class *)c, (t_method)eobj_dsp, gensym("dsp"), A_NULL, 0);
     class_addmethod((t_class *)c, (t_method)eobj_dsp_add, gensym("dsp_add"), A_NULL, 0);
     class_addmethod((t_class *)c, (t_method)eobj_dsp_add, gensym("dsp_add64"), A_NULL, 0);
 }
@@ -180,7 +180,7 @@ void eclassbox_dspinit(t_eclass* c)
 {
     c->c_dsp = 1;
     CLASS_MAINSIGNALIN((t_class *)c, t_edspobj, d_float);
-    class_addmethod((t_class *)c, (t_method)eobj_dsp, gensym("dsp"), A_CANT, 0);
+    class_addmethod((t_class *)c, (t_method)eobj_dsp, gensym("dsp"), A_NULL, 0);
     class_addmethod((t_class *)c, (t_method)eobj_dsp_add, gensym("dsp_add"), A_NULL, 0);
     class_addmethod((t_class *)c, (t_method)eobj_dsp_add, gensym("dsp_add64"), A_NULL, 0);
 }
@@ -441,7 +441,7 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
     }
     else if(gensym(name) == gensym("deserted"))
     {
-        class_addmethod((t_class *)c, (t_method)ebox_patcher_focus,   gensym("focus"),  A_CANT,  0);
+        class_addmethod((t_class *)c, (t_method)ebox_patcher_focus,   gensym("focus"),  A_NULL,  0);
         c->c_widget.w_deserted = m;
     }
     else if(gensym(name) == gensym("paint"))
