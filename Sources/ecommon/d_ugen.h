@@ -11,25 +11,25 @@
     interconnections.
 */
 
+#ifndef DEF_EPD_UGEN
+#define DEF_EPD_UGEN
 
 #ifndef __m_pd_h_
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 #ifdef PD_EXTENDED
 #include "pd-extended/m_pd.h"
 #include "pd-extended/m_imp.h"
 #include "pd-extended/g_canvas.h"
 #else
-=======
->>>>>>> pr/8
-=======
->>>>>>> pr/8
+
 #include "m_pd.h"
 #include "m_imp.h"
 #include "g_canvas.h"
 #endif
 #include <stdlib.h>
 #include <stdarg.h>
+
+#endif
 
 typedef struct _ugenbox
 {
@@ -98,6 +98,5 @@ t_signal *signal_newlike(const t_signal *sig);
 int signal_compatible(t_signal *s1, t_signal *s2);
 void signal_cleanup(void);
 
-
-
+#endif
 
