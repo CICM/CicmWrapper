@@ -20,11 +20,13 @@
 #include "pd-extended/m_pd.h"
 #include "pd-extended/m_imp.h"
 #include "pd-extended/g_canvas.h"
+#include "pd-extended/s_stuff.h"
 #else
 
-#include "m_pd.h"
-#include "m_imp.h"
-#include "g_canvas.h"
+#include "pd-vanilla/m_pd.h"
+#include "pd-vanilla/m_imp.h"
+#include "pd-vanilla/g_canvas.h"
+#include "pd-vanilla/s_stuff.h"
 #endif
 #include <stdlib.h>
 #include <stdarg.h>

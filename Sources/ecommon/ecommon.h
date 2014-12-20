@@ -28,7 +28,6 @@
 #ifndef DEF_EPD_COMMON
 #define DEF_EPD_COMMON
 
-
 #ifdef _WIN32
 #define snprintf _snprintf
 #include <io.h>
@@ -42,19 +41,23 @@
 #endif
 
 #ifdef PD_EXTENDED
+
 #ifndef __m_pd_h_
 #include "pd-extended/m_pd.h"
 #include "pd-extended/m_imp.h"
 #include "pd-extended/g_canvas.h"
 #include "pd-extended/s_stuff.h"
 #endif
+
 #else
 
 #ifndef __m_pd_h_
-#include "m_pd.h"
-#include "m_imp.h"
-#include "g_canvas.h"
-#include "s_stuff.h"
+#include "pd-vanilla/m_pd.h"
+#include "pd-vanilla/m_imp.h"
+#include "pd-vanilla/g_canvas.h"
+#include "pd-vanilla/s_stuff.h"
+#endif
+
 #endif
 
 #include <stdio.h>
@@ -156,11 +159,15 @@ EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
 // it should be better to detect Pd fork (vanilla, extended or even l2ork)
 // and then define canvas_list according to the version of each
 #if PD_MINOR_VERSION >= 46
+
 # define canvas_list pd_this->pd_canvaslist
 # define sys_getdspstate()       pd_this->pd_dspstate
+
 #else
-# define sys_getdspstate()       pd_dspstate
+
+# define sys_getdspstate()       canvas_dspstate
 EXTERN t_canvas *canvas_list;
+
 #endif
 EXTERN t_namelist *sys_staticpath;
 
@@ -179,7 +186,6 @@ int obj_isfloatoutlet(t_object *x, int m);
 int obj_isfloatinlet(t_object *x, int m);
 void canvas_deletelines_for_io(t_canvas *x, t_text *text, t_inlet *inp, t_outlet *outp);
 
-//void* object_method(void* x, t_symbol* s, ...); // For tht moment we only use dsp method so...
 void* object_method(void* x, t_symbol* s, void* z, method method, long number, void* other);
 void object_attr_setvalueof(t_object *x, t_symbol* s, long argc, t_atom* argv);
 void object_attr_getvalueof(t_object *x, t_symbol *s, long *argc, t_atom **argv);
@@ -257,8 +263,6 @@ __attribute__((used)) static char *my_cursorlist[] =
     "exchange",
     "xterm"
 };
-
-#endif
 
 #endif
 
