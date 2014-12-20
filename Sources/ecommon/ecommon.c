@@ -25,7 +25,7 @@
  */
 
 #include "ecommon.h"
-
+/*
 int sys_getdspstate()
 {
 #ifdef PD_EXTENDED
@@ -34,6 +34,7 @@ int sys_getdspstate()
     return pd_this->pd_dspstate;
 #endif
 }
+ */
 void outlet_int(t_outlet* outlet, int val)
 {
     outlet_float(outlet, val);

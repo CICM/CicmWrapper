@@ -41,7 +41,6 @@
 	#pragma warning(disable:4091)
 #endif
 
-<<<<<<< HEAD
 #ifdef PD_EXTENDED
 #ifndef __m_pd_h_
 #include "pd-extended/m_pd.h"
@@ -50,8 +49,7 @@
 #include "pd-extended/s_stuff.h"
 #endif
 #else
-=======
->>>>>>> pr/8
+
 #ifndef __m_pd_h_
 #include "m_pd.h"
 #include "m_imp.h"
@@ -153,9 +151,6 @@ EXTERN t_namelist *sys_searchpath;
 EXTERN t_namelist *sys_helppath;
 EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
 */
-<<<<<<< HEAD
-
-=======
 
 // WARNING ! the #if/else statement below is intended as a workaround for Vanilla compatibility
 // it should be better to detect Pd fork (vanilla, extended or even l2ork)
@@ -167,14 +162,12 @@ EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
 # define sys_getdspstate()       pd_dspstate
 EXTERN t_canvas *canvas_list;
 #endif
->>>>>>> pr/8
 EXTERN t_namelist *sys_staticpath;
 
 typedef void        (*method)(void* x, ...);
 typedef void*       (*rmethod)(void* x, ...);
 typedef long        (*t_err_method)(void* x, ...);
 
-int sys_getdspstate();
 void outlet_int(t_outlet* outlet, int val);
 t_outlet* symbolout(void *x);
 t_outlet *listout(void *x);
@@ -267,5 +260,6 @@ __attribute__((used)) static char *my_cursorlist[] =
 
 #endif
 
+#endif
 
 #endif
