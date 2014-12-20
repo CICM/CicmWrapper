@@ -30,10 +30,11 @@
  * @details All the principals structures are defined in this file.
  * @author Pierre Guillot
  */
-#ifndef DEF_ESTRUCT
-#define DEF_ESTRUCT
 
 #include "ecommon/ecommon.h"
+
+#ifndef DEF_ESTRUCT
+#define DEF_ESTRUCT
 
 /**
  * @struct _pt
