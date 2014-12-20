@@ -23,7 +23,7 @@ and a lot of other stuff, I can't enumerate everything !
 
 Add the sources folder to your project. Include "cicm_wrapper.h" file instead of "m_pd.h". Compile like any Pd Project.
 You can use the projects to compile the externals : XCode for Mac Os, Visual Studio for Windows and Code::Block for Linux.
-Projects are compiled against Pd Extented 0.43 then the externals are not compatible with older versions of Pd but are compatible
+Projects are compiled against Pd Extended 0.43 then the externals are not compatible with older versions of Pd but are compatible
 with Pd 0.45. Note that if you compile against Pd 0.45, the externals won't work with Pd 0.43. Open the c.library project to compile the Cream library.
 
 #### ToDo :
