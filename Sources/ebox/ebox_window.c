@@ -73,21 +73,21 @@ void ebox_bind_events(t_ebox* x)
     right += 16;
 #endif
 
-    sys_vgui("bind %s <Button-3> {pdsend {%s mousedown %%x %%y %i}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name, right);
-    sys_vgui("bind %s <Button-2> {pdsend {%s mousedown %%x %%y %i}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name, right);
-    sys_vgui("bind %s <Button-1> {pdsend {%s mousedown %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
-    sys_vgui("bind %s <ButtonRelease> {pdsend {%s mouseup %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
-    sys_vgui("bind %s <Motion> {pdsend {%s mousemove %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
+    sys_vgui("bind %s <Button-3> {+pdsend {%s mousedown %%x %%y %i}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name, right);
+    sys_vgui("bind %s <Button-2> {+pdsend {%s mousedown %%x %%y %i}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name, right);
+    sys_vgui("bind %s <Button-1> {+pdsend {%s mousedown %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
+    sys_vgui("bind %s <ButtonRelease> {+pdsend {%s mouseup %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
+    sys_vgui("bind %s <Motion> {+pdsend {%s mousemove %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
 
-    sys_vgui("bind %s <Enter> {pdsend {%s mouseenter}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
-    sys_vgui("bind %s <Leave> {pdsend {%s mouseleave}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
+    sys_vgui("bind %s <Enter> {+pdsend {%s mouseenter}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
+    sys_vgui("bind %s <Leave> {+pdsend {%s mouseleave}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
 
     if(c->c_widget.w_dblclick)
-       sys_vgui("bind %s <Double-Button-1> {pdsend {%s dblclick   %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
+       sys_vgui("bind %s <Double-Button-1> {+pdsend {%s dblclick   %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
     if(c->c_widget.w_mousewheel)
-        sys_vgui("bind %s <MouseWheel> {pdsend {%s mousewheel  %%x %%y %%D %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
+        sys_vgui("bind %s <MouseWheel> {+pdsend {%s mousewheel  %%x %%y %%D %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
     if(c->c_widget.w_key || c->c_widget.w_keyfilter)
-        sys_vgui("bind %s <Key>  {pdsend {%s key  %%k %%N}} \n",  x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
+        sys_vgui("bind %s <Key>  {+pdsend {%s key  %%k %%N}} \n",  x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
 
     // Canvas & Editor Binding //
     sys_vgui("bind %s <<EditMode>>  {+pdsend {erouter1572 %s editmode}} \n", x->b_editor_id->s_name, x->b_obj.o_id->s_name);

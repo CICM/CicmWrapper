@@ -70,13 +70,13 @@ void erouter_setup()
         x->e_clock      = clock_new(x, (t_method)erouter_tick);
         clock_set(x->e_clock, 20);
         
-        sys_vgui("bind all <Button-3> {pdsend {%s mousedown %%x %%y %i}}\n", erouter1572_sym->s_name, right);
-        sys_vgui("bind all <Button-2> {pdsend {%s mousedown %%x %%y %i}}\n", erouter1572_sym->s_name, right);
-        sys_vgui("bind all <Button-1> {pdsend {%s mousedown %%x %%y %%s}}\n", erouter1572_sym->s_name);
-        sys_vgui("bind all <ButtonRelease> {pdsend {%s mouseup %%x %%y %%s}}\n", erouter1572_sym->s_name);
-        sys_vgui("bind all <Motion> {pdsend {%s mousemove %%x %%y %%s}}\n", erouter1572_sym->s_name);
-        
         sys_gui("namespace eval erouter1572 {} \n");
+        
+        sys_vgui("bind all <Button-3> {+pdsend {%s mousedown %%x %%y %i}}\n", erouter1572_sym->s_name, right);
+        sys_vgui("bind all <Button-2> {+pdsend {%s mousedown %%x %%y %i}}\n", erouter1572_sym->s_name, right);
+        sys_vgui("bind all <Button-1> {+pdsend {%s mousedown %%x %%y %%s}}\n", erouter1572_sym->s_name);
+        sys_vgui("bind all <ButtonRelease> {+pdsend {%s mouseup %%x %%y %%s}}\n", erouter1572_sym->s_name);
+        sys_vgui("bind all <Motion> {+pdsend {%s mousemove %%x %%y %%s}}\n", erouter1572_sym->s_name);
         
         // PATCHER MOUSE POSITION //
         sys_vgui("proc eobj_canvas_mouse {target patcher} {\n");
