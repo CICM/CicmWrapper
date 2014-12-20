@@ -51,10 +51,10 @@ t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t siz
     c->c_attr  = (t_eattr *)malloc(sizeof(t_eattr));
 
     erouter_setup();
-   
+
     sprintf(help, "helps/%s", c->c_class.c_name->s_name);
     class_sethelpsymbol((t_class *)c, gensym(help));
-    
+
     class_addmethod((t_class *)c, (t_method)eobj_mousecanvas,  gensym("canvasmouse"), A_GIMME, 0);
     return c;
 }
@@ -78,7 +78,7 @@ void eclass_init(t_eclass* c, long flags)
     CLASS_ATTR_LONG         (c, "fontsize", 0, t_ebox, b_font.c_sizereal);
     CLASS_ATTR_SYMBOL       (c, "receive", 0, t_ebox, b_receive_id);
     CLASS_ATTR_SYMBOL       (c, "send", 0, t_ebox, b_send_id);
-    
+
     CLASS_ATTR_DEFAULT      (c, "size", 0, "100. 100.");
     CLASS_ATTR_FILTER_MIN   (c, "size", 4);
     CLASS_ATTR_SAVE         (c, "size", 0);
@@ -95,7 +95,7 @@ void eclass_init(t_eclass* c, long flags)
     CLASS_ATTR_ACCESSORS    (c, "fontname", NULL, ebox_set_font);
     CLASS_ATTR_STYLE        (c, "fontname", 0, "menu");
     CLASS_ATTR_ITEMS        (c, "fontname", 0, "Helvetica Monaco Courier Times DejaVu");
-    
+
     CLASS_ATTR_DEFAULT      (c, "fontweight", 0, "normal");
     CLASS_ATTR_SAVE         (c, "fontweight", 0);
     CLASS_ATTR_PAINT        (c, "fontweight", 0);
@@ -104,7 +104,7 @@ void eclass_init(t_eclass* c, long flags)
     CLASS_ATTR_ACCESSORS    (c, "fontweight", NULL, ebox_set_fontweight);
     CLASS_ATTR_STYLE        (c, "fontweight", 0, "menu");
     CLASS_ATTR_ITEMS        (c, "fontweight", 0, "normal bold");
-    
+
     CLASS_ATTR_DEFAULT      (c, "fontslant", 0, "roman");
     CLASS_ATTR_SAVE         (c, "fontslant", 0);
     CLASS_ATTR_PAINT        (c, "fontslant", 0);
@@ -113,7 +113,7 @@ void eclass_init(t_eclass* c, long flags)
     CLASS_ATTR_ACCESSORS    (c, "fontslant", NULL, ebox_set_fontslant);
     CLASS_ATTR_STYLE        (c, "fontslant", 0, "menu");
     CLASS_ATTR_ITEMS        (c, "fontslant", 0, "roman italic");
-    
+
     CLASS_ATTR_DEFAULT      (c, "fontsize", 0, "11");
     CLASS_ATTR_FILTER_MIN   (c, "fontsize", 4);
     CLASS_ATTR_SAVE         (c, "fontsize", 0);
@@ -122,13 +122,13 @@ void eclass_init(t_eclass* c, long flags)
     CLASS_ATTR_LABEL		(c, "fontsize", 0, "Font Size");
     CLASS_ATTR_ACCESSORS    (c, "fontsize", NULL, ebox_set_fontsize);
     CLASS_ATTR_STYLE        (c, "fontsize", 0, "number");
-    
+
     CLASS_ATTR_DEFAULT      (c, "receive", 0, "(null)");
     CLASS_ATTR_ACCESSORS    (c, "receive", NULL, ebox_set_receiveid);
     CLASS_ATTR_SAVE         (c, "receive", 0);
     CLASS_ATTR_CATEGORY		(c, "receive", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "receive", 0, "Receive Symbol");
-    
+
     CLASS_ATTR_DEFAULT      (c, "send", 0, "(null)");
     CLASS_ATTR_ACCESSORS    (c, "send", NULL, ebox_set_sendid);
     CLASS_ATTR_SAVE         (c, "send", 0);
@@ -149,7 +149,7 @@ void eclass_init(t_eclass* c, long flags)
 
     class_addmethod((t_class *)c, (t_method)ebox_pos, gensym("pos"), A_DEFFLOAT,A_DEFFLOAT,0);
     class_addmethod((t_class *)c, (t_method)ebox_vis, gensym("vis"), A_DEFFLOAT,0);
-    
+
     class_setwidget((t_class *)&c->c_class, (t_widgetbehavior *)&c->c_widget);
     class_setsavefn((t_class *)&c->c_class, (t_savefn)eobj_save);
     class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
@@ -206,7 +206,7 @@ void eclass_properties_dialog(t_eclass* c)
     sys_gui("append col [format {%4.4x} $nB]\n");
     sys_gui("return #$col\n");
     sys_gui("}\n");
-    
+
     // DIALOG WINDOW APPLY //
     for(i = 0; i < c->c_nattr; i++)
     {
@@ -246,7 +246,7 @@ void eclass_properties_dialog(t_eclass* c)
                 sys_vgui("if {$index == %i} {pdsend [concat $id dialog $id %i @%s %s]}\n", j, i+1, c->c_attr[i].name->s_name, c->c_attr[i].itemslist[j]->s_name);
             }
             sys_gui("}\n");
-            
+
             sys_vgui("proc pdtk_%s_menu_%s {id} { \n", c->c_class.c_name->s_name, c->c_attr[i].name->s_name);
             sys_vgui("destroy $id.sele%i.menu\n", i+1);
             sys_vgui("menu $id.sele%i.menu -tearoff 0 -font {Helvetica 12}\n", i+1);
@@ -306,12 +306,12 @@ void eclass_properties_dialog(t_eclass* c)
         {
             sys_vgui("frame $id.name%i \n", i+1);
             sys_vgui("frame $id.sele%i \n", i+1);
-            
+
             // ATTRIBUTES NAMES //
             sys_vgui("label $id.name%i.name -justify left -font {Helvetica 12} -text \"%s :\"\n", i+1, c->c_attr[i].label->s_name);
             sys_vgui("pack  $id.name%i.name -side left\n", i+1);
             // SELECTOR //
-            
+
             if(c->c_attr[i].style == gensym("checkbutton"))
             {
                 sys_vgui("checkbutton $id.sele%i.selec -variable $var_%s -command  [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_attr[i].name->s_name, c->c_class.c_name->s_name, c->c_attr[i].name->s_name);
@@ -331,7 +331,7 @@ void eclass_properties_dialog(t_eclass* c)
                 sys_vgui("$id.sele%i.selec configure -from -9999999999999 -to 9999999999999\n", i+1, (float)c->c_attr[i].maximum); // Should be enough
                 sys_vgui("$id.sele%i.selec delete 0 end \n", i+1);
                 sys_vgui("$id.sele%i.selec insert 0 $%s \n", i+1, c->c_attr[i].name->s_name);
-                
+
                 sys_vgui("bind $id.sele%i.selec <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_class.c_name->s_name,  c->c_attr[i].name->s_name);
                 sys_vgui("pack $id.sele%i.selec -side left\n", i+1);
             }
@@ -345,7 +345,7 @@ void eclass_properties_dialog(t_eclass* c)
                     sys_vgui("%s ", c->c_attr[i].itemslist[c->c_attr[i].itemssize - 1 - j]->s_name);
                 }
                 sys_vgui("}\n");
-                
+
                 sys_vgui("bind $id.sele%i.selec <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_class.c_name->s_name,  c->c_attr[i].name->s_name);
                 sys_vgui("pack $id.sele%i.selec -side left\n", i+1);
                 sys_vgui("$id.sele%i.selec set $%s \n", i+1, c->c_attr[i].name->s_name);
@@ -355,9 +355,9 @@ void eclass_properties_dialog(t_eclass* c)
                 sys_vgui("entry $id.sele%i.selec -font {Helvetica 12} -width 20 -textvariable [string trim $var_%s]\n", i+1, c->c_attr[i].name->s_name);
                 sys_vgui("bind $id.sele%i.selec <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_class.c_name->s_name,  c->c_attr[i].name->s_name);
                 sys_vgui("pack $id.sele%i.selec -side left\n", i+1);
-                
+
             }
-            
+
             sys_vgui("grid config $id.name%i -column 0 -row %i -sticky w\n", i+1, i+1);
             sys_vgui("grid config $id.sele%i -column 1 -row %i -sticky w\n", i+1, i+1);
         }

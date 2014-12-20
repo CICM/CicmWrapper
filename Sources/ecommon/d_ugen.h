@@ -14,11 +14,14 @@
 
 #ifndef __m_pd_h_
 <<<<<<< HEAD
+<<<<<<< HEAD
 #ifdef PD_EXTENDED
 #include "pd-extended/m_pd.h"
 #include "pd-extended/m_imp.h"
 #include "pd-extended/g_canvas.h"
 #else
+=======
+>>>>>>> pr/8
 =======
 >>>>>>> pr/8
 #include "m_pd.h"
