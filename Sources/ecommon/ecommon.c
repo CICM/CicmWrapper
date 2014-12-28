@@ -408,6 +408,64 @@ t_pd_err binbuf_get_attribute(t_binbuf *d, t_symbol *key, long *argc, t_atom **a
         return -1;
 }
 
+t_pd_err atoms_get_attribute_long(long ac, t_atom* av, t_symbol *key, long *value)
+{
+    long argc = 0;
+    t_atom* argv = NULL;
+    if(!atoms_get_attribute(ac, av, key, &argc, &argv))
+    {
+        if(argc && argv)
+        {
+            if(atom_gettype(argv) == A_LONG)
+            {
+                value[0] = atom_getlong(argv);
+                free(argv);
+                return 0;
+            }
+            free(argv);
+        }
+        return -1;
+    }
+    return -1;
+}
+
+t_pd_err binbuf_get_attribute_long(t_binbuf *d, t_symbol *key, long *value)
+{
+    if(d)
+        return atoms_get_attribute_long(binbuf_getnatom(d), binbuf_getvec(d), key, value);
+    else
+        return -1;
+}
+
+t_pd_err atoms_get_attribute_float(long ac, t_atom* av, t_symbol *key, float *value)
+{
+    long argc = 0;
+    t_atom* argv = NULL;
+    if(!atoms_get_attribute(ac, av, key, &argc, &argv))
+    {
+        if(argc && argv)
+        {
+            if(atom_gettype(argv) == A_LONG)
+            {
+                value[0] = atom_getfloat(argv);
+                free(argv);
+                return 0;
+            }
+            free(argv);
+        }
+        return -1;
+    }
+    return -1;
+}
+
+t_pd_err binbuf_get_attribute_float(t_binbuf *d, t_symbol *key, float *value)
+{
+    if(d)
+        return atoms_get_attribute_float(binbuf_getnatom(d), binbuf_getvec(d), key, value);
+    else
+        return -1;
+}
+
 double pd_clip_min(double aValue, double aMinimum)
 {
     if(aValue < aMinimum)

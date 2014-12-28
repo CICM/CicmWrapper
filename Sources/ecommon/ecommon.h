@@ -212,6 +212,12 @@ long binbuf_get_attribute_index(t_binbuf *d, t_symbol *key);
 t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_atom **argv);
 t_pd_err binbuf_get_attribute(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv);
 
+t_pd_err atoms_get_attribute_long(long ac, t_atom* av, t_symbol *key, long *value);
+t_pd_err binbuf_get_attribute_long(t_binbuf *d, t_symbol *key, long *value);
+
+t_pd_err atoms_get_attribute_float(long ac, t_atom* av, t_symbol *key, float *value);
+t_pd_err binbuf_get_attribute_float(t_binbuf *d, t_symbol *key, float *value);
+
 long atoms_get_keys(long ac, t_atom* av, t_symbol*** s);
 long binbuf_get_keys(t_binbuf *d, t_symbol*** s);
 
