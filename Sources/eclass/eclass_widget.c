@@ -76,22 +76,26 @@ void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
     t_eclass* c = eobj_getclass(x);
     if(vis)
     {
-        if(eobj_isbox(x) && x->b_ready_to_draw && x->b_visible)
+        if(eobj_isbox(x))
         {
-			ebox_create_window(x, glist);
-            ebox_invalidate_all(x);
-            // No redraw for the 1st paint
-            if(x->b_obj.o_canvas && x->b_ready_to_draw && eobj_isbox(x)) // do not call ebox_isdrawable !!
+            if(x->b_ready_to_draw && x->b_visible)
             {
-                ebox_invalidate_layer(x, gensym("eboxbd"));
-                ebox_invalidate_layer(x, gensym("eboxio"));
+                ebox_create_window(x, glist);
+                ebox_invalidate_all(x);
+                // No redraw for the 1st paint
                 
-                ebox_update(x);
-                if(c->c_widget.w_paint)
-                    c->c_widget.w_paint(x, (t_object *)x->b_obj.o_canvas);
-                ebox_draw_border(x);
-                if(x->b_obj.o_canvas->gl_edit)
-                    ebox_draw_iolets(x);
+                if(x->b_obj.o_canvas && x->b_ready_to_draw && eobj_isbox(x)) // do not call ebox_isdrawable !!
+                {
+                    ebox_invalidate_layer(x, gensym("eboxbd"));
+                    ebox_invalidate_layer(x, gensym("eboxio"));
+                    
+                    ebox_update(x);
+                    if(c->c_widget.w_paint)
+                        c->c_widget.w_paint(x, (t_object *)x->b_obj.o_canvas);
+                    ebox_draw_border(x);
+                    if(x->b_obj.o_canvas->gl_edit)
+                        ebox_draw_iolets(x);
+                }
             }
         }
     }

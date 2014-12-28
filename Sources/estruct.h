@@ -486,7 +486,7 @@ typedef struct _ebox
     char                b_mouse_down;       /*!< The mouse state. */
     long                b_modifiers;        /*!< The modifiers pressed. */
     
-    char                b_visible;          /*!< The visible State. */
+    char                b_visible;          /*!< The visible state. */
     char                b_ready_to_draw;    /*!< The ebox state for drawing. */
     char                b_have_window;      /*!< The ebox window state. */
     char                b_isinsubcanvas;
