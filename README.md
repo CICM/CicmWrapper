@@ -17,8 +17,8 @@ and a lot of other stuff, I can't enumerate everything !
 
 #### Examples :
 
-- <a title="Cream Lirabry" href="https://github.com/CICM/CreamLibrary" target="_blank"> Cream Lirabry</a>.
-- <a title="HOA Lirabry" href="https://github.com/CICM/HoaLibrary" target="_blank"> HOA Lirabry</a>.
+- <a title="Cream Library" href="https://github.com/CICM/CreamLibrary" target="_blank"> Cream Library</a>.
+- <a title="HOA Library" href="https://github.com/CICM/HoaLibrary" target="_blank"> HOA Library</a>.
 
 ##### Author :
 
