@@ -124,16 +124,21 @@ void ebox_create_widget(t_ebox* x)
 */
 void ebox_create_window(t_ebox* x, t_glist* glist)
 {
-    eobj_attach_torouter((t_object *)x);
-    ebox_tk_ids(x, glist_getcanvas(glist));
-    ebox_create_widget(x);
-	ebox_bind_events(x);
-
+    x->b_have_window = 0;
     if(!glist->gl_havewindow)
     {
         x->b_isinsubcanvas = 1;
-        x->b_rect.x = glist->gl_obj.te_xpix + x->b_obj.o_obj.te_xpix - glist->gl_xmargin;
-        x->b_rect.y = glist->gl_obj.te_ypix + x->b_obj.o_obj.te_ypix - glist->gl_ymargin;
+        x->b_rect.x = x->b_obj.o_obj.te_xpix;
+        x->b_rect.y = x->b_obj.o_obj.te_ypix;
+        
+        while(!glist->gl_havewindow)
+        {
+            x->b_rect.x -= glist->gl_xmargin;
+            x->b_rect.y -= glist->gl_ymargin;
+            x->b_rect.x += glist->gl_obj.te_xpix;
+            x->b_rect.y += glist->gl_obj.te_ypix;
+            glist = glist->gl_owner;
+        }
     }
     else
     {
@@ -141,6 +146,11 @@ void ebox_create_window(t_ebox* x, t_glist* glist)
         x->b_rect.x = x->b_obj.o_obj.te_xpix;
         x->b_rect.y = x->b_obj.o_obj.te_ypix;
     }
+    
+    eobj_attach_torouter((t_object *)x);
+    ebox_tk_ids(x, glist_getcanvas(glist));
+    ebox_create_widget(x);
+	ebox_bind_events(x);
 
     sys_vgui("%s create window %d %d -anchor nw -window %s -tags %s -width %d -height %d\n",
              x->b_canvas_id->s_name,

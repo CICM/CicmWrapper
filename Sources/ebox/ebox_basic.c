@@ -162,7 +162,9 @@ char ebox_isdrawable(t_ebox* x)
     if(eobj_isbox(x) && x->b_obj.o_canvas)
     {
         if(x->b_ready_to_draw && glist_isvisible(x->b_obj.o_canvas))
+        {
             return 1;
+        }
     }
     return 0;
 }
