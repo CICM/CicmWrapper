@@ -638,17 +638,28 @@ void ebox_vis(t_ebox* x, int vis)
 */
 t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, long argc, t_atom *argv)
 {
+    t_symbol* sname;
     if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) != gensym("(null)"))
     {
 		if(x->b_receive_id != gensym("(null)"))
+        {
+            sname = x->b_receive_id;
+            canvas_realizedollar(eobj_getcanvas(x), sname);
 			pd_unbind(&x->b_obj.o_obj.ob_pd, x->b_receive_id);
-        x->b_receive_id = atom_getsym(argv);
-        pd_bind(&x->b_obj.o_obj.ob_pd, x->b_receive_id);
+        }
+        sname = atom_getsym(argv);
+        x->b_receive_id = sname;
+        canvas_realizedollar(eobj_getcanvas(x), sname);
+        pd_bind(&x->b_obj.o_obj.ob_pd, sname);
     }
     else
     {
         if(x->b_receive_id != gensym("(null)"))
+        {
+            sname = x->b_receive_id;
+            canvas_realizedollar(eobj_getcanvas(x), sname);
 			pd_unbind(&x->b_obj.o_obj.ob_pd, x->b_receive_id);
+        }
         x->b_receive_id = gensym("(null)");
     }
     return 0;

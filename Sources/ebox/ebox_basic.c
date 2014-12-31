@@ -144,9 +144,15 @@ float ebox_getfontsize(t_ebox* x)
  */
 t_pd* ebox_getsender(t_ebox* x)
 {
-    if(x->b_send_id != gensym("(null)") && x->b_send_id->s_thing)
+    t_symbol* sname;
+    if(x->b_send_id && x->b_send_id != gensym("(null)"))
     {
-        return x->b_send_id->s_thing;
+        sname = x->b_send_id;
+        canvas_realizedollar(eobj_getcanvas(x), sname);
+        if(sname && sname->s_thing)
+        {
+            return x->b_send_id->s_thing;
+        }
     }
     return NULL;
 }
