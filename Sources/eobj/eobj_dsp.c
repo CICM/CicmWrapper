@@ -285,7 +285,6 @@ void eobj_dsp(void *x, t_signal **sp)
     t_edspbox* box = (t_edspbox *)x;
     t_eclass *c    = eobj_getclass(x);
     
-    
     if(eobj_isbox(x))
     {
         count = (short*)calloc((obj_nsiginlets(&box->b_obj.o_obj) + obj_nsigoutlets(&box->b_obj.o_obj)), sizeof(short));
