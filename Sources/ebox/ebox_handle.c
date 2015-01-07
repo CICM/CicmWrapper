@@ -226,7 +226,7 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 void ebox_mouse_drag(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     t_eclass *c = eobj_getclass(x);
-    x->b_modifiers -= 256;
+    x->b_modifiers -= EPD_MAX_SIGS;
 
     if(!x->b_obj.o_canvas->gl_edit)
     {

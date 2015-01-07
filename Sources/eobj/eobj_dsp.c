@@ -46,8 +46,8 @@ void eobj_dspsetup(void *x, long nins, long nouts)
     {
         box->d_perform_method = NULL;
         box->d_misc           = 1;
-        box->d_sigs_real      = (t_float *)calloc(256 * 8192, sizeof(t_float));
-        for( i = 0; i < 256; i++)
+        box->d_sigs_real      = (t_float *)calloc(EPD_MAX_SIGS * 8192, sizeof(t_float));
+        for( i = 0; i < EPD_MAX_SIGS; i++)
             box->d_sigs_out[i] = box->d_sigs_real+i*8192;
         for(i = obj_nsiginlets((t_object *)x); i < nins; i++)
             box->d_inlets[i] = eproxy_signalnew(&box->b_obj.o_obj, box->d_float);
@@ -61,8 +61,8 @@ void eobj_dspsetup(void *x, long nins, long nouts)
     {
         obj->d_perform_method = NULL;
         obj->d_misc           = 1;
-        obj->d_sigs_real      = (t_float *)calloc(256 * 8192, sizeof(t_float));
-        for( i = 0; i < 256; i++)
+        obj->d_sigs_real      = (t_float *)calloc(EPD_MAX_SIGS * 8192, sizeof(t_float));
+        for( i = 0; i < EPD_MAX_SIGS; i++)
             obj->d_sigs_out[i] = obj->d_sigs_real+i*8192;
         for(i = obj_nsiginlets((t_object *)x); i < nins; i++)
 			obj->d_inlets[i] = eproxy_signalnew(&box->b_obj.o_obj, box->d_float);
