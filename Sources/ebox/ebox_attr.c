@@ -66,7 +66,7 @@ void ebox_attrprocess_viatoms(void *x, long argc, t_atom *argv)
 void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)
 {
     int i;
-    char attr_name[256];
+    char attr_name[EPD_MAX_SIGS];
     
     long defc       = 0;
     t_atom* defv    = NULL;
