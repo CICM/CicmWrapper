@@ -702,14 +702,18 @@ t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, long argc, t_atom *argv)
     if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) != gensym("(null)"))
     {
 		if(x->b_objpreset_id != gensym("(null)"))
+        {
 			pd_unbind(&x->b_obj.o_obj.ob_pd, x->b_objpreset_id);
+        }
         x->b_objpreset_id = atom_getsym(argv);
         pd_bind(&x->b_obj.o_obj.ob_pd, x->b_objpreset_id);
     }
     else
     {
         if(x->b_objpreset_id != gensym("(null)"))
+        {
 			pd_unbind(&x->b_obj.o_obj.ob_pd, x->b_objpreset_id);
+        }
         x->b_objpreset_id = gensym("(null)");
     }
     return 0;
