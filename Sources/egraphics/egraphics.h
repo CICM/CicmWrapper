@@ -64,7 +64,6 @@ void egraphics_circle(t_elayer *g, float xc, float yc, float radius);
 void egraphics_oval(t_elayer *g, float xc, float yc, float radiusx, float radiusy);
 void egraphics_arc(t_elayer *g, float xc, float yc, float radius, float angle1, float angle2);
 void egraphics_arc_oval(t_elayer *g, float xc, float yc, float radiusx, float radiusy, float angle1, float angle2);
-//void egraphics_image(t_elayer *g, t_eimage* image, float x, float y);
 
 t_etext* etext_layout_create();
 void etext_layout_destroy(t_etext* textlayout);

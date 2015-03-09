@@ -58,14 +58,27 @@ void egraphics_apply_matrix(t_elayer *g, t_egobj* gobj)
 {
 	int i;
     float x_p, y_p;
-    for(i = 0; i < gobj->e_npoints; i++)
+    if(gobj->e_type == E_GOBJ_ARC)
     {
-        x_p     = gobj->e_points[i].x * g->e_matrix.xx + gobj->e_points[i].y * g->e_matrix.xy + g->e_matrix.x0;
-        y_p     = gobj->e_points[i].x * g->e_matrix.yx + gobj->e_points[i].y * g->e_matrix.yy + g->e_matrix.y0;
-        gobj->e_points[i].x    = x_p;
-        gobj->e_points[i].y    = y_p;
-        // MUST DO SOMETHING FOR ARC !!!!
+        for(i = 0; i < 2; i++)
+        {
+            x_p     = gobj->e_points[i].x * g->e_matrix.xx + gobj->e_points[i].y * g->e_matrix.xy + g->e_matrix.x0;
+            y_p     = gobj->e_points[i].x * g->e_matrix.yx + gobj->e_points[i].y * g->e_matrix.yy + g->e_matrix.y0;
+            gobj->e_points[i].x    = x_p;
+            gobj->e_points[i].y    = y_p;
+        }
     }
+    else
+    {
+        for(i = 0; i < gobj->e_npoints; i++)
+        {
+            x_p     = gobj->e_points[i].x * g->e_matrix.xx + gobj->e_points[i].y * g->e_matrix.xy + g->e_matrix.x0;
+            y_p     = gobj->e_points[i].x * g->e_matrix.yx + gobj->e_points[i].y * g->e_matrix.yy + g->e_matrix.y0;
+            gobj->e_points[i].x    = x_p;
+            gobj->e_points[i].y    = y_p;
+        }
+    }
+    
 }
 
 

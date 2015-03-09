@@ -499,18 +499,7 @@ double pd_radius(double x, double y)
 
 double pd_angle(double x, double y)
 {
-    //if(x > 0. && y >= 0.)
-        return atan2(y, x);
-    /*
-    else if(x > 0. && y < 0.)
-        return atan2(y, x) + EPD_2PI;
-    else if(x < 0.)
-        return atan2(y, x) + EPD_PI;
-    else if(x == 0 && y < 0)
-        return EPD_PI2;
-    else
-        return EPD_PI + EPD_PI2;
-    */
+    return atan2(y, x);
 }
 
 double pd_clip_minmax(double aValue, double aMinimum, double aMaximum)

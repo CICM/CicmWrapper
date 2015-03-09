@@ -207,7 +207,7 @@ t_pd_err ebox_invalidate_layer(t_ebox *x, t_symbol *name)
 t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
 {
 	int i, j;
-    float bdsize, start, extent;
+    float bdsize, start, extent, radius;
     t_elayer* g = NULL;
     bdsize = x->b_boxparameters.d_borderthickness;
     sys_vgui("%s configure -bg %s\n", x->b_drawing_id->s_name, rgba_to_hex(x->b_boxparameters.d_boxfillcolor));
@@ -266,16 +266,19 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
             ////////////// ARC /////////////////
             else if (gobj->e_type == E_GOBJ_ARC)
             {
-                start = pd_angle(gobj->e_points[2].x,  gobj->e_points[2].y);
-                extent = pd_angle(gobj->e_points[3].x,  gobj->e_points[3].y);
+                start = pd_angle(gobj->e_points[1].x - gobj->e_points[0].x,  gobj->e_points[1].y - gobj->e_points[0].y);
+                
+                extent = gobj->e_points[2].x;
+                radius = gobj->e_points[2].y;
+
                 sys_vgui("%s create arc %d %d %d %d -start %f -extent %f ",
                          x->b_drawing_id->s_name,
-                         (int)(gobj->e_points[0].x + x_p + bdsize),
-                         (int)(gobj->e_points[0].y + y_p + bdsize),
-                         (int)(gobj->e_points[1].x + x_p + bdsize),
-                         (int)(gobj->e_points[1].y + y_p + bdsize),
-                         (float)start / EPD_2PI * 360.,
-                         (float)extent / EPD_2PI * 360.);
+                         (int)(gobj->e_points[0].x - radius + x_p + bdsize),
+                         (int)(gobj->e_points[0].y - radius + y_p + bdsize),
+                         (int)(gobj->e_points[0].x + radius + x_p + bdsize),
+                         (int)(gobj->e_points[0].y + radius + y_p + bdsize),
+                         (float)start / EPD_2PI * 360.f,
+                         (float)extent / EPD_2PI * 360.f);
                 
                 if(gobj->e_filled)
                     sys_vgui("-style pieslice -fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
