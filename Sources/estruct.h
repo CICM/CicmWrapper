@@ -314,6 +314,18 @@ typedef enum
 } egraphics_types;
 
 /**
+ * @enum epath_types
+ * @brief The types of path.
+ * @details It define all the path type.
+ */
+typedef enum
+{
+    E_PATH_MOVE    = 0,   /*!< This type is move. */
+    E_PATH_LINE    = 1,   /*!< This type is line. */
+    E_PATH_CURVE   = 2    /*!< This type is curve. */
+} epath_types;
+
+/**
  * @struct _egobj
  * @brief The CICM drawing object.
  * @details It contains the all the informations to be drawn.
