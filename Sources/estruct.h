@@ -321,8 +321,7 @@ typedef enum
 typedef enum
 {
     E_PATH_MOVE    = 0,   /*!< This type is move. */
-    E_PATH_LINE    = 1,   /*!< This type is line. */
-    E_PATH_CURVE   = 2    /*!< This type is curve. */
+    E_PATH_CURVE   = 1    /*!< This type is curve. */
 } epath_types;
 
 /**

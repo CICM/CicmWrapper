@@ -77,13 +77,18 @@ void egraphics_line_to(t_elayer *g, float x, float y)
     {
         if(g->e_new_objects.e_type == E_GOBJ_PATH)
         {
-            g->e_new_objects.e_points = (t_pt *)realloc(g->e_new_objects.e_points, (g->e_new_objects.e_npoints + 2) * sizeof(t_pt));
+            g->e_new_objects.e_points = (t_pt *)realloc(g->e_new_objects.e_points, (g->e_new_objects.e_npoints + 4) * sizeof(t_pt));
             if(g->e_new_objects.e_points)
             {
-                g->e_new_objects.e_points[g->e_new_objects.e_npoints].x  = E_PATH_LINE;
-                g->e_new_objects.e_points[g->e_new_objects.e_npoints+1].x  = x;
-                g->e_new_objects.e_points[g->e_new_objects.e_npoints+1].y  = y;
-                g->e_new_objects.e_npoints += 2;
+                const t_pt pt = g->e_new_objects.e_points[g->e_new_objects.e_npoints-1];
+                g->e_new_objects.e_points[g->e_new_objects.e_npoints].x  = E_PATH_CURVE;
+                g->e_new_objects.e_points[g->e_new_objects.e_npoints+1].x  = pt.x;
+                g->e_new_objects.e_points[g->e_new_objects.e_npoints+1].y  = pt.y;
+                g->e_new_objects.e_points[g->e_new_objects.e_npoints+2].x  = x;
+                g->e_new_objects.e_points[g->e_new_objects.e_npoints+2].y  = y;
+                g->e_new_objects.e_points[g->e_new_objects.e_npoints+3].x  = x;
+                g->e_new_objects.e_points[g->e_new_objects.e_npoints+3].y  = y;
+                g->e_new_objects.e_npoints += 4;
             }
             else
             {
@@ -183,6 +188,82 @@ void egraphics_arc_to(t_elayer *g, float cx, float cy, float extend)
             if(fabs(extend) > 1e-6)
             {
                 create_small_arc(radius, angle, extend, c, &p2, &p3, &p4);
+                egraphics_curve_to(g, p2.x, p2.y, p3.x, p3.y,  p4.x, p4.y);
+            }
+        }
+        else
+        {
+            g->e_new_objects.e_type = E_GOBJ_INVALID;
+        }
+    }
+}
+
+static void create_small_arc_oval(const double r1, const double r2, const double start, const double extend, t_pt ct, t_pt* p2, t_pt* p3, t_pt* p4)
+{
+    t_pt p1;
+    
+    const double a = extend;
+    const double cosz = cos(a * 0.5 + start);
+    const double sinz = sin(a * 0.5 + start);
+    const double cosa = cos(a * 0.5);
+    const double sina = sin(a * 0.5);
+    p4->x = r2 * cosa;
+    p4->y = r2 * sina;
+    p1.x = r1 * cosa;
+    p1.y = -r1 * sina;
+    const double k1 = (4. * (1. - cos(a * 0.5)) / sin(a * 0.5)) / 3.;
+    const double k2 = (4. * (1. - cos(-a * 0.5)) / sin(-a * 0.5)) / 3.;
+    p2->x = p1.x + k1 * p4->y;
+    p2->y = p1.y + k1 * p4->x;
+    p3->x = p4->x + k2 * p1.y;
+    p3->y = p4->y + k2 * p1.y;
+    
+    rotate(cosz, sinz, p2); rotate(cosz, sinz, p3); rotate(cosz, sinz, p4);
+    p2->x += ct.x; p2->y += ct.y; p3->x += ct.x; p3->y += ct.y; p4->x += ct.x; p4->y += ct.y;
+}
+
+void egraphics_arc_oval_to(t_elayer *g, float cx, float cy, float r2, float extend)
+{
+    if(g->e_state == EGRAPHICS_OPEN)
+    {
+        if(g->e_new_objects.e_type == E_GOBJ_PATH && g->e_new_objects.e_points)
+        {
+            t_pt p2, p3, p4, c = {cx, cy}, prev = g->e_new_objects.e_points[g->e_new_objects.e_npoints-1];
+            double r1   = pd_radius(prev.x - cx, prev.y - cy);
+            double angle = pd_angle(prev.x - cx, prev.y - cy);
+            double ratio = (r2 - r1) / (fabs(extend) / EPD_PI4);
+            
+            while(extend > EPD_2PI)
+            {
+                extend -= EPD_2PI;
+            }
+            while(extend < -EPD_2PI)
+            {
+                extend += EPD_2PI;
+            }
+            
+            while(fabs(extend) >= EPD_PI4)
+            {
+                if(extend < 0.)
+                {
+                    
+                    create_small_arc_oval(r1, r1 + ratio, angle, -EPD_PI4, c, &p2, &p3, &p4);
+                    extend += EPD_PI4;
+                    angle  -= EPD_PI4;
+                    r1 += ratio;
+                }
+                else
+                {
+                    create_small_arc_oval(r1, r1 + ratio, angle, EPD_PI4, c, &p2, &p3, &p4);
+                    extend -= EPD_PI4;
+                    angle  += EPD_PI4;
+                    r1 += ratio;
+                }
+                egraphics_curve_to(g, p2.x, p2.y, p3.x, p3.y,  p4.x, p4.y);
+            }
+            if(fabs(extend) > 1e-6)
+            {
+                create_small_arc_oval(r1, r2, angle, extend, c, &p2, &p3, &p4);
                 egraphics_curve_to(g, p2.x, p2.y, p3.x, p3.y,  p4.x, p4.y);
             }
         }

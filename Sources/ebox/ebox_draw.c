@@ -238,12 +238,12 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                 if(gobj->e_filled)
                 {
                     sprintf(header, "%s create polygon ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
+                    sprintf(bottom, "-smooth true -fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
                 }
                 else
                 {
                     sprintf(header, "%s create line ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-fill %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
+                    sprintf(bottom, "-smooth true -fill %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
                 }
                 
                 t_pt * pt;
@@ -252,43 +252,17 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                     pt = gobj->e_points+j++;
                     if(pt->x == E_PATH_MOVE)
                     {
-                        if(mode == E_PATH_LINE)
+                        if(mode == E_PATH_CURVE)
                         {
                             sys_vgui("%s", bottom);
-                        }
-                        else if(mode == E_PATH_CURVE)
-                        {
-                            sys_vgui("-smooth true %s", bottom);
                         }
                         sys_vgui("%s", header);
                         pt = gobj->e_points+j++;
                         sys_vgui("%d %d ", (int)(pt->x + x_p + bdsize), (int)(pt->y + y_p + bdsize));
                         mode = E_PATH_MOVE;
                     }
-                    else if(pt->x == E_PATH_LINE)
-                    {
-                        if(mode == E_PATH_CURVE)
-                        {
-                            sys_vgui("-smooth true %s", bottom);
-                            --j;
-                            sys_vgui("%s", header);
-                            sys_vgui("%d %d ", (int)(pt->x + x_p + bdsize), (int)(pt->y + y_p + bdsize));
-                            pt = gobj->e_points+j++;
-                        }
-                        pt = gobj->e_points+j++;
-                        sys_vgui("%d %d ", (int)(pt->x + x_p + bdsize), (int)(pt->y + y_p + bdsize));
-                        mode = E_PATH_LINE;
-                    }
                     else if(pt->x == E_PATH_CURVE)
                     {
-                        if(mode == E_PATH_LINE)
-                        {
-                            sys_vgui("%s", bottom);
-                            --j;
-                            sys_vgui("%s", header);
-                            sys_vgui("%d %d ", (int)(pt->x + x_p + bdsize), (int)(pt->y + y_p + bdsize));
-                            pt = gobj->e_points+j++;
-                        }
                         pt = gobj->e_points+j++;
                         sys_vgui("%d %d ", (int)(pt->x + x_p + bdsize), (int)(pt->y + y_p + bdsize));
                         pt = gobj->e_points+j++;
@@ -302,14 +276,7 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                         j++;
                     }
                 }
-                if(mode == E_PATH_LINE)
-                {
-                    sys_vgui("%s", bottom);
-                }
-                else if(mode == E_PATH_CURVE)
-                {
-                    sys_vgui("-smooth true %s", bottom);
-                };
+                sys_vgui("%s", bottom);
                 
                 
                 g->e_state = EGRAPHICS_CLOSE;

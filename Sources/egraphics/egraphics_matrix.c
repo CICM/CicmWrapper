@@ -72,7 +72,7 @@ void egraphics_apply_matrix(t_elayer *g, t_egobj* gobj)
     {
         for(i = 0; i < gobj->e_npoints; )
         {
-            if(gobj->e_points[i].x == E_PATH_MOVE || gobj->e_points[i].x == E_PATH_LINE)
+            if(gobj->e_points[i].x == E_PATH_MOVE)
             {
                 x_p     = gobj->e_points[i+1].x * g->e_matrix.xx + gobj->e_points[i+1].y * g->e_matrix.xy + g->e_matrix.x0;
                 y_p     = gobj->e_points[i+1].x * g->e_matrix.yx + gobj->e_points[i+1].y * g->e_matrix.yy + g->e_matrix.y0;
