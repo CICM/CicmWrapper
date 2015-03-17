@@ -45,47 +45,47 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
     
     for(i = 0; i < c->c_nattr; i++)
     {
-        if(c->c_attr[i].name == s)
+        if(c->c_attr[i]->name == s)
         {
-            t_symbol* type = c->c_attr[i].type;
-            if(c->c_attr[i].sizemax == 0)
-                size = c->c_attr[i].size;
+            t_symbol* type = c->c_attr[i]->type;
+            if(c->c_attr[i]->sizemax == 0)
+                size = c->c_attr[i]->size;
             else
             {
-                if(argc > c->c_attr[i].sizemax)
-                    argc = (int)c->c_attr[i].sizemax;
+                if(argc > c->c_attr[i]->sizemax)
+                    argc = (int)c->c_attr[i]->sizemax;
                 size = argc;
-                point = (char *)x + c->c_attr[i].size;
+                point = (char *)x + c->c_attr[i]->size;
                 point_size = (long *)point;
                 point_size[0] = (long)size;
             }
             
-            point = (char *)(x) + c->c_attr[i].offset;
+            point = (char *)(x) + c->c_attr[i]->offset;
             
-            if(c->c_attr[i].clipped == 1 || c->c_attr[i].clipped == 3)
+            if(c->c_attr[i]->clipped == 1 || c->c_attr[i]->clipped == 3)
             {
                 for(j = 0; j < argc; j++)
                 {
                     if(atom_gettype(argv+j) == A_FLOAT)
                     {
-                        atom_setfloat(argv+j, (float)pd_clip_min(atom_getfloat(argv+j), c->c_attr[i].minimum));
+                        atom_setfloat(argv+j, (float)pd_clip_min(atom_getfloat(argv+j), c->c_attr[i]->minimum));
                     }
                 }
             }
-            if(c->c_attr[i].clipped == 2 || c->c_attr[i].clipped == 3)
+            if(c->c_attr[i]->clipped == 2 || c->c_attr[i]->clipped == 3)
             {
                 for(j = 0; j < argc; j++)
                 {
                     if(atom_gettype(argv+j) == A_FLOAT)
                     {
-                        atom_setfloat(argv+j, (float)pd_clip_max(atom_getfloat(argv+j), c->c_attr[i].maximum));
+                        atom_setfloat(argv+j, (float)pd_clip_max(atom_getfloat(argv+j), c->c_attr[i]->maximum));
                     }
                 }
             }
  
-            if(c->c_attr[i].setter)
+            if(c->c_attr[i]->setter)
             {
-                c->c_attr[i].setter(x, c->c_attr[i].obj, argc, argv);
+                c->c_attr[i]->setter(x, c->c_attr[i], argc, argv);
             }
             else if(type == gensym("int"))
             {
@@ -155,7 +155,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
             if(c->c_widget.w_notify != NULL)
                 c->c_widget.w_notify(x, s, gensym("attr_modified"), NULL, NULL);
             
-            if(c->c_attr[i].paint)
+            if(c->c_attr[i]->paint)
             {
                 if(c->c_widget.w_oksize != NULL)
                     c->c_widget.w_oksize(x, &z->b_rect);

@@ -46,35 +46,40 @@ void eclass_new_attr_typed(t_eclass* c, char* attrname, char* type, long size, l
         return;
     for(i = 0; i < c->c_nattr; i++)
     {
-        if(c->c_attr[i].name == gensym(attrname))
+        if(c->c_attr[i]->name == gensym(attrname))
             return ;
     }
     
-    c->c_attr = (t_eattr *)realloc(c->c_attr, (c->c_nattr + 1) * sizeof(t_eattr));
-    if(c->c_attr)
+    c->c_attr = (t_eattr **)realloc(c->c_attr, (c->c_nattr + 1) * sizeof(t_eattr *));
+    if(!c->c_attr)
     {
-        c->c_attr[c->c_nattr].name = gensym(attrname);
-        c->c_attr[c->c_nattr].type = gensym(type);
-        c->c_attr[c->c_nattr].category = c->c_class.c_name;
-        c->c_attr[c->c_nattr].label = gensym("");
-        c->c_attr[c->c_nattr].style = gensym("entry");
-        c->c_attr[c->c_nattr].order = c->c_nattr+1;
-        c->c_attr[c->c_nattr].save  = 0;
-        c->c_attr[c->c_nattr].paint = 0;
-        c->c_attr[c->c_nattr].invisible = 0;
-        c->c_attr[c->c_nattr].flags     = flags;
-        c->c_attr[c->c_nattr].offset    = offset;
-        c->c_attr[c->c_nattr].size      = size;
-        c->c_attr[c->c_nattr].sizemax   = maxsize;
-        c->c_attr[c->c_nattr].getter    = NULL;
-        c->c_attr[c->c_nattr].setter    = NULL;
-        c->c_attr[c->c_nattr].clipped   = 0;
-        c->c_attr[c->c_nattr].minimum   = 0;
-        c->c_attr[c->c_nattr].maximum   = 1;
-        c->c_attr[c->c_nattr].step      = 1;
-        c->c_attr[c->c_nattr].defvals   = NULL;
-        c->c_attr[c->c_nattr].itemslist = NULL;
-        c->c_attr[c->c_nattr].itemssize = 0;
+        return;
+    }
+    c->c_attr[c->c_nattr] = malloc(sizeof(t_eattr));
+    if(c->c_attr[c->c_nattr])
+    {
+        c->c_attr[c->c_nattr]->name = gensym(attrname);
+        c->c_attr[c->c_nattr]->type = gensym(type);
+        c->c_attr[c->c_nattr]->category = c->c_class.c_name;
+        c->c_attr[c->c_nattr]->label = gensym("");
+        c->c_attr[c->c_nattr]->style = gensym("entry");
+        c->c_attr[c->c_nattr]->order = c->c_nattr+1;
+        c->c_attr[c->c_nattr]->save  = 0;
+        c->c_attr[c->c_nattr]->paint = 0;
+        c->c_attr[c->c_nattr]->invisible = 0;
+        c->c_attr[c->c_nattr]->flags     = flags;
+        c->c_attr[c->c_nattr]->offset    = offset;
+        c->c_attr[c->c_nattr]->size      = size;
+        c->c_attr[c->c_nattr]->sizemax   = maxsize;
+        c->c_attr[c->c_nattr]->getter    = NULL;
+        c->c_attr[c->c_nattr]->setter    = NULL;
+        c->c_attr[c->c_nattr]->clipped   = 0;
+        c->c_attr[c->c_nattr]->minimum   = 0;
+        c->c_attr[c->c_nattr]->maximum   = 1;
+        c->c_attr[c->c_nattr]->step      = 1;
+        c->c_attr[c->c_nattr]->defvals   = NULL;
+        c->c_attr[c->c_nattr]->itemslist = NULL;
+        c->c_attr[c->c_nattr]->itemssize = 0;
         class_addmethod((t_class *)c, (t_method)eclass_attr_setter, gensym(attrname), A_GIMME, 0);
         sprintf(getattr, "get%s", attrname);
         class_addmethod((t_class *)c, (t_method)eclass_attr_getter, gensym(getattr), A_GIMME, 0);

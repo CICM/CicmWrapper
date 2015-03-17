@@ -44,11 +44,11 @@ void ebox_attrprocess_viatoms(void *x, long argc, t_atom *argv)
     
     for(i = 0; i < c->c_nattr; i++)
     {
-        sprintf(buffer, "@%s", c->c_attr[i].name->s_name);
+        sprintf(buffer, "@%s", c->c_attr[i]->name->s_name);
         atoms_get_attribute(argc, argv, gensym(buffer), &defc, &defv);
         if(defc && defv)
         {
-            object_attr_setvalueof((t_object *)x, c->c_attr[i].name, defc, defv);
+            object_attr_setvalueof((t_object *)x, c->c_attr[i]->name, defc, defv);
             defc = 0;
             free(defv);
             defv = NULL;
@@ -73,11 +73,11 @@ void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)
     t_eclass* c     = eobj_getclass(x);
     for(i = 0; i < c->c_nattr; i++)
     {
-        sprintf(attr_name, "@%s", c->c_attr[i].name->s_name);
+        sprintf(attr_name, "@%s", c->c_attr[i]->name->s_name);
         binbuf_get_attribute(d, gensym(attr_name), &defc, &defv);
         if(defc && defv)
         {
-            object_attr_setvalueof((t_object *)x, c->c_attr[i].name, defc, defv);
+            object_attr_setvalueof((t_object *)x, c->c_attr[i]->name, defc, defv);
             defc = 0;
             free(defv);
             defv = NULL;
@@ -100,14 +100,14 @@ void ebox_attrprocess_default(void *x)
     
     for(i = 0; i < c->c_nattr; i++)
     {
-        if(c->c_attr[i].defvals)
+        if(c->c_attr[i]->defvals)
         {
-            defc = c->c_attr[i].size;
+            defc = c->c_attr[i]->size;
             defv = (t_atom *)calloc(defc, sizeof(t_atom));
             if(defc && defv)
             {
                 char check = 0;
-                char* str_start = c->c_attr[i].defvals->s_name;
+                char* str_start = c->c_attr[i]->defvals->s_name;
                 for(j = 0; j < defc; j++)
                 {
                     for(k = 0; k < strlen(str_start); k++)
@@ -125,7 +125,7 @@ void ebox_attrprocess_default(void *x)
                         atom_setfloat(defv+j, val);
                     }
                 }
-                object_attr_setvalueof((t_object *)x, c->c_attr[i].name, defc, defv);
+                object_attr_setvalueof((t_object *)x, c->c_attr[i]->name, defc, defv);
                 defc = 0;
                 free(defv);
                 defv = NULL;
