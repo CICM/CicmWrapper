@@ -163,7 +163,7 @@ typedef struct _ewidget
 
 typedef struct _eattr
 {
-    t_object*       obj;
+    t_object        obj;
 	t_symbol*       name;
 	t_symbol*       type;
     t_symbol*       category;
@@ -196,7 +196,7 @@ typedef struct _eclass
     char        c_dsp;
     char        c_juce;
     t_ewidget   c_widget;
-    t_eattr*    c_attr;
+    t_eattr**   c_attr;
     long        c_nattr;
 }t_eclass;
 
@@ -314,6 +314,17 @@ typedef enum
 } egraphics_types;
 
 /**
+ * @enum epath_types
+ * @brief The types of path.
+ * @details It define all the path type.
+ */
+typedef enum
+{
+    E_PATH_MOVE    = 0,   /*!< This type is move. */
+    E_PATH_CURVE   = 1    /*!< This type is curve. */
+} epath_types;
+
+/**
  * @struct _egobj
  * @brief The CICM drawing object.
  * @details It contains the all the informations to be drawn.
@@ -401,14 +412,6 @@ typedef struct _eproxy
     t_inlet*    p_inlet;    /*!< The pointer to the inlet. */
     int         p_index;    /*!< The index of the proxy. */
 } t_eproxy;
-
-/*
- typedef struct _proxlet
- {
- t_inlet p_inlet;
- int     p_index;
- } t_proxlet;
- */
 
 /**
  * @struct _eobj

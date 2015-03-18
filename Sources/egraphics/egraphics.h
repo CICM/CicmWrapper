@@ -54,7 +54,12 @@ void egraphics_apply_matrix(t_elayer *g, t_egobj* gobj);
 // FORM //
 void egraphics_line_to(t_elayer *g, float x, float y);
 void egraphics_move_to(t_elayer *g, float x, float y);
+void egraphics_curve_to(t_elayer *g, float ctrl1x, float ctrl1y, float ctrl2x, float ctrl2y, float endx, float endy);
+void egraphics_arc_to(t_elayer *g, float cx, float cy, float extend);
+void egraphics_arc_oval_to(t_elayer *g, float cx, float cy, float radius, float extend);
+
 void egraphics_line(t_elayer *g, float x0, float y0,  float x1, float y1);
+void egraphics_curve(t_elayer *g, float startx, float starty, float ctrl1x, float ctrl1y, float ctrl2x, float ctrl2y, float endx, float endy);
 void egraphics_line_fast(t_elayer *g, float x0, float y0, float x1, float y1);
 
 void egraphics_close_path(t_elayer *g);

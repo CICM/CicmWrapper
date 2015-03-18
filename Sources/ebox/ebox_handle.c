@@ -567,10 +567,10 @@ void ebox_dosave(t_ebox* x, t_binbuf *b)
 
     for(i = 0; i < c->c_nattr; i++)
     {
-        if(c->c_attr[i].save)
+        if(c->c_attr[i]->save)
         {
-            sprintf(attr_name, "@%s", c->c_attr[i].name->s_name);
-            object_attr_getvalueof((t_object *)x, c->c_attr[i].name, &argc, &argv);
+            sprintf(attr_name, "@%s", c->c_attr[i]->name->s_name);
+            object_attr_getvalueof((t_object *)x, c->c_attr[i]->name, &argc, &argv);
             if(argc && argv)
             {
                 binbuf_append_attribute(b, gensym(attr_name), argc, argv);
@@ -910,7 +910,7 @@ void ebox_attrprint(t_ebox* x)
     for(i = 0; i < c->c_nattr; i++)
     {
 
-        post("Label : \"%s\" Name : \"%s\" Type : \"%s\" Size : \"%i\"", c->c_attr[i].label->s_name, c->c_attr[i].name->s_name, c->c_attr[i].type->s_name, c->c_attr[i].size);
+        post("Label : \"%s\" Name : \"%s\" Type : \"%s\" Size : \"%i\"", c->c_attr[i]->label->s_name, c->c_attr[i]->name->s_name, c->c_attr[i]->type->s_name, c->c_attr[i]->size);
     }
 }
 
@@ -934,9 +934,9 @@ void ebox_properties(t_ebox *x, t_glist *glist)
 
     for(i = 0; i < c->c_nattr; i++)
     {
-        if(!c->c_attr[i].invisible)
+        if(!c->c_attr[i]->invisible)
         {
-            object_attr_getvalueof((t_object *)x, c->c_attr[i].name, &argc, &argv);
+            object_attr_getvalueof((t_object *)x, c->c_attr[i]->name, &argc, &argv);
             strcat(buffer, " ");
             strcat(buffer, "\"");
             if(argc && argv)
@@ -948,7 +948,7 @@ void ebox_properties(t_ebox *x, t_glist *glist)
 #endif
                     {
                         atom_string(argv+j, temp, MAXPDSTRING);
-                        if(c->c_attr[i].type == gensym("symbol") && strchr(temp, ' '))
+                        if(c->c_attr[i]->type == gensym("symbol") && strchr(temp, ' '))
                         {
                             
                             strcat(buffer, "'");
@@ -963,7 +963,7 @@ void ebox_properties(t_ebox *x, t_glist *glist)
                     }
 #ifndef _WINDOWS
                 atom_string(argv+j, temp, MAXPDSTRING);
-                if(c->c_attr[i].type == gensym("symbol") && strchr(temp, ' '))
+                if(c->c_attr[i]->type == gensym("symbol") && strchr(temp, ' '))
                 {
                     
                     strcat(buffer, "'");
@@ -1013,24 +1013,24 @@ void ebox_dialog(t_ebox *x, t_symbol *s, long argc, t_atom* argv)
             attrindex = (int)atom_getfloat(argv+1) - 1;
             if(attrindex >= 0 && attrindex < c->c_nattr)
             {
-                object_attr_getvalueof((t_object *)x, c->c_attr[attrindex].name, &ac, &av);
+                object_attr_getvalueof((t_object *)x, c->c_attr[attrindex]->name, &ac, &av);
                 if(ac && av)
                 {
-                    if(c->c_attr[attrindex].style == gensym("checkbutton"))
+                    if(c->c_attr[attrindex]->style == gensym("checkbutton"))
                     {
                         if(atom_getfloat(av) == 0)
                             sys_vgui("%s.sele%i.selec deselect \n", atom_getsym(argv)->s_name, attrindex+1);
                         else
                             sys_vgui("%s.sele%i.selec select \n", atom_getsym(argv)->s_name, attrindex+1);
                     }
-                    else if(c->c_attr[attrindex].style == gensym("color"))
+                    else if(c->c_attr[attrindex]->style == gensym("color"))
                     {
                         color.red = atom_getfloat(av);
                         color.green = atom_getfloat(av+1);
                         color.blue = atom_getfloat(av+2);
                         sys_vgui("%s.sele%i.selec configure -readonlybackground %s \n", atom_getsym(argv)->s_name, attrindex+1, rgb_to_hex(color));
                     }
-                    else if(c->c_attr[attrindex].style == gensym("menu"))
+                    else if(c->c_attr[attrindex]->style == gensym("menu"))
                     {
                         atom_string(av, buffer, MAXPDSTRING);
                         for(i = 1; i < ac; i++)

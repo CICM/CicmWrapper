@@ -68,6 +68,40 @@ void egraphics_apply_matrix(t_elayer *g, t_egobj* gobj)
             gobj->e_points[i].y    = y_p;
         }
     }
+    else if(gobj->e_type == E_GOBJ_PATH)
+    {
+        for(i = 0; i < gobj->e_npoints; )
+        {
+            if(gobj->e_points[i].x == E_PATH_MOVE)
+            {
+                x_p     = gobj->e_points[i+1].x * g->e_matrix.xx + gobj->e_points[i+1].y * g->e_matrix.xy + g->e_matrix.x0;
+                y_p     = gobj->e_points[i+1].x * g->e_matrix.yx + gobj->e_points[i+1].y * g->e_matrix.yy + g->e_matrix.y0;
+                gobj->e_points[i+1].x    = x_p;
+                gobj->e_points[i+1].y    = y_p;
+                i += 2;
+            }
+            else if(gobj->e_points[i].x == E_PATH_CURVE)
+            {
+                x_p     = gobj->e_points[i+1].x * g->e_matrix.xx + gobj->e_points[i+1].y * g->e_matrix.xy + g->e_matrix.x0;
+                y_p     = gobj->e_points[i+1].x * g->e_matrix.yx + gobj->e_points[i+1].y * g->e_matrix.yy + g->e_matrix.y0;
+                gobj->e_points[i+1].x    = x_p;
+                gobj->e_points[i+1].y    = y_p;
+                x_p     = gobj->e_points[i+2].x * g->e_matrix.xx + gobj->e_points[i+2].y * g->e_matrix.xy + g->e_matrix.x0;
+                y_p     = gobj->e_points[i+2].x * g->e_matrix.yx + gobj->e_points[i+2].y * g->e_matrix.yy + g->e_matrix.y0;
+                gobj->e_points[i+2].x    = x_p;
+                gobj->e_points[i+2].y    = y_p;
+                x_p     = gobj->e_points[i+3].x * g->e_matrix.xx + gobj->e_points[i+3].y * g->e_matrix.xy + g->e_matrix.x0;
+                y_p     = gobj->e_points[i+3].x * g->e_matrix.yx + gobj->e_points[i+3].y * g->e_matrix.yy + g->e_matrix.y0;
+                gobj->e_points[i+3].x    = x_p;
+                gobj->e_points[i+3].y    = y_p;
+                i += 4;
+            }
+            else
+            {
+                i++;
+            }
+        }
+    }
     else
     {
         for(i = 0; i < gobj->e_npoints; i++)

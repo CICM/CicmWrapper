@@ -229,8 +229,60 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
         for(i = 0; i < g->e_number_objects; i++)
         {
             t_egobj* gobj = g->e_objects+i;
-            ////////////// PATH, LINE AND RECT ///////////////////////////
-            if(gobj->e_type == E_GOBJ_PATH || gobj->e_type == E_GOBJ_RECT)
+            ////////////// PATH & LINE ///////////////////////////
+            if(gobj->e_type == E_GOBJ_PATH && gobj->e_npoints > 3)
+            {
+                char header[256];
+                char bottom[256];
+                int mode = E_PATH_MOVE;
+                if(gobj->e_filled)
+                {
+                    sprintf(header, "%s create polygon ", x->b_drawing_id->s_name);
+                    sprintf(bottom, "-smooth true -fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
+                }
+                else
+                {
+                    sprintf(header, "%s create line ", x->b_drawing_id->s_name);
+                    sprintf(bottom, "-smooth true -fill %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
+                }
+                
+                t_pt * pt;
+                for(j = 0; j < gobj->e_npoints; )
+                {
+                    pt = gobj->e_points+j++;
+                    if(pt->x == E_PATH_MOVE)
+                    {
+                        if(mode == E_PATH_CURVE)
+                        {
+                            sys_vgui("%s", bottom);
+                        }
+                        sys_vgui("%s", header);
+                        pt = gobj->e_points+j++;
+                        sys_vgui("%d %d ", (int)(pt->x + x_p + bdsize), (int)(pt->y + y_p + bdsize));
+                        mode = E_PATH_MOVE;
+                    }
+                    else if(pt->x == E_PATH_CURVE)
+                    {
+                        pt = gobj->e_points+j++;
+                        sys_vgui("%d %d ", (int)(pt->x + x_p + bdsize), (int)(pt->y + y_p + bdsize));
+                        pt = gobj->e_points+j++;
+                        sys_vgui("%d %d ", (int)(pt->x + x_p + bdsize), (int)(pt->y + y_p + bdsize));
+                        pt = gobj->e_points+j++;
+                        sys_vgui("%d %d ", (int)(pt->x + x_p + bdsize), (int)(pt->y + y_p + bdsize));
+                        mode = E_PATH_CURVE;
+                    }
+                    else
+                    {
+                        j++;
+                    }
+                }
+                sys_vgui("%s", bottom);
+                
+                
+                g->e_state = EGRAPHICS_CLOSE;
+            }
+            ////////////// RECT ///////////////////////////
+            else if(gobj->e_type == E_GOBJ_RECT)
             {
                 if(gobj->e_filled)
                     sys_vgui("%s create polygon ", x->b_drawing_id->s_name);
@@ -238,7 +290,9 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                     sys_vgui("%s create line ", x->b_drawing_id->s_name);
                 
                 for(j = 0; j < gobj->e_npoints; j ++)
+                {
                     sys_vgui("%d %d ", (int)(gobj->e_points[j].x + x_p + bdsize), (int)(gobj->e_points[j].y + y_p + bdsize));
+                }
                 
                 if(gobj->e_filled)
                     sys_vgui("-fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
@@ -304,19 +358,6 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                          g->e_id->s_name,
                          x->b_all_id->s_name);
                 
-                g->e_state = EGRAPHICS_CLOSE;
-            }
-            else if(gobj->e_type == E_GOBJ_IMAG)
-            {
-                /*
-                //sys_vgui("set %s [image create photo -file %s%s.%s]\n", image->c_name->s_name, path->s_name, name->s_name, image->c_ext->s_name);
-                sys_vgui("%s create image %d %d -anchor nw -image [image create photo -file /Users/Pierre/SourceTree/CicmWrapper/PdChocolate/builds/colorpicker.gif] -tags { %s %s }\n",
-                         x->b_drawing_id->s_name,
-                         (int)(gobj->e_points[0].x + x_p + bdsize),
-                         (int)(gobj->e_points[0].y + y_p + bdsize),
-                         g->e_id->s_name,
-                         x->b_all_id->s_name);
-                 */
                 g->e_state = EGRAPHICS_CLOSE;
             }
             else

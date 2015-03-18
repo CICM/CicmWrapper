@@ -47,25 +47,25 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
 
     for(i = 0; i < c->c_nattr; i++)
     {
-        if(c->c_attr[i].name == s)
+        if(c->c_attr[i]->name == s)
         {
-            t_symbol* type = c->c_attr[i].type;
-            if(c->c_attr[i].sizemax == 0)
-                argc[0] = (int)c->c_attr[i].size;
+            t_symbol* type = c->c_attr[i]->type;
+            if(c->c_attr[i]->sizemax == 0)
+                argc[0] = (int)c->c_attr[i]->size;
             else
             {
-                point = (char *)x + c->c_attr[i].size;
+                point = (char *)x + c->c_attr[i]->size;
                 argc[0] = (int)point[0];
-                if(argc[0] > c->c_attr[i].sizemax)
-                    argc[0] = (int)c->c_attr[i].sizemax;
+                if(argc[0] > c->c_attr[i]->sizemax)
+                    argc[0] = (int)c->c_attr[i]->sizemax;
             }
 
-            point = (char *)x + c->c_attr[i].offset;
+            point = (char *)x + c->c_attr[i]->offset;
 
             argv[0] = (t_atom *)calloc(argc[0], sizeof(t_atom));
-            if(c->c_attr[i].getter)
+            if(c->c_attr[i]->getter)
             {
-                c->c_attr[i].getter(x, c->c_attr[i].obj, argc, argv);
+                c->c_attr[i]->getter(x, c->c_attr[i], argc, argv);
             }
             else if(type == gensym("int"))
             {

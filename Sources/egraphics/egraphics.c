@@ -101,6 +101,10 @@ void egraphics_paint(t_elayer *g, int filled, int preserved)
             if(!preserved)
             {
                 g->e_new_objects.e_roundness = 0;
+                g->e_new_objects.e_npoints   = 0;
+                free(g->e_new_objects.e_points);
+                g->e_new_objects.e_points   = NULL;
+                g->e_new_objects.e_type     = E_GOBJ_INVALID;
             }
         }
     }
