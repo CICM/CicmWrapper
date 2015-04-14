@@ -44,7 +44,7 @@ void ebox_mouse_enter(t_ebox* x)
         if(c->c_widget.w_mouseenter)
             c->c_widget.w_mouseenter(x);
     }
-    else if(x->b_obj.o_canvas->gl_edit)   
+    else if(x->b_obj.o_canvas->gl_edit)
         eobj_poll_mouse(x);
 }
 
@@ -89,7 +89,13 @@ long modifier_wrapper(long mod)
 	else
 		mod -= 8;
 #else
-    mod -= 16;
+    if (mod == 24)//right click
+        mod = EMOD_CMD;
+    else if (mod & EMOD_CMD)
+    {
+        mod ^= EMOD_CMD;
+        mod |= EMOD_ALT;
+    }
 #endif
     //post("MOD : %ld", mod);
     return mod;
@@ -111,7 +117,6 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     eobj_get_mouse_global_position(x);
 
     x->b_modifiers = modifier_wrapper((long)atom_getfloat(argv+2));
-
 
     if(!x->b_obj.o_canvas->gl_edit)
     {
@@ -226,8 +231,8 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 void ebox_mouse_drag(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
 {
     t_eclass *c = eobj_getclass(x);
-    x->b_modifiers -= EPD_MAX_SIGS;
-
+    //x->b_modifiers -= EPD_MAX_SIGS;
+    x->b_modifiers -= 256;
     if(!x->b_obj.o_canvas->gl_edit)
     {
         x->b_mouse.x = atom_getfloat(argv);
@@ -601,7 +606,7 @@ void ebox_pos(t_ebox* x, float newx, float newy)
     x->b_rect.y = newy;
     x->b_obj.o_obj.te_xpix = newx;
     x->b_obj.o_obj.te_ypix = newy;
-    
+
     ebox_move(x);
 }
 
@@ -853,7 +858,7 @@ t_pd_err ebox_size_set(t_ebox *x, t_object *attr, long argc, t_atom *argv)
                     x->b_rect.width  =  width;
                 }
             }
-            
+
         }
         else if (x->b_flags & EBOX_GROWINDI)
         {
@@ -950,7 +955,7 @@ void ebox_properties(t_ebox *x, t_glist *glist)
                         atom_string(argv+j, temp, MAXPDSTRING);
                         if(c->c_attr[i]->type == gensym("symbol") && strchr(temp, ' '))
                         {
-                            
+
                             strcat(buffer, "'");
                             strcat(buffer, temp);
                             strcat(buffer, "'");
@@ -965,7 +970,7 @@ void ebox_properties(t_ebox *x, t_glist *glist)
                 atom_string(argv+j, temp, MAXPDSTRING);
                 if(c->c_attr[i]->type == gensym("symbol") && strchr(temp, ' '))
                 {
-                    
+
                     strcat(buffer, "'");
                     strcat(buffer, temp);
                     strcat(buffer, "'");
@@ -1004,7 +1009,7 @@ void ebox_dialog(t_ebox *x, t_symbol *s, long argc, t_atom* argv)
     char buffer[MAXPDSTRING];
     char temp[MAXPDSTRING];
     t_rgb color;
-    
+
     if(argc > 2 && argv)
     {
         ebox_attrprocess_viatoms(x, argc, argv);
@@ -1053,10 +1058,10 @@ void ebox_dialog(t_ebox *x, t_symbol *s, long argc, t_atom* argv)
                         }
                         sys_vgui("%s.sele%i.selec delete 0 end \n", atom_getsym(argv)->s_name, attrindex+1);
                         sys_vgui("%s.sele%i.selec insert 0 \"%s\" \n", atom_getsym(argv)->s_name, attrindex+1, buffer);
-                        
+
                     }
                 }
-                
+
             }
         }
     }
