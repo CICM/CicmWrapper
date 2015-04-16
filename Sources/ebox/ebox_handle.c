@@ -201,7 +201,7 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
                         atom_setfloat(av+1, x->b_mouse.y);
                     }
                 }
-                mess3((t_pd *)x, gensym("size"),  gensym("size"), (void *)2, (void *)av);
+                mess3((t_pd *)x, s_size,  s_size, (void *)2, (void *)av);
             }
         }
     }
@@ -410,7 +410,7 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
                 break;
             }
         }
-        ebox_invalidate_layer(x, gensym("eboxio"));
+        ebox_invalidate_layer(x, s_eboxio);
         ebox_redraw(x);
         return;
     }
@@ -442,7 +442,7 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
             x->b_selected_item = EITEM_BOTTOM;
             ebox_set_cursor(x, 7);
         }
-        ebox_invalidate_layer(x, gensym("eboxio"));
+        ebox_invalidate_layer(x, s_eboxio);
         ebox_redraw(x);
         return;
     }
@@ -457,7 +457,7 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
     // BOX //
     ebox_set_cursor(x, 4);
 
-    ebox_invalidate_layer(x, gensym("eboxio"));
+    ebox_invalidate_layer(x, s_eboxio);
     ebox_redraw(x);
 }
 
@@ -644,9 +644,9 @@ void ebox_vis(t_ebox* x, int vis)
 t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, long argc, t_atom *argv)
 {
     t_symbol* sname;
-    if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) != gensym("(null)"))
+    if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) != s_null)
     {
-		if(x->b_receive_id != gensym("(null)"))
+		if(x->b_receive_id != s_null)
         {
             sname = x->b_receive_id;
             canvas_realizedollar(eobj_getcanvas(x), sname);
@@ -659,13 +659,13 @@ t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, long argc, t_atom *argv)
     }
     else
     {
-        if(x->b_receive_id != gensym("(null)"))
+        if(x->b_receive_id != s_null)
         {
             sname = x->b_receive_id;
             canvas_realizedollar(eobj_getcanvas(x), sname);
 			pd_unbind(&x->b_obj.o_obj.ob_pd, x->b_receive_id);
         }
-        x->b_receive_id = gensym("(null)");
+        x->b_receive_id = s_null;
     }
     return 0;
 }
@@ -681,22 +681,39 @@ t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, long argc, t_atom *argv)
  */
 t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, long argc, t_atom *argv)
 {
-    if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) != gensym("(null)"))
+    if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) != s_null)
     {
         x->b_send_id = atom_getsym(argv);
     }
     else
     {
-        x->b_send_id = gensym("(null)");
+        x->b_send_id = s_null;
     }
 
     return 0;
 }
 
+//! Retrive the preset id of an ebox
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox
+ */
+t_symbol* ebox_get_presetid(t_ebox* x)
+{
+    if(x->b_objpreset_id != s_null)
+    {
+        return x->b_objpreset_id;
+    }
+    else
+    {
+        return s_null;
+    }
+}
+
 //! The default user preset id method for all ebox called by PD (PRIVATE)
 /*
  \ @memberof        ebox
- \ @param x         The gobj
+ \ @param x         The ebox
  \ @param attr      Nothing (for Max 6 compatibility)
  \ @param argc      The size of the array of atoms
  \ @param argv      The array of atoms
@@ -704,22 +721,13 @@ t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, long argc, t_atom *argv)
  */
 t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, long argc, t_atom *argv)
 {
-    if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) != gensym("(null)"))
+    if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) != s_null)
     {
-		if(x->b_objpreset_id != gensym("(null)"))
-        {
-			pd_unbind(&x->b_obj.o_obj.ob_pd, x->b_objpreset_id);
-        }
         x->b_objpreset_id = atom_getsym(argv);
-        pd_bind(&x->b_obj.o_obj.ob_pd, x->b_objpreset_id);
     }
     else
     {
-        if(x->b_objpreset_id != gensym("(null)"))
-        {
-			pd_unbind(&x->b_obj.o_obj.ob_pd, x->b_objpreset_id);
-        }
-        x->b_objpreset_id = gensym("(null)");
+        x->b_objpreset_id = s_null;
     }
     return 0;
 }
@@ -737,7 +745,7 @@ t_pd_err ebox_set_font(t_ebox *x, t_object *attr, long argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_SYM)
     {
-		if(atom_getsym(argv) == gensym("(null)"))
+		if(atom_getsym(argv) == s_null)
             x->b_font.c_family = gensym("Helvetica");
         else
             x->b_font.c_family = atom_getsym(argv);
@@ -885,7 +893,7 @@ t_pd_err ebox_size_set(t_ebox *x, t_object *attr, long argc, t_atom *argv)
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
     t_eclass* c = eobj_getclass(x);
-    if(s == gensym("size"))
+    if(s == s_size)
     {
         if(c->c_widget.w_oksize != NULL)
             c->c_widget.w_oksize(x, &x->b_rect);
@@ -953,7 +961,7 @@ void ebox_properties(t_ebox *x, t_glist *glist)
 #endif
                     {
                         atom_string(argv+j, temp, MAXPDSTRING);
-                        if(c->c_attr[i]->type == gensym("symbol") && strchr(temp, ' '))
+                        if(c->c_attr[i]->type == &s_symbol && strchr(temp, ' '))
                         {
 
                             strcat(buffer, "'");
@@ -968,7 +976,7 @@ void ebox_properties(t_ebox *x, t_glist *glist)
                     }
 #ifndef _WINDOWS
                 atom_string(argv+j, temp, MAXPDSTRING);
-                if(c->c_attr[i]->type == gensym("symbol") && strchr(temp, ' '))
+                if(c->c_attr[i]->type == &s_symbol && strchr(temp, ' '))
                 {
 
                     strcat(buffer, "'");

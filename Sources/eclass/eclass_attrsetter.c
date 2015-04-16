@@ -87,7 +87,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
             {
                 c->c_attr[i]->setter(x, c->c_attr[i], argc, argv);
             }
-            else if(type == gensym("int"))
+            else if(type == s_int)
             {
                 int* pointor = (int *)point;
                 for(j = 0; j < size && j < argc; j++)
@@ -98,7 +98,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                     }
                 }
             }
-            else if(type == gensym("long"))
+            else if(type == s_long)
             {
                 long* pointor = (long *)point;
                 for(j = 0; j < size && j < argc; j++)
@@ -109,7 +109,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                     }
                 }
             }
-            else if(type == gensym("float"))
+            else if(type == &s_float)
             {
                 float* pointor = (float *)point;
                 for(j = 0; j < size && j < argc; j++)
@@ -120,7 +120,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                     }
                 }
             }
-            else if(type == gensym("double"))
+            else if(type == s_double)
             {
                 double* pointor = (double *)point;
                 for(j = 0; j < size && j < argc; j++)
@@ -131,7 +131,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                     }
                 }
             }
-            else if(type == gensym("symbol"))
+            else if(type == &s_symbol)
             {
                 t_symbol** pointor = (t_symbol **)point;
                 for(j = 0; j < size && j < argc; j++)

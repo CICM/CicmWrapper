@@ -37,8 +37,8 @@ void ebox_redraw(t_ebox *x)
     t_eclass* c = eobj_getclass(x);
     if(ebox_isdrawable(x) && x->b_have_window)
     {
-        ebox_invalidate_layer(x, gensym("eboxbd"));
-        ebox_invalidate_layer(x, gensym("eboxio"));
+        ebox_invalidate_layer(x, s_eboxbd);
+        ebox_invalidate_layer(x, s_eboxio);
 
         ebox_update(x);
         if(c->c_widget.w_paint)
@@ -402,7 +402,7 @@ void ebox_draw_border(t_ebox* x)
 	t_elayer* g = NULL;
     bdcorner = pd_clip_max(x->b_boxparameters.d_cornersize, x->b_boxparameters.d_borderthickness - 1);
     bdsize = x->b_boxparameters.d_borderthickness;
-    g = ebox_start_layer(x, gensym("eboxbd"), x->b_rect.width, x->b_rect.height);
+    g = ebox_start_layer(x, s_eboxbd, x->b_rect.width, x->b_rect.height);
 
     if(g)
     {
@@ -418,9 +418,9 @@ void ebox_draw_border(t_ebox* x)
         egraphics_rectangle_rounded(g, 0, 0, x->b_rect.width+bdsize*2, x->b_rect.height+bdsize*2, bdcorner);
         egraphics_stroke(g);
 
-        ebox_end_layer(x, gensym("eboxbd"));
+        ebox_end_layer(x, s_eboxbd);
     }
-    ebox_paint_layer(x, gensym("eboxbd"), -bdsize, -bdsize);
+    ebox_paint_layer(x, s_eboxbd, -bdsize, -bdsize);
 }
 
 //! Paint the box inlets and outlets (PRIVATE)
@@ -435,7 +435,7 @@ void ebox_draw_iolets(t_ebox* x)
 	float bdsize;
 	t_elayer* g = NULL;
     bdsize = x->b_boxparameters.d_borderthickness;
-    g = ebox_start_layer(x, gensym("eboxio"), x->b_rect.width, x->b_rect.height);
+    g = ebox_start_layer(x, s_eboxio, x->b_rect.width, x->b_rect.height);
 
     if(g)
     {
@@ -499,9 +499,9 @@ void ebox_draw_iolets(t_ebox* x)
                 egraphics_stroke(g);
             }
         }
-        ebox_end_layer(x, gensym("eboxio"));
+        ebox_end_layer(x, s_eboxio);
     }
-    ebox_paint_layer(x, gensym("eboxio"), 0, -bdsize);
+    ebox_paint_layer(x, s_eboxio, 0, -bdsize);
 }
 
 //! Invalidate all the layers (PRIVATE)

@@ -112,6 +112,7 @@ void ebox_dialog(t_ebox *x, t_symbol *s, long argc, t_atom* argv);
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 t_pd_err ebox_size_set(t_ebox *x, t_object *attr, long argc, t_atom *argv);
 void ebox_attrprint(t_ebox* x);
+t_symbol* ebox_get_presetid(t_ebox* x);
 //! @endcond
 
 /*********************************

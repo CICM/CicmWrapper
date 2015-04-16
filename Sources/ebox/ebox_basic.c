@@ -41,9 +41,9 @@ void ebox_new(t_ebox *x, long flags)
     x->b_number_of_layers   = 0;
     x->b_layers             = NULL;
     x->b_editor_id          = NULL;
-    x->b_receive_id         = gensym("(null)");
-    x->b_send_id            = gensym("(null)");
-    x->b_objpreset_id       = gensym("(null)");
+    x->b_receive_id         = s_null;
+    x->b_send_id            = s_null;
+    x->b_objpreset_id       = s_null;
     x->b_visible            = 1;
     eobj_getclass(x)->c_widget.w_dosave = (method)ebox_dosave;
     ebox_attrprocess_default(x);
@@ -88,7 +88,7 @@ void ebox_free(t_ebox* x)
     if(eobj_isdsp(x))
         eobj_dspfree(x);
     eobj_free(x);
-    if(x->b_receive_id != gensym("(null)"))
+    if(x->b_receive_id != s_null)
 		pd_unbind(&x->b_obj.o_obj.ob_pd, x->b_receive_id);
 }
 
@@ -145,7 +145,7 @@ float ebox_getfontsize(t_ebox* x)
 t_pd* ebox_getsender(t_ebox* x)
 {
     t_symbol* sname;
-    if(x->b_send_id && x->b_send_id != gensym("(null)"))
+    if(x->b_send_id && x->b_send_id != s_null)
     {
         sname = x->b_send_id;
         canvas_realizedollar(eobj_getcanvas(x), sname);

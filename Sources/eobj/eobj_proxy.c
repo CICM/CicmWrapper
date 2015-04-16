@@ -187,7 +187,7 @@ t_eproxy* eproxy_new(void *owner)
 {
     t_class* inlet_class;
     t_eobj *z = (t_eobj *)owner;
-    eproxy1572_sym = gensym("eproxy1572");
+    eproxy1572_sym = s_eproxy1572;
     if(!eproxy1572_sym->s_thing)
         eproxy_setup();
     else
@@ -222,7 +222,7 @@ t_eproxy* eproxy_signalnew(void *owner, float f)
 {
     t_class* inlet_class;
     t_eobj *z = (t_eobj *)owner;
-    eproxy1572_sym = gensym("eproxy1572");
+    eproxy1572_sym = s_eproxy1572;
     if(!eproxy1572_sym->s_thing)
         eproxy_setup();
     else
@@ -318,7 +318,7 @@ void eproxy_list(t_eproxy *x, t_symbol* s, int argc, t_atom* argv)
  */
 void eproxy_setup()
 {
-    eproxy1572_sym = gensym("eproxy1572");
+    eproxy1572_sym = s_eproxy1572;
     
 	eproxy_class = class_new(gensym("eproxy"), NULL, (t_method)NULL, sizeof(t_eproxy), CLASS_PD, A_GIMME, 0);
     eproxy1572_sym->s_thing = (t_class **)eproxy_class;
