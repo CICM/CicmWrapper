@@ -26,6 +26,27 @@
 
 #include "ecommon.h"
 
+t_symbol* s_null;
+t_symbol* s_eboxbd;
+t_symbol* s_eboxio;
+t_symbol* s_size;
+t_symbol* s_int;
+t_symbol* s_long;
+t_symbol* s_double;
+t_symbol* s_eproxy1572;
+
+void epd_init_symbols()
+{
+    s_null          = gensym("(null)");
+    s_eboxbd        = gensym("eboxbd");
+    s_eboxio        = gensym("eboxio");
+    s_size          = gensym("size");
+    s_int           = gensym("int");
+    s_long          = gensym("long");
+    s_double        = gensym("double");
+    s_eproxy1572    = gensym("eproxy1572");
+}
+
 void outlet_int(t_outlet* outlet, int val)
 {
     outlet_float(outlet, val);

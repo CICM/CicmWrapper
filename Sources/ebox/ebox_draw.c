@@ -37,9 +37,9 @@ void ebox_redraw(t_ebox *x)
     t_eclass* c = eobj_getclass(x);
     if(ebox_isdrawable(x) && x->b_have_window)
     {
-        ebox_invalidate_layer(x, gensym("eboxbd"));
-        ebox_invalidate_layer(x, gensym("eboxio"));
-        
+        ebox_invalidate_layer(x, s_eboxbd);
+        ebox_invalidate_layer(x, s_eboxio);
+
         ebox_update(x);
         if(c->c_widget.w_paint)
             c->c_widget.w_paint(x, (t_object *)x->b_obj.o_canvas);
@@ -75,9 +75,9 @@ void ebox_get_rect_for_view(t_ebox *x, t_rect *rect)
 */
 t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
 {
-	int i;
+	int i, j;
     char text[EPD_MAX_SIGS];
-    
+
     for(i = 0; i < x->b_number_of_layers; i++)
     {
         t_elayer* graphic = &x->b_layers[i];
@@ -86,7 +86,7 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
             if(graphic->e_state == EGRAPHICS_INVALID)
             {
                 graphic->e_owner        = (t_object *)x;
-                
+
                 egraphics_matrix_init(&graphic->e_matrix, 1., 0., 0., 1., 0., 0.);
                 graphic->e_line_width   = 1.f;
                 graphic->e_color        = gensym("#000000");
@@ -94,7 +94,20 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
                 graphic->e_rect.y       = 0.f;
                 graphic->e_rect.height  = pd_clip_min(height, 0.);
                 graphic->e_rect.width   = pd_clip_min(width, 0.);
-                
+
+                for(j = 0; j < graphic->e_number_objects; j++)
+                {
+                    if(graphic->e_objects[j].e_points)
+                    {
+                        free(graphic->e_objects[j].e_points);
+                    }
+                    graphic->e_objects[j].e_points = NULL;
+                    graphic->e_objects[j].e_npoints = 0;
+                }
+                if(graphic->e_objects)
+                {
+                    free(graphic->e_objects);
+                }
                 graphic->e_number_objects  = 0;
                 if(graphic->e_new_objects.e_points)
                     free(graphic->e_new_objects.e_points);
@@ -104,7 +117,7 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
                 graphic->e_objects      = NULL;
                 sprintf(text, "%s%ld", name->s_name, (long)x);
                 graphic->e_id          = gensym(text);
-                
+
                 graphic->e_state        = EGRAPHICS_OPEN;
                 return &x->b_layers[i];
             }
@@ -115,16 +128,16 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
         }
     }
     if(x->b_layers == NULL)
-        x->b_layers = (t_elayer*)calloc(1, sizeof(t_elayer));
+         x->b_layers = (t_elayer*)calloc(1, sizeof(t_elayer));
     else
         x->b_layers = (t_elayer*)realloc(x->b_layers, (x->b_number_of_layers + 1) * sizeof(t_elayer));
     if(x->b_layers)
     {
         t_elayer* graphic = x->b_layers+x->b_number_of_layers;
         x->b_number_of_layers++;
-        
+
         graphic->e_owner        = (t_object *)x;
-        
+
         egraphics_matrix_init(&graphic->e_matrix, 1., 0., 0., 1., 0., 0.);
         graphic->e_line_width   = 1.f;
         graphic->e_color        = gensym("#000000");
@@ -132,14 +145,14 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
         graphic->e_rect.y       = 0.f;
         graphic->e_rect.height  = pd_clip_min(height, 0.);
         graphic->e_rect.width   = pd_clip_min(width, 0.);
-        
-        
+
+
         graphic->e_number_objects  = 0;
         graphic->e_new_objects.e_points = NULL;
         graphic->e_new_objects.e_npoints = 0;
         graphic->e_new_objects.e_roundness = 0.;
         graphic->e_objects      = NULL;
-        
+
         graphic->e_state        = EGRAPHICS_OPEN;
         graphic->e_name         = name;
         sprintf(text, "%s%ld", name->s_name, (long)x);
@@ -211,7 +224,7 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
     t_elayer* g = NULL;
     bdsize = x->b_boxparameters.d_borderthickness;
     sys_vgui("%s configure -bg %s\n", x->b_drawing_id->s_name, rgba_to_hex(x->b_boxparameters.d_boxfillcolor));
-    
+
     for(i = 0; i < x->b_number_of_layers; i++)
     {
         if(x->b_layers[i].e_name == name)
@@ -225,7 +238,7 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
     }
     if(g)
     {
-        
+
         for(i = 0; i < g->e_number_objects; i++)
         {
             t_egobj* gobj = g->e_objects+i;
@@ -245,7 +258,7 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                     sprintf(header, "%s create line ", x->b_drawing_id->s_name);
                     sprintf(bottom, "-smooth true -fill %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
                 }
-                
+
                 t_pt * pt;
                 for(j = 0; j < gobj->e_npoints; )
                 {
@@ -277,8 +290,8 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                     }
                 }
                 sys_vgui("%s", bottom);
-                
-                
+
+
                 g->e_state = EGRAPHICS_CLOSE;
             }
             ////////////// RECT ///////////////////////////
@@ -288,17 +301,17 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                     sys_vgui("%s create polygon ", x->b_drawing_id->s_name);
                 else
                     sys_vgui("%s create line ", x->b_drawing_id->s_name);
-                
+
                 for(j = 0; j < gobj->e_npoints; j ++)
                 {
                     sys_vgui("%d %d ", (int)(gobj->e_points[j].x + x_p + bdsize), (int)(gobj->e_points[j].y + y_p + bdsize));
                 }
-                
+
                 if(gobj->e_filled)
                     sys_vgui("-fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
                 else
                     sys_vgui("-fill %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
-                
+
                 g->e_state = EGRAPHICS_CLOSE;
             }
             ////////////// OVAL /////////////////
@@ -314,14 +327,14 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                     sys_vgui("-fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
                 else
                     sys_vgui("-outline %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
-                
+
                 g->e_state = EGRAPHICS_CLOSE;
             }
             ////////////// ARC /////////////////
             else if (gobj->e_type == E_GOBJ_ARC)
             {
                 start = pd_angle(gobj->e_points[1].x - gobj->e_points[0].x,  gobj->e_points[1].y - gobj->e_points[0].y);
-                
+
                 extent = gobj->e_points[2].x;
                 radius = gobj->e_points[2].y;
 
@@ -333,18 +346,18 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                          (int)(gobj->e_points[0].y + radius + y_p + bdsize),
                          (float)start / EPD_2PI * 360.f,
                          (float)extent / EPD_2PI * 360.f);
-                
+
                 if(gobj->e_filled)
                     sys_vgui("-style pieslice -fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
                 else
                     sys_vgui("-style arc -outline %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
-                
+
                 g->e_state = EGRAPHICS_CLOSE;
             }
             ////////////// TEXT ////////////////
             else if(gobj->e_type == E_GOBJ_TEXT)
             {
-                
+
                 sys_vgui("%s create text %d %d -text {%s} -anchor %s -justify %s -font {%s %d %s %s} -fill %s -width %d -tags { %s %s }\n",
                          x->b_drawing_id->s_name,
                          (int)(gobj->e_points[0].x + x_p + bdsize),
@@ -357,7 +370,7 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                          (int)(gobj->e_points[1].x),
                          g->e_id->s_name,
                          x->b_all_id->s_name);
-                
+
                 g->e_state = EGRAPHICS_CLOSE;
             }
             else
@@ -370,8 +383,8 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
     {
         return -1;
     }
-    
-    
+
+
     return 0;
 }
 
@@ -389,8 +402,8 @@ void ebox_draw_border(t_ebox* x)
 	t_elayer* g = NULL;
     bdcorner = pd_clip_max(x->b_boxparameters.d_cornersize, x->b_boxparameters.d_borderthickness - 1);
     bdsize = x->b_boxparameters.d_borderthickness;
-    g = ebox_start_layer(x, gensym("eboxbd"), x->b_rect.width, x->b_rect.height);
-    
+    g = ebox_start_layer(x, s_eboxbd, x->b_rect.width, x->b_rect.height);
+
     if(g)
     {
         if(x->b_selected_box == EITEM_OBJ)
@@ -404,10 +417,10 @@ void ebox_draw_border(t_ebox* x)
         egraphics_set_line_width(g, bdsize*2);
         egraphics_rectangle_rounded(g, 0, 0, x->b_rect.width+bdsize*2, x->b_rect.height+bdsize*2, bdcorner);
         egraphics_stroke(g);
-        
-        ebox_end_layer(x, gensym("eboxbd"));
+
+        ebox_end_layer(x, s_eboxbd);
     }
-    ebox_paint_layer(x, gensym("eboxbd"), -bdsize, -bdsize);
+    ebox_paint_layer(x, s_eboxbd, -bdsize, -bdsize);
 }
 
 //! Paint the box inlets and outlets (PRIVATE)
@@ -422,8 +435,8 @@ void ebox_draw_iolets(t_ebox* x)
 	float bdsize;
 	t_elayer* g = NULL;
     bdsize = x->b_boxparameters.d_borderthickness;
-    g = ebox_start_layer(x, gensym("eboxio"), x->b_rect.width, x->b_rect.height);
-    
+    g = ebox_start_layer(x, s_eboxio, x->b_rect.width, x->b_rect.height);
+
     if(g)
     {
         egraphics_set_line_width(g, 1);
@@ -456,7 +469,7 @@ void ebox_draw_iolets(t_ebox* x)
                 egraphics_stroke(g);
             }
         }
-        
+
         for(i = 0; i < obj_noutlets((t_object *)x); i++)
         {
             int pos_x_outlet = 0;
@@ -486,9 +499,9 @@ void ebox_draw_iolets(t_ebox* x)
                 egraphics_stroke(g);
             }
         }
-        ebox_end_layer(x, gensym("eboxio"));
+        ebox_end_layer(x, s_eboxio);
     }
-    ebox_paint_layer(x, gensym("eboxio"), 0, -bdsize);
+    ebox_paint_layer(x, s_eboxio, 0, -bdsize);
 }
 
 //! Invalidate all the layers (PRIVATE)
@@ -498,7 +511,7 @@ void ebox_draw_iolets(t_ebox* x)
  \ @return          Nothing
 */
 void ebox_invalidate_all(t_ebox *x)
-{   
+{
 	int i;
     for(i = 0; i < x->b_number_of_layers; i++)
     {
@@ -512,6 +525,7 @@ void ebox_invalidate_all(t_ebox *x)
  \ @param x         The ebox pointer
  \ @return          Nothing
 */
+
 void ebox_update(t_ebox *x)
 {
 	int i;

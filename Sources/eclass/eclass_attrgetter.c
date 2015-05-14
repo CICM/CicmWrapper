@@ -67,35 +67,35 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
             {
                 c->c_attr[i]->getter(x, c->c_attr[i], argc, argv);
             }
-            else if(type == gensym("int"))
+            else if(type == s_int)
             {
                 for(j = 0; j < argc[0]; j++)
                 {
                     atom_setlong(argv[0]+j, ((int *)point)[j]);
                 }
             }
-            else if(type == gensym("long"))
+            else if(type == s_long)
             {
                 for(j = 0; j < argc[0]; j++)
                 {
                     atom_setlong(argv[0]+j, ((long *)point)[j]);
                 }
             }
-            else if(type == gensym("float"))
+            else if(type == &s_float)
             {
                 for(j = 0; j < argc[0]; j++)
                 {
                     atom_setfloat(argv[0]+j, ((float *)point)[j]);
                 }
             }
-            else if(type == gensym("double"))
+            else if(type == s_double)
             {
                 for(j = 0; j < argc[0]; j++)
                 {
                     atom_setfloat(argv[0]+j, ((double *)point)[j]);
                 }
             }
-            else if(type == gensym("symbol"))
+            else if(type == &s_symbol)
             {
                 t_symbol** syms = (t_symbol **)point;
                 for(j = 0; j < argc[0]; j++)

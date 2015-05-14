@@ -86,8 +86,8 @@ void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
                 
                 if(x->b_obj.o_canvas && x->b_ready_to_draw && eobj_isbox(x)) // do not call ebox_isdrawable !!
                 {
-                    ebox_invalidate_layer(x, gensym("eboxbd"));
-                    ebox_invalidate_layer(x, gensym("eboxio"));
+                    ebox_invalidate_layer(x, s_eboxbd);
+                    ebox_invalidate_layer(x, s_eboxio);
                     
                     ebox_update(x);
                     if(c->c_widget.w_paint)

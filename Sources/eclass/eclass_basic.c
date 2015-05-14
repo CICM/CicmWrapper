@@ -488,7 +488,7 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
     {
         class_addbang((t_class *)c, m);
     }
-    else if(gensym(name) == gensym("float"))
+    else if(gensym(name) == &s_float)
     {
         class_addfloat((t_class *)c, m);
     }
@@ -500,7 +500,7 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
     {
         class_addanything((t_class *)c, m);
     }
-    else if(gensym(name) == gensym("symbol"))
+    else if(gensym(name) == &s_symbol)
     {
         class_addsymbol((t_class *)c, m);
     }
