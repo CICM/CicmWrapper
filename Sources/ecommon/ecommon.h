@@ -29,7 +29,6 @@
 #define DEF_EPD_COMMON
 
 #ifdef _WIN32
-#define snprintf _snprintf
 #include <io.h>
 #else
 #pragma GCC diagnostic ignored "-Wwrite-strings"
@@ -190,10 +189,10 @@ void* object_method(void* x, t_symbol* s, void* z, method method, long number, v
 void object_attr_setvalueof(t_object *x, t_symbol* s, long argc, t_atom* argv);
 void object_attr_getvalueof(t_object *x, t_symbol *s, long *argc, t_atom **argv);
 
-t_symbol* fsymbol_from_symbol(t_symbol* s);
-t_symbol* symbol_from_fsymbol(t_symbol* s);
-t_atom* fatoms_from_atoms(long ac, t_atom* av);
-long atoms_from_fatoms(long ac, t_atom* av);
+t_symbol* format_symbol(t_symbol* s);
+long unformat_symbol(char* text, char* buffer, long size);
+t_atom* format_atoms(long ac, t_atom* av);
+long unformat_atoms(long ac, t_atom* av);
 
 long binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *argv);
 
