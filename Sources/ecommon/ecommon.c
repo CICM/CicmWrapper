@@ -164,106 +164,132 @@ t_binbuf* binbuf_via_atoms(long ac, t_atom *av)
     return dico;
 }
 
-t_symbol* fsymbol_from_symbol(t_symbol* s)
+t_symbol* format_symbol(t_symbol* s)
 {
+    int i, j, lenght = strlen(s->s_name);
     char buffer[MAXPDSTRING];
-    if(strchr(s->s_name,' '))
+    buffer[0] = '\"';
+    for(i = 0, j = 1; i < lenght && j < MAXPDSTRING - 1; i++, j++)
     {
-        sprintf(buffer, "'%s'", s->s_name);
-        return gensym(buffer);
+        if(s->s_name[i] == '"' || s->s_name[i] == '\\')
+        {
+            buffer[j++] = '\\';
+        }
+        buffer[j] = s->s_name[i];
     }
-    else
-        return s;
+    buffer[j] = '\"';
+    return gensym(buffer);
 }
 
-t_symbol* symbol_from_fsymbol(t_symbol* s)
-{
-    char buf[MAXPDSTRING];
-    sprintf(buf, "%s",s->s_name);
-    return gensym(strtok(buf," '\""));
-}
-
-t_atom* fatoms_from_atoms(long ac, t_atom* av)
+t_atom* format_atoms(long ac, t_atom* av)
 {
     int i;
     for(i = 0; i < ac; i++)
     {
         if(atom_gettype(av+i) == A_SYM)
-            atom_setsym(av+i, fsymbol_from_symbol(atom_getsym(av+i)));
+        {
+            atom_setsym(av+i, format_symbol(atom_getsym(av+i)));
+        }
         else
+        {
             av[i] = av[i];
+        }
     }
     return av;
 }
 
-long atoms_from_fatoms(long ac, t_atom* av)
+long unformat_symbol(char* text, char* buffer, long size)
 {
-    int i, j;
-    char buffer[MAXPDSTRING];
+    int i = 0, j = 0, lenght = strlen(text);
+    int end = text[lenght - 1] == '"' || text[lenght - 1] == '\'';
+    for(; i < lenght - end && j < size - 1; i++)
+    {
+        if(text[i] != '\\')
+        {
+            buffer[j++] = text[i];
+        }
+    }
+    buffer[j] = '\0';
+    return !end;
+}
+
+long unformat_atoms(long ac, t_atom* av)
+{
+    int i, lenght, newize = 0;
+    char str = 0;
     char temp[MAXPDSTRING];
-    char *pch;
+    char buffer[MAXPDSTRING];
     t_symbol* s;
-    j = 0;
     for(i = 0; i < ac; i++)
     {
         if(atom_gettype(av+i) == A_SYM)
         {
             s = atom_getsym(av+i);
-            pch = strpbrk(s->s_name,"'");
-            if(pch != NULL)
+            if(strcmp(s->s_name, "[") && strcmp(s->s_name, "]"))
             {
-                sprintf(buffer, "%s", strtok(pch," '\""));
-                if (i+1 < ac)
+                if(!str)
                 {
-                    do
+                    if(s->s_name[0] == '"' || s->s_name[0] == '\'')
                     {
-                        i++;
-                        strcat(buffer, " ");
-                        atom_string(av+i, temp, MAXPDSTRING);
-                        pch = strpbrk(temp,"'");
-                        strcat(buffer, strtok(temp," '\""));
+                        str = unformat_symbol(s->s_name+1, buffer, MAXPDSTRING);
                     }
-                    while(pch == NULL && i < ac);
+                    else
+                    {
+                        unformat_symbol(s->s_name, buffer, MAXPDSTRING);
+                    }
                 }
-                atom_setsym(av+j, gensym(buffer));
-                j++;
-
+                else
+                {
+                    lenght = strlen(buffer);
+                    strcat(buffer, " ");
+                    str = unformat_symbol(s->s_name, buffer+lenght+1, MAXPDSTRING-lenght-1);
+                }
+                if(!str)
+                {
+                    atom_setsym(av+newize, gensym(buffer));
+                    sprintf(buffer, "");
+                    newize++;
+                }
             }
-            else if(!strcmp(s->s_name, "[") || !strcmp(s->s_name, "]"))
+        }
+        else if(str)
+        {
+            sprintf(temp, " %f", atom_getfloat(av+i));
+            lenght = strlen(temp);
+            while(temp[lenght - 1] == '0')
             {
-                ;
+                temp[lenght - 1] = '\0';
+                lenght--;
             }
-            else
+            if(temp[lenght - 1] == '.')
             {
-                atom_setsym(av+j, symbol_from_fsymbol(s));
-                j++;
+                temp[lenght - 1] = '\0';
+                lenght--;
             }
+            strcat(buffer, temp);
         }
         else
         {
-            av[j] = av[i];
-            j++;
+            av[newize++] = av[i];
         }
     }
-    return j;
+    av = (t_atom *)realloc(av, newize * sizeof(t_atom));
+    return newize;
 }
 
 
 t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *argv)
 {
-    int i;
-
-    long ac = argc+1;
-    t_atom* av = (t_atom *)calloc(ac, sizeof(t_atom));
-    atom_setsym(av, key);
-    argv = fatoms_from_atoms(argc, argv);
-    for(i = 0; i < argc; i++)
+    t_atom* av = (t_atom *)calloc(argc+1, sizeof(t_atom));
+    if(av)
     {
-        av[i+1] = argv[i];
+        atom_setsym(av, key);
+        memcpy(av+1, argv, argc * sizeof(t_atom));
+        format_atoms(argc, av+1);
+        binbuf_add(d, (int)argc+1, av);
+        return 0;
     }
-
-    binbuf_add(d, (int)ac, av);
-    return 0;
+    return -1;
 }
 
 long atoms_get_attributes_offset(long ac, t_atom* av)
@@ -397,19 +423,9 @@ t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_a
     if(argc[0])
     {
         argv[0] = (t_atom *)calloc(argc[0], sizeof(t_atom));
-        for (i = 0; i < argc[0]; i++)
-        {
-            argv[0][i] = av[i+index];
-        }
-        argc[0] = atoms_from_fatoms(argc[0], argv[0]);
-        argv[0] = (t_atom *)realloc(argv[0], argc[0] * sizeof(t_atom));
-
-        if(!argv[0])
-        {
-            argc[0] = 0;
-            argv[0] = NULL;
-            return -1;
-        }
+        memcpy(argv[0], av+index, sizeof(t_atom) * argc[0]);
+        argc[0] = unformat_atoms(argc[0], argv[0]);
+        return 0;
     }
     else
     {

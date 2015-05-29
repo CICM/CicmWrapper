@@ -35,32 +35,43 @@
  */
 void *eobj_new(t_eclass *c)
 {
-    t_pd*   x;
-    t_eobj* z;
+    t_eobj* x = NULL;
     char buffer[MAXPDSTRING];
-    if(!c)
-        bug("pd_new: apparently called before setup routine");
-    x   = (t_pd *)t_getbytes(c->c_class.c_size);
-    *x  = (t_pd)c;
-    
-    if(c->c_class.c_patchable)
+    if(c)
     {
-        ((t_object *)x)->ob_inlet = 0;
-        ((t_object *)x)->ob_outlet = 0;
+        x  = (t_eobj *)t_getbytes(c->c_class.c_size);
+        if(x)
+        {
+            *((t_pd *)x)  = (t_pd)c;
+            
+            if(c->c_class.c_patchable)
+            {
+                ((t_object *)x)->ob_inlet = 0;
+                ((t_object *)x)->ob_outlet = 0;
+            }
+            
+            x->o_nproxy = 0;
+            x->o_canvas = canvas_getcurrent();
+            sprintf(buffer,"#%s%lx", c->c_class.c_name->s_name, (long unsigned int)x);
+            x->o_id = gensym(buffer);
+            pd_bind(&x->o_obj.ob_pd, x->o_id);
+            eobj_attach_torouter((t_object *)x);
+            sprintf(buffer,".x%lx.c", (long unsigned int)x->o_canvas);
+            x->o_canvas_id = gensym(buffer);
+            c->c_widget.w_dosave = (method)eobj_dosave;
+            x->o_clock = clock_new(x, (t_method)eobj_tick);
+            x->o_mouse_canvas.x = 0;
+            x->o_mouse_canvas.y = 0;
+        }
+        else
+        {
+            bug("pd_new: object %s allocation failed", c->c_class.c_name->s_name);
+        }
     }
-    z = (t_eobj *)x;
-    z->o_nproxy = 0;
-    z->o_canvas = canvas_getcurrent();
-    sprintf(buffer,"#%s%lx", c->c_class.c_name->s_name, (long unsigned int)z);
-    z->o_id = gensym(buffer);
-    pd_bind(&z->o_obj.ob_pd, z->o_id);
-    eobj_attach_torouter((t_object *)z);
-    sprintf(buffer,".x%lx.c", (long unsigned int)z->o_canvas);
-    z->o_canvas_id = gensym(buffer);
-    c->c_widget.w_dosave = (method)eobj_dosave;
-    z->o_clock = clock_new(z, (t_method)eobj_tick);
-    z->o_mouse_canvas.x = 0;
-    z->o_mouse_canvas.y = 0;
+    else
+    {
+        bug("pd_new: apparently called before setup routine");
+    }
     
     return (x);
 }
