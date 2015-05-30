@@ -169,7 +169,7 @@ t_symbol* format_symbol(t_symbol* s)
     int i, j, lenght = strlen(s->s_name);
     char buffer[MAXPDSTRING];
     buffer[0] = '\"';
-    for(i = 0, j = 1; i < lenght && j < MAXPDSTRING - 1; i++, j++)
+    for(i = 0, j = 1; i < lenght && j < MAXPDSTRING - 2; i++, j++)
     {
         if(s->s_name[i] == '"' || s->s_name[i] == '\\')
         {
@@ -177,7 +177,8 @@ t_symbol* format_symbol(t_symbol* s)
         }
         buffer[j] = s->s_name[i];
     }
-    buffer[j] = '\"';
+    buffer[j++] = '\"';
+    buffer[j] = '\0';
     return gensym(buffer);
 }
 
