@@ -147,8 +147,7 @@ t_pd* ebox_getsender(t_ebox* x)
     t_symbol* sname;
     if(x->b_send_id && x->b_send_id != s_null)
     {
-        sname = x->b_send_id;
-        canvas_realizedollar(eobj_getcanvas(x), sname);
+        sname = canvas_realizedollar(eobj_getcanvas(x), x->b_send_id);
         if(sname && sname->s_thing)
         {
             return x->b_send_id->s_thing;
