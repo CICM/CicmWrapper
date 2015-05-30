@@ -96,7 +96,7 @@ t_rgb hex_to_rgb(char* color)
 
 t_hsla rgba_to_hsla(t_rgba color)
 {
-    t_hsla ncolor;
+    t_hsla ncolor = {0., 0., 0., 0.};
     float delta, deltar, deltag, deltab;
     float max = color.red;
     float min = color.red;

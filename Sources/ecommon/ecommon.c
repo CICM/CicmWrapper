@@ -274,7 +274,7 @@ long unformat_atoms(long ac, t_atom* av)
             av[newize++] = av[i];
         }
     }
-    av = (t_atom *)realloc(av, newize * sizeof(t_atom));
+    
     return newize;
 }
 
@@ -333,17 +333,23 @@ long atoms_get_keys(long ac, t_atom* av, t_symbol*** s)
 {
     long i, j;
     long size = atoms_get_nattributes(ac, av);
-    s[0] = malloc(size * sizeof(t_symbol *));
-
-    for(i = 0, j = 0; i < ac; i++)
+    if(size)
     {
-        if(atom_gettype(av+i) == A_SYM && atom_getsym(av+i)->s_name[0] == '@')
+        s[0] = malloc(size * sizeof(t_symbol *));
+        if(s[0])
         {
-            s[0][j] = atom_getsym(av+i);
-            j++;
+            for(i = 0, j = 0; i < ac; i++)
+            {
+                if(atom_gettype(av+i) == A_SYM && atom_getsym(av+i)->s_name[0] == '@')
+                {
+                    s[0][j] = atom_getsym(av+i);
+                    j++;
+                }
+            }
+            return size;
         }
     }
-    return size;
+    return 0;
 }
 
 long binbuf_get_keys(t_binbuf *d, t_symbol*** s)
@@ -426,6 +432,14 @@ t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_a
         argv[0] = (t_atom *)calloc(argc[0], sizeof(t_atom));
         memcpy(argv[0], av+index, sizeof(t_atom) * argc[0]);
         argc[0] = unformat_atoms(argc[0], argv[0]);
+        if(argc[0])
+        {
+            argv[0] = (t_atom *)realloc(argv[0], argc[0] * sizeof(t_atom));
+        }
+        else
+        {
+            free(argv[0]);
+        }
         return 0;
     }
     else
@@ -479,19 +493,16 @@ t_pd_err atoms_get_attribute_float(long ac, t_atom* av, t_symbol *key, float *va
 {
     long argc = 0;
     t_atom* argv = NULL;
-    if(!atoms_get_attribute(ac, av, key, &argc, &argv))
+    atoms_get_attribute(ac, av, key, &argc, &argv);
+    if(argc && argv)
     {
-        if(argc && argv)
+        if(atom_gettype(argv) == A_LONG)
         {
-            if(atom_gettype(argv) == A_LONG)
-            {
-                value[0] = atom_getfloat(argv);
-                free(argv);
-                return 0;
-            }
+            value[0] = atom_getfloat(argv);
             free(argv);
+            return 0;
         }
-        return -1;
+        free(argv);
     }
     return -1;
 }

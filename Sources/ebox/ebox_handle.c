@@ -649,7 +649,7 @@ t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, long argc, t_atom *argv)
 		if(x->b_receive_id != s_null)
         {
             sname = canvas_realizedollar(eobj_getcanvas(x), x->b_receive_id);
-			pd_unbind(&x->b_obj.o_obj.ob_pd, x->b_receive_id);
+			pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
         }
         x->b_receive_id = atom_getsym(argv);
         sname = canvas_realizedollar(eobj_getcanvas(x), x->b_receive_id);

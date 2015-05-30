@@ -126,7 +126,9 @@ void ebox_attrprocess_default(void *x)
                     }
                 }
                 object_attr_setvalueof((t_object *)x, c->c_attr[i]->name, defc, defv);
-                defc = 0;
+            }
+            if(defv)
+            {
                 free(defv);
                 defv = NULL;
             }
