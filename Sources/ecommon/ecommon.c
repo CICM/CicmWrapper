@@ -248,7 +248,9 @@ long unformat_atoms(long ac, t_atom* av)
                 if(!str)
                 {
                     atom_setsym(av+newize, gensym(buffer));
-                    sprintf(buffer, "");
+                    //sprintf(buffer, "");
+                    //buffer[0] = '\0'; //-> équivaut à sprintf mais ne change que le 1er caractère
+                    memset(&buffer, '\0', MAXPDSTRING*sizeof(char)); //-> vide le buffer entièrement
                     newize++;
                 }
             }
@@ -274,7 +276,7 @@ long unformat_atoms(long ac, t_atom* av)
             av[newize++] = av[i];
         }
     }
-    
+
     return newize;
 }
 
