@@ -541,14 +541,14 @@ typedef struct _edspbox
     t_elayer*           b_layers;           /*!< The ebox layers. */
     long                b_number_of_layers; /*!< The ebox number of layers. */
     
-    t_eproxy*           d_inlets[EPD_MAX_SIGS];      /*!< The array of proxy signal inlets. */
-    t_outlet*           d_outlets[EPD_MAX_SIGS];     /*!< The array of signal outlets. */
+    t_eproxy**          d_inlets;           /*!< The array of proxy signal inlets. */
+    t_outlet**          d_outlets;          /*!< The array of signal outlets. */
     float               d_float;            /*!< The float member to initialize the signal method. */
     long                d_dsp_size;         /*!< The number of signal inlets and outlets. */
-    t_int               d_dsp_vectors[262]; /*!< The vector that contains all the pointers for the perform method. */
+    t_int*              d_dsp_vectors;      /*!< The vector that contains all the pointers for the perform method. */
     long                d_dsp_flag;         /*!< The flags to initialize the perform method. */
     void*               d_dsp_user_param;   /*!< The user parameters to pass through the perform method. */
-    t_float*            d_sigs_out[EPD_MAX_SIGS];    /*!< The arrays of signal vectors. */
+    t_float**           d_sigs_out;         /*!< The array of signal vectors. */
     t_float*            d_sigs_real;        /*!< The real array of signal. */
     method              d_perform_method;   /*!< The user perform method. */
     long                d_misc;

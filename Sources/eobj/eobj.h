@@ -102,7 +102,7 @@ void eproxy_free(t_eproxy* proxy);
 void eobj_dspsetup(void *x, long nins, long nouts);
 void eobj_dspfree(void *x);
 void eobj_resize_inputs(void *x, long nins);
-void eobj_resize_outputs(void *x, long nouts);
+//void eobj_resize_outputs(void *x, long nouts);
 t_eproxy* eobj_getdspproxlet(void *x, long index);
 t_outlet* eobj_getdspoutlet(void *x, long index);
 t_sample* eobj_getsignalinput(void *x, long index);
@@ -115,7 +115,6 @@ t_int* eobj_perform_no_inplace(t_int* w);
 
 t_int* eobj_perform_box(t_int* w);
 t_int* eobj_perform_box_no_inplace(t_int* w);
-void eobj_getconnections(void* x, short* count);
 void eobj_dsp_add(void *x, t_symbol* s, t_object* obj, method m, long flags, void *userparam);
 //! @endcond
 
