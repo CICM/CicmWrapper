@@ -51,6 +51,7 @@ void *eobj_new(t_eclass *c)
             }
             
             x->o_nproxy = 0;
+            x->o_proxy = NULL;
             x->o_canvas = canvas_getcurrent();
             sprintf(buffer,"#%s%lx", c->c_class.c_name->s_name, (long unsigned int)x);
             x->o_id = gensym(buffer);
@@ -86,7 +87,10 @@ void *eobj_new(t_eclass *c)
 void eobj_free(void *x)
 {
     t_eobj*     z = (t_eobj *)x;
-    
+    if(z->o_proxy && z->o_nproxy)
+    {
+        free(z->o_proxy);
+    }
     clock_free(z->o_clock);
     pd_unbind(&z->o_obj.ob_pd, z->o_id);
     eobj_detach_torouter((t_object *)x);
