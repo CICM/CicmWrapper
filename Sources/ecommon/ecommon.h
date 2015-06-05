@@ -45,7 +45,6 @@
 #include "pd-extended/m_pd.h"
 #include "pd-extended/m_imp.h"
 #include "pd-extended/g_canvas.h"
-#include "pd-extended/s_stuff.h"
 #endif
 
 #else
@@ -54,7 +53,6 @@
 #include "pd-vanilla/m_pd.h"
 #include "pd-vanilla/m_imp.h"
 #include "pd-vanilla/g_canvas.h"
-#include "pd-vanilla/s_stuff.h"
 #endif
 
 #endif
@@ -105,6 +103,12 @@
 #define layer_getname(layer) layer.c_name->s_name
 #define layer_getsize(layer) layer.c_atom.size()
 
+typedef struct _namelist    /* element in a linked list of stored strings */
+{
+    struct _namelist *nl_next;  /* next in list */
+    char *nl_string;            /* the string */
+} t_namelist;
+
 struct _guiconnect
 {
     t_object x_obj;
@@ -148,28 +152,12 @@ struct _outlet
     t_outconnect *o_connections;
     t_symbol *o_sym;
 };
-/*
+
+#define sys_getdspstate()  canvas_dspstate
+EXTERN t_namelist *sys_staticpath;
 EXTERN t_namelist *sys_externlist;
 EXTERN t_namelist *sys_searchpath;
 EXTERN t_namelist *sys_helppath;
-EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
-*/
-
-// WARNING ! the #if/else statement below is intended as a workaround for Vanilla compatibility
-// it should be better to detect Pd fork (vanilla, extended or even l2ork)
-// and then define canvas_list according to the version of each
-#if PD_MINOR_VERSION >= 46
-
-# define canvas_list pd_this->pd_canvaslist
-# define sys_getdspstate()       pd_this->pd_dspstate
-
-#else
-
-# define sys_getdspstate()       canvas_dspstate
-EXTERN t_canvas *canvas_list;
-
-#endif
-EXTERN t_namelist *sys_staticpath;
 
 typedef void        (*method)(void* x, ...);
 typedef void*       (*rmethod)(void* x, ...);
