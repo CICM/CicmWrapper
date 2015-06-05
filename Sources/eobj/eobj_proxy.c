@@ -183,59 +183,10 @@ void new_inlet_anything(t_inlet *x, t_symbol *s, int argc, t_atom *argv)
  * @param owner The eobj pointer
  * @return      This function return the proxy pointor
  */
-t_eproxy* eproxy_new(void *owner)
+t_eproxy* eproxy_new(void *owner, t_symbol* s)
 {
     t_class* inlet_class;
-    t_eobj *z = (t_eobj *)owner;
-    eproxy1572_sym = s_eproxy1572;
-    if(!eproxy1572_sym->s_thing)
-        eproxy_setup();
-    else
-        eproxy_class = (t_class *)eproxy1572_sym->s_thing;
-    if(z->o_proxy)
-    {
-        z->o_proxy = (t_eproxy *)realloc(z->o_proxy, (z->o_nproxy + 1) * sizeof(t_eproxy));
-    }
-    else
-    {
-        z->o_proxy = (t_eproxy *)malloc(sizeof(t_eproxy));
-    }
-    if(z->o_proxy)
-    {
-        z->o_proxy[z->o_nproxy].p_owner = (t_object *)owner;
-        z->o_proxy[z->o_nproxy].p_pd    = eproxy_class;
-        z->o_proxy[z->o_nproxy].p_index = z->o_nproxy;
-        z->o_proxy[z->o_nproxy].p_inlet = inlet_new(&z->o_obj, &z->o_proxy[z->o_nproxy].p_pd, NULL, NULL);
-        
-        inlet_class = z->o_proxy[z->o_nproxy].p_inlet->i_pd;
-        
-        inlet_class->c_bangmethod = (t_bangmethod)new_inlet_bang;
-        inlet_class->c_pointermethod = (t_pointermethod)new_inlet_pointer;
-        inlet_class->c_floatmethod = (t_floatmethod)new_inlet_float;
-        inlet_class->c_symbolmethod = (t_symbolmethod)new_inlet_symbol;
-        inlet_class->c_listmethod = (t_listmethod)new_inlet_list;
-        inlet_class->c_anymethod = (t_anymethod)new_inlet_anything;
-        
-        z->o_nproxy++;
-        return &z->o_proxy[z->o_nproxy-1];
-    }
-    else
-    {
-        pd_error(z, "cons't allocate memory for a new proxy inlet.");
-        return NULL;
-    }
-}
-
-//! Intialize a signal proxy inlet
-/*
- * @memberof    eobj
- * @param owner The eobj pointer
- * @param f     The float for signal
- * @return      his function return the proxy pointor
- */
-t_eproxy* eproxy_signalnew(void *owner, float f)
-{
-    t_class* inlet_class;
+    int current;
     t_eobj *z = (t_eobj *)owner;
     eproxy1572_sym = s_eproxy1572;
     if(!eproxy1572_sym->s_thing)
@@ -249,30 +200,27 @@ t_eproxy* eproxy_signalnew(void *owner, float f)
     }
     else
     {
-        z->o_proxy = (t_eproxy *)malloc(sizeof(t_eproxy));
+        z->o_proxy = (t_eproxy *)malloc(1 * sizeof(t_eproxy));
     }
     if(z->o_proxy)
     {
-        z->o_proxy[z->o_nproxy].p_owner = (t_object *)owner;
-        z->o_proxy[z->o_nproxy].p_pd    = eproxy_class;
-        z->o_proxy[z->o_nproxy].p_index = z->o_nproxy;
-        
-        z->o_proxy[z->o_nproxy].p_inlet = inlet_new(&z->o_obj, &z->o_proxy[z->o_nproxy].p_pd, &s_signal, &s_signal);
-        z->o_proxy[z->o_nproxy].p_inlet->i_un.iu_floatsignalvalue = f;
-        
-        inlet_class = z->o_proxy[z->o_nproxy].p_inlet->i_pd;
-        
+        current = z->o_nproxy;
+        z->o_nproxy++;
+        z->o_proxy[current].p_owner = (t_object *)owner;
+        z->o_proxy[current].p_pd    = eproxy_class;
+        z->o_proxy[current].p_index = current;
+        z->o_proxy[current].p_inlet = inlet_new(&z->o_obj, &z->o_proxy[current].p_pd, s, s);
+        z->o_proxy[current].p_inlet->i_un.iu_floatsignalvalue = 0;
+
+        inlet_class = z->o_proxy[current].p_inlet->i_pd;
         inlet_class->c_bangmethod = (t_bangmethod)new_inlet_bang;
         inlet_class->c_pointermethod = (t_pointermethod)new_inlet_pointer;
         inlet_class->c_floatmethod = (t_floatmethod)new_inlet_float;
         inlet_class->c_symbolmethod = (t_symbolmethod)new_inlet_symbol;
-        
         inlet_class->c_listmethod = (t_listmethod)new_inlet_list;
         inlet_class->c_anymethod = (t_anymethod)new_inlet_anything;
         
-        z->o_nproxy++;
-        
-        return &z->o_proxy[z->o_nproxy-1];
+        return &z->o_proxy[current];
     }
     else
     {
@@ -288,11 +236,30 @@ t_eproxy* eproxy_signalnew(void *owner, float f)
  * @param owner The eobj pointer
  * @return      Nothing
  */
-void eproxy_free(t_eproxy* proxy)
+void eproxy_free(void *owner, t_eproxy* proxy)
 {
-    t_eobj *z   = (t_eobj *)proxy->p_owner;
-    z->o_nproxy--;
-    inlet_free(proxy->p_inlet);
+    t_eobj *z   = (t_eobj *)owner;
+    if(z && proxy && proxy->p_owner == (t_object *)z)
+    {
+        if(z->o_nproxy == proxy->p_index + 1)
+        {
+            inlet_free(proxy->p_inlet);
+            if(z->o_nproxy == 1)
+            {
+                free(z->o_proxy);
+                z->o_nproxy = 0;
+            }
+            else
+            {
+                z->o_proxy = realloc(z->o_proxy, (z->o_nproxy - 1) * sizeof(t_eproxy));
+                z->o_nproxy--;
+            }
+        }
+        else
+        {
+            pd_error(owner, "can't free a proxy if it's not the last one.");
+        }
+    }
 }
 
 //! Anything method of the proxy inlet

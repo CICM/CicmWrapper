@@ -117,7 +117,7 @@ t_proxlet* eobj_proxletnew(void* x)
  */
 t_eproxy* eobj_proxynew(void* x)
 {
-    return eproxy_new(x);
+    return eproxy_new(x, NULL);
 }
 
 /*!

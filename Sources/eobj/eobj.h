@@ -89,9 +89,8 @@ void new_inlet_anything(t_inlet *x, t_symbol *s, int argc, t_atom *argv);
 
 void eproxy_setup();
 void eproxy_anything(t_eproxy *x, t_symbol *s, int argc, t_atom *argv);
-t_eproxy* eproxy_new(void *owner);
-t_eproxy* eproxy_signalnew(void *owner, float f);
-void eproxy_free(t_eproxy* proxy);
+t_eproxy* eproxy_new(void *owner, t_symbol* s);
+void eproxy_free(void *owner, t_eproxy* proxy);
 
 //! @endcond
 

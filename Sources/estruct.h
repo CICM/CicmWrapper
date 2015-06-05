@@ -441,7 +441,6 @@ typedef struct _eobj
 typedef struct _edspobj
 {
     t_eobj              d_obj;              /*!< The CICM object. */
-    t_eproxy**          d_inlets;           /*!< The array of proxy signal inlets. */
     t_outlet**          d_outlets;          /*!< The array of signal outlets. */
     float               d_float;            /*!< The float member to initialize the signal method. */
     long                d_dsp_size;         /*!< The number of signal inlets and outlets. */
@@ -541,7 +540,6 @@ typedef struct _edspbox
     t_elayer*           b_layers;           /*!< The ebox layers. */
     long                b_number_of_layers; /*!< The ebox number of layers. */
     
-    t_eproxy**          d_inlets;           /*!< The array of proxy signal inlets. */
     t_outlet**          d_outlets;          /*!< The array of signal outlets. */
     float               d_float;            /*!< The float member to initialize the signal method. */
     long                d_dsp_size;         /*!< The number of signal inlets and outlets. */
