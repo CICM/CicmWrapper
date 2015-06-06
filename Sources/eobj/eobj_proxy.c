@@ -28,7 +28,63 @@
 
 #include "eobj.h"
 
+static void eproxy_anything(t_eproxy *x, t_symbol *s, int argc, t_atom *argv)
+{
+    t_eobj *z = (t_eobj *)x->p_owner;
+    z->o_current_proxy = x->p_index;
+    pd_typedmess((t_pd *)x->p_owner, s, argc, argv);
+}
 
+static void eproxy_bang(t_eproxy *x)
+{
+    t_eobj *z = (t_eobj *)x->p_owner;
+    z->o_current_proxy = x->p_index;
+    pd_bang((t_pd *)x->p_owner);
+}
+
+static void eproxy_float(t_eproxy *x, float f)
+{
+    t_eobj *z = (t_eobj *)x->p_owner;
+    z->o_current_proxy = x->p_index;
+    pd_float((t_pd *)x->p_owner, f);
+}
+
+static void eproxy_symbol(t_eproxy *x, t_symbol* s)
+{
+    t_eobj *z = (t_eobj *)x->p_owner;
+    z->o_current_proxy = x->p_index;
+    pd_symbol((t_pd *)x->p_owner, s);
+}
+
+static void eproxy_list(t_eproxy *x, t_symbol* s, int argc, t_atom* argv)
+{
+    t_eobj *z = (t_eobj *)x->p_owner;
+    z->o_current_proxy = x->p_index;
+    pd_list((t_pd *)x->p_owner, s, argc, argv);
+}
+
+static t_class* eproxy_setup()
+{
+    t_class* eproxy_class;
+    t_symbol* eproxy1572_sym = gensym("eproxy1572");
+    if(!eproxy1572_sym->s_thing)
+    {
+        eproxy_class = class_new(gensym("eproxy"), NULL, (t_method)NULL, sizeof(t_eproxy), CLASS_PD, A_GIMME, 0);
+        eproxy1572_sym->s_thing = (t_class **)eproxy_class;
+        class_addanything(eproxy_class, (t_method)eproxy_anything);
+        class_addbang(eproxy_class,  (t_method)eproxy_bang);
+        class_addfloat(eproxy_class,  (t_method)eproxy_float);
+        class_addsymbol(eproxy_class,  (t_method)eproxy_symbol);
+        class_addlist(eproxy_class, (t_method)eproxy_list);
+        return eproxy_class;
+    }
+    else
+    {
+        return (t_class *)eproxy1572_sym->s_thing;
+    }
+}
+
+//! @endcond
 
 //! Intialize a proxy inlet
 /*
@@ -82,6 +138,7 @@ void eproxy_free(void *owner, t_eproxy* proxy)
     {
         if(z->o_nproxy == proxy->p_index + 1)
         {
+            canvas_deletelines_for_io(eobj_getcanvas(owner), (t_text *)owner, (t_inlet *)proxy->p_inlet, NULL);
             inlet_free(proxy->p_inlet);
             if(z->o_nproxy == 1)
             {
@@ -101,78 +158,7 @@ void eproxy_free(void *owner, t_eproxy* proxy)
     }
 }
 
-//! Anything method of the proxy inlet
-/*
- * @memberof    eobj
- * @param x     The proxy pointer
- * @param s     The symbol selector
- * @param argc  The size of the array of atoms
- * @param argv  The array of atoms
- * @return      This function return nothing
- * @details     This function record the current index of the proxy and call the eobj method correspondinf to the selector.
- */
-void eproxy_anything(t_eproxy *x, t_symbol *s, int argc, t_atom *argv)
-{
-    t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_current_proxy = x->p_index;
-	pd_typedmess((t_pd *)x->p_owner, s, argc, argv);
-}
 
-
-void eproxy_bang(t_eproxy *x)
-{
-    t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_current_proxy = x->p_index;
-    pd_bang((t_pd *)x->p_owner);
-}
-
-void eproxy_float(t_eproxy *x, float f)
-{
-    t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_current_proxy = x->p_index;
-    pd_float((t_pd *)x->p_owner, f);
-}
-
-void eproxy_symbol(t_eproxy *x, t_symbol* s)
-{
-    t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_current_proxy = x->p_index;
-    pd_symbol((t_pd *)x->p_owner, s);
-}
-
-void eproxy_list(t_eproxy *x, t_symbol* s, int argc, t_atom* argv)
-{
-    t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_current_proxy = x->p_index;
-    pd_list((t_pd *)x->p_owner, s, argc, argv);
-}
-
-//! Initialize the proxy inlet classe
-/*
- * @memberof    eobj
- * @param c     The proxy inlet classe
- * @return      This function return nothing
- */
-t_class* eproxy_setup()
-{
-    t_class* eproxy_class;
-    t_symbol* eproxy1572_sym = gensym("eproxy1572");
-    if(!eproxy1572_sym->s_thing)
-    {
-        eproxy_class = class_new(gensym("eproxy"), NULL, (t_method)NULL, sizeof(t_eproxy), CLASS_PD, A_GIMME, 0);
-        eproxy1572_sym->s_thing = (t_class **)eproxy_class;
-        class_addanything(eproxy_class, (t_method)eproxy_anything);
-        class_addbang(eproxy_class,  (t_method)eproxy_bang);
-        class_addfloat(eproxy_class,  (t_method)eproxy_float);
-        class_addsymbol(eproxy_class,  (t_method)eproxy_symbol);
-        class_addlist(eproxy_class, (t_method)eproxy_list);
-        return eproxy_class;
-    }
-    else
-    {
-        return (t_class *)eproxy1572_sym->s_thing;
-    }
-}
 
 //! @endcond
 

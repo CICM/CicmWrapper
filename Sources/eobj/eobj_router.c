@@ -101,8 +101,6 @@ void erouter_setup()
         sys_gui(" set y [winfo rooty [winfo name .]]\n");
         sys_vgui(" pdsend \"%s topcanvasmouse $x $y\"\n", erouter1572_sym->s_name);
         sys_gui("}\n");
-        
-        eproxy_setup();
     }
 }
 

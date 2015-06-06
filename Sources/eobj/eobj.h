@@ -77,13 +77,8 @@ void eobj_mousecanvas(t_eobj* x, t_symbol* s, long argc, t_atom* argv);
  * PROXY
  *********************************/
 
-//! @cond
-t_class* eproxy_setup();
-void eproxy_anything(t_eproxy *x, t_symbol *s, int argc, t_atom *argv);
 t_eproxy* eproxy_new(void *owner, t_symbol* s);
 void eproxy_free(void *owner, t_eproxy* proxy);
-
-//! @endcond
 
 /*********************************
  * DSP

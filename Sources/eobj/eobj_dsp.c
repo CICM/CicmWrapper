@@ -127,7 +127,6 @@ void eobj_resize_inputs(void *x, long nins)
         {
             if(obj->o_proxy[i]->p_inlet->i_symfrom == &s_signal)
             {
-                canvas_deletelines_for_io(eobj_getcanvas(obj), (t_text *)x, (t_inlet *)obj->o_proxy[i]->p_inlet, NULL);
                 eproxy_free(obj, obj->o_proxy[i]);
             }
         }
@@ -135,102 +134,6 @@ void eobj_resize_inputs(void *x, long nins)
     canvas_fixlinesfor(eobj_getcanvas(obj), (t_text *)x);
 }
 
-//! Resize the number of signal outputs of an edspobj
-/*
- \ @memberof    edspobj
- \ @param x     The edspobj pointer
- \ @param nouts The number of signal outputs
- \ @return      Nothing
-*
-void eobj_resize_outputs(void *x, long nouts)
-{
-    int todo;
-    int i;
-    t_edspobj* obj = (t_edspobj *)x;
-    t_edspbox* box = (t_edspbox *)x;
-    nouts       = pd_clip_min(nouts, 0);
-
-    if(eobj_isbox(x))
-    {
-        if(nouts > obj_nsigoutlets(&box->b_obj.o_obj))
-        {
-            for(i = obj_nsigoutlets(&box->b_obj.o_obj); i < nouts; i++)
-            {
-                box->d_outlets[i] = outlet_new(&box->b_obj.o_obj, &s_signal);
-            }
-        }
-        else if (nouts < obj_nsigoutlets(&box->b_obj.o_obj))
-        {
-            for(i = obj_nsigoutlets(&box->b_obj.o_obj)-1; i >= nouts; i--)
-            {
-                canvas_deletelines_for_io(box->b_obj.o_canvas, (t_text *)x, NULL, box->d_outlets[i]);
-                outlet_free(box->d_outlets[i]);
-            }
-        }
-        box->d_dsp_size = obj_nsiginlets(&box->b_obj.o_obj) + obj_nsigoutlets(&box->b_obj.o_obj) + 6;
-        canvas_fixlinesfor(box->b_obj.o_canvas, (t_text *)x);
-    }
-    else
-    {
-        if(obj->d_outlets && obj->d_sigs_out && obj->d_sigs_real)
-        {
-            obj->d_outlets        = (t_outlet **)realloc(obj->d_outlets, nouts * sizeof(t_outlet *));
-            obj->d_sigs_out       = (t_float **)realloc(obj->d_sigs_out, nouts * sizeof(t_outlet *));
-            obj->d_sigs_real      = (t_float *)realloc(obj->d_sigs_real, nouts * EPD_MAX_SIGSISIZE * sizeof(t_float));
-            if(obj->d_outlets && obj->d_sigs_out && obj->d_sigs_real)
-            {
-                for(i = 0; i < nouts; i++)
-                {
-                    obj->d_sigs_out[i] = obj->d_sigs_real+i*EPD_MAX_SIGSISIZE;
-                    obj->d_outlets[i] = outlet_new(&obj->d_obj.o_obj, &s_signal);
-                }
-            }
-            else
-            {
-                if(obj->d_outlets)
-                    free(obj->d_outlets);
-                if(obj->d_sigs_out)
-                    free(obj->d_sigs_out);
-                if(obj->d_sigs_real)
-                    free(obj->d_sigs_real);
-                pd_error(x, "can't allocate memory for signals.");
-            }
-        }
-        else
-        {
-            
-        }
-        
-        if(nouts > obj_nsigoutlets(&obj->d_obj.o_obj))
-        {
-            for (i = obj_nsigoutlets(&obj->d_obj.o_obj); i < nouts; i++)
-            {
-                if(!obj->d_obj.o_canvas->gl_loading && glist_isvisible(obj->d_obj.o_canvas))
-                    gobj_vis((t_gobj *)x, obj->d_obj.o_canvas, 0);
-                obj->d_outlets[i] = outlet_new(&obj->d_obj.o_obj, &s_signal);
-                if(!obj->d_obj.o_canvas->gl_loading && glist_isvisible(obj->d_obj.o_canvas))
-                    gobj_vis((t_gobj *)x, obj->d_obj.o_canvas, 1);
-            }
-        }
-        else if (nouts < obj_nsigoutlets(&obj->d_obj.o_obj))
-        {
-            for(i = obj_nsigoutlets(&obj->d_obj.o_obj) - 1; i >= nouts; i--)
-            {
-                if(!obj->d_obj.o_canvas->gl_loading && glist_isvisible(obj->d_obj.o_canvas))
-                {
-                    gobj_vis((t_gobj *)x, obj->d_obj.o_canvas, 0);
-                    canvas_deletelines_for_io(obj->d_obj.o_canvas, (t_text *)x, NULL, obj->d_outlets[i]);
-                }
-                outlet_free(obj->d_outlets[i]);
-                if(!obj->d_obj.o_canvas->gl_loading && glist_isvisible(obj->d_obj.o_canvas))
-                    gobj_vis((t_gobj *)x, obj->d_obj.o_canvas, 1);
-            }
-        }
-        obj->d_dsp_size = obj_nsiginlets(&obj->d_obj.o_obj) + obj_nsigoutlets(&obj->d_obj.o_obj) + 6;
-        canvas_fixlinesfor(obj->d_obj.o_canvas, (t_text *)x);
-    }
-}
- */
 
 //! @cond
 //! The dsp method (PRIVATE)
