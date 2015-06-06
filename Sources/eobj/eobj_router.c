@@ -364,8 +364,8 @@ long erouter_getmouse_modifier()
     x = (t_erouter *)erouter1572_sym->s_thing;
     if(x)
     {
-        if(x->e_mouse_modifier >= EPD_MAX_SIGS)
-            return x->e_mouse_modifier - EPD_MAX_SIGS;
+        if(x->e_mouse_modifier >= 256)
+            return x->e_mouse_modifier - 256;
         else
             return x->e_mouse_modifier;
     }

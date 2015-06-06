@@ -41,7 +41,7 @@
 void eclass_new_attr_typed(t_eclass* c, char* attrname, char* type, long size, long maxsize, long flags, long offset)
 {
     int i;
-    char getattr[EPD_MAX_SIGS];
+    char getattr[MAXPDSTRING];
     if(size < 1)
         return;
     for(i = 0; i < c->c_nattr; i++)

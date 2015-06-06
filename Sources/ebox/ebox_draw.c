@@ -76,7 +76,7 @@ void ebox_get_rect_for_view(t_ebox *x, t_rect *rect)
 t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
 {
 	int i, j;
-    char text[EPD_MAX_SIGS];
+    char text[MAXPDSTRING];
 
     for(i = 0; i < x->b_number_of_layers; i++)
     {
