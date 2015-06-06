@@ -34,8 +34,7 @@
  */
 t_pt eobj_get_mouse_global_position(void* x)
 {
-    t_pt point = erouter_getmouse_global_position();
-    return point;
+    return erouter_getmouse_global_position();
 }
 
 //! Retrieve the canvas mouse position
