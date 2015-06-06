@@ -251,6 +251,7 @@ void eobj_dsp(void *x, t_signal **sp)
     t_eclass *c    = eobj_getclass(x);
     int nouts = obj_nsigoutlets((t_object *)x);
     int nins  = obj_nsiginlets((t_object *)x);
+    int samplesize = sp ? sp[0]->s_n : 8192;
     if(eobj_isbox(x))
     {
         if(box->d_misc == E_NO_INPLACE)
@@ -270,11 +271,11 @@ void eobj_dsp(void *x, t_signal **sp)
             }
             if(box->d_sigs_out)
             {
-                box->d_sigs_real = (t_float *)realloc(box->d_sigs_real, nouts * EPD_MAX_SIGSISIZE * sizeof(t_float));
+                box->d_sigs_real = (t_float *)realloc(box->d_sigs_real, nouts * samplesize * sizeof(t_float));
             }
             else
             {
-                box->d_sigs_real = (t_float *)malloc(nouts * EPD_MAX_SIGSISIZE * sizeof(t_float));
+                box->d_sigs_real = (t_float *)malloc(nouts * samplesize * sizeof(t_float));
             }
             if(!box->d_sigs_real)
             {
@@ -284,7 +285,7 @@ void eobj_dsp(void *x, t_signal **sp)
             }
             for(i = 0; i < nouts; i++)
             {
-                box->d_sigs_out[i] = box->d_sigs_real+i*EPD_MAX_SIGSISIZE;
+                box->d_sigs_out[i] = box->d_sigs_real+i*samplesize;
             }
         }
         
@@ -359,11 +360,11 @@ void eobj_dsp(void *x, t_signal **sp)
             }
             if(obj->d_sigs_out)
             {
-                obj->d_sigs_real = (t_float *)realloc(obj->d_sigs_real, nouts * EPD_MAX_SIGSISIZE * sizeof(t_float));
+                obj->d_sigs_real = (t_float *)realloc(obj->d_sigs_real, nouts * samplesize * sizeof(t_float));
             }
             else
             {
-                obj->d_sigs_real = (t_float *)malloc(nouts * EPD_MAX_SIGSISIZE * sizeof(t_float));
+                obj->d_sigs_real = (t_float *)malloc(nouts * samplesize * sizeof(t_float));
             }
             if(!obj->d_sigs_real)
             {
@@ -373,7 +374,7 @@ void eobj_dsp(void *x, t_signal **sp)
             }
             for(i = 0; i < nouts; i++)
             {
-                obj->d_sigs_out[i] = obj->d_sigs_real+i*EPD_MAX_SIGSISIZE;
+                obj->d_sigs_out[i] = obj->d_sigs_real+i*samplesize;
             }
         }
         
@@ -442,17 +443,14 @@ t_sample* eobj_getsignalinput(void *x, long index)
 {
     t_edspobj* obj = (t_edspobj *)x;
     t_edspbox* box = (t_edspbox *)x;
-    
-    if(index < obj_nsiginlets((t_object *)x) && index >= 0 && box->d_dsp_vectors)
+    if(eobj_isbox(x) && index < obj_nsiginlets((t_object *)x) && index >= 0 && box->d_dsp_vectors )
     {
-        if(eobj_isbox(x))
-        {
-            return (t_sample *)box->d_dsp_vectors[6 + index];
-        }
-        else
-        {
-            return (t_sample *)obj->d_dsp_vectors[6 + index];
-        }
+        return (t_sample *)box->d_dsp_vectors[6 + index];
+    }
+    else if(index < obj_nsiginlets((t_object *)x) && index >= 0 && obj->d_dsp_vectors)
+    {
+        
+        return (t_sample *)obj->d_dsp_vectors[6 + index];
     }
     return NULL;
 }
@@ -469,22 +467,19 @@ t_sample* eobj_getsignaloutput(void *x, long index)
     t_edspobj* obj = (t_edspobj *)x;
     t_edspbox* box = (t_edspbox *)x;
     
-    if(index < obj_nsigoutlets((t_object *)x) && index >= 0 && box->d_dsp_vectors)
+    if(eobj_isbox(x) && index < obj_nsigoutlets((t_object *)x) && index >= 0 && box->d_dsp_vectors)
     {
-        if(eobj_isbox(x))
-        {
-            if(box->d_misc == E_NO_INPLACE)
-                return box->d_sigs_out[index];
-            else
-                return (t_sample *)box->d_dsp_vectors[index + 6 + obj_nsiginlets((t_object *)x)];
-        }
+        if(box->d_misc == E_NO_INPLACE)
+            return box->d_sigs_out[index];
         else
-        {
-            if(obj->d_misc == E_NO_INPLACE)
-                return obj->d_sigs_out[index];
-            else
-                return (t_sample *)obj->d_dsp_vectors[index + 6 + obj_nsiginlets((t_object *)x)];
-        }
+            return (t_sample *)box->d_dsp_vectors[index + 6 + obj_nsiginlets((t_object *)x)];
+    }
+    else if(index < obj_nsigoutlets((t_object *)x) && index >= 0 && obj->d_dsp_vectors)
+    {
+        if(obj->d_misc == E_NO_INPLACE)
+            return obj->d_sigs_out[index];
+        else
+            return (t_sample *)obj->d_dsp_vectors[index + 6 + obj_nsiginlets((t_object *)x)];
     }
     return NULL;
 }
