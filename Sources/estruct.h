@@ -425,7 +425,7 @@ typedef struct _eobj
     t_symbol*           o_id;               /*!< The object ID. */
     t_canvas*           o_canvas;           /*!< The canvas that own the object. */
     t_symbol*           o_canvas_id;        /*!< The canvas ID. */
-    t_eproxy*           o_proxy;            /*!< The array of proxy inlets. */
+    t_eproxy**          o_proxy;            /*!< The array of proxy inlets. */
     int                 o_nproxy;           /*!< The number of proxy inlets. */
     int                 o_current_proxy;    /*!< The index of the current proxy inlet used */
     t_clock*            o_clock;            /*!< The clock for mouse canvas position */

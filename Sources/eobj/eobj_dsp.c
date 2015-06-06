@@ -62,11 +62,11 @@ void eobj_dspsetup(void *x, long nins, long nouts)
     }
     for(i = obj_nsigoutlets((t_object *)x); i < nouts; i++)
     {
-        outlet_new((t_object *)box, &s_signal);
+        outlet_new((t_object *)x, &s_signal);
     }
     for(i = obj_nsiginlets((t_object *)x); i < nins; i++)
     {
-        eproxy_new(box, &s_signal);
+        eproxy_new(x, &s_signal);
     }
 }
 
@@ -125,10 +125,10 @@ void eobj_resize_inputs(void *x, long nins)
     {
         for(i = obj->o_nproxy - 1; i >= nins; --i)
         {
-            if(obj->o_proxy[i].p_inlet->i_symfrom == &s_signal)
+            if(obj->o_proxy[i]->p_inlet->i_symfrom == &s_signal)
             {
-                canvas_deletelines_for_io(eobj_getcanvas(obj), (t_text *)x, (t_inlet *)obj->o_proxy[i].p_inlet, NULL);
-                eproxy_free(obj, &obj->o_proxy[i]);
+                canvas_deletelines_for_io(eobj_getcanvas(obj), (t_text *)x, (t_inlet *)obj->o_proxy[i]->p_inlet, NULL);
+                eproxy_free(obj, obj->o_proxy[i]);
             }
         }
     }

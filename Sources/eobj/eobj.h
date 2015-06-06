@@ -78,16 +78,7 @@ void eobj_mousecanvas(t_eobj* x, t_symbol* s, long argc, t_atom* argv);
  *********************************/
 
 //! @cond
-
-void inlet_wrong(t_inlet *x, t_symbol *s);
-void new_inlet_bang(t_inlet *x);
-void new_inlet_pointer(t_inlet *x, t_gpointer *gp);
-void new_inlet_float(t_inlet *x, t_float f);
-void new_inlet_symbol(t_inlet *x, t_symbol *s);
-void new_inlet_list(t_inlet *x, t_symbol *s, int argc, t_atom *argv);
-void new_inlet_anything(t_inlet *x, t_symbol *s, int argc, t_atom *argv);
-
-void eproxy_setup();
+t_class* eproxy_setup();
 void eproxy_anything(t_eproxy *x, t_symbol *s, int argc, t_atom *argv);
 t_eproxy* eproxy_new(void *owner, t_symbol* s);
 void eproxy_free(void *owner, t_eproxy* proxy);
