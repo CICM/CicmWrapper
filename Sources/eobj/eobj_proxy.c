@@ -28,6 +28,156 @@
 
 #include "eobj.h"
 
+static t_class* eproxy_class;
+
+static void inlet_wrong(t_inlet *x, t_symbol *s)
+{
+    pd_error(x->i_owner, "inlet: expected '%s' but got '%s'",
+             x->i_symfrom->s_name, s->s_name);
+}
+
+static void new_inlet_list(t_inlet *x, t_symbol *s, int argc, t_atom *argv);
+
+static void new_inlet_bang(t_inlet *x)
+{
+    if (x->i_symfrom == &s_bang)
+        pd_vmess(x->i_dest, x->i_un.iu_symto, "");
+    else if (!x->i_symfrom)
+        pd_bang(x->i_dest);
+    else if (x->i_symfrom == &s_list)
+        new_inlet_list(x, &s_bang, 0, 0);
+    else if (*x->i_dest == eproxy_class)
+    {
+        t_eproxy* proxy = (t_eproxy *)x->i_dest;
+        t_eobj *z = (t_eobj *)proxy->p_owner;
+        z->o_current_proxy = proxy->p_index;
+        pd_typedmess((t_pd *)proxy->p_owner, &s_bang, 0, NULL);
+        z->o_current_proxy = 0;
+    }
+    else inlet_wrong(x, &s_bang);
+}
+
+static void new_inlet_pointer(t_inlet *x, t_gpointer *gp)
+{
+    if (x->i_symfrom == &s_pointer)
+        pd_vmess(x->i_dest, x->i_un.iu_symto, "p", gp);
+    else if (!x->i_symfrom)
+        pd_pointer(x->i_dest, gp);
+    else if (x->i_symfrom == &s_list)
+    {
+        t_atom a;
+        SETPOINTER(&a, gp);
+        new_inlet_list(x, &s_pointer, 1, &a);
+    }
+    else if (*x->i_dest == eproxy_class)
+    {
+        t_atom a;
+        t_eproxy* proxy = (t_eproxy *)x->i_dest;
+        t_eobj *z = (t_eobj *)proxy->p_owner;
+        z->o_current_proxy = proxy->p_index;
+        SETPOINTER(&a, gp);
+        pd_typedmess((t_pd *)x->i_dest, &s_pointer, 1, &a);
+        z->o_current_proxy = 0;
+    }
+    else inlet_wrong(x, &s_pointer);
+}
+
+static void new_inlet_float(t_inlet *x, t_float f)
+{
+    if (x->i_symfrom == &s_float)
+        pd_vmess(x->i_dest, x->i_un.iu_symto, "f", (t_floatarg)f);
+    else if (*x->i_dest == eproxy_class)
+    {
+        t_atom a;
+        t_eproxy* proxy = (t_eproxy *)x->i_dest;
+        t_eobj *z = (t_eobj *)proxy->p_owner;
+        z->o_current_proxy = proxy->p_index;
+        SETFLOAT(&a, f);
+        pd_typedmess((t_pd *)x->i_dest, &s_float, 1, &a);
+        z->o_current_proxy = 0;
+    }
+    else if (x->i_symfrom == &s_signal)
+        x->i_un.iu_floatsignalvalue = f;
+    else if (!x->i_symfrom)
+        pd_float(x->i_dest, f);
+    else if (x->i_symfrom == &s_list)
+    {
+        t_atom a;
+        SETFLOAT(&a, f);
+        new_inlet_list(x, &s_float, 1, &a);
+    }
+    else inlet_wrong(x, &s_float);
+}
+
+static void new_inlet_symbol(t_inlet *x, t_symbol *s)
+{
+    if (x->i_symfrom == &s_symbol)
+        pd_vmess(x->i_dest, x->i_un.iu_symto, "s", s);
+    else if (!x->i_symfrom)
+        pd_symbol(x->i_dest, s);
+    else if (x->i_symfrom == &s_list)
+    {
+        t_atom a;
+        SETSYMBOL(&a, s);
+        new_inlet_list(x, &s_symbol, 1, &a);
+    }
+    else if (*x->i_dest == eproxy_class)
+    {
+        t_atom a;
+        t_eproxy* proxy = (t_eproxy *)x->i_dest;
+        t_eobj *z = (t_eobj *)proxy->p_owner;
+        z->o_current_proxy = proxy->p_index;
+        SETSYMBOL(&a, s);
+        pd_typedmess((t_pd *)x->i_dest, &s_symbol, 1, &a);
+        z->o_current_proxy = 0;
+    }
+    else inlet_wrong(x, &s_symbol);
+}
+
+static void new_inlet_list(t_inlet *x, t_symbol *s, int argc, t_atom *argv)
+{
+    if (x->i_symfrom == &s_list || x->i_symfrom == &s_float || x->i_symfrom == &s_symbol || x->i_symfrom == &s_pointer)
+        typedmess(x->i_dest, x->i_un.iu_symto, argc, argv);
+    else if (*x->i_dest == eproxy_class)
+    {
+        t_eproxy* proxy = (t_eproxy *)x->i_dest;
+        t_eobj *z = (t_eobj *)proxy->p_owner;
+        z->o_current_proxy = proxy->p_index;
+        pd_typedmess((t_pd *)x->i_dest, s, argc, argv);
+        z->o_current_proxy = 0;
+    }
+    else if (!x->i_symfrom)
+    {
+        typedmess(x->i_dest, s, argc, argv);
+        //pd_list(x->i_dest, s, argc, argv);
+    }
+    else if (!argc)
+        new_inlet_bang(x);
+    else if (argc==1 && argv->a_type == A_FLOAT)
+        new_inlet_float(x, atom_getfloat(argv));
+    else if (argc==1 && argv->a_type == A_SYMBOL)
+        new_inlet_symbol(x, atom_getsymbol(argv));
+    else inlet_wrong(x, &s_list);
+    
+}
+
+static void new_inlet_anything(t_inlet *x, t_symbol *s, int argc, t_atom *argv)
+{
+    if (x->i_symfrom == s)
+        typedmess(x->i_dest, x->i_un.iu_symto, argc, argv);
+    else if (!x->i_symfrom)
+        typedmess(x->i_dest, s, argc, argv);
+    else if (*x->i_dest == eproxy_class)
+    {
+        t_eproxy* proxy = (t_eproxy *)x->i_dest;
+        t_eobj *z = (t_eobj *)proxy->p_owner;
+        z->o_current_proxy = proxy->p_index;
+        pd_typedmess((t_pd *)x->i_dest, s, argc, argv);
+        z->o_current_proxy = 0;
+    }
+    else inlet_wrong(x, s);
+}
+
 static void eproxy_anything(t_eproxy *x, t_symbol *s, int argc, t_atom *argv)
 {
     t_eobj *z = (t_eobj *)x->p_owner;
@@ -65,7 +215,6 @@ static void eproxy_list(t_eproxy *x, t_symbol* s, int argc, t_atom* argv)
 
 static t_class* eproxy_setup()
 {
-    t_class* eproxy_class;
     t_symbol* eproxy1572_sym = gensym("eproxy1572");
     if(!eproxy1572_sym->s_thing)
     {
@@ -84,7 +233,26 @@ static t_class* eproxy_setup()
     }
 }
 
+
 //! @endcond
+
+static t_inlet* einlet_new(t_object* owner, t_pd* proxy, t_symbol* s)
+{
+    t_class* inlet_class;
+    t_inlet* inlet = inlet_new((t_object *)owner, (t_pd *)proxy, s, s);
+    if(inlet)
+    {
+        inlet_class = inlet->i_pd;
+        inlet_class->c_bangmethod = (t_bangmethod)new_inlet_bang;
+        inlet_class->c_pointermethod = (t_pointermethod)new_inlet_pointer;
+        inlet_class->c_floatmethod = (t_floatmethod)new_inlet_float;
+        inlet_class->c_symbolmethod = (t_symbolmethod)new_inlet_symbol;
+        inlet_class->c_listmethod = (t_listmethod)new_inlet_list;
+        inlet_class->c_anymethod = (t_anymethod)new_inlet_anything;
+    }
+    return inlet;
+}
+
 
 //! Intialize a proxy inlet
 /*
@@ -111,8 +279,11 @@ t_eproxy* eproxy_new(void *owner, t_symbol* s)
         proxy->p_owner = (t_object *)owner;
         proxy->p_pd    = eproxy_class;
         proxy->p_index = z->o_nproxy;
-        proxy->p_inlet = inlet_new((t_object *)owner, (t_pd *)proxy, s, s);
-        
+        proxy->p_inlet = einlet_new((t_object *)owner, (t_pd *)proxy, s);
+        if(eobj_isdsp(z))
+        {
+            proxy->p_inlet->i_un.iu_floatsignalvalue = ((t_edspobj *)z)->d_float;
+        }
         z->o_proxy[z->o_nproxy] = proxy;
         z->o_nproxy++;
         return proxy;
