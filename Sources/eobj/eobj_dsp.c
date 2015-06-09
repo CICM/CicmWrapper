@@ -154,10 +154,11 @@ void eobj_dsp(void *x, t_signal **sp)
     t_eclass *c    = eobj_getclass(x);
     int nouts = obj_nsigoutlets((t_object *)x);
     int nins  = obj_nsiginlets((t_object *)x);
-    int samplesize = sp ? sp[0]->s_n : 8192;
+    int samplesize;
     
     if(sp && sp[0])
     {
+        samplesize = sp[0]->s_n;
         if(eobj_isbox(x))
         {
             if(box->d_misc == E_NO_INPLACE)
