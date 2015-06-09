@@ -155,183 +155,187 @@ void eobj_dsp(void *x, t_signal **sp)
     int nouts = obj_nsigoutlets((t_object *)x);
     int nins  = obj_nsiginlets((t_object *)x);
     int samplesize = sp ? sp[0]->s_n : 8192;
-    if(eobj_isbox(x))
+    
+    if(sp && sp[0])
     {
-        if(box->d_misc == E_NO_INPLACE)
+        if(eobj_isbox(x))
         {
-            if(box->d_sigs_out)
+            if(box->d_misc == E_NO_INPLACE)
             {
-                box->d_sigs_out = (t_float **)realloc(box->d_sigs_out, nouts * sizeof(t_float *));
-            }
-            else
-            {
-                box->d_sigs_out = (t_float **)malloc(nouts * sizeof(t_float *));
-            }
-            if(!box->d_sigs_out)
-            {
-                pd_error(box, "can't allocate memory for ni inpace processing.");
-                return;
-            }
-            if(box->d_sigs_out)
-            {
-                box->d_sigs_real = (t_float *)realloc(box->d_sigs_real, nouts * samplesize * sizeof(t_float));
-            }
-            else
-            {
-                box->d_sigs_real = (t_float *)malloc(nouts * samplesize * sizeof(t_float));
-            }
-            if(!box->d_sigs_real)
-            {
-                free(box->d_sigs_out);
-                pd_error(box, "can't allocate memory for ni inpace processing.");
-                return;
-            }
-            for(i = 0; i < nouts; i++)
-            {
-                box->d_sigs_out[i] = box->d_sigs_real+i*samplesize;
-            }
-        }
-        
-        box->d_dsp_size = nins + nouts + 6;
-        box->d_dsp_vectors = (t_int *)malloc(box->d_dsp_size * sizeof(t_int));
-        if(!box->d_dsp_vectors)
-        {
-            box->d_dsp_size = 0;
-            pd_error(x, "can't allocate memory for dsp vector.");
-            return;
-        }
-        count = (short*)calloc(obj_nsiginlets((t_object *)box) + obj_nsigoutlets((t_object *)box), sizeof(short));
-        if(count)
-        {
-            for(i = 0; i < (obj_nsiginlets((t_object *)box) + obj_nsigoutlets((t_object *)box)); i++)
-            {
-                count[i] = 0;
-            }
-            linetraverser_start(&t, eobj_getcanvas(x));
-            while((oc = linetraverser_next(&t)))
-            {
-                if(t.tr_ob2 == x && obj_issignaloutlet(t.tr_ob, t.tr_outno))
+                if(box->d_sigs_out)
                 {
-                    count[t.tr_inno] = 1;
+                    box->d_sigs_out = (t_float **)realloc(box->d_sigs_out, nouts * sizeof(t_float *));
+                }
+                else
+                {
+                    box->d_sigs_out = (t_float **)malloc(nouts * sizeof(t_float *));
+                }
+                if(!box->d_sigs_out)
+                {
+                    pd_error(box, "can't allocate memory for ni inpace processing.");
+                    return;
+                }
+                if(box->d_sigs_out)
+                {
+                    box->d_sigs_real = (t_float *)realloc(box->d_sigs_real, nouts * samplesize * sizeof(t_float));
+                }
+                else
+                {
+                    box->d_sigs_real = (t_float *)malloc(nouts * samplesize * sizeof(t_float));
+                }
+                if(!box->d_sigs_real)
+                {
+                    free(box->d_sigs_out);
+                    pd_error(box, "can't allocate memory for ni inpace processing.");
+                    return;
+                }
+                for(i = 0; i < nouts; i++)
+                {
+                    box->d_sigs_out[i] = box->d_sigs_real+i*samplesize;
                 }
             }
             
-            box->d_dsp_vectors[0] = (t_int)x;
-            box->d_dsp_vectors[1] = (t_int)sp[0]->s_n;
-            box->d_dsp_vectors[2] = (t_int)box->d_dsp_flag;
-            box->d_dsp_vectors[3] = (t_int)box->d_dsp_user_param;
-            box->d_dsp_vectors[4] = (t_int)obj_nsiginlets((t_object *)box);
-            box->d_dsp_vectors[5] = (t_int)obj_nsigoutlets((t_object *)box);
-            
-            for(i = 6; i < box->d_dsp_size; i++)
+            box->d_dsp_size = nins + nouts + 6;
+            box->d_dsp_vectors = (t_int *)malloc(box->d_dsp_size * sizeof(t_int));
+            if(!box->d_dsp_vectors)
             {
-                box->d_dsp_vectors[i] = (t_int)(sp[i - 6]->s_vec);
+                box->d_dsp_size = 0;
+                pd_error(x, "can't allocate memory for dsp vector.");
+                return;
             }
-            
-            if(c->c_widget.w_dsp != NULL)
-                c->c_widget.w_dsp(x, x, count, sp[0]->s_sr, sp[0]->s_n, 0);
-            
-            if(box->d_perform_method != NULL && box->d_misc == E_INPLACE)
-                dsp_addv(eobj_perform_box, (int)box->d_dsp_size, box->d_dsp_vectors);
-            else if(box->d_perform_method != NULL && box->d_misc == E_NO_INPLACE)
-                dsp_addv(eobj_perform_box_no_inplace, (int)box->d_dsp_size, box->d_dsp_vectors);
-            
-            free(count);
-            return;
+            count = (short*)calloc(obj_nsiginlets((t_object *)box) + obj_nsigoutlets((t_object *)box), sizeof(short));
+            if(count)
+            {
+                for(i = 0; i < (obj_nsiginlets((t_object *)box) + obj_nsigoutlets((t_object *)box)); i++)
+                {
+                    count[i] = 0;
+                }
+                linetraverser_start(&t, eobj_getcanvas(x));
+                while((oc = linetraverser_next(&t)))
+                {
+                    if(t.tr_ob2 == x && obj_issignaloutlet(t.tr_ob, t.tr_outno))
+                    {
+                        count[t.tr_inno] = 1;
+                    }
+                }
+                
+                box->d_dsp_vectors[0] = (t_int)x;
+                box->d_dsp_vectors[1] = (t_int)sp[0]->s_n;
+                box->d_dsp_vectors[2] = (t_int)box->d_dsp_flag;
+                box->d_dsp_vectors[3] = (t_int)box->d_dsp_user_param;
+                box->d_dsp_vectors[4] = (t_int)obj_nsiginlets((t_object *)box);
+                box->d_dsp_vectors[5] = (t_int)obj_nsigoutlets((t_object *)box);
+                
+                for(i = 6; i < box->d_dsp_size; i++)
+                {
+                    box->d_dsp_vectors[i] = (t_int)(sp[i - 6]->s_vec);
+                }
+                
+                if(c->c_widget.w_dsp != NULL)
+                    c->c_widget.w_dsp(x, x, count, sp[0]->s_sr, sp[0]->s_n, 0);
+                
+                if(box->d_perform_method != NULL && box->d_misc == E_INPLACE)
+                    dsp_addv(eobj_perform_box, (int)box->d_dsp_size, box->d_dsp_vectors);
+                else if(box->d_perform_method != NULL && box->d_misc == E_NO_INPLACE)
+                    dsp_addv(eobj_perform_box_no_inplace, (int)box->d_dsp_size, box->d_dsp_vectors);
+                
+                free(count);
+                return;
+            }
+            else
+            {
+                pd_error(x, "can't allocate memory for dsp chain counter.");
+            }
         }
         else
         {
-            pd_error(x, "can't allocate memory for dsp chain counter.");
-        }
-    }
-    else
-    {
-        if(obj->d_misc == E_NO_INPLACE)
-        {
-            if(obj->d_sigs_out)
+            if(obj->d_misc == E_NO_INPLACE)
             {
-                obj->d_sigs_out = (t_float **)realloc(obj->d_sigs_out, nouts * sizeof(t_float *));
-            }
-            else
-            {
-                obj->d_sigs_out = (t_float **)malloc(nouts * sizeof(t_float *));
-            }
-            if(!obj->d_sigs_out)
-            {
-                pd_error(obj, "can't allocate memory for ni inpace processing.");
-                return;
-            }
-            if(obj->d_sigs_out)
-            {
-                obj->d_sigs_real = (t_float *)realloc(obj->d_sigs_real, nouts * samplesize * sizeof(t_float));
-            }
-            else
-            {
-                obj->d_sigs_real = (t_float *)malloc(nouts * samplesize * sizeof(t_float));
-            }
-            if(!obj->d_sigs_real)
-            {
-                free(obj->d_sigs_out);
-                pd_error(obj, "can't allocate memory for ni inpace processing.");
-                return;
-            }
-            for(i = 0; i < nouts; i++)
-            {
-                obj->d_sigs_out[i] = obj->d_sigs_real+i*samplesize;
-            }
-        }
-        
-        obj->d_dsp_size = nins + nouts + 6;
-        obj->d_dsp_vectors = (t_int *)malloc(obj->d_dsp_size * sizeof(t_int));
-        if(!obj->d_dsp_vectors)
-        {
-            obj->d_dsp_size = 0;
-            pd_error(x, "can't allocate memory for dsp vector.");
-            return;
-        }
-        count = (short*)calloc(obj_nsiginlets((t_object *)obj) + obj_nsigoutlets((t_object *)obj), sizeof(short));
-        if(count)
-        {
-            for(i = 0; i < (obj_nsiginlets((t_object *)obj) + obj_nsigoutlets((t_object *)obj)); i++)
-            {
-                count[i] = 0;
-            }
-            linetraverser_start(&t, eobj_getcanvas(x));
-            while((oc = linetraverser_next(&t)))
-            {
-                if(t.tr_ob2 == x && obj_issignaloutlet(t.tr_ob, t.tr_outno))
+                if(obj->d_sigs_out)
                 {
-                    count[t.tr_inno] = 1;
+                    obj->d_sigs_out = (t_float **)realloc(obj->d_sigs_out, nouts * sizeof(t_float *));
+                }
+                else
+                {
+                    obj->d_sigs_out = (t_float **)malloc(nouts * sizeof(t_float *));
+                }
+                if(!obj->d_sigs_out)
+                {
+                    pd_error(obj, "can't allocate memory for ni inpace processing.");
+                    return;
+                }
+                if(obj->d_sigs_out)
+                {
+                    obj->d_sigs_real = (t_float *)realloc(obj->d_sigs_real, nouts * samplesize * sizeof(t_float));
+                }
+                else
+                {
+                    obj->d_sigs_real = (t_float *)malloc(nouts * samplesize * sizeof(t_float));
+                }
+                if(!obj->d_sigs_real)
+                {
+                    free(obj->d_sigs_out);
+                    pd_error(obj, "can't allocate memory for ni inpace processing.");
+                    return;
+                }
+                for(i = 0; i < nouts; i++)
+                {
+                    obj->d_sigs_out[i] = obj->d_sigs_real+i*samplesize;
                 }
             }
             
-            obj->d_dsp_vectors[0] = (t_int)x;
-            obj->d_dsp_vectors[1] = (t_int)sp[0]->s_n;
-            obj->d_dsp_vectors[2] = (t_int)obj->d_dsp_flag;
-            obj->d_dsp_vectors[3] = (t_int)obj->d_dsp_user_param;
-            obj->d_dsp_vectors[4] = (t_int)obj_nsiginlets((t_object *)obj);
-            obj->d_dsp_vectors[5] = (t_int)obj_nsigoutlets((t_object *)obj);
-            
-            for(i = 6; i < obj->d_dsp_size; i++)
+            obj->d_dsp_size = nins + nouts + 6;
+            obj->d_dsp_vectors = (t_int *)malloc(obj->d_dsp_size * sizeof(t_int));
+            if(!obj->d_dsp_vectors)
             {
-                obj->d_dsp_vectors[i] = (t_int)(sp[i - 6]->s_vec);
+                obj->d_dsp_size = 0;
+                pd_error(x, "can't allocate memory for dsp vector.");
+                return;
             }
-            
-            if(c->c_widget.w_dsp != NULL)
-                c->c_widget.w_dsp(x, x, count, sp[0]->s_sr, sp[0]->s_n, 0);
-            
-            if(obj->d_perform_method != NULL && obj->d_misc == E_INPLACE)
-                dsp_addv(eobj_perform, (int)obj->d_dsp_size, obj->d_dsp_vectors);
-            else if(obj->d_perform_method != NULL && obj->d_misc == E_NO_INPLACE)
-                dsp_addv(eobj_perform_no_inplace, (int)obj->d_dsp_size, obj->d_dsp_vectors);
-            
-            free(count);
-            return;
-        }
-        else
-        {
-            pd_error(x, "can't allocate memory for dsp chain counter.");
-        }
+            count = (short*)calloc(obj_nsiginlets((t_object *)obj) + obj_nsigoutlets((t_object *)obj), sizeof(short));
+            if(count)
+            {
+                for(i = 0; i < (obj_nsiginlets((t_object *)obj) + obj_nsigoutlets((t_object *)obj)); i++)
+                {
+                    count[i] = 0;
+                }
+                linetraverser_start(&t, eobj_getcanvas(x));
+                while((oc = linetraverser_next(&t)))
+                {
+                    if(t.tr_ob2 == x && obj_issignaloutlet(t.tr_ob, t.tr_outno))
+                    {
+                        count[t.tr_inno] = 1;
+                    }
+                }
+                
+                obj->d_dsp_vectors[0] = (t_int)x;
+                obj->d_dsp_vectors[1] = (t_int)sp[0]->s_n;
+                obj->d_dsp_vectors[2] = (t_int)obj->d_dsp_flag;
+                obj->d_dsp_vectors[3] = (t_int)obj->d_dsp_user_param;
+                obj->d_dsp_vectors[4] = (t_int)obj_nsiginlets((t_object *)obj);
+                obj->d_dsp_vectors[5] = (t_int)obj_nsigoutlets((t_object *)obj);
+                
+                for(i = 6; i < obj->d_dsp_size; i++)
+                {
+                    obj->d_dsp_vectors[i] = (t_int)(sp[i - 6]->s_vec);
+                }
+                
+                if(c->c_widget.w_dsp != NULL)
+                    c->c_widget.w_dsp(x, x, count, sp[0]->s_sr, sp[0]->s_n, 0);
+                
+                if(obj->d_perform_method != NULL && obj->d_misc == E_INPLACE)
+                    dsp_addv(eobj_perform, (int)obj->d_dsp_size, obj->d_dsp_vectors);
+                else if(obj->d_perform_method != NULL && obj->d_misc == E_NO_INPLACE)
+                    dsp_addv(eobj_perform_no_inplace, (int)obj->d_dsp_size, obj->d_dsp_vectors);
+                
+                free(count);
+                return;
+            }
+            else
+            {
+                pd_error(x, "can't allocate memory for dsp chain counter.");
+            }
+        }        
     }
 }
 
