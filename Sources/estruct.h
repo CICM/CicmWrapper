@@ -382,25 +382,6 @@ typedef struct _edrawparams
 } t_edrawparams;
 
 /**
- * @struct _erouter
- * @brief The CICM Router object.
- * @details It contains the router class and a pointer to all the eobjects loaeded.
- */
-typedef struct _erouter
-{
-    t_object            e_obj;          /*!< The router object. */
-    t_object**          e_childs;       /*!< The eobj pointer. */
-    long                e_nchilds;      /*!< The number of eobj. */
-    t_symbol**          e_libraries;    /*!< The libraries names. */
-    long                e_nlibraries;   /*!< The number of libraries. */
-    t_clock*            e_clock;        /*!< The clock for mouse position. */
-    t_pt                e_mouse_topcanvas_position;
-    t_pt                e_mouse_global_position;
-    long                e_mouse_modifier;
-    char                e_mouse_down;
-}t_erouter;
-
-/**
  * @struct _eproxy
  * @brief The CICM Proxy object.
  * @details It contains the proxy class, the eobj owner and the index of the proxy.

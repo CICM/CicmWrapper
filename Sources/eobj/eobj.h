@@ -109,18 +109,6 @@ void eobj_attach_torouter(t_object* child);
 void eobj_detach_torouter(t_object* child);
 
 //! @cond
-void erouter_setup();
-void erouter_free(t_erouter *x);
-void erouter_anything(t_erouter *x, t_symbol *s, long argc, t_atom *argv);
-
-void erouter_tick(t_erouter * x);
-void erouter_mousedown(t_erouter *x, t_symbol *s, int argc, t_atom *argv);
-void erouter_mouseup(t_erouter *x, t_symbol *s, int argc, t_atom *argv);
-void erouter_mousemove(t_erouter *x, t_symbol *s, int argc, t_atom *argv);
-
-void erouter_mouseglobal(t_erouter *x, float px, float py);
-void erouter_mousetopcanvas(t_erouter *x, float px, float py);
-
 t_pt erouter_getmouse_topcanvas_position();
 t_pt erouter_getmouse_global_position();
 long erouter_getmouse_modifier();

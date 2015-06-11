@@ -147,7 +147,6 @@ void ebox_create_window(t_ebox* x, t_glist* glist)
         x->b_rect.y = x->b_obj.o_obj.te_ypix;
     }
     
-    eobj_attach_torouter((t_object *)x);
     ebox_tk_ids(x, glist_getcanvas(glist));
     ebox_create_widget(x);
 	ebox_bind_events(x);
