@@ -103,7 +103,7 @@ void ebox_attrprocess_default(void *x)
         if(c->c_attr[i]->defvals)
         {
             defc = c->c_attr[i]->size;
-            defv = (t_atom *)calloc(defc, sizeof(t_atom));
+            defv = (t_atom *)calloc((unsigned long)defc, sizeof(t_atom));
             if(defc && defv)
             {
                 char check = 0;

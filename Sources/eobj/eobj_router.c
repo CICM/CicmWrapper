@@ -244,7 +244,7 @@ void eobj_detach_torouter(t_object* child)
                 }
                 else
                 {
-                    x->e_childs = realloc(x->e_childs, (x->e_nchilds) * sizeof(t_object *));
+                    x->e_childs = realloc(x->e_childs, (unsigned long)(x->e_nchilds) * sizeof(t_object *));
                     if(!x->e_childs)
                     {
                         x->e_nchilds = 0;
@@ -300,7 +300,7 @@ void eobj_attach_torouter(t_object* child)
                 }
             }
             
-            x->e_childs = (t_object **)realloc(x->e_childs, (x->e_nchilds + 1) * sizeof(t_object *));
+            x->e_childs = (t_object **)realloc(x->e_childs, (unsigned long)(x->e_nchilds + 1) * sizeof(t_object *));
             if(x->e_childs)
             {
                 x->e_childs[x->e_nchilds]  = child;

@@ -62,7 +62,7 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
 
             point = (char *)x + c->c_attr[i]->offset;
 
-            argv[0] = (t_atom *)calloc(argc[0], sizeof(t_atom));
+            argv[0] = (t_atom *)calloc((unsigned long)argc[0], sizeof(t_atom));
             if(c->c_attr[i]->getter)
             {
                 c->c_attr[i]->getter(x, c->c_attr[i], argc, argv);

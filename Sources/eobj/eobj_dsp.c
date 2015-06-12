@@ -165,11 +165,11 @@ void eobj_dsp(void *x, t_signal **sp)
             {
                 if(box->d_sigs_out)
                 {
-                    box->d_sigs_out = (t_float **)realloc(box->d_sigs_out, nouts * sizeof(t_float *));
+                    box->d_sigs_out = (t_float **)realloc(box->d_sigs_out, (size_t)nouts * sizeof(t_float *));
                 }
                 else
                 {
-                    box->d_sigs_out = (t_float **)malloc(nouts * sizeof(t_float *));
+                    box->d_sigs_out = (t_float **)malloc((size_t)nouts * sizeof(t_float *));
                 }
                 if(!box->d_sigs_out)
                 {
@@ -178,11 +178,11 @@ void eobj_dsp(void *x, t_signal **sp)
                 }
                 if(box->d_sigs_out)
                 {
-                    box->d_sigs_real = (t_float *)realloc(box->d_sigs_real, nouts * samplesize * sizeof(t_float));
+                    box->d_sigs_real = (t_float *)realloc(box->d_sigs_real, (size_t)(nouts * samplesize) * sizeof(t_float));
                 }
                 else
                 {
-                    box->d_sigs_real = (t_float *)malloc(nouts * samplesize * sizeof(t_float));
+                    box->d_sigs_real = (t_float *)malloc((size_t)(nouts * samplesize) * sizeof(t_float));
                 }
                 if(!box->d_sigs_real)
                 {
@@ -197,14 +197,14 @@ void eobj_dsp(void *x, t_signal **sp)
             }
             
             box->d_dsp_size = nins + nouts + 6;
-            box->d_dsp_vectors = (t_int *)malloc(box->d_dsp_size * sizeof(t_int));
+            box->d_dsp_vectors = (t_int *)malloc((size_t)box->d_dsp_size * sizeof(t_int));
             if(!box->d_dsp_vectors)
             {
                 box->d_dsp_size = 0;
                 pd_error(x, "can't allocate memory for dsp vector.");
                 return;
             }
-            count = (short*)calloc(obj_nsiginlets((t_object *)box) + obj_nsigoutlets((t_object *)box), sizeof(short));
+            count = (short*)calloc((size_t)(obj_nsiginlets((t_object *)box) + obj_nsigoutlets((t_object *)box)), sizeof(short));
             if(count)
             {
                 for(i = 0; i < (obj_nsiginlets((t_object *)box) + obj_nsigoutlets((t_object *)box)); i++)
@@ -254,11 +254,11 @@ void eobj_dsp(void *x, t_signal **sp)
             {
                 if(obj->d_sigs_out)
                 {
-                    obj->d_sigs_out = (t_float **)realloc(obj->d_sigs_out, nouts * sizeof(t_float *));
+                    obj->d_sigs_out = (t_float **)realloc(obj->d_sigs_out, (size_t)nouts * sizeof(t_float *));
                 }
                 else
                 {
-                    obj->d_sigs_out = (t_float **)malloc(nouts * sizeof(t_float *));
+                    obj->d_sigs_out = (t_float **)malloc((size_t)nouts * sizeof(t_float *));
                 }
                 if(!obj->d_sigs_out)
                 {
@@ -267,11 +267,11 @@ void eobj_dsp(void *x, t_signal **sp)
                 }
                 if(obj->d_sigs_out)
                 {
-                    obj->d_sigs_real = (t_float *)realloc(obj->d_sigs_real, nouts * samplesize * sizeof(t_float));
+                    obj->d_sigs_real = (t_float *)realloc(obj->d_sigs_real, (size_t)(nouts * samplesize) * sizeof(t_float));
                 }
                 else
                 {
-                    obj->d_sigs_real = (t_float *)malloc(nouts * samplesize * sizeof(t_float));
+                    obj->d_sigs_real = (t_float *)malloc((size_t)(nouts * samplesize) * sizeof(t_float));
                 }
                 if(!obj->d_sigs_real)
                 {
@@ -286,14 +286,14 @@ void eobj_dsp(void *x, t_signal **sp)
             }
             
             obj->d_dsp_size = nins + nouts + 6;
-            obj->d_dsp_vectors = (t_int *)malloc(obj->d_dsp_size * sizeof(t_int));
+            obj->d_dsp_vectors = (t_int *)malloc((size_t)obj->d_dsp_size * sizeof(t_int));
             if(!obj->d_dsp_vectors)
             {
                 obj->d_dsp_size = 0;
                 pd_error(x, "can't allocate memory for dsp vector.");
                 return;
             }
-            count = (short*)calloc(obj_nsiginlets((t_object *)obj) + obj_nsigoutlets((t_object *)obj), sizeof(short));
+            count = (short*)calloc((size_t)(obj_nsiginlets((t_object *)obj) + obj_nsigoutlets((t_object *)obj)), sizeof(short));
             if(count)
             {
                 for(i = 0; i < (obj_nsiginlets((t_object *)obj) + obj_nsigoutlets((t_object *)obj)); i++)
@@ -436,7 +436,7 @@ t_int* eobj_perform_no_inplace(t_int* w)
 
     for(i = 0; i < nouts; i++)
     {
-        memcpy(outs[i], x->d_sigs_out[i], nsamples * sizeof(t_float));
+        memcpy(outs[i], x->d_sigs_out[i], (size_t)nsamples * sizeof(t_float));
     }
     return w + (x->d_dsp_size + 1);
 }
@@ -485,7 +485,7 @@ t_int* eobj_perform_box_no_inplace(t_int* w)
     
     for(i = 0; i < nouts; i++)
     {
-        memcpy(outs[i], x->d_sigs_out[i], nsamples * sizeof(t_float));
+        memcpy(outs[i], x->d_sigs_out[i], (size_t)nsamples * sizeof(t_float));
     }
    
     return w + (x->d_dsp_size + 1);

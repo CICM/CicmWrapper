@@ -68,7 +68,7 @@ static void egraphics_paint(t_elayer *g, int filled, int preserved)
     t_egobj* nobj;
     if(g->e_new_objects.e_type != E_GOBJ_INVALID)
     {
-        g->e_objects = (t_egobj *)realloc(g->e_objects, (g->e_number_objects + 1) * sizeof(t_egobj));
+        g->e_objects = (t_egobj *)realloc(g->e_objects, (size_t)(g->e_number_objects + 1) * sizeof(t_egobj));
         if(g->e_objects)
         {
             nobj = g->e_objects + g->e_number_objects;
@@ -84,13 +84,13 @@ static void egraphics_paint(t_elayer *g, int filled, int preserved)
             nobj->e_type      = g->e_new_objects.e_type;
             nobj->e_roundness = g->e_new_objects.e_roundness;
             nobj->e_npoints   = g->e_new_objects.e_npoints;
-            nobj->e_points = (t_pt*)calloc(nobj->e_npoints, sizeof(t_pt));
+            nobj->e_points = (t_pt*)calloc((size_t)nobj->e_npoints, sizeof(t_pt));
             if(!nobj->e_points)
             {
                 nobj->e_type = E_GOBJ_INVALID;
                 return;
             }
-            memcpy(nobj->e_points, g->e_new_objects.e_points, sizeof(t_pt) * nobj->e_npoints);
+            memcpy(nobj->e_points, g->e_new_objects.e_points, sizeof(t_pt) * (size_t)nobj->e_npoints);
             nobj->e_roundness = g->e_new_objects.e_roundness;
             
             nobj->e_color = g->e_color;
@@ -132,7 +132,7 @@ void egraphics_stroke(t_elayer *g)
 
 void etext_layout_draw(t_etext* textlayout, t_elayer *g)
 {
-    g->e_objects = (t_egobj *)realloc(g->e_objects, (g->e_number_objects + 1) * sizeof(t_egobj));
+    g->e_objects = (t_egobj *)realloc(g->e_objects, (size_t)(g->e_number_objects + 1) * sizeof(t_egobj));
     if(g->e_objects)
     {
         long index = g->e_number_objects;

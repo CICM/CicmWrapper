@@ -185,13 +185,13 @@ void eclass_attr_itemlist(t_eclass* c, char* attrname, long flags, char* list)
             {
                 if(c->c_attr[i]->itemssize)
                 {
-                    c->c_attr[i]->itemslist = (t_symbol **)realloc(c->c_attr[i]->itemslist, size * sizeof(t_symbol *));
+                    c->c_attr[i]->itemslist = (t_symbol **)realloc(c->c_attr[i]->itemslist, (unsigned long)size * sizeof(t_symbol *));
                     if(c->c_attr[i]->itemslist)
                         c->c_attr[i]->itemssize = size;
                 }
                 else
                 {
-                    c->c_attr[i]->itemslist = (t_symbol **)calloc(size, sizeof(t_symbol *));
+                    c->c_attr[i]->itemslist = (t_symbol **)calloc((unsigned long)size, sizeof(t_symbol *));
                     if(c->c_attr[i]->itemslist)
                         c->c_attr[i]->itemssize = size;
                 }

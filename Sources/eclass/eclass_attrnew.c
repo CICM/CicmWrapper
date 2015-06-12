@@ -50,7 +50,7 @@ void eclass_new_attr_typed(t_eclass* c, char* attrname, char* type, long size, l
             return ;
     }
     
-    c->c_attr = (t_eattr **)realloc(c->c_attr, (c->c_nattr + 1) * sizeof(t_eattr *));
+    c->c_attr = (t_eattr **)realloc(c->c_attr, (size_t)(c->c_nattr + 1) * sizeof(t_eattr *));
     if(!c->c_attr)
     {
         return;

@@ -166,7 +166,7 @@ t_binbuf* binbuf_via_atoms(long ac, t_atom *av)
 
 t_symbol* format_symbol(t_symbol* s)
 {
-    int i, j, lenght = strlen(s->s_name);
+    int i, j, lenght = (int)strlen(s->s_name);
     char buffer[MAXPDSTRING];
     buffer[0] = '\"';
     for(i = 0, j = 1; i < lenght && j < MAXPDSTRING - 2; i++, j++)
@@ -201,7 +201,7 @@ t_atom* format_atoms(long ac, t_atom* av)
 
 long unformat_symbol(char* text, char* buffer, long size)
 {
-    int i = 0, j = 0, lenght = strlen(text);
+    int i = 0, j = 0, lenght = (int)strlen(text);
     int end = text[lenght - 1] == '"' || text[lenght - 1] == '\'';
     for(; i < lenght - end && j < size - 1; i++)
     {
@@ -241,7 +241,7 @@ long unformat_atoms(long ac, t_atom* av)
                 }
                 else
                 {
-                    lenght = strlen(buffer);
+                    lenght = (int)strlen(buffer);
                     strcat(buffer, " ");
                     str = (char)unformat_symbol(s->s_name, buffer+lenght+1, MAXPDSTRING-lenght-1);
                 }
@@ -258,7 +258,7 @@ long unformat_atoms(long ac, t_atom* av)
         else if(str)
         {
             sprintf(temp, " %f", atom_getfloat(av+i));
-            lenght = strlen(temp);
+            lenght = (int)strlen(temp);
             while(temp[lenght - 1] == '0')
             {
                 temp[lenght - 1] = '\0';
@@ -283,11 +283,11 @@ long unformat_atoms(long ac, t_atom* av)
 
 t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *argv)
 {
-    t_atom* av = (t_atom *)calloc(argc+1, sizeof(t_atom));
+    t_atom* av = (t_atom *)calloc((size_t)(argc+1), sizeof(t_atom));
     if(av)
     {
         atom_setsym(av, key);
-        memcpy(av+1, argv, argc * sizeof(t_atom));
+        memcpy(av+1, argv, (size_t)(argc) * sizeof(t_atom));
         format_atoms(argc, av+1);
         binbuf_add(d, (int)argc+1, av);
         return 0;
@@ -337,7 +337,7 @@ long atoms_get_keys(long ac, t_atom* av, t_symbol*** s)
     long size = atoms_get_nattributes(ac, av);
     if(size)
     {
-        s[0] = malloc(size * sizeof(t_symbol *));
+        s[0] = malloc((size_t)size * sizeof(t_symbol *));
         if(s[0])
         {
             for(i = 0, j = 0; i < ac; i++)
@@ -431,12 +431,12 @@ t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_a
 
     if(argc[0])
     {
-        argv[0] = (t_atom *)calloc(argc[0], sizeof(t_atom));
-        memcpy(argv[0], av+index, sizeof(t_atom) * argc[0]);
+        argv[0] = (t_atom *)calloc((size_t)argc[0], sizeof(t_atom));
+        memcpy(argv[0], av+index, (size_t)argc[0] * sizeof(t_atom));
         argc[0] = unformat_atoms(argc[0], argv[0]);
         if(argc[0])
         {
-            argv[0] = (t_atom *)realloc(argv[0], argc[0] * sizeof(t_atom));
+            argv[0] = (t_atom *)realloc(argv[0], (size_t)argc[0] * sizeof(t_atom));
         }
         else
         {

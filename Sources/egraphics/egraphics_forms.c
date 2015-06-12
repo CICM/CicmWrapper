@@ -54,7 +54,7 @@ void egraphics_move_to(t_elayer *g, float x, float y)
             }
             else
             {
-                g->e_new_objects.e_points = (t_pt *)realloc(g->e_new_objects.e_points, (g->e_new_objects.e_npoints + 2) * sizeof(t_pt));
+                g->e_new_objects.e_points = (t_pt *)realloc(g->e_new_objects.e_points, (size_t)(g->e_new_objects.e_npoints + 2) * sizeof(t_pt));
             }
         }
         if(g->e_new_objects.e_points)
@@ -77,7 +77,7 @@ void egraphics_line_to(t_elayer *g, float x, float y)
     {
         if(g->e_new_objects.e_type == E_GOBJ_PATH)
         {
-            g->e_new_objects.e_points = (t_pt *)realloc(g->e_new_objects.e_points, (g->e_new_objects.e_npoints + 4) * sizeof(t_pt));
+            g->e_new_objects.e_points = (t_pt *)realloc(g->e_new_objects.e_points, (size_t)(g->e_new_objects.e_npoints + 4) * sizeof(t_pt));
             if(g->e_new_objects.e_points)
             {
                 const t_pt pt = g->e_new_objects.e_points[g->e_new_objects.e_npoints-1];
@@ -104,7 +104,7 @@ void egraphics_curve_to(t_elayer *g, float ctrl1x, float ctrl1y, float ctrl2x, f
     {
         if(g->e_new_objects.e_type == E_GOBJ_PATH)
         {
-            g->e_new_objects.e_points = (t_pt *)realloc(g->e_new_objects.e_points, (g->e_new_objects.e_npoints + 4) * sizeof(t_pt));
+            g->e_new_objects.e_points = (t_pt *)realloc(g->e_new_objects.e_points, (size_t)(g->e_new_objects.e_npoints + 4) * sizeof(t_pt));
             if(g->e_new_objects.e_points)
             {
                 g->e_new_objects.e_points[g->e_new_objects.e_npoints].x  = E_PATH_CURVE;
