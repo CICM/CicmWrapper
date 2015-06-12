@@ -309,12 +309,6 @@ void ebox_mouse_up(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
     {
         x->b_move_box = eobj_get_mouse_canvas_position(x);
         sys_vgui("pdtk_canvas_mouseup %s %i %i 0\n", x->b_canvas_id->s_name, (int)x->b_move_box.x, (int)x->b_move_box.y);
-        if(x->b_selected_inlet != -1 || x->b_selected_outlet != -1)
-        {
-            x->b_selected_inlet = -1;
-            x->b_selected_outlet = -1;
-            ebox_redraw(x);
-        }
     }
 
     x->b_mouse_down = 0;

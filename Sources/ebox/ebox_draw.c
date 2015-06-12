@@ -446,28 +446,8 @@ void ebox_draw_iolets(t_ebox* x)
             if(obj_ninlets((t_object *)x) != 1)
                 pos_x_inlet = (int)(i / (float)(obj_ninlets((t_object *)x) - 1) * (x->b_rect.width - 8));
             egraphics_rectangle(g, pos_x_inlet, 0, 7, 2);
-            if(x->b_selected_inlet == i)
-            {
-                egraphics_set_color_rgba(g, &rgba_blue);
-                egraphics_fill(g);
-            }
-            else if (obj_issignalinlet((t_object *)x, i))
-            {
-                egraphics_set_color_rgba(g, &rgba_inletsig);
-                egraphics_fill(g);
-            }
-            else if(obj_isfloatinlet((t_object *)x, i))
-            {
-                egraphics_set_color_rgba(g, &rgba_black);
-                egraphics_fill(g);
-            }
-            else
-            {
-                egraphics_set_color_rgba(g, &rgba_white);
-                egraphics_fill(g);
-                egraphics_set_color_rgba(g, &rgba_black);
-                egraphics_stroke(g);
-            }
+            egraphics_set_color_rgba(g, &rgba_black);
+            egraphics_fill(g);
         }
 
         for(i = 0; i < obj_noutlets((t_object *)x); i++)
@@ -476,28 +456,8 @@ void ebox_draw_iolets(t_ebox* x)
             if(obj_noutlets((t_object *)x) != 1)
                 pos_x_outlet = (int)(i / (float)(obj_noutlets((t_object *)x) - 1) * (x->b_rect.width - 8));
             egraphics_rectangle(g, pos_x_outlet, x->b_rect.height - 3 + bdsize*2, 7, 2);
-            if(x->b_selected_outlet == i)
-            {
-                egraphics_set_color_rgba(g, &rgba_blue);
-                egraphics_fill(g);
-            }
-            else if (obj_issignaloutlet((t_object *)x, i))
-            {
-                egraphics_set_color_rgba(g, &rgba_inletsig);
-                egraphics_fill(g);
-            }
-            else if(obj_isfloatoutlet((t_object *)x, i))
-            {
-                egraphics_set_color_rgba(g, &rgba_black);
-                egraphics_fill(g);
-            }
-            else
-            {
-                egraphics_set_color_rgba(g, &rgba_white);
-                egraphics_fill(g);
-                egraphics_set_color_rgba(g, &rgba_black);
-                egraphics_stroke(g);
-            }
+            egraphics_set_color_rgba(g, &rgba_black);
+            egraphics_fill(g);
         }
         ebox_end_layer(x, s_eboxio);
     }
