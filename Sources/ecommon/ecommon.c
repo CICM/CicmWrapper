@@ -232,7 +232,7 @@ long unformat_atoms(long ac, t_atom* av)
                 {
                     if(s->s_name[0] == '"' || s->s_name[0] == '\'')
                     {
-                        str = unformat_symbol(s->s_name+1, buffer, MAXPDSTRING);
+                        str = (char)unformat_symbol(s->s_name+1, buffer, MAXPDSTRING);
                     }
                     else
                     {
@@ -243,7 +243,7 @@ long unformat_atoms(long ac, t_atom* av)
                 {
                     lenght = strlen(buffer);
                     strcat(buffer, " ");
-                    str = unformat_symbol(s->s_name, buffer+lenght+1, MAXPDSTRING-lenght-1);
+                    str = (char)unformat_symbol(s->s_name, buffer+lenght+1, MAXPDSTRING-lenght-1);
                 }
                 if(!str)
                 {
@@ -305,7 +305,7 @@ long atoms_get_attributes_offset(long ac, t_atom* av)
             break;
         }
     }
-    return pd_clip_minmax(i, 0, ac);
+    return (long)pd_clip_minmax(i, 0, ac);
 }
 
 long binbuf_get_attributes_offset(t_binbuf *d)
@@ -535,12 +535,12 @@ double pd_clip_max(double aValue, double aMaximum)
 
 double pd_ordinate(double radius, double angle)
 {
-    return radius * sinf(angle);
+    return radius * sin(angle);
 }
 
 double pd_abscissa(double radius, double angle)
 {
-    return radius * cosf(angle);
+    return radius * cos(angle);
 }
 
 double pd_radius(double x, double y)

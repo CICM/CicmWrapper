@@ -183,7 +183,7 @@ char ebox_isdrawable(t_ebox* x)
  */
 void ebox_set_cursor(t_ebox* x, int mode)
 {
-    mode = pd_clip_minmax(mode, 0, 12);
+    mode = (int)pd_clip_minmax(mode, 0, 12);
     sys_vgui("%s configure -cursor %s\n", x->b_drawing_id->s_name, my_cursorlist[mode]);
 }
 

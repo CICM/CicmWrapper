@@ -28,7 +28,7 @@
 
 void egraphics_set_line_width(t_elayer *g, float width)
 {
-    g->e_line_width= pd_clip_min(width, 0.);
+    g->e_line_width= (int)pd_clip_min(width, 0.);
 }
 
 void egraphics_set_color_rgba(t_elayer *g, t_rgba *rgba)
@@ -60,7 +60,7 @@ void egraphics_set_color_hsl(t_elayer *g, t_hsl *hsl)
 
 void egraphics_set_line_splinestep(t_elayer *g, float smooth)
 {
-    g->e_new_objects.e_roundness = pd_clip_min(smooth, 0);
+    g->e_new_objects.e_roundness = (float)pd_clip_min(smooth, 0);
 }
 
 void egraphics_paint(t_elayer *g, int filled, int preserved)

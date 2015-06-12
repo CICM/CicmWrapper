@@ -99,25 +99,25 @@ void hsl_set(t_hsl *color, float hue, float saturation, float luminosity);
 // Ohlala...
 #ifdef _WIN32
 
-static t_rgba rgba_black         = {0., 0., 0., 1.};
-static t_rgba rgba_greydark      = {0.3, 0.3, 0.3, 1.};
-static t_rgba rgba_grey          = {0.5, 0.5, 0.5, 1.};
-static t_rgba rgba_greylight     = {0.8, 0.8, 0.8, 1.};
-static t_rgba rgba_white         = {1., 1., 1., 1.};
-static t_rgba rgba_blue          = {0., 0., 1., 1.};
-static t_rgba rgba_green         = {0., 1., 0., 1.};
-static t_rgba rgba_red           = {1., 0., 0., 1.};
+static t_rgba rgba_black         = {0.f, 0.f, 0.f, 1.f};
+static t_rgba rgba_greydark      = {0.3f, 0.3, 0.3f, 1.f};
+static t_rgba rgba_grey          = {0.5f, 0.5, 0.5f, 1.f};
+static t_rgba rgba_greylight     = {0.8f, 0.8, 0.8f, 1.f};
+static t_rgba rgba_white         = {1.f, 1.f, 1.f, 1.f};
+static t_rgba rgba_blue          = {0.f, 0.f, 1.f, 1.f};
+static t_rgba rgba_green         = {0.f, 1.f, 0.f, 1.f};
+static t_rgba rgba_red           = {1.f, 0.f, 0.f, 1.f};
 
 #else
 
-__attribute__((used)) static t_rgba rgba_black         = {0., 0., 0., 1.};
-__attribute__((used)) static t_rgba rgba_greydark      = {0.3, 0.3, 0.3, 1.};
-__attribute__((used)) static t_rgba rgba_grey          = {0.5, 0.5, 0.5, 1.};
-__attribute__((used)) static t_rgba rgba_greylight     = {0.8, 0.8, 0.8, 1.};
-__attribute__((used)) static t_rgba rgba_white         = {1., 1., 1., 1.};
-__attribute__((used)) static t_rgba rgba_blue          = {0., 0., 1., 1.};
-__attribute__((used)) static t_rgba rgba_green         = {0., 1., 0., 1.};
-__attribute__((used)) static t_rgba rgba_red           = {1., 0., 0., 1.};
+__attribute__((used)) static t_rgba rgba_black         = {0.f, 0.f, 0.f, 1.f};
+__attribute__((used)) static t_rgba rgba_greydark      = {0.3f, 0.3f, 0.3f, 1.f};
+__attribute__((used)) static t_rgba rgba_grey          = {0.5f, 0.5f, 0.5f, 1.f};
+__attribute__((used)) static t_rgba rgba_greylight     = {0.8f, 0.8f, 0.8f, 1.f};
+__attribute__((used)) static t_rgba rgba_white         = {1.f, 1.f, 1.f, 1.f};
+__attribute__((used)) static t_rgba rgba_blue          = {0.f, 0.f, 1.f, 1.f};
+__attribute__((used)) static t_rgba rgba_green         = {0.f, 1.f, 0.f, 1.f};
+__attribute__((used)) static t_rgba rgba_red           = {1.f, 0.f, 0.f, 1.f};
 
 #endif
 

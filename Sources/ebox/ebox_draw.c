@@ -92,8 +92,8 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
                 graphic->e_color        = gensym("#000000");
                 graphic->e_rect.x       = 0.f;
                 graphic->e_rect.y       = 0.f;
-                graphic->e_rect.height  = pd_clip_min(height, 0.);
-                graphic->e_rect.width   = pd_clip_min(width, 0.);
+                graphic->e_rect.height  = (float)pd_clip_min(height, 0.);
+                graphic->e_rect.width   = (float)pd_clip_min(width, 0.);
 
                 for(j = 0; j < graphic->e_number_objects; j++)
                 {
@@ -143,8 +143,8 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
         graphic->e_color        = gensym("#000000");
         graphic->e_rect.x       = 0.f;
         graphic->e_rect.y       = 0.f;
-        graphic->e_rect.height  = pd_clip_min(height, 0.);
-        graphic->e_rect.width   = pd_clip_min(width, 0.);
+        graphic->e_rect.height  = (float)pd_clip_min(height, 0.);
+        graphic->e_rect.width   = (float)pd_clip_min(width, 0.);
 
 
         graphic->e_number_objects  = 0;
@@ -333,7 +333,7 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
             ////////////// ARC /////////////////
             else if (gobj->e_type == E_GOBJ_ARC)
             {
-                start = pd_angle(gobj->e_points[1].x - gobj->e_points[0].x,  gobj->e_points[1].y - gobj->e_points[0].y);
+                start = (float)pd_angle(gobj->e_points[1].x - gobj->e_points[0].x,  gobj->e_points[1].y - gobj->e_points[0].y);
 
                 extent = gobj->e_points[2].x;
                 radius = gobj->e_points[2].y;
@@ -400,7 +400,7 @@ void ebox_draw_border(t_ebox* x)
 {
 	float bdsize, bdcorner;
 	t_elayer* g = NULL;
-    bdcorner = pd_clip_max(x->b_boxparameters.d_cornersize, x->b_boxparameters.d_borderthickness - 1);
+    bdcorner = (float)pd_clip_max(x->b_boxparameters.d_cornersize, x->b_boxparameters.d_borderthickness - 1);
     bdsize = x->b_boxparameters.d_borderthickness;
     g = ebox_start_layer(x, s_eboxbd, x->b_rect.width, x->b_rect.height);
 

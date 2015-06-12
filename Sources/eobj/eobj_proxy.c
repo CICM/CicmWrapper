@@ -267,11 +267,11 @@ t_eproxy* eproxy_new(void *owner, t_symbol* s)
     t_class *eproxy_class = eproxy_setup();
     if(z->o_proxy)
     {
-        z->o_proxy = (t_eproxy **)realloc(z->o_proxy, (z->o_nproxy + 1) * sizeof(t_eproxy));
+        z->o_proxy = (t_eproxy **)realloc(z->o_proxy, (z->o_nproxy + 1) * sizeof(t_eproxy *));
     }
     else
     {
-        z->o_proxy = (t_eproxy **)malloc(1 * sizeof(t_eproxy));
+        z->o_proxy = (t_eproxy **)malloc(1 * sizeof(t_eproxy *));
     }
     if(z->o_proxy)
     {

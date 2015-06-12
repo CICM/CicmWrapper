@@ -39,8 +39,8 @@ void eobj_dspsetup(void *x, long nins, long nouts)
     int i;
     t_edspobj* obj = (t_edspobj *)x;
     t_edspbox* box = (t_edspbox *)x;
-    nins = pd_clip_min(nins, 0);
-    nouts = pd_clip_min(nouts, 0);
+    nins = (long)pd_clip_min(nins, 0);
+    nouts = (long)pd_clip_min(nouts, 0);
 
     if(eobj_isbox(x))
     {
@@ -112,7 +112,7 @@ void eobj_resize_inputs(void *x, long nins)
 {
 	int i, cinlts;
     t_eobj* obj = (t_eobj *)x;
-    nins = pd_clip_min(nins, 1);
+    nins = (long)pd_clip_min(nins, 1);
     cinlts = obj_nsiginlets((t_object *)x);
     if(nins > cinlts)
     {

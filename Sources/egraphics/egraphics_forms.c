@@ -127,8 +127,8 @@ void egraphics_curve_to(t_elayer *g, float ctrl1x, float ctrl1y, float ctrl2x, f
 static void rotate(const double cosz, const double sinz, t_pt* p1)
 {
     const double rx = p1->x * cosz - p1->y * sinz;
-    p1->y = p1->x * sinz + p1->y * cosz;
-    p1->x = rx;
+    p1->y = (float)(p1->x * sinz + p1->y * cosz);
+    p1->x = (float)rx;
 }
 
 static void create_small_arc(const double r, const double start, const double extend, t_pt ct, t_pt* p2, t_pt* p3, t_pt* p4)
@@ -137,12 +137,12 @@ static void create_small_arc(const double r, const double start, const double ex
     const double cosz = cos(a * 0.5 + start);
     const double sinz = sin(a * 0.5 + start);
     t_pt p1;
-    p4->x = r * cos(a * 0.5);
-    p4->y = r * sin(a * 0.5);
+    p4->x = (float)(r * cos(a * 0.5));
+    p4->y = (float)(r * sin(a * 0.5));
     p1.x = p4->x;
     p1.y = -p4->y;
-    p2->x = p1.x + k * tan(a * 0.5) * p4->y;
-    p2->y = p1.y + k * tan(a * 0.5) * p4->x;
+    p2->x = (float)(p1.x + k * tan(a * 0.5) * p4->y);
+    p2->y = (float)(p1.y + k * tan(a * 0.5) * p4->x);
     p3->x = p2->x;
     p3->y = -p2->y;
     
@@ -207,16 +207,16 @@ static void create_small_arc_oval(const double r1, const double r2, const double
     const double sinz = sin(a * 0.5 + start);
     const double cosa = cos(a * 0.5);
     const double sina = sin(a * 0.5);
-    p4->x = r2 * cosa;
-    p4->y = r2 * sina;
-    p1.x = r1 * cosa;
-    p1.y = -r1 * sina;
+    p4->x = (float)(r2 * cosa);
+    p4->y = (float)(r2 * sina);
+    p1.x = (float)(r1 * cosa);
+    p1.y = (float)(-r1 * sina);
     const double k1 = (4. * (1. - cos(a * 0.5)) / sin(a * 0.5)) / 3.;
     const double k2 = (4. * (1. - cos(-a * 0.5)) / sin(-a * 0.5)) / 3.;
-    p2->x = p1.x + k1 * p4->y;
-    p2->y = p1.y + k1 * p4->x;
-    p3->x = p4->x + k2 * p1.y;
-    p3->y = p4->y + k2 * p1.y;
+    p2->x = (float)(p1.x + k1 * p4->y);
+    p2->y = (float)(p1.y + k1 * p4->x);
+    p3->x = (float)(p4->x + k2 * p1.y);
+    p3->y = (float)(p4->y + k2 * p1.y);
     
     rotate(cosz, sinz, p2); rotate(cosz, sinz, p3); rotate(cosz, sinz, p4);
     p2->x += ct.x; p2->y += ct.y; p3->x += ct.x; p3->y += ct.y; p4->x += ct.x; p4->y += ct.y;
@@ -384,7 +384,7 @@ void egraphics_rectangle_rounded(t_elayer *g, float x, float y, float width, flo
             g->e_new_objects.e_points[8].x  = x + roundness;
             g->e_new_objects.e_points[8].y  = y;
             g->e_new_objects.e_npoints      = 9;
-            g->e_new_objects.e_roundness = pd_clip_min(roundness, 0.);
+            g->e_new_objects.e_roundness = (float)pd_clip_min(roundness, 0.);
         }
         else
         {
@@ -435,8 +435,8 @@ void egraphics_arc(t_elayer *g, float xc, float yc, float radius, float angle1, 
             g->e_new_objects.e_type         = E_GOBJ_ARC;
             g->e_new_objects.e_points[0].x  = xc;
             g->e_new_objects.e_points[0].y  = yc;
-            g->e_new_objects.e_points[1].x  = xc + pd_abscissa(radius, angle1);
-            g->e_new_objects.e_points[1].y  = yc + pd_ordinate(radius, angle1);
+            g->e_new_objects.e_points[1].x  = xc + (float)pd_abscissa(radius, angle1);
+            g->e_new_objects.e_points[1].y  = yc + (float)pd_ordinate(radius, angle1);
             g->e_new_objects.e_points[2].x  = angle2 - angle1;
             g->e_new_objects.e_points[2].y  = radius;
             g->e_new_objects.e_npoints      = 3;
@@ -461,8 +461,8 @@ void egraphics_arc_oval(t_elayer *g, float xc, float yc, float radiusx, float ra
             g->e_new_objects.e_type         = E_GOBJ_ARC;
             g->e_new_objects.e_points[0].x  = xc;
             g->e_new_objects.e_points[0].y  = yc;
-            g->e_new_objects.e_points[1].x  = xc + pd_abscissa(radiusx, angle1);
-            g->e_new_objects.e_points[1].y  = yc + pd_ordinate(radiusy, angle1);
+            g->e_new_objects.e_points[1].x  = xc + (float)pd_abscissa(radiusx, angle1);
+            g->e_new_objects.e_points[1].y  = yc + (float)pd_ordinate(radiusy, angle1);
             g->e_new_objects.e_points[2].x  = angle2 - angle1;
             g->e_new_objects.e_points[2].y  = angle2 - angle1;
             g->e_new_objects.e_npoints      = 3;

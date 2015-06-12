@@ -82,7 +82,6 @@ void *eobj_new(t_eclass *c)
  * \brief       The eobj deletion function
  * \details     Detach the eobj from Pd and from the router
  * \param x     The eobj pointer
- * \return      This function return nothing
  */
 void eobj_free(void *x)
 {

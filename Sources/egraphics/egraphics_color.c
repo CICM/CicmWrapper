@@ -31,9 +31,9 @@ static char HexDigits[] = "0123456789ABCDEF";
 
 char* rgba_to_hex(t_rgba color)
 {
-    int r = color.red * 255;
-    int g = color.green * 255;
-    int b = color.blue * 255;
+    int r = (int)(color.red * 255.f);
+    int g = (int)(color.green * 255.f);
+    int b = (int)(color.blue * 255.f);
     ColBuf[0] = '#';
     ColBuf[1] = HexDigits[(r >> 4) & 15];
     ColBuf[2] = HexDigits[r & 15];
@@ -47,9 +47,9 @@ char* rgba_to_hex(t_rgba color)
 
 char* rgb_to_hex(t_rgb color)
 {
-    int r = color.red * 255;
-    int g = color.green * 255;
-    int b = color.blue * 255;
+    int r = (int)(color.red * 255.f);
+    int g = (int)(color.green * 255.f);
+    int b = (int)(color.blue * 255.f);
     ColBuf[0] = '#';
     ColBuf[1] = HexDigits[(r >> 4) & 15];
     ColBuf[2] = HexDigits[r & 15];
@@ -77,10 +77,10 @@ t_rgba hex_to_rgba(char* color)
 {
     int hexvalue = atoi(color+1);
     t_rgba ncolor;
-    ncolor.red = ((hexvalue >> 16) & 0xFF) / 255.0;
-    ncolor.green = ((hexvalue >> 8) & 0xFF) / 255.0;
-    ncolor.blue = ((hexvalue) & 0xFF) / 255.0;
-    ncolor.alpha = 1;
+    ncolor.red = (float)((hexvalue >> 16) & 0xFF) / 255.f;
+    ncolor.green = (float)((hexvalue >> 8) & 0xFF) / 255.f;
+    ncolor.blue = (float)((hexvalue) & 0xFF) / 255.f;
+    ncolor.alpha = 1.f;
     return ncolor;
 }
 
@@ -88,9 +88,9 @@ t_rgb hex_to_rgb(char* color)
 {
     int hexvalue = atoi(color+1);
     t_rgb ncolor;
-    ncolor.red = ((hexvalue >> 16) & 0xFF) / 255.0;
-    ncolor.green = ((hexvalue >> 8) & 0xFF) / 255.0;
-    ncolor.blue = ((hexvalue) & 0xFF) / 255.0;
+    ncolor.red = (float)((hexvalue >> 16) & 0xFF) / 255.f;
+    ncolor.green = (float)((hexvalue >> 8) & 0xFF) / 255.f;
+    ncolor.blue = (float)((hexvalue) & 0xFF) / 255.f;
     return ncolor;
 }
 
@@ -110,7 +110,7 @@ t_hsla rgba_to_hsla(t_rgba color)
         max = color.blue;
     delta = max - min;
     ncolor.alpha = color.alpha;
-    ncolor.lightness = (max + min) / 2.;
+    ncolor.lightness = (max + min) / 2.f;
     if(max == 0)
     {
         ncolor.hue = 0;
@@ -121,7 +121,7 @@ t_hsla rgba_to_hsla(t_rgba color)
         if(ncolor.lightness < 0.5)
             ncolor.saturation = delta / (max + min);
         else
-            ncolor.saturation = delta / (2. - max - min);
+            ncolor.saturation = delta / (2.f - max - min);
         
         deltar = (((max - color.red ) / 6 ) + (delta / 2)) / delta;
         deltag = (((max - color.green ) / 6 ) + (delta / 2)) / delta;
@@ -130,13 +130,13 @@ t_hsla rgba_to_hsla(t_rgba color)
         if(color.red == max)
             ncolor.hue = deltab - deltag;
         else if(color.green == max)
-            ncolor.hue = (1. / 3.) + deltar - deltab;
+            ncolor.hue = (1.f / 3.f) + deltar - deltab;
         else if(color.blue == max)
-            ncolor.hue = (2. / 3.) + deltag - deltar;
+            ncolor.hue = (2.f / 3.f) + deltag - deltar;
                     
-        if(ncolor.hue < 0.)
+        if(ncolor.hue < 0.f)
             ncolor.hue += 1;
-        if(ncolor.hue > 1.)
+        if(ncolor.hue > 1.f)
             ncolor.hue -= 1;
     }
     
@@ -158,7 +158,7 @@ t_hsl rgb_to_hsl(t_rgb color)
     if(max < color.blue)
         max = color.blue;
     delta = max - min;
-    ncolor.lightness = (max + min) / 2.;
+    ncolor.lightness = (max + min) / 2.f;
     if(max == 0)
     {
         ncolor.hue = 0;
@@ -169,7 +169,7 @@ t_hsl rgb_to_hsl(t_rgb color)
         if(ncolor.lightness < 0.5)
             ncolor.saturation = delta / (max + min);
         else
-            ncolor.saturation = delta / (2. - max - min);
+            ncolor.saturation = delta / (2.f - max - min);
         
         deltar = (((max - color.red ) / 6 ) + (delta / 2)) / delta;
         deltag = (((max - color.green ) / 6 ) + (delta / 2)) / delta;
@@ -178,13 +178,13 @@ t_hsl rgb_to_hsl(t_rgb color)
         if(color.red == max)
             ncolor.hue = deltab - deltag;
         else if(color.green == max)
-            ncolor.hue = (1. / 3.) + deltar - deltab;
+            ncolor.hue = (1.f / 3.f) + deltar - deltab;
         else if(color.blue == max)
-            ncolor.hue = (2. / 3.) + deltag - deltar;
+            ncolor.hue = (2.f / 3.f) + deltag - deltar;
         
-        if(ncolor.hue < 0.)
+        if(ncolor.hue < 0.f)
             ncolor.hue += 1;
-        if(ncolor.hue > 1.)
+        if(ncolor.hue > 1.f)
             ncolor.hue -= 1;
     }
     
@@ -193,16 +193,16 @@ t_hsl rgb_to_hsl(t_rgb color)
 
 float Hue_2_RGB(float v1,float v2,float vH)
 {
-    if(vH < 0.)
+    if(vH < 0.f)
         vH += 1.;
-    if(vH > 1.)
+    if(vH > 1.f)
         vH -= 1.;
-    if((6. * vH) < 1.)
-        return (v1 + (v2 - v1) * 6. * vH);
-    if((2. * vH) < 1.)
+    if((6. * vH) < 1.f)
+        return (v1 + (v2 - v1) * 6.f * vH);
+    if((2. * vH) < 1.f)
         return v2;
-    if(( 3 * vH) < 2.)
-        return (v1 + (v2 - v1) * ((2. / 3.) - vH) * 6.);
+    if(( 3 * vH) < 2.f)
+        return (v1 + (v2 - v1) * ((2.f / 3.f) - vH) * 6.f);
     return v1;
 }
 
@@ -210,7 +210,7 @@ t_rgb hsl_to_rgb(t_hsl color)
 {
     float var1, var2;
     t_rgb ncolor;
-    if(color.saturation == 0.)
+    if(color.saturation == 0.f)
     {
         ncolor.red = color.lightness;
         ncolor.green = color.lightness;
@@ -218,16 +218,16 @@ t_rgb hsl_to_rgb(t_hsl color)
     }
     else
     {
-        if(color.lightness < 0.5)
-            var2 = color.lightness * (1. + color.saturation);
+        if(color.lightness < 0.5f)
+            var2 = color.lightness * (1.f + color.saturation);
         else
             var2 = (color.lightness + color.saturation) - (color.saturation * color.lightness);
                 
         var1 = 2 * color.lightness - var2;
                 
-        ncolor.red = Hue_2_RGB(var1, var2, color.hue + (1. / 3.));
+        ncolor.red = Hue_2_RGB(var1, var2, color.hue + (1.f / 3.f));
         ncolor.green = Hue_2_RGB(var1, var2, color.hue);
-        ncolor.blue = Hue_2_RGB(var1, var2, color.hue - (1. / 3.));
+        ncolor.blue = Hue_2_RGB(var1, var2, color.hue - (1.f / 3.f));
     }
     return ncolor;
 }
@@ -236,7 +236,7 @@ t_rgba hsla_to_rgba(t_hsla color)
 {
     float var1, var2;
     t_rgba ncolor;
-    if(color.saturation == 0.)
+    if(color.saturation == 0.f)
     {
         ncolor.red = color.lightness;
         ncolor.green = color.lightness;
@@ -244,16 +244,16 @@ t_rgba hsla_to_rgba(t_hsla color)
     }
     else
     {
-        if(color.lightness < 0.5)
-            var2 = color.lightness * (1. + color.saturation);
+        if(color.lightness < 0.5f)
+            var2 = color.lightness * (1.f + color.saturation);
         else
             var2 = (color.lightness + color.saturation) - (color.saturation * color.lightness);
         
-        var1 = 2. * color.lightness - var2;
+        var1 = 2.f * color.lightness - var2;
         
-        ncolor.red = Hue_2_RGB(var1, var2, color.hue + (1. / 3.));
+        ncolor.red = Hue_2_RGB(var1, var2, color.hue + (1.f / 3.f));
         ncolor.green = Hue_2_RGB(var1, var2, color.hue);
-        ncolor.blue = Hue_2_RGB(var1, var2, color.hue - (1. / 3.));
+        ncolor.blue = Hue_2_RGB(var1, var2, color.hue - (1.f / 3.f));
     }
     
     ncolor.alpha = color.alpha;
@@ -263,18 +263,18 @@ t_rgba hsla_to_rgba(t_hsla color)
 t_rgba rgba_addContrast(t_rgba color, float contrast)
 {
     t_rgba new_color = color;
-    new_color.red = pd_clip_minmax(new_color.red += contrast, 0., 1.);
-    new_color.green = pd_clip_minmax(new_color.green += contrast, 0., 1.);
-    new_color.blue = pd_clip_minmax(new_color.blue += contrast, 0., 1.);
+    new_color.red = (float)pd_clip_minmax(new_color.red += contrast, 0., 1.);
+    new_color.green = (float)pd_clip_minmax(new_color.green += contrast, 0., 1.);
+    new_color.blue = (float)pd_clip_minmax(new_color.blue += contrast, 0., 1.);
     return new_color;
 }
 
 t_rgb rgb_addContrast(t_rgb color, float contrast)
 {
     t_rgb new_color = color;
-    new_color.red = pd_clip_minmax(new_color.red += contrast, 0., 1.);
-    new_color.green = pd_clip_minmax(new_color.green += contrast, 0., 1.);
-    new_color.blue = pd_clip_minmax(new_color.blue += contrast, 0., 1.);
+    new_color.red = (float)pd_clip_minmax(new_color.red += contrast, 0., 1.);
+    new_color.green = (float)pd_clip_minmax(new_color.green += contrast, 0., 1.);
+    new_color.blue = (float)pd_clip_minmax(new_color.blue += contrast, 0., 1.);
     return new_color;
 }
 

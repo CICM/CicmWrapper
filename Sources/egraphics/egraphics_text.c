@@ -46,10 +46,10 @@ void etext_layout_set(t_etext* textlayout, char* text, t_efont *jfont,  double x
 {
     textlayout->c_text = gensym(text);
     textlayout->c_font = jfont[0];
-    textlayout->c_rect.x = x;
-    textlayout->c_rect.y = y;
-    textlayout->c_rect.width = width;
-    textlayout->c_rect.height = height;
+    textlayout->c_rect.x = (float)x;
+    textlayout->c_rect.y = (float)y;
+    textlayout->c_rect.width = (float)width;
+    textlayout->c_rect.height = (float)height;
 
     if(wrap == ETEXT_NOWRAP)
     {
@@ -102,7 +102,7 @@ t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, doubl
     if(new_font[0].c_weight  != gensym("bold"))
         new_font[0].c_weight = gensym("normal");
 
-    new_font[0].c_size = pd_clip_min(size, 1.);
+    new_font[0].c_size = (float)pd_clip_min(size, 1.);
     return new_font;
 }
 

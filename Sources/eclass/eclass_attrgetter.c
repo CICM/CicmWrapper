@@ -92,7 +92,7 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
             {
                 for(j = 0; j < argc[0]; j++)
                 {
-                    atom_setfloat(argv[0]+j, ((double *)point)[j]);
+                    atom_setfloat(argv[0]+j, (float)(((double *)point)[j]));
                 }
             }
             else if(type == &s_symbol)

@@ -384,8 +384,8 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
     x->b_move_box = eobj_get_mouse_canvas_position(x);
     sys_vgui("pdtk_canvas_motion %s %i %i 0\n", x->b_canvas_id->s_name, (int)x->b_move_box.x, (int)x->b_move_box.y);
 
-    right   = x->b_rect.width + x->b_boxparameters.d_borderthickness * 2.;
-    bottom  = x->b_rect.height + x->b_boxparameters.d_borderthickness * 2.;
+    right   = (int)(x->b_rect.width + x->b_boxparameters.d_borderthickness * 2.);
+    bottom  = (int)(x->b_rect.height + x->b_boxparameters.d_borderthickness * 2.);
 
     // TOP //
     if(y_p >= 0 && y_p < 3)
@@ -597,8 +597,8 @@ void ebox_pos(t_ebox* x, float newx, float newy)
 {
     x->b_rect.x = newx;
     x->b_rect.y = newy;
-    x->b_obj.o_obj.te_xpix = newx;
-    x->b_obj.o_obj.te_ypix = newy;
+    x->b_obj.o_obj.te_xpix = (short)newx;
+    x->b_obj.o_obj.te_ypix = (short)newy;
 
     ebox_move(x);
 }
@@ -612,10 +612,10 @@ void ebox_pos(t_ebox* x, float newx, float newy)
  */
 void ebox_vis(t_ebox* x, int vis)
 {
-    vis = pd_clip_minmax(vis, 0, 1);
+    vis = (int)pd_clip_minmax(vis, 0, 1);
     if(x->b_visible != vis)
     {
-        x->b_visible = vis;
+        x->b_visible = (char)vis;
         if(x->b_visible && x->b_ready_to_draw && x->b_obj.o_canvas)
         {
             canvas_redraw(x->b_obj.o_canvas);
@@ -744,7 +744,7 @@ t_pd_err ebox_set_font(t_ebox *x, t_object *attr, long argc, t_atom *argv)
         x->b_font.c_family = gensym("Helvetica");
 
     x->b_font.c_family = gensym(strtok(x->b_font.c_family->s_name," ',.-"));
-    x->b_font.c_family->s_name[0] = toupper(x->b_font.c_family->s_name[0]);
+    x->b_font.c_family->s_name[0] = (char)toupper(x->b_font.c_family->s_name[0]);
     return 0;
 }
 
@@ -809,7 +809,7 @@ t_pd_err ebox_set_fontsize(t_ebox *x, t_object *attr, long argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_FLOAT)
     {
-		x->b_font.c_sizereal = pd_clip_min(atom_getfloat(argv), 4);
+		x->b_font.c_sizereal = (long)pd_clip_min(atom_getfloat(argv), 4);
     }
     else
         x->b_font.c_sizereal = 11;
@@ -843,7 +843,7 @@ t_pd_err ebox_size_set(t_ebox *x, t_object *attr, long argc, t_atom *argv)
         {
             if(atom_gettype(argv) == A_FLOAT)
             {
-                width  = pd_clip_min(atom_getfloat(argv), 4);
+                width  = (float)pd_clip_min(atom_getfloat(argv), 4);
                 height = x->b_rect.height;
                 x->b_rect.height += width - x->b_rect.width;
                 if(x->b_rect.height < 4)
@@ -861,9 +861,9 @@ t_pd_err ebox_size_set(t_ebox *x, t_object *attr, long argc, t_atom *argv)
         else if (x->b_flags & EBOX_GROWINDI)
         {
             if(atom_gettype(argv) == A_FLOAT)
-                x->b_rect.width = pd_clip_min(atom_getfloat(argv), 4);
+                x->b_rect.width = (float)pd_clip_min(atom_getfloat(argv), 4);
             if(atom_gettype(argv+1) == A_FLOAT)
-                x->b_rect.height = pd_clip_min(atom_getfloat(argv+1), 4);
+                x->b_rect.height = (float)pd_clip_min(atom_getfloat(argv+1), 4);
         }
     }
 
