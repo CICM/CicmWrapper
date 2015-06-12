@@ -70,7 +70,7 @@ void egraphics_oval(t_elayer *g, float xc, float yc, float radiusx, float radius
 void egraphics_arc(t_elayer *g, float xc, float yc, float radius, float angle1, float angle2);
 void egraphics_arc_oval(t_elayer *g, float xc, float yc, float radiusx, float radiusy, float angle1, float angle2);
 
-t_etext* etext_layout_create();
+t_etext* etext_layout_create(void);
 void etext_layout_destroy(t_etext* textlayout);
 void etext_layout_set(t_etext* textlayout, char* text, t_efont *jfont,  double x, double y, double width,  double height, t_etextanchor_flags anchor, t_etextjustify_flags justify, t_etextwrap_flags wrap);
 void etext_layout_settextcolor(t_etext* textlayout, t_rgba* color);

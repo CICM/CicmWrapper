@@ -63,7 +63,7 @@ void egraphics_set_line_splinestep(t_elayer *g, float smooth)
     g->e_new_objects.e_roundness = (float)pd_clip_min(smooth, 0);
 }
 
-void egraphics_paint(t_elayer *g, int filled, int preserved)
+static void egraphics_paint(t_elayer *g, int filled, int preserved)
 {
     t_egobj* nobj;
     if(g->e_new_objects.e_type != E_GOBJ_INVALID)

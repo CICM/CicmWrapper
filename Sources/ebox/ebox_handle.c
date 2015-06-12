@@ -75,7 +75,7 @@ void ebox_mouse_leave(t_ebox* x)
     }
 }
 
-long modifier_wrapper(long mod)
+static long modifier_wrapper(long mod)
 {
 #ifdef __APPLE__
 

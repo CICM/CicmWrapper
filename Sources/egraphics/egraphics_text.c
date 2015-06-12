@@ -26,7 +26,7 @@
 
 #include "egraphics.h"
 
-t_etext* etext_layout_create()
+t_etext* etext_layout_create(void)
 {
     t_etext* new_text_layout = (t_etext *)malloc(sizeof(t_etext));
     new_text_layout->c_color.red = 0.;

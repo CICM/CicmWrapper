@@ -228,7 +228,7 @@ extern t_symbol* s_long;
 extern t_symbol* s_double;
 extern t_symbol* s_eproxy1572;
 
-void epd_init_symbols();
+void epd_init_symbols(void);
 
 
 #ifdef _WINDOWS

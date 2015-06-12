@@ -45,7 +45,7 @@ typedef struct _erouter
 
 static t_erouter* erouter_setup();
 
-void erouter_anything(t_erouter *x, t_symbol *s, long argc, t_atom *argv)
+static void erouter_anything(t_erouter *x, t_symbol *s, long argc, t_atom *argv)
 {
     int i;
     t_eobj* z;
@@ -147,7 +147,7 @@ static void erouter_mousetopcanvas(t_erouter *x, float px, float py)
     x->e_mouse_topcanvas_position.y = py;
 }
 
-t_pt erouter_getmouse_global_position()
+t_pt erouter_getmouse_global_position(void)
 {
     t_pt pt;
     t_erouter *x = (t_erouter *)erouter_setup();
@@ -163,7 +163,7 @@ t_pt erouter_getmouse_global_position()
     }
 }
 
-t_pt erouter_getmouse_topcanvas_position()
+t_pt erouter_getmouse_topcanvas_position(void)
 {
     t_pt pt;
     t_erouter *x = (t_erouter *)erouter_setup();
@@ -179,7 +179,7 @@ t_pt erouter_getmouse_topcanvas_position()
     }
 }
 
-long erouter_getmouse_modifier()
+long erouter_getmouse_modifier(void)
 {
     t_erouter *x = (t_erouter *)erouter_setup();
     if(x)
@@ -195,7 +195,7 @@ long erouter_getmouse_modifier()
     }
 }
 
-char erouter_getmouse_status()
+char erouter_getmouse_status(void)
 {
     t_erouter *x = (t_erouter *)erouter_setup();
     if(x)

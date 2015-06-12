@@ -191,7 +191,7 @@ t_hsl rgb_to_hsl(t_rgb color)
     return ncolor;
 }
 
-float Hue_2_RGB(float v1,float v2,float vH)
+static float Hue_2_RGB(float v1,float v2,float vH)
 {
     if(vH < 0.f)
         vH += 1.;

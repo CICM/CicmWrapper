@@ -35,7 +35,7 @@ t_symbol* s_long;
 t_symbol* s_double;
 t_symbol* s_eproxy1572;
 
-void epd_init_symbols()
+void epd_init_symbols(void)
 {
     s_null          = gensym("(null)");
     s_eboxbd        = gensym("eboxbd");

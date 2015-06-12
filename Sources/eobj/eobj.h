@@ -109,10 +109,10 @@ void eobj_attach_torouter(t_object* child);
 void eobj_detach_torouter(t_object* child);
 
 //! @cond
-t_pt erouter_getmouse_topcanvas_position();
-t_pt erouter_getmouse_global_position();
-long erouter_getmouse_modifier();
-char erouter_getmouse_status();
+t_pt erouter_getmouse_topcanvas_position(void);
+t_pt erouter_getmouse_global_position(void);
+long erouter_getmouse_modifier(void);
+char erouter_getmouse_status(void);
 //! @endcond
 
 #endif
