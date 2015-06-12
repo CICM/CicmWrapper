@@ -145,7 +145,7 @@ t_hsla rgba_to_hsla(t_rgba color)
 
 t_hsl rgb_to_hsl(t_rgb color)
 {
-    t_hsl ncolor;
+    t_hsl ncolor = {0., 0., 0.};
     float delta, deltar, deltag, deltab;
     float max = color.red;
     float min = color.red;

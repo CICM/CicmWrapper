@@ -195,10 +195,10 @@ void eclass_attr_itemlist(t_eclass* c, char* attrname, long flags, char* list)
                     if(c->c_attr[i]->itemslist)
                         c->c_attr[i]->itemssize = size;
                 }
-                if(c->c_attr[i]->itemssize)
+                if(c->c_attr[i]->itemslist && c->c_attr[i]->itemssize)
                 {
                     pch = strtok(gensym(list)->s_name," ,");
-                    while(pch != NULL)
+                    while(pch != NULL && (long)j < c->c_attr[i]->itemssize)
                     {
                         c->c_attr[i]->itemslist[j] = gensym(pch);
                         pch = strtok(NULL, " ,");
