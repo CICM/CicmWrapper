@@ -318,7 +318,7 @@ void eproxy_free(void *owner, t_eproxy* proxy)
             }
             else
             {
-                z->o_proxy = realloc(z->o_proxy, (z->o_nproxy - 1) * sizeof(t_eproxy));
+                z->o_proxy = (t_eproxy **)realloc(z->o_proxy, (z->o_nproxy - 1) * sizeof(t_eproxy *));
                 z->o_nproxy--;
             }
         }

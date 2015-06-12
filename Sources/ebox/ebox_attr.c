@@ -110,7 +110,7 @@ void ebox_attrprocess_default(void *x)
                 char* str_start = c->c_attr[i]->defvals->s_name;
                 for(j = 0; j < defc; j++)
                 {
-                    for(k = 0; k < strlen(str_start); k++)
+                    for(k = 0; k < (int)(strlen(str_start)); k++)
                     {
                         if(isalpha(str_start[k]))
                             check = 1;
