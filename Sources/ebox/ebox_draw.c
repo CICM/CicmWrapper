@@ -44,8 +44,7 @@ void ebox_redraw(t_ebox *x)
         if(c->c_widget.w_paint)
             c->c_widget.w_paint(x, (t_object *)x->b_obj.o_canvas);
         ebox_draw_border(x);
-        if(x->b_obj.o_canvas->gl_edit)
-            ebox_draw_iolets(x);
+        ebox_draw_iolets(x);
     }
 }
 
@@ -445,9 +444,10 @@ void ebox_draw_iolets(t_ebox* x)
             int pos_x_inlet = 0;
             if(obj_ninlets((t_object *)x) != 1)
                 pos_x_inlet = (int)(i / (float)(obj_ninlets((t_object *)x) - 1) * (x->b_rect.width - 8));
-            egraphics_rectangle(g, pos_x_inlet, 0, 7, 2);
+            egraphics_rectangle(g, pos_x_inlet, 0, 7, 1);
             egraphics_set_color_rgba(g, &rgba_black);
-            egraphics_fill(g);
+            if(!x->b_isinsubcanvas)
+                egraphics_stroke(g);
         }
 
         for(i = 0; i < obj_noutlets((t_object *)x); i++)
@@ -455,9 +455,10 @@ void ebox_draw_iolets(t_ebox* x)
             int pos_x_outlet = 0;
             if(obj_noutlets((t_object *)x) != 1)
                 pos_x_outlet = (int)(i / (float)(obj_noutlets((t_object *)x) - 1) * (x->b_rect.width - 8));
-            egraphics_rectangle(g, pos_x_outlet, x->b_rect.height - 3 + bdsize*2, 7, 2);
+            egraphics_rectangle(g, pos_x_outlet, x->b_rect.height - 2 + bdsize * 2, 7, 1);
             egraphics_set_color_rgba(g, &rgba_black);
-            egraphics_fill(g);
+            if(!x->b_isinsubcanvas)
+                egraphics_stroke(g);
         }
         ebox_end_layer(x, s_eboxio);
     }

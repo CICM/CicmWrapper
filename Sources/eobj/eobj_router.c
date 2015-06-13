@@ -37,7 +37,6 @@ typedef struct _erouter
     t_object**          e_childs;       /*!< The eobj pointer. */
     long                e_nchilds;      /*!< The number of eobj. */
     t_clock*            e_clock;        /*!< The clock for mouse position. */
-    t_pt                e_mouse_topcanvas_position;
     t_pt                e_mouse_global_position;
     long                e_mouse_modifier;
     char                e_mouse_down;
@@ -141,12 +140,6 @@ static void erouter_mouseglobal(t_erouter *x, float px, float py)
     x->e_mouse_global_position.y = py;
 }
 
-static void erouter_mousetopcanvas(t_erouter *x, float px, float py)
-{
-    x->e_mouse_topcanvas_position.x = px;
-    x->e_mouse_topcanvas_position.y = py;
-}
-
 t_pt erouter_getmouse_global_position(void)
 {
     t_pt pt;
@@ -154,22 +147,6 @@ t_pt erouter_getmouse_global_position(void)
     if(x)
     {
         return x->e_mouse_global_position;
-    }
-    else
-    {
-        pt.x = 0;
-        pt.y = 0;
-        return pt;
-    }
-}
-
-t_pt erouter_getmouse_topcanvas_position(void)
-{
-    t_pt pt;
-    t_erouter *x = (t_erouter *)erouter_setup();
-    if(x)
-    {
-        return x->e_mouse_topcanvas_position;
     }
     else
     {
@@ -343,7 +320,6 @@ static t_erouter* erouter_setup()
             class_addmethod(c, (t_method)erouter_mouseup,           gensym("mouseup"), A_GIMME, 0);
             class_addmethod(c, (t_method)erouter_mousemove,         gensym("mousemove"), A_GIMME, 0);
             class_addmethod(c, (t_method)erouter_mouseglobal,       gensym("globalmouse"), A_FLOAT, A_FLOAT, 0);
-            class_addmethod(c, (t_method)erouter_mousetopcanvas,    gensym("topcanvasmouse"), A_FLOAT, A_FLOAT, 0);
             class_addanything(c, erouter_anything);
             x = (t_erouter *)pd_new(c);
             if(x)
@@ -374,14 +350,6 @@ static t_erouter* erouter_setup()
                 sys_gui(" set x [winfo pointerx .]\n");
                 sys_gui(" set y [winfo pointery .]\n");
                 sys_vgui(" pdsend \"%s globalmouse $x $y\"\n", erouter1572_sym->s_name);
-                sys_gui("}\n");
-                
-                // TOP CANVAS MOUSE POSITION //
-                sys_gui("proc erouter_topcanvas_mouse {} {\n");
-                sys_gui(" set patcher [focus]\n");
-                sys_gui(" set x [winfo rootx [winfo name .]]\n");
-                sys_gui(" set y [winfo rooty [winfo name .]]\n");
-                sys_vgui(" pdsend \"%s topcanvasmouse $x $y\"\n", erouter1572_sym->s_name);
                 sys_gui("}\n");
                 
                 pd_bind((t_pd *)x, erouter1572_sym);

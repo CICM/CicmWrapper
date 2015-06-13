@@ -96,10 +96,10 @@ void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
 void ebox_mouse_wheel(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
 void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key);
 void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
-void ebox_deserted(t_ebox *x);
 void ebox_dosave(t_ebox* x, t_binbuf *b);
 void ebox_pos(t_ebox* x, float newx, float newy);
 void ebox_vis(t_ebox* x, int vis);
+void ebox_focus(t_ebox* x, float f);
 t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
 t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
 t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
@@ -126,17 +126,6 @@ void ebox_create_widget(t_ebox* x);
 void ebox_create_window(t_ebox* x, t_glist* glist);
 //! @endcond
 
-/*********************************
- * PATCHER
- *********************************/
-
-//! @cond
-void ebox_patcher_editmode(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
-void ebox_patcher_motion(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
-void ebox_patcher_key(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
-void ebox_patcher_mouse(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
-void ebox_patcher_focus(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
-//! @endcond
 
 #endif
 

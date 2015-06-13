@@ -93,8 +93,7 @@ void ewidget_vis(t_gobj *z, t_glist *glist, int vis)
                     if(c->c_widget.w_paint)
                         c->c_widget.w_paint(x, (t_object *)x->b_obj.o_canvas);
                     ebox_draw_border(x);
-                    if(x->b_obj.o_canvas->gl_edit)
-                        ebox_draw_iolets(x);
+                    ebox_draw_iolets(x);
                 }
             }
         }

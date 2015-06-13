@@ -134,7 +134,6 @@ void eclass_init(t_eclass* c, long flags)
     CLASS_ATTR_LABEL		(c, "send", 0, "Send Symbol");
 
     // GUI always need this methods //
-    class_addmethod((t_class *)c, (t_method)ebox_patcher_editmode,  gensym("editmode"),     A_GIMME, 0);
     class_addmethod((t_class *)c, (t_method)ebox_attrprint,         gensym("attrprint"),    A_NULL,  0);
     class_addmethod((t_class *)c, (t_method)ebox_dialog,            gensym("dialog"),       A_GIMME, 0);
 
@@ -439,7 +438,7 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
     }
     else if(gensym(name) == gensym("deserted"))
     {
-        class_addmethod((t_class *)c, (t_method)ebox_patcher_focus,   gensym("focus"),  A_NULL,  0);
+        class_addmethod((t_class *)c, (t_method)ebox_focus,   gensym("focus"),  A_FLOAT,  0);
         c->c_widget.w_deserted = m;
     }
     else if(gensym(name) == gensym("paint"))

@@ -86,6 +86,7 @@ void *eobj_new(t_eclass *c)
 void eobj_free(void *x)
 {
     t_eobj*     z = (t_eobj *)x;
+    eobj_detach_torouter((t_object *)x);
     clock_unset(z->o_clock);
     pd_unbind((t_pd *)x, z->o_id);
     if(z->o_proxy && z->o_nproxy)
@@ -93,7 +94,6 @@ void eobj_free(void *x)
         free(z->o_proxy);
     }
     clock_free(z->o_clock);
-    eobj_detach_torouter((t_object *)x);
 }
 
 /*!

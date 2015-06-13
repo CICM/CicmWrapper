@@ -89,12 +89,10 @@ void ebox_bind_events(t_ebox* x)
     if(c->c_widget.w_key || c->c_widget.w_keyfilter)
         sys_vgui("bind %s <Key>  {+pdsend {%s key  %%k %%N}} \n",  x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
 
-    // Canvas & Editor Binding //
-    sys_vgui("bind %s <<EditMode>>  {+pdsend {erouter1572 %s editmode}} \n", x->b_editor_id->s_name, x->b_obj.o_id->s_name);
     if(c->c_widget.w_deserted)
     {
-        sys_vgui("bind %s <FocusIn>     {+pdsend {erouter1572 %s focus 1}} \n", x->b_editor_id->s_name, x->b_obj.o_id->s_name);
-        sys_vgui("bind %s <FocusOut>    {+pdsend {erouter1572 %s focus 0}} \n", x->b_editor_id->s_name, x->b_obj.o_id->s_name);
+        sys_vgui("bind %s <FocusIn>  {+pdsend {%s focus 1}} \n", x->b_editor_id->s_name, x->b_obj.o_id->s_name);
+        sys_vgui("bind %s <FocusOut> {+pdsend {%s focus 0}} \n", x->b_editor_id->s_name, x->b_obj.o_id->s_name);
     }
 }
 

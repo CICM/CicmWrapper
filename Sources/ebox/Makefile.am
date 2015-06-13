@@ -9,5 +9,4 @@ ebox_basic.c \
 ebox_draw.c \
 ebox.h \
 ebox_handle.c \
-ebox_patcher.c \
 ebox_window.c

@@ -530,20 +530,20 @@ void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
     }
 }
 
-//! The key up method called by tcl/tk (PRIVATE AND NOT READY)
+//! Get the patcher notification when focus has changed (PRIVATE)
 /*
  \ @memberof        ebox
  \ @param x         The ebox pointer
- \ @param s         The message selector
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
  \ @return          Nothing
-*/
-void ebox_deserted(t_ebox *x)
+ */
+void ebox_focus(t_ebox* x, float f)
 {
-    t_eclass *c = eobj_getclass(x);
-    if(c->c_widget.w_deserted && x->b_ready_to_draw)
-        c->c_widget.w_deserted(x);
+    if(f == 0.f)
+    {
+        t_eclass *c = eobj_getclass(x);
+        if(c->c_widget.w_deserted && x->b_ready_to_draw)
+            c->c_widget.w_deserted(x);
+    }
 }
 
 //! The default save method for UI ebox (PRIVATE)
