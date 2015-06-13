@@ -142,7 +142,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                     }
                 }
             }
-            else if(type == gensym("atom"))
+            else if(type == s_atom)
             {
                 t_atom* pointor = (t_atom *)point;
                 for(j = 0; j < size && j < argc; j++)
@@ -151,9 +151,9 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                 }
             }
             
-            ebox_notify(z, s, gensym("attr_modified"), NULL, NULL);
+            ebox_notify(z, s, s_attr_modified, NULL, NULL);
             if(c->c_widget.w_notify != NULL)
-                c->c_widget.w_notify(x, s, gensym("attr_modified"), NULL, NULL);
+                c->c_widget.w_notify(x, s, s_attr_modified, NULL, NULL);
             
             if(c->c_attr[i]->paint)
             {

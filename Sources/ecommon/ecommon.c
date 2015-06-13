@@ -27,6 +27,8 @@
 #include "ecommon.h"
 
 t_symbol* s_null;
+t_symbol* s_atom;
+t_symbol* s_attr_modified;
 t_symbol* s_eboxbd;
 t_symbol* s_eboxio;
 t_symbol* s_size;
@@ -38,6 +40,8 @@ t_symbol* s_eproxy1572;
 void epd_init_symbols(void)
 {
     s_null          = gensym("(null)");
+    s_atom          = gensym("atom");
+    s_attr_modified = gensym("attr_modified");
     s_eboxbd        = gensym("eboxbd");
     s_eboxio        = gensym("eboxio");
     s_size          = gensym("size");
