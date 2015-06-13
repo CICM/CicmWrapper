@@ -110,7 +110,7 @@ static long modifier_wrapper(long mod)
  \ @param argv      The array of atoms
  \ @return          Nothing
 */
-void ebox_mouse_move(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
     t_atom av[2];
     t_eclass *c = eobj_getclass(x);
@@ -228,7 +228,7 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
  \ @param argv      The array of atoms
  \ @return          Nothing
 */
-void ebox_mouse_drag(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+void ebox_mouse_drag(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
     t_eclass *c = eobj_getclass(x);
     x->b_modifiers -= 256;
@@ -250,7 +250,7 @@ void ebox_mouse_drag(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
  \ @param argv      The array of atoms
  \ @return          Nothing
 */
-void ebox_mouse_down(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
     t_eclass *c = eobj_getclass(x);
 
@@ -292,7 +292,7 @@ void ebox_mouse_down(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
  \ @param argv      The array of atoms
  \ @return          Nothing
 */
-void ebox_mouse_up(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+void ebox_mouse_up(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
     t_eclass *c = eobj_getclass(x);
 
@@ -323,7 +323,7 @@ void ebox_mouse_up(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
  \ @param argv      The array of atoms
  \ @return          Nothing
 */
-void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
     t_eclass *c = eobj_getclass(x);
 
@@ -347,7 +347,7 @@ void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
  \ @param argv      The array of atoms
  \ @return          Nothing
 */
-void ebox_mouse_wheel(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+void ebox_mouse_wheel(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
     float delta;
     t_eclass *c = eobj_getclass(x);
@@ -463,7 +463,7 @@ void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
  \ @param argv      The array of atoms
  \ @return          Nothing
  */
-void ebox_key(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
     t_eclass *c = eobj_getclass(x);
 
@@ -557,7 +557,7 @@ void ebox_dosave(t_ebox* x, t_binbuf *b)
 {
     int         i;
     char        attr_name[MAXPDSTRING];
-    long        argc    = 0;
+    int         argc    = 0;
     t_atom*     argv    = NULL;
     t_eclass *c = eobj_getclass(x);
 
@@ -634,7 +634,7 @@ void ebox_vis(t_ebox* x, int vis)
  \ @param argv      The array of atoms
  \ @return          Always 0 (for the moment)
 */
-t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, long argc, t_atom *argv)
+t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
     t_symbol* sname;
     if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) != s_null)
@@ -669,7 +669,7 @@ t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, long argc, t_atom *argv)
  \ @param argv      The array of atoms
  \ @return          Always 0 (for the moment)
  */
-t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, long argc, t_atom *argv)
+t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) != s_null)
     {
@@ -709,7 +709,7 @@ t_symbol* ebox_get_presetid(t_ebox* x)
  \ @param argv      The array of atoms
  \ @return          Always 0 (for the moment)
  */
-t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, long argc, t_atom *argv)
+t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) != s_null)
     {
@@ -731,7 +731,7 @@ t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, long argc, t_atom *argv)
  \ @param argv      The array of atoms
  \ @return          Always 0 (for the moment)
  */
-t_pd_err ebox_set_font(t_ebox *x, t_object *attr, long argc, t_atom *argv)
+t_pd_err ebox_set_font(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_SYM)
     {
@@ -757,7 +757,7 @@ t_pd_err ebox_set_font(t_ebox *x, t_object *attr, long argc, t_atom *argv)
  \ @param argv      The array of atoms
  \ @return          Always 0 (for the moment)
  */
-t_pd_err ebox_set_fontweight(t_ebox *x, t_object *attr, long argc, t_atom *argv)
+t_pd_err ebox_set_fontweight(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_SYM)
     {
@@ -781,7 +781,7 @@ t_pd_err ebox_set_fontweight(t_ebox *x, t_object *attr, long argc, t_atom *argv)
  \ @param argv      The array of atoms
  \ @return          Always 0 (for the moment)
  */
-t_pd_err ebox_set_fontslant(t_ebox *x, t_object *attr, long argc, t_atom *argv)
+t_pd_err ebox_set_fontslant(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_SYM)
     {
@@ -805,7 +805,7 @@ t_pd_err ebox_set_fontslant(t_ebox *x, t_object *attr, long argc, t_atom *argv)
  \ @param argv      The array of atoms
  \ @return          Always 0 (for the moment)
  */
-t_pd_err ebox_set_fontsize(t_ebox *x, t_object *attr, long argc, t_atom *argv)
+t_pd_err ebox_set_fontsize(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_FLOAT)
     {
@@ -832,7 +832,7 @@ t_pd_err ebox_set_fontsize(t_ebox *x, t_object *attr, long argc, t_atom *argv)
  \ @param argv      The array of atoms that contains the new width and the new height
  \ @return          Always 0 (for the moment)
  */
-t_pd_err ebox_size_set(t_ebox *x, t_object *attr, long argc, t_atom *argv)
+t_pd_err ebox_size_set(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
     float width, height;
     if(argc && argv)
@@ -928,7 +928,7 @@ void ebox_properties(t_ebox *x, t_glist *glist)
 {
     int i, j;
     t_atom *argv = NULL;
-    long    argc = 0;
+    int    argc = 0;
     t_eclass* c = eobj_getclass(x);
     char buffer[MAXPDSTRING];
     char temp[MAXPDSTRING];
@@ -997,13 +997,13 @@ void ebox_properties(t_ebox *x, t_glist *glist)
  \ @param s         Nothing (for Max 6 compatibility)
  \ @return          Nothing
  */
-void ebox_dialog(t_ebox *x, t_symbol *s, long argc, t_atom* argv)
+void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
 {
     int i;
     int attrindex;
     t_eclass* c = eobj_getclass(x);
     t_atom *av;
-    long ac;
+    int ac;
     char buffer[MAXPDSTRING];
     char temp[MAXPDSTRING];
     t_rgb color;

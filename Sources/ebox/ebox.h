@@ -58,7 +58,7 @@ void ebox_set_cursor(t_ebox* x, int mode);
  *********************************/
 
 void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d);
-void ebox_attrprocess_viatoms(void *x, long argc, t_atom *argv);
+void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv);
 void ebox_attrprocess_default(void *x);
 
 /*********************************
@@ -88,29 +88,29 @@ void ebox_erase(t_ebox* x);
 //! @cond
 void ebox_mouse_enter(t_ebox* x);
 void ebox_mouse_leave(t_ebox* x);
-void ebox_mouse_move(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
-void ebox_mouse_up(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
-void ebox_mouse_down(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
-void ebox_mouse_drag(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
-void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
-void ebox_mouse_wheel(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
+void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+void ebox_mouse_up(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+void ebox_mouse_drag(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+void ebox_mouse_wheel(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
 void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key);
-void ebox_key(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
+void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
 void ebox_deserted(t_ebox *x);
 void ebox_dosave(t_ebox* x, t_binbuf *b);
 void ebox_pos(t_ebox* x, float newx, float newy);
 void ebox_vis(t_ebox* x, int vis);
-t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, long argc, t_atom *argv);
-t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, long argc, t_atom *argv);
-t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, long argc, t_atom *argv);
-t_pd_err ebox_set_font(t_ebox *x, t_object *attr, long argc, t_atom *argv);
-t_pd_err ebox_set_fontweight(t_ebox *x, t_object *attr, long argc, t_atom *argv);
-t_pd_err ebox_set_fontslant(t_ebox *x, t_object *attr, long argc, t_atom *argv);
-t_pd_err ebox_set_fontsize(t_ebox *x, t_object *attr, long argc, t_atom *argv);
+t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+t_pd_err ebox_set_font(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+t_pd_err ebox_set_fontweight(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+t_pd_err ebox_set_fontslant(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+t_pd_err ebox_set_fontsize(t_ebox *x, t_object *attr, int argc, t_atom *argv);
 void ebox_properties(t_ebox *x, t_glist *glist);
-void ebox_dialog(t_ebox *x, t_symbol *s, long argc, t_atom* argv);
+void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv);
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
-t_pd_err ebox_size_set(t_ebox *x, t_object *attr, long argc, t_atom *argv);
+t_pd_err ebox_size_set(t_ebox *x, t_object *attr, int argc, t_atom *argv);
 void ebox_attrprint(t_ebox* x);
 t_symbol* ebox_get_presetid(t_ebox* x);
 //! @endcond
@@ -131,11 +131,11 @@ void ebox_create_window(t_ebox* x, t_glist* glist);
  *********************************/
 
 //! @cond
-void ebox_patcher_editmode(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
-void ebox_patcher_motion(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
-void ebox_patcher_key(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
-void ebox_patcher_mouse(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
-void ebox_patcher_focus(t_ebox* x, t_symbol* s, long argc, t_atom* argv);
+void ebox_patcher_editmode(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+void ebox_patcher_motion(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+void ebox_patcher_key(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+void ebox_patcher_mouse(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+void ebox_patcher_focus(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
 //! @endcond
 
 #endif

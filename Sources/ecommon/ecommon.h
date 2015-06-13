@@ -174,41 +174,41 @@ int obj_isfloatinlet(t_object *x, int m);
 void canvas_deletelines_for_io(t_canvas *x, t_text *text, t_inlet *inp, t_outlet *outp);
 
 void* object_method(void* x, t_symbol* s, void* z, method method, long number, void* other);
-void object_attr_setvalueof(t_object *x, t_symbol* s, long argc, t_atom* argv);
-void object_attr_getvalueof(t_object *x, t_symbol *s, long *argc, t_atom **argv);
+void object_attr_setvalueof(t_object *x, t_symbol* s, int argc, t_atom *argv);
+void object_attr_getvalueof(t_object *x, t_symbol *s, int *argc, t_atom **argv);
 
 t_symbol* format_symbol(t_symbol* s);
 long unformat_symbol(char* text, char* buffer, long size);
-t_atom* format_atoms(long ac, t_atom* av);
-long unformat_atoms(long ac, t_atom* av);
+t_atom* format_atoms(int ac, t_atom* av);
+long unformat_atoms(int ac, t_atom* av);
 
-long binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *argv);
+long binbuf_append_attribute(t_binbuf *d, t_symbol *key, int argc, t_atom *argv);
 
-long atoms_get_attributes_offset(long ac, t_atom* av);
+long atoms_get_attributes_offset(int ac, t_atom* av);
 long binbuf_get_attributes_offset(t_binbuf *d);
 
-long atoms_get_nattributes(long ac, t_atom* av);
+long atoms_get_nattributes(int ac, t_atom* av);
 long binbuf_get_nattributes(t_binbuf *d);
 
-t_pd_err atoms_has_attribute(long ac, t_atom* av, t_symbol *key);
+t_pd_err atoms_has_attribute(int ac, t_atom* av, t_symbol *key);
 t_pd_err binbuf_has_attribute(t_binbuf *d, t_symbol *key);
 
-long atoms_get_attribute_index(long ac, t_atom *av, t_symbol *key);
+long atoms_get_attribute_index(int ac, t_atom *av, t_symbol *key);
 long binbuf_get_attribute_index(t_binbuf *d, t_symbol *key);
 
-t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_atom **argv);
-t_pd_err binbuf_get_attribute(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv);
+t_pd_err atoms_get_attribute(int ac, t_atom* av, t_symbol *key, int *argc, t_atom **argv);
+t_pd_err binbuf_get_attribute(t_binbuf *d, t_symbol *key, int *argc, t_atom **argv);
 
-t_pd_err atoms_get_attribute_long(long ac, t_atom* av, t_symbol *key, long *value);
+t_pd_err atoms_get_attribute_long(int ac, t_atom* av, t_symbol *key, long *value);
 t_pd_err binbuf_get_attribute_long(t_binbuf *d, t_symbol *key, long *value);
 
-t_pd_err atoms_get_attribute_float(long ac, t_atom* av, t_symbol *key, float *value);
+t_pd_err atoms_get_attribute_float(int ac, t_atom* av, t_symbol *key, float *value);
 t_pd_err binbuf_get_attribute_float(t_binbuf *d, t_symbol *key, float *value);
 
-long atoms_get_keys(long ac, t_atom* av, t_symbol*** s);
+long atoms_get_keys(int ac, t_atom* av, t_symbol*** s);
 long binbuf_get_keys(t_binbuf *d, t_symbol*** s);
 
-t_binbuf* binbuf_via_atoms(long ac, t_atom *av);
+t_binbuf* binbuf_via_atoms(int ac, t_atom *av);
 
 double pd_clip_min(double aValue, double aMinimum);
 double pd_clip_max(double aValue, double aMaximum);

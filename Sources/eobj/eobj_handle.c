@@ -130,7 +130,7 @@ void eobj_save(t_eobj* x, t_binbuf *b)
  \ @param argv      The array of atoms
  \ @return          Nothing
  */
-void eobj_write(t_eobj* x, t_symbol* s, long argc, t_atom* argv)
+void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
 {
     char buf[MAXPDSTRING];
     char* pch;
@@ -175,7 +175,7 @@ void eobj_write(t_eobj* x, t_symbol* s, long argc, t_atom* argv)
  \ @param argv      The array of atoms
  \ @return          Nothing
  */
-void eobj_read(t_eobj* x, t_symbol* s, long argc, t_atom* argv)
+void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
 {
     char buf[MAXPDSTRING];
     char* pch;
@@ -278,7 +278,7 @@ void eobj_tick(t_eobj* x)
     }
 }
 
-void eobj_mousecanvas(t_eobj* x, t_symbol* s, long argc, t_atom* argv)
+void eobj_mousecanvas(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
 {
     x->o_mouse_canvas.x = atom_getfloat(argv+1);
     x->o_mouse_canvas.y = atom_getfloat(argv+2);

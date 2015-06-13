@@ -45,7 +45,7 @@ typedef struct _erouter
 
 static t_erouter* erouter_setup();
 
-static void erouter_anything(t_erouter *x, t_symbol *s, long argc, t_atom *argv)
+static void erouter_anything(t_erouter *x, t_symbol *s, int argc, t_atom *argv)
 {
     int i;
     t_eobj* z;

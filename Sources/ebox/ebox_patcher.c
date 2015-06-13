@@ -32,7 +32,7 @@
  \ @param x         The ebox pointer
  \ @return          Nothing
 */
-void ebox_patcher_editmode(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+void ebox_patcher_editmode(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
     ebox_redraw(x);
     if(x->b_obj.o_canvas->gl_edit)
@@ -47,7 +47,7 @@ void ebox_patcher_editmode(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
  \ @param x         The ebox pointer
  \ @return          Nothing
 */
-void ebox_patcher_motion(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+void ebox_patcher_motion(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
 	;
 }
@@ -58,7 +58,7 @@ void ebox_patcher_motion(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
  \ @param x         The ebox pointer
  \ @return          Nothing
 */
-void ebox_patcher_key(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+void ebox_patcher_key(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
 	;
 }
@@ -69,7 +69,7 @@ void ebox_patcher_key(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
  \ @param x         The ebox pointer
  \ @return          Nothing
 */
-void ebox_patcher_mouse(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+void ebox_patcher_mouse(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
     ;
 }
@@ -80,7 +80,7 @@ void ebox_patcher_mouse(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
  \ @param x         The ebox pointer
  \ @return          Nothing
 */
-void ebox_patcher_focus(t_ebox* x, t_symbol* s, long argc, t_atom* argv)
+void ebox_patcher_focus(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
     ebox_deserted(x);
 }

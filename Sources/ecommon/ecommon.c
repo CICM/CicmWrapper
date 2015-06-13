@@ -139,13 +139,13 @@ void* object_method(void* x, t_symbol* s, ...)
     return nrmethod(x, s, ...);
 }*/
 
-void object_attr_setvalueof(t_object *x, t_symbol* s, long argc, t_atom* argv)
+void object_attr_setvalueof(t_object *x, t_symbol* s, int argc, t_atom *argv)
 {
     method setvalue = (method)getfn((t_pd *)x, s);
     setvalue(x, s, argc, argv);
 }
 
-void object_attr_getvalueof(t_object *x, t_symbol *s, long *argc, t_atom **argv)
+void object_attr_getvalueof(t_object *x, t_symbol *s, int *argc, t_atom **argv)
 {
     char realname[MAXPDSTRING];
 	method getvalue = NULL;
@@ -157,7 +157,7 @@ void object_attr_getvalueof(t_object *x, t_symbol *s, long *argc, t_atom **argv)
         getvalue(x, s, argc, argv);
 }
 
-t_binbuf* binbuf_via_atoms(long ac, t_atom *av)
+t_binbuf* binbuf_via_atoms(int ac, t_atom *av)
 {
     t_binbuf* dico = binbuf_new();
     binbuf_add(dico, (int)ac, av);
@@ -182,7 +182,7 @@ t_symbol* format_symbol(t_symbol* s)
     return gensym(buffer);
 }
 
-t_atom* format_atoms(long ac, t_atom* av)
+t_atom* format_atoms(int ac, t_atom* av)
 {
     int i;
     for(i = 0; i < ac; i++)
@@ -214,7 +214,7 @@ long unformat_symbol(char* text, char* buffer, long size)
     return !end;
 }
 
-long unformat_atoms(long ac, t_atom* av)
+long unformat_atoms(int ac, t_atom* av)
 {
     int i, lenght, newize = 0;
     char str = 0;
@@ -281,7 +281,7 @@ long unformat_atoms(long ac, t_atom* av)
 }
 
 
-t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *argv)
+t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, int argc, t_atom *argv)
 {
     t_atom* av = (t_atom *)calloc((size_t)(argc+1), sizeof(t_atom));
     if(av)
@@ -295,7 +295,7 @@ t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, long argc, t_atom *
     return -1;
 }
 
-long atoms_get_attributes_offset(long ac, t_atom* av)
+long atoms_get_attributes_offset(int ac, t_atom* av)
 {
     long i;
     for(i = 0; i < ac; i++)
@@ -313,7 +313,7 @@ long binbuf_get_attributes_offset(t_binbuf *d)
     return atoms_get_attributes_offset(binbuf_getnatom(d), binbuf_getvec(d));
 }
 
-long atoms_get_nattributes(long ac, t_atom* av)
+long atoms_get_nattributes(int ac, t_atom* av)
 {
     long i, j;
     for(i = 0, j = 0; i < ac; i++)
@@ -331,7 +331,7 @@ long binbuf_get_nattributes(t_binbuf *d)
     return atoms_get_nattributes(binbuf_getnatom(d), binbuf_getvec(d));
 }
 
-long atoms_get_keys(long ac, t_atom* av, t_symbol*** s)
+long atoms_get_keys(int ac, t_atom* av, t_symbol*** s)
 {
     long i, j;
     long size = atoms_get_nattributes(ac, av);
@@ -360,7 +360,7 @@ long binbuf_get_keys(t_binbuf *d, t_symbol*** s)
 }
 
 
-t_pd_err atoms_has_attribute(long ac, t_atom* av, t_symbol *key)
+t_pd_err atoms_has_attribute(int ac, t_atom* av, t_symbol *key)
 {
     int i;
     if(ac && av)
@@ -384,7 +384,7 @@ t_pd_err binbuf_has_attribute(t_binbuf *d, t_symbol *key)
         return -1;
 }
 
-long atoms_get_attribute_index(long ac, t_atom *av, t_symbol *key)
+long atoms_get_attribute_index(int ac, t_atom *av, t_symbol *key)
 {
     int i;
     if(ac && av)
@@ -406,7 +406,7 @@ long binbuf_get_attribute_index(t_binbuf *d, t_symbol *key)
     return atoms_get_attribute_index(binbuf_getnatom(d), binbuf_getvec(d), key);
 }
 
-t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_atom **argv)
+t_pd_err atoms_get_attribute(int ac, t_atom* av, t_symbol *key, int *argc, t_atom **argv)
 {
     long i = 0, index  = 0;
     argc[0]     = 0;
@@ -454,7 +454,7 @@ t_pd_err atoms_get_attribute(long ac, t_atom* av, t_symbol *key, long *argc, t_a
     return 0;
 }
 
-t_pd_err binbuf_get_attribute(t_binbuf *d, t_symbol *key, long *argc, t_atom **argv)
+t_pd_err binbuf_get_attribute(t_binbuf *d, t_symbol *key, int *argc, t_atom **argv)
 {
     if(d)
         return atoms_get_attribute(binbuf_getnatom(d), binbuf_getvec(d), key, argc, argv);
@@ -462,9 +462,9 @@ t_pd_err binbuf_get_attribute(t_binbuf *d, t_symbol *key, long *argc, t_atom **a
         return -1;
 }
 
-t_pd_err atoms_get_attribute_long(long ac, t_atom* av, t_symbol *key, long *value)
+t_pd_err atoms_get_attribute_long(int ac, t_atom* av, t_symbol *key, long *value)
 {
-    long argc = 0;
+    int argc = 0;
     t_atom* argv = NULL;
     if(!atoms_get_attribute(ac, av, key, &argc, &argv))
     {
@@ -491,9 +491,9 @@ t_pd_err binbuf_get_attribute_long(t_binbuf *d, t_symbol *key, long *value)
         return -1;
 }
 
-t_pd_err atoms_get_attribute_float(long ac, t_atom* av, t_symbol *key, float *value)
+t_pd_err atoms_get_attribute_float(int ac, t_atom* av, t_symbol *key, float *value)
 {
-    long argc = 0;
+    int argc = 0;
     t_atom* argv = NULL;
     atoms_get_attribute(ac, av, key, &argc, &argv);
     if(argc && argv)

@@ -65,12 +65,12 @@ long eobj_get_mouse_modifier(void* x);
 void eobj_save(t_eobj* x, t_binbuf *b);
 void eobj_dosave(t_eobj* x, t_binbuf *b);
 void eobj_popup(t_eobj* x, t_symbol* s, float itemid);
-void eobj_write(t_eobj* x, t_symbol* s, long argc, t_atom* argv);
-void eobj_read(t_eobj* x, t_symbol* s, long argc, t_atom* argv);
+void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv);
+void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv);
 void eobj_tick(t_eobj* x);
 void eobj_poll_mouse(void* x);
 void eobj_nopoll_mouse(void* x);
-void eobj_mousecanvas(t_eobj* x, t_symbol* s, long argc, t_atom* argv);
+void eobj_mousecanvas(t_eobj* x, t_symbol* s, int argc, t_atom *argv);
 //! @endcond
 
 /*********************************

@@ -34,11 +34,11 @@
  \ @param argv      The atoms array
  \ @return          Nothing
  */
-void ebox_attrprocess_viatoms(void *x, long argc, t_atom *argv)
+void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv)
 {
     int     i;
     char    buffer[MAXPDSTRING];
-    long    defc        = 0;
+    int     defc        = 0;
     t_atom* defv        = NULL;
     t_eclass* c         = eobj_getclass(x);
     
@@ -68,7 +68,7 @@ void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)
     int i;
     char attr_name[MAXPDSTRING];
     
-    long defc       = 0;
+    int defc       = 0;
     t_atom* defv    = NULL;
     t_eclass* c     = eobj_getclass(x);
     for(i = 0; i < c->c_nattr; i++)
