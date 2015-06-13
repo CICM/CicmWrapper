@@ -220,6 +220,7 @@ double pd_angle(double x, double y);
 void pd_library_add_folder(char* libraryname, char* folder);
 
 extern t_symbol* s_null;
+extern t_symbol* s_obj;
 extern t_symbol* s_atom;
 extern t_symbol* s_attr_modified;
 extern t_symbol* s_eboxbd;

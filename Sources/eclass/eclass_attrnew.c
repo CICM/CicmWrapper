@@ -41,49 +41,69 @@
 void eclass_new_attr_typed(t_eclass* c, char* attrname, char* type, long size, long maxsize, long flags, long offset)
 {
     int i;
+    t_eattr* attr;
+    t_eattr** attrs;
     char getattr[MAXPDSTRING];
-    if(size < 1)
-        return;
-    for(i = 0; i < c->c_nattr; i++)
+    if(size >= 1)
     {
-        if(c->c_attr[i]->name == gensym(attrname))
-            return ;
+        for(i = 0; i < c->c_nattr; i++)
+        {
+            if(c->c_attr[i]->name == gensym(attrname))
+            {
+                error("%s already have %s attribute.", c->c_class.c_name->s_name, attrname);
+                return ;
+            }
+        }
+        attr = malloc(sizeof(t_eattr));
+        if(attr)
+        {
+            attr->name = gensym(attrname);
+            attr->type = gensym(type);
+            attr->category = c->c_class.c_name;
+            attr->label = gensym("");
+            attr->style = gensym("entry");
+            attr->order = c->c_nattr+1;
+            attr->save  = 0;
+            attr->paint = 0;
+            attr->invisible = 0;
+            attr->flags     = flags;
+            attr->offset    = offset;
+            attr->size      = size;
+            attr->sizemax   = maxsize;
+            attr->getter    = NULL;
+            attr->setter    = NULL;
+            attr->clipped   = 0;
+            attr->minimum   = 0;
+            attr->maximum   = 1;
+            attr->step      = 1;
+            attr->defvals   = NULL;
+            attr->itemslist = NULL;
+            attr->itemssize = 0;
+            
+            attrs = (t_eattr **)realloc(c->c_attr, (size_t)(c->c_nattr + 1) * sizeof(t_eattr *));
+            if(attrs)
+            {
+                c->c_attr = attrs;
+                c->c_attr[c->c_nattr] = attr;
+                class_addmethod((t_class *)c, (t_method)eclass_attr_setter, gensym(attrname), A_GIMME, 0);
+                sprintf(getattr, "get%s", attrname);
+                class_addmethod((t_class *)c, (t_method)eclass_attr_getter, gensym(getattr), A_GIMME, 0);
+                c->c_nattr++;
+            }
+            else
+            {
+                error("%s can't increase memory for %s attribute.", c->c_class.c_name->s_name, attrname);
+            }
+            
+        }
+        else
+        {
+             error("%s can't allocate memory for %s attribute.", c->c_class.c_name->s_name, attrname);
+        }
     }
-    
-    c->c_attr = (t_eattr **)realloc(c->c_attr, (size_t)(c->c_nattr + 1) * sizeof(t_eattr *));
-    if(!c->c_attr)
+    else
     {
-        return;
-    }
-    c->c_attr[c->c_nattr] = malloc(sizeof(t_eattr));
-    if(c->c_attr[c->c_nattr])
-    {
-        c->c_attr[c->c_nattr]->name = gensym(attrname);
-        c->c_attr[c->c_nattr]->type = gensym(type);
-        c->c_attr[c->c_nattr]->category = c->c_class.c_name;
-        c->c_attr[c->c_nattr]->label = gensym("");
-        c->c_attr[c->c_nattr]->style = gensym("entry");
-        c->c_attr[c->c_nattr]->order = c->c_nattr+1;
-        c->c_attr[c->c_nattr]->save  = 0;
-        c->c_attr[c->c_nattr]->paint = 0;
-        c->c_attr[c->c_nattr]->invisible = 0;
-        c->c_attr[c->c_nattr]->flags     = flags;
-        c->c_attr[c->c_nattr]->offset    = offset;
-        c->c_attr[c->c_nattr]->size      = size;
-        c->c_attr[c->c_nattr]->sizemax   = maxsize;
-        c->c_attr[c->c_nattr]->getter    = NULL;
-        c->c_attr[c->c_nattr]->setter    = NULL;
-        c->c_attr[c->c_nattr]->clipped   = 0;
-        c->c_attr[c->c_nattr]->minimum   = 0;
-        c->c_attr[c->c_nattr]->maximum   = 1;
-        c->c_attr[c->c_nattr]->step      = 1;
-        c->c_attr[c->c_nattr]->defvals   = NULL;
-        c->c_attr[c->c_nattr]->itemslist = NULL;
-        c->c_attr[c->c_nattr]->itemssize = 0;
-        class_addmethod((t_class *)c, (t_method)eclass_attr_setter, gensym(attrname), A_GIMME, 0);
-        sprintf(getattr, "get%s", attrname);
-        class_addmethod((t_class *)c, (t_method)eclass_attr_getter, gensym(getattr), A_GIMME, 0);
-        c->c_nattr++;
+        error("%s %s attribute size is too null.", c->c_class.c_name->s_name, attrname);
     }
 }
 

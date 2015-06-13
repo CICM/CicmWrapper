@@ -28,6 +28,7 @@
 
 t_symbol* s_null;
 t_symbol* s_atom;
+t_symbol* s_obj;
 t_symbol* s_attr_modified;
 t_symbol* s_eboxbd;
 t_symbol* s_eboxio;
@@ -41,6 +42,7 @@ void epd_init_symbols(void)
 {
     s_null          = gensym("(null)");
     s_atom          = gensym("atom");
+    s_obj           = gensym("obj");
     s_attr_modified = gensym("attr_modified");
     s_eboxbd        = gensym("eboxbd");
     s_eboxio        = gensym("eboxio");
@@ -287,13 +289,11 @@ long unformat_atoms(int ac, t_atom* av)
 
 t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, int argc, t_atom *argv)
 {
-    t_atom* av = (t_atom *)calloc((size_t)(argc+1), sizeof(t_atom));
-    if(av)
+    if(d && key && argc && argv)
     {
-        atom_setsym(av, key);
-        memcpy(av+1, argv, (size_t)(argc) * sizeof(t_atom));
-        format_atoms(argc, av+1);
-        binbuf_add(d, (int)argc+1, av);
+        format_atoms(argc, argv);
+        binbuf_addv(d, "s", key);
+        binbuf_add(d, argc, argv);
         return 0;
     }
     return -1;

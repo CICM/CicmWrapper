@@ -84,12 +84,16 @@ void ebox_ready(t_ebox *x)
 */
 void ebox_free(t_ebox* x)
 {
+    if(x->b_receive_id && x->b_receive_id != s_null)
+    {
+        pd_unbind((t_pd *)x, x->b_receive_id);
+    }
     gfxstub_deleteforkey(x);
     if(eobj_isdsp(x))
+    {
         eobj_dspfree(x);
+    }
     eobj_free(x);
-    if(x->b_receive_id != s_null)
-		pd_unbind(&x->b_obj.o_obj.ob_pd, x->b_receive_id);
 }
 
 //! Retrieve the font name of an ebox

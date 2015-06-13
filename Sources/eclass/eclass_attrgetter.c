@@ -41,7 +41,7 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
     char *point;
     t_ebox* z   = (t_ebox *)x;
     t_eclass* c = (t_eclass *)z->b_obj.o_obj.te_g.g_pd;
-    if(argv[0])
+    if(argv[0] && argc[0])
         free(argv);
     argc[0] = 0;
 
@@ -62,7 +62,7 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
 
             point = (char *)x + c->c_attr[i]->offset;
 
-            argv[0] = (t_atom *)calloc((unsigned long)argc[0], sizeof(t_atom));
+            argv[0] = (t_atom *)calloc((size_t)argc[0], sizeof(t_atom));
             if(c->c_attr[i]->getter)
             {
                 c->c_attr[i]->getter(x, c->c_attr[i], argc, argv);
@@ -106,7 +106,7 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
                     }
                 }
             }
-            else if(type == gensym("atom"))
+            else if(type == s_atom)
             {
                 for(j = 0; j < argc[0]; j++)
                 {

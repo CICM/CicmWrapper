@@ -562,16 +562,15 @@ void ebox_dosave(t_ebox* x, t_binbuf *b)
     if(c && b)
     {
         state = canvas_suspend_dsp();
-        binbuf_addv(b, "ssiis", gensym("#X"), gensym("obj"), (int)x->b_obj.o_obj.te_xpix, (int)x->b_obj.o_obj.te_ypix, eobj_getclassname(x));
-        
+        binbuf_addv(b, "ssiis", &s__X, s_obj, (int)x->b_obj.o_obj.te_xpix, (int)x->b_obj.o_obj.te_ypix, eobj_getclassname(x));
         for(i = 0; i < c->c_nattr; i++)
         {
             if(c->c_attr[i] && c->c_attr[i]->save && c->c_attr[i]->name)
             {
-                sprintf(attr_name, "@%s", c->c_attr[i]->name->s_name);
                 object_attr_getvalueof((t_object *)x, c->c_attr[i]->name, &argc, &argv);
                 if(argc && argv)
                 {
+                    snprintf(attr_name, MAXPDSTRING, "@%s", c->c_attr[i]->name->s_name);
                     binbuf_append_attribute(b, gensym(attr_name), argc, argv);
                     argc = 0;
                     free(argv);
@@ -988,9 +987,8 @@ void ebox_properties(t_ebox *x, t_glist *glist)
         }
     }
     strcat(buffer, "\n");
-    //post(buffer);
 
-    gfxstub_new(&x->b_obj.o_obj.ob_pd, x, buffer);
+    gfxstub_new((t_pd *)x, x, buffer);
 }
 
 //! Receive the properties window messages and change the attributes values (PRIVATE)

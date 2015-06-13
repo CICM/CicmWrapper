@@ -86,26 +86,15 @@ void *eobj_new(t_eclass *c)
 void eobj_free(void *x)
 {
     t_eobj*     z = (t_eobj *)x;
+    clock_unset(z->o_clock);
+    pd_unbind((t_pd *)x, z->o_id);
     if(z->o_proxy && z->o_nproxy)
     {
         free(z->o_proxy);
     }
     clock_free(z->o_clock);
-    pd_unbind(&z->o_obj.ob_pd, z->o_id);
     eobj_detach_torouter((t_object *)x);
 }
-
-/*
- * \fn          void eobj_proxletnew(void* x)
- * \brief       Add a proxy inlet to an eobj
- * \details     Allocate the memory for a new inlet and initialize a proxy
- * \param x     The eobj pointer
- * \return      This function return nothing
- *
-t_proxlet* eobj_proxletnew(void* x)
-{
-    return proxlet_new((t_object *)x);
-}*/
 
 /*!
  * \fn          void eobj_inletnew(void* x)

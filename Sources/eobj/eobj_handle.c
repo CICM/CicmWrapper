@@ -98,15 +98,20 @@ void eobj_popup(t_eobj* x, t_symbol* s, float itemid)
 */
 void eobj_dosave(t_eobj* x, t_binbuf *b)
 {
+    t_binbuf* d;
     t_eclass* c = eobj_getclass(x);
     if(c && b)
     {
-        binbuf_addv(b, "ssii", gensym("#X"), gensym("obj"), (t_int)x->o_obj.te_xpix, (t_int)x->o_obj.te_ypix);
-        binbuf_add(b, binbuf_getnatom(x->o_obj.te_binbuf), binbuf_getvec(x->o_obj.te_binbuf));
-        
+        binbuf_addv(b, "ssii", &s__X, s_obj, (t_int)x->o_obj.te_xpix, (t_int)x->o_obj.te_ypix);
+        d = x->o_obj.te_binbuf;
+        if(d)
+        {
+            binbuf_addbinbuf(b, d);
+        }
         if(c->c_widget.w_save != NULL)
+        {
             c->c_widget.w_save(x, b);
-        
+        }
         binbuf_addv(b, ";");
     }
 }
@@ -120,9 +125,15 @@ void eobj_dosave(t_eobj* x, t_binbuf *b)
 */
 void eobj_save(t_gobj* x, t_binbuf *b)
 {
-    if(eobj_getclass(x)->c_widget.w_dosave != NULL)
+    t_eclass* c;
+    if(x && b)
     {
-        eobj_getclass(x)->c_widget.w_dosave((t_eobj* )x, b);
+        c = eobj_getclass(x);
+        if(c && c->c_widget.w_dosave != NULL)
+        {
+            c->c_widget.w_dosave((t_eobj* )x, b);
+        }
+        
     }
 }
 
