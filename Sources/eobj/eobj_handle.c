@@ -99,14 +99,16 @@ void eobj_popup(t_eobj* x, t_symbol* s, float itemid)
 void eobj_dosave(t_eobj* x, t_binbuf *b)
 {
     t_eclass* c = eobj_getclass(x);
-    
-    binbuf_addv(b, "ssii", gensym("#X"), gensym("obj"), (t_int)x->o_obj.te_xpix, (t_int)x->o_obj.te_ypix);
-    binbuf_add(b, binbuf_getnatom(x->o_obj.te_binbuf), binbuf_getvec(x->o_obj.te_binbuf));
-    
-    if(c->c_widget.w_save != NULL)
-        c->c_widget.w_save(x, b);
-    
-    binbuf_addv(b, ";");
+    if(c && b)
+    {
+        binbuf_addv(b, "ssii", gensym("#X"), gensym("obj"), (t_int)x->o_obj.te_xpix, (t_int)x->o_obj.te_ypix);
+        binbuf_add(b, binbuf_getnatom(x->o_obj.te_binbuf), binbuf_getvec(x->o_obj.te_binbuf));
+        
+        if(c->c_widget.w_save != NULL)
+            c->c_widget.w_save(x, b);
+        
+        binbuf_addv(b, ";");
+    }
 }
 
 //! The default save method for eobj called by PD (PRIVATE)
@@ -116,9 +118,12 @@ void eobj_dosave(t_eobj* x, t_binbuf *b)
  \ @param b         The binbuf
  \ @return          Nothing
 */
-void eobj_save(t_eobj* x, t_binbuf *b)
+void eobj_save(t_gobj* x, t_binbuf *b)
 {
-    eobj_getclass(x)->c_widget.w_dosave(x, b);
+    if(eobj_getclass(x)->c_widget.w_dosave != NULL)
+    {
+        eobj_getclass(x)->c_widget.w_dosave((t_eobj* )x, b);
+    }
 }
 
 //! The default write method for all eobj called by PD (PRIVATE)

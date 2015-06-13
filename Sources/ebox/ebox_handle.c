@@ -555,34 +555,37 @@ void ebox_deserted(t_ebox *x)
 */
 void ebox_dosave(t_ebox* x, t_binbuf *b)
 {
-    int         i;
+    int         i = 0, state = 0, argc = 0;
     char        attr_name[MAXPDSTRING];
-    int         argc    = 0;
     t_atom*     argv    = NULL;
     t_eclass *c = eobj_getclass(x);
-
-    binbuf_addv(b, "ssiis", gensym("#X"), gensym("obj"), (int)x->b_obj.o_obj.te_xpix, (int)x->b_obj.o_obj.te_ypix, eobj_getclassname(x));
-
-    for(i = 0; i < c->c_nattr; i++)
+    if(c && b)
     {
-        if(c->c_attr[i]->save)
+        state = canvas_suspend_dsp();
+        binbuf_addv(b, "ssiis", gensym("#X"), gensym("obj"), (int)x->b_obj.o_obj.te_xpix, (int)x->b_obj.o_obj.te_ypix, eobj_getclassname(x));
+        
+        for(i = 0; i < c->c_nattr; i++)
         {
-            sprintf(attr_name, "@%s", c->c_attr[i]->name->s_name);
-            object_attr_getvalueof((t_object *)x, c->c_attr[i]->name, &argc, &argv);
-            if(argc && argv)
+            if(c->c_attr[i] && c->c_attr[i]->save && c->c_attr[i]->name)
             {
-                binbuf_append_attribute(b, gensym(attr_name), argc, argv);
-                argc = 0;
-                free(argv);
-                argv = NULL;
+                sprintf(attr_name, "@%s", c->c_attr[i]->name->s_name);
+                object_attr_getvalueof((t_object *)x, c->c_attr[i]->name, &argc, &argv);
+                if(argc && argv)
+                {
+                    binbuf_append_attribute(b, gensym(attr_name), argc, argv);
+                    argc = 0;
+                    free(argv);
+                    argv = NULL;
+                }
             }
         }
+        
+        if(c->c_widget.w_save != NULL)
+            c->c_widget.w_save(x, b);
+        
+        binbuf_addv(b, ";");
+        canvas_resume_dsp(state);
     }
-
-    if(c->c_widget.w_save != NULL)
-        c->c_widget.w_save(x, b);
-
-    binbuf_addv(b, ";");
 }
 
 //! The method to move an UI ebox (PRIVATE)
