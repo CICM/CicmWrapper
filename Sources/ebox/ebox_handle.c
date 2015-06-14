@@ -503,22 +503,6 @@ void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
     }
 }
 
-//! Get the patcher notification when focus has changed (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @return          Nothing
- */
-void ebox_focus(t_ebox* x, float f)
-{
-    if(f == 0.f)
-    {
-        t_eclass *c = eobj_getclass(x);
-        if(c->c_widget.w_deserted && x->b_ready_to_draw)
-            c->c_widget.w_deserted(x);
-    }
-}
-
 //! The default save method for UI ebox (PRIVATE)
 /*
  \ @memberof        ebox
@@ -612,14 +596,14 @@ void ebox_vis(t_ebox* x, int vis)
 t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
     t_symbol* sname;
-    if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) != s_null)
+    if(argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null)
     {
 		if(x->b_receive_id != s_null)
         {
             sname = canvas_realizedollar(eobj_getcanvas(x), x->b_receive_id);
 			pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
         }
-        x->b_receive_id = atom_getsym(argv);
+        x->b_receive_id = atom_getsymbol(argv);
         sname = canvas_realizedollar(eobj_getcanvas(x), x->b_receive_id);
         pd_bind(&x->b_obj.o_obj.ob_pd, sname);
     }
@@ -646,9 +630,9 @@ t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
  */
 t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
-    if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) != s_null)
+    if(argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null)
     {
-        x->b_send_id = atom_getsym(argv);
+        x->b_send_id = atom_getsymbol(argv);
     }
     else
     {
@@ -686,9 +670,9 @@ t_symbol* ebox_get_presetid(t_ebox* x)
  */
 t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
-    if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) != s_null)
+    if(argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null)
     {
-        x->b_objpreset_id = atom_getsym(argv);
+        x->b_objpreset_id = atom_getsymbol(argv);
     }
     else
     {
@@ -708,12 +692,12 @@ t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
  */
 t_pd_err ebox_set_font(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
-    if(argc && argv && atom_gettype(argv) == A_SYM)
+    if(argc && argv && atom_gettype(argv) == A_SYMBOL)
     {
-		if(atom_getsym(argv) == s_null)
+		if(atom_getsymbol(argv) == s_null)
             x->b_font.c_family = gensym("Helvetica");
         else
-            x->b_font.c_family = atom_getsym(argv);
+            x->b_font.c_family = atom_getsymbol(argv);
     }
     else
         x->b_font.c_family = gensym("Helvetica");
@@ -734,9 +718,9 @@ t_pd_err ebox_set_font(t_ebox *x, t_object *attr, int argc, t_atom *argv)
  */
 t_pd_err ebox_set_fontweight(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
-    if(argc && argv && atom_gettype(argv) == A_SYM)
+    if(argc && argv && atom_gettype(argv) == A_SYMBOL)
     {
-		if(atom_getsym(argv) == gensym("bold") || atom_getsym(argv) == gensym("Bold"))
+		if(atom_getsymbol(argv) == gensym("bold") || atom_getsymbol(argv) == gensym("Bold"))
             x->b_font.c_weight = gensym("bold");
         else
             x->b_font.c_weight = gensym("normal");
@@ -758,9 +742,9 @@ t_pd_err ebox_set_fontweight(t_ebox *x, t_object *attr, int argc, t_atom *argv)
  */
 t_pd_err ebox_set_fontslant(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
-    if(argc && argv && atom_gettype(argv) == A_SYM)
+    if(argc && argv && atom_gettype(argv) == A_SYMBOL)
     {
-		if(atom_getsym(argv) == gensym("italic") || atom_getsym(argv) == gensym("Italic"))
+		if(atom_getsymbol(argv) == gensym("italic") || atom_getsymbol(argv) == gensym("Italic"))
             x->b_font.c_slant = gensym("italic");
         else
             x->b_font.c_slant = gensym("roman");
@@ -985,7 +969,7 @@ void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
     if(argc > 2 && argv)
     {
         ebox_attrprocess_viatoms(x, argc, argv);
-        if(atom_gettype(argv) == A_SYM && atom_gettype(argv+1) ==A_FLOAT)
+        if(atom_gettype(argv) == A_SYMBOL && atom_gettype(argv+1) ==A_FLOAT)
         {
             attrindex = (int)atom_getfloat(argv+1) - 1;
             if(attrindex >= 0 && attrindex < c->c_nattr)
@@ -996,16 +980,16 @@ void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
                     if(c->c_attr[attrindex]->style == gensym("checkbutton"))
                     {
                         if(atom_getfloat(av) == 0)
-                            sys_vgui("%s.sele%i.selec deselect \n", atom_getsym(argv)->s_name, attrindex+1);
+                            sys_vgui("%s.sele%i.selec deselect \n", atom_getsymbol(argv)->s_name, attrindex+1);
                         else
-                            sys_vgui("%s.sele%i.selec select \n", atom_getsym(argv)->s_name, attrindex+1);
+                            sys_vgui("%s.sele%i.selec select \n", atom_getsymbol(argv)->s_name, attrindex+1);
                     }
                     else if(c->c_attr[attrindex]->style == gensym("color"))
                     {
                         color.red = atom_getfloat(av);
                         color.green = atom_getfloat(av+1);
                         color.blue = atom_getfloat(av+2);
-                        sys_vgui("%s.sele%i.selec configure -readonlybackground %s \n", atom_getsym(argv)->s_name, attrindex+1, rgb_to_hex(color));
+                        sys_vgui("%s.sele%i.selec configure -readonlybackground %s \n", atom_getsymbol(argv)->s_name, attrindex+1, rgb_to_hex(color));
                     }
                     else if(c->c_attr[attrindex]->style == gensym("menu"))
                     {
@@ -1016,8 +1000,8 @@ void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
                             strcat(buffer, " ");
                             strcat(buffer, temp);
                         }
-                        sys_vgui("%s.sele%i.selec delete 0 end \n", atom_getsym(argv)->s_name, attrindex+1);
-                        sys_vgui("%s.sele%i.selec insert 0 \"%s\" \n", atom_getsym(argv)->s_name, attrindex+1, buffer);
+                        sys_vgui("%s.sele%i.selec delete 0 end \n", atom_getsymbol(argv)->s_name, attrindex+1);
+                        sys_vgui("%s.sele%i.selec insert 0 \"%s\" \n", atom_getsymbol(argv)->s_name, attrindex+1, buffer);
                     }
                     else
                     {
@@ -1028,8 +1012,8 @@ void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
                             strcat(buffer, " ");
                             strcat(buffer, temp);
                         }
-                        sys_vgui("%s.sele%i.selec delete 0 end \n", atom_getsym(argv)->s_name, attrindex+1);
-                        sys_vgui("%s.sele%i.selec insert 0 \"%s\" \n", atom_getsym(argv)->s_name, attrindex+1, buffer);
+                        sys_vgui("%s.sele%i.selec delete 0 end \n", atom_getsymbol(argv)->s_name, attrindex+1);
+                        sys_vgui("%s.sele%i.selec insert 0 \"%s\" \n", atom_getsymbol(argv)->s_name, attrindex+1, buffer);
 
                     }
                 }

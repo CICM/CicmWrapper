@@ -58,9 +58,6 @@ void ebox_new(t_ebox *x, long flags)
 void ebox_ready(t_ebox *x)
 {
     t_eclass* c = (t_eclass *)x->b_obj.o_obj.te_g.g_pd;
-    
-    eobj_get_mouse_global_position((t_eobj *)x);
-    
     x->b_selected_item  = EITEM_NONE;
     x->b_selected_box   = 0;
     x->b_selected_inlet = -1;
@@ -177,6 +174,24 @@ char ebox_isdrawable(t_ebox* x)
     }
     return 0;
 }
+
+static char *my_cursorlist[] =
+{
+    "left_ptr",
+    "center_ptr",
+    "sb_v_double_arrow",
+    "plus",
+    "hand2",
+    "circle",
+    "X_cursor",
+    "bottom_side",
+    "bottom_right_corner",
+    "right_side",
+    "double_arrow",
+    "exchange",
+    "xterm"
+};
+
 
 //! Change the cursor
 /*

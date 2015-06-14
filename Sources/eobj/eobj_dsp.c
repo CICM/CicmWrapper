@@ -125,10 +125,7 @@ void eobj_resize_inputs(void *x, long nins)
     {
         for(i = obj->o_nproxy - 1; i >= nins; --i)
         {
-            if(obj->o_proxy[i]->p_inlet->i_symfrom == &s_signal)
-            {
-                eproxy_free(obj, obj->o_proxy[i]);
-            }
+            eproxy_free(obj, obj->o_proxy[i]);
         }
     }
     canvas_fixlinesfor(eobj_getcanvas(obj), (t_text *)x);
@@ -169,7 +166,7 @@ void eobj_dsp(void *x, t_signal **sp)
                 }
                 else
                 {
-                    box->d_sigs_out = (t_float **)malloc((size_t)nouts * sizeof(t_float *));
+                    box->d_sigs_out = (t_float **)getbytes((size_t)nouts * sizeof(t_float *));
                 }
                 if(!box->d_sigs_out)
                 {
@@ -182,7 +179,7 @@ void eobj_dsp(void *x, t_signal **sp)
                 }
                 else
                 {
-                    box->d_sigs_real = (t_float *)malloc((size_t)(nouts * samplesize) * sizeof(t_float));
+                    box->d_sigs_real = (t_float *)getbytes((size_t)(nouts * samplesize) * sizeof(t_float));
                 }
                 if(!box->d_sigs_real)
                 {
@@ -197,7 +194,7 @@ void eobj_dsp(void *x, t_signal **sp)
             }
             
             box->d_dsp_size = nins + nouts + 6;
-            box->d_dsp_vectors = (t_int *)malloc((size_t)box->d_dsp_size * sizeof(t_int));
+            box->d_dsp_vectors = (t_int *)getbytes((size_t)box->d_dsp_size * sizeof(t_int));
             if(!box->d_dsp_vectors)
             {
                 box->d_dsp_size = 0;
@@ -258,7 +255,7 @@ void eobj_dsp(void *x, t_signal **sp)
                 }
                 else
                 {
-                    obj->d_sigs_out = (t_float **)malloc((size_t)nouts * sizeof(t_float *));
+                    obj->d_sigs_out = (t_float **)getbytes((size_t)nouts * sizeof(t_float *));
                 }
                 if(!obj->d_sigs_out)
                 {
@@ -271,7 +268,7 @@ void eobj_dsp(void *x, t_signal **sp)
                 }
                 else
                 {
-                    obj->d_sigs_real = (t_float *)malloc((size_t)(nouts * samplesize) * sizeof(t_float));
+                    obj->d_sigs_real = (t_float *)getbytes((size_t)(nouts * samplesize) * sizeof(t_float));
                 }
                 if(!obj->d_sigs_real)
                 {
@@ -286,7 +283,7 @@ void eobj_dsp(void *x, t_signal **sp)
             }
             
             obj->d_dsp_size = nins + nouts + 6;
-            obj->d_dsp_vectors = (t_int *)malloc((size_t)obj->d_dsp_size * sizeof(t_int));
+            obj->d_dsp_vectors = (t_int *)getbytes((size_t)obj->d_dsp_size * sizeof(t_int));
             if(!obj->d_dsp_vectors)
             {
                 obj->d_dsp_size = 0;

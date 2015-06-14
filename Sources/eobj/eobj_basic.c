@@ -57,9 +57,7 @@ void *eobj_new(t_eclass *c)
             x->o_id = gensym(buffer);
             pd_bind(&x->o_obj.ob_pd, x->o_id);
             sprintf(buffer,".x%lx.c", (long unsigned int)x->o_canvas);
-            x->o_canvas_id = gensym(buffer);
             c->c_widget.w_dosave = (method)eobj_dosave;
-            x->o_clock = clock_new(x, (t_method)eobj_tick);
         }
         else
         {
@@ -83,13 +81,11 @@ void *eobj_new(t_eclass *c)
 void eobj_free(void *x)
 {
     t_eobj*     z = (t_eobj *)x;
-    clock_unset(z->o_clock);
     pd_unbind((t_pd *)x, z->o_id);
     if(z->o_proxy && z->o_nproxy)
     {
-        free(z->o_proxy);
+        freebytes(z->o_proxy, (size_t)z->o_nproxy * sizeof(t_eproxy *));
     }
-    clock_free(z->o_clock);
 }
 
 /*!
@@ -186,6 +182,196 @@ char eobj_isdsp(void *x)
     else
         return 0;
 }
+
+//! @cond
+
+//! The popup method called by tcl/tk (PRIVATE)
+/*
+ \ @memberof        eobj
+ \ @param x         The eobj pointer
+ \ @param s         The message selector
+ \ @param itemid    the id of the selected item
+ \ @return          Nothing
+ */
+void eobj_popup(t_eobj* x, t_symbol* s, float itemid)
+{
+    t_eclass* c = eobj_getclass(x);
+    if(c->c_widget.w_popup)
+    {
+        c->c_widget.w_popup(x, s, (long)itemid);
+    }
+}
+
+//! The default save method for UI ebox (PRIVATE)
+/*
+ \ @memberof        eobj
+ \ @param z         The eobj pointor
+ \ @param b         The binbuf
+ \ @return          Nothing
+ */
+void eobj_dosave(t_eobj* x, t_binbuf *b)
+{
+    t_binbuf* d;
+    t_eclass* c = eobj_getclass(x);
+    if(c && b)
+    {
+        binbuf_addv(b, "ssii", &s__X, s_obj, (t_int)x->o_obj.te_xpix, (t_int)x->o_obj.te_ypix);
+        d = x->o_obj.te_binbuf;
+        if(d)
+        {
+            binbuf_addbinbuf(b, d);
+        }
+        if(c->c_widget.w_save != NULL)
+        {
+            c->c_widget.w_save(x, b);
+        }
+        binbuf_addv(b, ";");
+    }
+}
+
+//! The default save method for eobj called by PD (PRIVATE)
+/*
+ \ @memberof        eobj
+ \ @param z         The eobj pointor
+ \ @param b         The binbuf
+ \ @return          Nothing
+ */
+void eobj_save(t_gobj* x, t_binbuf *b)
+{
+    t_eclass* c;
+    if(x && b)
+    {
+        c = eobj_getclass(x);
+        if(c && c->c_widget.w_dosave != NULL)
+        {
+            c->c_widget.w_dosave((t_eobj* )x, b);
+        }
+        
+    }
+}
+
+//! The default write method for all eobj called by PD (PRIVATE)
+/*
+ \ @memberof        eobj
+ \ @param x         The eobj pointor
+ \ @param s         The symbol selector
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Nothing
+ */
+void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
+{
+    char buf[MAXPDSTRING];
+    char* pch;
+    t_atom av[1];
+    t_eclass* c = eobj_getclass(x);
+    
+    // The file name is defined
+    if(argc && argv && atom_gettype(argv) == A_SYMBOL)
+    {
+        pch = strpbrk(atom_getsymbol(argv)->s_name, "/\"");
+        // The folder seems defined
+        if(pch != NULL)
+        {
+            atom_setsym(av, atom_getsymbol(argv));
+            if(c->c_widget.w_write)
+                c->c_widget.w_write(x, s, 1, av);
+            return;
+        }
+        // The folder isn't defined so write it in the canvas folder
+        else
+        {
+            sprintf(buf, "%s/%s", canvas_getdir(x->o_canvas)->s_name, atom_getsymbol(argv)->s_name);
+            atom_setsym(av, gensym(buf));
+            if(c->c_widget.w_write)
+                c->c_widget.w_write(x, s, 1, av);
+            return;
+        }
+    }
+    // The file name is not defined so we popup a window
+    else
+    {
+        sys_vgui("eobj_saveas %s nothing nothing\n", x->o_id->s_name);
+    }
+}
+
+//! The default read method for all eobj called by PD (PRIVATE)
+/*
+ \ @memberof        eobj
+ \ @param x         The eobj pointor
+ \ @param s         The symbol selector
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Nothing
+ */
+void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
+{
+    char buf[MAXPDSTRING];
+    char* pch;
+    t_atom av[1];
+    t_namelist* var;
+    t_eclass* c = eobj_getclass(x);
+    
+    // Name
+    if(argc && argv && atom_gettype(argv) == A_SYMBOL)
+    {
+        // Valid path
+        if((access(atom_getsymbol(argv)->s_name, O_RDONLY) != -1))
+        {
+            if(c->c_widget.w_read)
+                c->c_widget.w_read(x, s, 1, argv);
+        }
+        // Invalid path or no path
+        else
+        {
+            // Wrong path but we don't care
+            pch = strpbrk(atom_getsymbol(argv)->s_name, "/\"");
+            if(pch != NULL)
+            {
+                if(c->c_widget.w_read)
+                    c->c_widget.w_read(x, s, 1, argv);
+            }
+            else
+            {
+                // Look in the canvas folder
+                sprintf(buf, "%s/%s", canvas_getdir(x->o_canvas)->s_name, atom_getsymbol(argv)->s_name);
+                if((access(buf, O_RDONLY) != -1))
+                {
+                    atom_setsym(av, gensym(buf));
+                    if(c->c_widget.w_read)
+                        c->c_widget.w_read(x, s, 1, av);
+                    return;
+                }
+                // Look in the search path
+                var = sys_searchpath;
+                while (var)
+                {
+                    sprintf(buf, "%s/%s", var->nl_string, atom_getsymbol(argv)->s_name);
+                    if((access(buf, O_RDONLY) != -1))
+                    {
+                        atom_setsym(av, gensym(buf));
+                        if(c->c_widget.w_read)
+                            c->c_widget.w_read(x, s, 1, av);
+                        return;
+                    }
+                    var = var->nl_next;
+                }
+                
+                // Nothing work but we don't care
+                if(c->c_widget.w_read)
+                    c->c_widget.w_read(x, s, 1, av);
+                return;
+            }
+        }
+    }
+    // No name so we popup a window
+    else
+    {
+        sys_vgui("eobj_openfrom %s\n", x->o_id->s_name);
+    }
+}
+
+//! @endcond
 
 
 

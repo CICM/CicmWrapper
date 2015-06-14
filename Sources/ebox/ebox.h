@@ -97,7 +97,6 @@ void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
 void ebox_dosave(t_ebox* x, t_binbuf *b);
 void ebox_pos(t_ebox* x, float newx, float newy);
 void ebox_vis(t_ebox* x, int vis);
-void ebox_focus(t_ebox* x, float f);
 t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
 t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
 t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, int argc, t_atom *argv);

@@ -28,7 +28,7 @@
 
 t_etext* etext_layout_create(void)
 {
-    t_etext* new_text_layout = (t_etext *)malloc(sizeof(t_etext));
+    t_etext* new_text_layout = (t_etext *)getbytes(sizeof(t_etext));
     new_text_layout->c_color.red = 0.;
     new_text_layout->c_color.green = 0.;
     new_text_layout->c_color.blue = 0.;
@@ -39,7 +39,7 @@ t_etext* etext_layout_create(void)
 
 void etext_layout_destroy(t_etext* textlayout)
 {
-    free(textlayout);
+    freebytes(textlayout, sizeof(textlayout));
 }
 
 void etext_layout_set(t_etext* textlayout, char* text, t_efont *jfont,  double x, double y, double width,  double height, t_etextanchor_flags anchor, t_etextjustify_flags justify, t_etextwrap_flags wrap)
@@ -91,7 +91,7 @@ void etext_layout_settextcolor(t_etext* textlayout, t_rgba* color)
 
 t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, double size)
 {
-    t_efont* new_font = (t_efont *)malloc(sizeof(t_efont));
+    t_efont* new_font = (t_efont *)getbytes(sizeof(t_efont));
     new_font[0].c_family = family;
 
     new_font[0].c_slant = slant;
@@ -108,7 +108,7 @@ t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, doubl
 
 void efont_destroy(t_efont* font)
 {
-    free(font);
+    freebytes(font, sizeof(t_efont));
 }
 
 

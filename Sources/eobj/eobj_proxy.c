@@ -28,6 +28,36 @@
 
 #include "eobj.h"
 
+union inletunion
+{
+    t_symbol *iu_symto;
+    t_gpointer *iu_pointerslot;
+    t_float *iu_floatslot;
+    t_symbol **iu_symslot;
+#ifdef PD_BLOBS
+    t_blob **iu_blobslot; /* MP 20061226 blob type */
+#endif
+    t_float iu_floatsignalvalue;
+};
+
+struct _inlet
+{
+    t_pd i_pd;
+    struct _inlet *i_next;
+    t_object *i_owner;
+    t_pd *i_dest;
+    t_symbol *i_symfrom;
+    union inletunion i_un;
+};
+
+struct _outlet
+{
+    t_object *o_owner;
+    struct _outlet *o_next;
+    t_outconnect *o_connections;
+    t_symbol *o_sym;
+};
+
 static t_class* eproxy_class;
 
 static void inlet_wrong(t_inlet *x, t_symbol *s)
@@ -271,7 +301,7 @@ t_eproxy* eproxy_new(void *owner, t_symbol* s)
     }
     else
     {
-        z->o_proxy = (t_eproxy **)malloc(1 * sizeof(t_eproxy *));
+        z->o_proxy = (t_eproxy **)getbytes(1 * sizeof(t_eproxy *));
     }
     if(z->o_proxy)
     {
@@ -295,6 +325,24 @@ t_eproxy* eproxy_new(void *owner, t_symbol* s)
     }
 }
 
+static void canvas_deletelines_for_io(t_canvas *x, t_text *text, t_inlet *inp, t_outlet *outp)
+{
+    t_linetraverser t;
+    t_outconnect *oc;
+    linetraverser_start(&t, x);
+    while((oc = linetraverser_next(&t)))
+    {
+        if ((t.tr_ob == text && t.tr_outlet == outp) || (t.tr_ob2 == text && t.tr_inlet == inp))
+        {
+            if(glist_isvisible(x))
+            {
+                sys_vgui(".x%lx.c delete l%lx\n", glist_getcanvas(x), oc);
+            }
+            obj_disconnect(t.tr_ob, t.tr_outno, t.tr_ob2, t.tr_inno);
+        }
+    }
+}
+
 //! Free a proxy inlet
 /*
  * @memberof    eobj
@@ -309,7 +357,7 @@ void eproxy_free(void *owner, t_eproxy* proxy)
     {
         if(z->o_nproxy == proxy->p_index + 1)
         {
-            canvas_deletelines_for_io(eobj_getcanvas(owner), (t_text *)owner, (t_inlet *)proxy->p_inlet, NULL);
+            canvas_deletelines_for_io(eobj_getcanvas(owner), (t_text *)owner, proxy->p_inlet, NULL);
             inlet_free(proxy->p_inlet);
             if(z->o_nproxy == 1)
             {

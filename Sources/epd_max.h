@@ -27,6 +27,14 @@
 #ifndef DEF_EPD_MAX
 #define DEF_EPD_MAX
 
+#define object_error       pd_error
+#define sys_getdspstate()  canvas_dspstate
+#define A_LONG             A_FLOAT
+#define A_SYM              A_SYMBOL
+#define ASSIST_INLET       1
+#define ASSIST_OUTLET      2
+#define atom_getsym(atom)  atom_getsymbol(atom)
+
 #define JBOX_DRAWFIRSTIN        0
 #define JBOX_NODRAWBOX          0
 #define JBOX_DRAWINLAST         0
@@ -54,8 +62,6 @@
 #define t_jbox              t_ebox
 #define t_pxobject          t_ebox
 
-//#define CLASS_OBJ				gensym("box")
-//#define CLASS_BOX				gensym("nobox")
 #define Z_NO_INPLACE 1
 #define Z_PUT_LAST 2
 #define Z_PUT_FIRST 4
@@ -100,7 +106,6 @@
 #define attr_dictionary_process(object, dict)       ebox_attrprocess_viabinbuf(object, dict)
 #define object_dictionaryarg(ac, av)                binbuf_via_atoms(ac, av)
 #define dictionary_copyatoms(d, key, argc, argv)    binbuf_get_attribute(d, key, argc, argv)
-#define dictionary_appendatoms(d, key, argc, argv)  binbuf_append_attribute(d, key, argc, argv)
 
 #define jgraphics_set_line_width    egraphics_set_line_width
 #define jgraphics_set_source_jrgba  egraphics_set_color_rgba

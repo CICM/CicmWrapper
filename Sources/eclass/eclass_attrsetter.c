@@ -92,7 +92,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                 int* pointor = (int *)point;
                 for(j = 0; j < size && j < argc; j++)
                 {
-                    if(atom_gettype(argv+j) == A_LONG)
+                    if(atom_gettype(argv+j) == A_FLOAT)
                     {
                         pointor[j] = (int)atom_getlong(argv+j);
                     }
@@ -103,7 +103,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                 long* pointor = (long *)point;
                 for(j = 0; j < size && j < argc; j++)
                 {
-                    if(atom_gettype(argv+j) == A_LONG)
+                    if(atom_gettype(argv+j) == A_FLOAT)
                     {
                         pointor[j] = (long)atom_getlong(argv+j);
                     }
@@ -136,7 +136,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                 t_symbol** pointor = (t_symbol **)point;
                 for(j = 0; j < size && j < argc; j++)
                 {
-                    if(atom_gettype(argv+j) == A_SYM)
+                    if(atom_gettype(argv+j) == A_SYMBOL)
                     {
                         pointor[j] = gensym(atom_getsymbol(argv+j)->s_name);
                     }

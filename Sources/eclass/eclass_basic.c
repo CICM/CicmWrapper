@@ -42,15 +42,21 @@ t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t siz
 {
     char help[MAXPDSTRING];
     t_class *pd  = class_new(gensym(name), (t_newmethod)newmethod, (t_method)freemethod, size, flags, arg1, arg2);
-    t_eclass* c;
-    c = (t_eclass *)resizebytes(pd, sizeof(*pd), sizeof(*c));
-    c->c_nattr = 0;
-    c->c_dsp   = 0;
-    c->c_box   = 0;
-    c->c_juce  = 0;
-    c->c_attr  = NULL;
-    sprintf(help, "helps/%s", c->c_class.c_name->s_name);
-    class_sethelpsymbol((t_class *)c, gensym(help));
+    t_eclass* c  = (t_eclass *)resizebytes(pd, sizeof(*pd), sizeof(*c));
+    if(c)
+    {
+        epd_init();
+        c->c_nattr = 0;
+        c->c_dsp   = 0;
+        c->c_box   = 0;
+        c->c_attr  = NULL;
+        sprintf(help, "helps/%s", c->c_class.c_name->s_name);
+        class_sethelpsymbol((t_class *)c, gensym(help));
+    }
+    else
+    {
+        bug("Memory allocation failed for the class %s.", name);
+    }
     return c;
 }
 
@@ -432,30 +438,14 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
         if(gensym(name) == gensym("keyfilter"))
             c->c_widget.w_keyfilter = m;
     }
-    else if(gensym(name) == gensym("deserted"))
-    {
-        class_addmethod((t_class *)c, (t_method)ebox_focus,   gensym("focus"),  A_FLOAT,  0);
-        c->c_widget.w_deserted = m;
-    }
     else if(gensym(name) == gensym("paint"))
     {
-        if(c->c_juce)
-            c->c_widget.w_paint_juce = m;
-        else
-            c->c_widget.w_paint = m;
-    }
-    else if(gensym(name) == gensym("assist"))
-    {
-        ;
+        c->c_widget.w_paint = m;
     }
     else if(gensym(name) == gensym("notify"))
     {
-        if(c->c_juce)
-            c->c_widget.w_notify_juce = (t_err_method)m;
-        else
-            c->c_widget.w_notify = (t_err_method)m;
+        c->c_widget.w_notify = (t_err_method)m;
     }
-
     else if(gensym(name) == gensym("getdrawparams"))
     {
         c->c_widget.w_getdrawparameters = m;

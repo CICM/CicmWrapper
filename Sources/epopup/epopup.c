@@ -28,7 +28,7 @@
 
 t_epopup* epopupmenu_create(t_eobj* x, t_symbol* name)
 {
-    t_epopup* menu = (t_epopup *)malloc(sizeof(t_epopup));
+    t_epopup* menu = (t_epopup *)getbytes(sizeof(t_epopup));
     menu->c_send = x->o_id;
     menu->c_name = name;
     sys_vgui("destroy .eboxpopup%s\n", menu->c_name->s_name);
@@ -66,7 +66,7 @@ void epopupmenu_popup(t_epopup* menu, t_pt screen, int defitemid)
 /*
 t_etextfield* etextfield_create(t_eobj* x, t_symbol* name, float width, float height)
 {
-    t_etextfield* textfield = (t_etextfield *)malloc(sizeof(t_etextfield));
+    t_etextfield* textfield = (t_etextfield *)getbytes(sizeof(t_etextfield));
     textfield->c_send = x->o_id;
     textfield->c_name = name;
     //sys_vgui("destroy .textfield%s\n", x->e_window_id->s_name, textfield->c_name->s_name);

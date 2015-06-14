@@ -146,7 +146,6 @@ typedef struct _ewidget
     method          w_dblclick;
     method          w_key;
     method          w_keyfilter;
-    method          w_deserted;
     method          w_getdrawparameters;
     method          w_save;
     method          w_dosave;
@@ -157,8 +156,6 @@ typedef struct _ewidget
     t_err_method    w_notify;
     method          w_write;
     method          w_read;
-    t_err_method    w_notify_juce;
-    method          w_paint_juce;
 } t_ewidget;
 
 typedef struct _eattr
@@ -194,7 +191,6 @@ typedef struct _eclass
     t_class     c_class;
     char        c_box;
     char        c_dsp;
-    char        c_juce;
     t_ewidget   c_widget;
     t_eattr**   c_attr;
     long        c_nattr;
@@ -406,11 +402,9 @@ typedef struct _eobj
     t_object            o_obj;              /*!< The Pd object. */
     t_symbol*           o_id;               /*!< The object ID. */
     t_canvas*           o_canvas;           /*!< The canvas that own the object. */
-    t_symbol*           o_canvas_id;        /*!< The canvas ID. */
     t_eproxy**          o_proxy;            /*!< The array of proxy inlets. */
     int                 o_nproxy;           /*!< The number of proxy inlets. */
     int                 o_current_proxy;    /*!< The index of the current proxy inlet used */
-    t_clock*            o_clock;            /*!< The clock for mouse canvas position */
 }t_eobj;
 
 /**
