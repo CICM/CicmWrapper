@@ -35,7 +35,7 @@
 #define DEF_EBOX
 
 #include "estruct.h"
-#include "egraphics/egraphics.h"
+#include "egraphics.h"
 #include "eobj.h"
 
 /*********************************
