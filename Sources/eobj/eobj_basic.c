@@ -56,7 +56,6 @@ void *eobj_new(t_eclass *c)
             sprintf(buffer,"#%s%lx", c->c_class.c_name->s_name, (long unsigned int)x);
             x->o_id = gensym(buffer);
             pd_bind(&x->o_obj.ob_pd, x->o_id);
-            eobj_attach_torouter((t_object *)x);
             sprintf(buffer,".x%lx.c", (long unsigned int)x->o_canvas);
             x->o_canvas_id = gensym(buffer);
             c->c_widget.w_dosave = (method)eobj_dosave;
@@ -86,7 +85,6 @@ void *eobj_new(t_eclass *c)
 void eobj_free(void *x)
 {
     t_eobj*     z = (t_eobj *)x;
-    eobj_detach_torouter((t_object *)x);
     clock_unset(z->o_clock);
     pd_unbind((t_pd *)x, z->o_id);
     if(z->o_proxy && z->o_nproxy)

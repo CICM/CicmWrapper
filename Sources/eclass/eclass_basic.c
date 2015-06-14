@@ -142,7 +142,6 @@ void eclass_init(t_eclass* c, long flags)
     class_addmethod((t_class *)c, (t_method)ebox_mouse_move,  gensym("mousemove"),  A_GIMME, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_down,  gensym("mousedown"),  A_GIMME, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_up,    gensym("mouseup"),    A_GIMME, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_mouse_drag,  gensym("mousedrag"),  A_GIMME, 0);
 
     class_addmethod((t_class *)c, (t_method)ebox_pos, gensym("pos"), A_DEFFLOAT,A_DEFFLOAT,0);
     class_addmethod((t_class *)c, (t_method)ebox_vis, gensym("vis"), A_DEFFLOAT,0);

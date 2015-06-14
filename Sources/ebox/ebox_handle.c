@@ -28,6 +28,40 @@
 
 //! @cond
 
+static char is_for_box(t_ebox* x, long mod)
+{
+    return (!x->b_obj.o_canvas->gl_edit || (x->b_obj.o_canvas->gl_edit && mod == EMOD_CMD));
+}
+
+static long modifier_wrapper(long mod)
+{
+#ifdef __APPLE__
+    if(mod >= 256)
+    {
+        mod -= 256;
+    }
+#elif _WINDOWS
+    
+    if(mod >= 131080)
+    {
+        mod -= 131080;
+        mod += EMOD_ALT;
+    }
+    else
+        mod -= 8;
+#else
+    if (mod == 24)//right click
+        mod = EMOD_CMD;
+    else if (mod & EMOD_CMD)
+    {
+        mod ^= EMOD_CMD;
+        mod |= EMOD_ALT;
+    }
+#endif
+    //post("MOD : %ld", mod);
+    return mod;
+}
+
 //! The mouse enter method called by tcl/tk (PRIVATE)
 /*
  \ @memberof        ebox
@@ -42,10 +76,14 @@ void ebox_mouse_enter(t_ebox* x)
     {
         sys_vgui("focus %s\n", x->b_drawing_id->s_name);
         if(c->c_widget.w_mouseenter)
+        {
             c->c_widget.w_mouseenter(x);
+        }
     }
     else if(x->b_obj.o_canvas->gl_edit)
-        eobj_poll_mouse(x);
+    {
+        sys_vgui("focus %s\n", x->b_canvas_id->s_name);
+    }
 }
 
 
@@ -63,42 +101,15 @@ void ebox_mouse_leave(t_ebox* x)
     {
         sys_vgui("focus %s\n", x->b_canvas_id->s_name);
         if(c->c_widget.w_mouseleave)
+        {
             c->c_widget.w_mouseleave(x);
-
+        }
         ebox_set_cursor(x, 0);
-        eobj_nopoll_mouse(x);
     }
     else if(x->b_obj.o_canvas->gl_edit && !x->b_mouse_down)
     {
         ebox_set_cursor(x, 4);
-        eobj_nopoll_mouse(x);
     }
-}
-
-static long modifier_wrapper(long mod)
-{
-#ifdef __APPLE__
-
-#elif _WINDOWS
-
-	if(mod >= 131080)
-	{
-		mod -= 131080;
-		mod += EMOD_ALT;
-	}
-	else
-		mod -= 8;
-#else
-    if (mod == 24)//right click
-        mod = EMOD_CMD;
-    else if (mod & EMOD_CMD)
-    {
-        mod ^= EMOD_CMD;
-        mod |= EMOD_ALT;
-    }
-#endif
-    //post("MOD : %ld", mod);
-    return mod;
 }
 
 //! The mouse move method called by tcl/tk (PRIVATE)
@@ -112,74 +123,150 @@ static long modifier_wrapper(long mod)
 */
 void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
+    int i;
+    int right, bottom;
+    t_pt mouse;
     t_atom av[2];
+    long modif = modifier_wrapper((long)atom_getfloat(argv+2));
     t_eclass *c = eobj_getclass(x);
-    eobj_get_mouse_global_position(x);
-
-    x->b_modifiers = modifier_wrapper((long)atom_getfloat(argv+2));
-
-    if(!x->b_obj.o_canvas->gl_edit)
+    if(!x->b_mouse_down)
     {
-        if(!x->b_mouse_down)
+        if(is_for_box(x, modif))
         {
-            if(x->b_flags & EBOX_IGNORELOCKCLICK)
-                ebox_set_cursor(x, 0);
-            else
-                ebox_set_cursor(x, 1);
-
-            x->b_mouse.x = atom_getfloat(argv);
-            x->b_mouse.y = atom_getfloat(argv+1);
-
+            ebox_set_cursor(x, 1);
+            mouse.x = atom_getfloat(argv);
+            mouse.y = atom_getfloat(argv+1);
             if(c->c_widget.w_mousemove)
-                c->c_widget.w_mousemove(x, x->b_obj.o_canvas, x->b_mouse, x->b_modifiers);
+            {
+                c->c_widget.w_mousemove(x, x->b_obj.o_canvas, mouse, modif);
+            }
+        }
+        else if(!x->b_isinsubcanvas)
+        {
+            mouse.x = atom_getfloat(argv);
+            mouse.y = atom_getfloat(argv+1);
+            x->b_selected_outlet    = -1;
+            x->b_selected_inlet     = -1;
+            x->b_selected_item      = EITEM_NONE;
+            sys_vgui("eobj_canvas_motion %s 0\n", x->b_canvas_id->s_name);
+            
+            right   = (int)(x->b_rect.width + x->b_boxparameters.d_borderthickness * 2.);
+            bottom  = (int)(x->b_rect.height + x->b_boxparameters.d_borderthickness * 2.);
+            
+            // TOP //
+            if(mouse.y >= 0 && mouse.y < 3)
+            {
+                for(i = 0; i < obj_noutlets((t_object *)x); i++)
+                {
+                    int pos_x_inlet = 0;
+                    if(obj_ninlets((t_object *)x) != 1)
+                        pos_x_inlet = (int)(i / (float)(obj_ninlets((t_object *)x) - 1) * (x->b_rect.width - 8));
+                    
+                    if(mouse.x >= pos_x_inlet && mouse.x <= pos_x_inlet +7)
+                    {
+                        x->b_selected_inlet = i;
+                        ebox_set_cursor(x, 4);
+                        break;
+                    }
+                }
+                ebox_invalidate_layer(x, s_eboxio);
+                ebox_redraw(x);
+                return;
+            }
+            // BOTTOM & RIGHT //
+            else if(mouse.y > bottom - 3 && mouse.y <= bottom && mouse.x > right - 3 && mouse.x <= right)
+            {
+                x->b_selected_item = EITEM_CORNER;
+                ebox_set_cursor(x, 8);
+                return;
+            }
+            // BOTTOM //
+            else if(mouse.y > bottom - 3 && mouse.y < bottom)
+            {
+                for(i = 0; i < obj_noutlets((t_object *)x); i++)
+                {
+                    int pos_x_outlet = 0;
+                    if(obj_noutlets((t_object *)x) != 1)
+                        pos_x_outlet = (int)(i / (float)(obj_noutlets((t_object *)x) - 1) * (x->b_rect.width - 8));
+                    
+                    if(mouse.x >= pos_x_outlet && mouse.x <= pos_x_outlet +7)
+                    {
+                        x->b_selected_outlet = i;
+                        ebox_set_cursor(x, 5);
+                        break;
+                    }
+                }
+                if(x->b_selected_outlet == -1)
+                {
+                    x->b_selected_item = EITEM_BOTTOM;
+                    ebox_set_cursor(x, 7);
+                }
+                ebox_invalidate_layer(x, s_eboxio);
+                ebox_redraw(x);
+                return;
+            }
+            // RIGHT //
+            else if(mouse.x > right - 3 && mouse.x <= right)
+            {
+                x->b_selected_item = EITEM_RIGHT;
+                ebox_set_cursor(x, 9);
+                return;
+            }
+            
+            // BOX //
+            ebox_set_cursor(x, 4);
+            ebox_invalidate_layer(x, s_eboxio);
+            ebox_redraw(x);
         }
         else
         {
-            ebox_mouse_drag(x, s, argc, argv);
+            sys_vgui("eobj_canvas_motion %s 0\n", x->b_canvas_id->s_name);
         }
     }
-    else if(!x->b_isinsubcanvas)
+    else
     {
-        if(!x->b_mouse_down)
+        if(is_for_box(x, modif))
         {
-            ebox_mouse_move_editmode(x, atom_getfloat(argv), atom_getfloat(argv+1), x->b_modifiers);
+            if(c->c_widget.w_mousedrag)
+            {
+                mouse.x = atom_getfloat(argv);
+                mouse.y = atom_getfloat(argv+1);
+                c->c_widget.w_mousedrag(x, x->b_obj.o_canvas, mouse, modif);
+            }
         }
-        else
+        else if(!x->b_isinsubcanvas)
         {
-            x->b_mouse.x = atom_getfloat(argv);
-            x->b_mouse.y = atom_getfloat(argv+1);
+            mouse.x = atom_getfloat(argv);
+            mouse.y = atom_getfloat(argv+1);
             if(x->b_selected_item == EITEM_NONE)
             {
-                x->b_move_box = eobj_get_mouse_canvas_position(x);
-                sys_vgui("pdtk_canvas_motion %s %i %i 0\n", x->b_canvas_id->s_name, (int)x->b_move_box.x, (int)x->b_move_box.y);
+                sys_vgui("eobj_canvas_motion %s 0\n", x->b_canvas_id->s_name);
             }
-            else
+            else if(!(x->b_flags & EBOX_GROWNO))
             {
-                if(x->b_flags & EBOX_GROWNO)
-                    return;
-                else if(x->b_flags & EBOX_GROWLINK)
+                if(x->b_flags & EBOX_GROWLINK)
                 {
                     if(x->b_selected_item == EITEM_BOTTOM)
                     {
-                        atom_setfloat(av, x->b_rect_last.width + (x->b_mouse.y - x->b_rect_last.height));
-                        atom_setfloat(av+1, x->b_mouse.y);
+                        atom_setfloat(av, x->b_rect_last.width + (mouse.y - x->b_rect_last.height));
+                        atom_setfloat(av+1, mouse.y);
                     }
                     else if(x->b_selected_item == EITEM_RIGHT)
                     {
-                        atom_setfloat(av, x->b_mouse.x);
-                        atom_setfloat(av+1, x->b_rect_last.height + (x->b_mouse.x - x->b_rect_last.width));
+                        atom_setfloat(av, mouse.x);
+                        atom_setfloat(av+1, x->b_rect_last.height + (mouse.x - x->b_rect_last.width));
                     }
                     else if(x->b_selected_item == EITEM_CORNER)
                     {
-                        if(x->b_mouse.y > x->b_mouse.x)
+                        if(mouse.y > mouse.x)
                         {
-                            atom_setfloat(av, x->b_mouse.y);
-                            atom_setfloat(av+1, x->b_mouse.y);
+                            atom_setfloat(av, mouse.y);
+                            atom_setfloat(av+1, mouse.y);
                         }
                         else
                         {
-                            atom_setfloat(av, x->b_mouse.x);
-                            atom_setfloat(av+1, x->b_mouse.x);
+                            atom_setfloat(av, mouse.x);
+                            atom_setfloat(av+1, mouse.x);
                         }
                     }
                 }
@@ -188,58 +275,29 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
                     if(x->b_selected_item == EITEM_BOTTOM)
                     {
                         atom_setfloat(av, x->b_rect_last.width);
-                        atom_setfloat(av+1, x->b_mouse.y);
+                        atom_setfloat(av+1, mouse.y);
                     }
                     else if(x->b_selected_item == EITEM_RIGHT)
                     {
-                        atom_setfloat(av, x->b_mouse.x);
+                        atom_setfloat(av, mouse.x);
                         atom_setfloat(av+1, x->b_rect_last.height);
                     }
                     else if(x->b_selected_item == EITEM_CORNER)
                     {
-                        atom_setfloat(av, x->b_mouse.x);
-                        atom_setfloat(av+1, x->b_mouse.y);
+                        atom_setfloat(av, mouse.x);
+                        atom_setfloat(av+1, mouse.y);
                     }
                 }
                 mess3((t_pd *)x, s_size,  s_size, (void *)2, (void *)av);
             }
         }
-    }
-    else
-    {
-        x->b_move_box = eobj_get_mouse_canvas_position(x);
-        if(!x->b_mouse_down)
-        {
-            sys_vgui("pdtk_canvas_motion %s %i %i 0\n", x->b_canvas_id->s_name, (int)x->b_move_box.x, (int)x->b_move_box.y);
-        }
         else
         {
-            sys_vgui("pdtk_canvas_motion %s %i %i 1\n", x->b_canvas_id->s_name, (int)x->b_move_box.x, (int)x->b_move_box.y);
+            sys_vgui("eobj_canvas_motion %s 1\n", x->b_canvas_id->s_name);
         }
     }
 }
 
-//! The mouse drag method called via mouse move method when mouse down (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @param s         The message selector
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
- \ @return          Nothing
-*/
-void ebox_mouse_drag(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
-{
-    t_eclass *c = eobj_getclass(x);
-    x->b_modifiers -= 256;
-    if(!x->b_obj.o_canvas->gl_edit)
-    {
-        x->b_mouse.x = atom_getfloat(argv);
-        x->b_mouse.y = atom_getfloat(argv+1);
-        if(c->c_widget.w_mousedrag && x->b_mouse_down)
-            c->c_widget.w_mousedrag(x, x->b_obj.o_canvas, x->b_mouse, x->b_modifiers);
-    }
-}
 
 //! The mouse down method called by tcl/tk (PRIVATE)
 /*
@@ -252,28 +310,34 @@ void ebox_mouse_drag(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 */
 void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
+    t_pt mouse;
+    long modif  = modifier_wrapper((long)atom_getfloat(argv+2));
     t_eclass *c = eobj_getclass(x);
-
-    x->b_modifiers = modifier_wrapper((long)atom_getfloat(argv+2));
-
-    if(!x->b_obj.o_canvas->gl_edit)
+    if(is_for_box(x, modif))
     {
-        x->b_mouse.x = atom_getfloat(argv);
-        x->b_mouse.y = atom_getfloat(argv+1);
         if(c->c_widget.w_mousedown)
-            c->c_widget.w_mousedown(x, x->b_obj.o_canvas, x->b_mouse, x->b_modifiers);
+        {
+            mouse.x = atom_getfloat(argv);
+            mouse.y = atom_getfloat(argv+1);
+            c->c_widget.w_mousedown(x, x->b_obj.o_canvas, mouse, modif);
+        }
     }
     else
     {
-        x->b_mouse.x = atom_getfloat(argv);
-        x->b_mouse.y = atom_getfloat(argv+1);
         if(x->b_selected_item == EITEM_NONE)
         {
-            x->b_move_box = eobj_get_mouse_canvas_position(x);
-            if(x->b_modifiers == EMOD_CMD)
-                sys_vgui("pdtk_canvas_rightclick %s %i %i 0\n", x->b_canvas_id->s_name, (int)x->b_move_box.x, (int)x->b_move_box.y);
+            if(modif == EMOD_SHIFT)
+            {
+                sys_vgui("eobj_canvas_down %s 1\n", x->b_canvas_id->s_name);
+            }
+            else if(modif == EMOD_RIGHT)
+            {
+                sys_vgui("eobj_canvas_right %s\n", x->b_canvas_id->s_name);
+            }
             else
-                sys_vgui("pdtk_canvas_mouse %s %i %i 0 0\n", x->b_canvas_id->s_name, (int)(x->b_move_box.x), (int)(x->b_move_box.y));
+            {
+                sys_vgui("eobj_canvas_down %s 0\n", x->b_canvas_id->s_name);
+            }
         }
         else
         {
@@ -294,23 +358,22 @@ void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 */
 void ebox_mouse_up(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
+    t_pt mouse;
+    long modif  = modifier_wrapper((long)atom_getfloat(argv+2));
     t_eclass *c = eobj_getclass(x);
-
-    x->b_modifiers = modifier_wrapper((long)atom_getfloat(argv+2));
-
-    if(!x->b_obj.o_canvas->gl_edit)
+    if(is_for_box(x, modif))
     {
-        x->b_mouse.x = atom_getfloat(argv);
-        x->b_mouse.y = atom_getfloat(argv+1);
         if(c->c_widget.w_mouseup)
-            c->c_widget.w_mouseup(x, x->b_obj.o_canvas, x->b_mouse, x->b_modifiers);
+        {
+            mouse.x = atom_getfloat(argv);
+            mouse.y = atom_getfloat(argv+1);
+            c->c_widget.w_mouseup(x, x->b_obj.o_canvas, mouse, modif);
+        }
     }
     else
     {
-        x->b_move_box = eobj_get_mouse_canvas_position(x);
-        sys_vgui("pdtk_canvas_mouseup %s %i %i 0\n", x->b_canvas_id->s_name, (int)x->b_move_box.x, (int)x->b_move_box.y);
+        sys_vgui("eobj_canvas_up %s\n", x->b_canvas_id->s_name);
     }
-
     x->b_mouse_down = 0;
 }
 
@@ -325,16 +388,14 @@ void ebox_mouse_up(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 */
 void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
+    t_pt mouse;
     t_eclass *c = eobj_getclass(x);
-
-    x->b_modifiers = modifier_wrapper((long)atom_getfloat(argv+2));
-
-    if(!x->b_obj.o_canvas->gl_edit)
+    long modif  = modifier_wrapper((long)atom_getfloat(argv+2));
+    if(is_for_box(x, modif) && c->c_widget.w_dblclick)
     {
-        x->b_mouse.x = atom_getfloat(argv);
-        x->b_mouse.y = atom_getfloat(argv+1);
-        if(c->c_widget.w_dblclick)
-            c->c_widget.w_dblclick(x, x->b_obj.o_canvas, x->b_mouse);
+        mouse.x = atom_getfloat(argv);
+        mouse.y = atom_getfloat(argv+1);
+        c->c_widget.w_dblclick(x, x->b_obj.o_canvas, mouse);
     }
 }
 
@@ -349,109 +410,18 @@ void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 */
 void ebox_mouse_wheel(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
+    t_pt mouse;
     float delta;
+    long modif  = modifier_wrapper((long)atom_getfloat(argv+2));
     t_eclass *c = eobj_getclass(x);
-
-    x->b_modifiers = modifier_wrapper((long)atom_getfloat(argv+3));
-    delta = atom_getfloat(argv+2);
-
-    if(!x->b_obj.o_canvas->gl_edit)
+    if(is_for_box(x, modif) && c->c_widget.w_mousewheel)
     {
-        x->b_mouse.x = atom_getfloat(argv);
-        x->b_mouse.y = atom_getfloat(argv+1);
-        if(c->c_widget.w_mousewheel)
-            c->c_widget.w_mousewheel(x, x->b_obj.o_canvas, x->b_mouse, (long)x->b_modifiers, delta, delta);
+        mouse.x = atom_getfloat(argv);
+        mouse.y = atom_getfloat(argv+1);
+        delta   = atom_getfloat(argv+2);
+        modif   = modifier_wrapper((long)atom_getfloat(argv+3));
+        c->c_widget.w_mousewheel(x, x->b_obj.o_canvas, mouse, modif, delta, delta);
     }
-}
-
-//! The mouse move editmode method called via mouse move method when mouse down (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @param s         The message selector
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
- \ @return          Nothing
-*/
-void ebox_mouse_move_editmode(t_ebox* x, float x_p, float y_p, float key)
-{
-    int i;
-    int right, bottom;
-
-    x->b_selected_outlet    = -1;
-    x->b_selected_inlet     = -1;
-    x->b_selected_item      = EITEM_NONE;
-    x->b_move_box = eobj_get_mouse_canvas_position(x);
-    sys_vgui("pdtk_canvas_motion %s %i %i 0\n", x->b_canvas_id->s_name, (int)x->b_move_box.x, (int)x->b_move_box.y);
-
-    right   = (int)(x->b_rect.width + x->b_boxparameters.d_borderthickness * 2.);
-    bottom  = (int)(x->b_rect.height + x->b_boxparameters.d_borderthickness * 2.);
-
-    // TOP //
-    if(y_p >= 0 && y_p < 3)
-    {
-        for(i = 0; i < obj_noutlets((t_object *)x); i++)
-        {
-            int pos_x_inlet = 0;
-            if(obj_ninlets((t_object *)x) != 1)
-                pos_x_inlet = (int)(i / (float)(obj_ninlets((t_object *)x) - 1) * (x->b_rect.width - 8));
-
-            if(x_p >= pos_x_inlet && x_p <= pos_x_inlet +7)
-            {
-                x->b_selected_inlet = i;
-                ebox_set_cursor(x, 4);
-                break;
-            }
-        }
-        ebox_invalidate_layer(x, s_eboxio);
-        ebox_redraw(x);
-        return;
-    }
-    // BOTTOM & RIGHT //
-    else if(y_p > bottom - 3 && y_p <= bottom && x_p > right - 3 && x_p <= right)
-    {
-        x->b_selected_item = EITEM_CORNER;
-        ebox_set_cursor(x, 8);
-        return;
-    }
-    // BOTTOM //
-    else if(y_p > bottom - 3 && y_p < bottom)
-    {
-        for(i = 0; i < obj_noutlets((t_object *)x); i++)
-        {
-            int pos_x_outlet = 0;
-            if(obj_noutlets((t_object *)x) != 1)
-                pos_x_outlet = (int)(i / (float)(obj_noutlets((t_object *)x) - 1) * (x->b_rect.width - 8));
-
-            if(x_p >= pos_x_outlet && x_p <= pos_x_outlet +7)
-            {
-                x->b_selected_outlet = i;
-                ebox_set_cursor(x, 5);
-                break;
-            }
-        }
-        if(x->b_selected_outlet == -1)
-        {
-            x->b_selected_item = EITEM_BOTTOM;
-            ebox_set_cursor(x, 7);
-        }
-        ebox_invalidate_layer(x, s_eboxio);
-        ebox_redraw(x);
-        return;
-    }
-    // RIGHT //
-    else if(x_p > right - 3 && x_p <= right)
-    {
-        x->b_selected_item = EITEM_RIGHT;
-        ebox_set_cursor(x, 9);
-        return;
-    }
-
-    // BOX //
-    ebox_set_cursor(x, 4);
-
-    ebox_invalidate_layer(x, s_eboxio);
-    ebox_redraw(x);
 }
 
 //! The key down method called by tcl/tk (PRIVATE AND NOT READY)
@@ -522,10 +492,6 @@ void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
                     c->c_widget.w_key(x, NULL, (char)atom_getfloat(argv+1), 0);
                 }
             }
-        }
-        else
-        {
-            ;
         }
     }
 }

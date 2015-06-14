@@ -207,7 +207,8 @@ typedef enum _emod_flags
     EMOD_MAJ            = 2,
     EMOD_CTRL           = 4,
     EMOD_CMD            = 8,
-    EMOD_ALT            = 16
+    EMOD_ALT            = 16,
+    EMOD_RIGHT          = 32
 } t_emod_flags;
 
 typedef enum _ekey_flags
@@ -462,10 +463,7 @@ typedef struct _ebox
     int                 b_selected_inlet;   /*!< The inlet selected. */
     int                 b_selected_outlet;  /*!< The outlet selected. */
     
-    t_pt                b_mouse;            /*!< The mouse position. */
-    t_pt                b_move_box;         /*!< The box moving position. */
     char                b_mouse_down;       /*!< The mouse state. */
-    long                b_modifiers;        /*!< The modifiers pressed. */
     
     char                b_visible;          /*!< The visible state. */
     char                b_ready_to_draw;    /*!< The ebox state for drawing. */
@@ -506,10 +504,7 @@ typedef struct _edspbox
     int                 b_selected_inlet;   /*!< The inlet selected. */
     int                 b_selected_outlet;  /*!< The outlet selected. */
     
-    t_pt                b_mouse;            /*!< The mouse position. */
-    t_pt                b_move_box;         /*!< The box moving position. */
     char                b_mouse_down;       /*!< The mouse state. */
-    long                b_modifiers;        /*!< The modifiers pressed. */
     
     char                b_visible;          /*!< The visible State. */
     char                b_ready_to_draw;    /*!< The ebox state for drawing. */
