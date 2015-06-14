@@ -34,9 +34,9 @@
 #ifndef DEF_ECLASS
 #define DEF_ECLASS
 
-#include "../estruct.h"
-#include "../ebox/ebox.h"
-#include "../epopup/epopup.h"
+#include "estruct.h"
+#include "ebox.h"
+#include "epopup.h"
 
 #define calcoffset(x,y) ((long)(&(((x *)0L)->y)))
 

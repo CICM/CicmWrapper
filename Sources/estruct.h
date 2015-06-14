@@ -31,7 +31,7 @@
  * @author Pierre Guillot
  */
 
-#include "ecommon/ecommon.h"
+#include "ecommon.h"
 
 #ifndef DEF_ESTRUCT
 #define DEF_ESTRUCT

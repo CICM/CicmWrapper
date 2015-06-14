@@ -24,10 +24,10 @@
  *
  */
 
-#ifndef DEF_M_EPD
-#define DEF_M_EPD
+#ifndef DEF_EPD
+#define DEF_EPD
 
-#include "epd.h"
+#include "eclass.h"
 #ifdef CICMWRAPPER_MAXCONVERTER
 #include "epd_max.h"
 #endif

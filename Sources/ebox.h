@@ -34,9 +34,9 @@
 #ifndef DEF_EBOX
 #define DEF_EBOX
 
-#include "../estruct.h"
-#include "../egraphics/egraphics.h"
-#include "../eobj/eobj.h"
+#include "estruct.h"
+#include "egraphics/egraphics.h"
+#include "eobj.h"
 
 /*********************************
  * BOX
@@ -70,16 +70,6 @@ t_elayer* ebox_start_layer(t_ebox *b, t_symbol *name, float width, float height)
 t_pd_err ebox_end_layer(t_ebox *b, t_symbol *name);
 t_pd_err ebox_invalidate_layer(t_ebox *b,t_symbol *name);
 t_pd_err ebox_paint_layer(t_ebox *b, t_symbol *name, float x, float y);
-
-//! @cond
-void ebox_draw_border(t_ebox* x);
-void ebox_draw_iolets(t_ebox* x);
-void ebox_invalidate_all(t_ebox *x);
-void ebox_update(t_ebox *x);
-void ebox_select(t_ebox* x);
-void ebox_move(t_ebox* x);
-void ebox_erase(t_ebox* x);
-//! @endcond
 
 /*********************************
  * HANDLE
@@ -116,17 +106,6 @@ void ebox_wvis(t_gobj *z,         t_glist *glist, int vis);
 void ebox_wdisplace(t_gobj *z,    t_glist *glist, int dx, int dy);
 void ebox_wselect(t_gobj *z,      t_glist *glist, int selected);
 void ebox_wdelete(t_gobj *z,      t_glist *glist);
-//! @endcond
-
-/*********************************
- * WINDOW
- *********************************/
-
-//! @cond
-void ebox_tk_ids(t_ebox *x, t_canvas *canvas);
-void ebox_bind_events(t_ebox* x);
-void ebox_create_widget(t_ebox* x);
-void ebox_create_window(t_ebox* x, t_glist* glist);
 //! @endcond
 
 

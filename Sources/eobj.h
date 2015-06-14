@@ -34,8 +34,8 @@
 #ifndef DEF_EOBJ
 #define DEF_EOBJ
 
-#include "../estruct.h"
-#include "../ecommon/ecommon.h"
+#include "estruct.h"
+#include "ecommon.h"
 
 void *eobj_new(t_eclass *c);
 void eobj_free(void *x);

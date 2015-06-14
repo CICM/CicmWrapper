@@ -27,8 +27,8 @@
 #ifndef DEF_EPOPUP
 #define DEF_EPOPUP
 
-#include "../estruct.h"
-#include "../ebox/ebox.h"
+#include "estruct.h"
+#include "ebox.h"
 
 t_epopup* epopupmenu_create(t_eobj* x, t_symbol* name);
 void epopupmenu_setfont(t_epopup *menu, t_efont *font);
