@@ -83,6 +83,7 @@
 #define atom_getlong(a)     (long)atom_getfloat(a)
 #define atom_gettype(a)     (a)[0].a_type
 
+//! @cond
 typedef struct _namelist    /* element in a linked list of stored strings */
 {
     struct _namelist *nl_next;  /* next in list */
@@ -94,6 +95,8 @@ EXTERN t_namelist *sys_externlist;
 EXTERN t_namelist *sys_searchpath;
 EXTERN t_namelist *sys_helppath;
 EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
+
+//! @endcond
 
 typedef void        (*method)(void* x, ...);
 typedef void*       (*rmethod)(void* x, ...);

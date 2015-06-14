@@ -29,13 +29,6 @@
 static t_eproxy* eproxy_new(void *owner, t_symbol* s);
 static void eproxy_free(void *owner, t_eproxy* proxy);
 
-/*!
- * \fn          void *eobj_new(t_eclass *c)
- * \brief       The eobj creation function
- * \details     Allocate the memory for an intance of an eobj that contains a specific eclass, intialize the standard values and methods and attach it to the router.
- * \param c     The eclass pointer
- * \return      This function return a new instance of an ebox
- */
 void *eobj_new(t_eclass *c)
 {
     t_eobj* x = NULL;
@@ -75,93 +68,51 @@ void *eobj_new(t_eclass *c)
     return (x);
 }
 
-/*!
- * \fn          void eobj_free(void *x)
- * \brief       The eobj deletion function
- * \details     Detach the eobj from Pd and from the router
- * \param x     The eobj pointer
- */
 void eobj_free(void *x)
 {
     t_eobj*     z = (t_eobj *)x;
-    pd_unbind((t_pd *)x, z->o_id);
+    if(z->o_id)
+    {
+        pd_unbind((t_pd *)x, z->o_id);
+        z->o_id = NULL;
+    }
     if(z->o_proxy && z->o_nproxy)
     {
         freebytes(z->o_proxy, (size_t)z->o_nproxy * sizeof(t_eproxy *));
+        z->o_proxy = NULL;
+        z->o_nproxy= 0;
     }
 }
 
-/*!
- * \fn          void eobj_inletnew(void* x)
- * \brief       Add a proxy inlet to an eobj
- * \details     Allocate the memory for a new inlet and initialize a proxy
- * \param x     The eobj pointer
- * \return      This function return nothing
- */
 t_eproxy* eobj_proxynew(void* x)
 {
     return eproxy_new(x, NULL);
 }
 
-/*!
- * \fn          int eobj_getproxy(void* x)
- * \brief       Retreive the index of the proxy that received the last message
- * \details     Check the current proxy index, this function should only be used inlet receive a message
- * \param x     The eobj pointer
- * \return      This function return nothing
- */
 int eobj_getproxy(void* x)
 {
     t_eobj *z = (t_eobj *)x;
     return z->o_current_proxy;
 }
 
-/*!
- * \fn          t_eclass* eobj_getclass(void* x)
- * \brief       Retrieve the eclass of an eobj
- * \details     Directly access to eclass structure
- * \param x     The eobj pointer
- * \return      This function return a pointer to the eclass of the eobj
- */
 t_eclass* eobj_getclass(void* x)
 {
     t_eobj *z = (t_eobj *)x;
     return (t_eclass *)z->o_obj.te_g.g_pd;
 }
 
-/*!
- * \fn          t_symbol* eobj_getclassname(void* x)
- * \brief       Retrieve the classe name of an eobj
- * \details     Directly access to the name of the eclass structure
- * \param x     The eobj pointer
- * \return      This function return the name of the class of the eobj
- */
 t_symbol* eobj_getclassname(void* x)
 {
     t_eobj *z = (t_eobj *)x;
     return z->o_obj.te_g.g_pd->c_name;
 }
 
-/*!
- * \fn          t_canvas* eobj_getcanvas(void *x)
- * \brief       Retreive the canvas of an eobj
- * \details     Directly access to the canvas structure
- * \param x     The eobj pointer
- * \return      This function return a pointer to canvas of the eobj
- */
 t_canvas* eobj_getcanvas(void *x)
 {
     t_eobj*     z = (t_eobj *)x;
     return z->o_canvas;
 }
 
-/*!
- * \fn          char eobj_isbox(void *x)
- * \brief       Retreive if an eobj is a GUI or not
- * \details     Check if the box flag is postive or null
- * \param x     The eobj pointer
- * \return      This function return 1 if the eobj is a GUI and 0 if not
- */
 char eobj_isbox(void *x)
 {
     t_eobj*     z = (t_eobj *)x;
@@ -169,13 +120,6 @@ char eobj_isbox(void *x)
     return c->c_box;
 }
 
-/*!
- * \fn          char eobj_isdsp(void *x)
- * \brief       Retreive if an eobj is a DSP object or not
- * \details     Check if the dsp method has been initializzed
- * \param x     The eobj pointer
- * \return      This function return 1 if the eobj is a DSP object and 0 if not
- */
 char eobj_isdsp(void *x)
 {
     t_eobj*     z = (t_eobj *)x;
@@ -186,16 +130,6 @@ char eobj_isdsp(void *x)
         return 0;
 }
 
-//! @cond
-
-//! The popup method called by tcl/tk (PRIVATE)
-/*
- \ @memberof        eobj
- \ @param x         The eobj pointer
- \ @param s         The message selector
- \ @param itemid    the id of the selected item
- \ @return          Nothing
- */
 void eobj_popup(t_eobj* x, t_symbol* s, float itemid)
 {
     t_eclass* c = eobj_getclass(x);
@@ -205,13 +139,6 @@ void eobj_popup(t_eobj* x, t_symbol* s, float itemid)
     }
 }
 
-//! The default save method for UI ebox (PRIVATE)
-/*
- \ @memberof        eobj
- \ @param z         The eobj pointor
- \ @param b         The binbuf
- \ @return          Nothing
- */
 void eobj_dosave(t_eobj* x, t_binbuf *b)
 {
     t_binbuf* d;
@@ -232,13 +159,6 @@ void eobj_dosave(t_eobj* x, t_binbuf *b)
     }
 }
 
-//! The default save method for eobj called by PD (PRIVATE)
-/*
- \ @memberof        eobj
- \ @param z         The eobj pointor
- \ @param b         The binbuf
- \ @return          Nothing
- */
 void eobj_save(t_gobj* x, t_binbuf *b)
 {
     t_eclass* c;
@@ -253,15 +173,6 @@ void eobj_save(t_gobj* x, t_binbuf *b)
     }
 }
 
-//! The default write method for all eobj called by PD (PRIVATE)
-/*
- \ @memberof        eobj
- \ @param x         The eobj pointor
- \ @param s         The symbol selector
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
- \ @return          Nothing
- */
 void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
 {
     char buf[MAXPDSTRING];
@@ -298,15 +209,6 @@ void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
     }
 }
 
-//! The default read method for all eobj called by PD (PRIVATE)
-/*
- \ @memberof        eobj
- \ @param x         The eobj pointor
- \ @param s         The symbol selector
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
- \ @return          Nothing
- */
 void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
 {
     char buf[MAXPDSTRING];
@@ -374,15 +276,6 @@ void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
     }
 }
 
-
-//! Initialize an edspobj
-/*
- \ @memberof    edspobj
- \ @param x     The edspobj pointer
- \ @param nins  The number of signal inputs
- \ @param nouts The number of signal outputs
- \ @return      Nothing
- */
 void eobj_dspsetup(void *x, long nins, long nouts)
 {
     int i;
@@ -419,12 +312,6 @@ void eobj_dspsetup(void *x, long nins, long nouts)
     }
 }
 
-//! Free an edspobj (note that if the object is also an UI, you don't need to call ebox_free())
-/*
- \ @memberof    edspobj
- \ @param x     The edspobj pointer
- \ @return      Nothing
- */
 void eobj_dspfree(void *x)
 {
     t_edspobj* obj = (t_edspobj *)x;
@@ -448,15 +335,9 @@ void eobj_dspfree(void *x)
         if(obj->d_dsp_vectors)
             freebytes(obj->d_dsp_vectors, (size_t)obj->d_dsp_size * sizeof(t_int));
     }
+    eobj_free(x);
 }
 
-//! Resize the number of signal inputs of an edspobj
-/*
- \ @memberof    edspobj
- \ @param x     The edspobj pointer
- \ @param nins  The number of signal inputs
- \ @return      Nothing
- */
 void eobj_resize_inputs(void *x, long nins)
 {
     int i, cinlts;
@@ -480,15 +361,6 @@ void eobj_resize_inputs(void *x, long nins)
     canvas_fixlinesfor(eobj_getcanvas(obj), (t_text *)x);
 }
 
-
-//! @cond
-//! The dsp method (PRIVATE)
-/*
- \ @memberof    edspobj
- \ @param x     The edspobj pointer
- \ @param sp    The pointers to signal structures
- \ @return      Nothing
- */
 void eobj_dsp(void *x, t_signal **sp)
 {
     int i;
@@ -699,13 +571,6 @@ void eobj_dsp(void *x, t_signal **sp)
     }
 }
 
-//! Retrieve an the pointor a signal input (can be only used during the dsp method)
-/*
- \ @memberof    edspobj
- \ @param x     The edspobj pointer
- \ @param index The index of the input
- \ @return      The input pointor or NULL
- */
 t_sample* eobj_getsignalinput(void *x, long index)
 {
     t_edspobj* obj = (t_edspobj *)x;
@@ -722,13 +587,6 @@ t_sample* eobj_getsignalinput(void *x, long index)
     return NULL;
 }
 
-//! Retrieve an the pointor a signal output (can be only used during the dsp method)
-/*
- \ @memberof    edspobj
- \ @param x     The edspobj pointer
- \ @param index The index of the outlet
- \ @return      The output pointor or NULL
- */
 t_sample* eobj_getsignaloutput(void *x, long index)
 {
     t_edspobj* obj = (t_edspobj *)x;
@@ -751,12 +609,6 @@ t_sample* eobj_getsignaloutput(void *x, long index)
     return NULL;
 }
 
-//! The perform method (PRIVATE)
-/*
- \ @memberof    edspobj
- \ @param w     The pointer sent by the dsp method
- \ @return      Nothing
- */
 t_int* eobj_perform(t_int* w)
 {
     t_edspobj* x            = (t_edspobj *)(w[1]);
@@ -773,12 +625,6 @@ t_int* eobj_perform(t_int* w)
     return w + (x->d_dsp_size + 1);
 }
 
-//! The perform method for no inplace(PRIVATE)
-/*
- \ @memberof    edspobj
- \ @param w     The pointer sent by the dsp method
- \ @return      Nothing
- */
 t_int* eobj_perform_no_inplace(t_int* w)
 {
     int i;
@@ -800,12 +646,6 @@ t_int* eobj_perform_no_inplace(t_int* w)
     return w + (x->d_dsp_size + 1);
 }
 
-//! The perform method for box (PRIVATE)
-/*
- \ @memberof    edspobj
- \ @param w     The pointer sent by the dsp method
- \ @return      Nothing
- */
 t_int* eobj_perform_box(t_int* w)
 {
     t_edspbox* x            = (t_edspbox *)(w[1]);
@@ -822,12 +662,6 @@ t_int* eobj_perform_box(t_int* w)
     return w + (x->d_dsp_size + 1);
 }
 
-//! The perform method for box no inplace(PRIVATE)
-/*
- \ @memberof    edspobj
- \ @param w     The pointer sent by the dsp method
- \ @return      Nothing
- */
 t_int* eobj_perform_box_no_inplace(t_int* w)
 {
     int i;
@@ -850,17 +684,6 @@ t_int* eobj_perform_box_no_inplace(t_int* w)
     return w + (x->d_dsp_size + 1);
 }
 
-//! The dsp add method (PRIVATE)
-/*
- \ @memberof        edspobj
- \ @param x         The edspobj
- \ @param s         Nothing (for Max 6 compatibility)
- \ @param obj       Nothing (for Max 6 compatibility)
- \ @param m         The user perform method
- \ @param flags     The user perform flags
- \ @param userparam The user perform parameters
- \ @return          Nothing
- */
 void eobj_dsp_add(void *x, t_symbol* s, t_object* za, method m, long flags, void *userparam)
 {
     t_edspobj* obj = (t_edspobj *)x;
@@ -1225,6 +1048,7 @@ static void eproxy_free(void *owner, t_eproxy* proxy)
 }
 
 //! @endcond
+
 
 
 

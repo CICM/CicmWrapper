@@ -36,23 +36,137 @@
 #ifndef DEF_ESTRUCT
 #define DEF_ESTRUCT
 
+typedef enum _emod_flags
+{
+    EMOD_NONE           = 0,
+    EMOD_SHIFT          = 1,
+    EMOD_MAJ            = 2,
+    EMOD_CTRL           = 4,
+    EMOD_CMD            = 8,
+    EMOD_ALT            = 16,
+    EMOD_RIGHT          = 32
+} t_emod_flags;
+
+typedef enum _ekey_flags
+{
+    EKEY_DEL      = 0,
+    EKEY_TAB      = 1,
+    EKEY_ENTER    = 2,
+    EKEY_ESC      = 3
+    
+} t_ekey_flags;
+
+typedef enum _eselitem_flags
+{
+    EITEM_NONE    = 0,
+    EITEM_OBJ     = 1,
+    EITEM_INLET   = 2,
+    EITEM_OUTLET  = 3,
+    EITEM_BOTTOM  = 4,
+    EITEM_CORNER  = 5,
+    EITEM_RIGHT   = 6
+    
+} t_eselitem_flags;
+
 /**
- * @struct _pt
+ * @enum t_elayer_flags
+ * @brief The flags that defines the status of a layer.
+ * @details It define all possible the status of a layer.
+ */
+typedef enum t_elayer_flags
+{
+    EGRAPHICS_OPEN      = 0,  /*!< Open. */
+    EGRAPHICS_CLOSE     = -1, /*!< Closed. */
+    EGRAPHICS_INVALID   = -2, /*!< Invalid. */
+    EGRAPHICS_TODRAW    = -3  /*!< To be drawn. */
+} t_elayer_flags;
+
+/**
+ * @enum t_etextjustify_flags
+ * @brief The flags that defines the text anchor.
+ * @details It define all text anchor.
+ */
+typedef enum t_etextanchor_flags
+{
+    ETEXT_UP            = 0, /*!< Up and center. */
+    ETEXT_UP_LEFT       = 1, /*!< Up anfd left. */
+    ETEXT_UP_RIGHT      = 2, /*!< Up anfd right. */
+    ETEXT_DOWN          = 3, /*!< Down and center. */
+    ETEXT_DOWN_LEFT     = 4, /*!< Down anfd left. */
+    ETEXT_DOWN_RIGHT    = 5, /*!< Down anfd right. */
+    ETEXT_LEFT          = 6, /*!< Left. */
+    ETEXT_RIGHT         = 7, /*!< right. */
+    ETEXT_CENTER        = 8  /*!< Center. */
+    
+} t_etextanchor_flags;
+
+/**
+ * @enum t_etextwrap_flags
+ * @brief The flags that defines if the text should be wrapped.
+ * @details It define true or false.
+ */
+typedef enum t_etextwrap_flags
+{
+    ETEXT_NOWRAP    = 0, /*!< False. */
+    ETEXT_WRAP      = 1 /*!< True. */
+} t_etextwrap_flags;
+
+/**
+ * @enum t_etextjustify_flags
+ * @brief The flags that define the text justification.
+ * @details It define all text justification.
+ */
+typedef enum t_etextjustify_flags
+{
+    ETEXT_JLEFT    = 0, /*!< Left. */
+    ETEXT_JRIGHT   = 1, /*!< Right. */
+    ETEXT_JCENTER  = 2  /*!< Center. */
+} t_etextjustify_flags;
+
+/**
+ * @enum egraphics_types
+ * @brief The types of graphical object.
+ * @details It define all the graphical type.
+ */
+typedef enum
+{
+    E_GOBJ_INVALID           = 0,   /*!< This type is invalid. */
+    E_GOBJ_PATH                 ,   /*!< This is a path. */
+    E_GOBJ_RECT                 ,   /*!< This is a rect. */
+    E_GOBJ_ARC                  ,   /*!< This is an arc. */
+    E_GOBJ_OVAL                 ,   /*!< This is an oval. */
+    E_GOBJ_TEXT                 ,   /*!< This is a text. */
+    E_GOBJ_IMAG                    /*!< This is an image. */
+} egraphics_types;
+
+/**
+ * @enum epath_types
+ * @brief The types of path.
+ * @details It define all the path type.
+ */
+typedef enum
+{
+    E_PATH_MOVE    = 0,   /*!< This type is move. */
+    E_PATH_CURVE   = 1    /*!< This type is curve. */
+} epath_types;
+
+/**
+ * @struct t_pt
  * @brief A point structure.
  * @details It contains the members x and y for abscissa and ordinate.
  */
-typedef struct _pt
+typedef struct t_pt
 {
 	float x; /*!< The abscissa coordiante. */
 	float y; /*!< The ordiante coordiante. */
 } t_pt;
 
 /**
- * @struct _rect
+ * @struct t_rect
  * @brief A rectangle structure.
  * @details It contains the members x, y, width and height for abscissa and ordinate and size.
  */
-typedef struct _rect
+typedef struct t_rect
 {
 	float x;        /*!< The abscissa coordiante. */
 	float y;        /*!< The ordiante coordiante. */
@@ -61,11 +175,11 @@ typedef struct _rect
 } t_rect;
 
 /**
- * @struct _matrix
+ * @struct t_matrix
  * @brief A matrix structure.
  * @details It contains the members xx, yx, xy, yy, x0 and y0
  */
-typedef struct _matrix
+typedef struct t_matrix
 {
 	float xx;   /*!< The abscissa-abscissa translation of the matrix */
 	float yx;   /*!< The abscissa-ordiante translation of the matrix */
@@ -76,11 +190,11 @@ typedef struct _matrix
 } t_matrix;
 
 /**
- * @struct _rgb
+ * @struct t_rgb
  * @brief A rgb color structure.
  * @details It contains the members red, green and blue.
  */
-typedef struct _rgb
+typedef struct t_rgb
 {
 	float red;      /*!< The red value. */
 	float green;    /*!< The green value. */
@@ -88,11 +202,11 @@ typedef struct _rgb
 } t_rgb;
 
 /**
- * @struct _rgba
+ * @struct t_rgba
  * @brief A rgba color structure.
  * @details It contains the members red, green, blue and alpha.
  */
-typedef struct _rgba
+typedef struct t_rgba
 {
 	float red;      /*!< The red value. */
 	float green;    /*!< The green value. */
@@ -101,11 +215,11 @@ typedef struct _rgba
 } t_rgba;
 
 /**
- * @struct _hsl
+ * @struct t_hsl
  * @brief A hsl color structure.
  * @details It contains the members hue, saturation and lightness.
  */
-typedef struct _hsl
+typedef struct t_hsl
 {
 	float hue;          /*!< The hue value. */
 	float saturation;   /*!< The saturation value. */
@@ -113,11 +227,11 @@ typedef struct _hsl
 } t_hsl;
 
 /**
- * @struct _hsla
+ * @struct t_hsla
  * @brief A hsla color structure.
  * @details It contains the members hue, saturation, lightness and alpha.
  */
-typedef struct _hsla
+typedef struct t_hsla
 {
 	float hue;          /*!< The hue value. */
 	float saturation;   /*!< The saturation value. */
@@ -125,7 +239,117 @@ typedef struct _hsla
     float alpha;        /*!< The alpha value. */
 } t_hsla;
 
-typedef struct _ewidget
+/**
+ * @struct t_efont
+ * @brief The font structure.
+ * @details It contains the informations of a font.
+ */
+typedef struct t_efont
+{
+    float       c_size;     /*!< The size of the font. */
+    long        c_sizereal; /*!< The plateform's size of the font. */
+    t_symbol*   c_family;   /*!< The family of the font (times, helvetica, ect.). */
+    t_symbol*   c_slant;    /*!< The slant of the font (regular, italic, etc.). */
+    t_symbol*   c_weight;   /*!< The weight of the font (normal, bold). */
+} t_efont;
+
+/**
+ * @struct t_etext
+ * @brief The text structure.
+ * @details It contains the all the informations to be drawn.
+ */
+typedef struct t_etext
+{
+    t_symbol*       c_text;     /*!< The text. */
+    t_rgba          c_color;    /*!< The color of the text. */
+    t_efont         c_font;     /*!< The font of the text. */
+    t_rect          c_rect;     /*!< The rectangle of the text. */
+    t_symbol*       c_anchor;   /*!< The anchor of the text. */
+    t_symbol*       c_justify;  /*!< The justification of the text. */
+} t_etext;
+
+/**
+ * @struct t_egobj
+ * @brief The CICM drawing object.
+ * @details It contains the all the informations to be drawn.
+ */
+typedef struct t_egobj
+{
+	egraphics_types e_type;         /*!< The type of the graphical object. */
+    int             e_filled;       /*!< The filled state of the graphical object. */
+    t_symbol*       e_color;        /*!< The color of the graphical object. */
+    float           e_width;        /*!< The line width of the graphical object. */
+    
+	t_pt*           e_points;       /*!< The points of the graphical object. */
+    long            e_npoints;      /*!< The number of points of the graphical object. */
+    float           e_roundness;    /*!< The roundness of the graphical object. */
+    t_efont         e_font;         /*!< The font of the graphical object. */
+    t_symbol*       e_anchor;       /*!< The anchor of the graphical object. */
+    t_symbol*       e_justify;      /*!< The justification of the graphical object. */
+    t_symbol*       e_text;         /*!< The text of the graphical object. */
+    
+} t_egobj;
+
+/**
+ * @struct t_epopup
+ * @brief The popup structure.
+ * @details It contains the informations to show and retieve a popup.
+ */
+typedef struct t_epopup
+{
+    t_symbol*   c_name; /*!< The name of the popup. */
+    t_symbol*   c_send; /*!< The name of the owner. */
+}t_epopup;
+
+/**
+ * @struct t_elayer
+ * @brief The CICM drawing layer.
+ * @details It contains the all the informations and the graphical objects to be drawn.
+ */
+typedef struct t_elayer
+{
+    t_object*           e_owner;            /*!< The layer owner. */
+    t_symbol*           e_name;             /*!< The layer name. */
+    t_symbol*           e_id;               /*!< The layer canvas ID. */
+    int                 e_state;            /*!< The layer state. */
+    t_rect              e_rect;             /*!< The layer size. */
+    
+    t_symbol*           e_color;            /*!< The layer color. */
+    int                 e_line_width;       /*!< The layer line width. */
+    t_matrix            e_matrix;           /*!< The layer matrix. */
+    t_egobj             e_new_objects;      /*!< The layer new object. */
+    t_egobj*            e_objects;          /*!< The layer objects. */
+    long                e_number_objects;   /*!< The number of layer objects. */
+} t_elayer;
+
+/**
+ * @struct t_edrawparams
+ * @brief The CICM drawing parameters.
+ * @details It contains the default parameters of a ebox.
+ */
+typedef struct t_edrawparams
+{
+	float		d_cornersize;       /*!< The corner roundness. */
+	float       d_borderthickness;  /*!< The border size. */
+	t_rgba      d_bordercolor;      /*!< The border color. */
+	t_rgba      d_boxfillcolor;     /*!< The background color. */
+    
+} t_edrawparams;
+
+/**
+ * @struct t_eproxy
+ * @brief The CICM Proxy object.
+ * @details It contains the proxy class, the eobj owner and the index of the proxy.
+ */
+typedef struct t_eproxy
+{
+	t_pd        p_pd;       /*!< The class object. */
+	t_object*   p_owner;    /*!< The pointer to the eobj owner. */
+    t_inlet*    p_inlet;    /*!< The pointer to the inlet. */
+    int         p_index;    /*!< The index of the proxy. */
+} t_eproxy;
+
+typedef struct t_ewidget
 {
     t_getrectfn     w_getrectfn;
     t_displacefn    w_displacefn;
@@ -158,11 +382,11 @@ typedef struct _ewidget
     method          w_read;
 } t_ewidget;
 
-typedef struct _eattr
+typedef struct t_eattr
 {
     t_object        obj;
-	t_symbol*       name;
-	t_symbol*       type;
+    t_symbol*       name;
+    t_symbol*       type;
     t_symbol*       category;
     t_symbol*       label;
     t_symbol*       style;
@@ -170,15 +394,15 @@ typedef struct _eattr
     char            save;
     char            paint;
     char            invisible;
-	long			flags;
+    long			flags;
     long            offset;
     long            sizemax;
     long            size;
     
-	method			getter;
-	method			setter;
+    method			getter;
+    method			setter;
     long            clipped;
-	double          minimum;
+    double          minimum;
     double          maximum;
     double          step;
     t_symbol*       defvals;
@@ -186,218 +410,35 @@ typedef struct _eattr
     long            itemssize;
 } t_eattr;
 
-typedef struct _eclass
+
+/**
+ * @struct t_eclass
+ * @brief The CICM class.
+ * @details It contains the Pure Data default class with extra methods and attributes.
+ */
+typedef struct t_eclass
 {
-    t_class     c_class;
-    char        c_box;
-    char        c_dsp;
-    t_ewidget   c_widget;
-    t_eattr**   c_attr;
-    long        c_nattr;
+    t_class     c_class;    /*!< The default class. */
+    char        c_box;      /*!< The marker if the class is GUI. */
+    char        c_dsp;      /*!< The marker if the class is DSP. */
+    t_ewidget   c_widget;   /*!< The extra widget methods. */
+    t_eattr**   c_attr;     /*!< The attributes. */
+    long        c_nattr;    /*!< The number of attributes. */
 }t_eclass;
 
-typedef enum _emod_flags
-{
-    EMOD_NONE           = 0,
-	EMOD_SHIFT          = 1,
-    EMOD_MAJ            = 2,
-    EMOD_CTRL           = 4,
-    EMOD_CMD            = 8,
-    EMOD_ALT            = 16,
-    EMOD_RIGHT          = 32
-} t_emod_flags;
-
-typedef enum _ekey_flags
-{
-    EKEY_DEL      = 0,
-	EKEY_TAB      = 1,
-    EKEY_ENTER    = 2,
-    EKEY_ESC      = 3
-    
-} t_ekey_flags;
-
-typedef enum _eselitem_flags
-{
-    EITEM_NONE    = 0,
-    EITEM_OBJ     = 1,
-	EITEM_INLET   = 2,
-    EITEM_OUTLET  = 3,
-    EITEM_BOTTOM  = 4,
-    EITEM_CORNER  = 5,
-    EITEM_RIGHT   = 6
-    
-} t_eselitem_flags;
-
-typedef enum _elayer_flags
-{
-	EGRAPHICS_OPEN      = 0,
-	EGRAPHICS_CLOSE     = -1,
-	EGRAPHICS_INVALID   = -2,
-    EGRAPHICS_TODRAW    = -3
-} t_elayer_flags;
-
-typedef enum _etextanchor_flags
-{
-    ETEXT_UP            = 0,
-    ETEXT_UP_LEFT       = 1,
-    ETEXT_UP_RIGHT      = 2,
-    ETEXT_DOWN          = 3,
-    ETEXT_DOWN_LEFT     = 4,
-    ETEXT_DOWN_RIGHT    = 5,
-	ETEXT_LEFT          = 6, // first element of text = x
-    ETEXT_RIGHT         = 7, // last element of text = x
-	ETEXT_CENTER        = 8  // center element of text = x
-    
-} t_etextanchor_flags;
-
-typedef enum _etextwrap_flags
-{
-	ETEXT_NOWRAP    = 0,
-	ETEXT_WRAP      = 1
-} t_etextwrap_flags;
-
-typedef enum _etextjustify_flags
-{
-	ETEXT_JLEFT    = 0,
-	ETEXT_JRIGHT   = 1,
-    ETEXT_JCENTER  = 2
-} t_etextjustify_flags;
-
-typedef struct _efont
-{
-    float       c_size;
-    long        c_sizereal;
-    t_symbol*   c_family;   // times, helvetica, ect...
-    t_symbol*   c_slant;    // regular, italic
-    t_symbol*   c_weight;   // normal, bold
-} t_efont;
-
-typedef struct _epopup
-{
-    t_symbol*   c_name;
-    t_symbol*   c_send;
-}t_epopup;
-
-typedef struct _etextfield
-{
-    t_symbol*   c_name;
-    t_symbol*   c_send;
-}t_etextfield;
-
-typedef struct _etext
-{
-    t_symbol*       c_text;
-    t_rgba          c_color;
-    t_efont         c_font;
-    t_rect          c_rect;
-    t_symbol*       c_anchor;
-    t_symbol*       c_justify;
-} t_etext;
-
-/**
- * @enum egraphics_types
- * @brief The types of graphical object.
- * @details It define all the graphical type.
+/*! @addtogroup groupobj The Object Part
+ * @brief The eobj part.
+ * @details This part refers to the methods and structures that can be used by all the t_eobj structures.
+ *  @{
  */
-typedef enum
-{
-    E_GOBJ_INVALID           = 0,   /*!< This type is invalid. */
-    E_GOBJ_PATH                 ,   /*!< This is a path. */
-    E_GOBJ_RECT                 ,   /*!< This is a rect. */
-    E_GOBJ_ARC                  ,   /*!< This is an arc. */
-    E_GOBJ_OVAL                 ,   /*!< This is an oval. */
-    E_GOBJ_TEXT                 ,   /*!< This is a text. */
-    E_GOBJ_IMAG                    /*!< This is an image. */
-} egraphics_types;
 
 /**
- * @enum epath_types
- * @brief The types of path.
- * @details It define all the path type.
- */
-typedef enum
-{
-    E_PATH_MOVE    = 0,   /*!< This type is move. */
-    E_PATH_CURVE   = 1    /*!< This type is curve. */
-} epath_types;
-
-/**
- * @struct _egobj
- * @brief The CICM drawing object.
- * @details It contains the all the informations to be drawn.
- */
-typedef struct _egobj
-{
-	egraphics_types e_type;         /*!< The type of the graphical object. */
-    int             e_filled;       /*!< The filled state of the graphical object. */
-    t_symbol*       e_color;        /*!< The color of the graphical object. */
-    float           e_width;        /*!< The line width of the graphical object. */
-    
-	t_pt*           e_points;       /*!< The points of the graphical object. */
-    long            e_npoints;      /*!< The number of points of the graphical object. */
-    float           e_roundness;    /*!< The roundness of the graphical object. */
-    t_efont         e_font;         /*!< The font of the graphical object. */
-    t_symbol*       e_anchor;       /*!< The anchor of the graphical object. */
-    t_symbol*       e_justify;      /*!< The justification of the graphical object. */
-    t_symbol*       e_text;         /*!< The text of the graphical object. */
-    
-} t_egobj;
-
-/**
- * @struct _elayer
- * @brief The CICM drawing layer.
- * @details It contains the all the informations and the graphical objects to be drawn.
- */
-typedef struct _elayer
-{
-    t_object*           e_owner;            /*!< The layer owner. */
-    t_symbol*           e_name;             /*!< The layer name. */
-    t_symbol*           e_id;               /*!< The layer canvas ID. */
-    int                 e_state;            /*!< The layer state. */
-    t_rect              e_rect;             /*!< The layer size. */
-    
-    t_symbol*           e_color;            /*!< The layer color. */
-    int                 e_line_width;       /*!< The layer line width. */
-    t_matrix            e_matrix;           /*!< The layer matrix. */
-    t_egobj             e_new_objects;      /*!< The layer new object. */
-    t_egobj*            e_objects;          /*!< The layer objects. */
-    long                e_number_objects;   /*!< The number of layer objects. */
-} t_elayer;
-
-/**
- * @struct _edrawparams
- * @brief The CICM drawing parameters.
- * @details It contains the default parameters of a ebox.
- */
-typedef struct _edrawparams
-{
-	float		d_cornersize;       /*!< The corner roundness. */
-	float       d_borderthickness;  /*!< The border size. */
-	t_rgba      d_bordercolor;      /*!< The border color. */
-	t_rgba      d_boxfillcolor;     /*!< The background color. */
-    
-} t_edrawparams;
-
-/**
- * @struct _eproxy
- * @brief The CICM Proxy object.
- * @details It contains the proxy class, the eobj owner and the index of the proxy.
- */
-typedef struct _eproxy
-{
-	t_pd        p_pd;       /*!< The class object. */
-	t_object*   p_owner;    /*!< The pointer to the eobj owner. */
-    t_inlet*    p_inlet;    /*!< The pointer to the inlet. */
-    int         p_index;    /*!< The index of the proxy. */
-} t_eproxy;
-
-/**
- * @struct _eobj
- * @brief The CICM Box object.
+ * @struct t_eobj
+ * @brief The CICM object.
  * @details It contains the Pd object, the canvas pointer and members for proxy inlets.
  * This should be used for no graphical object that don't have signal processing methods.
  */
-typedef struct _eobj
+typedef struct t_eobj
 {
     t_object            o_obj;              /*!< The Pd object. */
     t_symbol*           o_id;               /*!< The object ID. */
@@ -407,13 +448,21 @@ typedef struct _eobj
     int                 o_current_proxy;    /*!< The index of the current proxy inlet used */
 }t_eobj;
 
+/** @} */
+
+/*! @addtogroup groupdspobj The DSP Object Part
+ * @brief The edspobj part.
+ * @details This part refers to the methods and structures that can be used by all the t_edspobj structures.
+ *  @{
+ */
+
 /**
- * @struct _edspobj
- * @brief The CICM Box DSP object.
+ * @struct t_edspobj
+ * @brief The CICM DSP object.
  * @details It contains the CICM object with all the members for signal processing.
  * This should be used for no graphical object that have signal processing methods.
  */
-typedef struct _edspobj
+typedef struct t_edspobj
 {
     t_eobj              d_obj;              /*!< The CICM object. */
     float               d_float;            /*!< The float member to initialize the signal method. */
@@ -424,18 +473,20 @@ typedef struct _edspobj
     t_float**           d_sigs_out;         /*!< The array of signal vectors. */
     t_float*            d_sigs_real;        /*!< The real array of signal. */
     method              d_perform_method;   /*!< The user perform method. */
-    long                d_misc;
+    long                d_misc;             /*!< The flag that could be inplace or not. */
 }t_edspobj;
 
+/** @} */
+
 /**
- * @struct _ebox
+ * @struct t_ebox
  * @brief The CICM GUI object.
  * @details It contains the CICM object with all the members for graphical behavior.
  * This should be used for graphical object that don't have signal processing methods.
  */
-typedef struct _ebox
+typedef struct t_ebox
 {
-    t_eobj              b_obj;              /*!< The CICM object. */
+    t_eobj              b_obj;              ///<The CICM object.
     
     t_symbol*           b_receive_id;       /*!< The object user ID. */
     t_symbol*           b_send_id;          /*!< The object send ID. */
@@ -469,12 +520,12 @@ typedef struct _ebox
 }t_ebox;
 
 /**
- * @struct _edspbox
+ * @struct t_edspbox
  * @brief The CICM GUI DSP object.
  * @details It contains the CICM object with all the members for graphical behavior and signal processing.
  * This should be used for graphical object that have signal processing methods.
  */
-typedef struct _edspbox
+typedef struct t_edspbox
 {
     t_eobj              b_obj;              /*!< The CICM DSP object. */
     
