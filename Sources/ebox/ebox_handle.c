@@ -133,12 +133,19 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
     {
         if(is_for_box(x, modif))
         {
-            ebox_set_cursor(x, 1);
-            mouse.x = atom_getfloat(argv);
-            mouse.y = atom_getfloat(argv+1);
-            if(c->c_widget.w_mousemove)
+            if(!(x->b_flags & EBOX_IGNORELOCKCLICK))
             {
-                c->c_widget.w_mousemove(x, x->b_obj.o_canvas, mouse, modif);
+                ebox_set_cursor(x, 1);
+                if(c->c_widget.w_mousemove)
+                {
+                    mouse.x = atom_getfloat(argv);
+                    mouse.y = atom_getfloat(argv+1);
+                    c->c_widget.w_mousemove(x, x->b_obj.o_canvas, mouse, modif);
+                }
+            }
+            else
+            {
+                ebox_set_cursor(x, 0);
             }
         }
         else if(!x->b_isinsubcanvas)
@@ -227,7 +234,7 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
     {
         if(is_for_box(x, modif))
         {
-            if(c->c_widget.w_mousedrag)
+            if(c->c_widget.w_mousedrag && !(x->b_flags & EBOX_IGNORELOCKCLICK))
             {
                 mouse.x = atom_getfloat(argv);
                 mouse.y = atom_getfloat(argv+1);
@@ -315,7 +322,7 @@ void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
     t_eclass *c = eobj_getclass(x);
     if(is_for_box(x, modif))
     {
-        if(c->c_widget.w_mousedown)
+        if(c->c_widget.w_mousedown && !(x->b_flags & EBOX_IGNORELOCKCLICK))
         {
             mouse.x = atom_getfloat(argv);
             mouse.y = atom_getfloat(argv+1);
@@ -363,7 +370,7 @@ void ebox_mouse_up(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
     t_eclass *c = eobj_getclass(x);
     if(is_for_box(x, modif))
     {
-        if(c->c_widget.w_mouseup)
+        if(c->c_widget.w_mouseup && !(x->b_flags & EBOX_IGNORELOCKCLICK))
         {
             mouse.x = atom_getfloat(argv);
             mouse.y = atom_getfloat(argv+1);
@@ -391,7 +398,7 @@ void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
     t_pt mouse;
     t_eclass *c = eobj_getclass(x);
     long modif  = modifier_wrapper((long)atom_getfloat(argv+2));
-    if(is_for_box(x, modif) && c->c_widget.w_dblclick)
+    if(is_for_box(x, modif) && c->c_widget.w_dblclick && !(x->b_flags & EBOX_IGNORELOCKCLICK))
     {
         mouse.x = atom_getfloat(argv);
         mouse.y = atom_getfloat(argv+1);
@@ -414,7 +421,7 @@ void ebox_mouse_wheel(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
     float delta;
     long modif  = modifier_wrapper((long)atom_getfloat(argv+2));
     t_eclass *c = eobj_getclass(x);
-    if(is_for_box(x, modif) && c->c_widget.w_mousewheel)
+    if(is_for_box(x, modif) && c->c_widget.w_mousewheel && !(x->b_flags & EBOX_IGNORELOCKCLICK))
     {
         mouse.x = atom_getfloat(argv);
         mouse.y = atom_getfloat(argv+1);
