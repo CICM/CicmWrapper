@@ -110,6 +110,12 @@ t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *
 t_pd_err ebox_size_set(t_ebox *x, t_object *attr, int argc, t_atom *argv);
 void ebox_attrprint(t_ebox* x);
 t_symbol* ebox_get_presetid(t_ebox* x);
+
+void ebox_wgetrect(t_gobj *z,     t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2);
+void ebox_wvis(t_gobj *z,         t_glist *glist, int vis);
+void ebox_wdisplace(t_gobj *z,    t_glist *glist, int dx, int dy);
+void ebox_wselect(t_gobj *z,      t_glist *glist, int selected);
+void ebox_wdelete(t_gobj *z,      t_glist *glist);
 //! @endcond
 
 /*********************************

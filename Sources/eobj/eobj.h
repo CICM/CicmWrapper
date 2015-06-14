@@ -47,8 +47,6 @@ t_symbol* eobj_getclassname(void* x);
 t_canvas* eobj_getcanvas(void *x);
 char eobj_isbox(void *x);
 char eobj_isdsp(void *x);
-t_eproxy* eproxy_new(void *owner, t_symbol* s);
-void eproxy_free(void *owner, t_eproxy* proxy);
 void eobj_dspsetup(void *x, long nins, long nouts);
 void eobj_dspfree(void *x);
 void eobj_resize_inputs(void *x, long nins);

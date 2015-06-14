@@ -580,7 +580,9 @@ void ebox_vis(t_ebox* x, int vis)
             canvas_redraw(x->b_obj.o_canvas);
         }
         else
+        {
             ebox_erase(x);
+        }
     }
 }
 
@@ -1021,6 +1023,92 @@ void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
             }
         }
     }
+}
+
+void ebox_wgetrect(t_gobj *z, t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2)
+{
+    t_ebox *x = (t_ebox *)z;
+    *xp1 = text_xpix(&x->b_obj.o_obj, glist);
+    *yp1 = text_ypix(&x->b_obj.o_obj, glist) - (int)(x->b_boxparameters.d_borderthickness);
+    *xp2 = text_xpix(&x->b_obj.o_obj, glist) + (int)x->b_rect.width + (int)(x->b_boxparameters.d_borderthickness);
+    *yp2 = text_ypix(&x->b_obj.o_obj, glist) + (int)x->b_rect.height + (int)(x->b_boxparameters.d_borderthickness);
+}
+
+void ebox_wvis(t_gobj *z, t_glist *glist, int vis)
+{
+    t_ebox* x   = (t_ebox *)z;
+    t_eclass* c = eobj_getclass(x);
+    if(vis)
+    {
+        if(eobj_isbox(x))
+        {
+            if(x->b_ready_to_draw && x->b_visible)
+            {
+                ebox_create_window(x, glist);
+                ebox_invalidate_all(x);
+                // No redraw for the 1st paint
+                
+                if(x->b_obj.o_canvas && x->b_ready_to_draw && eobj_isbox(x)) // do not call ebox_isdrawable !!
+                {
+                    ebox_invalidate_layer(x, s_eboxbd);
+                    ebox_invalidate_layer(x, s_eboxio);
+                    
+                    ebox_update(x);
+                    if(c->c_widget.w_paint)
+                        c->c_widget.w_paint(x, (t_object *)x->b_obj.o_canvas);
+                    ebox_draw_border(x);
+                    ebox_draw_iolets(x);
+                }
+            }
+        }
+    }
+    else
+    {
+        ebox_erase(x);
+    }
+    canvas_fixlinesfor(glist_getcanvas(glist), (t_text*)x);
+}
+
+void ebox_wdisplace(t_gobj *z, t_glist *glist, int dx, int dy)
+{
+    t_ebox *x;
+#ifdef _WINDOWS
+    t_gotfn m;
+    
+#endif
+    x = (t_ebox *)z;
+    
+    x->b_rect.x += dx;
+    x->b_rect.y += dy;
+    x->b_obj.o_obj.te_xpix += dx;
+    x->b_obj.o_obj.te_ypix += dy;
+    
+    ebox_move(x);
+    
+#ifdef _WINDOWS
+    if(!x->b_selected_box)
+    {
+        m = getfn((t_pd *)x->b_obj.o_canvas, gensym("setbounds"));
+        m(x->b_obj.o_canvas, glist->gl_screenx1, glist->gl_screeny1, glist->gl_screenx2, glist->gl_screeny2);
+    }
+#endif
+}
+
+void ebox_wselect(t_gobj *z, t_glist *glist, int selected)
+{
+    t_ebox *x = (t_ebox *)z;
+    if(selected)
+        x->b_selected_box = 1;
+    else
+        x->b_selected_box = 0;
+    ebox_select(x);
+}
+
+void ebox_wdelete(t_gobj *z, t_glist *glist)
+{
+    t_ebox *x = (t_ebox *)z;
+    ebox_erase(x);
+    canvas_deletelinesfor(glist, (t_text *)z);
 }
 
 

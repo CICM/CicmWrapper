@@ -38,42 +38,17 @@
 #include "../ebox/ebox.h"
 #include "../epopup/epopup.h"
 
-/*********************************
- * OBJECT
- *********************************/
+#define calcoffset(x,y) ((long)(&(((x *)0L)->y)))
 
 t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t size, int flags, t_atomtype arg1, int arg2);
 void eclass_init(t_eclass* c, long flags);
 void eclass_dspinit(t_eclass* c);
-void eclassbox_dspinit(t_eclass* c);
 void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long anything);
 t_pd_err eclass_register(t_symbol *name, t_eclass *c);
 
-void eclass_properties_dialog(t_eclass* c);     // PRIVATE
-
-void ewidget_init(t_eclass* c);
-void ewidget_getrect(t_gobj *z,     t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2);
-void ewidget_vis(t_gobj *z,         t_glist *glist, int vis);
-void ewidget_displace(t_gobj *z,    t_glist *glist, int dx, int dy);
-void ewidget_select(t_gobj *z,      t_glist *glist, int selected);
-void ewidget_delete(t_gobj *z,      t_glist *glist);
-
-#define calcoffset(x,y) ((long)(&(((x *)0L)->y)))
-
-// eattr_new.c functions //
-////////////////////////////////////////////////////////////////////////////////////////////////////////
 void eclass_new_attr_typed(t_eclass* c, char* attrname, char* type, long size, long maxsize, long flags, long offset);
-
-// eattr_setter.c functions //
-////////////////////////////////////////////////////////////////////////////////////////////////////////
 void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv);
-
-// eattr_getter.c functions //
-////////////////////////////////////////////////////////////////////////////////////////////////////////
 void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv);
-
-// eattr_attr.c functions //
-////////////////////////////////////////////////////////////////////////////////////////////////////////
 void eclass_attr_category(t_eclass* c, char* attrname, long flags, char* category);
 void eclass_attr_order(t_eclass* c, char* attrname, long flags, char* order);
 void eclass_attr_label(t_eclass* c, char* attrname, long flags, char* label);
@@ -87,7 +62,6 @@ void eclass_attr_paint(t_eclass* c, char* attrname, long flags);
 void eclass_attr_invisible(t_eclass* c, char* attrname, long flags);
 void eclass_attr_accessor(t_eclass* c, char* attrname, method getter, method setter);
 void eclass_attr_itemlist(t_eclass* c, char* attrname, long flags, char* list);
-////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //! MACRO TO CREATE ATTRIBUTES
 /*
