@@ -25,6 +25,7 @@
  */
 
 #include "eobj.h"
+#include "ecommon.h"
 
 static t_eproxy* eproxy_new(void *owner, t_symbol* s);
 static void eproxy_free(void *owner, t_eproxy* proxy);
@@ -999,12 +1000,6 @@ static t_inlet* einlet_new(t_object* owner, t_pd* proxy, t_symbol* s)
     return inlet;
 }
 
-//! Intialize a proxy inlet
-/*
- * @memberof    eobj
- * @param owner The eobj pointer
- * @return      This function return the proxy pointor
- */
 static t_eproxy* eproxy_new(void *owner, t_symbol* s)
 {
     t_eproxy* proxy;
@@ -1058,13 +1053,6 @@ static void canvas_deletelines_for_io(t_canvas *x, t_text *text, t_inlet *inp, t
     }
 }
 
-//! Free a proxy inlet
-/*
- * @memberof    eobj
- * @param x     The proxy pointer
- * @param owner The eobj pointer
- * @return      Nothing
- */
 static void eproxy_free(void *owner, t_eproxy* proxy)
 {
     t_eobj *z   = (t_eobj *)owner;

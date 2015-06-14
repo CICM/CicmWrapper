@@ -25,22 +25,14 @@
  */
 
 #include "eclass.h"
+#include "ecommon.h"
+#include "eobj.h"
+#include "ebox.h"
+#include "epopup.h"
 
 static void eclass_properties_dialog(t_eclass* c);
 static void ewidget_init(t_eclass* c);
 
-//! Allocate the memory and initialize a new eclass
-/*
- \ @memberof            eclass
- \ @param name          The eclass name
- \ @param newmethod     The new method
- \ @param freemethod    The free method
- \ @param size          The size of the eclass
- \ @param flags         The class flags
- \ @param arg1          The type of parameters the new function
- \ @param arg2          Another argument
- \ @return              This function return the new eclass
- */
 t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t size, int flags, t_atomtype arg1, int arg2)
 {
     char help[MAXPDSTRING];
@@ -63,6 +55,11 @@ t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t siz
     return c;
 }
 
+void eclass_init(t_eclass* c, long flags)
+{
+    eclass_guiinit(c, flags);
+}
+
 //! Initialize an eclass for UI behavior
 /*
  \ @memberof            eclass
@@ -70,7 +67,7 @@ t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t siz
  \ @param flags         Nothing for the moment
  \ @return              Nothing
  */
-void eclass_init(t_eclass* c, long flags)
+void eclass_guiinit(t_eclass* c, long flags)
 {
     ewidget_init(c);
     

@@ -27,7 +27,7 @@
 #ifndef DEF_EGRAPHICS
 #define DEF_EGRAPHICS
 
-#include "estruct.h"
+#include "ecommon.h"
 
 // PAINT METHOD //
 void egraphics_fill(t_elayer *g);

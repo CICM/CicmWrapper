@@ -28,5 +28,10 @@
 #define DEF_EPD
 
 #include "eclass.h"
+#include "ecommon.h"
+#include "eobj.h"
+#include "ebox.h"
+#include "epopup.h"
+#include "egraphics.h"
 #include "epdmax.h"
 #endif

@@ -33,9 +33,7 @@
 #ifndef DEF_EBOX
 #define DEF_EBOX
 
-#include "estruct.h"
-#include "egraphics.h"
-#include "eobj.h"
+#include "edefine.h"
 
 /*! @addtogroup groupbox
  * @{
@@ -208,31 +206,250 @@ t_pd_err ebox_invalidate_layer(t_ebox *b,t_symbol *name);
 
 
 //! @cond
+//! The mouse enter method called by tcl/tk (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @return          Nothing
+ */
 void ebox_mouse_enter(t_ebox* x);
+
+//! The mouse leave method called by tcl/tk (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @return          Nothing
+ */
 void ebox_mouse_leave(t_ebox* x);
+
+//! The mouse move method called by tcl/tk (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param s         The message selector
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Nothing
+ */
 void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+
+//! The mouse up method called by tcl/tk (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param s         The message selector
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Nothing
+ */
 void ebox_mouse_up(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+
+//! The mouse down method called by tcl/tk (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param s         The message selector
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Nothing
+ */
 void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+
+//! The mouse double click method called by tcl/tk (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param s         The message selector
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Nothing
+ */
 void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+
+//! The mouse wheel method called by tcl/tk (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param s         The message selector
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Nothing
+ */
 void ebox_mouse_wheel(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+
+//! The key down method called by tcl/tk (PRIVATE AND NOT READY)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param s         The message selector
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Nothing
+ */
 void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+
+//! The default save method for UI ebox (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param b         The binbuf
+ \ @return          Nothing
+ */
 void ebox_dosave(t_ebox* x, t_binbuf *b);
+
+//! The method to move an UI ebox (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param newx      The new abscissa
+ \ @param newy      The new ordinate
+ \ @return          Nothing
+ */
 void ebox_pos(t_ebox* x, float newx, float newy);
+
+//! The method to show or hide an UI ebox (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox pointer
+ \ @param vis       The visible state
+ \ @return          Nothing
+ */
 void ebox_vis(t_ebox* x, int vis);
+
+//! The default user id method for all ebox called by PD (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The gobj
+ \ @param attr      Nothing (for Max 6 compatibility)
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Always 0 (for the moment)
+ */
 t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+
+//! The default user send id method for all ebox called by PD (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The gobj
+ \ @param attr      Nothing (for Max 6 compatibility)
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Always 0 (for the moment)
+ */
 t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+
+//! The default user preset id method for all ebox called by PD (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox
+ \ @param attr      Nothing (for Max 6 compatibility)
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Always 0 (for the moment)
+ */
 t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
-t_pd_err ebox_set_font(t_ebox *x, t_object *attr, int argc, t_atom *argv);
-t_pd_err ebox_set_fontweight(t_ebox *x, t_object *attr, int argc, t_atom *argv);
-t_pd_err ebox_set_fontslant(t_ebox *x, t_object *attr, int argc, t_atom *argv);
-t_pd_err ebox_set_fontsize(t_ebox *x, t_object *attr, int argc, t_atom *argv);
-void ebox_properties(t_ebox *x, t_glist *glist);
-void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv);
-t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
-t_pd_err ebox_size_set(t_ebox *x, t_object *attr, int argc, t_atom *argv);
-void ebox_attrprint(t_ebox* x);
+
+//! Retrive the preset id of an ebox
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox
+ */
 t_symbol* ebox_get_presetid(t_ebox* x);
 
+//! The default user font method for all ebox called by PD (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The gobj
+ \ @param attr      Nothing (for Max 6 compatibility)
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Always 0 (for the moment)
+ */
+t_pd_err ebox_set_font(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+
+//! The default user fontweight method for all ebox called by PD (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The gobj
+ \ @param attr      Nothing (for Max 6 compatibility)
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Always 0 (for the moment)
+ */
+t_pd_err ebox_set_fontweight(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+
+//! The default user fontslant method for all ebox called by PD (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The gobj
+ \ @param attr      Nothing (for Max 6 compatibility)
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Always 0 (for the moment)
+ */
+t_pd_err ebox_set_fontslant(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+
+//! The default user fontsize method for all ebox called by PD (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The gobj
+ \ @param attr      Nothing (for Max 6 compatibility)
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms
+ \ @return          Always 0 (for the moment)
+ */
+t_pd_err ebox_set_fontsize(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+
+//! Open the properties window (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param z         The gobj object
+ \ @param glist     The canvas
+ \ @return          Nothing
+ */
+void ebox_properties(t_ebox *x, t_glist *glist);
+
+//! Receive the properties window messages and change the attributes values (PRIVATE)
+/*
+ \ @memberof        ebox
+ \ @param x         The object
+ \ @param s         Nothing (for Max 6 compatibility)
+ \ @return          Nothing
+ */
+void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv);
+
+//! The default notify method of ebox called when an attribute has changed // PRIVATE
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox
+ \ @param s         The name of the attribute
+ \ @param msg       Nothing (for Max 6 compatibility)
+ \ @param sender    Nothing (for Max 6 compatibility)
+ \ @param data      Nothing (for Max 6 compatibility)
+ \ @return          Always 0 (for the moment)
+ */
+t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
+
+//! The default size attribute method of ebox called when an size attribute has changed. This function restrains the width and the height depending of the ebox flags EBOX_GROWNO, EBOX_GROWLINK and EBOX_GROWINDI // PRIVATE
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox
+ \ @param attr      Nothing (for Max 6 compatibility)
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms that contains the new width and the new height
+ \ @return          Always 0 (for the moment)
+ */
+t_pd_err ebox_size_set(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+
+//! The attribute print method that post all the attributes characteristics in the PD console // PRIVATE
+/*
+ \ @memberof        ebox
+ \ @param x         The ebox
+ \ @return          Nothing
+ */
+void ebox_attrprint(t_ebox* x);
+
+// The defaults pd widgets
 void ebox_wgetrect(t_gobj *z,     t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2);
 void ebox_wvis(t_gobj *z,         t_glist *glist, int vis);
 void ebox_wdisplace(t_gobj *z,    t_glist *glist, int dx, int dy);

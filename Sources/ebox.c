@@ -25,6 +25,8 @@
  */
 
 #include "ebox.h"
+#include "egraphics.h"
+#include "eobj.h"
 
 static char *my_cursorlist[] =
 {
@@ -197,12 +199,6 @@ void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)
     }
 }
 
-//! Change the attributes with their defaults values
-/*
- \ @memberof        ebox
- \ @param x         The object
- \ @return          Nothing
- */
 static void ebox_attrprocess_default(void *x)
 {
     int i, j, k;
@@ -473,12 +469,6 @@ static long modifier_wrapper(long mod)
     return mod;
 }
 
-//! The mouse enter method called by tcl/tk (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @return          Nothing
- */
 void ebox_mouse_enter(t_ebox* x)
 {
     t_eclass *c = eobj_getclass(x);
@@ -497,13 +487,6 @@ void ebox_mouse_enter(t_ebox* x)
     }
 }
 
-
-//! The mouse leave method called by tcl/tk (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @return          Nothing
- */
 void ebox_mouse_leave(t_ebox* x)
 {
     t_eclass *c = eobj_getclass(x);
@@ -523,15 +506,6 @@ void ebox_mouse_leave(t_ebox* x)
     }
 }
 
-//! The mouse move method called by tcl/tk (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @param s         The message selector
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
- \ @return          Nothing
- */
 void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
     int i;
@@ -716,16 +690,6 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
     }
 }
 
-
-//! The mouse down method called by tcl/tk (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @param s         The message selector
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
- \ @return          Nothing
- */
 void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
     t_pt mouse;
@@ -765,15 +729,6 @@ void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
     x->b_mouse_down = 1;
 }
 
-//! The mouse up method called by tcl/tk (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @param s         The message selector
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
- \ @return          Nothing
- */
 void ebox_mouse_up(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
     t_pt mouse;
@@ -795,15 +750,6 @@ void ebox_mouse_up(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
     x->b_mouse_down = 0;
 }
 
-//! The mouse double click method called by tcl/tk (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @param s         The message selector
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
- \ @return          Nothing
- */
 void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
     t_pt mouse;
@@ -817,15 +763,6 @@ void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
     }
 }
 
-//! The mouse wheel method called by tcl/tk (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @param s         The message selector
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
- \ @return          Nothing
- */
 void ebox_mouse_wheel(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
     t_pt mouse;
@@ -842,15 +779,6 @@ void ebox_mouse_wheel(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
     }
 }
 
-//! The key down method called by tcl/tk (PRIVATE AND NOT READY)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @param s         The message selector
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
- \ @return          Nothing
- */
 void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 {
     t_eclass *c = eobj_getclass(x);
@@ -914,13 +842,6 @@ void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
     }
 }
 
-//! The default save method for UI ebox (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @param b         The binbuf
- \ @return          Nothing
- */
 void ebox_dosave(t_ebox* x, t_binbuf *b)
 {
     int         i = 0, state = 0, argc = 0;
@@ -955,14 +876,6 @@ void ebox_dosave(t_ebox* x, t_binbuf *b)
     }
 }
 
-//! The method to move an UI ebox (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @param newx      The new abscissa
- \ @param newy      The new ordinate
- \ @return          Nothing
- */
 void ebox_pos(t_ebox* x, float newx, float newy)
 {
     x->b_rect.x = newx;
@@ -973,13 +886,6 @@ void ebox_pos(t_ebox* x, float newx, float newy)
     ebox_move(x);
 }
 
-//! The method to show or hide an UI ebox (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @param vis       The visible state
- \ @return          Nothing
- */
 void ebox_vis(t_ebox* x, int vis)
 {
     vis = (int)pd_clip_minmax(vis, 0, 1);
@@ -997,15 +903,6 @@ void ebox_vis(t_ebox* x, int vis)
     }
 }
 
-//! The default user id method for all ebox called by PD (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The gobj
- \ @param attr      Nothing (for Max 6 compatibility)
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
- \ @return          Always 0 (for the moment)
- */
 t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
     t_symbol* sname;
@@ -1032,15 +929,6 @@ t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
     return 0;
 }
 
-//! The default user send id method for all ebox called by PD (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The gobj
- \ @param attr      Nothing (for Max 6 compatibility)
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
- \ @return          Always 0 (for the moment)
- */
 t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null)
@@ -1055,11 +943,6 @@ t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
     return 0;
 }
 
-//! Retrive the preset id of an ebox
-/*
- \ @memberof        ebox
- \ @param x         The ebox
- */
 t_symbol* ebox_get_presetid(t_ebox* x)
 {
     if(x->b_objpreset_id != s_null)
@@ -1072,15 +955,6 @@ t_symbol* ebox_get_presetid(t_ebox* x)
     }
 }
 
-//! The default user preset id method for all ebox called by PD (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox
- \ @param attr      Nothing (for Max 6 compatibility)
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
- \ @return          Always 0 (for the moment)
- */
 t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null)
@@ -1094,15 +968,6 @@ t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
     return 0;
 }
 
-//! The default user font method for all ebox called by PD (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The gobj
- \ @param attr      Nothing (for Max 6 compatibility)
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
- \ @return          Always 0 (for the moment)
- */
 t_pd_err ebox_set_font(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_SYMBOL)
@@ -1120,15 +985,6 @@ t_pd_err ebox_set_font(t_ebox *x, t_object *attr, int argc, t_atom *argv)
     return 0;
 }
 
-//! The default user fontweight method for all ebox called by PD (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The gobj
- \ @param attr      Nothing (for Max 6 compatibility)
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
- \ @return          Always 0 (for the moment)
- */
 t_pd_err ebox_set_fontweight(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_SYMBOL)
@@ -1144,15 +1000,6 @@ t_pd_err ebox_set_fontweight(t_ebox *x, t_object *attr, int argc, t_atom *argv)
     return 0;
 }
 
-//! The default user fontslant method for all ebox called by PD (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The gobj
- \ @param attr      Nothing (for Max 6 compatibility)
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
- \ @return          Always 0 (for the moment)
- */
 t_pd_err ebox_set_fontslant(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_SYMBOL)
@@ -1168,15 +1015,6 @@ t_pd_err ebox_set_fontslant(t_ebox *x, t_object *attr, int argc, t_atom *argv)
     return 0;
 }
 
-//! The default user fontsize method for all ebox called by PD (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The gobj
- \ @param attr      Nothing (for Max 6 compatibility)
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
- \ @return          Always 0 (for the moment)
- */
 t_pd_err ebox_set_fontsize(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_FLOAT)
@@ -1195,15 +1033,6 @@ t_pd_err ebox_set_fontsize(t_ebox *x, t_object *attr, int argc, t_atom *argv)
     return 0;
 }
 
-//! The default size attribute method of ebox called when an size attribute has changed. This function restrains the width and the height depending of the ebox flags EBOX_GROWNO, EBOX_GROWLINK and EBOX_GROWINDI // PRIVATE
-/*
- \ @memberof        ebox
- \ @param x         The ebox
- \ @param attr      Nothing (for Max 6 compatibility)
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms that contains the new width and the new height
- \ @return          Always 0 (for the moment)
- */
 t_pd_err ebox_size_set(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
     float width, height;
@@ -1242,16 +1071,6 @@ t_pd_err ebox_size_set(t_ebox *x, t_object *attr, int argc, t_atom *argv)
     return 0;
 }
 
-//! The default notify method of ebox called when an attribute has changed // PRIVATE
-/*
- \ @memberof        ebox
- \ @param x         The ebox
- \ @param s         The name of the attribute
- \ @param msg       Nothing (for Max 6 compatibility)
- \ @param sender    Nothing (for Max 6 compatibility)
- \ @param data      Nothing (for Max 6 compatibility)
- \ @return          Always 0 (for the moment)
- */
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
     t_eclass* c = eobj_getclass(x);
@@ -1271,12 +1090,6 @@ t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *
     return 0;
 }
 
-//! The attribute print method that post all the attributes characteristics in the PD console // PRIVATE
-/*
- \ @memberof        ebox
- \ @param x         The ebox
- \ @return          Nothing
- */
 void ebox_attrprint(t_ebox* x)
 {
     int i;
@@ -1289,13 +1102,6 @@ void ebox_attrprint(t_ebox* x)
     }
 }
 
-//! Open the properties window (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param z         The gobj object
- \ @param glist     The canvas
- \ @return          Nothing
- */
 void ebox_properties(t_ebox *x, t_glist *glist)
 {
     int i, j;
@@ -1361,13 +1167,6 @@ void ebox_properties(t_ebox *x, t_glist *glist)
     gfxstub_new((t_pd *)x, x, buffer);
 }
 
-//! Receive the properties window messages and change the attributes values (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The object
- \ @param s         Nothing (for Max 6 compatibility)
- \ @return          Nothing
- */
 void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
 {
     int i;
@@ -1436,12 +1235,6 @@ void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
     }
 }
 
-//! Indicate that an UI ebox should be redraw
-/*
- \ @memberof    ebox
- \ @param x     The ebox pointer
- \ @return      Nothing
- */
 void ebox_redraw(t_ebox *x)
 {
     t_eclass* c = eobj_getclass(x);
@@ -1458,13 +1251,6 @@ void ebox_redraw(t_ebox *x)
     }
 }
 
-//! Initialize a rectangle with the UI ebox coordinates and size
-/*
- \ @memberof    ebox
- \ @param x     The ebox pointer
- \ @param rect  The rectangle to initialize
- \ @return      Nothing
- */
 void ebox_get_rect_for_view(t_ebox *x, t_rect *rect)
 {
     rect->x = x->b_rect.x;
@@ -1473,15 +1259,6 @@ void ebox_get_rect_for_view(t_ebox *x, t_rect *rect)
     rect->height = x->b_rect.height;
 }
 
-//! Allocate and initialize an elayer
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @param name      The layer name
- \ @param width     The width of the layer
- \ @param height    The height of the layer
- \ @return          Return an elayer or NULL if layer name is already used or if you can't write the layer
- */
 t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
 {
     int i, j;
@@ -1574,13 +1351,6 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
     }
 }
 
-//! Indicate that a layer is ready to be painted
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @param name      The layer name
- \ @return          Return 0 if the layer exist and -1 if the layer doesn't exist
- */
 t_pd_err ebox_end_layer(t_ebox *b, t_symbol *name)
 {
     int i;
@@ -1596,13 +1366,7 @@ t_pd_err ebox_end_layer(t_ebox *b, t_symbol *name)
     return -1;
 }
 
-//! Invalidate a layer and indicate that you can use it again
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @param name      The layer name
- \ @return          Return 0 if the layer exist and -1 if the layer doesn't exist
- */
+
 t_pd_err ebox_invalidate_layer(t_ebox *x, t_symbol *name)
 {
     int i;
@@ -1617,15 +1381,6 @@ t_pd_err ebox_invalidate_layer(t_ebox *x, t_symbol *name)
     return -1;
 }
 
-//! Paint a layer
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @param name      The layer name
- \ @param x_p       The layer abscissa offset
- \ @param y_p       The layer ordinate offset
- \ @return          Return 0 if the layer has been painted and -1 if the layer doesn't exist or if the layer isn't ready to be painted
- */
 t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
 {
     int i, j;
@@ -1797,14 +1552,6 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
     return 0;
 }
 
-//! @cond
-
-//! Paint the box border (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @return          Nothing
- */
 static void ebox_draw_border(t_ebox* x)
 {
     float bdsize, bdcorner;
@@ -1832,12 +1579,6 @@ static void ebox_draw_border(t_ebox* x)
     ebox_paint_layer(x, s_eboxbd, -bdsize, -bdsize);
 }
 
-//! Paint the box inlets and outlets (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @return          Nothing
- */
 static void ebox_draw_iolets(t_ebox* x)
 {
     int i;
@@ -1875,12 +1616,6 @@ static void ebox_draw_iolets(t_ebox* x)
     ebox_paint_layer(x, s_eboxio, 0, -bdsize);
 }
 
-//! Invalidate all the layers (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @return          Nothing
- */
 static void ebox_invalidate_all(t_ebox *x)
 {
     int i;
@@ -1889,13 +1624,6 @@ static void ebox_invalidate_all(t_ebox *x)
         x->b_layers[i].e_state = EGRAPHICS_INVALID;
     }
 }
-
-//! Delete all the invalidated layer in a canvas (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @return          Nothing
- */
 
 static void ebox_update(t_ebox *x)
 {
@@ -1909,12 +1637,6 @@ static void ebox_update(t_ebox *x)
     }
 }
 
-//! Delete the canvas and the layers (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @return          Nothing
- */
 static void ebox_erase(t_ebox* x)
 {
     if(x->b_obj.o_canvas && glist_isvisible(x->b_obj.o_canvas) && x->b_have_window)
@@ -1930,12 +1652,6 @@ static void ebox_erase(t_ebox* x)
     x->b_number_of_layers = 0;
 }
 
-//! Notify the canvas that the box has been selected and change the border color (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @return          Nothing
- */
 static void ebox_select(t_ebox* x)
 {
     if(glist_isvisible(x->b_obj.o_canvas))
@@ -1951,12 +1667,6 @@ static void ebox_select(t_ebox* x)
     }
 }
 
-//! Notify the canvas that the box has been moved and change canvas coordinates (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @return          Nothing
- */
 static void ebox_move(t_ebox* x)
 {
     if(glist_isvisible(x->b_obj.o_canvas))

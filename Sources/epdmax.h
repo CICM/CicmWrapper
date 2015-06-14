@@ -73,7 +73,7 @@
 #define class_new                                   eclass_new
 #define class_addmethod                             eclass_addmethod
  
-#define jbox_initclass(class, flags)                eclass_init(class, flags)
+#define jbox_initclass(class, flags)                eclass_guiinit(class, flags)
 #define class_dspinit(class)                        eclassbox_dspinit(class)
 #define class_dspinitjbox(class)                    eclass_dspinit(class)
 #define class_register(name_space, class)           eclass_register(name_space, class)
@@ -164,7 +164,7 @@
 #define jfont_create(family, slant, weight, size)               efont_create(family, slant, weight, size)
 #define jfont_destroy(font)                                     efont_destroy(font)
 
-#define cicm_rgba_addContrast(color, contrast)       rgba_addContrast(color, contrast)              
+#define cicm_rgba_addContrast(color, contrast)       rgba_addContrast(color, contrast)    
 
 
 #endif

@@ -59,7 +59,7 @@ void epopupmenu_addseperator(t_epopup* menu)
     sys_vgui(".eboxpopup%s add separator\n", menu->c_name->s_name);
 }
 
-void epopupmenu_popup(t_epopup* menu, t_pt screen, int defitemid)
+void epopupmenu_popup(t_epopup* menu, t_pt screen)
 {
     sys_vgui(".eboxpopup%s post %i %i\n", menu->c_name->s_name, (int)screen.x, (int)screen.y);
 }

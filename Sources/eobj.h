@@ -33,8 +33,7 @@
 #ifndef DEF_EOBJ
 #define DEF_EOBJ
 
-#include "estruct.h"
-#include "ecommon.h"
+#include "edefine.h"
 
 /*! @addtogroup groupobj
  *  @{
@@ -43,8 +42,8 @@
 /*!
  * \fn          void *eobj_new(t_eclass *c)
  * \brief       The t_eobj creation function.
- * \details     Allocate the memory for an intance of a t_eobj of a specific eclass, intialize the defaults values and methods. \n This function should replace pd_new().
- * \param c     The eclass pointer.
+ * \details     Allocates the memory for an intance of a t_eobj of a specific eclass, intialize the defaults values and methods. \n This function should replace pd_new().
+ * \param c     The t_eclass pointer.
  * \return      This function returns a pointer to a new instance of a t_eobj.
  */
 void *eobj_new(t_eclass *c);
