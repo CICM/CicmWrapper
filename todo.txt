@@ -1,8 +1,0 @@
-To do :
-
-- Round the box and check the border
-- Add flags "invisible bg etc.."
-- Choose between pd tips and a kind of Max assist method
-- Add line caps
-
-
