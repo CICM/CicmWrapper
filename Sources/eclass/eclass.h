@@ -63,7 +63,7 @@ void eclass_attr_invisible(t_eclass* c, char* attrname, long flags);
 void eclass_attr_accessor(t_eclass* c, char* attrname, method getter, method setter);
 void eclass_attr_itemlist(t_eclass* c, char* attrname, long flags, char* list);
 
-//! MACRO TO CREATE ATTRIBUTES
+//! Macros that create the attributes
 /*
  \ @memberof        eattr
  \ @param c         The eclass pointer
@@ -115,9 +115,8 @@ eclass_new_attr_typed(c,name, "double", calcoffset(struct,size), maxsize, flags,
 eclass_new_attr_typed(c,name, "symbol", calcoffset(struct,size), maxsize, flags, calcoffset(struct,member))
 #define CLASS_ATTR_ATOM_VARSIZE(c,name,flags,struct, member, size, maxsize) \
 eclass_new_attr_typed(c,name, "atom", calcoffset(struct,size), maxsize, flags, calcoffset(struct,member))
-////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//! MACRO TO DEFINE ATTRIBUTE OF ATTRIBUES
+//! Macros that define the attributes of the attributes
 /*
  \ @memberof        eattr
  \ @param c         The eclass pointer
@@ -144,7 +143,7 @@ eclass_new_attr_typed(c,name, "atom", calcoffset(struct,size), maxsize, flags, c
 #define CLASS_ATTR_DEFAULT_SAVE_PAINT(c,attrname,flags,parsestr) \
 { CLASS_ATTR_DEFAULT(c,attrname,flags,parsestr); CLASS_ATTR_SAVE(c,attrname,flags); CLASS_ATTR_PAINT(c,attrname,flags); }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 #endif
+
+
+

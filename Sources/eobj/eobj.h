@@ -35,7 +35,6 @@
 #define DEF_EOBJ
 
 #include "../estruct.h"
-#include "../egraphics/egraphics.h"
 #include "../ecommon/ecommon.h"
 
 void *eobj_new(t_eclass *c);

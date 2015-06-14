@@ -27,6 +27,7 @@
 #include "eclass.h"
 
 static void eclass_properties_dialog(t_eclass* c);
+static void ewidget_init(t_eclass* c);
 
 //! Allocate the memory and initialize a new eclass
 /*
@@ -61,39 +62,6 @@ t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t siz
     }
     return c;
 }
-
-static void ewidget_init(t_eclass* c)
-{
-    c->c_widget.w_getrectfn         = ebox_wgetrect;
-    c->c_widget.w_visfn             = ebox_wvis;
-    c->c_widget.w_displacefn        = ebox_wdisplace;
-    c->c_widget.w_selectfn          = ebox_wselect;
-    c->c_widget.w_activatefn        = NULL;
-    c->c_widget.w_deletefn          = ebox_wdelete;
-    c->c_widget.w_clickfn           = NULL;
-    
-    c->c_widget.w_paint             = NULL;
-    c->c_widget.w_mouseenter        = NULL;
-    c->c_widget.w_mouseleave        = NULL;
-    c->c_widget.w_mousemove         = NULL;
-    c->c_widget.w_mousedown         = NULL;
-    c->c_widget.w_mousedrag         = NULL;
-    c->c_widget.w_mouseup           = NULL;
-    c->c_widget.w_mousewheel        = NULL;
-    c->c_widget.w_dblclick          = NULL;
-    c->c_widget.w_key               = NULL;
-    c->c_widget.w_keyfilter         = NULL;
-    c->c_widget.w_getdrawparameters = NULL;
-    c->c_widget.w_notify            = NULL;
-    c->c_widget.w_save              = NULL;
-    c->c_widget.w_dosave            = NULL;
-    c->c_widget.w_popup             = NULL;
-    c->c_widget.w_dsp               = NULL;
-    c->c_widget.w_oksize            = NULL;
-    c->c_widget.w_write             = NULL;
-    c->c_widget.w_read              = NULL;
-}
-
 
 //! Initialize an eclass for UI behavior
 /*
@@ -189,7 +157,7 @@ void eclass_init(t_eclass* c, long flags)
     class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
 }
 
-//! Initialize an UI eclass for DSP behavior
+//! Initialize an eclass for DSP
 /*
  \ @memberof            eclass
  \ @param c             The eclass pointer
@@ -337,41 +305,13 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
         class_addmethod((t_class *)c, (t_method)m, gensym(name), type, anything);
     }
     else if(gensym(name) == gensym("write"))
-    {
-        // SAVE DIALOG //
-        sys_gui("proc eobj_saveas {name initialfile initialdir} {\n");
-        sys_gui("if { ! [file isdirectory $initialdir]} {set initialdir $::env(HOME)}\n");
-        sys_gui("set filename [tk_getSaveFile -initialfile $initialfile -initialdir $initialdir -defaultextension .pd -filetypes $::filetypes]\n");
-        sys_gui("if {$filename eq \"\"} return;\n");
-        
-        sys_gui("set extension [file extension $filename]\n");
-        sys_gui("set oldfilename $filename\n");
-        
-        sys_gui("if {$filename ne $oldfilename && [file exists $filename]} {\n");
-        sys_gui("set answer [tk_messageBox -type okcancel -icon question -default cancel-message [_ \"$filename\" already exists. Do you want to replace it?]]\n");
-        sys_gui("if {$answer eq \"cancel\"} return;\n");
-        sys_gui("}\n");
-        sys_gui("set dirname [file dirname $filename]\n");
-        sys_gui("set basename [file tail $filename]\n");
-        sys_gui("pdsend \"$name eobjwriteto [enquote_path $dirname/$basename]\"\n");
-        sys_gui("set ::filenewdir $dirname\n");
-        sys_gui("::pd_guiprefs::update_recentfiles $filename\n");
-        sys_gui("}\n");
-        
+    {        
         class_addmethod((t_class *)c, (t_method)eobj_write, gensym(name), type, anything);
         class_addmethod((t_class *)c, (t_method)eobj_write, gensym("eobjwriteto"), type, anything);
         c->c_widget.w_write = m;
     }
     else if(gensym(name) == gensym("read"))
     {
-        // OPEN DIALOG //
-        sys_gui("proc eobj_openfrom {name} {\n");
-        sys_gui("if { ! [file isdirectory $::filenewdir]} {\n");
-        sys_gui("set ::filenewdir [file normalize $::env(HOME)]\n");
-        sys_gui("}\n");
-        sys_gui("set files [tk_getOpenFile -multiple true -initialdir $::fileopendir]\n");
-        sys_gui("pdsend \"$name eobjreadfrom [enquote_path $files]\"\n");
-        sys_gui("}\n");
         class_addmethod((t_class *)c, (t_method)eobj_read, gensym(name), type, anything);
         class_addmethod((t_class *)c, (t_method)eobj_read, gensym("eobjreadfrom"), type, anything);
         c->c_widget.w_read = m;
@@ -1052,6 +992,38 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
     }
 }
 
+static void ewidget_init(t_eclass* c)
+{
+    c->c_widget.w_getrectfn         = ebox_wgetrect;
+    c->c_widget.w_visfn             = ebox_wvis;
+    c->c_widget.w_displacefn        = ebox_wdisplace;
+    c->c_widget.w_selectfn          = ebox_wselect;
+    c->c_widget.w_activatefn        = NULL;
+    c->c_widget.w_deletefn          = ebox_wdelete;
+    c->c_widget.w_clickfn           = NULL;
+    
+    c->c_widget.w_paint             = NULL;
+    c->c_widget.w_mouseenter        = NULL;
+    c->c_widget.w_mouseleave        = NULL;
+    c->c_widget.w_mousemove         = NULL;
+    c->c_widget.w_mousedown         = NULL;
+    c->c_widget.w_mousedrag         = NULL;
+    c->c_widget.w_mouseup           = NULL;
+    c->c_widget.w_mousewheel        = NULL;
+    c->c_widget.w_dblclick          = NULL;
+    c->c_widget.w_key               = NULL;
+    c->c_widget.w_keyfilter         = NULL;
+    c->c_widget.w_getdrawparameters = NULL;
+    c->c_widget.w_notify            = NULL;
+    c->c_widget.w_save              = NULL;
+    c->c_widget.w_dosave            = NULL;
+    c->c_widget.w_popup             = NULL;
+    c->c_widget.w_dsp               = NULL;
+    c->c_widget.w_oksize            = NULL;
+    c->c_widget.w_write             = NULL;
+    c->c_widget.w_read              = NULL;
+}
+
 //! Initialize the tcl/tk properties dialog window functions // PRIVATE
 /*
  \ @memberof            eclass
@@ -1063,16 +1035,6 @@ static void eclass_properties_dialog(t_eclass* c)
     int i, j;
     char buffer[1000];
     char temp[1000];
-    
-    sys_vgui("proc pdtk_rgba_to_hex_%s {red green blue alpha} { \n", c->c_class.c_name->s_name);
-    sys_gui("set nR [expr int( $red * 65025 )]\n");
-    sys_gui("set nG [expr int( $green * 65025 )]\n");
-    sys_gui("set nB [expr int( $blue * 65025 )]\n");
-    sys_gui("set col [format {%4.4x} $nR]\n");
-    sys_gui("append col [format {%4.4x} $nG]\n");
-    sys_gui("append col [format {%4.4x} $nB]\n");
-    sys_gui("return #$col\n");
-    sys_gui("}\n");
     
     // DIALOG WINDOW APPLY //
     for(i = 0; i < c->c_nattr; i++)
@@ -1104,26 +1066,7 @@ static void eclass_properties_dialog(t_eclass* c)
             sys_gui(buffer);
             sys_gui("pdsend $cmd\n");
             sys_gui("}\n");
-        }/*
-          if(c->c_attr[i]->style == gensym("menu"))
-          {
-          sys_vgui("proc pdtk_%s_menu_apply_%s {id index} { \n", c->c_class.c_name->s_name, c->c_attr[i]->name->s_name);
-          for(j = 0; j < c->c_attr[i]->itemssize; j++)
-          {
-          sys_vgui("if {$index == %i} {pdsend [concat $id dialog $id %i @%s %s]}\n", j, i+1, c->c_attr[i]->name->s_name, c->c_attr[i]->itemslist[j]->s_name);
-          }
-          sys_gui("}\n");
-          
-          sys_vgui("proc pdtk_%s_menu_%s {id} { \n", c->c_class.c_name->s_name, c->c_attr[i]->name->s_name);
-          sys_vgui("destroy $id.sele%i.menu\n", i+1);
-          sys_vgui("menu $id.sele%i.menu -tearoff 0 -font {Helvetica 12}\n", i+1);
-          for(j = 0; j < c->c_attr[i]->itemssize; j++)
-          {
-          sys_vgui("$id.sele%i.menu add radiobutton -label {%s} -command [pdtk_%s_menu_apply_%s $id %i]\n", i+1, c->c_attr[i]->itemslist[j]->s_name, c->c_class.c_name->s_name, c->c_attr[i]->name->s_name, j);
-          }
-          sys_vgui("$id.sele%i.menu post [winfo pointerx .] [winfo pointery .]\n", i+1);
-          sys_gui("}\n");
-          }*/
+        }
         else
         {
             sys_vgui("proc pdtk_%s_dialog_apply_%s {id} { \n", c->c_class.c_name->s_name, c->c_attr[i]->name->s_name);
@@ -1186,7 +1129,7 @@ static void eclass_properties_dialog(t_eclass* c)
             }
             else if(c->c_attr[i]->style == gensym("color"))
             {
-                sys_vgui("set color [eval pdtk_rgba_to_hex_%s $%s]\n", c->c_class.c_name->s_name, c->c_attr[i]->name->s_name);
+                sys_vgui("set color [eval eobj_rgba_to_hex $%s]\n", c->c_attr[i]->name->s_name);
                 sys_vgui("entry $id.sele%i.selec -font {Helvetica 12} -width 20 -readonlybackground $color -state readonly\n", i+1);
                 sys_vgui("bind  $id.sele%i.selec <Button> [concat pdtk_%s_picker_apply_%s $id $%s]\n", i+1, c->c_class.c_name->s_name, c->c_attr[i]->name->s_name, c->c_attr[i]->name->s_name);
                 sys_vgui("pack  $id.sele%i.selec -side left\n", i+1);
