@@ -411,7 +411,6 @@ typedef struct _eobj
     int                 o_nproxy;           /*!< The number of proxy inlets. */
     int                 o_current_proxy;    /*!< The index of the current proxy inlet used */
     t_clock*            o_clock;            /*!< The clock for mouse canvas position */
-    t_pt                o_mouse_canvas;     /*!< The mouse canvas position */
 }t_eobj;
 
 /**

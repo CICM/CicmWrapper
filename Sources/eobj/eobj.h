@@ -57,7 +57,6 @@ char eobj_isdsp(void *x);
  *********************************/
 
 t_pt eobj_get_mouse_global_position(void* x);
-t_pt eobj_get_mouse_canvas_position(void* x);
 char eobj_get_mouse_status(void* x);
 long eobj_get_mouse_modifier(void* x);
 
@@ -70,7 +69,6 @@ void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv);
 void eobj_tick(t_eobj* x);
 void eobj_poll_mouse(void* x);
 void eobj_nopoll_mouse(void* x);
-void eobj_mousecanvas(t_eobj* x, t_symbol* s, int argc, t_atom *argv);
 //! @endcond
 
 /*********************************

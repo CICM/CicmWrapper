@@ -49,11 +49,8 @@ t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t siz
     c->c_box   = 0;
     c->c_juce  = 0;
     c->c_attr  = NULL;
-
     sprintf(help, "helps/%s", c->c_class.c_name->s_name);
     class_sethelpsymbol((t_class *)c, gensym(help));
-
-    class_addmethod((t_class *)c, (t_method)eobj_mousecanvas,  gensym("canvasmouse"), A_GIMME, 0);
     return c;
 }
 

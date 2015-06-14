@@ -60,8 +60,6 @@ void *eobj_new(t_eclass *c)
             x->o_canvas_id = gensym(buffer);
             c->c_widget.w_dosave = (method)eobj_dosave;
             x->o_clock = clock_new(x, (t_method)eobj_tick);
-            x->o_mouse_canvas.x = 0;
-            x->o_mouse_canvas.y = 0;
         }
         else
         {

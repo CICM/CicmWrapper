@@ -37,18 +37,6 @@ t_pt eobj_get_mouse_global_position(void* x)
     return erouter_getmouse_global_position();
 }
 
-//! Retrieve the canvas mouse position
-/*
- \ @memberof        eobj
- \ @param x         The eobj pointer
- \ @return          This function return a point that contains abscissa and ordinate of the mouse in the ebox's canvas
- */
-t_pt eobj_get_mouse_canvas_position(void* x)
-{
-    t_eobj *obj = (t_eobj *)x;
-    return obj->o_mouse_canvas;
-}
-
 //! Retrieve the mouse status
 /*
  \ @memberof        eobj
@@ -294,11 +282,6 @@ void eobj_tick(t_eobj* x)
     }
 }
 
-void eobj_mousecanvas(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
-{
-    x->o_mouse_canvas.x = atom_getfloat(argv+1);
-    x->o_mouse_canvas.y = atom_getfloat(argv+2);
-}
 //! @endcond
 
 
