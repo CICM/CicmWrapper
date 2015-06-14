@@ -51,14 +51,8 @@ static void ebox_update(t_ebox *x);
 static void ebox_erase(t_ebox* x);
 static void ebox_select(t_ebox* x);
 static void ebox_move(t_ebox* x);
+static void ebox_attrprocess_default(void *x);
 
-//! Initialize an ebox
-/*
- \ @memberof    ebox
- \ @param x     The ebox pointer
- \ @param flag  The flags to set the ebox behavior
- \ @return      Nothing
-*/
 void ebox_new(t_ebox *x, long flags)
 {
     x->b_flags = flags;
@@ -66,7 +60,7 @@ void ebox_new(t_ebox *x, long flags)
     x->b_have_window        = 0;
     x->b_number_of_layers   = 0;
     x->b_layers             = NULL;
-    x->b_editor_id          = NULL;
+    x->b_window_id          = NULL;
     x->b_receive_id         = s_null;
     x->b_send_id            = s_null;
     x->b_objpreset_id       = s_null;
@@ -75,12 +69,6 @@ void ebox_new(t_ebox *x, long flags)
     ebox_attrprocess_default(x);
 }
 
-//! Indicate that an ebox is ready
-/*
- \ @memberof    ebox
- \ @param x     The ebox pointer
- \ @return      Nothing
-*/
 void ebox_ready(t_ebox *x)
 {
     t_eclass* c = (t_eclass *)x->b_obj.o_obj.te_g.g_pd;
@@ -99,12 +87,6 @@ void ebox_ready(t_ebox *x)
     x->b_ready_to_draw = 1;
 }
 
-//! Free an UI ebox
-/*
- \ @memberof    ebox
- \ @param x     The ebox pointer
- \ @return      Nothing
-*/
 void ebox_free(t_ebox* x)
 {
     eobj_free(x);
@@ -119,56 +101,26 @@ void ebox_free(t_ebox* x)
     }
 }
 
-//! Retrieve the font name of an ebox
-/*
- \ @memberof        ebox
- \ @param x         The ebox
- \ @return          The font name
- */
 t_symbol* ebox_getfontname(t_ebox* x)
 {
     return x->b_font.c_family;
 }
 
-//! Retrieve the font slant of an ebox
-/*
- \ @memberof        ebox
- \ @param x         The ebox
- \ @return          The font slant
- */
 t_symbol* ebox_getfontslant(t_ebox* x)
 {
     return x->b_font.c_slant;
 }
 
-//! Retrieve the font weight of an ebox
-/*
- \ @memberof        ebox
- \ @param x         The ebox
- \ @return          The font weight
- */
 t_symbol* ebox_getfontweight(t_ebox* x)
 {
     return x->b_font.c_weight;
 }
 
-//! Retrieve the font size of an ebox
-/*
- \ @memberof        ebox
- \ @param x         The ebox
- \ @return          The font size
- */
 float ebox_getfontsize(t_ebox* x)
 {
     return x->b_font.c_size;
 }
 
-//! Retrieve the sender object
-/*
- \ @memberof        ebox
- \ @param x         The ebox
- \ @return          The font size
- */
 t_pd* ebox_getsender(t_ebox* x)
 {
     t_symbol* sname;
@@ -183,12 +135,6 @@ t_pd* ebox_getsender(t_ebox* x)
     return NULL;
 }
 
-//! Retrieve if an ebox is drawable
-/*
- \ @memberof        ebox
- \ @param x         The ebox
- \ @return          This function return 1 is the ebox is drawable and 0 if not
- */
 char ebox_isdrawable(t_ebox* x)
 {
     if(eobj_isbox(x) && x->b_obj.o_canvas)
@@ -201,27 +147,12 @@ char ebox_isdrawable(t_ebox* x)
     return 0;
 }
 
-//! Change the cursor
-/*
- \ @memberof        ebox
- \ @param x         The ebox pointer
- \ @param mode      The index of the cursor list
- \ @return          Nothing
- */
 void ebox_set_cursor(t_ebox* x, int mode)
 {
     mode = (int)pd_clip_minmax(mode, 0, 12);
     sys_vgui("%s configure -cursor %s\n", x->b_drawing_id->s_name, my_cursorlist[mode]);
 }
 
-//! Change the attributes with an array of atoms
-/*
- \ @memberof        ebox
- \ @param x         The object
- \ @param argc      The size of the atoms array
- \ @param argv      The atoms array
- \ @return          Nothing
- */
 void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv)
 {
     int     i;
@@ -244,13 +175,6 @@ void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv)
     }
 }
 
-//! Change the attributes with a binbuf
-/*
- \ @memberof        ebox
- \ @param x         The object
- \ @param d         The binbuf
- \ @return          Nothing
- */
 void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)
 {
     int i;
@@ -279,7 +203,7 @@ void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)
  \ @param x         The object
  \ @return          Nothing
  */
-void ebox_attrprocess_default(void *x)
+static void ebox_attrprocess_default(void *x)
 {
     int i, j, k;
     long defc       = 0;
@@ -426,8 +350,6 @@ static void ebox_tk_ids(t_ebox *x, t_canvas *canvas)
 {
     char buffer[MAXPDSTRING];
     x->b_obj.o_canvas = canvas;
-    sprintf(buffer,".x%lx", (long unsigned int) canvas);
-    x->b_editor_id = gensym(buffer);
     sprintf(buffer,".x%lx.c", (long unsigned int) canvas);
     x->b_canvas_id = gensym(buffer);
     sprintf(buffer,"%s.ecanvas%lx", x->b_canvas_id->s_name, (long unsigned int)x);
@@ -438,12 +360,6 @@ static void ebox_tk_ids(t_ebox *x, t_canvas *canvas)
     x->b_all_id = gensym(buffer);
 }
 
-//! Bind an ebox to several events (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox
- \ @return          Nothing
- */
 static void ebox_bind_events(t_ebox* x)
 {
     t_eclass* c = (t_eclass *)eobj_getclass(x);
@@ -470,12 +386,6 @@ static void ebox_bind_events(t_ebox* x)
     }
 }
 
-//! Create the canvas widget (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The gobj object
- \ @return          Nothing
- */
 static void ebox_create_widget(t_ebox* x)
 {
     sys_vgui("namespace eval ebox%lx {} \n", x);
@@ -487,13 +397,6 @@ static void ebox_create_widget(t_ebox* x)
              (int)(x->b_rect.height + x->b_boxparameters.d_borderthickness));
 }
 
-//! Create the window widget (PRIVATE)
-/*
- \ @memberof        ebox
- \ @param x         The ebox
- \ @param glist     The ebox's glist
- \ @return          Nothing
- */
 static void ebox_create_window(t_ebox* x, t_glist* glist)
 {
     x->b_have_window = 0;

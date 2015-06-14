@@ -270,7 +270,7 @@ typedef struct t_etext
 
 /**
  * @struct t_egobj
- * @brief The CICM drawing object.
+ * @brief The  drawing object.
  * @details It contains the all the informations to be drawn.
  */
 typedef struct t_egobj
@@ -303,7 +303,7 @@ typedef struct t_epopup
 
 /**
  * @struct t_elayer
- * @brief The CICM drawing layer.
+ * @brief The  drawing layer.
  * @details It contains the all the informations and the graphical objects to be drawn.
  */
 typedef struct t_elayer
@@ -324,7 +324,7 @@ typedef struct t_elayer
 
 /**
  * @struct t_edrawparams
- * @brief The CICM drawing parameters.
+ * @brief The  drawing parameters.
  * @details It contains the default parameters of a ebox.
  */
 typedef struct t_edrawparams
@@ -338,7 +338,7 @@ typedef struct t_edrawparams
 
 /**
  * @struct t_eproxy
- * @brief The CICM Proxy object.
+ * @brief The  Proxy object.
  * @details It contains the proxy class, the eobj owner and the index of the proxy.
  */
 typedef struct t_eproxy
@@ -413,7 +413,7 @@ typedef struct t_eattr
 
 /**
  * @struct t_eclass
- * @brief The CICM class.
+ * @brief The  class.
  * @details It contains the Pure Data default class with extra methods and attributes.
  */
 typedef struct t_eclass
@@ -426,7 +426,7 @@ typedef struct t_eclass
     long        c_nattr;    /*!< The number of attributes. */
 }t_eclass;
 
-/*! @addtogroup groupobj The Object Part
+/*! @addtogroup groupobj The BASIC Object Part
  * @brief The eobj part.
  * @details This part refers to the methods and structures that can be used by all the t_eobj structures.
  *  @{
@@ -434,7 +434,7 @@ typedef struct t_eclass
 
 /**
  * @struct t_eobj
- * @brief The CICM object.
+ * @brief The  object.
  * @details It contains the Pd object, the canvas pointer and members for proxy inlets.
  * This should be used for no graphical object that don't have signal processing methods.
  */
@@ -457,14 +457,25 @@ typedef struct t_eobj
  */
 
 /**
+ * @enum edsp_flags
+ * @brief The flags that discribe the behavior of a t_edspobj.
+ * @details It define all the behavior of a t_edspobj.
+ */
+typedef enum
+{
+    E_INPLACE    = 0,    /*!< The signal processing can be inplace. */
+    E_NO_INPLACE = 1     /*!< The signal processing can't be inplace. */
+} edsp_flags;
+
+/**
  * @struct t_edspobj
- * @brief The CICM DSP object.
- * @details It contains the CICM object with all the members for signal processing.
+ * @brief The  DSP object.
+ * @details It contains the  object with all the members for signal processing.
  * This should be used for no graphical object that have signal processing methods.
  */
 typedef struct t_edspobj
 {
-    t_eobj              d_obj;              /*!< The CICM object. */
+    t_eobj              d_obj;              /*!< The  object. */
     float               d_float;            /*!< The float member to initialize the signal method. */
     long                d_dsp_size;         /*!< The number of signal inlets and outlets. */
     t_int*              d_dsp_vectors;      /*!< The vector that contains all the pointers for the perform method. */
@@ -478,15 +489,56 @@ typedef struct t_edspobj
 
 /** @} */
 
+/*! @addtogroup groupbox The GUI Object Part
+ * @brief The ebox part.
+ * @details This part refers to the methods and structures that can be used by all the t_ebox structures.
+ *  @{
+ */
+
+/**
+ * @enum ebox_flags
+ * @brief The flags that discribe the behavior of a t_ebox.
+ * @details It define all the behavior of a t_ebox.
+ */
+typedef enum
+{
+    EBOX_GROWNO          = (1<<4),    /*!< The width and the height can't be modified. */
+    EBOX_GROWLINK        = (1<<5),    /*!< The width and the height are linked. */
+    EBOX_GROWINDI        = (1<<6),    /*!< The width and the height are independant. */
+    EBOX_IGNORELOCKCLICK = (1<<7)     /*!< The t_ebox ignore the mouse events. */
+} ebox_flags;
+
+/**
+ * @enum ebox_cursors
+ * @brief The cursors that can be used.
+ * @details It define all the available cursors.
+ */
+typedef enum
+{
+    ECURSOR_LEFT_PTR     = 0, /*!< The left_ptr string. */
+    ECURSOR_CENTER_PTR   = 1, /*!< The center_ptr string. */
+    ECURSOR_SDOUBLE_ARROW= 2, /*!< The sb_v_double_arrow string. */
+    ECURSOR_PLUS         = 3, /*!< The plus string. */
+    ECURSOR_HAND         = 4, /*!< The hand2 string. */
+    ECURSOR_CIRCLE       = 5, /*!< The circle string. */
+    ECURSOR_X            = 6, /*!< The X_cursor string. */
+    ECURSOR_BOTTOM       = 7, /*!< The bottom_side string. */
+    ECURSOR_RIGHT_CORNER = 8, /*!< The bottom_right_corner string. */
+    ECURSOR_RIGHT_SIDE   = 9, /*!< The right_side string. */
+    ECURSOR_DOUBLE_ARROW = 10, /*!< The double_arrow string. */
+    ECURSOR_EXCHANGE     = 11, /*!< The exchange string. */
+    ECURSOR_XTERM        = 12  /*!< The xterm string. */
+} ebox_cursors;
+
 /**
  * @struct t_ebox
- * @brief The CICM GUI object.
- * @details It contains the CICM object with all the members for graphical behavior.
+ * @brief The  GUI object.
+ * @details It contains the  object with all the members for graphical behavior.
  * This should be used for graphical object that don't have signal processing methods.
  */
 typedef struct t_ebox
 {
-    t_eobj              b_obj;              ///<The CICM object.
+    t_eobj              b_obj;              ///<The  object.
     
     t_symbol*           b_receive_id;       /*!< The object user ID. */
     t_symbol*           b_send_id;          /*!< The object send ID. */
@@ -494,7 +546,6 @@ typedef struct t_ebox
     
     t_symbol*           b_canvas_id;        /*!< The canvas ID. */
     t_symbol*           b_drawing_id;       /*!< The drawing ID. */
-    t_symbol*           b_editor_id;        /*!< The editor ID. */
     t_symbol*           b_window_id;        /*!< The window ID. */
     t_symbol*           b_all_id;           /*!< The global ID. */
     
@@ -512,22 +563,26 @@ typedef struct t_ebox
     char                b_visible;          /*!< The visible state. */
     char                b_ready_to_draw;    /*!< The ebox state for drawing. */
     char                b_have_window;      /*!< The ebox window state. */
-    char                b_isinsubcanvas;
+    char                b_isinsubcanvas;    /*!< If the box is in a sub canvas. */
     t_edrawparams       b_boxparameters;    /*!< The ebox parameters. */
     
     t_elayer*           b_layers;           /*!< The ebox layers. */
     long                b_number_of_layers; /*!< The ebox number of layers. */
 }t_ebox;
 
+/** @} */
+
+
 /**
  * @struct t_edspbox
- * @brief The CICM GUI DSP object.
- * @details It contains the CICM object with all the members for graphical behavior and signal processing.
+ * @brief The  GUI DSP object.
+ * @details It contains the  object with all the members for graphical behavior and signal processing.
  * This should be used for graphical object that have signal processing methods.
+ * @ingroup groupbox groupdspobj
  */
 typedef struct t_edspbox
 {
-    t_eobj              b_obj;              /*!< The CICM DSP object. */
+    t_eobj              b_obj;              /*!< The  DSP object. */
     
     t_symbol*           b_receive_id;       /*!< The object user ID. */
     t_symbol*           b_send_id;          /*!< The object send ID. */
@@ -535,7 +590,6 @@ typedef struct t_edspbox
     
     t_symbol*           b_canvas_id;        /*!< The canvas ID. */
     t_symbol*           b_drawing_id;       /*!< The drawing ID. */
-    t_symbol*           b_editor_id;        /*!< The editor ID. */
     t_symbol*           b_window_id;        /*!< The window ID. */
     t_symbol*           b_all_id;           /*!< The global ID. */
     
@@ -553,7 +607,7 @@ typedef struct t_edspbox
     char                b_visible;          /*!< The visible State. */
     char                b_ready_to_draw;    /*!< The ebox state for drawing. */
     char                b_have_window;      /*!< The ebox window state. */
-    char                b_isinsubcanvas;
+    char                b_isinsubcanvas;    /*!< If the box is in a sub canvas. */
     t_edrawparams       b_boxparameters;    /*!< The ebox parameters. */
     
     t_elayer*           b_layers;           /*!< The ebox layers. */
@@ -567,8 +621,9 @@ typedef struct t_edspbox
     t_float**           d_sigs_out;         /*!< The array of signal vectors. */
     t_float*            d_sigs_real;        /*!< The real array of signal. */
     method              d_perform_method;   /*!< The user perform method. */
-    long                d_misc;
+    long                d_misc;             /*!< The flag that could be inplace or not. */
 }t_edspbox;
+
 
 
 #endif

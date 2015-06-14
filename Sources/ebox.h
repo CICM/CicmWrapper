@@ -24,11 +24,10 @@
  *
  */
 
-/*!
- * @file ebox.h
+/**
+ * @file eobj.h
+ * @brief The header that declares all the methods for the t_ebox.
  * @author Pierre Guillot
- * @version 0.1
- * @date 2013-2014
  */
 
 #ifndef DEF_EBOX
@@ -38,42 +37,175 @@
 #include "egraphics.h"
 #include "eobj.h"
 
-/*********************************
- * BOX
- *********************************/
+/*! @addtogroup groupbox
+ * @{
+ */
 
+/*!
+ * \fn          void ebox_new(t_ebox *x, long flags)
+ * \brief       Initializes the graphical members of the t_ebox.
+ * \details     Sets the defaults values and initializes the attributes. \n This function should be call after eobj_new().
+ * \param x     The t_ebox pointer.
+ * \param flags A set of flags that defines the t_ebox behavior.
+ * \see ebox_flags
+ */
 void ebox_new(t_ebox *x, long flags);
+
+
+/*!
+ * \fn          void ebox_ready(t_ebox *x)
+ * \brief       Indicates that the t_ebox can be drawn.
+ * \details     Actives the drawind methods. \n This function should be call after durng the new method just before returning the object.
+ * \param x     The t_ebox pointer.
+ */
 void ebox_ready(t_ebox *x);
+
+/*!
+ * \fn          void ebox_free(t_ebox* x)
+ * \brief       Indicates that the t_ebox can be drawn.
+ * \details     Deletes the drawings. \n This function should replace pd_free() and you shouldn't have to call eobj_free() or eobj_dspfree();
+ * \param x     The t_ebox pointer.
+ */
 void ebox_free(t_ebox* x);
+
+/*!
+ * \fn          t_symbol* ebox_getfontname(t_ebox* x)
+ * \brief       Retrieves the name of the font of the t_ebox.
+ * \param x     The t_ebox pointer.
+ * \return      The font name.
+ */
 t_symbol* ebox_getfontname(t_ebox* x);
+
+/*!
+ * \fn          t_symbol* ebox_getfontslant(t_ebox* x)
+ * \brief       Retrieves the slant of the font of the t_ebox.
+ * \param x     The t_ebox pointer.
+ * \return      The font slant.
+ */
 t_symbol* ebox_getfontslant(t_ebox* x);
+
+/*!
+ * \fn          t_symbol* ebox_getfontweight(t_ebox* x)
+ * \brief       Retrieves the weight of the font of the t_ebox.
+ * \param x     The t_ebox pointer.
+ * \return      The font weight.
+ */
 t_symbol* ebox_getfontweight(t_ebox* x);
-t_pd* ebox_getsender(t_ebox* x);
-char ebox_isdrawable(t_ebox* x);
+
+/*!
+ * \fn          float ebox_getfontsize(t_ebox* x)
+ * \brief       Retrieves the size of the font of the t_ebox.
+ * \param x     The t_ebox pointer.
+ * \return      The font size.
+ */
 float ebox_getfontsize(t_ebox* x);
-void ebox_set_cursor(t_ebox* x, int mode);
 
-/*********************************
- * ATTRIBUTES
- *********************************/
+/*!
+ * \fn          t_pd* ebox_getsender(t_ebox* x)
+ * \brief       Retrieves the link list of object binded to the t_ebox.
+ * \param x     The t_ebox pointer.
+ * \return      The pointer to the link list.
+ */
+t_pd* ebox_getsender(t_ebox* x);
 
+/*!
+ * \fn          char ebox_isdrawable(t_ebox* x)
+ * \brief       Retrieves if a t_ebox is drawable.
+ * \details     Checks several things that ensure that the t_ebox can be drawn;
+ * \param x     The t_ebox pointer.
+ * \return      The function returns 1 if the box is drawable otherwise 0.
+ */
+char ebox_isdrawable(t_ebox* x);
+
+/*!
+ * \fn      void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)
+ * \brief   Changes the attributes with a binbuf.
+ * \details Retrieves and interpretes a binbuf to initialize the attributes.
+ * \param x The t_ebox pointer.
+ * \param d The binbuf pointer.
+ */
 void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d);
-void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv);
-void ebox_attrprocess_default(void *x);
 
-/*********************************
- * DRAW
- *********************************/
+/*!
+ * \fn      void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv)
+ * \brief   Changes the attributes with an array of atoms.
+ * \details Retrieves and interpretes a binbuf to initialize the attributes.
+ * \param x The t_ebox pointer.
+ * \param argc The number of atoms.
+ * \param argv The pointer to the atoms.
+ */
+void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv);
+
+/*!
+ * \fn      void ebox_set_cursor(t_ebox* x, int cursor)
+ * \brief   Changes the cursor of the mouse.
+ * \param x The t_ebox pointer.
+ * \param cursor The type of cursor.
+ * \see ebox_cursors
+ */
+void ebox_set_cursor(t_ebox* x, int cursor);
+
+/*!
+ * \fn      void ebox_redraw(t_ebox* x)
+ * \brief   Notifies the t_ebox that it should be redrawn.
+ * \param x The t_ebox pointer.
+ */
 void ebox_redraw(t_ebox *x);
+
+/*!
+ * \fn      void ebox_get_rect_for_view(t_ebox* x, t_rect *rect)
+ * \brief   Retrieves the rectangle of the t_ebox.
+ * \details This function should be used while the paint method is called to retrieves the current size of the t_ebox.
+ * \param x The t_ebox pointer.
+ * \param rect The t_rect pointer.
+ */
 void ebox_get_rect_for_view(t_ebox* x, t_rect *rect);
+
+/*!
+ * \fn      t_elayer* ebox_start_layer(t_ebox *b, t_symbol *name, float width, float height)
+ * \brief   Creates or initializes a layer for the t_ebox.
+ * \details If the layer is new, the function allocate a new empty layer. if the layer already exist and is marked as invalid the layer is returned otherwise(if the layer is maked as redeay to be drawn for example) the function returns NULL. You should always check the returned layer of the function before using it.
+ * \param b The t_ebox pointer.
+ * \param name The name of the layer.
+ * \param width The width of the layer.
+ * \param height The height of the layer.
+ * \see ebox_end_layer ebox_invalidate_layer ebox_paint_layer t_elayer_flags t_elayer
+ */
 t_elayer* ebox_start_layer(t_ebox *b, t_symbol *name, float width, float height);
+
+/*!
+ * \fn      t_pd_err ebox_end_layer(t_ebox *b, t_symbol *name)
+ * \brief   Marks a layer as ready to be drawn.
+ * \details After the several painting methods, you should call this function to notify  that the layer is ready to be drawn.
+ * \param b The t_ebox pointer.
+ * \param name The name of the layer.
+ * \see ebox_start_layer ebox_invalidate_layer ebox_paint_layer t_elayer_flags t_elayer
+ */
 t_pd_err ebox_end_layer(t_ebox *b, t_symbol *name);
-t_pd_err ebox_invalidate_layer(t_ebox *b,t_symbol *name);
+
+/*!
+ * \fn      t_pd_err ebox_paint_layer(t_ebox *b, t_symbol *name, float x, float y)
+ * \brief   Paints a layer in the t_ebox.
+ * \details If a layer is ready to be drawn, the function will paint it in the t_ebox.
+ * \param name The name of the layer.
+ * \param x The abscissa of the layer in the t_ebox.
+ * \param y The ordinate of the layer in the t_ebox.
+ * \see ebox_start_layer ebox_end_layer ebox_invalidate_layer t_elayer_flags t_elayer
+ */
 t_pd_err ebox_paint_layer(t_ebox *b, t_symbol *name, float x, float y);
 
-/*********************************
- * HANDLE
- *********************************/
+/*!
+ * \fn      ebox_invalidate_layer(t_ebox *b,t_symbol *name)
+ * \brief   Marks a layer as invalid.
+ * \details When you want to redraw a layer you have to call this function and then call ebox_redraw. You should always prefer to invalidate several layer before calling ebox_redraw.
+ * \param b The t_ebox pointer.
+ * \param name The name of the layer.
+ * \see ebox_start_layer ebox_end_layer ebox_redraw ebox_paint_layer t_elayer_flags t_elayer
+ */
+t_pd_err ebox_invalidate_layer(t_ebox *b,t_symbol *name);
+
+/** @} */
+
 
 //! @cond
 void ebox_mouse_enter(t_ebox* x);

@@ -63,17 +63,11 @@
 #include <stdarg.h>
 #include <fcntl.h>
 
-#define EBOX_GROWNO                 (1<<4)
-#define EBOX_GROWLINK               (1<<5)
-#define EBOX_GROWINDI               (1<<6)
-#define EBOX_IGNORELOCKCLICK        (1<<7)
 #define EPD_PI  (3.141592653589793238462643383279502884)
 #define EPD_2PI (6.283185307179586476925286766559005)
 #define EPD_PI2 (1.57079632679489661923132169163975144)
 #define EPD_PI4 (0.785398163397448309615660845819875721)
-#define t_pd_err            long
-#define E_INPLACE           0
-#define E_NO_INPLACE        1
+typedef long t_pd_err;
 #define CLASS_OBJ           gensym("obj")
 #define CLASS_BOX			gensym("box")
 
@@ -100,7 +94,7 @@ EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
 
 typedef void        (*method)(void* x, ...);
 typedef void*       (*rmethod)(void* x, ...);
-typedef long        (*t_err_method)(void* x, ...);
+typedef t_pd_err    (*t_err_method)(void* x, ...);
 
 void outlet_int(t_outlet* outlet, int val);
 t_outlet* symbolout(void *x);

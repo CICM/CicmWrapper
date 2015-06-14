@@ -28,7 +28,5 @@
 #define DEF_EPD
 
 #include "eclass.h"
-#ifdef CICMWRAPPER_MAXCONVERTER
-#include "epd_max.h"
-#endif
+#include "epdmax.h"
 #endif

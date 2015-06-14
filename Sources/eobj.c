@@ -209,6 +209,50 @@ void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
     }
 }
 
+void eobj_attrprocess_viatoms(void *x, int argc, t_atom *argv)
+{
+    int     i;
+    char    buffer[MAXPDSTRING];
+    int     defc        = 0;
+    t_atom* defv        = NULL;
+    t_eclass* c         = eobj_getclass(x);
+    
+    for(i = 0; i < c->c_nattr; i++)
+    {
+        sprintf(buffer, "@%s", c->c_attr[i]->name->s_name);
+        atoms_get_attribute(argc, argv, gensym(buffer), &defc, &defv);
+        if(defc && defv)
+        {
+            object_attr_setvalueof((t_object *)x, c->c_attr[i]->name, defc, defv);
+            defc = 0;
+            free(defv);
+            defv = NULL;
+        }
+    }
+}
+
+void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)
+{
+    int i;
+    char attr_name[MAXPDSTRING];
+    
+    int defc       = 0;
+    t_atom* defv    = NULL;
+    t_eclass* c     = eobj_getclass(x);
+    for(i = 0; i < c->c_nattr; i++)
+    {
+        sprintf(attr_name, "@%s", c->c_attr[i]->name->s_name);
+        binbuf_get_attribute(d, gensym(attr_name), &defc, &defv);
+        if(defc && defv)
+        {
+            object_attr_setvalueof((t_object *)x, c->c_attr[i]->name, defc, defv);
+            defc = 0;
+            free(defv);
+            defv = NULL;
+        }
+    }
+}
+
 void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
 {
     char buf[MAXPDSTRING];
@@ -701,7 +745,7 @@ void eobj_dsp_add(void *x, t_symbol* s, t_object* za, method m, long flags, void
         obj->d_perform_method = m;
     }
 }
-
+//! @cond
 union inletunion
 {
     t_symbol *iu_symto;
@@ -731,6 +775,7 @@ struct _outlet
     t_outconnect *o_connections;
     t_symbol *o_sym;
 };
+//! @endcond
 
 static t_class* eproxy_class;
 

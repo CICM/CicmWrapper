@@ -43,7 +43,7 @@
 /*!
  * \fn          void *eobj_new(t_eclass *c)
  * \brief       The t_eobj creation function.
- * \details     Allocate the memory for an intance of a t_eobj of a specific eclass, intialize the defaults values and methods.\nThis function should replace pd_new().
+ * \details     Allocate the memory for an intance of a t_eobj of a specific eclass, intialize the defaults values and methods. \n This function should replace pd_new().
  * \param c     The eclass pointer.
  * \return      This function returns a pointer to a new instance of a t_eobj.
  */
@@ -51,7 +51,7 @@ void *eobj_new(t_eclass *c);
 
 /*!
  * \fn          void eobj_free(void *x)
- * \brief       The t_eobj deletion function.\nThis function should replace pd_free().
+ * \brief       The t_eobj deletion function. \n This function should replace pd_free().
  * \details     Detaches the t_eobj from Pure Data and frees the proxy inlets.
  * \param x     The t_eobj pointer
  */
@@ -60,7 +60,7 @@ void eobj_free(void *x);
 /*!
  * \fn          void eobj_proxynew(void* x)
  * \brief       Adds a proxy inlet to a t_eobj.
- * \details     Allocates and initializes a new proxy inlet.\nThis function should replace inlet_new().
+ * \details     Allocates and initializes a new proxy inlet. \n This function should replace inlet_new().
  * \param x     The t_eobj pointer.
   * \return     This function returns a pointer to the new proxy inlet.
  */
@@ -120,6 +120,25 @@ char eobj_isbox(void *x);
  */
 char eobj_isdsp(void *x);
 
+/*!
+ * \fn      void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)
+ * \brief   Changes the attributes with a binbuf
+ * \details Retrieves and interpretes a binbuf to initialize the attributes.
+ * \param x The t_ebox pointer.
+ * \param d The binbuf pointer.
+ */
+void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d);
+
+/*!
+ * \fn      void eobj_attrprocess_viatoms(void *x, int argc, t_atom *argv)
+ * \brief   Changes the attributes with an array of atoms.
+ * \details Retrieves and interpretes a binbuf to initialize the attributes.
+ * \param x The t_ebox pointer.
+ * \param argc The number of atoms.
+ * \param argv The pointer to the atoms.
+ */
+void eobj_attrprocess_viatoms(void *x, int argc, t_atom *argv);
+
 /** @} */
 
 /*! @addtogroup groupdspobj
@@ -128,8 +147,8 @@ char eobj_isdsp(void *x);
 
 /*!
  * \fn void eobj_dspsetup(void *x, long nins, long nouts)
- * \brief       Intializes the dsp members of the t_edspobj.
- * \details     Allocate the memory for digital dignal processing of a t_edspobj.\nThis funtion should replace inlet_new and outlet_new for the signal.
+ * \brief       Initializes the dsp members of the t_edspobj.
+ * \details     Allocate the memory for digital dignal processing of a t_edspobj. \n This funtion should replace inlet_new and outlet_new for the signal.
  * \param nins  The number of signal inputs.
  * \param nouts The number of signal outputs
  */
@@ -137,8 +156,8 @@ void eobj_dspsetup(void *x, long nins, long nouts);
 
 /*!
  * \fn          void eobj_dspfree(void *x)
- * \brief       The t_edspobj deletion function.\nThis function should replace pd_free().
- * \details     Frees the memory allocated for digital dignal processing of a t_edspobj.\nThis function should replace pd_free() and shouldn't have to call eobj_free();
+ * \brief       The t_edspobj deletion function. \n This function should replace pd_free().
+ * \details     Frees the memory allocated for digital dignal processing of a t_edspobj. \n This function should replace pd_free() and you shouldn't have to call eobj_free();
  * \param x     The edspobj pointer
  */
 void eobj_dspfree(void *x);
@@ -155,7 +174,7 @@ void eobj_resize_inputs(void *x, long nins);
 /*!
  * \fn          t_sample* eobj_getsignalinput(void *x, long index)
  * \brief       Retrieves the pointer to the signal of an input.
- * \details     Retrieves the pointer to the signal vector of an input.\nThe can function can only be used during the dsp method call.
+ * \details     Retrieves the pointer to the signal vector of an input. \n The can function can only be used during the dsp method call.
  * \param x     The edspobj pointer.
  * \param index The index of the input.
  * \return      A pointer to the signal vector or NULL.
@@ -165,7 +184,7 @@ t_sample* eobj_getsignalinput(void *x, long index);
 /*!
  * \fn          t_sample* eobj_getsignaloutput(void *x, long index)
  * \brief       Retrieves the pointer to the signal of an output.
- * \details     Retrieves the pointer to the signal vector of an output.\nThe can function can only be used during the dsp method call.
+ * \details     Retrieves the pointer to the signal vector of an output. \n The can function can only be used during the dsp method call.
  * \param x     The edspobj pointer.
  * \param index The index of the output.
  * \return      A pointer to the signal vector or NULL.
