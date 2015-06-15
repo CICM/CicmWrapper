@@ -36,7 +36,6 @@ t_symbol* s_size;
 t_symbol* s_int;
 t_symbol* s_long;
 t_symbol* s_double;
-t_symbol* s_eproxy1572;
 
 void epd_init(void)
 {
@@ -53,7 +52,6 @@ void epd_init(void)
         s_int           = gensym("int");
         s_long          = gensym("long");
         s_double        = gensym("double");
-        s_eproxy1572    = gensym("eproxy1572");
         
         // PATCHER MOUSE MOTION //
         sys_vgui("proc eobj_canvas_motion {patcher val} {\n");
@@ -135,64 +133,19 @@ void epd_init(void)
     }
 }
 
-void outlet_int(t_outlet* outlet, int val)
+void object_method(void* x, t_symbol* s, void* z, method method, long number, void* other)
 {
-    outlet_float(outlet, val);
-}
-
-t_outlet* symbolout(void *x)
-{
-    return outlet_new((t_object *)x, &s_symbol);
-}
-
-t_outlet* listout(void *x)
-{
-    return outlet_new((t_object *)x, &s_list);
-}
-
-t_outlet* floatout(void *x)
-{
-    return outlet_new((t_object *)x, &s_float);
-}
-
-t_outlet* bangout(void *x)
-{
-    return outlet_new((t_object *)x, &s_bang);
-}
-
-t_outlet* anythingout(void *x)
-{
-    return outlet_new((t_object *)x, &s_anything);
-}
-
-void* object_method(void* x, t_symbol* s, void* z, method method, long number, void* other)
-{
-    rmethod nrmethod = (rmethod)getfn((t_pd *)x, s);
-    return nrmethod(x, s, z, method, number, other);
-}
-
-void object_attr_setvalueof(t_object *x, t_symbol* s, int argc, t_atom *argv)
-{
-    method setvalue = (method)getfn((t_pd *)x, s);
-    setvalue(x, s, argc, argv);
-}
-
-void object_attr_getvalueof(t_object *x, t_symbol *s, int *argc, t_atom **argv)
-{
-    char realname[MAXPDSTRING];
-	method getvalue = NULL;
-    sprintf(realname, "get%s", s->s_name);
-    argc[0] = 0;
-    argv[0] = NULL;
-    getvalue = (method)getfn((t_pd *)x, gensym(realname));
-    if(getvalue)
-        getvalue(x, s, argc, argv);
+    t_ret_method nrmethod = (t_ret_method)getfn((t_pd *)x, s);
+    nrmethod(x, s, z, method, number, other);
 }
 
 t_binbuf* binbuf_via_atoms(int ac, t_atom *av)
 {
     t_binbuf* dico = binbuf_new();
-    binbuf_add(dico, ac, av);
+    if(dico)
+    {
+        binbuf_add(dico, ac, av);
+    }
     return dico;
 }
 
@@ -324,17 +277,17 @@ t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, int argc, t_atom *a
     return -1;
 }
 
-long atoms_get_attributes_offset(int ac, t_atom* av)
+long atoms_get_attributes_offset(int argc, t_atom* argv)
 {
     long i;
-    for(i = 0; i < ac; i++)
+    for(i = 0; i < argc; i++)
     {
-        if(atom_gettype(av+i) == A_SYMBOL && atom_getsymbol(av+i)->s_name[0] == '@')
+        if(atom_gettype(argv+i) == A_SYMBOL && atom_getsymbol(argv+i)->s_name[0] == '@')
         {
             break;
         }
     }
-    return (long)pd_clip_minmax(i, 0, ac);
+    return (long)pd_clip_minmax(i, 0, argc);
 }
 
 long binbuf_get_attributes_offset(t_binbuf *d)
@@ -342,12 +295,12 @@ long binbuf_get_attributes_offset(t_binbuf *d)
     return atoms_get_attributes_offset(binbuf_getnatom(d), binbuf_getvec(d));
 }
 
-long atoms_get_nattributes(int ac, t_atom* av)
+long atoms_get_nattributes(int argc, t_atom* argv)
 {
     long i, j;
-    for(i = 0, j = 0; i < ac; i++)
+    for(i = 0, j = 0; i < argc; i++)
     {
-        if(atom_gettype(av+i) == A_SYMBOL && atom_getsymbol(av+i)->s_name[0] == '@')
+        if(atom_gettype(argv+i) == A_SYMBOL && atom_getsymbol(argv+i)->s_name[0] == '@')
         {
             j++;
         }
@@ -360,20 +313,20 @@ long binbuf_get_nattributes(t_binbuf *d)
     return atoms_get_nattributes(binbuf_getnatom(d), binbuf_getvec(d));
 }
 
-long atoms_get_keys(int ac, t_atom* av, t_symbol*** s)
+long atoms_get_keys(int ac, t_atom* av, t_symbol*** keys)
 {
     long i, j;
     long size = atoms_get_nattributes(ac, av);
     if(size)
     {
-        s[0] = getbytes((size_t)size * sizeof(t_symbol *));
-        if(s[0])
+        keys[0] = getbytes((size_t)size * sizeof(t_symbol *));
+        if(keys[0])
         {
             for(i = 0, j = 0; i < ac; i++)
             {
                 if(atom_gettype(av+i) == A_SYMBOL && atom_getsymbol(av+i)->s_name[0] == '@')
                 {
-                    s[0][j] = atom_getsymbol(av+i);
+                    keys[0][j] = atom_getsymbol(av+i);
                     j++;
                 }
             }
@@ -383,20 +336,20 @@ long atoms_get_keys(int ac, t_atom* av, t_symbol*** s)
     return 0;
 }
 
-long binbuf_get_keys(t_binbuf *d, t_symbol*** s)
+long binbuf_get_keys(t_binbuf *d, t_symbol*** keys)
 {
-    return atoms_get_keys(binbuf_getnatom(d), binbuf_getvec(d), s);
+    return atoms_get_keys(binbuf_getnatom(d), binbuf_getvec(d), keys);
 }
 
 
-t_pd_err atoms_has_attribute(int ac, t_atom* av, t_symbol *key)
+t_pd_err atoms_has_attribute(int argc, t_atom* argv, t_symbol *key)
 {
     int i;
-    if(ac && av)
+    if(argc && argv)
     {
-        for(i = 0; i < ac; i++)
+        for(i = 0; i < argc; i++)
         {
-            if(atom_gettype(av+i) == A_SYMBOL && atom_getsymbol(av+i) == key)
+            if(atom_gettype(argv+i) == A_SYMBOL && atom_getsymbol(argv+i) == key)
             {
                 return 1;
             }
@@ -413,14 +366,14 @@ t_pd_err binbuf_has_attribute(t_binbuf *d, t_symbol *key)
         return -1;
 }
 
-long atoms_get_attribute_index(int ac, t_atom *av, t_symbol *key)
+long atoms_get_attribute_index(int argc, t_atom *argv, t_symbol *key)
 {
     int i;
-    if(ac && av)
+    if(argc && argv)
     {
-        for(i = 0; i < ac; i++)
+        for(i = 0; i < argc; i++)
         {
-            if(atom_gettype(av+i) == A_SYMBOL && atom_getsymbol(av+i) == key)
+            if(atom_gettype(argv+i) == A_SYMBOL && atom_getsymbol(argv+i) == key)
             {
                 return i;
                 break;

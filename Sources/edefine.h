@@ -36,9 +36,11 @@
 
 #ifdef _WIN32
 #include <io.h>
+#define _FUNCTION_DEPRECTAED_
 #else
 #pragma GCC diagnostic ignored "-Wwrite-strings"
 #include <unistd.h>
+#define _FUNCTION_DEPRECTAED_  __attribute__((deprecated))
 #endif
 
 #ifdef _WINDOWS
@@ -84,20 +86,29 @@ typedef long t_pd_err;
 #define atom_gettype(a)     (a)[0].a_type
 
 typedef void        (*method)(void* x, ...);
-typedef void*       (*rmethod)(void* x, ...);
+typedef void*       (*t_ret_method)(void* x, ...);
 typedef t_pd_err    (*t_err_method)(void* x, ...);
 
+//! The pre-defined ("null") t_symbol*
 extern t_symbol* s_null;
+//! The pre-defined obj t_symbol*
 extern t_symbol* s_obj;
+//! The pre-defined atom t_symbol*
 extern t_symbol* s_atom;
+//! The pre-defined attr_modified t_symbol*
 extern t_symbol* s_attr_modified;
+//! The pre-defined eboxbd t_symbol*
 extern t_symbol* s_eboxbd;
+//! The pre-defined eboxio t_symbol*
 extern t_symbol* s_eboxio;
+//! The pre-defined size t_symbol*
 extern t_symbol* s_size;
+//! The pre-defined int t_symbol*
 extern t_symbol* s_int;
+//! The pre-defined long t_symbol*
 extern t_symbol* s_long;
+//! The pre-defined double t_symbol*
 extern t_symbol* s_double;
-extern t_symbol* s_eproxy1572;
 
 //! @cond
 typedef struct _namelist    /* element in a linked list of stored strings */
@@ -111,7 +122,6 @@ EXTERN t_namelist *sys_externlist;
 EXTERN t_namelist *sys_searchpath;
 EXTERN t_namelist *sys_helppath;
 EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
-
 //! @endcond
 
 /** @} */
@@ -161,7 +171,7 @@ typedef enum etextanchor_flags
     ETEXT_RIGHT         = 7, /*!< right. */
     ETEXT_CENTER        = 8  /*!< Center. */
     
-} t_etextanchor_flags;
+} etextanchor_flags;
 
 /**
  * @enum etextwrap_flags
@@ -172,7 +182,7 @@ typedef enum etextwrap_flags
 {
     ETEXT_NOWRAP    = 0, /*!< False. */
     ETEXT_WRAP      = 1 /*!< True. */
-} t_etextwrap_flags;
+} etextwrap_flags;
 
 /**
  * @enum etextjustify_flags
@@ -184,7 +194,7 @@ typedef enum etextjustify_flags
     ETEXT_JLEFT    = 0, /*!< Left. */
     ETEXT_JRIGHT   = 1, /*!< Right. */
     ETEXT_JCENTER  = 2  /*!< Center. */
-} t_etextjustify_flags;
+} etextjustify_flags;
 
 /**
  * @enum egraphics_types

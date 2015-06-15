@@ -988,7 +988,7 @@ void etext_layout_destroy(t_etext* textlayout)
     freebytes(textlayout, sizeof(textlayout));
 }
 
-void etext_layout_set(t_etext* textlayout, char* text, t_efont *jfont,  double x, double y, double width,  double height, t_etextanchor_flags anchor, t_etextjustify_flags justify, t_etextwrap_flags wrap)
+void etext_layout_set(t_etext* textlayout, char* text, t_efont *jfont,  double x, double y, double width,  double height, etextanchor_flags anchor, etextjustify_flags justify, etextwrap_flags wrap)
 {
     textlayout->c_text = gensym(text);
     textlayout->c_font = jfont[0];

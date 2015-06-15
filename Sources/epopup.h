@@ -46,6 +46,7 @@
  * \param x     The t_eobj pointer.
  * \param name  The name of the t_epopup.
  * \return      This function returns a pointer to a new t_epopup.
+ * \todo Perhaps It would be good to free the menu later...
  */
 t_epopup* epopupmenu_create(t_eobj* x, t_symbol* name);
 

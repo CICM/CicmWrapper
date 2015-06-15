@@ -40,43 +40,234 @@
  */
 
 /*!
- * \fn          t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t size, int flags, t_atomtype arg1, int arg2)
+ * \fn          t_eclass* eclass_new(char *name, method newm, method freem, size_t size, int flags, t_atomtype arg1, int arg2)
  * \brief       Allocates the memory and initialize a new t_eclass.
- * \details     Sets the defaults values and initializes the class. \n This function should be replace class_new().
- * \param name          The eclass name
- * \param newmethod     The new method
- * \param freemethod    The free method
- * \param size          The size of the eclass
- * \param flags         The class flags
- * \param arg1          The type of parameters the new function
- * \param arg2          Another argument
- * \return              This function return the new eclass
+ * \details     Allocates and intializes the default Pd t_class then enlarges it to fit a t_eclass. \n This function should be replace class_new().
+ * \param name  The class name.
+ * \param newm  The new method.
+ * \param freem The free method.
+ * \param size  The size of the object.
+ * \param flags The class flags.
+ * \param arg1  The type of parameters the new function.
+ * \param arg2  The type of object.
+ * \return      This function return the new eclass
  */
-t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t size, int flags, t_atomtype arg1, int arg2);
-void eclass_guiinit(t_eclass* c, long flags);
-void eclass_init(t_eclass* c, long flags);
-void eclass_dspinit(t_eclass* c);
-void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long anything);
-t_pd_err eclass_register(t_symbol *name, t_eclass *c);
+t_eclass* eclass_new(char *name, method newm, method freem, size_t size, int flags, t_atomtype arg1, int arg2);
 
-void eclass_new_attr_typed(t_eclass* c, char* attrname, char* type, long size, long maxsize, long flags, long offset);
-void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv);
-void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv);
-void eclass_attr_category(t_eclass* c, char* attrname, long flags, char* category);
-void eclass_attr_order(t_eclass* c, char* attrname, long flags, char* order);
-void eclass_attr_label(t_eclass* c, char* attrname, long flags, char* label);
-void eclass_attr_style(t_eclass* c, char* attrname, long flags, char* style);
-void eclass_attr_default(t_eclass* c, char* attrname, long flags, char* value);
-void eclass_attr_filter_min(t_eclass* c, char* attrname, double value);
-void eclass_attr_filter_max(t_eclass* c, char* attrname, double value);
-void eclass_attr_step(t_eclass* c, char* attrname, double value);
-void eclass_attr_save(t_eclass* c, char* attrname, long flags);
-void eclass_attr_paint(t_eclass* c, char* attrname, long flags);
-void eclass_attr_invisible(t_eclass* c, char* attrname, long flags);
-void eclass_attr_accessor(t_eclass* c, char* attrname, method getter, method setter);
-void eclass_attr_itemlist(t_eclass* c, char* attrname, long flags, char* list);
+/*!
+ * \fn          void eclass_guiinit(t_eclass* c, long flags)
+ * \brief       Initialize the t_eclass for the GUI behavior.
+ * \details     Sets the defaults values and initializes the methods of the t_eclass for the GUI behavior.
+ * \param c     The t_eclass pointer.
+ * \param flags The dummy flags.
+ */
+void eclass_guiinit(t_eclass* c, long flags);
+
+/*!
+ * \fn          void eclass_init(t_eclass* c, long flags)
+ * \brief       Initialize the t_eclass for the GUI behavior (Deprecated.
+ * \details     Sets the defaults values and initializes the methods of the t_eclass for the GUI behavior.
+ * \param c     The t_eclass pointer.
+ * \param flags The dummy flags.
+* \deprecated Please use eclass_guiinit.
+ */
+void eclass_init(t_eclass* c, long flags) _FUNCTION_DEPRECTAED_;
+
+/*!
+ * \fn          void eclass_dspinit(t_eclass* c)
+ * \brief       Initialize the t_eclass for the DSP behavior.
+ * \details     Sets the defaults values and initializes the methods of the t_eclass for the DSP behavior.
+ * \param c     The t_eclass pointer.
+ */
+void eclass_dspinit(t_eclass* c);
+
+/*!
+ * \fn          void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long anything)
+ * \brief       Adds a method to the t_eclass.
+ * \details     Adds and wraps the methods of the class. For the moment the funtion takes only 1 type the second type is a dummy one and should always be 0.
+ * \param c     The t_eclass pointer.
+ * \param m     The method.
+ * \param name  The name of the method.
+ * \param type  The type of the method.
+ * \param dummy The dummy type that should be 0.
+ */
+void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long dummy);
 
 //! @cond
+
+//! Allocate the memory and intializa an new attribute for an eclass (You should prefer to use the MACROS)
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param type      The attribute type
+ \ @param size      The attribute size
+ \ @param maxsize   The attribute max size
+ \ @param maxsize   The attribute flags
+ \ @param offset    The attribute bit offset in the object structure
+ \ @return          Nothing
+ */
+void eclass_new_attr_typed(t_eclass* c, char* attrname, char* type, long size, long maxsize, long flags, long offset);
+
+//! Method to set the attributes
+/*
+ \ @memberof        eattr
+ \ @param x         The object pointer
+ \ @param s         The attribute name
+ \ @param argc      The size of the array of atoms
+ \ @param argv      The array of atoms that contains the attributes values
+ \ @return          Nothing
+ */
+void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv);
+
+//! Method to get the attributes
+/*
+ \ @memberof        eattr
+ \ @param x         The object pointer
+ \ @param s         The attribute name
+ \ @param argc      The pointer to an int that will contains the size of the attributes
+ \ @param argv      The pointer to an array of atoms that will contains the attributes values
+ \ @return          Nothing
+ */
+void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv);
+
+//! Initalize the category of an attribute
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param flags     The flags of the attribute
+ \ @param category  The category of the attribute
+ \ @return          Nothing
+ */
+void eclass_attr_category(t_eclass* c, char* attrname, long flags, char* category);
+
+//! Initalize the order of an attribute
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param flags     The flags of the attribute
+ \ @param category  The order of the attribute
+ \ @return          Nothing
+ */
+void eclass_attr_order(t_eclass* c, char* attrname, long flags, char* order);
+
+//! Initalize the category of an attribute
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param flags     The flags of the attribute
+ \ @param label     The label of the attribute
+ \ @return          Nothing
+ */
+void eclass_attr_label(t_eclass* c, char* attrname, long flags, char* label);
+
+//! Initalize the category of an attribute
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param flags     The flags of the attribute
+ \ @param style     The style of the attribute
+ \ @return          Nothing
+ */
+void eclass_attr_style(t_eclass* c, char* attrname, long flags, char* style);
+
+//! Initalize the default value of an attribute
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param flags     The flags of the attribute
+ \ @param value     The default value
+ \ @return          Nothing
+ */
+void eclass_attr_default(t_eclass* c, char* attrname, long flags, char* value);
+
+//! Initalize the minimum value of an attribute
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param value     The minimum value of the attribute
+ \ @return          Nothing
+ */
+void eclass_attr_filter_min(t_eclass* c, char* attrname, double value);
+
+//! Initalize the maximum value of an attribute
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param value     The maximum value of the attribute
+ \ @return          Nothing
+ */
+void eclass_attr_filter_max(t_eclass* c, char* attrname, double value);
+
+//! Initalize the step value of an attribute
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param value     The maximum value of the attribute
+ \ @return          Nothing
+ */
+void eclass_attr_step(t_eclass* c, char* attrname, double value);
+
+//! Initalize the attribute to be saved with the object
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param flags     The flags of the attribute
+ \ @return          Nothing
+ */
+void eclass_attr_save(t_eclass* c, char* attrname, long flags);
+
+//! Initalize the attribute to redraw the object when its value has changed
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param flags     The flags of the attribute
+ \ @return          Nothing
+ */
+void eclass_attr_paint(t_eclass* c, char* attrname, long flags);
+
+//! Initalize the attribute to be invisible in the properties window
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param flags     The flags of the attribute
+ \ @return          Nothing
+ */
+void eclass_attr_invisible(t_eclass* c, char* attrname, long flags);
+
+//! Initalize the user getter and setter of an attribute
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param getter    The getter function
+ \ @param setter    The setter function
+ \ @return          Nothing
+ */
+void eclass_attr_accessor(t_eclass* c, char* attrname, method getter, method setter);
+
+//! Initalize the items list of an attribute
+/*
+ \ @memberof        eattr
+ \ @param c         The eclass pointer
+ \ @param attrname  The attribute name
+ \ @param flags     The flags of the attribute
+ \ @param style     The style of the attribute
+ \ @return          Nothing
+ */
+void eclass_attr_itemlist(t_eclass* c, char* attrname, long flags, char* list);
+
 #define calcoffset(x,y) ((long)(&(((x *)0L)->y)))
 //! @endcond
 

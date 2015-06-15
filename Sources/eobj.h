@@ -121,7 +121,7 @@ char eobj_isdsp(void *x);
 
 /*!
  * \fn      void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)
- * \brief   Changes the attributes with a binbuf
+ * \brief   Changes the attributes with a binbuf.
  * \details Retrieves and interpretes a binbuf to initialize the attributes.
  * \param x The t_ebox pointer.
  * \param d The binbuf pointer.
@@ -138,6 +138,28 @@ void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d);
  */
 void eobj_attrprocess_viatoms(void *x, int argc, t_atom *argv);
 
+/*!
+ * \fn      void eobj_attr_setvalueof(void *x, t_symbol* s, int argc, t_atom *argv)
+ * \brief   Sets the values of an attribute.
+ * \details Retrieves the attribute setter and calls it if it exist otherwise it does nothing.
+ * \param x The t_eobj pointer.
+ * \param s The name of the attribute.
+ * \param argc The number of the atoms.
+ * \param argv The array of the atoms.
+ */
+void eobj_attr_setvalueof(void *x, t_symbol* s, int argc, t_atom *argv);
+
+/*!
+ * \fn      void eobj_attr_getvalueof(void *x, t_symbol* s, int *argc, t_atom **argv)
+ * \brief   Gets the values of an attribute.
+ * \details Retrieves the attribute getter and calls it if it exist otherwise it does nothing. You should free the atoms if they has been allocated.
+ * \param x The t_eobj pointer.
+ * \param s The name of the attribute.
+ * \param argc The pointer to an int that will be initialize with the number of the atoms.
+ * \param argv The pointer to the array of the atoms that will be allocated if the attribute exist.
+ */
+void eobj_attr_getvalueof(void *x, t_symbol *s, int *argc, t_atom **argv);
+
 /** @} */
 
 /*! @addtogroup groupdspobj
@@ -148,6 +170,7 @@ void eobj_attrprocess_viatoms(void *x, int argc, t_atom *argv);
  * \fn void eobj_dspsetup(void *x, long nins, long nouts)
  * \brief       Initializes the dsp members of the t_edspobj.
  * \details     Allocate the memory for digital dignal processing of a t_edspobj. \n This funtion should replace inlet_new and outlet_new for the signal.
+ * \param x     The edspobj pointer
  * \param nins  The number of signal inputs.
  * \param nouts The number of signal outputs
  */

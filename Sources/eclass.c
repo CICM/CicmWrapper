@@ -33,10 +33,10 @@
 static void eclass_properties_dialog(t_eclass* c);
 static void ewidget_init(t_eclass* c);
 
-t_eclass* eclass_new(char *name, method newmethod, method freemethod, size_t size, int flags, t_atomtype arg1, int arg2)
+t_eclass* eclass_new(char *name, method newm, method freem, size_t size, int flags, t_atomtype arg1, int arg2)
 {
     char help[MAXPDSTRING];
-    t_class *pd  = class_new(gensym(name), (t_newmethod)newmethod, (t_method)freemethod, size, flags, arg1, arg2);
+    t_class *pd  = class_new(gensym(name), (t_newmethod)newm, (t_method)freem, size, flags, arg1, arg2);
     t_eclass* c  = (t_eclass *)resizebytes(pd, sizeof(*pd), sizeof(*c));
     if(c)
     {
@@ -60,16 +60,11 @@ void eclass_init(t_eclass* c, long flags)
     eclass_guiinit(c, flags);
 }
 
-//! Initialize an eclass for UI behavior
-/*
- \ @memberof            eclass
- \ @param c             The eclass pointer
- \ @param flags         Nothing for the moment
- \ @return              Nothing
- */
 void eclass_guiinit(t_eclass* c, long flags)
 {
     ewidget_init(c);
+    eclass_properties_dialog(c);
+    c->c_box = 1;
     
     // DEFAULT ATTRIBUTES //
     CLASS_ATTR_FLOAT_ARRAY  (c, "size", 0, t_ebox, b_rect.width, 2);
@@ -154,12 +149,6 @@ void eclass_guiinit(t_eclass* c, long flags)
     class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
 }
 
-//! Initialize an eclass for DSP
-/*
- \ @memberof            eclass
- \ @param c             The eclass pointer
- \ @return              Nothing
- */
 void eclass_dspinit(t_eclass* c)
 {
     c->c_dsp = 1;
@@ -169,35 +158,7 @@ void eclass_dspinit(t_eclass* c)
     class_addmethod((t_class *)c, (t_method)eobj_dsp_add, gensym("dsp_add64"), A_NULL, 0);
 }
 
-//! Initialize the eclass name space BOX or NOBOX
-/*
- \ @memberof            eclass
- \ @param name          The name space
- \ @param c             The eclass pointer
- \ @return              Always 0 (for the moment)
- */
-t_pd_err eclass_register(t_symbol *name, t_eclass *c)
-{
-    if(name == gensym("box"))
-        c->c_box = 1;
-    else
-        c->c_box = 0;
-    
-    eclass_properties_dialog(c);
-    return 0;
-}
-
-//! Add methods to an eclass
-/*
- \ @memberof            eclass
- \ @param c             The eclass pointer
- \ @param m             The method function
- \ @param name          The method selector
- \ @param type          The method type
- \ @param anything      Another argument
- \ @return              Nothing
- */
-void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long anything)
+void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long dummy)
 {
     if(gensym(name) == gensym("mouseenter"))
     {
@@ -299,39 +260,26 @@ void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long a
         CLASS_ATTR_CATEGORY		(c, "presetname", 0, "Basic");
         CLASS_ATTR_LABEL		(c, "presetname", 0, "Preset Name");
         CLASS_ATTR_ACCESSORS    (c, "presetname", NULL, ebox_set_presetid);
-        class_addmethod((t_class *)c, (t_method)m, gensym(name), type, anything);
+        class_addmethod((t_class *)c, (t_method)m, gensym(name), type, 0);
     }
     else if(gensym(name) == gensym("write"))
     {        
-        class_addmethod((t_class *)c, (t_method)eobj_write, gensym(name), type, anything);
-        class_addmethod((t_class *)c, (t_method)eobj_write, gensym("eobjwriteto"), type, anything);
+        class_addmethod((t_class *)c, (t_method)eobj_write, gensym(name), type, 0);
+        class_addmethod((t_class *)c, (t_method)eobj_write, gensym("eobjwriteto"), type, 0);
         c->c_widget.w_write = m;
     }
     else if(gensym(name) == gensym("read"))
     {
-        class_addmethod((t_class *)c, (t_method)eobj_read, gensym(name), type, anything);
-        class_addmethod((t_class *)c, (t_method)eobj_read, gensym("eobjreadfrom"), type, anything);
+        class_addmethod((t_class *)c, (t_method)eobj_read, gensym(name), type, 0);
+        class_addmethod((t_class *)c, (t_method)eobj_read, gensym("eobjreadfrom"), type, 0);
         c->c_widget.w_read = m;
     }
     else
     {
-        class_addmethod((t_class *)c, (t_method)m, gensym(name), type, anything);
+        class_addmethod((t_class *)c, (t_method)m, gensym(name), type, 0);
     }
 }
 
-
-//! Allocate the memory and intializa an new attribute for an eclass (You should prefer to use the MACROS)
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param type      The attribute type
- \ @param size      The attribute size
- \ @param maxsize   The attribute max size
- \ @param maxsize   The attribute flags
- \ @param offset    The attribute bit offset in the object structure
- \ @return          Nothing
-*/
 void eclass_new_attr_typed(t_eclass* c, char* attrname, char* type, long size, long maxsize, long flags, long offset)
 {
     int i;
@@ -401,15 +349,6 @@ void eclass_new_attr_typed(t_eclass* c, char* attrname, char* type, long size, l
     }
 }
 
-//! Initalize the default value of an attribute
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param flags     The flags of the attribute
- \ @param value     The default value
- \ @return          Nothing
- */
 void eclass_attr_default(t_eclass* c, char* attrname, long flags, char* value)
 {
     int i;
@@ -423,15 +362,6 @@ void eclass_attr_default(t_eclass* c, char* attrname, long flags, char* value)
     }
 }
 
-//! Initalize the category of an attribute
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param flags     The flags of the attribute
- \ @param category  The category of the attribute
- \ @return          Nothing
- */
 void eclass_attr_category(t_eclass* c, char* attrname, long flags, char* category)
 {
     int i;
@@ -445,15 +375,6 @@ void eclass_attr_category(t_eclass* c, char* attrname, long flags, char* categor
     }
 }
 
-//! Initalize the order of an attribute
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param flags     The flags of the attribute
- \ @param category  The order of the attribute
- \ @return          Nothing
- */
 void eclass_attr_order(t_eclass* c, char* attrname, long flags, char* order)
 {
     int i;
@@ -468,15 +389,6 @@ void eclass_attr_order(t_eclass* c, char* attrname, long flags, char* order)
     }
 }
 
-//! Initalize the category of an attribute
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param flags     The flags of the attribute
- \ @param label     The label of the attribute
- \ @return          Nothing
- */
 void eclass_attr_label(t_eclass* c, char* attrname, long flags, char* labelname)
 {
     int i;
@@ -490,15 +402,6 @@ void eclass_attr_label(t_eclass* c, char* attrname, long flags, char* labelname)
     }
 }
 
-//! Initalize the category of an attribute
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param flags     The flags of the attribute
- \ @param style     The style of the attribute
- \ @return          Nothing
- */
 void eclass_attr_style(t_eclass* c, char* attrname, long flags, char* style)
 {
     int i;
@@ -531,15 +434,6 @@ void eclass_attr_style(t_eclass* c, char* attrname, long flags, char* style)
     }
 }
 
-//! Initalize the items list of an attribute
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param flags     The flags of the attribute
- \ @param style     The style of the attribute
- \ @return          Nothing
- */
 void eclass_attr_itemlist(t_eclass* c, char* attrname, long flags, char* list)
 {
     int i, j = 0;
@@ -593,14 +487,6 @@ void eclass_attr_itemlist(t_eclass* c, char* attrname, long flags, char* list)
     }
 }
 
-//! Initalize the minimum value of an attribute
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param value     The minimum value of the attribute
- \ @return          Nothing
- */
 void eclass_attr_filter_min(t_eclass* c, char* attrname, double value)
 {
     int i;
@@ -619,14 +505,6 @@ void eclass_attr_filter_min(t_eclass* c, char* attrname, double value)
     }
 }
 
-//! Initalize the maximum value of an attribute
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param value     The maximum value of the attribute
- \ @return          Nothing
- */
 void eclass_attr_filter_max(t_eclass* c, char* attrname, double value)
 {
     int i;
@@ -645,14 +523,6 @@ void eclass_attr_filter_max(t_eclass* c, char* attrname, double value)
     }
 }
 
-//! Initalize the step value of an attribute
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param value     The maximum value of the attribute
- \ @return          Nothing
- */
 void eclass_attr_step(t_eclass* c, char* attrname, double value)
 {
     int i;
@@ -666,14 +536,6 @@ void eclass_attr_step(t_eclass* c, char* attrname, double value)
     }
 }
 
-//! Initalize the attribute to be saved with the object
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param flags     The flags of the attribute
- \ @return          Nothing
- */
 void eclass_attr_save(t_eclass* c, char* attrname, long flags)
 {
     int i;
@@ -687,14 +549,6 @@ void eclass_attr_save(t_eclass* c, char* attrname, long flags)
     }
 }
 
-//! Initalize the attribute to redraw the object when its value has changed
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param flags     The flags of the attribute
- \ @return          Nothing
- */
 void eclass_attr_paint(t_eclass* c, char* attrname, long flags)
 {
     int i;
@@ -708,14 +562,6 @@ void eclass_attr_paint(t_eclass* c, char* attrname, long flags)
     }
 }
 
-//! Initalize the attribute to be invisible in the properties window
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param flags     The flags of the attribute
- \ @return          Nothing
- */
 void eclass_attr_invisible(t_eclass* c, char* attrname, long flags)
 {
     int i;
@@ -729,15 +575,6 @@ void eclass_attr_invisible(t_eclass* c, char* attrname, long flags)
     }
 }
 
-//! Initalize the user getter and setter of an attribute
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param getter    The getter function
- \ @param setter    The setter function
- \ @return          Nothing
- */
 void eclass_attr_accessor(t_eclass* c, char* attrname, method getter, method setter)
 {
     int i;
@@ -752,15 +589,6 @@ void eclass_attr_accessor(t_eclass* c, char* attrname, method getter, method set
     }
 }
 
-//! Method to get the attributes
-/*
- \ @memberof        eattr
- \ @param x         The object pointer
- \ @param s         The attribute name
- \ @param argc      The pointer to an int that will contains the size of the attributes
- \ @param argv      The pointer to an array of atoms that will contains the attributes values
- \ @return          Nothing
- */
 void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
 {
     int i, j;
@@ -843,15 +671,6 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
     }
 }
 
-//! Method to set the attributes
-/*
- \ @memberof        eattr
- \ @param x         The object pointer
- \ @param s         The attribute name
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms that contains the attributes values
- \ @return          Nothing
- */
 void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
 {
     long i, j, size;
@@ -970,7 +789,9 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
             
             ebox_notify(z, s, s_attr_modified, NULL, NULL);
             if(c->c_widget.w_notify != NULL)
+            {
                 c->c_widget.w_notify(x, s, s_attr_modified, NULL, NULL);
+            }
             
             if(c->c_attr[i]->paint)
             {

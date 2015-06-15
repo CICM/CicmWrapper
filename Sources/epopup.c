@@ -28,25 +28,27 @@
 
 t_epopup* epopupmenu_create(t_eobj* x, t_symbol* name)
 {
-    t_epopup* menu = (t_epopup *)getbytes(sizeof(t_epopup));
-    menu->c_send = x->o_id;
-    menu->c_name = name;
-    sys_vgui("destroy .eboxpopup%s\n", menu->c_name->s_name);
-    sys_vgui("menu .eboxpopup%s -tearoff 0\n", menu->c_name->s_name);
-    
-    return menu;
+    t_epopup* popup = (t_epopup *)getbytes(sizeof(t_epopup));
+    if(popup)
+    {
+        popup->c_send = x->o_id;
+        popup->c_name = name;
+        sys_vgui("destroy .eboxpopup%s\n", popup->c_name->s_name);
+        sys_vgui("popup .eboxpopup%s -tearoff 0\n", popup->c_name->s_name);
+    }    
+    return popup;
 }
 
 
-void epopupmenu_setfont(t_epopup* menu, t_efont *font)
+void epopupmenu_setfont(t_epopup* popup, t_efont *font)
 {
-    sys_vgui(".eboxpopup%s configure -font {%s %d %s italic}\n", menu->c_name->s_name, font[0].c_family->s_name, (int)font[0].c_size, font[0].c_weight->s_name, font[0].c_slant->s_name);
+    sys_vgui(".eboxpopup%s configure -font {%s %d %s italic}\n", popup->c_name->s_name, font[0].c_family->s_name, (int)font[0].c_size, font[0].c_weight->s_name, font[0].c_slant->s_name);
 }
 
-void epopupmenu_additem(t_epopup* menu, int itemid, char *text, char checked, char disabled)
+void epopupmenu_additem(t_epopup* popup, int itemid, char *text, char checked, char disabled)
 {
-    sys_vgui(".eboxpopup%s add command ", menu->c_name->s_name);
-    sys_vgui("-command {pdsend {%s popup %s %f}} ", menu->c_send->s_name, menu->c_name->s_name, (float)itemid);
+    sys_vgui(".eboxpopup%s add command ", popup->c_name->s_name);
+    sys_vgui("-command {pdsend {%s popup %s %f}} ", popup->c_send->s_name, popup->c_name->s_name, (float)itemid);
     sys_vgui("-label {%s} ", text);
     if(disabled)
         sys_vgui("-state disable\n");
@@ -54,14 +56,14 @@ void epopupmenu_additem(t_epopup* menu, int itemid, char *text, char checked, ch
         sys_vgui("-state active\n");
 }
 
-void epopupmenu_addseperator(t_epopup* menu)
+void epopupmenu_addseperator(t_epopup* popup)
 {
-    sys_vgui(".eboxpopup%s add separator\n", menu->c_name->s_name);
+    sys_vgui(".eboxpopup%s add separator\n", popup->c_name->s_name);
 }
 
-void epopupmenu_popup(t_epopup* menu, t_pt screen)
+void epopupmenu_popup(t_epopup* popup, t_pt pos)
 {
-    sys_vgui(".eboxpopup%s post %i %i\n", menu->c_name->s_name, (int)screen.x, (int)screen.y);
+    sys_vgui(".eboxpopup%s post %i %i\n", popup->c_name->s_name, (int)pos.x, (int)pos.y);
 }
 
 

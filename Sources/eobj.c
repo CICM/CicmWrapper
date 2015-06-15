@@ -224,7 +224,7 @@ void eobj_attrprocess_viatoms(void *x, int argc, t_atom *argv)
         atoms_get_attribute(argc, argv, gensym(buffer), &defc, &defv);
         if(defc && defv)
         {
-            object_attr_setvalueof((t_object *)x, c->c_attr[i]->name, defc, defv);
+            eobj_attr_setvalueof(x, c->c_attr[i]->name, defc, defv);
             defc = 0;
             free(defv);
             defv = NULL;
@@ -246,13 +246,34 @@ void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)
         binbuf_get_attribute(d, gensym(attr_name), &defc, &defv);
         if(defc && defv)
         {
-            object_attr_setvalueof((t_object *)x, c->c_attr[i]->name, defc, defv);
+            eobj_attr_setvalueof(x, c->c_attr[i]->name, defc, defv);
             defc = 0;
             free(defv);
             defv = NULL;
         }
     }
 }
+
+void eobj_attr_setvalueof(void *x, t_symbol* s, int argc, t_atom *argv)
+{
+    method setvalue = (method)getfn((t_pd *)x, s);
+    setvalue(x, s, argc, argv);
+}
+
+void eobj_attr_getvalueof(void *x, t_symbol *s, int *argc, t_atom **argv)
+{
+    char realname[MAXPDSTRING];
+    method getvalue = NULL;
+    sprintf(realname, "get%s", s->s_name);
+    argc[0] = 0;
+    argv[0] = NULL;
+    getvalue = (method)getfn((t_pd *)x, gensym(realname));
+    if(getvalue)
+    {
+        getvalue(x, s, argc, argv);
+    }
+}
+
 
 void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
 {

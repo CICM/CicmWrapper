@@ -35,25 +35,32 @@
 #define ASSIST_OUTLET      2
 #define atom_getsym(atom)  atom_getsymbol(atom)
 
+#define outlet_int(outlet, val) outlet_float(outlet, (float)val)
+#define bangout(x) outlet_new((t_object *)x, &s_bang)
+#define floatout(x) outlet_new((t_object *)x, &s_float)
+#define symbolout(x) outlet_new((t_object *)x, &s_symbol)
+#define listout(x) outlet_new((t_object *)x, &s_list)
+#define anythingout(x) outlet_new((t_object *)x, &s_anything)
+#define object_attr_setvalueof eobj_attr_setvalueof
+#define object_attr_getvalueof eobj_attr_getvalueof
+
 #define JBOX_DRAWFIRSTIN        0
 #define JBOX_NODRAWBOX          0
 #define JBOX_DRAWINLAST         0
 #define JBOX_TRANSPARENT        0
-
 #define JBOX_NOGROW             EBOX_GROWNO
 #define JBOX_GROWY              EBOX_GROWLINK
 #define JBOX_GROWBOTH           EBOX_GROWINDI
-
 #define JBOX_IGNORELOCKCLICK    EBOX_IGNORELOCKCLICK
 #define JBOX_HILITE             0
 #define JBOX_BACKGROUND         0
 #define JBOX_NOFLOATINSPECTOR   0
 #define JBOX_TEXTFIELD          0
 #define JBOX_FIXWIDTH           0
-#define JBOe_fontATTR           0
+#define JBOX_FONTATTR           0
 #define JBOX_TEXTJUSTIFICATIONATTR  0
 #define JBOX_BINBUF             0
-#define JBOe_mouseDRAGDELTA     0
+#define JBOX_MOUSEDRAGDELTA     0
 #define JBOX_COLOR              0
 #define JBOX_DRAWIOLOCKED       0
 #define JBOX_DRAWBACKGROUND     0
@@ -62,7 +69,7 @@
 #define t_jbox              t_ebox
 #define t_pxobject          t_ebox
 
-#define Z_NO_INPLACE 1
+#define Z_NO_INPLACE E_NO_INPLACE
 #define Z_PUT_LAST 2
 #define Z_PUT_FIRST 4
 #define Z_IGNORE_DISABLE 8
@@ -74,9 +81,9 @@
 #define class_addmethod                             eclass_addmethod
  
 #define jbox_initclass(class, flags)                eclass_guiinit(class, flags)
-#define class_dspinit(class)                        eclassbox_dspinit(class)
+#define class_dspinit(class)                        eclass_dspinit(class)
 #define class_dspinitjbox(class)                    eclass_dspinit(class)
-#define class_register(name_space, class)           eclass_register(name_space, class)
+#define class_register(name, class)
 #define object_alloc(class)                         eobj_new(class)
 #define jbox_new(t_jbox, flags, argc, argv)         ebox_new(t_jbox, flags, argc, argv)
 #define dsp_setupjbox(t_jbox, nins, nouts)          ebox_dspsetup(t_jbox, nins, nouts)

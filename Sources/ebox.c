@@ -149,10 +149,10 @@ char ebox_isdrawable(t_ebox* x)
     return 0;
 }
 
-void ebox_set_cursor(t_ebox* x, int mode)
+void ebox_set_cursor(t_ebox* x, int cursor)
 {
-    mode = (int)pd_clip_minmax(mode, 0, 12);
-    sys_vgui("%s configure -cursor %s\n", x->b_drawing_id->s_name, my_cursorlist[mode]);
+    cursor = (int)pd_clip_minmax(cursor, 0, 12);
+    sys_vgui("%s configure -cursor %s\n", x->b_drawing_id->s_name, my_cursorlist[cursor]);
 }
 
 void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv)
@@ -169,7 +169,7 @@ void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv)
         atoms_get_attribute(argc, argv, gensym(buffer), &defc, &defv);
         if(defc && defv)
         {
-            object_attr_setvalueof((t_object *)x, c->c_attr[i]->name, defc, defv);
+            eobj_attr_setvalueof(x, c->c_attr[i]->name, defc, defv);
             defc = 0;
             free(defv);
             defv = NULL;
@@ -191,7 +191,7 @@ void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)
         binbuf_get_attribute(d, gensym(attr_name), &defc, &defv);
         if(defc && defv)
         {
-            object_attr_setvalueof((t_object *)x, c->c_attr[i]->name, defc, defv);
+            eobj_attr_setvalueof(x, c->c_attr[i]->name, defc, defv);
             defc = 0;
             free(defv);
             defv = NULL;
@@ -233,7 +233,7 @@ static void ebox_attrprocess_default(void *x)
                         atom_setfloat(defv+j, val);
                     }
                 }
-                object_attr_setvalueof((t_object *)x, c->c_attr[i]->name, defc, defv);
+                eobj_attr_setvalueof(x, c->c_attr[i]->name, defc, defv);
             }
             if(defv)
             {
@@ -856,7 +856,7 @@ void ebox_dosave(t_ebox* x, t_binbuf *b)
         {
             if(c->c_attr[i] && c->c_attr[i]->save && c->c_attr[i]->name)
             {
-                object_attr_getvalueof((t_object *)x, c->c_attr[i]->name, &argc, &argv);
+                eobj_attr_getvalueof(x, c->c_attr[i]->name, &argc, &argv);
                 if(argc && argv)
                 {
                     snprintf(attr_name, MAXPDSTRING, "@%s", c->c_attr[i]->name->s_name);
@@ -1117,7 +1117,7 @@ void ebox_properties(t_ebox *x, t_glist *glist)
     {
         if(!c->c_attr[i]->invisible)
         {
-            object_attr_getvalueof((t_object *)x, c->c_attr[i]->name, &argc, &argv);
+            eobj_attr_getvalueof((t_object *)x, c->c_attr[i]->name, &argc, &argv);
             strcat(buffer, " ");
             strcat(buffer, "\"");
             if(argc && argv)
@@ -1186,7 +1186,7 @@ void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
             attrindex = (int)atom_getfloat(argv+1) - 1;
             if(attrindex >= 0 && attrindex < c->c_nattr)
             {
-                object_attr_getvalueof((t_object *)x, c->c_attr[attrindex]->name, &ac, &av);
+                eobj_attr_getvalueof((t_object *)x, c->c_attr[attrindex]->name, &ac, &av);
                 if(ac && av)
                 {
                     if(c->c_attr[attrindex]->style == gensym("checkbutton"))
@@ -1351,10 +1351,9 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
     }
 }
 
-t_pd_err ebox_end_layer(t_ebox *b, t_symbol *name)
+t_pd_err ebox_end_layer(t_ebox *x, t_symbol *name)
 {
     int i;
-    t_ebox* x = (t_ebox*)b;
     for(i = 0; i < x->b_number_of_layers; i++)
     {
         if(x->b_layers[i].e_name == name)
