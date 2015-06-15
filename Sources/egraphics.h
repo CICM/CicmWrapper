@@ -29,14 +29,18 @@
 
 #include "ecommon.h"
 
-// PAINT METHOD //
+/*! @addtogroup groupgraphics The Graphics Part
+ * @brief The t_elayer part.
+ * @details This part refers to the methods and structures used to paint.
+ *  @{
+ */
+
 void egraphics_fill(t_elayer *g);
 void egraphics_fill_preserve(t_elayer *g);
 void egraphics_stroke(t_elayer *g);
 void egraphics_stroke_preserve(t_elayer *g);
 void etext_layout_draw(t_etext* textlayout, t_elayer *g);
 
-// GRAPHICS MODIFICATIONS //
 void egraphics_set_line_splinestep(t_elayer *g, float smooth);
 void egraphics_set_line_width(t_elayer *g, float width);
 void egraphics_set_color_rgba(t_elayer *g, t_rgba *rgba);
@@ -51,7 +55,6 @@ void egraphics_set_matrix(t_elayer *g, const t_matrix *matrix);
 // GRAPHICS MODIFICATIONS PRIVATE //
 void egraphics_apply_matrix(t_elayer *g, t_egobj* gobj);
 
-// FORM //
 void egraphics_line_to(t_elayer *g, float x, float y);
 void egraphics_move_to(t_elayer *g, float x, float y);
 void egraphics_curve_to(t_elayer *g, float ctrl1x, float ctrl1y, float ctrl2x, float ctrl2y, float endx, float endy);
@@ -72,12 +75,11 @@ void egraphics_arc_oval(t_elayer *g, float xc, float yc, float radiusx, float ra
 
 t_etext* etext_layout_create(void);
 void etext_layout_destroy(t_etext* textlayout);
-void etext_layout_set(t_etext* textlayout, char* text, t_efont *jfont,  double x, double y, double width,  double height, etextanchor_flags anchor, etextjustify_flags justify, etextwrap_flags wrap);
+void etext_layout_set(t_etext* textlayout, const char* text, t_efont *jfont,  float x, float y, float width,  float height, etextanchor_flags anchor, etextjustify_flags justify, etextwrap_flags wrap);
 void etext_layout_settextcolor(t_etext* textlayout, t_rgba* color);
-t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, double size);
+t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, float size);
 void efont_destroy(t_efont* font);
 
-// COLOR //
 char* rgba_to_hex(t_rgba color);
 char* rgb_to_hex(t_rgb color);
 char* hsla_to_hex(t_hsla color);
@@ -96,13 +98,13 @@ void rgb_set(t_rgb *color, float red, float green, float blue);
 void hsla_set(t_hsla *color, float hue, float saturation, float luminosity, float alpha);
 void hsl_set(t_hsl *color, float hue, float saturation, float luminosity);
 
-double pd_clip_min(double aValue, double aMinimum);
-double pd_clip_max(double aValue, double aMaximum);
-double pd_clip_minmax(double aValue, double aMinimum, double aMaximum);
-double pd_ordinate(double radius, double angle);
-double pd_abscissa(double radius, double angle);
-double pd_radius(double x, double y);
-double pd_angle(double x, double y);
+float pd_clip_min(float aValue, float aMinimum);
+float pd_clip_max(float aValue, float aMaximum);
+float pd_clip_minmax(float aValue, float aMinimum, float aMaximum);
+float pd_ordinate(float radius, float angle);
+float pd_abscissa(float radius, float angle);
+float pd_radius(float x, float y);
+float pd_angle(float x, float y);
 
 // Ohlala...
 #ifdef _WIN32
@@ -128,5 +130,7 @@ __attribute__((used)) static t_rgba rgba_green         = {0.f, 1.f, 0.f, 1.f};
 __attribute__((used)) static t_rgba rgba_red           = {1.f, 0.f, 0.f, 1.f};
 
 #endif
+
+/** @} */
 
 #endif

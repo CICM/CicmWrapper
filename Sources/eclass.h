@@ -52,7 +52,7 @@
  * \param arg2  The type of object.
  * \return      This function return the new eclass
  */
-t_eclass* eclass_new(char *name, t_typ_method newm, t_typ_method freem, size_t size, int flags, t_atomtype arg1, int arg2);
+t_eclass* eclass_new(const char *name, t_typ_method newm, t_typ_method freem, size_t size, int flags, t_atomtype arg1, int arg2);
 
 /*!
  * \fn          void eclass_guiinit(t_eclass* c, long flags)
@@ -82,7 +82,7 @@ void eclass_init(t_eclass* c, long flags) _FUNCTION_DEPRECTAED_;
 void eclass_dspinit(t_eclass* c);
 
 /*!
- * \fn          void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long anything)
+ * \fn          void eclass_addmethod(t_eclass* c, method m, const char* name, t_atomtype type, long anything)
  * \brief       Adds a method to the t_eclass.
  * \details     Adds and wraps the methods of the class. For the moment the funtion takes only 1 type the second type is a dummy one and should always be 0.
  * \param c     The t_eclass pointer.
@@ -91,7 +91,7 @@ void eclass_dspinit(t_eclass* c);
  * \param type  The type of the method.
  * \param dummy The dummy type that should be 0.
  */
-void eclass_addmethod(t_eclass* c, t_typ_method m, char* name, t_atomtype type, long dummy);
+void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type, long dummy);
 
 //! @cond
 
@@ -107,7 +107,7 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, char* name, t_atomtype type, 
  \ @param offset    The attribute bit offset in the object structure
  \ @return          Nothing
  */
-void eclass_new_attr_typed(t_eclass* c, char* attrname, char* type, long size, long maxsize, long flags, long offset);
+void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, long size, long maxsize, long flags, long offset);
 
 //! Method to set the attributes
 /*
@@ -140,7 +140,7 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv);
  \ @param category  The category of the attribute
  \ @return          Nothing
  */
-void eclass_attr_category(t_eclass* c, char* attrname, long flags, char* category);
+void eclass_attr_category(t_eclass* c, const char* attrname, long flags, const char* category);
 
 //! Initalize the order of an attribute
 /*
@@ -151,7 +151,7 @@ void eclass_attr_category(t_eclass* c, char* attrname, long flags, char* categor
  \ @param category  The order of the attribute
  \ @return          Nothing
  */
-void eclass_attr_order(t_eclass* c, char* attrname, long flags, char* order);
+void eclass_attr_order(t_eclass* c, const char* attrname, long flags, const char* order);
 
 //! Initalize the category of an attribute
 /*
@@ -162,7 +162,7 @@ void eclass_attr_order(t_eclass* c, char* attrname, long flags, char* order);
  \ @param label     The label of the attribute
  \ @return          Nothing
  */
-void eclass_attr_label(t_eclass* c, char* attrname, long flags, char* label);
+void eclass_attr_label(t_eclass* c, const char* attrname, long flags, const char* label);
 
 //! Initalize the category of an attribute
 /*
@@ -173,7 +173,7 @@ void eclass_attr_label(t_eclass* c, char* attrname, long flags, char* label);
  \ @param style     The style of the attribute
  \ @return          Nothing
  */
-void eclass_attr_style(t_eclass* c, char* attrname, long flags, char* style);
+void eclass_attr_style(t_eclass* c, const char* attrname, long flags, const char* style);
 
 //! Initalize the default value of an attribute
 /*
@@ -184,7 +184,7 @@ void eclass_attr_style(t_eclass* c, char* attrname, long flags, char* style);
  \ @param value     The default value
  \ @return          Nothing
  */
-void eclass_attr_default(t_eclass* c, char* attrname, long flags, char* value);
+void eclass_attr_default(t_eclass* c, const char* attrname, long flags, const char* value);
 
 //! Initalize the minimum value of an attribute
 /*
@@ -194,7 +194,7 @@ void eclass_attr_default(t_eclass* c, char* attrname, long flags, char* value);
  \ @param value     The minimum value of the attribute
  \ @return          Nothing
  */
-void eclass_attr_filter_min(t_eclass* c, char* attrname, double value);
+void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value);
 
 //! Initalize the maximum value of an attribute
 /*
@@ -204,7 +204,7 @@ void eclass_attr_filter_min(t_eclass* c, char* attrname, double value);
  \ @param value     The maximum value of the attribute
  \ @return          Nothing
  */
-void eclass_attr_filter_max(t_eclass* c, char* attrname, double value);
+void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value);
 
 //! Initalize the step value of an attribute
 /*
@@ -214,7 +214,7 @@ void eclass_attr_filter_max(t_eclass* c, char* attrname, double value);
  \ @param value     The maximum value of the attribute
  \ @return          Nothing
  */
-void eclass_attr_step(t_eclass* c, char* attrname, double value);
+void eclass_attr_step(t_eclass* c, const char* attrname, float value);
 
 //! Initalize the attribute to be saved with the object
 /*
@@ -224,7 +224,7 @@ void eclass_attr_step(t_eclass* c, char* attrname, double value);
  \ @param flags     The flags of the attribute
  \ @return          Nothing
  */
-void eclass_attr_save(t_eclass* c, char* attrname, long flags);
+void eclass_attr_save(t_eclass* c, const char* attrname, long flags);
 
 //! Initalize the attribute to redraw the object when its value has changed
 /*
@@ -234,7 +234,7 @@ void eclass_attr_save(t_eclass* c, char* attrname, long flags);
  \ @param flags     The flags of the attribute
  \ @return          Nothing
  */
-void eclass_attr_paint(t_eclass* c, char* attrname, long flags);
+void eclass_attr_paint(t_eclass* c, const char* attrname, long flags);
 
 //! Initalize the attribute to be invisible in the properties window
 /*
@@ -244,7 +244,7 @@ void eclass_attr_paint(t_eclass* c, char* attrname, long flags);
  \ @param flags     The flags of the attribute
  \ @return          Nothing
  */
-void eclass_attr_invisible(t_eclass* c, char* attrname, long flags);
+void eclass_attr_invisible(t_eclass* c, const char* attrname, long flags);
 
 //! Initalize the user getter and setter of an attribute
 /*
@@ -255,7 +255,7 @@ void eclass_attr_invisible(t_eclass* c, char* attrname, long flags);
  \ @param setter    The setter function
  \ @return          Nothing
  */
-void eclass_attr_accessor(t_eclass* c, char* attrname, t_err_method getter, t_err_method setter);
+void eclass_attr_accessor(t_eclass* c, const char* attrname, t_err_method getter, t_err_method setter);
 
 //! Initalize the items list of an attribute
 /*
@@ -266,7 +266,7 @@ void eclass_attr_accessor(t_eclass* c, char* attrname, t_err_method getter, t_er
  \ @param style     The style of the attribute
  \ @return          Nothing
  */
-void eclass_attr_itemlist(t_eclass* c, char* attrname, long flags, char* list);
+void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const char* list);
 
 #define calcoffset(x,y) ((long)(&(((x *)0L)->y)))
 //! @endcond

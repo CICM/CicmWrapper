@@ -34,7 +34,7 @@
 static void eclass_properties_dialog(t_eclass* c);
 static void ewidget_init(t_eclass* c);
 
-t_eclass* eclass_new(char *name, t_typ_method newm, t_typ_method freem, size_t size, int flags, t_atomtype arg1, int arg2)
+t_eclass* eclass_new(const char *name, t_typ_method newm, t_typ_method freem, size_t size, int flags, t_atomtype arg1, int arg2)
 {
     char help[MAXPDSTRING];
     t_class *pd  = class_new(gensym(name), (t_newmethod)newm, (t_method)freem, size, flags, arg1, arg2);
@@ -159,7 +159,7 @@ void eclass_dspinit(t_eclass* c)
     class_addmethod((t_class *)c, (t_method)eobj_dsp_add, gensym("dsp_add64"), A_NULL, 0);
 }
 
-void eclass_addmethod(t_eclass* c, t_typ_method m, char* name, t_atomtype type, long dummy)
+void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type, long dummy)
 {
     if(gensym(name) == gensym("mouseenter"))
     {
@@ -281,7 +281,7 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, char* name, t_atomtype type, 
     }
 }
 
-void eclass_new_attr_typed(t_eclass* c, char* attrname, char* type, long size, long maxsize, long flags, long offset)
+void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, long size, long maxsize, long flags, long offset)
 {
     int i;
     t_eattr* attr;
@@ -350,7 +350,7 @@ void eclass_new_attr_typed(t_eclass* c, char* attrname, char* type, long size, l
     }
 }
 
-void eclass_attr_default(t_eclass* c, char* attrname, long flags, char* value)
+void eclass_attr_default(t_eclass* c, const char* attrname, long flags, const char* value)
 {
     int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -363,7 +363,7 @@ void eclass_attr_default(t_eclass* c, char* attrname, long flags, char* value)
     }
 }
 
-void eclass_attr_category(t_eclass* c, char* attrname, long flags, char* category)
+void eclass_attr_category(t_eclass* c, const char* attrname, long flags, const char* category)
 {
     int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -376,7 +376,7 @@ void eclass_attr_category(t_eclass* c, char* attrname, long flags, char* categor
     }
 }
 
-void eclass_attr_order(t_eclass* c, char* attrname, long flags, char* order)
+void eclass_attr_order(t_eclass* c, const char* attrname, long flags, const char* order)
 {
     int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -390,7 +390,7 @@ void eclass_attr_order(t_eclass* c, char* attrname, long flags, char* order)
     }
 }
 
-void eclass_attr_label(t_eclass* c, char* attrname, long flags, char* labelname)
+void eclass_attr_label(t_eclass* c, const char* attrname, long flags, const char* labelname)
 {
     int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -403,7 +403,7 @@ void eclass_attr_label(t_eclass* c, char* attrname, long flags, char* labelname)
     }
 }
 
-void eclass_attr_style(t_eclass* c, char* attrname, long flags, char* style)
+void eclass_attr_style(t_eclass* c, const char* attrname, long flags, const char* style)
 {
     int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -435,7 +435,7 @@ void eclass_attr_style(t_eclass* c, char* attrname, long flags, char* style)
     }
 }
 
-void eclass_attr_itemlist(t_eclass* c, char* attrname, long flags, char* list)
+void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const char* list)
 {
     int i, j = 0;
     char* pch;
@@ -488,7 +488,7 @@ void eclass_attr_itemlist(t_eclass* c, char* attrname, long flags, char* list)
     }
 }
 
-void eclass_attr_filter_min(t_eclass* c, char* attrname, double value)
+void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value)
 {
     int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -506,7 +506,7 @@ void eclass_attr_filter_min(t_eclass* c, char* attrname, double value)
     }
 }
 
-void eclass_attr_filter_max(t_eclass* c, char* attrname, double value)
+void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value)
 {
     int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -524,7 +524,7 @@ void eclass_attr_filter_max(t_eclass* c, char* attrname, double value)
     }
 }
 
-void eclass_attr_step(t_eclass* c, char* attrname, double value)
+void eclass_attr_step(t_eclass* c, const char* attrname, float value)
 {
     int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -537,7 +537,7 @@ void eclass_attr_step(t_eclass* c, char* attrname, double value)
     }
 }
 
-void eclass_attr_save(t_eclass* c, char* attrname, long flags)
+void eclass_attr_save(t_eclass* c, const char* attrname, long flags)
 {
     int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -550,7 +550,7 @@ void eclass_attr_save(t_eclass* c, char* attrname, long flags)
     }
 }
 
-void eclass_attr_paint(t_eclass* c, char* attrname, long flags)
+void eclass_attr_paint(t_eclass* c, const char* attrname, long flags)
 {
     int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -563,7 +563,7 @@ void eclass_attr_paint(t_eclass* c, char* attrname, long flags)
     }
 }
 
-void eclass_attr_invisible(t_eclass* c, char* attrname, long flags)
+void eclass_attr_invisible(t_eclass* c, const char* attrname, long flags)
 {
     int i;
     for(i = 0; i < c->c_nattr; i++)
@@ -576,7 +576,7 @@ void eclass_attr_invisible(t_eclass* c, char* attrname, long flags)
     }
 }
 
-void eclass_attr_accessor(t_eclass* c, char* attrname, t_err_method getter, t_err_method setter)
+void eclass_attr_accessor(t_eclass* c, const char* attrname, t_err_method getter, t_err_method setter)
 {
     int i;
     for(i = 0; i < c->c_nattr; i++)

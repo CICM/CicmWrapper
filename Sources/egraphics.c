@@ -26,7 +26,7 @@
 
 #include "egraphics.h"
 
-static const double k = 0.55228474983079356430692996582365594804286956787109;
+static const float k = 0.55228474983079356430692996582365594804286956787109f;
 static char ColBuf[10];
 static char HexDigits[] = "0123456789ABCDEF";
 
@@ -255,25 +255,25 @@ void egraphics_curve_to(t_elayer *g, float ctrl1x, float ctrl1y, float ctrl2x, f
     }
 }
 
-static void rotate(const double cosz, const double sinz, t_pt* p1)
+static void rotate(const float cosz, const float sinz, t_pt* p1)
 {
-    const double rx = p1->x * cosz - p1->y * sinz;
-    p1->y = (float)(p1->x * sinz + p1->y * cosz);
-    p1->x = (float)rx;
+    const float rx = p1->x * cosz - p1->y * sinz;
+    p1->y = (p1->x * sinz + p1->y * cosz);
+    p1->x = rx;
 }
 
-static void create_small_arc(const double r, const double start, const double extend, t_pt ct, t_pt* p2, t_pt* p3, t_pt* p4)
+static void create_small_arc(const float r, const float start, const float extend, t_pt ct, t_pt* p2, t_pt* p3, t_pt* p4)
 {
-    const double a = extend;
-    const double cosz = cos(a * 0.5 + start);
-    const double sinz = sin(a * 0.5 + start);
+    const float a = extend;
+    const float cosz = cosf(a * 0.5f + start);
+    const float sinz = sinf(a * 0.5f + start);
     t_pt p1;
-    p4->x = (float)(r * cos(a * 0.5));
-    p4->y = (float)(r * sin(a * 0.5));
+    p4->x = (float)(r * cosf(a * 0.5f));
+    p4->y = (float)(r * sinf(a * 0.5f));
     p1.x = p4->x;
     p1.y = -p4->y;
-    p2->x = (float)(p1.x + k * tan(a * 0.5) * p4->y);
-    p2->y = (float)(p1.y + k * tan(a * 0.5) * p4->x);
+    p2->x = (float)(p1.x + k * tan(a * 0.5f) * p4->y);
+    p2->y = (float)(p1.y + k * tan(a * 0.5f) * p4->x);
     p3->x = p2->x;
     p3->y = -p2->y;
     
@@ -288,8 +288,8 @@ void egraphics_arc_to(t_elayer *g, float cx, float cy, float extend)
         if(g->e_new_objects.e_type == E_GOBJ_PATH && g->e_new_objects.e_points)
         {
             t_pt p2, p3, p4, c = {cx, cy}, prev = g->e_new_objects.e_points[g->e_new_objects.e_npoints-1];
-            double radius   = pd_radius(prev.x - cx, prev.y - cy);
-            double angle    = pd_angle(prev.x - cx, prev.y - cy);
+            float radius   = pd_radius(prev.x - cx, prev.y - cy);
+            float angle    = pd_angle(prev.x - cx, prev.y - cy);
             
             while(extend > EPD_2PI)
             {
@@ -300,7 +300,7 @@ void egraphics_arc_to(t_elayer *g, float cx, float cy, float extend)
                 extend += EPD_2PI;
             }
             
-            while(fabs(extend) >= EPD_PI4)
+            while(fabsf(extend) >= EPD_PI4)
             {
                 if(extend < 0.)
                 {
@@ -316,7 +316,7 @@ void egraphics_arc_to(t_elayer *g, float cx, float cy, float extend)
                 }
                 egraphics_curve_to(g, p2.x, p2.y, p3.x, p3.y,  p4.x, p4.y);
             }
-            if(fabs(extend) > 1e-6)
+            if(fabsf(extend) > 1e-6)
             {
                 create_small_arc(radius, angle, extend, c, &p2, &p3, &p4);
                 egraphics_curve_to(g, p2.x, p2.y, p3.x, p3.y,  p4.x, p4.y);
@@ -329,21 +329,21 @@ void egraphics_arc_to(t_elayer *g, float cx, float cy, float extend)
     }
 }
 
-static void create_small_arc_oval(const double r1, const double r2, const double start, const double extend, t_pt ct, t_pt* p2, t_pt* p3, t_pt* p4)
+static void create_small_arc_oval(const float r1, const float r2, const float start, const float extend, t_pt ct, t_pt* p2, t_pt* p3, t_pt* p4)
 {
     t_pt p1;
     
-    const double a = extend;
-    const double cosz = cos(a * 0.5 + start);
-    const double sinz = sin(a * 0.5 + start);
-    const double cosa = cos(a * 0.5);
-    const double sina = sin(a * 0.5);
+    const float a = extend;
+    const float cosz = cosf(a * 0.5f + start);
+    const float sinz = sinf(a * 0.5f + start);
+    const float cosa = cosf(a * 0.5f);
+    const float sina = sinf(a * 0.5f);
     p4->x = (float)(r2 * cosa);
     p4->y = (float)(r2 * sina);
     p1.x = (float)(r1 * cosa);
     p1.y = (float)(-r1 * sina);
-    const double k1 = (4. * (1. - cos(a * 0.5)) / sin(a * 0.5)) / 3.;
-    const double k2 = (4. * (1. - cos(-a * 0.5)) / sin(-a * 0.5)) / 3.;
+    const float k1 = (4.f * (1.f - cosf(a * 0.5f)) / sinf(a * 0.5f)) / 3.f;
+    const float k2 = (4.f * (1.f - cosf(-a * 0.5f)) / sinf(-a * 0.5f)) / 3.f;
     p2->x = (float)(p1.x + k1 * p4->y);
     p2->y = (float)(p1.y + k1 * p4->x);
     p3->x = (float)(p4->x + k2 * p1.y);
@@ -360,9 +360,9 @@ void egraphics_arc_oval_to(t_elayer *g, float cx, float cy, float r2, float exte
         if(g->e_new_objects.e_type == E_GOBJ_PATH && g->e_new_objects.e_points)
         {
             t_pt p2, p3, p4, c = {cx, cy}, prev = g->e_new_objects.e_points[g->e_new_objects.e_npoints-1];
-            double r1   = pd_radius(prev.x - cx, prev.y - cy);
-            double angle = pd_angle(prev.x - cx, prev.y - cy);
-            double ratio = (r2 - r1) / (fabs(extend) / EPD_PI4);
+            float r1   = pd_radius(prev.x - cx, prev.y - cy);
+            float angle = pd_angle(prev.x - cx, prev.y - cy);
+            float ratio = (r2 - r1) / (fabsf(extend) / EPD_PI4);
             
             while(extend > EPD_2PI)
             {
@@ -373,7 +373,7 @@ void egraphics_arc_oval_to(t_elayer *g, float cx, float cy, float r2, float exte
                 extend += EPD_2PI;
             }
             
-            while(fabs(extend) >= EPD_PI4)
+            while(fabsf(extend) >= EPD_PI4)
             {
                 if(extend < 0.)
                 {
@@ -392,7 +392,7 @@ void egraphics_arc_oval_to(t_elayer *g, float cx, float cy, float r2, float exte
                 }
                 egraphics_curve_to(g, p2.x, p2.y, p3.x, p3.y,  p4.x, p4.y);
             }
-            if(fabs(extend) > 1e-6)
+            if(fabsf(extend) > 1e-6)
             {
                 create_small_arc_oval(r1, r2, angle, extend, c, &p2, &p3, &p4);
                 egraphics_curve_to(g, p2.x, p2.y, p3.x, p3.y,  p4.x, p4.y);
@@ -694,7 +694,7 @@ t_hsla rgba_to_hsla(t_rgba color)
     }
     else
     {
-        if(ncolor.lightness < 0.5)
+        if(ncolor.lightness < 0.5f)
             ncolor.saturation = delta / (max + min);
         else
             ncolor.saturation = delta / (2.f - max - min);
@@ -742,7 +742,7 @@ t_hsl rgb_to_hsl(t_rgb color)
     }
     else
     {
-        if(ncolor.lightness < 0.5)
+        if(ncolor.lightness < 0.5f)
             ncolor.saturation = delta / (max + min);
         else
             ncolor.saturation = delta / (2.f - max - min);
@@ -988,7 +988,7 @@ void etext_layout_destroy(t_etext* textlayout)
     freebytes(textlayout, sizeof(textlayout));
 }
 
-void etext_layout_set(t_etext* textlayout, char* text, t_efont *jfont,  double x, double y, double width,  double height, etextanchor_flags anchor, etextjustify_flags justify, etextwrap_flags wrap)
+void etext_layout_set(t_etext* textlayout, const char* text, t_efont *jfont,  float x, float y, float width,  float height, etextanchor_flags anchor, etextjustify_flags justify, etextwrap_flags wrap)
 {
     textlayout->c_text = gensym(text);
     textlayout->c_font = jfont[0];
@@ -1035,7 +1035,7 @@ void etext_layout_settextcolor(t_etext* textlayout, t_rgba* color)
     textlayout->c_color = color[0];
 }
 
-t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, double size)
+t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, float size)
 {
     t_efont* new_font = (t_efont *)getbytes(sizeof(t_efont));
     new_font[0].c_family = family;
@@ -1048,7 +1048,7 @@ t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, doubl
     if(new_font[0].c_weight  != gensym("bold"))
         new_font[0].c_weight = gensym("normal");
     
-    new_font[0].c_size = (float)pd_clip_min(size, 1.);
+    new_font[0].c_size = pd_clip_min(size, 1.f);
     return new_font;
 }
 
@@ -1057,7 +1057,7 @@ void efont_destroy(t_efont* font)
     freebytes(font, sizeof(t_efont));
 }
 
-double pd_clip_minmax(double aValue, double aMinimum, double aMaximum)
+float pd_clip_minmax(float aValue, float aMinimum, float aMaximum)
 {
     if(aValue < aMinimum)
         return aMinimum;
@@ -1067,7 +1067,7 @@ double pd_clip_minmax(double aValue, double aMinimum, double aMaximum)
         return aValue;
 }
 
-double pd_clip_min(double aValue, double aMinimum)
+float pd_clip_min(float aValue, float aMinimum)
 {
     if(aValue < aMinimum)
         return aMinimum;
@@ -1075,7 +1075,7 @@ double pd_clip_min(double aValue, double aMinimum)
         return aValue;
 }
 
-double pd_clip_max(double aValue, double aMaximum)
+float pd_clip_max(float aValue, float aMaximum)
 {
     if(aValue > aMaximum)
         return aMaximum;
@@ -1083,24 +1083,24 @@ double pd_clip_max(double aValue, double aMaximum)
         return aValue;
 }
 
-double pd_ordinate(double radius, double angle)
+float pd_ordinate(float radius, float angle)
 {
-    return radius * sin(angle);
+    return radius * sinf(angle);
 }
 
-double pd_abscissa(double radius, double angle)
+float pd_abscissa(float radius, float angle)
 {
-    return radius * cos(angle);
+    return radius * cosf(angle);
 }
 
-double pd_radius(double x, double y)
+float pd_radius(float x, float y)
 {
-    return sqrt(x*x + y*y);
+    return sqrtf(x*x + y*y);
 }
 
-double pd_angle(double x, double y)
+float pd_angle(float x, float y)
 {
-    return atan2(y, x);
+    return atan2f(y, x);
 }
 
 

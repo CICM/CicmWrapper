@@ -246,7 +246,7 @@ t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, int argc, t_atom *a
  * \param name   The name of the library.
  * \param folder The name of the subfolder.
  */
-void epd_add_folder(char* name, char* folder);
+void epd_add_folder(const char* name, const char* folder);
 
 /** @} */
 #endif

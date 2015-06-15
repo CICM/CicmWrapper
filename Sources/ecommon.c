@@ -422,7 +422,7 @@ t_pd_err atoms_get_attribute(int ac, t_atom* av, t_symbol *key, int *argc, t_ato
             if(newsize)
             {
                 argv[0] = (t_atom *)resizebytes(argv[0], (size_t)argc[0] * sizeof(t_atom), (size_t)newsize * sizeof(t_atom));
-                argc[0] = newsize;
+                argc[0] = (int)newsize;
             }
             else
             {
@@ -507,7 +507,7 @@ t_pd_err binbuf_get_attribute_float(t_binbuf *d, t_symbol *key, float *value)
         return -1;
 }
 
-void epd_add_folder(char* name, char* folder)
+void epd_add_folder(const char* name, const char* folder)
 {
 	char path[MAXPDSTRING];
 	t_namelist* var = sys_searchpath;

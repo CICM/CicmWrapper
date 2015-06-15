@@ -233,7 +233,7 @@ static void ebox_attrprocess_default(void *x)
                         atom_setfloat(defv+j, val);
                     }
                 }
-                eobj_attr_setvalueof(x, c->c_attr[i]->name, defc, defv);
+                eobj_attr_setvalueof(x, c->c_attr[i]->name, (int)defc, defv);
             }
             if(defv)
             {
@@ -851,7 +851,7 @@ void ebox_dosave(t_ebox* x, t_binbuf *b)
     if(c && b)
     {
         state = canvas_suspend_dsp();
-        binbuf_addv(b, "ssiis", &s__X, s_obj, (int)x->b_obj.o_obj.te_xpix, (int)x->b_obj.o_obj.te_ypix, eobj_getclassname(x));
+        binbuf_addv(b, (char *)"ssiis", &s__X, s_obj, (int)x->b_obj.o_obj.te_xpix, (int)x->b_obj.o_obj.te_ypix, eobj_getclassname(x));
         for(i = 0; i < c->c_nattr; i++)
         {
             if(c->c_attr[i] && c->c_attr[i]->save && c->c_attr[i]->name)
@@ -871,7 +871,7 @@ void ebox_dosave(t_ebox* x, t_binbuf *b)
         if(c->c_widget.w_save != NULL)
             c->c_widget.w_save(x, b);
         
-        binbuf_addv(b, ";");
+        binbuf_addv(b, (char *)";");
         canvas_resume_dsp(state);
     }
 }

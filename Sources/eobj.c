@@ -147,7 +147,7 @@ void eobj_dosave(t_eobj* x, t_binbuf *b)
     t_eclass* c = eobj_getclass(x);
     if(c && b)
     {
-        binbuf_addv(b, "ssii", &s__X, s_obj, (t_int)x->o_obj.te_xpix, (t_int)x->o_obj.te_ypix);
+        binbuf_addv(b, (char *)"ssii", &s__X, s_obj, (t_int)x->o_obj.te_xpix, (t_int)x->o_obj.te_ypix);
         d = x->o_obj.te_binbuf;
         if(d)
         {
@@ -157,7 +157,7 @@ void eobj_dosave(t_eobj* x, t_binbuf *b)
         {
             c->c_widget.w_save(x, b);
         }
-        binbuf_addv(b, ";");
+        binbuf_addv(b, (char *)";");
     }
 }
 

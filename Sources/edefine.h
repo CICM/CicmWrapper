@@ -38,7 +38,6 @@
 #include <io.h>
 #define _FUNCTION_DEPRECTAED_
 #else
-#pragma GCC diagnostic ignored "-Wwrite-strings"
 #include <unistd.h>
 #define _FUNCTION_DEPRECTAED_  __attribute__((deprecated))
 #endif
@@ -138,13 +137,13 @@ EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
  */
 
 //! Macros that define the a pi
-#define EPD_PI  (3.141592653589793238462643383279502884)
+#define EPD_PI  (3.141592653589793238462643383279502884f)
 //! Macros that define the a 2pi
-#define EPD_2PI (6.283185307179586476925286766559005)
+#define EPD_2PI (6.283185307179586476925286766559005f)
 //! Macros that define the a pi over 2
-#define EPD_PI2 (1.57079632679489661923132169163975144)
+#define EPD_PI2 (1.57079632679489661923132169163975144f)
 //! Macros that define the a pi over 4
-#define EPD_PI4 (0.785398163397448309615660845819875721)
+#define EPD_PI4 (0.785398163397448309615660845819875721f)
 
 /**
  * @enum elayer_flags
@@ -484,9 +483,9 @@ typedef struct t_eattr
     t_err_method    getter;     /*!< The getter method of the attribute. */
     t_err_method    setter;     /*!< The setter method of the attribute. */
     long            clipped;    /*!< If the attribute is clipped if it's value or an array of numerical values. */
-    double          minimum;    /*!< The minimum value of the attribute. */
-    double          maximum;    /*!< The maximum value of the attribute. */
-    double          step;       /*!< The increment or decrement step calue of the attribute. */
+    float           minimum;    /*!< The minimum value of the attribute. */
+    float           maximum;    /*!< The maximum value of the attribute. */
+    float           step;       /*!< The increment or decrement step calue of the attribute. */
     t_symbol*       defvals;    /*!< The default value of the attribute. */
     t_symbol**      itemslist;  /*!< The available items of an attribute if it is a menu. */
     long            itemssize;  /*!< The number of available items of an attribute if it is a menu. */
