@@ -319,7 +319,7 @@ int atoms_get_keys(int ac, t_atom* av, t_symbol*** keys)
     int size = atoms_get_nattributes(ac, av);
     if(size)
     {
-        keys[0] = getbytes((size_t)size * sizeof(t_symbol *));
+        keys[0] = malloc((size_t)size * sizeof(t_symbol *));
         if(keys[0])
         {
             for(i = 0, j = 0; i < ac; i++)
@@ -413,19 +413,19 @@ t_pd_err atoms_get_attribute(int ac, t_atom* av, t_symbol *key, int *argc, t_ato
 
     if(argc[0])
     {
-        argv[0] = (t_atom *)getbytes((size_t)argc[0] * sizeof(t_atom));
+        argv[0] = (t_atom *)malloc((size_t)argc[0] * sizeof(t_atom));
         if(argv[0])
         {
             memcpy(argv[0], av+index, (size_t)argc[0] * sizeof(t_atom));
             newsize = unformat_atoms(argc[0], argv[0]);
             if(newsize)
             {
-                argv[0] = (t_atom *)resizebytes(argv[0], (size_t)argc[0] * sizeof(t_atom), (size_t)newsize * sizeof(t_atom));
+                argv[0] = (t_atom *)realloc(argv[0], (size_t)newsize * sizeof(t_atom));
                 argc[0] = (int)newsize;
             }
             else
             {
-                freebytes(argv[0], (size_t)argc[0] * sizeof(t_atom));
+                free(argv[0]);
             }
             return 0;
         }
@@ -462,10 +462,10 @@ t_pd_err atoms_get_attribute_long(int ac, t_atom* av, t_symbol *key, long *value
             if(atom_gettype(argv) == A_FLOAT)
             {
                 value[0] = atom_getlong(argv);
-                freebytes(argv, (size_t)argc * sizeof(t_atom));
+                free(argv);
                 return 0;
             }
-            freebytes(argv, (size_t)argc * sizeof(t_atom));
+            free(argv);
         }
         return -1;
     }
@@ -490,10 +490,10 @@ t_pd_err atoms_get_attribute_float(int ac, t_atom* av, t_symbol *key, float *val
         if(atom_gettype(argv) == A_FLOAT)
         {
             value[0] = atom_getfloat(argv);
-            freebytes(argv, (size_t)argc * sizeof(t_atom));
+            free(argv);
             return 0;
         }
-        freebytes(argv, (size_t)argc * sizeof(t_atom));
+        free(argv);
     }
     return -1;
 }

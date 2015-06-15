@@ -1266,7 +1266,7 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
 {
     int i, j;
     char text[MAXPDSTRING];
-    
+    t_elayer* temp;
     for(i = 0; i < x->b_number_of_layers; i++)
     {
         t_elayer* graphic = &x->b_layers[i];
@@ -1296,6 +1296,7 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
                 if(graphic->e_objects)
                 {
                     free(graphic->e_objects);
+                    graphic->e_objects = NULL;
                 }
                 graphic->e_number_objects  = 0;
                 if(graphic->e_new_objects.e_points)
@@ -1317,11 +1318,16 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
         }
     }
     if(x->b_layers == NULL)
-        x->b_layers = (t_elayer*)calloc(1, sizeof(t_elayer));
+    {
+        temp = (t_elayer*)calloc(1, sizeof(t_elayer));
+    }
     else
-        x->b_layers = (t_elayer*)realloc(x->b_layers, (size_t)(x->b_number_of_layers + 1) * sizeof(t_elayer));
+    {
+        temp = (t_elayer*)realloc(x->b_layers, (size_t)(x->b_number_of_layers + 1) * sizeof(t_elayer));
+    }
     if(x->b_layers)
     {
+        x->b_layers = temp;
         t_elayer* graphic = x->b_layers+x->b_number_of_layers;
         x->b_number_of_layers++;
         
