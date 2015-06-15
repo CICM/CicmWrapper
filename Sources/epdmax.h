@@ -41,13 +41,8 @@ typedef t_edspobj       t_pxobject;
 typedef t_edspbox       t_pxjbox;
 typedef t_binbuf        t_dictionary;
 
-#define pd_library_add_folder epd_add_folder
-#define object_error       pd_error
-#define sys_getdspstate()  canvas_dspstate
 #define A_LONG             A_FLOAT
 #define A_SYM              A_SYMBOL
-#define ASSIST_INLET       1
-#define ASSIST_OUTLET      2
 #define atom_getsym(atom)  atom_getsymbol(atom)
 
 #define outlet_int(outlet, val) outlet_float(outlet, (float)val)
@@ -56,8 +51,17 @@ typedef t_binbuf        t_dictionary;
 #define symbolout(x) outlet_new((t_object *)x, &s_symbol)
 #define listout(x) outlet_new((t_object *)x, &s_list)
 #define anythingout(x) outlet_new((t_object *)x, &s_anything)
+
 #define object_attr_setvalueof eobj_attr_setvalueof
 #define object_attr_getvalueof eobj_attr_getvalueof
+
+/*
+#define pd_library_add_folder epd_add_folder
+#define object_error       pd_error
+
+#define ASSIST_INLET       1
+#define ASSIST_OUTLET      2
+#define sys_getdspstate()  canvas_dspstate
 
 #define JGRAPHICS_2PI       EPD_2PI
 #define JGRAPHICS_PI        EPD_PI
@@ -175,6 +179,6 @@ typedef t_binbuf        t_dictionary;
 
 #define cicm_rgba_addContrast(color, contrast)       rgba_addContrast(color, contrast)    
 
-
+*/
 #endif
 

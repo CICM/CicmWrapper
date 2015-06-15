@@ -422,12 +422,12 @@ t_pd_err atoms_get_attribute(int ac, t_atom* av, t_symbol *key, int *argc, t_ato
             {
                 argv[0] = (t_atom *)realloc(argv[0], (size_t)newsize * sizeof(t_atom));
                 argc[0] = (int)newsize;
+                return 0;
             }
             else
             {
                 free(argv[0]);
             }
-            return 0;
         }
         argc[0] = 0;
         argv[0] = NULL;
@@ -484,16 +484,19 @@ t_pd_err atoms_get_attribute_float(int ac, t_atom* av, t_symbol *key, float *val
 {
     int argc = 0;
     t_atom* argv = NULL;
-    atoms_get_attribute(ac, av, key, &argc, &argv);
-    if(argc && argv)
+    if(!atoms_get_attribute(ac, av, key, &argc, &argv))
     {
-        if(atom_gettype(argv) == A_FLOAT)
+        if(argc && argv)
         {
-            value[0] = atom_getfloat(argv);
+            if(atom_gettype(argv) == A_FLOAT)
+            {
+                value[0] = atom_getfloat(argv);
+                free(argv);
+                return 0;
+            }
             free(argv);
-            return 0;
         }
-        free(argv);
+        return -1;
     }
     return -1;
 }

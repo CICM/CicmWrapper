@@ -126,7 +126,7 @@ char eobj_isdsp(void *x)
 {
     t_eobj*     z = (t_eobj *)x;
     t_eclass*   c = eobj_getclass(z);
-    if(c->c_widget.w_dsp)
+    if(c->c_dsp && c->c_widget.w_dsp)
         return 1;
     else
         return 0;
@@ -447,6 +447,7 @@ void eobj_dsp(void *x, t_signal **sp)
         samplesize = sp[0]->s_n;
         if(eobj_isbox(x))
         {
+            box->d_perform_method = NULL;
             if(box->d_misc == E_NO_INPLACE)
             {
                 if(box->d_sigs_out)
@@ -501,7 +502,7 @@ void eobj_dsp(void *x, t_signal **sp)
             }
             else
             {
-                temp = (t_int *)malloc((size_t)box->d_dsp_size * sizeof(t_int));
+                temp = (t_int *)malloc((size_t)(nins + nouts + 6) * sizeof(t_int));
             }
             if(!temp)
             {
@@ -523,7 +524,7 @@ void eobj_dsp(void *x, t_signal **sp)
             count = (short*)malloc((size_t)(nins + nouts) * sizeof(short));
             if(count)
             {
-                for(i = 0; i < (obj_nsiginlets((t_object *)box) + obj_nsigoutlets((t_object *)box)); i++)
+                for(i = 0; i < (nins + nouts); i++)
                 {
                     count[i] = 0;
                 }
@@ -545,7 +546,23 @@ void eobj_dsp(void *x, t_signal **sp)
                 
                 for(i = 6; i < box->d_dsp_size; i++)
                 {
-                    box->d_dsp_vectors[i] = (t_int)(sp[i - 6]->s_vec);
+                    if(sp[i - 6] && sp[i - 6]->s_vec)
+                    {
+                        obj->d_dsp_vectors[i] = (t_int)(sp[i - 6]->s_vec);
+                    }
+                    else
+                    {
+                        free(count);
+                        free(obj->d_dsp_vectors);
+                        box->d_dsp_vectors = NULL;
+                        free(obj->d_sigs_real);
+                        box->d_sigs_real = NULL;
+                        free(obj->d_sigs_out);
+                        box->d_sigs_out = NULL;
+                        box->d_dsp_size = 0;
+                        pd_error(x, "one of the signal isn't allocated.");
+                        return;
+                    }
                 }
                 
                 if(c->c_widget.w_dsp != NULL)
@@ -573,6 +590,7 @@ void eobj_dsp(void *x, t_signal **sp)
         }
         else
         {
+            obj->d_perform_method = NULL;
             if(obj->d_misc == E_NO_INPLACE)
             {
                 if(obj->d_sigs_out)
@@ -590,7 +608,7 @@ void eobj_dsp(void *x, t_signal **sp)
                         free(obj->d_sigs_out);
                         obj->d_sigs_out = NULL;
                     }
-                    pd_error(obj, "can't allocate memory for ni inpace processing.");
+                    pd_error(obj, "can't allocate memory for the inplace processing.");
                     return;
                 }
                 obj->d_sigs_out = tempout;
@@ -629,7 +647,7 @@ void eobj_dsp(void *x, t_signal **sp)
             }
             else
             {
-                temp = (t_int *)malloc((size_t)obj->d_dsp_size * sizeof(t_int));
+                temp = (t_int *)malloc((size_t)(nins + nouts + 6) * sizeof(t_int));
             }
             if(!temp)
             {
@@ -679,7 +697,14 @@ void eobj_dsp(void *x, t_signal **sp)
                     }
                     else
                     {
-                        freebytes(count, (size_t)(nins + nouts) * sizeof(short));
+                        free(count);
+                        free(obj->d_dsp_vectors);
+                        obj->d_dsp_vectors = NULL;
+                        free(obj->d_sigs_real);
+                        obj->d_sigs_real = NULL;
+                        free(obj->d_sigs_out);
+                        obj->d_sigs_out = NULL;
+                        obj->d_dsp_size = 0;
                         pd_error(x, "one of the signal isn't allocated.");
                         return;
                     }
@@ -763,10 +788,10 @@ t_int* eobj_perform(t_int* w)
     void* user_p            = (void *)(w[4]);
     long nins               = (long)(w[5]);
     long nouts              = (long)(w[6]);
-    t_float** ins           = (t_float **)(&w[7]);
-    t_float** outs          = (t_float **)(&w[7 + nins]);
+    t_sample** ins           = (t_sample **)(&w[7]);
+    t_sample** outs          = (t_sample **)(&w[7 + nins]);
     
-    x->d_perform_method(x, NULL, ins, nins, outs, nouts, nsamples, flag, user_p);
+    x->d_perform_method(x, (t_object *)NULL, ins, nins, outs, nouts, nsamples, flag, user_p);
     
     return w + (x->d_dsp_size + 1);
 }
@@ -780,10 +805,10 @@ t_int* eobj_perform_no_inplace(t_int* w)
     void* user_p            = (void *)(w[4]);
     long nins               = (long)(w[5]);
     long nouts              = (long)(w[6]);
-    t_float** ins           = (t_float **)(&w[7]);
-    t_float** outs          = (t_float **)(&w[7 + nins]);
+    t_sample** ins           = (t_sample **)(&w[7]);
+    t_sample** outs          = (t_sample **)(&w[7 + nins]);
     
-    x->d_perform_method(x, NULL, ins, nins, x->d_sigs_out, nouts, nsamples, flag, user_p);
+    x->d_perform_method(x, (t_object *)NULL, ins, nins, x->d_sigs_out, nouts, nsamples, flag, user_p);
     
     for(i = 0; i < nouts; i++)
     {
@@ -800,10 +825,10 @@ t_int* eobj_perform_box(t_int* w)
     void* user_p            = (void *)(w[4]);
     long nins               = (long)(w[5]);
     long nouts              = (long)(w[6]);
-    t_float** ins           = (t_float **)(&w[7]);
-    t_float** outs          = (t_float **)(&w[7 + nins]);
+    t_sample** ins           = (t_sample **)(&w[7]);
+    t_sample** outs          = (t_sample **)(&w[7 + nins]);
     
-    x->d_perform_method(x, NULL, ins, nins, outs, nouts, nsamples, flag, user_p);
+    x->d_perform_method(x, (t_object *)NULL, ins, nins, outs, nouts, nsamples, flag, user_p);
     
     return w + (x->d_dsp_size + 1);
 }
@@ -817,10 +842,10 @@ t_int* eobj_perform_box_no_inplace(t_int* w)
     void* user_p            = (void *)(w[4]);
     long nins               = (long)(w[5]);
     long nouts              = (long)(w[6]);
-    t_float** ins           = (t_float **)(&w[7]);
-    t_float** outs          = (t_float **)(&w[7 + nins]);
+    t_sample** ins           = (t_sample **)(&w[7]);
+    t_sample** outs          = (t_sample **)(&w[7 + nins]);
     
-    x->d_perform_method(x, NULL, ins, nins, x->d_sigs_out, nouts, nsamples, flag, user_p);
+    x->d_perform_method(x, (t_object *)NULL, ins, nins, x->d_sigs_out, nouts, nsamples, flag, user_p);
     
     for(i = 0; i < nouts; i++)
     {
