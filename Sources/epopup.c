@@ -45,7 +45,7 @@ void epopupmenu_setfont(t_epopup* popup, t_efont *font)
     sys_vgui(".eboxpopup%s configure -font {%s %d %s italic}\n", popup->c_name->s_name, font[0].c_family->s_name, (int)font[0].c_size, font[0].c_weight->s_name, font[0].c_slant->s_name);
 }
 
-void epopupmenu_additem(t_epopup* popup, int itemid, char *text, char checked, char disabled)
+void epopupmenu_additem(t_epopup* popup, int itemid, const char *text, char checked, char disabled)
 {
     sys_vgui(".eboxpopup%s add command ", popup->c_name->s_name);
     sys_vgui("-command {pdsend {%s popup %s %f}} ", popup->c_send->s_name, popup->c_name->s_name, (float)itemid);

@@ -27,7 +27,20 @@
 #ifndef DEF_EPD_MAX
 #define DEF_EPD_MAX
 
-typedef t_typ_method method;
+typedef t_typ_method    method;
+typedef t_matrix        t_jmatrix;
+typedef t_elayer        t_jgraphics;
+typedef t_rgba          t_jrgba;
+typedef t_etext         t_jtextlayout;
+typedef t_efont         t_jfont;
+typedef t_epopup        t_jpopupmenu;
+typedef t_edrawparams   t_jboxdrawparams;
+typedef t_pd_err        t_max_err;
+typedef t_ebox          t_jbox;
+typedef t_edspobj       t_pxobject;
+typedef t_edspbox       t_pxjbox;
+typedef t_binbuf        t_dictionary;
+
 #define pd_library_add_folder epd_add_folder
 #define object_error       pd_error
 #define sys_getdspstate()  canvas_dspstate
@@ -45,6 +58,9 @@ typedef t_typ_method method;
 #define anythingout(x) outlet_new((t_object *)x, &s_anything)
 #define object_attr_setvalueof eobj_attr_setvalueof
 #define object_attr_getvalueof eobj_attr_getvalueof
+
+#define JGRAPHICS_2PI       EPD_2PI
+#define JGRAPHICS_PI        EPD_PI
 
 #define JBOX_DRAWFIRSTIN        0
 #define JBOX_NODRAWBOX          0
@@ -68,33 +84,28 @@ typedef t_typ_method method;
 #define JBOX_DRAWBACKGROUND     0
 #define JBOX_NOINSPECTFIRSTIN   0
 
-#define t_jbox              t_ebox
-#define t_pxobject          t_ebox
-
 #define Z_NO_INPLACE E_NO_INPLACE
 #define Z_PUT_LAST 2
 #define Z_PUT_FIRST 4
 #define Z_IGNORE_DISABLE 8
 
-#define t_jboxdrawparams    t_edrawparams
-#define t_max_err           t_pd_err
 
-#define class_new                                   eclass_new
-#define class_addmethod                             eclass_addmethod
+//#define class_new                                   eclass_new
+//#define class_addmethod                             eclass_addmethod
  
 #define jbox_initclass(class, flags)                eclass_guiinit(class, flags)
 #define class_dspinit(class)                        eclass_dspinit(class)
 #define class_dspinitjbox(class)                    eclass_dspinit(class)
 #define class_register(name, class)
 #define object_alloc(class)                         eobj_new(class)
-#define jbox_new(t_jbox, flags, argc, argv)         ebox_new(t_jbox, flags, argc, argv)
-#define dsp_setupjbox(t_jbox, nins, nouts)          ebox_dspsetup(t_jbox, nins, nouts)
+#define jbox_new(t_jbox, flags, argc, argv)         ebox_new(t_jbox, flags)
+#define dsp_setupjbox(t_jbox, nins, nouts)          eobj_dspsetup(t_jbox, nins, nouts)
 #define jbox_ready(t_jbox)                          ebox_ready(t_jbox)
 #define jbox_free(t_jbox)                           ebox_free(t_jbox)
-#define dsp_freejbox(t_jbox)                        ebox_dspfree(t_jbox)
+#define dsp_freejbox(t_jbox)                        ebox_free(t_jbox)
 #define jbox_redraw(t_jbox)                         ebox_redraw(t_jbox)
-#define jbox_resize_inputs(t_jbox, nins)            ebox_resize_inputs(t_jbox, nins)
-#define jbox_resize_outputs(t_jbox, nouts)          ebox_resize_outputs(t_jbox, nouts)
+#define jbox_resize_inputs(t_jbox, nins)            eobj_resize_inputs(t_jbox, nins)
+#define jbox_resize_outputs(t_jbox, nouts)          
 #define jbox_get_rect_for_view(t_object, view, rect) ebox_get_rect_for_view(t_object, view, rect)
 #define jmouse_setcursor(patcherview, t_jbox, mode) ebox_set_cursor(t_jbox, mode)
 #define jbox_start_layer(box, view, name, x, y)     ebox_start_layer((t_ebox *)box, name, x, y)
@@ -103,12 +114,12 @@ typedef t_typ_method method;
 #define jbox_paint_layer(box, view, name, x, y)     ebox_paint_layer((t_ebox *)box, name, x, y)
 #define jbox_notify(object, s, msg, sender, data)   ebox_notify(object, s, msg, sender, data)
 
-#define jbox_get_fontname(object)                   ebox_get_fontname(object)
-#define jbox_get_font_slant(object)                 ebox_font_slant(object)
-#define jbox_get_font_weight(object)                ebox_font_weight(object)
-#define jbox_get_fontsize(object)                   ebox_font_size(object)
+#define jbox_get_fontname(object)                   ebox_getfontname(object)
+#define jbox_get_font_slant(object)                 ebox_getfontslant(object)
+#define jbox_get_font_weight(object)                ebox_getfontweight(object)
+#define jbox_get_fontsize(object)                   ebox_getfontsize(object)
 
-#define t_dictionary                                t_binbuf
+
 #define dictionary_new                              binbuf_new
 #define dictionary_free                             binbuf_free
 #define dictionary_write(dict, filename, dir)       binbuf_write(dict, filename, dir, 0)
@@ -132,17 +143,6 @@ typedef t_typ_method method;
 #define jpopupmenu_destroy(menu)                    (menu = menu) // Useless...
 #define jpopupmenu_addseperator(menu)               epopupmenu_addseperator(menu)
 #define jpopupmenu_additem(menu, itemid, text, textColor, checked, disabled, icon) epopupmenu_additem(menu, itemid, text, checked, disabled)
-
-
-#define JGRAPHICS_2PI       CICM_2PI
-#define JGRAPHICS_PI        CICM_PI
-
-#define t_jmatrix           t_matrix
-#define t_jgraphics         t_elayer
-#define t_jrgba             t_rgba
-#define t_jtextlayout       t_etext
-#define t_jfont             t_efont
-#define t_jpopupmenu        t_epopup
 
 #define jgraphics_set_line_width    egraphics_set_line_width
 #define jgraphics_fill              egraphics_fill

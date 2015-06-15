@@ -67,7 +67,7 @@ void epopupmenu_setfont(t_epopup *popup, t_efont *font);
  * \param checked If the item is marked as checked or not.
  * \param disabled If the item is marked as disabled or not.
  */
-void epopupmenu_additem(t_epopup *popup, int itemid, char *text, char checked, char disabled);
+void epopupmenu_additem(t_epopup *popup, int itemid, const char *text, char checked, char disabled);
 
 /*!
  * \fn          void epopupmenu_addseperator(t_epopup *popup)
