@@ -53,7 +53,7 @@ void epd_init(void);
  * \param argv  The array of t_atom.
  * \return The index of the first attribute or the maximum if there's no attribute.
  */
-long atoms_get_attributes_offset(int argc, t_atom* argv);
+int atoms_get_attributes_offset(int argc, t_atom* argv);
 
 /*!
  * \fn          long binbuf_get_attributes_offset(t_binbuf *d)
@@ -62,7 +62,7 @@ long atoms_get_attributes_offset(int argc, t_atom* argv);
  * \param d     The t_binbuf.
  * \return The index of the first attribute or the maximum if there's no attribute.
  */
-long binbuf_get_attributes_offset(t_binbuf *d);
+int binbuf_get_attributes_offset(t_binbuf *d);
 
 /*!
  * \fn          long atoms_get_nattributes(int ac, t_atom* av)
@@ -72,7 +72,7 @@ long binbuf_get_attributes_offset(t_binbuf *d);
  * \param argv  The array of t_atom.
  * \return The number of attributes.
  */
-long atoms_get_nattributes(int argc, t_atom* argv);
+int atoms_get_nattributes(int argc, t_atom* argv);
 
 /*!
  * \fn          long binbuf_get_nattributes(t_binbuf *d)
@@ -81,7 +81,7 @@ long atoms_get_nattributes(int argc, t_atom* argv);
  * \param d     The t_binbuf.
  * \return The number of attributes.
  */
-long binbuf_get_nattributes(t_binbuf *d);
+int binbuf_get_nattributes(t_binbuf *d);
 
 /*!
  * \fn          t_pd_err atoms_has_attribute(int ac, t_atom* av, t_symbol *key)
@@ -113,7 +113,7 @@ t_pd_err binbuf_has_attribute(t_binbuf *d, t_symbol *key);
  * \param key   The key of the attribute.
  * \return The position of the attribute or the maximum if the attribute isn't in the array.
  */
-long atoms_get_attribute_index(int argc, t_atom *argv, t_symbol *key);
+int atoms_get_attribute_index(int argc, t_atom *argv, t_symbol *key);
 
 /*!
  * \fn          long binbuf_get_attribute_index(t_binbuf *d, t_symbol *key)
@@ -123,7 +123,7 @@ long atoms_get_attribute_index(int argc, t_atom *argv, t_symbol *key);
  * \param key   The key of the attribute.
  * \return The position of the attribute or the maximum if the attribute isn't in the array.
  */
-long binbuf_get_attribute_index(t_binbuf *d, t_symbol *key);
+int binbuf_get_attribute_index(t_binbuf *d, t_symbol *key);
 
 /*!
  * \fn          t_pd_err atoms_get_attribute(int ac, t_atom* av, t_symbol *key, int *argc, t_atom **argv)
@@ -205,7 +205,7 @@ t_pd_err binbuf_get_attribute_float(t_binbuf *d, t_symbol *key, float *value);
  * \param keys  The pointer to an array of t_symbol* that will be allocated if keys has been found.
  * \return The number of keys.
  */
-long atoms_get_keys(int ac, t_atom* av, t_symbol*** keys);
+int atoms_get_keys(int ac, t_atom* av, t_symbol*** keys);
 
 /*!
  * \fn          long binbuf_get_keys(t_binbuf *d, t_symbol*** keys)
@@ -215,7 +215,7 @@ long atoms_get_keys(int ac, t_atom* av, t_symbol*** keys);
  * \param keys  The pointer to an array of t_symbol* that will be allocated if keys has been found.
  * \return The number of keys.
  */
-long binbuf_get_keys(t_binbuf *d, t_symbol*** keys);
+int binbuf_get_keys(t_binbuf *d, t_symbol*** keys);
 
 /*!
  * \fn          t_binbuf* binbuf_via_atoms(int ac, t_atom *av)

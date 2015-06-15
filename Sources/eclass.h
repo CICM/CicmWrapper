@@ -40,7 +40,7 @@
  */
 
 /*!
- * \fn          t_eclass* eclass_new(char *name, method newm, method freem, size_t size, int flags, t_atomtype arg1, int arg2)
+ * \fn          t_eclass* eclass_new(const char *name, t_typ_method newm, t_typ_method freem, size_t size, int flags, t_atomtype arg1, int arg2)
  * \brief       Allocates the memory and initialize a new t_eclass.
  * \details     Allocates and intializes the default Pd t_class then enlarges it to fit a t_eclass. \n This function should be replace class_new().
  * \param name  The class name.

@@ -1104,7 +1104,7 @@ void ebox_attrprint(t_ebox* x)
 
 void ebox_properties(t_ebox *x, t_glist *glist)
 {
-    int i, j;
+    int i, j, lenght;
     t_atom *argv = NULL;
     int    argc = 0;
     t_eclass* c = eobj_getclass(x);
@@ -1118,8 +1118,8 @@ void ebox_properties(t_ebox *x, t_glist *glist)
         if(!c->c_attr[i]->invisible)
         {
             eobj_attr_getvalueof((t_object *)x, c->c_attr[i]->name, &argc, &argv);
-            strcat(buffer, " ");
-            strcat(buffer, "\"");
+            strncat(buffer, " ", 1);
+            strncat(buffer, "\"", 1);
             if(argc && argv)
             {
 #ifndef _WINDOWS
@@ -1129,47 +1129,48 @@ void ebox_properties(t_ebox *x, t_glist *glist)
 #endif
                     {
                         atom_string(argv+j, temp, MAXPDSTRING);
+                        lenght = (int)strlen(temp);
                         if(c->c_attr[i]->type == &s_symbol && strchr(temp, ' '))
                         {
-                            
-                            strcat(buffer, "'");
-                            strcat(buffer, temp);
-                            strcat(buffer, "'");
+                            strncat(buffer, "'", 1);
+                            strncat(buffer, temp, lenght);
+                            strncat(buffer, "'", 1);
                         }
                         else
                         {
-                            strcat(buffer, temp);
+                            strncat(buffer, temp, lenght);
                         }
-                        strcat(buffer, " ");
+                        strncat(buffer, " ", 1);
                     }
 #ifndef _WINDOWS
                 atom_string(argv+j, temp, MAXPDSTRING);
+                lenght = (int)strlen(temp);
                 if(c->c_attr[i]->type == &s_symbol && strchr(temp, ' '))
                 {
                     
-                    strcat(buffer, "'");
-                    strcat(buffer, temp);
-                    strcat(buffer, "'");
+                    strncat(buffer, "'", 1);
+                    strncat(buffer, temp, lenght);
+                    strncat(buffer, "'", 1);
                 }
                 else
                 {
-                    strcat(buffer, temp);
+                    strncat(buffer, temp, lenght);
                 }
                 free(argv);
                 argc = 0;
 #endif
             }
-            strcat(buffer, "\"");
+            strncat(buffer, "\"", 1);
         }
     }
-    strcat(buffer, "\n");
+    strncat(buffer, "\n", 1);
     
     gfxstub_new((t_pd *)x, x, buffer);
 }
 
 void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
 {
-    int i;
+    int i, lenght;
     int attrindex;
     t_eclass* c = eobj_getclass(x);
     t_atom *av;
@@ -1209,8 +1210,9 @@ void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
                         for(i = 1; i < ac; i++)
                         {
                             atom_string(av+i, temp, MAXPDSTRING);
-                            strcat(buffer, " ");
-                            strcat(buffer, temp);
+                            lenght = (int)strlen(temp);
+                            strncat(buffer, " ", 1);
+                            strncat(buffer, temp, lenght);
                         }
                         sys_vgui("%s.sele%i.selec delete 0 end \n", atom_getsymbol(argv)->s_name, attrindex+1);
                         sys_vgui("%s.sele%i.selec insert 0 \"%s\" \n", atom_getsymbol(argv)->s_name, attrindex+1, buffer);
@@ -1221,8 +1223,9 @@ void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
                         for(i = 1; i < ac; i++)
                         {
                             atom_string(av+i, temp, MAXPDSTRING);
-                            strcat(buffer, " ");
-                            strcat(buffer, temp);
+                            lenght = (int)strlen(temp);
+                            strncat(buffer, " ", 1);
+                            strncat(buffer, temp, lenght);
                         }
                         sys_vgui("%s.sele%i.selec delete 0 end \n", atom_getsymbol(argv)->s_name, attrindex+1);
                         sys_vgui("%s.sele%i.selec insert 0 \"%s\" \n", atom_getsymbol(argv)->s_name, attrindex+1, buffer);

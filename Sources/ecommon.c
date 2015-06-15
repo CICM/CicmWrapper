@@ -204,7 +204,7 @@ static long unformat_atoms(int ac, t_atom* av)
 {
     int i, lenght, newize = 0;
     char str = 0;
-    char temp[MAXPDSTRING];
+    char temp[256];
     char buffer[MAXPDSTRING];
     t_symbol* s;
     for(i = 0; i < ac; i++)
@@ -228,7 +228,7 @@ static long unformat_atoms(int ac, t_atom* av)
                 else
                 {
                     lenght = (int)strlen(buffer);
-                    strcat(buffer, " ");
+                    strncat(buffer, " ", 1);
                     str = (char)unformat_symbol(s->s_name, buffer+lenght+1, MAXPDSTRING-lenght-1);
                 }
                 if(!str)
@@ -255,7 +255,7 @@ static long unformat_atoms(int ac, t_atom* av)
                 temp[lenght - 1] = '\0';
                 lenght--;
             }
-            strcat(buffer, temp);
+            strncat(buffer, temp, lenght);
         }
         else
         {
@@ -278,9 +278,9 @@ t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, int argc, t_atom *a
     return -1;
 }
 
-long atoms_get_attributes_offset(int argc, t_atom* argv)
+int atoms_get_attributes_offset(int argc, t_atom* argv)
 {
-    long i;
+    int i;
     for(i = 0; i < argc; i++)
     {
         if(atom_gettype(argv+i) == A_SYMBOL && atom_getsymbol(argv+i)->s_name[0] == '@')
@@ -288,17 +288,17 @@ long atoms_get_attributes_offset(int argc, t_atom* argv)
             break;
         }
     }
-    return (long)pd_clip_minmax(i, 0, argc);
+    return (int)pd_clip_minmax(i, 0, argc);
 }
 
-long binbuf_get_attributes_offset(t_binbuf *d)
+int binbuf_get_attributes_offset(t_binbuf *d)
 {
     return atoms_get_attributes_offset(binbuf_getnatom(d), binbuf_getvec(d));
 }
 
-long atoms_get_nattributes(int argc, t_atom* argv)
+int atoms_get_nattributes(int argc, t_atom* argv)
 {
-    long i, j;
+    int i, j;
     for(i = 0, j = 0; i < argc; i++)
     {
         if(atom_gettype(argv+i) == A_SYMBOL && atom_getsymbol(argv+i)->s_name[0] == '@')
@@ -309,15 +309,15 @@ long atoms_get_nattributes(int argc, t_atom* argv)
     return j;
 }
 
-long binbuf_get_nattributes(t_binbuf *d)
+int binbuf_get_nattributes(t_binbuf *d)
 {
     return atoms_get_nattributes(binbuf_getnatom(d), binbuf_getvec(d));
 }
 
-long atoms_get_keys(int ac, t_atom* av, t_symbol*** keys)
+int atoms_get_keys(int ac, t_atom* av, t_symbol*** keys)
 {
-    long i, j;
-    long size = atoms_get_nattributes(ac, av);
+    int i, j;
+    int size = atoms_get_nattributes(ac, av);
     if(size)
     {
         keys[0] = getbytes((size_t)size * sizeof(t_symbol *));
@@ -337,7 +337,7 @@ long atoms_get_keys(int ac, t_atom* av, t_symbol*** keys)
     return 0;
 }
 
-long binbuf_get_keys(t_binbuf *d, t_symbol*** keys)
+int binbuf_get_keys(t_binbuf *d, t_symbol*** keys)
 {
     return atoms_get_keys(binbuf_getnatom(d), binbuf_getvec(d), keys);
 }
@@ -367,7 +367,7 @@ t_pd_err binbuf_has_attribute(t_binbuf *d, t_symbol *key)
         return -1;
 }
 
-long atoms_get_attribute_index(int argc, t_atom *argv, t_symbol *key)
+int atoms_get_attribute_index(int argc, t_atom *argv, t_symbol *key)
 {
     int i;
     if(argc && argv)
@@ -384,7 +384,7 @@ long atoms_get_attribute_index(int argc, t_atom *argv, t_symbol *key)
     return -1;
 }
 
-long binbuf_get_attribute_index(t_binbuf *d, t_symbol *key)
+int binbuf_get_attribute_index(t_binbuf *d, t_symbol *key)
 {
     return atoms_get_attribute_index(binbuf_getnatom(d), binbuf_getvec(d), key);
 }

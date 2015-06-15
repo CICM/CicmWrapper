@@ -851,7 +851,7 @@ static void ewidget_init(t_eclass* c)
  */
 static void eclass_properties_dialog(t_eclass* c)
 {
-    int i, j;
+    int i, j, lenght;
     char buffer[1000];
     char temp[1000];
     
@@ -878,10 +878,12 @@ static void eclass_properties_dialog(t_eclass* c)
             sys_gui("if {$nB2 > 1.} {set nB2 1.} \n");
             sprintf(buffer, "set cmd [concat $id dialog $id %i ", i+1);
             sprintf(temp, "@%s ", c->c_attr[i]->name->s_name);
-            strcat(buffer, temp);
+            lenght = (int)strlen(temp);
+            strncat(buffer, temp, lenght);
             sprintf(temp, "[concat $nR2 $nG2 $nB2] ");
-            strcat(buffer, temp);
-            strcat(buffer, "]\n");
+            lenght = (int)strlen(temp);
+            strncat(buffer, temp, lenght);
+            strncat(buffer, "]\n", 2);
             sys_gui(buffer);
             sys_gui("pdsend $cmd\n");
             sys_gui("}\n");
@@ -894,10 +896,12 @@ static void eclass_properties_dialog(t_eclass* c)
             sys_vgui("global $var_%s \n", c->c_attr[i]->name->s_name);
             sprintf(buffer, "set cmd [concat $id dialog $id %i ", i+1);
             sprintf(temp, "@%s ", c->c_attr[i]->name->s_name);
-            strcat(buffer, temp);
+            lenght = (int)strlen(temp);
+            strncat(buffer, temp, lenght);
             sprintf(temp, "[eval concat $$var_%s] ", c->c_attr[i]->name->s_name);
-            strcat(buffer, temp);
-            strcat(buffer, "]\n");
+            lenght = (int)strlen(temp);
+            strncat(buffer, temp, lenght);
+            strncat(buffer, "]\n", 2);
             sys_gui(buffer);
             sys_gui("pdsend $cmd\n");
             sys_gui("}\n");
