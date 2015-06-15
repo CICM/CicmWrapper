@@ -651,7 +651,7 @@ void eobj_dsp(void *x, t_signal **sp)
             count = (short*)malloc((size_t)(nins + nouts) * sizeof(short));
             if(count)
             {
-                for(i = 0; i < (obj_nsiginlets((t_object *)obj) + obj_nsigoutlets((t_object *)obj)); i++)
+                for(i = 0; i < (nins + nouts); i++)
                 {
                     count[i] = 0;
                 }
@@ -673,16 +673,31 @@ void eobj_dsp(void *x, t_signal **sp)
                 
                 for(i = 6; i < obj->d_dsp_size; i++)
                 {
-                    obj->d_dsp_vectors[i] = (t_int)(sp[i - 6]->s_vec);
+                    if(sp[i - 6] && sp[i - 6]->s_vec)
+                    {
+                        obj->d_dsp_vectors[i] = (t_int)(sp[i - 6]->s_vec);
+                    }
+                    else
+                    {
+                        freebytes(count, (size_t)(nins + nouts) * sizeof(short));
+                        pd_error(x, "one of the signal isn't allocated.");
+                        return;
+                    }
                 }
                 
                 if(c->c_widget.w_dsp != NULL)
+                {
                     c->c_widget.w_dsp(x, x, count, sp[0]->s_sr, sp[0]->s_n, 0);
+                }
                 
                 if(obj->d_perform_method != NULL && obj->d_misc == E_INPLACE)
+                {
                     dsp_addv(eobj_perform, (int)obj->d_dsp_size, obj->d_dsp_vectors);
+                }
                 else if(obj->d_perform_method != NULL && obj->d_misc == E_NO_INPLACE)
+                {
                     dsp_addv(eobj_perform_no_inplace, (int)obj->d_dsp_size, obj->d_dsp_vectors);
+                }
                 
                 free(count);
                 return;
