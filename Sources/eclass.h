@@ -65,13 +65,22 @@ void eclass_guiinit(t_eclass* c, long flags);
 
 /*!
  * \fn          void eclass_init(t_eclass* c, long flags)
- * \brief       Initialize the t_eclass for the GUI behavior (Deprecated.
+ * \brief       Initialize the t_eclass for the GUI behavior (deprecated).
  * \details     Sets the defaults values and initializes the methods of the t_eclass for the GUI behavior.
  * \param c     The t_eclass pointer.
  * \param flags The dummy flags.
 * \deprecated Please use eclass_guiinit.
  */
 void eclass_init(t_eclass* c, long flags) _FUNCTION_DEPRECTAED_;
+
+/*!
+ * \fn          t_pd_err eclass_register(t_symbol *name, t_eclass *c)
+ * \brief       Initialize the t_eclass in a namespace and preprare the t_eclass to be ready.
+ * \details     Should always call this function after setting all the methods and attributes.
+ * \param name  The namespace obj or gui (dummy).
+ * \param c     The t_eclass pointer.
+ */
+t_pd_err eclass_register(t_symbol *name, t_eclass *c);
 
 /*!
  * \fn          void eclass_dspinit(t_eclass* c)

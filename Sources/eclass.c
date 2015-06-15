@@ -61,10 +61,27 @@ void eclass_init(t_eclass* c, long flags)
     eclass_guiinit(c, flags);
 }
 
+t_pd_err eclass_register(t_symbol *name, t_eclass *c)
+{
+    if(c->c_box && c->c_dsp)
+    {
+        CLASS_MAINSIGNALIN((t_class *)c, t_edspbox, d_float);
+    }
+    else if(c->c_dsp)
+    {
+        CLASS_MAINSIGNALIN((t_class *)c, t_edspobj, d_float);
+    }
+    if(c->c_nattr)
+    {
+        eclass_properties_dialog(c);
+        class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
+    }
+    return 0;
+}
+
 void eclass_guiinit(t_eclass* c, long flags)
 {
     ewidget_init(c);
-    eclass_properties_dialog(c);
     c->c_box = 1;
     
     // DEFAULT ATTRIBUTES //
@@ -147,13 +164,11 @@ void eclass_guiinit(t_eclass* c, long flags)
     
     class_setwidget((t_class *)&c->c_class, (t_widgetbehavior *)&c->c_widget);
     class_setsavefn((t_class *)&c->c_class, (t_savefn)eobj_save);
-    class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
 }
 
 void eclass_dspinit(t_eclass* c)
 {
     c->c_dsp = 1;
-    CLASS_MAINSIGNALIN((t_class *)c, t_edspbox, d_float);
     class_addmethod((t_class *)c, (t_method)eobj_dsp, gensym("dsp"), A_NULL, 0);
     class_addmethod((t_class *)c, (t_method)eobj_dsp_add, gensym("dsp_add"), A_NULL, 0);
     class_addmethod((t_class *)c, (t_method)eobj_dsp_add, gensym("dsp_add64"), A_NULL, 0);
