@@ -80,7 +80,7 @@ void eobj_free(void *x)
     }
     if(z->o_proxy && z->o_nproxy)
     {
-        freebytes(z->o_proxy, (size_t)z->o_nproxy * sizeof(t_eproxy *));
+        free(z->o_proxy);
         z->o_proxy = NULL;
         z->o_nproxy= 0;
     }
@@ -383,24 +383,23 @@ void eobj_dspfree(void *x)
 {
     t_edspobj* obj = (t_edspobj *)x;
     t_edspbox* box = (t_edspbox *)x;
-    size_t nouts = (size_t)obj_nsigoutlets((t_object *)x);
     if(eobj_isbox(x))
     {
         if(box->d_sigs_out)
-            freebytes(box->d_sigs_out, nouts * sizeof(t_float *));
+            free(box->d_sigs_out);
         if(box->d_sigs_real)
             free(box->d_sigs_real);
         if(box->d_dsp_vectors)
-            freebytes(box->d_dsp_vectors, (size_t)box->d_dsp_size * sizeof(t_int));
+            free(box->d_dsp_vectors);
     }
     else
     {
         if(obj->d_sigs_out)
-            freebytes(obj->d_sigs_out, nouts * sizeof(t_float *));
+            free(obj->d_sigs_out);
         if(obj->d_sigs_real)
             free(obj->d_sigs_real);
         if(obj->d_dsp_vectors)
-            freebytes(obj->d_dsp_vectors, (size_t)obj->d_dsp_size * sizeof(t_int));
+            free(obj->d_dsp_vectors);
     }
     eobj_free(x);
 }
@@ -432,6 +431,8 @@ void eobj_dsp(void *x, t_signal **sp)
 {
     int i;
     short* count;
+    t_int* temp;
+    t_float **tempout, *tempreal;
     t_linetraverser t;
     t_outconnect    *oc;
     t_edspobj* obj = (t_edspobj *)x;
@@ -450,31 +451,45 @@ void eobj_dsp(void *x, t_signal **sp)
             {
                 if(box->d_sigs_out)
                 {
-                    box->d_sigs_out = (t_float **)realloc(box->d_sigs_out, (size_t)nouts * sizeof(t_float *));
+                    tempout = (t_float **)realloc(box->d_sigs_out, (size_t)nouts * sizeof(t_float *));
                 }
                 else
                 {
-                    box->d_sigs_out = (t_float **)getbytes((size_t)nouts * sizeof(t_float *));
+                    tempout = (t_float **)malloc((size_t)nouts * sizeof(t_float *));
                 }
-                if(!box->d_sigs_out)
+                if(!tempout)
                 {
+                    if(box->d_sigs_out)
+                    {
+                        free(box->d_sigs_out);
+                        box->d_sigs_out = NULL;
+                    }
                     pd_error(box, "can't allocate memory for ni inpace processing.");
                     return;
                 }
-                if(box->d_sigs_out)
+                box->d_sigs_out = tempout;
+                
+                if(box->d_sigs_real)
                 {
-                    box->d_sigs_real = (t_float *)realloc(box->d_sigs_real, (size_t)(nouts * samplesize) * sizeof(t_float));
+                    tempreal = (t_float *)realloc(box->d_sigs_real, (size_t)(nouts * samplesize) * sizeof(t_float));
                 }
                 else
                 {
-                    box->d_sigs_real = (t_float *)getbytes((size_t)(nouts * samplesize) * sizeof(t_float));
+                    tempreal = (t_float *)malloc((size_t)(nouts * samplesize) * sizeof(t_float));
                 }
-                if(!box->d_sigs_real)
+                if(!tempreal)
                 {
+                    if(box->d_sigs_real)
+                    {
+                        free(box->d_sigs_real);
+                        box->d_sigs_real = NULL;
+                    }
                     free(box->d_sigs_out);
+                    box->d_sigs_out = NULL;
                     pd_error(box, "can't allocate memory for ni inpace processing.");
                     return;
                 }
+                box->d_sigs_real = tempreal;
                 for(i = 0; i < nouts; i++)
                 {
                     box->d_sigs_out[i] = box->d_sigs_real+i*samplesize;
@@ -482,20 +497,30 @@ void eobj_dsp(void *x, t_signal **sp)
             }
             if(box->d_dsp_vectors)
             {
-                box->d_dsp_vectors = (t_int *)resizebytes(box->d_dsp_vectors, (size_t)box->d_dsp_size * sizeof(t_int), (size_t)(nins + nouts + 6) * sizeof(t_int));
+                temp = (t_int *)realloc(box->d_dsp_vectors, (size_t)(nins + nouts + 6) * sizeof(t_int));
             }
             else
             {
-                box->d_dsp_vectors = (t_int *)getbytes((size_t)box->d_dsp_size * sizeof(t_int));
+                temp = (t_int *)malloc((size_t)box->d_dsp_size * sizeof(t_int));
             }
-            if(!box->d_dsp_vectors)
+            if(!temp)
             {
+                if(box->d_dsp_vectors)
+                {
+                    free(box->d_dsp_vectors);
+                    box->d_dsp_vectors = NULL;
+                }
+                free(box->d_sigs_real);
+                box->d_sigs_real = NULL;
+                free(box->d_sigs_out);
+                box->d_sigs_out = NULL;
                 box->d_dsp_size = 0;
                 pd_error(x, "can't allocate memory for dsp vector.");
                 return;
             }
+            box->d_dsp_vectors = temp;
             box->d_dsp_size = nins + nouts + 6;
-            count = (short*)getbytes((size_t)(nins + nouts) * sizeof(short));
+            count = (short*)malloc((size_t)(nins + nouts) * sizeof(short));
             if(count)
             {
                 for(i = 0; i < (obj_nsiginlets((t_object *)box) + obj_nsigoutlets((t_object *)box)); i++)
@@ -531,11 +556,18 @@ void eobj_dsp(void *x, t_signal **sp)
                 else if(box->d_perform_method != NULL && box->d_misc == E_NO_INPLACE)
                     dsp_addv(eobj_perform_box_no_inplace, (int)box->d_dsp_size, box->d_dsp_vectors);
                 
-                freebytes(count, (size_t)(nins + nouts) * sizeof(short));
+                free(count);
                 return;
             }
             else
             {
+                free(box->d_dsp_vectors);
+                box->d_dsp_vectors = NULL;
+                free(box->d_sigs_real);
+                box->d_sigs_real = NULL;
+                free(box->d_sigs_out);
+                box->d_sigs_out = NULL;
+                box->d_dsp_size = 0;
                 pd_error(x, "can't allocate memory for dsp chain counter.");
             }
         }
@@ -545,31 +577,46 @@ void eobj_dsp(void *x, t_signal **sp)
             {
                 if(obj->d_sigs_out)
                 {
-                    obj->d_sigs_out = (t_float **)realloc(obj->d_sigs_out, (size_t)nouts * sizeof(t_float *));
+                    tempout = (t_float **)realloc(obj->d_sigs_out, (size_t)nouts * sizeof(t_float *));
                 }
                 else
                 {
-                    obj->d_sigs_out = (t_float **)getbytes((size_t)nouts * sizeof(t_float *));
+                    tempout = (t_float **)malloc((size_t)nouts * sizeof(t_float *));
                 }
-                if(!obj->d_sigs_out)
+                if(!tempout)
                 {
+                    if(obj->d_sigs_out)
+                    {
+                        free(obj->d_sigs_out);
+                        obj->d_sigs_out = NULL;
+                    }
                     pd_error(obj, "can't allocate memory for ni inpace processing.");
                     return;
                 }
-                if(obj->d_sigs_out)
+                obj->d_sigs_out = tempout;
+                
+                if(obj->d_sigs_real)
                 {
-                    obj->d_sigs_real = (t_float *)realloc(obj->d_sigs_real, (size_t)(nouts * samplesize) * sizeof(t_float));
+                    tempreal = (t_float *)realloc(obj->d_sigs_real, (size_t)(nouts * samplesize) * sizeof(t_float));
                 }
                 else
                 {
-                    obj->d_sigs_real = (t_float *)getbytes((size_t)(nouts * samplesize) * sizeof(t_float));
+                    tempreal = (t_float *)malloc((size_t)(nouts * samplesize) * sizeof(t_float));
                 }
-                if(!obj->d_sigs_real)
+                if(!tempreal)
                 {
+                    if(obj->d_sigs_real)
+                    {
+                        free(obj->d_sigs_real);
+                        obj->d_sigs_real = NULL;
+                    }
                     free(obj->d_sigs_out);
+                    obj->d_sigs_out = NULL;
                     pd_error(obj, "can't allocate memory for ni inpace processing.");
                     return;
                 }
+                obj->d_sigs_real = tempreal;
+                
                 for(i = 0; i < nouts; i++)
                 {
                     obj->d_sigs_out[i] = obj->d_sigs_real+i*samplesize;
@@ -578,20 +625,30 @@ void eobj_dsp(void *x, t_signal **sp)
             
             if(obj->d_dsp_vectors)
             {
-                obj->d_dsp_vectors = (t_int *)resizebytes(obj->d_dsp_vectors, (size_t)obj->d_dsp_size * sizeof(t_int), (size_t)(nins + nouts + 6) * sizeof(t_int));
+                temp = (t_int *)realloc(obj->d_dsp_vectors, (size_t)(nins + nouts + 6) * sizeof(t_int));
             }
             else
             {
-                obj->d_dsp_vectors = (t_int *)getbytes((size_t)obj->d_dsp_size * sizeof(t_int));
+                temp = (t_int *)malloc((size_t)obj->d_dsp_size * sizeof(t_int));
             }
-            if(!obj->d_dsp_vectors)
+            if(!temp)
             {
+                if(obj->d_dsp_vectors)
+                {
+                    free(obj->d_dsp_vectors);
+                    obj->d_dsp_vectors = NULL;
+                }
+                free(obj->d_sigs_real);
+                obj->d_sigs_real = NULL;
+                free(obj->d_sigs_out);
+                obj->d_sigs_out = NULL;
                 obj->d_dsp_size = 0;
                 pd_error(x, "can't allocate memory for dsp vector.");
                 return;
             }
+            obj->d_dsp_vectors = temp;
             obj->d_dsp_size = nins + nouts + 6;
-            count = (short*)getbytes((size_t)(nins + nouts) * sizeof(short));
+            count = (short*)malloc((size_t)(nins + nouts) * sizeof(short));
             if(count)
             {
                 for(i = 0; i < (obj_nsiginlets((t_object *)obj) + obj_nsigoutlets((t_object *)obj)); i++)
@@ -627,11 +684,18 @@ void eobj_dsp(void *x, t_signal **sp)
                 else if(obj->d_perform_method != NULL && obj->d_misc == E_NO_INPLACE)
                     dsp_addv(eobj_perform_no_inplace, (int)obj->d_dsp_size, obj->d_dsp_vectors);
                 
-                freebytes(count, (size_t)(nins + nouts) * sizeof(short));
+                free(count);
                 return;
             }
             else
             {
+                free(obj->d_dsp_vectors);
+                obj->d_dsp_vectors = NULL;
+                free(obj->d_sigs_real);
+                obj->d_sigs_real = NULL;
+                free(obj->d_sigs_out);
+                obj->d_sigs_out = NULL;
+                obj->d_dsp_size = 0;
                 pd_error(x, "can't allocate memory for dsp chain counter.");
             }
         }
@@ -1025,18 +1089,20 @@ static t_inlet* einlet_new(t_object* owner, t_pd* proxy, t_symbol* s)
 static t_eproxy* eproxy_new(void *owner, t_symbol* s)
 {
     t_eproxy* proxy;
+    t_eproxy ** temp;
     t_eobj *z = (t_eobj *)owner;
     eproxy_class = eproxy_setup();
     if(z->o_proxy)
     {
-        z->o_proxy = (t_eproxy **)resizebytes(z->o_proxy, (size_t)(z->o_nproxy) * sizeof(t_eproxy *), (size_t)(z->o_nproxy + 1) * sizeof(t_eproxy *));
+        temp = (t_eproxy **)realloc(z->o_proxy, (size_t)(z->o_nproxy + 1) * sizeof(t_eproxy *));
     }
     else
     {
-        z->o_proxy = (t_eproxy **)getbytes(1 * sizeof(t_eproxy *));
+        temp = (t_eproxy **)malloc(1 * sizeof(t_eproxy *));
     }
-    if(z->o_proxy)
+    if(temp)
     {
+        z->o_proxy = temp;
         proxy = (t_eproxy *)pd_new(eproxy_class);
         proxy->p_owner = (t_object *)owner;
         proxy->p_pd    = eproxy_class;
@@ -1078,6 +1144,7 @@ static void canvas_deletelines_for_io(t_canvas *x, t_text *text, t_inlet *inp, t
 static void eproxy_free(void *owner, t_eproxy* proxy)
 {
     t_eobj *z   = (t_eobj *)owner;
+    t_eproxy ** temp;
     if(z && proxy && proxy->p_owner == (t_object *)z)
     {
         if(z->o_nproxy == proxy->p_index + 1)
@@ -1091,8 +1158,17 @@ static void eproxy_free(void *owner, t_eproxy* proxy)
             }
             else
             {
-                z->o_proxy = (t_eproxy **)resizebytes(z->o_proxy, (size_t)(z->o_nproxy) * sizeof(t_eproxy *), (size_t)(z->o_nproxy - 1) * sizeof(t_eproxy *));
+                temp = (t_eproxy **)realloc(z->o_proxy, (size_t)(z->o_nproxy - 1) * sizeof(t_eproxy *));
+                if(temp)
+                {
+                    z->o_proxy = temp;
+                }
+                else
+                {
+                    pd_error(owner, "a proxy hasn't been freed.");
+                }
                 z->o_nproxy--;
+                
             }
         }
         else

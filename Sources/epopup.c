@@ -28,7 +28,7 @@
 
 t_epopup* epopupmenu_create(t_eobj* x, t_symbol* name)
 {
-    t_epopup* popup = (t_epopup *)getbytes(sizeof(t_epopup));
+    t_epopup* popup = (t_epopup *)malloc(sizeof(t_epopup));
     if(popup)
     {
         popup->c_send = x->o_id;

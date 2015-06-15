@@ -135,6 +135,7 @@ int binbuf_get_attribute_index(t_binbuf *d, t_symbol *key);
  * \param argc  The pointer to the int that will be initialized with number of values of the attributes.
  * \param argv  The pointer to the array of t_atom that will be initalized with the values of the attributes.
  * \return 0 if the attribute values has been returned.
+ * \todo Possible leak fo memory at realloc
  */
 t_pd_err atoms_get_attribute(int ac, t_atom* av, t_symbol *key, int *argc, t_atom **argv);
 
