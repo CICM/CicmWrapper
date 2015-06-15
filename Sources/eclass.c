@@ -29,11 +29,12 @@
 #include "eobj.h"
 #include "ebox.h"
 #include "epopup.h"
+#include "egraphics.h"
 
 static void eclass_properties_dialog(t_eclass* c);
 static void ewidget_init(t_eclass* c);
 
-t_eclass* eclass_new(char *name, method newm, method freem, size_t size, int flags, t_atomtype arg1, int arg2)
+t_eclass* eclass_new(char *name, t_typ_method newm, t_typ_method freem, size_t size, int flags, t_atomtype arg1, int arg2)
 {
     char help[MAXPDSTRING];
     t_class *pd  = class_new(gensym(name), (t_newmethod)newm, (t_method)freem, size, flags, arg1, arg2);
@@ -81,14 +82,14 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_PAINT        (c, "size", 0);
     CLASS_ATTR_CATEGORY		(c, "size", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "size", 0, "Patching Size");
-    CLASS_ATTR_ACCESSORS    (c, "size", NULL, ebox_size_set);
+    CLASS_ATTR_ACCESSORS    (c, "size", NULL, (t_err_method)ebox_size_set);
     
     CLASS_ATTR_DEFAULT      (c, "fontname", 0, "Helvetica");
     CLASS_ATTR_SAVE         (c, "fontname", 0);
     CLASS_ATTR_PAINT        (c, "fontname", 0);
     CLASS_ATTR_CATEGORY		(c, "fontname", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontname", 0, "Font Name");
-    CLASS_ATTR_ACCESSORS    (c, "fontname", NULL, ebox_set_font);
+    CLASS_ATTR_ACCESSORS    (c, "fontname", NULL, (t_err_method)ebox_set_font);
     CLASS_ATTR_STYLE        (c, "fontname", 0, "menu");
     CLASS_ATTR_ITEMS        (c, "fontname", 0, "Helvetica Monaco Courier Times DejaVu");
     
@@ -97,7 +98,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_PAINT        (c, "fontweight", 0);
     CLASS_ATTR_CATEGORY		(c, "fontweight", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontweight", 0, "Font Weight");
-    CLASS_ATTR_ACCESSORS    (c, "fontweight", NULL, ebox_set_fontweight);
+    CLASS_ATTR_ACCESSORS    (c, "fontweight", NULL, (t_err_method)ebox_set_fontweight);
     CLASS_ATTR_STYLE        (c, "fontweight", 0, "menu");
     CLASS_ATTR_ITEMS        (c, "fontweight", 0, "normal bold");
     
@@ -106,7 +107,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_PAINT        (c, "fontslant", 0);
     CLASS_ATTR_CATEGORY		(c, "fontslant", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontslant", 0, "Font Slant");
-    CLASS_ATTR_ACCESSORS    (c, "fontslant", NULL, ebox_set_fontslant);
+    CLASS_ATTR_ACCESSORS    (c, "fontslant", NULL, (t_err_method)ebox_set_fontslant);
     CLASS_ATTR_STYLE        (c, "fontslant", 0, "menu");
     CLASS_ATTR_ITEMS        (c, "fontslant", 0, "roman italic");
     
@@ -158,7 +159,7 @@ void eclass_dspinit(t_eclass* c)
     class_addmethod((t_class *)c, (t_method)eobj_dsp_add, gensym("dsp_add64"), A_NULL, 0);
 }
 
-void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long dummy)
+void eclass_addmethod(t_eclass* c, t_typ_method m, char* name, t_atomtype type, long dummy)
 {
     if(gensym(name) == gensym("mouseenter"))
     {
@@ -575,7 +576,7 @@ void eclass_attr_invisible(t_eclass* c, char* attrname, long flags)
     }
 }
 
-void eclass_attr_accessor(t_eclass* c, char* attrname, method getter, method setter)
+void eclass_attr_accessor(t_eclass* c, char* attrname, t_err_method getter, t_err_method setter)
 {
     int i;
     for(i = 0; i < c->c_nattr; i++)

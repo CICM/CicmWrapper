@@ -67,7 +67,7 @@ void ebox_new(t_ebox *x, long flags)
     x->b_send_id            = s_null;
     x->b_objpreset_id       = s_null;
     x->b_visible            = 1;
-    eobj_getclass(x)->c_widget.w_dosave = (method)ebox_dosave;
+    eobj_getclass(x)->c_widget.w_dosave = (t_typ_method)ebox_dosave;
     ebox_attrprocess_default(x);
 }
 

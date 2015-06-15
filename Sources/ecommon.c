@@ -25,6 +25,7 @@
  */
 
 #include "ecommon.h"
+#include "egraphics.h"
 
 t_symbol* s_null;
 t_symbol* s_atom;
@@ -133,7 +134,7 @@ void epd_init(void)
     }
 }
 
-void object_method(void* x, t_symbol* s, void* z, method method, long number, void* other)
+void object_method(void* x, t_symbol* s, void* z, t_typ_method method, long number, void* other)
 {
     t_ret_method nrmethod = (t_ret_method)getfn((t_pd *)x, s);
     nrmethod(x, s, z, method, number, other);
@@ -506,60 +507,14 @@ t_pd_err binbuf_get_attribute_float(t_binbuf *d, t_symbol *key, float *value)
         return -1;
 }
 
-double pd_clip_min(double aValue, double aMinimum)
-{
-    if(aValue < aMinimum)
-        return aMinimum;
-    else
-        return aValue;
-}
-
-double pd_clip_max(double aValue, double aMaximum)
-{
-    if(aValue > aMaximum)
-        return aMaximum;
-    else
-        return aValue;
-}
-
-double pd_ordinate(double radius, double angle)
-{
-    return radius * sin(angle);
-}
-
-double pd_abscissa(double radius, double angle)
-{
-    return radius * cos(angle);
-}
-
-double pd_radius(double x, double y)
-{
-    return sqrt(x*x + y*y);
-}
-
-double pd_angle(double x, double y)
-{
-    return atan2(y, x);
-}
-
-double pd_clip_minmax(double aValue, double aMinimum, double aMaximum)
-{
-    if(aValue < aMinimum)
-        return aMinimum;
-    else if(aValue > aMaximum)
-        return aMaximum;
-    else
-        return aValue;
-}
-
-void pd_library_add_folder(char* libraryname, char* folder)
+void epd_add_folder(char* name, char* folder)
 {
 	char path[MAXPDSTRING];
 	t_namelist* var = sys_searchpath;
 	while (var)
 	{
-		sprintf(path, "%s/%s",var->nl_string, libraryname);
-		if(strncmp(var->nl_string, libraryname, strlen(libraryname)) == 0)
+		sprintf(path, "%s/%s",var->nl_string, name);
+		if(strncmp(var->nl_string, name, strlen(name)) == 0)
 		{
 			sprintf(path, "%s/%s", var->nl_string, folder);
 			namelist_append_files(sys_staticpath, path);
@@ -567,7 +522,7 @@ void pd_library_add_folder(char* libraryname, char* folder)
 		}
 		else if(access(path, O_RDONLY) != -1)
 		{
-			sprintf(path, "%s/%s/%s", var->nl_string, libraryname, folder);
+			sprintf(path, "%s/%s/%s", var->nl_string, name, folder);
 			namelist_append_files(sys_staticpath, path);
 			return;
 		}
@@ -576,8 +531,8 @@ void pd_library_add_folder(char* libraryname, char* folder)
     var = sys_staticpath;
     while (var)
     {
-        sprintf(path, "%s/%s",var->nl_string, libraryname);
-		if(strncmp(var->nl_string, libraryname, strlen(libraryname)) == 0)
+        sprintf(path, "%s/%s",var->nl_string, name);
+		if(strncmp(var->nl_string, name, strlen(name)) == 0)
 		{
 			sprintf(path, "%s/%s", var->nl_string, folder);
 			namelist_append_files(sys_staticpath, path);
@@ -585,7 +540,7 @@ void pd_library_add_folder(char* libraryname, char* folder)
 		}
 		else if(access(path, O_RDONLY) != -1)
 		{
-			sprintf(path, "%s/%s/%s", var->nl_string, libraryname, folder);
+			sprintf(path, "%s/%s/%s", var->nl_string, name, folder);
 			namelist_append_files(sys_staticpath, path);
 			return;
 		}

@@ -52,7 +52,7 @@
  * \param arg2  The type of object.
  * \return      This function return the new eclass
  */
-t_eclass* eclass_new(char *name, method newm, method freem, size_t size, int flags, t_atomtype arg1, int arg2);
+t_eclass* eclass_new(char *name, t_typ_method newm, t_typ_method freem, size_t size, int flags, t_atomtype arg1, int arg2);
 
 /*!
  * \fn          void eclass_guiinit(t_eclass* c, long flags)
@@ -91,7 +91,7 @@ void eclass_dspinit(t_eclass* c);
  * \param type  The type of the method.
  * \param dummy The dummy type that should be 0.
  */
-void eclass_addmethod(t_eclass* c, method m, char* name, t_atomtype type, long dummy);
+void eclass_addmethod(t_eclass* c, t_typ_method m, char* name, t_atomtype type, long dummy);
 
 //! @cond
 
@@ -255,7 +255,7 @@ void eclass_attr_invisible(t_eclass* c, char* attrname, long flags);
  \ @param setter    The setter function
  \ @return          Nothing
  */
-void eclass_attr_accessor(t_eclass* c, char* attrname, method getter, method setter);
+void eclass_attr_accessor(t_eclass* c, char* attrname, t_err_method getter, t_err_method setter);
 
 //! Initalize the items list of an attribute
 /*
@@ -357,7 +357,7 @@ eclass_new_attr_typed(c,name, "atom", calcoffset(struct,size), maxsize, flags, c
 //! Macros that define the visible behavior of the attributes
 #define CLASS_ATTR_INVISIBLE(c,name,flags)              eclass_attr_invisible(c,name,flags)
 //! Macros that define the setter and getter of the attributes
-#define CLASS_ATTR_ACCESSORS(c,name,getter,setter)      eclass_attr_accessor(c,name,(method)getter,(method)setter)
+#define CLASS_ATTR_ACCESSORS(c,name,getter,setter)      eclass_attr_accessor(c,name,(t_err_method)getter,(t_err_method)setter)
 //! Macros that define the items list of the attributes
 #define CLASS_ATTR_ITEMS(c,name,flags, list)            eclass_attr_itemlist(c,name,flags, list)
 //! Macros that define the deault value, save and paint bbehavior of the attributes

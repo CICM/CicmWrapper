@@ -1057,4 +1057,51 @@ void efont_destroy(t_efont* font)
     freebytes(font, sizeof(t_efont));
 }
 
+double pd_clip_minmax(double aValue, double aMinimum, double aMaximum)
+{
+    if(aValue < aMinimum)
+        return aMinimum;
+    else if(aValue > aMaximum)
+        return aMaximum;
+    else
+        return aValue;
+}
+
+double pd_clip_min(double aValue, double aMinimum)
+{
+    if(aValue < aMinimum)
+        return aMinimum;
+    else
+        return aValue;
+}
+
+double pd_clip_max(double aValue, double aMaximum)
+{
+    if(aValue > aMaximum)
+        return aMaximum;
+    else
+        return aValue;
+}
+
+double pd_ordinate(double radius, double angle)
+{
+    return radius * sin(angle);
+}
+
+double pd_abscissa(double radius, double angle)
+{
+    return radius * cos(angle);
+}
+
+double pd_radius(double x, double y)
+{
+    return sqrt(x*x + y*y);
+}
+
+double pd_angle(double x, double y)
+{
+    return atan2(y, x);
+}
+
+
 

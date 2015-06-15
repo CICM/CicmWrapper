@@ -27,6 +27,8 @@
 #ifndef DEF_EPD_MAX
 #define DEF_EPD_MAX
 
+typedef t_typ_method method;
+#define pd_library_add_folder epd_add_folder
 #define object_error       pd_error
 #define sys_getdspstate()  canvas_dspstate
 #define A_LONG             A_FLOAT

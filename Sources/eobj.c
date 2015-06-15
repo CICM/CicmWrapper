@@ -26,6 +26,7 @@
 
 #include "eobj.h"
 #include "ecommon.h"
+#include "egraphics.h"
 
 static t_eproxy* eproxy_new(void *owner, t_symbol* s);
 static void eproxy_free(void *owner, t_eproxy* proxy);
@@ -54,7 +55,7 @@ void *eobj_new(t_eclass *c)
             x->o_id = gensym(buffer);
             pd_bind(&x->o_obj.ob_pd, x->o_id);
             sprintf(buffer,".x%lx.c", (long unsigned int)x->o_canvas);
-            c->c_widget.w_dosave = (method)eobj_dosave;
+            c->c_widget.w_dosave = (t_typ_method)eobj_dosave;
         }
         else
         {
@@ -256,18 +257,18 @@ void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)
 
 void eobj_attr_setvalueof(void *x, t_symbol* s, int argc, t_atom *argv)
 {
-    method setvalue = (method)getfn((t_pd *)x, s);
+    t_typ_method setvalue = (t_typ_method)getfn((t_pd *)x, s);
     setvalue(x, s, argc, argv);
 }
 
 void eobj_attr_getvalueof(void *x, t_symbol *s, int *argc, t_atom **argv)
 {
     char realname[MAXPDSTRING];
-    method getvalue = NULL;
+    t_typ_method getvalue = NULL;
     sprintf(realname, "get%s", s->s_name);
     argc[0] = 0;
     argv[0] = NULL;
-    getvalue = (method)getfn((t_pd *)x, gensym(realname));
+    getvalue = (t_typ_method)getfn((t_pd *)x, gensym(realname));
     if(getvalue)
     {
         getvalue(x, s, argc, argv);
@@ -750,7 +751,7 @@ t_int* eobj_perform_box_no_inplace(t_int* w)
     return w + (x->d_dsp_size + 1);
 }
 
-void eobj_dsp_add(void *x, t_symbol* s, t_object* za, method m, long flags, void *userparam)
+void eobj_dsp_add(void *x, t_symbol* s, t_object* za, t_typ_method m, long flags, void *userparam)
 {
     t_edspobj* obj = (t_edspobj *)x;
     t_edspbox* box = (t_edspbox *)x;

@@ -77,16 +77,21 @@
  *  @{
  */
 
-typedef long t_pd_err;
-
+//! @cond
 #define atom_setfloat(a, f) SETFLOAT(a, f)
 #define atom_setlong(a, l)  SETFLOAT(a, (float)l)
 #define atom_setsym(a, s)   SETSYMBOL(a, s)
 #define atom_getlong(a)     (long)atom_getfloat(a)
 #define atom_gettype(a)     (a)[0].a_type
+//! @endcond
 
-typedef void        (*method)(void* x, ...);
+//! The error type
+typedef long t_pd_err;
+//! The standart method
+typedef void        (*t_typ_method)(void* x, ...);
+//! The return method
 typedef void*       (*t_ret_method)(void* x, ...);
+//! The error method
 typedef t_pd_err    (*t_err_method)(void* x, ...);
 
 //! The pre-defined ("null") t_symbol*
@@ -431,27 +436,27 @@ typedef struct t_ewidget
     t_deletefn      w_deletefn;             /*!< The native Pd deletion method. */
     t_visfn         w_visfn;                /*!< The native Pd visible method. */
     t_clickfn       w_clickfn;              /*!< The native Pd click method. */
-    method          w_assist;               /*!< The dummy iolets assist method. */
-    method          w_paint;                /*!< The paint method. */
-    method          w_mouseenter;           /*!< The mouse enter method. */
-    method          w_mouseleave;           /*!< The mouse leave method. */
-    method          w_mousemove;            /*!< The mouse move method. */
-    method          w_mousedown;            /*!< The mouse down method. */
-    method          w_mousedrag;            /*!< The mouse drag method. */
-    method          w_mouseup;              /*!< The mouse up method. */
-    method          w_mousewheel;           /*!< The mouse wheel method. */
-    method          w_dblclick;             /*!< The mouse double click method. */
-    method          w_key;                  /*!< The key method. */
-    method          w_keyfilter;            /*!< The key filter method. */
-    method          w_getdrawparameters;    /*!< The get draw parameter method. */
-    method          w_save;                 /*!< The save method. */
-    method          w_dosave;               /*!< The real save method. */
-    method          w_popup;                /*!< The popup method. */
-    method          w_dsp;                  /*!< The dsp method. */
-    method          w_oksize;               /*!< The size validation method. */
+    t_typ_method    w_assist;               /*!< The dummy iolets assist method. */
+    t_typ_method    w_paint;                /*!< The paint method. */
+    t_typ_method    w_mouseenter;           /*!< The mouse enter method. */
+    t_typ_method    w_mouseleave;           /*!< The mouse leave method. */
+    t_typ_method    w_mousemove;            /*!< The mouse move method. */
+    t_typ_method    w_mousedown;            /*!< The mouse down method. */
+    t_typ_method    w_mousedrag;            /*!< The mouse drag method. */
+    t_typ_method    w_mouseup;              /*!< The mouse up method. */
+    t_typ_method    w_mousewheel;           /*!< The mouse wheel method. */
+    t_typ_method    w_dblclick;             /*!< The mouse double click method. */
+    t_typ_method    w_key;                  /*!< The key method. */
+    t_typ_method    w_keyfilter;            /*!< The key filter method. */
+    t_typ_method    w_getdrawparameters;    /*!< The get draw parameter method. */
+    t_typ_method    w_save;                 /*!< The save method. */
+    t_typ_method    w_dosave;               /*!< The real save method. */
+    t_typ_method    w_popup;                /*!< The popup method. */
+    t_typ_method    w_dsp;                  /*!< The dsp method. */
+    t_typ_method    w_oksize;               /*!< The size validation method. */
     t_err_method    w_notify;               /*!< The notification method. */
-    method          w_write;                /*!< The write to file method. */
-    method          w_read;                 /*!< The read from file method. */
+    t_typ_method    w_write;                /*!< The write to file method. */
+    t_typ_method    w_read;                 /*!< The read from file method. */
 } t_ewidget;
 
 /**
@@ -476,8 +481,8 @@ typedef struct t_eattr
     long            sizemax;    /*!< The maximum size of the attribute if the attribute is an array. */
     long            size;       /*!< The size of the attribute if the attribute is an array. */
     
-    method			getter;     /*!< The getter method of the attribute. */
-    method			setter;     /*!< The setter method of the attribute. */
+    t_err_method    getter;     /*!< The getter method of the attribute. */
+    t_err_method    setter;     /*!< The setter method of the attribute. */
     long            clipped;    /*!< If the attribute is clipped if it's value or an array of numerical values. */
     double          minimum;    /*!< The minimum value of the attribute. */
     double          maximum;    /*!< The maximum value of the attribute. */
@@ -575,7 +580,7 @@ typedef struct t_edspobj
     void*               d_dsp_user_param;   /*!< The user parameters to pass through the perform method. */
     t_float**           d_sigs_out;         /*!< The array of signal vectors. */
     t_float*            d_sigs_real;        /*!< The real array of signal. */
-    method              d_perform_method;   /*!< The user perform method. */
+    t_typ_method        d_perform_method;   /*!< The user perform method. */
     long                d_misc;             /*!< The flag that could be inplace or not. */
 }t_edspobj;
 
@@ -769,7 +774,7 @@ typedef struct t_edspbox
     void*               d_dsp_user_param;   /*!< The user parameters to pass through the perform method. */
     t_float**           d_sigs_out;         /*!< The array of signal vectors. */
     t_float*            d_sigs_real;        /*!< The real array of signal. */
-    method              d_perform_method;   /*!< The user perform method. */
+    t_typ_method        d_perform_method;   /*!< The user perform method. */
     long                d_misc;             /*!< The flag that could be inplace or not. */
 }t_edspbox;
 

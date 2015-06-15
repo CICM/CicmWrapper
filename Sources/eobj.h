@@ -320,7 +320,7 @@ t_int* eobj_perform_box_no_inplace(t_int* w);
  \ @param userparam The user perform parameters
  \ @return          Nothing
  */
-void eobj_dsp_add(void *x, t_symbol* s, t_object* obj, method m, long flags, void *userparam);
+void eobj_dsp_add(void *x, t_symbol* s, t_object* obj, t_typ_method m, long flags, void *userparam);
 //! @endcond
 
 #endif

@@ -96,6 +96,14 @@ void rgb_set(t_rgb *color, float red, float green, float blue);
 void hsla_set(t_hsla *color, float hue, float saturation, float luminosity, float alpha);
 void hsl_set(t_hsl *color, float hue, float saturation, float luminosity);
 
+double pd_clip_min(double aValue, double aMinimum);
+double pd_clip_max(double aValue, double aMaximum);
+double pd_clip_minmax(double aValue, double aMinimum, double aMaximum);
+double pd_ordinate(double radius, double angle);
+double pd_abscissa(double radius, double angle);
+double pd_radius(double x, double y);
+double pd_angle(double x, double y);
+
 // Ohlala...
 #ifdef _WIN32
 
