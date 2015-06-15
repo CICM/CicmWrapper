@@ -61,10 +61,15 @@ void eclass_init(t_eclass* c, long flags)
     eclass_guiinit(c, flags);
 }
 
+t_pd_err eclass_register(t_symbol *name, t_eclass *c)
+{
+    eclass_properties_dialog(c);
+    return 0;
+}
+
 void eclass_guiinit(t_eclass* c, long flags)
 {
     ewidget_init(c);
-    eclass_properties_dialog(c);
     c->c_box = 1;
     
     // DEFAULT ATTRIBUTES //

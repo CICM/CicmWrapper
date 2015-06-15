@@ -73,6 +73,10 @@ void eclass_guiinit(t_eclass* c, long flags);
  */
 void eclass_init(t_eclass* c, long flags) _FUNCTION_DEPRECTAED_;
 
+
+
+t_pd_err eclass_register(t_symbol *name, t_eclass *c);
+
 /*!
  * \fn          void eclass_dspinit(t_eclass* c)
  * \brief       Initialize the t_eclass for the DSP behavior.

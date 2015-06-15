@@ -1325,7 +1325,7 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
     {
         temp = (t_elayer*)realloc(x->b_layers, (size_t)(x->b_number_of_layers + 1) * sizeof(t_elayer));
     }
-    if(x->b_layers)
+    if(temp)
     {
         x->b_layers = temp;
         t_elayer* graphic = x->b_layers+x->b_number_of_layers;
