@@ -1117,7 +1117,7 @@ void ebox_properties(t_ebox *x, t_glist *glist)
     {
         if(!c->c_attr[i]->invisible)
         {
-            eobj_attr_getvalueof((t_object *)x, c->c_attr[i]->name, &argc, &argv);
+            eobj_attr_getvalueof(x, c->c_attr[i]->name, &argc, &argv);
             strncat(buffer, " ", 1);
             strncat(buffer, "\"", 1);
             if(argc && argv)

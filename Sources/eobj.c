@@ -37,7 +37,7 @@ void *eobj_new(t_eclass *c)
     char buffer[MAXPDSTRING];
     if(c)
     {
-        x  = (t_eobj *)t_getbytes(c->c_class.c_size);
+        x  = (t_eobj *)getbytes(c->c_class.c_size);
         if(x)
         {
             *((t_pd *)x)  = (t_pd)c;
