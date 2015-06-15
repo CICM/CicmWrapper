@@ -1,7 +1,7 @@
 AUTOMAKE_OPTIONS = foreign
 noinst_LTLIBRARIES = libCicmWrapper.la
 
-libCicmWrapper_la_CFLAGS = @PD_CPPFLAGS@ -O3 -fPIC -fpermissive 
+libCicmWrapper_la_CFLAGS = @PD_CPPFLAGS@ -O3 -fPIC
 libCicmWrapper_la_LDFLAGS = 
 libCicmWrapper_la_LIBADD = 
 
