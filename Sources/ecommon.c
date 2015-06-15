@@ -41,19 +41,18 @@ t_symbol* s_double;
 void epd_init(void)
 {
     t_symbol* epd_symbol = gensym("epd1572");
+    s_null          = gensym("(null)");
+    s_atom          = gensym("atom");
+    s_obj           = gensym("obj");
+    s_attr_modified = gensym("attr_modified");
+    s_eboxbd        = gensym("eboxbd");
+    s_eboxio        = gensym("eboxio");
+    s_size          = gensym("size");
+    s_int           = gensym("int");
+    s_long          = gensym("long");
+    s_double        = gensym("double");
     if(!epd_symbol->s_thing)
     {
-        s_null          = gensym("(null)");
-        s_atom          = gensym("atom");
-        s_obj           = gensym("obj");
-        s_attr_modified = gensym("attr_modified");
-        s_eboxbd        = gensym("eboxbd");
-        s_eboxio        = gensym("eboxio");
-        s_size          = gensym("size");
-        s_int           = gensym("int");
-        s_long          = gensym("long");
-        s_double        = gensym("double");
-        
         // PATCHER MOUSE MOTION //
         sys_vgui("proc eobj_canvas_motion {patcher val} {\n");
         sys_gui(" set rx [winfo rootx $patcher]\n");
