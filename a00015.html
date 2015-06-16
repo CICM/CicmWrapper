@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.8"/>
-<title>CicmWrapper: eobj.h File Reference</title>
+<title>CicmWrapper: t_incdec Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -38,9 +38,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
-      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
-      <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -61,8 +62,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
-      <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="globals.html"><span>Globals</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
+      <li><a href="classes.html"><span>Data&#160;Structure&#160;Index</span></a></li>
+      <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -70,7 +72,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Modules</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -79,84 +81,158 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_3c5a06049573aa0fd43ee94c3b70e0dd.html">CreamLibrary</a></li><li class="navelem"><a class="el" href="dir_93f317233a77416eda207bc1b62b244d.html">ThirdParty</a></li><li class="navelem"><a class="el" href="dir_8d99883be2838370319d597ab95b5bd5.html">PureData</a></li><li class="navelem"><a class="el" href="dir_26fbc93f06bf01ceac37d8add4b61c43.html">Sources</a></li>  </ul>
-</div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">eobj.h File Reference</div>  </div>
+<div class="title">t_incdec Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>The header that declares all the methods for the <a class="el" href="a00004.html#a00028" title="The CICM object. ">t_eobj</a> and <a class="el" href="a00003.html#a00024" title="The CICM DSP object. ">t_edspobj</a>.  
-<a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a00001_source.html">estruct.h</a>&quot;</code><br />
-<code>#include &quot;ecommon.h&quot;</code><br />
-</div>
-<p><a href="a00015_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ga238c42e70bfd0c1b7a8763fb11a1ab92"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00004.html#ga238c42e70bfd0c1b7a8763fb11a1ab92">eobj_new</a> (<a class="el" href="a00001.html#a00021">t_eclass</a> *c)</td></tr>
-<tr class="memdesc:ga238c42e70bfd0c1b7a8763fb11a1ab92"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a00004.html#a00028" title="The CICM object. ">t_eobj</a> creation function.  <a href="a00004.html#ga238c42e70bfd0c1b7a8763fb11a1ab92">More...</a><br /></td></tr>
-<tr class="separator:ga238c42e70bfd0c1b7a8763fb11a1ab92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab269804f09b184c738c3088889d8908c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00004.html#gab269804f09b184c738c3088889d8908c">eobj_free</a> (void *x)</td></tr>
-<tr class="memdesc:gab269804f09b184c738c3088889d8908c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a00004.html#a00028" title="The CICM object. ">t_eobj</a> deletion function. function should replace pd_free().  <a href="a00004.html#gab269804f09b184c738c3088889d8908c">More...</a><br /></td></tr>
-<tr class="separator:gab269804f09b184c738c3088889d8908c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2bf38bfa476734bf3afad5da21d44a46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00001.html#a00030">t_eproxy</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00004.html#ga2bf38bfa476734bf3afad5da21d44a46">eobj_proxynew</a> (void *x)</td></tr>
-<tr class="memdesc:ga2bf38bfa476734bf3afad5da21d44a46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a proxy inlet to a <a class="el" href="a00004.html#a00028" title="The CICM object. ">t_eobj</a>.  <a href="a00004.html#ga2bf38bfa476734bf3afad5da21d44a46">More...</a><br /></td></tr>
-<tr class="separator:ga2bf38bfa476734bf3afad5da21d44a46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1014e3284b70c9680b9b048157190ca7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00004.html#ga1014e3284b70c9680b9b048157190ca7">eobj_getproxy</a> (void *x)</td></tr>
-<tr class="memdesc:ga1014e3284b70c9680b9b048157190ca7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retreives the index of the proxy that received the last message.  <a href="a00004.html#ga1014e3284b70c9680b9b048157190ca7">More...</a><br /></td></tr>
-<tr class="separator:ga1014e3284b70c9680b9b048157190ca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga81d0e76ad4e7ef75e16c56847f9913f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00001.html#a00021">t_eclass</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00004.html#ga81d0e76ad4e7ef75e16c56847f9913f4">eobj_getclass</a> (void *x)</td></tr>
-<tr class="memdesc:ga81d0e76ad4e7ef75e16c56847f9913f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the eclass of a <a class="el" href="a00004.html#a00028" title="The CICM object. ">t_eobj</a>.  <a href="a00004.html#ga81d0e76ad4e7ef75e16c56847f9913f4">More...</a><br /></td></tr>
-<tr class="separator:ga81d0e76ad4e7ef75e16c56847f9913f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga746850962ff25ecc81bf61f26281f3ea"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00004.html#ga746850962ff25ecc81bf61f26281f3ea">eobj_getclassname</a> (void *x)</td></tr>
-<tr class="memdesc:ga746850962ff25ecc81bf61f26281f3ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the classe name of a <a class="el" href="a00004.html#a00028" title="The CICM object. ">t_eobj</a>.  <a href="a00004.html#ga746850962ff25ecc81bf61f26281f3ea">More...</a><br /></td></tr>
-<tr class="separator:ga746850962ff25ecc81bf61f26281f3ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0f3a573a8af2dd681f9a32f722dec258"><td class="memItemLeft" align="right" valign="top">t_canvas *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00004.html#ga0f3a573a8af2dd681f9a32f722dec258">eobj_getcanvas</a> (void *x)</td></tr>
-<tr class="memdesc:ga0f3a573a8af2dd681f9a32f722dec258"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retreives the canvas that owns the <a class="el" href="a00004.html#a00028" title="The CICM object. ">t_eobj</a>.  <a href="a00004.html#ga0f3a573a8af2dd681f9a32f722dec258">More...</a><br /></td></tr>
-<tr class="separator:ga0f3a573a8af2dd681f9a32f722dec258"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga20b15e9d4cfff43d7c99ec64f8da3ced"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00004.html#ga20b15e9d4cfff43d7c99ec64f8da3ced">eobj_isbox</a> (void *x)</td></tr>
-<tr class="memdesc:ga20b15e9d4cfff43d7c99ec64f8da3ced"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retreives if a <a class="el" href="a00004.html#a00028" title="The CICM object. ">t_eobj</a> is a GUI box or not.  <a href="a00004.html#ga20b15e9d4cfff43d7c99ec64f8da3ced">More...</a><br /></td></tr>
-<tr class="separator:ga20b15e9d4cfff43d7c99ec64f8da3ced"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga27eee54891735b101bf16018272d379c"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00004.html#ga27eee54891735b101bf16018272d379c">eobj_isdsp</a> (void *x)</td></tr>
-<tr class="memdesc:ga27eee54891735b101bf16018272d379c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retreives if a <a class="el" href="a00004.html#a00028" title="The CICM object. ">t_eobj</a> is a DSP object or not.  <a href="a00004.html#ga27eee54891735b101bf16018272d379c">More...</a><br /></td></tr>
-<tr class="separator:ga27eee54891735b101bf16018272d379c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab2cf66709dc873b0442f3d78cea2f548"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00004.html#gab2cf66709dc873b0442f3d78cea2f548">eobj_attrprocess_viabinbuf</a> (void *x, t_binbuf *d)</td></tr>
-<tr class="memdesc:gab2cf66709dc873b0442f3d78cea2f548"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the attributes with a binbuf.  <a href="a00004.html#gab2cf66709dc873b0442f3d78cea2f548">More...</a><br /></td></tr>
-<tr class="separator:gab2cf66709dc873b0442f3d78cea2f548"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6b4de28da57603066ca2cffc1d1b716b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00004.html#ga6b4de28da57603066ca2cffc1d1b716b">eobj_attrprocess_viatoms</a> (void *x, int argc, t_atom *argv)</td></tr>
-<tr class="memdesc:ga6b4de28da57603066ca2cffc1d1b716b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the attributes with an array of atoms.  <a href="a00004.html#ga6b4de28da57603066ca2cffc1d1b716b">More...</a><br /></td></tr>
-<tr class="separator:ga6b4de28da57603066ca2cffc1d1b716b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga75990a2c2f4f51a081904dce5c5e14b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html#ga75990a2c2f4f51a081904dce5c5e14b4">eobj_dspsetup</a> (void *x, long nins, long nouts)</td></tr>
-<tr class="memdesc:ga75990a2c2f4f51a081904dce5c5e14b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intializes the dsp members of the <a class="el" href="a00003.html#a00024" title="The CICM DSP object. ">t_edspobj</a>.  <a href="a00003.html#ga75990a2c2f4f51a081904dce5c5e14b4">More...</a><br /></td></tr>
-<tr class="separator:ga75990a2c2f4f51a081904dce5c5e14b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad1252e017dafb1443ae6806909808d04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html#gad1252e017dafb1443ae6806909808d04">eobj_dspfree</a> (void *x)</td></tr>
-<tr class="memdesc:gad1252e017dafb1443ae6806909808d04"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a00003.html#a00024" title="The CICM DSP object. ">t_edspobj</a> deletion function. function should replace pd_free().  <a href="a00003.html#gad1252e017dafb1443ae6806909808d04">More...</a><br /></td></tr>
-<tr class="separator:gad1252e017dafb1443ae6806909808d04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5e86c6f25b1ad53b29d490942ccbc5e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html#ga5e86c6f25b1ad53b29d490942ccbc5e9">eobj_resize_inputs</a> (void *x, long nins)</td></tr>
-<tr class="memdesc:ga5e86c6f25b1ad53b29d490942ccbc5e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resizes the number of signal inputs of a <a class="el" href="a00003.html#a00024" title="The CICM DSP object. ">t_edspobj</a>.  <a href="a00003.html#ga5e86c6f25b1ad53b29d490942ccbc5e9">More...</a><br /></td></tr>
-<tr class="separator:ga5e86c6f25b1ad53b29d490942ccbc5e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga74f802b76722a7bcde5c4e6a38c212ad"><td class="memItemLeft" align="right" valign="top">t_sample *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html#ga74f802b76722a7bcde5c4e6a38c212ad">eobj_getsignalinput</a> (void *x, long index)</td></tr>
-<tr class="memdesc:ga74f802b76722a7bcde5c4e6a38c212ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the pointer to the signal of an input.  <a href="a00003.html#ga74f802b76722a7bcde5c4e6a38c212ad">More...</a><br /></td></tr>
-<tr class="separator:ga74f802b76722a7bcde5c4e6a38c212ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab8b5bdfea2b158f059e76a6015d48916"><td class="memItemLeft" align="right" valign="top">t_sample *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html#gab8b5bdfea2b158f059e76a6015d48916">eobj_getsignaloutput</a> (void *x, long index)</td></tr>
-<tr class="memdesc:gab8b5bdfea2b158f059e76a6015d48916"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the pointer to the signal of an output.  <a href="a00003.html#gab8b5bdfea2b158f059e76a6015d48916">More...</a><br /></td></tr>
-<tr class="separator:gab8b5bdfea2b158f059e76a6015d48916"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:af80e07d518a6920672bec657115ea8db"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af80e07d518a6920672bec657115ea8db"></a>
+<a class="el" href="a00009.html#a00073">t_ebox</a>&#160;</td><td class="memItemRight" valign="bottom"><b>j_box</b></td></tr>
+<tr class="separator:af80e07d518a6920672bec657115ea8db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a136f0e9774b2f8b3e2630abbcda3419d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a136f0e9774b2f8b3e2630abbcda3419d"></a>
+t_outlet *&#160;</td><td class="memItemRight" valign="bottom"><b>f_out</b></td></tr>
+<tr class="separator:a136f0e9774b2f8b3e2630abbcda3419d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8078bad92744f71e1c0cc429ea00156"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab8078bad92744f71e1c0cc429ea00156"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>f_increment</b></td></tr>
+<tr class="separator:ab8078bad92744f71e1c0cc429ea00156"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6f21904e1d01c2aadf4d49d1847cb59"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab6f21904e1d01c2aadf4d49d1847cb59"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>f_value</b></td></tr>
+<tr class="separator:ab6f21904e1d01c2aadf4d49d1847cb59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ae50325dc7918b4cf9212b48cd10190"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9ae50325dc7918b4cf9212b48cd10190"></a>
+<a class="el" href="a00011.html#a00092">t_rgba</a>&#160;</td><td class="memItemRight" valign="bottom"><b>f_color_background</b></td></tr>
+<tr class="separator:a9ae50325dc7918b4cf9212b48cd10190"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad75f292f57182f43941c8280a653e1fb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad75f292f57182f43941c8280a653e1fb"></a>
+<a class="el" href="a00011.html#a00092">t_rgba</a>&#160;</td><td class="memItemRight" valign="bottom"><b>f_color_border</b></td></tr>
+<tr class="separator:ad75f292f57182f43941c8280a653e1fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5144492743d7468d6c7923469983621"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af5144492743d7468d6c7923469983621"></a>
+<a class="el" href="a00011.html#a00092">t_rgba</a>&#160;</td><td class="memItemRight" valign="bottom"><b>f_color_arrow</b></td></tr>
+<tr class="separator:af5144492743d7468d6c7923469983621"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a983b57e22f38a61c501eb9da28f42862"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a983b57e22f38a61c501eb9da28f42862"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>f_mouse_down</b></td></tr>
+<tr class="separator:a983b57e22f38a61c501eb9da28f42862"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e7a29f8679ffa21ee179fae88092fc5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2e7a29f8679ffa21ee179fae88092fc5"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><b>f_setted</b></td></tr>
+<tr class="separator:a2e7a29f8679ffa21ee179fae88092fc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The header that declares all the methods for the <a class="el" href="a00004.html#a00028" title="The CICM object. ">t_eobj</a> and <a class="el" href="a00003.html#a00024" title="The CICM DSP object. ">t_edspobj</a>. </p>
-<dl class="section author"><dt>Author</dt><dd>Pierre Guillot </dd></dl>
-</div></div><!-- contents -->
+<h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="af80e07d518a6920672bec657115ea8db"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00009.html#a00073">t_ebox</a> t_incdec::j_box</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a136f0e9774b2f8b3e2630abbcda3419d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">t_outlet* t_incdec::f_out</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab8078bad92744f71e1c0cc429ea00156"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float t_incdec::f_increment</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab6f21904e1d01c2aadf4d49d1847cb59"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float t_incdec::f_value</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9ae50325dc7918b4cf9212b48cd10190"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00011.html#a00092">t_rgba</a> t_incdec::f_color_background</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad75f292f57182f43941c8280a653e1fb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00011.html#a00092">t_rgba</a> t_incdec::f_color_border</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af5144492743d7468d6c7923469983621"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00011.html#a00092">t_rgba</a> t_incdec::f_color_arrow</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a983b57e22f38a61c501eb9da28f42862"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int t_incdec::f_mouse_down</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a2e7a29f8679ffa21ee179fae88092fc5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char t_incdec::f_setted</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jun 14 2015 17:15:22 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 15 2015 11:08:40 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

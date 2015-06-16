@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.8"/>
-<title>CicmWrapper: t_elayer Struct Reference</title>
+<title>CicmWrapper: The BASIC Object Part</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -38,9 +38,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
-      <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -59,19 +60,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-  <div id="navrow2" class="tabs2">
-    <ul class="tablist">
-      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
-      <li><a href="classes.html"><span>Data&#160;Structure&#160;Index</span></a></li>
-      <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
-    </ul>
-  </div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Modules</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -80,199 +75,585 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Data Fields</a>  </div>
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">t_elayer Struct Reference</div>  </div>
+<div class="title">The BASIC Object Part</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>The CICM drawing layer.  
- <a href="a00012.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00039_source.html">estruct.h</a>&gt;</code></p>
+<p>The <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> part.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Data Fields</h2></td></tr>
-<tr class="memitem:a7b6e04eef4491054de954174a3d10c18"><td class="memItemLeft" align="right" valign="top">t_object *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#a7b6e04eef4491054de954174a3d10c18">e_owner</a></td></tr>
-<tr class="separator:a7b6e04eef4491054de954174a3d10c18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a314ce24daf6d78ff3d78721545d5aa82"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#a314ce24daf6d78ff3d78721545d5aa82">e_name</a></td></tr>
-<tr class="separator:a314ce24daf6d78ff3d78721545d5aa82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad477661da8243df21b0b704cad49825"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#aad477661da8243df21b0b704cad49825">e_id</a></td></tr>
-<tr class="separator:aad477661da8243df21b0b704cad49825"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee369ce6c8394150f1e29e002d4cf8dd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#aee369ce6c8394150f1e29e002d4cf8dd">e_state</a></td></tr>
-<tr class="separator:aee369ce6c8394150f1e29e002d4cf8dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd240d53f9bfecde2170c85fe7fbdfd2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00022.html">t_rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#abd240d53f9bfecde2170c85fe7fbdfd2">e_rect</a></td></tr>
-<tr class="separator:abd240d53f9bfecde2170c85fe7fbdfd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7757ef34cd2f81d31835199e47fc4df1"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#a7757ef34cd2f81d31835199e47fc4df1">e_color</a></td></tr>
-<tr class="separator:a7757ef34cd2f81d31835199e47fc4df1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a730776e636c54e06227e8ff21d859809"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#a730776e636c54e06227e8ff21d859809">e_line_width</a></td></tr>
-<tr class="separator:a730776e636c54e06227e8ff21d859809"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1267c33a02fbe86fb210c8591d2f8a27"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00020.html">t_matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#a1267c33a02fbe86fb210c8591d2f8a27">e_matrix</a></td></tr>
-<tr class="separator:a1267c33a02fbe86fb210c8591d2f8a27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b9e233c7608524a176423c0ae2ca563"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00011.html">t_egobj</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#a4b9e233c7608524a176423c0ae2ca563">e_new_objects</a></td></tr>
-<tr class="separator:a4b9e233c7608524a176423c0ae2ca563"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5664bb9ccb9c503eb484543816ccac4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00011.html">t_egobj</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#ad5664bb9ccb9c503eb484543816ccac4">e_objects</a></td></tr>
-<tr class="separator:ad5664bb9ccb9c503eb484543816ccac4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a146d29225c977dea1d24e3b4c62e69c5"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#a146d29225c977dea1d24e3b4c62e69c5">e_number_objects</a></td></tr>
-<tr class="separator:a146d29225c977dea1d24e3b4c62e69c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:a00083"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#a00083">t_eproxy</a></td></tr>
+<tr class="memdesc:a00083"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Proxy object.  <a href="a00012.html#a00083">More...</a><br /></td></tr>
+<tr class="separator:a00083"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00081"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#a00081">t_eobj</a></td></tr>
+<tr class="memdesc:a00081"><td class="mdescLeft">&#160;</td><td class="mdescRight">The object.  <a href="a00012.html#a00081">More...</a><br /></td></tr>
+<tr class="separator:a00081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga238c42e70bfd0c1b7a8763fb11a1ab92"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#ga238c42e70bfd0c1b7a8763fb11a1ab92">eobj_new</a> (<a class="el" href="a00008.html#a00074">t_eclass</a> *c)</td></tr>
+<tr class="memdesc:ga238c42e70bfd0c1b7a8763fb11a1ab92"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> creation function.  <a href="#ga238c42e70bfd0c1b7a8763fb11a1ab92">More...</a><br /></td></tr>
+<tr class="separator:ga238c42e70bfd0c1b7a8763fb11a1ab92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab269804f09b184c738c3088889d8908c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#gab269804f09b184c738c3088889d8908c">eobj_free</a> (void *x)</td></tr>
+<tr class="memdesc:gab269804f09b184c738c3088889d8908c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> deletion function. <br />
+ This function should replace pd_free().  <a href="#gab269804f09b184c738c3088889d8908c">More...</a><br /></td></tr>
+<tr class="separator:gab269804f09b184c738c3088889d8908c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2bf38bfa476734bf3afad5da21d44a46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00012.html#a00083">t_eproxy</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#ga2bf38bfa476734bf3afad5da21d44a46">eobj_proxynew</a> (void *x)</td></tr>
+<tr class="memdesc:ga2bf38bfa476734bf3afad5da21d44a46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a proxy inlet to a <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a>.  <a href="#ga2bf38bfa476734bf3afad5da21d44a46">More...</a><br /></td></tr>
+<tr class="separator:ga2bf38bfa476734bf3afad5da21d44a46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1014e3284b70c9680b9b048157190ca7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#ga1014e3284b70c9680b9b048157190ca7">eobj_getproxy</a> (void *x)</td></tr>
+<tr class="memdesc:ga1014e3284b70c9680b9b048157190ca7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retreives the index of the proxy that received the last message.  <a href="#ga1014e3284b70c9680b9b048157190ca7">More...</a><br /></td></tr>
+<tr class="separator:ga1014e3284b70c9680b9b048157190ca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga81d0e76ad4e7ef75e16c56847f9913f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00008.html#a00074">t_eclass</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#ga81d0e76ad4e7ef75e16c56847f9913f4">eobj_getclass</a> (void *x)</td></tr>
+<tr class="memdesc:ga81d0e76ad4e7ef75e16c56847f9913f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the eclass of a <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a>.  <a href="#ga81d0e76ad4e7ef75e16c56847f9913f4">More...</a><br /></td></tr>
+<tr class="separator:ga81d0e76ad4e7ef75e16c56847f9913f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga746850962ff25ecc81bf61f26281f3ea"><td class="memItemLeft" align="right" valign="top">t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#ga746850962ff25ecc81bf61f26281f3ea">eobj_getclassname</a> (void *x)</td></tr>
+<tr class="memdesc:ga746850962ff25ecc81bf61f26281f3ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the classe name of a <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a>.  <a href="#ga746850962ff25ecc81bf61f26281f3ea">More...</a><br /></td></tr>
+<tr class="separator:ga746850962ff25ecc81bf61f26281f3ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0f3a573a8af2dd681f9a32f722dec258"><td class="memItemLeft" align="right" valign="top">t_canvas *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#ga0f3a573a8af2dd681f9a32f722dec258">eobj_getcanvas</a> (void *x)</td></tr>
+<tr class="memdesc:ga0f3a573a8af2dd681f9a32f722dec258"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retreives the canvas that owns the <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a>.  <a href="#ga0f3a573a8af2dd681f9a32f722dec258">More...</a><br /></td></tr>
+<tr class="separator:ga0f3a573a8af2dd681f9a32f722dec258"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga20b15e9d4cfff43d7c99ec64f8da3ced"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#ga20b15e9d4cfff43d7c99ec64f8da3ced">eobj_isbox</a> (void *x)</td></tr>
+<tr class="memdesc:ga20b15e9d4cfff43d7c99ec64f8da3ced"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retreives if a <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> is a GUI box or not.  <a href="#ga20b15e9d4cfff43d7c99ec64f8da3ced">More...</a><br /></td></tr>
+<tr class="separator:ga20b15e9d4cfff43d7c99ec64f8da3ced"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga27eee54891735b101bf16018272d379c"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#ga27eee54891735b101bf16018272d379c">eobj_isdsp</a> (void *x)</td></tr>
+<tr class="memdesc:ga27eee54891735b101bf16018272d379c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retreives if a <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> is a DSP object or not.  <a href="#ga27eee54891735b101bf16018272d379c">More...</a><br /></td></tr>
+<tr class="separator:ga27eee54891735b101bf16018272d379c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab2cf66709dc873b0442f3d78cea2f548"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#gab2cf66709dc873b0442f3d78cea2f548">eobj_attrprocess_viabinbuf</a> (void *x, t_binbuf *d)</td></tr>
+<tr class="memdesc:gab2cf66709dc873b0442f3d78cea2f548"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the attributes with a binbuf.  <a href="#gab2cf66709dc873b0442f3d78cea2f548">More...</a><br /></td></tr>
+<tr class="separator:gab2cf66709dc873b0442f3d78cea2f548"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6b4de28da57603066ca2cffc1d1b716b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#ga6b4de28da57603066ca2cffc1d1b716b">eobj_attrprocess_viatoms</a> (void *x, int argc, t_atom *argv)</td></tr>
+<tr class="memdesc:ga6b4de28da57603066ca2cffc1d1b716b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the attributes with an array of atoms.  <a href="#ga6b4de28da57603066ca2cffc1d1b716b">More...</a><br /></td></tr>
+<tr class="separator:ga6b4de28da57603066ca2cffc1d1b716b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafa98032dd656b2c71d2a4976b03932e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#gafa98032dd656b2c71d2a4976b03932e9">eobj_attr_setvalueof</a> (void *x, t_symbol *s, int argc, t_atom *argv)</td></tr>
+<tr class="memdesc:gafa98032dd656b2c71d2a4976b03932e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the values of an attribute.  <a href="#gafa98032dd656b2c71d2a4976b03932e9">More...</a><br /></td></tr>
+<tr class="separator:gafa98032dd656b2c71d2a4976b03932e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga76f7b1403214e4d8dc40e464c558e8a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#ga76f7b1403214e4d8dc40e464c558e8a3">eobj_attr_getvalueof</a> (void *x, t_symbol *s, int *argc, t_atom **argv)</td></tr>
+<tr class="memdesc:ga76f7b1403214e4d8dc40e464c558e8a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the values of an attribute.  <a href="#ga76f7b1403214e4d8dc40e464c558e8a3">More...</a><br /></td></tr>
+<tr class="separator:ga76f7b1403214e4d8dc40e464c558e8a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The CICM drawing layer. </p>
-<p>It contains the all the informations and the graphical objects to be drawn. </p>
-</div><h2 class="groupheader">Field Documentation</h2>
-<a class="anchor" id="a7757ef34cd2f81d31835199e47fc4df1"></a>
+<p>The <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> part. </p>
+<p>This part refers to the methods and structures that can be used by all the <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> structures. </p>
+<hr/><h2 class="groupheader">Data Structure Documentation</h2>
+<a name="a00083" id="a00083"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* t_elayer::e_color</td>
+          <td class="memname">struct t_eproxy</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The layer color. </p>
+<div class="textblock"><p>The Proxy object. </p>
+<p>It contains the proxy class, the eobj owner and the index of the proxy. </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="abcab1c0c33eb380f4d2f67f5e06638d1"></a>t_pd</td>
+<td class="fieldname">
+p_pd</td>
+<td class="fielddoc">
+<p>The class object. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a4f462c4e3ad2e21b83ab32948a3abe48"></a>t_object *</td>
+<td class="fieldname">
+p_owner</td>
+<td class="fielddoc">
+<p>The pointer to the eobj owner. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a5dfbd3a1ce8c1205bfcc65f78aa1624f"></a>t_inlet *</td>
+<td class="fieldname">
+p_inlet</td>
+<td class="fielddoc">
+<p>The pointer to the inlet. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a470e48648e04de9f5b5326fc4e7d410c"></a>int</td>
+<td class="fieldname">
+p_index</td>
+<td class="fielddoc">
+<p>The index of the proxy. </p>
+</td></tr>
+</table>
 
 </div>
 </div>
-<a class="anchor" id="aad477661da8243df21b0b704cad49825"></a>
+<a name="a00081" id="a00081"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* t_elayer::e_id</td>
+          <td class="memname">struct t_eobj</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The layer canvas ID. </p>
+<div class="textblock"><p>The object. </p>
+<p>It contains the Pd object, the canvas pointer and members for proxy inlets. This should be used for no graphical object that don't have signal processing methods. </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a7bdccc6098f5e73b2e051322a8ba1180"></a>t_object</td>
+<td class="fieldname">
+o_obj</td>
+<td class="fielddoc">
+<p>The Pd object. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a3283b793c9d613b8da4fbbb4fd56636e"></a>t_symbol *</td>
+<td class="fieldname">
+o_id</td>
+<td class="fielddoc">
+<p>The object ID. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a4a4d89ac04c7b30a15a87a649b2daf65"></a>t_canvas *</td>
+<td class="fieldname">
+o_canvas</td>
+<td class="fielddoc">
+<p>The canvas that own the object. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a7b392d718eded2e4bd2694ece6c49cb5"></a><a class="el" href="a00012.html#a00083">t_eproxy</a> **</td>
+<td class="fieldname">
+o_proxy</td>
+<td class="fielddoc">
+<p>The array of proxy inlets. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a98198854f27517b80913f82e30b36ee6"></a>int</td>
+<td class="fieldname">
+o_nproxy</td>
+<td class="fielddoc">
+<p>The number of proxy inlets. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a0e20ced4a1283166890c3f773daf1dbf"></a>int</td>
+<td class="fieldname">
+o_current_proxy</td>
+<td class="fielddoc">
+<p>The index of the current proxy inlet used </p>
+</td></tr>
+</table>
 
 </div>
 </div>
-<a class="anchor" id="a730776e636c54e06227e8ff21d859809"></a>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ga238c42e70bfd0c1b7a8763fb11a1ab92"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int t_elayer::e_line_width</td>
+          <td class="memname">void* eobj_new </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00008.html#a00074">t_eclass</a> *&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The layer line width. </p>
+
+<p>The <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> creation function. </p>
+<p>Allocates the memory for an intance of a <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> of a specific eclass, intialize the defaults values and methods. <br />
+ This function should replace pd_new(). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>The <a class="el" href="a00008.html#a00074" title="The class. ">t_eclass</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>This function returns a pointer to a new instance of a <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a>. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a1267c33a02fbe86fb210c8591d2f8a27"></a>
+<a class="anchor" id="gab269804f09b184c738c3088889d8908c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00020.html">t_matrix</a> t_elayer::e_matrix</td>
+          <td class="memname">void eobj_free </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The layer matrix. </p>
+
+<p>The <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> deletion function. <br />
+ This function should replace pd_free(). </p>
+<p>Detaches the <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> from Pure Data and frees the proxy inlets. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> pointer </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
-<a class="anchor" id="a314ce24daf6d78ff3d78721545d5aa82"></a>
+<a class="anchor" id="ga2bf38bfa476734bf3afad5da21d44a46"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_symbol* t_elayer::e_name</td>
+          <td class="memname"><a class="el" href="a00012.html#a00083">t_eproxy</a>* eobj_proxynew </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The layer name. </p>
+
+<p>Adds a proxy inlet to a <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a>. </p>
+<p>Allocates and initializes a new proxy inlet. <br />
+ This function should replace inlet_new(). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>This function returns a pointer to the new proxy inlet. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a4b9e233c7608524a176423c0ae2ca563"></a>
+<a class="anchor" id="ga1014e3284b70c9680b9b048157190ca7"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00011.html">t_egobj</a> t_elayer::e_new_objects</td>
+          <td class="memname">int eobj_getproxy </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The layer new object. </p>
+
+<p>Retreives the index of the proxy that received the last message. </p>
+<p>Retreives the current proxy index. This function should only be used while a message has been received. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>This function return the index of the current proxy. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a146d29225c977dea1d24e3b4c62e69c5"></a>
+<a class="anchor" id="ga81d0e76ad4e7ef75e16c56847f9913f4"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">long t_elayer::e_number_objects</td>
+          <td class="memname"><a class="el" href="a00008.html#a00074">t_eclass</a>* eobj_getclass </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The number of layer objects. </p>
+
+<p>Retrieves the eclass of a <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a>. </p>
+<p>Directly access to the eclass structure of the <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>This function returns a pointer to the eclass of the <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a>. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ad5664bb9ccb9c503eb484543816ccac4"></a>
+<a class="anchor" id="ga746850962ff25ecc81bf61f26281f3ea"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00011.html">t_egobj</a>* t_elayer::e_objects</td>
+          <td class="memname">t_symbol* eobj_getclassname </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The layer objects. </p>
+
+<p>Retrieves the classe name of a <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a>. </p>
+<p>Directly access to the name of the eclass of the <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>This function returns the name of the class of the <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a>. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a7b6e04eef4491054de954174a3d10c18"></a>
+<a class="anchor" id="ga0f3a573a8af2dd681f9a32f722dec258"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_object* t_elayer::e_owner</td>
+          <td class="memname">t_canvas* eobj_getcanvas </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The layer owner. </p>
+
+<p>Retreives the canvas that owns the <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a>. </p>
+<p>Directly access to the canvas structure of the <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>This function returns a pointer the canvas that owns the <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a>. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="abd240d53f9bfecde2170c85fe7fbdfd2"></a>
+<a class="anchor" id="ga20b15e9d4cfff43d7c99ec64f8da3ced"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00022.html">t_rect</a> t_elayer::e_rect</td>
+          <td class="memname">char eobj_isbox </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The layer size. </p>
+
+<p>Retreives if a <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> is a GUI box or not. </p>
+<p>Check if the box flag is postive or null. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>This function returns 1 if the <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> is a GUI and 0 if not. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="aee369ce6c8394150f1e29e002d4cf8dd"></a>
+<a class="anchor" id="ga27eee54891735b101bf16018272d379c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int t_elayer::e_state</td>
+          <td class="memname">char eobj_isdsp </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The layer state. </p>
+
+<p>Retreives if a <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> is a DSP object or not. </p>
+<p>Check if the dsp method has been initialized. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>This function returns 1 if the <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> is a DSP object and 0 if not. </dd></dl>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li><a class="el" href="a00039_source.html">estruct.h</a></li>
-</ul>
+<a class="anchor" id="gab2cf66709dc873b0442f3d78cea2f548"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eobj_attrprocess_viabinbuf </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">t_binbuf *&#160;</td>
+          <td class="paramname"><em>d</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Changes the attributes with a binbuf. </p>
+<p>Retrieves and interpretes a binbuf to initialize the attributes. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00009.html#a00073" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+    <tr><td class="paramname">d</td><td>The binbuf pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ga6b4de28da57603066ca2cffc1d1b716b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eobj_attrprocess_viatoms </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">t_atom *&#160;</td>
+          <td class="paramname"><em>argv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Changes the attributes with an array of atoms. </p>
+<p>Retrieves and interpretes a binbuf to initialize the attributes. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00009.html#a00073" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+    <tr><td class="paramname">argc</td><td>The number of atoms. </td></tr>
+    <tr><td class="paramname">argv</td><td>The pointer to the atoms. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="gafa98032dd656b2c71d2a4976b03932e9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eobj_attr_setvalueof </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">t_symbol *&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">t_atom *&#160;</td>
+          <td class="paramname"><em>argv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the values of an attribute. </p>
+<p>Retrieves the attribute setter and calls it if it exist otherwise it does nothing. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> pointer. </td></tr>
+    <tr><td class="paramname">s</td><td>The name of the attribute. </td></tr>
+    <tr><td class="paramname">argc</td><td>The number of the atoms. </td></tr>
+    <tr><td class="paramname">argv</td><td>The array of the atoms. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ga76f7b1403214e4d8dc40e464c558e8a3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eobj_attr_getvalueof </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">t_symbol *&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">t_atom **&#160;</td>
+          <td class="paramname"><em>argv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the values of an attribute. </p>
+<p>Retrieves the attribute getter and calls it if it exist otherwise it does nothing. You should free the atoms if they has been allocated. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00012.html#a00081" title="The object. ">t_eobj</a> pointer. </td></tr>
+    <tr><td class="paramname">s</td><td>The name of the attribute. </td></tr>
+    <tr><td class="paramname">argc</td><td>The pointer to an int that will be initialize with the number of the atoms. </td></tr>
+    <tr><td class="paramname">argv</td><td>The pointer to the array of the atoms that will be allocated if the attribute exist. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jun 14 2015 16:51:40 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 15 2015 11:08:40 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

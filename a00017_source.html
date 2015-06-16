@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.8"/>
-<title>CicmWrapper: epopup.h Source File</title>
+<title>CicmWrapper: ecommon.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -38,9 +38,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
-      <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -59,18 +60,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-  <div id="navrow2" class="tabs2">
-    <ul class="tablist">
-      <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="globals.html"><span>Globals</span></a></li>
-    </ul>
-  </div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Modules</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -86,11 +81,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">epopup.h</div>  </div>
+<div class="title">ecommon.h</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * CicmWrapper</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * CicmWrapper - Pure Data Enhanced</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * A wrapper for Pure Data</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *</span></div>
@@ -115,29 +110,78 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#ifndef DEF_EPOPUP</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#define DEF_EPOPUP</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00001.html">estruct.h</a>&quot;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00006.html">ebox.h</a>&quot;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<a class="code" href="a00001.html#a00028">t_epopup</a>* epopupmenu_create(<a class="code" href="a00003.html#a00027">t_eobj</a>* x, t_symbol* name);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keywordtype">void</span> epopupmenu_setfont(<a class="code" href="a00001.html#a00028">t_epopup</a> *menu, <a class="code" href="a00001.html#a00024">t_efont</a> *font);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">void</span> epopupmenu_additem(<a class="code" href="a00001.html#a00028">t_epopup</a> *menu, <span class="keywordtype">int</span> itemid, <span class="keywordtype">char</span> *text, <span class="keywordtype">char</span> checked, <span class="keywordtype">char</span> disabled);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keywordtype">void</span> epopupmenu_addseperator(<a class="code" href="a00001.html#a00028">t_epopup</a> *menu);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keywordtype">void</span> epopupmenu_popup(<a class="code" href="a00001.html#a00028">t_epopup</a> *menu, <a class="code" href="a00001.html#a00035">t_pt</a> screen, <span class="keywordtype">int</span> defitemid);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="a00001_html_a00035"><div class="ttname"><a href="a00001.html#a00035">t_pt</a></div><div class="ttdoc">A point structure. </div><div class="ttdef"><b>Definition:</b> estruct.h:158</div></div>
-<div class="ttc" id="a00001_html_a00024"><div class="ttname"><a href="a00001.html#a00024">t_efont</a></div><div class="ttdoc">The font structure. </div><div class="ttdef"><b>Definition:</b> estruct.h:247</div></div>
-<div class="ttc" id="a00001_html_a00028"><div class="ttname"><a href="a00001.html#a00028">t_epopup</a></div><div class="ttdoc">The popup structure. </div><div class="ttdef"><b>Definition:</b> estruct.h:298</div></div>
-<div class="ttc" id="a00001_html"><div class="ttname"><a href="a00001.html">estruct.h</a></div><div class="ttdoc">The header that contains all the principals structures of CicmWrapper. </div></div>
-<div class="ttc" id="a00006_html"><div class="ttname"><a href="a00006.html">ebox.h</a></div></div>
-<div class="ttc" id="a00003_html_a00027"><div class="ttname"><a href="a00003.html#a00027">t_eobj</a></div><div class="ttdoc">The CICM object. </div><div class="ttdef"><b>Definition:</b> estruct.h:441</div></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#ifndef DEF_EPD_COMMON</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#define DEF_EPD_COMMON</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;edefine.h&quot;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keywordtype">void</span> object_method(<span class="keywordtype">void</span>* x, t_symbol* s, <span class="keywordtype">void</span>* z, <a class="code" href="a00027.html#gaa1afc460e49d0d202fc4ee6e4e84b3b2">t_typ_method</a> method, <span class="keywordtype">long</span> number, <span class="keywordtype">void</span>* other);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keywordtype">void</span> epd_init(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keywordtype">int</span> <a class="code" href="a00027.html#ga6d4a79aefc14996bad34ed823b50396e">atoms_get_attributes_offset</a>(<span class="keywordtype">int</span> argc, t_atom* argv);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keywordtype">int</span> <a class="code" href="a00027.html#ga38bf79eef26b124be4819c5fc1dc85a7">binbuf_get_attributes_offset</a>(t_binbuf *d);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keywordtype">int</span> <a class="code" href="a00027.html#ga342e47ca3822e3fc59ece049e9502398">atoms_get_nattributes</a>(<span class="keywordtype">int</span> argc, t_atom* argv);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keywordtype">int</span> <a class="code" href="a00027.html#ga7b9367b6fefaf1cd7bc314651688ba23">binbuf_get_nattributes</a>(t_binbuf *d);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<a class="code" href="a00027.html#ga3715b880d30ad1c90c610a3121407d0a">t_pd_err</a> <a class="code" href="a00027.html#gaf798c36b04e32c06ebe3f4c94519fa02">atoms_has_attribute</a>(<span class="keywordtype">int</span> argc, t_atom* argv, t_symbol *key);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<a class="code" href="a00027.html#ga3715b880d30ad1c90c610a3121407d0a">t_pd_err</a> <a class="code" href="a00027.html#gae9b8f3ccb9d9e1685eadf2caa43382d9">binbuf_has_attribute</a>(t_binbuf *d, t_symbol *key);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keywordtype">int</span> <a class="code" href="a00027.html#gaba164e5ca90d1253f35561a32a5649da">atoms_get_attribute_index</a>(<span class="keywordtype">int</span> argc, t_atom *argv, t_symbol *key);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="keywordtype">int</span> <a class="code" href="a00027.html#ga7114b5e8d1579fd784cabcf1b064f92a">binbuf_get_attribute_index</a>(t_binbuf *d, t_symbol *key);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<a class="code" href="a00027.html#ga3715b880d30ad1c90c610a3121407d0a">t_pd_err</a> <a class="code" href="a00027.html#ga2e9b3bacc7685c1d03b04ac6606aaf7d">atoms_get_attribute</a>(<span class="keywordtype">int</span> ac, t_atom* av, t_symbol *key, <span class="keywordtype">int</span> *argc, t_atom **argv);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<a class="code" href="a00027.html#ga3715b880d30ad1c90c610a3121407d0a">t_pd_err</a> <a class="code" href="a00027.html#ga607c890fd3aa5c9bb59cf66cf4a1785a">binbuf_get_attribute</a>(t_binbuf *d, t_symbol *key, <span class="keywordtype">int</span> *argc, t_atom **argv);</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<a class="code" href="a00027.html#ga3715b880d30ad1c90c610a3121407d0a">t_pd_err</a> <a class="code" href="a00027.html#gab30938677d3ab5a424148807cf5dd5af">atoms_get_attribute_long</a>(<span class="keywordtype">int</span> ac, t_atom* av, t_symbol *key, <span class="keywordtype">long</span> *value);</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<a class="code" href="a00027.html#ga3715b880d30ad1c90c610a3121407d0a">t_pd_err</a> <a class="code" href="a00027.html#gab7b04fe9a9f18be4bb80607d3ae94626">binbuf_get_attribute_long</a>(t_binbuf *d, t_symbol *key, <span class="keywordtype">long</span> *value);</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<a class="code" href="a00027.html#ga3715b880d30ad1c90c610a3121407d0a">t_pd_err</a> <a class="code" href="a00027.html#gaffe2d1f9184b2124328f5b000d0f7eb0">atoms_get_attribute_float</a>(<span class="keywordtype">int</span> ac, t_atom* av, t_symbol *key, <span class="keywordtype">float</span> *value);</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<a class="code" href="a00027.html#ga3715b880d30ad1c90c610a3121407d0a">t_pd_err</a> <a class="code" href="a00027.html#ga84e9e796349d6bdb16f76c4e58cf2836">binbuf_get_attribute_float</a>(t_binbuf *d, t_symbol *key, <span class="keywordtype">float</span> *value);</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="keywordtype">int</span> <a class="code" href="a00027.html#gadc391c1131e5ffb05de0ec797df0ae10">atoms_get_keys</a>(<span class="keywordtype">int</span> ac, t_atom* av, t_symbol*** keys);</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="keywordtype">int</span> <a class="code" href="a00027.html#ga905da28ce46dbeb2e70444251834c718">binbuf_get_keys</a>(t_binbuf *d, t_symbol*** keys);</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;t_binbuf* <a class="code" href="a00027.html#ga86d9f26c074fa8fcaa460308e0c9a795">binbuf_via_atoms</a>(<span class="keywordtype">int</span> ac, t_atom *av);</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<a class="code" href="a00027.html#ga3715b880d30ad1c90c610a3121407d0a">t_pd_err</a> <a class="code" href="a00027.html#ga7741985e8a94606f7ab52b8bc82b7868">binbuf_append_attribute</a>(t_binbuf *d, t_symbol *key, <span class="keywordtype">int</span> argc, t_atom *argv);</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="keywordtype">void</span> epd_add_folder(<span class="keyword">const</span> <span class="keywordtype">char</span>* name, <span class="keyword">const</span> <span class="keywordtype">char</span>* folder);</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="a00027_html_ga38bf79eef26b124be4819c5fc1dc85a7"><div class="ttname"><a href="a00027.html#ga38bf79eef26b124be4819c5fc1dc85a7">binbuf_get_attributes_offset</a></div><div class="ttdeci">int binbuf_get_attributes_offset(t_binbuf *d)</div><div class="ttdoc">Retrieves the position of the first attribute in a t_binbuf. </div><div class="ttdef"><b>Definition:</b> ecommon.c:293</div></div>
+<div class="ttc" id="a00027_html_ga342e47ca3822e3fc59ece049e9502398"><div class="ttname"><a href="a00027.html#ga342e47ca3822e3fc59ece049e9502398">atoms_get_nattributes</a></div><div class="ttdeci">int atoms_get_nattributes(int argc, t_atom *argv)</div><div class="ttdoc">Retrieves the number of attributes in an array of t_atom. </div><div class="ttdef"><b>Definition:</b> ecommon.c:298</div></div>
+<div class="ttc" id="a00027_html_gaba164e5ca90d1253f35561a32a5649da"><div class="ttname"><a href="a00027.html#gaba164e5ca90d1253f35561a32a5649da">atoms_get_attribute_index</a></div><div class="ttdeci">int atoms_get_attribute_index(int argc, t_atom *argv, t_symbol *key)</div><div class="ttdoc">Retrieves the position of an attribute in an array of t_atom. </div><div class="ttdef"><b>Definition:</b> ecommon.c:369</div></div>
+<div class="ttc" id="a00027_html_gaf798c36b04e32c06ebe3f4c94519fa02"><div class="ttname"><a href="a00027.html#gaf798c36b04e32c06ebe3f4c94519fa02">atoms_has_attribute</a></div><div class="ttdeci">t_pd_err atoms_has_attribute(int argc, t_atom *argv, t_symbol *key)</div><div class="ttdoc">Retrieves if an attributes is in an array of t_atom. </div><div class="ttdef"><b>Definition:</b> ecommon.c:345</div></div>
+<div class="ttc" id="a00027_html_gae9b8f3ccb9d9e1685eadf2caa43382d9"><div class="ttname"><a href="a00027.html#gae9b8f3ccb9d9e1685eadf2caa43382d9">binbuf_has_attribute</a></div><div class="ttdeci">t_pd_err binbuf_has_attribute(t_binbuf *d, t_symbol *key)</div><div class="ttdoc">Retrieves if an attributes is in a t_binbuf. </div><div class="ttdef"><b>Definition:</b> ecommon.c:361</div></div>
+<div class="ttc" id="a00027_html_gaa1afc460e49d0d202fc4ee6e4e84b3b2"><div class="ttname"><a href="a00027.html#gaa1afc460e49d0d202fc4ee6e4e84b3b2">t_typ_method</a></div><div class="ttdeci">void(* t_typ_method)(void *x,...)</div><div class="ttdoc">The standart method. </div><div class="ttdef"><b>Definition:</b> edefine.h:90</div></div>
+<div class="ttc" id="a00027_html_ga3715b880d30ad1c90c610a3121407d0a"><div class="ttname"><a href="a00027.html#ga3715b880d30ad1c90c610a3121407d0a">t_pd_err</a></div><div class="ttdeci">long t_pd_err</div><div class="ttdoc">The error type. </div><div class="ttdef"><b>Definition:</b> edefine.h:88</div></div>
+<div class="ttc" id="a00027_html_ga7741985e8a94606f7ab52b8bc82b7868"><div class="ttname"><a href="a00027.html#ga7741985e8a94606f7ab52b8bc82b7868">binbuf_append_attribute</a></div><div class="ttdeci">t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, int argc, t_atom *argv)</div><div class="ttdoc">Adds the key and the values of an attribute to a t_binbuf. </div><div class="ttdef"><b>Definition:</b> ecommon.c:268</div></div>
+<div class="ttc" id="a00027_html_ga2e9b3bacc7685c1d03b04ac6606aaf7d"><div class="ttname"><a href="a00027.html#ga2e9b3bacc7685c1d03b04ac6606aaf7d">atoms_get_attribute</a></div><div class="ttdeci">t_pd_err atoms_get_attribute(int ac, t_atom *av, t_symbol *key, int *argc, t_atom **argv)</div><div class="ttdoc">Retrieves the values of an attribute from an array of t_atom. </div><div class="ttdef"><b>Definition:</b> ecommon.c:391</div></div>
+<div class="ttc" id="a00027_html_ga84e9e796349d6bdb16f76c4e58cf2836"><div class="ttname"><a href="a00027.html#ga84e9e796349d6bdb16f76c4e58cf2836">binbuf_get_attribute_float</a></div><div class="ttdeci">t_pd_err binbuf_get_attribute_float(t_binbuf *d, t_symbol *key, float *value)</div><div class="ttdoc">Retrieves the float value of an attribute from a t_binbuf. </div><div class="ttdef"><b>Definition:</b> ecommon.c:504</div></div>
+<div class="ttc" id="a00027_html_ga7b9367b6fefaf1cd7bc314651688ba23"><div class="ttname"><a href="a00027.html#ga7b9367b6fefaf1cd7bc314651688ba23">binbuf_get_nattributes</a></div><div class="ttdeci">int binbuf_get_nattributes(t_binbuf *d)</div><div class="ttdoc">Retrieves the number of attributes in a t_binbuf. </div><div class="ttdef"><b>Definition:</b> ecommon.c:311</div></div>
+<div class="ttc" id="a00027_html_ga6d4a79aefc14996bad34ed823b50396e"><div class="ttname"><a href="a00027.html#ga6d4a79aefc14996bad34ed823b50396e">atoms_get_attributes_offset</a></div><div class="ttdeci">int atoms_get_attributes_offset(int argc, t_atom *argv)</div><div class="ttdoc">Retrieves the position of the first attribute in an array of t_atom. </div><div class="ttdef"><b>Definition:</b> ecommon.c:280</div></div>
+<div class="ttc" id="a00027_html_gadc391c1131e5ffb05de0ec797df0ae10"><div class="ttname"><a href="a00027.html#gadc391c1131e5ffb05de0ec797df0ae10">atoms_get_keys</a></div><div class="ttdeci">int atoms_get_keys(int ac, t_atom *av, t_symbol ***keys)</div><div class="ttdoc">Retrieves the keys of attributes presents in an array of t_atom. </div><div class="ttdef"><b>Definition:</b> ecommon.c:316</div></div>
+<div class="ttc" id="a00027_html_gab30938677d3ab5a424148807cf5dd5af"><div class="ttname"><a href="a00027.html#gab30938677d3ab5a424148807cf5dd5af">atoms_get_attribute_long</a></div><div class="ttdeci">t_pd_err atoms_get_attribute_long(int ac, t_atom *av, t_symbol *key, long *value)</div><div class="ttdoc">Retrieves the long value of an attribute from an array of t_atom. </div><div class="ttdef"><b>Definition:</b> ecommon.c:454</div></div>
+<div class="ttc" id="a00027_html_gab7b04fe9a9f18be4bb80607d3ae94626"><div class="ttname"><a href="a00027.html#gab7b04fe9a9f18be4bb80607d3ae94626">binbuf_get_attribute_long</a></div><div class="ttdeci">t_pd_err binbuf_get_attribute_long(t_binbuf *d, t_symbol *key, long *value)</div><div class="ttdoc">Retrieves the long value of an attribute from a t_binbuf. </div><div class="ttdef"><b>Definition:</b> ecommon.c:475</div></div>
+<div class="ttc" id="a00027_html_ga7114b5e8d1579fd784cabcf1b064f92a"><div class="ttname"><a href="a00027.html#ga7114b5e8d1579fd784cabcf1b064f92a">binbuf_get_attribute_index</a></div><div class="ttdeci">int binbuf_get_attribute_index(t_binbuf *d, t_symbol *key)</div><div class="ttdoc">Retrieves the position of an attribute in a t_binbuf. </div><div class="ttdef"><b>Definition:</b> ecommon.c:386</div></div>
+<div class="ttc" id="a00027_html_gaffe2d1f9184b2124328f5b000d0f7eb0"><div class="ttname"><a href="a00027.html#gaffe2d1f9184b2124328f5b000d0f7eb0">atoms_get_attribute_float</a></div><div class="ttdeci">t_pd_err atoms_get_attribute_float(int ac, t_atom *av, t_symbol *key, float *value)</div><div class="ttdoc">Retrieves the float value of an attribute from an array of t_atom. </div><div class="ttdef"><b>Definition:</b> ecommon.c:483</div></div>
+<div class="ttc" id="a00027_html_ga607c890fd3aa5c9bb59cf66cf4a1785a"><div class="ttname"><a href="a00027.html#ga607c890fd3aa5c9bb59cf66cf4a1785a">binbuf_get_attribute</a></div><div class="ttdeci">t_pd_err binbuf_get_attribute(t_binbuf *d, t_symbol *key, int *argc, t_atom **argv)</div><div class="ttdoc">Retrieves the values of an attribute from a t_binbuf. </div><div class="ttdef"><b>Definition:</b> ecommon.c:446</div></div>
+<div class="ttc" id="a00027_html_ga905da28ce46dbeb2e70444251834c718"><div class="ttname"><a href="a00027.html#ga905da28ce46dbeb2e70444251834c718">binbuf_get_keys</a></div><div class="ttdeci">int binbuf_get_keys(t_binbuf *d, t_symbol ***keys)</div><div class="ttdoc">Retrieves the keys of attributes presents in a t_binbuf. </div><div class="ttdef"><b>Definition:</b> ecommon.c:339</div></div>
+<div class="ttc" id="a00027_html_ga86d9f26c074fa8fcaa460308e0c9a795"><div class="ttname"><a href="a00027.html#ga86d9f26c074fa8fcaa460308e0c9a795">binbuf_via_atoms</a></div><div class="ttdeci">t_binbuf * binbuf_via_atoms(int ac, t_atom *av)</div><div class="ttdoc">Retrieves a t_binbuf from an array of t_atom. </div><div class="ttdef"><b>Definition:</b> ecommon.c:142</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jun 14 2015 17:02:21 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jun 16 2015 09:32:23 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

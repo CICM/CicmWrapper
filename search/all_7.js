@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['lightness',['lightness',['../a00001.html#a47dca6ac2cc1a5b51b720907241e3447',1,'t_hsl::lightness()'],['../a00001.html#a58ae0b9c3214da97f90c85a571f62693',1,'t_hsla::lightness()']]]
+  ['height',['height',['../a00007.html#acb7c04fb6b3f46bb0cefebf4e9556a42',1,'t_rect']]],
+  ['hue',['hue',['../a00007.html#a17329c0ac897d0cdb4221afdb30c533b',1,'t_hsl::hue()'],['../a00007.html#afc3887418f90f4d2a9b073eec3fb4369',1,'t_hsla::hue()']]]
 ];

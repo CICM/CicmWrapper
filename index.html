@@ -38,9 +38,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li class="current"><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -65,7 +66,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Modules</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -79,10 +80,34 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">CicmWrapper Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
-</div><!-- contents -->
+<div class="textblock"><p>Copyright (C) 2014 -2015 Pierre Guillot, CICM - Université Paris 8</p>
+<h5>Presentation</h5>
+<p>The CICM wrapper is a C/TK library that aims to facilitate the creation of objects for Pure Data. One of the main axis is the creation of graphical user interfaces and signal processing.</p>
+<ul>
+<li>The inlets/outlets are automatically generated.</li>
+<li>The background color, border size, border color are easy to set.</li>
+<li>The GUI objects can be resized with click and drag.</li>
+<li>The graphics API use layers and "clip" the drawings within the box boundaries.</li>
+<li>The attributes (size, colors, values and whatever you want) are saved with the patch.</li>
+<li>The inlets/outlets are dynamics.</li>
+<li>The management of mouse motion and keys is simplified.</li>
+<li>The convertion from Max to Pd and from Pd to Max 6 is really easy. and a lot of other stuff, I can't enumerate everything !</li>
+</ul>
+<h5>Documentation :</h5>
+<p><a href="http://cicm.github.io/CicmWrapper" title="Documentation">Documentation</a></p>
+<h5>Examples :</h5>
+<ul>
+<li><a href="https://github.com/CICM/CreamLibrary" title="Cream Library" target="_blank">Cream Library</a>.</li>
+<li><a href="https://github.com/CICM/HoaLibrary" title="HOA Library" target="_blank">HOA Library</a>.</li>
+</ul>
+<h5>Author :</h5>
+<p>Pierre Guillot</p>
+<h5>Licence :</h5>
+<p>The Cream Library in under the <a href="http://www.gnu.org/copyleft/gpl.html" title="GNU" target="_blank">GNU Public License</a>. If you'd like to avoid the restrictions of the GPL and use the Cream Library for a closed-source product, you contact the <a href="http://cicm.mshparisnord.org/" title="CICM" target="_blank">CICM</a>. </p>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jun 14 2015 17:15:22 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jun 16 2015 09:32:23 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

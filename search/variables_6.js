@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['height',['height',['../a00001.html#acb7c04fb6b3f46bb0cefebf4e9556a42',1,'t_rect']]],
-  ['hue',['hue',['../a00001.html#a17329c0ac897d0cdb4221afdb30c533b',1,'t_hsl::hue()'],['../a00001.html#afc3887418f90f4d2a9b073eec3fb4369',1,'t_hsla::hue()']]]
+  ['getter',['getter',['../a00004.html#ac8be4fcd63c65fb13834b1cd647ca828',1,'t_eattr']]],
+  ['green',['green',['../a00007.html#ac33324b465797ad765803a1fc26b85d1',1,'t_rgb::green()'],['../a00007.html#ae9d56f656c02f0f90491b0433c6e4c9d',1,'t_rgba::green()']]]
 ];

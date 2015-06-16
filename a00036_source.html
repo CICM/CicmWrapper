@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.8"/>
-<title>CicmWrapper: epdmax.h Source File</title>
+<title>CicmWrapper: estruct.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -40,7 +40,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
-      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -59,18 +58,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-  <div id="navrow2" class="tabs2">
-    <ul class="tablist">
-      <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="globals.html"><span>Globals</span></a></li>
-    </ul>
-  </div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Modules</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Modules</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -86,11 +79,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">epdmax.h</div>  </div>
+<div class="title">estruct.h</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * CicmWrapper</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * CicmWrapper - Pure Data Enhanced</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * A wrapper for Pure Data</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *</span></div>
@@ -115,154 +108,555 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#ifndef DEF_EPD_MAX</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#define DEF_EPD_MAX</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#define object_error       pd_error</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#define sys_getdspstate()  canvas_dspstate</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#define A_LONG             A_FLOAT</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#define A_SYM              A_SYMBOL</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#define ASSIST_INLET       1</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#define ASSIST_OUTLET      2</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#define atom_getsym(atom)  atom_getsymbol(atom)</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#define JBOX_DRAWFIRSTIN        0</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#define JBOX_NODRAWBOX          0</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#define JBOX_DRAWINLAST         0</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#define JBOX_TRANSPARENT        0</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#define JBOX_NOGROW             EBOX_GROWNO</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#define JBOX_GROWY              EBOX_GROWLINK</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#define JBOX_GROWBOTH           EBOX_GROWINDI</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#define JBOX_IGNORELOCKCLICK    EBOX_IGNORELOCKCLICK</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#define JBOX_HILITE             0</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#define JBOX_BACKGROUND         0</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#define JBOX_NOFLOATINSPECTOR   0</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#define JBOX_TEXTFIELD          0</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#define JBOX_FIXWIDTH           0</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#define JBOe_fontATTR           0</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#define JBOX_TEXTJUSTIFICATIONATTR  0</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#define JBOX_BINBUF             0</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#define JBOe_mouseDRAGDELTA     0</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#define JBOX_COLOR              0</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#define JBOX_DRAWIOLOCKED       0</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#define JBOX_DRAWBACKGROUND     0</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#define JBOX_NOINSPECTFIRSTIN   0</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#define t_jbox              t_ebox</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#define t_pxobject          t_ebox</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#define Z_NO_INPLACE 1</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#define Z_PUT_LAST 2</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#define Z_PUT_FIRST 4</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#define Z_IGNORE_DISABLE 8</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#define t_jboxdrawparams    t_edrawparams</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#define t_max_err           t_pd_err</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#define class_new                                   eclass_new</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#define class_addmethod                             eclass_addmethod</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#define jbox_initclass(class, flags)                eclass_init(class, flags)</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#define class_dspinit(class)                        eclassbox_dspinit(class)</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#define class_dspinitjbox(class)                    eclass_dspinit(class)</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#define class_register(name_space, class)           eclass_register(name_space, class)</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#define object_alloc(class)                         eobj_new(class)</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#define jbox_new(t_jbox, flags, argc, argv)         ebox_new(t_jbox, flags, argc, argv)</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#define dsp_setupjbox(t_jbox, nins, nouts)          ebox_dspsetup(t_jbox, nins, nouts)</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#define jbox_ready(t_jbox)                          ebox_ready(t_jbox)</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#define jbox_free(t_jbox)                           ebox_free(t_jbox)</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#define dsp_freejbox(t_jbox)                        ebox_dspfree(t_jbox)</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#define jbox_redraw(t_jbox)                         ebox_redraw(t_jbox)</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#define jbox_resize_inputs(t_jbox, nins)            ebox_resize_inputs(t_jbox, nins)</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">#define jbox_resize_outputs(t_jbox, nouts)          ebox_resize_outputs(t_jbox, nouts)</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">#define jbox_get_rect_for_view(t_object, view, rect) ebox_get_rect_for_view(t_object, view, rect)</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#define jmouse_setcursor(patcherview, t_jbox, mode) ebox_set_cursor(t_jbox, mode)</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">#define jbox_start_layer(box, view, name, x, y)     ebox_start_layer((t_ebox *)box, name, x, y)</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#define jbox_end_layer(box, view, name)             ebox_end_layer((t_ebox *)box, name)</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#define jbox_invalidate_layer(box, view, name)      ebox_invalidate_layer((t_ebox *)box, name)</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#define jbox_paint_layer(box, view, name, x, y)     ebox_paint_layer((t_ebox *)box, name, x, y)</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">#define jbox_notify(object, s, msg, sender, data)   ebox_notify(object, s, msg, sender, data)</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor">#define jbox_get_fontname(object)                   ebox_get_fontname(object)</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor">#define jbox_get_font_slant(object)                 ebox_font_slant(object)</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">#define jbox_get_font_weight(object)                ebox_font_weight(object)</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor">#define jbox_get_fontsize(object)                   ebox_font_size(object)</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">#define t_dictionary                                t_binbuf</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">#define dictionary_new                              binbuf_new</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">#define dictionary_free                             binbuf_free</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#define dictionary_write(dict, filename, dir)       binbuf_write(dict, filename, dir, 0)</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor">#define attr_dictionary_process(object, dict)       ebox_attrprocess_viabinbuf(object, dict)</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor">#define object_dictionaryarg(ac, av)                binbuf_via_atoms(ac, av)</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor">#define dictionary_copyatoms(d, key, argc, argv)    binbuf_get_attribute(d, key, argc, argv)</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">#define jgraphics_set_line_width    egraphics_set_line_width</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">#define jgraphics_set_source_jrgba  egraphics_set_color_rgba</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor">#define jgraphics_fill              egraphics_fill</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#define jgraphics_fill_preserve     egraphics_fill_preserve</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">#define jgraphics_stroke            egraphics_stroke</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="preprocessor">#define jgraphics_stroke_preserve   egraphics_stroke_preserve</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor">#define jgraphics_rotate            egraphics_rotate</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment">// POPUP MENU //</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">#define jpopupmenu_create(jbox, name)               epopupmenu_create(jbox, name)</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">#define jpopupmenu_setfont(menu, font)              epopupmenu_setfont(menu, font)</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor">#define jpopupmenu_popup(menu, screen, defitemid)   epopupmenu_popup(menu, screen, defitemid)</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">#define jpopupmenu_destroy(menu)                    (menu = menu) // Useless...</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">#define jpopupmenu_addseperator(menu)               epopupmenu_addseperator(menu)</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="preprocessor">#define jpopupmenu_additem(menu, itemid, text, textColor, checked, disabled, icon) epopupmenu_additem(menu, itemid, text, checked, disabled)</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="preprocessor">#define JGRAPHICS_2PI       CICM_2PI</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="preprocessor">#define JGRAPHICS_PI        CICM_PI</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="preprocessor">#define t_jmatrix           t_matrix</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="preprocessor">#define t_jgraphics         t_elayer</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">#define t_jrgba             t_rgba</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="preprocessor">#define t_jtextlayout       t_etext</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="preprocessor">#define t_jfont             t_efont</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor">#define t_jpopupmenu        t_epopup</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">#define jgraphics_set_line_width    egraphics_set_line_width</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="preprocessor">#define jgraphics_fill              egraphics_fill</span></div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">#define jgraphics_fill_preserve     egraphics_fill_preserve</span></div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="preprocessor">#define jgraphics_stroke            egraphics_stroke</span></div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="preprocessor">#define jgraphics_stroke_preserve   egraphics_stroke_preserve</span></div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="preprocessor">#define jgraphics_rotate            egraphics_rotate</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="preprocessor">#define jgraphics_set_matrix        egraphics_set_matrix</span></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="preprocessor">#define jgraphics_rectangle(graphics, x, y, width, height)      egraphics_rectangle(graphics, x, y, width, height)</span></div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="preprocessor">#define jgraphics_arc(graphics, xc, yc, radius, angle1, angle2) egraphics_arc(graphics, xc, yc, radius, angle1, angle2)</span></div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="preprocessor">#define jgraphics_line_to(graphics, x, y)                       egraphics_line_to(graphics, x, y)</span></div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="preprocessor">#define jgraphics_move_to(graphics, x, y)                       egraphics_move_to(graphics, x, y)</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;ecommon.h&quot;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#ifndef DEF_ESTRUCT</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#define DEF_ESTRUCT</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> _emod_flags</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    EMOD_NONE           = 0,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    EMOD_SHIFT          = 1,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    EMOD_MAJ            = 2,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    EMOD_CTRL           = 4,</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    EMOD_CMD            = 8,</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    EMOD_ALT            = 16,</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    EMOD_RIGHT          = 32</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;} t_emod_flags;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> _ekey_flags</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;{</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    EKEY_DEL      = 0,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    EKEY_TAB      = 1,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    EKEY_ENTER    = 2,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    EKEY_ESC      = 3</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;} t_ekey_flags;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> _eselitem_flags</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;{</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    EITEM_NONE    = 0,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    EITEM_OBJ     = 1,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    EITEM_INLET   = 2,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    EITEM_OUTLET  = 3,</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    EITEM_BOTTOM  = 4,</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    EITEM_CORNER  = 5,</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    EITEM_RIGHT   = 6</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} t_eselitem_flags;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> t_elayer_flags</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;{</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    EGRAPHICS_OPEN      = 0,  </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    EGRAPHICS_CLOSE     = -1, </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    EGRAPHICS_INVALID   = -2, </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    EGRAPHICS_TODRAW    = -3  </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} t_elayer_flags;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> t_etextanchor_flags</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;{</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    ETEXT_UP            = 0, </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    ETEXT_UP_LEFT       = 1, </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    ETEXT_UP_RIGHT      = 2, </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    ETEXT_DOWN          = 3, </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    ETEXT_DOWN_LEFT     = 4, </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    ETEXT_DOWN_RIGHT    = 5, </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    ETEXT_LEFT          = 6, </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    ETEXT_RIGHT         = 7, </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    ETEXT_CENTER        = 8  </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;} t_etextanchor_flags;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> t_etextwrap_flags</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;{</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    ETEXT_NOWRAP    = 0, </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    ETEXT_WRAP      = 1 </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;} t_etextwrap_flags;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> t_etextjustify_flags</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;{</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    ETEXT_JLEFT    = 0, </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    ETEXT_JRIGHT   = 1, </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    ETEXT_JCENTER  = 2  </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;} t_etextjustify_flags;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;{</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    E_GOBJ_INVALID           = 0,   </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    E_GOBJ_PATH                 ,   </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    E_GOBJ_RECT                 ,   </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    E_GOBJ_ARC                  ,   </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    E_GOBJ_OVAL                 ,   </div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    E_GOBJ_TEXT                 ,   </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    E_GOBJ_IMAG                    </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;} egraphics_types;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;{</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    E_PATH_MOVE    = 0,   </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    E_PATH_CURVE   = 1    </div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;} epath_types;</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="preprocessor">#define jgraphics_close_path(graphics)                          egraphics_close_path(graphics)</span></div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="preprocessor">#define jgraphics_matrix_init(matrix, xx, yx, xy, yy, x0, y0)   egraphics_matrix_init(matrix, xx, yx, xy, yy, x0, y0)</span></div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="preprocessor">#define jrgba_addContrast(color, contrast)                      rgba_addContrast(color, contrast)</span></div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="preprocessor">#define jtextlayout_create()                                    etext_layout_create()</span></div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="preprocessor">#define jtextlayout_destroy(textlayout)                         etext_layout_destroy(textlayout)</span></div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="preprocessor">#define jtextlayout_set(textlayout, text, jfont, x, y, width, height, justification, wrap) etext_layout_set(textlayout, text, jfont, x, y, width, height, justification, wrap)</span></div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="preprocessor">#define jtextlayout_settextcolor(textlayout, color)             etext_layout_settextcolor(textlayout, color)</span></div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="preprocessor">#define jtextlayout_draw(textlayout, g)                    etext_layout_draw(textlayout, g)</span></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="preprocessor">#define jfont_create(family, slant, weight, size)               efont_create(family, slant, weight, size)</span></div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="preprocessor">#define jfont_destroy(font)                                     efont_destroy(font)</span></div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="preprocessor">#define cicm_rgba_addContrast(color, contrast)       rgba_addContrast(color, contrast)              </span></div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno"><a class="line" href="a00018.html">  158</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00018.html">t_pt</a></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;{</div>
+<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="a00018.html#adf141a83ce7be90994a4ed1d5af6d8fa">  160</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00018.html#adf141a83ce7be90994a4ed1d5af6d8fa">x</a>; </div>
+<div class="line"><a name="l00161"></a><span class="lineno"><a class="line" href="a00018.html#a63f94995be90a3f9c7f2fe6f1756f484">  161</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00018.html#a63f94995be90a3f9c7f2fe6f1756f484">y</a>; </div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;} <a class="code" href="a00018.html">t_pt</a>;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;</div>
+<div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="a00019.html">  169</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00019.html">t_rect</a></div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;{</div>
+<div class="line"><a name="l00171"></a><span class="lineno"><a class="line" href="a00019.html#a74be09c958ebe41d44c62687c442c744">  171</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00019.html#a74be09c958ebe41d44c62687c442c744">x</a>;        </div>
+<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="a00019.html#a57a581a68f49b86c36c6274e63a01728">  172</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00019.html#a57a581a68f49b86c36c6274e63a01728">y</a>;        </div>
+<div class="line"><a name="l00173"></a><span class="lineno"><a class="line" href="a00019.html#a2d191f636f0fc0c602b949e9ddb968a2">  173</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00019.html#a2d191f636f0fc0c602b949e9ddb968a2">width</a>;    </div>
+<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="a00019.html#acb7c04fb6b3f46bb0cefebf4e9556a42">  174</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00019.html#acb7c04fb6b3f46bb0cefebf4e9556a42">height</a>;   </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;} <a class="code" href="a00019.html">t_rect</a>;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;</div>
+<div class="line"><a name="l00182"></a><span class="lineno"><a class="line" href="a00017.html">  182</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00017.html">t_matrix</a></div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;{</div>
+<div class="line"><a name="l00184"></a><span class="lineno"><a class="line" href="a00017.html#ad9ac1d5c92894bb8cd6ceccd870f4bab">  184</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00017.html#ad9ac1d5c92894bb8cd6ceccd870f4bab">xx</a>;   </div>
+<div class="line"><a name="l00185"></a><span class="lineno"><a class="line" href="a00017.html#aa7c4323cb532a995d1b31963f76206a8">  185</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00017.html#aa7c4323cb532a995d1b31963f76206a8">yx</a>;   </div>
+<div class="line"><a name="l00186"></a><span class="lineno"><a class="line" href="a00017.html#a36b39863a4b2bf92130ff6613a7b1cb5">  186</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00017.html#a36b39863a4b2bf92130ff6613a7b1cb5">xy</a>;   </div>
+<div class="line"><a name="l00187"></a><span class="lineno"><a class="line" href="a00017.html#a57d6c103b3cc1bd61c0ab28eff65d688">  187</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00017.html#a57d6c103b3cc1bd61c0ab28eff65d688">yy</a>;   </div>
+<div class="line"><a name="l00188"></a><span class="lineno"><a class="line" href="a00017.html#a71413e8e0f7d35dc71e4eac4cec5855f">  188</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00017.html#a71413e8e0f7d35dc71e4eac4cec5855f">x0</a>;   </div>
+<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="a00017.html#ac8bfef9adfda574c3ad9060593b9b668">  189</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00017.html#ac8bfef9adfda574c3ad9060593b9b668">y0</a>;   </div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;} <a class="code" href="a00017.html">t_matrix</a>;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;</div>
+<div class="line"><a name="l00197"></a><span class="lineno"><a class="line" href="a00020.html">  197</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00020.html">t_rgb</a></div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;{</div>
+<div class="line"><a name="l00199"></a><span class="lineno"><a class="line" href="a00020.html#a97bcb75fc43734289223a7c4e0bf1cb4">  199</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00020.html#a97bcb75fc43734289223a7c4e0bf1cb4">red</a>;      </div>
+<div class="line"><a name="l00200"></a><span class="lineno"><a class="line" href="a00020.html#ac33324b465797ad765803a1fc26b85d1">  200</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00020.html#ac33324b465797ad765803a1fc26b85d1">green</a>;    </div>
+<div class="line"><a name="l00201"></a><span class="lineno"><a class="line" href="a00020.html#aaea417ff36ec8f29c3496641c34b85b0">  201</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00020.html#aaea417ff36ec8f29c3496641c34b85b0">blue</a>;     </div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;} <a class="code" href="a00020.html">t_rgb</a>;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;</div>
+<div class="line"><a name="l00209"></a><span class="lineno"><a class="line" href="a00021.html">  209</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00021.html">t_rgba</a></div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;{</div>
+<div class="line"><a name="l00211"></a><span class="lineno"><a class="line" href="a00021.html#adf5398d4559380d1d097ff42609d789e">  211</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00021.html#adf5398d4559380d1d097ff42609d789e">red</a>;      </div>
+<div class="line"><a name="l00212"></a><span class="lineno"><a class="line" href="a00021.html#ae9d56f656c02f0f90491b0433c6e4c9d">  212</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00021.html#ae9d56f656c02f0f90491b0433c6e4c9d">green</a>;    </div>
+<div class="line"><a name="l00213"></a><span class="lineno"><a class="line" href="a00021.html#a903486af306a7cf13ce9160c689a3d9c">  213</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00021.html#a903486af306a7cf13ce9160c689a3d9c">blue</a>;     </div>
+<div class="line"><a name="l00214"></a><span class="lineno"><a class="line" href="a00021.html#a5b579068ed58a7b3fe8c5042aa0bc3e4">  214</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00021.html#a5b579068ed58a7b3fe8c5042aa0bc3e4">alpha</a>;    </div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;} <a class="code" href="a00021.html">t_rgba</a>;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;</div>
+<div class="line"><a name="l00222"></a><span class="lineno"><a class="line" href="a00015.html">  222</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00015.html">t_hsl</a></div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;{</div>
+<div class="line"><a name="l00224"></a><span class="lineno"><a class="line" href="a00015.html#a17329c0ac897d0cdb4221afdb30c533b">  224</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00015.html#a17329c0ac897d0cdb4221afdb30c533b">hue</a>;          </div>
+<div class="line"><a name="l00225"></a><span class="lineno"><a class="line" href="a00015.html#ac6d100caa395c77d5ce0d788b543969e">  225</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00015.html#ac6d100caa395c77d5ce0d788b543969e">saturation</a>;   </div>
+<div class="line"><a name="l00226"></a><span class="lineno"><a class="line" href="a00015.html#a47dca6ac2cc1a5b51b720907241e3447">  226</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00015.html#a47dca6ac2cc1a5b51b720907241e3447">lightness</a>;    </div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;} <a class="code" href="a00015.html">t_hsl</a>;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;</div>
+<div class="line"><a name="l00234"></a><span class="lineno"><a class="line" href="a00016.html">  234</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00016.html">t_hsla</a></div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;{</div>
+<div class="line"><a name="l00236"></a><span class="lineno"><a class="line" href="a00016.html#afc3887418f90f4d2a9b073eec3fb4369">  236</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00016.html#afc3887418f90f4d2a9b073eec3fb4369">hue</a>;          </div>
+<div class="line"><a name="l00237"></a><span class="lineno"><a class="line" href="a00016.html#a4f68b909c0d5cbab75941418d3ffbf3e">  237</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00016.html#a4f68b909c0d5cbab75941418d3ffbf3e">saturation</a>;   </div>
+<div class="line"><a name="l00238"></a><span class="lineno"><a class="line" href="a00016.html#a58ae0b9c3214da97f90c85a571f62693">  238</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00016.html#a58ae0b9c3214da97f90c85a571f62693">lightness</a>;    </div>
+<div class="line"><a name="l00239"></a><span class="lineno"><a class="line" href="a00016.html#a11536c3047cafdd00af64652e0baf7b6">  239</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00016.html#a11536c3047cafdd00af64652e0baf7b6">alpha</a>;        </div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;} <a class="code" href="a00016.html">t_hsla</a>;</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;</div>
+<div class="line"><a name="l00247"></a><span class="lineno"><a class="line" href="a00007.html">  247</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00007.html">t_efont</a></div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;{</div>
+<div class="line"><a name="l00249"></a><span class="lineno"><a class="line" href="a00007.html#a82039d811d9a6f5543842e291d8bd38c">  249</a></span>&#160;    <span class="keywordtype">float</span>       <a class="code" href="a00007.html#a82039d811d9a6f5543842e291d8bd38c">c_size</a>;     </div>
+<div class="line"><a name="l00250"></a><span class="lineno"><a class="line" href="a00007.html#ad8e73a221077b37595c86eb76d756c69">  250</a></span>&#160;    <span class="keywordtype">long</span>        <a class="code" href="a00007.html#ad8e73a221077b37595c86eb76d756c69">c_sizereal</a>; </div>
+<div class="line"><a name="l00251"></a><span class="lineno"><a class="line" href="a00007.html#aa21e51212c4b2b8786561a0e6b89a9ab">  251</a></span>&#160;    t_symbol*   <a class="code" href="a00007.html#aa21e51212c4b2b8786561a0e6b89a9ab">c_family</a>;   </div>
+<div class="line"><a name="l00252"></a><span class="lineno"><a class="line" href="a00007.html#a10c0d64b85d3f01e79014626b8bbdfd8">  252</a></span>&#160;    t_symbol*   <a class="code" href="a00007.html#a10c0d64b85d3f01e79014626b8bbdfd8">c_slant</a>;    </div>
+<div class="line"><a name="l00253"></a><span class="lineno"><a class="line" href="a00007.html#a0d5c0d05d8a9dac856c472b9b0488c69">  253</a></span>&#160;    t_symbol*   <a class="code" href="a00007.html#a0d5c0d05d8a9dac856c472b9b0488c69">c_weight</a>;   </div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;} <a class="code" href="a00007.html">t_efont</a>;</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;</div>
+<div class="line"><a name="l00261"></a><span class="lineno"><a class="line" href="a00013.html">  261</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00013.html">t_etext</a></div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;{</div>
+<div class="line"><a name="l00263"></a><span class="lineno"><a class="line" href="a00013.html#a69b590e8c2bc4f88e7842803e97ffcb0">  263</a></span>&#160;    t_symbol*       <a class="code" href="a00013.html#a69b590e8c2bc4f88e7842803e97ffcb0">c_text</a>;     </div>
+<div class="line"><a name="l00264"></a><span class="lineno"><a class="line" href="a00013.html#a9dcb6b0bab06e4fa33bf5e64506072f7">  264</a></span>&#160;    <a class="code" href="a00021.html">t_rgba</a>          <a class="code" href="a00013.html#a9dcb6b0bab06e4fa33bf5e64506072f7">c_color</a>;    </div>
+<div class="line"><a name="l00265"></a><span class="lineno"><a class="line" href="a00013.html#a7c51ade17ff45a3d56aeeb59fc8c597e">  265</a></span>&#160;    <a class="code" href="a00007.html">t_efont</a>         <a class="code" href="a00013.html#a7c51ade17ff45a3d56aeeb59fc8c597e">c_font</a>;     </div>
+<div class="line"><a name="l00266"></a><span class="lineno"><a class="line" href="a00013.html#a54b8df071c71c4cbd50a834d99c7d6f0">  266</a></span>&#160;    <a class="code" href="a00019.html">t_rect</a>          <a class="code" href="a00013.html#a54b8df071c71c4cbd50a834d99c7d6f0">c_rect</a>;     </div>
+<div class="line"><a name="l00267"></a><span class="lineno"><a class="line" href="a00013.html#a95636b32be420c54477ac42ef8bf153a">  267</a></span>&#160;    t_symbol*       <a class="code" href="a00013.html#a95636b32be420c54477ac42ef8bf153a">c_anchor</a>;   </div>
+<div class="line"><a name="l00268"></a><span class="lineno"><a class="line" href="a00013.html#a17352a5d25468f9a9666b7bd06fc0834">  268</a></span>&#160;    t_symbol*       <a class="code" href="a00013.html#a17352a5d25468f9a9666b7bd06fc0834">c_justify</a>;  </div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;} <a class="code" href="a00013.html">t_etext</a>;</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;</div>
+<div class="line"><a name="l00276"></a><span class="lineno"><a class="line" href="a00008.html">  276</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00008.html">t_egobj</a></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;{</div>
+<div class="line"><a name="l00278"></a><span class="lineno"><a class="line" href="a00008.html#aa0d1cb7aefd1673b58f5ca91f2bdd75a">  278</a></span>&#160;    egraphics_types <a class="code" href="a00008.html#aa0d1cb7aefd1673b58f5ca91f2bdd75a">e_type</a>;         </div>
+<div class="line"><a name="l00279"></a><span class="lineno"><a class="line" href="a00008.html#ae57f7ad46af3a729cbdfaabb5facb5de">  279</a></span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="a00008.html#ae57f7ad46af3a729cbdfaabb5facb5de">e_filled</a>;       </div>
+<div class="line"><a name="l00280"></a><span class="lineno"><a class="line" href="a00008.html#a3ef697ed87a2bf8304616ada800b611e">  280</a></span>&#160;    t_symbol*       <a class="code" href="a00008.html#a3ef697ed87a2bf8304616ada800b611e">e_color</a>;        </div>
+<div class="line"><a name="l00281"></a><span class="lineno"><a class="line" href="a00008.html#a6f741974f9596f6593d7bfb45fc74cce">  281</a></span>&#160;    <span class="keywordtype">float</span>           <a class="code" href="a00008.html#a6f741974f9596f6593d7bfb45fc74cce">e_width</a>;        </div>
+<div class="line"><a name="l00283"></a><span class="lineno"><a class="line" href="a00008.html#a4fcd8b0e87dd629bb305c5bbd813139c">  283</a></span>&#160;    <a class="code" href="a00018.html">t_pt</a>*           <a class="code" href="a00008.html#a4fcd8b0e87dd629bb305c5bbd813139c">e_points</a>;       </div>
+<div class="line"><a name="l00284"></a><span class="lineno"><a class="line" href="a00008.html#a078d7351707c8b191c4af427715a1541">  284</a></span>&#160;    <span class="keywordtype">long</span>            <a class="code" href="a00008.html#a078d7351707c8b191c4af427715a1541">e_npoints</a>;      </div>
+<div class="line"><a name="l00285"></a><span class="lineno"><a class="line" href="a00008.html#aaf03a19f10e6d5927b941365799550f2">  285</a></span>&#160;    <span class="keywordtype">float</span>           <a class="code" href="a00008.html#aaf03a19f10e6d5927b941365799550f2">e_roundness</a>;    </div>
+<div class="line"><a name="l00286"></a><span class="lineno"><a class="line" href="a00008.html#a2ab8722a4951239a952a0667f183b43a">  286</a></span>&#160;    <a class="code" href="a00007.html">t_efont</a>         <a class="code" href="a00008.html#a2ab8722a4951239a952a0667f183b43a">e_font</a>;         </div>
+<div class="line"><a name="l00287"></a><span class="lineno"><a class="line" href="a00008.html#a7e10e3b2a698948f100db472ade732db">  287</a></span>&#160;    t_symbol*       <a class="code" href="a00008.html#a7e10e3b2a698948f100db472ade732db">e_anchor</a>;       </div>
+<div class="line"><a name="l00288"></a><span class="lineno"><a class="line" href="a00008.html#a75601eeebf6ee5316c34b4682521e546">  288</a></span>&#160;    t_symbol*       <a class="code" href="a00008.html#a75601eeebf6ee5316c34b4682521e546">e_justify</a>;      </div>
+<div class="line"><a name="l00289"></a><span class="lineno"><a class="line" href="a00008.html#aeb8a77575aa15df98e298d9b01b1e46e">  289</a></span>&#160;    t_symbol*       <a class="code" href="a00008.html#aeb8a77575aa15df98e298d9b01b1e46e">e_text</a>;         </div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;} <a class="code" href="a00008.html">t_egobj</a>;</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;</div>
+<div class="line"><a name="l00298"></a><span class="lineno"><a class="line" href="a00011.html">  298</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00011.html">t_epopup</a></div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;{</div>
+<div class="line"><a name="l00300"></a><span class="lineno"><a class="line" href="a00011.html#ae013650cf02a85809ed5b23de958f0c8">  300</a></span>&#160;    t_symbol*   <a class="code" href="a00011.html#ae013650cf02a85809ed5b23de958f0c8">c_name</a>; </div>
+<div class="line"><a name="l00301"></a><span class="lineno"><a class="line" href="a00011.html#a2c89bbd92adfd5047d874063fbee99e1">  301</a></span>&#160;    t_symbol*   <a class="code" href="a00011.html#a2c89bbd92adfd5047d874063fbee99e1">c_send</a>; </div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;}<a class="code" href="a00011.html">t_epopup</a>;</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;</div>
+<div class="line"><a name="l00309"></a><span class="lineno"><a class="line" href="a00009.html">  309</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00009.html">t_elayer</a></div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;{</div>
+<div class="line"><a name="l00311"></a><span class="lineno"><a class="line" href="a00009.html#a7b6e04eef4491054de954174a3d10c18">  311</a></span>&#160;    t_object*           <a class="code" href="a00009.html#a7b6e04eef4491054de954174a3d10c18">e_owner</a>;            </div>
+<div class="line"><a name="l00312"></a><span class="lineno"><a class="line" href="a00009.html#a314ce24daf6d78ff3d78721545d5aa82">  312</a></span>&#160;    t_symbol*           <a class="code" href="a00009.html#a314ce24daf6d78ff3d78721545d5aa82">e_name</a>;             </div>
+<div class="line"><a name="l00313"></a><span class="lineno"><a class="line" href="a00009.html#aad477661da8243df21b0b704cad49825">  313</a></span>&#160;    t_symbol*           <a class="code" href="a00009.html#aad477661da8243df21b0b704cad49825">e_id</a>;               </div>
+<div class="line"><a name="l00314"></a><span class="lineno"><a class="line" href="a00009.html#aee369ce6c8394150f1e29e002d4cf8dd">  314</a></span>&#160;    <span class="keywordtype">int</span>                 <a class="code" href="a00009.html#aee369ce6c8394150f1e29e002d4cf8dd">e_state</a>;            </div>
+<div class="line"><a name="l00315"></a><span class="lineno"><a class="line" href="a00009.html#abd240d53f9bfecde2170c85fe7fbdfd2">  315</a></span>&#160;    <a class="code" href="a00019.html">t_rect</a>              <a class="code" href="a00009.html#abd240d53f9bfecde2170c85fe7fbdfd2">e_rect</a>;             </div>
+<div class="line"><a name="l00317"></a><span class="lineno"><a class="line" href="a00009.html#a7757ef34cd2f81d31835199e47fc4df1">  317</a></span>&#160;    t_symbol*           <a class="code" href="a00009.html#a7757ef34cd2f81d31835199e47fc4df1">e_color</a>;            </div>
+<div class="line"><a name="l00318"></a><span class="lineno"><a class="line" href="a00009.html#a730776e636c54e06227e8ff21d859809">  318</a></span>&#160;    <span class="keywordtype">int</span>                 <a class="code" href="a00009.html#a730776e636c54e06227e8ff21d859809">e_line_width</a>;       </div>
+<div class="line"><a name="l00319"></a><span class="lineno"><a class="line" href="a00009.html#a1267c33a02fbe86fb210c8591d2f8a27">  319</a></span>&#160;    <a class="code" href="a00017.html">t_matrix</a>            <a class="code" href="a00009.html#a1267c33a02fbe86fb210c8591d2f8a27">e_matrix</a>;           </div>
+<div class="line"><a name="l00320"></a><span class="lineno"><a class="line" href="a00009.html#a4b9e233c7608524a176423c0ae2ca563">  320</a></span>&#160;    <a class="code" href="a00008.html">t_egobj</a>             <a class="code" href="a00009.html#a4b9e233c7608524a176423c0ae2ca563">e_new_objects</a>;      </div>
+<div class="line"><a name="l00321"></a><span class="lineno"><a class="line" href="a00009.html#ad5664bb9ccb9c503eb484543816ccac4">  321</a></span>&#160;    <a class="code" href="a00008.html">t_egobj</a>*            <a class="code" href="a00009.html#ad5664bb9ccb9c503eb484543816ccac4">e_objects</a>;          </div>
+<div class="line"><a name="l00322"></a><span class="lineno"><a class="line" href="a00009.html#a146d29225c977dea1d24e3b4c62e69c5">  322</a></span>&#160;    <span class="keywordtype">long</span>                <a class="code" href="a00009.html#a146d29225c977dea1d24e3b4c62e69c5">e_number_objects</a>;   </div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;} <a class="code" href="a00009.html">t_elayer</a>;</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;</div>
+<div class="line"><a name="l00330"></a><span class="lineno"><a class="line" href="a00004.html">  330</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00004.html">t_edrawparams</a></div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;{</div>
+<div class="line"><a name="l00332"></a><span class="lineno"><a class="line" href="a00004.html#a9c491ec0cf0af5823d4c28d449f8d19e">  332</a></span>&#160;    <span class="keywordtype">float</span>       <a class="code" href="a00004.html#a9c491ec0cf0af5823d4c28d449f8d19e">d_cornersize</a>;       </div>
+<div class="line"><a name="l00333"></a><span class="lineno"><a class="line" href="a00004.html#ac2c98f9e556d5b89b4effc24fdb56b03">  333</a></span>&#160;    <span class="keywordtype">float</span>       <a class="code" href="a00004.html#ac2c98f9e556d5b89b4effc24fdb56b03">d_borderthickness</a>;  </div>
+<div class="line"><a name="l00334"></a><span class="lineno"><a class="line" href="a00004.html#a81687784708f31892bad33ebc4dce82d">  334</a></span>&#160;    <a class="code" href="a00021.html">t_rgba</a>      <a class="code" href="a00004.html#a81687784708f31892bad33ebc4dce82d">d_bordercolor</a>;      </div>
+<div class="line"><a name="l00335"></a><span class="lineno"><a class="line" href="a00004.html#abe662d410233634836186064e09f2e99">  335</a></span>&#160;    <a class="code" href="a00021.html">t_rgba</a>      <a class="code" href="a00004.html#abe662d410233634836186064e09f2e99">d_boxfillcolor</a>;     </div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;} <a class="code" href="a00004.html">t_edrawparams</a>;</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;</div>
+<div class="line"><a name="l00344"></a><span class="lineno"><a class="line" href="a00012.html">  344</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00012.html">t_eproxy</a></div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;{</div>
+<div class="line"><a name="l00346"></a><span class="lineno"><a class="line" href="a00012.html#abcab1c0c33eb380f4d2f67f5e06638d1">  346</a></span>&#160;    t_pd        <a class="code" href="a00012.html#abcab1c0c33eb380f4d2f67f5e06638d1">p_pd</a>;       </div>
+<div class="line"><a name="l00347"></a><span class="lineno"><a class="line" href="a00012.html#a4f462c4e3ad2e21b83ab32948a3abe48">  347</a></span>&#160;    t_object*   <a class="code" href="a00012.html#a4f462c4e3ad2e21b83ab32948a3abe48">p_owner</a>;    </div>
+<div class="line"><a name="l00348"></a><span class="lineno"><a class="line" href="a00012.html#a5dfbd3a1ce8c1205bfcc65f78aa1624f">  348</a></span>&#160;    t_inlet*    <a class="code" href="a00012.html#a5dfbd3a1ce8c1205bfcc65f78aa1624f">p_inlet</a>;    </div>
+<div class="line"><a name="l00349"></a><span class="lineno"><a class="line" href="a00012.html#a470e48648e04de9f5b5326fc4e7d410c">  349</a></span>&#160;    <span class="keywordtype">int</span>         <a class="code" href="a00012.html#a470e48648e04de9f5b5326fc4e7d410c">p_index</a>;    </div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;} <a class="code" href="a00012.html">t_eproxy</a>;</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;</div>
+<div class="line"><a name="l00352"></a><span class="lineno"><a class="line" href="a00014.html">  352</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00014.html">t_ewidget</a></div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;{</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;    t_getrectfn     w_getrectfn;</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    t_displacefn    w_displacefn;</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    t_selectfn      w_selectfn;</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    t_activatefn    w_activatefn;</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    t_deletefn      w_deletefn;</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    t_visfn         w_visfn;</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    t_clickfn       w_clickfn;</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    method          w_assist;</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    method          w_paint;</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    method          w_mouseenter;</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    method          w_mouseleave;</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    method          w_mousemove;</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;    method          w_mousedown;</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    method          w_mousedrag;</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    method          w_mouseup;</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    method          w_mousewheel;</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    method          w_dblclick;</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    method          w_key;</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;    method          w_keyfilter;</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    method          w_getdrawparameters;</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    method          w_save;</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    method          w_dosave;</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    method          w_popup;</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    method          w_dsp;</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    method          w_object_standat_paint;</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    method          w_oksize;</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    t_err_method    w_notify;</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    method          w_write;</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    method          w_read;</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;} <a class="code" href="a00014.html">t_ewidget</a>;</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;</div>
+<div class="line"><a name="l00385"></a><span class="lineno"><a class="line" href="a00001.html">  385</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00001.html">t_eattr</a></div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;{</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    t_object        obj;</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    t_symbol*       name;</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    t_symbol*       type;</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    t_symbol*       category;</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    t_symbol*       label;</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    t_symbol*       style;</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    <span class="keywordtype">long</span>            order;</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    <span class="keywordtype">char</span>            save;</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    <span class="keywordtype">char</span>            paint;</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    <span class="keywordtype">char</span>            invisible;</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    <span class="keywordtype">long</span>            flags;</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    <span class="keywordtype">long</span>            offset;</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    <span class="keywordtype">long</span>            sizemax;</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    <span class="keywordtype">long</span>            size;</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    </div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    method          getter;</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    method          setter;</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    <span class="keywordtype">long</span>            clipped;</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    <span class="keywordtype">double</span>          minimum;</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    <span class="keywordtype">double</span>          maximum;</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    <span class="keywordtype">double</span>          step;</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;    t_symbol*       defvals;</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    t_symbol**      itemslist;</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;    <span class="keywordtype">long</span>            itemssize;</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;} <a class="code" href="a00001.html">t_eattr</a>;</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;</div>
+<div class="line"><a name="l00419"></a><span class="lineno"><a class="line" href="a00003.html">  419</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00003.html">t_eclass</a></div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;{</div>
+<div class="line"><a name="l00421"></a><span class="lineno"><a class="line" href="a00003.html#aecedc665d1bbfe17cbea38e01f45a57a">  421</a></span>&#160;    t_class     <a class="code" href="a00003.html#aecedc665d1bbfe17cbea38e01f45a57a">c_class</a>;    </div>
+<div class="line"><a name="l00422"></a><span class="lineno"><a class="line" href="a00003.html#a4bfb80cdcf75acb047625bffa059cf4c">  422</a></span>&#160;    <span class="keywordtype">char</span>        <a class="code" href="a00003.html#a4bfb80cdcf75acb047625bffa059cf4c">c_box</a>;      </div>
+<div class="line"><a name="l00423"></a><span class="lineno"><a class="line" href="a00003.html#aa9c93cedcad593fa8a3f7a40c1bc9821">  423</a></span>&#160;    <span class="keywordtype">char</span>        <a class="code" href="a00003.html#aa9c93cedcad593fa8a3f7a40c1bc9821">c_dsp</a>;      </div>
+<div class="line"><a name="l00424"></a><span class="lineno"><a class="line" href="a00003.html#aff02df32fedc55e7b49e8a7ec8efc57c">  424</a></span>&#160;    <a class="code" href="a00014.html">t_ewidget</a>   <a class="code" href="a00003.html#aff02df32fedc55e7b49e8a7ec8efc57c">c_widget</a>;   </div>
+<div class="line"><a name="l00425"></a><span class="lineno"><a class="line" href="a00003.html#ad9af59199102736bcfa740c80df1a211">  425</a></span>&#160;    <a class="code" href="a00001.html">t_eattr</a>**   <a class="code" href="a00003.html#ad9af59199102736bcfa740c80df1a211">c_attr</a>;     </div>
+<div class="line"><a name="l00426"></a><span class="lineno"><a class="line" href="a00003.html#a6561317fd2947afb1f20ea9a1fd0e458">  426</a></span>&#160;    <span class="keywordtype">long</span>        <a class="code" href="a00003.html#a6561317fd2947afb1f20ea9a1fd0e458">c_nattr</a>;    </div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;}<a class="code" href="a00003.html">t_eclass</a>;</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;</div>
+<div class="line"><a name="l00441"></a><span class="lineno"><a class="line" href="a00010.html">  441</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00010.html#a00039">t_eobj</a></div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;{</div>
+<div class="line"><a name="l00443"></a><span class="lineno"><a class="line" href="a00010.html#a7bdccc6098f5e73b2e051322a8ba1180">  443</a></span>&#160;    t_object            <a class="code" href="a00010.html#a7bdccc6098f5e73b2e051322a8ba1180">o_obj</a>;              </div>
+<div class="line"><a name="l00444"></a><span class="lineno"><a class="line" href="a00010.html#a3283b793c9d613b8da4fbbb4fd56636e">  444</a></span>&#160;    t_symbol*           <a class="code" href="a00010.html#a3283b793c9d613b8da4fbbb4fd56636e">o_id</a>;               </div>
+<div class="line"><a name="l00445"></a><span class="lineno"><a class="line" href="a00010.html#a4a4d89ac04c7b30a15a87a649b2daf65">  445</a></span>&#160;    t_canvas*           <a class="code" href="a00010.html#a4a4d89ac04c7b30a15a87a649b2daf65">o_canvas</a>;           </div>
+<div class="line"><a name="l00446"></a><span class="lineno"><a class="line" href="a00010.html#a7b392d718eded2e4bd2694ece6c49cb5">  446</a></span>&#160;    <a class="code" href="a00012.html">t_eproxy</a>**          <a class="code" href="a00010.html#a7b392d718eded2e4bd2694ece6c49cb5">o_proxy</a>;            </div>
+<div class="line"><a name="l00447"></a><span class="lineno"><a class="line" href="a00010.html#a98198854f27517b80913f82e30b36ee6">  447</a></span>&#160;    <span class="keywordtype">int</span>                 <a class="code" href="a00010.html#a98198854f27517b80913f82e30b36ee6">o_nproxy</a>;           </div>
+<div class="line"><a name="l00448"></a><span class="lineno"><a class="line" href="a00010.html#a0e20ced4a1283166890c3f773daf1dbf">  448</a></span>&#160;    <span class="keywordtype">int</span>                 <a class="code" href="a00010.html#a0e20ced4a1283166890c3f773daf1dbf">o_current_proxy</a>;    </div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;}<a class="code" href="a00010.html#a00039">t_eobj</a>;</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;</div>
+<div class="line"><a name="l00465"></a><span class="lineno"><a class="line" href="a00006.html">  465</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00006.html#a00038">t_edspobj</a></div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;{</div>
+<div class="line"><a name="l00467"></a><span class="lineno"><a class="line" href="a00006.html#a63488db3cd34d44a3eff0c3115a68bb4">  467</a></span>&#160;    <a class="code" href="a00010.html#a00039">t_eobj</a>              <a class="code" href="a00006.html#a63488db3cd34d44a3eff0c3115a68bb4">d_obj</a>;              </div>
+<div class="line"><a name="l00468"></a><span class="lineno"><a class="line" href="a00006.html#ae1a9a7105cca82c542bfc6a0c3fd449f">  468</a></span>&#160;    <span class="keywordtype">float</span>               <a class="code" href="a00006.html#ae1a9a7105cca82c542bfc6a0c3fd449f">d_float</a>;            </div>
+<div class="line"><a name="l00469"></a><span class="lineno"><a class="line" href="a00006.html#a07e56ee6b9bf68fa83c154d55c50f072">  469</a></span>&#160;    <span class="keywordtype">long</span>                <a class="code" href="a00006.html#a07e56ee6b9bf68fa83c154d55c50f072">d_dsp_size</a>;         </div>
+<div class="line"><a name="l00470"></a><span class="lineno"><a class="line" href="a00006.html#a82fb2cd80ab9cc3122ab01181daf58b8">  470</a></span>&#160;    t_int*              <a class="code" href="a00006.html#a82fb2cd80ab9cc3122ab01181daf58b8">d_dsp_vectors</a>;      </div>
+<div class="line"><a name="l00471"></a><span class="lineno"><a class="line" href="a00006.html#aebe091ccb3e5e7e21f5bad408cba0cfd">  471</a></span>&#160;    <span class="keywordtype">long</span>                <a class="code" href="a00006.html#aebe091ccb3e5e7e21f5bad408cba0cfd">d_dsp_flag</a>;         </div>
+<div class="line"><a name="l00472"></a><span class="lineno"><a class="line" href="a00006.html#accd1699e8fd7d5852e5e11508f63745d">  472</a></span>&#160;    <span class="keywordtype">void</span>*               <a class="code" href="a00006.html#accd1699e8fd7d5852e5e11508f63745d">d_dsp_user_param</a>;   </div>
+<div class="line"><a name="l00473"></a><span class="lineno"><a class="line" href="a00006.html#aca439a65c43de7d465efd4e8d69537ec">  473</a></span>&#160;    t_float**           <a class="code" href="a00006.html#aca439a65c43de7d465efd4e8d69537ec">d_sigs_out</a>;         </div>
+<div class="line"><a name="l00474"></a><span class="lineno"><a class="line" href="a00006.html#a26c47eef6f92b2d4cabb3b348f007f10">  474</a></span>&#160;    t_float*            <a class="code" href="a00006.html#a26c47eef6f92b2d4cabb3b348f007f10">d_sigs_real</a>;        </div>
+<div class="line"><a name="l00475"></a><span class="lineno"><a class="line" href="a00006.html#aedeb380ca1e44ee36a7c214776fe9288">  475</a></span>&#160;    method              <a class="code" href="a00006.html#aedeb380ca1e44ee36a7c214776fe9288">d_perform_method</a>;   </div>
+<div class="line"><a name="l00476"></a><span class="lineno"><a class="line" href="a00006.html#a96890cff3e90d4a6b6b7d18f451bdf3b">  476</a></span>&#160;    <span class="keywordtype">long</span>                <a class="code" href="a00006.html#a96890cff3e90d4a6b6b7d18f451bdf3b">d_misc</a>;             </div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;}<a class="code" href="a00006.html#a00038">t_edspobj</a>;</div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;</div>
+<div class="line"><a name="l00493"></a><span class="lineno"><a class="line" href="a00002.html">  493</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00002.html#a00037">t_ebox</a></div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;{</div>
+<div class="line"><a name="l00495"></a><span class="lineno"><a class="line" href="a00002.html#a9949abd851d6eb9025df03bb856d0b3e">  495</a></span>&#160;    <a class="code" href="a00010.html#a00039">t_eobj</a>              <a class="code" href="a00002.html#a9949abd851d6eb9025df03bb856d0b3e">b_obj</a>;              </div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;    </div>
+<div class="line"><a name="l00497"></a><span class="lineno"><a class="line" href="a00002.html#a78dc268bd72ebc6a499521079e83aec1">  497</a></span>&#160;    t_symbol*           <a class="code" href="a00002.html#a78dc268bd72ebc6a499521079e83aec1">b_receive_id</a>;       </div>
+<div class="line"><a name="l00498"></a><span class="lineno"><a class="line" href="a00002.html#a992df88e0e842db2f8da2ef01607a1ae">  498</a></span>&#160;    t_symbol*           <a class="code" href="a00002.html#a992df88e0e842db2f8da2ef01607a1ae">b_send_id</a>;          </div>
+<div class="line"><a name="l00499"></a><span class="lineno"><a class="line" href="a00002.html#a1900c930231b8d9293be52bc79618fc0">  499</a></span>&#160;    t_symbol*           <a class="code" href="a00002.html#a1900c930231b8d9293be52bc79618fc0">b_objpreset_id</a>;     </div>
+<div class="line"><a name="l00501"></a><span class="lineno"><a class="line" href="a00002.html#af16ddbcc2e590fed18c832b5ca97d4b9">  501</a></span>&#160;    t_symbol*           <a class="code" href="a00002.html#af16ddbcc2e590fed18c832b5ca97d4b9">b_canvas_id</a>;        </div>
+<div class="line"><a name="l00502"></a><span class="lineno"><a class="line" href="a00002.html#a39a2c877915f6633522e6d0f1d44ec78">  502</a></span>&#160;    t_symbol*           <a class="code" href="a00002.html#a39a2c877915f6633522e6d0f1d44ec78">b_drawing_id</a>;       </div>
+<div class="line"><a name="l00503"></a><span class="lineno"><a class="line" href="a00002.html#ac53b9adb36148291448f073d3d46c99a">  503</a></span>&#160;    t_symbol*           <a class="code" href="a00002.html#ac53b9adb36148291448f073d3d46c99a">b_window_id</a>;        </div>
+<div class="line"><a name="l00504"></a><span class="lineno"><a class="line" href="a00002.html#ab711e1c45e78f5133a4550cd1fb897bf">  504</a></span>&#160;    t_symbol*           <a class="code" href="a00002.html#ab711e1c45e78f5133a4550cd1fb897bf">b_all_id</a>;           </div>
+<div class="line"><a name="l00506"></a><span class="lineno"><a class="line" href="a00002.html#a8f42b828b11ed26f8fe9c7148799d085">  506</a></span>&#160;    <span class="keywordtype">long</span>                <a class="code" href="a00002.html#a8f42b828b11ed26f8fe9c7148799d085">b_flags</a>;            </div>
+<div class="line"><a name="l00507"></a><span class="lineno"><a class="line" href="a00002.html#a7a9713bad6c3cc449df7207bcb424be3">  507</a></span>&#160;    <a class="code" href="a00019.html">t_rect</a>              <a class="code" href="a00002.html#a7a9713bad6c3cc449df7207bcb424be3">b_rect</a>;             </div>
+<div class="line"><a name="l00508"></a><span class="lineno"><a class="line" href="a00002.html#a0031f1f2d42a18a58313b33f59139578">  508</a></span>&#160;    <a class="code" href="a00019.html">t_rect</a>              <a class="code" href="a00002.html#a0031f1f2d42a18a58313b33f59139578">b_rect_last</a>;        </div>
+<div class="line"><a name="l00509"></a><span class="lineno"><a class="line" href="a00002.html#a158a58471ce64a89cbff635e10e48515">  509</a></span>&#160;    <a class="code" href="a00007.html">t_efont</a>             <a class="code" href="a00002.html#a158a58471ce64a89cbff635e10e48515">b_font</a>;             </div>
+<div class="line"><a name="l00510"></a><span class="lineno"><a class="line" href="a00002.html#af721a77fe33b281d0d2f6a5fa64fdd52">  510</a></span>&#160;    <span class="keywordtype">int</span>                 <a class="code" href="a00002.html#af721a77fe33b281d0d2f6a5fa64fdd52">b_selected_box</a>;     </div>
+<div class="line"><a name="l00511"></a><span class="lineno"><a class="line" href="a00002.html#a3178ca5db13319003bacd0db8a6d1e1a">  511</a></span>&#160;    <span class="keywordtype">int</span>                 <a class="code" href="a00002.html#a3178ca5db13319003bacd0db8a6d1e1a">b_selected_item</a>;    </div>
+<div class="line"><a name="l00512"></a><span class="lineno"><a class="line" href="a00002.html#a3f2a43cad7e9882e21ceb2a7b0b5e887">  512</a></span>&#160;    <span class="keywordtype">int</span>                 <a class="code" href="a00002.html#a3f2a43cad7e9882e21ceb2a7b0b5e887">b_selected_inlet</a>;   </div>
+<div class="line"><a name="l00513"></a><span class="lineno"><a class="line" href="a00002.html#aac434f064bb59cc71da2aec664807763">  513</a></span>&#160;    <span class="keywordtype">int</span>                 <a class="code" href="a00002.html#aac434f064bb59cc71da2aec664807763">b_selected_outlet</a>;  </div>
+<div class="line"><a name="l00515"></a><span class="lineno"><a class="line" href="a00002.html#a23d9ca2cf6cafdd8cd5c496927caae95">  515</a></span>&#160;    <span class="keywordtype">char</span>                <a class="code" href="a00002.html#a23d9ca2cf6cafdd8cd5c496927caae95">b_mouse_down</a>;       </div>
+<div class="line"><a name="l00517"></a><span class="lineno"><a class="line" href="a00002.html#a262fd87d8b58f66781e6c0b735b2ff28">  517</a></span>&#160;    <span class="keywordtype">char</span>                <a class="code" href="a00002.html#a262fd87d8b58f66781e6c0b735b2ff28">b_visible</a>;          </div>
+<div class="line"><a name="l00518"></a><span class="lineno"><a class="line" href="a00002.html#a081a8a23ddf849cd5867dcc3382a40ae">  518</a></span>&#160;    <span class="keywordtype">char</span>                <a class="code" href="a00002.html#a081a8a23ddf849cd5867dcc3382a40ae">b_ready_to_draw</a>;    </div>
+<div class="line"><a name="l00519"></a><span class="lineno"><a class="line" href="a00002.html#a0f2b1dacb5b8560493012f53f4f2f3c1">  519</a></span>&#160;    <span class="keywordtype">char</span>                <a class="code" href="a00002.html#a0f2b1dacb5b8560493012f53f4f2f3c1">b_have_window</a>;      </div>
+<div class="line"><a name="l00520"></a><span class="lineno"><a class="line" href="a00002.html#adaab4aaa0946181da7dbecb0b10faa12">  520</a></span>&#160;    <span class="keywordtype">char</span>                <a class="code" href="a00002.html#adaab4aaa0946181da7dbecb0b10faa12">b_isinsubcanvas</a>;    </div>
+<div class="line"><a name="l00521"></a><span class="lineno"><a class="line" href="a00002.html#a084de3f93275c55c9a41667fa7aa6156">  521</a></span>&#160;    <a class="code" href="a00004.html">t_edrawparams</a>       <a class="code" href="a00002.html#a084de3f93275c55c9a41667fa7aa6156">b_boxparameters</a>;    </div>
+<div class="line"><a name="l00523"></a><span class="lineno"><a class="line" href="a00002.html#afa8badd38700e76e96d5ee4c5d6727a9">  523</a></span>&#160;    <a class="code" href="a00009.html">t_elayer</a>*           <a class="code" href="a00002.html#afa8badd38700e76e96d5ee4c5d6727a9">b_layers</a>;           </div>
+<div class="line"><a name="l00524"></a><span class="lineno"><a class="line" href="a00002.html#a09de806201205272af79370bf98ad4eb">  524</a></span>&#160;    <span class="keywordtype">long</span>                <a class="code" href="a00002.html#a09de806201205272af79370bf98ad4eb">b_number_of_layers</a>; </div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;}<a class="code" href="a00002.html#a00037">t_ebox</a>;</div>
+<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;</div>
+<div class="line"><a name="l00535"></a><span class="lineno"><a class="line" href="a00005.html">  535</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="a00005.html">t_edspbox</a></div>
+<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;{</div>
+<div class="line"><a name="l00537"></a><span class="lineno"><a class="line" href="a00005.html#a6cb8b65065768d9ba4ea78467240026f">  537</a></span>&#160;    <a class="code" href="a00010.html#a00039">t_eobj</a>              <a class="code" href="a00005.html#a6cb8b65065768d9ba4ea78467240026f">b_obj</a>;              </div>
+<div class="line"><a name="l00539"></a><span class="lineno"><a class="line" href="a00005.html#ad497be375a6747949c69f030dcfea237">  539</a></span>&#160;    t_symbol*           <a class="code" href="a00005.html#ad497be375a6747949c69f030dcfea237">b_receive_id</a>;       </div>
+<div class="line"><a name="l00540"></a><span class="lineno"><a class="line" href="a00005.html#a0bd349ee9fde69dbe48f34a25a5a2100">  540</a></span>&#160;    t_symbol*           <a class="code" href="a00005.html#a0bd349ee9fde69dbe48f34a25a5a2100">b_send_id</a>;          </div>
+<div class="line"><a name="l00541"></a><span class="lineno"><a class="line" href="a00005.html#a62c8cd2ca1bb920b935a7a8449b5ce7a">  541</a></span>&#160;    t_symbol*           <a class="code" href="a00005.html#a62c8cd2ca1bb920b935a7a8449b5ce7a">b_objpreset_id</a>;     </div>
+<div class="line"><a name="l00543"></a><span class="lineno"><a class="line" href="a00005.html#a2a6338ec364214f06bda08c81e022e68">  543</a></span>&#160;    t_symbol*           <a class="code" href="a00005.html#a2a6338ec364214f06bda08c81e022e68">b_canvas_id</a>;        </div>
+<div class="line"><a name="l00544"></a><span class="lineno"><a class="line" href="a00005.html#a5bea1840cf805e6e8bc5a8856b525388">  544</a></span>&#160;    t_symbol*           <a class="code" href="a00005.html#a5bea1840cf805e6e8bc5a8856b525388">b_drawing_id</a>;       </div>
+<div class="line"><a name="l00545"></a><span class="lineno"><a class="line" href="a00005.html#a5570f7017e410294472a85cb90a25ddd">  545</a></span>&#160;    t_symbol*           <a class="code" href="a00005.html#a5570f7017e410294472a85cb90a25ddd">b_window_id</a>;        </div>
+<div class="line"><a name="l00546"></a><span class="lineno"><a class="line" href="a00005.html#a340b0a27331db3b05b6b393f11ef420d">  546</a></span>&#160;    t_symbol*           <a class="code" href="a00005.html#a340b0a27331db3b05b6b393f11ef420d">b_all_id</a>;           </div>
+<div class="line"><a name="l00548"></a><span class="lineno"><a class="line" href="a00005.html#a2a36332c003ce29dd75f516747fbf6b9">  548</a></span>&#160;    <span class="keywordtype">long</span>                <a class="code" href="a00005.html#a2a36332c003ce29dd75f516747fbf6b9">b_flags</a>;            </div>
+<div class="line"><a name="l00549"></a><span class="lineno"><a class="line" href="a00005.html#adb6f481670996212b543e961e8bd4547">  549</a></span>&#160;    <a class="code" href="a00019.html">t_rect</a>              <a class="code" href="a00005.html#adb6f481670996212b543e961e8bd4547">b_rect</a>;             </div>
+<div class="line"><a name="l00550"></a><span class="lineno"><a class="line" href="a00005.html#a0ff844bea45c78477fae06735121d8ac">  550</a></span>&#160;    <a class="code" href="a00019.html">t_rect</a>              <a class="code" href="a00005.html#a0ff844bea45c78477fae06735121d8ac">b_rect_last</a>;        </div>
+<div class="line"><a name="l00551"></a><span class="lineno"><a class="line" href="a00005.html#aa9e9583976f9c3b053a059ff2fb7bc80">  551</a></span>&#160;    <a class="code" href="a00007.html">t_efont</a>             <a class="code" href="a00005.html#aa9e9583976f9c3b053a059ff2fb7bc80">b_font</a>;             </div>
+<div class="line"><a name="l00552"></a><span class="lineno"><a class="line" href="a00005.html#a54d88ecbabbfe56931321e52e5b163de">  552</a></span>&#160;    <span class="keywordtype">int</span>                 <a class="code" href="a00005.html#a54d88ecbabbfe56931321e52e5b163de">b_selected_box</a>;     </div>
+<div class="line"><a name="l00553"></a><span class="lineno"><a class="line" href="a00005.html#a3c1db9a4cfffb67877cd93914036257d">  553</a></span>&#160;    <span class="keywordtype">int</span>                 <a class="code" href="a00005.html#a3c1db9a4cfffb67877cd93914036257d">b_selected_item</a>;    </div>
+<div class="line"><a name="l00554"></a><span class="lineno"><a class="line" href="a00005.html#ad668a2dcf835e775dc3889ca616d4992">  554</a></span>&#160;    <span class="keywordtype">int</span>                 <a class="code" href="a00005.html#ad668a2dcf835e775dc3889ca616d4992">b_selected_inlet</a>;   </div>
+<div class="line"><a name="l00555"></a><span class="lineno"><a class="line" href="a00005.html#ae0f453efc95ffe0fd1fe0cdb231b4798">  555</a></span>&#160;    <span class="keywordtype">int</span>                 <a class="code" href="a00005.html#ae0f453efc95ffe0fd1fe0cdb231b4798">b_selected_outlet</a>;  </div>
+<div class="line"><a name="l00557"></a><span class="lineno"><a class="line" href="a00005.html#aaff769cde74161d97b1f5edb02e28bdc">  557</a></span>&#160;    <span class="keywordtype">char</span>                <a class="code" href="a00005.html#aaff769cde74161d97b1f5edb02e28bdc">b_mouse_down</a>;       </div>
+<div class="line"><a name="l00559"></a><span class="lineno"><a class="line" href="a00005.html#abd841dc468bb569c6ab00c6bc8c8a110">  559</a></span>&#160;    <span class="keywordtype">char</span>                <a class="code" href="a00005.html#abd841dc468bb569c6ab00c6bc8c8a110">b_visible</a>;          </div>
+<div class="line"><a name="l00560"></a><span class="lineno"><a class="line" href="a00005.html#ae4806d9c2e3fb5a94679e45d54ea14bf">  560</a></span>&#160;    <span class="keywordtype">char</span>                <a class="code" href="a00005.html#ae4806d9c2e3fb5a94679e45d54ea14bf">b_ready_to_draw</a>;    </div>
+<div class="line"><a name="l00561"></a><span class="lineno"><a class="line" href="a00005.html#a59db2ba08ab098d29c889bda734c2eeb">  561</a></span>&#160;    <span class="keywordtype">char</span>                <a class="code" href="a00005.html#a59db2ba08ab098d29c889bda734c2eeb">b_have_window</a>;      </div>
+<div class="line"><a name="l00562"></a><span class="lineno"><a class="line" href="a00005.html#aabd49886054f66f91e04caecda31e512">  562</a></span>&#160;    <span class="keywordtype">char</span>                <a class="code" href="a00005.html#aabd49886054f66f91e04caecda31e512">b_isinsubcanvas</a>;    </div>
+<div class="line"><a name="l00563"></a><span class="lineno"><a class="line" href="a00005.html#a7e048ee26fa70d32054d1a3d7516c67b">  563</a></span>&#160;    <a class="code" href="a00004.html">t_edrawparams</a>       <a class="code" href="a00005.html#a7e048ee26fa70d32054d1a3d7516c67b">b_boxparameters</a>;    </div>
+<div class="line"><a name="l00565"></a><span class="lineno"><a class="line" href="a00005.html#adcd69e69ebf511e128d999918af21b8b">  565</a></span>&#160;    <a class="code" href="a00009.html">t_elayer</a>*           <a class="code" href="a00005.html#adcd69e69ebf511e128d999918af21b8b">b_layers</a>;           </div>
+<div class="line"><a name="l00566"></a><span class="lineno"><a class="line" href="a00005.html#a512ed69a550c2caddc60ad837de439da">  566</a></span>&#160;    <span class="keywordtype">long</span>                <a class="code" href="a00005.html#a512ed69a550c2caddc60ad837de439da">b_number_of_layers</a>; </div>
+<div class="line"><a name="l00568"></a><span class="lineno"><a class="line" href="a00005.html#ae7f6f3daee62fe3a5ddd8568c1401fec">  568</a></span>&#160;    <span class="keywordtype">float</span>               <a class="code" href="a00005.html#ae7f6f3daee62fe3a5ddd8568c1401fec">d_float</a>;            </div>
+<div class="line"><a name="l00569"></a><span class="lineno"><a class="line" href="a00005.html#aec0e53f1287528eb2bda384ea68e1139">  569</a></span>&#160;    <span class="keywordtype">long</span>                <a class="code" href="a00005.html#aec0e53f1287528eb2bda384ea68e1139">d_dsp_size</a>;         </div>
+<div class="line"><a name="l00570"></a><span class="lineno"><a class="line" href="a00005.html#ac2531051dc8e148b43edd9a34343d23f">  570</a></span>&#160;    t_int*              <a class="code" href="a00005.html#ac2531051dc8e148b43edd9a34343d23f">d_dsp_vectors</a>;      </div>
+<div class="line"><a name="l00571"></a><span class="lineno"><a class="line" href="a00005.html#a2c40bf1b294b3915801e4d2accfa34b9">  571</a></span>&#160;    <span class="keywordtype">long</span>                <a class="code" href="a00005.html#a2c40bf1b294b3915801e4d2accfa34b9">d_dsp_flag</a>;         </div>
+<div class="line"><a name="l00572"></a><span class="lineno"><a class="line" href="a00005.html#ac9e0be218a090dd4f740b80a33467579">  572</a></span>&#160;    <span class="keywordtype">void</span>*               <a class="code" href="a00005.html#ac9e0be218a090dd4f740b80a33467579">d_dsp_user_param</a>;   </div>
+<div class="line"><a name="l00573"></a><span class="lineno"><a class="line" href="a00005.html#a9304c3ae50bafe5599454ec0d245fbab">  573</a></span>&#160;    t_float**           <a class="code" href="a00005.html#a9304c3ae50bafe5599454ec0d245fbab">d_sigs_out</a>;         </div>
+<div class="line"><a name="l00574"></a><span class="lineno"><a class="line" href="a00005.html#a000975e18fb3f7ca95d5664fc185641b">  574</a></span>&#160;    t_float*            <a class="code" href="a00005.html#a000975e18fb3f7ca95d5664fc185641b">d_sigs_real</a>;        </div>
+<div class="line"><a name="l00575"></a><span class="lineno"><a class="line" href="a00005.html#aa10bad677795106eea6cc4704b887747">  575</a></span>&#160;    method              <a class="code" href="a00005.html#aa10bad677795106eea6cc4704b887747">d_perform_method</a>;   </div>
+<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;    <span class="keywordtype">long</span>                d_misc;</div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;}<a class="code" href="a00005.html">t_edspbox</a>;</div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;</div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;</div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="a00005_html_a2a6338ec364214f06bda08c81e022e68"><div class="ttname"><a href="a00005.html#a2a6338ec364214f06bda08c81e022e68">t_edspbox::b_canvas_id</a></div><div class="ttdeci">t_symbol * b_canvas_id</div><div class="ttdef"><b>Definition:</b> estruct.h:543</div></div>
+<div class="ttc" id="a00008_html_a2ab8722a4951239a952a0667f183b43a"><div class="ttname"><a href="a00008.html#a2ab8722a4951239a952a0667f183b43a">t_egobj::e_font</a></div><div class="ttdeci">t_efont e_font</div><div class="ttdef"><b>Definition:</b> estruct.h:286</div></div>
+<div class="ttc" id="a00009_html_a314ce24daf6d78ff3d78721545d5aa82"><div class="ttname"><a href="a00009.html#a314ce24daf6d78ff3d78721545d5aa82">t_elayer::e_name</a></div><div class="ttdeci">t_symbol * e_name</div><div class="ttdef"><b>Definition:</b> estruct.h:312</div></div>
+<div class="ttc" id="a00013_html_a69b590e8c2bc4f88e7842803e97ffcb0"><div class="ttname"><a href="a00013.html#a69b590e8c2bc4f88e7842803e97ffcb0">t_etext::c_text</a></div><div class="ttdeci">t_symbol * c_text</div><div class="ttdef"><b>Definition:</b> estruct.h:263</div></div>
+<div class="ttc" id="a00015_html_a17329c0ac897d0cdb4221afdb30c533b"><div class="ttname"><a href="a00015.html#a17329c0ac897d0cdb4221afdb30c533b">t_hsl::hue</a></div><div class="ttdeci">float hue</div><div class="ttdef"><b>Definition:</b> estruct.h:224</div></div>
+<div class="ttc" id="a00005_html_aec0e53f1287528eb2bda384ea68e1139"><div class="ttname"><a href="a00005.html#aec0e53f1287528eb2bda384ea68e1139">t_edspbox::d_dsp_size</a></div><div class="ttdeci">long d_dsp_size</div><div class="ttdef"><b>Definition:</b> estruct.h:569</div></div>
+<div class="ttc" id="a00019_html_acb7c04fb6b3f46bb0cefebf4e9556a42"><div class="ttname"><a href="a00019.html#acb7c04fb6b3f46bb0cefebf4e9556a42">t_rect::height</a></div><div class="ttdeci">float height</div><div class="ttdef"><b>Definition:</b> estruct.h:174</div></div>
+<div class="ttc" id="a00007_html_aa21e51212c4b2b8786561a0e6b89a9ab"><div class="ttname"><a href="a00007.html#aa21e51212c4b2b8786561a0e6b89a9ab">t_efont::c_family</a></div><div class="ttdeci">t_symbol * c_family</div><div class="ttdef"><b>Definition:</b> estruct.h:251</div></div>
+<div class="ttc" id="a00006_html_aedeb380ca1e44ee36a7c214776fe9288"><div class="ttname"><a href="a00006.html#aedeb380ca1e44ee36a7c214776fe9288">t_edspobj::d_perform_method</a></div><div class="ttdeci">method d_perform_method</div><div class="ttdef"><b>Definition:</b> estruct.h:475</div></div>
+<div class="ttc" id="a00012_html_a470e48648e04de9f5b5326fc4e7d410c"><div class="ttname"><a href="a00012.html#a470e48648e04de9f5b5326fc4e7d410c">t_eproxy::p_index</a></div><div class="ttdeci">int p_index</div><div class="ttdef"><b>Definition:</b> estruct.h:349</div></div>
+<div class="ttc" id="a00006_html_accd1699e8fd7d5852e5e11508f63745d"><div class="ttname"><a href="a00006.html#accd1699e8fd7d5852e5e11508f63745d">t_edspobj::d_dsp_user_param</a></div><div class="ttdeci">void * d_dsp_user_param</div><div class="ttdef"><b>Definition:</b> estruct.h:472</div></div>
+<div class="ttc" id="a00017_html_a57d6c103b3cc1bd61c0ab28eff65d688"><div class="ttname"><a href="a00017.html#a57d6c103b3cc1bd61c0ab28eff65d688">t_matrix::yy</a></div><div class="ttdeci">float yy</div><div class="ttdef"><b>Definition:</b> estruct.h:187</div></div>
+<div class="ttc" id="a00002_html_ab711e1c45e78f5133a4550cd1fb897bf"><div class="ttname"><a href="a00002.html#ab711e1c45e78f5133a4550cd1fb897bf">t_ebox::b_all_id</a></div><div class="ttdeci">t_symbol * b_all_id</div><div class="ttdef"><b>Definition:</b> estruct.h:504</div></div>
+<div class="ttc" id="a00005_html_ac9e0be218a090dd4f740b80a33467579"><div class="ttname"><a href="a00005.html#ac9e0be218a090dd4f740b80a33467579">t_edspbox::d_dsp_user_param</a></div><div class="ttdeci">void * d_dsp_user_param</div><div class="ttdef"><b>Definition:</b> estruct.h:572</div></div>
+<div class="ttc" id="a00015_html"><div class="ttname"><a href="a00015.html">t_hsl</a></div><div class="ttdoc">A hsl color structure. </div><div class="ttdef"><b>Definition:</b> estruct.h:222</div></div>
+<div class="ttc" id="a00005_html_a2a36332c003ce29dd75f516747fbf6b9"><div class="ttname"><a href="a00005.html#a2a36332c003ce29dd75f516747fbf6b9">t_edspbox::b_flags</a></div><div class="ttdeci">long b_flags</div><div class="ttdef"><b>Definition:</b> estruct.h:548</div></div>
+<div class="ttc" id="a00005_html_aa10bad677795106eea6cc4704b887747"><div class="ttname"><a href="a00005.html#aa10bad677795106eea6cc4704b887747">t_edspbox::d_perform_method</a></div><div class="ttdeci">method d_perform_method</div><div class="ttdef"><b>Definition:</b> estruct.h:575</div></div>
+<div class="ttc" id="a00005_html_aa9e9583976f9c3b053a059ff2fb7bc80"><div class="ttname"><a href="a00005.html#aa9e9583976f9c3b053a059ff2fb7bc80">t_edspbox::b_font</a></div><div class="ttdeci">t_efont b_font</div><div class="ttdef"><b>Definition:</b> estruct.h:551</div></div>
+<div class="ttc" id="a00003_html"><div class="ttname"><a href="a00003.html">t_eclass</a></div><div class="ttdoc">The class. </div><div class="ttdef"><b>Definition:</b> estruct.h:419</div></div>
+<div class="ttc" id="a00001_html"><div class="ttname"><a href="a00001.html">t_eattr</a></div><div class="ttdef"><b>Definition:</b> estruct.h:385</div></div>
+<div class="ttc" id="a00005_html_a62c8cd2ca1bb920b935a7a8449b5ce7a"><div class="ttname"><a href="a00005.html#a62c8cd2ca1bb920b935a7a8449b5ce7a">t_edspbox::b_objpreset_id</a></div><div class="ttdeci">t_symbol * b_objpreset_id</div><div class="ttdef"><b>Definition:</b> estruct.h:541</div></div>
+<div class="ttc" id="a00012_html_a4f462c4e3ad2e21b83ab32948a3abe48"><div class="ttname"><a href="a00012.html#a4f462c4e3ad2e21b83ab32948a3abe48">t_eproxy::p_owner</a></div><div class="ttdeci">t_object * p_owner</div><div class="ttdef"><b>Definition:</b> estruct.h:347</div></div>
+<div class="ttc" id="a00008_html_a078d7351707c8b191c4af427715a1541"><div class="ttname"><a href="a00008.html#a078d7351707c8b191c4af427715a1541">t_egobj::e_npoints</a></div><div class="ttdeci">long e_npoints</div><div class="ttdef"><b>Definition:</b> estruct.h:284</div></div>
+<div class="ttc" id="a00009_html_ad5664bb9ccb9c503eb484543816ccac4"><div class="ttname"><a href="a00009.html#ad5664bb9ccb9c503eb484543816ccac4">t_elayer::e_objects</a></div><div class="ttdeci">t_egobj * e_objects</div><div class="ttdef"><b>Definition:</b> estruct.h:321</div></div>
+<div class="ttc" id="a00009_html_abd240d53f9bfecde2170c85fe7fbdfd2"><div class="ttname"><a href="a00009.html#abd240d53f9bfecde2170c85fe7fbdfd2">t_elayer::e_rect</a></div><div class="ttdeci">t_rect e_rect</div><div class="ttdef"><b>Definition:</b> estruct.h:315</div></div>
+<div class="ttc" id="a00008_html_aaf03a19f10e6d5927b941365799550f2"><div class="ttname"><a href="a00008.html#aaf03a19f10e6d5927b941365799550f2">t_egobj::e_roundness</a></div><div class="ttdeci">float e_roundness</div><div class="ttdef"><b>Definition:</b> estruct.h:285</div></div>
+<div class="ttc" id="a00002_html_aac434f064bb59cc71da2aec664807763"><div class="ttname"><a href="a00002.html#aac434f064bb59cc71da2aec664807763">t_ebox::b_selected_outlet</a></div><div class="ttdeci">int b_selected_outlet</div><div class="ttdef"><b>Definition:</b> estruct.h:513</div></div>
+<div class="ttc" id="a00005_html_a59db2ba08ab098d29c889bda734c2eeb"><div class="ttname"><a href="a00005.html#a59db2ba08ab098d29c889bda734c2eeb">t_edspbox::b_have_window</a></div><div class="ttdeci">char b_have_window</div><div class="ttdef"><b>Definition:</b> estruct.h:561</div></div>
+<div class="ttc" id="a00008_html_a3ef697ed87a2bf8304616ada800b611e"><div class="ttname"><a href="a00008.html#a3ef697ed87a2bf8304616ada800b611e">t_egobj::e_color</a></div><div class="ttdeci">t_symbol * e_color</div><div class="ttdef"><b>Definition:</b> estruct.h:280</div></div>
+<div class="ttc" id="a00003_html_aecedc665d1bbfe17cbea38e01f45a57a"><div class="ttname"><a href="a00003.html#aecedc665d1bbfe17cbea38e01f45a57a">t_eclass::c_class</a></div><div class="ttdeci">t_class c_class</div><div class="ttdef"><b>Definition:</b> estruct.h:421</div></div>
+<div class="ttc" id="a00019_html_a57a581a68f49b86c36c6274e63a01728"><div class="ttname"><a href="a00019.html#a57a581a68f49b86c36c6274e63a01728">t_rect::y</a></div><div class="ttdeci">float y</div><div class="ttdef"><b>Definition:</b> estruct.h:172</div></div>
+<div class="ttc" id="a00009_html_a1267c33a02fbe86fb210c8591d2f8a27"><div class="ttname"><a href="a00009.html#a1267c33a02fbe86fb210c8591d2f8a27">t_elayer::e_matrix</a></div><div class="ttdeci">t_matrix e_matrix</div><div class="ttdef"><b>Definition:</b> estruct.h:319</div></div>
+<div class="ttc" id="a00005_html_ad497be375a6747949c69f030dcfea237"><div class="ttname"><a href="a00005.html#ad497be375a6747949c69f030dcfea237">t_edspbox::b_receive_id</a></div><div class="ttdeci">t_symbol * b_receive_id</div><div class="ttdef"><b>Definition:</b> estruct.h:539</div></div>
+<div class="ttc" id="a00006_html_a96890cff3e90d4a6b6b7d18f451bdf3b"><div class="ttname"><a href="a00006.html#a96890cff3e90d4a6b6b7d18f451bdf3b">t_edspobj::d_misc</a></div><div class="ttdeci">long d_misc</div><div class="ttdef"><b>Definition:</b> estruct.h:476</div></div>
+<div class="ttc" id="a00005_html_a5bea1840cf805e6e8bc5a8856b525388"><div class="ttname"><a href="a00005.html#a5bea1840cf805e6e8bc5a8856b525388">t_edspbox::b_drawing_id</a></div><div class="ttdeci">t_symbol * b_drawing_id</div><div class="ttdef"><b>Definition:</b> estruct.h:544</div></div>
+<div class="ttc" id="a00008_html_a7e10e3b2a698948f100db472ade732db"><div class="ttname"><a href="a00008.html#a7e10e3b2a698948f100db472ade732db">t_egobj::e_anchor</a></div><div class="ttdeci">t_symbol * e_anchor</div><div class="ttdef"><b>Definition:</b> estruct.h:287</div></div>
+<div class="ttc" id="a00021_html"><div class="ttname"><a href="a00021.html">t_rgba</a></div><div class="ttdoc">A rgba color structure. </div><div class="ttdef"><b>Definition:</b> estruct.h:209</div></div>
+<div class="ttc" id="a00017_html_a36b39863a4b2bf92130ff6613a7b1cb5"><div class="ttname"><a href="a00017.html#a36b39863a4b2bf92130ff6613a7b1cb5">t_matrix::xy</a></div><div class="ttdeci">float xy</div><div class="ttdef"><b>Definition:</b> estruct.h:186</div></div>
+<div class="ttc" id="a00005_html_a5570f7017e410294472a85cb90a25ddd"><div class="ttname"><a href="a00005.html#a5570f7017e410294472a85cb90a25ddd">t_edspbox::b_window_id</a></div><div class="ttdeci">t_symbol * b_window_id</div><div class="ttdef"><b>Definition:</b> estruct.h:545</div></div>
+<div class="ttc" id="a00004_html_a9c491ec0cf0af5823d4c28d449f8d19e"><div class="ttname"><a href="a00004.html#a9c491ec0cf0af5823d4c28d449f8d19e">t_edrawparams::d_cornersize</a></div><div class="ttdeci">float d_cornersize</div><div class="ttdef"><b>Definition:</b> estruct.h:332</div></div>
+<div class="ttc" id="a00008_html_a6f741974f9596f6593d7bfb45fc74cce"><div class="ttname"><a href="a00008.html#a6f741974f9596f6593d7bfb45fc74cce">t_egobj::e_width</a></div><div class="ttdeci">float e_width</div><div class="ttdef"><b>Definition:</b> estruct.h:281</div></div>
+<div class="ttc" id="a00012_html_a5dfbd3a1ce8c1205bfcc65f78aa1624f"><div class="ttname"><a href="a00012.html#a5dfbd3a1ce8c1205bfcc65f78aa1624f">t_eproxy::p_inlet</a></div><div class="ttdeci">t_inlet * p_inlet</div><div class="ttdef"><b>Definition:</b> estruct.h:348</div></div>
+<div class="ttc" id="a00018_html_adf141a83ce7be90994a4ed1d5af6d8fa"><div class="ttname"><a href="a00018.html#adf141a83ce7be90994a4ed1d5af6d8fa">t_pt::x</a></div><div class="ttdeci">float x</div><div class="ttdef"><b>Definition:</b> estruct.h:160</div></div>
+<div class="ttc" id="a00008_html_aeb8a77575aa15df98e298d9b01b1e46e"><div class="ttname"><a href="a00008.html#aeb8a77575aa15df98e298d9b01b1e46e">t_egobj::e_text</a></div><div class="ttdeci">t_symbol * e_text</div><div class="ttdef"><b>Definition:</b> estruct.h:289</div></div>
+<div class="ttc" id="a00002_html_adaab4aaa0946181da7dbecb0b10faa12"><div class="ttname"><a href="a00002.html#adaab4aaa0946181da7dbecb0b10faa12">t_ebox::b_isinsubcanvas</a></div><div class="ttdeci">char b_isinsubcanvas</div><div class="ttdef"><b>Definition:</b> estruct.h:520</div></div>
+<div class="ttc" id="a00019_html_a74be09c958ebe41d44c62687c442c744"><div class="ttname"><a href="a00019.html#a74be09c958ebe41d44c62687c442c744">t_rect::x</a></div><div class="ttdeci">float x</div><div class="ttdef"><b>Definition:</b> estruct.h:171</div></div>
+<div class="ttc" id="a00002_html_a8f42b828b11ed26f8fe9c7148799d085"><div class="ttname"><a href="a00002.html#a8f42b828b11ed26f8fe9c7148799d085">t_ebox::b_flags</a></div><div class="ttdeci">long b_flags</div><div class="ttdef"><b>Definition:</b> estruct.h:506</div></div>
+<div class="ttc" id="a00002_html_ac53b9adb36148291448f073d3d46c99a"><div class="ttname"><a href="a00002.html#ac53b9adb36148291448f073d3d46c99a">t_ebox::b_window_id</a></div><div class="ttdeci">t_symbol * b_window_id</div><div class="ttdef"><b>Definition:</b> estruct.h:503</div></div>
+<div class="ttc" id="a00018_html"><div class="ttname"><a href="a00018.html">t_pt</a></div><div class="ttdoc">A point structure. </div><div class="ttdef"><b>Definition:</b> estruct.h:158</div></div>
+<div class="ttc" id="a00003_html_a4bfb80cdcf75acb047625bffa059cf4c"><div class="ttname"><a href="a00003.html#a4bfb80cdcf75acb047625bffa059cf4c">t_eclass::c_box</a></div><div class="ttdeci">char c_box</div><div class="ttdef"><b>Definition:</b> estruct.h:422</div></div>
+<div class="ttc" id="a00009_html_a730776e636c54e06227e8ff21d859809"><div class="ttname"><a href="a00009.html#a730776e636c54e06227e8ff21d859809">t_elayer::e_line_width</a></div><div class="ttdeci">int e_line_width</div><div class="ttdef"><b>Definition:</b> estruct.h:318</div></div>
+<div class="ttc" id="a00003_html_aa9c93cedcad593fa8a3f7a40c1bc9821"><div class="ttname"><a href="a00003.html#aa9c93cedcad593fa8a3f7a40c1bc9821">t_eclass::c_dsp</a></div><div class="ttdeci">char c_dsp</div><div class="ttdef"><b>Definition:</b> estruct.h:423</div></div>
+<div class="ttc" id="a00002_html_a158a58471ce64a89cbff635e10e48515"><div class="ttname"><a href="a00002.html#a158a58471ce64a89cbff635e10e48515">t_ebox::b_font</a></div><div class="ttdeci">t_efont b_font</div><div class="ttdef"><b>Definition:</b> estruct.h:509</div></div>
+<div class="ttc" id="a00005_html_a3c1db9a4cfffb67877cd93914036257d"><div class="ttname"><a href="a00005.html#a3c1db9a4cfffb67877cd93914036257d">t_edspbox::b_selected_item</a></div><div class="ttdeci">int b_selected_item</div><div class="ttdef"><b>Definition:</b> estruct.h:553</div></div>
+<div class="ttc" id="a00009_html_a146d29225c977dea1d24e3b4c62e69c5"><div class="ttname"><a href="a00009.html#a146d29225c977dea1d24e3b4c62e69c5">t_elayer::e_number_objects</a></div><div class="ttdeci">long e_number_objects</div><div class="ttdef"><b>Definition:</b> estruct.h:322</div></div>
+<div class="ttc" id="a00009_html_aad477661da8243df21b0b704cad49825"><div class="ttname"><a href="a00009.html#aad477661da8243df21b0b704cad49825">t_elayer::e_id</a></div><div class="ttdeci">t_symbol * e_id</div><div class="ttdef"><b>Definition:</b> estruct.h:313</div></div>
+<div class="ttc" id="a00006_html_ae1a9a7105cca82c542bfc6a0c3fd449f"><div class="ttname"><a href="a00006.html#ae1a9a7105cca82c542bfc6a0c3fd449f">t_edspobj::d_float</a></div><div class="ttdeci">float d_float</div><div class="ttdef"><b>Definition:</b> estruct.h:468</div></div>
+<div class="ttc" id="a00003_html_aff02df32fedc55e7b49e8a7ec8efc57c"><div class="ttname"><a href="a00003.html#aff02df32fedc55e7b49e8a7ec8efc57c">t_eclass::c_widget</a></div><div class="ttdeci">t_ewidget c_widget</div><div class="ttdef"><b>Definition:</b> estruct.h:424</div></div>
+<div class="ttc" id="a00013_html_a9dcb6b0bab06e4fa33bf5e64506072f7"><div class="ttname"><a href="a00013.html#a9dcb6b0bab06e4fa33bf5e64506072f7">t_etext::c_color</a></div><div class="ttdeci">t_rgba c_color</div><div class="ttdef"><b>Definition:</b> estruct.h:264</div></div>
+<div class="ttc" id="a00002_html_af16ddbcc2e590fed18c832b5ca97d4b9"><div class="ttname"><a href="a00002.html#af16ddbcc2e590fed18c832b5ca97d4b9">t_ebox::b_canvas_id</a></div><div class="ttdeci">t_symbol * b_canvas_id</div><div class="ttdef"><b>Definition:</b> estruct.h:501</div></div>
+<div class="ttc" id="a00005_html_a7e048ee26fa70d32054d1a3d7516c67b"><div class="ttname"><a href="a00005.html#a7e048ee26fa70d32054d1a3d7516c67b">t_edspbox::b_boxparameters</a></div><div class="ttdeci">t_edrawparams b_boxparameters</div><div class="ttdef"><b>Definition:</b> estruct.h:563</div></div>
+<div class="ttc" id="a00010_html_a0e20ced4a1283166890c3f773daf1dbf"><div class="ttname"><a href="a00010.html#a0e20ced4a1283166890c3f773daf1dbf">t_eobj::o_current_proxy</a></div><div class="ttdeci">int o_current_proxy</div><div class="ttdef"><b>Definition:</b> estruct.h:448</div></div>
+<div class="ttc" id="a00005_html_a54d88ecbabbfe56931321e52e5b163de"><div class="ttname"><a href="a00005.html#a54d88ecbabbfe56931321e52e5b163de">t_edspbox::b_selected_box</a></div><div class="ttdeci">int b_selected_box</div><div class="ttdef"><b>Definition:</b> estruct.h:552</div></div>
+<div class="ttc" id="a00015_html_ac6d100caa395c77d5ce0d788b543969e"><div class="ttname"><a href="a00015.html#ac6d100caa395c77d5ce0d788b543969e">t_hsl::saturation</a></div><div class="ttdeci">float saturation</div><div class="ttdef"><b>Definition:</b> estruct.h:225</div></div>
+<div class="ttc" id="a00021_html_adf5398d4559380d1d097ff42609d789e"><div class="ttname"><a href="a00021.html#adf5398d4559380d1d097ff42609d789e">t_rgba::red</a></div><div class="ttdeci">float red</div><div class="ttdef"><b>Definition:</b> estruct.h:211</div></div>
+<div class="ttc" id="a00005_html_ad668a2dcf835e775dc3889ca616d4992"><div class="ttname"><a href="a00005.html#ad668a2dcf835e775dc3889ca616d4992">t_edspbox::b_selected_inlet</a></div><div class="ttdeci">int b_selected_inlet</div><div class="ttdef"><b>Definition:</b> estruct.h:554</div></div>
+<div class="ttc" id="a00005_html_a9304c3ae50bafe5599454ec0d245fbab"><div class="ttname"><a href="a00005.html#a9304c3ae50bafe5599454ec0d245fbab">t_edspbox::d_sigs_out</a></div><div class="ttdeci">t_float ** d_sigs_out</div><div class="ttdef"><b>Definition:</b> estruct.h:573</div></div>
+<div class="ttc" id="a00017_html_ad9ac1d5c92894bb8cd6ceccd870f4bab"><div class="ttname"><a href="a00017.html#ad9ac1d5c92894bb8cd6ceccd870f4bab">t_matrix::xx</a></div><div class="ttdeci">float xx</div><div class="ttdef"><b>Definition:</b> estruct.h:184</div></div>
+<div class="ttc" id="a00008_html_aa0d1cb7aefd1673b58f5ca91f2bdd75a"><div class="ttname"><a href="a00008.html#aa0d1cb7aefd1673b58f5ca91f2bdd75a">t_egobj::e_type</a></div><div class="ttdeci">egraphics_types e_type</div><div class="ttdef"><b>Definition:</b> estruct.h:278</div></div>
+<div class="ttc" id="a00013_html_a95636b32be420c54477ac42ef8bf153a"><div class="ttname"><a href="a00013.html#a95636b32be420c54477ac42ef8bf153a">t_etext::c_anchor</a></div><div class="ttdeci">t_symbol * c_anchor</div><div class="ttdef"><b>Definition:</b> estruct.h:267</div></div>
+<div class="ttc" id="a00005_html_a2c40bf1b294b3915801e4d2accfa34b9"><div class="ttname"><a href="a00005.html#a2c40bf1b294b3915801e4d2accfa34b9">t_edspbox::d_dsp_flag</a></div><div class="ttdeci">long d_dsp_flag</div><div class="ttdef"><b>Definition:</b> estruct.h:571</div></div>
+<div class="ttc" id="a00009_html"><div class="ttname"><a href="a00009.html">t_elayer</a></div><div class="ttdoc">The drawing layer. </div><div class="ttdef"><b>Definition:</b> estruct.h:309</div></div>
+<div class="ttc" id="a00005_html_ae0f453efc95ffe0fd1fe0cdb231b4798"><div class="ttname"><a href="a00005.html#ae0f453efc95ffe0fd1fe0cdb231b4798">t_edspbox::b_selected_outlet</a></div><div class="ttdeci">int b_selected_outlet</div><div class="ttdef"><b>Definition:</b> estruct.h:555</div></div>
+<div class="ttc" id="a00010_html_a00039"><div class="ttname"><a href="a00010.html#a00039">t_eobj</a></div><div class="ttdoc">The object. </div><div class="ttdef"><b>Definition:</b> estruct.h:441</div></div>
+<div class="ttc" id="a00005_html_aaff769cde74161d97b1f5edb02e28bdc"><div class="ttname"><a href="a00005.html#aaff769cde74161d97b1f5edb02e28bdc">t_edspbox::b_mouse_down</a></div><div class="ttdeci">char b_mouse_down</div><div class="ttdef"><b>Definition:</b> estruct.h:557</div></div>
+<div class="ttc" id="a00004_html_a81687784708f31892bad33ebc4dce82d"><div class="ttname"><a href="a00004.html#a81687784708f31892bad33ebc4dce82d">t_edrawparams::d_bordercolor</a></div><div class="ttdeci">t_rgba d_bordercolor</div><div class="ttdef"><b>Definition:</b> estruct.h:334</div></div>
+<div class="ttc" id="a00007_html_a0d5c0d05d8a9dac856c472b9b0488c69"><div class="ttname"><a href="a00007.html#a0d5c0d05d8a9dac856c472b9b0488c69">t_efont::c_weight</a></div><div class="ttdeci">t_symbol * c_weight</div><div class="ttdef"><b>Definition:</b> estruct.h:253</div></div>
+<div class="ttc" id="a00014_html"><div class="ttname"><a href="a00014.html">t_ewidget</a></div><div class="ttdef"><b>Definition:</b> estruct.h:352</div></div>
+<div class="ttc" id="a00002_html_a992df88e0e842db2f8da2ef01607a1ae"><div class="ttname"><a href="a00002.html#a992df88e0e842db2f8da2ef01607a1ae">t_ebox::b_send_id</a></div><div class="ttdeci">t_symbol * b_send_id</div><div class="ttdef"><b>Definition:</b> estruct.h:498</div></div>
+<div class="ttc" id="a00002_html_a3178ca5db13319003bacd0db8a6d1e1a"><div class="ttname"><a href="a00002.html#a3178ca5db13319003bacd0db8a6d1e1a">t_ebox::b_selected_item</a></div><div class="ttdeci">int b_selected_item</div><div class="ttdef"><b>Definition:</b> estruct.h:511</div></div>
+<div class="ttc" id="a00005_html_adb6f481670996212b543e961e8bd4547"><div class="ttname"><a href="a00005.html#adb6f481670996212b543e961e8bd4547">t_edspbox::b_rect</a></div><div class="ttdeci">t_rect b_rect</div><div class="ttdef"><b>Definition:</b> estruct.h:549</div></div>
+<div class="ttc" id="a00006_html_aca439a65c43de7d465efd4e8d69537ec"><div class="ttname"><a href="a00006.html#aca439a65c43de7d465efd4e8d69537ec">t_edspobj::d_sigs_out</a></div><div class="ttdeci">t_float ** d_sigs_out</div><div class="ttdef"><b>Definition:</b> estruct.h:473</div></div>
+<div class="ttc" id="a00012_html"><div class="ttname"><a href="a00012.html">t_eproxy</a></div><div class="ttdoc">The Proxy object. </div><div class="ttdef"><b>Definition:</b> estruct.h:344</div></div>
+<div class="ttc" id="a00005_html_ac2531051dc8e148b43edd9a34343d23f"><div class="ttname"><a href="a00005.html#ac2531051dc8e148b43edd9a34343d23f">t_edspbox::d_dsp_vectors</a></div><div class="ttdeci">t_int * d_dsp_vectors</div><div class="ttdef"><b>Definition:</b> estruct.h:570</div></div>
+<div class="ttc" id="a00002_html_a0f2b1dacb5b8560493012f53f4f2f3c1"><div class="ttname"><a href="a00002.html#a0f2b1dacb5b8560493012f53f4f2f3c1">t_ebox::b_have_window</a></div><div class="ttdeci">char b_have_window</div><div class="ttdef"><b>Definition:</b> estruct.h:519</div></div>
+<div class="ttc" id="a00003_html_a6561317fd2947afb1f20ea9a1fd0e458"><div class="ttname"><a href="a00003.html#a6561317fd2947afb1f20ea9a1fd0e458">t_eclass::c_nattr</a></div><div class="ttdeci">long c_nattr</div><div class="ttdef"><b>Definition:</b> estruct.h:426</div></div>
+<div class="ttc" id="a00005_html_adcd69e69ebf511e128d999918af21b8b"><div class="ttname"><a href="a00005.html#adcd69e69ebf511e128d999918af21b8b">t_edspbox::b_layers</a></div><div class="ttdeci">t_elayer * b_layers</div><div class="ttdef"><b>Definition:</b> estruct.h:565</div></div>
+<div class="ttc" id="a00004_html_abe662d410233634836186064e09f2e99"><div class="ttname"><a href="a00004.html#abe662d410233634836186064e09f2e99">t_edrawparams::d_boxfillcolor</a></div><div class="ttdeci">t_rgba d_boxfillcolor</div><div class="ttdef"><b>Definition:</b> estruct.h:335</div></div>
+<div class="ttc" id="a00016_html_afc3887418f90f4d2a9b073eec3fb4369"><div class="ttname"><a href="a00016.html#afc3887418f90f4d2a9b073eec3fb4369">t_hsla::hue</a></div><div class="ttdeci">float hue</div><div class="ttdef"><b>Definition:</b> estruct.h:236</div></div>
+<div class="ttc" id="a00009_html_a4b9e233c7608524a176423c0ae2ca563"><div class="ttname"><a href="a00009.html#a4b9e233c7608524a176423c0ae2ca563">t_elayer::e_new_objects</a></div><div class="ttdeci">t_egobj e_new_objects</div><div class="ttdef"><b>Definition:</b> estruct.h:320</div></div>
+<div class="ttc" id="a00018_html_a63f94995be90a3f9c7f2fe6f1756f484"><div class="ttname"><a href="a00018.html#a63f94995be90a3f9c7f2fe6f1756f484">t_pt::y</a></div><div class="ttdeci">float y</div><div class="ttdef"><b>Definition:</b> estruct.h:161</div></div>
+<div class="ttc" id="a00011_html_a2c89bbd92adfd5047d874063fbee99e1"><div class="ttname"><a href="a00011.html#a2c89bbd92adfd5047d874063fbee99e1">t_epopup::c_send</a></div><div class="ttdeci">t_symbol * c_send</div><div class="ttdef"><b>Definition:</b> estruct.h:301</div></div>
+<div class="ttc" id="a00011_html_ae013650cf02a85809ed5b23de958f0c8"><div class="ttname"><a href="a00011.html#ae013650cf02a85809ed5b23de958f0c8">t_epopup::c_name</a></div><div class="ttdeci">t_symbol * c_name</div><div class="ttdef"><b>Definition:</b> estruct.h:300</div></div>
+<div class="ttc" id="a00019_html_a2d191f636f0fc0c602b949e9ddb968a2"><div class="ttname"><a href="a00019.html#a2d191f636f0fc0c602b949e9ddb968a2">t_rect::width</a></div><div class="ttdeci">float width</div><div class="ttdef"><b>Definition:</b> estruct.h:173</div></div>
+<div class="ttc" id="a00017_html"><div class="ttname"><a href="a00017.html">t_matrix</a></div><div class="ttdoc">A matrix structure. </div><div class="ttdef"><b>Definition:</b> estruct.h:182</div></div>
+<div class="ttc" id="a00017_html_aa7c4323cb532a995d1b31963f76206a8"><div class="ttname"><a href="a00017.html#aa7c4323cb532a995d1b31963f76206a8">t_matrix::yx</a></div><div class="ttdeci">float yx</div><div class="ttdef"><b>Definition:</b> estruct.h:185</div></div>
+<div class="ttc" id="a00005_html"><div class="ttname"><a href="a00005.html">t_edspbox</a></div><div class="ttdoc">The GUI DSP object. </div><div class="ttdef"><b>Definition:</b> estruct.h:535</div></div>
+<div class="ttc" id="a00002_html_a262fd87d8b58f66781e6c0b735b2ff28"><div class="ttname"><a href="a00002.html#a262fd87d8b58f66781e6c0b735b2ff28">t_ebox::b_visible</a></div><div class="ttdeci">char b_visible</div><div class="ttdef"><b>Definition:</b> estruct.h:517</div></div>
+<div class="ttc" id="a00006_html_a63488db3cd34d44a3eff0c3115a68bb4"><div class="ttname"><a href="a00006.html#a63488db3cd34d44a3eff0c3115a68bb4">t_edspobj::d_obj</a></div><div class="ttdeci">t_eobj d_obj</div><div class="ttdef"><b>Definition:</b> estruct.h:467</div></div>
+<div class="ttc" id="a00005_html_abd841dc468bb569c6ab00c6bc8c8a110"><div class="ttname"><a href="a00005.html#abd841dc468bb569c6ab00c6bc8c8a110">t_edspbox::b_visible</a></div><div class="ttdeci">char b_visible</div><div class="ttdef"><b>Definition:</b> estruct.h:559</div></div>
+<div class="ttc" id="a00002_html_a09de806201205272af79370bf98ad4eb"><div class="ttname"><a href="a00002.html#a09de806201205272af79370bf98ad4eb">t_ebox::b_number_of_layers</a></div><div class="ttdeci">long b_number_of_layers</div><div class="ttdef"><b>Definition:</b> estruct.h:524</div></div>
+<div class="ttc" id="a00021_html_a5b579068ed58a7b3fe8c5042aa0bc3e4"><div class="ttname"><a href="a00021.html#a5b579068ed58a7b3fe8c5042aa0bc3e4">t_rgba::alpha</a></div><div class="ttdeci">float alpha</div><div class="ttdef"><b>Definition:</b> estruct.h:214</div></div>
+<div class="ttc" id="a00010_html_a7bdccc6098f5e73b2e051322a8ba1180"><div class="ttname"><a href="a00010.html#a7bdccc6098f5e73b2e051322a8ba1180">t_eobj::o_obj</a></div><div class="ttdeci">t_object o_obj</div><div class="ttdef"><b>Definition:</b> estruct.h:443</div></div>
+<div class="ttc" id="a00020_html"><div class="ttname"><a href="a00020.html">t_rgb</a></div><div class="ttdoc">A rgb color structure. </div><div class="ttdef"><b>Definition:</b> estruct.h:197</div></div>
+<div class="ttc" id="a00002_html_a9949abd851d6eb9025df03bb856d0b3e"><div class="ttname"><a href="a00002.html#a9949abd851d6eb9025df03bb856d0b3e">t_ebox::b_obj</a></div><div class="ttdeci">t_eobj b_obj</div><div class="ttdoc">The object. </div><div class="ttdef"><b>Definition:</b> estruct.h:495</div></div>
+<div class="ttc" id="a00021_html_a903486af306a7cf13ce9160c689a3d9c"><div class="ttname"><a href="a00021.html#a903486af306a7cf13ce9160c689a3d9c">t_rgba::blue</a></div><div class="ttdeci">float blue</div><div class="ttdef"><b>Definition:</b> estruct.h:213</div></div>
+<div class="ttc" id="a00002_html_a081a8a23ddf849cd5867dcc3382a40ae"><div class="ttname"><a href="a00002.html#a081a8a23ddf849cd5867dcc3382a40ae">t_ebox::b_ready_to_draw</a></div><div class="ttdeci">char b_ready_to_draw</div><div class="ttdef"><b>Definition:</b> estruct.h:518</div></div>
+<div class="ttc" id="a00016_html_a58ae0b9c3214da97f90c85a571f62693"><div class="ttname"><a href="a00016.html#a58ae0b9c3214da97f90c85a571f62693">t_hsla::lightness</a></div><div class="ttdeci">float lightness</div><div class="ttdef"><b>Definition:</b> estruct.h:238</div></div>
+<div class="ttc" id="a00008_html_a4fcd8b0e87dd629bb305c5bbd813139c"><div class="ttname"><a href="a00008.html#a4fcd8b0e87dd629bb305c5bbd813139c">t_egobj::e_points</a></div><div class="ttdeci">t_pt * e_points</div><div class="ttdef"><b>Definition:</b> estruct.h:283</div></div>
+<div class="ttc" id="a00004_html_ac2c98f9e556d5b89b4effc24fdb56b03"><div class="ttname"><a href="a00004.html#ac2c98f9e556d5b89b4effc24fdb56b03">t_edrawparams::d_borderthickness</a></div><div class="ttdeci">float d_borderthickness</div><div class="ttdef"><b>Definition:</b> estruct.h:333</div></div>
+<div class="ttc" id="a00008_html_a75601eeebf6ee5316c34b4682521e546"><div class="ttname"><a href="a00008.html#a75601eeebf6ee5316c34b4682521e546">t_egobj::e_justify</a></div><div class="ttdeci">t_symbol * e_justify</div><div class="ttdef"><b>Definition:</b> estruct.h:288</div></div>
+<div class="ttc" id="a00002_html_a23d9ca2cf6cafdd8cd5c496927caae95"><div class="ttname"><a href="a00002.html#a23d9ca2cf6cafdd8cd5c496927caae95">t_ebox::b_mouse_down</a></div><div class="ttdeci">char b_mouse_down</div><div class="ttdef"><b>Definition:</b> estruct.h:515</div></div>
+<div class="ttc" id="a00002_html_af721a77fe33b281d0d2f6a5fa64fdd52"><div class="ttname"><a href="a00002.html#af721a77fe33b281d0d2f6a5fa64fdd52">t_ebox::b_selected_box</a></div><div class="ttdeci">int b_selected_box</div><div class="ttdef"><b>Definition:</b> estruct.h:510</div></div>
+<div class="ttc" id="a00005_html_a0bd349ee9fde69dbe48f34a25a5a2100"><div class="ttname"><a href="a00005.html#a0bd349ee9fde69dbe48f34a25a5a2100">t_edspbox::b_send_id</a></div><div class="ttdeci">t_symbol * b_send_id</div><div class="ttdef"><b>Definition:</b> estruct.h:540</div></div>
+<div class="ttc" id="a00006_html_aebe091ccb3e5e7e21f5bad408cba0cfd"><div class="ttname"><a href="a00006.html#aebe091ccb3e5e7e21f5bad408cba0cfd">t_edspobj::d_dsp_flag</a></div><div class="ttdeci">long d_dsp_flag</div><div class="ttdef"><b>Definition:</b> estruct.h:471</div></div>
+<div class="ttc" id="a00005_html_a512ed69a550c2caddc60ad837de439da"><div class="ttname"><a href="a00005.html#a512ed69a550c2caddc60ad837de439da">t_edspbox::b_number_of_layers</a></div><div class="ttdeci">long b_number_of_layers</div><div class="ttdef"><b>Definition:</b> estruct.h:566</div></div>
+<div class="ttc" id="a00012_html_abcab1c0c33eb380f4d2f67f5e06638d1"><div class="ttname"><a href="a00012.html#abcab1c0c33eb380f4d2f67f5e06638d1">t_eproxy::p_pd</a></div><div class="ttdeci">t_pd p_pd</div><div class="ttdef"><b>Definition:</b> estruct.h:346</div></div>
+<div class="ttc" id="a00006_html_a07e56ee6b9bf68fa83c154d55c50f072"><div class="ttname"><a href="a00006.html#a07e56ee6b9bf68fa83c154d55c50f072">t_edspobj::d_dsp_size</a></div><div class="ttdeci">long d_dsp_size</div><div class="ttdef"><b>Definition:</b> estruct.h:469</div></div>
+<div class="ttc" id="a00013_html"><div class="ttname"><a href="a00013.html">t_etext</a></div><div class="ttdoc">The text structure. </div><div class="ttdef"><b>Definition:</b> estruct.h:261</div></div>
+<div class="ttc" id="a00002_html_a7a9713bad6c3cc449df7207bcb424be3"><div class="ttname"><a href="a00002.html#a7a9713bad6c3cc449df7207bcb424be3">t_ebox::b_rect</a></div><div class="ttdeci">t_rect b_rect</div><div class="ttdef"><b>Definition:</b> estruct.h:507</div></div>
+<div class="ttc" id="a00005_html_a0ff844bea45c78477fae06735121d8ac"><div class="ttname"><a href="a00005.html#a0ff844bea45c78477fae06735121d8ac">t_edspbox::b_rect_last</a></div><div class="ttdeci">t_rect b_rect_last</div><div class="ttdef"><b>Definition:</b> estruct.h:550</div></div>
+<div class="ttc" id="a00010_html_a4a4d89ac04c7b30a15a87a649b2daf65"><div class="ttname"><a href="a00010.html#a4a4d89ac04c7b30a15a87a649b2daf65">t_eobj::o_canvas</a></div><div class="ttdeci">t_canvas * o_canvas</div><div class="ttdef"><b>Definition:</b> estruct.h:445</div></div>
+<div class="ttc" id="a00011_html"><div class="ttname"><a href="a00011.html">t_epopup</a></div><div class="ttdoc">The popup structure. </div><div class="ttdef"><b>Definition:</b> estruct.h:298</div></div>
+<div class="ttc" id="a00002_html_a78dc268bd72ebc6a499521079e83aec1"><div class="ttname"><a href="a00002.html#a78dc268bd72ebc6a499521079e83aec1">t_ebox::b_receive_id</a></div><div class="ttdeci">t_symbol * b_receive_id</div><div class="ttdef"><b>Definition:</b> estruct.h:497</div></div>
+<div class="ttc" id="a00010_html_a7b392d718eded2e4bd2694ece6c49cb5"><div class="ttname"><a href="a00010.html#a7b392d718eded2e4bd2694ece6c49cb5">t_eobj::o_proxy</a></div><div class="ttdeci">t_eproxy ** o_proxy</div><div class="ttdef"><b>Definition:</b> estruct.h:446</div></div>
+<div class="ttc" id="a00005_html_aabd49886054f66f91e04caecda31e512"><div class="ttname"><a href="a00005.html#aabd49886054f66f91e04caecda31e512">t_edspbox::b_isinsubcanvas</a></div><div class="ttdeci">char b_isinsubcanvas</div><div class="ttdef"><b>Definition:</b> estruct.h:562</div></div>
+<div class="ttc" id="a00002_html_a084de3f93275c55c9a41667fa7aa6156"><div class="ttname"><a href="a00002.html#a084de3f93275c55c9a41667fa7aa6156">t_ebox::b_boxparameters</a></div><div class="ttdeci">t_edrawparams b_boxparameters</div><div class="ttdef"><b>Definition:</b> estruct.h:521</div></div>
+<div class="ttc" id="a00007_html_a10c0d64b85d3f01e79014626b8bbdfd8"><div class="ttname"><a href="a00007.html#a10c0d64b85d3f01e79014626b8bbdfd8">t_efont::c_slant</a></div><div class="ttdeci">t_symbol * c_slant</div><div class="ttdef"><b>Definition:</b> estruct.h:252</div></div>
+<div class="ttc" id="a00002_html_a00037"><div class="ttname"><a href="a00002.html#a00037">t_ebox</a></div><div class="ttdoc">The GUI object. </div><div class="ttdef"><b>Definition:</b> estruct.h:493</div></div>
+<div class="ttc" id="a00002_html_a0031f1f2d42a18a58313b33f59139578"><div class="ttname"><a href="a00002.html#a0031f1f2d42a18a58313b33f59139578">t_ebox::b_rect_last</a></div><div class="ttdeci">t_rect b_rect_last</div><div class="ttdef"><b>Definition:</b> estruct.h:508</div></div>
+<div class="ttc" id="a00005_html_a6cb8b65065768d9ba4ea78467240026f"><div class="ttname"><a href="a00005.html#a6cb8b65065768d9ba4ea78467240026f">t_edspbox::b_obj</a></div><div class="ttdeci">t_eobj b_obj</div><div class="ttdef"><b>Definition:</b> estruct.h:537</div></div>
+<div class="ttc" id="a00002_html_a39a2c877915f6633522e6d0f1d44ec78"><div class="ttname"><a href="a00002.html#a39a2c877915f6633522e6d0f1d44ec78">t_ebox::b_drawing_id</a></div><div class="ttdeci">t_symbol * b_drawing_id</div><div class="ttdef"><b>Definition:</b> estruct.h:502</div></div>
+<div class="ttc" id="a00016_html_a4f68b909c0d5cbab75941418d3ffbf3e"><div class="ttname"><a href="a00016.html#a4f68b909c0d5cbab75941418d3ffbf3e">t_hsla::saturation</a></div><div class="ttdeci">float saturation</div><div class="ttdef"><b>Definition:</b> estruct.h:237</div></div>
+<div class="ttc" id="a00003_html_ad9af59199102736bcfa740c80df1a211"><div class="ttname"><a href="a00003.html#ad9af59199102736bcfa740c80df1a211">t_eclass::c_attr</a></div><div class="ttdeci">t_eattr ** c_attr</div><div class="ttdef"><b>Definition:</b> estruct.h:425</div></div>
+<div class="ttc" id="a00020_html_a97bcb75fc43734289223a7c4e0bf1cb4"><div class="ttname"><a href="a00020.html#a97bcb75fc43734289223a7c4e0bf1cb4">t_rgb::red</a></div><div class="ttdeci">float red</div><div class="ttdef"><b>Definition:</b> estruct.h:199</div></div>
+<div class="ttc" id="a00008_html"><div class="ttname"><a href="a00008.html">t_egobj</a></div><div class="ttdoc">The drawing object. </div><div class="ttdef"><b>Definition:</b> estruct.h:276</div></div>
+<div class="ttc" id="a00009_html_aee369ce6c8394150f1e29e002d4cf8dd"><div class="ttname"><a href="a00009.html#aee369ce6c8394150f1e29e002d4cf8dd">t_elayer::e_state</a></div><div class="ttdeci">int e_state</div><div class="ttdef"><b>Definition:</b> estruct.h:314</div></div>
+<div class="ttc" id="a00002_html_a3f2a43cad7e9882e21ceb2a7b0b5e887"><div class="ttname"><a href="a00002.html#a3f2a43cad7e9882e21ceb2a7b0b5e887">t_ebox::b_selected_inlet</a></div><div class="ttdeci">int b_selected_inlet</div><div class="ttdef"><b>Definition:</b> estruct.h:512</div></div>
+<div class="ttc" id="a00005_html_ae4806d9c2e3fb5a94679e45d54ea14bf"><div class="ttname"><a href="a00005.html#ae4806d9c2e3fb5a94679e45d54ea14bf">t_edspbox::b_ready_to_draw</a></div><div class="ttdeci">char b_ready_to_draw</div><div class="ttdef"><b>Definition:</b> estruct.h:560</div></div>
+<div class="ttc" id="a00020_html_ac33324b465797ad765803a1fc26b85d1"><div class="ttname"><a href="a00020.html#ac33324b465797ad765803a1fc26b85d1">t_rgb::green</a></div><div class="ttdeci">float green</div><div class="ttdef"><b>Definition:</b> estruct.h:200</div></div>
+<div class="ttc" id="a00008_html_ae57f7ad46af3a729cbdfaabb5facb5de"><div class="ttname"><a href="a00008.html#ae57f7ad46af3a729cbdfaabb5facb5de">t_egobj::e_filled</a></div><div class="ttdeci">int e_filled</div><div class="ttdef"><b>Definition:</b> estruct.h:279</div></div>
+<div class="ttc" id="a00005_html_a000975e18fb3f7ca95d5664fc185641b"><div class="ttname"><a href="a00005.html#a000975e18fb3f7ca95d5664fc185641b">t_edspbox::d_sigs_real</a></div><div class="ttdeci">t_float * d_sigs_real</div><div class="ttdef"><b>Definition:</b> estruct.h:574</div></div>
+<div class="ttc" id="a00005_html_ae7f6f3daee62fe3a5ddd8568c1401fec"><div class="ttname"><a href="a00005.html#ae7f6f3daee62fe3a5ddd8568c1401fec">t_edspbox::d_float</a></div><div class="ttdeci">float d_float</div><div class="ttdef"><b>Definition:</b> estruct.h:568</div></div>
+<div class="ttc" id="a00007_html_ad8e73a221077b37595c86eb76d756c69"><div class="ttname"><a href="a00007.html#ad8e73a221077b37595c86eb76d756c69">t_efont::c_sizereal</a></div><div class="ttdeci">long c_sizereal</div><div class="ttdef"><b>Definition:</b> estruct.h:250</div></div>
+<div class="ttc" id="a00013_html_a7c51ade17ff45a3d56aeeb59fc8c597e"><div class="ttname"><a href="a00013.html#a7c51ade17ff45a3d56aeeb59fc8c597e">t_etext::c_font</a></div><div class="ttdeci">t_efont c_font</div><div class="ttdef"><b>Definition:</b> estruct.h:265</div></div>
+<div class="ttc" id="a00013_html_a54b8df071c71c4cbd50a834d99c7d6f0"><div class="ttname"><a href="a00013.html#a54b8df071c71c4cbd50a834d99c7d6f0">t_etext::c_rect</a></div><div class="ttdeci">t_rect c_rect</div><div class="ttdef"><b>Definition:</b> estruct.h:266</div></div>
+<div class="ttc" id="a00015_html_a47dca6ac2cc1a5b51b720907241e3447"><div class="ttname"><a href="a00015.html#a47dca6ac2cc1a5b51b720907241e3447">t_hsl::lightness</a></div><div class="ttdeci">float lightness</div><div class="ttdef"><b>Definition:</b> estruct.h:226</div></div>
+<div class="ttc" id="a00017_html_a71413e8e0f7d35dc71e4eac4cec5855f"><div class="ttname"><a href="a00017.html#a71413e8e0f7d35dc71e4eac4cec5855f">t_matrix::x0</a></div><div class="ttdeci">float x0</div><div class="ttdef"><b>Definition:</b> estruct.h:188</div></div>
+<div class="ttc" id="a00016_html"><div class="ttname"><a href="a00016.html">t_hsla</a></div><div class="ttdoc">A hsla color structure. </div><div class="ttdef"><b>Definition:</b> estruct.h:234</div></div>
+<div class="ttc" id="a00005_html_a340b0a27331db3b05b6b393f11ef420d"><div class="ttname"><a href="a00005.html#a340b0a27331db3b05b6b393f11ef420d">t_edspbox::b_all_id</a></div><div class="ttdeci">t_symbol * b_all_id</div><div class="ttdef"><b>Definition:</b> estruct.h:546</div></div>
+<div class="ttc" id="a00002_html_afa8badd38700e76e96d5ee4c5d6727a9"><div class="ttname"><a href="a00002.html#afa8badd38700e76e96d5ee4c5d6727a9">t_ebox::b_layers</a></div><div class="ttdeci">t_elayer * b_layers</div><div class="ttdef"><b>Definition:</b> estruct.h:523</div></div>
+<div class="ttc" id="a00010_html_a98198854f27517b80913f82e30b36ee6"><div class="ttname"><a href="a00010.html#a98198854f27517b80913f82e30b36ee6">t_eobj::o_nproxy</a></div><div class="ttdeci">int o_nproxy</div><div class="ttdef"><b>Definition:</b> estruct.h:447</div></div>
+<div class="ttc" id="a00010_html_a3283b793c9d613b8da4fbbb4fd56636e"><div class="ttname"><a href="a00010.html#a3283b793c9d613b8da4fbbb4fd56636e">t_eobj::o_id</a></div><div class="ttdeci">t_symbol * o_id</div><div class="ttdef"><b>Definition:</b> estruct.h:444</div></div>
+<div class="ttc" id="a00013_html_a17352a5d25468f9a9666b7bd06fc0834"><div class="ttname"><a href="a00013.html#a17352a5d25468f9a9666b7bd06fc0834">t_etext::c_justify</a></div><div class="ttdeci">t_symbol * c_justify</div><div class="ttdef"><b>Definition:</b> estruct.h:268</div></div>
+<div class="ttc" id="a00009_html_a7b6e04eef4491054de954174a3d10c18"><div class="ttname"><a href="a00009.html#a7b6e04eef4491054de954174a3d10c18">t_elayer::e_owner</a></div><div class="ttdeci">t_object * e_owner</div><div class="ttdef"><b>Definition:</b> estruct.h:311</div></div>
+<div class="ttc" id="a00004_html"><div class="ttname"><a href="a00004.html">t_edrawparams</a></div><div class="ttdoc">The drawing parameters. </div><div class="ttdef"><b>Definition:</b> estruct.h:330</div></div>
+<div class="ttc" id="a00002_html_a1900c930231b8d9293be52bc79618fc0"><div class="ttname"><a href="a00002.html#a1900c930231b8d9293be52bc79618fc0">t_ebox::b_objpreset_id</a></div><div class="ttdeci">t_symbol * b_objpreset_id</div><div class="ttdef"><b>Definition:</b> estruct.h:499</div></div>
+<div class="ttc" id="a00020_html_aaea417ff36ec8f29c3496641c34b85b0"><div class="ttname"><a href="a00020.html#aaea417ff36ec8f29c3496641c34b85b0">t_rgb::blue</a></div><div class="ttdeci">float blue</div><div class="ttdef"><b>Definition:</b> estruct.h:201</div></div>
+<div class="ttc" id="a00006_html_a00038"><div class="ttname"><a href="a00006.html#a00038">t_edspobj</a></div><div class="ttdoc">The DSP object. </div><div class="ttdef"><b>Definition:</b> estruct.h:465</div></div>
+<div class="ttc" id="a00009_html_a7757ef34cd2f81d31835199e47fc4df1"><div class="ttname"><a href="a00009.html#a7757ef34cd2f81d31835199e47fc4df1">t_elayer::e_color</a></div><div class="ttdeci">t_symbol * e_color</div><div class="ttdef"><b>Definition:</b> estruct.h:317</div></div>
+<div class="ttc" id="a00016_html_a11536c3047cafdd00af64652e0baf7b6"><div class="ttname"><a href="a00016.html#a11536c3047cafdd00af64652e0baf7b6">t_hsla::alpha</a></div><div class="ttdeci">float alpha</div><div class="ttdef"><b>Definition:</b> estruct.h:239</div></div>
+<div class="ttc" id="a00006_html_a26c47eef6f92b2d4cabb3b348f007f10"><div class="ttname"><a href="a00006.html#a26c47eef6f92b2d4cabb3b348f007f10">t_edspobj::d_sigs_real</a></div><div class="ttdeci">t_float * d_sigs_real</div><div class="ttdef"><b>Definition:</b> estruct.h:474</div></div>
+<div class="ttc" id="a00019_html"><div class="ttname"><a href="a00019.html">t_rect</a></div><div class="ttdoc">A rectangle structure. </div><div class="ttdef"><b>Definition:</b> estruct.h:169</div></div>
+<div class="ttc" id="a00006_html_a82fb2cd80ab9cc3122ab01181daf58b8"><div class="ttname"><a href="a00006.html#a82fb2cd80ab9cc3122ab01181daf58b8">t_edspobj::d_dsp_vectors</a></div><div class="ttdeci">t_int * d_dsp_vectors</div><div class="ttdef"><b>Definition:</b> estruct.h:470</div></div>
+<div class="ttc" id="a00007_html_a82039d811d9a6f5543842e291d8bd38c"><div class="ttname"><a href="a00007.html#a82039d811d9a6f5543842e291d8bd38c">t_efont::c_size</a></div><div class="ttdeci">float c_size</div><div class="ttdef"><b>Definition:</b> estruct.h:249</div></div>
+<div class="ttc" id="a00021_html_ae9d56f656c02f0f90491b0433c6e4c9d"><div class="ttname"><a href="a00021.html#ae9d56f656c02f0f90491b0433c6e4c9d">t_rgba::green</a></div><div class="ttdeci">float green</div><div class="ttdef"><b>Definition:</b> estruct.h:212</div></div>
+<div class="ttc" id="a00007_html"><div class="ttname"><a href="a00007.html">t_efont</a></div><div class="ttdoc">The font structure. </div><div class="ttdef"><b>Definition:</b> estruct.h:247</div></div>
+<div class="ttc" id="a00017_html_ac8bfef9adfda574c3ad9060593b9b668"><div class="ttname"><a href="a00017.html#ac8bfef9adfda574c3ad9060593b9b668">t_matrix::y0</a></div><div class="ttdeci">float y0</div><div class="ttdef"><b>Definition:</b> estruct.h:189</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jun 14 2015 16:51:40 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jun 14 2015 17:55:27 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

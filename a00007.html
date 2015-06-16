@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.8"/>
-<title>CicmWrapper: ebox.h File Reference</title>
+<title>CicmWrapper: The Graphics Part</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -38,9 +38,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
-      <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -59,18 +60,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-  <div id="navrow2" class="tabs2">
-    <ul class="tablist">
-      <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="globals.html"><span>Globals</span></a></li>
-    </ul>
-  </div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Modules</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -79,105 +75,1112 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_3c5a06049573aa0fd43ee94c3b70e0dd.html">CreamLibrary</a></li><li class="navelem"><a class="el" href="dir_93f317233a77416eda207bc1b62b244d.html">ThirdParty</a></li><li class="navelem"><a class="el" href="dir_8d99883be2838370319d597ab95b5bd5.html">PureData</a></li><li class="navelem"><a class="el" href="dir_26fbc93f06bf01ceac37d8add4b61c43.html">Sources</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">ebox.h File Reference</div>  </div>
+<div class="title">The Graphics Part</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="a00001_source.html">estruct.h</a>&quot;</code><br />
-<code>#include &quot;egraphics.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="a00015_source.html">eobj.h</a>&quot;</code><br />
-</div>
-<p><a href="a00007_source.html">Go to the source code of this file.</a></p>
+
+<p>The <a class="el" href="a00007.html#a00041" title="The drawing layer. ">t_elayer</a> part.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:a00050"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#a00050">t_pt</a></td></tr>
+<tr class="memdesc:a00050"><td class="mdescLeft">&#160;</td><td class="mdescRight">A point structure.  <a href="a00007.html#a00050">More...</a><br /></td></tr>
+<tr class="separator:a00050"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00051"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#a00051">t_rect</a></td></tr>
+<tr class="memdesc:a00051"><td class="mdescLeft">&#160;</td><td class="mdescRight">A rectangle structure.  <a href="a00007.html#a00051">More...</a><br /></td></tr>
+<tr class="separator:a00051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00049"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#a00049">t_matrix</a></td></tr>
+<tr class="memdesc:a00049"><td class="mdescLeft">&#160;</td><td class="mdescRight">A matrix structure.  <a href="a00007.html#a00049">More...</a><br /></td></tr>
+<tr class="separator:a00049"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00052"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#a00052">t_rgb</a></td></tr>
+<tr class="memdesc:a00052"><td class="mdescLeft">&#160;</td><td class="mdescRight">A rgb color structure.  <a href="a00007.html#a00052">More...</a><br /></td></tr>
+<tr class="separator:a00052"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00053"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#a00053">t_rgba</a></td></tr>
+<tr class="memdesc:a00053"><td class="mdescLeft">&#160;</td><td class="mdescRight">A rgba color structure.  <a href="a00007.html#a00053">More...</a><br /></td></tr>
+<tr class="separator:a00053"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00047"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#a00047">t_hsl</a></td></tr>
+<tr class="memdesc:a00047"><td class="mdescLeft">&#160;</td><td class="mdescRight">A hsl color structure.  <a href="a00007.html#a00047">More...</a><br /></td></tr>
+<tr class="separator:a00047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00048"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#a00048">t_hsla</a></td></tr>
+<tr class="memdesc:a00048"><td class="mdescLeft">&#160;</td><td class="mdescRight">A hsla color structure.  <a href="a00007.html#a00048">More...</a><br /></td></tr>
+<tr class="separator:a00048"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00039"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#a00039">t_efont</a></td></tr>
+<tr class="memdesc:a00039"><td class="mdescLeft">&#160;</td><td class="mdescRight">The font structure.  <a href="a00007.html#a00039">More...</a><br /></td></tr>
+<tr class="separator:a00039"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00045"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#a00045">t_etext</a></td></tr>
+<tr class="memdesc:a00045"><td class="mdescLeft">&#160;</td><td class="mdescRight">The text structure.  <a href="a00007.html#a00045">More...</a><br /></td></tr>
+<tr class="separator:a00045"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00040"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#a00040">t_egobj</a></td></tr>
+<tr class="memdesc:a00040"><td class="mdescLeft">&#160;</td><td class="mdescRight">The drawing object.  <a href="a00007.html#a00040">More...</a><br /></td></tr>
+<tr class="separator:a00040"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00041"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#a00041">t_elayer</a></td></tr>
+<tr class="memdesc:a00041"><td class="mdescLeft">&#160;</td><td class="mdescRight">The drawing layer.  <a href="a00007.html#a00041">More...</a><br /></td></tr>
+<tr class="separator:a00041"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:gaf72803075e849d2faf6acad0ad5a715a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaf72803075e849d2faf6acad0ad5a715a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#gaf72803075e849d2faf6acad0ad5a715a">EPD_PI</a>&#160;&#160;&#160;(3.141592653589793238462643383279502884f)</td></tr>
+<tr class="memdesc:gaf72803075e849d2faf6acad0ad5a715a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macros that define the a pi. <br /></td></tr>
+<tr class="separator:gaf72803075e849d2faf6acad0ad5a715a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaee7fe789366c3073e1c32f7b7620addd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaee7fe789366c3073e1c32f7b7620addd"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#gaee7fe789366c3073e1c32f7b7620addd">EPD_2PI</a>&#160;&#160;&#160;(6.283185307179586476925286766559005f)</td></tr>
+<tr class="memdesc:gaee7fe789366c3073e1c32f7b7620addd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macros that define the a 2pi. <br /></td></tr>
+<tr class="separator:gaee7fe789366c3073e1c32f7b7620addd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga531fcd6b7e2da393287b9a529ffc52e6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga531fcd6b7e2da393287b9a529ffc52e6"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#ga531fcd6b7e2da393287b9a529ffc52e6">EPD_PI2</a>&#160;&#160;&#160;(1.57079632679489661923132169163975144f)</td></tr>
+<tr class="memdesc:ga531fcd6b7e2da393287b9a529ffc52e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macros that define the a pi over 2. <br /></td></tr>
+<tr class="separator:ga531fcd6b7e2da393287b9a529ffc52e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf56f9389a284ec15c8511966bc4be055"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaf56f9389a284ec15c8511966bc4be055"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#gaf56f9389a284ec15c8511966bc4be055">EPD_PI4</a>&#160;&#160;&#160;(0.785398163397448309615660845819875721f)</td></tr>
+<tr class="memdesc:gaf56f9389a284ec15c8511966bc4be055"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macros that define the a pi over 4. <br /></td></tr>
+<tr class="separator:gaf56f9389a284ec15c8511966bc4be055"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga27740c314a2807e3672a253798f363c4"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#ga27740c314a2807e3672a253798f363c4">elayer_flags</a> { <a class="el" href="a00007.html#gga27740c314a2807e3672a253798f363c4a429edd9757a17d9887a2436e80e37f3e">EGRAPHICS_OPEN</a> = 0, 
+<a class="el" href="a00007.html#gga27740c314a2807e3672a253798f363c4a43f06370cf9fa1612625b2eb53a3b020">EGRAPHICS_CLOSE</a> = -1, 
+<a class="el" href="a00007.html#gga27740c314a2807e3672a253798f363c4a9e3dcc41d47b62de0e1d0231f8758f6b">EGRAPHICS_INVALID</a> = -2, 
+<a class="el" href="a00007.html#gga27740c314a2807e3672a253798f363c4aba08a258a9360be05c77f9a9115d25f6">EGRAPHICS_TODRAW</a> = -3
+ }</td></tr>
+<tr class="memdesc:ga27740c314a2807e3672a253798f363c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The flags that defines the status of a layer.  <a href="a00007.html#ga27740c314a2807e3672a253798f363c4">More...</a><br /></td></tr>
+<tr class="separator:ga27740c314a2807e3672a253798f363c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga92b7a5c21c86034a3edf8ccae79ac320"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#ga92b7a5c21c86034a3edf8ccae79ac320">etextanchor_flags</a> { <br />
+&#160;&#160;<a class="el" href="a00007.html#gga92b7a5c21c86034a3edf8ccae79ac320aa458c33a7d10c3c37871ca634aa23bee">ETEXT_UP</a> = 0, 
+<a class="el" href="a00007.html#gga92b7a5c21c86034a3edf8ccae79ac320a3b5f787b58cf7244d2ec6e4828031853">ETEXT_UP_LEFT</a> = 1, 
+<a class="el" href="a00007.html#gga92b7a5c21c86034a3edf8ccae79ac320a8457e1e1965cd93f838c2b1c6458f447">ETEXT_UP_RIGHT</a> = 2, 
+<a class="el" href="a00007.html#gga92b7a5c21c86034a3edf8ccae79ac320a45b832b012079a7802e80289c78c8356">ETEXT_DOWN</a> = 3, 
+<br />
+&#160;&#160;<a class="el" href="a00007.html#gga92b7a5c21c86034a3edf8ccae79ac320a80ede00f76ba3ad6ad9cb93e4986c1ad">ETEXT_DOWN_LEFT</a> = 4, 
+<a class="el" href="a00007.html#gga92b7a5c21c86034a3edf8ccae79ac320a21298608ce7ee6f438bfd2fc0b1a175b">ETEXT_DOWN_RIGHT</a> = 5, 
+<a class="el" href="a00007.html#gga92b7a5c21c86034a3edf8ccae79ac320a5b860e091ed02ad5dbaac6b8cc025b4a">ETEXT_LEFT</a> = 6, 
+<a class="el" href="a00007.html#gga92b7a5c21c86034a3edf8ccae79ac320a2b11bbced39162a98f13eb1dfcd7d12e">ETEXT_RIGHT</a> = 7, 
+<br />
+&#160;&#160;<a class="el" href="a00007.html#gga92b7a5c21c86034a3edf8ccae79ac320a0bb492a5b33a28c1bfb500f800aedee6">ETEXT_CENTER</a> = 8
+<br />
+ }</td></tr>
+<tr class="memdesc:ga92b7a5c21c86034a3edf8ccae79ac320"><td class="mdescLeft">&#160;</td><td class="mdescRight">The flags that defines the text anchor.  <a href="a00007.html#ga92b7a5c21c86034a3edf8ccae79ac320">More...</a><br /></td></tr>
+<tr class="separator:ga92b7a5c21c86034a3edf8ccae79ac320"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac832caa86f333fef891b326289df6105"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#gac832caa86f333fef891b326289df6105">etextwrap_flags</a> { <a class="el" href="a00007.html#ggac832caa86f333fef891b326289df6105a36d6b603218b3c39238ed7aca5570692">ETEXT_NOWRAP</a> = 0, 
+<a class="el" href="a00007.html#ggac832caa86f333fef891b326289df6105a199950f24ff44a42e004329548ed8500">ETEXT_WRAP</a> = 1
+ }</td></tr>
+<tr class="memdesc:gac832caa86f333fef891b326289df6105"><td class="mdescLeft">&#160;</td><td class="mdescRight">The flags that defines if the text should be wrapped.  <a href="a00007.html#gac832caa86f333fef891b326289df6105">More...</a><br /></td></tr>
+<tr class="separator:gac832caa86f333fef891b326289df6105"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0d8ca2afd90a87fe325333c3af75e55f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#ga0d8ca2afd90a87fe325333c3af75e55f">etextjustify_flags</a> { <a class="el" href="a00007.html#gga0d8ca2afd90a87fe325333c3af75e55fa5edfc00cd65e4b3a5912c84add351067">ETEXT_JLEFT</a> = 0, 
+<a class="el" href="a00007.html#gga0d8ca2afd90a87fe325333c3af75e55fa32075979c40ea20e385c54e548110386">ETEXT_JRIGHT</a> = 1, 
+<a class="el" href="a00007.html#gga0d8ca2afd90a87fe325333c3af75e55fa1c7b68fcd298f9bfbdb575b10fa52769">ETEXT_JCENTER</a> = 2
+ }</td></tr>
+<tr class="memdesc:ga0d8ca2afd90a87fe325333c3af75e55f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The flags that define the text justification.  <a href="a00007.html#ga0d8ca2afd90a87fe325333c3af75e55f">More...</a><br /></td></tr>
+<tr class="separator:ga0d8ca2afd90a87fe325333c3af75e55f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacc57a0407e8e1eaa69028654742baf3f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#gacc57a0407e8e1eaa69028654742baf3f">egraphics_types</a> { <br />
+&#160;&#160;<a class="el" href="a00007.html#ggacc57a0407e8e1eaa69028654742baf3fa917b79120ffbbcf6ac14ecfb4c546b19">E_GOBJ_INVALID</a> = 0, 
+<a class="el" href="a00007.html#ggacc57a0407e8e1eaa69028654742baf3fa5475681967130bb1c6c55aa3c7fa5f31">E_GOBJ_PATH</a>, 
+<a class="el" href="a00007.html#ggacc57a0407e8e1eaa69028654742baf3fadd8ed5f25ca9416c2f286d6573cbf27f">E_GOBJ_RECT</a>, 
+<a class="el" href="a00007.html#ggacc57a0407e8e1eaa69028654742baf3fae7a83386bd86af9fb57da7e8b88a2d32">E_GOBJ_ARC</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00007.html#ggacc57a0407e8e1eaa69028654742baf3fa69946a3643c3f9b399e27fa725013c98">E_GOBJ_OVAL</a>, 
+<a class="el" href="a00007.html#ggacc57a0407e8e1eaa69028654742baf3faa2aee19e6ef52859f12da8a228e8d827">E_GOBJ_TEXT</a>, 
+<a class="el" href="a00007.html#ggacc57a0407e8e1eaa69028654742baf3fa0e29b24df1114884e4a79d8b1adbcd9a">E_GOBJ_IMAG</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:gacc57a0407e8e1eaa69028654742baf3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The types of graphical object.  <a href="a00007.html#gacc57a0407e8e1eaa69028654742baf3f">More...</a><br /></td></tr>
+<tr class="separator:gacc57a0407e8e1eaa69028654742baf3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5aef848f10b49efd624db1c40e53766d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#ga5aef848f10b49efd624db1c40e53766d">epath_types</a> { <a class="el" href="a00007.html#gga5aef848f10b49efd624db1c40e53766da26ea1ee066616a02778c362044f32f04">E_PATH_MOVE</a> = 0, 
+<a class="el" href="a00007.html#gga5aef848f10b49efd624db1c40e53766da1cbedfbe737ff50f189a012732dc0c24">E_PATH_CURVE</a> = 1
+ }</td></tr>
+<tr class="memdesc:ga5aef848f10b49efd624db1c40e53766d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The types of path.  <a href="a00007.html#ga5aef848f10b49efd624db1c40e53766d">More...</a><br /></td></tr>
+<tr class="separator:ga5aef848f10b49efd624db1c40e53766d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga41d93d79bee7bc568342f46742a294ba"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga41d93d79bee7bc568342f46742a294ba"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#ga41d93d79bee7bc568342f46742a294ba">ebox_new</a> (<a class="el" href="a00002.html#a00020">t_ebox</a> *x, long flags)</td></tr>
-<tr class="memdesc:ga41d93d79bee7bc568342f46742a294ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize an ebox. <br /></td></tr>
-<tr class="separator:ga41d93d79bee7bc568342f46742a294ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga09c1b327faff8b3eb3d489c0fc92aa7c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga09c1b327faff8b3eb3d489c0fc92aa7c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#ga09c1b327faff8b3eb3d489c0fc92aa7c">ebox_ready</a> (<a class="el" href="a00002.html#a00020">t_ebox</a> *x)</td></tr>
-<tr class="memdesc:ga09c1b327faff8b3eb3d489c0fc92aa7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate that an ebox is ready. <br /></td></tr>
-<tr class="separator:ga09c1b327faff8b3eb3d489c0fc92aa7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf23211541198cfe590300b42e758c94e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaf23211541198cfe590300b42e758c94e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#gaf23211541198cfe590300b42e758c94e">ebox_free</a> (<a class="el" href="a00002.html#a00020">t_ebox</a> *x)</td></tr>
-<tr class="memdesc:gaf23211541198cfe590300b42e758c94e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free an UI ebox. <br /></td></tr>
-<tr class="separator:gaf23211541198cfe590300b42e758c94e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9cc07b9de1e8355c9120a5e6b72c200e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga9cc07b9de1e8355c9120a5e6b72c200e"></a>
-t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#ga9cc07b9de1e8355c9120a5e6b72c200e">ebox_getfontname</a> (<a class="el" href="a00002.html#a00020">t_ebox</a> *x)</td></tr>
-<tr class="memdesc:ga9cc07b9de1e8355c9120a5e6b72c200e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the font name of an ebox. <br /></td></tr>
-<tr class="separator:ga9cc07b9de1e8355c9120a5e6b72c200e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4ec93cf41296bde221592db0c9fc1e27"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga4ec93cf41296bde221592db0c9fc1e27"></a>
-t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#ga4ec93cf41296bde221592db0c9fc1e27">ebox_getfontslant</a> (<a class="el" href="a00002.html#a00020">t_ebox</a> *x)</td></tr>
-<tr class="memdesc:ga4ec93cf41296bde221592db0c9fc1e27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the font slant of an ebox. <br /></td></tr>
-<tr class="separator:ga4ec93cf41296bde221592db0c9fc1e27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9c342220af24e63f950d098e44e8f596"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga9c342220af24e63f950d098e44e8f596"></a>
-t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#ga9c342220af24e63f950d098e44e8f596">ebox_getfontweight</a> (<a class="el" href="a00002.html#a00020">t_ebox</a> *x)</td></tr>
-<tr class="memdesc:ga9c342220af24e63f950d098e44e8f596"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the font weight of an ebox. <br /></td></tr>
-<tr class="separator:ga9c342220af24e63f950d098e44e8f596"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae583313b1ea4f06fe42aa7a0ed5772e6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gae583313b1ea4f06fe42aa7a0ed5772e6"></a>
-t_pd *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#gae583313b1ea4f06fe42aa7a0ed5772e6">ebox_getsender</a> (<a class="el" href="a00002.html#a00020">t_ebox</a> *x)</td></tr>
-<tr class="memdesc:gae583313b1ea4f06fe42aa7a0ed5772e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the sender object. <br /></td></tr>
-<tr class="separator:gae583313b1ea4f06fe42aa7a0ed5772e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5dfc5eda4b4c22de02f1fa0a996ebf7b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga5dfc5eda4b4c22de02f1fa0a996ebf7b"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#ga5dfc5eda4b4c22de02f1fa0a996ebf7b">ebox_isdrawable</a> (<a class="el" href="a00002.html#a00020">t_ebox</a> *x)</td></tr>
-<tr class="memdesc:ga5dfc5eda4b4c22de02f1fa0a996ebf7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve if an ebox is drawable. <br /></td></tr>
-<tr class="separator:ga5dfc5eda4b4c22de02f1fa0a996ebf7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga187b43c8efeafc2fe9ff928b3fa81b21"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga187b43c8efeafc2fe9ff928b3fa81b21"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#ga187b43c8efeafc2fe9ff928b3fa81b21">ebox_getfontsize</a> (<a class="el" href="a00002.html#a00020">t_ebox</a> *x)</td></tr>
-<tr class="memdesc:ga187b43c8efeafc2fe9ff928b3fa81b21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the font size of an ebox. <br /></td></tr>
-<tr class="separator:ga187b43c8efeafc2fe9ff928b3fa81b21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga32fed7f05e48552976eb909820176a3b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga32fed7f05e48552976eb909820176a3b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#ga32fed7f05e48552976eb909820176a3b">ebox_set_cursor</a> (<a class="el" href="a00002.html#a00020">t_ebox</a> *x, int mode)</td></tr>
-<tr class="memdesc:ga32fed7f05e48552976eb909820176a3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the cursor. <br /></td></tr>
-<tr class="separator:ga32fed7f05e48552976eb909820176a3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga252f271a59fa9d45cfa9587ab7e46e67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#ga252f271a59fa9d45cfa9587ab7e46e67">ebox_attrprocess_viabinbuf</a> (void *x, t_binbuf *d)</td></tr>
-<tr class="memdesc:ga252f271a59fa9d45cfa9587ab7e46e67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the attributes with a binbuf.  <a href="a00002.html#ga252f271a59fa9d45cfa9587ab7e46e67">More...</a><br /></td></tr>
-<tr class="separator:ga252f271a59fa9d45cfa9587ab7e46e67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga58f93112c84cfc7072b015d6a712ea4f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#ga58f93112c84cfc7072b015d6a712ea4f">ebox_attrprocess_viatoms</a> (void *x, int argc, t_atom *argv)</td></tr>
-<tr class="memdesc:ga58f93112c84cfc7072b015d6a712ea4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the attributes with an array of atoms.  <a href="a00002.html#ga58f93112c84cfc7072b015d6a712ea4f">More...</a><br /></td></tr>
-<tr class="separator:ga58f93112c84cfc7072b015d6a712ea4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3b61efe7c688334e267b0e66dcf22e00"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga3b61efe7c688334e267b0e66dcf22e00"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#ga3b61efe7c688334e267b0e66dcf22e00">ebox_redraw</a> (<a class="el" href="a00002.html#a00020">t_ebox</a> *x)</td></tr>
-<tr class="memdesc:ga3b61efe7c688334e267b0e66dcf22e00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate that an UI ebox should be redraw. <br /></td></tr>
-<tr class="separator:ga3b61efe7c688334e267b0e66dcf22e00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab84d1f52b2d9f92b470cfb01dd0667c9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gab84d1f52b2d9f92b470cfb01dd0667c9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#gab84d1f52b2d9f92b470cfb01dd0667c9">ebox_get_rect_for_view</a> (<a class="el" href="a00002.html#a00020">t_ebox</a> *x, <a class="el" href="a00001.html#a00037">t_rect</a> *rect)</td></tr>
-<tr class="memdesc:gab84d1f52b2d9f92b470cfb01dd0667c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a rectangle with the UI ebox coordinates and size. <br /></td></tr>
-<tr class="separator:gab84d1f52b2d9f92b470cfb01dd0667c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8207bff87392a8cad54cb1ec040c9e19"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga8207bff87392a8cad54cb1ec040c9e19"></a>
-<a class="el" href="a00001.html#a00027">t_elayer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#ga8207bff87392a8cad54cb1ec040c9e19">ebox_start_layer</a> (<a class="el" href="a00002.html#a00020">t_ebox</a> *b, t_symbol *name, float width, float height)</td></tr>
-<tr class="memdesc:ga8207bff87392a8cad54cb1ec040c9e19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate and initialize an elayer. <br /></td></tr>
-<tr class="separator:ga8207bff87392a8cad54cb1ec040c9e19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae7aab23b76f98dbbd090a534eb0842a7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gae7aab23b76f98dbbd090a534eb0842a7"></a>
-t_pd_err&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#gae7aab23b76f98dbbd090a534eb0842a7">ebox_end_layer</a> (<a class="el" href="a00002.html#a00020">t_ebox</a> *b, t_symbol *name)</td></tr>
-<tr class="memdesc:gae7aab23b76f98dbbd090a534eb0842a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate that a layer is ready to be painted. <br /></td></tr>
-<tr class="separator:gae7aab23b76f98dbbd090a534eb0842a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga456ff9b2ae4ce1f6a58836996cbdebc9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga456ff9b2ae4ce1f6a58836996cbdebc9"></a>
-t_pd_err&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#ga456ff9b2ae4ce1f6a58836996cbdebc9">ebox_invalidate_layer</a> (<a class="el" href="a00002.html#a00020">t_ebox</a> *b, t_symbol *name)</td></tr>
-<tr class="memdesc:ga456ff9b2ae4ce1f6a58836996cbdebc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalidate a layer and indicate that you can use it again. <br /></td></tr>
-<tr class="separator:ga456ff9b2ae4ce1f6a58836996cbdebc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga838ff626eb61e0b237005107446c253b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga838ff626eb61e0b237005107446c253b"></a>
-t_pd_err&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#ga838ff626eb61e0b237005107446c253b">ebox_paint_layer</a> (<a class="el" href="a00002.html#a00020">t_ebox</a> *b, t_symbol *name, float x, float y)</td></tr>
-<tr class="memdesc:ga838ff626eb61e0b237005107446c253b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paint a layer. <br /></td></tr>
-<tr class="separator:ga838ff626eb61e0b237005107446c253b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5428828d56d7a09f7e8535de02143584"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga5428828d56d7a09f7e8535de02143584"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_fill</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g)</td></tr>
+<tr class="separator:ga5428828d56d7a09f7e8535de02143584"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafaf3e1cc55b7ea47a1f34ec6d01650c6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gafaf3e1cc55b7ea47a1f34ec6d01650c6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_fill_preserve</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g)</td></tr>
+<tr class="separator:gafaf3e1cc55b7ea47a1f34ec6d01650c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga47004c493c4e920ae591a7afc04b3f03"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga47004c493c4e920ae591a7afc04b3f03"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_stroke</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g)</td></tr>
+<tr class="separator:ga47004c493c4e920ae591a7afc04b3f03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf5e3ad739d8921a0f1df4356e8d566a3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaf5e3ad739d8921a0f1df4356e8d566a3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_stroke_preserve</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g)</td></tr>
+<tr class="separator:gaf5e3ad739d8921a0f1df4356e8d566a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7afd32d5469aea841782332cb6434dd0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga7afd32d5469aea841782332cb6434dd0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>etext_layout_draw</b> (<a class="el" href="a00007.html#a00045">t_etext</a> *textlayout, <a class="el" href="a00007.html#a00041">t_elayer</a> *g)</td></tr>
+<tr class="separator:ga7afd32d5469aea841782332cb6434dd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac9aa595f68f1d03ca7a74f23b50a1b04"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gac9aa595f68f1d03ca7a74f23b50a1b04"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_set_line_splinestep</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, float smooth)</td></tr>
+<tr class="separator:gac9aa595f68f1d03ca7a74f23b50a1b04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga06ccd4b8ef74f4ef96efbeaaf15b4063"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga06ccd4b8ef74f4ef96efbeaaf15b4063"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_set_line_width</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, float width)</td></tr>
+<tr class="separator:ga06ccd4b8ef74f4ef96efbeaaf15b4063"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga805ef3d2805a6b7c9f7e3ee40fd75d35"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga805ef3d2805a6b7c9f7e3ee40fd75d35"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_set_color_rgba</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, <a class="el" href="a00007.html#a00053">t_rgba</a> *rgba)</td></tr>
+<tr class="separator:ga805ef3d2805a6b7c9f7e3ee40fd75d35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5f4191bc0ee9d896f3ce24e10c908b41"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga5f4191bc0ee9d896f3ce24e10c908b41"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_set_color_rgb</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, <a class="el" href="a00007.html#a00052">t_rgb</a> *rgb)</td></tr>
+<tr class="separator:ga5f4191bc0ee9d896f3ce24e10c908b41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1ec6a77244689cf59f7b009da9930459"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga1ec6a77244689cf59f7b009da9930459"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_set_color_hex</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, t_symbol *hex)</td></tr>
+<tr class="separator:ga1ec6a77244689cf59f7b009da9930459"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad252fdcd1288ea88558bb77555f83e1c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gad252fdcd1288ea88558bb77555f83e1c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_set_color_hsla</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, <a class="el" href="a00007.html#a00048">t_hsla</a> *hsla)</td></tr>
+<tr class="separator:gad252fdcd1288ea88558bb77555f83e1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac021a4f2f21f0e0319f3cd110885576f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gac021a4f2f21f0e0319f3cd110885576f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_set_color_hsl</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, <a class="el" href="a00007.html#a00047">t_hsl</a> *hsl)</td></tr>
+<tr class="separator:gac021a4f2f21f0e0319f3cd110885576f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0866c721f94dbc9b99a0cbbea7d92745"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga0866c721f94dbc9b99a0cbbea7d92745"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_rotate</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, float angle)</td></tr>
+<tr class="separator:ga0866c721f94dbc9b99a0cbbea7d92745"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae15ed4eb8d3f6c1553af04e76d2fc3f6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gae15ed4eb8d3f6c1553af04e76d2fc3f6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_matrix_init</b> (<a class="el" href="a00007.html#a00049">t_matrix</a> *x, float xx, float yx, float xy, float yy, float x0, float y0)</td></tr>
+<tr class="separator:gae15ed4eb8d3f6c1553af04e76d2fc3f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga295b1353ebcec8566fae79f70c6ead7d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga295b1353ebcec8566fae79f70c6ead7d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_set_matrix</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, const <a class="el" href="a00007.html#a00049">t_matrix</a> *matrix)</td></tr>
+<tr class="separator:ga295b1353ebcec8566fae79f70c6ead7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacada5a583415bd459ee7bedb278ff72b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gacada5a583415bd459ee7bedb278ff72b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_apply_matrix</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, <a class="el" href="a00007.html#a00040">t_egobj</a> *gobj)</td></tr>
+<tr class="separator:gacada5a583415bd459ee7bedb278ff72b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae7850b71992b31e3a6d51225898837ae"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gae7850b71992b31e3a6d51225898837ae"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_line_to</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, float x, float y)</td></tr>
+<tr class="separator:gae7850b71992b31e3a6d51225898837ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga256b717f8eeea9cc755374b8a60cd293"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga256b717f8eeea9cc755374b8a60cd293"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_move_to</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, float x, float y)</td></tr>
+<tr class="separator:ga256b717f8eeea9cc755374b8a60cd293"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga61413d3f1e047843c061123564341809"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga61413d3f1e047843c061123564341809"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_curve_to</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, float ctrl1x, float ctrl1y, float ctrl2x, float ctrl2y, float endx, float endy)</td></tr>
+<tr class="separator:ga61413d3f1e047843c061123564341809"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7b034490a3f30aebea5251fe78f2a24c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga7b034490a3f30aebea5251fe78f2a24c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_arc_to</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, float cx, float cy, float extend)</td></tr>
+<tr class="separator:ga7b034490a3f30aebea5251fe78f2a24c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e79322e7166caaa6338f2995a821626"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga0e79322e7166caaa6338f2995a821626"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_arc_oval_to</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, float cx, float cy, float radius, float extend)</td></tr>
+<tr class="separator:ga0e79322e7166caaa6338f2995a821626"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1194e837c7f38cc23d28f0d835705ec9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga1194e837c7f38cc23d28f0d835705ec9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_line</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, float x0, float y0, float x1, float y1)</td></tr>
+<tr class="separator:ga1194e837c7f38cc23d28f0d835705ec9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4cfa9cc47c5a748680811e4d1f900efb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga4cfa9cc47c5a748680811e4d1f900efb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_curve</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, float startx, float starty, float ctrl1x, float ctrl1y, float ctrl2x, float ctrl2y, float endx, float endy)</td></tr>
+<tr class="separator:ga4cfa9cc47c5a748680811e4d1f900efb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1edd7b565474683c2c20a0ea92770ab0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga1edd7b565474683c2c20a0ea92770ab0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_line_fast</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, float x0, float y0, float x1, float y1)</td></tr>
+<tr class="separator:ga1edd7b565474683c2c20a0ea92770ab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0f59e6df320f9a85448d6cdd4157e67c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga0f59e6df320f9a85448d6cdd4157e67c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_close_path</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g)</td></tr>
+<tr class="separator:ga0f59e6df320f9a85448d6cdd4157e67c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9b13ded89650dbb17dd8969f417fef73"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga9b13ded89650dbb17dd8969f417fef73"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_rectangle</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, float x, float y, float width, float height)</td></tr>
+<tr class="separator:ga9b13ded89650dbb17dd8969f417fef73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga526c4c0dee0e231f8fd72be932754bb0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga526c4c0dee0e231f8fd72be932754bb0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_rectangle_rounded</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, float x, float y, float width, float height, float roundness)</td></tr>
+<tr class="separator:ga526c4c0dee0e231f8fd72be932754bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga77ff91432b9eca677b5dde0611b37322"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga77ff91432b9eca677b5dde0611b37322"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_circle</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, float xc, float yc, float radius)</td></tr>
+<tr class="separator:ga77ff91432b9eca677b5dde0611b37322"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga909b35c4761b86db7fd25a82aa5cec92"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga909b35c4761b86db7fd25a82aa5cec92"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_oval</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, float xc, float yc, float radiusx, float radiusy)</td></tr>
+<tr class="separator:ga909b35c4761b86db7fd25a82aa5cec92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga39ce0fbc67e9e2635920c8916852c484"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga39ce0fbc67e9e2635920c8916852c484"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_arc</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, float xc, float yc, float radius, float angle1, float angle2)</td></tr>
+<tr class="separator:ga39ce0fbc67e9e2635920c8916852c484"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad76d2fd21d89959fa4f1000734f89cef"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gad76d2fd21d89959fa4f1000734f89cef"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_arc_oval</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, float xc, float yc, float radiusx, float radiusy, float angle1, float angle2)</td></tr>
+<tr class="separator:gad76d2fd21d89959fa4f1000734f89cef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaac6e7932fbb9af16688c4318f4f46e4d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaac6e7932fbb9af16688c4318f4f46e4d"></a>
+<a class="el" href="a00007.html#a00045">t_etext</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>etext_layout_create</b> (void)</td></tr>
+<tr class="separator:gaac6e7932fbb9af16688c4318f4f46e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa0db7897a34ede0e88090217e266d43a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaa0db7897a34ede0e88090217e266d43a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>etext_layout_destroy</b> (<a class="el" href="a00007.html#a00045">t_etext</a> *textlayout)</td></tr>
+<tr class="separator:gaa0db7897a34ede0e88090217e266d43a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4e1581b3db52caacc17f669d149c2d75"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga4e1581b3db52caacc17f669d149c2d75"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>etext_layout_set</b> (<a class="el" href="a00007.html#a00045">t_etext</a> *textlayout, const char *text, <a class="el" href="a00007.html#a00039">t_efont</a> *jfont, float x, float y, float width, float height, <a class="el" href="a00007.html#ga92b7a5c21c86034a3edf8ccae79ac320">etextanchor_flags</a> anchor, <a class="el" href="a00007.html#ga0d8ca2afd90a87fe325333c3af75e55f">etextjustify_flags</a> justify, <a class="el" href="a00007.html#gac832caa86f333fef891b326289df6105">etextwrap_flags</a> wrap)</td></tr>
+<tr class="separator:ga4e1581b3db52caacc17f669d149c2d75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6dc133480bb28bcd659eba01716e43e4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga6dc133480bb28bcd659eba01716e43e4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>etext_layout_settextcolor</b> (<a class="el" href="a00007.html#a00045">t_etext</a> *textlayout, <a class="el" href="a00007.html#a00053">t_rgba</a> *color)</td></tr>
+<tr class="separator:ga6dc133480bb28bcd659eba01716e43e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4e54c1acac79dd5bf6ce43612055e72c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga4e54c1acac79dd5bf6ce43612055e72c"></a>
+<a class="el" href="a00007.html#a00039">t_efont</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>efont_create</b> (t_symbol *family, t_symbol *slant, t_symbol *weight, float size)</td></tr>
+<tr class="separator:ga4e54c1acac79dd5bf6ce43612055e72c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa43b0920fcc3732dac62d39d0fff1d8a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaa43b0920fcc3732dac62d39d0fff1d8a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>efont_destroy</b> (<a class="el" href="a00007.html#a00039">t_efont</a> *font)</td></tr>
+<tr class="separator:gaa43b0920fcc3732dac62d39d0fff1d8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad0c57b1de9ff1f7a41736ffb109deb61"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gad0c57b1de9ff1f7a41736ffb109deb61"></a>
+char *&#160;</td><td class="memItemRight" valign="bottom"><b>rgba_to_hex</b> (<a class="el" href="a00007.html#a00053">t_rgba</a> color)</td></tr>
+<tr class="separator:gad0c57b1de9ff1f7a41736ffb109deb61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga20c12dd92312c7c682e6aeff7d4aa4d5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga20c12dd92312c7c682e6aeff7d4aa4d5"></a>
+char *&#160;</td><td class="memItemRight" valign="bottom"><b>rgb_to_hex</b> (<a class="el" href="a00007.html#a00052">t_rgb</a> color)</td></tr>
+<tr class="separator:ga20c12dd92312c7c682e6aeff7d4aa4d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga95e35396231e82fdd7e16840320e0a8d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga95e35396231e82fdd7e16840320e0a8d"></a>
+char *&#160;</td><td class="memItemRight" valign="bottom"><b>hsla_to_hex</b> (<a class="el" href="a00007.html#a00048">t_hsla</a> color)</td></tr>
+<tr class="separator:ga95e35396231e82fdd7e16840320e0a8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab8cbbf0582af301131d4e83500752821"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gab8cbbf0582af301131d4e83500752821"></a>
+char *&#160;</td><td class="memItemRight" valign="bottom"><b>hsl_to_hex</b> (<a class="el" href="a00007.html#a00047">t_hsl</a> color)</td></tr>
+<tr class="separator:gab8cbbf0582af301131d4e83500752821"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad2410c1d9685c01dac0b4df7442f6fff"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gad2410c1d9685c01dac0b4df7442f6fff"></a>
+<a class="el" href="a00007.html#a00047">t_hsl</a>&#160;</td><td class="memItemRight" valign="bottom"><b>rgb_to_hsl</b> (<a class="el" href="a00007.html#a00052">t_rgb</a> color)</td></tr>
+<tr class="separator:gad2410c1d9685c01dac0b4df7442f6fff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga16649ac6f2f75528696f6ae0ea9eeba5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga16649ac6f2f75528696f6ae0ea9eeba5"></a>
+<a class="el" href="a00007.html#a00048">t_hsla</a>&#160;</td><td class="memItemRight" valign="bottom"><b>rgba_to_hsla</b> (<a class="el" href="a00007.html#a00053">t_rgba</a> color)</td></tr>
+<tr class="separator:ga16649ac6f2f75528696f6ae0ea9eeba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac6c947cce5d2d6e2b8a6b8cfa2514d6a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gac6c947cce5d2d6e2b8a6b8cfa2514d6a"></a>
+<a class="el" href="a00007.html#a00053">t_rgba</a>&#160;</td><td class="memItemRight" valign="bottom"><b>hex_to_rgba</b> (char *color)</td></tr>
+<tr class="separator:gac6c947cce5d2d6e2b8a6b8cfa2514d6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac1f3d55ac3fa1d2c1630d9e5baf32fd1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gac1f3d55ac3fa1d2c1630d9e5baf32fd1"></a>
+<a class="el" href="a00007.html#a00052">t_rgb</a>&#160;</td><td class="memItemRight" valign="bottom"><b>hex_to_rgb</b> (char *color)</td></tr>
+<tr class="separator:gac1f3d55ac3fa1d2c1630d9e5baf32fd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga44114d921ce86f995c20bfc733b87cac"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga44114d921ce86f995c20bfc733b87cac"></a>
+<a class="el" href="a00007.html#a00053">t_rgba</a>&#160;</td><td class="memItemRight" valign="bottom"><b>hsla_to_rgba</b> (<a class="el" href="a00007.html#a00048">t_hsla</a> color)</td></tr>
+<tr class="separator:ga44114d921ce86f995c20bfc733b87cac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga529194584701f89249dfe7e10d6e5191"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga529194584701f89249dfe7e10d6e5191"></a>
+<a class="el" href="a00007.html#a00052">t_rgb</a>&#160;</td><td class="memItemRight" valign="bottom"><b>hsl_to_rgb</b> (<a class="el" href="a00007.html#a00047">t_hsl</a> color)</td></tr>
+<tr class="separator:ga529194584701f89249dfe7e10d6e5191"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1db3b6e4b799d3ab457fd7c43114a2ac"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga1db3b6e4b799d3ab457fd7c43114a2ac"></a>
+<a class="el" href="a00007.html#a00053">t_rgba</a>&#160;</td><td class="memItemRight" valign="bottom"><b>rgba_addContrast</b> (<a class="el" href="a00007.html#a00053">t_rgba</a> color, float contrast)</td></tr>
+<tr class="separator:ga1db3b6e4b799d3ab457fd7c43114a2ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga63b8ffe2cca27c079ffa378194db36c4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga63b8ffe2cca27c079ffa378194db36c4"></a>
+<a class="el" href="a00007.html#a00052">t_rgb</a>&#160;</td><td class="memItemRight" valign="bottom"><b>rgb_addContrast</b> (<a class="el" href="a00007.html#a00052">t_rgb</a> color, float contrast)</td></tr>
+<tr class="separator:ga63b8ffe2cca27c079ffa378194db36c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga281a4f173dfef42a861bcbd3a607b66e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga281a4f173dfef42a861bcbd3a607b66e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>rgba_set</b> (<a class="el" href="a00007.html#a00053">t_rgba</a> *color, float red, float green, float blue, float alpha)</td></tr>
+<tr class="separator:ga281a4f173dfef42a861bcbd3a607b66e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf32f65ee5c9bc8242969099892b6353e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaf32f65ee5c9bc8242969099892b6353e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>rgb_set</b> (<a class="el" href="a00007.html#a00052">t_rgb</a> *color, float red, float green, float blue)</td></tr>
+<tr class="separator:gaf32f65ee5c9bc8242969099892b6353e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga093b952ac5024912e476dfb98678ed14"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga093b952ac5024912e476dfb98678ed14"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>hsla_set</b> (<a class="el" href="a00007.html#a00048">t_hsla</a> *color, float hue, float saturation, float luminosity, float alpha)</td></tr>
+<tr class="separator:ga093b952ac5024912e476dfb98678ed14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga68ee3301a1f166235e80d13276457973"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga68ee3301a1f166235e80d13276457973"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>hsl_set</b> (<a class="el" href="a00007.html#a00047">t_hsl</a> *color, float hue, float saturation, float luminosity)</td></tr>
+<tr class="separator:ga68ee3301a1f166235e80d13276457973"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab7bc02a531e786b54d7071c19819f506"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gab7bc02a531e786b54d7071c19819f506"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>pd_clip_min</b> (float aValue, float aMinimum)</td></tr>
+<tr class="separator:gab7bc02a531e786b54d7071c19819f506"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf64f5d636ef92dab93c35ef1dff5eaf6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaf64f5d636ef92dab93c35ef1dff5eaf6"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>pd_clip_max</b> (float aValue, float aMaximum)</td></tr>
+<tr class="separator:gaf64f5d636ef92dab93c35ef1dff5eaf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9da15b54a36c98e2bbef9e8e9745bc38"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga9da15b54a36c98e2bbef9e8e9745bc38"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>pd_clip_minmax</b> (float aValue, float aMinimum, float aMaximum)</td></tr>
+<tr class="separator:ga9da15b54a36c98e2bbef9e8e9745bc38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf39cec7bed47295f2ae57ecb0505cecd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaf39cec7bed47295f2ae57ecb0505cecd"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>pd_ordinate</b> (float radius, float angle)</td></tr>
+<tr class="separator:gaf39cec7bed47295f2ae57ecb0505cecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad7cad2e206870919d1b78c3fdcdec9cd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gad7cad2e206870919d1b78c3fdcdec9cd"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>pd_abscissa</b> (float radius, float angle)</td></tr>
+<tr class="separator:gad7cad2e206870919d1b78c3fdcdec9cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadc0a37e34050466998f0d6c196d0d17d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gadc0a37e34050466998f0d6c196d0d17d"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>pd_radius</b> (float x, float y)</td></tr>
+<tr class="separator:gadc0a37e34050466998f0d6c196d0d17d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5c938dc21b4a6078f331e40e3a2393b0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga5c938dc21b4a6078f331e40e3a2393b0"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>pd_angle</b> (float x, float y)</td></tr>
+<tr class="separator:ga5c938dc21b4a6078f331e40e3a2393b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadf844a99b7def8ea5709baa97d950c69"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gadf844a99b7def8ea5709baa97d950c69"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>__attribute__</b> ((used)) static <a class="el" href="a00007.html#a00053">t_rgba</a> rgba_black = {0.3f, 0.3f, 0.3f, 1.f}</td></tr>
+<tr class="separator:gadf844a99b7def8ea5709baa97d950c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Pierre Guillot </dd></dl>
-<dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2013-2014 </dd></dl>
-</div></div><!-- contents -->
+<p>The <a class="el" href="a00007.html#a00041" title="The drawing layer. ">t_elayer</a> part. </p>
+<p>This part refers to the methods and structures used to paint. </p>
+<hr/><h2 class="groupheader">Data Structure Documentation</h2>
+<a name="a00050" id="a00050"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct t_pt</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>A point structure. </p>
+<p>It contains the members x and y for abscissa and ordinate. </p>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#_a27">c.bang.cpp</a>.</dd>
+</dl></div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="adf141a83ce7be90994a4ed1d5af6d8fa"></a>float</td>
+<td class="fieldname">
+x</td>
+<td class="fielddoc">
+<p>The abscissa coordiante. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a63f94995be90a3f9c7f2fe6f1756f484"></a>float</td>
+<td class="fieldname">
+y</td>
+<td class="fielddoc">
+<p>The ordiante coordiante. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="a00051" id="a00051"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct t_rect</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>A rectangle structure. </p>
+<p>It contains the members x, y, width and height for abscissa and ordinate and size. </p>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#_a16">c.bang.cpp</a>.</dd>
+</dl></div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a74be09c958ebe41d44c62687c442c744"></a>float</td>
+<td class="fieldname">
+x</td>
+<td class="fielddoc">
+<p>The abscissa coordiante. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a57a581a68f49b86c36c6274e63a01728"></a>float</td>
+<td class="fieldname">
+y</td>
+<td class="fielddoc">
+<p>The ordiante coordiante. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a2d191f636f0fc0c602b949e9ddb968a2"></a>float</td>
+<td class="fieldname">
+width</td>
+<td class="fielddoc">
+<p>The width of the rectangle </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="acb7c04fb6b3f46bb0cefebf4e9556a42"></a>float</td>
+<td class="fieldname">
+height</td>
+<td class="fielddoc">
+<p>The height of the rectangle </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="a00049" id="a00049"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct t_matrix</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>A matrix structure. </p>
+<p>It contains the members xx, yx, xy, yy, x0 and y0 </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="ad9ac1d5c92894bb8cd6ceccd870f4bab"></a>float</td>
+<td class="fieldname">
+xx</td>
+<td class="fielddoc">
+<p>The abscissa-abscissa translation of the matrix </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="aa7c4323cb532a995d1b31963f76206a8"></a>float</td>
+<td class="fieldname">
+yx</td>
+<td class="fielddoc">
+<p>The abscissa-ordiante translation of the matrix </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a36b39863a4b2bf92130ff6613a7b1cb5"></a>float</td>
+<td class="fieldname">
+xy</td>
+<td class="fielddoc">
+<p>The ordiante-abscissa translation of the matrix </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a57d6c103b3cc1bd61c0ab28eff65d688"></a>float</td>
+<td class="fieldname">
+yy</td>
+<td class="fielddoc">
+<p>The ordiante-ordiante translation of the matrix </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a71413e8e0f7d35dc71e4eac4cec5855f"></a>float</td>
+<td class="fieldname">
+x0</td>
+<td class="fielddoc">
+<p>The abscissa origin of the matrix </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="ac8bfef9adfda574c3ad9060593b9b668"></a>float</td>
+<td class="fieldname">
+y0</td>
+<td class="fielddoc">
+<p>The ordiante origin of the matrix </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="a00052" id="a00052"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct t_rgb</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>A rgb color structure. </p>
+<p>It contains the members red, green and blue. </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a97bcb75fc43734289223a7c4e0bf1cb4"></a>float</td>
+<td class="fieldname">
+red</td>
+<td class="fielddoc">
+<p>The red value. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="ac33324b465797ad765803a1fc26b85d1"></a>float</td>
+<td class="fieldname">
+green</td>
+<td class="fielddoc">
+<p>The green value. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="aaea417ff36ec8f29c3496641c34b85b0"></a>float</td>
+<td class="fieldname">
+blue</td>
+<td class="fielddoc">
+<p>The blue value. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="a00053" id="a00053"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct t_rgba</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>A rgba color structure. </p>
+<p>It contains the members red, green, blue and alpha. </p>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#_a4">c.bang.cpp</a>.</dd>
+</dl></div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="adf5398d4559380d1d097ff42609d789e"></a>float</td>
+<td class="fieldname">
+red</td>
+<td class="fielddoc">
+<p>The red value. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="ae9d56f656c02f0f90491b0433c6e4c9d"></a>float</td>
+<td class="fieldname">
+green</td>
+<td class="fielddoc">
+<p>The green value. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a903486af306a7cf13ce9160c689a3d9c"></a>float</td>
+<td class="fieldname">
+blue</td>
+<td class="fielddoc">
+<p>The blue value. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a5b579068ed58a7b3fe8c5042aa0bc3e4"></a>float</td>
+<td class="fieldname">
+alpha</td>
+<td class="fielddoc">
+<p>The alpha value. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="a00047" id="a00047"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct t_hsl</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>A hsl color structure. </p>
+<p>It contains the members hue, saturation and lightness. </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a17329c0ac897d0cdb4221afdb30c533b"></a>float</td>
+<td class="fieldname">
+hue</td>
+<td class="fielddoc">
+<p>The hue value. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="ac6d100caa395c77d5ce0d788b543969e"></a>float</td>
+<td class="fieldname">
+saturation</td>
+<td class="fielddoc">
+<p>The saturation value. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a47dca6ac2cc1a5b51b720907241e3447"></a>float</td>
+<td class="fieldname">
+lightness</td>
+<td class="fielddoc">
+<p>The lightness value. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="a00048" id="a00048"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct t_hsla</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>A hsla color structure. </p>
+<p>It contains the members hue, saturation, lightness and alpha. </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="afc3887418f90f4d2a9b073eec3fb4369"></a>float</td>
+<td class="fieldname">
+hue</td>
+<td class="fielddoc">
+<p>The hue value. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a4f68b909c0d5cbab75941418d3ffbf3e"></a>float</td>
+<td class="fieldname">
+saturation</td>
+<td class="fielddoc">
+<p>The saturation value. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a58ae0b9c3214da97f90c85a571f62693"></a>float</td>
+<td class="fieldname">
+lightness</td>
+<td class="fielddoc">
+<p>The lightness value. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a11536c3047cafdd00af64652e0baf7b6"></a>float</td>
+<td class="fieldname">
+alpha</td>
+<td class="fielddoc">
+<p>The alpha value. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="a00039" id="a00039"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct t_efont</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>The font structure. </p>
+<p>It contains the informations of a font. </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a82039d811d9a6f5543842e291d8bd38c"></a>float</td>
+<td class="fieldname">
+c_size</td>
+<td class="fielddoc">
+<p>The size of the font. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="ad8e73a221077b37595c86eb76d756c69"></a>long</td>
+<td class="fieldname">
+c_sizereal</td>
+<td class="fielddoc">
+<p>The plateform's size of the font. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="aa21e51212c4b2b8786561a0e6b89a9ab"></a>t_symbol *</td>
+<td class="fieldname">
+c_family</td>
+<td class="fielddoc">
+<p>The family of the font (times, helvetica, ect.). </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a10c0d64b85d3f01e79014626b8bbdfd8"></a>t_symbol *</td>
+<td class="fieldname">
+c_slant</td>
+<td class="fielddoc">
+<p>The slant of the font (regular, italic, etc.). </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a0d5c0d05d8a9dac856c472b9b0488c69"></a>t_symbol *</td>
+<td class="fieldname">
+c_weight</td>
+<td class="fielddoc">
+<p>The weight of the font (normal, bold). </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="a00045" id="a00045"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct t_etext</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>The text structure. </p>
+<p>It contains the all the informations to be drawn. </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a69b590e8c2bc4f88e7842803e97ffcb0"></a>t_symbol *</td>
+<td class="fieldname">
+c_text</td>
+<td class="fielddoc">
+<p>The text. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a9dcb6b0bab06e4fa33bf5e64506072f7"></a><a class="el" href="a00007.html#a00053">t_rgba</a></td>
+<td class="fieldname">
+c_color</td>
+<td class="fielddoc">
+<p>The color of the text. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a7c51ade17ff45a3d56aeeb59fc8c597e"></a><a class="el" href="a00007.html#a00039">t_efont</a></td>
+<td class="fieldname">
+c_font</td>
+<td class="fielddoc">
+<p>The font of the text. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a54b8df071c71c4cbd50a834d99c7d6f0"></a><a class="el" href="a00007.html#a00051">t_rect</a></td>
+<td class="fieldname">
+c_rect</td>
+<td class="fielddoc">
+<p>The rectangle of the text. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a95636b32be420c54477ac42ef8bf153a"></a>t_symbol *</td>
+<td class="fieldname">
+c_anchor</td>
+<td class="fielddoc">
+<p>The anchor of the text. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a17352a5d25468f9a9666b7bd06fc0834"></a>t_symbol *</td>
+<td class="fieldname">
+c_justify</td>
+<td class="fielddoc">
+<p>The justification of the text. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="a00040" id="a00040"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct t_egobj</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>The drawing object. </p>
+<p>It contains the all the informations to be drawn. </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="aa0d1cb7aefd1673b58f5ca91f2bdd75a"></a><a class="el" href="a00007.html#gacc57a0407e8e1eaa69028654742baf3f">egraphics_types</a></td>
+<td class="fieldname">
+e_type</td>
+<td class="fielddoc">
+<p>The type of the graphical object. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="ae57f7ad46af3a729cbdfaabb5facb5de"></a>int</td>
+<td class="fieldname">
+e_filled</td>
+<td class="fielddoc">
+<p>The filled state of the graphical object. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a3ef697ed87a2bf8304616ada800b611e"></a>t_symbol *</td>
+<td class="fieldname">
+e_color</td>
+<td class="fielddoc">
+<p>The color of the graphical object. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a6f741974f9596f6593d7bfb45fc74cce"></a>float</td>
+<td class="fieldname">
+e_width</td>
+<td class="fielddoc">
+<p>The line width of the graphical object. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a4fcd8b0e87dd629bb305c5bbd813139c"></a><a class="el" href="a00007.html#a00050">t_pt</a> *</td>
+<td class="fieldname">
+e_points</td>
+<td class="fielddoc">
+<p>The points of the graphical object. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a078d7351707c8b191c4af427715a1541"></a>long</td>
+<td class="fieldname">
+e_npoints</td>
+<td class="fielddoc">
+<p>The number of points of the graphical object. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="aaf03a19f10e6d5927b941365799550f2"></a>float</td>
+<td class="fieldname">
+e_roundness</td>
+<td class="fielddoc">
+<p>The roundness of the graphical object. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a2ab8722a4951239a952a0667f183b43a"></a><a class="el" href="a00007.html#a00039">t_efont</a></td>
+<td class="fieldname">
+e_font</td>
+<td class="fielddoc">
+<p>The font of the graphical object. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a7e10e3b2a698948f100db472ade732db"></a>t_symbol *</td>
+<td class="fieldname">
+e_anchor</td>
+<td class="fielddoc">
+<p>The anchor of the graphical object. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a75601eeebf6ee5316c34b4682521e546"></a>t_symbol *</td>
+<td class="fieldname">
+e_justify</td>
+<td class="fielddoc">
+<p>The justification of the graphical object. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="aeb8a77575aa15df98e298d9b01b1e46e"></a>t_symbol *</td>
+<td class="fieldname">
+e_text</td>
+<td class="fielddoc">
+<p>The text of the graphical object. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="a00041" id="a00041"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct t_elayer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>The drawing layer. </p>
+<p>It contains the all the informations and the graphical objects to be drawn. </p>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#_a22">c.bang.cpp</a>.</dd>
+</dl></div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a7b6e04eef4491054de954174a3d10c18"></a>t_object *</td>
+<td class="fieldname">
+e_owner</td>
+<td class="fielddoc">
+<p>The layer owner. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a314ce24daf6d78ff3d78721545d5aa82"></a>t_symbol *</td>
+<td class="fieldname">
+e_name</td>
+<td class="fielddoc">
+<p>The layer name. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="aad477661da8243df21b0b704cad49825"></a>t_symbol *</td>
+<td class="fieldname">
+e_id</td>
+<td class="fielddoc">
+<p>The layer canvas ID. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="aee369ce6c8394150f1e29e002d4cf8dd"></a>int</td>
+<td class="fieldname">
+e_state</td>
+<td class="fielddoc">
+<p>The layer state. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="abd240d53f9bfecde2170c85fe7fbdfd2"></a><a class="el" href="a00007.html#a00051">t_rect</a></td>
+<td class="fieldname">
+e_rect</td>
+<td class="fielddoc">
+<p>The layer size. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a7757ef34cd2f81d31835199e47fc4df1"></a>t_symbol *</td>
+<td class="fieldname">
+e_color</td>
+<td class="fielddoc">
+<p>The layer color. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a730776e636c54e06227e8ff21d859809"></a>int</td>
+<td class="fieldname">
+e_line_width</td>
+<td class="fielddoc">
+<p>The layer line width. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a1267c33a02fbe86fb210c8591d2f8a27"></a><a class="el" href="a00007.html#a00049">t_matrix</a></td>
+<td class="fieldname">
+e_matrix</td>
+<td class="fielddoc">
+<p>The layer matrix. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a4b9e233c7608524a176423c0ae2ca563"></a><a class="el" href="a00007.html#a00040">t_egobj</a></td>
+<td class="fieldname">
+e_new_objects</td>
+<td class="fielddoc">
+<p>The layer new object. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="ad5664bb9ccb9c503eb484543816ccac4"></a><a class="el" href="a00007.html#a00040">t_egobj</a> *</td>
+<td class="fieldname">
+e_objects</td>
+<td class="fielddoc">
+<p>The layer objects. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a146d29225c977dea1d24e3b4c62e69c5"></a>long</td>
+<td class="fieldname">
+e_number_objects</td>
+<td class="fielddoc">
+<p>The number of layer objects. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="ga27740c314a2807e3672a253798f363c4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a00007.html#ga27740c314a2807e3672a253798f363c4">elayer_flags</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The flags that defines the status of a layer. </p>
+<p>It define all possible the status of a layer. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="gga27740c314a2807e3672a253798f363c4a429edd9757a17d9887a2436e80e37f3e"></a>EGRAPHICS_OPEN&#160;</td><td class="fielddoc">
+<p>Open. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga27740c314a2807e3672a253798f363c4a43f06370cf9fa1612625b2eb53a3b020"></a>EGRAPHICS_CLOSE&#160;</td><td class="fielddoc">
+<p>Closed. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga27740c314a2807e3672a253798f363c4a9e3dcc41d47b62de0e1d0231f8758f6b"></a>EGRAPHICS_INVALID&#160;</td><td class="fielddoc">
+<p>Invalid. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga27740c314a2807e3672a253798f363c4aba08a258a9360be05c77f9a9115d25f6"></a>EGRAPHICS_TODRAW&#160;</td><td class="fielddoc">
+<p>To be drawn. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a class="anchor" id="ga92b7a5c21c86034a3edf8ccae79ac320"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a00007.html#ga92b7a5c21c86034a3edf8ccae79ac320">etextanchor_flags</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The flags that defines the text anchor. </p>
+<p>It define all text anchor. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="gga92b7a5c21c86034a3edf8ccae79ac320aa458c33a7d10c3c37871ca634aa23bee"></a>ETEXT_UP&#160;</td><td class="fielddoc">
+<p>Up and center. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga92b7a5c21c86034a3edf8ccae79ac320a3b5f787b58cf7244d2ec6e4828031853"></a>ETEXT_UP_LEFT&#160;</td><td class="fielddoc">
+<p>Up anfd left. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga92b7a5c21c86034a3edf8ccae79ac320a8457e1e1965cd93f838c2b1c6458f447"></a>ETEXT_UP_RIGHT&#160;</td><td class="fielddoc">
+<p>Up anfd right. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga92b7a5c21c86034a3edf8ccae79ac320a45b832b012079a7802e80289c78c8356"></a>ETEXT_DOWN&#160;</td><td class="fielddoc">
+<p>Down and center. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga92b7a5c21c86034a3edf8ccae79ac320a80ede00f76ba3ad6ad9cb93e4986c1ad"></a>ETEXT_DOWN_LEFT&#160;</td><td class="fielddoc">
+<p>Down anfd left. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga92b7a5c21c86034a3edf8ccae79ac320a21298608ce7ee6f438bfd2fc0b1a175b"></a>ETEXT_DOWN_RIGHT&#160;</td><td class="fielddoc">
+<p>Down anfd right. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga92b7a5c21c86034a3edf8ccae79ac320a5b860e091ed02ad5dbaac6b8cc025b4a"></a>ETEXT_LEFT&#160;</td><td class="fielddoc">
+<p>Left. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga92b7a5c21c86034a3edf8ccae79ac320a2b11bbced39162a98f13eb1dfcd7d12e"></a>ETEXT_RIGHT&#160;</td><td class="fielddoc">
+<p>right. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga92b7a5c21c86034a3edf8ccae79ac320a0bb492a5b33a28c1bfb500f800aedee6"></a>ETEXT_CENTER&#160;</td><td class="fielddoc">
+<p>Center. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a class="anchor" id="gac832caa86f333fef891b326289df6105"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a00007.html#gac832caa86f333fef891b326289df6105">etextwrap_flags</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The flags that defines if the text should be wrapped. </p>
+<p>It define true or false. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="ggac832caa86f333fef891b326289df6105a36d6b603218b3c39238ed7aca5570692"></a>ETEXT_NOWRAP&#160;</td><td class="fielddoc">
+<p>False. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ggac832caa86f333fef891b326289df6105a199950f24ff44a42e004329548ed8500"></a>ETEXT_WRAP&#160;</td><td class="fielddoc">
+<p>True. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a class="anchor" id="ga0d8ca2afd90a87fe325333c3af75e55f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a00007.html#ga0d8ca2afd90a87fe325333c3af75e55f">etextjustify_flags</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The flags that define the text justification. </p>
+<p>It define all text justification. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="gga0d8ca2afd90a87fe325333c3af75e55fa5edfc00cd65e4b3a5912c84add351067"></a>ETEXT_JLEFT&#160;</td><td class="fielddoc">
+<p>Left. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga0d8ca2afd90a87fe325333c3af75e55fa32075979c40ea20e385c54e548110386"></a>ETEXT_JRIGHT&#160;</td><td class="fielddoc">
+<p>Right. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga0d8ca2afd90a87fe325333c3af75e55fa1c7b68fcd298f9bfbdb575b10fa52769"></a>ETEXT_JCENTER&#160;</td><td class="fielddoc">
+<p>Center. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a class="anchor" id="gacc57a0407e8e1eaa69028654742baf3f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a00007.html#gacc57a0407e8e1eaa69028654742baf3f">egraphics_types</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The types of graphical object. </p>
+<p>It define all the graphical type. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="ggacc57a0407e8e1eaa69028654742baf3fa917b79120ffbbcf6ac14ecfb4c546b19"></a>E_GOBJ_INVALID&#160;</td><td class="fielddoc">
+<p>This type is invalid. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ggacc57a0407e8e1eaa69028654742baf3fa5475681967130bb1c6c55aa3c7fa5f31"></a>E_GOBJ_PATH&#160;</td><td class="fielddoc">
+<p>This is a path. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ggacc57a0407e8e1eaa69028654742baf3fadd8ed5f25ca9416c2f286d6573cbf27f"></a>E_GOBJ_RECT&#160;</td><td class="fielddoc">
+<p>This is a rect. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ggacc57a0407e8e1eaa69028654742baf3fae7a83386bd86af9fb57da7e8b88a2d32"></a>E_GOBJ_ARC&#160;</td><td class="fielddoc">
+<p>This is an arc. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ggacc57a0407e8e1eaa69028654742baf3fa69946a3643c3f9b399e27fa725013c98"></a>E_GOBJ_OVAL&#160;</td><td class="fielddoc">
+<p>This is an oval. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ggacc57a0407e8e1eaa69028654742baf3faa2aee19e6ef52859f12da8a228e8d827"></a>E_GOBJ_TEXT&#160;</td><td class="fielddoc">
+<p>This is a text. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ggacc57a0407e8e1eaa69028654742baf3fa0e29b24df1114884e4a79d8b1adbcd9a"></a>E_GOBJ_IMAG&#160;</td><td class="fielddoc">
+<p>This is an image. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a class="anchor" id="ga5aef848f10b49efd624db1c40e53766d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a00007.html#ga5aef848f10b49efd624db1c40e53766d">epath_types</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The types of path. </p>
+<p>It define all the path type. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="gga5aef848f10b49efd624db1c40e53766da26ea1ee066616a02778c362044f32f04"></a>E_PATH_MOVE&#160;</td><td class="fielddoc">
+<p>This type is move. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga5aef848f10b49efd624db1c40e53766da1cbedfbe737ff50f189a012732dc0c24"></a>E_PATH_CURVE&#160;</td><td class="fielddoc">
+<p>This type is curve. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jun 14 2015 17:15:22 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jun 16 2015 09:32:23 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
