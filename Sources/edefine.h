@@ -34,16 +34,12 @@
 #ifndef DEF_ESTRUCT
 #define DEF_ESTRUCT
 
-#ifdef _WIN32
+#ifdef _WINDOWS
 #include <io.h>
 #define _FUNCTION_DEPRECTAED_
 #else
 #include <unistd.h>
 #define _FUNCTION_DEPRECTAED_  __attribute__((deprecated))
-#endif
-
-#ifdef _WINDOWS
-#pragma warning(disable:4091)
 #endif
 
 #ifdef PD_EXTENDED
