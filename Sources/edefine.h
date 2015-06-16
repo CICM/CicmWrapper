@@ -312,6 +312,23 @@ typedef struct t_hsla
     float alpha;        /*!< The alpha value. */
 } t_hsla;
 
+//! The pre-defined black t_rgba
+extern const t_rgba rgba_black;
+//! The pre-defined grey dark t_rgba
+extern const t_rgba rgba_greydark;
+//! The pre-defined grey t_rgba
+extern const t_rgba rgba_grey;
+//! The pre-defined grey light t_rgba
+extern const t_rgba rgba_greylight;
+//! The pre-defined white t_rgba
+extern const t_rgba rgba_white;
+//! The pre-defined blue t_rgba
+extern const t_rgba rgba_blue;
+//! The pre-defined green t_rgba
+extern const t_rgba rgba_green;
+//! The pre-defined red t_rgba
+extern const t_rgba rgba_red;
+
 /**
  * @struct t_efont
  * @brief The font structure.

@@ -30,17 +30,26 @@ static const float k = 0.55228474983079356430692996582365594804286956787109f;
 static char ColBuf[10];
 static const char HexDigits[] = "0123456789ABCDEF";
 
+const t_rgba rgba_black = {0.f, 0.f, 0.f, 1.f};
+const t_rgba rgba_greydark = {0.3f, 0.3, 0.3f, 1.f};
+const t_rgba rgba_grey = {0.5f, 0.5, 0.5f, 1.f};
+const t_rgba rgba_greylight = {0.8f, 0.8, 0.8f, 1.f};
+const t_rgba rgba_white = {1.f, 1.f, 1.f, 1.f};
+const t_rgba rgba_blue = {0.f, 0.f, 1.f, 1.f};
+const t_rgba rgba_green = {0.f, 1.f, 0.f, 1.f};
+const t_rgba rgba_red = {1.f, 0.f, 0.f, 1.f};
+
 void egraphics_set_line_width(t_elayer *g, float width)
 {
     g->e_line_width= (int)pd_clip_min(width, 0.);
 }
 
-void egraphics_set_color_rgba(t_elayer *g, t_rgba *rgba)
+void egraphics_set_color_rgba(t_elayer *g, const t_rgba *rgba)
 {
     g->e_color = gensym(rgba_to_hex(*rgba));
 }
 
-void egraphics_set_color_rgb(t_elayer *g, t_rgb *rgb)
+void egraphics_set_color_rgb(t_elayer *g, const t_rgb *rgb)
 {
     g->e_color = gensym(rgb_to_hex(*rgb));
 }
@@ -50,13 +59,13 @@ void egraphics_set_color_hex(t_elayer *g, t_symbol *hex)
     g->e_color = hex;
 }
 
-void egraphics_set_color_hsla(t_elayer *g, t_hsla *hsla)
+void egraphics_set_color_hsla(t_elayer *g, const t_hsla *hsla)
 {
     t_rgba color = hsla_to_rgba(*hsla);
     g->e_color = gensym(rgba_to_hex(color));
 }
 
-void egraphics_set_color_hsl(t_elayer *g, t_hsl *hsl)
+void egraphics_set_color_hsl(t_elayer *g, const t_hsl *hsl)
 {
     t_rgb color = hsl_to_rgb(*hsl);
     g->e_color = gensym(rgb_to_hex(color));

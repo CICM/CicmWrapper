@@ -43,11 +43,11 @@ void etext_layout_draw(t_etext* textlayout, t_elayer *g);
 
 void egraphics_set_line_splinestep(t_elayer *g, float smooth);
 void egraphics_set_line_width(t_elayer *g, float width);
-void egraphics_set_color_rgba(t_elayer *g, t_rgba *rgba);
-void egraphics_set_color_rgb(t_elayer *g, t_rgb *rgb);
+void egraphics_set_color_rgba(t_elayer *g, const t_rgba *rgba);
+void egraphics_set_color_rgb(t_elayer *g, const t_rgb *rgb);
 void egraphics_set_color_hex(t_elayer *g, t_symbol *hex);
-void egraphics_set_color_hsla(t_elayer *g, t_hsla *hsla);
-void egraphics_set_color_hsl(t_elayer *g, t_hsl *hsl);
+void egraphics_set_color_hsla(t_elayer *g, const t_hsla *hsla);
+void egraphics_set_color_hsl(t_elayer *g, const t_hsl *hsl);
 void egraphics_rotate(t_elayer *g, float angle);
 void egraphics_matrix_init(t_matrix *x, float xx, float yx, float xy, float yy, float x0, float y0);
 void egraphics_set_matrix(t_elayer *g, const t_matrix *matrix);
@@ -105,31 +105,6 @@ float pd_ordinate(float radius, float angle);
 float pd_abscissa(float radius, float angle);
 float pd_radius(float x, float y);
 float pd_angle(float x, float y);
-
-// Ohlala...
-#ifdef _WIN32
-
-static t_rgba rgba_black         = {0.f, 0.f, 0.f, 1.f};
-static t_rgba rgba_greydark      = {0.3f, 0.3, 0.3f, 1.f};
-static t_rgba rgba_grey          = {0.5f, 0.5, 0.5f, 1.f};
-static t_rgba rgba_greylight     = {0.8f, 0.8, 0.8f, 1.f};
-static t_rgba rgba_white         = {1.f, 1.f, 1.f, 1.f};
-static t_rgba rgba_blue          = {0.f, 0.f, 1.f, 1.f};
-static t_rgba rgba_green         = {0.f, 1.f, 0.f, 1.f};
-static t_rgba rgba_red           = {1.f, 0.f, 0.f, 1.f};
-
-#else
-
-__attribute__((used)) static t_rgba rgba_black         = {0.f, 0.f, 0.f, 1.f};
-__attribute__((used)) static t_rgba rgba_greydark      = {0.3f, 0.3f, 0.3f, 1.f};
-__attribute__((used)) static t_rgba rgba_grey          = {0.5f, 0.5f, 0.5f, 1.f};
-__attribute__((used)) static t_rgba rgba_greylight     = {0.8f, 0.8f, 0.8f, 1.f};
-__attribute__((used)) static t_rgba rgba_white         = {1.f, 1.f, 1.f, 1.f};
-__attribute__((used)) static t_rgba rgba_blue          = {0.f, 0.f, 1.f, 1.f};
-__attribute__((used)) static t_rgba rgba_green         = {0.f, 1.f, 0.f, 1.f};
-__attribute__((used)) static t_rgba rgba_red           = {1.f, 0.f, 0.f, 1.f};
-
-#endif
 
 /** @} */
 
