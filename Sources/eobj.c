@@ -41,13 +41,13 @@ void *eobj_new(t_eclass *c)
         if(x)
         {
             *((t_pd *)x)  = (t_pd)c;
-            
+
             if(c->c_class.c_patchable)
             {
                 ((t_object *)x)->ob_inlet = 0;
                 ((t_object *)x)->ob_outlet = 0;
             }
-            
+
             x->o_nproxy = 0;
             x->o_proxy = NULL;
             x->o_canvas = canvas_getcurrent();
@@ -66,7 +66,7 @@ void *eobj_new(t_eclass *c)
     {
         bug("pd_new: apparently called before setup routine");
     }
-    
+
     return (x);
 }
 
@@ -171,7 +171,7 @@ void eobj_save(t_gobj* x, t_binbuf *b)
         {
             c->c_widget.w_dosave((t_eobj* )x, b);
         }
-        
+
     }
 }
 
@@ -181,7 +181,7 @@ void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
     char* pch;
     t_atom av[1];
     t_eclass* c = eobj_getclass(x);
-    
+
     // The file name is defined
     if(argc && argv && atom_gettype(argv) == A_SYMBOL)
     {
@@ -218,7 +218,7 @@ void eobj_attrprocess_viatoms(void *x, int argc, t_atom *argv)
     int     defc        = 0;
     t_atom* defv        = NULL;
     t_eclass* c         = eobj_getclass(x);
-    
+
     for(i = 0; i < c->c_nattr; i++)
     {
         sprintf(buffer, "@%s", c->c_attr[i]->name->s_name);
@@ -237,7 +237,7 @@ void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)
 {
     int i;
     char attr_name[MAXPDSTRING];
-    
+
     int defc       = 0;
     t_atom* defv    = NULL;
     t_eclass* c     = eobj_getclass(x);
@@ -283,7 +283,7 @@ void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
     t_atom av[1];
     t_namelist* var;
     t_eclass* c = eobj_getclass(x);
-    
+
     // Name
     if(argc && argv && atom_gettype(argv) == A_SYMBOL)
     {
@@ -328,7 +328,7 @@ void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
                     }
                     var = var->nl_next;
                 }
-                
+
                 // Nothing work but we don't care
                 if(c->c_widget.w_read)
                     c->c_widget.w_read(x, s, 1, av);
@@ -469,7 +469,7 @@ void eobj_dsp(void *x, t_signal **sp)
                 return;
             }
             dsp->d_sigs_out = tempout;
-            
+
             if(dsp->d_sigs_real)
             {
                 tempreal = (t_float *)realloc(dsp->d_sigs_real, (size_t)(nouts * samplesize) * sizeof(t_float));
@@ -536,7 +536,7 @@ void eobj_dsp(void *x, t_signal **sp)
                     count[t.tr_inno] = 1;
                 }
             }
-            
+
             dsp->d_vectors[0] = (t_int)x;
             dsp->d_vectors[1] = (t_int)dsp;
             dsp->d_vectors[2] = (t_int)sp[0]->s_n;
@@ -544,7 +544,7 @@ void eobj_dsp(void *x, t_signal **sp)
             dsp->d_vectors[4] = (t_int)dsp->d_user_param;
             dsp->d_vectors[5] = (t_int)nins;
             dsp->d_vectors[6] = (t_int)nouts;
-            
+
             for(i = 7; i < dsp->d_size; i++)
             {
                 if(sp[i - 7] && sp[i - 7]->s_vec)
@@ -565,7 +565,7 @@ void eobj_dsp(void *x, t_signal **sp)
                     return;
                 }
             }
-            
+
             c->c_widget.w_dsp(x, x, count, sp[0]->s_sr, sp[0]->s_n, 0);
             if(dsp->d_perform_method != NULL && dsp->d_misc == E_INPLACE)
             {
@@ -575,7 +575,7 @@ void eobj_dsp(void *x, t_signal **sp)
             {
                 dsp_addv(eobj_perform_noinplace, (int)dsp->d_size, dsp->d_vectors);
             }
-            
+
             free(count);
             return;
         }
@@ -600,7 +600,7 @@ t_sample* eobj_getsignalinput(void *x, long index)
     {
         if(index < obj_nsiginlets((t_object *)x) && index >= 0 && dsp->d_vectors )
         {
-            return (t_sample *)dsp->d_vectors[6 + index];
+            return (t_sample *)dsp->d_vectors[7 + index];
         }
     }
     return NULL;
@@ -616,7 +616,7 @@ t_sample* eobj_getsignaloutput(void *x, long index)
             if(dsp->d_misc == E_NO_INPLACE)
                 return dsp->d_sigs_out[index];
             else
-                return (t_sample *)dsp->d_vectors[index + 6 + obj_nsiginlets((t_object *)x)];
+                return (t_sample *)dsp->d_vectors[index + 7 + obj_nsiginlets((t_object *)x)];
         }
     }
     return NULL;
@@ -633,9 +633,9 @@ t_int* eobj_perform_inplace(t_int* w)
     long nouts              = (long)(w[7]);
     t_sample** ins           = (t_sample **)(&w[8]);
     t_sample** outs          = (t_sample **)(&w[8 + nins]);
-    
+
     dsp->d_perform_method((void *)x, (t_object *)dsp, ins, nins, outs, nouts, nsamples, flag, user_p);
-    
+
     return w + (dsp->d_size + 1);
 }
 
@@ -651,14 +651,14 @@ t_int* eobj_perform_noinplace(t_int* w)
     long nouts              = (long)(w[7]);
     t_sample** ins           = (t_sample **)(&w[8]);
     t_sample** outs          = (t_sample **)(&w[8 + nins]);
-    
+
     for(i = 0; i < nouts; i++)
     {
         memcpy(outs[i], dsp->d_sigs_out[i], (size_t)nsamples * sizeof(t_float));
     }
-    
+
     dsp->d_perform_method((void *)x, (t_object *)dsp, ins, nins, outs, nouts, nsamples, flag, user_p);
-    
+
     return w + (dsp->d_size + 1);
 }
 
@@ -835,7 +835,7 @@ static void new_inlet_list(t_inlet *x, t_symbol *s, int argc, t_atom *argv)
     else if (argc==1 && argv->a_type == A_SYMBOL)
         new_inlet_symbol(x, atom_getsymbol(argv));
     else inlet_wrong(x, &s_list);
-    
+
 }
 
 static void new_inlet_anything(t_inlet *x, t_symbol *s, int argc, t_atom *argv)
@@ -1010,7 +1010,7 @@ static void eproxy_free(void *owner, t_eproxy* proxy)
                     pd_error(owner, "a proxy hasn't been freed.");
                 }
                 z->o_nproxy--;
-                
+
             }
         }
         else
