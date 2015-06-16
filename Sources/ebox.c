@@ -431,7 +431,6 @@ static void ebox_create_window(t_ebox* x, t_glist* glist)
              (int)(x->b_rect.width + x->b_boxparameters.d_borderthickness * 2.),
              (int)(x->b_rect.height + x->b_boxparameters.d_borderthickness * 2.));
 
-    sys_vgui("focus -force .x%lx.c\n", (long unsigned int) glist);
     x->b_have_window = 1;
 }
 
@@ -481,10 +480,6 @@ void ebox_mouse_enter(t_ebox* x)
             c->c_widget.w_mouseenter(x);
         }
     }
-    else if(x->b_obj.o_canvas->gl_edit)
-    {
-        sys_vgui("focus %s\n", x->b_canvas_id->s_name);
-    }
 }
 
 void ebox_mouse_leave(t_ebox* x)
@@ -493,7 +488,6 @@ void ebox_mouse_leave(t_ebox* x)
 
     if(!x->b_obj.o_canvas->gl_edit && !x->b_mouse_down)
     {
-        sys_vgui("focus %s\n", x->b_canvas_id->s_name);
         if(c->c_widget.w_mouseleave)
         {
             c->c_widget.w_mouseleave(x);
