@@ -444,7 +444,7 @@ void eobj_dsp(void *x, t_signal **sp)
     int nouts = obj_nsigoutlets((t_object *)x);
     int nins  = obj_nsiginlets((t_object *)x);
     int samplesize;
-    if(c && c->c_widget.w_dsp && dsp && sp && sp[0])
+    if(c && c->c_widget.w_dsp && dsp && (nins || nouts) && sp && sp[0])
     {
         samplesize = sp[0]->s_n;
         dsp->d_perform_method = NULL;
