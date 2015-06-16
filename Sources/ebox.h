@@ -46,6 +46,7 @@
  * \param x     The t_ebox pointer.
  * \param flags A set of flags that defines the t_ebox behavior.
  * \see ebox_flags
+ * \todo Not here but for doc (in ebox_wvis vis is called sevral times with vis = 1 perhaps we can avoid to recreate the stuff at each time)
  */
 void ebox_new(t_ebox *x, long flags);
 
