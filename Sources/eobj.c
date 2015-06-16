@@ -343,63 +343,67 @@ void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
     }
 }
 
-void eobj_dspsetup(void *x, long nins, long nouts)
+static t_edsp* eobj_getdsp(void *x)
 {
-    int i;
-    t_edspobj* obj = (t_edspobj *)x;
-    t_edspbox* box = (t_edspbox *)x;
-    nins = (long)pd_clip_min(nins, 0);
-    nouts = (long)pd_clip_min(nouts, 0);
-    
-    if(eobj_isbox(x))
+    if(x && eobj_isbox(x) && eobj_isdsp(x))
     {
-        box->d_sigs_out       = NULL;
-        box->d_sigs_real      = NULL;
-        box->d_perform_method = NULL;
-        box->d_dsp_size       = 0;
-        box->d_dsp_vectors    = NULL;
-        box->d_misc           = E_INPLACE;
+        return &((t_edspbox *)x)->d_dsp;
+    }
+    else if(x && eobj_isdsp(x))
+    {
+        return &((t_edspobj *)x)->d_dsp;
     }
     else
     {
-        obj->d_sigs_out       = NULL;
-        obj->d_sigs_real      = NULL;
-        obj->d_perform_method = NULL;
-        obj->d_dsp_size       = 0;
-        obj->d_dsp_vectors    = NULL;
-        obj->d_misc           = E_INPLACE;
+        return NULL;
     }
-    for(i = obj_nsigoutlets((t_object *)x); i < nouts; i++)
+}
+
+void eobj_dspsetup(void *x, long nins, long nouts)
+{
+    int i;
+    t_edsp* dsp = eobj_getdsp(x);
+    if(dsp)
     {
-        outlet_new((t_object *)x, &s_signal);
+        nins = (long)pd_clip_min(nins, 0);
+        nouts = (long)pd_clip_min(nouts, 0);
+        dsp->d_sigs_out       = NULL;
+        dsp->d_sigs_real      = NULL;
+        dsp->d_perform_method = NULL;
+        dsp->d_size           = 0;
+        dsp->d_vectors        = NULL;
+        dsp->d_misc           = E_INPLACE;
+        for(i = obj_nsigoutlets((t_object *)x); i < nouts; i++)
+        {
+            outlet_new((t_object *)x, &s_signal);
+        }
+        for(i = obj_nsiginlets((t_object *)x); i < nins; i++)
+        {
+            eproxy_new(x, &s_signal);
+        }
     }
-    for(i = obj_nsiginlets((t_object *)x); i < nins; i++)
+}
+
+void eobj_dspflags(void *x, long flags)
+{
+    t_edsp* dsp = eobj_getdsp(x);
+    if(dsp)
     {
-        eproxy_new(x, &s_signal);
+        dsp->d_misc = flags;
     }
 }
 
 void eobj_dspfree(void *x)
 {
-    t_edspobj* obj = (t_edspobj *)x;
-    t_edspbox* box = (t_edspbox *)x;
-    if(eobj_isbox(x))
+    t_edsp* dsp = eobj_getdsp(x);
+    if(dsp)
     {
-        if(box->d_sigs_out)
-            free(box->d_sigs_out);
-        if(box->d_sigs_real)
-            free(box->d_sigs_real);
-        if(box->d_dsp_vectors)
-            free(box->d_dsp_vectors);
-    }
-    else
-    {
-        if(obj->d_sigs_out)
-            free(obj->d_sigs_out);
-        if(obj->d_sigs_real)
-            free(obj->d_sigs_real);
-        if(obj->d_dsp_vectors)
-            free(obj->d_dsp_vectors);
+        if(dsp->d_sigs_out)
+            free(dsp->d_sigs_out);
+        if(dsp->d_sigs_real)
+            free(dsp->d_sigs_real);
+        if(dsp->d_vectors)
+            free(dsp->d_vectors);
     }
     eobj_free(x);
 }
@@ -435,443 +439,240 @@ void eobj_dsp(void *x, t_signal **sp)
     t_float **tempout, *tempreal;
     t_linetraverser t;
     t_outconnect    *oc;
-    t_edspobj* obj = (t_edspobj *)x;
-    t_edspbox* box = (t_edspbox *)x;
-    t_eclass *c    = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(x);
+    t_edsp* dsp = eobj_getdsp(x);
     int nouts = obj_nsigoutlets((t_object *)x);
     int nins  = obj_nsiginlets((t_object *)x);
     int samplesize;
-    
-    if(sp && sp[0])
+    if(c && c->c_widget.w_dsp && dsp && sp && sp[0])
     {
         samplesize = sp[0]->s_n;
-        if(eobj_isbox(x))
+        dsp->d_perform_method = NULL;
+        if(dsp->d_misc == E_NO_INPLACE)
         {
-            box->d_perform_method = NULL;
-            if(box->d_misc == E_NO_INPLACE)
+            if(dsp->d_sigs_out)
             {
-                if(box->d_sigs_out)
-                {
-                    tempout = (t_float **)realloc(box->d_sigs_out, (size_t)nouts * sizeof(t_float *));
-                }
-                else
-                {
-                    tempout = (t_float **)malloc((size_t)nouts * sizeof(t_float *));
-                }
-                if(!tempout)
-                {
-                    if(box->d_sigs_out)
-                    {
-                        free(box->d_sigs_out);
-                        box->d_sigs_out = NULL;
-                    }
-                    pd_error(box, "can't allocate memory for ni inpace processing.");
-                    return;
-                }
-                box->d_sigs_out = tempout;
-                
-                if(box->d_sigs_real)
-                {
-                    tempreal = (t_float *)realloc(box->d_sigs_real, (size_t)(nouts * samplesize) * sizeof(t_float));
-                }
-                else
-                {
-                    tempreal = (t_float *)malloc((size_t)(nouts * samplesize) * sizeof(t_float));
-                }
-                if(!tempreal)
-                {
-                    if(box->d_sigs_real)
-                    {
-                        free(box->d_sigs_real);
-                        box->d_sigs_real = NULL;
-                    }
-                    free(box->d_sigs_out);
-                    box->d_sigs_out = NULL;
-                    pd_error(box, "can't allocate memory for ni inpace processing.");
-                    return;
-                }
-                box->d_sigs_real = tempreal;
-                for(i = 0; i < nouts; i++)
-                {
-                    box->d_sigs_out[i] = box->d_sigs_real+i*samplesize;
-                }
-            }
-            if(box->d_dsp_vectors)
-            {
-                temp = (t_int *)realloc(box->d_dsp_vectors, (size_t)(nins + nouts + 6) * sizeof(t_int));
+                tempout = (t_float **)realloc(dsp->d_sigs_out, (size_t)nouts * sizeof(t_float *));
             }
             else
             {
-                temp = (t_int *)malloc((size_t)(nins + nouts + 6) * sizeof(t_int));
+                tempout = (t_float **)malloc((size_t)nouts * sizeof(t_float *));
             }
-            if(!temp)
+            if(!tempout)
             {
-                if(box->d_dsp_vectors)
+                if(dsp->d_sigs_out)
                 {
-                    free(box->d_dsp_vectors);
-                    box->d_dsp_vectors = NULL;
+                    free(dsp->d_sigs_out);
+                    dsp->d_sigs_out = NULL;
                 }
-                free(box->d_sigs_real);
-                box->d_sigs_real = NULL;
-                free(box->d_sigs_out);
-                box->d_sigs_out = NULL;
-                box->d_dsp_size = 0;
-                pd_error(x, "can't allocate memory for dsp vector.");
+                pd_error(dsp, "can't allocate memory for ni inpace processing.");
                 return;
             }
-            box->d_dsp_vectors = temp;
-            box->d_dsp_size = nins + nouts + 6;
-            count = (short*)malloc((size_t)(nins + nouts) * sizeof(short));
-            if(count)
+            dsp->d_sigs_out = tempout;
+            
+            if(dsp->d_sigs_real)
             {
-                for(i = 0; i < (nins + nouts); i++)
-                {
-                    count[i] = 0;
-                }
-                linetraverser_start(&t, eobj_getcanvas(x));
-                while((oc = linetraverser_next(&t)))
-                {
-                    if(t.tr_ob2 == x && obj_issignaloutlet(t.tr_ob, t.tr_outno))
-                    {
-                        count[t.tr_inno] = 1;
-                    }
-                }
-                
-                box->d_dsp_vectors[0] = (t_int)x;
-                box->d_dsp_vectors[1] = (t_int)sp[0]->s_n;
-                box->d_dsp_vectors[2] = (t_int)box->d_dsp_flag;
-                box->d_dsp_vectors[3] = (t_int)box->d_dsp_user_param;
-                box->d_dsp_vectors[4] = (t_int)nins;
-                box->d_dsp_vectors[5] = (t_int)nouts;
-                
-                for(i = 6; i < box->d_dsp_size; i++)
-                {
-                    if(sp[i - 6] && sp[i - 6]->s_vec)
-                    {
-                        box->d_dsp_vectors[i] = (t_int)(sp[i - 6]->s_vec);
-                    }
-                    else
-                    {
-                        free(count);
-                        free(box->d_dsp_vectors);
-                        box->d_dsp_vectors = NULL;
-                        free(box->d_sigs_real);
-                        box->d_sigs_real = NULL;
-                        free(box->d_sigs_out);
-                        box->d_sigs_out = NULL;
-                        box->d_dsp_size = 0;
-                        pd_error(x, "one of the signal isn't allocated.");
-                        return;
-                    }
-                }
-                
-                if(c->c_widget.w_dsp != NULL)
-                    c->c_widget.w_dsp(x, x, count, sp[0]->s_sr, sp[0]->s_n, 0);
-                
-                if(box->d_perform_method != NULL && box->d_misc == E_INPLACE)
-                    dsp_addv(eobj_perform_box, (int)box->d_dsp_size, box->d_dsp_vectors);
-                else if(box->d_perform_method != NULL && box->d_misc == E_NO_INPLACE)
-                    dsp_addv(eobj_perform_box_no_inplace, (int)box->d_dsp_size, box->d_dsp_vectors);
-                
-                free(count);
-                return;
+                tempreal = (t_float *)realloc(dsp->d_sigs_real, (size_t)(nouts * samplesize) * sizeof(t_float));
             }
             else
             {
-                free(box->d_dsp_vectors);
-                box->d_dsp_vectors = NULL;
-                free(box->d_sigs_real);
-                box->d_sigs_real = NULL;
-                free(box->d_sigs_out);
-                box->d_sigs_out = NULL;
-                box->d_dsp_size = 0;
-                pd_error(x, "can't allocate memory for dsp chain counter.");
+                tempreal = (t_float *)malloc((size_t)(nouts * samplesize) * sizeof(t_float));
             }
+            if(!tempreal)
+            {
+                if(dsp->d_sigs_real)
+                {
+                    free(dsp->d_sigs_real);
+                    dsp->d_sigs_real = NULL;
+                }
+                free(dsp->d_sigs_out);
+                dsp->d_sigs_out = NULL;
+                pd_error(dsp, "can't allocate memory for ni inpace processing.");
+                return;
+            }
+            dsp->d_sigs_real = tempreal;
+            for(i = 0; i < nouts; i++)
+            {
+                dsp->d_sigs_out[i] = dsp->d_sigs_real+i*samplesize;
+            }
+        }
+        if(dsp->d_vectors)
+        {
+            temp = (t_int *)realloc(dsp->d_vectors, (size_t)(nins + nouts + 7) * sizeof(t_int));
         }
         else
         {
-            obj->d_perform_method = NULL;
-            if(obj->d_misc == E_NO_INPLACE)
+            temp = (t_int *)malloc((size_t)(nins + nouts + 7) * sizeof(t_int));
+        }
+        if(!temp)
+        {
+            if(dsp->d_vectors)
             {
-                if(obj->d_sigs_out)
+                free(dsp->d_vectors);
+                dsp->d_vectors = NULL;
+            }
+            free(dsp->d_sigs_real);
+            dsp->d_sigs_real = NULL;
+            free(dsp->d_sigs_out);
+            dsp->d_sigs_out = NULL;
+            dsp->d_size = 0;
+            pd_error(x, "can't allocate memory for dsp vector.");
+            return;
+        }
+        dsp->d_vectors = temp;
+        dsp->d_size = nins + nouts + 7;
+        count = (short*)malloc((size_t)(nins + nouts) * sizeof(short));
+        if(count)
+        {
+            for(i = 0; i < (nins + nouts); i++)
+            {
+                count[i] = 0;
+            }
+            linetraverser_start(&t, eobj_getcanvas(x));
+            while((oc = linetraverser_next(&t)))
+            {
+                if(t.tr_ob2 == x && obj_issignaloutlet(t.tr_ob, t.tr_outno))
                 {
-                    tempout = (t_float **)realloc(obj->d_sigs_out, (size_t)nouts * sizeof(t_float *));
-                }
-                else
-                {
-                    tempout = (t_float **)malloc((size_t)nouts * sizeof(t_float *));
-                }
-                if(!tempout)
-                {
-                    if(obj->d_sigs_out)
-                    {
-                        free(obj->d_sigs_out);
-                        obj->d_sigs_out = NULL;
-                    }
-                    pd_error(obj, "can't allocate memory for the inplace processing.");
-                    return;
-                }
-                obj->d_sigs_out = tempout;
-                
-                if(obj->d_sigs_real)
-                {
-                    tempreal = (t_float *)realloc(obj->d_sigs_real, (size_t)(nouts * samplesize) * sizeof(t_float));
-                }
-                else
-                {
-                    tempreal = (t_float *)malloc((size_t)(nouts * samplesize) * sizeof(t_float));
-                }
-                if(!tempreal)
-                {
-                    if(obj->d_sigs_real)
-                    {
-                        free(obj->d_sigs_real);
-                        obj->d_sigs_real = NULL;
-                    }
-                    free(obj->d_sigs_out);
-                    obj->d_sigs_out = NULL;
-                    pd_error(obj, "can't allocate memory for ni inpace processing.");
-                    return;
-                }
-                obj->d_sigs_real = tempreal;
-                
-                for(i = 0; i < nouts; i++)
-                {
-                    obj->d_sigs_out[i] = obj->d_sigs_real+i*samplesize;
+                    count[t.tr_inno] = 1;
                 }
             }
             
-            if(obj->d_dsp_vectors)
+            dsp->d_vectors[0] = (t_int)x;
+            dsp->d_vectors[1] = (t_int)dsp;
+            dsp->d_vectors[2] = (t_int)sp[0]->s_n;
+            dsp->d_vectors[3] = (t_int)dsp->d_flags;
+            dsp->d_vectors[4] = (t_int)dsp->d_user_param;
+            dsp->d_vectors[5] = (t_int)nins;
+            dsp->d_vectors[6] = (t_int)nouts;
+            
+            for(i = 7; i < dsp->d_size; i++)
             {
-                temp = (t_int *)realloc(obj->d_dsp_vectors, (size_t)(nins + nouts + 6) * sizeof(t_int));
+                if(sp[i - 7] && sp[i - 7]->s_vec)
+                {
+                    dsp->d_vectors[i] = (t_int)(sp[i - 7]->s_vec);
+                }
+                else
+                {
+                    free(count);
+                    free(dsp->d_vectors);
+                    dsp->d_vectors = NULL;
+                    free(dsp->d_sigs_real);
+                    dsp->d_sigs_real = NULL;
+                    free(dsp->d_sigs_out);
+                    dsp->d_sigs_out = NULL;
+                    dsp->d_size = 0;
+                    pd_error(x, "one of the signal isn't allocated.");
+                    return;
+                }
             }
-            else
+            
+            c->c_widget.w_dsp(x, x, count, sp[0]->s_sr, sp[0]->s_n, 0);
+            if(dsp->d_perform_method != NULL && dsp->d_misc == E_INPLACE)
             {
-                temp = (t_int *)malloc((size_t)(nins + nouts + 6) * sizeof(t_int));
+                dsp_addv(eobj_perform_inplace, (int)dsp->d_size, dsp->d_vectors);
             }
-            if(!temp)
+            else if(dsp->d_perform_method != NULL && dsp->d_misc == E_NO_INPLACE)
             {
-                if(obj->d_dsp_vectors)
-                {
-                    free(obj->d_dsp_vectors);
-                    obj->d_dsp_vectors = NULL;
-                }
-                free(obj->d_sigs_real);
-                obj->d_sigs_real = NULL;
-                free(obj->d_sigs_out);
-                obj->d_sigs_out = NULL;
-                obj->d_dsp_size = 0;
-                pd_error(x, "can't allocate memory for dsp vector.");
-                return;
+                dsp_addv(eobj_perform_noinplace, (int)dsp->d_size, dsp->d_vectors);
             }
-            obj->d_dsp_vectors = temp;
-            obj->d_dsp_size = nins + nouts + 6;
-            count = (short*)malloc((size_t)(nins + nouts) * sizeof(short));
-            if(count)
-            {
-                for(i = 0; i < (nins + nouts); i++)
-                {
-                    count[i] = 0;
-                }
-                linetraverser_start(&t, eobj_getcanvas(x));
-                while((oc = linetraverser_next(&t)))
-                {
-                    if(t.tr_ob2 == x && obj_issignaloutlet(t.tr_ob, t.tr_outno))
-                    {
-                        count[t.tr_inno] = 1;
-                    }
-                }
-                
-                obj->d_dsp_vectors[0] = (t_int)x;
-                obj->d_dsp_vectors[1] = (t_int)sp[0]->s_n;
-                obj->d_dsp_vectors[2] = (t_int)obj->d_dsp_flag;
-                obj->d_dsp_vectors[3] = (t_int)obj->d_dsp_user_param;
-                obj->d_dsp_vectors[4] = (t_int)obj_nsiginlets((t_object *)obj);
-                obj->d_dsp_vectors[5] = (t_int)obj_nsigoutlets((t_object *)obj);
-                
-                for(i = 6; i < obj->d_dsp_size; i++)
-                {
-                    if(sp[i - 6] && sp[i - 6]->s_vec)
-                    {
-                        obj->d_dsp_vectors[i] = (t_int)(sp[i - 6]->s_vec);
-                    }
-                    else
-                    {
-                        free(count);
-                        free(obj->d_dsp_vectors);
-                        obj->d_dsp_vectors = NULL;
-                        free(obj->d_sigs_real);
-                        obj->d_sigs_real = NULL;
-                        free(obj->d_sigs_out);
-                        obj->d_sigs_out = NULL;
-                        obj->d_dsp_size = 0;
-                        pd_error(x, "one of the signal isn't allocated.");
-                        return;
-                    }
-                }
-                
-                if(c->c_widget.w_dsp != NULL)
-                {
-                    c->c_widget.w_dsp(x, x, count, sp[0]->s_sr, sp[0]->s_n, 0);
-                }
-                
-                if(obj->d_perform_method != NULL && obj->d_misc == E_INPLACE)
-                {
-                    dsp_addv(eobj_perform, (int)obj->d_dsp_size, obj->d_dsp_vectors);
-                }
-                else if(obj->d_perform_method != NULL && obj->d_misc == E_NO_INPLACE)
-                {
-                    dsp_addv(eobj_perform_no_inplace, (int)obj->d_dsp_size, obj->d_dsp_vectors);
-                }
-                
-                free(count);
-                return;
-            }
-            else
-            {
-                free(obj->d_dsp_vectors);
-                obj->d_dsp_vectors = NULL;
-                free(obj->d_sigs_real);
-                obj->d_sigs_real = NULL;
-                free(obj->d_sigs_out);
-                obj->d_sigs_out = NULL;
-                obj->d_dsp_size = 0;
-                pd_error(x, "can't allocate memory for dsp chain counter.");
-            }
+            
+            free(count);
+            return;
+        }
+        else
+        {
+            free(dsp->d_vectors);
+            dsp->d_vectors = NULL;
+            free(dsp->d_sigs_real);
+            dsp->d_sigs_real = NULL;
+            free(dsp->d_sigs_out);
+            dsp->d_sigs_out = NULL;
+            dsp->d_size = 0;
+            pd_error(x, "can't allocate memory for dsp chain counter.");
         }
     }
 }
 
 t_sample* eobj_getsignalinput(void *x, long index)
 {
-    t_edspobj* obj = (t_edspobj *)x;
-    t_edspbox* box = (t_edspbox *)x;
-    if(eobj_isbox(x) && index < obj_nsiginlets((t_object *)x) && index >= 0 && box->d_dsp_vectors )
+    t_edsp* dsp = eobj_getdsp(x);
+    if(dsp)
     {
-        return (t_sample *)box->d_dsp_vectors[6 + index];
-    }
-    else if(index < obj_nsiginlets((t_object *)x) && index >= 0 && obj->d_dsp_vectors)
-    {
-        
-        return (t_sample *)obj->d_dsp_vectors[6 + index];
+        if(index < obj_nsiginlets((t_object *)x) && index >= 0 && dsp->d_vectors )
+        {
+            return (t_sample *)dsp->d_vectors[6 + index];
+        }
     }
     return NULL;
 }
 
 t_sample* eobj_getsignaloutput(void *x, long index)
 {
-    t_edspobj* obj = (t_edspobj *)x;
-    t_edspbox* box = (t_edspbox *)x;
-    
-    if(eobj_isbox(x) && index < obj_nsigoutlets((t_object *)x) && index >= 0 && box->d_dsp_vectors)
+    t_edsp* dsp = eobj_getdsp(x);
+    if(dsp)
     {
-        if(box->d_misc == E_NO_INPLACE)
-            return box->d_sigs_out[index];
-        else
-            return (t_sample *)box->d_dsp_vectors[index + 6 + obj_nsiginlets((t_object *)x)];
-    }
-    else if(index < obj_nsigoutlets((t_object *)x) && index >= 0 && obj->d_dsp_vectors)
-    {
-        if(obj->d_misc == E_NO_INPLACE)
-            return obj->d_sigs_out[index];
-        else
-            return (t_sample *)obj->d_dsp_vectors[index + 6 + obj_nsiginlets((t_object *)x)];
+        if(index < obj_nsigoutlets((t_object *)x) && index >= 0 && dsp->d_vectors)
+        {
+            if(dsp->d_misc == E_NO_INPLACE)
+                return dsp->d_sigs_out[index];
+            else
+                return (t_sample *)dsp->d_vectors[index + 6 + obj_nsiginlets((t_object *)x)];
+        }
     }
     return NULL;
 }
 
-t_int* eobj_perform(t_int* w)
+t_int* eobj_perform_inplace(t_int* w)
 {
-    t_edspobj* x            = (t_edspobj *)(w[1]);
-    long nsamples           = (long)(w[2]);
-    long flag               = (long)(w[3]);
-    void* user_p            = (void *)(w[4]);
-    long nins               = (long)(w[5]);
-    long nouts              = (long)(w[6]);
-    t_sample** ins           = (t_sample **)(&w[7]);
-    t_sample** outs          = (t_sample **)(&w[7 + nins]);
+    t_eobj* x               = (t_eobj *)(w[1]);
+    t_edsp* dsp             = (t_edsp *)(w[2]);
+    long nsamples           = (long)(w[3]);
+    long flag               = (long)(w[4]);
+    void* user_p            = (void *)(w[5]);
+    long nins               = (long)(w[6]);
+    long nouts              = (long)(w[7]);
+    t_sample** ins           = (t_sample **)(&w[8]);
+    t_sample** outs          = (t_sample **)(&w[8 + nins]);
     
-    x->d_perform_method((void *)x, (t_object *)NULL, ins, nins, outs, nouts, nsamples, flag, user_p);
+    dsp->d_perform_method((void *)x, (t_object *)dsp, ins, nins, outs, nouts, nsamples, flag, user_p);
     
-    return w + (x->d_dsp_size + 1);
+    return w + (dsp->d_size + 1);
 }
 
-t_int* eobj_perform_no_inplace(t_int* w)
+t_int* eobj_perform_noinplace(t_int* w)
 {
     int i;
-    t_edspobj* x            = (t_edspobj *)(w[1]);
-    long nsamples           = (long)(w[2]);
-    long flag               = (long)(w[3]);
-    void* user_p            = (void *)(w[4]);
-    long nins               = (long)(w[5]);
-    long nouts              = (long)(w[6]);
-    t_sample** ins           = (t_sample **)(&w[7]);
-    t_sample** outs          = (t_sample **)(&w[7 + nins]);
-    
-    x->d_perform_method((void *)x, (t_object *)NULL, ins, nins, x->d_sigs_out, nouts, nsamples, flag, user_p);
+    t_eobj* x               = (t_eobj *)(w[1]);
+    t_edsp* dsp             = (t_edsp *)(w[2]);
+    long nsamples           = (long)(w[3]);
+    long flag               = (long)(w[4]);
+    void* user_p            = (void *)(w[5]);
+    long nins               = (long)(w[6]);
+    long nouts              = (long)(w[7]);
+    t_sample** ins           = (t_sample **)(&w[8]);
+    t_sample** outs          = (t_sample **)(&w[8 + nins]);
     
     for(i = 0; i < nouts; i++)
     {
-        memcpy(outs[i], x->d_sigs_out[i], (size_t)nsamples * sizeof(t_float));
-    }
-    return w + (x->d_dsp_size + 1);
-}
-
-t_int* eobj_perform_box(t_int* w)
-{
-    t_edspbox* x            = (t_edspbox *)(w[1]);
-    long nsamples           = (long)(w[2]);
-    long flag               = (long)(w[3]);
-    void* user_p            = (void *)(w[4]);
-    long nins               = (long)(w[5]);
-    long nouts              = (long)(w[6]);
-    t_sample** ins           = (t_sample **)(&w[7]);
-    t_sample** outs          = (t_sample **)(&w[7 + nins]);
-    
-    x->d_perform_method((void *)x, (t_object *)NULL, ins, nins, outs, nouts, nsamples, flag, user_p);
-    
-    return w + (x->d_dsp_size + 1);
-}
-
-t_int* eobj_perform_box_no_inplace(t_int* w)
-{
-    int i;
-    t_edspbox* x            = (t_edspbox *)(w[1]);
-    long nsamples           = (long)(w[2]);
-    long flag               = (long)(w[3]);
-    void* user_p            = (void *)(w[4]);
-    long nins               = (long)(w[5]);
-    long nouts              = (long)(w[6]);
-    t_sample** ins           = (t_sample **)(&w[7]);
-    t_sample** outs          = (t_sample **)(&w[7 + nins]);
-    
-    x->d_perform_method((void *)x, (t_object *)NULL, ins, nins, x->d_sigs_out, nouts, nsamples, flag, user_p);
-    
-    for(i = 0; i < nouts; i++)
-    {
-        memcpy(outs[i], x->d_sigs_out[i], (size_t)nsamples * sizeof(t_float));
+        memcpy(outs[i], dsp->d_sigs_out[i], (size_t)nsamples * sizeof(t_float));
     }
     
-    return w + (x->d_dsp_size + 1);
+    dsp->d_perform_method((void *)x, (t_object *)dsp, ins, nins, outs, nouts, nsamples, flag, user_p);
+    
+    return w + (dsp->d_size + 1);
 }
 
 void eobj_dsp_add(void *x, t_symbol* s, t_object* za, t_typ_method m, long flags, void *userparam)
 {
-    t_edspobj* obj = (t_edspobj *)x;
-    t_edspbox* box = (t_edspbox *)x;
-    if(eobj_isbox(x))
+    t_edsp* dsp = eobj_getdsp(x);
+    if(dsp)
     {
-        box->d_dsp_flag = flags;
-        box->d_dsp_user_param = userparam;
-        box->d_perform_method = m;
-    }
-    else
-    {
-        obj->d_dsp_flag = flags;
-        obj->d_dsp_user_param = userparam;
-        obj->d_perform_method = m;
+        dsp->d_flags = flags;
+        dsp->d_user_param = userparam;
+        dsp->d_perform_method = m;
     }
 }
+
 //! @cond
 union inletunion
 {
@@ -1131,6 +932,7 @@ static t_eproxy* eproxy_new(void *owner, t_symbol* s)
     t_eproxy* proxy;
     t_eproxy ** temp;
     t_eobj *z = (t_eobj *)owner;
+    t_edsp *dsp = eobj_getdsp(owner);
     eproxy_class = eproxy_setup();
     if(z->o_proxy)
     {
@@ -1148,9 +950,9 @@ static t_eproxy* eproxy_new(void *owner, t_symbol* s)
         proxy->p_pd    = eproxy_class;
         proxy->p_index = z->o_nproxy;
         proxy->p_inlet = einlet_new((t_object *)owner, (t_pd *)proxy, s);
-        if(eobj_isdsp(z))
+        if(dsp)
         {
-            proxy->p_inlet->i_un.iu_floatsignalvalue = ((t_edspobj *)z)->d_float;
+            proxy->p_inlet->i_un.iu_floatsignalvalue = dsp->d_float;
         }
         z->o_proxy[z->o_nproxy] = proxy;
         z->o_nproxy++;

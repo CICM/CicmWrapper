@@ -530,7 +530,7 @@ typedef struct t_eproxy
 
 /**
  * @struct t_eobj
- * @brief The object.
+ * @brief The default object.
  * @details It contains the Pd object, the canvas pointer and members for proxy inlets.
  * This should be used for no graphical object that don't have signal processing methods.
  */
@@ -561,10 +561,10 @@ typedef struct t_eobj
 typedef struct t_edsp
 {
     float               d_float;            /*!< The float member to initialize the signal method. */
-    long                d_dsp_size;         /*!< The number of signal inlets and outlets. */
-    t_int*              d_dsp_vectors;      /*!< The vector that contains all the pointers for the perform method. */
-    long                d_dsp_flag;         /*!< The flags to initialize the perform method. */
-    void*               d_dsp_user_param;   /*!< The user parameters to pass through the perform method. */
+    long                d_size;         /*!< The number of signal inlets and outlets. */
+    t_int*              d_vectors;      /*!< The vector that contains all the pointers for the perform method. */
+    long                d_flags;         /*!< The flags to initialize the perform method. */
+    void*               d_user_param;   /*!< The user parameters to pass through the perform method. */
     t_float**           d_sigs_out;         /*!< The array of signal vectors. */
     t_float*            d_sigs_real;        /*!< The real array of signal. */
     t_typ_method        d_perform_method;   /*!< The user perform method. */
@@ -590,16 +590,8 @@ typedef enum
  */
 typedef struct t_edspobj
 {
-    t_eobj              d_obj;              /*!< The  object. */
-    float               d_float;            /*!< The float member to initialize the signal method. */
-    long                d_dsp_size;         /*!< The number of signal inlets and outlets. */
-    t_int*              d_dsp_vectors;      /*!< The vector that contains all the pointers for the perform method. */
-    long                d_dsp_flag;         /*!< The flags to initialize the perform method. */
-    void*               d_dsp_user_param;   /*!< The user parameters to pass through the perform method. */
-    t_float**           d_sigs_out;         /*!< The array of signal vectors. */
-    t_float*            d_sigs_real;        /*!< The real array of signal. */
-    t_typ_method        d_perform_method;   /*!< The user perform method. */
-    long                d_misc;             /*!< The flag that could be inplace or not. */
+    t_eobj d_obj; /*!< The default object. */
+    t_edsp d_dsp; /*!< The dsp structure. */
 }t_edspobj;
 
 /** @} */
@@ -785,15 +777,7 @@ typedef struct t_edspbox
     t_elayer*           b_layers;           /*!< The ebox layers. */
     long                b_number_of_layers; /*!< The ebox number of layers. */
     
-    float               d_float;            /*!< The float member to initialize the signal method. */
-    long                d_dsp_size;         /*!< The number of signal inlets and outlets. */
-    t_int*              d_dsp_vectors;      /*!< The vector that contains all the pointers for the perform method. */
-    long                d_dsp_flag;         /*!< The flags to initialize the perform method. */
-    void*               d_dsp_user_param;   /*!< The user parameters to pass through the perform method. */
-    t_float**           d_sigs_out;         /*!< The array of signal vectors. */
-    t_float*            d_sigs_real;        /*!< The real array of signal. */
-    t_typ_method        d_perform_method;   /*!< The user perform method. */
-    long                d_misc;             /*!< The flag that could be inplace or not. */
+    t_edsp d_dsp; /*!< The dsp structure. */
 }t_edspbox;
 
 

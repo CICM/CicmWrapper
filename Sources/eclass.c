@@ -163,11 +163,11 @@ void eclass_dspinit(t_eclass* c)
     c->c_dsp = 1;
     if(c->c_box)
     {
-        CLASS_MAINSIGNALIN((t_class *)c, t_edspbox, d_float);
+        CLASS_MAINSIGNALIN((t_class *)c, t_edspbox, d_dsp.d_float);
     }
     else
     {
-        CLASS_MAINSIGNALIN((t_class *)c, t_edspobj, d_float);
+        CLASS_MAINSIGNALIN((t_class *)c, t_edspobj, d_dsp.d_float);
     }
     
     class_addmethod((t_class *)c, (t_method)eobj_dsp, gensym("dsp"), A_NULL, 0);
@@ -702,11 +702,15 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
         {
             t_symbol* type = c->c_attr[i]->type;
             if(c->c_attr[i]->sizemax == 0)
+            {
                 size = c->c_attr[i]->size;
+            }
             else
             {
                 if(argc > c->c_attr[i]->sizemax)
+                {
                     argc = (int)c->c_attr[i]->sizemax;
+                }
                 size = argc;
                 point = (char *)x + c->c_attr[i]->size;
                 point_size = (long *)point;
@@ -813,9 +817,13 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
             if(c->c_attr[i]->paint)
             {
                 if(c->c_widget.w_oksize != NULL)
+                {
                     c->c_widget.w_oksize(x, &z->b_rect);
+                }
                 if(c->c_widget.w_getdrawparameters != NULL)
+                {
                     c->c_widget.w_getdrawparameters(x, NULL, &z->b_boxparameters);
+                }
                 
                 ebox_redraw(z);
             }

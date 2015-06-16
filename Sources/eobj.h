@@ -168,13 +168,23 @@ void eobj_attr_getvalueof(void *x, t_symbol *s, int *argc, t_atom **argv);
 
 /*!
  * \fn void eobj_dspsetup(void *x, long nins, long nouts)
- * \brief       Initializes the dsp members of the t_edspobj.
+ * \brief       Initializes the dsp members of the t_edsp.
  * \details     Allocate the memory for digital dignal processing of a t_edspobj. \n This funtion should replace inlet_new and outlet_new for the signal.
  * \param x     The edspobj pointer
  * \param nins  The number of signal inputs.
  * \param nouts The number of signal outputs
  */
 void eobj_dspsetup(void *x, long nins, long nouts);
+
+/*!
+ * \fn void eobj_dspflags(void *x, long flags)
+ * \brief       Initializes the flags of the t_edsp.
+ * \details     Sets the dsp inplace (default) or not inplace. You should use this function before the call of the dsp method (in the new method for example).
+ * \param x     The edspobj pointer
+ * \param flags The dsp flags.
+ * \see edsp_flags
+ */
+void eobj_dspflags(void *x, long flags);
 
 /*!
  * \fn          void eobj_dspfree(void *x)
@@ -283,7 +293,7 @@ void eobj_dsp(void *x, t_signal **sp);
  \ @param w     The pointer sent by the dsp method
  \ @return      Nothing
  */
-t_int* eobj_perform(t_int* w);
+t_int* eobj_perform_inplace(t_int* w);
 
 //! The perform method for no inplace(PRIVATE)
 /*
@@ -291,23 +301,7 @@ t_int* eobj_perform(t_int* w);
  \ @param w     The pointer sent by the dsp method
  \ @return      Nothing
  */
-t_int* eobj_perform_no_inplace(t_int* w);
-
-//! The perform method (PRIVATE)
-/*
- \ @memberof    edspobj
- \ @param w     The pointer sent by the dsp method
- \ @return      Nothing
- */
-t_int* eobj_perform_box(t_int* w);
-
-//! The perform method for no inplace(PRIVATE)
-/*
- \ @memberof    edspobj
- \ @param w     The pointer sent by the dsp method
- \ @return      Nothing
- */
-t_int* eobj_perform_box_no_inplace(t_int* w);
+t_int* eobj_perform_noinplace(t_int* w);
 
 //! The dsp add method (PRIVATE)
 /*
