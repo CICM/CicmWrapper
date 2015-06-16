@@ -61,16 +61,6 @@ void eclass_init(t_eclass* c, long flags)
     eclass_guiinit(c, flags);
 }
 
-t_pd_err eclass_register(t_symbol *name, t_eclass *c)
-{
-    if(c->c_nattr)
-    {
-        eclass_properties_dialog(c);
-        class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
-    }
-    return 0;
-}
-
 void eclass_guiinit(t_eclass* c, long flags)
 {
     ewidget_init(c);
@@ -161,18 +151,28 @@ void eclass_guiinit(t_eclass* c, long flags)
 void eclass_dspinit(t_eclass* c)
 {
     c->c_dsp = 1;
-    if(c->c_box)
-    {
-        CLASS_MAINSIGNALIN((t_class *)c, t_edspbox, d_dsp.d_float);
-    }
-    else
-    {
-        CLASS_MAINSIGNALIN((t_class *)c, t_edspobj, d_dsp.d_float);
-    }
-    
     class_addmethod((t_class *)c, (t_method)eobj_dsp, gensym("dsp"), A_NULL, 0);
     class_addmethod((t_class *)c, (t_method)eobj_dsp_add, gensym("dsp_add"), A_NULL, 0);
     class_addmethod((t_class *)c, (t_method)eobj_dsp_add, gensym("dsp_add64"), A_NULL, 0);
+}
+
+t_pd_err eclass_register(t_symbol *name, t_eclass *c)
+{
+    if(c->c_box && c->c_dsp)
+    {
+        c->c_class.c_floatsignalin = calcoffset(t_edspbox, d_dsp.d_float);
+    }
+    else
+    {
+        c->c_class.c_floatsignalin = calcoffset(t_edspobj, d_dsp.d_float);
+    }
+    
+    if(c->c_nattr)
+    {
+        eclass_properties_dialog(c);
+        class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
+    }
+    return 0;
 }
 
 void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type, long dummy)

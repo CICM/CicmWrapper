@@ -87,7 +87,6 @@ t_pd_err eclass_register(t_symbol *name, t_eclass *c);
  * \brief       Initialize the t_eclass for the DSP behavior.
  * \details     Sets the defaults values and initializes the methods of the t_eclass for the DSP behavior.
  * \param c     The t_eclass pointer.
- * \todo Later figure out if the CLASS_MAINSIGNALIN should be called in the eclass_register.
  */
 void eclass_dspinit(t_eclass* c);
 

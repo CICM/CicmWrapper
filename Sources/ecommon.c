@@ -390,6 +390,7 @@ int binbuf_get_attribute_index(t_binbuf *d, t_symbol *key)
 
 t_pd_err atoms_get_attribute(int ac, t_atom* av, t_symbol *key, int *argc, t_atom **argv)
 {
+    t_atom* temp;
     long i = 0, index  = 0, newsize = 0;
     argc[0]     = 0;
     argv[0]     = NULL;
@@ -420,9 +421,19 @@ t_pd_err atoms_get_attribute(int ac, t_atom* av, t_symbol *key, int *argc, t_ato
             newsize = unformat_atoms(argc[0], argv[0]);
             if(newsize)
             {
-                argv[0] = (t_atom *)realloc(argv[0], (size_t)newsize * sizeof(t_atom));
-                argc[0] = (int)newsize;
-                return 0;
+                temp = (t_atom *)realloc(argv[0], (size_t)newsize * sizeof(t_atom));
+                if(temp)
+                {
+                    argv[0] = temp;
+                    argc[0] = (int)newsize;
+                    return 0;
+                }
+                else
+                {
+                    free(argv[0]);
+                    argv[0] = NULL;
+                    argc[0] = 0;
+                }
             }
             else
             {
