@@ -59,7 +59,7 @@ t_epopup* epopupmenu_create(t_eobj* x, t_symbol* name);
 void epopupmenu_setfont(t_epopup *popup, t_efont *font);
 
 /*!
- * \fn          void epopupmenu_additem(t_epopup *menu, int itemid, char *text, char checked, char disabled)
+ * \fn          void epopupmenu_additem(t_epopup *popup, int itemid, const char *text, char checked, char disabled)
  * \brief       Adds a new item in the popup list.
  * \param popup  The t_epopup pointer.
  * \param itemid The id of the item.

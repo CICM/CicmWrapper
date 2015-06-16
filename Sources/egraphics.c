@@ -464,7 +464,6 @@ void egraphics_line_fast(t_elayer *g, float x0, float y0, float x1, float y1)
         egraphics_move_to(g, x0, y0);
         egraphics_line_to(g, x1, y1);
     }
-    egraphics_stroke(g);
 }
 
 void egraphics_rectangle(t_elayer *g, float x, float y, float width, float height)

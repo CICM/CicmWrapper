@@ -241,7 +241,7 @@ t_binbuf* binbuf_via_atoms(int ac, t_atom *av);
 t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, int argc, t_atom *argv);
 
 /*!
- * \fn          void epd_add_folder(char* libraryname, char* folder)
+ * \fn          void epd_add_folder(const char* name, const char* folder)
  * \brief       Adds a subfolder to library folder.
  * \details     The function looks for the folder of a library and adds the subfolder in the search path.
  * \param name   The name of the library.
