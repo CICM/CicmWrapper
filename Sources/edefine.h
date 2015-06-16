@@ -560,7 +560,6 @@ typedef struct t_eobj
  */
 typedef struct t_edsp
 {
-    t_eobj              d_obj;              /*!< The  object. */
     float               d_float;            /*!< The float member to initialize the signal method. */
     long                d_dsp_size;         /*!< The number of signal inlets and outlets. */
     t_int*              d_dsp_vectors;      /*!< The vector that contains all the pointers for the perform method. */
@@ -585,8 +584,8 @@ typedef enum
 
 /**
  * @struct t_edspobj
- * @brief The  DSP object.
- * @details It contains the  object with all the members for signal processing.
+ * @brief The DSP object.
+ * @details It contains the t_eobj with the t_edsp structure.
  * This should be used for no graphical object that have signal processing methods.
  */
 typedef struct t_edspobj
@@ -705,8 +704,8 @@ typedef struct t_edrawparams
 
 /**
  * @struct t_ebox
- * @brief The  GUI object.
- * @details It contains the  object with all the members for graphical behavior.
+ * @brief The GUI object.
+ * @details It contains the t_eobj with all the members for graphical behavior.
  * This should be used for graphical object that don't have signal processing methods.
  */
 typedef struct t_ebox
@@ -748,8 +747,8 @@ typedef struct t_ebox
 
 /**
  * @struct t_edspbox
- * @brief The  GUI DSP object.
- * @details It contains the  object with all the members for graphical behavior and signal processing.
+ * @brief The GUI DSP object.
+ * @details It contains the t_eobj with all the members for graphical behavior and signal processing.
  * This should be used for graphical object that have signal processing methods.
  * @ingroup groupbox groupdspobj
  */

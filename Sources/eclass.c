@@ -160,15 +160,16 @@ void eclass_guiinit(t_eclass* c, long flags)
 
 void eclass_dspinit(t_eclass* c)
 {
-    if(c->c_box && c->c_dsp)
+    c->c_dsp = 1;
+    if(c->c_box)
     {
         CLASS_MAINSIGNALIN((t_class *)c, t_edspbox, d_float);
     }
-    else if(c->c_dsp)
+    else
     {
         CLASS_MAINSIGNALIN((t_class *)c, t_edspobj, d_float);
     }
-    c->c_dsp = 1;
+    
     class_addmethod((t_class *)c, (t_method)eobj_dsp, gensym("dsp"), A_NULL, 0);
     class_addmethod((t_class *)c, (t_method)eobj_dsp_add, gensym("dsp_add"), A_NULL, 0);
     class_addmethod((t_class *)c, (t_method)eobj_dsp_add, gensym("dsp_add64"), A_NULL, 0);

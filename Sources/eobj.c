@@ -541,23 +541,23 @@ void eobj_dsp(void *x, t_signal **sp)
                 box->d_dsp_vectors[1] = (t_int)sp[0]->s_n;
                 box->d_dsp_vectors[2] = (t_int)box->d_dsp_flag;
                 box->d_dsp_vectors[3] = (t_int)box->d_dsp_user_param;
-                box->d_dsp_vectors[4] = (t_int)obj_nsiginlets((t_object *)box);
-                box->d_dsp_vectors[5] = (t_int)obj_nsigoutlets((t_object *)box);
+                box->d_dsp_vectors[4] = (t_int)nins;
+                box->d_dsp_vectors[5] = (t_int)nouts;
                 
                 for(i = 6; i < box->d_dsp_size; i++)
                 {
                     if(sp[i - 6] && sp[i - 6]->s_vec)
                     {
-                        obj->d_dsp_vectors[i] = (t_int)(sp[i - 6]->s_vec);
+                        box->d_dsp_vectors[i] = (t_int)(sp[i - 6]->s_vec);
                     }
                     else
                     {
                         free(count);
-                        free(obj->d_dsp_vectors);
+                        free(box->d_dsp_vectors);
                         box->d_dsp_vectors = NULL;
-                        free(obj->d_sigs_real);
+                        free(box->d_sigs_real);
                         box->d_sigs_real = NULL;
-                        free(obj->d_sigs_out);
+                        free(box->d_sigs_out);
                         box->d_sigs_out = NULL;
                         box->d_dsp_size = 0;
                         pd_error(x, "one of the signal isn't allocated.");
@@ -791,7 +791,7 @@ t_int* eobj_perform(t_int* w)
     t_sample** ins           = (t_sample **)(&w[7]);
     t_sample** outs          = (t_sample **)(&w[7 + nins]);
     
-    x->d_perform_method(x, (t_object *)NULL, ins, nins, outs, nouts, nsamples, flag, user_p);
+    x->d_perform_method((void *)x, (t_object *)NULL, ins, nins, outs, nouts, nsamples, flag, user_p);
     
     return w + (x->d_dsp_size + 1);
 }
@@ -808,7 +808,7 @@ t_int* eobj_perform_no_inplace(t_int* w)
     t_sample** ins           = (t_sample **)(&w[7]);
     t_sample** outs          = (t_sample **)(&w[7 + nins]);
     
-    x->d_perform_method(x, (t_object *)NULL, ins, nins, x->d_sigs_out, nouts, nsamples, flag, user_p);
+    x->d_perform_method((void *)x, (t_object *)NULL, ins, nins, x->d_sigs_out, nouts, nsamples, flag, user_p);
     
     for(i = 0; i < nouts; i++)
     {
@@ -828,7 +828,7 @@ t_int* eobj_perform_box(t_int* w)
     t_sample** ins           = (t_sample **)(&w[7]);
     t_sample** outs          = (t_sample **)(&w[7 + nins]);
     
-    x->d_perform_method(x, (t_object *)NULL, ins, nins, outs, nouts, nsamples, flag, user_p);
+    x->d_perform_method((void *)x, (t_object *)NULL, ins, nins, outs, nouts, nsamples, flag, user_p);
     
     return w + (x->d_dsp_size + 1);
 }
@@ -845,7 +845,7 @@ t_int* eobj_perform_box_no_inplace(t_int* w)
     t_sample** ins           = (t_sample **)(&w[7]);
     t_sample** outs          = (t_sample **)(&w[7 + nins]);
     
-    x->d_perform_method(x, (t_object *)NULL, ins, nins, x->d_sigs_out, nouts, nsamples, flag, user_p);
+    x->d_perform_method((void *)x, (t_object *)NULL, ins, nins, x->d_sigs_out, nouts, nsamples, flag, user_p);
     
     for(i = 0; i < nouts; i++)
     {
