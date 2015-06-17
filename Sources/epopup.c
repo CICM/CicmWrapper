@@ -34,7 +34,7 @@ t_epopup* epopupmenu_create(t_eobj* x, t_symbol* name)
         popup->c_send = x->o_id;
         popup->c_name = name;
         sys_vgui("destroy .eboxpopup%s\n", popup->c_name->s_name);
-        sys_vgui("popup .eboxpopup%s -tearoff 0\n", popup->c_name->s_name);
+        sys_vgui("menu .eboxpopup%s -tearoff 0\n", popup->c_name->s_name);
     }    
     return popup;
 }
