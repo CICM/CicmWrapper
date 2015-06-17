@@ -25,9 +25,9 @@
  */
 
 /**
- * @file eclass.h
- * @brief The header that declares all the methods for the t_ebox.
- * @author Pierre Guillot
+ * \file eclass.h
+ * \brief The header that declares all the methods for the t_ebox.
+ * \author Pierre Guillot
  */
 
 #ifndef DEF_ECLASS
@@ -102,181 +102,181 @@ void eclass_dspinit(t_eclass* c);
  */
 void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type, long dummy);
 
-//! @cond
-
-//! Allocate the memory and intializa an new attribute for an eclass (You should prefer to use the MACROS)
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param type      The attribute type
- \ @param size      The attribute size
- \ @param maxsize   The attribute max size
- \ @param maxsize   The attribute flags
- \ @param offset    The attribute bit offset in the object structure
- \ @return          Nothing
+/*!
+ * \fn          void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, long size, long maxsize, long flags, long offset)
+ * \brief           Creates a new attribute.
+ * \details         Allocates the memory and intializes an new attribute for an eclass. You should prefer to use the MACROS.
+ * \param c         The t_eclass pointer
+ * \param attrname  The attribute name
+ * \param type      The attribute type
+ * \param size      The attribute size
+ * \param maxsize   The attribute max size
+ * \param flags     The attribute flags (dummy)
+ * \param offset    The attribute bit offset in the object structure
  */
 void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, long size, long maxsize, long flags, long offset);
 
-//! Method to set the attributes
-/*
- \ @memberof        eattr
- \ @param x         The object pointer
- \ @param s         The attribute name
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms that contains the attributes values
- \ @return          Nothing
+//! @cond
+/*!
+ * \fn       void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
+ * \brief           The setter method of the attributes.
+ * \param x         The object pointer
+ * \param s         The attribute name
+ * \param argc      The size of the array of atoms
+ * \param argv      The array of atoms that contains the attributes values
  */
 void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv);
 
-//! Method to get the attributes
-/*
- \ @memberof        eattr
- \ @param x         The object pointer
- \ @param s         The attribute name
- \ @param argc      The pointer to an int that will contains the size of the attributes
- \ @param argv      The pointer to an array of atoms that will contains the attributes values
- \ @return          Nothing
+/*!
+ * \fn       void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
+ * \brief           The getter method of the attributes.
+ * \param x         The object pointer
+ * \param s         The attribute name
+ * \param argc      The size of the array of atoms
+ * \param argv      The array of atoms that contains the attributes values
  */
 void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv);
 
-//! Initalize the category of an attribute
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param flags     The flags of the attribute
- \ @param category  The category of the attribute
- \ @return          Nothing
+//! @endcond
+
+/*!
+ * \fn          void eclass_attr_category(t_eclass* c, const char* attrname, long flags, const char* category)
+ * \brief           Sets the category of an attribute.
+ * \details         For the moment the category is a dummy member of the attribute. You should prefer to use the MACROS.
+ * \param c         The t_eclass pointer
+ * \param attrname  The attribute name
+ * \param flags     The flags of the attribute (dummy)
+ * \param category  The category of the attribute
  */
 void eclass_attr_category(t_eclass* c, const char* attrname, long flags, const char* category);
 
-//! Initalize the order of an attribute
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param flags     The flags of the attribute
- \ @param category  The order of the attribute
- \ @return          Nothing
+/*!
+ * \fn          void eclass_attr_order(t_eclass* c, const char* attrname, long flags, const char* order)
+ * \brief           Sets the order of an attribute.
+ * \details         For the moment the order is a dummy member of the attribute. You should prefer to use the MACROS.
+ * \param c         The t_eclass pointer
+ * \param attrname  The attribute name
+ * \param flags     The flags of the attribute (dummy)
+ * \param order     The order of the attribute
  */
 void eclass_attr_order(t_eclass* c, const char* attrname, long flags, const char* order);
 
-//! Initalize the category of an attribute
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param flags     The flags of the attribute
- \ @param label     The label of the attribute
- \ @return          Nothing
+/*!
+ * \fn          void eclass_attr_label(t_eclass* c, const char* attrname, long flags, const char* label)
+ * \brief           Sets the label of an attribute.
+ * \details         The label is the message that will be displayed in the properties window of the object. You should prefer to use the MACROS.
+ * \param c         The t_eclass pointer
+ * \param attrname  The attribute name
+ * \param flags     The flags of the attribute (dummy)
+ * \param label     The label of the attribute
  */
 void eclass_attr_label(t_eclass* c, const char* attrname, long flags, const char* label);
 
-//! Initalize the category of an attribute
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param flags     The flags of the attribute
- \ @param style     The style of the attribute
- \ @return          Nothing
+/*!
+ * \fn          void eclass_attr_style(t_eclass* c, const char* attrname, long flags, const char* style)
+ * \brief           Sets the style of an attribute.
+ * \details         The style is how the attribute will be displayed in the properties window of the object. it could be \"onoff\", \"color\", \"number\", \"menu\" or \"entry\". You should prefer to use the MACROS.
+ * \param c         The t_eclass pointer
+ * \param attrname  The attribute name
+ * \param flags     The flags of the attribute (dummy)
+ * \param style     The style of the attribute
  */
 void eclass_attr_style(t_eclass* c, const char* attrname, long flags, const char* style);
 
-//! Initalize the default value of an attribute
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param flags     The flags of the attribute
- \ @param value     The default value
- \ @return          Nothing
+/*!
+ * \fn          void eclass_attr_default(t_eclass* c, const char* attrname, long flags, const char* value)
+ * \brief           Sets the default value of an attribute.
+ * \details         The default value is a string that will be parse into an array of atoms or a array of number if needed. You should prefer to use the MACROS.
+ * \param c         The t_eclass pointer
+ * \param attrname  The attribute name
+ * \param flags     The flags of the attribute (dummy)
+ * \param value     The default value
  */
 void eclass_attr_default(t_eclass* c, const char* attrname, long flags, const char* value);
 
-//! Initalize the minimum value of an attribute
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param value     The minimum value of the attribute
- \ @return          Nothing
+/*!
+ * \fn          void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value)
+ * \brief           Sets the minimum value of an attribute.
+ * \details         The minimum value is only valid for number attributes. You should prefer to use the MACROS.
+ * \param c         The t_eclass pointer
+ * \param attrname  The attribute name
+ * \param value     The minimum value of the attribute
  */
 void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value);
 
-//! Initalize the maximum value of an attribute
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param value     The maximum value of the attribute
- \ @return          Nothing
+/*!
+ * \fn          void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value)
+ * \brief           Sets the maximum value of an attribute for number attributes.
+ * \details         The maximum value is only valid for number attributes. You should prefer to use the MACROS.
+ * \param c         The t_eclass pointer
+ * \param attrname  The attribute name
+ * \param value     The maximum value of the attribute
  */
 void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value);
 
-//! Initalize the step value of an attribute
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param value     The maximum value of the attribute
- \ @return          Nothing
+/*!
+ * \fn          void eclass_attr_step(t_eclass* c, const char* attrname, float value)
+ * \brief           Sets the step value of an attribute.
+ * \details         The step value is only valid for number attributes and will define the step to increment the value in the properties window. You should prefer to use the MACROS.
+ * \param c         The t_eclass pointer
+ * \param attrname  The attribute name
+ * \param value     The maximum value of the attribute
  */
 void eclass_attr_step(t_eclass* c, const char* attrname, float value);
 
-//! Initalize the attribute to be saved with the object
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param flags     The flags of the attribute
- \ @return          Nothing
+/*!
+ * \fn          void eclass_attr_save(t_eclass* c, const char* attrname, long flags)
+ * \brief           Sets if the attribute should be saved with the object.
+ * \details         Only GUI can save their attributes. You should prefer to use the MACROS.
+ * \param c         The t_eclass pointer
+ * \param attrname  The attribute name
+ * \param flags     The flags of the attribute (dummy)
  */
 void eclass_attr_save(t_eclass* c, const char* attrname, long flags);
 
-//! Initalize the attribute to redraw the object when its value has changed
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param flags     The flags of the attribute
- \ @return          Nothing
+/*!
+ * \fn          void eclass_attr_paint(t_eclass* c, const char* attrname, long flags)
+ * \brief           Sets if the attribute should call the ebox_redraw() function.
+ * \details         If the method has been called, when the attribute has changed it call the ebox_redraw function to redraw the object. Only GUI can be repainted. You should prefer to use the MACROS.
+ * \param c         The t_eclass pointer
+ * \param attrname  The attribute name
+ * \param flags     The flags of the attribute (dummy)
  */
 void eclass_attr_paint(t_eclass* c, const char* attrname, long flags);
 
-//! Initalize the attribute to be invisible in the properties window
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param flags     The flags of the attribute
- \ @return          Nothing
+/*!
+ * \fn          void eclass_attr_invisible(t_eclass* c, const char* attrname, long flags)
+ * \brief           Sets if the attribute should be displayed in the properties window. 
+ * \details         You should prefer to use the MACROS.
+ * \param c         The t_eclass pointer
+ * \param attrname  The attribute name
+ * \param flags     The flags of the attribute (dummy)
  */
 void eclass_attr_invisible(t_eclass* c, const char* attrname, long flags);
 
-//! Initalize the user getter and setter of an attribute
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param getter    The getter function
- \ @param setter    The setter function
- \ @return          Nothing
+/*!
+ * \fn          void eclass_attr_accessor(t_eclass* c, const char* attrname, t_err_method getter, t_err_method setter)
+ * \brief           Initialize new getter and setter methods for the attributes.
+ * \details         By default the attribute is initialized with default getter and setter methods. If you just want to be notify when an attribute has changed, you should prefer to use the notify method. You should prefer to use the MACROS.
+ * \param c         The t_eclass pointer
+ * \param attrname  The attribute name
+ * \param getter    The getter method.
+ * \param setter    The setter method.
  */
 void eclass_attr_accessor(t_eclass* c, const char* attrname, t_err_method getter, t_err_method setter);
 
-//! Initalize the items list of an attribute
-/*
- \ @memberof        eattr
- \ @param c         The eclass pointer
- \ @param attrname  The attribute name
- \ @param flags     The flags of the attribute
- \ @param style     The style of the attribute
- \ @return          Nothing
+/*!
+ * \fn          void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const char* list)
+ * \brief           Sets the list available items of an attribute.
+ * \details         For example, the font weight attribute offers \"normal\" and \"bold\". You should prefer to use the MACROS.
+ * \param c         The t_eclass pointer
+ * \param attrname  The attribute name
+ * \param flags     The flags of the attribute (dummy)
+ * \param list      The list of items.
  */
 void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const char* list);
 
+//! @cond
 #define calcoffset(x,y) ((long)(&(((x *)0L)->y)))
 //! @endcond
 
