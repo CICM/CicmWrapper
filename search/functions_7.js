@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['setup_5fc0x2ebang',['setup_c0x2ebang',['../a00004.html#gac4d3f5d3458074de0ce6c1cc7e4140cf',1,'c.bang.cpp']]]
+  ['pd_5fbang',['pd_bang',['../a00003.html#gacfbceb2c05a26355f85d170dcbd5c33c',1,'enative.h']]]
 ];

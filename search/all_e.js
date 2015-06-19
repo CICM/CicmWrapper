@@ -1,6 +1,11 @@
 var searchData=
 [
   ['red',['red',['../a00008.html#a97bcb75fc43734289223a7c4e0bf1cb4',1,'t_rgb::red()'],['../a00008.html#adf5398d4559380d1d097ff42609d789e',1,'t_rgba::red()']]],
+  ['rgb_5faddcontrast',['rgb_addContrast',['../a00008.html#ga63b8ffe2cca27c079ffa378194db36c4',1,'rgb_addContrast(t_rgb color, float contrast):&#160;egraphics.c'],['../a00008.html#ga63b8ffe2cca27c079ffa378194db36c4',1,'rgb_addContrast(t_rgb color, float contrast):&#160;egraphics.c']]],
+  ['rgb_5fset',['rgb_set',['../a00008.html#gaf32f65ee5c9bc8242969099892b6353e',1,'rgb_set(t_rgb *color, float red, float green, float blue):&#160;egraphics.c'],['../a00008.html#gaf32f65ee5c9bc8242969099892b6353e',1,'rgb_set(t_rgb *color, float red, float green, float blue):&#160;egraphics.c']]],
+  ['rgb_5fto_5fhex',['rgb_to_hex',['../a00008.html#ga20c12dd92312c7c682e6aeff7d4aa4d5',1,'rgb_to_hex(t_rgb color):&#160;egraphics.c'],['../a00008.html#ga20c12dd92312c7c682e6aeff7d4aa4d5',1,'rgb_to_hex(t_rgb color):&#160;egraphics.c']]],
+  ['rgb_5fto_5fhsl',['rgb_to_hsl',['../a00008.html#gad2410c1d9685c01dac0b4df7442f6fff',1,'rgb_to_hsl(t_rgb color):&#160;egraphics.c'],['../a00008.html#gad2410c1d9685c01dac0b4df7442f6fff',1,'rgb_to_hsl(t_rgb color):&#160;egraphics.c']]],
+  ['rgba_5faddcontrast',['rgba_addContrast',['../a00008.html#ga1db3b6e4b799d3ab457fd7c43114a2ac',1,'rgba_addContrast(t_rgba color, float contrast):&#160;egraphics.c'],['../a00008.html#ga1db3b6e4b799d3ab457fd7c43114a2ac',1,'rgba_addContrast(t_rgba color, float contrast):&#160;egraphics.c']]],
   ['rgba_5fblack',['rgba_black',['../a00008.html#gabcabfa384416f3e0128911534141bad8',1,'rgba_black():&#160;egraphics.c'],['../a00008.html#gabcabfa384416f3e0128911534141bad8',1,'rgba_black():&#160;egraphics.c']]],
   ['rgba_5fblue',['rgba_blue',['../a00008.html#gafb0d1fc8a8cd8bfe7a2471c2c4a260e7',1,'rgba_blue():&#160;egraphics.c'],['../a00008.html#gafb0d1fc8a8cd8bfe7a2471c2c4a260e7',1,'rgba_blue():&#160;egraphics.c']]],
   ['rgba_5fgreen',['rgba_green',['../a00008.html#gab8118d8d2e07bb2f2bec3e71dd361576',1,'rgba_green():&#160;egraphics.c'],['../a00008.html#gab8118d8d2e07bb2f2bec3e71dd361576',1,'rgba_green():&#160;egraphics.c']]],
@@ -8,5 +13,8 @@ var searchData=
   ['rgba_5fgreydark',['rgba_greydark',['../a00008.html#ga5434152ae1784098f9dd292e49092951',1,'rgba_greydark():&#160;egraphics.c'],['../a00008.html#ga5434152ae1784098f9dd292e49092951',1,'rgba_greydark():&#160;egraphics.c']]],
   ['rgba_5fgreylight',['rgba_greylight',['../a00008.html#ga076879cd3fd99aacb2a3405b0828964d',1,'rgba_greylight():&#160;egraphics.c'],['../a00008.html#ga076879cd3fd99aacb2a3405b0828964d',1,'rgba_greylight():&#160;egraphics.c']]],
   ['rgba_5fred',['rgba_red',['../a00008.html#ga6ba17fae4a49b215a46e56cf2ff4b644',1,'rgba_red():&#160;egraphics.c'],['../a00008.html#ga6ba17fae4a49b215a46e56cf2ff4b644',1,'rgba_red():&#160;egraphics.c']]],
+  ['rgba_5fset',['rgba_set',['../a00008.html#ga281a4f173dfef42a861bcbd3a607b66e',1,'rgba_set(t_rgba *color, float red, float green, float blue, float alpha):&#160;egraphics.c'],['../a00008.html#ga281a4f173dfef42a861bcbd3a607b66e',1,'rgba_set(t_rgba *color, float red, float green, float blue, float alpha):&#160;egraphics.c']]],
+  ['rgba_5fto_5fhex',['rgba_to_hex',['../a00008.html#gad0c57b1de9ff1f7a41736ffb109deb61',1,'rgba_to_hex(t_rgba color):&#160;egraphics.c'],['../a00008.html#gad0c57b1de9ff1f7a41736ffb109deb61',1,'rgba_to_hex(t_rgba color):&#160;egraphics.c']]],
+  ['rgba_5fto_5fhsla',['rgba_to_hsla',['../a00008.html#ga16649ac6f2f75528696f6ae0ea9eeba5',1,'rgba_to_hsla(t_rgba color):&#160;egraphics.c'],['../a00008.html#ga16649ac6f2f75528696f6ae0ea9eeba5',1,'rgba_to_hsla(t_rgba color):&#160;egraphics.c']]],
   ['rgba_5fwhite',['rgba_white',['../a00008.html#ga3f62962094832b60f0d78aaf579ea888',1,'rgba_white():&#160;egraphics.c'],['../a00008.html#ga3f62962094832b60f0d78aaf579ea888',1,'rgba_white():&#160;egraphics.c']]]
 ];

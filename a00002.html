@@ -330,22 +330,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">        <span class="comment">// Otherwise we use the background color.</span></div>
 <div class="line">        <span class="keywordflow">if</span>(x-&gt;<a class="code" href="a00004.html#a9e241345442b43f6250d730aed8ec990">b_active</a>)</div>
 <div class="line">        {</div>
-<div class="line">            egraphics_set_color_rgba(g, &amp;x-&gt;<a class="code" href="a00004.html#afc33716a3bd1e1d805aead42fae8c7a6">b_color_bang</a>);</div>
+<div class="line">            <a name="a71"></a><a class="code" href="a00008.html#ga8bb580a62dd75dabcdb3cb080c392f91">egraphics_set_color_rgba</a>(g, &amp;x-&gt;<a class="code" href="a00004.html#afc33716a3bd1e1d805aead42fae8c7a6">b_color_bang</a>);</div>
 <div class="line">        }</div>
 <div class="line">        <span class="keywordflow">else</span></div>
 <div class="line">        {</div>
-<div class="line">            egraphics_set_color_rgba(g, &amp;x-&gt;<a class="code" href="a00004.html#a1ecfc654cb6dae279e8f3a4dda24368c">b_color_background</a>);</div>
+<div class="line">            <a class="code" href="a00008.html#ga8bb580a62dd75dabcdb3cb080c392f91">egraphics_set_color_rgba</a>(g, &amp;x-&gt;<a class="code" href="a00004.html#a1ecfc654cb6dae279e8f3a4dda24368c">b_color_background</a>);</div>
 <div class="line">        }</div>
 <div class="line">        <span class="comment">// We add a circle at the center the t_elayer.</span></div>
-<div class="line">        egraphics_circle(g, floor(size + 0.5), floor(size + 0.5), size * 0.9);</div>
+<div class="line">        <a name="a72"></a><a class="code" href="a00008.html#ga77ff91432b9eca677b5dde0611b37322">egraphics_circle</a>(g, floor(size + 0.5), floor(size + 0.5), size * 0.9);</div>
 <div class="line">        <span class="comment">// We fill the t_elayer with the drawing.</span></div>
-<div class="line">        egraphics_fill(g);</div>
+<div class="line">        <a name="a73"></a><a class="code" href="a00008.html#ga5428828d56d7a09f7e8535de02143584">egraphics_fill</a>(g);</div>
 <div class="line">        <span class="comment">// We mark the layer as ready to be painted.</span></div>
-<div class="line">        <a name="a71"></a><a class="code" href="a00006.html#gafbd3037b1afe3939912b1b5cff96a5bd">ebox_end_layer</a>((<a class="code" href="a00006.html#a00039">t_ebox</a>*)x, bang_sym_background_layer);</div>
+<div class="line">        <a name="a74"></a><a class="code" href="a00006.html#gafbd3037b1afe3939912b1b5cff96a5bd">ebox_end_layer</a>((<a class="code" href="a00006.html#a00039">t_ebox</a>*)x, bang_sym_background_layer);</div>
 <div class="line">    }</div>
 <div class="line">    <span class="comment">// We tell the t_ebox to painted the \&quot;background_layer\&quot; layer at the 0 0 position. If the t_elayer was invalid or new</span></div>
 <div class="line">    <span class="comment">// that means that we have drawn something new in it, otherwise t_ebox paint the t_elayer like it was before.</span></div>
-<div class="line">    <a name="a72"></a><a class="code" href="a00006.html#ga4c40a6ef105573223e9d9cbb515c9db1">ebox_paint_layer</a>((<a class="code" href="a00006.html#a00039">t_ebox</a> *)x, bang_sym_background_layer, 0., 0.);</div>
+<div class="line">    <a name="a75"></a><a class="code" href="a00006.html#ga4c40a6ef105573223e9d9cbb515c9db1">ebox_paint_layer</a>((<a class="code" href="a00006.html#a00039">t_ebox</a> *)x, bang_sym_background_layer, 0., 0.);</div>
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// Activates the status of the t_bang.</span></div>
@@ -356,21 +356,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">    <span class="comment">// We mark the bang as active.</span></div>
 <div class="line">    x-&gt;<a class="code" href="a00004.html#a9e241345442b43f6250d730aed8ec990">b_active</a> = 1;</div>
 <div class="line">    <span class="comment">// We send a bang through our outlet.</span></div>
-<div class="line">    <a name="a73"></a><a class="code" href="a00003.html#ga5a282ac83ffe462aeefcabd5f73cc005">outlet_bang</a>(x-&gt;<a class="code" href="a00004.html#a078fe8e68793cca3003ed53b196405c1">b_out</a>);</div>
+<div class="line">    <a name="a76"></a><a class="code" href="a00003.html#ga5a282ac83ffe462aeefcabd5f73cc005">outlet_bang</a>(x-&gt;<a class="code" href="a00004.html#a078fe8e68793cca3003ed53b196405c1">b_out</a>);</div>
 <div class="line">    </div>
 <div class="line">    <span class="comment">// We retrieves the link list of object attached to the t_bang.</span></div>
-<div class="line">    <a class="code" href="a00003.html#gac085bef486c0e262349075ffce8a9752">t_pd</a>* senders = <a name="a74"></a><a class="code" href="a00006.html#gae583313b1ea4f06fe42aa7a0ed5772e6">ebox_getsender</a>((<a class="code" href="a00006.html#a00039">t_ebox</a> *) x);</div>
+<div class="line">    <a class="code" href="a00003.html#gac085bef486c0e262349075ffce8a9752">t_pd</a>* senders = <a name="a77"></a><a class="code" href="a00006.html#gae583313b1ea4f06fe42aa7a0ed5772e6">ebox_getsender</a>((<a class="code" href="a00006.html#a00039">t_ebox</a> *) x);</div>
 <div class="line">    <span class="keywordflow">if</span>(senders)</div>
 <div class="line">    {</div>
 <div class="line">        <span class="comment">// If we have a link list we send a bang to the object.</span></div>
 <div class="line">        <span class="comment">// All the GUI has send and receive t_symbol attributes to send and receive messages without connections.</span></div>
-<div class="line">        <a name="a75"></a><a class="code" href="a00003.html#gacfbceb2c05a26355f85d170dcbd5c33c">pd_bang</a>(senders);</div>
+<div class="line">        <a name="a78"></a><a class="code" href="a00003.html#gacfbceb2c05a26355f85d170dcbd5c33c">pd_bang</a>(senders);</div>
 <div class="line">    }</div>
 <div class="line">    </div>
 <div class="line">    <span class="comment">// We invalidate the background layer.</span></div>
-<div class="line">    <a name="a76"></a><a class="code" href="a00006.html#ga4e3b81f831ab7cf2730daae51405c715">ebox_invalidate_layer</a>((<a class="code" href="a00006.html#a00039">t_ebox</a> *)x, bang_sym_background_layer);</div>
+<div class="line">    <a name="a79"></a><a class="code" href="a00006.html#ga4e3b81f831ab7cf2730daae51405c715">ebox_invalidate_layer</a>((<a class="code" href="a00006.html#a00039">t_ebox</a> *)x, bang_sym_background_layer);</div>
 <div class="line">    <span class="comment">// We aks the t_ebox to redraw the object.</span></div>
-<div class="line">    <a name="a77"></a><a class="code" href="a00006.html#ga3b61efe7c688334e267b0e66dcf22e00">ebox_redraw</a>((<a class="code" href="a00006.html#a00039">t_ebox</a> *)x);</div>
+<div class="line">    <a name="a80"></a><a class="code" href="a00006.html#ga3b61efe7c688334e267b0e66dcf22e00">ebox_redraw</a>((<a class="code" href="a00006.html#a00039">t_ebox</a> *)x);</div>
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// Deactivates the status of the t_bang.</span></div>
@@ -408,14 +408,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">    <span class="comment">// When we receive any message we activate the t_bang</span></div>
 <div class="line">    <a class="code" href="a00004.html#ga0fec169a9a56157ea17b939b974ec2ef">bang_activate</a>(x);</div>
 <div class="line">    <span class="comment">// then delay the clock of 100ms to deactivate the t_bang</span></div>
-<div class="line">    <a name="a78"></a><a class="code" href="a00003.html#ga695e3488394e99cd64c8973ce1c79acc">clock_delay</a>(x-&gt;<a class="code" href="a00004.html#addbcfc52ebf5b8e3fd17e14171b04b8e">b_clock</a>, 100);</div>
+<div class="line">    <a name="a81"></a><a class="code" href="a00003.html#ga695e3488394e99cd64c8973ce1c79acc">clock_delay</a>(x-&gt;<a class="code" href="a00004.html#addbcfc52ebf5b8e3fd17e14171b04b8e">b_clock</a>, 100);</div>
 <div class="line">    <span class="comment">// thus the object will blink.</span></div>
 <div class="line">}</div>
 <div class="line"></div>
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 19 2015 14:28:50 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2015 16:31:11 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
