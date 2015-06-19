@@ -214,89 +214,76 @@ t_sample* eobj_getsignaloutput(void *x, long index);
 
 //! The default save method for eobj called by PD (PRIVATE)
 /*
- \ @memberof        eobj
- \ @param z         The eobj pointor
- \ @param b         The binbuf
- \ @return          Nothing
+ * \memberof        eobj
+ * \param z         The eobj pointor
+ * \param b         The binbuf
  */
 void eobj_save(t_gobj* x, t_binbuf *b);
 
 //! The default save method for UI ebox (PRIVATE)
 /*
- \ @memberof        eobj
- \ @param z         The eobj pointor
- \ @param b         The binbuf
- \ @return          Nothing
+ * \memberof        eobj
+ * \param z         The eobj pointor
+ * \param b         The binbuf
  */
 void eobj_dosave(t_eobj* x, t_binbuf *b);
 
 //! The popup method called by tcl/tk (PRIVATE)
 /*
- \ @memberof        eobj
- \ @param x         The eobj pointer
- \ @param s         The message selector
- \ @param itemid    the id of the selected item
- \ @return          Nothing
+ * \memberof        eobj
+ * \param x         The eobj pointer
+ * \param s         The message selector
+ * \param itemid    the id of the selected item
  */
 void eobj_popup(t_eobj* x, t_symbol* s, float itemid);
 
 //! The default write method for all eobj called by PD (PRIVATE)
 /*
- \ @memberof        eobj
- \ @param x         The eobj pointor
- \ @param s         The symbol selector
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
- \ @return          Nothing
+ * \memberof        eobj
+ * \param x         The eobj pointor
+ * \param s         The symbol selector
+ * \param argc      The size of the array of atoms
+ * \param argv      The array of atoms
  */
 void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv);
 
 //! The default read method for all eobj called by PD (PRIVATE)
 /*
- \ @memberof        eobj
- \ @param x         The eobj pointor
- \ @param s         The symbol selector
- \ @param argc      The size of the array of atoms
- \ @param argv      The array of atoms
- \ @return          Nothing
+ * \memberof        eobj
+ * \param x         The eobj pointor
+ * \param s         The symbol selector
+ * \param argc      The size of the array of atoms
+ * \param argv      The array of atoms
  */
 void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv);
 
 //! The dsp method (PRIVATE)
 /*
- \ @memberof    edspobj
- \ @param x     The edspobj pointer
- \ @param sp    The pointers to signal structures
- \ @return      Nothing
+ * \param x     The edspobj pointer
+ * \param sp    The pointers to signal structures
  */
 void eobj_dsp(void *x, t_signal **sp);
 
 //! The perform method for no inplace(PRIVATE)
 /*
- \ @memberof    edspobj
- \ @param w     The pointer sent by the dsp method
- \ @return      Nothing
+ * \param w     The pointer sent by the dsp method
  */
 t_int* eobj_perform_inplace(t_int* w);
 
 //! The perform method for no inplace(PRIVATE)
 /*
- \ @memberof    edspobj
- \ @param w     The pointer sent by the dsp method
- \ @return      Nothing
+ * \param w     The pointer sent by the dsp method
  */
 t_int* eobj_perform_noinplace(t_int* w);
 
 //! The dsp add method (PRIVATE)
 /*
- \ @memberof        edspobj
- \ @param x         The edspobj
- \ @param s         Nothing (for Max 6 compatibility)
- \ @param obj       Nothing (for Max 6 compatibility)
- \ @param m         The user perform method
- \ @param flags     The user perform flags
- \ @param userparam The user perform parameters
- \ @return          Nothing
+ * \param x         The edspobj
+ * \param s         Nothing (for Max 6 compatibility)
+ * \param obj       Nothing (for Max 6 compatibility)
+ * \param m         The user perform method
+ * \param flags     The user perform flags
+ * \param userparam The user perform parameters
  */
 void eobj_dsp_add(void *x, t_symbol* s, t_object* obj, t_typ_method m, long flags, void *userparam);
 //! @endcond

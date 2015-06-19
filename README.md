@@ -35,6 +35,7 @@ Pierre Guillot
 ### Thanks :
 
  Antoine Villeret for Autotools and feedbacks.  
+ Thomas Le Meur for the corrections.
  Miller Puckette for Pure Data.
 
 ### Licence : 
