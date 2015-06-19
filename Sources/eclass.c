@@ -406,14 +406,14 @@ void eclass_attr_order(t_eclass* c, const char* attrname, long flags, const char
     }
 }
 
-void eclass_attr_label(t_eclass* c, const char* attrname, long flags, const char* labelname)
+void eclass_attr_label(t_eclass* c, const char* attrname, long flags, const char* label)
 {
     int i;
     for(i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i]->name == gensym(attrname))
         {
-            c->c_attr[i]->label = gensym(labelname);
+            c->c_attr[i]->label = gensym(label);
             return ;
         }
     }

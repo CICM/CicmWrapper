@@ -39,6 +39,8 @@ const t_rgba rgba_blue = {0.f, 0.f, 1.f, 1.f};
 const t_rgba rgba_green = {0.f, 1.f, 0.f, 1.f};
 const t_rgba rgba_red = {1.f, 0.f, 0.f, 1.f};
 
+static void egraphics_apply_matrix(t_elayer *g, t_egobj* gobj);
+
 void egraphics_set_line_width(t_elayer *g, float width)
 {
     g->e_line_width= (int)pd_clip_min(width, 0.);
@@ -69,11 +71,6 @@ void egraphics_set_color_hsl(t_elayer *g, const t_hsl *hsl)
 {
     t_rgb color = hsl_to_rgb(*hsl);
     g->e_color = gensym(rgb_to_hex(color));
-}
-
-void egraphics_set_line_splinestep(t_elayer *g, float smooth)
-{
-    g->e_new_objects.e_roundness = (float)pd_clip_min(smooth, 0);
 }
 
 static void egraphics_paint(t_elayer *g, int filled, int preserved)
@@ -378,7 +375,7 @@ static void create_small_arc_oval(const float r1, const float r2, const float st
     p2->x += ct.x; p2->y += ct.y; p3->x += ct.x; p3->y += ct.y; p4->x += ct.x; p4->y += ct.y;
 }
 
-void egraphics_arc_oval_to(t_elayer *g, float cx, float cy, float r2, float extend)
+void egraphics_arc_oval_to(t_elayer *g, float cx, float cy, float radius, float extend)
 {
     if(g->e_state == EGRAPHICS_OPEN)
     {
@@ -387,7 +384,7 @@ void egraphics_arc_oval_to(t_elayer *g, float cx, float cy, float r2, float exte
             t_pt p2, p3, p4, c = {cx, cy}, prev = g->e_new_objects.e_points[g->e_new_objects.e_npoints-1];
             float r1   = pd_radius(prev.x - cx, prev.y - cy);
             float angle = pd_angle(prev.x - cx, prev.y - cy);
-            float ratio = (r2 - r1) / (fabsf(extend) / EPD_PI4);
+            float ratio = (radius - r1) / (fabsf(extend) / EPD_PI4);
             
             while(extend > EPD_2PI)
             {
@@ -419,7 +416,7 @@ void egraphics_arc_oval_to(t_elayer *g, float cx, float cy, float r2, float exte
             }
             if(fabsf(extend) > 1e-6)
             {
-                create_small_arc_oval(r1, r2, angle, extend, c, &p2, &p3, &p4);
+                create_small_arc_oval(r1, radius, angle, extend, c, &p2, &p3, &p4);
                 egraphics_curve_to(g, p2.x, p2.y, p3.x, p3.y,  p4.x, p4.y);
             }
         }
@@ -937,7 +934,7 @@ void egraphics_rotate(t_elayer *g, float angle)
 }
 
 
-void egraphics_apply_matrix(t_elayer *g, t_egobj* gobj)
+static void egraphics_apply_matrix(t_elayer *g, t_egobj* gobj)
 {
     int i;
     float x_p, y_p;
@@ -1013,10 +1010,10 @@ void etext_layout_destroy(t_etext* textlayout)
     free(textlayout);
 }
 
-void etext_layout_set(t_etext* textlayout, const char* text, t_efont *jfont,  float x, float y, float width,  float height, etextanchor_flags anchor, etextjustify_flags justify, etextwrap_flags wrap)
+void etext_layout_set(t_etext* textlayout, const char* text, t_efont *font,  float x, float y, float width,  float height, etextanchor_flags anchor, etextjustify_flags justify, etextwrap_flags wrap)
 {
     textlayout->c_text = gensym(text);
-    textlayout->c_font = jfont[0];
+    textlayout->c_font = font[0];
     textlayout->c_rect.x = (float)x;
     textlayout->c_rect.y = (float)y;
     textlayout->c_rect.width = (float)width;
