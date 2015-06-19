@@ -23,6 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">CicmWrapper
+   &#160;<span id="projectnumber">Beta 0.4</span>
    </div>
    <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
@@ -111,8 +112,11 @@ Enumerations</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga75990a2c2f4f51a081904dce5c5e14b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga75990a2c2f4f51a081904dce5c5e14b4">eobj_dspsetup</a> (void *x, long nins, long nouts)</td></tr>
-<tr class="memdesc:ga75990a2c2f4f51a081904dce5c5e14b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the dsp members of the <a class="el" href="a00006.html#a00038" title="The DSP object. ">t_edspobj</a>.  <a href="#ga75990a2c2f4f51a081904dce5c5e14b4">More...</a><br /></td></tr>
+<tr class="memdesc:ga75990a2c2f4f51a081904dce5c5e14b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the dsp members of the <a class="el" href="a00006.html#a00036" title="The DSP structure. ">t_edsp</a>.  <a href="#ga75990a2c2f4f51a081904dce5c5e14b4">More...</a><br /></td></tr>
 <tr class="separator:ga75990a2c2f4f51a081904dce5c5e14b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad5797d29700a9227f3fb9f2435b59914"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#gad5797d29700a9227f3fb9f2435b59914">eobj_dspflags</a> (void *x, long flags)</td></tr>
+<tr class="memdesc:gad5797d29700a9227f3fb9f2435b59914"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the flags of the <a class="el" href="a00006.html#a00036" title="The DSP structure. ">t_edsp</a>.  <a href="#gad5797d29700a9227f3fb9f2435b59914">More...</a><br /></td></tr>
+<tr class="separator:gad5797d29700a9227f3fb9f2435b59914"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad1252e017dafb1443ae6806909808d04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#gad1252e017dafb1443ae6806909808d04">eobj_dspfree</a> (void *x)</td></tr>
 <tr class="memdesc:gad1252e017dafb1443ae6806909808d04"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a00006.html#a00038" title="The DSP object. ">t_edspobj</a> deletion function. <br />
  This function should replace pd_free().  <a href="#gad1252e017dafb1443ae6806909808d04">More...</a><br /></td></tr>
@@ -152,30 +156,30 @@ d_float</td>
 <p>The float member to initialize the signal method. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a82bb8ed87a3a68233b5a3216c6b8ac85"></a>long</td>
+<a class="anchor" id="aca48e8ba3e0342673198520751a17518"></a>long</td>
 <td class="fieldname">
-d_dsp_size</td>
+d_size</td>
 <td class="fielddoc">
 <p>The number of signal inlets and outlets. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a96222c8893e09ce179cc81a932e41598"></a>t_int *</td>
+<a class="anchor" id="a1a630ca6cbe9a47eaf9b24a99cc58e95"></a>t_int *</td>
 <td class="fieldname">
-d_dsp_vectors</td>
+d_vectors</td>
 <td class="fielddoc">
 <p>The vector that contains all the pointers for the perform method. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a5019fe3b8946314e656f46291269b1a0"></a>long</td>
+<a class="anchor" id="abd73689fe564a1ef5eec150a851c5d0b"></a>long</td>
 <td class="fieldname">
-d_dsp_flag</td>
+d_flags</td>
 <td class="fielddoc">
 <p>The flags to initialize the perform method. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ae88547077938a486543a44ddd1a34b6d"></a>void *</td>
+<a class="anchor" id="a3cf8dff24a54bc0c650a97b36c2721bb"></a>void *</td>
 <td class="fieldname">
-d_dsp_user_param</td>
+d_user_param</td>
 <td class="fielddoc">
 <p>The user parameters to pass through the perform method. </p>
 </td></tr>
@@ -221,7 +225,7 @@ d_misc</td>
       </table>
 </div><div class="memdoc">
 <div class="textblock"><p>The DSP object. </p>
-<p>It contains the <a class="el" href="a00008.html#a00042" title="The object. ">t_eobj</a> with the <a class="el" href="a00006.html#a00036" title="The DSP structure. ">t_edsp</a> structure. This should be used for no graphical object that have signal processing methods. </p>
+<p>It contains the <a class="el" href="a00008.html#a00042" title="The default object. ">t_eobj</a> with the <a class="el" href="a00006.html#a00036" title="The DSP structure. ">t_edsp</a> structure. This should be used for no graphical object that have signal processing methods. </p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
@@ -229,70 +233,14 @@ d_misc</td>
 <td class="fieldname">
 d_obj</td>
 <td class="fielddoc">
-<p>The object. </p>
+<p>The default object. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ae1a9a7105cca82c542bfc6a0c3fd449f"></a>float</td>
+<a class="anchor" id="a0c114a1205b592e255bc73e0197ddd45"></a><a class="el" href="a00006.html#a00036">t_edsp</a></td>
 <td class="fieldname">
-d_float</td>
+d_dsp</td>
 <td class="fielddoc">
-<p>The float member to initialize the signal method. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="a07e56ee6b9bf68fa83c154d55c50f072"></a>long</td>
-<td class="fieldname">
-d_dsp_size</td>
-<td class="fielddoc">
-<p>The number of signal inlets and outlets. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="a82fb2cd80ab9cc3122ab01181daf58b8"></a>t_int *</td>
-<td class="fieldname">
-d_dsp_vectors</td>
-<td class="fielddoc">
-<p>The vector that contains all the pointers for the perform method. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="aebe091ccb3e5e7e21f5bad408cba0cfd"></a>long</td>
-<td class="fieldname">
-d_dsp_flag</td>
-<td class="fielddoc">
-<p>The flags to initialize the perform method. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="accd1699e8fd7d5852e5e11508f63745d"></a>void *</td>
-<td class="fieldname">
-d_dsp_user_param</td>
-<td class="fielddoc">
-<p>The user parameters to pass through the perform method. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="aca439a65c43de7d465efd4e8d69537ec"></a>t_float **</td>
-<td class="fieldname">
-d_sigs_out</td>
-<td class="fielddoc">
-<p>The array of signal vectors. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="a26c47eef6f92b2d4cabb3b348f007f10"></a>t_float *</td>
-<td class="fieldname">
-d_sigs_real</td>
-<td class="fielddoc">
-<p>The real array of signal. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="afa113dfdbe4bd1bed91a519320d02c48"></a><a class="el" href="a00027.html#gaa1afc460e49d0d202fc4ee6e4e84b3b2">t_typ_method</a></td>
-<td class="fieldname">
-d_perform_method</td>
-<td class="fielddoc">
-<p>The user perform method. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="a96890cff3e90d4a6b6b7d18f451bdf3b"></a>long</td>
-<td class="fieldname">
-d_misc</td>
-<td class="fielddoc">
-<p>The flag that could be inplace or not. </p>
+<p>The dsp structure. </p>
 </td></tr>
 </table>
 
@@ -308,7 +256,7 @@ d_misc</td>
       </table>
 </div><div class="memdoc">
 <div class="textblock"><p>The GUI DSP object. </p>
-<p>It contains the <a class="el" href="a00008.html#a00042" title="The object. ">t_eobj</a> with all the members for graphical behavior and signal processing. This should be used for graphical object that have signal processing methods. </p>
+<p>It contains the <a class="el" href="a00008.html#a00042" title="The default object. ">t_eobj</a> with all the members for graphical behavior and signal processing. This should be used for graphical object that have signal processing methods. </p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
@@ -480,67 +428,11 @@ b_number_of_layers</td>
 <p>The ebox number of layers. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ae7f6f3daee62fe3a5ddd8568c1401fec"></a>float</td>
+<a class="anchor" id="a3b874236c74100e0a0fa4b0c2e36202f"></a><a class="el" href="a00006.html#a00036">t_edsp</a></td>
 <td class="fieldname">
-d_float</td>
+d_dsp</td>
 <td class="fielddoc">
-<p>The float member to initialize the signal method. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="aec0e53f1287528eb2bda384ea68e1139"></a>long</td>
-<td class="fieldname">
-d_dsp_size</td>
-<td class="fielddoc">
-<p>The number of signal inlets and outlets. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="ac2531051dc8e148b43edd9a34343d23f"></a>t_int *</td>
-<td class="fieldname">
-d_dsp_vectors</td>
-<td class="fielddoc">
-<p>The vector that contains all the pointers for the perform method. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="a2c40bf1b294b3915801e4d2accfa34b9"></a>long</td>
-<td class="fieldname">
-d_dsp_flag</td>
-<td class="fielddoc">
-<p>The flags to initialize the perform method. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="ac9e0be218a090dd4f740b80a33467579"></a>void *</td>
-<td class="fieldname">
-d_dsp_user_param</td>
-<td class="fielddoc">
-<p>The user parameters to pass through the perform method. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="a9304c3ae50bafe5599454ec0d245fbab"></a>t_float **</td>
-<td class="fieldname">
-d_sigs_out</td>
-<td class="fielddoc">
-<p>The array of signal vectors. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="a000975e18fb3f7ca95d5664fc185641b"></a>t_float *</td>
-<td class="fieldname">
-d_sigs_real</td>
-<td class="fielddoc">
-<p>The real array of signal. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="a7ba44693b29a2e7e4a4315e2a2c2f2ed"></a><a class="el" href="a00027.html#gaa1afc460e49d0d202fc4ee6e4e84b3b2">t_typ_method</a></td>
-<td class="fieldname">
-d_perform_method</td>
-<td class="fielddoc">
-<p>The user perform method. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="ae20c4a113631339681204ec90f936bf7"></a>long</td>
-<td class="fieldname">
-d_misc</td>
-<td class="fielddoc">
-<p>The flag that could be inplace or not. </p>
+<p>The dsp structure. </p>
 </td></tr>
 </table>
 
@@ -601,7 +493,7 @@ d_misc</td>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes the dsp members of the <a class="el" href="a00006.html#a00038" title="The DSP object. ">t_edspobj</a>. </p>
+<p>Initializes the dsp members of the <a class="el" href="a00006.html#a00036" title="The DSP structure. ">t_edsp</a>. </p>
 <p>Allocate the memory for digital dignal processing of a <a class="el" href="a00006.html#a00038" title="The DSP object. ">t_edspobj</a>. <br />
  This funtion should replace inlet_new and outlet_new for the signal. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -611,6 +503,42 @@ d_misc</td>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="gad5797d29700a9227f3fb9f2435b59914"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eobj_dspflags </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">long&#160;</td>
+          <td class="paramname"><em>flags</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the flags of the <a class="el" href="a00006.html#a00036" title="The DSP structure. ">t_edsp</a>. </p>
+<p>Sets the dsp inplace (default) or not inplace. You should use this function before the call of the dsp method (in the new method for example). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The edspobj pointer </td></tr>
+    <tr><td class="paramname">flags</td><td>The dsp flags. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a00006.html#ga36eab88f02912d80f5e9feace6ea3e88" title="The flags that discribe the behavior of a t_edspobj. ">edsp_flags</a> </dd></dl>
 
 </div>
 </div>
@@ -752,7 +680,7 @@ d_misc</td>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 16 2015 09:32:23 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2015 10:45:17 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

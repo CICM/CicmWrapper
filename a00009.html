@@ -23,6 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">CicmWrapper
+   &#160;<span id="projectnumber">Beta 0.4</span>
    </div>
    <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
@@ -101,8 +102,8 @@ Functions</h2></td></tr>
 <tr class="memitem:gac042bdeac14c5874e8a068e0c5ee0309"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#gac042bdeac14c5874e8a068e0c5ee0309">epopupmenu_setfont</a> (<a class="el" href="a00009.html#a00043">t_epopup</a> *popup, <a class="el" href="a00007.html#a00039">t_efont</a> *font)</td></tr>
 <tr class="memdesc:gac042bdeac14c5874e8a068e0c5ee0309"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the font of a <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a>.  <a href="#gac042bdeac14c5874e8a068e0c5ee0309">More...</a><br /></td></tr>
 <tr class="separator:gac042bdeac14c5874e8a068e0c5ee0309"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga005fc6f37cbe3b995263c4e252cce0cf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga005fc6f37cbe3b995263c4e252cce0cf"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>epopupmenu_additem</b> (<a class="el" href="a00009.html#a00043">t_epopup</a> *popup, int itemid, const char *text, char checked, char disabled)</td></tr>
+<tr class="memitem:ga005fc6f37cbe3b995263c4e252cce0cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#ga005fc6f37cbe3b995263c4e252cce0cf">epopupmenu_additem</a> (<a class="el" href="a00009.html#a00043">t_epopup</a> *popup, int itemid, const char *text, char checked, char disabled)</td></tr>
+<tr class="memdesc:ga005fc6f37cbe3b995263c4e252cce0cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new item in the popup list.  <a href="#ga005fc6f37cbe3b995263c4e252cce0cf">More...</a><br /></td></tr>
 <tr class="separator:ga005fc6f37cbe3b995263c4e252cce0cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7388644b643d03d55457f3e76cb5c533"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#ga7388644b643d03d55457f3e76cb5c533">epopupmenu_addseperator</a> (<a class="el" href="a00009.html#a00043">t_epopup</a> *popup)</td></tr>
 <tr class="memdesc:ga7388644b643d03d55457f3e76cb5c533"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new seprator in the popup list.  <a href="#ga7388644b643d03d55457f3e76cb5c533">More...</a><br /></td></tr>
@@ -172,15 +173,15 @@ c_send</td>
 </div><div class="memdoc">
 
 <p>The <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a> creation function. </p>
-<p>Allocates the memory for a <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a>, intialize the defaults values and link it to the <a class="el" href="a00008.html#a00042" title="The object. ">t_eobj</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Allocates the memory for a <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a>, intialize the defaults values and link it to the <a class="el" href="a00008.html#a00042" title="The default object. ">t_eobj</a>. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>The <a class="el" href="a00008.html#a00042" title="The object. ">t_eobj</a> pointer. </td></tr>
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00008.html#a00042" title="The default object. ">t_eobj</a> pointer. </td></tr>
     <tr><td class="paramname">name</td><td>The name of the <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a>. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>This function returns a pointer to a new <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a>. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="a00028.html#_todo000003">Todo:</a></b></dt><dd>Perhaps It would be good to free the menu later... </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="a00028.html#_todo000002">Todo:</a></b></dt><dd>Perhaps It would be good to free the menu later... </dd></dl>
 
 </div>
 </div>
@@ -213,6 +214,62 @@ c_send</td>
   <table class="params">
     <tr><td class="paramname">popup</td><td>The <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a> pointer. </td></tr>
     <tr><td class="paramname">font</td><td>The <a class="el" href="a00007.html#a00039" title="The font structure. ">t_efont</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ga005fc6f37cbe3b995263c4e252cce0cf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void epopupmenu_additem </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00009.html#a00043">t_epopup</a> *&#160;</td>
+          <td class="paramname"><em>popup</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>itemid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>checked</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>disabled</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds a new item in the popup list. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">popup</td><td>The <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a> pointer. </td></tr>
+    <tr><td class="paramname">itemid</td><td>The id of the item. </td></tr>
+    <tr><td class="paramname">text</td><td>The text of the item. </td></tr>
+    <tr><td class="paramname">checked</td><td>If the item is marked as checked or not. </td></tr>
+    <tr><td class="paramname">disabled</td><td>If the item is marked as disabled or not. </td></tr>
   </table>
   </dd>
 </dl>
@@ -281,7 +338,7 @@ c_send</td>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 16 2015 09:32:23 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2015 10:45:17 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

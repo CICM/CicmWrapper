@@ -23,6 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">CicmWrapper
+   &#160;<span id="projectnumber">Beta 0.4</span>
    </div>
    <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
@@ -76,7 +77,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_3c5a06049573aa0fd43ee94c3b70e0dd.html">CreamLibrary</a></li><li class="navelem"><a class="el" href="dir_93f317233a77416eda207bc1b62b244d.html">ThirdParty</a></li><li class="navelem"><a class="el" href="dir_8d99883be2838370319d597ab95b5bd5.html">PureData</a></li><li class="navelem"><a class="el" href="dir_26fbc93f06bf01ceac37d8add4b61c43.html">Sources</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_e073cda6a9b6c3e5de472f73516131d4.html">CreamLibrary</a></li><li class="navelem"><a class="el" href="dir_ed47ebc4b950fb1ce7950b7ae5a3bcc8.html">ThirdParty</a></li><li class="navelem"><a class="el" href="dir_8ee6625c082f984faef03e9b85320ea3.html">CicmWrapper</a></li><li class="navelem"><a class="el" href="dir_be0f2d5b496154d2de955bae19a75e6e.html">Sources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -123,11 +124,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keywordtype">void</span> egraphics_set_line_splinestep(<a class="code" href="a00007.html#a00041">t_elayer</a> *g, <span class="keywordtype">float</span> smooth);</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keywordtype">void</span> egraphics_set_line_width(<a class="code" href="a00007.html#a00041">t_elayer</a> *g, <span class="keywordtype">float</span> width);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keywordtype">void</span> egraphics_set_color_rgba(<a class="code" href="a00007.html#a00041">t_elayer</a> *g, <a class="code" href="a00007.html#a00053">t_rgba</a> *rgba);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keywordtype">void</span> egraphics_set_color_rgb(<a class="code" href="a00007.html#a00041">t_elayer</a> *g, <a class="code" href="a00007.html#a00052">t_rgb</a> *rgb);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keywordtype">void</span> egraphics_set_color_rgba(<a class="code" href="a00007.html#a00041">t_elayer</a> *g, <span class="keyword">const</span> <a class="code" href="a00007.html#a00053">t_rgba</a> *rgba);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keywordtype">void</span> egraphics_set_color_rgb(<a class="code" href="a00007.html#a00041">t_elayer</a> *g, <span class="keyword">const</span> <a class="code" href="a00007.html#a00052">t_rgb</a> *rgb);</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keywordtype">void</span> egraphics_set_color_hex(<a class="code" href="a00007.html#a00041">t_elayer</a> *g, t_symbol *hex);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keywordtype">void</span> egraphics_set_color_hsla(<a class="code" href="a00007.html#a00041">t_elayer</a> *g, <a class="code" href="a00007.html#a00048">t_hsla</a> *hsla);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keywordtype">void</span> egraphics_set_color_hsl(<a class="code" href="a00007.html#a00041">t_elayer</a> *g, <a class="code" href="a00007.html#a00047">t_hsl</a> *hsl);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keywordtype">void</span> egraphics_set_color_hsla(<a class="code" href="a00007.html#a00041">t_elayer</a> *g, <span class="keyword">const</span> <a class="code" href="a00007.html#a00048">t_hsla</a> *hsla);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keywordtype">void</span> egraphics_set_color_hsl(<a class="code" href="a00007.html#a00041">t_elayer</a> *g, <span class="keyword">const</span> <a class="code" href="a00007.html#a00047">t_hsl</a> *hsl);</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keywordtype">void</span> egraphics_rotate(<a class="code" href="a00007.html#a00041">t_elayer</a> *g, <span class="keywordtype">float</span> angle);</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keywordtype">void</span> egraphics_matrix_init(<a class="code" href="a00007.html#a00049">t_matrix</a> *x, <span class="keywordtype">float</span> xx, <span class="keywordtype">float</span> yx, <span class="keywordtype">float</span> xy, <span class="keywordtype">float</span> yy, <span class="keywordtype">float</span> x0, <span class="keywordtype">float</span> y0);</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keywordtype">void</span> egraphics_set_matrix(<a class="code" href="a00007.html#a00041">t_elayer</a> *g, <span class="keyword">const</span> <a class="code" href="a00007.html#a00049">t_matrix</a> *matrix);</div>
@@ -186,48 +187,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keywordtype">float</span> pd_radius(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y);</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keywordtype">float</span> pd_angle(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y);</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">// Ohlala...</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">#ifdef _WIN32</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keyword">static</span> <a class="code" href="a00007.html#a00053">t_rgba</a> rgba_black         = {0.f, 0.f, 0.f, 1.f};</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="keyword">static</span> <a class="code" href="a00007.html#a00053">t_rgba</a> rgba_greydark      = {0.3f, 0.3, 0.3f, 1.f};</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="keyword">static</span> <a class="code" href="a00007.html#a00053">t_rgba</a> rgba_grey          = {0.5f, 0.5, 0.5f, 1.f};</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="keyword">static</span> <a class="code" href="a00007.html#a00053">t_rgba</a> rgba_greylight     = {0.8f, 0.8, 0.8f, 1.f};</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keyword">static</span> <a class="code" href="a00007.html#a00053">t_rgba</a> rgba_white         = {1.f, 1.f, 1.f, 1.f};</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="keyword">static</span> <a class="code" href="a00007.html#a00053">t_rgba</a> rgba_blue          = {0.f, 0.f, 1.f, 1.f};</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="keyword">static</span> <a class="code" href="a00007.html#a00053">t_rgba</a> rgba_green         = {0.f, 1.f, 0.f, 1.f};</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="keyword">static</span> <a class="code" href="a00007.html#a00053">t_rgba</a> rgba_red           = {1.f, 0.f, 0.f, 1.f};</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;__attribute__((used)) static <a class="code" href="a00007.html#a00053">t_rgba</a> rgba_black         = {0.f, 0.f, 0.f, 1.f};</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;__attribute__((used)) static <a class="code" href="a00007.html#a00053">t_rgba</a> rgba_greydark      = {0.3f, 0.3f, 0.3f, 1.f};</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;__attribute__((used)) static <a class="code" href="a00007.html#a00053">t_rgba</a> rgba_grey          = {0.5f, 0.5f, 0.5f, 1.f};</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;__attribute__((used)) static <a class="code" href="a00007.html#a00053">t_rgba</a> rgba_greylight     = {0.8f, 0.8f, 0.8f, 1.f};</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;__attribute__((used)) static <a class="code" href="a00007.html#a00053">t_rgba</a> rgba_white         = {1.f, 1.f, 1.f, 1.f};</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;__attribute__((used)) static <a class="code" href="a00007.html#a00053">t_rgba</a> rgba_blue          = {0.f, 0.f, 1.f, 1.f};</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;__attribute__((used)) static <a class="code" href="a00007.html#a00053">t_rgba</a> rgba_green         = {0.f, 1.f, 0.f, 1.f};</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;__attribute__((used)) static <a class="code" href="a00007.html#a00053">t_rgba</a> rgba_red           = {1.f, 0.f, 0.f, 1.f};</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="a00007_html_ga92b7a5c21c86034a3edf8ccae79ac320"><div class="ttname"><a href="a00007.html#ga92b7a5c21c86034a3edf8ccae79ac320">etextanchor_flags</a></div><div class="ttdeci">etextanchor_flags</div><div class="ttdoc">The flags that defines the text anchor. </div><div class="ttdef"><b>Definition:</b> edefine.h:166</div></div>
-<div class="ttc" id="a00007_html_ga0d8ca2afd90a87fe325333c3af75e55f"><div class="ttname"><a href="a00007.html#ga0d8ca2afd90a87fe325333c3af75e55f">etextjustify_flags</a></div><div class="ttdeci">etextjustify_flags</div><div class="ttdoc">The flags that define the text justification. </div><div class="ttdef"><b>Definition:</b> edefine.h:196</div></div>
-<div class="ttc" id="a00007_html_a00040"><div class="ttname"><a href="a00007.html#a00040">t_egobj</a></div><div class="ttdoc">The drawing object. </div><div class="ttdef"><b>Definition:</b> edefine.h:353</div></div>
-<div class="ttc" id="a00007_html_a00041"><div class="ttname"><a href="a00007.html#a00041">t_elayer</a></div><div class="ttdoc">The drawing layer. </div><div class="ttdef"><b>Definition:</b> edefine.h:375</div></div>
-<div class="ttc" id="a00007_html_a00045"><div class="ttname"><a href="a00007.html#a00045">t_etext</a></div><div class="ttdoc">The text structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:338</div></div>
-<div class="ttc" id="a00007_html_a00047"><div class="ttname"><a href="a00007.html#a00047">t_hsl</a></div><div class="ttdoc">A hsl color structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:299</div></div>
-<div class="ttc" id="a00007_html_a00048"><div class="ttname"><a href="a00007.html#a00048">t_hsla</a></div><div class="ttdoc">A hsla color structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:311</div></div>
-<div class="ttc" id="a00007_html_a00049"><div class="ttname"><a href="a00007.html#a00049">t_matrix</a></div><div class="ttdoc">A matrix structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:259</div></div>
-<div class="ttc" id="a00007_html_a00039"><div class="ttname"><a href="a00007.html#a00039">t_efont</a></div><div class="ttdoc">The font structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:324</div></div>
-<div class="ttc" id="a00007_html_a00052"><div class="ttname"><a href="a00007.html#a00052">t_rgb</a></div><div class="ttdoc">A rgb color structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:274</div></div>
-<div class="ttc" id="a00007_html_a00053"><div class="ttname"><a href="a00007.html#a00053">t_rgba</a></div><div class="ttdoc">A rgba color structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:286</div></div>
-<div class="ttc" id="a00007_html_gac832caa86f333fef891b326289df6105"><div class="ttname"><a href="a00007.html#gac832caa86f333fef891b326289df6105">etextwrap_flags</a></div><div class="ttdeci">etextwrap_flags</div><div class="ttdoc">The flags that defines if the text should be wrapped. </div><div class="ttdef"><b>Definition:</b> edefine.h:185</div></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="a00007_html_ga92b7a5c21c86034a3edf8ccae79ac320"><div class="ttname"><a href="a00007.html#ga92b7a5c21c86034a3edf8ccae79ac320">etextanchor_flags</a></div><div class="ttdeci">etextanchor_flags</div><div class="ttdoc">The flags that defines the text anchor. </div><div class="ttdef"><b>Definition:</b> edefine.h:162</div></div>
+<div class="ttc" id="a00007_html_ga0d8ca2afd90a87fe325333c3af75e55f"><div class="ttname"><a href="a00007.html#ga0d8ca2afd90a87fe325333c3af75e55f">etextjustify_flags</a></div><div class="ttdeci">etextjustify_flags</div><div class="ttdoc">The flags that define the text justification. </div><div class="ttdef"><b>Definition:</b> edefine.h:192</div></div>
+<div class="ttc" id="a00007_html_a00040"><div class="ttname"><a href="a00007.html#a00040">t_egobj</a></div><div class="ttdoc">The drawing object. </div><div class="ttdef"><b>Definition:</b> edefine.h:366</div></div>
+<div class="ttc" id="a00007_html_a00041"><div class="ttname"><a href="a00007.html#a00041">t_elayer</a></div><div class="ttdoc">The drawing layer. </div><div class="ttdef"><b>Definition:</b> edefine.h:388</div></div>
+<div class="ttc" id="a00007_html_a00045"><div class="ttname"><a href="a00007.html#a00045">t_etext</a></div><div class="ttdoc">The text structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:351</div></div>
+<div class="ttc" id="a00007_html_a00047"><div class="ttname"><a href="a00007.html#a00047">t_hsl</a></div><div class="ttdoc">A hsl color structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:295</div></div>
+<div class="ttc" id="a00007_html_a00048"><div class="ttname"><a href="a00007.html#a00048">t_hsla</a></div><div class="ttdoc">A hsla color structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:307</div></div>
+<div class="ttc" id="a00007_html_a00049"><div class="ttname"><a href="a00007.html#a00049">t_matrix</a></div><div class="ttdoc">A matrix structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:255</div></div>
+<div class="ttc" id="a00007_html_a00039"><div class="ttname"><a href="a00007.html#a00039">t_efont</a></div><div class="ttdoc">The font structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:337</div></div>
+<div class="ttc" id="a00007_html_a00052"><div class="ttname"><a href="a00007.html#a00052">t_rgb</a></div><div class="ttdoc">A rgb color structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:270</div></div>
+<div class="ttc" id="a00007_html_a00053"><div class="ttname"><a href="a00007.html#a00053">t_rgba</a></div><div class="ttdoc">A rgba color structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:282</div></div>
+<div class="ttc" id="a00007_html_gac832caa86f333fef891b326289df6105"><div class="ttname"><a href="a00007.html#gac832caa86f333fef891b326289df6105">etextwrap_flags</a></div><div class="ttdeci">etextwrap_flags</div><div class="ttdoc">The flags that defines if the text should be wrapped. </div><div class="ttdef"><b>Definition:</b> edefine.h:181</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 16 2015 09:32:23 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2015 10:45:17 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

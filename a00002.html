@@ -23,6 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">CicmWrapper
+   &#160;<span id="projectnumber">Beta 0.4</span>
    </div>
    <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
@@ -152,19 +153,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">    clock_delay(x-&gt;<a class="code" href="a00003.html#addbcfc52ebf5b8e3fd17e14171b04b8e">b_clock</a>, 100);</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line"><span class="keyword">static</span> <a class="code" href="a00027.html#ga3715b880d30ad1c90c610a3121407d0a">t_pd_err</a> bang_notify(<a class="code" href="a00003.html">t_bang</a> *x, t_symbol *s, t_symbol *msg, <span class="keywordtype">void</span> *sender, <span class="keywordtype">void</span> *data)</div>
-<div class="line">{</div>
-<div class="line">    <span class="keywordflow">if</span>(msg == cream_sym_attr_modified)</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keywordflow">if</span>(s == cream_sym_bgcolor || s == cream_sym_bdcolor || s == cream_sym_bacolor)</div>
-<div class="line">        {</div>
-<div class="line">            <a class="code" href="a00005.html#ga4e3b81f831ab7cf2730daae51405c715">ebox_invalidate_layer</a>((<a class="code" href="a00005.html#a00033">t_ebox</a> *)x, cream_sym_background_layer);</div>
-<div class="line">        }</div>
-<div class="line">        <a class="code" href="a00005.html#ga3b61efe7c688334e267b0e66dcf22e00">ebox_redraw</a>((<a class="code" href="a00005.html#a00033">t_ebox</a> *)x);</div>
-<div class="line">    }</div>
-<div class="line">    <span class="keywordflow">return</span> 0;</div>
-<div class="line">}</div>
-<div class="line"></div>
 <div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> draw_background(<a class="code" href="a00003.html">t_bang</a> *x, t_object *view, <a class="code" href="a00007.html#a00051">t_rect</a> *rect)</div>
 <div class="line">{</div>
 <div class="line">    <span class="keywordtype">float</span> size;</div>
@@ -244,7 +232,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">        <a name="a36"></a><a class="code" href="a00004.html#gaab078a2a2901c1a39b23d36ec2387cd7">eclass_guiinit</a>(c, 0);</div>
 <div class="line">        </div>
 <div class="line">        <a name="a37"></a><a class="code" href="a00004.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) bang_paint,           <span class="stringliteral">&quot;paint&quot;</span>,            A_NULL, 0);</div>
-<div class="line">        <a class="code" href="a00004.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) bang_notify,          <span class="stringliteral">&quot;notify&quot;</span>,           A_NULL, 0);</div>
 <div class="line">        <a class="code" href="a00004.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) bang_getdrawparams,   <span class="stringliteral">&quot;getdrawparams&quot;</span>,    A_NULL, 0);</div>
 <div class="line">        <a class="code" href="a00004.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) bang_oksize,          <span class="stringliteral">&quot;oksize&quot;</span>,           A_NULL, 0);</div>
 <div class="line">        <a class="code" href="a00004.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) bang_output,          <span class="stringliteral">&quot;float&quot;</span>,            A_FLOAT,0);</div>
@@ -290,7 +277,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 16 2015 09:32:23 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2015 10:45:17 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

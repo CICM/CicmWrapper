@@ -23,6 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">CicmWrapper
+   &#160;<span id="projectnumber">Beta 0.4</span>
    </div>
    <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
@@ -76,7 +77,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_3c5a06049573aa0fd43ee94c3b70e0dd.html">CreamLibrary</a></li><li class="navelem"><a class="el" href="dir_93f317233a77416eda207bc1b62b244d.html">ThirdParty</a></li><li class="navelem"><a class="el" href="dir_8d99883be2838370319d597ab95b5bd5.html">PureData</a></li><li class="navelem"><a class="el" href="dir_26fbc93f06bf01ceac37d8add4b61c43.html">Sources</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_e073cda6a9b6c3e5de472f73516131d4.html">CreamLibrary</a></li><li class="navelem"><a class="el" href="dir_ed47ebc4b950fb1ce7950b7ae5a3bcc8.html">ThirdParty</a></li><li class="navelem"><a class="el" href="dir_8ee6625c082f984faef03e9b85320ea3.html">CicmWrapper</a></li><li class="navelem"><a class="el" href="dir_be0f2d5b496154d2de955bae19a75e6e.html">Sources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -119,7 +120,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a00009.html#gac042bdeac14c5874e8a068e0c5ee0309">epopupmenu_setfont</a>(<a class="code" href="a00009.html#a00043">t_epopup</a> *popup, <a class="code" href="a00007.html#a00039">t_efont</a> *font);</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keywordtype">void</span> epopupmenu_additem(<a class="code" href="a00009.html#a00043">t_epopup</a> *popup, <span class="keywordtype">int</span> itemid, <span class="keyword">const</span> <span class="keywordtype">char</span> *text, <span class="keywordtype">char</span> checked, <span class="keywordtype">char</span> disabled);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a00009.html#ga005fc6f37cbe3b995263c4e252cce0cf">epopupmenu_additem</a>(<a class="code" href="a00009.html#a00043">t_epopup</a> *popup, <span class="keywordtype">int</span> itemid, <span class="keyword">const</span> <span class="keywordtype">char</span> *text, <span class="keywordtype">char</span> checked, <span class="keywordtype">char</span> disabled);</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a00009.html#ga7388644b643d03d55457f3e76cb5c533">epopupmenu_addseperator</a>(<a class="code" href="a00009.html#a00043">t_epopup</a> *popup);</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
@@ -129,15 +130,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="a00009_html_gaee1de955319d280fff8a50d08b50e4bd"><div class="ttname"><a href="a00009.html#gaee1de955319d280fff8a50d08b50e4bd">epopupmenu_create</a></div><div class="ttdeci">t_epopup * epopupmenu_create(t_eobj *x, t_symbol *name)</div><div class="ttdoc">The t_epopup creation function. </div><div class="ttdef"><b>Definition:</b> epopup.c:29</div></div>
 <div class="ttc" id="a00009_html_gac042bdeac14c5874e8a068e0c5ee0309"><div class="ttname"><a href="a00009.html#gac042bdeac14c5874e8a068e0c5ee0309">epopupmenu_setfont</a></div><div class="ttdeci">void epopupmenu_setfont(t_epopup *popup, t_efont *font)</div><div class="ttdoc">Sets the font of a t_epopup. </div><div class="ttdef"><b>Definition:</b> epopup.c:43</div></div>
 <div class="ttc" id="a00009_html_ga14bc550aae8eee4e5b76a94de8197498"><div class="ttname"><a href="a00009.html#ga14bc550aae8eee4e5b76a94de8197498">epopupmenu_popup</a></div><div class="ttdeci">void epopupmenu_popup(t_epopup *popup, t_pt pos)</div><div class="ttdoc">Shows the popup on the screen. </div><div class="ttdef"><b>Definition:</b> epopup.c:64</div></div>
-<div class="ttc" id="a00009_html_a00043"><div class="ttname"><a href="a00009.html#a00043">t_epopup</a></div><div class="ttdoc">The popup structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:405</div></div>
-<div class="ttc" id="a00007_html_a00039"><div class="ttname"><a href="a00007.html#a00039">t_efont</a></div><div class="ttdoc">The font structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:324</div></div>
-<div class="ttc" id="a00007_html_a00050"><div class="ttname"><a href="a00007.html#a00050">t_pt</a></div><div class="ttdoc">A point structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:235</div></div>
-<div class="ttc" id="a00008_html_a00042"><div class="ttname"><a href="a00008.html#a00042">t_eobj</a></div><div class="ttdoc">The object. </div><div class="ttdef"><b>Definition:</b> edefine.h:537</div></div>
+<div class="ttc" id="a00009_html_ga005fc6f37cbe3b995263c4e252cce0cf"><div class="ttname"><a href="a00009.html#ga005fc6f37cbe3b995263c4e252cce0cf">epopupmenu_additem</a></div><div class="ttdeci">void epopupmenu_additem(t_epopup *popup, int itemid, const char *text, char checked, char disabled)</div><div class="ttdoc">Adds a new item in the popup list. </div><div class="ttdef"><b>Definition:</b> epopup.c:48</div></div>
+<div class="ttc" id="a00009_html_a00043"><div class="ttname"><a href="a00009.html#a00043">t_epopup</a></div><div class="ttdoc">The popup structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:418</div></div>
+<div class="ttc" id="a00007_html_a00039"><div class="ttname"><a href="a00007.html#a00039">t_efont</a></div><div class="ttdoc">The font structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:337</div></div>
+<div class="ttc" id="a00007_html_a00050"><div class="ttname"><a href="a00007.html#a00050">t_pt</a></div><div class="ttdoc">A point structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:231</div></div>
+<div class="ttc" id="a00008_html_a00042"><div class="ttname"><a href="a00008.html#a00042">t_eobj</a></div><div class="ttdoc">The default object. </div><div class="ttdef"><b>Definition:</b> edefine.h:550</div></div>
 <div class="ttc" id="a00009_html_ga7388644b643d03d55457f3e76cb5c533"><div class="ttname"><a href="a00009.html#ga7388644b643d03d55457f3e76cb5c533">epopupmenu_addseperator</a></div><div class="ttdeci">void epopupmenu_addseperator(t_epopup *popup)</div><div class="ttdoc">Adds a new seprator in the popup list. </div><div class="ttdef"><b>Definition:</b> epopup.c:59</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 16 2015 09:32:23 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2015 10:45:17 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

@@ -23,6 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">CicmWrapper
+   &#160;<span id="projectnumber">Beta 0.4</span>
    </div>
    <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
@@ -268,7 +269,7 @@ d_boxfillcolor</td>
       </table>
 </div><div class="memdoc">
 <div class="textblock"><p>The GUI object. </p>
-<p>It contains the <a class="el" href="a00008.html#a00042" title="The object. ">t_eobj</a> with all the members for graphical behavior. This should be used for graphical object that don't have signal processing methods. </p>
+<p>It contains the <a class="el" href="a00008.html#a00042" title="The default object. ">t_eobj</a> with all the members for graphical behavior. This should be used for graphical object that don't have signal processing methods. </p>
 <dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#_a1">c.bang.cpp</a>.</dd>
 </dl></div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
@@ -453,7 +454,7 @@ b_number_of_layers</td>
       </table>
 </div><div class="memdoc">
 <div class="textblock"><p>The GUI DSP object. </p>
-<p>It contains the <a class="el" href="a00008.html#a00042" title="The object. ">t_eobj</a> with all the members for graphical behavior and signal processing. This should be used for graphical object that have signal processing methods. </p>
+<p>It contains the <a class="el" href="a00008.html#a00042" title="The default object. ">t_eobj</a> with all the members for graphical behavior and signal processing. This should be used for graphical object that have signal processing methods. </p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
@@ -625,67 +626,11 @@ b_number_of_layers</td>
 <p>The ebox number of layers. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ae7f6f3daee62fe3a5ddd8568c1401fec"></a>float</td>
+<a class="anchor" id="a3b874236c74100e0a0fa4b0c2e36202f"></a><a class="el" href="a00006.html#a00036">t_edsp</a></td>
 <td class="fieldname">
-d_float</td>
+d_dsp</td>
 <td class="fielddoc">
-<p>The float member to initialize the signal method. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="aec0e53f1287528eb2bda384ea68e1139"></a>long</td>
-<td class="fieldname">
-d_dsp_size</td>
-<td class="fielddoc">
-<p>The number of signal inlets and outlets. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="ac2531051dc8e148b43edd9a34343d23f"></a>t_int *</td>
-<td class="fieldname">
-d_dsp_vectors</td>
-<td class="fielddoc">
-<p>The vector that contains all the pointers for the perform method. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="a2c40bf1b294b3915801e4d2accfa34b9"></a>long</td>
-<td class="fieldname">
-d_dsp_flag</td>
-<td class="fielddoc">
-<p>The flags to initialize the perform method. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="ac9e0be218a090dd4f740b80a33467579"></a>void *</td>
-<td class="fieldname">
-d_dsp_user_param</td>
-<td class="fielddoc">
-<p>The user parameters to pass through the perform method. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="a9304c3ae50bafe5599454ec0d245fbab"></a>t_float **</td>
-<td class="fieldname">
-d_sigs_out</td>
-<td class="fielddoc">
-<p>The array of signal vectors. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="a000975e18fb3f7ca95d5664fc185641b"></a>t_float *</td>
-<td class="fieldname">
-d_sigs_real</td>
-<td class="fielddoc">
-<p>The real array of signal. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="a7ba44693b29a2e7e4a4315e2a2c2f2ed"></a><a class="el" href="a00027.html#gaa1afc460e49d0d202fc4ee6e4e84b3b2">t_typ_method</a></td>
-<td class="fieldname">
-d_perform_method</td>
-<td class="fielddoc">
-<p>The user perform method. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="ae20c4a113631339681204ec90f936bf7"></a>long</td>
-<td class="fieldname">
-d_misc</td>
-<td class="fielddoc">
-<p>The flag that could be inplace or not. </p>
+<p>The dsp structure. </p>
 </td></tr>
 </table>
 
@@ -879,6 +824,7 @@ d_misc</td>
   </dd>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="a00005.html#ga34bc62f56dc70d407271ecc4990a5aa5" title="The flags that discribe the behavior of a t_ebox. ">ebox_flags</a> </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="a00028.html#_todo000001">Todo:</a></b></dt><dd>Not here but for doc (in ebox_wvis vis is called sevral times with vis = 1 perhaps we can avoid to recreate the stuff at each time) </dd></dl>
 
 </div>
 </div>
@@ -1429,7 +1375,7 @@ d_misc</td>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 16 2015 09:32:23 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2015 10:45:17 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

@@ -23,6 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">CicmWrapper
+   &#160;<span id="projectnumber">Beta 0.4</span>
    </div>
    <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
@@ -80,7 +81,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">The Graphics Part</div>  </div>
 </div><!--header-->
@@ -222,21 +224,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_set_line_sp
 <tr class="memitem:ga06ccd4b8ef74f4ef96efbeaaf15b4063"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga06ccd4b8ef74f4ef96efbeaaf15b4063"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_set_line_width</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, float width)</td></tr>
 <tr class="separator:ga06ccd4b8ef74f4ef96efbeaaf15b4063"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga805ef3d2805a6b7c9f7e3ee40fd75d35"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga805ef3d2805a6b7c9f7e3ee40fd75d35"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_set_color_rgba</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, <a class="el" href="a00007.html#a00053">t_rgba</a> *rgba)</td></tr>
-<tr class="separator:ga805ef3d2805a6b7c9f7e3ee40fd75d35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5f4191bc0ee9d896f3ce24e10c908b41"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga5f4191bc0ee9d896f3ce24e10c908b41"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_set_color_rgb</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, <a class="el" href="a00007.html#a00052">t_rgb</a> *rgb)</td></tr>
-<tr class="separator:ga5f4191bc0ee9d896f3ce24e10c908b41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8bb580a62dd75dabcdb3cb080c392f91"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga8bb580a62dd75dabcdb3cb080c392f91"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_set_color_rgba</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, const <a class="el" href="a00007.html#a00053">t_rgba</a> *rgba)</td></tr>
+<tr class="separator:ga8bb580a62dd75dabcdb3cb080c392f91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2410067a9af2924e59c00477cbe175ae"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga2410067a9af2924e59c00477cbe175ae"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_set_color_rgb</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, const <a class="el" href="a00007.html#a00052">t_rgb</a> *rgb)</td></tr>
+<tr class="separator:ga2410067a9af2924e59c00477cbe175ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1ec6a77244689cf59f7b009da9930459"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga1ec6a77244689cf59f7b009da9930459"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_set_color_hex</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, t_symbol *hex)</td></tr>
 <tr class="separator:ga1ec6a77244689cf59f7b009da9930459"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad252fdcd1288ea88558bb77555f83e1c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gad252fdcd1288ea88558bb77555f83e1c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_set_color_hsla</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, <a class="el" href="a00007.html#a00048">t_hsla</a> *hsla)</td></tr>
-<tr class="separator:gad252fdcd1288ea88558bb77555f83e1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac021a4f2f21f0e0319f3cd110885576f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gac021a4f2f21f0e0319f3cd110885576f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_set_color_hsl</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, <a class="el" href="a00007.html#a00047">t_hsl</a> *hsl)</td></tr>
-<tr class="separator:gac021a4f2f21f0e0319f3cd110885576f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafacbce1451e7cac099671fceeada133a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gafacbce1451e7cac099671fceeada133a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_set_color_hsla</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, const <a class="el" href="a00007.html#a00048">t_hsla</a> *hsla)</td></tr>
+<tr class="separator:gafacbce1451e7cac099671fceeada133a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga78332aefc409e17a7d508c212e013883"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga78332aefc409e17a7d508c212e013883"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_set_color_hsl</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, const <a class="el" href="a00007.html#a00047">t_hsl</a> *hsl)</td></tr>
+<tr class="separator:ga78332aefc409e17a7d508c212e013883"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0866c721f94dbc9b99a0cbbea7d92745"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga0866c721f94dbc9b99a0cbbea7d92745"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>egraphics_rotate</b> (<a class="el" href="a00007.html#a00041">t_elayer</a> *g, float angle)</td></tr>
 <tr class="separator:ga0866c721f94dbc9b99a0cbbea7d92745"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -381,9 +383,41 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>pd_radius</b> (float
 <tr class="memitem:ga5c938dc21b4a6078f331e40e3a2393b0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga5c938dc21b4a6078f331e40e3a2393b0"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>pd_angle</b> (float x, float y)</td></tr>
 <tr class="separator:ga5c938dc21b4a6078f331e40e3a2393b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadf844a99b7def8ea5709baa97d950c69"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gadf844a99b7def8ea5709baa97d950c69"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>__attribute__</b> ((used)) static <a class="el" href="a00007.html#a00053">t_rgba</a> rgba_black = {0.3f, 0.3f, 0.3f, 1.f}</td></tr>
-<tr class="separator:gadf844a99b7def8ea5709baa97d950c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:gabcabfa384416f3e0128911534141bad8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gabcabfa384416f3e0128911534141bad8"></a>
+const <a class="el" href="a00007.html#a00053">t_rgba</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#gabcabfa384416f3e0128911534141bad8">rgba_black</a></td></tr>
+<tr class="memdesc:gabcabfa384416f3e0128911534141bad8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The pre-defined black <a class="el" href="a00007.html#a00053" title="A rgba color structure. ">t_rgba</a>. <br /></td></tr>
+<tr class="separator:gabcabfa384416f3e0128911534141bad8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5434152ae1784098f9dd292e49092951"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga5434152ae1784098f9dd292e49092951"></a>
+const <a class="el" href="a00007.html#a00053">t_rgba</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#ga5434152ae1784098f9dd292e49092951">rgba_greydark</a></td></tr>
+<tr class="memdesc:ga5434152ae1784098f9dd292e49092951"><td class="mdescLeft">&#160;</td><td class="mdescRight">The pre-defined grey dark <a class="el" href="a00007.html#a00053" title="A rgba color structure. ">t_rgba</a>. <br /></td></tr>
+<tr class="separator:ga5434152ae1784098f9dd292e49092951"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadb198c128d49a9e103da294881809bd9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gadb198c128d49a9e103da294881809bd9"></a>
+const <a class="el" href="a00007.html#a00053">t_rgba</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#gadb198c128d49a9e103da294881809bd9">rgba_grey</a></td></tr>
+<tr class="memdesc:gadb198c128d49a9e103da294881809bd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">The pre-defined grey <a class="el" href="a00007.html#a00053" title="A rgba color structure. ">t_rgba</a>. <br /></td></tr>
+<tr class="separator:gadb198c128d49a9e103da294881809bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga076879cd3fd99aacb2a3405b0828964d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga076879cd3fd99aacb2a3405b0828964d"></a>
+const <a class="el" href="a00007.html#a00053">t_rgba</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#ga076879cd3fd99aacb2a3405b0828964d">rgba_greylight</a></td></tr>
+<tr class="memdesc:ga076879cd3fd99aacb2a3405b0828964d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The pre-defined grey light <a class="el" href="a00007.html#a00053" title="A rgba color structure. ">t_rgba</a>. <br /></td></tr>
+<tr class="separator:ga076879cd3fd99aacb2a3405b0828964d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3f62962094832b60f0d78aaf579ea888"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga3f62962094832b60f0d78aaf579ea888"></a>
+const <a class="el" href="a00007.html#a00053">t_rgba</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#ga3f62962094832b60f0d78aaf579ea888">rgba_white</a></td></tr>
+<tr class="memdesc:ga3f62962094832b60f0d78aaf579ea888"><td class="mdescLeft">&#160;</td><td class="mdescRight">The pre-defined white <a class="el" href="a00007.html#a00053" title="A rgba color structure. ">t_rgba</a>. <br /></td></tr>
+<tr class="separator:ga3f62962094832b60f0d78aaf579ea888"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafb0d1fc8a8cd8bfe7a2471c2c4a260e7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gafb0d1fc8a8cd8bfe7a2471c2c4a260e7"></a>
+const <a class="el" href="a00007.html#a00053">t_rgba</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#gafb0d1fc8a8cd8bfe7a2471c2c4a260e7">rgba_blue</a></td></tr>
+<tr class="memdesc:gafb0d1fc8a8cd8bfe7a2471c2c4a260e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The pre-defined blue <a class="el" href="a00007.html#a00053" title="A rgba color structure. ">t_rgba</a>. <br /></td></tr>
+<tr class="separator:gafb0d1fc8a8cd8bfe7a2471c2c4a260e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab8118d8d2e07bb2f2bec3e71dd361576"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gab8118d8d2e07bb2f2bec3e71dd361576"></a>
+const <a class="el" href="a00007.html#a00053">t_rgba</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#gab8118d8d2e07bb2f2bec3e71dd361576">rgba_green</a></td></tr>
+<tr class="memdesc:gab8118d8d2e07bb2f2bec3e71dd361576"><td class="mdescLeft">&#160;</td><td class="mdescRight">The pre-defined green <a class="el" href="a00007.html#a00053" title="A rgba color structure. ">t_rgba</a>. <br /></td></tr>
+<tr class="separator:gab8118d8d2e07bb2f2bec3e71dd361576"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6ba17fae4a49b215a46e56cf2ff4b644"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga6ba17fae4a49b215a46e56cf2ff4b644"></a>
+const <a class="el" href="a00007.html#a00053">t_rgba</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00007.html#ga6ba17fae4a49b215a46e56cf2ff4b644">rgba_red</a></td></tr>
+<tr class="memdesc:ga6ba17fae4a49b215a46e56cf2ff4b644"><td class="mdescLeft">&#160;</td><td class="mdescRight">The pre-defined red <a class="el" href="a00007.html#a00053" title="A rgba color structure. ">t_rgba</a>. <br /></td></tr>
+<tr class="separator:ga6ba17fae4a49b215a46e56cf2ff4b644"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>The <a class="el" href="a00007.html#a00041" title="The drawing layer. ">t_elayer</a> part. </p>
@@ -1180,7 +1214,7 @@ e_number_objects</td>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 16 2015 09:32:23 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2015 10:45:17 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

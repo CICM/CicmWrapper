@@ -23,6 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">CicmWrapper
+   &#160;<span id="projectnumber">Beta 0.4</span>
    </div>
    <div id="projectbrief">A wrapper for Pure Data</div>
   </td>
@@ -163,8 +164,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ga7741985e8a94606f7ab52b8bc82b7868"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00027.html#ga3715b880d30ad1c90c610a3121407d0a">t_pd_err</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00027.html#ga7741985e8a94606f7ab52b8bc82b7868">binbuf_append_attribute</a> (t_binbuf *d, t_symbol *key, int argc, t_atom *argv)</td></tr>
 <tr class="memdesc:ga7741985e8a94606f7ab52b8bc82b7868"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the key and the values of an attribute to a t_binbuf.  <a href="#ga7741985e8a94606f7ab52b8bc82b7868">More...</a><br /></td></tr>
 <tr class="separator:ga7741985e8a94606f7ab52b8bc82b7868"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga210870c8c245a2722783422520c063b3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga210870c8c245a2722783422520c063b3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>epd_add_folder</b> (const char *name, const char *folder)</td></tr>
+<tr class="memitem:ga210870c8c245a2722783422520c063b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00027.html#ga210870c8c245a2722783422520c063b3">epd_add_folder</a> (const char *name, const char *folder)</td></tr>
+<tr class="memdesc:ga210870c8c245a2722783422520c063b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a subfolder to library folder.  <a href="#ga210870c8c245a2722783422520c063b3">More...</a><br /></td></tr>
 <tr class="separator:ga210870c8c245a2722783422520c063b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
@@ -548,7 +549,6 @@ t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>0 if the attribute values has been returned. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="a00028.html#_todo000002">Todo:</a></b></dt><dd>Possible leak fo memory at realloc </dd></dl>
 
 </div>
 </div>
@@ -953,10 +953,45 @@ t_symbol *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 
 </div>
 </div>
+<a class="anchor" id="ga210870c8c245a2722783422520c063b3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void epd_add_folder </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>folder</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds a subfolder to library folder. </p>
+<p>The function looks for the folder of a library and adds the subfolder in the search path. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name of the library. </td></tr>
+    <tr><td class="paramname">folder</td><td>The name of the subfolder. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 16 2015 09:32:23 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2015 10:45:17 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

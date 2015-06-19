@@ -38,7 +38,7 @@ PROJECT_NAME           = CicmWrapper
 # could be handy for archiving the generated documentation or if some version
 # control system is used.
 
-PROJECT_NUMBER         = 
+PROJECT_NUMBER         = "Beta 0.4"
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description
 # for a project that appears at the top of each page and should give viewer a
@@ -763,9 +763,9 @@ WARN_LOGFILE           =
 # spaces.
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = /Users/Pierre/GitHub/CreamLibrary/ThirdParty/PureData/Sources \
-                         /Users/Pierre/GitHub/CreamLibrary/ThirdParty/PureData/ \
-                         ../CreamLibrary/Chocolate/c.bang.cpp
+INPUT                  = ../CreamLibrary/ThirdParty/CicmWrapper/ \
+                         ../CreamLibrary/ThirdParty/CicmWrapper/Sources \
+                         ../CreamLibrary/Sources/c.bang.cpp
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
@@ -874,7 +874,7 @@ EXCLUDE_SYMBOLS        =
 # that contain example code fragments that are included (see the \include
 # command).
 
-EXAMPLE_PATH           = ../CreamLibrary/Chocolate/c.bang.cpp
+EXAMPLE_PATH           = ../CreamLibrary/Sources/c.bang.cpp
 
 # If the value of the EXAMPLE_PATH tag contains directories, you can use the
 # EXAMPLE_PATTERNS tag to specify one or more wildcard pattern (like *.cpp and
