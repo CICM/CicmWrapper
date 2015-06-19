@@ -83,29 +83,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <p>This is an example of how to use and create a basic GUI. This example shows how to initialize a GUI class with methods for painting and mouse interractions and attributes.</p>
 <div class="fragment"><div class="line"><span class="comment">/*</span></div>
-<div class="line"><span class="comment"> * CicmWrapper</span></div>
-<div class="line"><span class="comment"> *</span></div>
-<div class="line"><span class="comment"> * A wrapper for Pure Data</span></div>
-<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> * Cream Library</span></div>
 <div class="line"><span class="comment"> * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8</span></div>
 <div class="line"><span class="comment"> * All rights reserved.</span></div>
-<div class="line"><span class="comment"> *</span></div>
-<div class="line"><span class="comment"> * Website  : http://www.mshparisnord.fr/HoaLibrary/</span></div>
+<div class="line"><span class="comment"> * Website  : https://github.com/CICM/CreamLibrary</span></div>
 <div class="line"><span class="comment"> * Contacts : cicm.mshparisnord@gmail.com</span></div>
-<div class="line"><span class="comment"> *</span></div>
-<div class="line"><span class="comment"> * This library is free software; you can redistribute it and/or modify it</span></div>
-<div class="line"><span class="comment"> * under the terms of the GNU Library General Public License as published</span></div>
-<div class="line"><span class="comment"> * by the Free Software Foundation; either version 2 of the License.</span></div>
-<div class="line"><span class="comment"> *</span></div>
-<div class="line"><span class="comment"> * This library is distributed in the hope that it will be useful, but WITHOUT</span></div>
-<div class="line"><span class="comment"> * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or</span></div>
-<div class="line"><span class="comment"> * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Library General Public</span></div>
-<div class="line"><span class="comment"> * License for more details.</span></div>
-<div class="line"><span class="comment"> *</span></div>
-<div class="line"><span class="comment"> * You should have received a copy of the GNU Library General Public License</span></div>
-<div class="line"><span class="comment"> * along with this library; if not, write to the Free Software Foundation,</span></div>
-<div class="line"><span class="comment"> * Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.</span></div>
-<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> * For information on usage and redistribution, and for a DISCLAIMER OF ALL</span></div>
+<div class="line"><span class="comment"> * WARRANTIES, see the file, &quot;LICENSE.txt,&quot; in this distribution.</span></div>
 <div class="line"><span class="comment"> */</span></div>
 <div class="line"></div>
 <div class="line"><span class="comment">//</span></div>
@@ -116,6 +100,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"></div>
 <div class="line"><span class="comment">// This header includes cicm_wrapped.h</span></div>
 <div class="line"><span class="preprocessor">#include &quot;../c.library.h&quot;</span></div>
+<div class="line"></div>
+<div class="line"><span class="comment">/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////*/</span></div>
+<div class="line"><span class="comment">/*////////////////////////////////////              STRUCTURE               ////////////////////////////////////*/</span></div>
+<div class="line"><span class="comment">/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////*/</span></div>
 <div class="line"></div>
 <div class="line"><span class="comment">//</span></div>
 <div class="line"><span class="comment">// The GUI bang structure.</span></div>
@@ -139,27 +127,31 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">    <span class="keywordtype">char</span>        <a name="a11"></a><a class="code" href="a00004.html#a9e241345442b43f6250d730aed8ec990">b_active</a>;           </div>
 <div class="line">} <a class="code" href="a00004.html#a00035">t_bang</a>;</div>
 <div class="line"></div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> *<a name="a12"></a><a class="code" href="a00004.html#ga6ce4a33699928e863018313be4b83010">bang_new</a>(<a name="_a13"></a><a class="code" href="a00003.html#a00063">t_symbol</a> *s, <span class="keywordtype">int</span> argc, <a name="_a14"></a><a class="code" href="a00003.html#a00034">t_atom</a> *argv);</div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a15"></a><a class="code" href="a00004.html#ga19e710147e9e2dbadebd4517d349e8a3">bang_free</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x);</div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a16"></a><a class="code" href="a00004.html#ga0fec169a9a56157ea17b939b974ec2ef">bang_activate</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x);</div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a17"></a><a class="code" href="a00004.html#gad3f3c1456963abd5419b3bc46deb2e81">bang_deactivate</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x);</div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a18"></a><a class="code" href="a00004.html#ga32c5dc909f8707bbbb4f485d0f4b12b6">bang_anything</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a class="code" href="a00003.html#a00063">t_symbol</a> *s, <span class="keywordtype">int</span> argc, <a class="code" href="a00003.html#a00034">t_atom</a> *argv);</div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a19"></a><a class="code" href="a00004.html#ga135e845674595dd1b6d64f1a2ba9b8f0">bang_getdrawparams</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a name="_a20"></a><a class="code" href="a00003.html#a00057">t_object</a> *view, <a name="_a21"></a><a class="code" href="a00006.html#a00041">t_edrawparams</a> *params);</div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a22"></a><a class="code" href="a00004.html#ga45c58b1d84a59e7341ed85aecc3e6aec">bang_oksize</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a name="_a23"></a><a class="code" href="a00008.html#a00060">t_rect</a> *newrect);</div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a24"></a><a class="code" href="a00004.html#ga3721e81c9744d3b80fa011cd3c0d31d4">bang_paint</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a class="code" href="a00003.html#a00057">t_object</a> *view);</div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a25"></a><a class="code" href="a00004.html#gab91fe24c5bdc8ec64118f87372dbff62">bang_mousedown</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a class="code" href="a00003.html#a00057">t_object</a> *view, <a name="_a26"></a><a class="code" href="a00008.html#a00059">t_pt</a> pt, <span class="keywordtype">long</span> modifiers);</div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a27"></a><a class="code" href="a00004.html#ga1712ca9082237f90d3f177c290c77abb">bang_mouseup</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a class="code" href="a00003.html#a00057">t_object</a> *view, <a class="code" href="a00008.html#a00059">t_pt</a> pt, <span class="keywordtype">long</span> modifiers);</div>
+<div class="line"></div>
+<div class="line"><span class="comment">/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////*/</span></div>
+<div class="line"><span class="comment">/*////////////////////////////////////        CLASS INITIALIZATION          ////////////////////////////////////*/</span></div>
+<div class="line"><span class="comment">/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////*/</span></div>
+<div class="line"></div>
 <div class="line"><span class="comment">// The t_eclass for the t_bang.</span></div>
-<div class="line"><span class="comment"></span><span class="keyword">static</span> <a name="_a12"></a><a class="code" href="a00005.html#a00040">t_eclass</a> *<a name="a13"></a><a class="code" href="a00004.html#ga5646b39c7d40c9d8b52c0bf5ab542037">bang_class</a>;</div>
+<div class="line"><span class="comment"></span><span class="keyword">static</span> <a name="_a28"></a><a class="code" href="a00005.html#a00040">t_eclass</a> *<a name="a29"></a><a class="code" href="a00004.html#ga5646b39c7d40c9d8b52c0bf5ab542037">bang_class</a>;</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// The &quot;background_layer&quot; t_symbol.</span></div>
-<div class="line"><span class="comment"></span><span class="keyword">static</span> <a name="_a14"></a><a class="code" href="a00003.html#a00063">t_symbol</a>* <a name="a15"></a><a class="code" href="a00004.html#ga4f74b7d60ac643ae533d3bd8ecc315b4">bang_sym_background_layer</a>;</div>
-<div class="line"></div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> *<a name="a16"></a><a class="code" href="a00004.html#ga6ce4a33699928e863018313be4b83010">bang_new</a>(<a class="code" href="a00003.html#a00063">t_symbol</a> *s, <span class="keywordtype">int</span> argc, <a name="_a17"></a><a class="code" href="a00003.html#a00034">t_atom</a> *argv);</div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a18"></a><a class="code" href="a00004.html#ga19e710147e9e2dbadebd4517d349e8a3">bang_free</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x);</div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a19"></a><a class="code" href="a00004.html#ga0fec169a9a56157ea17b939b974ec2ef">bang_activate</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x);</div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a20"></a><a class="code" href="a00004.html#gad3f3c1456963abd5419b3bc46deb2e81">bang_deactivate</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x);</div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a21"></a><a class="code" href="a00004.html#ga32c5dc909f8707bbbb4f485d0f4b12b6">bang_anything</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a class="code" href="a00003.html#a00063">t_symbol</a> *s, <span class="keywordtype">int</span> argc, <a class="code" href="a00003.html#a00034">t_atom</a> *argv);</div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a22"></a><a class="code" href="a00004.html#ga135e845674595dd1b6d64f1a2ba9b8f0">bang_getdrawparams</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a name="_a23"></a><a class="code" href="a00003.html#a00057">t_object</a> *view, <a name="_a24"></a><a class="code" href="a00006.html#a00041">t_edrawparams</a> *params);</div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a25"></a><a class="code" href="a00004.html#ga45c58b1d84a59e7341ed85aecc3e6aec">bang_oksize</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a name="_a26"></a><a class="code" href="a00008.html#a00060">t_rect</a> *newrect);</div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a27"></a><a class="code" href="a00004.html#ga3721e81c9744d3b80fa011cd3c0d31d4">bang_paint</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a class="code" href="a00003.html#a00057">t_object</a> *view);</div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a28"></a><a class="code" href="a00004.html#gab91fe24c5bdc8ec64118f87372dbff62">bang_mousedown</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a class="code" href="a00003.html#a00057">t_object</a> *view, <a name="_a29"></a><a class="code" href="a00008.html#a00059">t_pt</a> pt, <span class="keywordtype">long</span> modifiers);</div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a30"></a><a class="code" href="a00004.html#ga1712ca9082237f90d3f177c290c77abb">bang_mouseup</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a class="code" href="a00003.html#a00057">t_object</a> *view, <a class="code" href="a00008.html#a00059">t_pt</a> pt, <span class="keywordtype">long</span> modifiers);</div>
+<div class="line"><span class="comment"></span><span class="keyword">static</span> <a class="code" href="a00003.html#a00063">t_symbol</a>* <a name="a30"></a><a class="code" href="a00004.html#ga4f74b7d60ac643ae533d3bd8ecc315b4">bang_sym_background_layer</a>;</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// Setups the bang_class for GUI behavior.</span></div>
-<div class="line"><span class="comment">// This function is called by Pd to initialize the class of t_eclass of the object called c.bang (bang_class). In the function,</span></div>
-<div class="line"><span class="comment">// you should set up the default method, behavior and attributes of your object. If your object&#39;s name is simple like just</span></div>
-<div class="line"><span class="comment">// &quot;bang&quot;,this function should be named &quot;bang_setup&quot; otherwise, if your object&#39;s name is more complex like &quot;c.bang&quot; the</span></div>
+<div class="line"><span class="comment">// This function is called by Pd to initialize the bang_class of the c.bang object. In the function,</span></div>
+<div class="line"><span class="comment">// you should set up the default methods, behaviors and attributes of your object. If your object&#39;s name is simple like</span></div>
+<div class="line"><span class="comment">// &quot;bang&quot;, this function should be named &quot;bang_setup&quot; otherwise, if your object&#39;s name is more complex like &quot;c.bang&quot; the</span></div>
 <div class="line"><span class="comment">// function&#39;s name should replace the special character with the matching UTF8-hexadecimal value and put &quot;setup&quot; before the name</span></div>
 <div class="line"><span class="comment">// of the object. In this example, the dot is replaced with &quot;0x2e&quot; and the function name becomes &quot;setup_c0x2ebang&quot;.</span></div>
 <div class="line"><span class="comment"></span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> <span class="keywordtype">void</span> <a name="a31"></a><a class="code" href="a00004.html#gac4d3f5d3458074de0ce6c1cc7e4140cf">setup_c0x2ebang</a>(<span class="keywordtype">void</span>)</div>
@@ -236,6 +228,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">    }</div>
 <div class="line">}</div>
 <div class="line"></div>
+<div class="line"><span class="comment">/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////*/</span></div>
+<div class="line"><span class="comment">/*////////////////////////////////////     OBJECT CREATION AND DELETION     ////////////////////////////////////*/</span></div>
+<div class="line"><span class="comment">/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////*/</span></div>
+<div class="line"></div>
 <div class="line"><span class="comment">// Allocates and initializes the t_bang structure.</span></div>
 <div class="line"><span class="comment">// The function uses eobj_new to allocate the t_bang with the bang_class and initializes the default values.</span></div>
 <div class="line"><span class="comment"></span><span class="keyword">static</span> <span class="keywordtype">void</span> *<a class="code" href="a00004.html#ga6ce4a33699928e863018313be4b83010">bang_new</a>(<a class="code" href="a00003.html#a00063">t_symbol</a> *s, <span class="keywordtype">int</span> argc, <a class="code" href="a00003.html#a00034">t_atom</a> *argv)</div>
@@ -277,6 +273,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">    <span class="comment">// We free the t_clock</span></div>
 <div class="line">    <a name="a61"></a><a class="code" href="a00003.html#ga3b8f5c34fe4228804065e83d297e10c9">clock_free</a>(x-&gt;<a class="code" href="a00004.html#addbcfc52ebf5b8e3fd17e14171b04b8e">b_clock</a>);</div>
 <div class="line">}</div>
+<div class="line"></div>
+<div class="line"><span class="comment">/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////*/</span></div>
+<div class="line"><span class="comment">/*////////////////////////////////////       OBJECT GRAPHICAL METHODS       ////////////////////////////////////*/</span></div>
+<div class="line"><span class="comment">/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////*/</span></div>
 <div class="line"></div>
 <div class="line"><span class="comment">// Defines the default graphical parameters of a GUI.</span></div>
 <div class="line"><span class="comment">// The function is used to defines the border size, the border size (dummy mostly for Max compatibility)</span></div>
@@ -348,6 +348,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">    <a name="a75"></a><a class="code" href="a00006.html#ga4c40a6ef105573223e9d9cbb515c9db1">ebox_paint_layer</a>((<a class="code" href="a00006.html#a00039">t_ebox</a> *)x, bang_sym_background_layer, 0., 0.);</div>
 <div class="line">}</div>
 <div class="line"></div>
+<div class="line"><span class="comment">/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////*/</span></div>
+<div class="line"><span class="comment">/*////////////////////////////////////      OBJECT MOUSE INTERRACTIONS      ////////////////////////////////////*/</span></div>
+<div class="line"><span class="comment">/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////*/</span></div>
+<div class="line"></div>
 <div class="line"><span class="comment">// Activates the status of the t_bang.</span></div>
 <div class="line"><span class="comment">// The function activates the status of the t_bang. Outputs a bang message, sends a bang to the attached objects and ask the t_ebox</span></div>
 <div class="line"><span class="comment">// to be redrawn</span></div>
@@ -401,7 +405,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">    <a class="code" href="a00004.html#gad3f3c1456963abd5419b3bc46deb2e81">bang_deactivate</a>(x);</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line"><span class="comment">// Receives the anything notification.</span></div>
+<div class="line"></div>
+<div class="line"><span class="comment">/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////*/</span></div>
+<div class="line"><span class="comment">/*////////////////////////////////////      OBJECT MESSAGES RECEPTION       ////////////////////////////////////*/</span></div>
+<div class="line"><span class="comment">/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////*/</span></div>
+<div class="line"></div>
+<div class="line"><span class="comment">// Receives anything.</span></div>
 <div class="line"><span class="comment">// The function is called when any message has been received from the inlet.</span></div>
 <div class="line"><span class="comment"></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a00004.html#ga32c5dc909f8707bbbb4f485d0f4b12b6">bang_anything</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a class="code" href="a00003.html#a00063">t_symbol</a> *s, <span class="keywordtype">int</span> argc, <a class="code" href="a00003.html#a00034">t_atom</a> *argv)</div>
 <div class="line">{</div>
@@ -415,7 +424,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 19 2015 16:31:11 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2015 19:04:22 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

@@ -81,35 +81,60 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">CicmWrapper Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Copyright (C) 2014 -2015 Pierre Guillot, CICM - Université Paris 8</p>
-<h5>Presentation</h5>
-<p>The CICM wrapper is a C/TK library that aims to facilitate the creation of objects for Pure Data. One of the main axis is the creation of graphical user interfaces and signal processing.</p>
+<div class="textblock"><h3>Presentation</h3>
+<p>The CICM wrapper is a C interface for <a href="https://www.tcl.tk/" title="Tcl/Tk">Tcl/Tk</a> and <a href="http://msp.ucsd.edu/software.html" title="PD">Pure Data</a> that aims to facilitate the creation of objects for Pure Data. One of the main axis is the creation of graphical user interfaces. It also facilitates the implementation of dynamic multisignal processing and it improves the compatibility with Max.</p>
 <ul>
-<li>The inlets/outlets are automatically generated.</li>
-<li>The background color, border size, border color are easy to set.</li>
-<li>The GUI objects can be resized with click and drag.</li>
-<li>The graphics API use layers and "clip" the drawings within the box boundaries.</li>
-<li>The attributes (size, colors, values and whatever you want) are saved with the patch.</li>
-<li>The inlets/outlets are dynamics.</li>
-<li>The management of mouse motion and keys is simplified.</li>
-<li>The convertion from Max to Pd and from Pd to Max 6 is really easy.</li>
-<li>and a lot of other stuff, I can't enumerate everything !</li>
+<li>Graphics :<ul>
+<li>Layers system.</li>
+<li>Matrix translation and rotation.</li>
+<li>Bezier curves.</li>
+<li>Multi shapes</li>
+<li>Text layout</li>
+<li>Clipping of the drawing.</li>
+<li>Colors hsl/rgba and hexadecimal</li>
+<li>etc.</li>
 </ul>
-<h5>Documentation :</h5>
+</li>
+<li>Interractions :<ul>
+<li>Full mouse notification</li>
+<li>Full keyboard notification</li>
+<li>Cross platform modifiers</li>
+<li>etc.</li>
+</ul>
+</li>
+<li>Object :<ul>
+<li>Proxy inlets.</li>
+<li>Attributes</li>
+<li>Automatic properties window</li>
+<li>Click and drag to resize the objects</li>
+<li>Special methods for background, border and size</li>
+<li>Dynamic inlets/outlets</li>
+<li>Dsp method simplified</li>
+<li>Perform method simplified</li>
+<li>etc.</li>
+</ul>
+</li>
+</ul>
+<p>Macros to convert code (event GUI) from Max to Pd and from PD to Max and a lot of other stuff, I can't enumerate everything !</p>
+<h3>Repository :</h3>
+<p><a href="https://github.com/CICM/CicmWrapper" title="GitHub">GitHub</a></p>
+<h3>Documentation :</h3>
 <p><a href="http://cicm.github.io/CicmWrapper" title="Documentation">Documentation and examples</a></p>
-<h5>Projects :</h5>
+<h3>Projects :</h3>
 <ul>
-<li><a href="https://github.com/CICM/CreamLibrary" title="Cream Library" target="_blank">Cream Library</a>.</li>
-<li><a href="https://github.com/CICM/HoaLibrary" title="HOA Library" target="_blank">HOA Library</a>.</li>
+<li><a href="https://github.com/CICM/CreamLibrary" title="Cream">Cream Library</a>.</li>
+<li><a href="https://github.com/CICM/HoaLibrary-Light" title="Hoa">Hoa Library</a>.</li>
 </ul>
-<h5>Author :</h5>
+<h3>Author :</h3>
 <p>Pierre Guillot</p>
-<h5>Licence :</h5>
-<p>The Cream Library in under the <a href="http://www.gnu.org/copyleft/gpl.html" title="GNU" target="_blank">GNU Public License</a>. If you'd like to avoid the restrictions of the GPL and use the Cream Library for a closed-source product, you contact the <a href="http://cicm.mshparisnord.org/" title="CICM" target="_blank">CICM</a>. </p>
+<h3>Thanks :</h3>
+<p>Antoine Villeret for Autotools and feedbacks. Thomas Le Meur for the corrections. Miller Puckette for Pure Data.</p>
+<h3>Licence :</h3>
+<p>Copyright (C) 2013-2015 Pierre Guillot - CICM - Universite Paris 8 The Cream Library in under the <a href="http://opensource.org/licenses/BSD-2-Clause" title="BSD2">BSD2 License</a>. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 19 2015 16:31:11 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2015 19:04:22 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

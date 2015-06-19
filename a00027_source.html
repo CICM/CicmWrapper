@@ -87,60 +87,44 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * CicmWrapper</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * A wrapper for Pure Data</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * All rights reserved.</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> * Website  : http://www.mshparisnord.fr/HoaLibrary/</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * Contacts : cicm.mshparisnord@gmail.com</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * This library is free software; you can redistribute it and/or modify it</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * under the terms of the GNU Library General Public License as published</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * by the Free Software Foundation; either version 2 of the License.</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * This library is distributed in the hope that it will be useful, but WITHOUT</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Library General Public</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * License for more details.</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> * You should have received a copy of the GNU Library General Public License</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * along with this library; if not, write to the Free Software Foundation,</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#ifndef DEF_EPOPUP</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#define DEF_EPOPUP</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;edefine.h&quot;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<a class="code" href="a00010.html#a00049">t_epopup</a>* <a class="code" href="a00010.html#gaee1de955319d280fff8a50d08b50e4bd">epopupmenu_create</a>(<a class="code" href="a00009.html#a00048">t_eobj</a>* x, <a class="code" href="a00003.html#a00063">t_symbol</a>* name);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a00010.html#gac042bdeac14c5874e8a068e0c5ee0309">epopupmenu_setfont</a>(<a class="code" href="a00010.html#a00049">t_epopup</a> *popup, <a class="code" href="a00008.html#a00045">t_efont</a> *font);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a00010.html#ga005fc6f37cbe3b995263c4e252cce0cf">epopupmenu_additem</a>(<a class="code" href="a00010.html#a00049">t_epopup</a> *popup, <span class="keywordtype">int</span> itemid, <span class="keyword">const</span> <span class="keywordtype">char</span> *text, <span class="keywordtype">char</span> checked, <span class="keywordtype">char</span> disabled);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a00010.html#ga7388644b643d03d55457f3e76cb5c533">epopupmenu_addseperator</a>(<a class="code" href="a00010.html#a00049">t_epopup</a> *popup);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a00010.html#ga14bc550aae8eee4e5b76a94de8197498">epopupmenu_popup</a>(<a class="code" href="a00010.html#a00049">t_epopup</a> *popup, <a class="code" href="a00008.html#a00059">t_pt</a> pos);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="a00010_html_gac042bdeac14c5874e8a068e0c5ee0309"><div class="ttname"><a href="a00010.html#gac042bdeac14c5874e8a068e0c5ee0309">epopupmenu_setfont</a></div><div class="ttdeci">void epopupmenu_setfont(t_epopup *popup, t_efont *font)</div><div class="ttdoc">Sets the font of a t_epopup. </div><div class="ttdef"><b>Definition:</b> epopup.c:43</div></div>
-<div class="ttc" id="a00010_html_ga7388644b643d03d55457f3e76cb5c533"><div class="ttname"><a href="a00010.html#ga7388644b643d03d55457f3e76cb5c533">epopupmenu_addseperator</a></div><div class="ttdeci">void epopupmenu_addseperator(t_epopup *popup)</div><div class="ttdoc">Adds a new seprator in the popup list. </div><div class="ttdef"><b>Definition:</b> epopup.c:59</div></div>
-<div class="ttc" id="a00010_html_ga14bc550aae8eee4e5b76a94de8197498"><div class="ttname"><a href="a00010.html#ga14bc550aae8eee4e5b76a94de8197498">epopupmenu_popup</a></div><div class="ttdeci">void epopupmenu_popup(t_epopup *popup, t_pt pos)</div><div class="ttdoc">Shows the popup on the screen. </div><div class="ttdef"><b>Definition:</b> epopup.c:64</div></div>
-<div class="ttc" id="a00003_html_a00063"><div class="ttname"><a href="a00003.html#a00063">t_symbol</a></div><div class="ttdoc">The t_symbol struture. </div><div class="ttdef"><b>Definition:</b> enative.h:61</div></div>
-<div class="ttc" id="a00010_html_a00049"><div class="ttname"><a href="a00010.html#a00049">t_epopup</a></div><div class="ttdoc">The popup structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:418</div></div>
-<div class="ttc" id="a00009_html_a00048"><div class="ttname"><a href="a00009.html#a00048">t_eobj</a></div><div class="ttdoc">The default object. </div><div class="ttdef"><b>Definition:</b> edefine.h:550</div></div>
-<div class="ttc" id="a00010_html_gaee1de955319d280fff8a50d08b50e4bd"><div class="ttname"><a href="a00010.html#gaee1de955319d280fff8a50d08b50e4bd">epopupmenu_create</a></div><div class="ttdeci">t_epopup * epopupmenu_create(t_eobj *x, t_symbol *name)</div><div class="ttdoc">The t_epopup creation function. </div><div class="ttdef"><b>Definition:</b> epopup.c:29</div></div>
-<div class="ttc" id="a00010_html_ga005fc6f37cbe3b995263c4e252cce0cf"><div class="ttname"><a href="a00010.html#ga005fc6f37cbe3b995263c4e252cce0cf">epopupmenu_additem</a></div><div class="ttdeci">void epopupmenu_additem(t_epopup *popup, int itemid, const char *text, char checked, char disabled)</div><div class="ttdoc">Adds a new item in the popup list. </div><div class="ttdef"><b>Definition:</b> epopup.c:48</div></div>
-<div class="ttc" id="a00008_html_a00045"><div class="ttname"><a href="a00008.html#a00045">t_efont</a></div><div class="ttdoc">The font structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:337</div></div>
-<div class="ttc" id="a00008_html_a00059"><div class="ttname"><a href="a00008.html#a00059">t_pt</a></div><div class="ttdoc">A point structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:231</div></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> * Copyright (C) 2013 Pierre Guillot, CICM - Université Paris 8</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * All rights reserved.</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Website  : https://github.com/CICM/CicmWrapper</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> * Contacts : cicm.mshparisnord@gmail.com</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * For information on usage and redistribution, and for a DISCLAIMER OF ALL</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * WARRANTIES, see the file, &quot;LICENSE.txt,&quot; in this distribution.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#ifndef DEF_EPOPUP</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#define DEF_EPOPUP</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;edefine.h&quot;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<a class="code" href="a00010.html#a00049">t_epopup</a>* <a class="code" href="a00010.html#gaee1de955319d280fff8a50d08b50e4bd">epopupmenu_create</a>(<a class="code" href="a00009.html#a00048">t_eobj</a>* x, <a class="code" href="a00003.html#a00063">t_symbol</a>* name);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a00010.html#gac042bdeac14c5874e8a068e0c5ee0309">epopupmenu_setfont</a>(<a class="code" href="a00010.html#a00049">t_epopup</a> *popup, <a class="code" href="a00008.html#a00045">t_efont</a> *font);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a00010.html#ga005fc6f37cbe3b995263c4e252cce0cf">epopupmenu_additem</a>(<a class="code" href="a00010.html#a00049">t_epopup</a> *popup, <span class="keywordtype">int</span> itemid, <span class="keyword">const</span> <span class="keywordtype">char</span> *text, <span class="keywordtype">char</span> checked, <span class="keywordtype">char</span> disabled);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a00010.html#ga7388644b643d03d55457f3e76cb5c533">epopupmenu_addseperator</a>(<a class="code" href="a00010.html#a00049">t_epopup</a> *popup);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a00010.html#ga14bc550aae8eee4e5b76a94de8197498">epopupmenu_popup</a>(<a class="code" href="a00010.html#a00049">t_epopup</a> *popup, <a class="code" href="a00008.html#a00059">t_pt</a> pos);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="a00010_html_gac042bdeac14c5874e8a068e0c5ee0309"><div class="ttname"><a href="a00010.html#gac042bdeac14c5874e8a068e0c5ee0309">epopupmenu_setfont</a></div><div class="ttdeci">void epopupmenu_setfont(t_epopup *popup, t_efont *font)</div><div class="ttdoc">Sets the font of a t_epopup. </div><div class="ttdef"><b>Definition:</b> epopup.c:27</div></div>
+<div class="ttc" id="a00010_html_ga7388644b643d03d55457f3e76cb5c533"><div class="ttname"><a href="a00010.html#ga7388644b643d03d55457f3e76cb5c533">epopupmenu_addseperator</a></div><div class="ttdeci">void epopupmenu_addseperator(t_epopup *popup)</div><div class="ttdoc">Adds a new seprator in the popup list. </div><div class="ttdef"><b>Definition:</b> epopup.c:43</div></div>
+<div class="ttc" id="a00010_html_ga14bc550aae8eee4e5b76a94de8197498"><div class="ttname"><a href="a00010.html#ga14bc550aae8eee4e5b76a94de8197498">epopupmenu_popup</a></div><div class="ttdeci">void epopupmenu_popup(t_epopup *popup, t_pt pos)</div><div class="ttdoc">Shows the popup on the screen. </div><div class="ttdef"><b>Definition:</b> epopup.c:48</div></div>
+<div class="ttc" id="a00003_html_a00063"><div class="ttname"><a href="a00003.html#a00063">t_symbol</a></div><div class="ttdoc">The t_symbol struture. </div><div class="ttdef"><b>Definition:</b> enative.h:46</div></div>
+<div class="ttc" id="a00010_html_a00049"><div class="ttname"><a href="a00010.html#a00049">t_epopup</a></div><div class="ttdoc">The popup structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:403</div></div>
+<div class="ttc" id="a00009_html_a00048"><div class="ttname"><a href="a00009.html#a00048">t_eobj</a></div><div class="ttdoc">The default object. </div><div class="ttdef"><b>Definition:</b> edefine.h:535</div></div>
+<div class="ttc" id="a00010_html_gaee1de955319d280fff8a50d08b50e4bd"><div class="ttname"><a href="a00010.html#gaee1de955319d280fff8a50d08b50e4bd">epopupmenu_create</a></div><div class="ttdeci">t_epopup * epopupmenu_create(t_eobj *x, t_symbol *name)</div><div class="ttdoc">The t_epopup creation function. </div><div class="ttdef"><b>Definition:</b> epopup.c:13</div></div>
+<div class="ttc" id="a00010_html_ga005fc6f37cbe3b995263c4e252cce0cf"><div class="ttname"><a href="a00010.html#ga005fc6f37cbe3b995263c4e252cce0cf">epopupmenu_additem</a></div><div class="ttdeci">void epopupmenu_additem(t_epopup *popup, int itemid, const char *text, char checked, char disabled)</div><div class="ttdoc">Adds a new item in the popup list. </div><div class="ttdef"><b>Definition:</b> epopup.c:32</div></div>
+<div class="ttc" id="a00008_html_a00045"><div class="ttname"><a href="a00008.html#a00045">t_efont</a></div><div class="ttdoc">The font structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:322</div></div>
+<div class="ttc" id="a00008_html_a00059"><div class="ttname"><a href="a00008.html#a00059">t_pt</a></div><div class="ttdoc">A point structure. </div><div class="ttdef"><b>Definition:</b> edefine.h:216</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 19 2015 16:31:11 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2015 19:04:22 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

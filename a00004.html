@@ -225,7 +225,7 @@ b_active</td>
 </div><div class="memdoc">
 
 <p>Setups the bang_class for GUI behavior. </p>
-<p>This function is called by Pd to initialize the class of <a class="el" href="a00005.html#a00040" title="The class. ">t_eclass</a> of the object called c.bang (bang_class). In the function, you should set up the default method, behavior and attributes of your object. If your object's name is simple like just "bang", this function should be named "bang_setup" otherwise, if your object's name is more complex like "c.bang" the function's name should replace the special character with the matching UTF8-hexadecimal value and put "setup" before the name of the object. In this example, the dot is replaced with "c0x2e" and the function name becomes "setup_c0x2ebang". </p>
+<p>This function is called by Pd to initialize the bang_class of the c.bang object. In the function, you should set up the default methods, behaviors and attributes of your object. If your object's name is simple like "bang", this function should be named "bang_setup" otherwise, if your object's name is more complex like "c.bang" the function's name should replace the special character with the matching UTF8-hexadecimal value and put "setup" before the name of the object. In this example, the dot is replaced with "c0x2e" and the function name becomes "setup_c0x2ebang". </p>
 <dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a31">c.bang.cpp</a>.</dd>
 </dl>
 </div>
@@ -278,7 +278,7 @@ b_active</td>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The pointer to the <a class="el" href="a00004.html#a00035" title="The GUI bang structure. ">t_bang</a> if the allocation has been successful, otherwise NULL. </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a16">c.bang.cpp</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a12">c.bang.cpp</a>.</dd>
 </dl>
 </div>
 </div>
@@ -311,7 +311,7 @@ b_active</td>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a18">c.bang.cpp</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a15">c.bang.cpp</a>.</dd>
 </dl>
 </div>
 </div>
@@ -362,7 +362,7 @@ b_active</td>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a22">c.bang.cpp</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a19">c.bang.cpp</a>.</dd>
 </dl>
 </div>
 </div>
@@ -406,7 +406,7 @@ b_active</td>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a25">c.bang.cpp</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a22">c.bang.cpp</a>.</dd>
 </dl>
 </div>
 </div>
@@ -450,7 +450,7 @@ b_active</td>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a27">c.bang.cpp</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a24">c.bang.cpp</a>.</dd>
 </dl>
 </div>
 </div>
@@ -483,7 +483,7 @@ b_active</td>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a19">c.bang.cpp</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a16">c.bang.cpp</a>.</dd>
 </dl>
 </div>
 </div>
@@ -516,7 +516,7 @@ b_active</td>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a20">c.bang.cpp</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a17">c.bang.cpp</a>.</dd>
 </dl>
 </div>
 </div>
@@ -574,7 +574,7 @@ b_active</td>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a28">c.bang.cpp</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a25">c.bang.cpp</a>.</dd>
 </dl>
 </div>
 </div>
@@ -632,7 +632,7 @@ b_active</td>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a30">c.bang.cpp</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a27">c.bang.cpp</a>.</dd>
 </dl>
 </div>
 </div>
@@ -690,7 +690,7 @@ b_active</td>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a21">c.bang.cpp</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a18">c.bang.cpp</a>.</dd>
 </dl>
 </div>
 </div>
@@ -713,7 +713,7 @@ b_active</td>
 </table>
 </div><div class="memdoc">
 <p>The <a class="el" href="a00005.html#a00040" title="The class. ">t_eclass</a> for the <a class="el" href="a00004.html#a00035" title="The GUI bang structure. ">t_bang</a>. </p>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a13">c.bang.cpp</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a29">c.bang.cpp</a>.</dd>
 </dl>
 </div>
 </div>
@@ -735,14 +735,14 @@ b_active</td>
 </table>
 </div><div class="memdoc">
 <p>The "background_layer" <a class="el" href="a00003.html#a00063" title="The t_symbol struture. ">t_symbol</a>. </p>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a15">c.bang.cpp</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#a30">c.bang.cpp</a>.</dd>
 </dl>
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 19 2015 16:31:11 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2015 19:04:22 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
