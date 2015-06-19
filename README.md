@@ -13,13 +13,13 @@ The CICM wrapper is a C/TK library that aims to facilitate the creation of objec
 - The inlets/outlets are dynamics.
 - The management of mouse motion and keys is simplified.
 - The convertion from Max to Pd and from Pd to Max 6 is really easy.
-and a lot of other stuff, I can't enumerate everything !
+- and a lot of other stuff, I can't enumerate everything !
 
 ##### Documentation :
 
-[Documentation](http://cicm.github.io/CicmWrapper "Documentation")
+[Documentation and examples](http://cicm.github.io/CicmWrapper "Documentation")
 
-##### Examples :
+##### Projects :
 
 - <a title="Cream Library" href="https://github.com/CICM/CreamLibrary" target="_blank"> Cream Library</a>.
 - <a title="HOA Library" href="https://github.com/CICM/HoaLibrary" target="_blank"> HOA Library</a>.
