@@ -136,6 +136,9 @@ typedef struct t_outlet
     t_symbol *o_sym;                /*!< The symbol that defines caht type of message the outlet send. */
 } t_outlet;
 
+//! pure datum: nothing but a class pointer
+typedef t_class *t_pd;
+
 /**
  * @struct t_gobj
  * @brief The graphical t_object struture.
@@ -220,6 +223,14 @@ t_clock *clock_new(void *owner, method fn);
 void clock_free(t_clock *x);
 
 /*!
+ * \fn          void clock_delay(t_clock *x, double delaytime)
+ * \brief        defer the excecution of the t_clock's method.
+ * \param x     The t_clock.
+ * \param delaytime The time to wait.
+ */
+void clock_delay(t_clock *x, double delaytime);
+
+/*!
  * \fn          t_outlet *outlet_new(t_object *owner, t_symbol *s)
  * \brief       Allocates and initializes a new t_outlet for an object.
  * \details     The function allocates a initializes a new t_outlet for an object. The symbol is generally one of the pd default message s_bang, s_symbol, s_list, s_anything, ect.
@@ -228,6 +239,20 @@ void clock_free(t_clock *x);
  * \return The pointer to the t_outlet.
  */
 t_outlet *outlet_new(t_object *owner, t_symbol *s);
+
+/*!
+ * \fn          void outlet_bang(t_outlet *x)
+ * \brief       Send a bang through an outlet
+ * \param x     The outlet pointer.
+ */
+void outlet_bang(t_outlet *x);
+
+/*!
+ * \fn          void pd_bang(t_pd *x)
+ * \brief       Send a bang to t_pd internal object
+ * \param x     The t_pd pointer.
+ */
+void pd_bang(t_pd *x);
 
 
 /** @} */
