@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.8"/>
-<title>CicmWrapper: The DSP Object Part</title>
+<title>CicmWrapper: The GUI Object Part</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -82,171 +82,369 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">The DSP Object Part</div>  </div>
+<div class="title">The GUI Object Part</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="a00006.html#a00038" title="The DSP object. ">t_edspobj</a> and <a class="el" href="a00005.html#a00037" title="The GUI DSP object. ">t_edspbox</a> part.  
+<p>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> and <a class="el" href="a00006.html#a00043" title="The GUI DSP object. ">t_edspbox</a> part.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:a00036"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#a00036">t_edsp</a></td></tr>
-<tr class="memdesc:a00036"><td class="mdescLeft">&#160;</td><td class="mdescRight">The DSP structure.  <a href="a00006.html#a00036">More...</a><br /></td></tr>
-<tr class="separator:a00036"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00038"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#a00038">t_edspobj</a></td></tr>
-<tr class="memdesc:a00038"><td class="mdescLeft">&#160;</td><td class="mdescRight">The DSP object.  <a href="a00006.html#a00038">More...</a><br /></td></tr>
-<tr class="separator:a00038"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00037"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00005.html#a00037">t_edspbox</a></td></tr>
-<tr class="memdesc:a00037"><td class="mdescLeft">&#160;</td><td class="mdescRight">The GUI DSP object.  <a href="a00005.html#a00037">More...</a><br /></td></tr>
-<tr class="separator:a00037"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00041"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#a00041">t_edrawparams</a></td></tr>
+<tr class="memdesc:a00041"><td class="mdescLeft">&#160;</td><td class="mdescRight">The drawing parameters.  <a href="a00006.html#a00041">More...</a><br /></td></tr>
+<tr class="separator:a00041"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00039"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#a00039">t_ebox</a></td></tr>
+<tr class="memdesc:a00039"><td class="mdescLeft">&#160;</td><td class="mdescRight">The GUI object.  <a href="a00006.html#a00039">More...</a><br /></td></tr>
+<tr class="separator:a00039"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00043"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#a00043">t_edspbox</a></td></tr>
+<tr class="memdesc:a00043"><td class="mdescLeft">&#160;</td><td class="mdescRight">The GUI DSP object.  <a href="a00006.html#a00043">More...</a><br /></td></tr>
+<tr class="separator:a00043"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ga36eab88f02912d80f5e9feace6ea3e88"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga36eab88f02912d80f5e9feace6ea3e88">edsp_flags</a> { <a class="el" href="a00006.html#gga36eab88f02912d80f5e9feace6ea3e88a1a6d5f872607ec0f203d15841e28bdc0">E_INPLACE</a> = 0, 
-<a class="el" href="a00006.html#gga36eab88f02912d80f5e9feace6ea3e88ac0599d55b264b5abd40c01fa0180b818">E_NO_INPLACE</a> = 1
+<tr class="memitem:ga4f716adba573d251d034ae382195cabf"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga4f716adba573d251d034ae382195cabf">emod_flags</a> { <br />
+&#160;&#160;<a class="el" href="a00006.html#gga4f716adba573d251d034ae382195cabfaebe4d58a623c8cb4a9386b88db66f0cc">EMOD_NONE</a> = 0, 
+<a class="el" href="a00006.html#gga4f716adba573d251d034ae382195cabfa0f27cd10af8267f700a35d02e72ccecd">EMOD_SHIFT</a> = 1, 
+<a class="el" href="a00006.html#gga4f716adba573d251d034ae382195cabfa46a5119204b46d97f63672988949f482">EMOD_MAJ</a> = 2, 
+<a class="el" href="a00006.html#gga4f716adba573d251d034ae382195cabfa466e21617f39293de281d09c9f23639f">EMOD_CTRL</a> = 4, 
+<br />
+&#160;&#160;<a class="el" href="a00006.html#gga4f716adba573d251d034ae382195cabfacdf1feca13bc2a4469c27268a2de37e8">EMOD_CMD</a> = 8, 
+<a class="el" href="a00006.html#gga4f716adba573d251d034ae382195cabfa9af0a98354d633745f0738c0de23b9a1">EMOD_ALT</a> = 16, 
+<a class="el" href="a00006.html#gga4f716adba573d251d034ae382195cabfaa92a81de1edc1cefe7e34529faba5bbd">EMOD_RIGHT</a> = 32
+<br />
  }</td></tr>
-<tr class="memdesc:ga36eab88f02912d80f5e9feace6ea3e88"><td class="mdescLeft">&#160;</td><td class="mdescRight">The flags that discribe the behavior of a <a class="el" href="a00006.html#a00038" title="The DSP object. ">t_edspobj</a>.  <a href="a00006.html#ga36eab88f02912d80f5e9feace6ea3e88">More...</a><br /></td></tr>
-<tr class="separator:ga36eab88f02912d80f5e9feace6ea3e88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:ga4f716adba573d251d034ae382195cabf"><td class="mdescLeft">&#160;</td><td class="mdescRight">The mouse modifiers.  <a href="a00006.html#ga4f716adba573d251d034ae382195cabf">More...</a><br /></td></tr>
+<tr class="separator:ga4f716adba573d251d034ae382195cabf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga472d248b8e2255bf2b9aab0a8725a0d5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga472d248b8e2255bf2b9aab0a8725a0d5">ekey_flags</a> { <a class="el" href="a00006.html#gga472d248b8e2255bf2b9aab0a8725a0d5a73a4bf3dbffbd5caf5fb698113472c62">EKEY_DEL</a> = 0, 
+<a class="el" href="a00006.html#gga472d248b8e2255bf2b9aab0a8725a0d5a825abc5e437af1fdaed232d35aa35461">EKEY_TAB</a> = 1, 
+<a class="el" href="a00006.html#gga472d248b8e2255bf2b9aab0a8725a0d5a4e3ef4115eaba6fd290b729d9db5af5f">EKEY_ENTER</a> = 2, 
+<a class="el" href="a00006.html#gga472d248b8e2255bf2b9aab0a8725a0d5a931038b196cdf3a0f39deef5b2e6bfe2">EKEY_ESC</a> = 3
+ }</td></tr>
+<tr class="memdesc:ga472d248b8e2255bf2b9aab0a8725a0d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The system keys.  <a href="a00006.html#ga472d248b8e2255bf2b9aab0a8725a0d5">More...</a><br /></td></tr>
+<tr class="separator:ga472d248b8e2255bf2b9aab0a8725a0d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga34bc62f56dc70d407271ecc4990a5aa5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga34bc62f56dc70d407271ecc4990a5aa5">ebox_flags</a> { <a class="el" href="a00006.html#gga34bc62f56dc70d407271ecc4990a5aa5a9e00fc0b77ad11d15dd684878ded2497">EBOX_GROWNO</a> = (1&lt;&lt;4), 
+<a class="el" href="a00006.html#gga34bc62f56dc70d407271ecc4990a5aa5a06e4080f2aacad35375559f4bc40bc0a">EBOX_GROWLINK</a> = (1&lt;&lt;5), 
+<a class="el" href="a00006.html#gga34bc62f56dc70d407271ecc4990a5aa5a3a33fea1f7a438880d712542a217d8fd">EBOX_GROWINDI</a> = (1&lt;&lt;6), 
+<a class="el" href="a00006.html#gga34bc62f56dc70d407271ecc4990a5aa5a73f51b70170a6e3b0a3335a9743363b9">EBOX_IGNORELOCKCLICK</a> = (1&lt;&lt;7)
+ }</td></tr>
+<tr class="memdesc:ga34bc62f56dc70d407271ecc4990a5aa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The flags that discribe the behavior of a <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>.  <a href="a00006.html#ga34bc62f56dc70d407271ecc4990a5aa5">More...</a><br /></td></tr>
+<tr class="separator:ga34bc62f56dc70d407271ecc4990a5aa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7bcfae0204ad85ad8f76a923ead220d6"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga7bcfae0204ad85ad8f76a923ead220d6">ebox_cursors</a> { <br />
+&#160;&#160;<a class="el" href="a00006.html#gga7bcfae0204ad85ad8f76a923ead220d6a1912f87717d73e45e0cc04b2219dd5ab">ECURSOR_LEFT_PTR</a> = 0, 
+<a class="el" href="a00006.html#gga7bcfae0204ad85ad8f76a923ead220d6ac6ade3994d7b2d1d1d8ebab2ee36f485">ECURSOR_CENTER_PTR</a> = 1, 
+<a class="el" href="a00006.html#gga7bcfae0204ad85ad8f76a923ead220d6a4f0cc60351999d621ff8a2d8973a8e60">ECURSOR_SDOUBLE_ARROW</a> = 2, 
+<a class="el" href="a00006.html#gga7bcfae0204ad85ad8f76a923ead220d6a7d78f827d83fbe09bff3e87e56ee5aae">ECURSOR_PLUS</a> = 3, 
+<br />
+&#160;&#160;<a class="el" href="a00006.html#gga7bcfae0204ad85ad8f76a923ead220d6a7704923cde752d6561106c432058efb9">ECURSOR_HAND</a> = 4, 
+<a class="el" href="a00006.html#gga7bcfae0204ad85ad8f76a923ead220d6aee36ac2a474c7db60f28480c2fb25110">ECURSOR_CIRCLE</a> = 5, 
+<a class="el" href="a00006.html#gga7bcfae0204ad85ad8f76a923ead220d6a306c9b9f85cab1162de63f4fd95678d2">ECURSOR_X</a> = 6, 
+<a class="el" href="a00006.html#gga7bcfae0204ad85ad8f76a923ead220d6a7714609a558661e28a86487aa0b46eef">ECURSOR_BOTTOM</a> = 7, 
+<br />
+&#160;&#160;<a class="el" href="a00006.html#gga7bcfae0204ad85ad8f76a923ead220d6a0a02ddadc392fc9132bcb462d5bcb2fb">ECURSOR_RIGHT_CORNER</a> = 8, 
+<a class="el" href="a00006.html#gga7bcfae0204ad85ad8f76a923ead220d6a5cca4f7f53d74b9a26e148449aab7d44">ECURSOR_RIGHT_SIDE</a> = 9, 
+<a class="el" href="a00006.html#gga7bcfae0204ad85ad8f76a923ead220d6ac35fb1a418b4b385e8869b120008f10c">ECURSOR_DOUBLE_ARROW</a> = 10, 
+<a class="el" href="a00006.html#gga7bcfae0204ad85ad8f76a923ead220d6a9d225b061f6d5d6d61046ce720146960">ECURSOR_EXCHANGE</a> = 11, 
+<br />
+&#160;&#160;<a class="el" href="a00006.html#gga7bcfae0204ad85ad8f76a923ead220d6ae812b826f23c6fa412e8e9986499249f">ECURSOR_XTERM</a> = 12
+<br />
+ }</td></tr>
+<tr class="memdesc:ga7bcfae0204ad85ad8f76a923ead220d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The cursors that can be used.  <a href="a00006.html#ga7bcfae0204ad85ad8f76a923ead220d6">More...</a><br /></td></tr>
+<tr class="separator:ga7bcfae0204ad85ad8f76a923ead220d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga75990a2c2f4f51a081904dce5c5e14b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga75990a2c2f4f51a081904dce5c5e14b4">eobj_dspsetup</a> (void *x, long nins, long nouts)</td></tr>
-<tr class="memdesc:ga75990a2c2f4f51a081904dce5c5e14b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the dsp members of the <a class="el" href="a00006.html#a00036" title="The DSP structure. ">t_edsp</a>.  <a href="#ga75990a2c2f4f51a081904dce5c5e14b4">More...</a><br /></td></tr>
-<tr class="separator:ga75990a2c2f4f51a081904dce5c5e14b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad5797d29700a9227f3fb9f2435b59914"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#gad5797d29700a9227f3fb9f2435b59914">eobj_dspflags</a> (void *x, long flags)</td></tr>
-<tr class="memdesc:gad5797d29700a9227f3fb9f2435b59914"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the flags of the <a class="el" href="a00006.html#a00036" title="The DSP structure. ">t_edsp</a>.  <a href="#gad5797d29700a9227f3fb9f2435b59914">More...</a><br /></td></tr>
-<tr class="separator:gad5797d29700a9227f3fb9f2435b59914"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad1252e017dafb1443ae6806909808d04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#gad1252e017dafb1443ae6806909808d04">eobj_dspfree</a> (void *x)</td></tr>
-<tr class="memdesc:gad1252e017dafb1443ae6806909808d04"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a00006.html#a00038" title="The DSP object. ">t_edspobj</a> deletion function. <br />
- This function should replace pd_free().  <a href="#gad1252e017dafb1443ae6806909808d04">More...</a><br /></td></tr>
-<tr class="separator:gad1252e017dafb1443ae6806909808d04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5e86c6f25b1ad53b29d490942ccbc5e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga5e86c6f25b1ad53b29d490942ccbc5e9">eobj_resize_inputs</a> (void *x, long nins)</td></tr>
-<tr class="memdesc:ga5e86c6f25b1ad53b29d490942ccbc5e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resizes the number of signal inputs of a <a class="el" href="a00006.html#a00038" title="The DSP object. ">t_edspobj</a>.  <a href="#ga5e86c6f25b1ad53b29d490942ccbc5e9">More...</a><br /></td></tr>
-<tr class="separator:ga5e86c6f25b1ad53b29d490942ccbc5e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga74f802b76722a7bcde5c4e6a38c212ad"><td class="memItemLeft" align="right" valign="top">t_sample *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga74f802b76722a7bcde5c4e6a38c212ad">eobj_getsignalinput</a> (void *x, long index)</td></tr>
-<tr class="memdesc:ga74f802b76722a7bcde5c4e6a38c212ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the pointer to the signal of an input.  <a href="#ga74f802b76722a7bcde5c4e6a38c212ad">More...</a><br /></td></tr>
-<tr class="separator:ga74f802b76722a7bcde5c4e6a38c212ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab8b5bdfea2b158f059e76a6015d48916"><td class="memItemLeft" align="right" valign="top">t_sample *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#gab8b5bdfea2b158f059e76a6015d48916">eobj_getsignaloutput</a> (void *x, long index)</td></tr>
-<tr class="memdesc:gab8b5bdfea2b158f059e76a6015d48916"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the pointer to the signal of an output.  <a href="#gab8b5bdfea2b158f059e76a6015d48916">More...</a><br /></td></tr>
-<tr class="separator:gab8b5bdfea2b158f059e76a6015d48916"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga41d93d79bee7bc568342f46742a294ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga41d93d79bee7bc568342f46742a294ba">ebox_new</a> (<a class="el" href="a00006.html#a00039">t_ebox</a> *x, long flags)</td></tr>
+<tr class="memdesc:ga41d93d79bee7bc568342f46742a294ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the graphical members of the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>.  <a href="#ga41d93d79bee7bc568342f46742a294ba">More...</a><br /></td></tr>
+<tr class="separator:ga41d93d79bee7bc568342f46742a294ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga09c1b327faff8b3eb3d489c0fc92aa7c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga09c1b327faff8b3eb3d489c0fc92aa7c">ebox_ready</a> (<a class="el" href="a00006.html#a00039">t_ebox</a> *x)</td></tr>
+<tr class="memdesc:ga09c1b327faff8b3eb3d489c0fc92aa7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> can be drawn.  <a href="#ga09c1b327faff8b3eb3d489c0fc92aa7c">More...</a><br /></td></tr>
+<tr class="separator:ga09c1b327faff8b3eb3d489c0fc92aa7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf23211541198cfe590300b42e758c94e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#gaf23211541198cfe590300b42e758c94e">ebox_free</a> (<a class="el" href="a00006.html#a00039">t_ebox</a> *x)</td></tr>
+<tr class="memdesc:gaf23211541198cfe590300b42e758c94e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> can be drawn.  <a href="#gaf23211541198cfe590300b42e758c94e">More...</a><br /></td></tr>
+<tr class="separator:gaf23211541198cfe590300b42e758c94e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9cc07b9de1e8355c9120a5e6b72c200e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00003.html#a00063">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga9cc07b9de1e8355c9120a5e6b72c200e">ebox_getfontname</a> (<a class="el" href="a00006.html#a00039">t_ebox</a> *x)</td></tr>
+<tr class="memdesc:ga9cc07b9de1e8355c9120a5e6b72c200e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the name of the font of the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>.  <a href="#ga9cc07b9de1e8355c9120a5e6b72c200e">More...</a><br /></td></tr>
+<tr class="separator:ga9cc07b9de1e8355c9120a5e6b72c200e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4ec93cf41296bde221592db0c9fc1e27"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00003.html#a00063">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga4ec93cf41296bde221592db0c9fc1e27">ebox_getfontslant</a> (<a class="el" href="a00006.html#a00039">t_ebox</a> *x)</td></tr>
+<tr class="memdesc:ga4ec93cf41296bde221592db0c9fc1e27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the slant of the font of the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>.  <a href="#ga4ec93cf41296bde221592db0c9fc1e27">More...</a><br /></td></tr>
+<tr class="separator:ga4ec93cf41296bde221592db0c9fc1e27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9c342220af24e63f950d098e44e8f596"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00003.html#a00063">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga9c342220af24e63f950d098e44e8f596">ebox_getfontweight</a> (<a class="el" href="a00006.html#a00039">t_ebox</a> *x)</td></tr>
+<tr class="memdesc:ga9c342220af24e63f950d098e44e8f596"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the weight of the font of the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>.  <a href="#ga9c342220af24e63f950d098e44e8f596">More...</a><br /></td></tr>
+<tr class="separator:ga9c342220af24e63f950d098e44e8f596"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga187b43c8efeafc2fe9ff928b3fa81b21"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga187b43c8efeafc2fe9ff928b3fa81b21">ebox_getfontsize</a> (<a class="el" href="a00006.html#a00039">t_ebox</a> *x)</td></tr>
+<tr class="memdesc:ga187b43c8efeafc2fe9ff928b3fa81b21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the size of the font of the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>.  <a href="#ga187b43c8efeafc2fe9ff928b3fa81b21">More...</a><br /></td></tr>
+<tr class="separator:ga187b43c8efeafc2fe9ff928b3fa81b21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae583313b1ea4f06fe42aa7a0ed5772e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00003.html#gac085bef486c0e262349075ffce8a9752">t_pd</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#gae583313b1ea4f06fe42aa7a0ed5772e6">ebox_getsender</a> (<a class="el" href="a00006.html#a00039">t_ebox</a> *x)</td></tr>
+<tr class="memdesc:gae583313b1ea4f06fe42aa7a0ed5772e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the link list of object binded to the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>.  <a href="#gae583313b1ea4f06fe42aa7a0ed5772e6">More...</a><br /></td></tr>
+<tr class="separator:gae583313b1ea4f06fe42aa7a0ed5772e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5dfc5eda4b4c22de02f1fa0a996ebf7b"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga5dfc5eda4b4c22de02f1fa0a996ebf7b">ebox_isdrawable</a> (<a class="el" href="a00006.html#a00039">t_ebox</a> *x)</td></tr>
+<tr class="memdesc:ga5dfc5eda4b4c22de02f1fa0a996ebf7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves if a <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> is drawable.  <a href="#ga5dfc5eda4b4c22de02f1fa0a996ebf7b">More...</a><br /></td></tr>
+<tr class="separator:ga5dfc5eda4b4c22de02f1fa0a996ebf7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga252f271a59fa9d45cfa9587ab7e46e67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga252f271a59fa9d45cfa9587ab7e46e67">ebox_attrprocess_viabinbuf</a> (void *x, <a class="el" href="a00003.html#a00036">t_binbuf</a> *d)</td></tr>
+<tr class="memdesc:ga252f271a59fa9d45cfa9587ab7e46e67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the attributes with a binbuf.  <a href="#ga252f271a59fa9d45cfa9587ab7e46e67">More...</a><br /></td></tr>
+<tr class="separator:ga252f271a59fa9d45cfa9587ab7e46e67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga58f93112c84cfc7072b015d6a712ea4f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga58f93112c84cfc7072b015d6a712ea4f">ebox_attrprocess_viatoms</a> (void *x, int argc, <a class="el" href="a00003.html#a00034">t_atom</a> *argv)</td></tr>
+<tr class="memdesc:ga58f93112c84cfc7072b015d6a712ea4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the attributes with an array of atoms.  <a href="#ga58f93112c84cfc7072b015d6a712ea4f">More...</a><br /></td></tr>
+<tr class="separator:ga58f93112c84cfc7072b015d6a712ea4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabc0338760f9705f0588acb9727478abf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#gabc0338760f9705f0588acb9727478abf">ebox_set_cursor</a> (<a class="el" href="a00006.html#a00039">t_ebox</a> *x, int cursor)</td></tr>
+<tr class="memdesc:gabc0338760f9705f0588acb9727478abf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the cursor of the mouse.  <a href="#gabc0338760f9705f0588acb9727478abf">More...</a><br /></td></tr>
+<tr class="separator:gabc0338760f9705f0588acb9727478abf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3b61efe7c688334e267b0e66dcf22e00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga3b61efe7c688334e267b0e66dcf22e00">ebox_redraw</a> (<a class="el" href="a00006.html#a00039">t_ebox</a> *x)</td></tr>
+<tr class="memdesc:ga3b61efe7c688334e267b0e66dcf22e00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notifies the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> that it should be redrawn.  <a href="#ga3b61efe7c688334e267b0e66dcf22e00">More...</a><br /></td></tr>
+<tr class="separator:ga3b61efe7c688334e267b0e66dcf22e00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab84d1f52b2d9f92b470cfb01dd0667c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#gab84d1f52b2d9f92b470cfb01dd0667c9">ebox_get_rect_for_view</a> (<a class="el" href="a00006.html#a00039">t_ebox</a> *x, <a class="el" href="a00008.html#a00060">t_rect</a> *rect)</td></tr>
+<tr class="memdesc:gab84d1f52b2d9f92b470cfb01dd0667c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the rectangle of the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>.  <a href="#gab84d1f52b2d9f92b470cfb01dd0667c9">More...</a><br /></td></tr>
+<tr class="separator:gab84d1f52b2d9f92b470cfb01dd0667c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7c384db44fdd8ca5cc9d70db7bb15926"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00008.html#a00047">t_elayer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga7c384db44fdd8ca5cc9d70db7bb15926">ebox_start_layer</a> (<a class="el" href="a00006.html#a00039">t_ebox</a> *x, <a class="el" href="a00003.html#a00063">t_symbol</a> *name, float width, float height)</td></tr>
+<tr class="memdesc:ga7c384db44fdd8ca5cc9d70db7bb15926"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates or initializes a layer for the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>.  <a href="#ga7c384db44fdd8ca5cc9d70db7bb15926">More...</a><br /></td></tr>
+<tr class="separator:ga7c384db44fdd8ca5cc9d70db7bb15926"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafbd3037b1afe3939912b1b5cff96a5bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00029.html#ga3715b880d30ad1c90c610a3121407d0a">t_pd_err</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#gafbd3037b1afe3939912b1b5cff96a5bd">ebox_end_layer</a> (<a class="el" href="a00006.html#a00039">t_ebox</a> *x, <a class="el" href="a00003.html#a00063">t_symbol</a> *name)</td></tr>
+<tr class="memdesc:gafbd3037b1afe3939912b1b5cff96a5bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks a layer as ready to be drawn.  <a href="#gafbd3037b1afe3939912b1b5cff96a5bd">More...</a><br /></td></tr>
+<tr class="separator:gafbd3037b1afe3939912b1b5cff96a5bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4c40a6ef105573223e9d9cbb515c9db1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00029.html#ga3715b880d30ad1c90c610a3121407d0a">t_pd_err</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga4c40a6ef105573223e9d9cbb515c9db1">ebox_paint_layer</a> (<a class="el" href="a00006.html#a00039">t_ebox</a> *x, <a class="el" href="a00003.html#a00063">t_symbol</a> *name, float x_p, float y_p)</td></tr>
+<tr class="memdesc:ga4c40a6ef105573223e9d9cbb515c9db1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paints a layer in the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>.  <a href="#ga4c40a6ef105573223e9d9cbb515c9db1">More...</a><br /></td></tr>
+<tr class="separator:ga4c40a6ef105573223e9d9cbb515c9db1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4e3b81f831ab7cf2730daae51405c715"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00029.html#ga3715b880d30ad1c90c610a3121407d0a">t_pd_err</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#ga4e3b81f831ab7cf2730daae51405c715">ebox_invalidate_layer</a> (<a class="el" href="a00006.html#a00039">t_ebox</a> *x, <a class="el" href="a00003.html#a00063">t_symbol</a> *name)</td></tr>
+<tr class="memdesc:ga4e3b81f831ab7cf2730daae51405c715"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks a layer as invalid.  <a href="#ga4e3b81f831ab7cf2730daae51405c715">More...</a><br /></td></tr>
+<tr class="separator:ga4e3b81f831ab7cf2730daae51405c715"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>The <a class="el" href="a00006.html#a00038" title="The DSP object. ">t_edspobj</a> and <a class="el" href="a00005.html#a00037" title="The GUI DSP object. ">t_edspbox</a> part. </p>
-<p>This part refers to the methods and structures that can be used by all the <a class="el" href="a00006.html#a00038" title="The DSP object. ">t_edspobj</a> structures. </p>
+<p>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> and <a class="el" href="a00006.html#a00043" title="The GUI DSP object. ">t_edspbox</a> part. </p>
+<p>This part refers to the methods and structures that can be used by all the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> structures. </p>
 <hr/><h2 class="groupheader">Data Structure Documentation</h2>
-<a name="a00036" id="a00036"></a>
+<a name="a00041" id="a00041"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct t_edsp</td>
+          <td class="memname">struct t_edrawparams</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="textblock"><p>The DSP structure. </p>
-<p>It contains all the members for signal processing. This should be used for no graphical object that have signal processing methods. </p>
-</div><table class="fieldtable">
+<div class="textblock"><p>The drawing parameters. </p>
+<p>It contains the default parameters of a ebox. </p>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#_a24">c.bang.cpp</a>.</dd>
+</dl></div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="af1911d95932aed323aa64b76fb2b7665"></a>float</td>
+<a class="anchor" id="a9c491ec0cf0af5823d4c28d449f8d19e"></a>float</td>
 <td class="fieldname">
-d_float</td>
+d_cornersize</td>
 <td class="fielddoc">
-<p>The float member to initialize the signal method. </p>
+<p>The corner roundness. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="aca48e8ba3e0342673198520751a17518"></a>long</td>
+<a class="anchor" id="ac2c98f9e556d5b89b4effc24fdb56b03"></a>float</td>
 <td class="fieldname">
-d_size</td>
+d_borderthickness</td>
 <td class="fielddoc">
-<p>The number of signal inlets and outlets. </p>
+<p>The border size. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a1a630ca6cbe9a47eaf9b24a99cc58e95"></a>t_int *</td>
+<a class="anchor" id="a81687784708f31892bad33ebc4dce82d"></a><a class="el" href="a00008.html#a00062">t_rgba</a></td>
 <td class="fieldname">
-d_vectors</td>
+d_bordercolor</td>
 <td class="fielddoc">
-<p>The vector that contains all the pointers for the perform method. </p>
+<p>The border color. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="abd73689fe564a1ef5eec150a851c5d0b"></a>long</td>
+<a class="anchor" id="abe662d410233634836186064e09f2e99"></a><a class="el" href="a00008.html#a00062">t_rgba</a></td>
 <td class="fieldname">
-d_flags</td>
+d_boxfillcolor</td>
 <td class="fielddoc">
-<p>The flags to initialize the perform method. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="a3cf8dff24a54bc0c650a97b36c2721bb"></a>void *</td>
-<td class="fieldname">
-d_user_param</td>
-<td class="fielddoc">
-<p>The user parameters to pass through the perform method. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="a4cac9fd2c1af256f2b84934fd037d26b"></a>t_float **</td>
-<td class="fieldname">
-d_sigs_out</td>
-<td class="fielddoc">
-<p>The array of signal vectors. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="a2cda9c47758381a36b05653d68616c6a"></a>t_float *</td>
-<td class="fieldname">
-d_sigs_real</td>
-<td class="fielddoc">
-<p>The real array of signal. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="a1b7ecd037c8ce87da2a120fa431033d9"></a><a class="el" href="a00027.html#gaa1afc460e49d0d202fc4ee6e4e84b3b2">t_typ_method</a></td>
-<td class="fieldname">
-d_perform_method</td>
-<td class="fielddoc">
-<p>The user perform method. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="aef6f4ce91002d4e8a0c878da5e691473"></a>long</td>
-<td class="fieldname">
-d_misc</td>
-<td class="fielddoc">
-<p>The flag that could be inplace or not. </p>
+<p>The background color. </p>
 </td></tr>
 </table>
 
 </div>
 </div>
-<a name="a00038" id="a00038"></a>
+<a name="a00039" id="a00039"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct t_edspobj</td>
+          <td class="memname">struct t_ebox</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="textblock"><p>The DSP object. </p>
-<p>It contains the <a class="el" href="a00008.html#a00042" title="The default object. ">t_eobj</a> with the <a class="el" href="a00006.html#a00036" title="The DSP structure. ">t_edsp</a> structure. This should be used for no graphical object that have signal processing methods. </p>
-</div><table class="fieldtable">
+<div class="textblock"><p>The GUI object. </p>
+<p>It contains the <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> with all the members for graphical behavior. This should be used for graphical object that don't have signal processing methods. </p>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="a00001.html#_a1">c.bang.cpp</a>.</dd>
+</dl></div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a63488db3cd34d44a3eff0c3115a68bb4"></a><a class="el" href="a00008.html#a00042">t_eobj</a></td>
+<a class="anchor" id="a9949abd851d6eb9025df03bb856d0b3e"></a><a class="el" href="a00009.html#a00048">t_eobj</a></td>
 <td class="fieldname">
-d_obj</td>
+b_obj</td>
 <td class="fielddoc">
-<p>The default object. </p>
+The object. </td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a78dc268bd72ebc6a499521079e83aec1"></a><a class="el" href="a00003.html#a00063">t_symbol</a> *</td>
+<td class="fieldname">
+b_receive_id</td>
+<td class="fielddoc">
+<p>The object user ID. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a0c114a1205b592e255bc73e0197ddd45"></a><a class="el" href="a00006.html#a00036">t_edsp</a></td>
+<a class="anchor" id="a992df88e0e842db2f8da2ef01607a1ae"></a><a class="el" href="a00003.html#a00063">t_symbol</a> *</td>
 <td class="fieldname">
-d_dsp</td>
+b_send_id</td>
 <td class="fielddoc">
-<p>The dsp structure. </p>
+<p>The object send ID. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a1900c930231b8d9293be52bc79618fc0"></a><a class="el" href="a00003.html#a00063">t_symbol</a> *</td>
+<td class="fieldname">
+b_objpreset_id</td>
+<td class="fielddoc">
+<p>The object preset ID. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="af16ddbcc2e590fed18c832b5ca97d4b9"></a><a class="el" href="a00003.html#a00063">t_symbol</a> *</td>
+<td class="fieldname">
+b_canvas_id</td>
+<td class="fielddoc">
+<p>The canvas ID. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a39a2c877915f6633522e6d0f1d44ec78"></a><a class="el" href="a00003.html#a00063">t_symbol</a> *</td>
+<td class="fieldname">
+b_drawing_id</td>
+<td class="fielddoc">
+<p>The drawing ID. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="ac53b9adb36148291448f073d3d46c99a"></a><a class="el" href="a00003.html#a00063">t_symbol</a> *</td>
+<td class="fieldname">
+b_window_id</td>
+<td class="fielddoc">
+<p>The window ID. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="ab711e1c45e78f5133a4550cd1fb897bf"></a><a class="el" href="a00003.html#a00063">t_symbol</a> *</td>
+<td class="fieldname">
+b_all_id</td>
+<td class="fielddoc">
+<p>The global ID. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a8f42b828b11ed26f8fe9c7148799d085"></a>long</td>
+<td class="fieldname">
+b_flags</td>
+<td class="fielddoc">
+<p>The ebox flags. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a7a9713bad6c3cc449df7207bcb424be3"></a><a class="el" href="a00008.html#a00060">t_rect</a></td>
+<td class="fieldname">
+b_rect</td>
+<td class="fielddoc">
+<p>The ebox rectangle. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a0031f1f2d42a18a58313b33f59139578"></a><a class="el" href="a00008.html#a00060">t_rect</a></td>
+<td class="fieldname">
+b_rect_last</td>
+<td class="fielddoc">
+<p>The ebox previous rectangle. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a158a58471ce64a89cbff635e10e48515"></a><a class="el" href="a00008.html#a00045">t_efont</a></td>
+<td class="fieldname">
+b_font</td>
+<td class="fielddoc">
+<p>The ebox font. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="af721a77fe33b281d0d2f6a5fa64fdd52"></a>int</td>
+<td class="fieldname">
+b_selected_box</td>
+<td class="fielddoc">
+<p>The selected state </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a3178ca5db13319003bacd0db8a6d1e1a"></a>int</td>
+<td class="fieldname">
+b_selected_item</td>
+<td class="fielddoc">
+<p>The items selected. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a3f2a43cad7e9882e21ceb2a7b0b5e887"></a>int</td>
+<td class="fieldname">
+b_selected_inlet</td>
+<td class="fielddoc">
+<p>The inlet selected. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="aac434f064bb59cc71da2aec664807763"></a>int</td>
+<td class="fieldname">
+b_selected_outlet</td>
+<td class="fielddoc">
+<p>The outlet selected. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a23d9ca2cf6cafdd8cd5c496927caae95"></a>char</td>
+<td class="fieldname">
+b_mouse_down</td>
+<td class="fielddoc">
+<p>The mouse state. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a262fd87d8b58f66781e6c0b735b2ff28"></a>char</td>
+<td class="fieldname">
+b_visible</td>
+<td class="fielddoc">
+<p>The visible state. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a081a8a23ddf849cd5867dcc3382a40ae"></a>char</td>
+<td class="fieldname">
+b_ready_to_draw</td>
+<td class="fielddoc">
+<p>The ebox state for drawing. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a0f2b1dacb5b8560493012f53f4f2f3c1"></a>char</td>
+<td class="fieldname">
+b_have_window</td>
+<td class="fielddoc">
+<p>The ebox window state. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="adaab4aaa0946181da7dbecb0b10faa12"></a>char</td>
+<td class="fieldname">
+b_isinsubcanvas</td>
+<td class="fielddoc">
+<p>If the box is in a sub canvas. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a084de3f93275c55c9a41667fa7aa6156"></a><a class="el" href="a00006.html#a00041">t_edrawparams</a></td>
+<td class="fieldname">
+b_boxparameters</td>
+<td class="fielddoc">
+<p>The ebox parameters. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="afa8badd38700e76e96d5ee4c5d6727a9"></a><a class="el" href="a00008.html#a00047">t_elayer</a> *</td>
+<td class="fieldname">
+b_layers</td>
+<td class="fielddoc">
+<p>The ebox layers. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a09de806201205272af79370bf98ad4eb"></a>long</td>
+<td class="fieldname">
+b_number_of_layers</td>
+<td class="fielddoc">
+<p>The ebox number of layers. </p>
 </td></tr>
 </table>
 
 </div>
 </div>
-<a name="a00037" id="a00037"></a>
+<a name="a00043" id="a00043"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -256,60 +454,60 @@ d_dsp</td>
       </table>
 </div><div class="memdoc">
 <div class="textblock"><p>The GUI DSP object. </p>
-<p>It contains the <a class="el" href="a00008.html#a00042" title="The default object. ">t_eobj</a> with all the members for graphical behavior and signal processing. This should be used for graphical object that have signal processing methods. </p>
+<p>It contains the <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> with all the members for graphical behavior and signal processing. This should be used for graphical object that have signal processing methods. </p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a6cb8b65065768d9ba4ea78467240026f"></a><a class="el" href="a00008.html#a00042">t_eobj</a></td>
+<a class="anchor" id="a6cb8b65065768d9ba4ea78467240026f"></a><a class="el" href="a00009.html#a00048">t_eobj</a></td>
 <td class="fieldname">
 b_obj</td>
 <td class="fielddoc">
 <p>The DSP object. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ad497be375a6747949c69f030dcfea237"></a>t_symbol *</td>
+<a class="anchor" id="ad497be375a6747949c69f030dcfea237"></a><a class="el" href="a00003.html#a00063">t_symbol</a> *</td>
 <td class="fieldname">
 b_receive_id</td>
 <td class="fielddoc">
 <p>The object user ID. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a0bd349ee9fde69dbe48f34a25a5a2100"></a>t_symbol *</td>
+<a class="anchor" id="a0bd349ee9fde69dbe48f34a25a5a2100"></a><a class="el" href="a00003.html#a00063">t_symbol</a> *</td>
 <td class="fieldname">
 b_send_id</td>
 <td class="fielddoc">
 <p>The object send ID. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a62c8cd2ca1bb920b935a7a8449b5ce7a"></a>t_symbol *</td>
+<a class="anchor" id="a62c8cd2ca1bb920b935a7a8449b5ce7a"></a><a class="el" href="a00003.html#a00063">t_symbol</a> *</td>
 <td class="fieldname">
 b_objpreset_id</td>
 <td class="fielddoc">
 <p>The object preset ID. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a2a6338ec364214f06bda08c81e022e68"></a>t_symbol *</td>
+<a class="anchor" id="a2a6338ec364214f06bda08c81e022e68"></a><a class="el" href="a00003.html#a00063">t_symbol</a> *</td>
 <td class="fieldname">
 b_canvas_id</td>
 <td class="fielddoc">
 <p>The canvas ID. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a5bea1840cf805e6e8bc5a8856b525388"></a>t_symbol *</td>
+<a class="anchor" id="a5bea1840cf805e6e8bc5a8856b525388"></a><a class="el" href="a00003.html#a00063">t_symbol</a> *</td>
 <td class="fieldname">
 b_drawing_id</td>
 <td class="fielddoc">
 <p>The drawing ID. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a5570f7017e410294472a85cb90a25ddd"></a>t_symbol *</td>
+<a class="anchor" id="a5570f7017e410294472a85cb90a25ddd"></a><a class="el" href="a00003.html#a00063">t_symbol</a> *</td>
 <td class="fieldname">
 b_window_id</td>
 <td class="fielddoc">
 <p>The window ID. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a340b0a27331db3b05b6b393f11ef420d"></a>t_symbol *</td>
+<a class="anchor" id="a340b0a27331db3b05b6b393f11ef420d"></a><a class="el" href="a00003.html#a00063">t_symbol</a> *</td>
 <td class="fieldname">
 b_all_id</td>
 <td class="fielddoc">
@@ -323,21 +521,21 @@ b_flags</td>
 <p>The ebox flags. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="adb6f481670996212b543e961e8bd4547"></a><a class="el" href="a00007.html#a00051">t_rect</a></td>
+<a class="anchor" id="adb6f481670996212b543e961e8bd4547"></a><a class="el" href="a00008.html#a00060">t_rect</a></td>
 <td class="fieldname">
 b_rect</td>
 <td class="fielddoc">
 <p>The ebox rectangle. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a0ff844bea45c78477fae06735121d8ac"></a><a class="el" href="a00007.html#a00051">t_rect</a></td>
+<a class="anchor" id="a0ff844bea45c78477fae06735121d8ac"></a><a class="el" href="a00008.html#a00060">t_rect</a></td>
 <td class="fieldname">
 b_rect_last</td>
 <td class="fielddoc">
 <p>The ebox previous rectangle. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="aa9e9583976f9c3b053a059ff2fb7bc80"></a><a class="el" href="a00007.html#a00039">t_efont</a></td>
+<a class="anchor" id="aa9e9583976f9c3b053a059ff2fb7bc80"></a><a class="el" href="a00008.html#a00045">t_efont</a></td>
 <td class="fieldname">
 b_font</td>
 <td class="fielddoc">
@@ -407,14 +605,14 @@ b_isinsubcanvas</td>
 <p>If the box is in a sub canvas. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a7e048ee26fa70d32054d1a3d7516c67b"></a><a class="el" href="a00005.html#a00035">t_edrawparams</a></td>
+<a class="anchor" id="a7e048ee26fa70d32054d1a3d7516c67b"></a><a class="el" href="a00006.html#a00041">t_edrawparams</a></td>
 <td class="fieldname">
 b_boxparameters</td>
 <td class="fielddoc">
 <p>The ebox parameters. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="adcd69e69ebf511e128d999918af21b8b"></a><a class="el" href="a00007.html#a00041">t_elayer</a> *</td>
+<a class="anchor" id="adcd69e69ebf511e128d999918af21b8b"></a><a class="el" href="a00008.html#a00047">t_elayer</a> *</td>
 <td class="fieldname">
 b_layers</td>
 <td class="fielddoc">
@@ -428,7 +626,7 @@ b_number_of_layers</td>
 <p>The ebox number of layers. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a3b874236c74100e0a0fa4b0c2e36202f"></a><a class="el" href="a00006.html#a00036">t_edsp</a></td>
+<a class="anchor" id="a3b874236c74100e0a0fa4b0c2e36202f"></a><a class="el" href="a00007.html#a00042">t_edsp</a></td>
 <td class="fieldname">
 d_dsp</td>
 <td class="fielddoc">
@@ -439,81 +637,167 @@ d_dsp</td>
 </div>
 </div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
-<a class="anchor" id="ga36eab88f02912d80f5e9feace6ea3e88"></a>
+<a class="anchor" id="ga4f716adba573d251d034ae382195cabf"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="a00006.html#ga36eab88f02912d80f5e9feace6ea3e88">edsp_flags</a></td>
+          <td class="memname">enum <a class="el" href="a00006.html#ga4f716adba573d251d034ae382195cabf">emod_flags</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The flags that discribe the behavior of a <a class="el" href="a00006.html#a00038" title="The DSP object. ">t_edspobj</a>. </p>
-<p>It define all the behavior of a <a class="el" href="a00006.html#a00038" title="The DSP object. ">t_edspobj</a>. </p>
+<p>The mouse modifiers. </p>
+<p>It define mouse modifiers. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="gga36eab88f02912d80f5e9feace6ea3e88a1a6d5f872607ec0f203d15841e28bdc0"></a>E_INPLACE&#160;</td><td class="fielddoc">
-<p>The signal processing can be inplace. </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="gga4f716adba573d251d034ae382195cabfaebe4d58a623c8cb4a9386b88db66f0cc"></a>EMOD_NONE&#160;</td><td class="fielddoc">
+<p>Nothing. </p>
 </td></tr>
-<tr><td class="fieldname"><a class="anchor" id="gga36eab88f02912d80f5e9feace6ea3e88ac0599d55b264b5abd40c01fa0180b818"></a>E_NO_INPLACE&#160;</td><td class="fielddoc">
-<p>The signal processing can't be inplace. </p>
+<tr><td class="fieldname"><a class="anchor" id="gga4f716adba573d251d034ae382195cabfa0f27cd10af8267f700a35d02e72ccecd"></a>EMOD_SHIFT&#160;</td><td class="fielddoc">
+<p>Shift. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga4f716adba573d251d034ae382195cabfa46a5119204b46d97f63672988949f482"></a>EMOD_MAJ&#160;</td><td class="fielddoc">
+<p>Maj. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga4f716adba573d251d034ae382195cabfa466e21617f39293de281d09c9f23639f"></a>EMOD_CTRL&#160;</td><td class="fielddoc">
+<p>Control. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga4f716adba573d251d034ae382195cabfacdf1feca13bc2a4469c27268a2de37e8"></a>EMOD_CMD&#160;</td><td class="fielddoc">
+<p>Command. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga4f716adba573d251d034ae382195cabfa9af0a98354d633745f0738c0de23b9a1"></a>EMOD_ALT&#160;</td><td class="fielddoc">
+<p>Alt. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga4f716adba573d251d034ae382195cabfaa92a81de1edc1cefe7e34529faba5bbd"></a>EMOD_RIGHT&#160;</td><td class="fielddoc">
+<p>Right click. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a class="anchor" id="ga472d248b8e2255bf2b9aab0a8725a0d5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a00006.html#ga472d248b8e2255bf2b9aab0a8725a0d5">ekey_flags</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The system keys. </p>
+<p>It define the system keys. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="gga472d248b8e2255bf2b9aab0a8725a0d5a73a4bf3dbffbd5caf5fb698113472c62"></a>EKEY_DEL&#160;</td><td class="fielddoc">
+<p>The delete key. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga472d248b8e2255bf2b9aab0a8725a0d5a825abc5e437af1fdaed232d35aa35461"></a>EKEY_TAB&#160;</td><td class="fielddoc">
+<p>The tabulation key. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga472d248b8e2255bf2b9aab0a8725a0d5a4e3ef4115eaba6fd290b729d9db5af5f"></a>EKEY_ENTER&#160;</td><td class="fielddoc">
+<p>The return key. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga472d248b8e2255bf2b9aab0a8725a0d5a931038b196cdf3a0f39deef5b2e6bfe2"></a>EKEY_ESC&#160;</td><td class="fielddoc">
+<p>The escape key. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a class="anchor" id="ga34bc62f56dc70d407271ecc4990a5aa5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a00006.html#ga34bc62f56dc70d407271ecc4990a5aa5">ebox_flags</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The flags that discribe the behavior of a <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>. </p>
+<p>It define all the behavior of a <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="gga34bc62f56dc70d407271ecc4990a5aa5a9e00fc0b77ad11d15dd684878ded2497"></a>EBOX_GROWNO&#160;</td><td class="fielddoc">
+<p>The width and the height can't be modified. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga34bc62f56dc70d407271ecc4990a5aa5a06e4080f2aacad35375559f4bc40bc0a"></a>EBOX_GROWLINK&#160;</td><td class="fielddoc">
+<p>The width and the height are linked. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga34bc62f56dc70d407271ecc4990a5aa5a3a33fea1f7a438880d712542a217d8fd"></a>EBOX_GROWINDI&#160;</td><td class="fielddoc">
+<p>The width and the height are independant. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga34bc62f56dc70d407271ecc4990a5aa5a73f51b70170a6e3b0a3335a9743363b9"></a>EBOX_IGNORELOCKCLICK&#160;</td><td class="fielddoc">
+<p>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> ignore the mouse events. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a class="anchor" id="ga7bcfae0204ad85ad8f76a923ead220d6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a00006.html#ga7bcfae0204ad85ad8f76a923ead220d6">ebox_cursors</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The cursors that can be used. </p>
+<p>It define all the available cursors. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="gga7bcfae0204ad85ad8f76a923ead220d6a1912f87717d73e45e0cc04b2219dd5ab"></a>ECURSOR_LEFT_PTR&#160;</td><td class="fielddoc">
+<p>The left_ptr string. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga7bcfae0204ad85ad8f76a923ead220d6ac6ade3994d7b2d1d1d8ebab2ee36f485"></a>ECURSOR_CENTER_PTR&#160;</td><td class="fielddoc">
+<p>The center_ptr string. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga7bcfae0204ad85ad8f76a923ead220d6a4f0cc60351999d621ff8a2d8973a8e60"></a>ECURSOR_SDOUBLE_ARROW&#160;</td><td class="fielddoc">
+<p>The sb_v_double_arrow string. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga7bcfae0204ad85ad8f76a923ead220d6a7d78f827d83fbe09bff3e87e56ee5aae"></a>ECURSOR_PLUS&#160;</td><td class="fielddoc">
+<p>The plus string. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga7bcfae0204ad85ad8f76a923ead220d6a7704923cde752d6561106c432058efb9"></a>ECURSOR_HAND&#160;</td><td class="fielddoc">
+<p>The hand2 string. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga7bcfae0204ad85ad8f76a923ead220d6aee36ac2a474c7db60f28480c2fb25110"></a>ECURSOR_CIRCLE&#160;</td><td class="fielddoc">
+<p>The circle string. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga7bcfae0204ad85ad8f76a923ead220d6a306c9b9f85cab1162de63f4fd95678d2"></a>ECURSOR_X&#160;</td><td class="fielddoc">
+<p>The X_cursor string. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga7bcfae0204ad85ad8f76a923ead220d6a7714609a558661e28a86487aa0b46eef"></a>ECURSOR_BOTTOM&#160;</td><td class="fielddoc">
+<p>The bottom_side string. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga7bcfae0204ad85ad8f76a923ead220d6a0a02ddadc392fc9132bcb462d5bcb2fb"></a>ECURSOR_RIGHT_CORNER&#160;</td><td class="fielddoc">
+<p>The bottom_right_corner string. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga7bcfae0204ad85ad8f76a923ead220d6a5cca4f7f53d74b9a26e148449aab7d44"></a>ECURSOR_RIGHT_SIDE&#160;</td><td class="fielddoc">
+<p>The right_side string. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga7bcfae0204ad85ad8f76a923ead220d6ac35fb1a418b4b385e8869b120008f10c"></a>ECURSOR_DOUBLE_ARROW&#160;</td><td class="fielddoc">
+<p>The double_arrow string. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga7bcfae0204ad85ad8f76a923ead220d6a9d225b061f6d5d6d61046ce720146960"></a>ECURSOR_EXCHANGE&#160;</td><td class="fielddoc">
+<p>The exchange string. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga7bcfae0204ad85ad8f76a923ead220d6ae812b826f23c6fa412e8e9986499249f"></a>ECURSOR_XTERM&#160;</td><td class="fielddoc">
+<p>The xterm string. </p>
 </td></tr>
 </table>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ga75990a2c2f4f51a081904dce5c5e14b4"></a>
+<a class="anchor" id="ga41d93d79bee7bc568342f46742a294ba"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void eobj_dspsetup </td>
+          <td class="memname">void ebox_new </td>
           <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">long&#160;</td>
-          <td class="paramname"><em>nins</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">long&#160;</td>
-          <td class="paramname"><em>nouts</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Initializes the dsp members of the <a class="el" href="a00006.html#a00036" title="The DSP structure. ">t_edsp</a>. </p>
-<p>Allocate the memory for digital dignal processing of a <a class="el" href="a00006.html#a00038" title="The DSP object. ">t_edspobj</a>. <br />
- This funtion should replace inlet_new and outlet_new for the signal. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x</td><td>The edspobj pointer </td></tr>
-    <tr><td class="paramname">nins</td><td>The number of signal inputs. </td></tr>
-    <tr><td class="paramname">nouts</td><td>The number of signal outputs </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="gad5797d29700a9227f3fb9f2435b59914"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void eobj_dspflags </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
+          <td class="paramtype"><a class="el" href="a00006.html#a00039">t_ebox</a> *&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
@@ -530,50 +814,226 @@ d_dsp</td>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes the flags of the <a class="el" href="a00006.html#a00036" title="The DSP structure. ">t_edsp</a>. </p>
-<p>Sets the dsp inplace (default) or not inplace. You should use this function before the call of the dsp method (in the new method for example). </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Initializes the graphical members of the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>. </p>
+<p>Sets the defaults values and initializes the attributes. <br />
+ This function should be call after <a class="el" href="a00009.html#ga238c42e70bfd0c1b7a8763fb11a1ab92" title="The t_eobj creation function. ">eobj_new()</a>. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>The edspobj pointer </td></tr>
-    <tr><td class="paramname">flags</td><td>The dsp flags. </td></tr>
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+    <tr><td class="paramname">flags</td><td>A set of flags that defines the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> behavior. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="a00006.html#ga36eab88f02912d80f5e9feace6ea3e88" title="The flags that discribe the behavior of a t_edspobj. ">edsp_flags</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a00006.html#ga34bc62f56dc70d407271ecc4990a5aa5" title="The flags that discribe the behavior of a t_ebox. ">ebox_flags</a> </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="a00030.html#_todo000001">Todo:</a></b></dt><dd>Not here but for doc (in ebox_wvis vis is called sevral times with vis = 1 perhaps we can avoid to recreate the stuff at each time) </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="gad1252e017dafb1443ae6806909808d04"></a>
+<a class="anchor" id="ga09c1b327faff8b3eb3d489c0fc92aa7c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void eobj_dspfree </td>
+          <td class="memname">void ebox_ready </td>
           <td>(</td>
-          <td class="paramtype">void *&#160;</td>
+          <td class="paramtype"><a class="el" href="a00006.html#a00039">t_ebox</a> *&#160;</td>
           <td class="paramname"><em>x</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The <a class="el" href="a00006.html#a00038" title="The DSP object. ">t_edspobj</a> deletion function. <br />
- This function should replace pd_free(). </p>
-<p>Frees the memory allocated for digital dignal processing of a <a class="el" href="a00006.html#a00038" title="The DSP object. ">t_edspobj</a>. <br />
- This function should replace pd_free() and you shouldn't have to call <a class="el" href="a00008.html#gab269804f09b184c738c3088889d8908c" title="The t_eobj deletion function.   This function should replace pd_free(). ">eobj_free()</a>; </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Indicates that the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> can be drawn. </p>
+<p>Actives the drawind methods. <br />
+ This function should be call after durng the new method just before returning the object. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>The edspobj pointer </td></tr>
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="ga5e86c6f25b1ad53b29d490942ccbc5e9"></a>
+<a class="anchor" id="gaf23211541198cfe590300b42e758c94e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void eobj_resize_inputs </td>
+          <td class="memname">void ebox_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00006.html#a00039">t_ebox</a> *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates that the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> can be drawn. </p>
+<p>Deletes the drawings. <br />
+ This function should replace pd_free() and you shouldn't have to call <a class="el" href="a00009.html#gab269804f09b184c738c3088889d8908c" title="The t_eobj deletion function.   This function should replace pd_free(). ">eobj_free()</a> or <a class="el" href="a00007.html#gad1252e017dafb1443ae6806909808d04" title="The t_edspobj deletion function.   This function should replace pd_free(). ">eobj_dspfree()</a>; </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ga9cc07b9de1e8355c9120a5e6b72c200e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00003.html#a00063">t_symbol</a>* ebox_getfontname </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00006.html#a00039">t_ebox</a> *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves the name of the font of the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The font name. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga4ec93cf41296bde221592db0c9fc1e27"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00003.html#a00063">t_symbol</a>* ebox_getfontslant </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00006.html#a00039">t_ebox</a> *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves the slant of the font of the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The font slant. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga9c342220af24e63f950d098e44e8f596"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00003.html#a00063">t_symbol</a>* ebox_getfontweight </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00006.html#a00039">t_ebox</a> *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves the weight of the font of the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The font weight. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga187b43c8efeafc2fe9ff928b3fa81b21"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float ebox_getfontsize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00006.html#a00039">t_ebox</a> *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves the size of the font of the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The font size. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gae583313b1ea4f06fe42aa7a0ed5772e6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00003.html#gac085bef486c0e262349075ffce8a9752">t_pd</a>* ebox_getsender </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00006.html#a00039">t_ebox</a> *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves the link list of object binded to the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The pointer to the link list. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga5dfc5eda4b4c22de02f1fa0a996ebf7b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char ebox_isdrawable </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00006.html#a00039">t_ebox</a> *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves if a <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> is drawable. </p>
+<p>Checks several things that ensure that the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> can be drawn; </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The function returns 1 if the box is drawable otherwise 0. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga252f271a59fa9d45cfa9587ab7e46e67"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ebox_attrprocess_viabinbuf </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>x</em>, </td>
@@ -581,8 +1041,8 @@ d_dsp</td>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">long&#160;</td>
-          <td class="paramname"><em>nins</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a00003.html#a00036">t_binbuf</a> *&#160;</td>
+          <td class="paramname"><em>d</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -592,23 +1052,23 @@ d_dsp</td>
       </table>
 </div><div class="memdoc">
 
-<p>Resizes the number of signal inputs of a <a class="el" href="a00006.html#a00038" title="The DSP object. ">t_edspobj</a>. </p>
-<p>Allocates or free the signal inputs. The method can be called after the allocation of the object. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Changes the attributes with a binbuf. </p>
+<p>Retrieves and interpretes a binbuf to initialize the attributes. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>The edspobj pointer. </td></tr>
-    <tr><td class="paramname">nins</td><td>The number of signal inputs. </td></tr>
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+    <tr><td class="paramname">d</td><td>The binbuf pointer. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="ga74f802b76722a7bcde5c4e6a38c212ad"></a>
+<a class="anchor" id="ga58f93112c84cfc7072b015d6a712ea4f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_sample* eobj_getsignalinput </td>
+          <td class="memname">void ebox_attrprocess_viatoms </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>x</em>, </td>
@@ -616,8 +1076,14 @@ d_dsp</td>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">long&#160;</td>
-          <td class="paramname"><em>index</em>&#160;</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00003.html#a00034">t_atom</a> *&#160;</td>
+          <td class="paramname"><em>argv</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -627,34 +1093,33 @@ d_dsp</td>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieves the pointer to the signal of an input. </p>
-<p>Retrieves the pointer to the signal vector of an input. <br />
- The can function can only be used during the dsp method call. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Changes the attributes with an array of atoms. </p>
+<p>Retrieves and interpretes a binbuf to initialize the attributes. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>The edspobj pointer. </td></tr>
-    <tr><td class="paramname">index</td><td>The index of the input. </td></tr>
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+    <tr><td class="paramname">argc</td><td>The number of atoms. </td></tr>
+    <tr><td class="paramname">argv</td><td>The pointer to the atoms. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the signal vector or NULL. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="gab8b5bdfea2b158f059e76a6015d48916"></a>
+<a class="anchor" id="gabc0338760f9705f0588acb9727478abf"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">t_sample* eobj_getsignaloutput </td>
+          <td class="memname">void ebox_set_cursor </td>
           <td>(</td>
-          <td class="paramtype">void *&#160;</td>
+          <td class="paramtype"><a class="el" href="a00006.html#a00039">t_ebox</a> *&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">long&#160;</td>
-          <td class="paramname"><em>index</em>&#160;</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>cursor</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -664,23 +1129,253 @@ d_dsp</td>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieves the pointer to the signal of an output. </p>
-<p>Retrieves the pointer to the signal vector of an output. <br />
- The can function can only be used during the dsp method call. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Changes the cursor of the mouse. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>The edspobj pointer. </td></tr>
-    <tr><td class="paramname">index</td><td>The index of the output. </td></tr>
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+    <tr><td class="paramname">cursor</td><td>The type of cursor. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the signal vector or NULL. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a00006.html#ga7bcfae0204ad85ad8f76a923ead220d6" title="The cursors that can be used. ">ebox_cursors</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga3b61efe7c688334e267b0e66dcf22e00"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ebox_redraw </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00006.html#a00039">t_ebox</a> *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Notifies the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> that it should be redrawn. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="gab84d1f52b2d9f92b470cfb01dd0667c9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ebox_get_rect_for_view </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00006.html#a00039">t_ebox</a> *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00008.html#a00060">t_rect</a> *&#160;</td>
+          <td class="paramname"><em>rect</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves the rectangle of the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>. </p>
+<p>This function should be used while the paint method is called to retrieves the current size of the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+    <tr><td class="paramname">rect</td><td>The <a class="el" href="a00008.html#a00060" title="A rectangle structure. ">t_rect</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ga7c384db44fdd8ca5cc9d70db7bb15926"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00008.html#a00047">t_elayer</a>* ebox_start_layer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00006.html#a00039">t_ebox</a> *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00003.html#a00063">t_symbol</a> *&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>height</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates or initializes a layer for the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>. </p>
+<p>If the layer is new, the function allocate a new empty layer. if the layer already exist and is marked as invalid the layer is returned otherwise(if the layer is maked as redeay to be drawn for example) the function returns NULL. You should always check the returned layer of the function before using it. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+    <tr><td class="paramname">name</td><td>The name of the layer. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the layer. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the layer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a00006.html#gafbd3037b1afe3939912b1b5cff96a5bd" title="Marks a layer as ready to be drawn. ">ebox_end_layer</a> <a class="el" href="a00006.html#ga4e3b81f831ab7cf2730daae51405c715" title="Marks a layer as invalid. ">ebox_invalidate_layer</a> <a class="el" href="a00006.html#ga4c40a6ef105573223e9d9cbb515c9db1" title="Paints a layer in the t_ebox. ">ebox_paint_layer</a> t_elayer_flags <a class="el" href="a00008.html#a00047" title="The drawing layer. ">t_elayer</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gafbd3037b1afe3939912b1b5cff96a5bd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00029.html#ga3715b880d30ad1c90c610a3121407d0a">t_pd_err</a> ebox_end_layer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00006.html#a00039">t_ebox</a> *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00003.html#a00063">t_symbol</a> *&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Marks a layer as ready to be drawn. </p>
+<p>After the several painting methods, you should call this function to notify that the layer is ready to be drawn. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+    <tr><td class="paramname">name</td><td>The name of the layer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a00006.html#ga7c384db44fdd8ca5cc9d70db7bb15926" title="Creates or initializes a layer for the t_ebox. ">ebox_start_layer</a> <a class="el" href="a00006.html#ga4e3b81f831ab7cf2730daae51405c715" title="Marks a layer as invalid. ">ebox_invalidate_layer</a> <a class="el" href="a00006.html#ga4c40a6ef105573223e9d9cbb515c9db1" title="Paints a layer in the t_ebox. ">ebox_paint_layer</a> t_elayer_flags <a class="el" href="a00008.html#a00047" title="The drawing layer. ">t_elayer</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga4c40a6ef105573223e9d9cbb515c9db1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00029.html#ga3715b880d30ad1c90c610a3121407d0a">t_pd_err</a> ebox_paint_layer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00006.html#a00039">t_ebox</a> *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00003.html#a00063">t_symbol</a> *&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>x_p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>y_p</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Paints a layer in the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>. </p>
+<p>If a layer is ready to be drawn, the function will paint it in the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+    <tr><td class="paramname">name</td><td>The name of the layer. </td></tr>
+    <tr><td class="paramname">x_p</td><td>The abscissa of the layer in the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>. </td></tr>
+    <tr><td class="paramname">y_p</td><td>The ordinate of the layer in the <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a00006.html#ga7c384db44fdd8ca5cc9d70db7bb15926" title="Creates or initializes a layer for the t_ebox. ">ebox_start_layer</a> <a class="el" href="a00006.html#gafbd3037b1afe3939912b1b5cff96a5bd" title="Marks a layer as ready to be drawn. ">ebox_end_layer</a> <a class="el" href="a00006.html#ga4e3b81f831ab7cf2730daae51405c715" title="Marks a layer as invalid. ">ebox_invalidate_layer</a> t_elayer_flags <a class="el" href="a00008.html#a00047" title="The drawing layer. ">t_elayer</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga4e3b81f831ab7cf2730daae51405c715"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00029.html#ga3715b880d30ad1c90c610a3121407d0a">t_pd_err</a> ebox_invalidate_layer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00006.html#a00039">t_ebox</a> *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00003.html#a00063">t_symbol</a> *&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Marks a layer as invalid. </p>
+<p>When you want to redraw a layer you have to call this function and then call ebox_redraw. You should always prefer to invalidate several layer before calling ebox_redraw. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+    <tr><td class="paramname">name</td><td>The name of the layer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a00006.html#ga7c384db44fdd8ca5cc9d70db7bb15926" title="Creates or initializes a layer for the t_ebox. ">ebox_start_layer</a> <a class="el" href="a00006.html#gafbd3037b1afe3939912b1b5cff96a5bd" title="Marks a layer as ready to be drawn. ">ebox_end_layer</a> <a class="el" href="a00006.html#ga3b61efe7c688334e267b0e66dcf22e00" title="Notifies the t_ebox that it should be redrawn. ">ebox_redraw</a> <a class="el" href="a00006.html#ga4c40a6ef105573223e9d9cbb515c9db1" title="Paints a layer in the t_ebox. ">ebox_paint_layer</a> t_elayer_flags <a class="el" href="a00008.html#a00047" title="The drawing layer. ">t_elayer</a> </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 19 2015 10:45:17 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2015 14:23:22 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

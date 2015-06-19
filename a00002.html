@@ -81,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">c.bang.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<p>This is an example of how to use the create a basic GUI. This example shows how to initialize a GUI class with methods for painting and mouse interractions and attributes.</p>
+<p>This is an example of how to use and create a basic GUI. This example shows how to initialize a GUI class with methods for painting and mouse interractions and attributes.</p>
 <div class="fragment"><div class="line"><span class="comment">/*</span></div>
 <div class="line"><span class="comment"> * CicmWrapper</span></div>
 <div class="line"><span class="comment"> *</span></div>
@@ -108,176 +108,314 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="comment"> *</span></div>
 <div class="line"><span class="comment"> */</span></div>
 <div class="line"></div>
+<div class="line"><span class="comment">//</span></div>
+<div class="line"><span class="comment">// c.bang.cpp</span></div>
+<div class="line"><span class="comment">// This is an example of how to use and create a basic GUI.</span></div>
+<div class="line"><span class="comment">// This example shows how to initialize a GUI class with methods for painting and mouse interractions and attributes.</span></div>
+<div class="line"><span class="comment">//</span></div>
+<div class="line"></div>
+<div class="line"><span class="comment">// This header includes cicm_wrapped.h</span></div>
 <div class="line"><span class="preprocessor">#include &quot;../c.library.h&quot;</span></div>
 <div class="line"></div>
-<div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span><a name="_a0"></a><a class="code" href="a00003.html">t_bang</a></div>
+<div class="line"><span class="comment">//</span></div>
+<div class="line"><span class="comment">// The GUI bang structure.</span></div>
+<div class="line"><span class="comment">// It is a basic GUI struture with attributes and basic Pd stuffs.</span></div>
+<div class="line"><span class="comment">//</span></div>
+<div class="line"><span class="comment"></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a name="_a0"></a><a class="code" href="a00004.html#a00035">t_bang</a></div>
 <div class="line">{</div>
-<div class="line">    <a name="_a1"></a><a class="code" href="a00005.html#a00033">t_ebox</a>      <a name="a2"></a><a class="code" href="a00003.html#a86ae2000a3790956d7677be6f9bf0ac5">b_box</a>;              </div>
-<div class="line">    t_outlet*   <a name="a3"></a><a class="code" href="a00003.html#a078fe8e68793cca3003ed53b196405c1">b_out</a>;              </div>
-<div class="line">    <a name="_a4"></a><a class="code" href="a00007.html#a00053">t_rgba</a>      <a name="a5"></a><a class="code" href="a00003.html#a1ecfc654cb6dae279e8f3a4dda24368c">b_color_background</a>; </div>
-<div class="line">    <a class="code" href="a00007.html#a00053">t_rgba</a>      <a name="a6"></a><a class="code" href="a00003.html#a7aa1d3652d8191be2292eb4fb26b305c">b_color_border</a>;     </div>
-<div class="line">    <a class="code" href="a00007.html#a00053">t_rgba</a>      <a name="a7"></a><a class="code" href="a00003.html#afc33716a3bd1e1d805aead42fae8c7a6">b_color_bang</a>;       </div>
-<div class="line">    t_clock*    <a name="a8"></a><a class="code" href="a00003.html#addbcfc52ebf5b8e3fd17e14171b04b8e">b_clock</a>;            </div>
-<div class="line">    <span class="keywordtype">char</span>        <a name="a9"></a><a class="code" href="a00003.html#a9e241345442b43f6250d730aed8ec990">b_active</a>;           </div>
-<div class="line">} <a class="code" href="a00003.html">t_bang</a>;</div>
+<div class="line">    <span class="comment">// The t_ebox that allows to create a GUI.</span></div>
+<div class="line">    <a name="_a1"></a><a class="code" href="a00006.html#a00039">t_ebox</a>      <a name="a2"></a><a class="code" href="a00004.html#a86ae2000a3790956d7677be6f9bf0ac5">b_box</a>;              </div>
+<div class="line">    <span class="comment">// The t_outlet of the object.</span></div>
+<div class="line">    <a name="_a3"></a><a class="code" href="a00003.html#a00058">t_outlet</a>*   <a name="a4"></a><a class="code" href="a00004.html#a078fe8e68793cca3003ed53b196405c1">b_out</a>;              </div>
+<div class="line">    <span class="comment">// The struture for the t_eattr background color.</span></div>
+<div class="line">    <a name="_a5"></a><a class="code" href="a00008.html#a00062">t_rgba</a>      <a name="a6"></a><a class="code" href="a00004.html#a1ecfc654cb6dae279e8f3a4dda24368c">b_color_background</a>; </div>
+<div class="line">    <span class="comment">// The struture for the t_eattr border color.</span></div>
+<div class="line">    <a class="code" href="a00008.html#a00062">t_rgba</a>      <a name="a7"></a><a class="code" href="a00004.html#a7aa1d3652d8191be2292eb4fb26b305c">b_color_border</a>;     </div>
+<div class="line">    <span class="comment">// The struture for the t_eattr bang color.</span></div>
+<div class="line">    <a class="code" href="a00008.html#a00062">t_rgba</a>      <a name="a8"></a><a class="code" href="a00004.html#afc33716a3bd1e1d805aead42fae8c7a6">b_color_bang</a>;       </div>
+<div class="line">    <span class="comment">// The t_clock of the object.</span></div>
+<div class="line">    <a name="_a9"></a><a class="code" href="a00003.html#a00037">t_clock</a>*    <a name="a10"></a><a class="code" href="a00004.html#addbcfc52ebf5b8e3fd17e14171b04b8e">b_clock</a>;            </div>
+<div class="line">    <span class="comment">// If the object is performming a bang.</span></div>
+<div class="line">    <span class="keywordtype">char</span>        <a name="a11"></a><a class="code" href="a00004.html#a9e241345442b43f6250d730aed8ec990">b_active</a>;           </div>
+<div class="line">} <a class="code" href="a00004.html#a00035">t_bang</a>;</div>
 <div class="line"></div>
-<div class="line"><span class="keyword">static</span> <a name="_a10"></a><a class="code" href="a00004.html#a00034">t_eclass</a> *bang_class;</div>
+<div class="line"><span class="comment">// The t_eclass for the t_bang.</span></div>
+<div class="line"><span class="comment"></span><span class="keyword">static</span> <a name="_a12"></a><a class="code" href="a00005.html#a00040">t_eclass</a> *<a name="a13"></a><a class="code" href="a00004.html#ga5646b39c7d40c9d8b52c0bf5ab542037">bang_class</a>;</div>
 <div class="line"></div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> bang_getdrawparams(<a class="code" href="a00003.html">t_bang</a> *x, t_object *patcherview, <a name="_a11"></a><a class="code" href="a00005.html#a00035">t_edrawparams</a> *params)</div>
+<div class="line"><span class="comment">// The &quot;background_layer&quot; t_symbol.</span></div>
+<div class="line"><span class="comment"></span><span class="keyword">static</span> <a name="_a14"></a><a class="code" href="a00003.html#a00063">t_symbol</a>* <a name="a15"></a><a class="code" href="a00004.html#ga4f74b7d60ac643ae533d3bd8ecc315b4">bang_sym_background_layer</a>;</div>
+<div class="line"></div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> *<a name="a16"></a><a class="code" href="a00004.html#ga6ce4a33699928e863018313be4b83010">bang_new</a>(<a class="code" href="a00003.html#a00063">t_symbol</a> *s, <span class="keywordtype">int</span> argc, <a name="_a17"></a><a class="code" href="a00003.html#a00034">t_atom</a> *argv);</div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a18"></a><a class="code" href="a00004.html#ga19e710147e9e2dbadebd4517d349e8a3">bang_free</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x);</div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a19"></a><a class="code" href="a00004.html#ga0fec169a9a56157ea17b939b974ec2ef">bang_activate</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x);</div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a20"></a><a class="code" href="a00004.html#gad3f3c1456963abd5419b3bc46deb2e81">bang_deactivate</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x);</div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a21"></a><a class="code" href="a00004.html#ga32c5dc909f8707bbbb4f485d0f4b12b6">bang_anything</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a class="code" href="a00003.html#a00063">t_symbol</a> *s, <span class="keywordtype">int</span> argc, <a class="code" href="a00003.html#a00034">t_atom</a> *argv);</div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a22"></a><a class="code" href="a00004.html#ga135e845674595dd1b6d64f1a2ba9b8f0">bang_getdrawparams</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a name="_a23"></a><a class="code" href="a00003.html#a00057">t_object</a> *view, <a name="_a24"></a><a class="code" href="a00006.html#a00041">t_edrawparams</a> *params);</div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a25"></a><a class="code" href="a00004.html#ga45c58b1d84a59e7341ed85aecc3e6aec">bang_oksize</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a name="_a26"></a><a class="code" href="a00008.html#a00060">t_rect</a> *newrect);</div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a27"></a><a class="code" href="a00004.html#ga3721e81c9744d3b80fa011cd3c0d31d4">bang_paint</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a class="code" href="a00003.html#a00057">t_object</a> *view);</div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a28"></a><a class="code" href="a00004.html#gab91fe24c5bdc8ec64118f87372dbff62">bang_mousedown</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a class="code" href="a00003.html#a00057">t_object</a> *view, <a name="_a29"></a><a class="code" href="a00008.html#a00059">t_pt</a> pt, <span class="keywordtype">long</span> modifiers);</div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> <a name="a30"></a><a class="code" href="a00004.html#ga1712ca9082237f90d3f177c290c77abb">bang_mouseup</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a class="code" href="a00003.html#a00057">t_object</a> *view, <a class="code" href="a00008.html#a00059">t_pt</a> pt, <span class="keywordtype">long</span> modifiers);</div>
+<div class="line"></div>
+<div class="line"><span class="comment">// Setups the bang_class for GUI behavior.</span></div>
+<div class="line"><span class="comment">// This function is called by Pd to initialize the class of t_eclass of the object called c.bang (bang_class). In the function,</span></div>
+<div class="line"><span class="comment">// you should set up the default method, behavior and attributes of your object. If your object&#39;s name is simple like just</span></div>
+<div class="line"><span class="comment">// &quot;bang&quot;,this function should be named &quot;bang_setup&quot; otherwise, if your object&#39;s name is more complex like &quot;c.bang&quot; the</span></div>
+<div class="line"><span class="comment">// function&#39;s name should replace the special character with the matching UTF8-hexadecimal value and put &quot;setup&quot; before the name</span></div>
+<div class="line"><span class="comment">// of the object. In this example, the dot is replaced with &quot;0x2e&quot; and the function name becomes &quot;setup_c0x2ebang&quot;.</span></div>
+<div class="line"><span class="comment"></span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> <span class="keywordtype">void</span> <a name="a31"></a><a class="code" href="a00004.html#gac4d3f5d3458074de0ce6c1cc7e4140cf">setup_c0x2ebang</a>(<span class="keywordtype">void</span>)</div>
 <div class="line">{</div>
-<div class="line">    params-&gt;<a name="a12"></a><a class="code" href="a00005.html#ac2c98f9e556d5b89b4effc24fdb56b03">d_borderthickness</a>   = 2;</div>
-<div class="line">    params-&gt;<a name="a13"></a><a class="code" href="a00005.html#a9c491ec0cf0af5823d4c28d449f8d19e">d_cornersize</a>        = 2;</div>
-<div class="line">    params-&gt;<a name="a14"></a><a class="code" href="a00005.html#a81687784708f31892bad33ebc4dce82d">d_bordercolor</a>       = x-&gt;<a class="code" href="a00003.html#a7aa1d3652d8191be2292eb4fb26b305c">b_color_border</a>;</div>
-<div class="line">    params-&gt;<a name="a15"></a><a class="code" href="a00005.html#abe662d410233634836186064e09f2e99">d_boxfillcolor</a>      = x-&gt;<a class="code" href="a00003.html#a7aa1d3652d8191be2292eb4fb26b305c">b_color_border</a>;</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> bang_oksize(<a class="code" href="a00003.html">t_bang</a> *x, <a name="_a16"></a><a class="code" href="a00007.html#a00051">t_rect</a> *newrect)</div>
-<div class="line">{</div>
-<div class="line">    newrect-&gt;<a name="a17"></a><a class="code" href="a00007.html#a2d191f636f0fc0c602b949e9ddb968a2">width</a> = pd_clip_min(newrect-&gt;<a class="code" href="a00007.html#a2d191f636f0fc0c602b949e9ddb968a2">width</a>, 16.);</div>
-<div class="line">    newrect-&gt;<a name="a18"></a><a class="code" href="a00007.html#acb7c04fb6b3f46bb0cefebf4e9556a42">height</a> = pd_clip_min(newrect-&gt;<a class="code" href="a00007.html#acb7c04fb6b3f46bb0cefebf4e9556a42">height</a>, 16.);</div>
-<div class="line">    <span class="keywordflow">if</span>((<span class="keywordtype">int</span>)newrect-&gt;<a class="code" href="a00007.html#a2d191f636f0fc0c602b949e9ddb968a2">width</a> % 2 == 0)</div>
-<div class="line">        newrect-&gt;<a class="code" href="a00007.html#a2d191f636f0fc0c602b949e9ddb968a2">width</a>++;</div>
-<div class="line">    <span class="keywordflow">if</span>((<span class="keywordtype">int</span>)newrect-&gt;<a class="code" href="a00007.html#acb7c04fb6b3f46bb0cefebf4e9556a42">height</a> % 2 == 0)</div>
-<div class="line">        newrect-&gt;<a class="code" href="a00007.html#acb7c04fb6b3f46bb0cefebf4e9556a42">height</a>++;</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> bang_output(<a class="code" href="a00003.html">t_bang</a> *x, t_symbol* s, <span class="keywordtype">int</span> argc, t_atom *argv)</div>
-<div class="line">{</div>
-<div class="line">    x-&gt;<a class="code" href="a00003.html#a9e241345442b43f6250d730aed8ec990">b_active</a> = 1;</div>
-<div class="line">    <a name="a19"></a><a class="code" href="a00005.html#ga4e3b81f831ab7cf2730daae51405c715">ebox_invalidate_layer</a>((<a class="code" href="a00005.html#a00033">t_ebox</a> *)x, cream_sym_background_layer);</div>
-<div class="line">    <a name="a20"></a><a class="code" href="a00005.html#ga3b61efe7c688334e267b0e66dcf22e00">ebox_redraw</a>((<a class="code" href="a00005.html#a00033">t_ebox</a> *)x);</div>
-<div class="line">    outlet_bang(x-&gt;<a class="code" href="a00003.html#a078fe8e68793cca3003ed53b196405c1">b_out</a>);</div>
-<div class="line">    <span class="keywordflow">if</span>(<a name="a21"></a><a class="code" href="a00005.html#gae583313b1ea4f06fe42aa7a0ed5772e6">ebox_getsender</a>((<a class="code" href="a00005.html#a00033">t_ebox</a> *) x))</div>
-<div class="line">        pd_bang(<a class="code" href="a00005.html#gae583313b1ea4f06fe42aa7a0ed5772e6">ebox_getsender</a>((<a class="code" href="a00005.html#a00033">t_ebox</a> *) x));</div>
-<div class="line">    </div>
-<div class="line">    clock_delay(x-&gt;<a class="code" href="a00003.html#addbcfc52ebf5b8e3fd17e14171b04b8e">b_clock</a>, 100);</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> draw_background(<a class="code" href="a00003.html">t_bang</a> *x, t_object *view, <a class="code" href="a00007.html#a00051">t_rect</a> *rect)</div>
-<div class="line">{</div>
-<div class="line">    <span class="keywordtype">float</span> size;</div>
-<div class="line">    <a name="_a22"></a><a class="code" href="a00007.html#a00041">t_elayer</a> *g = <a name="a23"></a><a class="code" href="a00005.html#ga7c384db44fdd8ca5cc9d70db7bb15926">ebox_start_layer</a>((<a class="code" href="a00005.html#a00033">t_ebox</a> *)x, cream_sym_background_layer, rect-&gt;<a class="code" href="a00007.html#a2d191f636f0fc0c602b949e9ddb968a2">width</a>, rect-&gt;<a class="code" href="a00007.html#acb7c04fb6b3f46bb0cefebf4e9556a42">height</a>);</div>
-<div class="line">    <span class="keywordflow">if</span> (g)</div>
+<div class="line">    <span class="comment">// We creates a new t_eclass for the t_bang structure.</span></div>
+<div class="line">    <span class="comment">// You should use this method for all the objects that uses either the t_eobj, t_edspobj, t_ebox or t_edspbox structure.</span></div>
+<div class="line">    <span class="comment">// First argument is the name of the object. Second argument is the new method of the object. Third argument is the free method</span></div>
+<div class="line">    <span class="comment">// of the object (if you only have to call eobj_free, ebox_free or eobj_dspfree you can directly use this methods. Fourth</span></div>
+<div class="line">    <span class="comment">// argument is the size of the structure. Fifth argument is the type of the object (you should use CLASS_DEFAULT for every</span></div>
+<div class="line">    <span class="comment">// patchable object or CLASS_NOINLET if you don&#39;t want a default first inlet, CLASS_PD should be used for no patchable object).</span></div>
+<div class="line">    <span class="comment">// Sixth argument is the kind parameters you creation method is excepting (for GUI, you should always use A_GIMME to be able</span></div>
+<div class="line">    <span class="comment">// to parse attributes. The last argument is dummy and should always be zero for the moment.</span></div>
+<div class="line">    <a class="code" href="a00005.html#a00040">t_eclass</a> *c = <a name="a32"></a><a class="code" href="a00005.html#ga7dea1a434d22f6829e5f82b04f4fca57">eclass_new</a>(<span class="stringliteral">&quot;c.bang&quot;</span>, (method)<a class="code" href="a00004.html#ga6ce4a33699928e863018313be4b83010">bang_new</a>, (method)<a class="code" href="a00004.html#ga19e710147e9e2dbadebd4517d349e8a3">bang_free</a>, (<span class="keywordtype">short</span>)<span class="keyword">sizeof</span>(<a class="code" href="a00004.html#a00035">t_bang</a>), <a name="a33"></a><a class="code" href="a00003.html#ga2bfb81e13723f4d32574e9b5ffc77f03">CLASS_DEFAULT</a>, <a name="a34"></a><a class="code" href="a00003.html#ggaf04c9af457d12f1f4b68f9b90c252937a81c1a8550f038db16a619167a70a79b6">A_GIMME</a>, 0);</div>
+<div class="line">    <span class="keywordflow">if</span>(c)</div>
 <div class="line">    {</div>
-<div class="line">        size = rect-&gt;<a class="code" href="a00007.html#a2d191f636f0fc0c602b949e9ddb968a2">width</a> * 0.5;</div>
-<div class="line">        <span class="keywordflow">if</span>(x-&gt;<a class="code" href="a00003.html#a9e241345442b43f6250d730aed8ec990">b_active</a>)</div>
-<div class="line">        {</div>
-<div class="line">            egraphics_set_color_rgba(g, &amp;x-&gt;<a class="code" href="a00003.html#afc33716a3bd1e1d805aead42fae8c7a6">b_color_bang</a>);</div>
-<div class="line">        }</div>
-<div class="line">        <span class="keywordflow">else</span></div>
-<div class="line">        {</div>
-<div class="line">            egraphics_set_color_rgba(g, &amp;x-&gt;<a class="code" href="a00003.html#a1ecfc654cb6dae279e8f3a4dda24368c">b_color_background</a>);</div>
-<div class="line">        }</div>
-<div class="line">        egraphics_circle(g, floor(size + 0.5), floor(size+ 0.5), size * 0.9);</div>
-<div class="line">        egraphics_fill(g);</div>
-<div class="line">        <a name="a24"></a><a class="code" href="a00005.html#gafbd3037b1afe3939912b1b5cff96a5bd">ebox_end_layer</a>((<a class="code" href="a00005.html#a00033">t_ebox</a>*)x, cream_sym_background_layer);</div>
+<div class="line">        <span class="comment">// We initialize the defaults attributes and methods for the GUI.</span></div>
+<div class="line">        <a name="a35"></a><a class="code" href="a00005.html#gaab078a2a2901c1a39b23d36ec2387cd7">eclass_guiinit</a>(c, 0);</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// We initialize of the specifics methods that the t_bang can receive. The &quot;paint&quot;, &quot;getdrawparams&quot; and &quot;oksize&quot; names</span></div>
+<div class="line">        <span class="comment">// are for the graphical methods (&quot;getdrawparams&quot; and &quot;oksize&quot; are optional but facilitates the setting of GUI.</span></div>
+<div class="line">        <span class="comment">// The &quot;mousedown&quot; and &quot;mouseup&quot; are for the mouse interraction.</span></div>
+<div class="line">        <span class="comment">// The other are the default message that a native Pd object can receive.</span></div>
+<div class="line">        <a name="a36"></a><a class="code" href="a00005.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) <a class="code" href="a00004.html#ga3721e81c9744d3b80fa011cd3c0d31d4">bang_paint</a>,           <span class="stringliteral">&quot;paint&quot;</span>,            <a name="a37"></a><a class="code" href="a00003.html#ggaf04c9af457d12f1f4b68f9b90c252937ad65e844f89e546fc78277f1660ed9d7b">A_NULL</a>, 0);</div>
+<div class="line">        <a class="code" href="a00005.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) <a class="code" href="a00004.html#ga135e845674595dd1b6d64f1a2ba9b8f0">bang_getdrawparams</a>,   <span class="stringliteral">&quot;getdrawparams&quot;</span>,    <a class="code" href="a00003.html#ggaf04c9af457d12f1f4b68f9b90c252937ad65e844f89e546fc78277f1660ed9d7b">A_NULL</a>, 0);</div>
+<div class="line">        <a class="code" href="a00005.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) <a class="code" href="a00004.html#ga45c58b1d84a59e7341ed85aecc3e6aec">bang_oksize</a>,          <span class="stringliteral">&quot;oksize&quot;</span>,           <a class="code" href="a00003.html#ggaf04c9af457d12f1f4b68f9b90c252937ad65e844f89e546fc78277f1660ed9d7b">A_NULL</a>, 0);</div>
+<div class="line">        <a class="code" href="a00005.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) <a class="code" href="a00004.html#ga32c5dc909f8707bbbb4f485d0f4b12b6">bang_anything</a>,        <span class="stringliteral">&quot;float&quot;</span>,            <a name="a38"></a><a class="code" href="a00003.html#ggaf04c9af457d12f1f4b68f9b90c252937a0b3aa0ab8104573dfc9cb70b5b08031f">A_FLOAT</a>,0);</div>
+<div class="line">        <a class="code" href="a00005.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) <a class="code" href="a00004.html#ga32c5dc909f8707bbbb4f485d0f4b12b6">bang_anything</a>,        <span class="stringliteral">&quot;bang&quot;</span>,             <a class="code" href="a00003.html#ggaf04c9af457d12f1f4b68f9b90c252937ad65e844f89e546fc78277f1660ed9d7b">A_NULL</a>, 0);</div>
+<div class="line">        <a class="code" href="a00005.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) <a class="code" href="a00004.html#ga32c5dc909f8707bbbb4f485d0f4b12b6">bang_anything</a>,        <span class="stringliteral">&quot;list&quot;</span>,             <a class="code" href="a00003.html#ggaf04c9af457d12f1f4b68f9b90c252937a81c1a8550f038db16a619167a70a79b6">A_GIMME</a>,0);</div>
+<div class="line">        <a class="code" href="a00005.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) <a class="code" href="a00004.html#ga32c5dc909f8707bbbb4f485d0f4b12b6">bang_anything</a>,        <span class="stringliteral">&quot;anything&quot;</span>,         <a class="code" href="a00003.html#ggaf04c9af457d12f1f4b68f9b90c252937a81c1a8550f038db16a619167a70a79b6">A_GIMME</a>,0);</div>
+<div class="line">        <a class="code" href="a00005.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) <a class="code" href="a00004.html#gab91fe24c5bdc8ec64118f87372dbff62">bang_mousedown</a>,       <span class="stringliteral">&quot;mousedown&quot;</span>,        <a class="code" href="a00003.html#ggaf04c9af457d12f1f4b68f9b90c252937ad65e844f89e546fc78277f1660ed9d7b">A_NULL</a>, 0);</div>
+<div class="line">        <a class="code" href="a00005.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) <a class="code" href="a00004.html#ga1712ca9082237f90d3f177c290c77abb">bang_mouseup</a>,         <span class="stringliteral">&quot;mouseup&quot;</span>,          <a class="code" href="a00003.html#ggaf04c9af457d12f1f4b68f9b90c252937ad65e844f89e546fc78277f1660ed9d7b">A_NULL</a>, 0);</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// We intialize the attribute of the t_bang.</span></div>
+<div class="line">        <span class="comment">// All the GUI classes has font attributes but we don&#39;t need them for the bang classe so we mark them invisible.</span></div>
+<div class="line">        <a name="a39"></a><a class="code" href="a00005.html#ga53ae87d238c51cada56d704c47302524">CLASS_ATTR_INVISIBLE</a>            (c, <span class="stringliteral">&quot;fontname&quot;</span>, 1);</div>
+<div class="line">        <a class="code" href="a00005.html#ga53ae87d238c51cada56d704c47302524">CLASS_ATTR_INVISIBLE</a>            (c, <span class="stringliteral">&quot;fontweight&quot;</span>, 1);</div>
+<div class="line">        <a class="code" href="a00005.html#ga53ae87d238c51cada56d704c47302524">CLASS_ATTR_INVISIBLE</a>            (c, <span class="stringliteral">&quot;fontslant&quot;</span>, 1);</div>
+<div class="line">        <a class="code" href="a00005.html#ga53ae87d238c51cada56d704c47302524">CLASS_ATTR_INVISIBLE</a>            (c, <span class="stringliteral">&quot;fontsize&quot;</span>, 1);</div>
+<div class="line">        <span class="comment">// All the GUI classes has a size attribute, we just set up the default value.</span></div>
+<div class="line">        <a name="a40"></a><a class="code" href="a00005.html#ga96196e25dfbb0920a02531f53770e403">CLASS_ATTR_DEFAULT</a>              (c, <span class="stringliteral">&quot;size&quot;</span>, 0, <span class="stringliteral">&quot;16. 16.&quot;</span>);</div>
+<div class="line">        <span class="comment">// We create a new t_rgba attribute that refers to the b_color_background member of the t_bang and that will match to</span></div>
+<div class="line">        <span class="comment">// &quot;bgcolor&quot;. The user will be able to change the background color with the &quot;bgcolor&quot; message.</span></div>
+<div class="line">        <a name="a41"></a><a class="code" href="a00005.html#gaf9175fc0ce2c420b378c99239e3268f0">CLASS_ATTR_RGBA</a>                 (c, <span class="stringliteral">&quot;bgcolor&quot;</span>, 0, <a class="code" href="a00004.html#a00035">t_bang</a>, b_color_background);</div>
+<div class="line">        <span class="comment">// We set up the label that will be displayed in the properties window of the object for the attribute.</span></div>
+<div class="line">        <a name="a42"></a><a class="code" href="a00005.html#gab73d5efdd012693da6f0de9062f8bc93">CLASS_ATTR_LABEL</a>                (c, <span class="stringliteral">&quot;bgcolor&quot;</span>, 0, <span class="stringliteral">&quot;Background Color&quot;</span>);</div>
+<div class="line">        <span class="comment">// We set up the order of the attribute in the properties window (this is unused for the moment).</span></div>
+<div class="line">        <a name="a43"></a><a class="code" href="a00005.html#gaa301337d282ddf6918df9135d0e8c023">CLASS_ATTR_ORDER</a>                (c, <span class="stringliteral">&quot;bgcolor&quot;</span>, 0, <span class="stringliteral">&quot;1&quot;</span>);</div>
+<div class="line">        <span class="comment">// We set up the the default value of the color. This macro also defines that the attribute will automatically call ebox_redraw when its value has changed and that its value will be saved with the patcher.</span></div>
+<div class="line">        <a name="a44"></a><a class="code" href="a00005.html#ga55677c851b0822e7852dc3742046b77c">CLASS_ATTR_DEFAULT_SAVE_PAINT</a>   (c, <span class="stringliteral">&quot;bgcolor&quot;</span>, 0, <span class="stringliteral">&quot;0.75 0.75 0.75 1.&quot;</span>);</div>
+<div class="line">        <span class="comment">// We set up the that the attribute should be displayed as a color slector in the properties window.</span></div>
+<div class="line">        <a name="a45"></a><a class="code" href="a00005.html#ga62b306c1f7686d411913b977a9ce5611">CLASS_ATTR_STYLE</a>                (c, <span class="stringliteral">&quot;bgcolor&quot;</span>, 0, <span class="stringliteral">&quot;color&quot;</span>);</div>
+<div class="line">        <span class="comment">// We do the same thing for the border color and the bang color.</span></div>
+<div class="line">        <a class="code" href="a00005.html#gaf9175fc0ce2c420b378c99239e3268f0">CLASS_ATTR_RGBA</a>                 (c, <span class="stringliteral">&quot;bdcolor&quot;</span>, 0, <a class="code" href="a00004.html#a00035">t_bang</a>, b_color_border);</div>
+<div class="line">        <a class="code" href="a00005.html#gab73d5efdd012693da6f0de9062f8bc93">CLASS_ATTR_LABEL</a>                (c, <span class="stringliteral">&quot;bdcolor&quot;</span>, 0, <span class="stringliteral">&quot;Border Color&quot;</span>);</div>
+<div class="line">        <a class="code" href="a00005.html#gaa301337d282ddf6918df9135d0e8c023">CLASS_ATTR_ORDER</a>                (c, <span class="stringliteral">&quot;bdcolor&quot;</span>, 0, <span class="stringliteral">&quot;2&quot;</span>);</div>
+<div class="line">        <a class="code" href="a00005.html#ga55677c851b0822e7852dc3742046b77c">CLASS_ATTR_DEFAULT_SAVE_PAINT</a>   (c, <span class="stringliteral">&quot;bdcolor&quot;</span>, 0, <span class="stringliteral">&quot;0.5 0.5 0.5 1.&quot;</span>);</div>
+<div class="line">        <a class="code" href="a00005.html#ga62b306c1f7686d411913b977a9ce5611">CLASS_ATTR_STYLE</a>                (c, <span class="stringliteral">&quot;bdcolor&quot;</span>, 0, <span class="stringliteral">&quot;color&quot;</span>);</div>
+<div class="line">        </div>
+<div class="line">        <a class="code" href="a00005.html#gaf9175fc0ce2c420b378c99239e3268f0">CLASS_ATTR_RGBA</a>                 (c, <span class="stringliteral">&quot;bacolor&quot;</span>, 0, <a class="code" href="a00004.html#a00035">t_bang</a>, b_color_bang);</div>
+<div class="line">        <a class="code" href="a00005.html#gab73d5efdd012693da6f0de9062f8bc93">CLASS_ATTR_LABEL</a>                (c, <span class="stringliteral">&quot;bacolor&quot;</span>, 0, <span class="stringliteral">&quot;Bang Color&quot;</span>);</div>
+<div class="line">        <a class="code" href="a00005.html#gaa301337d282ddf6918df9135d0e8c023">CLASS_ATTR_ORDER</a>                (c, <span class="stringliteral">&quot;bacolor&quot;</span>, 0, <span class="stringliteral">&quot;3&quot;</span>);</div>
+<div class="line">        <a class="code" href="a00005.html#ga55677c851b0822e7852dc3742046b77c">CLASS_ATTR_DEFAULT_SAVE_PAINT</a>   (c, <span class="stringliteral">&quot;bacolor&quot;</span>, 0, <span class="stringliteral">&quot;0. 0. 0. 1.&quot;</span>);</div>
+<div class="line">        <a class="code" href="a00005.html#ga62b306c1f7686d411913b977a9ce5611">CLASS_ATTR_STYLE</a>                (c, <span class="stringliteral">&quot;bacolor&quot;</span>, 0, <span class="stringliteral">&quot;color&quot;</span>);</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// We register the class. This function is important it will set up some dsp members if needs and the properties window</span></div>
+<div class="line">        <span class="comment">// if the class has attributes. The CLASS_BOX is for GUI otherwise use CLASS_OBJ this is pretty useless but it ensures</span></div>
+<div class="line">        <span class="comment">// compatibilty with Max.</span></div>
+<div class="line">        <a name="a46"></a><a class="code" href="a00005.html#ga57074143501bd646992500676fb99569">eclass_register</a>(<a name="a47"></a><a class="code" href="a00005.html#gaf640c99a1fceb8158c2d1e77381b0320">CLASS_BOX</a>, c);</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// We initialize bang_class with c. This is important because we use the adress of bang_class in the new method.</span></div>
+<div class="line">        bang_class = c;</div>
+<div class="line">        <span class="comment">// We save the adress of the &quot;background_layer&quot; symbol to avoid the multiple call of the function.</span></div>
+<div class="line">        bang_sym_background_layer = <a name="a48"></a><a class="code" href="a00003.html#ga4c05849b6cf99c7539bf0bc41c0adfb0">gensym</a>(<span class="stringliteral">&quot;background_layer&quot;</span>);</div>
 <div class="line">    }</div>
-<div class="line">    <a name="a25"></a><a class="code" href="a00005.html#ga4c40a6ef105573223e9d9cbb515c9db1">ebox_paint_layer</a>((<a class="code" href="a00005.html#a00033">t_ebox</a> *)x, cream_sym_background_layer, 0., 0.);</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> bang_paint(<a class="code" href="a00003.html">t_bang</a> *x, t_object *view)</div>
+<div class="line"><span class="comment">// Allocates and initializes the t_bang structure.</span></div>
+<div class="line"><span class="comment">// The function uses eobj_new to allocate the t_bang with the bang_class and initializes the default values.</span></div>
+<div class="line"><span class="comment"></span><span class="keyword">static</span> <span class="keywordtype">void</span> *<a class="code" href="a00004.html#ga6ce4a33699928e863018313be4b83010">bang_new</a>(<a class="code" href="a00003.html#a00063">t_symbol</a> *s, <span class="keywordtype">int</span> argc, <a class="code" href="a00003.html#a00034">t_atom</a> *argv)</div>
 <div class="line">{</div>
-<div class="line">    <a class="code" href="a00007.html#a00051">t_rect</a> rect;</div>
-<div class="line">    <a name="a26"></a><a class="code" href="a00005.html#gab84d1f52b2d9f92b470cfb01dd0667c9">ebox_get_rect_for_view</a>((<a class="code" href="a00005.html#a00033">t_ebox</a> *)x, &amp;rect);</div>
-<div class="line">    draw_background(x, view, &amp;rect);</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> bang_mousedown(<a class="code" href="a00003.html">t_bang</a> *x, t_object *patcherview, <a name="_a27"></a><a class="code" href="a00007.html#a00050">t_pt</a> pt, <span class="keywordtype">long</span> modifiers)</div>
-<div class="line">{</div>
-<div class="line">    x-&gt;<a class="code" href="a00003.html#a9e241345442b43f6250d730aed8ec990">b_active</a> = 1;</div>
-<div class="line">    <a class="code" href="a00005.html#ga4e3b81f831ab7cf2730daae51405c715">ebox_invalidate_layer</a>((<a class="code" href="a00005.html#a00033">t_ebox</a> *)x, cream_sym_background_layer);</div>
-<div class="line">    <a class="code" href="a00005.html#ga3b61efe7c688334e267b0e66dcf22e00">ebox_redraw</a>((<a class="code" href="a00005.html#a00033">t_ebox</a> *)x);</div>
-<div class="line">    outlet_bang(x-&gt;<a class="code" href="a00003.html#a078fe8e68793cca3003ed53b196405c1">b_out</a>);</div>
-<div class="line">    <span class="keywordflow">if</span>(<a class="code" href="a00005.html#gae583313b1ea4f06fe42aa7a0ed5772e6">ebox_getsender</a>((<a class="code" href="a00005.html#a00033">t_ebox</a> *) x))</div>
-<div class="line">        pd_bang(<a class="code" href="a00005.html#gae583313b1ea4f06fe42aa7a0ed5772e6">ebox_getsender</a>((<a class="code" href="a00005.html#a00033">t_ebox</a> *) x));</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> bang_mouseup(<a class="code" href="a00003.html">t_bang</a> *x, t_object *patcherview, <a class="code" href="a00007.html#a00050">t_pt</a> pt, <span class="keywordtype">long</span> modifiers)</div>
-<div class="line">{</div>
-<div class="line">    x-&gt;<a class="code" href="a00003.html#a9e241345442b43f6250d730aed8ec990">b_active</a> = 0;</div>
-<div class="line">    <a class="code" href="a00005.html#ga4e3b81f831ab7cf2730daae51405c715">ebox_invalidate_layer</a>((<a class="code" href="a00005.html#a00033">t_ebox</a> *)x, cream_sym_background_layer);</div>
-<div class="line">    <a class="code" href="a00005.html#ga3b61efe7c688334e267b0e66dcf22e00">ebox_redraw</a>((<a class="code" href="a00005.html#a00033">t_ebox</a> *)x);</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> *bang_new(t_symbol *s, <span class="keywordtype">int</span> argc, t_atom *argv)</div>
-<div class="line">{</div>
-<div class="line">    <a class="code" href="a00003.html">t_bang</a> *x  = (<a class="code" href="a00003.html">t_bang</a> *)<a name="a28"></a><a class="code" href="a00008.html#ga238c42e70bfd0c1b7a8763fb11a1ab92">eobj_new</a>(bang_class);</div>
-<div class="line">    t_binbuf* d = <a name="a29"></a><a class="code" href="a00027.html#ga86d9f26c074fa8fcaa460308e0c9a795">binbuf_via_atoms</a>(argc,argv);</div>
-<div class="line">    </div>
+<div class="line">    <span class="comment">// We calls eobj_new with the bang_class to allocate the memory for the t_bang and to initialize some default values</span></div>
+<div class="line">    <span class="comment">// and methods.</span></div>
+<div class="line">    <a class="code" href="a00004.html#a00035">t_bang</a> *x  = (<a class="code" href="a00004.html#a00035">t_bang</a> *)<a name="a49"></a><a class="code" href="a00009.html#ga238c42e70bfd0c1b7a8763fb11a1ab92">eobj_new</a>(bang_class);</div>
+<div class="line">    <span class="comment">// We transform the array of t_atoms into a t_binbuf. You can alos use directly the array of t_atoms but you should prefer</span></div>
+<div class="line">    <span class="comment">// to use a t_binbuf to increases the compatibilty with Max that use the it&#39;s counterpart t_dictionnary.</span></div>
+<div class="line">    <a name="_a50"></a><a class="code" href="a00003.html#a00036">t_binbuf</a>* d = <a name="a51"></a><a class="code" href="a00029.html#ga86d9f26c074fa8fcaa460308e0c9a795">binbuf_via_atoms</a>(argc,argv);</div>
 <div class="line">    <span class="keywordflow">if</span>(x &amp;&amp; d)</div>
 <div class="line">    {</div>
-<div class="line">        <a name="a30"></a><a class="code" href="a00005.html#ga41d93d79bee7bc568342f46742a294ba">ebox_new</a>((<a class="code" href="a00005.html#a00033">t_ebox</a> *)x, 0 | <a name="a31"></a><a class="code" href="a00005.html#gga34bc62f56dc70d407271ecc4990a5aa5a06e4080f2aacad35375559f4bc40bc0a">EBOX_GROWLINK</a>);</div>
-<div class="line">        x-&gt;<a class="code" href="a00003.html#a078fe8e68793cca3003ed53b196405c1">b_out</a> = outlet_new((t_object *)x, &amp;s_bang);</div>
-<div class="line">        x-&gt;<a class="code" href="a00003.html#a9e241345442b43f6250d730aed8ec990">b_active</a> = 0;</div>
-<div class="line">        x-&gt;<a class="code" href="a00003.html#addbcfc52ebf5b8e3fd17e14171b04b8e">b_clock</a>          = clock_new(x,(t_method)bang_mouseup);</div>
-<div class="line">        <a name="a32"></a><a class="code" href="a00005.html#ga252f271a59fa9d45cfa9587ab7e46e67">ebox_attrprocess_viabinbuf</a>(x, d);</div>
-<div class="line">        <a name="a33"></a><a class="code" href="a00005.html#ga09c1b327faff8b3eb3d489c0fc92aa7c">ebox_ready</a>((<a class="code" href="a00005.html#a00033">t_ebox</a> *)x);</div>
+<div class="line">        <span class="comment">// We initialize the defaults members of the t_ebox. EBOX_GROWLINK mark that the width and the height of the</span></div>
+<div class="line">        <span class="comment">// object are linked. The method also initializes the attributes with their defaults values.</span></div>
+<div class="line">        <a name="a52"></a><a class="code" href="a00006.html#ga41d93d79bee7bc568342f46742a294ba">ebox_new</a>((<a class="code" href="a00006.html#a00039">t_ebox</a> *)x, 0 | <a name="a53"></a><a class="code" href="a00006.html#gga34bc62f56dc70d407271ecc4990a5aa5a06e4080f2aacad35375559f4bc40bc0a">EBOX_GROWLINK</a>);</div>
+<div class="line">        <span class="comment">// We allocate and intialize a new outlet that we send only bang message.</span></div>
+<div class="line">        x-&gt;<a class="code" href="a00004.html#a078fe8e68793cca3003ed53b196405c1">b_out</a> = <a name="a54"></a><a class="code" href="a00003.html#ga86fb921e36bfa40b648efe6da9a3ea91">outlet_new</a>((<a class="code" href="a00003.html#a00057">t_object</a> *)x, &amp;<a name="a55"></a><a class="code" href="a00003.html#ga70603a93cd18dfb775a0bbdb13975a43">s_bang</a>);</div>
+<div class="line">        <span class="comment">// We sets that the t_bang is currently inactive.</span></div>
+<div class="line">        x-&gt;<a class="code" href="a00004.html#a9e241345442b43f6250d730aed8ec990">b_active</a> = 0;</div>
+<div class="line">        <span class="comment">// We initialize a new t_clock to make the object blink few ms when it received a message. We usually define a</span></div>
+<div class="line">        <span class="comment">// specific tick_method but here we can use the bang_deactivate method.</span></div>
+<div class="line">        x-&gt;<a class="code" href="a00004.html#addbcfc52ebf5b8e3fd17e14171b04b8e">b_clock</a>          = <a name="a56"></a><a class="code" href="a00003.html#ga070e7ae442ea27ecebf8ec5de44d1fc3">clock_new</a>(x,(<a name="a57"></a><a class="code" href="a00003.html#ga9a2b27bd67bc50c65c12934f97f7d763">t_method</a>)<a class="code" href="a00004.html#gad3f3c1456963abd5419b3bc46deb2e81">bang_deactivate</a>);</div>
+<div class="line">        <span class="comment">// We parse the t_binbuf to initialize the values of the attributes. You can also use ebox_attrprocess_viatoms but you</span></div>
+<div class="line">        <span class="comment">// should prefer this method.</span></div>
+<div class="line">        <a name="a58"></a><a class="code" href="a00006.html#ga252f271a59fa9d45cfa9587ab7e46e67">ebox_attrprocess_viabinbuf</a>(x, d);</div>
+<div class="line">        <span class="comment">// Indicates that the t_ebox can be drawn.</span></div>
+<div class="line">        <a name="a59"></a><a class="code" href="a00006.html#ga09c1b327faff8b3eb3d489c0fc92aa7c">ebox_ready</a>((<a class="code" href="a00006.html#a00039">t_ebox</a> *)x);</div>
 <div class="line">    }</div>
-<div class="line">    </div>
+<div class="line">     <span class="comment">// Returns the t_bang</span></div>
 <div class="line">    <span class="keywordflow">return</span> (x);</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> bang_free(<a class="code" href="a00003.html">t_bang</a> *x)</div>
+<div class="line"><span class="comment">// Frees the t_bang structure.</span></div>
+<div class="line"><span class="comment">// The function just calls ebox_free() and frees the t_clock.</span></div>
+<div class="line"><span class="comment"></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a00004.html#ga19e710147e9e2dbadebd4517d349e8a3">bang_free</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x)</div>
 <div class="line">{</div>
-<div class="line">    <a name="a34"></a><a class="code" href="a00005.html#gaf23211541198cfe590300b42e758c94e">ebox_free</a>((<a class="code" href="a00005.html#a00033">t_ebox</a> *)x);</div>
-<div class="line">    clock_free(x-&gt;<a class="code" href="a00003.html#addbcfc52ebf5b8e3fd17e14171b04b8e">b_clock</a>);</div>
+<div class="line">    <span class="comment">// We free the t_ebox, it will detach the graphical interface from Tcl/Tk</span></div>
+<div class="line">    <a name="a60"></a><a class="code" href="a00006.html#gaf23211541198cfe590300b42e758c94e">ebox_free</a>((<a class="code" href="a00006.html#a00039">t_ebox</a> *)x);</div>
+<div class="line">    <span class="comment">// We free the t_clock</span></div>
+<div class="line">    <a name="a61"></a><a class="code" href="a00003.html#ga3b8f5c34fe4228804065e83d297e10c9">clock_free</a>(x-&gt;<a class="code" href="a00004.html#addbcfc52ebf5b8e3fd17e14171b04b8e">b_clock</a>);</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line"><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> <span class="keywordtype">void</span> setup_c0x2ebang(<span class="keywordtype">void</span>)</div>
+<div class="line"><span class="comment">// Defines the default graphical parameters of a GUI.</span></div>
+<div class="line"><span class="comment">// The function is used to defines the border size, the border size (dummy mostly for Max compatibility)</span></div>
+<div class="line"><span class="comment">// the border color and the background color of a t_ebox.</span></div>
+<div class="line"><span class="comment"></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a00004.html#ga135e845674595dd1b6d64f1a2ba9b8f0">bang_getdrawparams</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a class="code" href="a00003.html#a00057">t_object</a> *view, <a class="code" href="a00006.html#a00041">t_edrawparams</a> *params)</div>
 <div class="line">{</div>
-<div class="line">    <span class="comment">// Creation of the t_eclass for the t_bang structure.</span></div>
-<div class="line">    <a class="code" href="a00004.html#a00034">t_eclass</a> *c = <a name="a35"></a><a class="code" href="a00004.html#ga7dea1a434d22f6829e5f82b04f4fca57">eclass_new</a>(<span class="stringliteral">&quot;c.bang&quot;</span>, (method)bang_new, (method)bang_free, (<span class="keywordtype">short</span>)<span class="keyword">sizeof</span>(<a class="code" href="a00003.html">t_bang</a>), 0L, A_GIMME, 0);</div>
-<div class="line">    <span class="keywordflow">if</span>(c)</div>
+<div class="line">    <span class="comment">// We define a border size of 2 px.</span></div>
+<div class="line">    params-&gt;<a name="a62"></a><a class="code" href="a00006.html#ac2c98f9e556d5b89b4effc24fdb56b03">d_borderthickness</a>   = 2;</div>
+<div class="line">    <span class="comment">// We define a corner size of 2 px (dummy).</span></div>
+<div class="line">    params-&gt;<a name="a63"></a><a class="code" href="a00006.html#a9c491ec0cf0af5823d4c28d449f8d19e">d_cornersize</a>        = 2;</div>
+<div class="line">    <span class="comment">// We define the border color with our border attribute color.</span></div>
+<div class="line">    params-&gt;<a name="a64"></a><a class="code" href="a00006.html#a81687784708f31892bad33ebc4dce82d">d_bordercolor</a>       = x-&gt;<a class="code" href="a00004.html#a7aa1d3652d8191be2292eb4fb26b305c">b_color_border</a>;</div>
+<div class="line">    <span class="comment">// We define the background color with our border attribute color. The background color will be used when the</span></div>
+<div class="line">    <span class="comment">// t_bang is inactive to draw the circle.</span></div>
+<div class="line">    params-&gt;<a name="a65"></a><a class="code" href="a00006.html#abe662d410233634836186064e09f2e99">d_boxfillcolor</a>      = x-&gt;<a class="code" href="a00004.html#a7aa1d3652d8191be2292eb4fb26b305c">b_color_border</a>;</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line"><span class="comment">// Defines and validates the size of a GUI.</span></div>
+<div class="line"><span class="comment">// The function is validate the new size of a GUI. It can be used to restrict the size.</span></div>
+<div class="line"><span class="comment"></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a00004.html#ga45c58b1d84a59e7341ed85aecc3e6aec">bang_oksize</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a class="code" href="a00008.html#a00060">t_rect</a> *newrect)</div>
+<div class="line">{</div>
+<div class="line">    <span class="comment">// We defines a minimum height and width of 15 px.</span></div>
+<div class="line">    newrect-&gt;<a name="a66"></a><a class="code" href="a00008.html#a2d191f636f0fc0c602b949e9ddb968a2">width</a> = pd_clip_min(newrect-&gt;<a class="code" href="a00008.html#a2d191f636f0fc0c602b949e9ddb968a2">width</a>, 15.);</div>
+<div class="line">    newrect-&gt;<a name="a67"></a><a class="code" href="a00008.html#acb7c04fb6b3f46bb0cefebf4e9556a42">height</a> = pd_clip_min(newrect-&gt;<a class="code" href="a00008.html#acb7c04fb6b3f46bb0cefebf4e9556a42">height</a>, 15.);</div>
+<div class="line">    <span class="comment">// We defines that the width and the height can&#39;t be an even number (to center the bang circle).</span></div>
+<div class="line">    <span class="keywordflow">if</span>((<span class="keywordtype">int</span>)newrect-&gt;<a class="code" href="a00008.html#a2d191f636f0fc0c602b949e9ddb968a2">width</a> % 2 == 0)</div>
+<div class="line">        newrect-&gt;<a class="code" href="a00008.html#a2d191f636f0fc0c602b949e9ddb968a2">width</a>++;</div>
+<div class="line">    <span class="keywordflow">if</span>((<span class="keywordtype">int</span>)newrect-&gt;<a class="code" href="a00008.html#acb7c04fb6b3f46bb0cefebf4e9556a42">height</a> % 2 == 0)</div>
+<div class="line">        newrect-&gt;<a class="code" href="a00008.html#acb7c04fb6b3f46bb0cefebf4e9556a42">height</a>++;</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line"><span class="comment">// Paints the t_ebox.</span></div>
+<div class="line"><span class="comment">// The function is called internally when the t_ebox should be repainted. This is where you should draw all the stuffs</span></div>
+<div class="line"><span class="comment">// you want.</span></div>
+<div class="line"><span class="comment"></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a00004.html#ga3721e81c9744d3b80fa011cd3c0d31d4">bang_paint</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a class="code" href="a00003.html#a00057">t_object</a> *view)</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordtype">float</span> size;</div>
+<div class="line">    <a class="code" href="a00008.html#a00060">t_rect</a> rect;</div>
+<div class="line">    <span class="comment">// We defines a initialize a t_rect with the size of the t_ebox.</span></div>
+<div class="line">    <a name="a68"></a><a class="code" href="a00006.html#gab84d1f52b2d9f92b470cfb01dd0667c9">ebox_get_rect_for_view</a>((<a class="code" href="a00006.html#a00039">t_ebox</a> *)x, &amp;rect);</div>
+<div class="line">    <span class="comment">// We ask to retrieves the background t_elayer with a that has the size of the t_ebox. This layer will be binded to the t_ebox</span></div>
+<div class="line">    <span class="comment">// with the t_symbol bang_sym_background_layer aka \&quot;background_layer\&quot;. You should always prefer to use static t_symbol to</span></div>
+<div class="line">    <span class="comment">// avoid to call gensym function.</span></div>
+<div class="line">    <a name="_a69"></a><a class="code" href="a00008.html#a00047">t_elayer</a> *g = <a name="a70"></a><a class="code" href="a00006.html#ga7c384db44fdd8ca5cc9d70db7bb15926">ebox_start_layer</a>((<a class="code" href="a00006.html#a00039">t_ebox</a> *)x, bang_sym_background_layer, rect.<a class="code" href="a00008.html#a2d191f636f0fc0c602b949e9ddb968a2">width</a>, rect.<a class="code" href="a00008.html#acb7c04fb6b3f46bb0cefebf4e9556a42">height</a>);</div>
+<div class="line">    <span class="comment">// If it is a new t_elayer or if the layer has been ivalidated we can draw something in it, otherwise the pointer is NULL.</span></div>
+<div class="line">    <span class="keywordflow">if</span>(g)</div>
 <div class="line">    {</div>
-<div class="line">        <a name="a36"></a><a class="code" href="a00004.html#gaab078a2a2901c1a39b23d36ec2387cd7">eclass_guiinit</a>(c, 0);</div>
 <div class="line">        </div>
-<div class="line">        <a name="a37"></a><a class="code" href="a00004.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) bang_paint,           <span class="stringliteral">&quot;paint&quot;</span>,            A_NULL, 0);</div>
-<div class="line">        <a class="code" href="a00004.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) bang_getdrawparams,   <span class="stringliteral">&quot;getdrawparams&quot;</span>,    A_NULL, 0);</div>
-<div class="line">        <a class="code" href="a00004.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) bang_oksize,          <span class="stringliteral">&quot;oksize&quot;</span>,           A_NULL, 0);</div>
-<div class="line">        <a class="code" href="a00004.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) bang_output,          <span class="stringliteral">&quot;float&quot;</span>,            A_FLOAT,0);</div>
-<div class="line">        <a class="code" href="a00004.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) bang_output,          <span class="stringliteral">&quot;bang&quot;</span>,             A_NULL, 0);</div>
-<div class="line">        <a class="code" href="a00004.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) bang_output,          <span class="stringliteral">&quot;list&quot;</span>,             A_GIMME,0);</div>
-<div class="line">        <a class="code" href="a00004.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) bang_output,          <span class="stringliteral">&quot;anything&quot;</span>,         A_GIMME,0);</div>
-<div class="line">        <a class="code" href="a00004.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) bang_mousedown,       <span class="stringliteral">&quot;mousedown&quot;</span>,        A_NULL, 0);</div>
-<div class="line">        <a class="code" href="a00004.html#gacb862c287d8e5ca3b2d282bcda1bf0e4">eclass_addmethod</a>(c, (method) bang_mouseup,         <span class="stringliteral">&quot;mouseup&quot;</span>,          A_NULL, 0);</div>
-<div class="line">        </div>
-<div class="line">        <a name="a38"></a><a class="code" href="a00004.html#ga53ae87d238c51cada56d704c47302524">CLASS_ATTR_INVISIBLE</a>            (c, <span class="stringliteral">&quot;fontname&quot;</span>, 1);</div>
-<div class="line">        <a class="code" href="a00004.html#ga53ae87d238c51cada56d704c47302524">CLASS_ATTR_INVISIBLE</a>            (c, <span class="stringliteral">&quot;fontweight&quot;</span>, 1);</div>
-<div class="line">        <a class="code" href="a00004.html#ga53ae87d238c51cada56d704c47302524">CLASS_ATTR_INVISIBLE</a>            (c, <span class="stringliteral">&quot;fontslant&quot;</span>, 1);</div>
-<div class="line">        <a class="code" href="a00004.html#ga53ae87d238c51cada56d704c47302524">CLASS_ATTR_INVISIBLE</a>            (c, <span class="stringliteral">&quot;fontsize&quot;</span>, 1);</div>
-<div class="line">        <a name="a39"></a><a class="code" href="a00004.html#ga96196e25dfbb0920a02531f53770e403">CLASS_ATTR_DEFAULT</a>              (c, <span class="stringliteral">&quot;size&quot;</span>, 0, <span class="stringliteral">&quot;16. 16.&quot;</span>);</div>
-<div class="line">        </div>
-<div class="line">        <a name="a40"></a><a class="code" href="a00004.html#gaf9175fc0ce2c420b378c99239e3268f0">CLASS_ATTR_RGBA</a>                 (c, <span class="stringliteral">&quot;bgcolor&quot;</span>, 0, <a class="code" href="a00003.html">t_bang</a>, b_color_background);</div>
-<div class="line">        <a name="a41"></a><a class="code" href="a00004.html#gab73d5efdd012693da6f0de9062f8bc93">CLASS_ATTR_LABEL</a>                (c, <span class="stringliteral">&quot;bgcolor&quot;</span>, 0, <span class="stringliteral">&quot;Background Color&quot;</span>);</div>
-<div class="line">        <a name="a42"></a><a class="code" href="a00004.html#gaa301337d282ddf6918df9135d0e8c023">CLASS_ATTR_ORDER</a>                (c, <span class="stringliteral">&quot;bgcolor&quot;</span>, 0, <span class="stringliteral">&quot;1&quot;</span>);</div>
-<div class="line">        <a name="a43"></a><a class="code" href="a00004.html#ga55677c851b0822e7852dc3742046b77c">CLASS_ATTR_DEFAULT_SAVE_PAINT</a>   (c, <span class="stringliteral">&quot;bgcolor&quot;</span>, 0, <span class="stringliteral">&quot;0.75 0.75 0.75 1.&quot;</span>);</div>
-<div class="line">        <a name="a44"></a><a class="code" href="a00004.html#ga62b306c1f7686d411913b977a9ce5611">CLASS_ATTR_STYLE</a>                (c, <span class="stringliteral">&quot;bgcolor&quot;</span>, 0, <span class="stringliteral">&quot;color&quot;</span>);</div>
-<div class="line">        </div>
-<div class="line">        <a class="code" href="a00004.html#gaf9175fc0ce2c420b378c99239e3268f0">CLASS_ATTR_RGBA</a>                 (c, <span class="stringliteral">&quot;bdcolor&quot;</span>, 0, <a class="code" href="a00003.html">t_bang</a>, b_color_border);</div>
-<div class="line">        <a class="code" href="a00004.html#gab73d5efdd012693da6f0de9062f8bc93">CLASS_ATTR_LABEL</a>                (c, <span class="stringliteral">&quot;bdcolor&quot;</span>, 0, <span class="stringliteral">&quot;Border Color&quot;</span>);</div>
-<div class="line">        <a class="code" href="a00004.html#gaa301337d282ddf6918df9135d0e8c023">CLASS_ATTR_ORDER</a>                (c, <span class="stringliteral">&quot;bdcolor&quot;</span>, 0, <span class="stringliteral">&quot;2&quot;</span>);</div>
-<div class="line">        <a class="code" href="a00004.html#ga55677c851b0822e7852dc3742046b77c">CLASS_ATTR_DEFAULT_SAVE_PAINT</a>   (c, <span class="stringliteral">&quot;bdcolor&quot;</span>, 0, <span class="stringliteral">&quot;0.5 0.5 0.5 1.&quot;</span>);</div>
-<div class="line">        <a class="code" href="a00004.html#ga62b306c1f7686d411913b977a9ce5611">CLASS_ATTR_STYLE</a>                (c, <span class="stringliteral">&quot;bdcolor&quot;</span>, 0, <span class="stringliteral">&quot;color&quot;</span>);</div>
-<div class="line">        </div>
-<div class="line">        <a class="code" href="a00004.html#gaf9175fc0ce2c420b378c99239e3268f0">CLASS_ATTR_RGBA</a>                 (c, <span class="stringliteral">&quot;bacolor&quot;</span>, 0, <a class="code" href="a00003.html">t_bang</a>, b_color_bang);</div>
-<div class="line">        <a class="code" href="a00004.html#gab73d5efdd012693da6f0de9062f8bc93">CLASS_ATTR_LABEL</a>                (c, <span class="stringliteral">&quot;bacolor&quot;</span>, 0, <span class="stringliteral">&quot;Bang Color&quot;</span>);</div>
-<div class="line">        <a class="code" href="a00004.html#gaa301337d282ddf6918df9135d0e8c023">CLASS_ATTR_ORDER</a>                (c, <span class="stringliteral">&quot;bacolor&quot;</span>, 0, <span class="stringliteral">&quot;3&quot;</span>);</div>
-<div class="line">        <a class="code" href="a00004.html#ga55677c851b0822e7852dc3742046b77c">CLASS_ATTR_DEFAULT_SAVE_PAINT</a>   (c, <span class="stringliteral">&quot;bacolor&quot;</span>, 0, <span class="stringliteral">&quot;0. 0. 0. 1.&quot;</span>);</div>
-<div class="line">        <a class="code" href="a00004.html#ga62b306c1f7686d411913b977a9ce5611">CLASS_ATTR_STYLE</a>                (c, <span class="stringliteral">&quot;bacolor&quot;</span>, 0, <span class="stringliteral">&quot;color&quot;</span>);</div>
-<div class="line">        </div>
-<div class="line">        <a name="a45"></a><a class="code" href="a00004.html#ga57074143501bd646992500676fb99569">eclass_register</a>(<a name="a46"></a><a class="code" href="a00004.html#gaf640c99a1fceb8158c2d1e77381b0320">CLASS_BOX</a>, c);</div>
-<div class="line">        bang_class = c;</div>
+<div class="line">        size = rect.<a class="code" href="a00008.html#a2d191f636f0fc0c602b949e9ddb968a2">width</a> * 0.5;</div>
+<div class="line">        <span class="comment">// We set up the bang color is the t_bang is currently active.</span></div>
+<div class="line">        <span class="comment">// Otherwise we use the background color.</span></div>
+<div class="line">        <span class="keywordflow">if</span>(x-&gt;<a class="code" href="a00004.html#a9e241345442b43f6250d730aed8ec990">b_active</a>)</div>
+<div class="line">        {</div>
+<div class="line">            egraphics_set_color_rgba(g, &amp;x-&gt;<a class="code" href="a00004.html#afc33716a3bd1e1d805aead42fae8c7a6">b_color_bang</a>);</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">else</span></div>
+<div class="line">        {</div>
+<div class="line">            egraphics_set_color_rgba(g, &amp;x-&gt;<a class="code" href="a00004.html#a1ecfc654cb6dae279e8f3a4dda24368c">b_color_background</a>);</div>
+<div class="line">        }</div>
+<div class="line">        <span class="comment">// We add a circle at the center the t_elayer.</span></div>
+<div class="line">        egraphics_circle(g, floor(size + 0.5), floor(size + 0.5), size * 0.9);</div>
+<div class="line">        <span class="comment">// We fill the t_elayer with the drawing.</span></div>
+<div class="line">        egraphics_fill(g);</div>
+<div class="line">        <span class="comment">// We mark the layer as ready to be painted.</span></div>
+<div class="line">        <a name="a71"></a><a class="code" href="a00006.html#gafbd3037b1afe3939912b1b5cff96a5bd">ebox_end_layer</a>((<a class="code" href="a00006.html#a00039">t_ebox</a>*)x, bang_sym_background_layer);</div>
 <div class="line">    }</div>
+<div class="line">    <span class="comment">// We tell the t_ebox to painted the \&quot;background_layer\&quot; layer at the 0 0 position. If the t_elayer was invalid or new</span></div>
+<div class="line">    <span class="comment">// that means that we have drawn something new in it, otherwise t_ebox paint the t_elayer like it was before.</span></div>
+<div class="line">    <a name="a72"></a><a class="code" href="a00006.html#ga4c40a6ef105573223e9d9cbb515c9db1">ebox_paint_layer</a>((<a class="code" href="a00006.html#a00039">t_ebox</a> *)x, bang_sym_background_layer, 0., 0.);</div>
 <div class="line">}</div>
 <div class="line"></div>
+<div class="line"><span class="comment">// Activates the status of the t_bang.</span></div>
+<div class="line"><span class="comment">// The function activates the status of the t_bang. Outputs a bang message, sends a bang to the attached objects and ask the t_ebox</span></div>
+<div class="line"><span class="comment">// to be redrawn</span></div>
+<div class="line"><span class="comment"></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a00004.html#ga0fec169a9a56157ea17b939b974ec2ef">bang_activate</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x)</div>
+<div class="line">{</div>
+<div class="line">    <span class="comment">// We mark the bang as active.</span></div>
+<div class="line">    x-&gt;<a class="code" href="a00004.html#a9e241345442b43f6250d730aed8ec990">b_active</a> = 1;</div>
+<div class="line">    <span class="comment">// We send a bang through our outlet.</span></div>
+<div class="line">    <a name="a73"></a><a class="code" href="a00003.html#ga5a282ac83ffe462aeefcabd5f73cc005">outlet_bang</a>(x-&gt;<a class="code" href="a00004.html#a078fe8e68793cca3003ed53b196405c1">b_out</a>);</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// We retrieves the link list of object attached to the t_bang.</span></div>
+<div class="line">    <a class="code" href="a00003.html#gac085bef486c0e262349075ffce8a9752">t_pd</a>* senders = <a name="a74"></a><a class="code" href="a00006.html#gae583313b1ea4f06fe42aa7a0ed5772e6">ebox_getsender</a>((<a class="code" href="a00006.html#a00039">t_ebox</a> *) x);</div>
+<div class="line">    <span class="keywordflow">if</span>(senders)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="comment">// If we have a link list we send a bang to the object.</span></div>
+<div class="line">        <span class="comment">// All the GUI has send and receive t_symbol attributes to send and receive messages without connections.</span></div>
+<div class="line">        <a name="a75"></a><a class="code" href="a00003.html#gacfbceb2c05a26355f85d170dcbd5c33c">pd_bang</a>(senders);</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// We invalidate the background layer.</span></div>
+<div class="line">    <a name="a76"></a><a class="code" href="a00006.html#ga4e3b81f831ab7cf2730daae51405c715">ebox_invalidate_layer</a>((<a class="code" href="a00006.html#a00039">t_ebox</a> *)x, bang_sym_background_layer);</div>
+<div class="line">    <span class="comment">// We aks the t_ebox to redraw the object.</span></div>
+<div class="line">    <a name="a77"></a><a class="code" href="a00006.html#ga3b61efe7c688334e267b0e66dcf22e00">ebox_redraw</a>((<a class="code" href="a00006.html#a00039">t_ebox</a> *)x);</div>
+<div class="line">}</div>
 <div class="line"></div>
+<div class="line"><span class="comment">// Deactivates the status of the t_bang.</span></div>
+<div class="line"><span class="comment">// The function deactiveates the status of the t_bang and ask the t_ebox to be redrawn</span></div>
+<div class="line"><span class="comment"></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a00004.html#gad3f3c1456963abd5419b3bc46deb2e81">bang_deactivate</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x)</div>
+<div class="line">{</div>
+<div class="line">    <span class="comment">// We mark the bang as inactive.</span></div>
+<div class="line">    x-&gt;<a class="code" href="a00004.html#a9e241345442b43f6250d730aed8ec990">b_active</a> = 0;</div>
+<div class="line">    <span class="comment">// We invalidate the background layer.</span></div>
+<div class="line">    <a class="code" href="a00006.html#ga4e3b81f831ab7cf2730daae51405c715">ebox_invalidate_layer</a>((<a class="code" href="a00006.html#a00039">t_ebox</a> *)x, bang_sym_background_layer);</div>
+<div class="line">    <span class="comment">// We aks the t_ebox to redraw the object.</span></div>
+<div class="line">    <a class="code" href="a00006.html#ga3b61efe7c688334e267b0e66dcf22e00">ebox_redraw</a>((<a class="code" href="a00006.html#a00039">t_ebox</a> *)x);</div>
+<div class="line">}</div>
 <div class="line"></div>
+<div class="line"><span class="comment">// Receives the mouse down notification..</span></div>
+<div class="line"><span class="comment">// The function is called internally when the object has been clicked.</span></div>
+<div class="line"><span class="comment"></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a00004.html#gab91fe24c5bdc8ec64118f87372dbff62">bang_mousedown</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a class="code" href="a00003.html#a00057">t_object</a> *view, <a class="code" href="a00008.html#a00059">t_pt</a> pt, <span class="keywordtype">long</span> modifiers)</div>
+<div class="line">{</div>
+<div class="line">    <span class="comment">// In this example, when the mouse down is called we activate the t_bang.</span></div>
+<div class="line">    <a class="code" href="a00004.html#ga0fec169a9a56157ea17b939b974ec2ef">bang_activate</a>(x);</div>
+<div class="line">}</div>
 <div class="line"></div>
+<div class="line"><span class="comment">// Receives the mouse up notification..</span></div>
+<div class="line"><span class="comment">// The function is called internally when the mouse has been released from the object.</span></div>
+<div class="line"><span class="comment"></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a00004.html#ga1712ca9082237f90d3f177c290c77abb">bang_mouseup</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a class="code" href="a00003.html#a00057">t_object</a> *view, <a class="code" href="a00008.html#a00059">t_pt</a> pt, <span class="keywordtype">long</span> modifiers)</div>
+<div class="line">{</div>
+<div class="line">    <span class="comment">// In this example, when the mouse down is called we deactivate the t_bang.</span></div>
+<div class="line">    <a class="code" href="a00004.html#gad3f3c1456963abd5419b3bc46deb2e81">bang_deactivate</a>(x);</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line"><span class="comment">// Receives the anything notification.</span></div>
+<div class="line"><span class="comment">// The function is called when any message has been received from the inlet.</span></div>
+<div class="line"><span class="comment"></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a00004.html#ga32c5dc909f8707bbbb4f485d0f4b12b6">bang_anything</a>(<a class="code" href="a00004.html#a00035">t_bang</a> *x, <a class="code" href="a00003.html#a00063">t_symbol</a> *s, <span class="keywordtype">int</span> argc, <a class="code" href="a00003.html#a00034">t_atom</a> *argv)</div>
+<div class="line">{</div>
+<div class="line">    <span class="comment">// When we receive any message we activate the t_bang</span></div>
+<div class="line">    <a class="code" href="a00004.html#ga0fec169a9a56157ea17b939b974ec2ef">bang_activate</a>(x);</div>
+<div class="line">    <span class="comment">// then delay the clock of 100ms to deactivate the t_bang</span></div>
+<div class="line">    <a name="a78"></a><a class="code" href="a00003.html#ga695e3488394e99cd64c8973ce1c79acc">clock_delay</a>(x-&gt;<a class="code" href="a00004.html#addbcfc52ebf5b8e3fd17e14171b04b8e">b_clock</a>, 100);</div>
+<div class="line">    <span class="comment">// thus the object will blink.</span></div>
+<div class="line">}</div>
 <div class="line"></div>
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 19 2015 10:45:17 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2015 14:23:22 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

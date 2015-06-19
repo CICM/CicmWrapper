@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.8"/>
-<title>CicmWrapper: The Popup Window Part</title>
+<title>CicmWrapper: The BASIC Object Part</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -81,88 +81,416 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">The Popup Window Part</div>  </div>
+<div class="title">The BASIC Object Part</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a> part.  
+<p>The <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> part.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:a00043"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#a00043">t_epopup</a></td></tr>
-<tr class="memdesc:a00043"><td class="mdescLeft">&#160;</td><td class="mdescRight">The popup structure.  <a href="a00009.html#a00043">More...</a><br /></td></tr>
-<tr class="separator:a00043"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00050"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#a00050">t_eproxy</a></td></tr>
+<tr class="memdesc:a00050"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Proxy object.  <a href="a00009.html#a00050">More...</a><br /></td></tr>
+<tr class="separator:a00050"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00048"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#a00048">t_eobj</a></td></tr>
+<tr class="memdesc:a00048"><td class="mdescLeft">&#160;</td><td class="mdescRight">The default object.  <a href="a00009.html#a00048">More...</a><br /></td></tr>
+<tr class="separator:a00048"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gaee1de955319d280fff8a50d08b50e4bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00009.html#a00043">t_epopup</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#gaee1de955319d280fff8a50d08b50e4bd">epopupmenu_create</a> (<a class="el" href="a00008.html#a00042">t_eobj</a> *x, t_symbol *name)</td></tr>
-<tr class="memdesc:gaee1de955319d280fff8a50d08b50e4bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a> creation function.  <a href="#gaee1de955319d280fff8a50d08b50e4bd">More...</a><br /></td></tr>
-<tr class="separator:gaee1de955319d280fff8a50d08b50e4bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac042bdeac14c5874e8a068e0c5ee0309"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#gac042bdeac14c5874e8a068e0c5ee0309">epopupmenu_setfont</a> (<a class="el" href="a00009.html#a00043">t_epopup</a> *popup, <a class="el" href="a00007.html#a00039">t_efont</a> *font)</td></tr>
-<tr class="memdesc:gac042bdeac14c5874e8a068e0c5ee0309"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the font of a <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a>.  <a href="#gac042bdeac14c5874e8a068e0c5ee0309">More...</a><br /></td></tr>
-<tr class="separator:gac042bdeac14c5874e8a068e0c5ee0309"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga005fc6f37cbe3b995263c4e252cce0cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#ga005fc6f37cbe3b995263c4e252cce0cf">epopupmenu_additem</a> (<a class="el" href="a00009.html#a00043">t_epopup</a> *popup, int itemid, const char *text, char checked, char disabled)</td></tr>
-<tr class="memdesc:ga005fc6f37cbe3b995263c4e252cce0cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new item in the popup list.  <a href="#ga005fc6f37cbe3b995263c4e252cce0cf">More...</a><br /></td></tr>
-<tr class="separator:ga005fc6f37cbe3b995263c4e252cce0cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7388644b643d03d55457f3e76cb5c533"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#ga7388644b643d03d55457f3e76cb5c533">epopupmenu_addseperator</a> (<a class="el" href="a00009.html#a00043">t_epopup</a> *popup)</td></tr>
-<tr class="memdesc:ga7388644b643d03d55457f3e76cb5c533"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new seprator in the popup list.  <a href="#ga7388644b643d03d55457f3e76cb5c533">More...</a><br /></td></tr>
-<tr class="separator:ga7388644b643d03d55457f3e76cb5c533"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga14bc550aae8eee4e5b76a94de8197498"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#ga14bc550aae8eee4e5b76a94de8197498">epopupmenu_popup</a> (<a class="el" href="a00009.html#a00043">t_epopup</a> *popup, <a class="el" href="a00007.html#a00050">t_pt</a> pos)</td></tr>
-<tr class="memdesc:ga14bc550aae8eee4e5b76a94de8197498"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shows the popup on the screen.  <a href="#ga14bc550aae8eee4e5b76a94de8197498">More...</a><br /></td></tr>
-<tr class="separator:ga14bc550aae8eee4e5b76a94de8197498"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga238c42e70bfd0c1b7a8763fb11a1ab92"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#ga238c42e70bfd0c1b7a8763fb11a1ab92">eobj_new</a> (<a class="el" href="a00005.html#a00040">t_eclass</a> *c)</td></tr>
+<tr class="memdesc:ga238c42e70bfd0c1b7a8763fb11a1ab92"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> creation function.  <a href="#ga238c42e70bfd0c1b7a8763fb11a1ab92">More...</a><br /></td></tr>
+<tr class="separator:ga238c42e70bfd0c1b7a8763fb11a1ab92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab269804f09b184c738c3088889d8908c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#gab269804f09b184c738c3088889d8908c">eobj_free</a> (void *x)</td></tr>
+<tr class="memdesc:gab269804f09b184c738c3088889d8908c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> deletion function. <br />
+ This function should replace pd_free().  <a href="#gab269804f09b184c738c3088889d8908c">More...</a><br /></td></tr>
+<tr class="separator:gab269804f09b184c738c3088889d8908c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2bf38bfa476734bf3afad5da21d44a46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00009.html#a00050">t_eproxy</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#ga2bf38bfa476734bf3afad5da21d44a46">eobj_proxynew</a> (void *x)</td></tr>
+<tr class="memdesc:ga2bf38bfa476734bf3afad5da21d44a46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a proxy inlet to a <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a>.  <a href="#ga2bf38bfa476734bf3afad5da21d44a46">More...</a><br /></td></tr>
+<tr class="separator:ga2bf38bfa476734bf3afad5da21d44a46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1014e3284b70c9680b9b048157190ca7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#ga1014e3284b70c9680b9b048157190ca7">eobj_getproxy</a> (void *x)</td></tr>
+<tr class="memdesc:ga1014e3284b70c9680b9b048157190ca7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retreives the index of the proxy that received the last message.  <a href="#ga1014e3284b70c9680b9b048157190ca7">More...</a><br /></td></tr>
+<tr class="separator:ga1014e3284b70c9680b9b048157190ca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga81d0e76ad4e7ef75e16c56847f9913f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00005.html#a00040">t_eclass</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#ga81d0e76ad4e7ef75e16c56847f9913f4">eobj_getclass</a> (void *x)</td></tr>
+<tr class="memdesc:ga81d0e76ad4e7ef75e16c56847f9913f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the eclass of a <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a>.  <a href="#ga81d0e76ad4e7ef75e16c56847f9913f4">More...</a><br /></td></tr>
+<tr class="separator:ga81d0e76ad4e7ef75e16c56847f9913f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga746850962ff25ecc81bf61f26281f3ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00003.html#a00063">t_symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#ga746850962ff25ecc81bf61f26281f3ea">eobj_getclassname</a> (void *x)</td></tr>
+<tr class="memdesc:ga746850962ff25ecc81bf61f26281f3ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the classe name of a <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a>.  <a href="#ga746850962ff25ecc81bf61f26281f3ea">More...</a><br /></td></tr>
+<tr class="separator:ga746850962ff25ecc81bf61f26281f3ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0f3a573a8af2dd681f9a32f722dec258"><td class="memItemLeft" align="right" valign="top">t_canvas *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#ga0f3a573a8af2dd681f9a32f722dec258">eobj_getcanvas</a> (void *x)</td></tr>
+<tr class="memdesc:ga0f3a573a8af2dd681f9a32f722dec258"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retreives the canvas that owns the <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a>.  <a href="#ga0f3a573a8af2dd681f9a32f722dec258">More...</a><br /></td></tr>
+<tr class="separator:ga0f3a573a8af2dd681f9a32f722dec258"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga20b15e9d4cfff43d7c99ec64f8da3ced"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#ga20b15e9d4cfff43d7c99ec64f8da3ced">eobj_isbox</a> (void *x)</td></tr>
+<tr class="memdesc:ga20b15e9d4cfff43d7c99ec64f8da3ced"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retreives if a <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> is a GUI box or not.  <a href="#ga20b15e9d4cfff43d7c99ec64f8da3ced">More...</a><br /></td></tr>
+<tr class="separator:ga20b15e9d4cfff43d7c99ec64f8da3ced"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga27eee54891735b101bf16018272d379c"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#ga27eee54891735b101bf16018272d379c">eobj_isdsp</a> (void *x)</td></tr>
+<tr class="memdesc:ga27eee54891735b101bf16018272d379c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retreives if a <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> is a DSP object or not.  <a href="#ga27eee54891735b101bf16018272d379c">More...</a><br /></td></tr>
+<tr class="separator:ga27eee54891735b101bf16018272d379c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab2cf66709dc873b0442f3d78cea2f548"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#gab2cf66709dc873b0442f3d78cea2f548">eobj_attrprocess_viabinbuf</a> (void *x, <a class="el" href="a00003.html#a00036">t_binbuf</a> *d)</td></tr>
+<tr class="memdesc:gab2cf66709dc873b0442f3d78cea2f548"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the attributes with a binbuf.  <a href="#gab2cf66709dc873b0442f3d78cea2f548">More...</a><br /></td></tr>
+<tr class="separator:gab2cf66709dc873b0442f3d78cea2f548"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6b4de28da57603066ca2cffc1d1b716b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#ga6b4de28da57603066ca2cffc1d1b716b">eobj_attrprocess_viatoms</a> (void *x, int argc, <a class="el" href="a00003.html#a00034">t_atom</a> *argv)</td></tr>
+<tr class="memdesc:ga6b4de28da57603066ca2cffc1d1b716b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the attributes with an array of atoms.  <a href="#ga6b4de28da57603066ca2cffc1d1b716b">More...</a><br /></td></tr>
+<tr class="separator:ga6b4de28da57603066ca2cffc1d1b716b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafa98032dd656b2c71d2a4976b03932e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#gafa98032dd656b2c71d2a4976b03932e9">eobj_attr_setvalueof</a> (void *x, <a class="el" href="a00003.html#a00063">t_symbol</a> *s, int argc, <a class="el" href="a00003.html#a00034">t_atom</a> *argv)</td></tr>
+<tr class="memdesc:gafa98032dd656b2c71d2a4976b03932e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the values of an attribute.  <a href="#gafa98032dd656b2c71d2a4976b03932e9">More...</a><br /></td></tr>
+<tr class="separator:gafa98032dd656b2c71d2a4976b03932e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga76f7b1403214e4d8dc40e464c558e8a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#ga76f7b1403214e4d8dc40e464c558e8a3">eobj_attr_getvalueof</a> (void *x, <a class="el" href="a00003.html#a00063">t_symbol</a> *s, int *argc, <a class="el" href="a00003.html#a00034">t_atom</a> **argv)</td></tr>
+<tr class="memdesc:ga76f7b1403214e4d8dc40e464c558e8a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the values of an attribute.  <a href="#ga76f7b1403214e4d8dc40e464c558e8a3">More...</a><br /></td></tr>
+<tr class="separator:ga76f7b1403214e4d8dc40e464c558e8a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>The <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a> part. </p>
-<p>This part refers to the methods and structures that can be used by all the <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a> structures. </p>
+<p>The <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> part. </p>
+<p>This part refers to the methods and structures that can be used by all the <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> structures. </p>
 <hr/><h2 class="groupheader">Data Structure Documentation</h2>
-<a name="a00043" id="a00043"></a>
+<a name="a00050" id="a00050"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct t_epopup</td>
+          <td class="memname">struct t_eproxy</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="textblock"><p>The popup structure. </p>
-<p>It contains the informations to show and retieve a popup. </p>
+<div class="textblock"><p>The Proxy object. </p>
+<p>It contains the proxy class, the eobj owner and the index of the proxy. </p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="ae013650cf02a85809ed5b23de958f0c8"></a>t_symbol *</td>
+<a class="anchor" id="abcab1c0c33eb380f4d2f67f5e06638d1"></a><a class="el" href="a00003.html#gac085bef486c0e262349075ffce8a9752">t_pd</a></td>
 <td class="fieldname">
-c_name</td>
+p_pd</td>
 <td class="fielddoc">
-<p>The name of the popup. </p>
+<p>The class object. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a2c89bbd92adfd5047d874063fbee99e1"></a>t_symbol *</td>
+<a class="anchor" id="a4f462c4e3ad2e21b83ab32948a3abe48"></a><a class="el" href="a00003.html#a00057">t_object</a> *</td>
 <td class="fieldname">
-c_send</td>
+p_owner</td>
 <td class="fielddoc">
-<p>The name of the owner. </p>
+<p>The pointer to the eobj owner. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a5dfbd3a1ce8c1205bfcc65f78aa1624f"></a>t_inlet *</td>
+<td class="fieldname">
+p_inlet</td>
+<td class="fielddoc">
+<p>The pointer to the inlet. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a470e48648e04de9f5b5326fc4e7d410c"></a>int</td>
+<td class="fieldname">
+p_index</td>
+<td class="fielddoc">
+<p>The index of the proxy. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="a00048" id="a00048"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct t_eobj</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><p>The default object. </p>
+<p>It contains the Pd object, the canvas pointer and members for proxy inlets. This should be used for no graphical object that don't have signal processing methods. </p>
+</div><table class="fieldtable">
+<tr><th colspan="3">Data Fields</th></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a7bdccc6098f5e73b2e051322a8ba1180"></a><a class="el" href="a00003.html#a00057">t_object</a></td>
+<td class="fieldname">
+o_obj</td>
+<td class="fielddoc">
+<p>The Pd object. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a3283b793c9d613b8da4fbbb4fd56636e"></a><a class="el" href="a00003.html#a00063">t_symbol</a> *</td>
+<td class="fieldname">
+o_id</td>
+<td class="fielddoc">
+<p>The object ID. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a4a4d89ac04c7b30a15a87a649b2daf65"></a>t_canvas *</td>
+<td class="fieldname">
+o_canvas</td>
+<td class="fielddoc">
+<p>The canvas that own the object. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a7b392d718eded2e4bd2694ece6c49cb5"></a><a class="el" href="a00009.html#a00050">t_eproxy</a> **</td>
+<td class="fieldname">
+o_proxy</td>
+<td class="fielddoc">
+<p>The array of proxy inlets. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a98198854f27517b80913f82e30b36ee6"></a>int</td>
+<td class="fieldname">
+o_nproxy</td>
+<td class="fielddoc">
+<p>The number of proxy inlets. </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a0e20ced4a1283166890c3f773daf1dbf"></a>int</td>
+<td class="fieldname">
+o_current_proxy</td>
+<td class="fielddoc">
+<p>The index of the current proxy inlet used </p>
 </td></tr>
 </table>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="gaee1de955319d280fff8a50d08b50e4bd"></a>
+<a class="anchor" id="ga238c42e70bfd0c1b7a8763fb11a1ab92"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00009.html#a00043">t_epopup</a>* epopupmenu_create </td>
+          <td class="memname">void* eobj_new </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00008.html#a00042">t_eobj</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="a00005.html#a00040">t_eclass</a> *&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> creation function. </p>
+<p>Allocates the memory for an intance of a <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> of a specific eclass, intialize the defaults values and methods. <br />
+ This function should replace pd_new(). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>The <a class="el" href="a00005.html#a00040" title="The class. ">t_eclass</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>This function returns a pointer to a new instance of a <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gab269804f09b184c738c3088889d8908c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eobj_free </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> deletion function. <br />
+ This function should replace pd_free(). </p>
+<p>Detaches the <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> from Pure Data and frees the proxy inlets. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> pointer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ga2bf38bfa476734bf3afad5da21d44a46"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00009.html#a00050">t_eproxy</a>* eobj_proxynew </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds a proxy inlet to a <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a>. </p>
+<p>Allocates and initializes a new proxy inlet. <br />
+ This function should replace inlet_new(). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>This function returns a pointer to the new proxy inlet. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga1014e3284b70c9680b9b048157190ca7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int eobj_getproxy </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retreives the index of the proxy that received the last message. </p>
+<p>Retreives the current proxy index. This function should only be used while a message has been received. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>This function return the index of the current proxy. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga81d0e76ad4e7ef75e16c56847f9913f4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00005.html#a00040">t_eclass</a>* eobj_getclass </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves the eclass of a <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a>. </p>
+<p>Directly access to the eclass structure of the <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>This function returns a pointer to the eclass of the <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga746850962ff25ecc81bf61f26281f3ea"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00003.html#a00063">t_symbol</a>* eobj_getclassname </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves the classe name of a <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a>. </p>
+<p>Directly access to the name of the eclass of the <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>This function returns the name of the class of the <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga0f3a573a8af2dd681f9a32f722dec258"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">t_canvas* eobj_getcanvas </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retreives the canvas that owns the <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a>. </p>
+<p>Directly access to the canvas structure of the <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>This function returns a pointer the canvas that owns the <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga20b15e9d4cfff43d7c99ec64f8da3ced"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char eobj_isbox </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retreives if a <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> is a GUI box or not. </p>
+<p>Check if the box flag is postive or null. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>This function returns 1 if the <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> is a GUI and 0 if not. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga27eee54891735b101bf16018272d379c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char eobj_isdsp </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retreives if a <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> is a DSP object or not. </p>
+<p>Check if the dsp method has been initialized. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>This function returns 1 if the <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> is a DSP object and 0 if not. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gab2cf66709dc873b0442f3d78cea2f548"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eobj_attrprocess_viabinbuf </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">t_symbol *&#160;</td>
-          <td class="paramname"><em>name</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a00003.html#a00036">t_binbuf</a> *&#160;</td>
+          <td class="paramname"><em>d</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -172,87 +500,38 @@ c_send</td>
       </table>
 </div><div class="memdoc">
 
-<p>The <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a> creation function. </p>
-<p>Allocates the memory for a <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a>, intialize the defaults values and link it to the <a class="el" href="a00008.html#a00042" title="The default object. ">t_eobj</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Changes the attributes with a binbuf. </p>
+<p>Retrieves and interpretes a binbuf to initialize the attributes. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>The <a class="el" href="a00008.html#a00042" title="The default object. ">t_eobj</a> pointer. </td></tr>
-    <tr><td class="paramname">name</td><td>The name of the <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a>. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>This function returns a pointer to a new <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a>. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="a00028.html#_todo000002">Todo:</a></b></dt><dd>Perhaps It would be good to free the menu later... </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="gac042bdeac14c5874e8a068e0c5ee0309"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void epopupmenu_setfont </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00009.html#a00043">t_epopup</a> *&#160;</td>
-          <td class="paramname"><em>popup</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00007.html#a00039">t_efont</a> *&#160;</td>
-          <td class="paramname"><em>font</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the font of a <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">popup</td><td>The <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a> pointer. </td></tr>
-    <tr><td class="paramname">font</td><td>The <a class="el" href="a00007.html#a00039" title="The font structure. ">t_efont</a> pointer. </td></tr>
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+    <tr><td class="paramname">d</td><td>The binbuf pointer. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="ga005fc6f37cbe3b995263c4e252cce0cf"></a>
+<a class="anchor" id="ga6b4de28da57603066ca2cffc1d1b716b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void epopupmenu_additem </td>
+          <td class="memname">void eobj_attrprocess_viatoms </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00009.html#a00043">t_epopup</a> *&#160;</td>
-          <td class="paramname"><em>popup</em>, </td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>itemid</em>, </td>
+          <td class="paramname"><em>argc</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>text</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>checked</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>disabled</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a00003.html#a00034">t_atom</a> *&#160;</td>
+          <td class="paramname"><em>argv</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -262,59 +541,45 @@ c_send</td>
       </table>
 </div><div class="memdoc">
 
-<p>Adds a new item in the popup list. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Changes the attributes with an array of atoms. </p>
+<p>Retrieves and interpretes a binbuf to initialize the attributes. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">popup</td><td>The <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a> pointer. </td></tr>
-    <tr><td class="paramname">itemid</td><td>The id of the item. </td></tr>
-    <tr><td class="paramname">text</td><td>The text of the item. </td></tr>
-    <tr><td class="paramname">checked</td><td>If the item is marked as checked or not. </td></tr>
-    <tr><td class="paramname">disabled</td><td>If the item is marked as disabled or not. </td></tr>
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00006.html#a00039" title="The GUI object. ">t_ebox</a> pointer. </td></tr>
+    <tr><td class="paramname">argc</td><td>The number of atoms. </td></tr>
+    <tr><td class="paramname">argv</td><td>The pointer to the atoms. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="ga7388644b643d03d55457f3e76cb5c533"></a>
+<a class="anchor" id="gafa98032dd656b2c71d2a4976b03932e9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void epopupmenu_addseperator </td>
+          <td class="memname">void eobj_attr_setvalueof </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00009.html#a00043">t_epopup</a> *&#160;</td>
-          <td class="paramname"><em>popup</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Adds a new seprator in the popup list. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">popup</td><td>The <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a> pointer. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="ga14bc550aae8eee4e5b76a94de8197498"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void epopupmenu_popup </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00009.html#a00043">t_epopup</a> *&#160;</td>
-          <td class="paramname"><em>popup</em>, </td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a00007.html#a00050">t_pt</a>&#160;</td>
-          <td class="paramname"><em>pos</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a00003.html#a00063">t_symbol</a> *&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00003.html#a00034">t_atom</a> *&#160;</td>
+          <td class="paramname"><em>argv</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -324,11 +589,62 @@ c_send</td>
       </table>
 </div><div class="memdoc">
 
-<p>Shows the popup on the screen. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Sets the values of an attribute. </p>
+<p>Retrieves the attribute setter and calls it if it exist otherwise it does nothing. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">popup</td><td>The <a class="el" href="a00009.html#a00043" title="The popup structure. ">t_epopup</a> pointer. </td></tr>
-    <tr><td class="paramname">pos</td><td>The position on the screen. </td></tr>
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> pointer. </td></tr>
+    <tr><td class="paramname">s</td><td>The name of the attribute. </td></tr>
+    <tr><td class="paramname">argc</td><td>The number of the atoms. </td></tr>
+    <tr><td class="paramname">argv</td><td>The array of the atoms. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ga76f7b1403214e4d8dc40e464c558e8a3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eobj_attr_getvalueof </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00003.html#a00063">t_symbol</a> *&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00003.html#a00034">t_atom</a> **&#160;</td>
+          <td class="paramname"><em>argv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the values of an attribute. </p>
+<p>Retrieves the attribute getter and calls it if it exist otherwise it does nothing. You should free the atoms if they has been allocated. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The <a class="el" href="a00009.html#a00048" title="The default object. ">t_eobj</a> pointer. </td></tr>
+    <tr><td class="paramname">s</td><td>The name of the attribute. </td></tr>
+    <tr><td class="paramname">argc</td><td>The pointer to an int that will be initialize with the number of the atoms. </td></tr>
+    <tr><td class="paramname">argv</td><td>The pointer to the array of the atoms that will be allocated if the attribute exist. </td></tr>
   </table>
   </dd>
 </dl>
@@ -338,7 +654,7 @@ c_send</td>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 19 2015 10:45:17 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2015 14:23:22 for CicmWrapper by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
