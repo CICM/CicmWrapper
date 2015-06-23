@@ -245,58 +245,45 @@ void ebox_wvis(t_gobj *z, t_glist *glist, int vis)
     t_eclass* c = eobj_getclass(x);
     if(vis)
     {
-        if(eobj_isbox(x))
+        if(eobj_isbox(x) && x->b_ready_to_draw && x->b_visible)
         {
-            if(x->b_ready_to_draw && x->b_visible)
-            {
-                ebox_create_window(x, glist);
-                ebox_invalidate_all(x);
-                // No redraw for the 1st paint
-
-                if(x->b_obj.o_canvas && x->b_ready_to_draw && eobj_isbox(x)) // do not call ebox_isdrawable !!
-                {
-                    ebox_invalidate_layer(x, s_eboxbd);
-                    ebox_invalidate_layer(x, s_eboxio);
-
-                    ebox_update(x);
-                    if(c->c_widget.w_paint)
-                        c->c_widget.w_paint(x, (t_object *)x->b_obj.o_canvas);
-                    ebox_draw_border(x);
-                    ebox_draw_iolets(x);
-                }
-            }
+            ebox_create_window(x, glist);
+            ebox_invalidate_all(x);
+            ebox_update(x);
+            if(c->c_widget.w_paint)
+                c->c_widget.w_paint(x, (t_object *)x->b_obj.o_canvas);
+            ebox_draw_border(x);
+            ebox_draw_iolets(x);
         }
     }
     else
     {
         ebox_erase(x);
+        canvas_fixlinesfor(glist_getcanvas(glist), (t_text*)x);
     }
-    canvas_fixlinesfor(glist_getcanvas(glist), (t_text*)x);
 }
 
 //! Widget
 void ebox_wdisplace(t_gobj *z, t_glist *glist, int dx, int dy)
 {
-    t_ebox *x;
 #ifdef _WINDOWS
-    t_gotfn m;
-
-#endif
-    x = (t_ebox *)z;
+    t_ebox* x = (t_ebox *)z;
+    if(x->b_selected_box)
+    {
+        x->b_rect.x += dx;
+        x->b_rect.y += dy;
+        x->b_obj.o_obj.te_xpix += dx;
+        x->b_obj.o_obj.te_ypix += dy;
+        ebox_move(x);
+    }
+#else
+    t_ebox* x = (t_ebox *)z;
 
     x->b_rect.x += dx;
     x->b_rect.y += dy;
     x->b_obj.o_obj.te_xpix += dx;
     x->b_obj.o_obj.te_ypix += dy;
-
     ebox_move(x);
-
-#ifdef _WINDOWS
-    if(!x->b_selected_box)
-    {
-        m = getfn((t_pd *)x->b_obj.o_canvas, gensym("setbounds"));
-        m(x->b_obj.o_canvas, glist->gl_screenx1, glist->gl_screeny1, glist->gl_screenx2, glist->gl_screeny2);
-    }
 #endif
 }
 
