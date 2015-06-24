@@ -27,23 +27,10 @@
 #define _FUNCTION_DEPRECTAED_  __attribute__((deprecated))
 #endif
 
-#ifdef PD_EXTENDED
+#include <m_pd.h>
+#include <m_imp.h>
+#include <g_canvas.h>
 
-#ifndef __m_pd_h_
-#include "pd-extended/m_pd.h"
-#include "pd-extended/m_imp.h"
-#include "pd-extended/g_canvas.h"
-#endif
-
-#else
-
-#ifndef __m_pd_h_
-#include "pd-vanilla/m_pd.h"
-#include "pd-vanilla/m_imp.h"
-#include "pd-vanilla/g_canvas.h"
-#endif
-
-#endif
 #include <stdlib.h>
 #include <math.h>
 #include <ctype.h>
