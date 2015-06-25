@@ -112,7 +112,7 @@ void epd_init(void)
         sys_gui("append col [format {%4.4x} $nB]\n");
         sys_gui("return #$col\n");
         sys_gui("}\n");
-    
+        
         epd_symbol->s_thing = (t_class **)1;
     }
 }

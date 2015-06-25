@@ -90,9 +90,7 @@ typedef struct _namelist    /* element in a linked list of stored strings */
 } t_namelist;
 
 EXTERN t_namelist *sys_staticpath;
-EXTERN t_namelist *sys_externlist;
 EXTERN t_namelist *sys_searchpath;
-EXTERN t_namelist *sys_helppath;
 EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
 //! @endcond
 
