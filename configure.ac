@@ -3,7 +3,7 @@ AC_INIT([CicmWrapper], 0.2.1-git, Pierre Guillot,[CicmWrapper],[https://github.c
 
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR(config)
-AC_CONFIG_FILES([Sources/Makefile Sources/ebox/Makefile Sources/eclass/Makefile Sources/ecommon/Makefile Sources/egraphics/Makefile Sources/eobj/Makefile Sources/epopup/Makefile])
+AC_CONFIG_FILES([Sources/Makefile])
 
 AC_SUBST(PD_CPPFLAGS)
 AC_SUBST(PD_LDFLAGS)
