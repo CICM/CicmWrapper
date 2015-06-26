@@ -1,6 +1,0 @@
-/**
-\mainpage Presentation
-
-The CICM wrapper is a C/TK library that aims to facilitate the creation of objects for Pure Data. 
-One of the main axis is the creation of graphical user interfaces and signal processing. 
-*/

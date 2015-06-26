@@ -1,31 +1,62 @@
 ## CICM WRAPPER
-<p>Copyright (C) 2014 -2015 Pierre Guillot, CICM - Université Paris 8</p>
 
-##### Presentation
+### Presentation
 
-The CICM wrapper is a C/TK library that aims to facilitate the creation of objects for Pure Data. One of the main axis is the creation of graphical user interfaces and signal processing.
+The CICM wrapper is a C interface for [Tcl/Tk](https://www.tcl.tk/ "Tcl/Tk") and [Pure Data](http://msp.ucsd.edu/software.html "PD") that aims to facilitate the creation of objects for Pure Data. One of the main axis is the creation of graphical user interfaces. It also facilitates the implementation of dynamic multisignal processing and it improves the compatibility with Max.
 
-- The inlets/outlets are automatically generated.
-- The background color, border size, border color are easy to set.
-- The GUI objects can be resized with click and drag.
-- The graphics API use layers and "clip" the drawings within the box boundaries.
-- The attributes (size, colors, values and whatever you want) are saved with the patch.
-- The inlets/outlets are dynamics.
-- The management of mouse motion and keys is simplified.
-- The convertion from Max to Pd and from Pd to Max 6 is really easy.
-and a lot of other stuff, I can't enumerate everything !
+- Graphics :
+	- Layers system.
+	- Matrix translation and rotation.
+	- Bezier curves.
+	- Multi shapes
+	- Text layout
+	- Clipping of the drawing.
+	- Colors hsl/rgba and hexadecimal
+	- etc.
+- Interractions :
+	- Full mouse notification
+	- Full keyboard notification
+	- Cross platform modifiers
+	- etc.
+- Object :
+	- Proxy inlets.
+	- Attributes
+	- Automatic properties window
+	- Click and drag to resize the objects
+	- Special methods for background, border and size
+	- Dynamic inlets/outlets
+	- Dsp method simplified
+	- Perform method simplified
+	- etc.  
 
-##### Examples :
+Macros to convert code (event GUI) from Max to Pd and from PD to Max and a lot of other stuff, I can't enumerate everything !
 
-- <a title="Cream Library" href="https://github.com/CICM/CreamLibrary" target="_blank"> Cream Library</a>.
-- <a title="HOA Library" href="https://github.com/CICM/HoaLibrary" target="_blank"> HOA Library</a>.
+### Repository :
 
-##### Author :
+[GitHub](https://github.com/CICM/CicmWrapper "GitHub")
+
+### Documentation :
+
+[Documentation and examples](http://cicm.github.io/CicmWrapper "Documentation")
+
+### Projects :
+
+- [Cream Library](https://github.com/CICM/CreamLibrary "Cream").
+- [Hoa Library](https://github.com/CICM/HoaLibrary-Light "Hoa").
+
+### Author :
 
 Pierre Guillot
 
-##### Licence : 
+### Thanks :
 
-The Cream Library in under the <a title="GNU" href="http://www.gnu.org/copyleft/gpl.html" target="_blank">GNU Public License</a>. If you'd like to avoid the restrictions of the GPL and use the Cream Library for a closed-source product, you contact the <a title="CICM" href="http://cicm.mshparisnord.org/" target="_blank">CICM</a>.
+Antoine Villeret for Autotools and feedbacks.  
+Thomas Le Meur for the corrections.  
+Miller Puckette for Pure Data.
+
+### Licence : 
+
+Copyright (C) 2013-2015 Pierre Guillot - CICM - Universite Paris 8  
+The Cream Library in under the [BSD2 License](http://opensource.org/licenses/BSD-2-Clause "BSD2").
 
 
