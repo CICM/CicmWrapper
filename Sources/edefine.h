@@ -89,9 +89,11 @@ typedef struct _namelist    /* element in a linked list of stored strings */
     char *nl_string;            /* the string */
 } t_namelist;
 
+#ifndef _MSC_VER
 EXTERN t_namelist *sys_staticpath;
 EXTERN t_namelist *sys_searchpath;
 EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
+#endif
 //! @endcond
 
 /** @} */

@@ -298,6 +298,7 @@ void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
                         c->c_widget.w_read(x, s, 1, av);
                     return;
                 }
+#ifndef _MSC_VER
                 // Look in the search path
                 var = sys_searchpath;
                 while (var)
@@ -312,6 +313,7 @@ void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
                     }
                     var = var->nl_next;
                 }
+#endif
 
                 // Nothing work but we don't care
                 if(c->c_widget.w_read)
