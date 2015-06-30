@@ -133,11 +133,12 @@ void egraphics_stroke(t_elayer *g)
 void etext_layout_draw(t_etext* textlayout, t_elayer *g)
 {
     t_egobj *temp;
+	long index;
     temp = (t_egobj *)realloc(g->e_objects, (size_t)(g->e_number_objects + 1) * sizeof(t_egobj));
     if(temp)
     {
         g->e_objects = temp;
-        long index = g->e_number_objects;
+        index = g->e_number_objects;
         g->e_number_objects++;
         
         g->e_objects[index].e_type      = E_GOBJ_TEXT;
@@ -344,12 +345,12 @@ static void create_small_arc_oval(const float r1, const float r2, const float st
     const float sinz = sinf(a * 0.5f + start);
     const float cosa = cosf(a * 0.5f);
     const float sina = sinf(a * 0.5f);
+	const float k1 = (4.f * (1.f - cosf(a * 0.5f)) / sinf(a * 0.5f)) / 3.f;
+	const float k2 = (4.f * (1.f - cosf(-a * 0.5f)) / sinf(-a * 0.5f)) / 3.f;
     p4->x = (float)(r2 * cosa);
     p4->y = (float)(r2 * sina);
     p1.x = (float)(r1 * cosa);
     p1.y = (float)(-r1 * sina);
-    const float k1 = (4.f * (1.f - cosf(a * 0.5f)) / sinf(a * 0.5f)) / 3.f;
-    const float k2 = (4.f * (1.f - cosf(-a * 0.5f)) / sinf(-a * 0.5f)) / 3.f;
     p2->x = (float)(p1.x + k1 * p4->y);
     p2->y = (float)(p1.y + k1 * p4->x);
     p3->x = (float)(p4->x + k2 * p1.y);

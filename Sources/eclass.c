@@ -297,7 +297,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
                 return ;
             }
         }
-        attr = malloc(sizeof(t_eattr));
+        attr = (t_eattr*)malloc(sizeof(t_eattr));
         if(attr)
         {
             attr->name = gensym(attrname);

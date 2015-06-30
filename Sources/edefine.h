@@ -38,6 +38,12 @@
 #include <stdarg.h>
 #include <fcntl.h>
 
+#ifdef _MSC_VER
+
+
+#define snprintf sprintf_s
+#endif
+
 /*! @addtogroup groupcommon The Common Part
  * @brief The general part.
  * @details This part refers to the general methods and definitions.
@@ -89,11 +95,10 @@ typedef struct _namelist    /* element in a linked list of stored strings */
     char *nl_string;            /* the string */
 } t_namelist;
 
-#ifndef _MSC_VER
 EXTERN t_namelist *sys_staticpath;
 EXTERN t_namelist *sys_searchpath;
 EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
-#endif
+
 //! @endcond
 
 /** @} */

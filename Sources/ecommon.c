@@ -303,7 +303,7 @@ int atoms_get_keys(int ac, t_atom* av, t_symbol*** keys)
     int size = atoms_get_nattributes(ac, av);
     if(size)
     {
-        keys[0] = malloc((size_t)size * sizeof(t_symbol *));
+        keys[0] = (t_symbol**)malloc((size_t)size * sizeof(t_symbol *));
         if(keys[0])
         {
             for(i = 0, j = 0; i < ac; i++)
@@ -528,7 +528,7 @@ void epd_add_folder(const char* name, const char* folder)
     }
     post("end");
     */
-#ifndef _MSC_VER
+
 	char path[MAXPDSTRING];
 	t_namelist* var = sys_searchpath;
 	while (var)
@@ -566,7 +566,7 @@ void epd_add_folder(const char* name, const char* folder)
 		}
 		var = var->nl_next;
     }
-#endif
+
 }
 
 

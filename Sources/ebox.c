@@ -1231,7 +1231,7 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
 {
     int i, j;
     char text[MAXPDSTRING];
-    t_elayer* temp;
+	t_elayer *temp, *graphic;
     for(i = 0; i < x->b_number_of_layers; i++)
     {
         t_elayer* graphic = &x->b_layers[i];
@@ -1293,7 +1293,7 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
     if(temp)
     {
         x->b_layers = temp;
-        t_elayer* graphic = x->b_layers+x->b_number_of_layers;
+        graphic = x->b_layers+x->b_number_of_layers;
         x->b_number_of_layers++;
 
         graphic->e_owner        = (t_object *)x;
@@ -1379,6 +1379,7 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
         for(i = 0; i < g->e_number_objects; i++)
         {
             t_egobj* gobj = g->e_objects+i;
+			t_pt * pt;
             ////////////// PATH & LINE ///////////////////////////
             if(gobj->e_type == E_GOBJ_PATH && gobj->e_npoints > 3)
             {
@@ -1396,7 +1397,6 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                     sprintf(bottom, "-smooth true -fill %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
                 }
 
-                t_pt * pt;
                 for(j = 0; j < gobj->e_npoints; )
                 {
                     pt = gobj->e_points+j++;
