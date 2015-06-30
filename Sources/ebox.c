@@ -1234,7 +1234,7 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
 	t_elayer *temp, *graphic;
     for(i = 0; i < x->b_number_of_layers; i++)
     {
-        t_elayer* graphic = &x->b_layers[i];
+        graphic = &x->b_layers[i];
         if(graphic->e_name == name)
         {
             if(graphic->e_state == EGRAPHICS_INVALID)
