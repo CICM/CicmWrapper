@@ -39,6 +39,13 @@ Macros to convert code (event GUI) from Max to Pd and from PD to Max and a lot o
 
 [Documentation and examples](http://cicm.github.io/CicmWrapper "Documentation")
 
+### Compilation :
+
+	./autogen.sh (if needed)
+	./configure (useful options --with-pd=</path/to/pd>)
+	make
+	make install (optional)
+
 ### Projects :
 
 - [Cream Library](https://github.com/CICM/CreamLibrary "Cream").
