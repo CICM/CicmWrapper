@@ -145,7 +145,7 @@ typedef enum etextanchor_flags
     ETEXT_DOWN_LEFT     = 4, /*!< Down anfd left. */
     ETEXT_DOWN_RIGHT    = 5, /*!< Down anfd right. */
     ETEXT_LEFT          = 6, /*!< Left. */
-    ETEXT_RIGHT         = 7, /*!< right. */
+    ETEXT_RIGHT         = 7, /*!< Right. */
     ETEXT_CENTER        = 8  /*!< Center. */
     
 } etextanchor_flags;
@@ -158,7 +158,7 @@ typedef enum etextanchor_flags
 typedef enum etextwrap_flags
 {
     ETEXT_NOWRAP    = 0, /*!< False. */
-    ETEXT_WRAP      = 1 /*!< True. */
+    ETEXT_WRAP      = 1  /*!< True. */
 } etextwrap_flags;
 
 /**
