@@ -67,6 +67,14 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_LABEL		(c, "size", 0, "Patching Size");
     CLASS_ATTR_ACCESSORS    (c, "size", NULL, (t_err_method)ebox_size_set);
     
+    CLASS_ATTR_INT          (c, "pinned", 0, t_ebox, b_pinned);
+    CLASS_ATTR_DEFAULT      (c, "pinned", 0, "0");
+    CLASS_ATTR_FILTER_CLIP  (c, "pinned", 0, 1);
+    CLASS_ATTR_SAVE         (c, "pinned", 0);
+    CLASS_ATTR_CATEGORY		(c, "pinned", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "pinned", 0, "Pinned");
+    CLASS_ATTR_STYLE        (c, "pinned", 0, "onoff");
+    
     CLASS_ATTR_DEFAULT      (c, "fontname", 0, "Helvetica");
     CLASS_ATTR_SAVE         (c, "fontname", 0);
     CLASS_ATTR_PAINT        (c, "fontname", 0);

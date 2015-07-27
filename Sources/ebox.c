@@ -1051,6 +1051,17 @@ t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *
         }
         ebox_redraw(x);
     }
+    else if(s == s_pinned && ebox_isdrawable(x))
+    {
+        if(x->b_pinned)
+        {
+            sys_vgui((char *)"lower %s\n", x->b_drawing_id->s_name);
+        }
+        else
+        {
+            sys_vgui((char *)"raise %s\n", x->b_drawing_id->s_name);
+        }
+    }
 
     return 0;
 }
@@ -1361,7 +1372,10 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
     t_elayer* g = NULL;
     bdsize = x->b_boxparameters.d_borderthickness;
     sys_vgui("%s configure -bg %s\n", x->b_drawing_id->s_name, rgba_to_hex(x->b_boxparameters.d_boxfillcolor));
-
+    if(x->b_pinned)
+    {
+        sys_vgui((char *)"lower %s\n", x->b_drawing_id->s_name);
+    }
     for(i = 0; i < x->b_number_of_layers; i++)
     {
         if(x->b_layers[i].e_name == name)

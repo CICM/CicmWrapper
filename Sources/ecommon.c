@@ -18,6 +18,7 @@ t_symbol* s_attr_modified;
 t_symbol* s_eboxbd;
 t_symbol* s_eboxio;
 t_symbol* s_size;
+t_symbol* s_pinned;
 t_symbol* s_int;
 t_symbol* s_long;
 t_symbol* s_double;
@@ -35,6 +36,7 @@ void epd_init(void)
     s_int           = gensym("int");
     s_long          = gensym("long");
     s_double        = gensym("double");
+    s_pinned        = gensym("pinned");
     if(!epd_symbol->s_thing)
     {
         // PATCHER MOUSE MOTION //

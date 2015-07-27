@@ -87,6 +87,8 @@ extern t_symbol* s_int;
 extern t_symbol* s_long;
 //! The pre-defined double t_symbol*
 extern t_symbol* s_double;
+//! The pre-defined s_pinned t_symbol*
+extern t_symbol* s_pinned;
 
 //! @cond
 typedef struct _namelist    /* element in a linked list of stored strings */
@@ -707,6 +709,7 @@ typedef struct t_ebox
     t_rect              b_rect;             /*!< The ebox rectangle. */
     t_rect              b_rect_last;        /*!< The ebox previous rectangle. */
     t_efont             b_font;             /*!< The ebox font. */
+    int                 b_pinned;           /*!< If the ebox is pinned to the canvas. */
     int                 b_selected_box;     /*!< The selected state */
     int                 b_selected_item;    /*!< The items selected. */
     int                 b_selected_inlet;   /*!< The inlet selected. */
@@ -751,6 +754,7 @@ typedef struct t_edspbox
     t_rect              b_rect;             /*!< The ebox rectangle. */
     t_rect              b_rect_last;        /*!< The ebox previous rectangle. */
     t_efont             b_font;             /*!< The ebox font. */
+    int                 b_pinned;           /*!< If the ebox is pinned to the canvas. */
     int                 b_selected_box;     /*!< The selected state */
     int                 b_selected_item;    /*!< The items selected. */
     int                 b_selected_inlet;   /*!< The inlet selected. */
