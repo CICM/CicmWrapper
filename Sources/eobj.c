@@ -70,6 +70,11 @@ void eobj_free(void *x)
     }
 }
 
+t_pd_err eobj_iscicm(void* x)
+{
+    return (t_pd_err)zgetfn((t_pd *)x, s_iscicm);
+}
+
 t_eproxy* eobj_proxynew(void* x)
 {
     return eproxy_new(x, NULL);

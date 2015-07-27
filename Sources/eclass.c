@@ -148,6 +148,11 @@ void eclass_dspinit(t_eclass* c)
     class_addmethod((t_class *)c, (t_method)eobj_dsp_add, gensym("dsp_add64"), A_NULL, 0);
 }
 
+static t_pd_err is_cicm(t_eobj* x)
+{
+    return 1;
+}
+
 t_pd_err eclass_register(t_symbol *name, t_eclass *c)
 {
     if(c->c_box && c->c_dsp)
@@ -164,6 +169,7 @@ t_pd_err eclass_register(t_symbol *name, t_eclass *c)
         eclass_properties_dialog(c);
         class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
     }
+    class_addmethod((t_class *)c, (t_method)is_cicm, s_iscicm, A_NULL, 0);
     return 0;
 }
 

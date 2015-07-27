@@ -41,6 +41,14 @@ void *eobj_new(t_eclass *c);
 void eobj_free(void *x);
 
 /*!
+ * \fn          t_pd_err eobj_iscicm(void* x)
+ * \brief       Checks if the t_object uses a t_eclass.
+ * \param x     The t_eobj pointer.
+ * \return      This function returns 1 if the t_object uses a t_eclass, otherwise it returns 0.
+ */
+t_pd_err eobj_iscicm(void* x);
+
+/*!
  * \fn          void eobj_proxynew(void* x)
  * \brief       Adds a proxy inlet to a t_eobj.
  * \details     Allocates and initializes a new proxy inlet. \n This function should replace inlet_new().
