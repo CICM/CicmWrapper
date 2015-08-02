@@ -450,6 +450,35 @@ t_pd_err binbuf_get_attribute(t_binbuf *d, t_symbol *key, int *argc, t_atom **ar
         return -1;
 }
 
+t_pd_err atoms_get_attribute_int(int ac, t_atom* av, t_symbol *key, int *value)
+{
+    int argc = 0;
+    t_atom* argv = NULL;
+    if(!atoms_get_attribute(ac, av, key, &argc, &argv))
+    {
+        if(argc && argv)
+        {
+            if(atom_gettype(argv) == A_FLOAT)
+            {
+                value[0] = (int)atom_getfloat(argv);
+                free(argv);
+                return 0;
+            }
+            free(argv);
+        }
+        return -1;
+    }
+    return -1;
+}
+
+t_pd_err binbuf_get_attribute_int(t_binbuf *d, t_symbol *key, int *value)
+{
+    if(d)
+        return atoms_get_attribute_int(binbuf_getnatom(d), binbuf_getvec(d), key, value);
+    else
+        return -1;
+}
+
 t_pd_err atoms_get_attribute_long(int ac, t_atom* av, t_symbol *key, long *value)
 {
     int argc = 0;

@@ -136,6 +136,29 @@ t_pd_err atoms_get_attribute(int ac, t_atom* av, t_symbol *key, int *argc, t_ato
 t_pd_err binbuf_get_attribute(t_binbuf *d, t_symbol *key, int *argc, t_atom **argv);
 
 /*!
+ * \fn          t_pd_err atoms_get_attribute_int(int ac, t_atom* av, t_symbol *key, long *value)
+ * \brief       Retrieves the int value of an attribute from an array of t_atom.
+ * \details     The function looks for an attribute and retrieves its int value.
+ * \param ac  The size of the array of t_atom.
+ * \param av  The array of t_atom.
+ * \param key   The key of the attribute.
+ * \param value  The pointer to the int value that will be initialized with number of values of the attributes.
+ * \return 0 if the attribute value has been returned.
+ */
+t_pd_err atoms_get_attribute_int(int ac, t_atom* av, t_symbol *key, int *value);
+
+/*!
+ * \fn          t_pd_err binbuf_get_attribute_int(t_binbuf *d, t_symbol *key, long *value)
+ * \brief       Retrieves the int value of an attribute from a t_binbuf.
+ * \details     The function looks for an attribute and retrieves its int value.
+ * \param d     The t_binbuf.
+ * \param key   The key of the attribute.
+ * \param value  The pointer to the int value that will be initialized with number of values of the attributes.
+ * \return 0 if the attribute value has been returned.
+ */
+t_pd_err binbuf_get_attribute_int(t_binbuf *d, t_symbol *key, int *value);
+
+/*!
  * \fn          t_pd_err atoms_get_attribute_long(int ac, t_atom* av, t_symbol *key, long *value)
  * \brief       Retrieves the long value of an attribute from an array of t_atom.
  * \details     The function looks for an attribute and retrieves its long value.
