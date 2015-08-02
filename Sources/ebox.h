@@ -133,6 +133,7 @@ void ebox_set_cursor(t_ebox* x, int cursor);
  * \fn      void ebox_redraw(t_ebox* x)
  * \brief   Notifies the t_ebox that it should be redrawn.
  * \param x The t_ebox pointer.
+ * \todo optimize gensym
  */
 void ebox_redraw(t_ebox *x);
 
@@ -176,6 +177,7 @@ t_pd_err ebox_end_layer(t_ebox *x, t_symbol *name);
  * \param x_p The abscissa of the layer in the t_ebox.
  * \param y_p The ordinate of the layer in the t_ebox.
  * \see ebox_start_layer ebox_end_layer ebox_invalidate_layer t_elayer_flags t_elayer
+ * \todo The global ebox method shouldn't be here. Perhaps remove rectangle flag
  */
 t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p);
 
