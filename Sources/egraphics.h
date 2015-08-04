@@ -104,7 +104,7 @@ void egraphics_rotate(t_elayer *g, float angle);
  * \param x     The abscissa of the new path.
  * \param y     The ordiante of the new path.
  */
-void egraphics_move_to(t_elayer *g, float x, float y);
+void egraphics_move_to(t_elayer *g, const float x, const float y);
 
 /*!
  * \fn          void egraphics_line_to(t_elayer *g, float x, float y)
@@ -114,7 +114,7 @@ void egraphics_move_to(t_elayer *g, float x, float y);
  * \param x     The abscissa of the end point.
  * \param y     The ordiante of the end point.
  */
-void egraphics_line_to(t_elayer *g, float x, float y);
+void egraphics_line_to(t_elayer *g, const float x, const float y);
 
 /*!
  * \fn          void egraphics_curve_to(t_elayer *g, float ctrl1x, float ctrl1y, float ctrl2x, float ctrl2y, float endx, float endy)
@@ -163,7 +163,7 @@ void egraphics_arc_oval_to(t_elayer *g, float cx, float cy, float radius, float 
  * \param x1     The abscissa of the second point.
  * \param y1     The ordiante of the second point.
  */
-void egraphics_line(t_elayer *g, float x0, float y0,  float x1, float y1);
+void egraphics_line(t_elayer *g, const float x0, const float y0, const float x1, const float y1);
 
 /*!
  * \fn          void egraphics_curve(t_elayer *g, float startx, float starty, float ctrl1x, float ctrl1y, float ctrl2x, float ctrl2y, float endx, float endy)
