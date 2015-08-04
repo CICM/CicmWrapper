@@ -1383,7 +1383,9 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
 {
 #ifndef JUCE_APP_VERSION
     int i, j;
-    float bdsize, start, extent, radius;
+    float bdsize;
+    char header[256];
+    char bottom[256];
     t_elayer* g = NULL;
     bdsize = x->b_boxparameters.d_borderthickness;
     for(i = 0; i < x->b_number_of_layers; i++)
@@ -1399,117 +1401,74 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
     }
     if(g)
     {
-
         for(i = 0; i < g->e_number_objects; i++)
         {
-            t_egobj* gobj = g->e_objects+i;
-			t_pt * pt;
-            ////////////// PATH & LINE ///////////////////////////
-            if(gobj->e_type == E_GOBJ_PATH && gobj->e_npoints > 3)
+            t_egobj const* gobj = g->e_objects+i;
+            t_pt const* pt = gobj->e_points;
+            t_pt start;
+            if(gobj->e_type == E_GOBJ_PATH)
             {
-                char header[256];
-                char bottom[256];
                 int mode = E_PATH_MOVE;
                 if(gobj->e_filled)
                 {
                     sprintf(header, "%s create polygon ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-smooth true -fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
+                    sprintf(bottom, "-smooth true -splinesteps 100 -fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
                 }
                 else
                 {
                     sprintf(header, "%s create line ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-smooth true -fill %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
+                    sprintf(bottom, "-smooth true -splinesteps 100 -fill %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
                 }
 
                 for(j = 0; j < gobj->e_npoints; )
                 {
-                    pt = gobj->e_points+j++;
-                    if(pt->x == E_PATH_MOVE)
+                    if(pt[0].x == E_PATH_MOVE)
                     {
-                        if(mode == E_PATH_CURVE)
+                        if(mode != E_PATH_MOVE)
                         {
                             sys_vgui("%s", bottom);
                         }
+                        
                         sys_vgui("%s", header);
-                        pt = gobj->e_points+j++;
-                        sys_vgui("%d %d ", (int)(pt->x + x_p + bdsize), (int)(pt->y + y_p + bdsize));
+                        sys_vgui("%d %d ", (int)(pt[1].x + x_p + bdsize), (int)(pt[1].y + y_p + bdsize));
+                        start = pt[1];
+                        pt += 2;
+                        j += 2;
                         mode = E_PATH_MOVE;
                     }
-                    else if(pt->x == E_PATH_CURVE)
+                    else if(pt[0].x == E_PATH_LINE)
                     {
-                        pt = gobj->e_points+j++;
-                        sys_vgui("%d %d ", (int)(pt->x + x_p + bdsize), (int)(pt->y + y_p + bdsize));
-                        pt = gobj->e_points+j++;
-                        sys_vgui("%d %d ", (int)(pt->x + x_p + bdsize), (int)(pt->y + y_p + bdsize));
-                        pt = gobj->e_points+j++;
-                        sys_vgui("%d %d ", (int)(pt->x + x_p + bdsize), (int)(pt->y + y_p + bdsize));
+                        sys_vgui("%d %d %d %d %d %d ",
+                                 (int)(pt[-1].x + x_p + bdsize), (int)(pt[-1].y + y_p + bdsize),
+                                 (int)(pt[1].x + x_p + bdsize), (int)(pt[1].y + y_p + bdsize),
+                                 (int)(pt[1].x + x_p + bdsize), (int)(pt[1].y + y_p + bdsize));
+                        pt += 2;
+                        j += 2;
+                        mode = E_PATH_LINE;
+                    }
+                    else if(pt[0].x == E_PATH_CURVE)
+                    {
+                        sys_vgui("%d %d %d %d %d %d ",
+                                 (int)(pt[1].x + x_p + bdsize), (int)(pt[1].y + y_p + bdsize),
+                                 (int)(pt[2].x + x_p + bdsize), (int)(pt[2].y + y_p + bdsize),
+                                 (int)(pt[3].x + x_p + bdsize), (int)(pt[3].y + y_p + bdsize));
+                        pt += 4;
+                        j  += 4;
                         mode = E_PATH_CURVE;
                     }
-                    else
+                    else if(pt[0].x == E_PATH_CLOSE)
                     {
-                        j++;
+                        sys_vgui("%d %d %d %d %d %d ",
+                                 (int)(pt[-1].x + x_p + bdsize), (int)(pt[-1].y + y_p + bdsize),
+                                 (int)(start.x + x_p + bdsize), (int)(start.y + y_p + bdsize),
+                                 (int)(start.x + x_p + bdsize), (int)(start.y + y_p + bdsize));
+                        pt += 1;
+                        j  += 1;
+                        mode = E_PATH_CLOSE;
                     }
                 }
                 sys_vgui("%s", bottom);
             }
-            ////////////// RECT ///////////////////////////
-            else if(gobj->e_type == E_GOBJ_RECT)
-            {
-                if(gobj->e_filled)
-                    sys_vgui("%s create polygon ", x->b_drawing_id->s_name);
-                else
-                    sys_vgui("%s create line ", x->b_drawing_id->s_name);
-
-                for(j = 0; j < gobj->e_npoints; j ++)
-                {
-                    sys_vgui("%d %d ", (int)(gobj->e_points[j].x + x_p + bdsize), (int)(gobj->e_points[j].y + y_p + bdsize));
-                }
-
-                if(gobj->e_filled)
-                    sys_vgui("-fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
-                else
-                    sys_vgui("-fill %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
-
-            }
-            ////////////// OVAL /////////////////
-            else if (gobj->e_type == E_GOBJ_OVAL)
-            {
-                sys_vgui("%s create oval %d %d %d %d ",
-                         x->b_drawing_id->s_name,
-                         (int)(gobj->e_points[0].x + x_p + bdsize),
-                         (int)(gobj->e_points[0].y + y_p + bdsize),
-                         (int)(gobj->e_points[1].x + x_p + bdsize),
-                         (int)(gobj->e_points[1].y + y_p + bdsize));
-                if(gobj->e_filled)
-                    sys_vgui("-fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
-                else
-                    sys_vgui("-outline %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
-
-            }
-            ////////////// ARC /////////////////
-            else if (gobj->e_type == E_GOBJ_ARC)
-            {
-                start = (float)pd_angle(gobj->e_points[1].x - gobj->e_points[0].x,  gobj->e_points[1].y - gobj->e_points[0].y);
-
-                extent = gobj->e_points[2].x;
-                radius = gobj->e_points[2].y;
-
-                sys_vgui("%s create arc %d %d %d %d -start %f -extent %f ",
-                         x->b_drawing_id->s_name,
-                         (int)(gobj->e_points[0].x - radius + x_p + bdsize),
-                         (int)(gobj->e_points[0].y - radius + y_p + bdsize),
-                         (int)(gobj->e_points[0].x + radius + x_p + bdsize),
-                         (int)(gobj->e_points[0].y + radius + y_p + bdsize),
-                         (float)start / EPD_2PI * 360.f,
-                         (float)extent / EPD_2PI * 360.f);
-
-                if(gobj->e_filled)
-                    sys_vgui("-style pieslice -fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
-                else
-                    sys_vgui("-style arc -outline %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
-
-            }
-            ////////////// TEXT ////////////////
             else if(gobj->e_type == E_GOBJ_TEXT)
             {
 

@@ -173,7 +173,7 @@ static void egraphics_preallocate(t_elayer *g, size_t inc)
     }
     else
     {
-        temp = (t_pt *)realloc(g->e_new_objects.e_points, (g->e_new_objects.e_npoints + inc) * sizeof(t_pt));
+        temp = (t_pt *)realloc(g->e_new_objects.e_points, ((size_t)g->e_new_objects.e_npoints + inc) * sizeof(t_pt));
         if(temp)
         {
             g->e_new_objects.e_points = temp;
@@ -351,6 +351,66 @@ void egraphics_oval(t_elayer *g, float xc, float yc, float radiusx, float radius
 {
     if(g->e_state == EGRAPHICS_OPEN)
     {
+        egraphics_preallocate(g, 18);
+        if(g->e_new_objects.e_points)
+        {
+            const float temp1 = radiusx * 0.5522848f;
+            const float temp2 = radiusy * 0.5522848f;
+            const float xe = xc + radiusx;
+            const float ye = yc + radiusy;
+            const float x = xc - radiusx;
+            const float y = yc - radiusy;
+            
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints].x  = E_PATH_MOVE;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+1].x  = x;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+1].y  = yc;
+            
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+2].x  = E_PATH_CURVE;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+3].x  = x;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+3].y  = yc - temp2;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+4].x  = xc - temp1;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+4].y  = y;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+5].x  = xc;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+5].y  = y;
+            
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+6].x  = E_PATH_CURVE;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+7].x  = xc + temp1;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+7].y  = y;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+8].x  = xe;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+8].y  = yc - temp2;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+9].x  = xe;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+9].y  = yc;
+            
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+10].x  = E_PATH_CURVE;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+11].x  = xe;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+11].y  = yc + temp2;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+12].x  = xc + temp1;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+12].y  = ye;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+13].x  = xc;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+13].y  = ye;
+            
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+14].x  = E_PATH_CURVE;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+15].x  = xc - temp1;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+15].y  = ye;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+16].x  = x;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+16].y  = yc + temp2;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+17].x  = x;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+17].y  = yc;
+            
+            g->e_new_objects.e_npoints += 18;
+        }
+    }
+}
+
+void egraphics_circle(t_elayer *g, float xc, float yc, float radius)
+{
+    egraphics_oval(g, xc, yc, radius, radius);
+}
+
+void egraphics_arc_oval(t_elayer *g, float xc, float yc, float radiusx, float radiusy, float angle1, float angle2)
+{
+    if(g->e_state == EGRAPHICS_OPEN)
+    {
         egraphics_preallocate(g, 19);
         if(g->e_new_objects.e_points)
         {
@@ -367,7 +427,7 @@ void egraphics_oval(t_elayer *g, float xc, float yc, float radiusx, float radius
             g->e_new_objects.e_points[g->e_new_objects.e_npoints+4].y  = yc - temp2;
             g->e_new_objects.e_points[g->e_new_objects.e_npoints+5].x  = xc + radiusx;
             g->e_new_objects.e_points[g->e_new_objects.e_npoints+5].y  = yc;
-            
+            /*
             g->e_new_objects.e_points[g->e_new_objects.e_npoints+6].x  = E_PATH_CURVE;
             g->e_new_objects.e_points[g->e_new_objects.e_npoints+7].x  = xc + radiusx;
             g->e_new_objects.e_points[g->e_new_objects.e_npoints+7].y  = yc + temp2;
@@ -393,67 +453,8 @@ void egraphics_oval(t_elayer *g, float xc, float yc, float radiusx, float radius
             g->e_new_objects.e_points[g->e_new_objects.e_npoints+17].y  = yc - radiusy;
             
             g->e_new_objects.e_points[g->e_new_objects.e_npoints+18].x  = E_PATH_CLOSE;
-            
-            g->e_new_objects.e_npoints += 19;
-        }
-    }
-}
-
-void egraphics_circle(t_elayer *g, float xc, float yc, float radius)
-{
-    egraphics_oval(g, xc, yc, radius, radius);
-}
-
-void egraphics_arc_oval(t_elayer *g, float xc, float yc, float radiusx, float radiusy, float angle1, float angle2)
-{
-    if(g->e_state == EGRAPHICS_OPEN)
-    {
-        egraphics_preallocate(g, 20);
-        if(g->e_new_objects.e_points)
-        {
-            const float temp1 = radiusx * 0.55f;
-            const float temp2 = radiusy * 0.55f;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints].x  = E_PATH_MOVE;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+1].x  = xc;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+1].y  = yc - radiusy;
-            
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+2].x  = E_PATH_CURVE;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+3].x  = xc + temp1;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+3].y  = yc - radiusy;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+4].x  = xc + radiusx;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+4].y  = yc - temp2;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+5].x  = xc + radiusx;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+5].y  = yc;
-            
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+6].x  = E_PATH_CURVE;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+7].x  = xc + radiusx;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+7].y  = yc + temp2;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+8].x  = xc + temp1;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+8].y  = yc + radiusy;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+9].x  = xc;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+9].y  = yc + radiusy;
-            
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+10].x  = E_PATH_CURVE;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+11].x  = xc - temp1;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+11].y  = yc + radiusy;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+12].x  = xc - radiusx;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+12].y  = yc + temp2;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+13].x  = xc - radiusx;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+13].y  = yc;
-            
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+14].x  = E_PATH_CURVE;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+15].x  = xc - radiusx;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+15].y  = yc - temp2;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+16].x  = xc - temp1;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+16].y  = yc - radiusy;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+17].x  = xc;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+17].y  = yc - radiusy;
-            
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+18].x  = E_PATH_LINE;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+19].x  = xc;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints+19].y  = yc - radiusy;
-            
-            g->e_new_objects.e_npoints += 20;
+            */
+            g->e_new_objects.e_npoints += 6;
         }
     }
 }
@@ -981,7 +982,7 @@ t_etext* etext_layout_create(void)
     return new_text_layout;
 }
 
-void etext_layout_destroy(t_etext* textlayout)
+void etext_layout_destrtemp2(t_etext* textlayout)
 {
     free(textlayout);
 }
@@ -1052,7 +1053,7 @@ t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, float
     return new_font;
 }
 
-void efont_destroy(t_efont* font)
+void efont_destrtemp2(t_efont* font)
 {
     free(font);
 }
