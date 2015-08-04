@@ -360,8 +360,8 @@ static void ebox_create_widget(t_ebox* x)
 
     sys_vgui("canvas %s -width %d -height %d -bd 0 -highlightthickness 0 -insertborderwidth 0 -state normal -takefocus 1 -insertwidth 0 -confine 0\n",
              x->b_drawing_id->s_name,
-             (int)(x->b_rect.width + x->b_boxparameters.d_borderthickness),
-             (int)(x->b_rect.height + x->b_boxparameters.d_borderthickness));
+             (int)(x->b_rect.width + x->b_boxparameters.d_borderthickness * 2.),
+             (int)(x->b_rect.height + x->b_boxparameters.d_borderthickness * 2.));
 }
 
 static void ebox_create_window(t_ebox* x, t_glist* glist)
@@ -395,7 +395,7 @@ static void ebox_create_window(t_ebox* x, t_glist* glist)
 
     sys_vgui("%s create window %d %d -anchor nw -window %s -tags %s -width %d -height %d\n",
              x->b_canvas_id->s_name,
-             (int)(x->b_rect.x  - x->b_boxparameters.d_borderthickness),
+             (int)(x->b_rect.x - x->b_boxparameters.d_borderthickness),
              (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness),
              x->b_drawing_id->s_name,
              x->b_window_id->s_name,
