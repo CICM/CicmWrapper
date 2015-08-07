@@ -117,6 +117,18 @@ void epd_init(void)
         sys_gui("return #$col\n");
         sys_gui("}\n");
         
+        // DRAW CUBIC //
+        /*
+        sys_gui("proc eobj_bezier_fill{id points } {\n");
+        sys_gui("set size [expr {[llength $points] / 2}]\n");
+        sys_gui("for {set i 0} {$i < $size} {set i [expr {$i + 3}]} {\n");
+        sys_gui("for {set j 0} {$j < 20} {incr j} {\n");
+        
+        sys_gui(" if {$filled} {$id create line $x1 $y1}");
+        sys_gui(" else {$id create polygon $x1 $y1}");
+        sys_gui("}\n");
+        */
+        
         epd_symbol->s_thing = (t_class **)1;
     }
 }

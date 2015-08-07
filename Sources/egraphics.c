@@ -982,7 +982,7 @@ t_etext* etext_layout_create(void)
     return new_text_layout;
 }
 
-void etext_layout_destrtemp2(t_etext* textlayout)
+void etext_layout_destroy(t_etext* textlayout)
 {
     free(textlayout);
 }
@@ -1053,7 +1053,7 @@ t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, float
     return new_font;
 }
 
-void efont_destrtemp2(t_efont* font)
+void efont_destroy(t_efont* font)
 {
     free(font);
 }

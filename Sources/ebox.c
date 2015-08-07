@@ -1364,43 +1364,42 @@ t_pd_err ebox_end_layer(t_ebox *x, t_symbol *name)
     return -1;
 }
 
-
-t_pd_err ebox_invalidate_layer(t_ebox *x, t_symbol *name)
+static inline t_elayer* ebox_get_layer(t_ebox *x, t_symbol const* name)
 {
     int i;
     for(i = 0; i < x->b_number_of_layers; i++)
     {
         if(x->b_layers[i].e_name == name)
         {
-            x->b_layers[i].e_state = EGRAPHICS_INVALID;
-            return 0;
+            return x->b_layers+i;
         }
+    }
+    return NULL;
+}
+
+t_pd_err ebox_invalidate_layer(t_ebox *x, t_symbol *name)
+{
+    t_elayer* g = ebox_get_layer(x, name);
+    if(g)
+    {
+        g->e_state = EGRAPHICS_INVALID;
+        return 0;
     }
     return -1;
 }
+
 
 t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
 {
 #ifndef JUCE_APP_VERSION
     int i, j;
-    float bdsize;
     char header[256];
     char bottom[256];
-    t_elayer* g = NULL;
-    bdsize = x->b_boxparameters.d_borderthickness;
-    for(i = 0; i < x->b_number_of_layers; i++)
+    t_elayer* g = ebox_get_layer(x, name);
+    if(g && g->e_state == EGRAPHICS_TODRAW)
     {
-        if(x->b_layers[i].e_name == name)
-        {
-            g = &x->b_layers[i];
-            if(g->e_state != EGRAPHICS_TODRAW)
-            {
-                return -1;
-            }
-        }
-    }
-    if(g)
-    {
+        x_p += x->b_boxparameters.d_borderthickness;
+        y_p += x->b_boxparameters.d_borderthickness;
         for(i = 0; i < g->e_number_objects; i++)
         {
             t_egobj const* gobj = g->e_objects+i;
@@ -1412,12 +1411,12 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                 if(gobj->e_filled)
                 {
                     sprintf(header, "%s create polygon ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-smooth true -splinesteps 100 -fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
+                    sprintf(bottom, "-smooth 1 -splinesteps 100 -fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
                 }
                 else
                 {
                     sprintf(header, "%s create line ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-smooth true -splinesteps 100 -fill %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
+                    sprintf(bottom, "-smooth 1 -splinesteps 100 -fill %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
                 }
 
                 for(j = 0; j < gobj->e_npoints; )
@@ -1426,11 +1425,10 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                     {
                         if(mode != E_PATH_MOVE)
                         {
-                            sys_vgui("%s", bottom);
+                           sys_vgui("%s", bottom);
                         }
-                        
                         sys_vgui("%s", header);
-                        sys_vgui("%d %d ", (int)(pt[1].x + x_p + bdsize), (int)(pt[1].y + y_p + bdsize));
+                        sys_vgui("%d %d ", (int)(pt[1].x + x_p), (int)(pt[1].y + y_p));
                         start = pt[1];
                         pt += 2;
                         j += 2;
@@ -1439,9 +1437,9 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                     else if(pt[0].x == E_PATH_LINE)
                     {
                         sys_vgui("%d %d %d %d %d %d ",
-                                 (int)(pt[-1].x + x_p + bdsize), (int)(pt[-1].y + y_p + bdsize),
-                                 (int)(pt[1].x + x_p + bdsize), (int)(pt[1].y + y_p + bdsize),
-                                 (int)(pt[1].x + x_p + bdsize), (int)(pt[1].y + y_p + bdsize));
+                                 (int)(pt[-1].x + x_p), (int)(pt[-1].y + y_p),
+                                 (int)(pt[1].x + x_p), (int)(pt[1].y + y_p),
+                                 (int)(pt[1].x + x_p), (int)(pt[1].y + y_p));
                         pt += 2;
                         j += 2;
                         mode = E_PATH_LINE;
@@ -1449,9 +1447,9 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                     else if(pt[0].x == E_PATH_CURVE)
                     {
                         sys_vgui("%d %d %d %d %d %d ",
-                                 (int)(pt[1].x + x_p + bdsize), (int)(pt[1].y + y_p + bdsize),
-                                 (int)(pt[2].x + x_p + bdsize), (int)(pt[2].y + y_p + bdsize),
-                                 (int)(pt[3].x + x_p + bdsize), (int)(pt[3].y + y_p + bdsize));
+                                 (int)(pt[1].x + x_p), (int)(pt[1].y + y_p),
+                                 (int)(pt[2].x + x_p), (int)(pt[2].y + y_p),
+                                 (int)(pt[3].x + x_p), (int)(pt[3].y + y_p));
                         pt += 4;
                         j  += 4;
                         mode = E_PATH_CURVE;
@@ -1459,9 +1457,9 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                     else if(pt[0].x == E_PATH_CLOSE)
                     {
                         sys_vgui("%d %d %d %d %d %d ",
-                                 (int)(pt[-1].x + x_p + bdsize), (int)(pt[-1].y + y_p + bdsize),
-                                 (int)(start.x + x_p + bdsize), (int)(start.y + y_p + bdsize),
-                                 (int)(start.x + x_p + bdsize), (int)(start.y + y_p + bdsize));
+                                 (int)(pt[-1].x + x_p), (int)(pt[-1].y + y_p),
+                                 (int)(start.x + x_p), (int)(start.y + y_p),
+                                 (int)(start.x + x_p), (int)(start.y + y_p));
                         pt += 1;
                         j  += 1;
                         mode = E_PATH_CLOSE;
@@ -1474,8 +1472,8 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
 
                 sys_vgui("%s create text %d %d -text {%s} -anchor %s -justify %s -font {%s %d %s %s} -fill %s -width %d -tags { %s %s }\n",
                          x->b_drawing_id->s_name,
-                         (int)(gobj->e_points[0].x + x_p + bdsize),
-                         (int)(gobj->e_points[0].y + y_p + bdsize),
+                         (int)(gobj->e_points[0].x + x_p),
+                         (int)(gobj->e_points[0].y + y_p),
                          gobj->e_text->s_name,
                          gobj->e_anchor->s_name,
                          gobj->e_justify->s_name,
