@@ -30,6 +30,7 @@
 #include <m_pd.h>
 #include <m_imp.h>
 #include <g_canvas.h>
+#include <s_stuff.h>
 
 #include <stdlib.h>
 #include <math.h>
@@ -93,15 +94,18 @@ extern t_symbol* s_pinned;
 extern t_symbol* s_iscicm;
 
 //! @cond
+#ifndef LIB_PD
 typedef struct _namelist    /* element in a linked list of stored strings */
 {
     struct _namelist *nl_next;  /* next in list */
     char *nl_string;            /* the string */
 } t_namelist;
 
+#endif
 EXTERN t_namelist *sys_staticpath;
 EXTERN t_namelist *sys_searchpath;
 EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
+
 
 //! @endcond
 
@@ -201,7 +205,9 @@ typedef enum
 typedef enum
 {
     E_PATH_MOVE    = 0,   /*!< This type is move. */
-    E_PATH_CURVE   = 1    /*!< This type is curve. */
+    E_PATH_LINE    = 1,   /*!< This type is curve. */
+    E_PATH_CURVE   = 2,    /*!< This type is curve. */
+    E_PATH_CLOSE   = 3    /*!< This type is curve. */
 } epath_types;
 
 /**
