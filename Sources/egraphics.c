@@ -658,7 +658,7 @@ char* hsl_to_hex(t_hsl color)
 
 t_rgba hex_to_rgba(char* color)
 {
-    int hexvalue = atoi(color+1);
+    int hexvalue = (int)strtol(color+1, NULL, 16);
     t_rgba ncolor;
     ncolor.red = (float)((hexvalue >> 16) & 0xFF) / 255.f;
     ncolor.green = (float)((hexvalue >> 8) & 0xFF) / 255.f;
@@ -669,7 +669,7 @@ t_rgba hex_to_rgba(char* color)
 
 t_rgb hex_to_rgb(char* color)
 {
-    int hexvalue = atoi(color+1);
+    int hexvalue = (int)strtol(color+1, NULL, 16);
     t_rgb ncolor;
     ncolor.red = (float)((hexvalue >> 16) & 0xFF) / 255.f;
     ncolor.green = (float)((hexvalue >> 8) & 0xFF) / 255.f;
