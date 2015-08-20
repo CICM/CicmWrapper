@@ -111,13 +111,13 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_ACCESSORS    (c, "fontsize", NULL, ebox_set_fontsize);
     CLASS_ATTR_STYLE        (c, "fontsize", 0, "number");
     
-    CLASS_ATTR_DEFAULT      (c, "receive", 0, "(null)");
+    CLASS_ATTR_DEFAULT      (c, "receive", 0, "");
     CLASS_ATTR_ACCESSORS    (c, "receive", NULL, ebox_set_receiveid);
     CLASS_ATTR_SAVE         (c, "receive", 0);
     CLASS_ATTR_CATEGORY		(c, "receive", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "receive", 0, "Receive Symbol");
     
-    CLASS_ATTR_DEFAULT      (c, "send", 0, "(null)");
+    CLASS_ATTR_DEFAULT      (c, "send", 0, "");
     CLASS_ATTR_ACCESSORS    (c, "send", NULL, ebox_set_sendid);
     CLASS_ATTR_SAVE         (c, "send", 0);
     CLASS_ATTR_CATEGORY		(c, "send", 0, "Basic");
@@ -269,8 +269,8 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
     }
     else if(gensym(name) == gensym("preset"))
     {
-        CLASS_ATTR_SYMBOL       (c, "presetname", 0, t_ebox, b_objpreset_id);
-        CLASS_ATTR_DEFAULT      (c, "presetname", 0, "(null)");
+        CLASS_ATTR_SYMBOL       (c, "presetname", 0, t_ebox, b_preset_id);
+        CLASS_ATTR_DEFAULT      (c, "presetname", 0, "");
         CLASS_ATTR_SAVE         (c, "presetname", 0);
         CLASS_ATTR_CATEGORY		(c, "presetname", 0, "Basic");
         CLASS_ATTR_LABEL		(c, "presetname", 0, "Preset Name");
@@ -669,13 +669,10 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
                 t_symbol** syms = (t_symbol **)point;
                 for(j = 0; j < argc[0]; j++)
                 {
-                    if(syms[j])
-                    {
-                        atom_setsym(argv[0]+j, gensym(syms[j]->s_name));
-                    }
+                    atom_setsym(argv[0]+j, get_valid_symbol(syms[j]));
                 }
             }
-            else if(type == s_atom)
+            else if(type == s_cream_atom)
             {
                 for(j = 0; j < argc[0]; j++)
                 {
@@ -797,7 +794,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                     }
                 }
             }
-            else if(type == s_atom)
+            else if(type == s_cream_atom)
             {
                 t_atom* pointor = (t_atom *)point;
                 for(j = 0; j < size && j < argc; j++)
@@ -806,10 +803,10 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                 }
             }
             
-            ebox_notify(z, s, s_attr_modified, NULL, NULL);
+            ebox_notify(z, s, s_cream_attr_modified, NULL, NULL);
             if(c->c_widget.w_notify != NULL)
             {
-                c->c_widget.w_notify(x, s, s_attr_modified, NULL, NULL);
+                c->c_widget.w_notify(x, s, s_cream_attr_modified, NULL, NULL);
             }
             
             if(c->c_attr[i]->paint)

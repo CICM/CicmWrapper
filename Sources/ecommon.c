@@ -11,12 +11,13 @@
 #include "ecommon.h"
 #include "egraphics.h"
 
-t_symbol* s_null;
-t_symbol* s_atom;
-t_symbol* s_obj;
-t_symbol* s_attr_modified;
-t_symbol* s_eboxbd;
-t_symbol* s_eboxio;
+t_symbol* s_cream_null;
+t_symbol* s_cream_empty;
+t_symbol* s_cream_atom;
+t_symbol* s_cream_obj;
+t_symbol* s_cream_attr_modified;
+t_symbol* s_cream_eboxbd;
+t_symbol* s_cream_eboxio;
 t_symbol* s_size;
 t_symbol* s_pinned;
 t_symbol* s_iscicm;
@@ -27,12 +28,14 @@ t_symbol* s_double;
 void epd_init(void)
 {
     t_symbol* epd_symbol = gensym("epd1572");
-    s_null          = gensym("(null)");
-    s_atom          = gensym("atom");
-    s_obj           = gensym("obj");
-    s_attr_modified = gensym("attr_modified");
-    s_eboxbd        = gensym("eboxbd");
-    s_eboxio        = gensym("eboxio");
+ 
+    s_cream_null          = gensym("(null)");
+    s_cream_empty         = gensym("");
+    s_cream_atom          = gensym("atom");
+    s_cream_obj           = gensym("obj");
+    s_cream_attr_modified = gensym("attr_modified");
+    s_cream_eboxbd        = gensym("eboxbd");
+    s_cream_eboxio        = gensym("eboxio");
     s_size          = gensym("size");
     s_int           = gensym("int");
     s_long          = gensym("long");
@@ -139,8 +142,10 @@ t_binbuf* binbuf_via_atoms(int ac, t_atom *av)
 
 static t_symbol* format_symbol(t_symbol* s)
 {
-    int i, j, lenght = (int)strlen(s->s_name);
+    int i, j, lenght;
     char buffer[MAXPDSTRING];
+    s = get_valid_symbol(s);
+    lenght = (int)strlen(s->s_name);
     buffer[0] = '\"';
     for(i = 0, j = 1; i < lenght && j < MAXPDSTRING - 2; i++, j++)
     {
@@ -153,6 +158,7 @@ static t_symbol* format_symbol(t_symbol* s)
     buffer[j++] = '\"';
     buffer[j] = '\0';
     return gensym(buffer);
+    return gensym("");
 }
 
 static t_atom* format_atoms(int ac, t_atom* av)
@@ -198,7 +204,7 @@ static long unformat_atoms(int ac, t_atom* av)
     {
         if(atom_gettype(av+i) == A_SYMBOL)
         {
-            s = atom_getsymbol(av+i);
+            s = get_valid_symbol(atom_getsymbol(av+i));
             if(strcmp(s->s_name, "[") && strcmp(s->s_name, "]"))
             {
                 if(!str)
@@ -251,6 +257,30 @@ static long unformat_atoms(int ac, t_atom* av)
     }
 
     return newize;
+}
+
+t_symbol* get_valid_symbol(t_symbol* s)
+{
+    if(s && s != s_cream_null)
+    {
+        return s;
+    }
+    else
+    {
+        return s_cream_empty;
+    }
+}
+
+char is_valid_symbol(t_symbol* s)
+{
+    if(s && s != s_cream_null && s != s_cream_empty)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, int argc, t_atom *argv)

@@ -68,18 +68,20 @@ typedef void*       (*t_ret_method)(void* x, ...);
 //! The error method
 typedef t_pd_err    (*t_err_method)(void* x, ...);
 
-//! The pre-defined ("null") t_symbol*
-extern t_symbol* s_null;
+//! The pre-defined (null) t_symbol*
+extern t_symbol* s_cream_null;
+//! The pre-defined "" t_symbol*
+extern t_symbol* s_cream_empty;
 //! The pre-defined obj t_symbol*
-extern t_symbol* s_obj;
+extern t_symbol* s_cream_obj;
 //! The pre-defined atom t_symbol*
-extern t_symbol* s_atom;
+extern t_symbol* s_cream_atom;
 //! The pre-defined attr_modified t_symbol*
-extern t_symbol* s_attr_modified;
+extern t_symbol* s_cream_attr_modified;
 //! The pre-defined eboxbd t_symbol*
-extern t_symbol* s_eboxbd;
+extern t_symbol* s_cream_eboxbd;
 //! The pre-defined eboxio t_symbol*
-extern t_symbol* s_eboxio;
+extern t_symbol* s_cream_eboxio;
 //! The pre-defined size t_symbol*
 extern t_symbol* s_size;
 //! The pre-defined int t_symbol*
@@ -94,14 +96,6 @@ extern t_symbol* s_pinned;
 extern t_symbol* s_iscicm;
 
 //! @cond
-#ifndef LIB_PD
-typedef struct _namelist    /* element in a linked list of stored strings */
-{
-    struct _namelist *nl_next;  /* next in list */
-    char *nl_string;            /* the string */
-} t_namelist;
-
-#endif
 EXTERN t_namelist *sys_staticpath;
 EXTERN t_namelist *sys_searchpath;
 EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
@@ -706,7 +700,7 @@ typedef struct t_ebox
     
     t_symbol*           b_receive_id;       /*!< The object user ID. */
     t_symbol*           b_send_id;          /*!< The object send ID. */
-    t_symbol*           b_objpreset_id;     /*!< The object preset ID. */
+    t_symbol*           b_preset_id;     /*!< The object preset ID. */
     
     t_symbol*           b_canvas_id;        /*!< The canvas ID. */
     t_symbol*           b_drawing_id;       /*!< The drawing ID. */
@@ -751,7 +745,7 @@ typedef struct t_edspbox
     
     t_symbol*           b_receive_id;       /*!< The object user ID. */
     t_symbol*           b_send_id;          /*!< The object send ID. */
-    t_symbol*           b_objpreset_id;     /*!< The object preset ID. */
+    t_symbol*           b_preset_id;     /*!< The object preset ID. */
     
     t_symbol*           b_canvas_id;        /*!< The canvas ID. */
     t_symbol*           b_drawing_id;       /*!< The drawing ID. */

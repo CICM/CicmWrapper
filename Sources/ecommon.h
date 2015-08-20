@@ -31,6 +31,24 @@ void epd_init(void);
 //! @endcond
 
 /*!
+ * \fn          t_symbol* get_valid_symbol(t_symbol* s)
+ * \brief       Retrieves a valid t_symbol.
+ * \details     The function returns the s_cream_empty t_symbol if the t_symbol s is NULL or (null).
+ * \param s     The t_symbol.
+ * \return The new t_symbol.
+ */
+t_symbol* get_valid_symbol(t_symbol* s);
+
+/*!
+ * \fn          char is_valid_symbol(t_symbol* s)
+ * \brief       Retrieves if a t_symbol is valid.
+ * \details     The function checks if the t_symbol s isn't NULL or ("NULL").
+ * \param s     The t_symbol.
+ * \return True if the if the t_symbol s isn't NULL or ("NULL"), otherwise false.
+ */
+char is_valid_symbol(t_symbol* s);
+
+/*!
  * \fn          long atoms_get_attributes_offset(int ac, t_atom* av)
  * \brief       Retrieves the position of the first attribute in an array of t_atom.
  * \details     The function looks for the first t_symbol* that starts with the character \@.

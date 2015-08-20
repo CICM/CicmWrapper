@@ -46,10 +46,10 @@ void ebox_new(t_ebox *x, long flags)
     x->b_have_window        = 0;
     x->b_number_of_layers   = 0;
     x->b_layers             = NULL;
-    x->b_window_id          = NULL;
-    x->b_receive_id         = NULL;
-    x->b_send_id            = NULL;
-    x->b_objpreset_id       = NULL;
+    x->b_window_id          = s_cream_empty;
+    x->b_receive_id         = s_cream_empty;
+    x->b_send_id            = s_cream_empty;
+    x->b_preset_id          = s_cream_empty;
     x->b_visible            = 1;
     eobj_getclass(x)->c_widget.w_dosave = (t_typ_method)ebox_dosave;
     ebox_attrprocess_default(x);
@@ -76,7 +76,7 @@ void ebox_ready(t_ebox *x)
 void ebox_free(t_ebox* x)
 {
     eobj_free(x);
-    if(x->b_receive_id && x->b_receive_id != s_null)
+    if(x->b_receive_id)
     {
         pd_unbind((t_pd *)x, x->b_receive_id);
     }
@@ -110,7 +110,7 @@ float ebox_getfontsize(t_ebox* x)
 t_pd* ebox_getsender(t_ebox* x)
 {
     t_symbol* sname;
-    if(x->b_send_id && x->b_send_id != s_null)
+    if(is_valid_symbol(x->b_send_id))
     {
         sname = canvas_realizedollar(eobj_getcanvas(x), x->b_send_id);
         if(sname && sname->s_thing)
@@ -545,7 +545,7 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
                         break;
                     }
                 }
-                ebox_invalidate_layer(x, s_eboxio);
+                ebox_invalidate_layer(x, s_cream_eboxio);
                 ebox_redraw(x);
                 return;
             }
@@ -577,7 +577,7 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
                     x->b_selected_item = EITEM_BOTTOM;
                     ebox_set_cursor(x, 7);
                 }
-                ebox_invalidate_layer(x, s_eboxio);
+                ebox_invalidate_layer(x, s_cream_eboxio);
                 ebox_redraw(x);
                 return;
             }
@@ -591,7 +591,7 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
 
             // BOX //
             ebox_set_cursor(x, 4);
-            ebox_invalidate_layer(x, s_eboxio);
+            ebox_invalidate_layer(x, s_cream_eboxio);
             ebox_redraw(x);
         }
         else
@@ -835,7 +835,7 @@ void ebox_dosave(t_ebox* x, t_binbuf *b)
     if(c && b)
     {
         state = canvas_suspend_dsp();
-        binbuf_addv(b, (char *)"ssiis", &s__X, s_obj, (int)x->b_obj.o_obj.te_xpix, (int)x->b_obj.o_obj.te_ypix, eobj_getclassname(x));
+        binbuf_addv(b, (char *)"ssiis", &s__X, s_cream_obj, (int)x->b_obj.o_obj.te_xpix, (int)x->b_obj.o_obj.te_ypix, eobj_getclassname(x));
         for(i = 0; i < c->c_nattr; i++)
         {
             if(c->c_attr[i] && c->c_attr[i]->save && c->c_attr[i]->name)
@@ -890,15 +890,15 @@ void ebox_vis(t_ebox* x, int vis)
 t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
     t_symbol* sname;
-    if(argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null)
+    if(argc && argv && atom_gettype(argv) == A_SYMBOL)
     {
-        if(x->b_receive_id && x->b_receive_id != s_null)
+        if(is_valid_symbol(x->b_receive_id))
         {
             sname = canvas_realizedollar(eobj_getcanvas(x), x->b_receive_id);
             pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
         }
         x->b_receive_id = atom_getsymbol(argv);
-        if(x->b_receive_id)
+        if(is_valid_symbol(x->b_receive_id))
         {
             sname = canvas_realizedollar(eobj_getcanvas(x), x->b_receive_id);
             pd_bind(&x->b_obj.o_obj.ob_pd, sname);
@@ -906,25 +906,25 @@ t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
     }
     else
     {
-        if(x->b_receive_id && x->b_receive_id != s_null)
+        if(is_valid_symbol(x->b_receive_id))
         {
             sname = canvas_realizedollar(eobj_getcanvas(x), x->b_receive_id);
             pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
         }
-        x->b_receive_id = NULL;
+        x->b_receive_id = s_cream_empty;
     }
     return 0;
 }
 
 t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
-    if(argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null)
+    if(argc && argv && atom_gettype(argv) == A_SYMBOL)
     {
         x->b_send_id = atom_getsymbol(argv);
     }
     else
     {
-        x->b_send_id = s_null;
+        x->b_send_id = s_cream_empty;
     }
 
     return 0;
@@ -932,25 +932,25 @@ t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 
 t_symbol* ebox_get_presetid(t_ebox* x)
 {
-    if(x->b_objpreset_id != s_null)
+    if(x->b_preset_id)
     {
-        return x->b_objpreset_id;
+        return x->b_preset_id;
     }
     else
     {
-        return s_null;
+        return s_cream_empty;
     }
 }
 
 t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
-    if(argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null)
+    if(argc && argv && atom_gettype(argv) == A_SYMBOL)
     {
-        x->b_objpreset_id = atom_getsymbol(argv);
+        x->b_preset_id = atom_getsymbol(argv);
     }
     else
     {
-        x->b_objpreset_id = s_null;
+        x->b_preset_id = s_cream_empty;
     }
     return 0;
 }
@@ -959,10 +959,7 @@ t_pd_err ebox_set_font(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_SYMBOL)
     {
-        if(atom_getsymbol(argv) == s_null)
-            x->b_font.c_family = gensym("Helvetica");
-        else
-            x->b_font.c_family = atom_getsymbol(argv);
+        x->b_font.c_family = atom_getsymbol(argv);
     }
     else
         x->b_font.c_family = gensym("Helvetica");
@@ -1242,8 +1239,8 @@ void ebox_redraw(t_ebox *x)
     sprintf(name, "%ldcamo", (unsigned long)x);
     if(ebox_isdrawable(x) && x->b_have_window)
     {
-        ebox_invalidate_layer(x, s_eboxbd);
-        ebox_invalidate_layer(x, s_eboxio);
+        ebox_invalidate_layer(x, s_cream_eboxbd);
+        ebox_invalidate_layer(x, s_cream_eboxio);
         ebox_paint(x);
     }
     t_symbol* s = gensym(name);
@@ -1560,7 +1557,7 @@ static void ebox_draw_border(t_ebox* x)
     t_elayer* g = NULL;
     bdcorner = (float)pd_clip_max(x->b_boxparameters.d_cornersize, x->b_boxparameters.d_borderthickness - 1);
     bdsize = x->b_boxparameters.d_borderthickness;
-    g = ebox_start_layer(x, s_eboxbd, x->b_rect.width, x->b_rect.height);
+    g = ebox_start_layer(x, s_cream_eboxbd, x->b_rect.width, x->b_rect.height);
 
     if(g)
     {
@@ -1576,9 +1573,9 @@ static void ebox_draw_border(t_ebox* x)
         egraphics_rectangle_rounded(g, 0, 0, x->b_rect.width+bdsize*2, x->b_rect.height+bdsize*2, bdcorner);
         egraphics_stroke(g);
 
-        ebox_end_layer(x, s_eboxbd);
+        ebox_end_layer(x, s_cream_eboxbd);
     }
-    ebox_paint_layer(x, s_eboxbd, -bdsize, -bdsize);
+    ebox_paint_layer(x, s_cream_eboxbd, -bdsize, -bdsize);
 }
 
 static void ebox_draw_iolets(t_ebox* x)
@@ -1587,7 +1584,7 @@ static void ebox_draw_iolets(t_ebox* x)
     float bdsize;
     t_elayer* g = NULL;
     bdsize = x->b_boxparameters.d_borderthickness;
-    g = ebox_start_layer(x, s_eboxio, x->b_rect.width, x->b_rect.height);
+    g = ebox_start_layer(x, s_cream_eboxio, x->b_rect.width, x->b_rect.height);
 
     if(g)
     {
@@ -1613,9 +1610,9 @@ static void ebox_draw_iolets(t_ebox* x)
             if(!x->b_isinsubcanvas)
                 egraphics_stroke(g);
         }
-        ebox_end_layer(x, s_eboxio);
+        ebox_end_layer(x, s_cream_eboxio);
     }
-    ebox_paint_layer(x, s_eboxio, 0, -bdsize);
+    ebox_paint_layer(x, s_cream_eboxio, 0, -bdsize);
 }
 
 static void ebox_invalidate_all(t_ebox *x)
