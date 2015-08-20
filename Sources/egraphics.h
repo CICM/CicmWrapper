@@ -409,7 +409,7 @@ void hsl_set(t_hsl *color, float hue, float saturation, float lightness);
  * \param color The t_rgba color.
  * \return The hexadecimal color.
  */
-char* rgba_to_hex(t_rgba color);
+char* rgba_to_hex(t_rgba const* color);
 
 /*!
  * \fn          char* rgb_to_hex(t_rgb color)
@@ -417,7 +417,7 @@ char* rgba_to_hex(t_rgba color);
  * \param color The t_rgb color.
  * \return The hexadecimal color.
  */
-char* rgb_to_hex(t_rgb color);
+char* rgb_to_hex(t_rgb const*color);
 
 /*!
  * \fn          char* hsla_to_hex(t_hsla color)
@@ -425,7 +425,7 @@ char* rgb_to_hex(t_rgb color);
  * \param color The t_hsla color.
  * \return The hexadecimal color.
  */
-char* hsla_to_hex(t_hsla color);
+char* hsla_to_hex(t_hsla const* color);
 
 /*!
  * \fn          char* hsl_to_hex(t_hsl color)
@@ -433,7 +433,7 @@ char* hsla_to_hex(t_hsla color);
  * \param color The t_hsl color.
  * \return The hexadecimal color.
  */
-char* hsl_to_hex(t_hsl color);
+char* hsl_to_hex(t_hsl const* color);
 
 /*!
  * \fn          t_hsla rgba_to_hsla(t_rgba color)
@@ -441,7 +441,7 @@ char* hsl_to_hex(t_hsl color);
  * \param color The t_rgba color.
  * \return The t_hsla color.
  */
-t_hsla rgba_to_hsla(t_rgba color);
+t_hsla rgba_to_hsla(t_rgba const* color);
 
 /*!
  * \fn          t_hsl rgb_to_hsl(t_rgb color)
@@ -449,7 +449,7 @@ t_hsla rgba_to_hsla(t_rgba color);
  * \param color The t_rgb color.
  * \return The t_hsl color.
  */
-t_hsl rgb_to_hsl(t_rgb color);
+t_hsl rgb_to_hsl(t_rgb const* color);
 
 /*!
  * \fn          t_rgba hex_to_rgba(char* color)
@@ -473,7 +473,7 @@ t_rgb hex_to_rgb(char* color);
  * \param color The t_hsla color.
  * \return The t_rgba color.
  */
-t_rgba hsla_to_rgba(t_hsla color);
+t_rgba hsla_to_rgba(t_hsla const* color);
 
 /*!
  * \fn          t_rgb hsl_to_rgb(t_hsl color)
@@ -481,7 +481,7 @@ t_rgba hsla_to_rgba(t_hsla color);
  * \param color The t_hsl color.
  * \return The t_rgb color.
  */
-t_rgb hsl_to_rgb(t_hsl color);
+t_rgb hsl_to_rgb(t_hsl const* color);
 
 /*!
  * \fn          t_rgba rgba_addContrast(t_rgba color, float contrast)

@@ -249,7 +249,7 @@ static void ebox_paint(t_ebox *x)
 {
     t_eclass* c = eobj_getclass(x);
     ebox_update(x);
-    sys_vgui("%s configure -bg %s\n", x->b_drawing_id->s_name, rgba_to_hex(x->b_boxparameters.d_boxfillcolor));
+    sys_vgui("%s configure -bg %s\n", x->b_drawing_id->s_name, rgba_to_hex(&(x->b_boxparameters.d_boxfillcolor)));
     if(x->b_pinned)
     {
         sys_vgui((char *)"lower %s\n", x->b_drawing_id->s_name);
@@ -1197,7 +1197,7 @@ void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
                         color.red = atom_getfloat(av);
                         color.green = atom_getfloat(av+1);
                         color.blue = atom_getfloat(av+2);
-                        sys_vgui("%s.sele%i.selec configure -readonlybackground %s \n", atom_getsymbol(argv)->s_name, attrindex+1, rgb_to_hex(color));
+                        sys_vgui("%s.sele%i.selec configure -readonlybackground %s \n", atom_getsymbol(argv)->s_name, attrindex+1, rgb_to_hex(&color));
                     }
                     else if(c->c_attr[attrindex]->style == gensym("menu"))
                     {
@@ -1274,7 +1274,7 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
 
                 egraphics_matrix_init(&graphic->e_matrix, 1., 0., 0., 1., 0., 0.);
                 graphic->e_line_width   = 1.f;
-                graphic->e_color        = gensym("#000000");
+                graphic->e_color        = rgba_black;
                 graphic->e_rect.x       = 0.f;
                 graphic->e_rect.y       = 0.f;
                 graphic->e_rect.height  = (float)pd_clip_min(height, 0.);
@@ -1327,7 +1327,7 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
 
         egraphics_matrix_init(&graphic->e_matrix, 1., 0., 0., 1., 0., 0.);
         graphic->e_line_width   = 1.f;
-        graphic->e_color        = gensym("#000000");
+        graphic->e_color        = rgba_black;
         graphic->e_rect.x       = 0.f;
         graphic->e_rect.y       = 0.f;
         graphic->e_rect.height  = (float)pd_clip_min(height, 0.);
@@ -1418,12 +1418,12 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                 if(gobj->e_filled)
                 {
                     sprintf(header, "%s create polygon ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-smooth true -fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
+                    sprintf(bottom, "-smooth true -fill %s -width 0 -tags { %s %s }\n", rgba_to_hex(&gobj->e_color),  g->e_id->s_name, x->b_all_id->s_name);
                 }
                 else
                 {
                     sprintf(header, "%s create line ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-smooth true -fill %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
+                    sprintf(bottom, "-smooth true -fill %s -width %f -tags { %s %s }\n", rgba_to_hex(&gobj->e_color), gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
                 }
                 
                 for(j = 0; j < gobj->e_npoints; )
@@ -1481,9 +1481,9 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                 }
                 
                 if(gobj->e_filled)
-                    sys_vgui("-fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
+                    sys_vgui("-fill %s -width 0 -tags { %s %s }\n", rgba_to_hex(&gobj->e_color),  g->e_id->s_name, x->b_all_id->s_name);
                 else
-                    sys_vgui("-fill %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
+                    sys_vgui("-fill %s -width %f -tags { %s %s }\n", rgba_to_hex(&gobj->e_color), gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
                 
             }
             ////////////// OVAL /////////////////
@@ -1496,9 +1496,9 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                          (int)(gobj->e_points[1].x + x_p + bdsize),
                          (int)(gobj->e_points[1].y + y_p + bdsize));
                 if(gobj->e_filled)
-                    sys_vgui("-fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
+                    sys_vgui("-fill %s -width 0 -tags { %s %s }\n", rgba_to_hex(&gobj->e_color),  g->e_id->s_name, x->b_all_id->s_name);
                 else
-                    sys_vgui("-outline %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
+                    sys_vgui("-outline %s -width %f -tags { %s %s }\n", rgba_to_hex(&gobj->e_color), gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
                 
             }
             ////////////// ARC /////////////////
@@ -1519,9 +1519,9 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                          (float)extent / EPD_2PI * 360.f);
                 
                 if(gobj->e_filled)
-                    sys_vgui("-style pieslice -fill %s -width 0 -tags { %s %s }\n", gobj->e_color->s_name,  g->e_id->s_name, x->b_all_id->s_name);
+                    sys_vgui("-style pieslice -fill %s -width 0 -tags { %s %s }\n", rgba_to_hex(&gobj->e_color),  g->e_id->s_name, x->b_all_id->s_name);
                 else
-                    sys_vgui("-style arc -outline %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
+                    sys_vgui("-style arc -outline %s -width %f -tags { %s %s }\n", rgba_to_hex(&gobj->e_color), gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
                 
             }
             ////////////// TEXT ////////////////
@@ -1536,7 +1536,7 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                          gobj->e_anchor->s_name,
                          gobj->e_justify->s_name,
                          gobj->e_font.c_family->s_name, (int)gobj->e_font.c_size, gobj->e_font.c_weight->s_name, gobj->e_font.c_slant->s_name,
-                         gobj->e_color->s_name,
+                         rgba_to_hex(&gobj->e_color),
                          (int)(gobj->e_points[1].x),
                          g->e_id->s_name,
                          x->b_all_id->s_name);
@@ -1663,11 +1663,11 @@ static void ebox_select(t_ebox* x)
     {
         if(x->b_selected_box == EITEM_OBJ)
         {
-            sys_vgui("%s itemconfigure eboxbd%ld -fill %s\n", x->b_drawing_id->s_name, x,rgba_to_hex(rgba_blue));
+            sys_vgui("%s itemconfigure eboxbd%ld -fill %s\n", x->b_drawing_id->s_name, x,rgba_to_hex(&rgba_blue));
         }
         else
         {
-            sys_vgui("%s itemconfigure eboxbd%ld -fill %s\n", x->b_drawing_id->s_name, x,rgba_to_hex(x->b_boxparameters.d_bordercolor));
+            sys_vgui("%s itemconfigure eboxbd%ld -fill %s\n", x->b_drawing_id->s_name, x,rgba_to_hex(&x->b_boxparameters.d_bordercolor));
         }
     }
 }

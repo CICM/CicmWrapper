@@ -357,7 +357,7 @@ typedef struct t_egobj
 {
 	egraphics_types e_type;         /*!< The type of the graphical object. */
     int             e_filled;       /*!< The filled state of the graphical object. */
-    t_symbol*       e_color;        /*!< The color of the graphical object. */
+    t_rgba          e_color;        /*!< The color of the graphical object. */
     float           e_width;        /*!< The line width of the graphical object. */
 	t_pt*           e_points;       /*!< The points of the graphical object. */
     int             e_npoints;      /*!< The number of points of the graphical object. */
@@ -382,7 +382,7 @@ typedef struct t_elayer
     int                 e_state;            /*!< The layer state. */
     t_rect              e_rect;             /*!< The layer size. */
     
-    t_symbol*           e_color;            /*!< The layer color. */
+    t_rgba              e_color;            /*!< The layer color. */
     int                 e_line_width;       /*!< The layer line width. */
     t_matrix            e_matrix;           /*!< The layer matrix. */
     t_egobj             e_new_objects;      /*!< The layer new object. */
