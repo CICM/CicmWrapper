@@ -189,12 +189,12 @@ typedef enum etextjustify_flags
 typedef enum
 {
     E_GOBJ_INVALID           = 0,   /*!< This type is invalid. */
-    E_GOBJ_PATH                 ,   /*!< This is a path. */
-    E_GOBJ_RECT                 ,   /*!< This is a rect. */
-    E_GOBJ_ARC                  ,   /*!< This is an arc. */
-    E_GOBJ_OVAL                 ,   /*!< This is an oval. */
-    E_GOBJ_TEXT                 ,   /*!< This is a text. */
-    E_GOBJ_IMAG                    /*!< This is an image. */
+    E_GOBJ_PATH              = 1,   /*!< This is a path. */
+    E_GOBJ_RECT              = 2,   /*!< This is a rect. */
+    E_GOBJ_ARC               = 3,   /*!< This is an arc. */
+    E_GOBJ_OVAL              = 4,   /*!< This is an oval. */
+    E_GOBJ_TEXT              = 5,   /*!< This is a text. */
+    E_GOBJ_IMAG              = 6    /*!< This is an image. */
 } egraphics_types;
 
 /**
