@@ -1295,11 +1295,7 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
                     graphic->e_objects = NULL;
                 }
                 graphic->e_number_objects  = 0;
-                if(graphic->e_new_objects.e_points)
-                    free(graphic->e_new_objects.e_points);
-                graphic->e_new_objects.e_points = NULL;
                 graphic->e_new_objects.e_npoints = 0;
-                graphic->e_new_objects.e_roundness = 0.;
                 graphic->e_objects      = NULL;
                 sprintf(text, "%s%ld", name->s_name, (long)x);
                 graphic->e_id          = gensym(text);
@@ -1341,7 +1337,7 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
         graphic->e_number_objects  = 0;
         graphic->e_new_objects.e_points = NULL;
         graphic->e_new_objects.e_npoints = 0;
-        graphic->e_new_objects.e_roundness = 0.;
+        graphic->e_new_objects.e_rspace = 0;
         graphic->e_objects      = NULL;
 
         graphic->e_state        = EGRAPHICS_OPEN;
@@ -1447,11 +1443,21 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                     else if(pt->x == E_PATH_CURVE)
                     {
                         pt = gobj->e_points+j++;
-                        sys_vgui("%d %d ", (int)(pt->x + x_p + bdsize), (int)(pt->y + y_p + bdsize));
-                        pt = gobj->e_points+j++;
-                        sys_vgui("%d %d ", (int)(pt->x + x_p + bdsize), (int)(pt->y + y_p + bdsize));
-                        pt = gobj->e_points+j++;
-                        sys_vgui("%d %d ", (int)(pt->x + x_p + bdsize), (int)(pt->y + y_p + bdsize));
+                        sys_vgui("%d %d %d %d %d %d ",
+                                 (int)((pt+1)->x + x_p + bdsize), (int)((pt+1)->y + y_p + bdsize),
+                                 (int)((pt+2)->x + x_p + bdsize), (int)((pt+2)->y + y_p + bdsize),
+                                 (int)((pt+3)->x + x_p + bdsize), (int)((pt+3)->y + y_p + bdsize));
+                        j += 3;
+                        mode = E_PATH_CURVE;
+                    }
+                    else if(pt->x == E_PATH_LINE)
+                    {
+                        pt = gobj->e_points+j-1;
+                        sys_vgui("%d %d %d %d %d %d ",
+                                 (int)((pt-1)->x + x_p + bdsize), (int)((pt-1)->y + y_p + bdsize),
+                                 (int)((pt+1)->x + x_p + bdsize), (int)((pt+1)->y + y_p + bdsize),
+                                 (int)((pt+1)->x + x_p + bdsize), (int)((pt+1)->y + y_p + bdsize));
+                        ++j;
                         mode = E_PATH_CURVE;
                     }
                     else

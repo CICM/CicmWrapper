@@ -208,7 +208,7 @@ typedef enum
 typedef enum
 {
     E_PATH_MOVE    = 0,   /*!< This type is move. */
-    E_PATH_LINE    = 1,   /*!< This type is curve. */
+    E_PATH_LINE    = 1,   /*!< This type is move. */
     E_PATH_CURVE   = 2,    /*!< This type is curve. */
     E_PATH_CLOSE   = 3    /*!< This type is curve. */
 } epath_types;
@@ -359,10 +359,9 @@ typedef struct t_egobj
     int             e_filled;       /*!< The filled state of the graphical object. */
     t_symbol*       e_color;        /*!< The color of the graphical object. */
     float           e_width;        /*!< The line width of the graphical object. */
-    
 	t_pt*           e_points;       /*!< The points of the graphical object. */
-    long            e_npoints;      /*!< The number of points of the graphical object. */
-    float           e_roundness;    /*!< The roundness of the graphical object. */
+    int             e_npoints;      /*!< The number of points of the graphical object. */
+    int             e_rspace;       /*!< The real number of points of the graphical object. */
     t_efont         e_font;         /*!< The font of the graphical object. */
     t_symbol*       e_anchor;       /*!< The anchor of the graphical object. */
     t_symbol*       e_justify;      /*!< The justification of the graphical object. */

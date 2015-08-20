@@ -77,7 +77,6 @@ static void egraphics_paint(t_elayer *g, int filled, int preserved)
                 nobj->e_filled = 0;
             }
             nobj->e_type      = g->e_new_objects.e_type;
-            nobj->e_roundness = g->e_new_objects.e_roundness;
             nobj->e_npoints   = g->e_new_objects.e_npoints;
             nobj->e_points = (t_pt*)malloc((size_t)nobj->e_npoints * sizeof(t_pt));
             if(!nobj->e_points)
@@ -87,7 +86,6 @@ static void egraphics_paint(t_elayer *g, int filled, int preserved)
                 return;
             }
             memcpy(nobj->e_points, g->e_new_objects.e_points, sizeof(t_pt) * (size_t)nobj->e_npoints);
-            nobj->e_roundness = g->e_new_objects.e_roundness;
             
             nobj->e_color = g->e_color;
             nobj->e_width = g->e_line_width;
@@ -96,10 +94,7 @@ static void egraphics_paint(t_elayer *g, int filled, int preserved)
             egraphics_apply_matrix(g, nobj);
             if(!preserved)
             {
-                g->e_new_objects.e_roundness = 0;
                 g->e_new_objects.e_npoints   = 0;
-                free(g->e_new_objects.e_points);
-                g->e_new_objects.e_points   = NULL;
                 g->e_new_objects.e_type     = E_GOBJ_INVALID;
             }
         }
@@ -166,37 +161,49 @@ void etext_layout_draw(t_etext* textlayout, t_elayer *g)
     }
 }
 
+static void egraphics_gobj_prealloc(t_egobj* obj, const size_t size)
+{
+    t_pt* temp;
+    if(size > (size_t)(obj->e_rspace - obj->e_npoints))
+    {
+        if(obj->e_rspace && obj->e_npoints)
+        {
+            temp = (t_pt *)realloc(obj->e_points, ((size_t)obj->e_npoints + size) * sizeof(t_pt));
+            if(temp)
+            {
+                obj->e_points = temp;
+                obj->e_rspace = obj->e_npoints + (int)size;
+            }
+            else
+            {
+                free(obj->e_points);
+                obj->e_points = NULL;
+                obj->e_rspace = 0;
+            }
+        }
+        else
+        {
+            obj->e_points = (t_pt *)realloc(obj->e_points, size * sizeof(t_pt));
+            if(!obj->e_points)
+            {
+                obj->e_rspace = 0;
+            }
+            else
+            {
+                obj->e_rspace = (int)size;
+            }
+        }
+    }
+}
+
 void egraphics_move_to(t_elayer *g, float x, float y)
 {
     if(g->e_state == EGRAPHICS_OPEN)
     {
-        if(g->e_new_objects.e_type != E_GOBJ_PATH)
-        {
-            if(!g->e_new_objects.e_npoints || g->e_new_objects.e_points == NULL)
-            {
-                g->e_new_objects.e_points   = (t_pt *)malloc(2 * sizeof(t_pt));
-            }
-            else
-            {
-                g->e_new_objects.e_points = (t_pt *)realloc(g->e_new_objects.e_points, 2 * sizeof(t_pt));
-            }
-            g->e_new_objects.e_type = E_GOBJ_PATH;
-            g->e_new_objects.e_npoints = 0;
-        }
-        else if(g->e_new_objects.e_type == E_GOBJ_PATH)
-        {
-            if(!g->e_new_objects.e_npoints || g->e_new_objects.e_points == NULL)
-            {
-                g->e_new_objects.e_points   = (t_pt *)malloc(2 * sizeof(t_pt));
-                g->e_new_objects.e_npoints = 0;
-            }
-            else
-            {
-                g->e_new_objects.e_points = (t_pt *)realloc(g->e_new_objects.e_points, (size_t)(g->e_new_objects.e_npoints + 2) * sizeof(t_pt));
-            }
-        }
+        egraphics_gobj_prealloc(&g->e_new_objects, 2);
         if(g->e_new_objects.e_points)
         {
+            g->e_new_objects.e_type = E_GOBJ_PATH;
             g->e_new_objects.e_points[g->e_new_objects.e_npoints].x  = E_PATH_MOVE;
             g->e_new_objects.e_points[g->e_new_objects.e_npoints+1].x  = x;
             g->e_new_objects.e_points[g->e_new_objects.e_npoints+1].y  = y;
@@ -213,25 +220,18 @@ void egraphics_line_to(t_elayer *g, float x, float y)
 {
     if(g->e_state == EGRAPHICS_OPEN)
     {
-        if(g->e_new_objects.e_type == E_GOBJ_PATH)
+        egraphics_gobj_prealloc(&g->e_new_objects, 2);
+        if(g->e_new_objects.e_points)
         {
-            g->e_new_objects.e_points = (t_pt *)realloc(g->e_new_objects.e_points, (size_t)(g->e_new_objects.e_npoints + 4) * sizeof(t_pt));
-            if(g->e_new_objects.e_points)
-            {
-                const t_pt pt = g->e_new_objects.e_points[g->e_new_objects.e_npoints-1];
-                g->e_new_objects.e_points[g->e_new_objects.e_npoints].x  = E_PATH_CURVE;
-                g->e_new_objects.e_points[g->e_new_objects.e_npoints+1].x  = pt.x;
-                g->e_new_objects.e_points[g->e_new_objects.e_npoints+1].y  = pt.y;
-                g->e_new_objects.e_points[g->e_new_objects.e_npoints+2].x  = x;
-                g->e_new_objects.e_points[g->e_new_objects.e_npoints+2].y  = y;
-                g->e_new_objects.e_points[g->e_new_objects.e_npoints+3].x  = x;
-                g->e_new_objects.e_points[g->e_new_objects.e_npoints+3].y  = y;
-                g->e_new_objects.e_npoints += 4;
-            }
-            else
-            {
-                g->e_new_objects.e_type = E_GOBJ_INVALID;
-            }
+            g->e_new_objects.e_type = E_GOBJ_PATH;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints].x  = E_PATH_LINE;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+1].x  = x;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+1].y  = y;
+            g->e_new_objects.e_npoints += 2;
+        }
+        else
+        {
+            g->e_new_objects.e_type = E_GOBJ_INVALID;
         }
     }
 }
@@ -240,27 +240,150 @@ void egraphics_curve_to(t_elayer *g, float ctrl1x, float ctrl1y, float ctrl2x, f
 {
     if(g->e_state == EGRAPHICS_OPEN)
     {
-        if(g->e_new_objects.e_type == E_GOBJ_PATH)
+        egraphics_gobj_prealloc(&g->e_new_objects, 4);
+        if(g->e_new_objects.e_points)
         {
-            g->e_new_objects.e_points = (t_pt *)realloc(g->e_new_objects.e_points, (size_t)(g->e_new_objects.e_npoints + 4) * sizeof(t_pt));
-            if(g->e_new_objects.e_points)
-            {
-                g->e_new_objects.e_points[g->e_new_objects.e_npoints].x  = E_PATH_CURVE;
-                g->e_new_objects.e_points[g->e_new_objects.e_npoints+1].x  = ctrl1x;
-                g->e_new_objects.e_points[g->e_new_objects.e_npoints+1].y  = ctrl1y;
-                g->e_new_objects.e_points[g->e_new_objects.e_npoints+2].x  = ctrl2x;
-                g->e_new_objects.e_points[g->e_new_objects.e_npoints+2].y  = ctrl2y;
-                g->e_new_objects.e_points[g->e_new_objects.e_npoints+3].x  = endx;
-                g->e_new_objects.e_points[g->e_new_objects.e_npoints+3].y  = endy;
-                g->e_new_objects.e_npoints += 4;
-            }
-            else
-            {
-                g->e_new_objects.e_type = E_GOBJ_INVALID;
-            }
+            g->e_new_objects.e_type = E_GOBJ_PATH;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints].x  = E_PATH_CURVE;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+1].x  = ctrl1x;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+1].y  = ctrl1y;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+2].x  = ctrl2x;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+2].y  = ctrl2y;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+3].x  = endx;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints+3].y  = endy;
+            g->e_new_objects.e_npoints += 4;
+        }
+        else
+        {
+            g->e_new_objects.e_type = E_GOBJ_INVALID;
         }
     }
 }
+
+void egraphics_close_path(t_elayer *g)
+{
+    if(g->e_state == EGRAPHICS_OPEN && g->e_new_objects.e_npoints >= 1)
+    {
+        if(g->e_new_objects.e_type == E_GOBJ_PATH)
+        {
+            egraphics_line_to(g, g->e_new_objects.e_points[1].x, g->e_new_objects.e_points[1].y);
+        }
+    }
+}
+
+void egraphics_line(t_elayer *g, float x0, float y0, float x1, float y1)
+{
+    if(g->e_state == EGRAPHICS_OPEN)
+    {
+        egraphics_gobj_prealloc(&g->e_new_objects, 4);
+        egraphics_move_to(g, x0, y0);
+        egraphics_line_to(g, x1, y1);
+    }
+}
+
+void egraphics_line_fast(t_elayer *g, float x0, float y0, float x1, float y1)
+{
+    if(g->e_state == EGRAPHICS_OPEN)
+    {
+        egraphics_gobj_prealloc(&g->e_new_objects, 4);
+        egraphics_move_to(g, x0, y0);
+        egraphics_line_to(g, x1, y1);
+        egraphics_stroke(g);
+    }
+}
+
+void egraphics_curve(t_elayer *g, float startx, float starty, float ctrl1x, float ctrl1y, float ctrl2x, float ctrl2y, float endx, float endy)
+{
+    if(g->e_state == EGRAPHICS_OPEN)
+    {
+        egraphics_gobj_prealloc(&g->e_new_objects, 6);
+        egraphics_move_to(g, startx, starty);
+        egraphics_curve_to(g, ctrl1x, ctrl1y, ctrl2x, ctrl2y, endx, endy);
+    }
+}
+
+void egraphics_rectangle(t_elayer *g, float x, float y, float width, float height)
+{
+    if(g->e_state == EGRAPHICS_OPEN)
+    {
+        egraphics_gobj_prealloc(&g->e_new_objects, 10);
+        egraphics_move_to(g, x, y);
+        egraphics_line_to(g, x + width, y);
+        egraphics_line_to(g, x + width, y + height);
+        egraphics_line_to(g, x, y + height);
+        egraphics_line_to(g, x, y);
+    }
+}
+
+void egraphics_rectangle_rounded(t_elayer *g, float x, float y, float width, float height, float roundness)
+{
+    if(g->e_state == EGRAPHICS_OPEN)
+    {
+        int todo;
+        if(g->e_new_objects.e_points == NULL)
+            g->e_new_objects.e_points   = (t_pt *)malloc(9 * sizeof(t_pt));
+        else
+            g->e_new_objects.e_points   = (t_pt *)realloc(g->e_new_objects.e_points , 9 * sizeof(t_pt));
+        if(g->e_new_objects.e_points)
+        {
+            g->e_new_objects.e_type         = E_GOBJ_RECT;
+            g->e_new_objects.e_points[0].x  = x + roundness;
+            g->e_new_objects.e_points[0].y  = y;
+            g->e_new_objects.e_points[1].x  = x + width - roundness;
+            g->e_new_objects.e_points[1].y  = y;
+            
+            g->e_new_objects.e_points[2].x  = x + width;
+            g->e_new_objects.e_points[2].y  = y + roundness;
+            g->e_new_objects.e_points[3].x  = x + width;
+            g->e_new_objects.e_points[3].y  = y + height - roundness;
+            
+            g->e_new_objects.e_points[4].x  = x + width - roundness;
+            g->e_new_objects.e_points[4].y  = y + height;
+            g->e_new_objects.e_points[5].x  = x + roundness;
+            g->e_new_objects.e_points[5].y  = y + height;
+            
+            g->e_new_objects.e_points[6].x  = x;
+            g->e_new_objects.e_points[6].y  = y + height - roundness;
+            g->e_new_objects.e_points[7].x  = x;
+            g->e_new_objects.e_points[7].y  = y + roundness;
+            g->e_new_objects.e_points[8].x  = x + roundness;
+            g->e_new_objects.e_points[8].y  = y;
+            g->e_new_objects.e_npoints      = 9;
+        }
+        else
+        {
+            g->e_new_objects.e_type         = E_GOBJ_INVALID;
+        }
+    }
+}
+
+void egraphics_oval(t_elayer *g, float xc, float yc, float radiusx, float radiusy)
+{
+    if(g->e_state == EGRAPHICS_OPEN)
+    {
+        egraphics_gobj_prealloc(&g->e_new_objects, 4);
+        if(g->e_new_objects.e_points)
+        {
+            
+            g->e_new_objects.e_type         = E_GOBJ_OVAL;
+            g->e_new_objects.e_points[0].x  = xc - radiusx;
+            g->e_new_objects.e_points[0].y  = yc - radiusy;
+            g->e_new_objects.e_points[1].x  = xc + radiusx;
+            g->e_new_objects.e_points[1].y  = yc + radiusy;
+            g->e_new_objects.e_npoints      = 2;
+        }
+        else
+        {
+            g->e_new_objects.e_type         = E_GOBJ_INVALID;
+        }
+    }
+}
+
+void egraphics_circle(t_elayer *g, float xc, float yc, float radius)
+{
+    egraphics_oval(g, xc, yc, radius, radius);
+}
+
 
 static void rotate(const float cosz, const float sinz, t_pt* p1)
 {
@@ -408,154 +531,6 @@ void egraphics_arc_oval_to(t_elayer *g, float cx, float cy, float radius, float 
         else
         {
             g->e_new_objects.e_type = E_GOBJ_INVALID;
-        }
-    }
-}
-
-void egraphics_close_path(t_elayer *g)
-{
-    if(g->e_state == EGRAPHICS_OPEN && g->e_new_objects.e_npoints >= 1)
-    {
-        if(g->e_new_objects.e_type == E_GOBJ_PATH)
-        {
-            if(g->e_new_objects.e_points)
-            {
-                egraphics_line_to(g, g->e_new_objects.e_points[1].x, g->e_new_objects.e_points[1].y);
-            }
-            else
-            {
-                g->e_new_objects.e_type = E_GOBJ_INVALID;
-            }
-        }
-    }
-}
-
-void egraphics_line(t_elayer *g, float x0, float y0, float x1, float y1)
-{
-    if(g->e_state == EGRAPHICS_OPEN)
-    {
-        egraphics_move_to(g, x0, y0);
-        egraphics_line_to(g, x1, y1);
-    }
-}
-
-void egraphics_curve(t_elayer *g, float startx, float starty, float ctrl1x, float ctrl1y, float ctrl2x, float ctrl2y, float endx, float endy)
-{
-    if(g->e_state == EGRAPHICS_OPEN)
-    {
-        egraphics_move_to(g, startx, starty);
-        egraphics_curve_to(g, ctrl1x, ctrl1y, ctrl2x, ctrl2y, endx, endy);
-    }
-}
-
-void egraphics_line_fast(t_elayer *g, float x0, float y0, float x1, float y1)
-{
-    if(g->e_state == EGRAPHICS_OPEN)
-    {
-        egraphics_move_to(g, x0, y0);
-        egraphics_line_to(g, x1, y1);
-    }
-    egraphics_stroke(g);
-}
-
-void egraphics_rectangle(t_elayer *g, float x, float y, float width, float height)
-{
-    if(g->e_state == EGRAPHICS_OPEN)
-    {
-        if(g->e_new_objects.e_points == NULL)
-            g->e_new_objects.e_points   = (t_pt *)malloc(5 * sizeof(t_pt));
-        else
-            g->e_new_objects.e_points   = (t_pt *)realloc(g->e_new_objects.e_points , 5 * sizeof(t_pt));
-        if(g->e_new_objects.e_points)
-        {
-            g->e_new_objects.e_type         = E_GOBJ_RECT;
-            g->e_new_objects.e_points[0].x  = x;
-            g->e_new_objects.e_points[0].y  = y;
-            g->e_new_objects.e_points[1].x  = x + width;
-            g->e_new_objects.e_points[1].y  = y;
-            g->e_new_objects.e_points[2].x  = x + width;
-            g->e_new_objects.e_points[2].y  = y + height;
-            g->e_new_objects.e_points[3].x  = x;
-            g->e_new_objects.e_points[3].y  = y + height;
-            g->e_new_objects.e_points[4].x  = x;
-            g->e_new_objects.e_points[4].y  = y;
-            g->e_new_objects.e_npoints      = 5;
-            g->e_new_objects.e_roundness    = 0.;
-        }
-        else
-        {
-            g->e_new_objects.e_type         = E_GOBJ_INVALID;
-        }
-    }
-}
-
-void egraphics_rectangle_rounded(t_elayer *g, float x, float y, float width, float height, float roundness)
-{
-    if(g->e_state == EGRAPHICS_OPEN)
-    {
-        if(g->e_new_objects.e_points == NULL)
-            g->e_new_objects.e_points   = (t_pt *)malloc(9 * sizeof(t_pt));
-        else
-            g->e_new_objects.e_points   = (t_pt *)realloc(g->e_new_objects.e_points , 9 * sizeof(t_pt));
-        if(g->e_new_objects.e_points)
-        {
-            g->e_new_objects.e_type         = E_GOBJ_RECT;
-            g->e_new_objects.e_points[0].x  = x + roundness;
-            g->e_new_objects.e_points[0].y  = y;
-            g->e_new_objects.e_points[1].x  = x + width - roundness;
-            g->e_new_objects.e_points[1].y  = y;
-            
-            g->e_new_objects.e_points[2].x  = x + width;
-            g->e_new_objects.e_points[2].y  = y + roundness;
-            g->e_new_objects.e_points[3].x  = x + width;
-            g->e_new_objects.e_points[3].y  = y + height - roundness;
-            
-            g->e_new_objects.e_points[4].x  = x + width - roundness;
-            g->e_new_objects.e_points[4].y  = y + height;
-            g->e_new_objects.e_points[5].x  = x + roundness;
-            g->e_new_objects.e_points[5].y  = y + height;
-            
-            g->e_new_objects.e_points[6].x  = x;
-            g->e_new_objects.e_points[6].y  = y + height - roundness;
-            g->e_new_objects.e_points[7].x  = x;
-            g->e_new_objects.e_points[7].y  = y + roundness;
-            g->e_new_objects.e_points[8].x  = x + roundness;
-            g->e_new_objects.e_points[8].y  = y;
-            g->e_new_objects.e_npoints      = 9;
-            g->e_new_objects.e_roundness = (float)pd_clip_min(roundness, 0.);
-        }
-        else
-        {
-            g->e_new_objects.e_type         = E_GOBJ_INVALID;
-        }
-    }
-}
-
-void egraphics_circle(t_elayer *g, float xc, float yc, float radius)
-{
-    egraphics_oval(g, xc, yc, radius, radius);
-}
-
-void egraphics_oval(t_elayer *g, float xc, float yc, float radiusx, float radiusy)
-{
-    if(g->e_state == EGRAPHICS_OPEN)
-    {
-        if(g->e_new_objects.e_points == NULL)
-            g->e_new_objects.e_points   = (t_pt *)malloc(2 * sizeof(t_pt));
-        else
-            g->e_new_objects.e_points   = (t_pt *)realloc(g->e_new_objects.e_points , 2 * sizeof(t_pt));
-        if(g->e_new_objects.e_points)
-        {
-            g->e_new_objects.e_type         = E_GOBJ_OVAL;
-            g->e_new_objects.e_points[0].x  = xc - radiusx;
-            g->e_new_objects.e_points[0].y  = yc - radiusy;
-            g->e_new_objects.e_points[1].x  = xc + radiusx;
-            g->e_new_objects.e_points[1].y  = yc + radiusy;
-            g->e_new_objects.e_npoints      = 2;
-        }
-        else
-        {
-            g->e_new_objects.e_type         = E_GOBJ_INVALID;
         }
     }
 }
@@ -937,7 +912,7 @@ static void egraphics_apply_matrix(t_elayer *g, t_egobj* gobj)
     {
         for(i = 0; i < gobj->e_npoints; )
         {
-            if(gobj->e_points[i].x == E_PATH_MOVE)
+            if(gobj->e_points[i].x == E_PATH_MOVE || gobj->e_points[i].x == E_PATH_LINE)
             {
                 x_p     = gobj->e_points[i+1].x * g->e_matrix.xx + gobj->e_points[i+1].y * g->e_matrix.xy + g->e_matrix.x0;
                 y_p     = gobj->e_points[i+1].x * g->e_matrix.yx + gobj->e_points[i+1].y * g->e_matrix.yy + g->e_matrix.y0;
@@ -959,7 +934,7 @@ static void egraphics_apply_matrix(t_elayer *g, t_egobj* gobj)
                 y_p     = gobj->e_points[i+3].x * g->e_matrix.yx + gobj->e_points[i+3].y * g->e_matrix.yy + g->e_matrix.y0;
                 gobj->e_points[i+3].x    = x_p;
                 gobj->e_points[i+3].y    = y_p;
-                i += 4;
+                i += 3;
             }
             else
             {
