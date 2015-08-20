@@ -1246,9 +1246,7 @@ void ebox_redraw(t_ebox *x)
     t_symbol* s = gensym(name);
     if(s->s_thing)
     {
-        t_atom av;
-        atom_setfloat(&av, (float)((long)x));
-        pd_typedmess(s->s_thing, gensym("redraw"), 1, &av);
+        pd_symbol(s->s_thing, gensym("redraw"));
     }
 }
 
