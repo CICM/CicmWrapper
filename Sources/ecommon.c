@@ -25,6 +25,11 @@ t_symbol* s_int;
 t_symbol* s_long;
 t_symbol* s_double;
 
+t_symbol* s_cream_linear;
+t_symbol* s_cream_exponential;
+t_symbol* s_cream_logarithmic;
+t_symbol* s_cream_threshold;
+
 void epd_init(void)
 {
     t_symbol* epd_symbol = gensym("epd1572");
@@ -42,6 +47,11 @@ void epd_init(void)
     s_double        = gensym("double");
     s_pinned        = gensym("pinned");
     s_iscicm        = gensym("iscicm");
+    
+    s_cream_linear      = gensym("linear");
+    s_cream_exponential = gensym("exponential");
+    s_cream_logarithmic = gensym("logarithmic");
+    s_cream_threshold   = gensym("threshold");
     if(!epd_symbol->s_thing)
     {
         // PATCHER MOUSE MOTION //
@@ -122,6 +132,18 @@ void epd_init(void)
         
         epd_symbol->s_thing = (t_class **)1;
     }
+}
+
+float interpolation_bezier(const float f1, const float f2, const float delta, const float node)
+{
+    const float t = pd_clip_minmax(delta, 0.f, 1.f);
+    return interpolation_linear(f1, f2, pd_clip_minmax(t * t + 2.f * t * (1.f - t) * node, 0.f, 1.f));
+}
+
+float interpolation_linear(const float f1, const float f2, const float delta)
+{
+    const float delta2 = pd_clip_minmax(delta, 0., 1.);
+    return f1 * (1.f - delta2) + f2 * delta;
 }
 
 void object_method(void* x, t_symbol* s, void* z, t_typ_method method, long number, void* other)

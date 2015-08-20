@@ -31,6 +31,40 @@ void epd_init(void);
 //! @endcond
 
 /*!
+ * \fn          float interpolation_bezier(const float f1, const float f2, const float delta, const t_pt point)
+ * \brief       Performs a kind of quadratic bezier interpolation.
+ * \details     The function performs a interpolation between f1 and f2 depending on delta following the curve of the quadratic bezier curve with the start point at [0, 0] and the end point at [1, 1].
+ * \param f1    The first value.
+ * \param f2    The second value.
+ * \param delta The delta value between 0 and 1.
+ * \param point The y position of the node of the bezier curve.
+ * \return The new value.
+ */
+float interpolation_bezier(const float f1, const float f2, const float delta, const float point);
+
+/*!
+ * \fn          float interpolation_linear(const float f1, const float f2, const float delta)
+ * \brief       Performs a linear interpolation.
+ * \details     The function performs a linear interpolation between f1  and f2 depending on delta.
+ * \param f1    The first value.
+ * \param f2    The second value.
+ * \param delta The delta value between 0 and 1.
+ * \return The new value.
+ */
+float interpolation_linear(const float f1, const float f2, const float delta);
+
+/*!
+ * \fn          float interpolation_exponential(const float f1, const float f2, const float delta)
+ * \brief       Performs a exponential interpolation.
+ * \details     The function performs a exponential interpolation between f1  and f2 depending on delta.
+ * \param f1    The first value.
+ * \param f2    The second value.
+ * \param delta The delta value between 0 and 1.
+ * \return The new value.
+ */
+float interpolation_exponential(const float f1, const float f2, const float delta);
+
+/*!
  * \fn          t_symbol* get_valid_symbol(t_symbol* s)
  * \brief       Retrieves a valid t_symbol.
  * \details     The function returns the s_cream_empty t_symbol if the t_symbol s is NULL or (null).

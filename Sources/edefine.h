@@ -95,6 +95,15 @@ extern t_symbol* s_pinned;
 //! The pre-defined s_iscicm t_symbol*
 extern t_symbol* s_iscicm;
 
+//! The pre-defined linear t_symbol*
+extern t_symbol* s_cream_linear;
+//! The pre-defined exponential t_symbol*
+extern t_symbol* s_cream_exponential;
+//! The pre-defined logarithmic t_symbol*
+extern t_symbol* s_cream_logarithmic;
+//! The pre-defined threshold t_symbol*
+extern t_symbol* s_cream_threshold;
+
 //! @cond
 EXTERN t_namelist *sys_staticpath;
 EXTERN t_namelist *sys_searchpath;
@@ -775,6 +784,14 @@ typedef struct t_edspbox
     
     t_edsp d_dsp; /*!< The dsp structure. */
 }t_edspbox;
+
+
+typedef struct _preset
+{
+    t_symbol*   p_name;
+    int         p_natoms;
+    t_atom*     p_atoms;
+} t_preset;
 
 
 
