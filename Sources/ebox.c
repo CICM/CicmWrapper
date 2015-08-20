@@ -76,7 +76,7 @@ void ebox_ready(t_ebox *x)
 void ebox_free(t_ebox* x)
 {
     eobj_free(x);
-    if(x->b_receive_id)
+    if(is_valid_symbol(x->b_receive_id))
     {
         pd_unbind((t_pd *)x, x->b_receive_id);
     }
