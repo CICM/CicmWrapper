@@ -293,11 +293,10 @@ void etext_layout_destroy(t_etext* textlayout);
  * \param y The ordinate position of the t_etext.
  * \param width The width of the t_etext.
  * \param height The height of the t_etext.
- * \param anchor The anchor of the text.
  * \param justify The justification of the text.
  * \param wrap if the text should be wrap or not.
  */
-void etext_layout_set(t_etext* textlayout, const char* text, t_efont *font,  float x, float y, float width,  float height, etextanchor_flags anchor, etextjustify_flags justify, etextwrap_flags wrap);
+void etext_layout_set(t_etext* textlayout, const char* text, t_efont *font,  float x, float y, float width,  float height,etextjustify_flags justify, etextwrap_flags wrap);
 
 /*!
  * \fn          void etext_layout_settextcolor(t_etext* textlayout, t_rgba* color)

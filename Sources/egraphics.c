@@ -149,8 +149,7 @@ void etext_layout_draw(t_etext* textlayout, t_elayer *g)
             
             g->e_objects[index].e_font        = textlayout->c_font;
             g->e_objects[index].e_justify     = textlayout->c_justify;
-            g->e_objects[index].e_text        = textlayout->c_text;
-            g->e_objects[index].e_anchor      = textlayout->c_anchor;
+            g->e_objects[index].e_text        = gensym(textlayout->c_text);
             egraphics_apply_matrix(g, g->e_objects+index);
         }
         else
@@ -958,58 +957,37 @@ static void egraphics_apply_matrix(t_elayer *g, t_egobj* gobj)
 t_etext* etext_layout_create(void)
 {
     t_etext* new_text_layout = (t_etext *)malloc(sizeof(t_etext));
-    new_text_layout->c_color.red = 0.;
-    new_text_layout->c_color.green = 0.;
-    new_text_layout->c_color.blue = 0.;
-    new_text_layout->c_color.alpha = 1.;
-    
-    return new_text_layout;
+    if(new_text_layout)
+    {
+        new_text_layout->c_text = (char *)malloc(MAXPDSTRING * sizeof(char));
+        if(new_text_layout->c_text)
+        {
+            new_text_layout->c_color.red = 0.;
+            new_text_layout->c_color.green = 0.;
+            new_text_layout->c_color.blue = 0.;
+            new_text_layout->c_color.alpha = 1.;
+            return new_text_layout;
+        }
+    }
+    return NULL;
 }
 
 void etext_layout_destroy(t_etext* textlayout)
 {
+    free(textlayout->c_text);
     free(textlayout);
 }
 
-void etext_layout_set(t_etext* textlayout, const char* text, t_efont *font,  float x, float y, float width,  float height, etextanchor_flags anchor, etextjustify_flags justify, etextwrap_flags wrap)
+void etext_layout_set(t_etext* textlayout, const char* text, t_efont *font,  float x, float y, float width,  float height, etextjustify_flags justify, etextwrap_flags wrap)
 {
-    textlayout->c_text = gensym(text);
+    strncpy(textlayout->c_text, text, MAXPDSTRING);
     textlayout->c_font = font[0];
     textlayout->c_rect.x = (float)x;
     textlayout->c_rect.y = (float)y;
     textlayout->c_rect.width = (float)width;
     textlayout->c_rect.height = (float)height;
-    
-    if(wrap == ETEXT_NOWRAP)
-    {
-        textlayout->c_rect.width = 0.;
-    }
-    
-    if(anchor == ETEXT_UP)
-        textlayout->c_anchor = gensym("n");
-    else if(anchor == ETEXT_UP_RIGHT)
-        textlayout->c_anchor = gensym("ne");
-    else if(anchor == ETEXT_RIGHT)
-        textlayout->c_anchor = gensym("e");
-    else if(anchor == ETEXT_DOWN_RIGHT)
-        textlayout->c_anchor = gensym("se");
-    else if(anchor == ETEXT_DOWN)
-        textlayout->c_anchor = gensym("s");
-    else if(anchor == ETEXT_DOWN_LEFT)
-        textlayout->c_anchor = gensym("sw");
-    else if(anchor == ETEXT_LEFT)
-        textlayout->c_anchor = gensym("w");
-    else if(anchor == ETEXT_UP_LEFT)
-        textlayout->c_anchor = gensym("nw");
-    else
-        textlayout->c_anchor = gensym("center");
-    
-    if(justify == ETEXT_JCENTER)
-        textlayout->c_justify = gensym("center");
-    else if(justify == ETEXT_JRIGHT)
-        textlayout->c_justify = gensym("right");
-    else
-        textlayout->c_justify = gensym("left");
+    textlayout->c_wrap = wrap;
+    textlayout->c_justify = justify;
     
 }
 

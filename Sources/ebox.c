@@ -1381,6 +1381,51 @@ t_pd_err ebox_invalidate_layer(t_ebox *x, t_symbol *name)
     return -1;
 }
 
+static void stringifyJustification(int justification, char* text)
+{
+    /*
+    if(justification & ETEXT_LEFT)
+        sprintf(text, "-justify left ");
+    else if(justification & ETEXT_RIGHT)
+        sprintf(text, "-justify right ");
+    else
+        sprintf(text, "-justify center ");
+    */
+    if(justification & ETEXT_TOP)
+        sprintf(text, "-anchor n");
+    else if(justification & ETEXT_BOTTOM)
+        sprintf(text, "-anchor s");
+    else
+        sprintf(text, "-anchor ");
+    
+    if(justification & ETEXT_LEFT)
+        strncat(text, "w", 1);
+    else if(justification & ETEXT_RIGHT)
+        strncat(text, "e", 1);
+    else if(justification & ETEXT_CENTRED)
+        strncat(text, "center", 6);
+}
+
+static t_pt recomputeRectangle(int justification, t_pt const* p1, t_pt const* p2)
+{
+    t_pt pt;
+    if(justification & ETEXT_TOP)
+        pt.y = p1->y;
+    else if(justification & ETEXT_BOTTOM)
+        pt.y = p1->y + p2->y;
+    else
+        pt.y = p1->y + p2->y * 0.5f;
+    
+    if(justification & ETEXT_LEFT)
+        pt.x = p1->x;
+    else if(justification & ETEXT_RIGHT)
+        pt.x = p1->x + p2->x;
+    else
+        pt.x = p1->x + p2->x * 0.5f;
+    
+    return pt;
+}
+
 t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
 {
     if(!x->b_drawing_id)
@@ -1527,20 +1572,20 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
             ////////////// TEXT ////////////////
             else if(gobj->e_type == E_GOBJ_TEXT)
             {
-                
-                sys_vgui("%s create text %d %d -text {%s} -anchor %s -justify %s -font {%s %d %s %s} -fill %s -width %d -tags { %s %s }\n",
+                char text[256];
+                stringifyJustification(gobj->e_justify, text);
+                const t_pt np = recomputeRectangle(gobj->e_justify, gobj->e_points, gobj->e_points+1);
+                sys_vgui("%s create text %d %d -text {%s} %s -font {%s %d %s %s} -fill %s -width %d -tags { %s %s }\n",
                          x->b_drawing_id->s_name,
-                         (int)(gobj->e_points[0].x + x_p + bdsize),
-                         (int)(gobj->e_points[0].y + y_p + bdsize),
+                         (int)(np.x + x_p + bdsize),
+                         (int)(np.y + y_p + bdsize),
                          gobj->e_text->s_name,
-                         gobj->e_anchor->s_name,
-                         gobj->e_justify->s_name,
+                         text,
                          gobj->e_font.c_family->s_name, (int)gobj->e_font.c_size, gobj->e_font.c_weight->s_name, gobj->e_font.c_slant->s_name,
                          rgba_to_hex(&gobj->e_color),
                          (int)(gobj->e_points[1].x),
                          g->e_id->s_name,
                          x->b_all_id->s_name);
-                
             }
             else
             {

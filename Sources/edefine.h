@@ -143,25 +143,6 @@ typedef enum elayer_flags
 } elayer_flags;
 
 /**
- * @enum etextanchor_flags
- * @brief The flags that defines the text anchor.
- * @details It define all text anchor.
- */
-typedef enum etextanchor_flags
-{
-    ETEXT_UP            = 0, /*!< Up and center. */
-    ETEXT_UP_LEFT       = 1, /*!< Up anfd left. */
-    ETEXT_UP_RIGHT      = 2, /*!< Up anfd right. */
-    ETEXT_DOWN          = 3, /*!< Down and center. */
-    ETEXT_DOWN_LEFT     = 4, /*!< Down anfd left. */
-    ETEXT_DOWN_RIGHT    = 5, /*!< Down anfd right. */
-    ETEXT_LEFT          = 6, /*!< Left. */
-    ETEXT_RIGHT         = 7, /*!< Right. */
-    ETEXT_CENTER        = 8  /*!< Center. */
-    
-} etextanchor_flags;
-
-/**
  * @enum etextwrap_flags
  * @brief The flags that defines if the text should be wrapped.
  * @details It define true or false.
@@ -179,9 +160,23 @@ typedef enum etextwrap_flags
  */
 typedef enum etextjustify_flags
 {
-    ETEXT_JLEFT    = 0, /*!< Left. */
-    ETEXT_JRIGHT   = 1, /*!< Right. */
-    ETEXT_JCENTER  = 2  /*!< Center. */
+    ETEXT_LEFT                      = 1,
+    ETEXT_RIGHT                     = 2,
+    ETEXT_HORINTALLYCENTRED         = 4,
+    ETEXT_TOP                       = 8,
+    ETEXT_TOPLEFT                   = 9,
+    ETEXT_TOPRIGHT                  = 10,
+    ETEXT_CENTREDTOP                = 12,
+    ETEXT_BOTTOM                    = 16,
+    ETEXT_BOTTOMLEFT                = 17,
+    ETEXT_BOTTOMRIGHT               = 18,
+    ETEXT_CENTREDBOTTOM             = 20,
+    ETEXT_VERTICALLYCENTRER         = 32,
+    ETEXT_CENTREDLEFT               = 33,
+    ETEXT_CENTREDRIGHT              = 34,
+    ETEXT_CENTRED                   = 36,
+    horizontallyJustified           = 64
+    
 } etextjustify_flags;
 
 /**
@@ -340,12 +335,12 @@ typedef struct t_efont
  */
 typedef struct t_etext
 {
-    t_symbol*       c_text;     /*!< The text. */
+    char*           c_text;     /*!< The text. */
+    char            c_wrap;     /*!< If the text should be wrapped. */
     t_rgba          c_color;    /*!< The color of the text. */
     t_efont         c_font;     /*!< The font of the text. */
     t_rect          c_rect;     /*!< The rectangle of the text. */
-    t_symbol*       c_anchor;   /*!< The anchor of the text. */
-    t_symbol*       c_justify;  /*!< The justification of the text. */
+    int             c_justify;  /*!< The justification of the graphical object. */
 } t_etext;
 
 /**
@@ -363,8 +358,7 @@ typedef struct t_egobj
     int             e_npoints;      /*!< The number of points of the graphical object. */
     int             e_rspace;       /*!< The real number of points of the graphical object. */
     t_efont         e_font;         /*!< The font of the graphical object. */
-    t_symbol*       e_anchor;       /*!< The anchor of the graphical object. */
-    t_symbol*       e_justify;      /*!< The justification of the graphical object. */
+    int             e_justify;      /*!< The justification of the graphical object. */
     t_symbol*       e_text;         /*!< The text of the graphical object. */
     
 } t_egobj;
