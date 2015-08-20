@@ -47,9 +47,9 @@ void ebox_new(t_ebox *x, long flags)
     x->b_number_of_layers   = 0;
     x->b_layers             = NULL;
     x->b_window_id          = NULL;
-    x->b_receive_id         = s_null;
-    x->b_send_id            = s_null;
-    x->b_objpreset_id       = s_null;
+    x->b_receive_id         = NULL;
+    x->b_send_id            = NULL;
+    x->b_objpreset_id       = NULL;
     x->b_visible            = 1;
     eobj_getclass(x)->c_widget.w_dosave = (t_typ_method)ebox_dosave;
     ebox_attrprocess_default(x);
@@ -892,23 +892,26 @@ t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
     t_symbol* sname;
     if(argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null)
     {
-        if(x->b_receive_id != s_null)
+        if(x->b_receive_id && x->b_receive_id != s_null)
         {
             sname = canvas_realizedollar(eobj_getcanvas(x), x->b_receive_id);
             pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
         }
         x->b_receive_id = atom_getsymbol(argv);
-        sname = canvas_realizedollar(eobj_getcanvas(x), x->b_receive_id);
-        pd_bind(&x->b_obj.o_obj.ob_pd, sname);
+        if(x->b_receive_id)
+        {
+            sname = canvas_realizedollar(eobj_getcanvas(x), x->b_receive_id);
+            pd_bind(&x->b_obj.o_obj.ob_pd, sname);
+        }
     }
     else
     {
-        if(x->b_receive_id != s_null)
+        if(x->b_receive_id && x->b_receive_id != s_null)
         {
             sname = canvas_realizedollar(eobj_getcanvas(x), x->b_receive_id);
             pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
         }
-        x->b_receive_id = s_null;
+        x->b_receive_id = NULL;
     }
     return 0;
 }
