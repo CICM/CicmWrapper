@@ -137,7 +137,7 @@ void etext_layout_draw(t_etext* textlayout, t_elayer *g)
         g->e_number_objects++;
         
         g->e_objects[index].e_type      = E_GOBJ_TEXT;
-        g->e_objects[index].e_npoints   = 1;
+        g->e_objects[index].e_npoints   = 2;
         g->e_objects[index].e_points    = (t_pt*)malloc(2 * sizeof(t_pt));
         if(g->e_objects[index].e_points)
         {
@@ -310,7 +310,7 @@ void egraphics_rectangle(t_elayer *g, float x, float y, float width, float heigh
         egraphics_line_to(g, x + width, y);
         egraphics_line_to(g, x + width, y + height);
         egraphics_line_to(g, x, y + height);
-        egraphics_line_to(g, x, y);
+        egraphics_line_to(g, x, y - g->e_line_width * 0.5f);
     }
 }
 
