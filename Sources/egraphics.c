@@ -79,6 +79,7 @@ static void egraphics_paint(t_elayer *g, int filled, int preserved)
             nobj->e_type      = g->e_new_objects.e_type;
             nobj->e_npoints   = g->e_new_objects.e_npoints;
             nobj->e_points = (t_pt*)malloc((size_t)nobj->e_npoints * sizeof(t_pt));
+            nobj->e_text = NULL;
             if(!nobj->e_points)
             {
                 nobj->e_npoints = 0;
