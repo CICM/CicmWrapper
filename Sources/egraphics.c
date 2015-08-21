@@ -128,7 +128,7 @@ void egraphics_stroke(t_elayer *g)
 void etext_layout_draw(t_etext* textlayout, t_elayer *g)
 {
     t_egobj *temp;
-    long index; size_t size;
+    long index;
     temp = (t_egobj *)realloc(g->e_objects, (size_t)(g->e_number_objects + 1) * sizeof(t_egobj));
     if(temp)
     {
@@ -137,15 +137,14 @@ void etext_layout_draw(t_etext* textlayout, t_elayer *g)
         g->e_number_objects++;
         
         g->e_objects[index].e_type      = E_GOBJ_TEXT;
-        size = strlen(textlayout->c_text);
-        g->e_objects[index].e_text      = malloc(size * sizeof(char));
+        g->e_objects[index].e_text      = malloc(MAXPDSTRING * sizeof(char));
         if(g->e_objects[index].e_text)
         {
             g->e_objects[index].e_npoints   = 2;
             g->e_objects[index].e_points    = (t_pt*)malloc(2 * sizeof(t_pt));
             if(g->e_objects[index].e_points)
             {
-                strncpy(g->e_objects[index].e_text, textlayout->c_text, size);
+                memcpy(g->e_objects[index].e_text, textlayout->c_text, MAXPDSTRING * sizeof(char));
                 g->e_objects[index].e_points[0].x = textlayout->c_rect.x;
                 g->e_objects[index].e_points[0].y = textlayout->c_rect.y;
                 g->e_objects[index].e_points[1].x = textlayout->c_rect.width;
@@ -972,6 +971,7 @@ t_etext* etext_layout_create(void)
         new_text_layout->c_text = (char *)malloc(MAXPDSTRING * sizeof(char));
         if(new_text_layout->c_text)
         {
+            memset(new_text_layout->c_text, 0, MAXPDSTRING * sizeof(char));
             new_text_layout->c_color.red = 0.;
             new_text_layout->c_color.green = 0.;
             new_text_layout->c_color.blue = 0.;
@@ -998,7 +998,6 @@ void etext_layout_set(t_etext* textlayout, const char* text, t_efont *font,  flo
     textlayout->c_rect.height = (float)height;
     textlayout->c_wrap = wrap;
     textlayout->c_justify = justify;
-    
 }
 
 void etext_layout_settextcolor(t_etext* textlayout, t_rgba* color)

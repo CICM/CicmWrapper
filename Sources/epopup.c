@@ -119,12 +119,11 @@ static void etexteditor_text(t_etexteditor* x, t_symbol* s, int argc, t_atom* ar
         atom_string(argv+argc-2, text, MAXPDSTRING);
         strncat(x->c_text, text, MAXPDSTRING);
     }
-    if(argc && atom_gettype(argv+argc-1) == A_FLOAT)
+    if(argc && atom_gettype(argv+argc-1) == A_FLOAT && isalnum((char)atom_getfloat(argv+argc-1)))
     {
         sprintf(text, "%c", (char)atom_getfloat(argv+argc-1));
         strncat(x->c_text, text, MAXPDSTRING);
     }
-    post(x->c_text);
 }
 
 static t_class* etexteditor_setup()
@@ -257,7 +256,7 @@ void etexteditor_gettext(t_etexteditor *editor, char** text)
 
 void etexteditor_clear(t_etexteditor* editor)
 {
-    sys_vgui("%s delete 0 end\n", editor->c_name->s_name);
+    sys_vgui("%s delete 0.0 end\n", editor->c_name->s_name);
 }
 
 void etexteditor_setfont(t_etexteditor *editor, t_efont const* font)
