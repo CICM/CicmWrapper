@@ -61,41 +61,87 @@ void epopupmenu_popup(t_epopup* popup, t_pt pos)
     sys_vgui(".eboxpopup%s post %i %i\n", popup->c_name->s_name, (int)pos.x, (int)pos.y);
 }
 
+static void etexteditor_text(t_etexteditor* x, t_symbol* s, int argc, t_atom* argv)
+{
+    int i, lenght;
+    char text[MAXPDSTRING];
+    if(!x->c_text || !x->c_size)
+    {
+        
+    }
+    for(i = 0; i < argc; i++)
+    {
+        atom_string(argv+i, text, MAXPDSTRING);
+        lenght = (int)strlen(text);
+        
+    }
+}
+
+static t_class* etexteditor_setup()
+{
+    t_class* etexteditor_class = NULL;
+    t_symbol* etexteditor1572_sym = gensym("etexteditor1572");
+    if(!etexteditor1572_sym->s_thing)
+    {
+        etexteditor_class = class_new(gensym("etexteditor"), NULL, (t_method)NULL, sizeof(t_etexteditor), CLASS_PD, A_GIMME, 0);
+        etexteditor1572_sym->s_thing = (t_class **)etexteditor_class;
+        class_addmethod(etexteditor_class, (t_method)etexteditor_text, gensym("text"), A_GIMME, 0);
+        return etexteditor_class;
+    }
+    else
+    {
+        return (t_class *)etexteditor1572_sym->s_thing;
+    }
+}
+
 t_etexteditor* etexteditor_create(t_eobj* x, t_symbol* name)
 {
     char buffer[MAXPDSTRING];
-    t_etexteditor* editor = (t_etexteditor *)malloc(sizeof(t_etexteditor));
-    if(editor)
+    t_class* c = etexteditor_setup();
+    if(c)
     {
-        t_canvas* canvas = eobj_getcanvas(x);
-        sprintf(buffer,".x%lx.c", (long unsigned int)canvas);
-        editor->c_canvas_id = gensym(buffer);
-        sprintf(buffer,"%s.frame%lx", editor->c_canvas_id->s_name, (long unsigned int)editor);
-        editor->c_frame_id = gensym(buffer);
-        sprintf(buffer, "%s.text%lx", editor->c_frame_id->s_name, (long unsigned int)x);
-        editor->c_name = gensym(buffer);
-        sprintf(buffer, "%s.window%lx", editor->c_canvas_id->s_name, (long unsigned int)x);
-        editor->c_window_id = gensym(buffer);
-        
-        editor->c_send = x->o_id;
-        editor->c_owner = x;
-        
-        sys_vgui("destroy %s\n", editor->c_frame_id->s_name);
-        sys_vgui("destroy %s\n", editor->c_name->s_name);
-        sys_vgui("%s delete %s\n", editor->c_canvas_id->s_name, editor->c_window_id->s_name);
-        
-        sys_vgui("frame %s -borderwidth 0.0 -highlightthickness 0 \n", editor->c_frame_id->s_name);
-        sys_vgui("text %s -borderwidth 0.0 -highlightthickness 0 -insertborderwidth 0\n", editor->c_name->s_name);
-        sys_vgui("pack %s -side left -fill both -expand 1 \n", editor->c_name->s_name);
-        sys_vgui("pack %s -side bottom -fill both -expand 1 \n", editor->c_frame_id->s_name);
+        t_etexteditor* editor = (t_etexteditor *)pd_new(c);
+        if(editor)
+        {
+            t_canvas* canvas = eobj_getcanvas(x);
+            sprintf(buffer,".x%lx.c", (long unsigned int)canvas);
+            editor->c_canvas_id = gensym(buffer);
+            sprintf(buffer,"%s.frame%lx", editor->c_canvas_id->s_name, (long unsigned int)editor);
+            editor->c_frame_id = gensym(buffer);
+            sprintf(buffer, "%s.text%lx", editor->c_frame_id->s_name, (long unsigned int)editor);
+            editor->c_name = gensym(buffer);
+            sprintf(buffer, "%s.window%lx", editor->c_canvas_id->s_name, (long unsigned int)editor);
+            editor->c_window_id = gensym(buffer);
+            
+            editor->c_send = x->o_id;
+            editor->c_owner = x;
+            editor->c_text = NULL;
+            editor->c_size = 0;
+            sprintf(buffer, "texteditor%lx", (long unsigned int)editor);
+            pd_bind((t_pd *)editor, gensym(buffer));
+            
+            sys_vgui("destroy %s\n", editor->c_frame_id->s_name);
+            sys_vgui("destroy %s\n", editor->c_name->s_name);
+            sys_vgui("%s delete %s\n", editor->c_canvas_id->s_name, editor->c_window_id->s_name);
+            
+            sys_vgui("frame %s -borderwidth 0.0 -highlightthickness 0 \n", editor->c_frame_id->s_name);
+            sys_vgui("text %s -borderwidth 0.0 -highlightthickness 0 -insertborderwidth 0\n", editor->c_name->s_name);
+            sys_vgui("pack %s -side left -fill both -expand 1 \n", editor->c_name->s_name);
+            sys_vgui("pack %s -side bottom -fill both -expand 1 \n", editor->c_frame_id->s_name);
+        }
+        return editor;
     }
-    return editor;
+    
+    return NULL;
 }
 
 void etexteditor_destroy(t_etexteditor* editor)
 {
+    char buffer[MAXPDSTRING];
     if(editor)
     {
+        sprintf(buffer, "texteditor%lx", (long unsigned int)editor);
+        pd_unbind((t_pd *)editor, gensym(buffer));
         sys_vgui("destroy %s\n", editor->c_frame_id->s_name);
         sys_vgui("destroy %s\n", editor->c_name->s_name);
         sys_vgui("%s delete %s\n", editor->c_canvas_id->s_name, editor->c_window_id->s_name);
@@ -106,6 +152,11 @@ void etexteditor_destroy(t_etexteditor* editor)
 void etexteditor_settext(t_etexteditor* editor, const char* text)
 {
     sys_vgui("%s insert 0.0 %s\n", editor->c_name->s_name, text);
+}
+
+void etexteditor_gettext(t_etexteditor *editor, char* text)
+{
+    
 }
 
 void etexteditor_clear(t_etexteditor* editor)
@@ -143,16 +194,19 @@ void etexteditor_setwrap(t_etexteditor *editor, char wrap)
 
 void etexteditor_popup(t_etexteditor *editor, t_rect const* bounds)
 {
-    sys_vgui("bind %s <KeyPress> {+pdsend {%s texteditor_keypress %ld %%k}}\n",
-             editor->c_name->s_name, editor->c_owner->o_id->s_name, (int unsigned long)editor);
+    char buffer[MAXPDSTRING];
+    sprintf(buffer, "texteditor%lx", (long unsigned int)editor);
     
-    sys_vgui("bind %s <Escape> {+pdsend {%s texteditor_keyfilter 0}}\n",
+    sys_vgui("bind %s <KeyPress> {etext_sendtext %s %s %s %ld %%k}\n",
+             editor->c_name->s_name, editor->c_name->s_name, buffer, editor->c_owner->o_id->s_name, (int unsigned long)editor);
+    
+    sys_vgui("bind %s <Escape> {+pdsend {%s texteditor_keyfilter %ld 0}}\n",
              editor->c_name->s_name, editor->c_owner->o_id->s_name, (int unsigned long)editor);
-    sys_vgui("bind %s <Tab> {+pdsend {%s texteditor_keyfilter 1}}\n",
+    sys_vgui("bind %s <Tab> {+pdsend {%s texteditor_keyfilter %ld 1}}\n",
              editor->c_name->s_name, editor->c_owner->o_id->s_name, (int unsigned long)editor);
-    sys_vgui("bind %s <Return> {+pdsend {%s texteditor_keyfilter 2}}\n",
+    sys_vgui("bind %s <Return> {+pdsend {%s texteditor_keyfilter %ld 2}}\n",
              editor->c_name->s_name, editor->c_owner->o_id->s_name, (int unsigned long)editor);
-    sys_vgui("bind %s <Delete> {+pdsend {%s texteditor_keyfilter 3}}\n",
+    sys_vgui("bind %s <Delete> {+pdsend {%s texteditor_keyfilter %ld 3}}\n",
              editor->c_name->s_name, editor->c_owner->o_id->s_name, (int unsigned long)editor);
     
     sys_vgui("%s create window %d %d -anchor nw -window %s    \
@@ -164,7 +218,6 @@ void etexteditor_popup(t_etexteditor *editor, t_rect const* bounds)
     
     sys_vgui("focus -force %s\n", editor->c_name->s_name);
 }
-
 
 
 

@@ -453,6 +453,8 @@ typedef struct t_ewidget
     t_err_method    w_notify;               /*!< The notification method. */
     t_typ_method    w_write;                /*!< The write to file method. */
     t_typ_method    w_read;                 /*!< The read from file method. */
+    t_typ_method    w_texteditor_keypress;  /*!< The write to file method. */
+    t_typ_method    w_texteditor_keyfilter; /*!< The read from file method. */
 } t_ewidget;
 
 /**
@@ -802,6 +804,8 @@ typedef struct t_etexteditor
     t_symbol*   c_window_id;
     t_symbol*   c_name;
     t_symbol*   c_send;
+    char*       c_text;
+    int         c_size;
 }t_etexteditor;
 
 

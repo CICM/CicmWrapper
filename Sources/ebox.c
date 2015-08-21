@@ -1060,6 +1060,30 @@ t_pd_err ebox_size_set(t_ebox *x, t_object *attr, int argc, t_atom *argv)
     return 0;
 }
 
+void ebox_texteditor_keypress(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
+{
+    const t_eclass* c = eobj_getclass(x);
+    if(c && c->c_widget.w_texteditor_keypress &&
+       argc > 1 && argc && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT)
+    {
+        c->c_widget.w_texteditor_keypress(x,
+                                           (t_etexteditor *)((long unsigned int)(atom_getfloat(argv))),
+                                           (int)atom_getfloat(argv + 1));
+    }
+}
+
+void ebox_texteditor_keyfilter(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
+{
+    const t_eclass* c = eobj_getclass(x);
+    if(c && c->c_widget.w_texteditor_keyfilter &&
+       argc > 1 && argc && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT)
+    {
+        c->c_widget.w_texteditor_keyfilter(x,
+                                           (t_etexteditor *)((long unsigned int)(atom_getfloat(argv))),
+                                           (int)atom_getfloat(argv + 1));
+    }
+}
+
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
     t_eclass* c = eobj_getclass(x);

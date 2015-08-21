@@ -130,6 +130,13 @@ void epd_init(void)
         sys_gui("return #$col\n");
         sys_gui("}\n");
         
+        // SEND TEXTFIELD TEXT //
+        sys_gui("proc etext_sendtext {widget name owner adress key} { \n");
+        sys_gui("set text [$widget get 1.0 end]\n");
+        sys_gui("pdsend \"$name text $text\"\n");
+        sys_gui("pdsend \"$owner texteditor_keypress $adress $key\"\n");
+        sys_gui("}\n");
+        
         epd_symbol->s_thing = (t_class **)1;
     }
 }

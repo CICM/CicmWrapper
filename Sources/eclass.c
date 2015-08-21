@@ -123,6 +123,12 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_CATEGORY		(c, "send", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "send", 0, "Send Symbol");
     
+    if(flags & EBOX_TEXTFIELD)
+    {
+        class_addmethod((t_class *)c, (t_method)ebox_texteditor_keypress, gensym("texteditor_keypress"), A_GIMME, 0);
+        class_addmethod((t_class *)c, (t_method)ebox_texteditor_keyfilter, gensym("texteditor_keyfilter"), A_GIMME, 0);
+    }
+    
     // GUI always need this methods //
     class_addmethod((t_class *)c, (t_method)ebox_attrprint,         gensym("attrprint"),    A_NULL,  0);
     class_addmethod((t_class *)c, (t_method)ebox_dialog,            gensym("dialog"),       A_GIMME, 0);
@@ -288,6 +294,14 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
         class_addmethod((t_class *)c, (t_method)eobj_read, gensym(name), type, 0);
         class_addmethod((t_class *)c, (t_method)eobj_read, gensym("eobjreadfrom"), type, 0);
         c->c_widget.w_read = m;
+    }
+    else if(gensym(name) == gensym("texteditor_keypress"))
+    {
+        c->c_widget.w_texteditor_keypress = m;
+    }
+    else if(gensym(name) == gensym("texteditor_keyfilter"))
+    {
+        c->c_widget.w_texteditor_keyfilter = m;
     }
     else
     {
@@ -860,6 +874,8 @@ static void ewidget_init(t_eclass* c)
     c->c_widget.w_oksize            = NULL;
     c->c_widget.w_write             = NULL;
     c->c_widget.w_read              = NULL;
+    c->c_widget.w_texteditor_keypress = NULL;
+    c->c_widget.w_texteditor_keyfilter= NULL;
 }
 
 //! Initialize the tcl/tk properties dialog window functions // PRIVATE

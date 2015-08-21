@@ -149,6 +149,14 @@ void etexteditor_setwrap(t_etexteditor *editor, char wrap);
  */
 void etexteditor_popup(t_etexteditor *editor, t_rect const* bounds);
 
+/*!
+ * \fn          void etexteditor_gettext(t_etexteditor *editor, char* text)
+ * \brief        Retrieves the text of the text editor.
+ * \param editor The t_etexteditor pointer.
+ * \param text   The text to fill.
+ */
+void etexteditor_gettext(t_etexteditor *editor, char* text);
+
 
 /** @} */
 
