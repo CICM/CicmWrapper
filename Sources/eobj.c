@@ -38,7 +38,9 @@ void *eobj_new(t_eclass *c)
             sprintf(buffer,"#%s%lx", c->c_class.c_name->s_name, (long unsigned int)x);
             x->o_id = gensym(buffer);
             pd_bind(&x->o_obj.ob_pd, x->o_id);
-            sprintf(buffer,".x%lx.c", (long unsigned int)x->o_canvas);
+            sprintf(buffer, "%ldcamo", (long unsigned int)x);
+            x->o_camo_id = gensym(buffer);
+            
             c->c_widget.w_dosave = (t_typ_method)eobj_dosave;
         }
         else

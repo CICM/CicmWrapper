@@ -1264,18 +1264,15 @@ void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
 
 void ebox_redraw(t_ebox *x)
 {
-    char name[MAXPDSTRING];
-    sprintf(name, "%ldcamo", (unsigned long)x);
     if(ebox_isdrawable(x) && x->b_have_window)
     {
         ebox_invalidate_layer(x, s_cream_eboxbd);
         ebox_invalidate_layer(x, s_cream_eboxio);
         ebox_paint(x);
     }
-    t_symbol* s = gensym(name);
-    if(s->s_thing)
+    if(x->b_obj.o_camo_id->s_thing)
     {
-        pd_symbol(s->s_thing, gensym("redraw"));
+        pd_symbol(x->b_obj.o_camo_id->s_thing, s_cream_repaint);
     }
 }
 

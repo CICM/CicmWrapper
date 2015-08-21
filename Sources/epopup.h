@@ -163,6 +163,17 @@ void etexteditor_popup(t_etexteditor *editor, t_rect const* bounds);
  */
 void etexteditor_grabfocus(t_etexteditor *editor);
 
+//! @cond
+
+/*!
+ * \fn          t_etexteditor* etexteditor_getfromsymbol(t_symbol* name)
+ * \brief       Retrieves a texteditor from a symbol.
+ * \param name  The binding symbol of the texteditor.
+ */
+t_etexteditor* etexteditor_getfromsymbol(t_symbol* name);
+
+//! @endcond
+
 
 /** @} */
 

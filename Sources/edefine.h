@@ -82,6 +82,10 @@ extern t_symbol* s_cream_attr_modified;
 extern t_symbol* s_cream_eboxbd;
 //! The pre-defined eboxio t_symbol*
 extern t_symbol* s_cream_eboxio;
+//! The pre-defined texteditor t_symbol*
+extern t_symbol* s_cream_texteditor;
+//! The pre-defined repaint t_symbol*
+extern t_symbol* s_cream_repaint;
 //! The pre-defined size t_symbol*
 extern t_symbol* s_size;
 //! The pre-defined int t_symbol*
@@ -541,6 +545,7 @@ typedef struct t_eobj
     t_eproxy**          o_proxy;            /*!< The array of proxy inlets. */
     int                 o_nproxy;           /*!< The number of proxy inlets. */
     int                 o_current_proxy;    /*!< The index of the current proxy inlet used */
+    t_symbol*           o_camo_id;          /*!< The camomile ID. */
 }t_eobj;
 
 /** @} */
@@ -799,6 +804,7 @@ typedef struct t_etexteditor
 {
     t_object    c_obj;
     t_eobj*     c_owner;
+    t_symbol*   c_editor_id;
     t_symbol*   c_canvas_id;
     t_symbol*   c_frame_id;
     t_symbol*   c_window_id;
@@ -806,7 +812,33 @@ typedef struct t_etexteditor
     t_symbol*   c_send;
     char*       c_text;
     int         c_size;
+    t_efont     c_font;
+    t_rgba      c_bgcolor;
+    t_rgba      c_txtcolor;
+    char        c_wrap;
+    t_rect      c_bounds;
 }t_etexteditor;
+
+/**
+ * @enum ewidget_action
+ * @brief The actions on a widgets.
+ * @details It define all the available actions for widgets.
+ */
+typedef enum
+{
+    EWIDGET_CREATE      = 0, /*!< The creation. */
+    EWIDGET_DESTROY     = 1, /*!< The destruction. */
+    EWIDGET_SETTEXT     = 2, /*!< The set text action. */
+    EWIDGET_GETTEXT     = 3, /*!< The get text action. */
+    EWIDGET_CLEAR       = 4, /*!< The clearing. */
+    EWIDGET_SETFONT     = 5, /*!< The set font action. */
+    EWIDGET_SETBGCOLOR  = 6, /*!< The set background color action. */
+    EWIDGET_SETTXTCOLOR = 7, /*!< The set text color action. */
+    EWIDGET_WRAPMODE    = 8, /*!< The set wrap mode action. */
+    EWIDGET_POPUP       = 9, /*!< The popup action. */
+    EWIDGET_GRABFOCUS   = 10,/*!< The grab focus action. */
+    
+} ewidget_action;
 
 
 

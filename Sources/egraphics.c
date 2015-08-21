@@ -158,12 +158,14 @@ void etext_layout_draw(t_etext* textlayout, t_elayer *g)
             else
             {
                 free(g->e_objects[index].e_text);
+                g->e_objects[index].e_text = NULL;
                 g->e_objects[index].e_npoints = 0;
                 g->e_objects[index].e_type = E_GOBJ_INVALID;
             }
         }
         else
         {
+            g->e_objects[index].e_text = NULL;
             g->e_objects[index].e_npoints = 0;
             g->e_objects[index].e_type = E_GOBJ_INVALID;
         }

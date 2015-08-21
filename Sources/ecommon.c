@@ -18,6 +18,8 @@ t_symbol* s_cream_obj;
 t_symbol* s_cream_attr_modified;
 t_symbol* s_cream_eboxbd;
 t_symbol* s_cream_eboxio;
+t_symbol* s_cream_texteditor;
+t_symbol* s_cream_repaint;
 t_symbol* s_size;
 t_symbol* s_pinned;
 t_symbol* s_iscicm;
@@ -41,6 +43,8 @@ void epd_init(void)
     s_cream_attr_modified = gensym("attr_modified");
     s_cream_eboxbd        = gensym("eboxbd");
     s_cream_eboxio        = gensym("eboxio");
+    s_cream_texteditor    = gensym("texteditor");
+    s_cream_repaint       = gensym("repaint");
     s_size          = gensym("size");
     s_int           = gensym("int");
     s_long          = gensym("long");
