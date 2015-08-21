@@ -1314,7 +1314,7 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
                     }
                     graphic->e_objects[j].e_points = NULL;
                     graphic->e_objects[j].e_npoints = 0;
-                    if(graphic->e_objects[j].e_text)
+                    if(graphic->e_objects[j].e_type == E_GOBJ_TEXT && graphic->e_objects[j].e_text)
                     {
                         free(graphic->e_objects[j].e_text);
                     }
@@ -1365,11 +1365,11 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
         graphic->e_rect.width   = (float)pd_clip_min(width, 0.);
 
         graphic->e_number_objects  = 0;
+        graphic->e_objects      = NULL;
         graphic->e_new_objects.e_points = NULL;
         graphic->e_new_objects.e_npoints = 0;
         graphic->e_new_objects.e_rspace = 0;
-        graphic->e_objects      = NULL;
-
+    
         graphic->e_state        = EGRAPHICS_OPEN;
         graphic->e_name         = name;
         sprintf(text, "%s%ld", name->s_name, (long)x);
