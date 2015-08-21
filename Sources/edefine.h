@@ -803,7 +803,7 @@ typedef struct _preset
 typedef struct t_etexteditor
 {
     t_object    c_obj;
-    t_eobj*     c_owner;
+    t_ebox*     c_owner;
     t_symbol*   c_editor_id;
     t_symbol*   c_canvas_id;
     t_symbol*   c_frame_id;

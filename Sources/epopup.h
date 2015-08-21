@@ -79,11 +79,11 @@ void epopupmenu_popup(t_epopup *popup, t_pt pos);
  * \fn          t_etexteditor* etexteditor_create(t_eobj* x, t_symbol* name)
  * \brief       The t_etexteditor creation function.
  * \details     Allocates the memory for a t_etexteditor, intialize the defaults values and link it to the t_eobj.
- * \param x     The t_eobj pointer.
+ * \param x     The t_ebox pointer.
  * \param name  The name of the t_etexteditor.
  * \return      This function returns a pointer to a new t_etexteditor.
  */
-t_etexteditor* etexteditor_create(t_eobj* x, t_symbol* name);
+t_etexteditor* etexteditor_create(t_ebox* x, t_symbol* name);
 
 /*!
  * \fn          void etexteditor_destroy(t_etexteditor* editor)

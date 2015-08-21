@@ -143,7 +143,7 @@ static t_class* etexteditor_setup()
     }
 }
 
-t_etexteditor* etexteditor_create(t_eobj* x, t_symbol* name)
+t_etexteditor* etexteditor_create(t_ebox* x, t_symbol* name)
 {
     t_atom av[2];
     char buffer[MAXPDSTRING];
@@ -166,7 +166,7 @@ t_etexteditor* etexteditor_create(t_eobj* x, t_symbol* name)
             sprintf(buffer, "%s.window%lx", editor->c_canvas_id->s_name, (long unsigned int)editor);
             editor->c_window_id = gensym(buffer);
             
-            editor->c_send = x->o_id;
+            editor->c_send = x->b_obj.o_id;
             editor->c_owner = x;
             editor->c_text = NULL;
             editor->c_size = 0;
@@ -190,11 +190,11 @@ t_etexteditor* etexteditor_create(t_eobj* x, t_symbol* name)
             sys_vgui("text %s -borderwidth 0.0 -highlightthickness 0 -insertborderwidth 0\n", editor->c_name->s_name);
             sys_vgui("pack %s -side left -fill both -expand 1 \n", editor->c_name->s_name);
             sys_vgui("pack %s -side bottom -fill both -expand 1 \n", editor->c_frame_id->s_name);
-            if(x->o_camo_id->s_thing)
+            if(x->b_obj.o_camo_id->s_thing)
             {
                 atom_setsym(av, editor->c_editor_id);
                 atom_setfloat(av+1, (float)EWIDGET_CREATE);
-                pd_typedmess(x->o_camo_id->s_thing, s_cream_texteditor, 2, av);
+                pd_typedmess(x->b_obj.o_camo_id->s_thing, s_cream_texteditor, 2, av);
             }
         }
         return editor;
@@ -214,11 +214,11 @@ void etexteditor_destroy(t_etexteditor* editor)
         sys_vgui("destroy %s\n", editor->c_name->s_name);
         sys_vgui("%s delete %s\n", editor->c_canvas_id->s_name, editor->c_window_id->s_name);
         free(editor);
-        if(editor->c_owner->o_camo_id->s_thing)
+        if(editor->c_owner->b_obj.o_camo_id->s_thing)
         {
             atom_setsym(av, editor->c_editor_id);
             atom_setfloat(av+1, (float)EWIDGET_DESTROY);
-            pd_typedmess(editor->c_owner->o_camo_id->s_thing, s_cream_texteditor, 2, av);
+            pd_typedmess(editor->c_owner->b_obj.o_camo_id->s_thing, s_cream_texteditor, 2, av);
         }
     }
 }
@@ -257,11 +257,11 @@ void etexteditor_settext(t_etexteditor* editor, const char* text)
     }
     memcpy(editor->c_text, text, lenght * sizeof(char));
     
-    if(editor->c_owner->o_camo_id->s_thing)
+    if(editor->c_owner->b_obj.o_camo_id->s_thing)
     {
         atom_setsym(av, editor->c_editor_id);
         atom_setfloat(av+1, (float)EWIDGET_SETTEXT);
-        pd_typedmess(editor->c_owner->o_camo_id->s_thing, s_cream_texteditor, 2, av);
+        pd_typedmess(editor->c_owner->b_obj.o_camo_id->s_thing, s_cream_texteditor, 2, av);
     }
 }
 
@@ -287,11 +287,11 @@ void etexteditor_gettext(t_etexteditor *editor, char** text)
         *text[0] = '0';
     }
     
-    if(editor->c_owner->o_camo_id->s_thing)
+    if(editor->c_owner->b_obj.o_camo_id->s_thing)
     {
         atom_setsym(av, editor->c_editor_id);
         atom_setfloat(av+1, (float)EWIDGET_GETTEXT);
-        pd_typedmess(editor->c_owner->o_camo_id->s_thing, s_cream_texteditor, 2, av);
+        pd_typedmess(editor->c_owner->b_obj.o_camo_id->s_thing, s_cream_texteditor, 2, av);
     }
 }
 
@@ -300,11 +300,11 @@ void etexteditor_clear(t_etexteditor* editor)
     t_atom av[2];
     sys_vgui("%s delete 0.0 end\n", editor->c_name->s_name);
     
-    if(editor->c_owner->o_camo_id->s_thing)
+    if(editor->c_owner->b_obj.o_camo_id->s_thing)
     {
         atom_setsym(av, editor->c_editor_id);
         atom_setfloat(av+1, (float)EWIDGET_CLEAR);
-        pd_typedmess(editor->c_owner->o_camo_id->s_thing, s_cream_texteditor, 2, av);
+        pd_typedmess(editor->c_owner->b_obj.o_camo_id->s_thing, s_cream_texteditor, 2, av);
     }
 }
 
@@ -315,11 +315,11 @@ void etexteditor_setfont(t_etexteditor *editor, t_efont const* font)
              font->c_family->s_name, (int)font->c_size, font->c_weight->s_name, font->c_slant->s_name);
     
     memcpy(&editor->c_font, font, sizeof(t_efont));
-    if(editor->c_owner->o_camo_id->s_thing)
+    if(editor->c_owner->b_obj.o_camo_id->s_thing)
     {
         atom_setsym(av, editor->c_editor_id);
         atom_setfloat(av+1, (float)EWIDGET_SETFONT);
-        pd_typedmess(editor->c_owner->o_camo_id->s_thing, s_cream_texteditor, 2, av);
+        pd_typedmess(editor->c_owner->b_obj.o_camo_id->s_thing, s_cream_texteditor, 2, av);
     }
 }
 
@@ -329,11 +329,11 @@ void etexteditor_setbackgroundcolor(t_etexteditor *editor, t_rgba const* color)
     sys_vgui("%s configure -background %s\n", editor->c_name->s_name, rgba_to_hex(color));
     
     memcpy(&editor->c_bgcolor, color, sizeof(t_efont));
-    if(editor->c_owner->o_camo_id->s_thing)
+    if(editor->c_owner->b_obj.o_camo_id->s_thing)
     {
         atom_setsym(av, editor->c_editor_id);
         atom_setfloat(av+1, (float)EWIDGET_SETBGCOLOR);
-        pd_typedmess(editor->c_owner->o_camo_id->s_thing, s_cream_texteditor, 2, av);
+        pd_typedmess(editor->c_owner->b_obj.o_camo_id->s_thing, s_cream_texteditor, 2, av);
     }
 }
 
@@ -343,11 +343,11 @@ void etexteditor_settextcolor(t_etexteditor *editor, t_rgba const* color)
     sys_vgui("%s configure -foreground %s\n", editor->c_name->s_name, rgba_to_hex(color));
     
     memcpy(&editor->c_txtcolor, color, sizeof(t_efont));
-    if(editor->c_owner->o_camo_id->s_thing)
+    if(editor->c_owner->b_obj.o_camo_id->s_thing)
     {
         atom_setsym(av, editor->c_editor_id);
         atom_setfloat(av+1, (float)EWIDGET_SETTXTCOLOR);
-        pd_typedmess(editor->c_owner->o_camo_id->s_thing, s_cream_texteditor, 2, av);
+        pd_typedmess(editor->c_owner->b_obj.o_camo_id->s_thing, s_cream_texteditor, 2, av);
     }
 }
 
@@ -364,44 +364,46 @@ void etexteditor_setwrap(t_etexteditor *editor, char wrap)
     }
     
     editor->c_wrap = wrap;
-    if(editor->c_owner->o_camo_id->s_thing)
+    if(editor->c_owner->b_obj.o_camo_id->s_thing)
     {
         atom_setsym(av, editor->c_editor_id);
         atom_setfloat(av+1, (float)EWIDGET_WRAPMODE);
-        pd_typedmess(editor->c_owner->o_camo_id->s_thing, s_cream_texteditor, 2, av);
+        pd_typedmess(editor->c_owner->b_obj.o_camo_id->s_thing, s_cream_texteditor, 2, av);
     }
 }
 
 void etexteditor_popup(t_etexteditor *editor, t_rect const* bounds)
 {
     t_atom av[2];
+    t_rect rect;
+    ebox_get_rect_for_view(editor->c_owner, &rect);
     sys_vgui("bind %s <KeyPress> {etext_sendtext %s %s %s %ld %%k}\n",
              editor->c_name->s_name, editor->c_name->s_name,
-             editor->c_editor_id->s_name, editor->c_owner->o_id->s_name,
+             editor->c_editor_id->s_name, editor->c_owner->b_obj.o_id->s_name,
              (int unsigned long)editor);
     
     sys_vgui("bind %s <Escape> {+pdsend {%s texteditor_keyfilter %ld 0}}\n",
-             editor->c_name->s_name, editor->c_owner->o_id->s_name, (int unsigned long)editor);
+             editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, (int unsigned long)editor);
     sys_vgui("bind %s <Tab> {+pdsend {%s texteditor_keyfilter %ld 1}}\n",
-             editor->c_name->s_name, editor->c_owner->o_id->s_name, (int unsigned long)editor);
+             editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, (int unsigned long)editor);
     sys_vgui("bind %s <Return> {+pdsend {%s texteditor_keyfilter %ld 2}}\n",
-             editor->c_name->s_name, editor->c_owner->o_id->s_name, (int unsigned long)editor);
+             editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, (int unsigned long)editor);
     sys_vgui("bind %s <Delete> {+pdsend {%s texteditor_keyfilter %ld 3}}\n",
-             editor->c_name->s_name, editor->c_owner->o_id->s_name, (int unsigned long)editor);
+             editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, (int unsigned long)editor);
     
     sys_vgui("%s create window %d %d -anchor nw -window %s    \
              -tags %s -width %d -height %d \n",
              editor->c_canvas_id->s_name,
-             (int)bounds->x, (int)bounds->y,
+             (int)(bounds->x + rect.x), (int)(bounds->y + rect.y),
              editor->c_frame_id->s_name, editor->c_window_id->s_name,
              (int)bounds->width, (int)bounds->height);
     
     memcpy(&editor->c_bounds, bounds, sizeof(t_rect));
-    if(editor->c_owner->o_camo_id->s_thing)
+    if(editor->c_owner->b_obj.o_camo_id->s_thing)
     {
         atom_setsym(av, editor->c_editor_id);
         atom_setfloat(av+1, (float)EWIDGET_POPUP);
-        pd_typedmess(editor->c_owner->o_camo_id->s_thing, s_cream_texteditor, 2, av);
+        pd_typedmess(editor->c_owner->b_obj.o_camo_id->s_thing, s_cream_texteditor, 2, av);
     }
 }
 
@@ -410,11 +412,11 @@ void etexteditor_grabfocus(t_etexteditor *editor)
     t_atom av[2];
     sys_vgui("focus -force %s\n", editor->c_name->s_name);
     
-    if(editor->c_owner->o_camo_id->s_thing)
+    if(editor->c_owner->b_obj.o_camo_id->s_thing)
     {
         atom_setsym(av, editor->c_editor_id);
         atom_setfloat(av+1, (float)EWIDGET_GRABFOCUS);
-        pd_typedmess(editor->c_owner->o_camo_id->s_thing, s_cream_texteditor, 2, av);
+        pd_typedmess(editor->c_owner->b_obj.o_camo_id->s_thing, s_cream_texteditor, 2, av);
     }
 }
 
