@@ -87,6 +87,11 @@ void ebox_free(t_ebox* x)
     }
 }
 
+t_efont* ebox_getfont(t_ebox* x)
+{
+    return &x->b_font;
+}
+
 t_symbol* ebox_getfontname(t_ebox* x)
 {
     return x->b_font.c_family;
@@ -1288,6 +1293,11 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
                     }
                     graphic->e_objects[j].e_points = NULL;
                     graphic->e_objects[j].e_npoints = 0;
+                    if(graphic->e_objects[j].e_text)
+                    {
+                        free(graphic->e_objects[j].e_text);
+                    }
+                    graphic->e_objects[j].e_text = NULL;
                 }
                 if(graphic->e_objects)
                 {
@@ -1332,7 +1342,6 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
         graphic->e_rect.y       = 0.f;
         graphic->e_rect.height  = (float)pd_clip_min(height, 0.);
         graphic->e_rect.width   = (float)pd_clip_min(width, 0.);
-
 
         graphic->e_number_objects  = 0;
         graphic->e_new_objects.e_points = NULL;
@@ -1579,11 +1588,11 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                          x->b_drawing_id->s_name,
                          (int)(np.x + x_p + bdsize),
                          (int)(np.y + y_p + bdsize),
-                         gobj->e_text->s_name,
+                         gobj->e_text,
                          text,
                          gobj->e_font.c_family->s_name, (int)gobj->e_font.c_size, gobj->e_font.c_weight->s_name, gobj->e_font.c_slant->s_name,
                          rgba_to_hex(&gobj->e_color),
-                         (int)(gobj->e_points[1].x),
+                         (int)(gobj->e_points[1].x) * (int)gobj->e_wrap,
                          g->e_id->s_name,
                          x->b_all_id->s_name);
             }

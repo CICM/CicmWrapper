@@ -128,7 +128,7 @@ void egraphics_stroke(t_elayer *g)
 void etext_layout_draw(t_etext* textlayout, t_elayer *g)
 {
     t_egobj *temp;
-	long index;
+    long index; size_t size;
     temp = (t_egobj *)realloc(g->e_objects, (size_t)(g->e_number_objects + 1) * sizeof(t_egobj));
     if(temp)
     {
@@ -137,20 +137,30 @@ void etext_layout_draw(t_etext* textlayout, t_elayer *g)
         g->e_number_objects++;
         
         g->e_objects[index].e_type      = E_GOBJ_TEXT;
-        g->e_objects[index].e_npoints   = 2;
-        g->e_objects[index].e_points    = (t_pt*)malloc(2 * sizeof(t_pt));
-        if(g->e_objects[index].e_points)
+        size = strlen(textlayout->c_text);
+        g->e_objects[index].e_text      = malloc(size * sizeof(char));
+        if(g->e_objects[index].e_text)
         {
-            g->e_objects[index].e_points[0].x = textlayout->c_rect.x;
-            g->e_objects[index].e_points[0].y = textlayout->c_rect.y;
-            g->e_objects[index].e_points[1].x = textlayout->c_rect.width;
-            g->e_objects[index].e_points[1].y = textlayout->c_rect.height;
-            g->e_objects[index].e_color       = textlayout->c_color;
-            
-            g->e_objects[index].e_font        = textlayout->c_font;
-            g->e_objects[index].e_justify     = textlayout->c_justify;
-            g->e_objects[index].e_text        = gensym(textlayout->c_text);
-            egraphics_apply_matrix(g, g->e_objects+index);
+            g->e_objects[index].e_npoints   = 2;
+            g->e_objects[index].e_points    = (t_pt*)malloc(2 * sizeof(t_pt));
+            if(g->e_objects[index].e_points)
+            {
+                strncpy(g->e_objects[index].e_text, textlayout->c_text, size);
+                g->e_objects[index].e_points[0].x = textlayout->c_rect.x;
+                g->e_objects[index].e_points[0].y = textlayout->c_rect.y;
+                g->e_objects[index].e_points[1].x = textlayout->c_rect.width;
+                g->e_objects[index].e_points[1].y = textlayout->c_rect.height;
+                g->e_objects[index].e_color       = textlayout->c_color;
+                
+                g->e_objects[index].e_font        = textlayout->c_font;
+                g->e_objects[index].e_justify     = textlayout->c_justify;
+            }
+            else
+            {
+                free(g->e_objects[index].e_text);
+                g->e_objects[index].e_npoints = 0;
+                g->e_objects[index].e_type = E_GOBJ_INVALID;
+            }
         }
         else
         {

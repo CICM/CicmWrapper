@@ -53,6 +53,14 @@ void ebox_ready(t_ebox *x);
 void ebox_free(t_ebox* x);
 
 /*!
+ * \fn          t_efont* ebox_getfont(t_ebox* x)
+ * \brief       Retrieves the Font of the t_ebox.
+ * \param x     The t_ebox pointer.
+ * \return      The font.
+ */
+t_efont* ebox_getfont(t_ebox* x);
+
+/*!
  * \fn          t_symbol* ebox_getfontname(t_ebox* x)
  * \brief       Retrieves the name of the font of the t_ebox.
  * \param x     The t_ebox pointer.

@@ -359,8 +359,8 @@ typedef struct t_egobj
     int             e_rspace;       /*!< The real number of points of the graphical object. */
     t_efont         e_font;         /*!< The font of the graphical object. */
     int             e_justify;      /*!< The justification of the graphical object. */
-    t_symbol*       e_text;         /*!< The text of the graphical object. */
-    
+    char*           e_text;         /*!< The text of the graphical object. */
+    char            e_wrap;         /*!< If the text should be wrapped. */
 } t_egobj;
 
 /**
@@ -396,13 +396,14 @@ typedef struct t_elayer
 /**
  * @struct t_epopup
  * @brief The popup structure.
- * @details It contains the informations to show and retieve a popup.
+ * @details It contains the informations to show and retrieve a popup.
  */
 typedef struct t_epopup
 {
     t_symbol*   c_name; /*!< The name of the popup. */
     t_symbol*   c_send; /*!< The name of the owner. */
 }t_epopup;
+
 
 /** @} */
 
@@ -651,7 +652,8 @@ typedef enum
     EBOX_GROWNO          = (1<<4),    /*!< The width and the height can't be modified. */
     EBOX_GROWLINK        = (1<<5),    /*!< The width and the height are linked. */
     EBOX_GROWINDI        = (1<<6),    /*!< The width and the height are independant. */
-    EBOX_IGNORELOCKCLICK = (1<<7)     /*!< The t_ebox ignore the mouse events. */
+    EBOX_IGNORELOCKCLICK = (1<<7),    /*!< The t_ebox ignore the mouse events. */
+    EBOX_TEXTFIELD       = (1<<11)    /*!< The t_ebox supports text fields. */
 } ebox_flags;
 
 /**
@@ -785,6 +787,22 @@ typedef struct _preset
     int         p_natoms;
     t_atom*     p_atoms;
 } t_preset;
+
+/**
+ * @struct t_etexteditor
+ * @brief The text editor structure.
+ * @details It contains the informations to show and retrieve a popup.
+ */
+typedef struct t_etexteditor
+{
+    t_object    c_obj;
+    t_eobj*     c_owner;
+    t_symbol*   c_canvas_id;
+    t_symbol*   c_frame_id;
+    t_symbol*   c_window_id;
+    t_symbol*   c_name;
+    t_symbol*   c_send;
+}t_etexteditor;
 
 
 
