@@ -81,7 +81,6 @@ void epopupmenu_popup(t_epopup *popup, t_pt pos);
  * \details     Allocates the memory for a t_etexteditor, intialize the defaults values and link it to the t_eobj.
  * \param x     The t_eobj pointer.
  * \param name  The name of the t_etexteditor.
- * \param bounds The bounds of the t_etexteditor.
  * \return      This function returns a pointer to a new t_etexteditor.
  */
 t_etexteditor* etexteditor_create(t_eobj* x, t_symbol* name);
@@ -101,6 +100,14 @@ void etexteditor_destroy(t_etexteditor* editor);
  * \param text   The text to show.
  */
 void etexteditor_settext(t_etexteditor* editor, const char* text);
+
+/*!
+ * \fn          void etexteditor_gettext(t_etexteditor *editor, char* text)
+ * \brief        Retrieves the text of the text editor.
+ * \param editor The t_etexteditor pointer.
+ * \param text   The text to fill.
+ */
+void etexteditor_gettext(t_etexteditor *editor, char** text);
 
 /*!
  * \fn          void etexteditor_clear(t_etexteditor* editor)
@@ -150,12 +157,11 @@ void etexteditor_setwrap(t_etexteditor *editor, char wrap);
 void etexteditor_popup(t_etexteditor *editor, t_rect const* bounds);
 
 /*!
- * \fn          void etexteditor_gettext(t_etexteditor *editor, char* text)
- * \brief        Retrieves the text of the text editor.
+ * \fn          void etexteditor_grabfocus(t_etexteditor *editor)
+ * \brief        Forces the focus on the text editor.
  * \param editor The t_etexteditor pointer.
- * \param text   The text to fill.
  */
-void etexteditor_gettext(t_etexteditor *editor, char* text);
+void etexteditor_grabfocus(t_etexteditor *editor);
 
 
 /** @} */

@@ -63,18 +63,68 @@ void epopupmenu_popup(t_epopup* popup, t_pt pos)
 
 static void etexteditor_text(t_etexteditor* x, t_symbol* s, int argc, t_atom* argv)
 {
-    int i, lenght;
+    int i;
+    size_t lenght = 0;
+    char* temp;
     char text[MAXPDSTRING];
-    if(!x->c_text || !x->c_size)
+    if(!argc)
     {
-        
+        if(x->c_text || x->c_size)
+        {
+            memset(x->c_text, 0, (size_t)x->c_size * sizeof(char));
+        }
+        return;
     }
-    for(i = 0; i < argc; i++)
+    for(i = 0; i < argc - 1; i++)
     {
         atom_string(argv+i, text, MAXPDSTRING);
-        lenght = (int)strlen(text);
+        lenght += strlen(text) + 1;
         
     }
+    if(!x->c_text || !x->c_size)
+    {
+        x->c_text = (char *)malloc((size_t)lenght * sizeof(char));
+        if(x->c_text)
+        {
+            x->c_size = (int)lenght;
+        }
+        else
+        {
+            x->c_size = 0;
+            return;
+        }
+    }
+    else if(x->c_size < (int)lenght)
+    {
+        temp = realloc(x->c_text, (size_t)lenght * sizeof(char));
+        if(temp)
+        {
+            x->c_text = temp;
+            x->c_size = (int)lenght;
+        }
+        else
+        {
+            return;
+        }
+    }
+    memset(x->c_text, 0, (size_t)x->c_size * sizeof(char));
+    for(i = 0; i < argc - 2; i++)
+    {
+        atom_string(argv+i, text, MAXPDSTRING);
+        strncat(x->c_text, text, MAXPDSTRING);
+        strncat(x->c_text, " ", 1);
+    }
+    if(argc > 1)
+    {
+        atom_string(argv+argc-2, text, MAXPDSTRING);
+        strncat(x->c_text, text, MAXPDSTRING);
+    }
+    if(argc && atom_gettype(argv+argc-1) == A_FLOAT)
+    {
+        sprintf(text, "%c", (char)atom_getfloat(argv+argc-1));
+        strncat(x->c_text, text, MAXPDSTRING);
+    }
+    post(x->c_text);
 }
 
 static t_class* etexteditor_setup()
@@ -151,12 +201,58 @@ void etexteditor_destroy(t_etexteditor* editor)
 
 void etexteditor_settext(t_etexteditor* editor, const char* text)
 {
+    char* temp;
+    const size_t lenght = strlen(text);
     sys_vgui("%s insert 0.0 %s\n", editor->c_name->s_name, text);
+    if(!editor->c_text || !editor->c_size)
+    {
+        editor->c_text = (char *)malloc((size_t)lenght * sizeof(char));
+        if(editor->c_text)
+        {
+            editor->c_size = (int)lenght;
+        }
+        else
+        {
+            editor->c_size = 0;
+            return;
+        }
+    }
+    else if(editor->c_size < (int)lenght)
+    {
+        temp = realloc(editor->c_text, (size_t)lenght * sizeof(char));
+        if(temp)
+        {
+            editor->c_text = temp;
+            editor->c_size = (int)lenght;
+        }
+        else
+        {
+            return;
+        }
+    }
+    memcpy(editor->c_text, text, lenght * sizeof(char));
 }
 
-void etexteditor_gettext(t_etexteditor *editor, char* text)
+void etexteditor_gettext(t_etexteditor *editor, char** text)
 {
-    
+    if(editor->c_text && editor->c_size)
+    {
+        *text = (char *)malloc((size_t)editor->c_size * sizeof(char));
+        if(*text)
+        {
+            memcpy(*text, editor->c_text, (size_t)editor->c_size * sizeof(char));
+        }
+        else
+        {
+            *text = (char *)malloc(sizeof(char));
+            *text[0] = '0';
+        }
+    }
+    else
+    {
+        *text = (char *)malloc(sizeof(char));
+        *text[0] = '0';
+    }
 }
 
 void etexteditor_clear(t_etexteditor* editor)
@@ -215,7 +311,10 @@ void etexteditor_popup(t_etexteditor *editor, t_rect const* bounds)
              (int)bounds->x, (int)bounds->y,
              editor->c_frame_id->s_name, editor->c_window_id->s_name,
              (int)bounds->width, (int)bounds->height);
-    
+}
+
+void etexteditor_grabfocus(t_etexteditor *editor)
+{
     sys_vgui("focus -force %s\n", editor->c_name->s_name);
 }
 
