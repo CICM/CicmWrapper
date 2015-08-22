@@ -174,6 +174,15 @@ t_etexteditor* etexteditor_getfromsymbol(t_symbol* name);
 
 //! @endcond
 
+/*!
+ * \fn          void eparameter_init(t_eparameter* param, t_symbol* const name, int size)
+ * \brief       Initialize a t_eparameter.
+ * \param param The t_eparameter pointer.
+ * \param owner The owner of the t_eparameter;
+ * \param name  The name of the parameter.
+ */
+void eparameter_init(t_eparameter* param, t_ebox* owner, t_symbol* const name);
+
 
 /** @} */
 

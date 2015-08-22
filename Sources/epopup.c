@@ -431,6 +431,12 @@ t_etexteditor* etexteditor_getfromsymbol(t_symbol* name)
 }
 
 
+void eparameter_init(t_eparameter* param, t_ebox* owner, t_symbol* const name)
+{
+    param->p_name = name;
+    param->p_owner = owner;
+}
+
 
 
 

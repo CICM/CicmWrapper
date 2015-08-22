@@ -470,7 +470,7 @@ typedef struct t_eattr
 {
     t_object        obj;        /*!< The dummy object. */
     t_symbol*       name;       /*!< The name of the attribute. */
-    t_symbol*       type;       /*!< The type of the attribute (int, long, float,d double, rgba, etc.). */
+    t_symbol*       type;       /*!< The type of the attribute (int, long, float, double, rgba, etc.). */
     t_symbol*       category;   /*!< The dummy category of the attribute. */
     t_symbol*       label;      /*!< The label of the attribute. */
     t_symbol*       style;      /*!< The style of the attribute (checkbutton, color, number, entry, menu). */
@@ -794,6 +794,21 @@ typedef struct _preset
     int         p_natoms;
     t_atom*     p_atoms;
 } t_preset;
+
+/**
+ * @struct t_eparameter
+ * @brief The parameter structure.
+ * @details It contains the informations of a parameter.
+ */
+typedef struct _eparameter
+{
+    t_object    p_object;
+    t_symbol*   p_name;
+    t_ebox*     p_owner;
+    int         p_natoms;
+    t_atom*     p_atoms;
+    
+} t_eparameter;
 
 /**
  * @struct t_etexteditor
