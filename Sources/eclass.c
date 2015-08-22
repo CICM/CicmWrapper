@@ -331,7 +331,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
             attr->name = gensym(attrname);
             attr->type = gensym(type);
             attr->category = c->c_class.c_name;
-            attr->label = gensym("");
+            attr->label = s_cream_empty;
             attr->style = gensym("entry");
             attr->order = c->c_nattr+1;
             attr->save  = 0;
@@ -615,6 +615,68 @@ void eclass_attr_accessor(t_eclass* c, const char* attrname, t_err_method getter
             c->c_attr[i]->setter = setter;
             return ;
         }
+    }
+}
+
+static void eclass_attr_dosetdefault(t_object* x, t_eattr* attr)
+{
+    char *pch = NULL;
+    const char* temp;
+    int argc = 0;
+    t_atom* argv = NULL;
+    const size_t size = attr->sizemax ? ((size_t)attr->sizemax) : ((size_t)attr->size);
+    if(attr->defvals)
+    {
+        argv = (t_atom *)malloc(size* sizeof(t_atom));
+        if(argv)
+        {
+            temp = attr->defvals->s_name;
+            pch = estrtok(&temp, " ',\"", pch);
+            while(pch != NULL)
+            {
+                if(isdigit(pch[0]))
+                {
+                    atom_setfloat(argv+argc, (float)atof(pch));
+                    ++argc;
+                }
+                else if(isalpha(pch[0]))
+                {
+                    atom_setsym(argv+argc, gensym(pch));
+                    ++argc;
+                }
+                if(argc > (int)size)
+                {
+                    break;
+                }
+                pch = estrtok(&temp, " ',\"", pch);
+            }
+            eclass_attr_setter(x, attr->name, argc, argv);
+            free(argv);
+        }
+    }
+}
+
+void eclass_attr_setdefault(t_object* x, t_symbol *s)
+{
+    int i;
+    t_eclass* c = eobj_getclass(x);
+    for(i = 0; i < c->c_nattr; i++)
+    {
+        if(c->c_attr[i]->name == s)
+        {
+            eclass_attr_dosetdefault(x, c->c_attr[i]);
+            return ;
+        }
+    }
+}
+
+void eclass_attrs_setdefault(t_object* x)
+{
+    int i;
+    t_eclass* c = eobj_getclass(x);
+    for(i = 0; i < c->c_nattr; i++)
+    {
+        eclass_attr_dosetdefault(x, c->c_attr[i]);
     }
 }
 

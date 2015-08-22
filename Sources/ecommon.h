@@ -31,6 +31,16 @@ void epd_init(void);
 //! @endcond
 
 /*!
+ * \fn          char* estrtok(const char* s, const char* delim, const char* ref)
+ * \brief       Personal implentation of strtok_r
+ * \param str   The adress of the string pointer.
+ * \param delim The delimiters.
+ * \param token The adress of the memory to save the token (initialized with NULL).
+ * \return The token.
+ */
+char* estrtok(const char** str, const char* delim, char* token);
+
+/*!
  * \fn          float interpolation_bezier(const float f1, const float f2, const float delta, const t_pt point)
  * \brief       Performs a kind of quadratic bezier interpolation.
  * \details     The function performs a interpolation between f1 and f2 depending on delta following the curve of the quadratic bezier curve with the start point at [0, 0] and the end point at [1, 1].

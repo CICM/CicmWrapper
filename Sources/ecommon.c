@@ -145,6 +145,106 @@ void epd_init(void)
     }
 }
 
+static const char* estrchrn(const char* s, const char* delim)
+{
+    char state = 0;
+    const char *temp = NULL;
+    while(s[0] != '\0')
+    {
+        temp    = delim;
+        state   = 0;
+        while(temp[0] != '\0')
+        {
+            if(s[0] == temp[0])
+            {
+                state = 1;
+                break;
+            }
+            temp++;
+        }
+        if(!state)
+        {
+            return s;
+        }
+        s++;
+    }
+    return NULL;
+}
+
+static const char* estrchr(const char* s, const char* delim)
+{
+    const char *temp = NULL;
+    while(s[0] != '\0')
+    {
+        temp = delim;
+        while(temp[0] != '\0')
+        {
+            if(s[0] == temp[0])
+            {
+                return s;
+            }
+            temp++;
+        }
+        s++;
+    }
+    return s;
+}
+
+char* estrtok(const char** str, const char* delim, char* token)
+{
+    char* mem = NULL;
+    const char *end;
+    const char* start = estrchrn(str[0], delim);
+    if(start)
+    {
+        end = estrchr(start+1, delim);
+        if(token)
+        {
+            mem = (char *)realloc(token, (size_t)(end - start + 1) * sizeof(char));
+            if(mem)
+            {
+                memset(mem, 0, (size_t)(end - start + 1) * sizeof(char));
+                strncpy(mem, start, (size_t)(end - start));
+                str[0] = end;
+                return mem;
+            }
+            else
+            {
+                free(token);
+                str[0] = NULL;
+                return NULL;
+            }
+        }
+        else
+        {
+            mem = (char *)malloc((size_t)(end - start + 1) * sizeof(char));
+            if(mem)
+            {
+                memset(mem, 0, (size_t)(end - start + 1) * sizeof(char));
+                strncpy(mem, start, (size_t)(end - start));
+                str[0] = end;
+                return mem;
+            }
+            else
+            {
+                str[0] = NULL;
+                return NULL;
+            }
+        }
+    }
+    else
+    {
+        if(token)
+        {
+            free(token);
+        }
+        str[0] = NULL;
+        return NULL;
+    }
+    
+    
+}
+
 float interpolation_bezier(const float f1, const float f2, const float delta, const float node)
 {
     const float t = pd_clip_minmax(delta, 0.f, 1.f);

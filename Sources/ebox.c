@@ -11,6 +11,7 @@
 #include "ebox.h"
 #include "egraphics.h"
 #include "eobj.h"
+#include "eclass.h"
 
 static char *my_cursorlist[] =
 {
@@ -37,7 +38,6 @@ static void ebox_update(t_ebox *x);
 static void ebox_erase(t_ebox* x);
 static void ebox_select(t_ebox* x);
 static void ebox_move(t_ebox* x);
-static void ebox_attrprocess_default(void *x);
 
 void ebox_new(t_ebox *x, long flags)
 {
@@ -52,7 +52,7 @@ void ebox_new(t_ebox *x, long flags)
     x->b_preset_id          = s_cream_empty;
     x->b_visible            = 1;
     eobj_getclass(x)->c_widget.w_dosave = (t_typ_method)ebox_dosave;
-    ebox_attrprocess_default(x);
+    eclass_attrs_setdefault((t_object *)x);
 }
 
 void ebox_ready(t_ebox *x)
@@ -191,51 +191,6 @@ void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)
             defc = 0;
             free(defv);
             defv = NULL;
-        }
-    }
-}
-
-static void ebox_attrprocess_default(void *x)
-{
-    int i, j, k;
-    long defc       = 0;
-    t_atom* defv    = NULL;
-    t_eclass* c     = eobj_getclass(x);
-
-    for(i = 0; i < c->c_nattr; i++)
-    {
-        if(c->c_attr[i]->defvals)
-        {
-            defc = c->c_attr[i]->size;
-            defv = (t_atom *)calloc((unsigned long)defc, sizeof(t_atom));
-            if(defc && defv)
-            {
-                char check = 0;
-                char* str_start = c->c_attr[i]->defvals->s_name;
-                for(j = 0; j < defc; j++)
-                {
-                    for(k = 0; k < (int)(strlen(str_start)); k++)
-                    {
-                        if(isalpha(str_start[k]))
-                            check = 1;
-                    }
-                    if(check || strpbrk(str_start, "<>()'\""))
-                    {
-                        atom_setsym(defv+j, gensym(str_start));
-                    }
-                    else
-                    {
-                        float val = (float)strtod(str_start, &str_start);
-                        atom_setfloat(defv+j, val);
-                    }
-                }
-                eobj_attr_setvalueof(x, c->c_attr[i]->name, (int)defc, defv);
-            }
-            if(defv)
-            {
-                free(defv);
-                defv = NULL;
-            }
         }
     }
 }

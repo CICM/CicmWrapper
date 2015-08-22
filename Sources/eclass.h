@@ -121,6 +121,23 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv);
  */
 void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv);
 
+//! @cond
+/*!
+ * \fn       void eclass_attr_setdefault(t_object* x, t_symbol *s)
+ * \brief           Sets an attribute to its default value if there is one.
+ * \param x         The object pointer
+ * \param s         The attribute name
+ */
+void eclass_attr_setdefault(t_object* x, t_symbol *s);
+
+//! @cond
+/*!
+ * \fn       void eclass_attrs_setdefault(t_object* x)
+ * \brief           Sets all the attribute to their default values.
+ * \param x         The object pointer
+ */
+void eclass_attrs_setdefault(t_object* x);
+
 //! @endcond
 
 /*!

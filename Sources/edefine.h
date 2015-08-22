@@ -836,7 +836,7 @@ typedef enum
     EWIDGET_SETTXTCOLOR = 7, /*!< The set text color action. */
     EWIDGET_WRAPMODE    = 8, /*!< The set wrap mode action. */
     EWIDGET_POPUP       = 9, /*!< The popup action. */
-    EWIDGET_GRABFOCUS   = 10,/*!< The grab focus action. */
+    EWIDGET_GRABFOCUS   = 10 /*!< The grab focus action. */
     
 } ewidget_action;
 
