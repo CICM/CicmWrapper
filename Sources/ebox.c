@@ -624,7 +624,7 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
                         atom_setfloat(av+1, mouse.y);
                     }
                 }
-                mess3((t_pd *)x, s_size,  s_size, (void *)2, (void *)av);
+                mess3((t_pd *)x, s_cream_size,  s_cream_size, (void *)2, (void *)av);
             }
         }
         else
@@ -1021,6 +1021,7 @@ void ebox_texteditor_keypress(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
     if(c && c->c_widget.w_texteditor_keypress &&
        argc > 1 && argc && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT)
     {
+        int todo_should_retrieve_the_editor_with_sym;
         c->c_widget.w_texteditor_keypress(x,
                                            (t_etexteditor *)((long unsigned int)(atom_getfloat(argv))),
                                            (int)atom_getfloat(argv + 1));
@@ -1033,6 +1034,7 @@ void ebox_texteditor_keyfilter(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
     if(c && c->c_widget.w_texteditor_keyfilter &&
        argc > 1 && argc && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT)
     {
+        int todo_should_retrieve_the_editor_with_sym;
         c->c_widget.w_texteditor_keyfilter(x,
                                            (t_etexteditor *)((long unsigned int)(atom_getfloat(argv))),
                                            (int)atom_getfloat(argv + 1));
@@ -1042,7 +1044,7 @@ void ebox_texteditor_keyfilter(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
     t_eclass* c = eobj_getclass(x);
-    if(s == s_size)
+    if(s == s_cream_size)
     {
         if(c->c_widget.w_oksize != NULL)
             c->c_widget.w_oksize(x, &x->b_rect);

@@ -84,10 +84,12 @@ extern t_symbol* s_cream_eboxbd;
 extern t_symbol* s_cream_eboxio;
 //! The pre-defined texteditor t_symbol*
 extern t_symbol* s_cream_texteditor;
+//! The pre-defined popup t_symbol*
+extern t_symbol* s_cream_popup;
 //! The pre-defined repaint t_symbol*
 extern t_symbol* s_cream_repaint;
 //! The pre-defined size t_symbol*
-extern t_symbol* s_size;
+extern t_symbol* s_cream_size;
 //! The pre-defined int t_symbol*
 extern t_symbol* s_int;
 //! The pre-defined long t_symbol*
@@ -391,26 +393,6 @@ typedef struct t_elayer
 /** @} */
 
 
-/*! @addtogroup grouppopup The Popup Window Part
- * @brief The t_epopup part.
- * @details This part refers to the methods and structures that can be used by all the t_epopup structures.
- *  @{
- */
-
-/**
- * @struct t_epopup
- * @brief The popup structure.
- * @details It contains the informations to show and retrieve a popup.
- */
-typedef struct t_epopup
-{
-    t_symbol*   c_name; /*!< The name of the popup. */
-    t_symbol*   c_send; /*!< The name of the owner. */
-}t_epopup;
-
-
-/** @} */
-
 /*! @addtogroup groupclass The Class Part
  * @brief The t_eclass part.
  * @details This part refers to the methods and structures that can be used by all the t_eclass structures.
@@ -457,8 +439,9 @@ typedef struct t_ewidget
     t_err_method    w_notify;               /*!< The notification method. */
     t_typ_method    w_write;                /*!< The write to file method. */
     t_typ_method    w_read;                 /*!< The read from file method. */
-    t_typ_method    w_texteditor_keypress;  /*!< The write to file method. */
-    t_typ_method    w_texteditor_keyfilter; /*!< The read from file method. */
+    t_typ_method    w_texteditor_keypress;  /*!< The text editor key press method. */
+    t_typ_method    w_texteditor_keyfilter; /*!< The text editor key filter method. */
+    t_typ_method    w_popup_selected;       /*!< The popup selection method. */
 } t_ewidget;
 
 /**
@@ -802,13 +785,54 @@ typedef struct _preset
  */
 typedef struct _eparameter
 {
-    t_object    p_object;
-    t_symbol*   p_name;
-    t_ebox*     p_owner;
-    int         p_natoms;
-    t_atom*     p_atoms;
-    
+    t_object        p_object;
+    t_symbol*       p_name;
+    t_symbol*       p_bind;
+    t_ebox*         p_owner;
+    t_float         p_value;
+    t_float         p_min;
+    t_float         p_max;
+    t_float         p_default;
+    t_err_method    p_setter;
+    t_err_method    p_getter;
 } t_eparameter;
+
+/*! @addtogroup groupwidget The Widget Part
+ * @brief The t_epopup and t_etexteditor part.
+ * @details This part refers to the methods and structures that can be used by all the t_epopup and t_etexteditor structures.
+ *  @{
+ */
+
+/**
+ * @struct t_epopup_item
+ * @brief The popup's item structure.
+ * @details It contains the informations to show an item of a popup.
+ */
+typedef struct t_epopup_item
+{
+    int         c_id;       /*!< The id of the item. */
+    char*       c_label;    /*!< The name of the popup. */
+    char        c_checked;  /*!< If the item is checked. */
+    char        c_disable;  /*!< If the item is disable. */
+    char        c_separator;/*!< If the item is a seprator. */
+}t_epopup_item;
+
+/**
+ * @struct t_epopup
+ * @brief The popup structure.
+ * @details It contains the informations to show and retrieve a popup.
+ */
+typedef struct t_epopup
+{
+    t_object        c_obj;      /*!< The object. */
+    t_eobj*         c_owner;    /*!< The owner. */
+    t_symbol*       c_popup_id; /*!< The popup id. */
+    t_symbol*       c_name;     /*!< The name of the popup. */
+    t_efont         c_font;     /*!< The font of the popup. */
+    int             c_size;     /*!< The number of items. */
+    t_epopup_item*  c_items;    /*!< The items. */
+}t_epopup;
+
 
 /**
  * @struct t_etexteditor
@@ -817,14 +841,13 @@ typedef struct _eparameter
  */
 typedef struct t_etexteditor
 {
-    t_object    c_obj;
+    t_object    c_obj;          /*!< The object. */
     t_ebox*     c_owner;
     t_symbol*   c_editor_id;
     t_symbol*   c_canvas_id;
     t_symbol*   c_frame_id;
     t_symbol*   c_window_id;
     t_symbol*   c_name;
-    t_symbol*   c_send;
     char*       c_text;
     int         c_size;
     t_efont     c_font;
@@ -841,19 +864,15 @@ typedef struct t_etexteditor
  */
 typedef enum
 {
-    EWIDGET_CREATE      = 0, /*!< The creation. */
-    EWIDGET_DESTROY     = 1, /*!< The destruction. */
-    EWIDGET_SETTEXT     = 2, /*!< The set text action. */
-    EWIDGET_GETTEXT     = 3, /*!< The get text action. */
-    EWIDGET_CLEAR       = 4, /*!< The clearing. */
-    EWIDGET_SETFONT     = 5, /*!< The set font action. */
-    EWIDGET_SETBGCOLOR  = 6, /*!< The set background color action. */
-    EWIDGET_SETTXTCOLOR = 7, /*!< The set text color action. */
-    EWIDGET_WRAPMODE    = 8, /*!< The set wrap mode action. */
-    EWIDGET_POPUP       = 9, /*!< The popup action. */
-    EWIDGET_GRABFOCUS   = 10 /*!< The grab focus action. */
+    EWIDGET_CREATE      = 0, /*!< The widget creation. */
+    EWIDGET_DESTROY     = 1, /*!< The widget destruction. */
+    EWIDGET_CHANGED     = 2, /*!< The widget modification. */
+    EWIDGET_POPUP       = 3, /*!< The widget popup action. */
+    EWIDGET_GRABFOCUS   = 4  /*!< The widget grab focus action. */
     
 } ewidget_action;
+
+/** @} */
 
 
 

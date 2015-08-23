@@ -19,7 +19,7 @@
 
 #include "edefine.h"
 
-/*! @addtogroup grouppopup
+/*! @addtogroup groupwidget
  *  @{
  */
 
@@ -28,10 +28,9 @@
  * \brief       The t_epopup creation function.
  * \details     Allocates the memory for a t_epopup, intialize the defaults values and link it to the t_eobj.
  * \param x     The t_eobj pointer.
- * \param name  The name of the t_epopup.
  * \return      This function returns a pointer to a new t_epopup.
  */
-t_epopup* epopupmenu_create(t_eobj* x, t_symbol* name);
+t_epopup* epopupmenu_create(t_eobj* x);
 
 /*!
  * \fn          void epopupmenu_destroy(t_epopup* popup)
@@ -80,10 +79,9 @@ void epopupmenu_popup(t_epopup *popup, t_pt pos);
  * \brief       The t_etexteditor creation function.
  * \details     Allocates the memory for a t_etexteditor, intialize the defaults values and link it to the t_eobj.
  * \param x     The t_ebox pointer.
- * \param name  The name of the t_etexteditor.
  * \return      This function returns a pointer to a new t_etexteditor.
  */
-t_etexteditor* etexteditor_create(t_ebox* x, t_symbol* name);
+t_etexteditor* etexteditor_create(t_ebox* x);
 
 /*!
  * \fn          void etexteditor_destroy(t_etexteditor* editor)
@@ -181,7 +179,7 @@ t_etexteditor* etexteditor_getfromsymbol(t_symbol* name);
  * \param owner The owner of the t_eparameter;
  * \param name  The name of the parameter.
  */
-void eparameter_init(t_eparameter* param, t_ebox* owner, t_symbol* const name);
+t_eparameter* eparameter_create(t_ebox* owner, t_symbol* name, t_float defval, t_float minval, t_float maxval);
 
 
 /** @} */
