@@ -322,7 +322,14 @@ void egraphics_rectangle(t_elayer *g, float x, float y, float width, float heigh
         egraphics_line_to(g, x + width, y);
         egraphics_line_to(g, x + width, y + height);
         egraphics_line_to(g, x, y + height);
-        egraphics_line_to(g, x, y - g->e_line_width * 0.5f);
+        if(g->e_line_width > 1.)
+        {
+            egraphics_line_to(g, x, y - g->e_line_width * 0.5f);
+        }
+        else
+        {
+            egraphics_line_to(g, x, y);
+        }
     }
 }
 
