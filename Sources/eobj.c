@@ -11,6 +11,7 @@
 #include "eobj.h"
 #include "ecommon.h"
 #include "egraphics.h"
+#include "epopup.h"
 
 static t_eproxy* eproxy_new(void *owner, t_symbol* s);
 static void eproxy_free(void *owner, t_eproxy* proxy);
@@ -125,10 +126,15 @@ char eobj_isdsp(void *x)
 
 void eobj_popup(t_eobj* x, t_symbol* s, float itemid)
 {
+    t_epopup* popup;
     t_eclass* c = eobj_getclass(x);
-    if(c->c_widget.w_popup)
+    if(s && c->c_widget.w_popup)
     {
-        c->c_widget.w_popup(x, s, (long)itemid);
+        popup = epopupmenu_getfromsymbol(s);
+        if(popup)
+        {
+            c->c_widget.w_popup(x, popup, (long)itemid);
+        }
     }
 }
 

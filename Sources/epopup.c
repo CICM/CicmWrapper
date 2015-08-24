@@ -44,23 +44,26 @@ static t_class* epopup_setup()
 t_epopup* epopupmenu_create(t_eobj* x)
 {
     char buffer[MAXPDSTRING];
-    t_epopup* popup = NULL;
+    t_epopup* popup = NULL; t_canvas* canvas = NULL;
     t_class* c = epopup_setup();
     if(c)
     {
         popup = (t_epopup *)pd_new(c);
         if(popup)
         {
+            canvas = eobj_getcanvas(x);
+            sprintf(buffer,".x%lx.c", (long unsigned int)canvas);
+            popup->c_canvas_id = gensym(buffer);
+            sprintf(buffer, "%s.popup%lx", popup->c_canvas_id->s_name, (long unsigned int)popup);
+            popup->c_name = gensym(buffer);
             sprintf(buffer, "popup%lx", (long unsigned int)popup);
             popup->c_popup_id = gensym(buffer);
-            sprintf(buffer, ".popup%lx", (long unsigned int)popup);
-            popup->c_name   = gensym(buffer);
             popup->c_owner  = x;
             popup->c_size   = 0;
             popup->c_items  = NULL;
             pd_bind((t_pd *)popup, popup->c_popup_id);
             sys_vgui("destroy %s\n", popup->c_name->s_name);
-            sys_vgui("menu %s -tearoff 0\n", popup->c_name->s_name);
+            sys_vgui("menu %s -type normal\n", popup->c_name->s_name);
             
             epopup_notify(popup, EWIDGET_CREATE);
         }
@@ -86,32 +89,135 @@ void epopupmenu_destroy(t_epopup* popup)
 void epopupmenu_setfont(t_epopup* popup, t_efont *font)
 {
     sys_vgui("%s configure -font {%s %d %s italic}\n", popup->c_name->s_name, font[0].c_family->s_name, (int)font[0].c_size, font[0].c_weight->s_name, font[0].c_slant->s_name);
+    memcpy(&popup->c_font, font, sizeof(t_efont));
+    epopup_notify(popup, EWIDGET_CHANGED);
+}
+
+void epopupmenu_setbackgroundcolor(t_epopup *popup, t_rgba const* color)
+{
+    memcpy(&popup->c_bgcolor, color, sizeof(t_rgba));
+    epopup_notify(popup, EWIDGET_CHANGED);
+}
+
+void epopupmenu_settextcolor(t_epopup *popup, t_rgba const* color)
+{
+    memcpy(&popup->c_txtcolor, color, sizeof(t_rgba));
     epopup_notify(popup, EWIDGET_CHANGED);
 }
 
 void epopupmenu_additem(t_epopup* popup, int itemid, const char *text, char checked, char disabled)
 {
-    sys_vgui("%s add command ", popup->c_name->s_name);
-    sys_vgui("-command {pdsend {%s popup %s %f}} ", popup->c_owner->o_id->s_name, popup->c_name->s_name, (float)itemid);
-    sys_vgui("-label {%s} ", text);
-    if(disabled)
-        sys_vgui("-state disable\n");
+    t_epopup_item *temp;
+    if(!popup->c_items)
+    {
+        popup->c_items = (t_epopup_item *)malloc(sizeof(t_epopup_item));
+        if(popup->c_items)
+        {
+            popup->c_items[0].c_id = itemid;
+            strncpy(popup->c_items[0].c_label, text, MAXPDSTRING);
+            popup->c_items[0].c_checked = checked;
+            popup->c_items[0].c_disable = disabled;
+            popup->c_items[0].c_separator = 0;
+            popup->c_size = 1;
+        }
+        else
+        {
+            popup->c_size = 0;
+        }
+    }
     else
-        sys_vgui("-state active\n");
+    {
+        temp = (t_epopup_item *)realloc(popup->c_items, sizeof(t_epopup_item) * (size_t)(popup->c_size + 1));
+        if(temp)
+        {
+            popup->c_items = temp;
+            popup->c_items[popup->c_size].c_id = itemid;
+            strncpy(popup->c_items[popup->c_size].c_label, text, MAXPDSTRING);
+            popup->c_items[popup->c_size].c_checked = checked;
+            popup->c_items[popup->c_size].c_disable = disabled;
+            popup->c_items[popup->c_size].c_separator = 0;
+            popup->c_size++;
+        }
+    }
+    
     epopup_notify(popup, EWIDGET_CHANGED);
 }
 
 void epopupmenu_addseperator(t_epopup* popup)
 {
-    sys_vgui("%s add separator\n", popup->c_name->s_name);
+    t_epopup_item *temp;
+    if(!popup->c_items)
+    {
+        popup->c_items = (t_epopup_item *)malloc(sizeof(t_epopup_item));
+        if(popup->c_items)
+        {
+            popup->c_items[0].c_separator = 1;
+            popup->c_size = 1;
+        }
+        else
+        {
+            popup->c_size = 0;
+        }
+    }
+    else
+    {
+        temp = (t_epopup_item *)realloc(popup->c_items, sizeof(t_epopup_item) * (size_t)(popup->c_size + 1));
+        if(temp)
+        {
+            popup->c_items = temp;
+            popup->c_items[popup->c_size].c_separator = 1;
+            popup->c_size++;
+        }
+    }
     epopup_notify(popup, EWIDGET_CHANGED);
 }
 
-void epopupmenu_popup(t_epopup* popup, t_pt pos)
+void epopupmenu_popup(t_epopup* popup, t_rect const* bounds)
 {
-    sys_vgui("%s post %i %i\n", popup->c_name->s_name, (int)pos.x, (int)pos.y);
+    int i = 0;
+    for(i = 0; i < popup->c_size; i++)
+    {
+        if(popup->c_items[i].c_separator)
+        {
+            sys_vgui("%s add separator\n", popup->c_name->s_name);
+        }
+        else
+        {
+            sys_vgui("set checked%s%i %i\n", popup->c_name->s_name, popup->c_items[i].c_id, (int)popup->c_items[i].c_checked);
+            sys_vgui("%s add checkbutton \
+                     -command {pdsend {%s popup %s %f}} \
+                     -background %s -foreground %s\
+                     -label {%s} \
+                     -variable checked%s%i -state ",
+                     popup->c_name->s_name,
+                     popup->c_owner->o_id->s_name, popup->c_popup_id->s_name, (float)popup->c_items[i].c_id,
+                     rgba_to_hex(&popup->c_bgcolor), rgba_to_hex(&popup->c_txtcolor),
+                     popup->c_items[i].c_label,
+                     popup->c_name->s_name, popup->c_items[i].c_id);
+            
+            if(popup->c_items[i].c_disable)
+                sys_vgui("disable\n");
+            else
+                sys_vgui("active\n");
+        }
+    }
+    
+    sys_vgui("tk_popup %s [expr [winfo rootx %s] + %i] [expr [winfo rooty %s] + %i]\n", popup->c_name->s_name, popup->c_canvas_id->s_name, (int)bounds->x, popup->c_canvas_id->s_name, (int)bounds->y);
+    
+    memcpy(&popup->c_bounds, bounds, sizeof(t_rect));
     epopup_notify(popup, EWIDGET_POPUP);
 }
+
+t_epopup* epopupmenu_getfromsymbol(t_symbol* name)
+{
+    t_class* c = epopup_setup();
+    if(c)
+    {
+        return (t_epopup *)pd_findbyclass(name, c);
+    }
+    return NULL;
+}
+
 
 static void etexteditor_text(t_etexteditor* x, t_symbol* s, int argc, t_atom* argv)
 {
@@ -382,19 +488,18 @@ void etexteditor_popup(t_etexteditor *editor, t_rect const* bounds)
 {
     t_rect rect;
     ebox_get_rect_for_view(editor->c_owner, &rect);
-    sys_vgui("bind %s <KeyPress> {etext_sendtext %s %s %s %ld %%k}\n",
+    sys_vgui("bind %s <KeyPress> {etext_sendtext %s %s %s %%k}\n",
              editor->c_name->s_name, editor->c_name->s_name,
-             editor->c_editor_id->s_name, editor->c_owner->b_obj.o_id->s_name,
-             (int unsigned long)editor);
+             editor->c_editor_id->s_name, editor->c_owner->b_obj.o_id->s_name);
     
-    sys_vgui("bind %s <Escape> {+pdsend {%s texteditor_keyfilter %ld 0}}\n",
-             editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, (int unsigned long)editor);
-    sys_vgui("bind %s <Tab> {+pdsend {%s texteditor_keyfilter %ld 1}}\n",
-             editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, (int unsigned long)editor);
-    sys_vgui("bind %s <Return> {+pdsend {%s texteditor_keyfilter %ld 2}}\n",
-             editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, (int unsigned long)editor);
-    sys_vgui("bind %s <Delete> {+pdsend {%s texteditor_keyfilter %ld 3}}\n",
-             editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, (int unsigned long)editor);
+    sys_vgui("bind %s <Escape> {+pdsend {%s texteditor_keyfilter %s 0}}\n",
+             editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, editor->c_editor_id->s_name);
+    sys_vgui("bind %s <Tab> {+pdsend {%s texteditor_keyfilter %s 1}}\n",
+             editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, editor->c_editor_id->s_name);
+    sys_vgui("bind %s <Return> {+pdsend {%s texteditor_keyfilter %s 2}}\n",
+             editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, editor->c_editor_id->s_name);
+    sys_vgui("bind %s <Delete> {+pdsend {%s texteditor_keyfilter %s 3}}\n",
+             editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, editor->c_editor_id->s_name);
     
     sys_vgui("%s create window %d %d -anchor nw -window %s    \
              -tags %s -width %d -height %d \n",

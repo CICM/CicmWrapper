@@ -439,7 +439,7 @@ t_pd_err ebox_size_set(t_ebox *x, t_object *attr, int argc, t_atom *argv);
  * \param s         Nothing (for Max 6 compatibility)
  * \return          Nothing
  */
-void ebox_texteditor_keypress(t_ebox *x, t_symbol *s, int argc, t_atom *argv);
+void ebox_texteditor_keypress(t_ebox *x,  t_symbol *s, float f);
 
 //!
 /*
@@ -448,7 +448,7 @@ void ebox_texteditor_keypress(t_ebox *x, t_symbol *s, int argc, t_atom *argv);
  * \param s         Nothing (for Max 6 compatibility)
  * \return          Nothing
  */
-void ebox_texteditor_keyfilter(t_ebox *x, t_symbol *s, int argc, t_atom *argv);
+void ebox_texteditor_keyfilter(t_ebox *x, t_symbol *s, float f);
 
 //! The attribute print method that post all the attributes characteristics in the PD console // PRIVATE
 /*

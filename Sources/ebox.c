@@ -12,6 +12,7 @@
 #include "egraphics.h"
 #include "eobj.h"
 #include "eclass.h"
+#include "epopup.h"
 
 static char *my_cursorlist[] =
 {
@@ -1015,29 +1016,31 @@ t_pd_err ebox_size_set(t_ebox *x, t_object *attr, int argc, t_atom *argv)
     return 0;
 }
 
-void ebox_texteditor_keypress(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
+void ebox_texteditor_keypress(t_ebox *x, t_symbol *s, float f)
 {
+    t_etexteditor* editor;
     const t_eclass* c = eobj_getclass(x);
-    if(c && c->c_widget.w_texteditor_keypress &&
-       argc > 1 && argc && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT)
+    if(c && c->c_widget.w_texteditor_keypress)
     {
-        int todo_should_retrieve_the_editor_with_sym;
-        c->c_widget.w_texteditor_keypress(x,
-                                           (t_etexteditor *)((long unsigned int)(atom_getfloat(argv))),
-                                           (int)atom_getfloat(argv + 1));
+        editor = etexteditor_getfromsymbol(s);
+        if(editor)
+        {
+            c->c_widget.w_texteditor_keypress(x, editor, (int)f);
+        }
     }
 }
 
-void ebox_texteditor_keyfilter(t_ebox *x, t_symbol *s, int argc, t_atom *argv)
+void ebox_texteditor_keyfilter(t_ebox *x, t_symbol *s, float f)
 {
+    t_etexteditor* editor;
     const t_eclass* c = eobj_getclass(x);
-    if(c && c->c_widget.w_texteditor_keyfilter &&
-       argc > 1 && argc && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT)
+    if(c && c->c_widget.w_texteditor_keyfilter)
     {
-        int todo_should_retrieve_the_editor_with_sym;
-        c->c_widget.w_texteditor_keyfilter(x,
-                                           (t_etexteditor *)((long unsigned int)(atom_getfloat(argv))),
-                                           (int)atom_getfloat(argv + 1));
+        editor = etexteditor_getfromsymbol(s);
+        if(editor)
+        {
+            c->c_widget.w_texteditor_keyfilter(x, editor, (int)f);
+        }
     }
 }
 

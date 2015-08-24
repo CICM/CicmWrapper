@@ -125,8 +125,8 @@ void eclass_guiinit(t_eclass* c, long flags)
     
     if(flags & EBOX_TEXTFIELD)
     {
-        class_addmethod((t_class *)c, (t_method)ebox_texteditor_keypress, gensym("texteditor_keypress"), A_GIMME, 0);
-        class_addmethod((t_class *)c, (t_method)ebox_texteditor_keyfilter, gensym("texteditor_keyfilter"), A_GIMME, 0);
+        class_addmethod((t_class *)c, (t_method)ebox_texteditor_keypress, gensym("texteditor_keypress"), A_SYMBOL,A_DEFFLOAT,0);
+        class_addmethod((t_class *)c, (t_method)ebox_texteditor_keyfilter, gensym("texteditor_keyfilter"), A_SYMBOL,A_DEFFLOAT,0);
     }
     
     // GUI always need this methods //
@@ -246,7 +246,7 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
     }
     else if(gensym(name) == gensym("popup"))
     {
-        class_addmethod((t_class *)c, (t_method)eobj_popup,       gensym("popup"),  A_SYMBOL, A_DEFFLOAT, 0);
+        class_addmethod((t_class *)c, (t_method)eobj_popup, gensym("popup"),  A_SYMBOL, A_DEFFLOAT, 0);
         c->c_widget.w_popup = m;
     }
     else if(gensym(name) == gensym("dsp") || gensym(name) == gensym("dsp64"))

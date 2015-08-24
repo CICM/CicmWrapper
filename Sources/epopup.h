@@ -49,6 +49,22 @@ void epopupmenu_destroy(t_epopup* popup);
 void epopupmenu_setfont(t_epopup *popup, t_efont *font);
 
 /*!
+ * \fn          void epopupmenu_setbackgroundcolor(t_epopup *popup, t_rgba const* color)
+ * \brief       Sets the background color of a t_epopup.
+ * \param popup The t_epopup pointer.
+ * \param color The t_rgba pointer.
+ */
+void epopupmenu_setbackgroundcolor(t_epopup *popup, t_rgba const* color);
+
+/*!
+ * \fn          void epopupmenu_settextcolor(t_epopup *popup, t_rgba const* color)
+ * \brief       Sets the text color of a t_epopup.
+ * \param popup The t_epopup pointer.
+ * \param color The t_rgba pointer.
+ */
+void epopupmenu_settextcolor(t_epopup *popup, t_rgba const* color);
+
+/*!
  * \fn          void epopupmenu_additem(t_epopup *popup, int itemid, const char *text, char checked, char disabled)
  * \brief       Adds a new item in the popup list.
  * \param popup  The t_epopup pointer.
@@ -70,9 +86,20 @@ void epopupmenu_addseperator(t_epopup *popup);
  * \fn          void epopupmenu_popup(t_epopup *popup, t_pt screen)
  * \brief       Shows the popup on the screen.
  * \param popup The t_epopup pointer.
- * \param pos   The position on the screen.
+ * \param bounds The bounds on the screen.
  */
-void epopupmenu_popup(t_epopup *popup, t_pt pos);
+void epopupmenu_popup(t_epopup *popup, t_rect const* bounds);
+
+//! @cond
+
+/*!
+ * \fn          t_epopup* epopupmenu_getfromsymbol(t_symbol* name)
+ * \brief       Retrieves a popup from a symbol.
+ * \param name  The binding symbol of the texteditor.
+ */
+t_epopup* epopupmenu_getfromsymbol(t_symbol* name);
+
+//! @endcond
 
 /*!
  * \fn          t_etexteditor* etexteditor_create(t_eobj* x, t_symbol* name)

@@ -441,7 +441,6 @@ typedef struct t_ewidget
     t_typ_method    w_read;                 /*!< The read from file method. */
     t_typ_method    w_texteditor_keypress;  /*!< The text editor key press method. */
     t_typ_method    w_texteditor_keyfilter; /*!< The text editor key filter method. */
-    t_typ_method    w_popup_selected;       /*!< The popup selection method. */
 } t_ewidget;
 
 /**
@@ -810,11 +809,11 @@ typedef struct _eparameter
  */
 typedef struct t_epopup_item
 {
-    int         c_id;       /*!< The id of the item. */
-    char*       c_label;    /*!< The name of the popup. */
-    char        c_checked;  /*!< If the item is checked. */
-    char        c_disable;  /*!< If the item is disable. */
-    char        c_separator;/*!< If the item is a seprator. */
+    int         c_id;                   /*!< The id of the item. */
+    char        c_label[MAXPDSTRING];   /*!< The name of the popup. */
+    char        c_checked;              /*!< If the item is checked. */
+    char        c_disable;              /*!< If the item is disable. */
+    char        c_separator;            /*!< If the item is a seprator. */
 }t_epopup_item;
 
 /**
@@ -827,10 +826,14 @@ typedef struct t_epopup
     t_object        c_obj;      /*!< The object. */
     t_eobj*         c_owner;    /*!< The owner. */
     t_symbol*       c_popup_id; /*!< The popup id. */
+    t_symbol*       c_canvas_id;/*!< The canvas id. */
     t_symbol*       c_name;     /*!< The name of the popup. */
     t_efont         c_font;     /*!< The font of the popup. */
+    t_rgba          c_bgcolor;  /*!< The background color of the popup. */
+    t_rgba          c_txtcolor; /*!< The text color of the popup. */
     int             c_size;     /*!< The number of items. */
     t_epopup_item*  c_items;    /*!< The items. */
+    t_rect          c_bounds;   /*!< The bounds of the popup. */
 }t_epopup;
 
 
