@@ -613,7 +613,7 @@ typedef enum ekey_flags
 {
     EKEY_DEL      = 0, /*!< The delete key. */
     EKEY_TAB      = 1, /*!< The tabulation key. */
-    EKEY_ENTER    = 2, /*!< The return key. */
+    EKEY_RETURN   = 2, /*!< The return key. */
     EKEY_ESC      = 3  /*!< The escape key. */
     
 } ekey_flags;

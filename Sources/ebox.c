@@ -758,11 +758,11 @@ void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
             {
                 if(c->c_widget.w_keyfilter)
                 {
-                    c->c_widget.w_keyfilter(x, NULL, EKEY_ENTER, 0);
+                    c->c_widget.w_keyfilter(x, NULL, EKEY_RETURN, 0);
                 }
                 else if(c->c_widget.w_key)
                 {
-                    c->c_widget.w_key(x, NULL, EKEY_ENTER, 0);
+                    c->c_widget.w_key(x, NULL, EKEY_RETURN, 0);
                 }
             }
             else if(atom_getfloat(argv+1) == 65307)
