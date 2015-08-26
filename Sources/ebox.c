@@ -52,6 +52,8 @@ void ebox_new(t_ebox *x, long flags)
     x->b_send_id            = s_cream_empty;
     x->b_preset_id          = s_cream_empty;
     x->b_visible            = 1;
+    x->b_params             = NULL;
+    x->b_nparams            = 0;
     eobj_getclass(x)->c_widget.w_dosave = (t_typ_method)ebox_dosave;
     eclass_attrs_setdefault((t_object *)x);
 }
@@ -76,6 +78,8 @@ void ebox_ready(t_ebox *x)
 
 void ebox_free(t_ebox* x)
 {
+    int i, j;
+    t_elayer *layer;
     eobj_free(x);
     if(is_valid_symbol(x->b_receive_id))
     {
@@ -85,6 +89,42 @@ void ebox_free(t_ebox* x)
     if(eobj_isdsp(x))
     {
         eobj_dspfree(x);
+    }
+    if(x->b_number_of_layers && x->b_layers)
+    {
+        for(i = 0; i < x->b_number_of_layers; i++)
+        {
+            layer = x->b_layers+i;
+            if(layer->e_objects && layer->e_number_objects)
+            {
+                for(j = 0; j < layer->e_number_objects; j++)
+                {
+                    if(layer->e_objects[j].e_points)
+                    {
+                        free(layer->e_objects[j].e_points);
+                    }
+                    if(layer->e_objects[j].e_type == E_GOBJ_TEXT && layer->e_objects[j].e_text)
+                    {
+                        free(layer->e_objects[j].e_text);
+                    }
+                }
+                free(layer->e_objects);
+            }
+            if(layer->e_new_objects.e_npoints && layer->e_new_objects.e_points)
+            {
+                free(layer->e_new_objects.e_points);
+            }
+            if(layer->e_new_objects.e_text && layer->e_new_objects.e_type == E_GOBJ_TEXT)
+            {
+                free(layer->e_new_objects.e_text);
+            }
+        }
+        free(x->b_layers);
+    }
+    
+    if(x->b_nparams && x->b_params)
+    {
+        free(x->b_params);
     }
 }
 

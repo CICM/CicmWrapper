@@ -476,7 +476,6 @@ typedef struct t_eattr
     long            itemssize;  /*!< The number of available items of an attribute if it is a menu. */
 } t_eattr;
 
-
 /**
  * @struct t_eclass
  * @brief The class.
@@ -678,8 +677,30 @@ typedef struct t_edrawparams
     float       d_borderthickness;  /*!< The border size. */
     t_rgba      d_bordercolor;      /*!< The border color. */
     t_rgba      d_boxfillcolor;     /*!< The background color. */
-    
 } t_edrawparams;
+
+struct t_ebox;
+/**
+ * @struct t_eparam
+ * @brief The parameter structure.
+ * @details It contains the informations of a parameter.
+ */
+typedef struct t_eparam
+{
+    t_object        p_object;
+    t_symbol*       p_name;
+    t_symbol*       p_bind;
+    t_symbol*       p_label;
+    struct t_ebox*  p_owner;
+    t_float         p_min;
+    t_float         p_max;
+    t_float         p_step;
+    t_float         p_default;
+    t_err_method    p_setter;
+    t_err_method    p_getter;
+    char            p_auto;
+    char            p_meta;
+} t_eparam;
 
 /**
  * @struct t_ebox
@@ -720,6 +741,8 @@ typedef struct t_ebox
     
     t_elayer*           b_layers;           /*!< The ebox layers. */
     long                b_number_of_layers; /*!< The ebox number of layers. */
+    t_eparam*           b_params;           /*!< The parameters. */
+    long                b_nparams;          /*!< The number of parameters. */
 }t_ebox;
 
 /** @} */
@@ -765,36 +788,11 @@ typedef struct t_edspbox
     
     t_elayer*           b_layers;           /*!< The ebox layers. */
     long                b_number_of_layers; /*!< The ebox number of layers. */
+    t_eparam**          b_params;           /*!< The parameters. */
+    long                b_nparams;          /*!< The number of parameters. */
     
     t_edsp d_dsp; /*!< The dsp structure. */
 }t_edspbox;
-
-
-typedef struct _preset
-{
-    t_symbol*   p_name;
-    int         p_natoms;
-    t_atom*     p_atoms;
-} t_preset;
-
-/**
- * @struct t_eparameter
- * @brief The parameter structure.
- * @details It contains the informations of a parameter.
- */
-typedef struct _eparameter
-{
-    t_object        p_object;
-    t_symbol*       p_name;
-    t_symbol*       p_bind;
-    t_ebox*         p_owner;
-    t_float         p_value;
-    t_float         p_min;
-    t_float         p_max;
-    t_float         p_default;
-    t_err_method    p_setter;
-    t_err_method    p_getter;
-} t_eparameter;
 
 /*! @addtogroup groupwidget The Widget Part
  * @brief The t_epopup and t_etexteditor part.

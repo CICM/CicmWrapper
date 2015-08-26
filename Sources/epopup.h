@@ -199,15 +199,18 @@ t_etexteditor* etexteditor_getfromsymbol(t_symbol* name);
 
 //! @endcond
 
-/*!
- * \fn          void eparameter_init(t_eparameter* param, t_symbol* const name, int size)
- * \brief       Initialize a t_eparameter.
- * \param param The t_eparameter pointer.
- * \param owner The owner of the t_eparameter;
- * \param name  The name of the parameter.
- */
-t_eparameter* eparameter_create(t_ebox* owner, t_symbol* name, t_float defval, t_float minval, t_float maxval);
+void ebox_parameter_new(t_ebox *x, t_symbol* name);
+void ebox_parameter_label(t_ebox *x, t_symbol* name, t_symbol* label);
+void ebox_parameter_default(t_ebox *x, t_symbol* name, float value);
+void ebox_parameter_minmax(t_ebox *x, t_symbol* name, float min, float max);
+void ebox_parameter_methods(t_ebox *x, t_symbol* name, t_err_method getter, t_err_method setter);
+void ebox_parameter_options(t_ebox *x, t_symbol* name, char meta, char autom);
 
+void ebox_parameter_set(t_ebox *x, t_symbol* name, float f);
+float ebox_parameter_get(t_ebox *x, t_symbol* name);
+float ebox_parameter_getdefault(t_ebox *x, t_symbol* name);
+void ebox_parameter_gettextforvalue(t_ebox *x, t_symbol* name, char** value, float f);
+float ebox_parameter_getvaluefortext(t_ebox *x, t_symbol* name, char const* value);
 
 /** @} */
 

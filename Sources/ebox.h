@@ -188,14 +188,14 @@ t_pd_err ebox_end_layer(t_ebox *x, t_symbol *name);
 t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p);
 
 /*!
- * \fn      ebox_invalidate_layer(t_ebox *b,t_symbol *name)
+ * \fn      ebox_invalidate_layer(t_ebox *b, t_symbol *name)
  * \brief   Marks a layer as invalid.
  * \details When you want to redraw a layer you have to call this function and then call ebox_redraw. You should always prefer to invalidate several layer before calling ebox_redraw.
  * \param x The t_ebox pointer.
  * \param name The name of the layer.
  * \see ebox_start_layer ebox_end_layer ebox_redraw ebox_paint_layer t_elayer_flags t_elayer
  */
-t_pd_err ebox_invalidate_layer(t_ebox *x,t_symbol *name);
+t_pd_err ebox_invalidate_layer(t_ebox *x, t_symbol *name);
 
 /** @} */
 

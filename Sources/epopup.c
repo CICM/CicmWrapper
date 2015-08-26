@@ -529,12 +529,189 @@ t_etexteditor* etexteditor_getfromsymbol(t_symbol* name)
 }
 
 
-void eparameter_init(t_eparameter* param, t_ebox* owner, t_symbol* const name)
+static t_eparam* ebox_get_parameter(t_ebox *x, t_symbol* name)
 {
-    param->p_name = name;
-    param->p_owner = owner;
+    int i;
+    for(i = 0; i < x->b_nparams; i++)
+    {
+        if(x->b_params[i].p_name == name)
+        {
+            return x->b_params+i;
+        }
+    }
+    return NULL;
 }
 
+void ebox_parameter_new(t_ebox *x, t_symbol* name)
+{
+    t_eparam* temp = NULL;
+    if(x->b_nparams && x->b_params)
+    {
+        temp = (t_eparam *)realloc(x->b_params, sizeof(t_eparam) * (size_t)(x->b_nparams + 1));
+        if(temp)
+        {
+            x->b_params = temp;
+            x->b_params[x->b_nparams].p_name       = name;
+            x->b_params[x->b_nparams].p_label      = s_cream_empty;
+            x->b_params[x->b_nparams].p_owner      = x;
+            x->b_params[x->b_nparams].p_min        = 0.f;
+            x->b_params[x->b_nparams].p_max        = 1.f;
+            x->b_params[x->b_nparams].p_default    = 0.f;
+            x->b_params[x->b_nparams].p_getter     = (t_err_method)NULL;
+            x->b_params[x->b_nparams].p_setter     = (t_err_method)NULL;
+            x->b_params[x->b_nparams].p_auto       = 1;
+            x->b_params[x->b_nparams].p_meta       = 0;
+            x->b_nparams++;
+        }
+    }
+    else
+    {
+        x->b_params = (t_eparam *)malloc(sizeof(t_eparam));
+        if(x->b_params)
+        {
+            x->b_params[0].p_name       = name;
+            x->b_params[0].p_label      = s_cream_empty;
+            x->b_params[0].p_owner      = x;
+            x->b_params[0].p_min        = 0.f;
+            x->b_params[0].p_max        = 1.f;
+            x->b_params[0].p_default    = 0.f;
+            x->b_params[0].p_getter     = (t_err_method)NULL;
+            x->b_params[0].p_setter     = (t_err_method)NULL;
+            x->b_params[0].p_auto       = 1;
+            x->b_params[0].p_meta       = 0;
+            
+            x->b_nparams = 1;
+        }
+        else
+        {
+            x->b_nparams = 0;
+        }
+    }
+}
+
+void ebox_parameter_label(t_ebox *x, t_symbol* name, t_symbol* label)
+{
+    t_eparam* param = ebox_get_parameter(x, name);
+    if(param)
+    {
+        param->p_label = label;
+    }
+}
+
+void ebox_parameter_default(t_ebox *x, t_symbol* name, float value)
+{
+    t_eparam* param = ebox_get_parameter(x, name);
+    if(param)
+    {
+        param->p_default = value;
+    }
+}
+
+void ebox_parameter_minmax(t_ebox *x, t_symbol* name, float min, float max)
+{
+    t_eparam* param = ebox_get_parameter(x, name);
+    if(param)
+    {
+        param->p_min = min;
+        param->p_max = max;
+    }
+}
+
+void ebox_parameter_methods(t_ebox *x, t_symbol* name, t_err_method getter, t_err_method setter)
+{
+    t_eparam* param = ebox_get_parameter(x, name);
+    if(param)
+    {
+        param->p_getter = getter;
+        param->p_setter = setter;
+    }
+}
+
+void ebox_parameter_options(t_ebox *x, t_symbol* name, char meta, char autom)
+{
+    t_eparam* param = ebox_get_parameter(x, name);
+    if(param)
+    {
+        param->p_meta = meta;
+        param->p_auto = autom;
+    }
+}
+
+void ebox_parameter_set(t_ebox *x, t_symbol* name, float f)
+{
+    t_eparam* param = ebox_get_parameter(x, name);
+    if(param && param->p_setter)
+    {
+        if(param->p_max == param->p_min)
+        {
+            param->p_setter(param->p_owner, param->p_name, param->p_max);
+        }
+        else if(param->p_min < param->p_max)
+        {
+            param->p_setter(param->p_owner, param->p_name, f * (param->p_max - param->p_min) + param->p_min);
+        }
+        else if(param->p_min > param->p_max)
+        {
+            param->p_setter(param->p_owner, param->p_name, (1.f - f) * (param->p_min - param->p_max) + param->p_max);
+        }
+    }
+}
+
+float ebox_parameter_get(t_ebox *x, t_symbol* name)
+{
+    float f = 0.f;
+    t_eparam* param = ebox_get_parameter(x, name);
+    if(param && param->p_getter)
+    {
+        param->p_getter(param->p_owner, param->p_name, &f);
+        if(param->p_max == param->p_min)
+        {
+            f = f / param->p_max;
+        }
+        else if(param->p_min < param->p_max)
+        {
+            f = (f + param->p_min) / (param->p_max  - param->p_min);
+        }
+        else if(param->p_min > param->p_max)
+        {
+            f = (f + param->p_max) / (param->p_min  - param->p_max);
+        }
+    }
+    return f;
+}
+
+float ebox_parameter_getdefault(t_ebox *x, t_symbol* name)
+{
+    float f = 0.f;
+    t_eparam* param = ebox_get_parameter(x, name);
+    if(param && param->p_getter)
+    {
+        if(param->p_max == param->p_min)
+        {
+            f = f / param->p_max;
+        }
+        else if(param->p_min < param->p_max)
+        {
+            f = (f + param->p_min) / (param->p_max  - param->p_min);
+        }
+        else if(param->p_min > param->p_max)
+        {
+            f = (f + param->p_max) / (param->p_min  - param->p_max);
+        }
+    }
+    return f;
+}
+
+void ebox_parameter_gettextforvalue(t_ebox *x, t_symbol* name, char** value, float f)
+{
+    int todo;
+}
+
+float ebox_parameter_getvaluefortext(t_ebox *x, t_symbol* name, char const* value)
+{
+    int todo;
+    return 0.f;
+}
 
 
 
