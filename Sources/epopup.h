@@ -203,7 +203,7 @@ void ebox_parameter_new(t_ebox *x, t_symbol* name);
 void ebox_parameter_label(t_ebox *x, t_symbol* name, t_symbol* label);
 void ebox_parameter_default(t_ebox *x, t_symbol* name, float value);
 void ebox_parameter_minmax(t_ebox *x, t_symbol* name, float min, float max);
-void ebox_parameter_methods(t_ebox *x, t_symbol* name, t_err_method getter, t_err_method setter);
+void ebox_parameter_methods(t_ebox *x, t_symbol* name, t_param_getter getter, t_param_setter setter);
 void ebox_parameter_options(t_ebox *x, t_symbol* name, char meta, char autom);
 
 void ebox_parameter_set(t_ebox *x, t_symbol* name, float f);

@@ -680,6 +680,12 @@ typedef struct t_edrawparams
 } t_edrawparams;
 
 struct t_ebox;
+
+//! The t_param_setter method
+typedef t_pd_err    (*t_param_setter)(struct t_ebox* x, t_symbol* name, float f);
+//! The t_param_getter method
+typedef t_pd_err    (*t_param_getter)(struct t_ebox* x, t_symbol* name, float* f);
+
 /**
  * @struct t_eparam
  * @brief The parameter structure.
@@ -696,8 +702,8 @@ typedef struct t_eparam
     t_float         p_max;
     t_float         p_step;
     t_float         p_default;
-    t_err_method    p_setter;
-    t_err_method    p_getter;
+    t_param_getter  p_getter;
+    t_param_setter  p_setter;
     char            p_auto;
     char            p_meta;
 } t_eparam;

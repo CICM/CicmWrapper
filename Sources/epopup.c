@@ -557,8 +557,8 @@ void ebox_parameter_new(t_ebox *x, t_symbol* name)
             x->b_params[x->b_nparams].p_min        = 0.f;
             x->b_params[x->b_nparams].p_max        = 1.f;
             x->b_params[x->b_nparams].p_default    = 0.f;
-            x->b_params[x->b_nparams].p_getter     = (t_err_method)NULL;
-            x->b_params[x->b_nparams].p_setter     = (t_err_method)NULL;
+            x->b_params[x->b_nparams].p_getter     = (t_param_getter)NULL;
+            x->b_params[x->b_nparams].p_setter     = (t_param_setter)NULL;
             x->b_params[x->b_nparams].p_auto       = 1;
             x->b_params[x->b_nparams].p_meta       = 0;
             x->b_nparams++;
@@ -575,8 +575,8 @@ void ebox_parameter_new(t_ebox *x, t_symbol* name)
             x->b_params[0].p_min        = 0.f;
             x->b_params[0].p_max        = 1.f;
             x->b_params[0].p_default    = 0.f;
-            x->b_params[0].p_getter     = (t_err_method)NULL;
-            x->b_params[0].p_setter     = (t_err_method)NULL;
+            x->b_params[0].p_getter     = (t_param_getter)NULL;
+            x->b_params[0].p_setter     = (t_param_setter)NULL;
             x->b_params[0].p_auto       = 1;
             x->b_params[0].p_meta       = 0;
             
@@ -617,7 +617,7 @@ void ebox_parameter_minmax(t_ebox *x, t_symbol* name, float min, float max)
     }
 }
 
-void ebox_parameter_methods(t_ebox *x, t_symbol* name, t_err_method getter, t_err_method setter)
+void ebox_parameter_methods(t_ebox *x, t_symbol* name, t_param_getter getter, t_param_setter setter)
 {
     t_eparam* param = ebox_get_parameter(x, name);
     if(param)
@@ -648,11 +648,11 @@ void ebox_parameter_set(t_ebox *x, t_symbol* name, float f)
         }
         else if(param->p_min < param->p_max)
         {
-            param->p_setter(param->p_owner, param->p_name, f * (param->p_max - param->p_min) + param->p_min);
+            param->p_setter(param->p_owner, param->p_name, (float)(f * (param->p_max - param->p_min) + param->p_min));
         }
         else if(param->p_min > param->p_max)
         {
-            param->p_setter(param->p_owner, param->p_name, (1.f - f) * (param->p_min - param->p_max) + param->p_max);
+            param->p_setter(param->p_owner, param->p_name, (float)((1.f - f) * (param->p_min - param->p_max) + param->p_max));
         }
     }
 }
