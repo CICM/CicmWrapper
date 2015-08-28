@@ -40,10 +40,12 @@
 #include <fcntl.h>
 
 #ifdef _MSC_VER
-
-
 #define snprintf sprintf_s
 #endif
+
+
+#define PD_INSTANCE (PD_MAJOR_VERSION >= 0) && (PD_MINOR_VERSION) >= 46) && (PD_BUGFIX_VERSION >= 6)
+
 
 /*! @addtogroup groupcommon The Common Part
  * @brief The general part.

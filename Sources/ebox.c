@@ -1320,7 +1320,7 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
                     }
                     graphic->e_objects[j].e_text = NULL;
                 }
-                if(graphic->e_objects)
+                if(graphic->e_objects && graphic->e_number_objects)
                 {
                     free(graphic->e_objects);
                     graphic->e_objects = NULL;
