@@ -88,10 +88,16 @@ extern t_symbol* s_cream_eboxio;
 extern t_symbol* s_cream_texteditor;
 //! The pre-defined popup t_symbol*
 extern t_symbol* s_cream_popup;
+//! The pre-defined grabfocus t_symbol*
+extern t_symbol* s_cream_grabfocus;
 //! The pre-defined repaint t_symbol*
 extern t_symbol* s_cream_repaint;
 //! The pre-defined size t_symbol*
 extern t_symbol* s_cream_size;
+//! The pre-defined create t_symbol*
+extern t_symbol* s_cream_create;
+//! The pre-defined destroy t_symbol*
+extern t_symbol* s_cream_destroy;
 //! The pre-defined int t_symbol*
 extern t_symbol* s_int;
 //! The pre-defined long t_symbol*
@@ -865,21 +871,6 @@ typedef struct t_etexteditor
     char        c_wrap;
     t_rect      c_bounds;
 }t_etexteditor;
-
-/**
- * @enum ewidget_action
- * @brief The actions on a widgets.
- * @details It define all the available actions for widgets.
- */
-typedef enum
-{
-    EWIDGET_CREATE      = 0, /*!< The widget creation. */
-    EWIDGET_DESTROY     = 1, /*!< The widget destruction. */
-    EWIDGET_CHANGED     = 2, /*!< The widget modification. */
-    EWIDGET_POPUP       = 3, /*!< The widget popup action. */
-    EWIDGET_GRABFOCUS   = 4  /*!< The widget grab focus action. */
-    
-} ewidget_action;
 
 /** @} */
 
