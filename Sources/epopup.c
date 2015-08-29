@@ -648,11 +648,11 @@ void ebox_parameter_set(t_ebox *x, t_symbol* name, float f)
         }
         else if(param->p_min < param->p_max)
         {
-            param->p_setter(param->p_owner, param->p_name, (float)(f * (param->p_max - param->p_min) + param->p_min));
+            param->p_setter(param->p_owner, param->p_name, (f * (param->p_max - param->p_min) + param->p_min));
         }
         else if(param->p_min > param->p_max)
         {
-            param->p_setter(param->p_owner, param->p_name, (float)((1.f - f) * (param->p_min - param->p_max) + param->p_max));
+            param->p_setter(param->p_owner, param->p_name, ((1.f - f) * (param->p_min - param->p_max) + param->p_max));
         }
     }
 }
@@ -670,11 +670,11 @@ float ebox_parameter_get(t_ebox *x, t_symbol* name)
         }
         else if(param->p_min < param->p_max)
         {
-            f = (f + param->p_min) / (param->p_max  - param->p_min);
+            f = (f - param->p_min) / (param->p_max - param->p_min);
         }
         else if(param->p_min > param->p_max)
         {
-            f = (f + param->p_max) / (param->p_min  - param->p_max);
+            f = (f - param->p_max) / (param->p_min - param->p_max);
         }
     }
     return f;
@@ -704,12 +704,39 @@ float ebox_parameter_getdefault(t_ebox *x, t_symbol* name)
 
 void ebox_parameter_gettextforvalue(t_ebox *x, t_symbol* name, char** value, float f)
 {
-    int todo;
+    t_eparam* param = ebox_get_parameter(x, name);
+    if(param)
+    {
+        *value = (char *)malloc(256 * sizeof(char));
+        if(*value)
+        {
+            if(param->p_max == param->p_min)
+            {
+                f = param->p_max;
+            }
+            else if(param->p_min < param->p_max)
+            {
+                f = (f * (param->p_max - param->p_min) + param->p_min);
+            }
+            else if(param->p_min > param->p_max)
+            {
+                f = ((1.f - f) * (param->p_min - param->p_max) + param->p_max);
+            }
+            sprintf(*value, "%f", f);
+        }
+    }
+    else
+    {
+        *value = NULL;
+    }
 }
 
 float ebox_parameter_getvaluefortext(t_ebox *x, t_symbol* name, char const* value)
 {
-    int todo;
+    if(isdigit(value))
+    {
+        return atof(value);
+    }
     return 0.f;
 }
 
