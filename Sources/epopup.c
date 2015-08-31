@@ -8,19 +8,20 @@
  * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
+#include "float.h"
 #include "epopup.h"
 #include "eobj.h"
 #include "ebox.h"
 #include "egraphics.h"
 
-static void eobj_widget_notify(t_eobj* obj, t_symbol* widget, t_symbol* action)
+static void eobj_widget_notify(t_eobj* obj, t_symbol* widget, t_symbol* name, t_symbol* action)
 {
     t_atom av[2];
     if(is_valid_symbol(obj->o_camo_id) && obj->o_camo_id->s_thing)
     {
-        atom_setsym(av, widget);
+        atom_setsym(av, name);
         atom_setsym(av+1, action);
-        pd_typedmess(obj->o_camo_id->s_thing, s_cream_popup, 2, av);
+        pd_typedmess(obj->o_camo_id->s_thing, widget, 2, av);
     }
 }
 
@@ -64,7 +65,7 @@ t_epopup* epopupmenu_create(t_eobj* x)
             sys_vgui("destroy %s\n", popup->c_name->s_name);
             sys_vgui("menu %s -type normal\n", popup->c_name->s_name);
             
-            eobj_widget_notify(x, s_cream_popup, s_cream_create);
+            eobj_widget_notify(x, s_cream_popup, popup->c_popup_id, s_cream_create);
         }
     }
     return popup;
@@ -74,7 +75,7 @@ void epopupmenu_destroy(t_epopup* popup)
 {
     if(popup)
     {
-        eobj_widget_notify(popup->c_owner, s_cream_popup, s_cream_destroy);
+        eobj_widget_notify(popup->c_owner, s_cream_popup, popup->c_popup_id, s_cream_destroy);
         pd_unbind((t_pd *)popup, popup->c_popup_id);
         sys_vgui("destroy %s\n", popup->c_name->s_name);
         if(popup->c_size && popup->c_items)
@@ -89,19 +90,19 @@ void epopupmenu_setfont(t_epopup* popup, t_efont *font)
 {
     sys_vgui("%s configure -font {%s %d %s italic}\n", popup->c_name->s_name, font[0].c_family->s_name, (int)font[0].c_size, font[0].c_weight->s_name, font[0].c_slant->s_name);
     memcpy(&popup->c_font, font, sizeof(t_efont));
-    eobj_widget_notify(popup->c_owner, s_cream_popup, s_cream_attr_modified);
+    eobj_widget_notify(popup->c_owner, s_cream_popup, popup->c_popup_id, s_cream_attr_modified);
 }
 
 void epopupmenu_setbackgroundcolor(t_epopup *popup, t_rgba const* color)
 {
     memcpy(&popup->c_bgcolor, color, sizeof(t_rgba));
-    eobj_widget_notify(popup->c_owner, s_cream_popup, s_cream_attr_modified);
+    eobj_widget_notify(popup->c_owner, s_cream_popup, popup->c_popup_id, s_cream_attr_modified);
 }
 
 void epopupmenu_settextcolor(t_epopup *popup, t_rgba const* color)
 {
     memcpy(&popup->c_txtcolor, color, sizeof(t_rgba));
-    eobj_widget_notify(popup->c_owner, s_cream_popup, s_cream_attr_modified);
+    eobj_widget_notify(popup->c_owner, s_cream_popup, popup->c_popup_id, s_cream_attr_modified);
 }
 
 void epopupmenu_additem(t_epopup* popup, int itemid, const char *text, char checked, char disabled)
@@ -139,7 +140,7 @@ void epopupmenu_additem(t_epopup* popup, int itemid, const char *text, char chec
         }
     }
     
-    eobj_widget_notify(popup->c_owner, s_cream_popup, s_cream_attr_modified);
+    eobj_widget_notify(popup->c_owner, s_cream_popup, popup->c_popup_id, s_cream_attr_modified);
 }
 
 void epopupmenu_addseperator(t_epopup* popup)
@@ -168,7 +169,7 @@ void epopupmenu_addseperator(t_epopup* popup)
             popup->c_size++;
         }
     }
-    eobj_widget_notify(popup->c_owner, s_cream_popup, s_cream_attr_modified);
+    eobj_widget_notify(popup->c_owner, s_cream_popup, popup->c_popup_id, s_cream_attr_modified);
 }
 
 void epopupmenu_popup(t_epopup* popup, t_rect const* bounds)
@@ -204,7 +205,7 @@ void epopupmenu_popup(t_epopup* popup, t_rect const* bounds)
     sys_vgui("tk_popup %s [expr [winfo rootx %s] + %i] [expr [winfo rooty %s] + %i]\n", popup->c_name->s_name, popup->c_canvas_id->s_name, (int)bounds->x, popup->c_canvas_id->s_name, (int)bounds->y);
     
     memcpy(&popup->c_bounds, bounds, sizeof(t_rect));
-    eobj_widget_notify(popup->c_owner, s_cream_popup, s_cream_popup);
+    eobj_widget_notify(popup->c_owner, s_cream_popup, popup->c_popup_id, s_cream_popup);
 }
 
 t_epopup* epopupmenu_getfromsymbol(t_symbol* name)
@@ -216,6 +217,12 @@ t_epopup* epopupmenu_getfromsymbol(t_symbol* name)
     }
     return NULL;
 }
+
+
+
+
+
+
 
 
 static void etexteditor_text(t_etexteditor* x, t_symbol* s, int argc, t_atom* argv)
@@ -346,7 +353,7 @@ t_etexteditor* etexteditor_create(t_ebox* x)
             sys_vgui("pack %s -side left -fill both -expand 1 \n", editor->c_name->s_name);
             sys_vgui("pack %s -side bottom -fill both -expand 1 \n", editor->c_frame_id->s_name);
             
-            eobj_widget_notify((t_eobj *)x, s_cream_texteditor, s_cream_create);
+            eobj_widget_notify((t_eobj *)x, s_cream_texteditor, editor->c_editor_id, s_cream_create);
         }
         return editor;
     }
@@ -362,7 +369,7 @@ void etexteditor_destroy(t_etexteditor* editor)
         sys_vgui("destroy %s\n", editor->c_frame_id->s_name);
         sys_vgui("destroy %s\n", editor->c_name->s_name);
         sys_vgui("%s delete %s\n", editor->c_canvas_id->s_name, editor->c_window_id->s_name);
-        eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, s_cream_destroy);
+        eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, editor->c_editor_id, s_cream_destroy);
         pd_unbind((t_pd *)editor, editor->c_editor_id);
         free(editor);
     }
@@ -400,7 +407,7 @@ void etexteditor_settext(t_etexteditor* editor, const char* text)
         }
     }
     memcpy(editor->c_text, text, lenght * sizeof(char));
-    eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, s_cream_attr_modified);
+    eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, editor->c_editor_id, s_cream_attr_modified);
 }
 
 void etexteditor_gettext(t_etexteditor *editor, char** text)
@@ -423,13 +430,13 @@ void etexteditor_gettext(t_etexteditor *editor, char** text)
         *text = (char *)malloc(sizeof(char));
         *text[0] = '0';
     }
-    eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, s_cream_attr_modified);
+    eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, editor->c_editor_id, s_cream_attr_modified);
 }
 
 void etexteditor_clear(t_etexteditor* editor)
 {
     sys_vgui("%s delete 0.0 end\n", editor->c_name->s_name);
-    eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, s_cream_attr_modified);
+    eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, editor->c_editor_id, s_cream_attr_modified);
 }
 
 void etexteditor_setfont(t_etexteditor *editor, t_efont const* font)
@@ -438,7 +445,7 @@ void etexteditor_setfont(t_etexteditor *editor, t_efont const* font)
              font->c_family->s_name, (int)font->c_size, font->c_weight->s_name, font->c_slant->s_name);
     
     memcpy(&editor->c_font, font, sizeof(t_efont));
-    eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, s_cream_attr_modified);
+    eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, editor->c_editor_id, s_cream_attr_modified);
 }
 
 void etexteditor_setbackgroundcolor(t_etexteditor *editor, t_rgba const* color)
@@ -446,7 +453,7 @@ void etexteditor_setbackgroundcolor(t_etexteditor *editor, t_rgba const* color)
     sys_vgui("%s configure -background %s\n", editor->c_name->s_name, rgba_to_hex(color));
     
     memcpy(&editor->c_bgcolor, color, sizeof(t_efont));
-    eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, s_cream_attr_modified);
+    eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, editor->c_editor_id, s_cream_attr_modified);
 }
 
 void etexteditor_settextcolor(t_etexteditor *editor, t_rgba const* color)
@@ -454,7 +461,7 @@ void etexteditor_settextcolor(t_etexteditor *editor, t_rgba const* color)
     sys_vgui("%s configure -foreground %s\n", editor->c_name->s_name, rgba_to_hex(color));
     
     memcpy(&editor->c_txtcolor, color, sizeof(t_efont));
-    eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, s_cream_attr_modified);
+    eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, editor->c_editor_id, s_cream_attr_modified);
 }
 
 void etexteditor_setwrap(t_etexteditor *editor, char wrap)
@@ -469,7 +476,7 @@ void etexteditor_setwrap(t_etexteditor *editor, char wrap)
     }
     
     editor->c_wrap = wrap;
-    eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, s_cream_attr_modified);
+    eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, editor->c_editor_id, s_cream_attr_modified);
 }
 
 void etexteditor_popup(t_etexteditor *editor, t_rect const* bounds)
@@ -497,13 +504,13 @@ void etexteditor_popup(t_etexteditor *editor, t_rect const* bounds)
              (int)bounds->width, (int)bounds->height);
     
     memcpy(&editor->c_bounds, bounds, sizeof(t_rect));
-    eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, s_cream_popup);
+    eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, editor->c_editor_id, s_cream_popup);
 }
 
 void etexteditor_grabfocus(t_etexteditor *editor)
 {
     sys_vgui("focus -force %s\n", editor->c_name->s_name);
-    eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, s_cream_grabfocus);
+    eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, editor->c_editor_id, s_cream_grabfocus);
 }
 
 t_etexteditor* etexteditor_getfromsymbol(t_symbol* name)
@@ -517,215 +524,373 @@ t_etexteditor* etexteditor_getfromsymbol(t_symbol* name)
 }
 
 
-static t_eparam* ebox_get_parameter(t_ebox *x, t_symbol* name)
+static t_class* eparameter_setup()
+{
+    t_class* eparameter_class = NULL;
+    t_symbol* eparameter1572_sym = gensym("eparameter1572");
+    if(!eparameter1572_sym->s_thing)
+    {
+        eparameter_class = class_new(gensym("eparameter"), NULL, (t_method)NULL, sizeof(t_etexteditor), CLASS_PD, A_GIMME, 0);
+        eparameter1572_sym->s_thing = (t_class **)eparameter_class;
+        return eparameter_class;
+    }
+    else
+    {
+        return (t_class *)eparameter1572_sym->s_thing;
+    }
+}
+
+t_eparam* ebox_parameter_create(t_ebox *x, int index)
 {
     int i;
-    for(i = 0; i < x->b_nparams; i++)
+    char text[MAXPDSTRING];
+    t_eparam **temp  = NULL, *param = NULL;
+    t_class* c = eparameter_setup();
+    if(c)
     {
-        if(x->b_params[i].p_name == name)
+        if(index < x->b_nparams && x->b_params[index])
         {
-            return x->b_params+i;
+            return x->b_params[index];
+        }
+        else
+        {
+            param = (t_eparam *)pd_new(c);
+            if(param)
+            {
+                sprintf(text, "param%ld", (unsigned long)(param));
+                param->p_bind       = gensym(text);
+                param->p_name       = s_cream_empty;
+                param->p_label      = s_cream_empty;
+                param->p_owner      = x;
+                param->p_index      = index;
+                param->p_value      = 0.f;
+                param->p_min        = 0.f;
+                param->p_max        = 1.f;
+                param->p_step       = FLT_EPSILON;
+                param->p_getter     = (t_param_getter)NULL;
+                param->p_setter     = (t_param_setter)NULL;
+                param->p_getter_t   = (t_param_getter_t)NULL;
+                param->p_setter_t   = (t_param_setter_t)NULL;
+                param->p_auto       = 1;
+                param->p_meta       = 0;
+                pd_bind((t_pd *)param, param->p_bind);
+                if(index < x->b_nparams)
+                {
+                    x->b_params[index] = param;
+                    eobj_widget_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_create);
+                    return param;
+                }
+                else if(x->b_nparams && x->b_params)
+                {
+                    temp = (t_eparam **)realloc(x->b_params, sizeof(t_eparam *) * (size_t)(index + 1));
+                    if(temp)
+                    {
+                        x->b_params = temp;
+                        for(i = x->b_nparams; i < index; i++)
+                        {
+                            x->b_params[i] = NULL;
+                        }
+                        x->b_params[index] = param;
+                        x->b_nparams = index+1;
+                        eobj_widget_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_create);
+                        return param;
+                    }
+                    else
+                    {
+                        return NULL;
+                    }
+                }
+                else
+                {
+                    x->b_params = (t_eparam **)malloc(sizeof(t_eparam *) * (size_t)(index + 1));
+                    if(x->b_params)
+                    {
+                        for(i = 0; i < index; i++)
+                        {
+                            x->b_params[i] = NULL;
+                        }
+                        x->b_params[index] = param;
+                        x->b_nparams = index+1;
+                        eobj_widget_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_create);
+                        return param;
+                    }
+                    else
+                    {
+                        x->b_nparams = 0;
+                        return NULL;
+                    }
+                }
+            }
+            
         }
     }
     return NULL;
 }
 
-void ebox_parameter_new(t_ebox *x, t_symbol* name)
+void ebox_parameter_destroy(t_ebox* x, int index)
 {
-    t_eparam* temp = NULL;
-    if(x->b_nparams && x->b_params)
+    int i = 0;
+    if(index >= 0 && index < x->b_nparams)
     {
-        temp = (t_eparam *)realloc(x->b_params, sizeof(t_eparam) * (size_t)(x->b_nparams + 1));
-        if(temp)
+        if(x->b_params[index])
         {
-            x->b_params = temp;
-            x->b_params[x->b_nparams].p_name       = name;
-            x->b_params[x->b_nparams].p_label      = s_cream_empty;
-            x->b_params[x->b_nparams].p_owner      = x;
-            x->b_params[x->b_nparams].p_min        = 0.f;
-            x->b_params[x->b_nparams].p_max        = 1.f;
-            x->b_params[x->b_nparams].p_default    = 0.f;
-            x->b_params[x->b_nparams].p_getter     = (t_param_getter)NULL;
-            x->b_params[x->b_nparams].p_setter     = (t_param_setter)NULL;
-            x->b_params[x->b_nparams].p_auto       = 1;
-            x->b_params[x->b_nparams].p_meta       = 0;
-            x->b_nparams++;
-        }
-    }
-    else
-    {
-        x->b_params = (t_eparam *)malloc(sizeof(t_eparam));
-        if(x->b_params)
-        {
-            x->b_params[0].p_name       = name;
-            x->b_params[0].p_label      = s_cream_empty;
-            x->b_params[0].p_owner      = x;
-            x->b_params[0].p_min        = 0.f;
-            x->b_params[0].p_max        = 1.f;
-            x->b_params[0].p_default    = 0.f;
-            x->b_params[0].p_getter     = (t_param_getter)NULL;
-            x->b_params[0].p_setter     = (t_param_setter)NULL;
-            x->b_params[0].p_auto       = 1;
-            x->b_params[0].p_meta       = 0;
-            
-            x->b_nparams = 1;
-        }
-        else
-        {
-            x->b_nparams = 0;
-        }
-    }
-}
-
-void ebox_parameter_label(t_ebox *x, t_symbol* name, t_symbol* label)
-{
-    t_eparam* param = ebox_get_parameter(x, name);
-    if(param)
-    {
-        param->p_label = label;
-    }
-}
-
-void ebox_parameter_default(t_ebox *x, t_symbol* name, float value)
-{
-    t_eparam* param = ebox_get_parameter(x, name);
-    if(param)
-    {
-        param->p_default = value;
-    }
-}
-
-void ebox_parameter_minmax(t_ebox *x, t_symbol* name, float min, float max)
-{
-    t_eparam* param = ebox_get_parameter(x, name);
-    if(param)
-    {
-        param->p_min = min;
-        param->p_max = max;
-    }
-}
-
-void ebox_parameter_methods(t_ebox *x, t_symbol* name, t_param_getter getter, t_param_setter setter)
-{
-    t_eparam* param = ebox_get_parameter(x, name);
-    if(param)
-    {
-        param->p_getter = getter;
-        param->p_setter = setter;
-    }
-}
-
-void ebox_parameter_options(t_ebox *x, t_symbol* name, char meta, char autom)
-{
-    t_eparam* param = ebox_get_parameter(x, name);
-    if(param)
-    {
-        param->p_meta = meta;
-        param->p_auto = autom;
-    }
-}
-
-void ebox_parameter_set(t_ebox *x, t_symbol* name, float f)
-{
-    t_eparam* param = ebox_get_parameter(x, name);
-    if(param && param->p_setter)
-    {
-        if(param->p_max == param->p_min)
-        {
-            param->p_setter(param->p_owner, param->p_name, param->p_max);
-        }
-        else if(param->p_min < param->p_max)
-        {
-            param->p_setter(param->p_owner, param->p_name, (f * (param->p_max - param->p_min) + param->p_min));
-        }
-        else if(param->p_min > param->p_max)
-        {
-            param->p_setter(param->p_owner, param->p_name, ((1.f - f) * (param->p_min - param->p_max) + param->p_max));
-        }
-    }
-}
-
-float ebox_parameter_get(t_ebox *x, t_symbol* name)
-{
-    float f = 0.f;
-    t_eparam* param = ebox_get_parameter(x, name);
-    if(param && param->p_getter)
-    {
-        param->p_getter(param->p_owner, param->p_name, &f);
-        if(param->p_max == param->p_min)
-        {
-            f = f / param->p_max;
-        }
-        else if(param->p_min < param->p_max)
-        {
-            f = (f - param->p_min) / (param->p_max - param->p_min);
-        }
-        else if(param->p_min > param->p_max)
-        {
-            f = (f - param->p_max) / (param->p_min - param->p_max);
-        }
-    }
-    return f;
-}
-
-float ebox_parameter_getdefault(t_ebox *x, t_symbol* name)
-{
-    float f = 0.f;
-    t_eparam* param = ebox_get_parameter(x, name);
-    if(param && param->p_getter)
-    {
-        if(param->p_max == param->p_min)
-        {
-            f = f / param->p_max;
-        }
-        else if(param->p_min < param->p_max)
-        {
-            f = (f + param->p_min) / (param->p_max  - param->p_min);
-        }
-        else if(param->p_min > param->p_max)
-        {
-            f = (f + param->p_max) / (param->p_min  - param->p_max);
-        }
-    }
-    return f;
-}
-
-void ebox_parameter_gettextforvalue(t_ebox *x, t_symbol* name, char** value, float f)
-{
-    t_eparam* param = ebox_get_parameter(x, name);
-    if(param)
-    {
-        *value = (char *)malloc(256 * sizeof(char));
-        if(*value)
-        {
-            if(param->p_max == param->p_min)
+            eobj_widget_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_destroy);
+            pd_unbind((t_pd *)x->b_params[index], x->b_params[index]->p_bind);
+            free(x->b_params[index]);
+            x->b_params[index] = NULL;
+            for(i = index; i < x->b_nparams - 1; i++)
             {
-                f = param->p_max;
+                x->b_params[i] = x->b_params[i+1];
             }
-            else if(param->p_min < param->p_max)
-            {
-                f = (f * (param->p_max - param->p_min) + param->p_min);
-            }
-            else if(param->p_min > param->p_max)
-            {
-                f = ((1.f - f) * (param->p_min - param->p_max) + param->p_max);
-            }
-            sprintf(*value, "%f", f);
         }
-    }
-    else
-    {
-        *value = NULL;
     }
 }
 
-float ebox_parameter_getvaluefortext(t_ebox *x, t_symbol* name, char const* value)
+float ebox_parameter_getvalue(t_ebox* x, int index)
 {
-    if(isdigit(value))
+    if(index >= 0 && index < x->b_nparams)
     {
-        return atof(value);
+        if(x->b_params[index])
+        {
+            if(x->b_params[index]->p_getter)
+            {
+                return x->b_params[index]->p_getter(x->b_params[index]->p_owner, x->b_params[index]);
+            }
+            return x->b_params[index]->p_value;
+        }
+    }
+    return 0;
+}
+
+void ebox_parameter_setvalue(t_ebox* x, int index, float value, char notify)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            if(x->b_params[index]->p_setter)
+            {
+                x->b_params[index]->p_setter(x->b_params[index]->p_owner, x->b_params[index], value);
+            }
+            else
+            {
+                if(x->b_params[index]->p_min < x->b_params[index]->p_max)
+                {
+                    x->b_params[index]->p_value = pd_clip_minmax(value, x->b_params[index]->p_min, x->b_params[index]->p_max);
+                }
+                else
+                {
+                    x->b_params[index]->p_value  = pd_clip_minmax(value, x->b_params[index]->p_max, x->b_params[index]->p_min);
+                }
+            }
+            if(notify)
+            {
+                ebox_parameter_notify_changes(x, index);
+            }
+        }
+    }
+}
+
+float ebox_parameter_getvalue_normalized(t_ebox* x, int index)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            if(x->b_params[index]->p_max == x->b_params[index]->p_min)
+            {
+                return 1.;
+            }
+            else if(x->b_params[index]->p_min < x->b_params[index]->p_max)
+            {
+                return (ebox_parameter_getvalue(x, index) - x->b_params[index]->p_min) / (x->b_params[index]->p_max - x->b_params[index]->p_min);
+            }
+            else
+            {
+                return (ebox_parameter_getvalue(x, index) - x->b_params[index]->p_max) / (x->b_params[index]->p_min - x->b_params[index]->p_max);
+            }
+        }
     }
     return 0.f;
+}
+
+void ebox_parameter_setvalue_normalized(t_ebox* x, int index, float value, char notify)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            if(x->b_params[index]->p_min < x->b_params[index]->p_max)
+            {
+                ebox_parameter_setvalue(x, index, (value * (x->b_params[index]->p_max - x->b_params[index]->p_min) + x->b_params[index]->p_min), notify);
+            }
+            else
+            {
+                ebox_parameter_setvalue(x, index, ((1.f - value) * (x->b_params[index]->p_min - x->b_params[index]->p_max) + x->b_params[index]->p_max), notify);
+            }
+        }
+    }
+}
+
+float ebox_parameter_getmin(t_ebox* x, int index)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            return x->b_params[index]->p_min;
+        }
+    }
+    return 1.f;
+}
+
+float ebox_parameter_getmax(t_ebox* x, int index)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            return x->b_params[index]->p_max;
+        }
+    }
+    return 1.f;
+}
+
+char ebox_parameter_isinverted(t_ebox* x, int index)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            return (char)(x->b_params[index]->p_max < x->b_params[index]->p_min);
+        }
+    }
+    return 0;
+}
+
+void ebox_parameter_notify_changes(t_ebox *x, int index)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            eobj_widget_notify((t_eobj *)x->b_params[index]->p_owner, s_cream_parameter, x->b_params[index]->p_bind, s_cream_changes);
+        }
+    }
+}
+
+void ebox_parameter_begin_changes(t_ebox *x, int index)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            eobj_widget_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_beginchanges);
+        }
+    }
+}
+
+void ebox_parameter_end_changes(t_ebox *x, int index)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            eobj_widget_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_endchanges);
+        }
+    }
+}
+
+float eparameter_getvalue(t_eparam* param)
+{
+    if(param->p_getter)
+    {
+        return param->p_getter(param->p_owner, param);
+    }
+    return param->p_value;
+}
+
+float eparameter_getvalue_normalized(t_eparam* param)
+{
+    if(param->p_max == param->p_min)
+    {
+        return 1.;
+    }
+    else if(param->p_min < param->p_max)
+    {
+        return (eparameter_getvalue(param) - param->p_min) / (param->p_max - param->p_min);
+    }
+    else
+    {
+        return (eparameter_getvalue(param) - param->p_max) / (param->p_min - param->p_max);
+    }
+}
+
+void eparameter_getvalue_text(t_eparam* param, char* text)
+{
+    if(param->p_getter_t)
+    {
+        param->p_getter_t(param->p_owner, param, text);
+    }
+    else
+    {
+        sprintf(text, "%.4f", eparameter_getvalue(param));
+    }
+}
+
+void eparameter_setvalue(t_eparam* param, float value)
+{
+    t_eclass* c = eobj_getclass(param->p_owner);
+    if(param->p_setter)
+    {
+        param->p_setter(param->p_owner, param, value);
+    }
+    else
+    {
+        if(param->p_min < param->p_max)
+            param->p_value = pd_clip_minmax(value, param->p_min, param->p_max);
+        else
+            param->p_value  = pd_clip_minmax(value, param->p_max, param->p_min);
+        
+        if(c->c_widget.w_notify)
+        {
+            c->c_widget.w_notify(param->p_owner, param->p_bind, s_cream_param_changed, param, param->p_value);
+        }
+    }
+}
+
+void eparameter_setvalue_normalized(t_eparam* param, float value)
+{
+    if(param->p_min < param->p_max)
+    {
+        eparameter_setvalue(param, (value * (param->p_max - param->p_min) + param->p_min));
+    }
+    else
+    {
+        eparameter_setvalue(param, ((1.f - value) * (param->p_min - param->p_max) + param->p_max));
+    }
+}
+
+void eparameter_setvalue_text(t_eparam* param, char const* text)
+{
+    if(param->p_setter_t)
+    {
+        param->p_setter_t(param->p_owner, param, text);
+    }
+    else if(isdigit(text))
+    {
+        eparameter_setvalue(param, atof(text));
+    }
+}
+
+t_eparam* eparameter_getfromsymbol(t_symbol* name)
+{
+    t_class* c = eparameter_setup();
+    if(c)
+    {
+        return (t_eparam *)pd_findbyclass(name, c);
+    }
+    return NULL;
 }
 
 

@@ -129,7 +129,7 @@ void eclass_guiinit(t_eclass* c, long flags)
         class_addmethod((t_class *)c, (t_method)ebox_texteditor_keyfilter, gensym("texteditor_keyfilter"), A_SYMBOL,A_DEFFLOAT,0);
     }
     
-    // GUI always need this methods //
+    // GUI always needs this methods //
     class_addmethod((t_class *)c, (t_method)ebox_attrprint,         gensym("attrprint"),    A_NULL,  0);
     class_addmethod((t_class *)c, (t_method)ebox_dialog,            gensym("dialog"),       A_GIMME, 0);
     

@@ -124,6 +124,10 @@ void ebox_free(t_ebox* x)
     
     if(x->b_nparams && x->b_params)
     {
+        for(i = 0; i < x->b_nparams; i++)
+        {
+            ebox_parameter_destroy(x, i);
+        }
         free(x->b_params);
     }
 }

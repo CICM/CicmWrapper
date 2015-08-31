@@ -80,6 +80,8 @@ extern t_symbol* s_cream_obj;
 extern t_symbol* s_cream_atom;
 //! The pre-defined attr_modified t_symbol*
 extern t_symbol* s_cream_attr_modified;
+//! The pre-defined param_changed t_symbol*
+extern t_symbol* s_cream_param_changed;
 //! The pre-defined eboxbd t_symbol*
 extern t_symbol* s_cream_eboxbd;
 //! The pre-defined eboxio t_symbol*
@@ -88,6 +90,8 @@ extern t_symbol* s_cream_eboxio;
 extern t_symbol* s_cream_texteditor;
 //! The pre-defined popup t_symbol*
 extern t_symbol* s_cream_popup;
+//! The pre-defined parameter t_symbol*
+extern t_symbol* s_cream_parameter;
 //! The pre-defined grabfocus t_symbol*
 extern t_symbol* s_cream_grabfocus;
 //! The pre-defined repaint t_symbol*
@@ -98,6 +102,12 @@ extern t_symbol* s_cream_size;
 extern t_symbol* s_cream_create;
 //! The pre-defined destroy t_symbol*
 extern t_symbol* s_cream_destroy;
+//! The pre-defined beginchanges t_symbol*
+extern t_symbol* s_cream_beginchanges;
+//! The pre-defined endchanges t_symbol*
+extern t_symbol* s_cream_endchanges;
+//! The pre-defined changes t_symbol*
+extern t_symbol* s_cream_changes;
 //! The pre-defined int t_symbol*
 extern t_symbol* s_int;
 //! The pre-defined long t_symbol*
@@ -688,11 +698,16 @@ typedef struct t_edrawparams
 } t_edrawparams;
 
 struct t_ebox;
+struct t_eparam;
 
 //! The t_param_setter method
-typedef t_pd_err    (*t_param_setter)(struct t_ebox* x, t_symbol* name, float f);
+typedef void  (*t_param_setter)(struct t_ebox* x, struct t_eparam* p, float f);
 //! The t_param_getter method
-typedef t_pd_err    (*t_param_getter)(struct t_ebox* x, t_symbol* name, float* f);
+typedef float (*t_param_getter)(struct t_ebox* x, struct t_eparam* p);
+//! The t_param_setter_t method
+typedef void  (*t_param_setter_t)(struct t_ebox* x, struct t_eparam* p, char const* text);
+//! The t_param_getter_t method
+typedef void (*t_param_getter_t)(struct t_ebox* x, struct t_eparam* p, char* text);
 
 /**
  * @struct t_eparam
@@ -702,16 +717,19 @@ typedef t_pd_err    (*t_param_getter)(struct t_ebox* x, t_symbol* name, float* f
 typedef struct t_eparam
 {
     t_object        p_object;
-    t_symbol*       p_name;
     t_symbol*       p_bind;
+    t_symbol*       p_name;
     t_symbol*       p_label;
     struct t_ebox*  p_owner;
-    t_float         p_min;
-    t_float         p_max;
-    t_float         p_step;
-    t_float         p_default;
+    int             p_index;
+    float           p_value;
+    float           p_min;
+    float           p_max;
+    float           p_step;
     t_param_getter  p_getter;
     t_param_setter  p_setter;
+    t_param_getter_t p_getter_t;
+    t_param_setter_t p_setter_t;
     char            p_auto;
     char            p_meta;
 } t_eparam;
@@ -755,7 +773,7 @@ typedef struct t_ebox
     
     t_elayer*           b_layers;           /*!< The ebox layers. */
     long                b_number_of_layers; /*!< The ebox number of layers. */
-    t_eparam*           b_params;           /*!< The parameters. */
+    t_eparam**          b_params;           /*!< The parameters. */
     long                b_nparams;          /*!< The number of parameters. */
 }t_ebox;
 

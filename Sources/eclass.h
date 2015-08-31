@@ -374,6 +374,7 @@ eclass_new_attr_typed(c,name, "atom", calcoffset(struct,size), maxsize, flags, c
 #define CLASS_ATTR_DEFAULT_SAVE_PAINT(c,attrname,flags,parsestr) \
 { CLASS_ATTR_DEFAULT(c,attrname,flags,parsestr); CLASS_ATTR_SAVE(c,attrname,flags); CLASS_ATTR_PAINT(c,attrname,flags); }
 
+
 /** @} */
 
 #endif
