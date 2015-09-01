@@ -307,22 +307,15 @@ void etext_layout_set(t_etext* textlayout, const char* text, t_efont *font,  flo
 void etext_layout_settextcolor(t_etext* textlayout, t_rgba* color);
 
 /*!
- * \fn          t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, float size)
- * \brief       Allocates a new t_efont.
- * \param family The font family.
- * \param slant The font slant.
- * \param weight The font weight.
- * \param size The font size.
- * \return      The new t_efont pointer.
- */
-t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, float size);
-
-/*!
- * \fn          void efont_destroy(t_efont* font)
- * \brief       Frees a t_efont.
+ * \fn          void efont_init(t_efont* font, t_symbol* family, char bold, char italic, float size);
+ * \brief       Initializes a t_efont.
  * \param font The t_efont pointer.
+ * \param family The font family.
+ * \param bold  If the font is bold.
+ * \param italic  If the font is italic.
+ * \param size The font size.
  */
-void efont_destroy(t_efont* font);
+void efont_init(t_efont* font, t_symbol* family, char bold, char italic, float size);
 
 /*!
  * \fn          void egraphics_fill(t_elayer *g)

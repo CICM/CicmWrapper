@@ -368,10 +368,10 @@ extern const t_rgba rgba_red;
  */
 typedef struct t_efont
 {
-    float       c_size;     /*!< The size of the font. */
-    t_symbol*   c_family;   /*!< The family of the font (times, helvetica, ect.). */
-    t_symbol*   c_slant;    /*!< The slant of the font (regular, italic, etc.). */
-    t_symbol*   c_weight;   /*!< The weight of the font (normal, bold). */
+    t_symbol*   family;   /*!< The family of the font (times, helvetica, ect.). */
+    float       size;     /*!< The size of the font. */
+    t_symbol*   slant;    /*!< The slant of the font (regular, italic, etc.). */
+    t_symbol*   weight;   /*!< The weight of the font (normal, bold). */
 } t_efont;
 
 /**
@@ -681,7 +681,8 @@ typedef enum
     EBOX_GROWLINK        = (1<<5),    /*!< The width and the height are linked. */
     EBOX_GROWINDI        = (1<<6),    /*!< The width and the height are independant. */
     EBOX_IGNORELOCKCLICK = (1<<7),    /*!< The t_ebox ignore the mouse events. */
-    EBOX_TEXTFIELD       = (1<<11)    /*!< The t_ebox supports text fields. */
+    EBOX_TEXTFIELD       = (1<<11),   /*!< The t_ebox supports text fields. */
+    EBOX_FONTSIZE        = (1<<18)    /*!< The t_ebox font attr changes the size. */
 } ebox_flags;
 
 /**
@@ -778,7 +779,7 @@ typedef struct t_ebox
     long                b_flags;            /*!< The ebox flags. */
     t_rect              b_rect;             /*!< The ebox rectangle. */
     t_rect              b_rect_last;        /*!< The ebox previous rectangle. */
-    t_efont             b_font;             /*!< The ebox font. */
+
     int                 b_pinned;           /*!< If the ebox is pinned to the canvas. */
     int                 b_selected_box;     /*!< The selected state */
     int                 b_selected_item;    /*!< The items selected. */

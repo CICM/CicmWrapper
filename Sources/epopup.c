@@ -88,7 +88,7 @@ void epopupmenu_destroy(t_epopup* popup)
 
 void epopupmenu_setfont(t_epopup* popup, t_efont *font)
 {
-    sys_vgui("%s configure -font {%s %d %s italic}\n", popup->c_name->s_name, font[0].c_family->s_name, (int)font[0].c_size, font[0].c_weight->s_name, font[0].c_slant->s_name);
+    sys_vgui("%s configure -font {%s %d %s italic}\n", popup->c_name->s_name, font[0].family->s_name, (int)font[0].size, font[0].weight->s_name, font[0].slant->s_name);
     memcpy(&popup->c_font, font, sizeof(t_efont));
     eobj_widget_notify(popup->c_owner, s_cream_popup, popup->c_popup_id, s_cream_attr_modified);
 }
@@ -333,10 +333,10 @@ t_etexteditor* etexteditor_create(t_ebox* x)
             editor->c_text = NULL;
             editor->c_size = 0;
             
-            editor->c_font.c_size   = 12;
-            editor->c_font.c_family = gensym("Helvetica");
-            editor->c_font.c_slant  = gensym("roman");
-            editor->c_font.c_weight = gensym("normal");
+            editor->c_font.size   = 12;
+            editor->c_font.family = gensym("Helvetica");
+            editor->c_font.slant  = gensym("roman");
+            editor->c_font.weight = gensym("normal");
             
             editor->c_bgcolor   = rgba_white;
             editor->c_txtcolor  = rgba_black;
@@ -350,8 +350,8 @@ t_etexteditor* etexteditor_create(t_ebox* x)
             
             sys_vgui("frame %s -borderwidth 0.0 -highlightthickness 0 \n", editor->c_frame_id->s_name);
             sys_vgui("text %s -borderwidth 0.0 -highlightthickness 0 -insertborderwidth 0\n", editor->c_name->s_name);
-            sys_vgui("pack %s -side left -fill both -expand 1 \n", editor->c_name->s_name);
-            sys_vgui("pack %s -side bottom -fill both -expand 1 \n", editor->c_frame_id->s_name);
+            sys_vgui("pack %s -side left -fill both \n", editor->c_name->s_name);
+            sys_vgui("pack %s -side bottom -fill both \n", editor->c_frame_id->s_name);
             
             eobj_widget_notify((t_eobj *)x, s_cream_texteditor, editor->c_editor_id, s_cream_create);
         }
@@ -442,7 +442,7 @@ void etexteditor_clear(t_etexteditor* editor)
 void etexteditor_setfont(t_etexteditor *editor, t_efont const* font)
 {
     sys_vgui("%s configure -font {%s %d %s %s}\n", editor->c_name->s_name,
-             font->c_family->s_name, (int)font->c_size, font->c_weight->s_name, font->c_slant->s_name);
+             font->family->s_name, (int)font->size, font->weight->s_name, font->slant->s_name);
     
     memcpy(&editor->c_font, font, sizeof(t_efont));
     eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, editor->c_editor_id, s_cream_attr_modified);
@@ -925,8 +925,8 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                      tx, i+1, attr->label->s_name);
             sys_vgui("label %s.name%i.name -justify left -font {Helvetica 12} -text \"(%s)\"\n",
                      tx, i+1, attr->name->s_name);
-            sys_vgui("pack  %s.label%i.name -side left -expand 1 -fill both\n",  tx, i+1);
-            sys_vgui("pack  %s.name%i.name -side left -expand 1 -fill both\n",  tx, i+1);
+            sys_vgui("pack  %s.label%i.name -side left -fill both\n",  tx, i+1);
+            sys_vgui("pack  %s.name%i.name -side left -fill both\n",  tx, i+1);
             eobj_attr_getvalueof(x,  attr->name, &argc, &argv);
             if(argc && argv)
             {
@@ -935,7 +935,7 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                     sys_vgui("set %s%i %i\n", va, i+1, (int)atom_getfloat(argv));
                     sys_vgui("checkbutton %s.selec%i.cb -variable var%s%i -command {pdsend \"%s %s $%s%i\"}\n",
                              tx, i+1, tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
-                    sys_vgui("pack %s.selec%i.cb -side right -expand 1 -fill both\n",tx, i+1);
+                    sys_vgui("pack %s.selec%i.cb -side right -fill both\n",tx, i+1);
                 }
                 else if(attr->style == s_cream_color && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT
                         && atom_gettype(argv+2) == A_FLOAT && atom_gettype(argv+3) == A_FLOAT)
@@ -947,7 +947,7 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                              tx, i+1, va, i+1);
                     sys_vgui("bind %s.selec%i.cb <Button> [concat epicker_apply %s %s $%s%i %s.selec%i.cb]\n",
                              tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1, tx, i+1);
-                    sys_vgui("pack %s.selec%i.cb -side right -expand 1 -fill both\n",tx, i+1);
+                    sys_vgui("pack %s.selec%i.cb -side right -fill both\n",tx, i+1);
                 }
                 else if(attr->style == s_cream_number && atom_gettype(argv) == A_FLOAT)
                 {
@@ -960,11 +960,11 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                              (attr->clipped > 1) ? attr->maximum : FLT_MAX);
                     sys_vgui("bind %s.selec%i.cb <KeyPress-Return> {pdsend \"%s %s $%s%i\"}\n",
                              tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
-                    sys_vgui("pack %s.selec%i.cb -side right -expand 1 -fill both\n",tx, i+1);
+                    sys_vgui("pack %s.selec%i.cb -side right -fill both\n",tx, i+1);
                 }
                 else if(attr->style == s_cream_menu && atom_gettype(argv) == A_SYMBOL)
                 {
-                    sys_vgui("set %s%i %f\n", va, i+1, atom_getsymbol(argv)->s_name);
+                    sys_vgui("set %s%i %s\n", va, i+1, atom_getsymbol(argv)->s_name);
                     sys_vgui("spinbox %s.selec%i.cb -font {Helvetica 12} -width 18 -state readonly\
                              -textvariable [string trim %s%i] -command {pdsend \"%s %s $%s%i\"} \
                              -values {", tx, i+1, va, i+1,
@@ -974,7 +974,19 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                         sys_vgui("%s ", attr->itemslist[attr->itemssize - 1 - j]->s_name);
                     }
                     sys_vgui("}\n");
-                    sys_vgui("pack %s.selec%i.cb -side right -expand 1 -fill both\n",tx, i+1);
+                    sys_vgui("pack %s.selec%i.cb -side right -fill both\n",tx, i+1);
+                }
+                else if(attr->style == s_cream_font && atom_gettype(argv) == A_SYMBOL && atom_gettype(argv+1) == A_FLOAT
+                         && atom_gettype(argv+2) == A_SYMBOL && atom_gettype(argv+3) == A_SYMBOL)
+                {
+                    sys_vgui("set %s%i \"%s %i %s %s\"\n", va, i+1, atom_getsymbol(argv)->s_name, (int)atom_getfloat(argv+1), atom_getsymbol(argv+2)->s_name, atom_getsymbol(argv+3)->s_name);
+                    sys_vgui("entry %s.selec%i.cb -font {%s 12 %s %s} -width 20 -textvariable %s%i -state readonly\n"
+                             ,tx, i+1,
+                             atom_getsymbol(argv)->s_name, atom_getsymbol(argv+2)->s_name, atom_getsymbol(argv+3)->s_name,
+                             va, i+1);
+                    sys_vgui("bind %s.selec%i.cb <Button> [concat efont_apply %s %s {$%s%i} %s.selec%i.cb]\n",
+                            tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1, tx, i+1);
+                    sys_vgui("pack %s.selec%i.cb -side right -fill both\n",tx, i+1);
                 }
                 else
                 {
@@ -1003,7 +1015,7 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                              -textvariable [string trim %s%i]\n", tx, i+1, va, i+1);
                     sys_vgui("bind %s.selec%i.cb <KeyPress-Return> {pdsend \"%s %s $%s%i\"}\n",
                              tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
-                    sys_vgui("pack %s.selec%i.cb -side right -expand 1 -fill both\n",tx, i+1);
+                    sys_vgui("pack %s.selec%i.cb -side right -fill both\n",tx, i+1);
                 }
                 free(argv);
             }
@@ -1121,6 +1133,201 @@ void tcltk_create_methods(void)
         sys_gui("pdsend \"$objid $attrname $nR2 $nG2 $nB2\"\n");
         sys_gui("$sentry configure -readonlybackground $color\n");
         sys_gui("}\n");
+        
+        // FONT PICKER WINOW //
+        sys_gui("proc efont_apply {objid attrname initfont sentry} { \n");
+        sys_gui("set nfont [::ChooseFont::ChooseFont $initfont]\n");
+        sys_gui("pdsend \"$objid $attrname $nfont\"\n");
+        sys_gui("$sentry configure -state normal\n");
+        sys_gui("$sentry delete 0 end\n");
+        sys_gui("$sentry insert 0 [string trim $nfont]\n");
+        sys_gui("$sentry configure -state readonly\n");
+        sys_gui("$sentry configure -font {$nfont 12}\n");
+        sys_gui("}\n");
+        
+
+        sys_gui("namespace eval ::ChooseFont {\n");
+        sys_gui("   variable S\n");
+        sys_gui("\n");
+        sys_gui("   set S(W) .cfont\n");
+        sys_gui("   set S(fonts) [lsort -dictionary [font families]]\n");
+        sys_gui("   set S(styles) {Regular Italic Bold \"Bold Italic\"}\n");
+        sys_gui("\n");
+        sys_gui("   set S(sizes) {8 9 10 11 12 14 16 18 20 22 24 26 28 36 48 72}\n");
+        sys_gui("   set S(strike) 0\n");
+        sys_gui("   set S(under) 0\n");
+        sys_gui("   set S(first) 1\n");
+        sys_gui("\n");
+        sys_gui("   set S(fonts,lcase) {}\n");
+        sys_gui("   foreach font $S(fonts) { lappend S(fonts,lcase) [string tolower $font]}\n");
+        sys_gui("   set S(styles,lcase) {regular italic bold \"bold italic\"}\n");
+        sys_gui("   set S(sizes,lcase) $S(sizes)\n");
+        sys_gui("\n");
+        sys_gui("}\n");
+        sys_gui("proc ::ChooseFont::ChooseFont {{defaultFont \"\"}} {\n");
+        sys_gui("   variable S\n");
+        sys_gui("\n");
+        sys_gui("   destroy $S(W)\n");
+        sys_gui("   toplevel $S(W) -padx 10 -pady 10\n");
+        sys_gui("   wm title $S(W) \"Font\"\n");
+        sys_gui("\n");
+        sys_gui("   set tile [expr {[catch {package present tile}] ? \"\" : \"::ttk\"}]\n");
+        sys_gui("\n");
+        sys_gui("   ${tile}::label $S(W).font -text \"Font:\"\n");
+        sys_gui("   ${tile}::label $S(W).style -text \"Font style:\"\n");
+        sys_gui("   ${tile}::label $S(W).size -text \"Size:\"\n");
+        sys_gui("   entry $S(W).efont -textvariable ::ChooseFont::S(font) ;# -state disabled\n");
+        sys_gui("   entry $S(W).estyle -textvariable ::ChooseFont::S(style) ;# -state disabled\n");
+        sys_gui("   entry $S(W).esize -textvariable ::ChooseFont::S(size) -width 0 \
+                -validate key -vcmd {string is double %P}\n");
+        sys_gui("\n");
+        sys_gui("   ${tile}::scrollbar $S(W).sbfonts -command [list $S(W).lfonts yview]\n");
+        sys_gui("   listbox $S(W).lfonts -listvariable ::ChooseFont::S(fonts) -height 7  \
+                -yscroll [list $S(W).sbfonts set] -height 7 -exportselection 0\n");
+        sys_gui("   listbox $S(W).lstyles -listvariable ::ChooseFont::S(styles) -height 7  \
+                -exportselection 0\n");
+        sys_gui("   ${tile}::scrollbar $S(W).sbsizes -command [list $S(W).lsizes yview]\n");
+        sys_gui("   listbox $S(W).lsizes -listvariable ::ChooseFont::S(sizes)  \
+                -yscroll [list $S(W).sbsizes set] -width 6 -height 7 -exportselection 0\n");
+        sys_gui("\n");
+        sys_gui("   bind $S(W).lfonts <<ListboxSelect>> [list ::ChooseFont::Click font]\n");
+        sys_gui("   bind $S(W).lstyles <<ListboxSelect>> [list ::ChooseFont::Click style]\n");
+        sys_gui("   bind $S(W).lsizes <<ListboxSelect>> [list ::ChooseFont::Click size]\n");
+        sys_gui("\n");
+        sys_gui("   set WE $S(W).effects\n");
+        sys_gui("   ${tile}::labelframe $WE -text \"Effects\"\n");
+        sys_gui("   ${tile}::checkbutton $WE.strike -variable ::ChooseFont::S(strike)  \
+                -text Strikeout -command [list ::ChooseFont::Click strike]\n");
+        sys_gui("   ${tile}::checkbutton $WE.under -variable ::ChooseFont::S(under)  \
+                -text Underline -command [list ::ChooseFont::Click under]\n");
+        sys_gui("\n");
+        sys_gui("   ${tile}::button $S(W).ok -text OK -command [list ::ChooseFont::Done 1]\n");
+        sys_gui("   ${tile}::button $S(W).cancel -text Cancel -command [list ::ChooseFont::Done 0]\n");
+        sys_gui("   wm protocol $S(W) WM_DELETE_WINDOW [list ::ChooseFont::Done 0]\n");
+        sys_gui("\n");
+        sys_gui("   grid $S(W).font - x $S(W).style - x $S(W).size - x -sticky w\n");
+        sys_gui("   grid $S(W).efont - x $S(W).estyle - x $S(W).esize - x $S(W).ok -sticky ew\n");
+        sys_gui("   grid $S(W).lfonts $S(W).sbfonts x  \
+                $S(W).lstyles - x  \
+                $S(W).lsizes $S(W).sbsizes x  \
+                $S(W).cancel -sticky news\n");
+        sys_gui("   grid config $S(W).cancel -sticky n -pady 5\n");
+        sys_gui("   grid columnconfigure $S(W) {2 5 8} -minsize 10\n");
+        sys_gui("   grid columnconfigure $S(W) {0 3 6} -weight 1\n");
+        sys_gui("\n");
+        sys_gui("   grid $WE.strike -sticky w -padx 10\n");
+        sys_gui("   grid $WE.under -sticky w -padx 10\n");
+        sys_gui("   grid columnconfigure $WE 1 -weight 1\n");
+        sys_gui("   grid $WE - x -sticky news -row 100 -column 0\n");
+        sys_gui("\n");
+        sys_gui("   set WS $S(W).sample\n");
+        sys_gui("   ${tile}::labelframe $WS -text \"Sample\"\n");
+        sys_gui("   label $WS.fsample -bd 2 -relief sunken\n");
+        sys_gui("   label $WS.fsample.sample -text \"AaBbYyZz\"\n");
+        sys_gui("   set S(sample) $WS.fsample.sample\n");
+        sys_gui("   pack $WS.fsample -fill both -expand 1 -padx 10 -pady 10 -ipady 15\n");
+        sys_gui("   pack $WS.fsample.sample -fill both -expand 1\n");
+        sys_gui("   pack propagate $WS.fsample 0\n");
+        sys_gui("\n");
+        sys_gui("   grid rowconfigure $S(W) 2 -weight 1\n");
+        sys_gui("   grid rowconfigure $S(W) 99 -minsize 30\n");
+        sys_gui("   grid $WS - - - - -sticky news -row 100 -column 3\n");
+        sys_gui("   grid rowconfigure $S(W) 101 -minsize 30\n");
+        sys_gui("\n");
+        sys_gui("   trace variable ::ChooseFont::S(size) w ::ChooseFont::Tracer\n");
+        sys_gui("   trace variable ::ChooseFont::S(style) w ::ChooseFont::Tracer\n");
+        sys_gui("   trace variable ::ChooseFont::S(font) w ::ChooseFont::Tracer\n");
+        sys_gui("   ::ChooseFont::Init $defaultFont\n");
+        sys_gui("   tkwait window $S(W)\n");
+        sys_gui("   return $S(result)\n");
+        sys_gui("}\n");
+        sys_gui("\n");
+        sys_gui("proc ::ChooseFont::Done {ok} {\n");
+        sys_gui("   if {! $ok} {set ::ChooseFont::S(result) \"\"}\n");
+        sys_gui("   destroy $::ChooseFont::S(W)\n");
+        sys_gui("}\n");
+        sys_gui("proc ::ChooseFont::Init {{defaultFont \"\"}} {\n");
+        sys_gui("   variable S\n");
+        sys_gui("\n");
+        sys_gui("   if {$S(first) || $defaultFont ne \"\"} {\n");
+        sys_gui("       if {$defaultFont eq \"\"} {\n");
+        sys_gui("           set defaultFont [[entry .___e] cget -font]\n");
+        sys_gui("           destroy .___e\n");
+        sys_gui("       }\n");
+        sys_gui("       array set F [font actual $defaultFont]\n");
+        sys_gui("       set S(font) $F(-family)\n");
+        sys_gui("       set S(size) $F(-size)\n");
+        sys_gui("       set S(strike) $F(-overstrike)\n");
+        sys_gui("       set S(under) $F(-underline)\n");
+        sys_gui("       set S(style) \"Regular\"\n");
+        sys_gui("       if {$F(-weight) eq \"bold\" && $F(-slant) eq \"italic\"} {\n");
+        sys_gui("           set S(style) \"Bold Italic\"\n");
+        sys_gui("       } elseif {$F(-weight) eq \"bold\"} {\n");
+        sys_gui("           set S(style) \"Bold\"\n");
+        sys_gui("       } elseif {$F(-slant) eq \"italic\"} {\n");
+        sys_gui("           set S(style) \"Italic\"\n");
+        sys_gui("       }\n");
+        sys_gui("\n");
+        sys_gui("       set S(first) 0\n");
+        sys_gui("   }\n");
+        sys_gui("\n");
+        sys_gui("   ::ChooseFont::Tracer a b c\n");
+        sys_gui("   ::ChooseFont::Show\n");
+        sys_gui("}\n");
+        sys_gui("\n");
+        sys_gui("proc ::ChooseFont::Click {who} {\n");
+        sys_gui("   variable S\n");
+        sys_gui("\n");
+        sys_gui("   if {$who eq \"font\"} {\n");
+        sys_gui("       set S(font) [$S(W).lfonts get [$S(W).lfonts curselection]]\n");
+        sys_gui("   } elseif {$who eq \"style\"} {\n");
+        sys_gui("       set S(style) [$S(W).lstyles get [$S(W).lstyles curselection]]\n");
+        sys_gui("   } elseif {$who eq \"size\"} {\n");
+        sys_gui("       set S(size) [$S(W).lsizes get [$S(W).lsizes curselection]]\n");
+        sys_gui("   }\n");
+        sys_gui("   ::ChooseFont::Show\n");
+        sys_gui("}\n");
+        sys_gui("proc ::ChooseFont::Tracer {var1 var2 op} {\n");
+        sys_gui("   variable S\n");
+        sys_gui("\n");
+        sys_gui("   set bad 0\n");
+        sys_gui("   set nstate normal\n");
+        sys_gui("   foreach var {font style size} {\n");
+        sys_gui("       set value [string tolower $S($var)]\n");
+        sys_gui("       $S(W).l${var}s selection clear 0 end\n");
+        sys_gui("       set n [lsearch -exact $S(${var}s,lcase) $value]\n");
+        sys_gui("       $S(W).l${var}s selection set $n\n");
+        sys_gui("       if {$n != -1} {\n");
+        sys_gui("           set S($var) [lindex $S(${var}s) $n]\n");
+        sys_gui("           $S(W).e$var icursor end\n");
+        sys_gui("           $S(W).e$var selection clear\n");
+        sys_gui("       } else {                                ;\n");
+        sys_gui("           set n [lsearch -glob $S(${var}s,lcase) \"$value*\"]\n");
+        sys_gui("           set bad 1\n");
+        sys_gui("           if {$var ne \"size\" || ! [string is double -strict $value]} {\n");
+        sys_gui("               set nstate disabled\n");
+        sys_gui("           }\n");
+        sys_gui("       }\n");
+        sys_gui("       $S(W).l${var}s see $n\n");
+        sys_gui("   }\n");
+        sys_gui("   if {! $bad} ::ChooseFont::Show\n");
+        sys_gui("   $S(W).ok config -state $nstate\n");
+        sys_gui("}\n");
+        sys_gui("\n");
+        sys_gui("proc ::ChooseFont::Show {} {\n");
+        sys_gui("   variable S\n");
+        sys_gui("\n");
+        sys_gui("   set S(result) [list $S(font) $S(size)]\n");
+        sys_gui("   if {$S(style) eq \"Bold\"} { lappend S(result) bold }\n");
+        sys_gui("   if {$S(style) eq \"Italic\"} { lappend S(result) italic }\n");
+        sys_gui("   if {$S(style) eq \"Bold Italic\"} { lappend S(result) bold italic}\n");
+        sys_gui("   if {$S(strike)} { lappend S(result) overstrike}\n");
+        sys_gui("   if {$S(under)} { lappend S(result) underline}\n");
+        sys_gui("\n");
+        sys_gui("   $S(sample) config -font $S(result)\n");
+        sys_gui("}\n");
+        
+        
         
         epd_symbol->s_thing = (t_class **)1;
     }

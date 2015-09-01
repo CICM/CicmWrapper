@@ -1015,28 +1015,12 @@ void etext_layout_settextcolor(t_etext* textlayout, t_rgba* color)
     textlayout->c_color = color[0];
 }
 
-t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, float size)
+void efont_init(t_efont* font, t_symbol* family, char bold, char italic, float size)
 {
-    t_efont* new_font = (t_efont *)malloc(sizeof(t_efont));
-    if(new_font)
-    {
-        new_font[0].c_family = family;
-        new_font[0].c_slant = slant;
-        if(new_font[0].c_slant  != gensym("italic"))
-            new_font[0].c_slant = gensym("roman");
-        
-        new_font[0].c_weight = weight;
-        if(new_font[0].c_weight  != gensym("bold"))
-            new_font[0].c_weight = gensym("normal");
-        
-        new_font[0].c_size = pd_clip_min(size, 1.f);
-    }
-    return new_font;
-}
-
-void efont_destroy(t_efont* font)
-{
-    free(font);
+    font->family = family;
+    font->slant = italic ? gensym("italic") : gensym("roman");
+    font->weight = bold ? gensym("bold") : gensym("normal");
+    font->size = pd_clip_min(size, 1.f);
 }
 
 float pd_clip_minmax(float aValue, float aMinimum, float aMaximum)

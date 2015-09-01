@@ -308,6 +308,22 @@ eclass_new_attr_typed(c,name, "symbol", 1, 0, flags, calcoffset(struct,member))
 //! Macros that create a atom attribute
 #define CLASS_ATTR_ATOM(c,name,flags,struct,member) \
 eclass_new_attr_typed(c,name, "atom", 1, 0, flags, calcoffset(struct,member))
+//! Macros that create a atom attribute
+#ifdef __APPLE__
+#define CLASS_ATTR_FONT(c,name,flags,struct,member) \
+eclass_new_attr_typed(c,name, "font", 4, 0, flags, calcoffset(struct,member)); \
+eclass_attr_default(c,name, flags, "Helvetica 11 normal roman"); \
+eclass_attr_style(c,name,flags,"font")
+#elif _WINDOWS
+#define CLASS_ATTR_FONT(c,name,flags,struct,member) \
+eclass_new_attr_typed(c,name, "font", 4, 0, flags, calcoffset(struct,member)); \
+eclass_attr_default(c,name, flags, "Times 11 normal roman"); \
+eclass_attr_style(c,name,flags,"font")
+#else
+eclass_new_attr_typed(c,name, "font", 4, 0, flags, calcoffset(struct,member)); \
+eclass_attr_default(c,name, flags, "DejaVu 11 normal roman"); \
+eclass_attr_style(c,name,flags,"font")
+#endif
 
 //! Macros that create an char array attribute
 #define CLASS_ATTR_CHAR_ARRAY(c,name,flags,struct,member,size)   \

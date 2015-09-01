@@ -131,31 +131,6 @@ void ebox_free(t_ebox* x)
     }
 }
 
-t_efont* ebox_getfont(t_ebox* x)
-{
-    return &x->b_font;
-}
-
-t_symbol* ebox_getfontname(t_ebox* x)
-{
-    return x->b_font.c_family;
-}
-
-t_symbol* ebox_getfontslant(t_ebox* x)
-{
-    return x->b_font.c_slant;
-}
-
-t_symbol* ebox_getfontweight(t_ebox* x)
-{
-    return x->b_font.c_weight;
-}
-
-float ebox_getfontsize(t_ebox* x)
-{
-    return x->b_font.c_size;
-}
-
 t_pd* ebox_getsender(t_ebox* x)
 {
     t_symbol* sname;
@@ -1404,7 +1379,7 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                          (int)(np.y + y_p + bdsize),
                          gobj->e_text,
                          text,
-                         gobj->e_font.c_family->s_name, (int)gobj->e_font.c_size, gobj->e_font.c_weight->s_name, gobj->e_font.c_slant->s_name,
+                         gobj->e_font.family->s_name, (int)gobj->e_font.size, gobj->e_font.weight->s_name, gobj->e_font.slant->s_name,
                          rgba_to_hex(&gobj->e_color),
                          (int)(gobj->e_points[1].x) * (int)gobj->e_wrap,
                          g->e_id->s_name,

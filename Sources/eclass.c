@@ -49,15 +49,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     ewidget_init(c);
     c->c_box = 1;
     
-    // DEFAULT ATTRIBUTES //
     CLASS_ATTR_FLOAT_ARRAY  (c, "size", 0, t_ebox, b_rect.width, 2);
-    CLASS_ATTR_SYMBOL       (c, "fontname", 0, t_ebox, b_font.c_family);
-    CLASS_ATTR_SYMBOL       (c, "fontweight", 0, t_ebox, b_font.c_weight);
-    CLASS_ATTR_SYMBOL       (c, "fontslant", 0, t_ebox, b_font.c_slant);
-    CLASS_ATTR_FLOAT        (c, "fontsize", 0, t_ebox, b_font.c_size);
-    CLASS_ATTR_SYMBOL       (c, "receive", 0, t_ebox, b_receive_id);
-    CLASS_ATTR_SYMBOL       (c, "send", 0, t_ebox, b_send_id);
-    
     CLASS_ATTR_DEFAULT      (c, "size", 0, "100. 100.");
     CLASS_ATTR_FILTER_MIN   (c, "size", 4);
     CLASS_ATTR_SAVE         (c, "size", 0);
@@ -74,46 +66,14 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_LABEL		(c, "pinned", 0, "Pinned");
     CLASS_ATTR_STYLE        (c, "pinned", 0, "onoff");
     
-    int todo_remove_the_setters_for_fonts_add_flag_and_check_menu_attr_setter_methods;
-    CLASS_ATTR_DEFAULT      (c, "fontname", 0, "helvetica");
-    CLASS_ATTR_SAVE         (c, "fontname", 0);
-    CLASS_ATTR_PAINT        (c, "fontname", 0);
-    CLASS_ATTR_CATEGORY		(c, "fontname", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "fontname", 0, "Font Name");
-    CLASS_ATTR_STYLE        (c, "fontname", 0, "menu");
-    CLASS_ATTR_ITEMS        (c, "fontname", 0, "helvetica monaco courier times dejavu");
-    
-    CLASS_ATTR_DEFAULT      (c, "fontweight", 0, "normal");
-    CLASS_ATTR_SAVE         (c, "fontweight", 0);
-    CLASS_ATTR_PAINT        (c, "fontweight", 0);
-    CLASS_ATTR_CATEGORY		(c, "fontweight", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "fontweight", 0, "Font Weight");
-    CLASS_ATTR_STYLE        (c, "fontweight", 0, "menu");
-    CLASS_ATTR_ITEMS        (c, "fontweight", 0, "normal bold");
-    
-    CLASS_ATTR_DEFAULT      (c, "fontslant", 0, "roman");
-    CLASS_ATTR_SAVE         (c, "fontslant", 0);
-    CLASS_ATTR_PAINT        (c, "fontslant", 0);
-    CLASS_ATTR_CATEGORY		(c, "fontslant", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "fontslant", 0, "Font Slant");
-    CLASS_ATTR_STYLE        (c, "fontslant", 0, "menu");
-    CLASS_ATTR_ITEMS        (c, "fontslant", 0, "roman italic");
-    
-    CLASS_ATTR_DEFAULT      (c, "fontsize", 0, "11");
-    CLASS_ATTR_FILTER_MIN   (c, "fontsize", 4);
-    CLASS_ATTR_SAVE         (c, "fontsize", 0);
-    CLASS_ATTR_PAINT        (c, "fontsize", 0);
-    CLASS_ATTR_STEP         (c, "fontsize", 1);
-    CLASS_ATTR_CATEGORY		(c, "fontsize", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "fontsize", 0, "Font Size");
-    CLASS_ATTR_STYLE        (c, "fontsize", 0, "number");
-    
+    CLASS_ATTR_SYMBOL       (c, "receive", 0, t_ebox, b_receive_id);
     CLASS_ATTR_DEFAULT      (c, "receive", 0, "");
     CLASS_ATTR_ACCESSORS    (c, "receive", NULL, ebox_set_receiveid);
     CLASS_ATTR_SAVE         (c, "receive", 0);
     CLASS_ATTR_CATEGORY		(c, "receive", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "receive", 0, "Receive Symbol");
     
+    CLASS_ATTR_SYMBOL       (c, "send", 0, t_ebox, b_send_id);
     CLASS_ATTR_DEFAULT      (c, "send", 0, "");
     CLASS_ATTR_ACCESSORS    (c, "send", NULL, ebox_set_sendid);
     CLASS_ATTR_SAVE         (c, "send", 0);
@@ -315,20 +275,17 @@ static t_eattr* eclass_getattr(t_eclass const* c, t_symbol const* name)
 
 void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, long size, long maxsize, long flags, long offset)
 {
-    int i;
     t_eattr* attr;
     t_eattr** attrs;
     char getattr[MAXPDSTRING];
-    if(size >= 1)
+    attr = eclass_getattr(c, gensym(attrname));
+    if(attr)
     {
-        for(i = 0; i < c->c_nattr; i++)
-        {
-            if(c->c_attr[i]->name == gensym(attrname))
-            {
-                error("%s already have %s attribute.", c->c_class.c_name->s_name, attrname);
-                return ;
-            }
-        }
+        error("%s already have %s attribute.", c->c_class.c_name->s_name, attrname);
+        return ;
+    }
+    else if(size >= 1)
+    {
         attr = (t_eattr*)malloc(sizeof(t_eattr));
         if(attr)
         {
@@ -378,7 +335,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
     }
     else
     {
-        error("%s %s attribute size is too null.", c->c_class.c_name->s_name, attrname);
+        error("%s %s attribute size is null.", c->c_class.c_name->s_name, attrname);
     }
 }
 
@@ -439,6 +396,10 @@ void eclass_attr_style(t_eclass* c, const char* attrname, long flags, const char
         else if(s_style == s_cream_menu)
         {
             attr->style = s_cream_menu;
+        }
+        else if(s_style == s_cream_font)
+        {
+            attr->style = s_cream_font;
         }
         else
         {
@@ -611,15 +572,10 @@ static void eclass_attr_dosetdefault(t_object* x, t_eattr* attr)
 
 void eclass_attr_setdefault(t_object* x, t_symbol *s)
 {
-    int i;
-    t_eclass* c = eobj_getclass(x);
-    for(i = 0; i < c->c_nattr; i++)
+    t_eattr* attr = eclass_getattr(eobj_getclass(x), s);
+    if(attr)
     {
-        if(c->c_attr[i]->name == s)
-        {
-            eclass_attr_dosetdefault(x, c->c_attr[i]);
-            return ;
-        }
+        eclass_attr_dosetdefault(x, attr);
     }
 }
 
@@ -635,244 +591,342 @@ void eclass_attrs_setdefault(t_object* x)
 
 void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
 {
-    int i, j;
+    int j;
     char *point;
-    t_ebox* z   = (t_ebox *)x;
-    t_eclass* c = (t_eclass *)z->b_obj.o_obj.te_g.g_pd;
-    if(argv[0] && argc[0])
-        free(argv);
-    argc[0] = 0;
-    
-    for(i = 0; i < c->c_nattr; i++)
+    *argv = NULL;
+    *argc = 0;
+    t_symbol* type; t_efont* font; t_symbol** syms;
+    t_eattr* attr = eclass_getattr(eobj_getclass(x), s);
+    if(attr)
     {
-        if(c->c_attr[i]->name == s)
+        type = attr->type;
+        if(attr->sizemax == 0)
         {
-            t_symbol* type = c->c_attr[i]->type;
-            if(c->c_attr[i]->sizemax == 0)
-                argc[0] = (int)c->c_attr[i]->size;
-            else
+            argc[0] = (int)attr->size;
+        }
+        else
+        {
+            point = (char *)x + attr->size;
+            argc[0] = (int)point[0];
+            if(argc[0] > attr->sizemax)
             {
-                point = (char *)x + c->c_attr[i]->size;
-                argc[0] = (int)point[0];
-                if(argc[0] > c->c_attr[i]->sizemax)
-                    argc[0] = (int)c->c_attr[i]->sizemax;
+                argc[0] = (int)attr->sizemax;
             }
-            
-            point = (char *)x + c->c_attr[i]->offset;
-            
-            argv[0] = (t_atom *)calloc((size_t)argc[0], sizeof(t_atom));
-            if(c->c_attr[i]->getter)
+        }
+        
+        point = (char *)x + attr->offset;
+        
+        argv[0] = (t_atom *)calloc((size_t)argc[0], sizeof(t_atom));
+        if(attr->getter)
+        {
+            attr->getter(x, attr, argc, argv);
+        }
+        else if(type == s_cream_char)
+        {
+            for(j = 0; j < argc[0]; j++)
             {
-                c->c_attr[i]->getter(x, c->c_attr[i], argc, argv);
+                atom_setlong(argv[0]+j, ((char *)point)[j]);
             }
-            else if(type == s_cream_char)
+        }
+        else if(type == s_cream_int)
+        {
+            for(j = 0; j < argc[0]; j++)
             {
-                for(j = 0; j < argc[0]; j++)
-                {
-                    atom_setlong(argv[0]+j, ((char *)point)[j]);
-                }
+                atom_setlong(argv[0]+j, ((int *)point)[j]);
             }
-            else if(type == s_cream_int)
+        }
+        else if(type == s_cream_long)
+        {
+            for(j = 0; j < argc[0]; j++)
             {
-                for(j = 0; j < argc[0]; j++)
-                {
-                    atom_setlong(argv[0]+j, ((int *)point)[j]);
-                }
+                atom_setlong(argv[0]+j, ((long *)point)[j]);
             }
-            else if(type == s_cream_long)
+        }
+        else if(type == s_cream_float)
+        {
+            for(j = 0; j < argc[0]; j++)
             {
-                for(j = 0; j < argc[0]; j++)
-                {
-                    atom_setlong(argv[0]+j, ((long *)point)[j]);
-                }
+                atom_setfloat(argv[0]+j, ((float *)point)[j]);
             }
-            else if(type == s_cream_float)
+        }
+        else if(type == s_cream_double)
+        {
+            for(j = 0; j < argc[0]; j++)
             {
-                for(j = 0; j < argc[0]; j++)
-                {
-                    atom_setfloat(argv[0]+j, ((float *)point)[j]);
-                }
+                atom_setfloat(argv[0]+j, (float)(((double *)point)[j]));
             }
-            else if(type == s_cream_double)
+        }
+        else if(type == s_cream_symbol)
+        {
+            syms = (t_symbol **)point;
+            for(j = 0; j < argc[0]; j++)
             {
-                for(j = 0; j < argc[0]; j++)
-                {
-                    atom_setfloat(argv[0]+j, (float)(((double *)point)[j]));
-                }
+                atom_setsym(argv[0]+j, get_valid_symbol(syms[j]));
             }
-            else if(type == s_cream_symbol)
+        }
+        else if(type == s_cream_atom)
+        {
+            for(j = 0; j < argc[0]; j++)
             {
-                t_symbol** syms = (t_symbol **)point;
-                for(j = 0; j < argc[0]; j++)
-                {
-                    atom_setsym(argv[0]+j, get_valid_symbol(syms[j]));
-                }
+                argv[0][j] = ((t_atom *)point)[j];
             }
-            else if(type == s_cream_atom)
-            {
-                for(j = 0; j < argc[0]; j++)
-                {
-                    argv[0][j] = ((t_atom *)point)[j];
-                }
-            }
+        }
+        else if(type == s_cream_font)
+        {
+            font = (t_efont *)point;
+            atom_setsym(argv[0], font->family);
+            atom_setfloat(argv[0]+1, font->size);
+            atom_setsym(argv[0]+2, font->slant);
+            atom_setsym(argv[0]+3, font->weight);
         }
     }
 }
 
+static int format_atom_forfont(int argc, t_atom* argv)
+{
+    int i = 1; ; size_t len, len2;
+    char text[MAXPDSTRING];
+    if(argc && argv && atom_gettype(argv) == A_SYMBOL)
+    {
+        if(atom_getsymbol(argv)->s_name[0] == '\{')
+        {
+            sprintf(text, "%s ", atom_getsymbol(argv)->s_name);
+            len = strlen(text);
+            for(i = 1; i < argc && atom_gettype(argv+i) == A_SYMBOL; i++)
+            {
+                len2 = strlen(atom_getsymbol(argv+i)->s_name);
+                if(atom_getsymbol(argv+i)->s_name[len2-1] == '}')
+                {
+                    strncat(text, atom_getsymbol(argv+i)->s_name, len2);
+                }
+                else
+                {
+                    strncat(text, atom_getsymbol(argv+i)->s_name, len2);
+                    strncat(text, " ", 1);
+                }
+                
+            }
+            atom_setsym(argv, gensym(text));
+            if(i < argc)
+                atom_setfloat(argv+1, atom_getfloat(argv+i));
+            if(i+1 < argc)
+                atom_setsym(argv+1, atom_getsymbol(argv+i+1));
+            if(i+2 < argc)
+                atom_setsym(argv+2, atom_getsymbol(argv+i+2));
+            return argc - i + 1;
+        }
+        else
+        {
+            return argc;
+        }
+    }
+    return 0;
+}
+
 void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
 {
-    long i, j, size;
+    long j, size;
     char *point;
     long *point_size;
+    t_symbol* type;
     t_ebox* z   = (t_ebox *)x;
     t_eclass* c = (t_eclass *)z->b_obj.o_obj.te_g.g_pd;
     
-    for(i = 0; i < c->c_nattr; i++)
+    t_eattr* attr = eclass_getattr(eobj_getclass(x), s);
+    if(attr)
     {
-        if(c->c_attr[i]->name == s)
+        type = attr->type;
+        if(attr->sizemax == 0)
         {
-            t_symbol* type = c->c_attr[i]->type;
-            if(c->c_attr[i]->sizemax == 0)
+            size = attr->size;
+        }
+        else
+        {
+            if(argc > attr->sizemax)
             {
-                size = c->c_attr[i]->size;
+                argc = (int)attr->sizemax;
+            }
+            size = argc;
+            point = (char *)x + attr->size;
+            point_size = (long *)point;
+            point_size[0] = (long)size;
+        }
+        
+        point = (char *)(x) + attr->offset;
+        
+        if(attr->clipped == 1 || attr->clipped == 3)
+        {
+            for(j = 0; j < argc; j++)
+            {
+                if(atom_gettype(argv+j) == A_FLOAT)
+                {
+                    atom_setfloat(argv+j, (float)pd_clip_min(atom_getfloat(argv+j), attr->minimum));
+                }
+            }
+        }
+        if(attr->clipped == 2 || attr->clipped == 3)
+        {
+            for(j = 0; j < argc; j++)
+            {
+                if(atom_gettype(argv+j) == A_FLOAT)
+                {
+                    atom_setfloat(argv+j, (float)pd_clip_max(atom_getfloat(argv+j), attr->maximum));
+                }
+            }
+        }
+        
+        if(attr->setter)
+        {
+            attr->setter(x, attr, argc, argv);
+        }
+        else if(type == s_cream_char)
+        {
+            char* pointor = (char *)point;
+            for(j = 0; j < size && j < argc; j++)
+            {
+                if(atom_gettype(argv+j) == A_FLOAT)
+                {
+                    pointor[j] = (char)atom_getlong(argv+j);
+                }
+            }
+        }
+        else if(type == s_cream_int)
+        {
+            int* pointor = (int *)point;
+            for(j = 0; j < size && j < argc; j++)
+            {
+                if(atom_gettype(argv+j) == A_FLOAT)
+                {
+                    pointor[j] = (int)atom_getlong(argv+j);
+                }
+            }
+        }
+        else if(type == s_cream_long)
+        {
+            long* pointor = (long *)point;
+            for(j = 0; j < size && j < argc; j++)
+            {
+                if(atom_gettype(argv+j) == A_FLOAT)
+                {
+                    pointor[j] = (long)atom_getlong(argv+j);
+                }
+            }
+        }
+        else if(type == s_cream_float)
+        {
+            float* pointor = (float *)point;
+            for(j = 0; j < size && j < argc; j++)
+            {
+                if(atom_gettype(argv+j) == A_FLOAT)
+                {
+                    pointor[j] = (float)atom_getfloat(argv+j);
+                }
+            }
+        }
+        else if(type == s_cream_double)
+        {
+            double* pointor = (double *)point;
+            for(j = 0; j < size && j < argc; j++)
+            {
+                if(atom_gettype(argv+j) == A_FLOAT)
+                {
+                    pointor[j] = (double)atom_getfloat(argv+j);
+                }
+            }
+        }
+        else if(type == s_cream_symbol)
+        {
+            t_symbol** pointor = (t_symbol **)point;
+            for(j = 0; j < size && j < argc; j++)
+            {
+                if(atom_gettype(argv+j) == A_SYMBOL)
+                {
+                    pointor[j] = gensym(atom_getsymbol(argv+j)->s_name);
+                }
+            }
+        }
+        else if(type == s_cream_atom)
+        {
+            t_atom* pointor = (t_atom *)point;
+            for(j = 0; j < size && j < argc; j++)
+            {
+                pointor[j] = argv[j];
+            }
+        }
+        else if(type == s_cream_font)
+        {
+            t_efont* pointor = (t_efont *)point;
+            argc = format_atom_forfont(argc, argv);
+            if(argc && atom_gettype(argv) == A_SYMBOL)
+            {
+                pointor->family = atom_getsymbol(argv);
+            }
+            if(argc > 1 && atom_gettype(argv+1) == A_FLOAT)
+                pointor->size   = atom_getfloat(argv+1);
+            if(argc > 2 && atom_gettype(argv+2) == A_SYMBOL)
+            {
+                if(atom_getsymbol(argv+2) == gensym("bold"))
+                {
+                    pointor->weight = atom_getsymbol(argv+2);
+                    if(argc > 3 && atom_gettype(argv+3) == A_SYMBOL &&  atom_getsymbol(argv+3) == gensym("italic"))
+                    {
+                        pointor->slant = atom_getsymbol(argv+3);
+                    }
+                    else
+                    {
+                        pointor->slant = gensym("roman");
+                    }
+                }
+                else if(atom_getsymbol(argv+2) == gensym("italic"))
+                {
+                    pointor->slant = atom_getsymbol(argv+2);
+                    if(argc > 3 && atom_gettype(argv+3) == A_SYMBOL &&  atom_getsymbol(argv+3) == gensym("bold"))
+                    {
+                        pointor->weight = atom_getsymbol(argv+3);
+                    }
+                    else
+                    {
+                        pointor->weight = gensym("roman");
+                    }
+                }
+                else
+                {
+                    pointor->weight = gensym("normal");
+                    pointor->slant = gensym("roman");
+                }
             }
             else
             {
-                if(argc > c->c_attr[i]->sizemax)
-                {
-                    argc = (int)c->c_attr[i]->sizemax;
-                }
-                size = argc;
-                point = (char *)x + c->c_attr[i]->size;
-                point_size = (long *)point;
-                point_size[0] = (long)size;
+                pointor->weight = gensym("normal");
+                pointor->slant = gensym("roman");
+            }
+        }
+        
+        ebox_notify(z, s, s_cream_attr_modified, NULL, NULL);
+        if(c->c_widget.w_notify != NULL)
+        {
+            c->c_widget.w_notify(x, s, s_cream_attr_modified, NULL, NULL);
+        }
+        if(type == s_cream_font && eobj_isbox(x) && z->b_flags & EBOX_FONTSIZE)
+        {
+            eobj_attr_setvalueof(x, s_cream_size, 0, NULL);
+        }
+        if(attr->paint)
+        {
+            if(c->c_widget.w_oksize != NULL)
+            {
+                c->c_widget.w_oksize(x, &z->b_rect);
+            }
+            if(c->c_widget.w_getdrawparameters != NULL)
+            {
+                c->c_widget.w_getdrawparameters(x, NULL, &z->b_boxparameters);
             }
             
-            point = (char *)(x) + c->c_attr[i]->offset;
-            
-            if(c->c_attr[i]->clipped == 1 || c->c_attr[i]->clipped == 3)
-            {
-                for(j = 0; j < argc; j++)
-                {
-                    if(atom_gettype(argv+j) == A_FLOAT)
-                    {
-                        atom_setfloat(argv+j, (float)pd_clip_min(atom_getfloat(argv+j), c->c_attr[i]->minimum));
-                    }
-                }
-            }
-            if(c->c_attr[i]->clipped == 2 || c->c_attr[i]->clipped == 3)
-            {
-                for(j = 0; j < argc; j++)
-                {
-                    if(atom_gettype(argv+j) == A_FLOAT)
-                    {
-                        atom_setfloat(argv+j, (float)pd_clip_max(atom_getfloat(argv+j), c->c_attr[i]->maximum));
-                    }
-                }
-            }
-            
-            if(c->c_attr[i]->setter)
-            {
-                c->c_attr[i]->setter(x, c->c_attr[i], argc, argv);
-            }
-            else if(type == s_cream_char)
-            {
-                char* pointor = (char *)point;
-                for(j = 0; j < size && j < argc; j++)
-                {
-                    if(atom_gettype(argv+j) == A_FLOAT)
-                    {
-                        pointor[j] = (char)atom_getlong(argv+j);
-                    }
-                }
-            }
-            else if(type == s_cream_int)
-            {
-                int* pointor = (int *)point;
-                for(j = 0; j < size && j < argc; j++)
-                {
-                    if(atom_gettype(argv+j) == A_FLOAT)
-                    {
-                        pointor[j] = (int)atom_getlong(argv+j);
-                    }
-                }
-            }
-            else if(type == s_cream_long)
-            {
-                long* pointor = (long *)point;
-                for(j = 0; j < size && j < argc; j++)
-                {
-                    if(atom_gettype(argv+j) == A_FLOAT)
-                    {
-                        pointor[j] = (long)atom_getlong(argv+j);
-                    }
-                }
-            }
-            else if(type == s_cream_float)
-            {
-                float* pointor = (float *)point;
-                for(j = 0; j < size && j < argc; j++)
-                {
-                    if(atom_gettype(argv+j) == A_FLOAT)
-                    {
-                        pointor[j] = (float)atom_getfloat(argv+j);
-                    }
-                }
-            }
-            else if(type == s_cream_double)
-            {
-                double* pointor = (double *)point;
-                for(j = 0; j < size && j < argc; j++)
-                {
-                    if(atom_gettype(argv+j) == A_FLOAT)
-                    {
-                        pointor[j] = (double)atom_getfloat(argv+j);
-                    }
-                }
-            }
-            else if(type == s_cream_symbol)
-            {
-                t_symbol** pointor = (t_symbol **)point;
-                for(j = 0; j < size && j < argc; j++)
-                {
-                    if(atom_gettype(argv+j) == A_SYMBOL)
-                    {
-                        pointor[j] = gensym(atom_getsymbol(argv+j)->s_name);
-                    }
-                }
-            }
-            else if(type == s_cream_atom)
-            {
-                t_atom* pointor = (t_atom *)point;
-                for(j = 0; j < size && j < argc; j++)
-                {
-                    pointor[j] = argv[j];
-                }
-            }
-            
-            ebox_notify(z, s, s_cream_attr_modified, NULL, NULL);
-            if(c->c_widget.w_notify != NULL)
-            {
-                c->c_widget.w_notify(x, s, s_cream_attr_modified, NULL, NULL);
-            }
-            
-            if(c->c_attr[i]->paint)
-            {
-                if(c->c_widget.w_oksize != NULL)
-                {
-                    c->c_widget.w_oksize(x, &z->b_rect);
-                }
-                if(c->c_widget.w_getdrawparameters != NULL)
-                {
-                    c->c_widget.w_getdrawparameters(x, NULL, &z->b_boxparameters);
-                }
-                
-                ebox_redraw(z);
-            }
-            if(c->c_attr[i]->save && eobj_isbox(x) && ebox_isdrawable((t_ebox*) x))
-            {
-                canvas_dirty(eobj_getcanvas(x), 1);
-            }
+            ebox_redraw(z);
+        }
+        if(attr->save && eobj_isbox(x) && ebox_isdrawable((t_ebox*) x))
+        {
+            canvas_dirty(eobj_getcanvas(x), 1);
         }
     }
 }
