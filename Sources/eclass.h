@@ -281,6 +281,9 @@ void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const c
 #define calcoffset(x,y) ((long)(&(((x *)0L)->y)))
 //! @endcond
 
+//! Macros that create an char attribute
+#define CLASS_ATTR_CHAR(c,name,flags,struct,member)   \
+eclass_new_attr_typed(c,name, "char", 1, 0, flags, calcoffset(struct,member))
 //! Macros that create an int attribute
 #define CLASS_ATTR_INT(c,name,flags,struct,member)   \
 eclass_new_attr_typed(c,name, "int", 1, 0, flags, calcoffset(struct,member))
@@ -305,6 +308,10 @@ eclass_new_attr_typed(c,name, "symbol", 1, 0, flags, calcoffset(struct,member))
 //! Macros that create a atom attribute
 #define CLASS_ATTR_ATOM(c,name,flags,struct,member) \
 eclass_new_attr_typed(c,name, "atom", 1, 0, flags, calcoffset(struct,member))
+
+//! Macros that create an char array attribute
+#define CLASS_ATTR_CHAR_ARRAY(c,name,flags,struct,member,size)   \
+eclass_new_attr_typed(c,name, "char", size, 0, flags, calcoffset(struct,member))
 //! Macros that create an int array attribute
 #define CLASS_ATTR_INT_ARRAY(c,name,flags,struct,member,size)   \
 eclass_new_attr_typed(c,name, "int", size, 0, flags, calcoffset(struct,member))
@@ -323,6 +330,10 @@ eclass_new_attr_typed(c,name, "symbol", size, 0, flags, calcoffset(struct,member
 //! Macros that create a atom array attribute
 #define CLASS_ATTR_ATOM_ARRAY(c,name,flags,struct,member, size) \
 eclass_new_attr_typed(c,name, "atom", size, 0, flags, calcoffset(struct,member))
+
+//! Macros that create an int array with a variable size attribute
+#define CLASS_ATTR_CHAR_VARSIZE(c,name,flags,struct,member, size, maxsize)   \
+eclass_new_attr_typed(c,name, "char", calcoffset(struct,size), maxsize, flags, calcoffset(struct,member))
 //! Macros that create an int array with a variable size attribute
 #define CLASS_ATTR_INT_VARSIZE(c,name,flags,struct,member, size, maxsize)   \
 eclass_new_attr_typed(c,name, "int", calcoffset(struct,size), maxsize, flags, calcoffset(struct,member))

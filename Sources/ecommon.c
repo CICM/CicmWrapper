@@ -14,7 +14,6 @@
 
 t_symbol* s_cream_null;
 t_symbol* s_cream_empty;
-t_symbol* s_cream_atom;
 t_symbol* s_cream_obj;
 t_symbol* s_cream_attr_modified;
 t_symbol* s_cream_param_changed;
@@ -33,14 +32,22 @@ t_symbol* s_cream_endchanges;
 t_symbol* s_cream_changes;
 t_symbol* s_pinned;
 t_symbol* s_iscicm;
-t_symbol* s_int;
-t_symbol* s_long;
-t_symbol* s_double;
+
+t_symbol* s_cream_char;
+t_symbol* s_cream_int;
+t_symbol* s_cream_long;
+t_symbol* s_cream_float;
+t_symbol* s_cream_double;
+t_symbol* s_cream_atom;
+t_symbol* s_cream_symbol;
 
 t_symbol* s_cream_checkbutton;
+t_symbol* s_cream_onoff;
 t_symbol* s_cream_color;
 t_symbol* s_cream_number;
 t_symbol* s_cream_menu;
+t_symbol* s_cream_entry;
+t_symbol* s_cream_font;
 
 t_symbol* s_cream_linear;
 t_symbol* s_cream_exponential;
@@ -51,7 +58,6 @@ void epd_init(void)
 {
     s_cream_null          = gensym("(null)");
     s_cream_empty         = gensym("");
-    s_cream_atom          = gensym("atom");
     s_cream_obj           = gensym("obj");
     s_cream_attr_modified = gensym("attr_modified");
     s_cream_param_changed = gensym("param_changed");
@@ -68,9 +74,15 @@ void epd_init(void)
     s_cream_beginchanges  = gensym("beginchanges");
     s_cream_endchanges    = gensym("endchanges");
     s_cream_changes       = gensym("changes");
-    s_int           = gensym("int");
-    s_long          = gensym("long");
-    s_double        = gensym("double");
+    
+    s_cream_char            = gensym("char");
+    s_cream_int             = gensym("int");
+    s_cream_long            = gensym("long");
+    s_cream_float           = gensym("float");
+    s_cream_double          = gensym("double");
+    s_cream_atom            = gensym("atom");
+    s_cream_symbol          = gensym("symbol");
+    
     s_pinned        = gensym("pinned");
     s_iscicm        = gensym("iscicm");
     
@@ -80,9 +92,12 @@ void epd_init(void)
     s_cream_threshold   = gensym("threshold");
     
     s_cream_checkbutton = gensym("checkbutton");
+    s_cream_onoff       = gensym("onoff");
     s_cream_color       = gensym("color");
     s_cream_number      = gensym("number");
     s_cream_menu        = gensym("menu");
+    s_cream_entry       = gensym("entry");
+    s_cream_font        = gensym("font");
     
     tcltk_create_methods();
 }

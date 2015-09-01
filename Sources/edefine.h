@@ -76,8 +76,6 @@ extern t_symbol* s_cream_null;
 extern t_symbol* s_cream_empty;
 //! The pre-defined obj t_symbol*
 extern t_symbol* s_cream_obj;
-//! The pre-defined atom t_symbol*
-extern t_symbol* s_cream_atom;
 //! The pre-defined attr_modified t_symbol*
 extern t_symbol* s_cream_attr_modified;
 //! The pre-defined param_changed t_symbol*
@@ -108,12 +106,22 @@ extern t_symbol* s_cream_beginchanges;
 extern t_symbol* s_cream_endchanges;
 //! The pre-defined changes t_symbol*
 extern t_symbol* s_cream_changes;
+
+//! The pre-defined char t_symbol*
+extern t_symbol* s_cream_char;
 //! The pre-defined int t_symbol*
-extern t_symbol* s_int;
+extern t_symbol* s_cream_int;
 //! The pre-defined long t_symbol*
-extern t_symbol* s_long;
+extern t_symbol* s_cream_long;
 //! The pre-defined double t_symbol*
-extern t_symbol* s_double;
+extern t_symbol* s_cream_float;
+//! The pre-defined double t_symbol*
+extern t_symbol* s_cream_double;
+//! The pre-defined atom t_symbol*
+extern t_symbol* s_cream_atom;
+//! The pre-defined symbol t_symbol*
+extern t_symbol* s_cream_symbol;
+
 //! The pre-defined s_pinned t_symbol*
 extern t_symbol* s_pinned;
 //! The pre-defined s_iscicm t_symbol*
@@ -121,12 +129,18 @@ extern t_symbol* s_iscicm;
 
 //! The pre-defined checkbutton t_symbol*
 extern t_symbol* s_cream_checkbutton;
+//! The pre-defined onoff t_symbol*
+extern t_symbol* s_cream_onoff;
 //! The pre-defined color t_symbol*
 extern t_symbol* s_cream_color;
 //! The pre-defined number t_symbol*
 extern t_symbol* s_cream_number;
 //! The pre-defined menu t_symbol*
 extern t_symbol* s_cream_menu;
+//! The pre-defined entry t_symbol*
+extern t_symbol* s_cream_entry;
+//! The pre-defined font t_symbol*
+extern t_symbol* s_cream_font;
 
 //! The pre-defined linear t_symbol*
 extern t_symbol* s_cream_linear;

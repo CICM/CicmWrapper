@@ -917,12 +917,16 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
         attr = c->c_attr[i];
         if(!attr->invisible)
         {
-            sys_vgui("frame %s.label%i \n", tx, i+1);
-            sys_vgui("frame %s.selec%i \n", tx, i+1);
+            sys_vgui("frame %s.label%i\n", tx, i+1);
+            sys_vgui("frame %s.name%i\n", tx, i+1);
+            sys_vgui("frame %s.selec%i\n", tx, i+1);
             
-            sys_vgui("label %s.label%i.name -justify left -font {Helvetica 12} -text \"%s (%s):\"\n",
-                     tx, i+1, attr->label->s_name, attr->name->s_name);
-            sys_vgui("pack  %s.label%i.name -side left\n",  tx, i+1);
+            sys_vgui("label %s.label%i.name -justify left -font {Helvetica 12} -text \"%s :\"\n",
+                     tx, i+1, attr->label->s_name);
+            sys_vgui("label %s.name%i.name -justify left -font {Helvetica 12} -text \"(%s)\"\n",
+                     tx, i+1, attr->name->s_name);
+            sys_vgui("pack  %s.label%i.name -side left -expand 1 -fill both\n",  tx, i+1);
+            sys_vgui("pack  %s.name%i.name -side left -expand 1 -fill both\n",  tx, i+1);
             eobj_attr_getvalueof(x,  attr->name, &argc, &argv);
             if(argc && argv)
             {
@@ -931,7 +935,7 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                     sys_vgui("set %s%i %i\n", va, i+1, (int)atom_getfloat(argv));
                     sys_vgui("checkbutton %s.selec%i.cb -variable var%s%i -command {pdsend \"%s %s $%s%i\"}\n",
                              tx, i+1, tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
-                    sys_vgui("pack %s.selec%i.cb -side left\n",tx, i+1);
+                    sys_vgui("pack %s.selec%i.cb -side right -expand 1 -fill both\n",tx, i+1);
                 }
                 else if(attr->style == s_cream_color && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT
                         && atom_gettype(argv+2) == A_FLOAT && atom_gettype(argv+3) == A_FLOAT)
@@ -943,7 +947,7 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                              tx, i+1, va, i+1);
                     sys_vgui("bind %s.selec%i.cb <Button> [concat epicker_apply %s %s $%s%i %s.selec%i.cb]\n",
                              tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1, tx, i+1);
-                    sys_vgui("pack %s.selec%i.cb -side left\n",tx, i+1);
+                    sys_vgui("pack %s.selec%i.cb -side right -expand 1 -fill both\n",tx, i+1);
                 }
                 else if(attr->style == s_cream_number && atom_gettype(argv) == A_FLOAT)
                 {
@@ -956,7 +960,7 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                              (attr->clipped > 1) ? attr->maximum : FLT_MAX);
                     sys_vgui("bind %s.selec%i.cb <KeyPress-Return> {pdsend \"%s %s $%s%i\"}\n",
                              tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
-                    sys_vgui("pack %s.selec%i.cb -side left\n",tx, i+1);
+                    sys_vgui("pack %s.selec%i.cb -side right -expand 1 -fill both\n",tx, i+1);
                 }
                 else if(attr->style == s_cream_menu && atom_gettype(argv) == A_SYMBOL)
                 {
@@ -970,7 +974,7 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                         sys_vgui("%s ", attr->itemslist[attr->itemssize - 1 - j]->s_name);
                     }
                     sys_vgui("}\n");
-                    sys_vgui("pack %s.selec%i.cb -side left\n",tx, i+1);
+                    sys_vgui("pack %s.selec%i.cb -side right -expand 1 -fill both\n",tx, i+1);
                 }
                 else
                 {
@@ -999,7 +1003,7 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                              -textvariable [string trim %s%i]\n", tx, i+1, va, i+1);
                     sys_vgui("bind %s.selec%i.cb <KeyPress-Return> {pdsend \"%s %s $%s%i\"}\n",
                              tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
-                    sys_vgui("pack %s.selec%i.cb -side left\n",tx, i+1);
+                    sys_vgui("pack %s.selec%i.cb -side right -expand 1 -fill both\n",tx, i+1);
                 }
                 free(argv);
             }
@@ -1008,7 +1012,8 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
             argc = 0;
             
             sys_vgui("grid config %s.label%i -column 0 -row %i -sticky w\n", tx, i+1, i+1);
-            sys_vgui("grid config %s.selec%i -column 1 -row %i -sticky w\n", tx, i+1, i+1);
+            sys_vgui("grid config %s.name%i -column 1 -row %i -sticky w\n", tx, i+1, i+1);
+            sys_vgui("grid config %s.selec%i -column 2 -row %i -sticky w\n", tx, i+1, i+1);
         }
     }
 }

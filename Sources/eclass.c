@@ -243,7 +243,7 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
     {
         c->c_widget.w_dsp = m;
     }
-    else if(gensym(name) == gensym("bang"))
+    else if(gensym(name) == &s_bang)
     {
         class_addbang((t_class *)c, m);
     }
@@ -251,11 +251,11 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
     {
         class_addfloat((t_class *)c, m);
     }
-    else if(gensym(name) == gensym("list"))
+    else if(gensym(name) == &s_list)
     {
         class_addlist((t_class *)c, m);
     }
-    else if(gensym(name) == gensym("anything"))
+    else if(gensym(name) == &s_anything)
     {
         class_addanything((t_class *)c, m);
     }
@@ -300,6 +300,19 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
     }
 }
 
+static t_eattr* eclass_getattr(t_eclass const* c, t_symbol const* name)
+{
+    int i;
+    for(i = 0; i < c->c_nattr; i++)
+    {
+        if(c->c_attr[i]->name == name)
+        {
+            return c->c_attr[i];
+        }
+    }
+    return NULL;
+}
+
 void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, long size, long maxsize, long flags, long offset)
 {
     int i;
@@ -323,7 +336,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
             attr->type = gensym(type);
             attr->category = c->c_class.c_name;
             attr->label = s_cream_empty;
-            attr->style = gensym("entry");
+            attr->style = s_cream_entry;
             attr->order = c->c_nattr+1;
             attr->save  = 0;
             attr->paint = 0;
@@ -371,241 +384,190 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
 
 void eclass_attr_default(t_eclass* c, const char* attrname, long flags, const char* value)
 {
-    int i;
-    for(i = 0; i < c->c_nattr; i++)
+    t_eattr* attr = eclass_getattr(c, gensym(attrname));
+    if(attr)
     {
-        if(c->c_attr[i]->name == gensym(attrname))
-        {
-            c->c_attr[i]->defvals = gensym(value);
-            return ;
-        }
+        attr->defvals = gensym(value);
     }
 }
 
 void eclass_attr_category(t_eclass* c, const char* attrname, long flags, const char* category)
 {
-    int i;
-    for(i = 0; i < c->c_nattr; i++)
+    t_eattr* attr = eclass_getattr(c, gensym(attrname));
+    if(attr)
     {
-        if(c->c_attr[i]->name == gensym(attrname))
-        {
-            c->c_attr[i]->category = gensym(category);
-            return ;
-        }
+        attr->category = gensym(category);
     }
 }
 
 void eclass_attr_order(t_eclass* c, const char* attrname, long flags, const char* order)
 {
-    int i;
-    for(i = 0; i < c->c_nattr; i++)
+    t_eattr* attr = eclass_getattr(c, gensym(attrname));
+    if(attr && isdigit(order[0]))
     {
-        if(c->c_attr[i]->name == gensym(attrname))
-        {
-            if(isdigit(atoi(order)))
-                c->c_attr[i]->order = atoi(order);
-            return ;
-        }
+        attr->order = atoi(order);
     }
 }
 
 void eclass_attr_label(t_eclass* c, const char* attrname, long flags, const char* label)
 {
-    int i;
-    for(i = 0; i < c->c_nattr; i++)
+    t_eattr* attr = eclass_getattr(c, gensym(attrname));
+    if(attr)
     {
-        if(c->c_attr[i]->name == gensym(attrname))
-        {
-            c->c_attr[i]->label = gensym(label);
-            return ;
-        }
+        attr->label = gensym(label);
     }
 }
 
 void eclass_attr_style(t_eclass* c, const char* attrname, long flags, const char* style)
 {
-    int i;
-    for(i = 0; i < c->c_nattr; i++)
+    t_symbol const* s_style = gensym(style);
+    t_eattr* attr = eclass_getattr(c, gensym(attrname));
+    if(attr)
     {
-        if(c->c_attr[i]->name == gensym(attrname))
+        if(s_style == s_cream_checkbutton || s_style == s_cream_onoff)
         {
-            if(gensym(style) == gensym("checkbutton") || gensym(style) == gensym("onoff"))
-            {
-                c->c_attr[i]->style = gensym("checkbutton");
-            }
-            else if(gensym(style) == gensym("rgb") || gensym(style) == gensym("rgba") || gensym(style) == gensym("color"))
-            {
-                c->c_attr[i]->style = gensym("color");
-            }
-            else if(gensym(style) == gensym("spinbox") || gensym(style) == gensym("number"))
-            {
-                c->c_attr[i]->style = gensym("number");
-            }
-            else if(gensym(style) == gensym("menu"))
-            {
-                c->c_attr[i]->style = gensym("menu");
-            }
-            else
-            {
-                c->c_attr[i]->style = gensym("entry");
-            }
-            return ;
+            attr->style = s_cream_checkbutton;
+        }
+        else if(s_style == s_cream_color)
+        {
+            attr->style = s_cream_color;
+        }
+        else if(s_style == s_cream_number)
+        {
+            attr->style = s_cream_number;
+        }
+        else if(s_style == s_cream_menu)
+        {
+            attr->style = s_cream_menu;
+        }
+        else
+        {
+            attr->style = s_cream_entry;
         }
     }
 }
 
 void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const char* list)
 {
-    int i, j = 0;
+    int j = 0;
     char* pch;
     int size = 0;
-    for(i = 0; i < c->c_nattr; i++)
+    t_eattr* attr = eclass_getattr(c, gensym(attrname));
+    if(attr)
     {
-        if(c->c_attr[i]->name == gensym(attrname))
+        pch = strtok(gensym(list)->s_name," ,");
+        
+        while(pch != NULL)
         {
-            pch = strtok(gensym(list)->s_name," ,");
-            
-            while(pch != NULL)
+            pch = strtok(NULL, " ,");
+            size++;
+        }
+        if(size > 0)
+        {
+            if(attr->itemssize)
             {
-                pch = strtok(NULL, " ,");
-                size++;
-            }
-            if(size > 0)
-            {
-                if(c->c_attr[i]->itemssize)
-                {
-                    c->c_attr[i]->itemslist = (t_symbol **)realloc(c->c_attr[i]->itemslist, (unsigned long)size * sizeof(t_symbol *));
-                    if(c->c_attr[i]->itemslist)
-                        c->c_attr[i]->itemssize = size;
-                }
-                else
-                {
-                    c->c_attr[i]->itemslist = (t_symbol **)calloc((unsigned long)size, sizeof(t_symbol *));
-                    if(c->c_attr[i]->itemslist)
-                        c->c_attr[i]->itemssize = size;
-                }
-                if(c->c_attr[i]->itemslist && c->c_attr[i]->itemssize)
-                {
-                    pch = strtok(gensym(list)->s_name," ,");
-                    while(pch != NULL && (long)j < c->c_attr[i]->itemssize)
-                    {
-                        c->c_attr[i]->itemslist[j] = gensym(pch);
-                        pch = strtok(NULL, " ,");
-                        j++;
-                    }
-                }
-                
+                attr->itemslist = (t_symbol **)realloc(attr->itemslist, (unsigned long)size * sizeof(t_symbol *));
+                if(attr->itemslist)
+                    attr->itemssize = size;
             }
             else
             {
-                if(c->c_attr[i]->itemssize)
-                    free(c->c_attr[i]->itemslist);
-                c->c_attr[i]->itemssize = 0;
+                attr->itemslist = (t_symbol **)calloc((unsigned long)size, sizeof(t_symbol *));
+                if(attr->itemslist)
+                    attr->itemssize = size;
             }
-            return ;
+            if(attr->itemslist && attr->itemssize)
+            {
+                pch = strtok(gensym(list)->s_name," ,");
+                while(pch != NULL && (long)j < attr->itemssize)
+                {
+                    attr->itemslist[j] = gensym(pch);
+                    pch = strtok(NULL, " ,");
+                    j++;
+                }
+            }
+            
+        }
+        else
+        {
+            if(attr->itemssize)
+                free(attr->itemslist);
+            attr->itemssize = 0;
         }
     }
 }
 
 void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value)
 {
-    int i;
-    for(i = 0; i < c->c_nattr; i++)
+    t_eattr* attr = eclass_getattr(c, gensym(attrname));
+    if(attr)
     {
-        if(c->c_attr[i]->name == gensym(attrname))
-        {
-            if(c->c_attr[i]->clipped == 0)
-                c->c_attr[i]->clipped = 1;
-            else if(c->c_attr[i]->clipped == 2)
-                c->c_attr[i]->clipped = 3;
-            
-            c->c_attr[i]->minimum = value;
-            return ;
-        }
+        if(attr->clipped == 0)
+            attr->clipped = 1;
+        else if(attr->clipped == 2)
+            attr->clipped = 3;
+        
+        attr->minimum = value;
     }
 }
 
 void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value)
 {
-    int i;
-    for(i = 0; i < c->c_nattr; i++)
+    t_eattr* attr = eclass_getattr(c, gensym(attrname));
+    if(attr)
     {
-        if(c->c_attr[i]->name == gensym(attrname))
-        {
-            if(c->c_attr[i]->clipped == 0)
-                c->c_attr[i]->clipped = 2;
-            else if(c->c_attr[i]->clipped == 1)
-                c->c_attr[i]->clipped = 3;
-            
-            c->c_attr[i]->maximum = value;
-            return ;
-        }
+        if(attr->clipped == 0)
+            attr->clipped = 2;
+        else if(attr->clipped == 1)
+            attr->clipped = 3;
+        
+        attr->maximum = value;
     }
 }
 
 void eclass_attr_step(t_eclass* c, const char* attrname, float value)
 {
-    int i;
-    for(i = 0; i < c->c_nattr; i++)
+    t_eattr* attr = eclass_getattr(c, gensym(attrname));
+    if(attr)
     {
-        if(c->c_attr[i]->name == gensym(attrname))
-        {
-            c->c_attr[i]->step = value;
-            return ;
-        }
+        attr->step = value;
     }
 }
 
 void eclass_attr_save(t_eclass* c, const char* attrname, long flags)
 {
-    int i;
-    for(i = 0; i < c->c_nattr; i++)
+    t_eattr* attr = eclass_getattr(c, gensym(attrname));
+    if(attr)
     {
-        if(c->c_attr[i]->name == gensym(attrname))
-        {
-            c->c_attr[i]->save = 1;
-            return ;
-        }
+        attr->save = 1;
     }
 }
 
 void eclass_attr_paint(t_eclass* c, const char* attrname, long flags)
 {
-    int i;
-    for(i = 0; i < c->c_nattr; i++)
+    t_eattr* attr = eclass_getattr(c, gensym(attrname));
+    if(attr)
     {
-        if(c->c_attr[i]->name == gensym(attrname))
-        {
-            c->c_attr[i]->paint = 1;
-            return ;
-        }
+        attr->paint = 1;
     }
 }
 
 void eclass_attr_invisible(t_eclass* c, const char* attrname, long flags)
 {
-    int i;
-    for(i = 0; i < c->c_nattr; i++)
+    t_eattr* attr = eclass_getattr(c, gensym(attrname));
+    if(attr)
     {
-        if(c->c_attr[i]->name == gensym(attrname))
-        {
-            c->c_attr[i]->invisible = 1;
-            return ;
-        }
+        attr->invisible = 1;
     }
 }
 
 void eclass_attr_accessor(t_eclass* c, const char* attrname, t_err_method getter, t_err_method setter)
 {
-    int i;
-    for(i = 0; i < c->c_nattr; i++)
+    t_eattr* attr = eclass_getattr(c, gensym(attrname));
+    if(attr)
     {
-        if(c->c_attr[i]->name == gensym(attrname))
-        {
-            c->c_attr[i]->getter = getter;
-            c->c_attr[i]->setter = setter;
-            return ;
-        }
+        attr->getter = getter;
+        attr->setter = setter;
     }
 }
 
@@ -703,35 +665,42 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
             {
                 c->c_attr[i]->getter(x, c->c_attr[i], argc, argv);
             }
-            else if(type == s_int)
+            else if(type == s_cream_char)
+            {
+                for(j = 0; j < argc[0]; j++)
+                {
+                    atom_setlong(argv[0]+j, ((char *)point)[j]);
+                }
+            }
+            else if(type == s_cream_int)
             {
                 for(j = 0; j < argc[0]; j++)
                 {
                     atom_setlong(argv[0]+j, ((int *)point)[j]);
                 }
             }
-            else if(type == s_long)
+            else if(type == s_cream_long)
             {
                 for(j = 0; j < argc[0]; j++)
                 {
                     atom_setlong(argv[0]+j, ((long *)point)[j]);
                 }
             }
-            else if(type == &s_float)
+            else if(type == s_cream_float)
             {
                 for(j = 0; j < argc[0]; j++)
                 {
                     atom_setfloat(argv[0]+j, ((float *)point)[j]);
                 }
             }
-            else if(type == s_double)
+            else if(type == s_cream_double)
             {
                 for(j = 0; j < argc[0]; j++)
                 {
                     atom_setfloat(argv[0]+j, (float)(((double *)point)[j]));
                 }
             }
-            else if(type == &s_symbol)
+            else if(type == s_cream_symbol)
             {
                 t_symbol** syms = (t_symbol **)point;
                 for(j = 0; j < argc[0]; j++)
@@ -806,7 +775,18 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
             {
                 c->c_attr[i]->setter(x, c->c_attr[i], argc, argv);
             }
-            else if(type == s_int)
+            else if(type == s_cream_char)
+            {
+                char* pointor = (char *)point;
+                for(j = 0; j < size && j < argc; j++)
+                {
+                    if(atom_gettype(argv+j) == A_FLOAT)
+                    {
+                        pointor[j] = (char)atom_getlong(argv+j);
+                    }
+                }
+            }
+            else if(type == s_cream_int)
             {
                 int* pointor = (int *)point;
                 for(j = 0; j < size && j < argc; j++)
@@ -817,7 +797,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                     }
                 }
             }
-            else if(type == s_long)
+            else if(type == s_cream_long)
             {
                 long* pointor = (long *)point;
                 for(j = 0; j < size && j < argc; j++)
@@ -828,7 +808,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                     }
                 }
             }
-            else if(type == &s_float)
+            else if(type == s_cream_float)
             {
                 float* pointor = (float *)point;
                 for(j = 0; j < size && j < argc; j++)
@@ -839,7 +819,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                     }
                 }
             }
-            else if(type == s_double)
+            else if(type == s_cream_double)
             {
                 double* pointor = (double *)point;
                 for(j = 0; j < size && j < argc; j++)
@@ -850,7 +830,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                     }
                 }
             }
-            else if(type == &s_symbol)
+            else if(type == s_cream_symbol)
             {
                 t_symbol** pointor = (t_symbol **)point;
                 for(j = 0; j < size && j < argc; j++)
