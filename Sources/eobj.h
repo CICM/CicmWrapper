@@ -144,7 +144,8 @@ void eobj_attr_setvalueof(void *x, t_symbol* s, int argc, t_atom *argv);
 /*!
  * \fn      void eobj_attr_getvalueof(void *x, t_symbol* s, int *argc, t_atom **argv)
  * \brief   Gets the values of an attribute.
- * \details Retrieves the attribute getter and calls it if it exist otherwise it does nothing. You should free the atoms if they has been allocated.
+ * \details Retrieves the attribute getter method and calls it if it exist otherwise it does nothing.
+ * \details You should free the atoms if they has been allocated.
  * \param x The t_eobj pointer.
  * \param s The name of the attribute.
  * \param argc The pointer to an int that will be initialize with the number of the atoms.

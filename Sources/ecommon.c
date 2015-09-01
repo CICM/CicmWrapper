@@ -10,6 +10,7 @@
 
 #include "ecommon.h"
 #include "egraphics.h"
+#include "epopup.h"
 
 t_symbol* s_cream_null;
 t_symbol* s_cream_empty;
@@ -36,6 +37,11 @@ t_symbol* s_int;
 t_symbol* s_long;
 t_symbol* s_double;
 
+t_symbol* s_cream_checkbutton;
+t_symbol* s_cream_color;
+t_symbol* s_cream_number;
+t_symbol* s_cream_menu;
+
 t_symbol* s_cream_linear;
 t_symbol* s_cream_exponential;
 t_symbol* s_cream_logarithmic;
@@ -43,8 +49,6 @@ t_symbol* s_cream_threshold;
 
 void epd_init(void)
 {
-    t_symbol* epd_symbol = gensym("epd1572");
- 
     s_cream_null          = gensym("(null)");
     s_cream_empty         = gensym("");
     s_cream_atom          = gensym("atom");
@@ -74,93 +78,13 @@ void epd_init(void)
     s_cream_exponential = gensym("exponential");
     s_cream_logarithmic = gensym("logarithmic");
     s_cream_threshold   = gensym("threshold");
-    if(!epd_symbol->s_thing)
-    {
-        // PATCHER MOUSE MOTION //
-        sys_vgui("proc eobj_canvas_motion {patcher val} {\n");
-        sys_gui(" set rx [winfo rootx $patcher]\n");
-        sys_gui(" set ry [winfo rooty $patcher]\n");
-        sys_gui(" set x  [winfo pointerx .]\n");
-        sys_gui(" set y  [winfo pointery .]\n");
-        sys_vgui(" pdtk_canvas_motion $patcher [expr $x - $rx] [expr $y - $ry] $val\n");
-        sys_gui("}\n");
-        
-        // PATCHER MOUSE DOWN //
-        sys_vgui("proc eobj_canvas_down {patcher val} {\n");
-        sys_gui(" set rx [winfo rootx $patcher]\n");
-        sys_gui(" set ry [winfo rooty $patcher]\n");
-        sys_gui(" set x  [winfo pointerx .]\n");
-        sys_gui(" set y  [winfo pointery .]\n");
-        sys_vgui(" pdtk_canvas_mouse $patcher [expr $x - $rx] [expr $y - $ry] 0 $val\n");
-        sys_gui("}\n");
-        
-        // PATCHER MOUSE UP //
-        sys_vgui("proc eobj_canvas_up {patcher} {\n");
-        sys_gui(" set rx [winfo rootx $patcher]\n");
-        sys_gui(" set ry [winfo rooty $patcher]\n");
-        sys_gui(" set x  [winfo pointerx .]\n");
-        sys_gui(" set y  [winfo pointery .]\n");
-        sys_vgui(" pdtk_canvas_mouseup $patcher [expr $x - $rx] [expr $y - $ry] 0\n");
-        sys_gui("}\n");
-        
-        // PATCHER MOUSE RIGHT //
-        sys_vgui("proc eobj_canvas_right {patcher} {\n");
-        sys_gui(" set rx [winfo rootx $patcher]\n");
-        sys_gui(" set ry [winfo rooty $patcher]\n");
-        sys_gui(" set x  [winfo pointerx .]\n");
-        sys_gui(" set y  [winfo pointery .]\n");
-        sys_vgui(" pdtk_canvas_rightclick $patcher [expr $x - $rx] [expr $y - $ry] 0\n");
-        sys_gui("}\n");
-        
-        // OBJECT SAVE FILE //
-        sys_gui("proc eobj_saveas {name initialfile initialdir} {\n");
-        sys_gui("if { ! [file isdirectory $initialdir]} {set initialdir $::env(HOME)}\n");
-        sys_gui("set filename [tk_getSaveFile -initialfile $initialfile -initialdir $initialdir -defaultextension .pd -filetypes $::filetypes]\n");
-        sys_gui("if {$filename eq \"\"} return;\n");
-        
-        sys_gui("set extension [file extension $filename]\n");
-        sys_gui("set oldfilename $filename\n");
-        
-        sys_gui("if {$filename ne $oldfilename && [file exists $filename]} {\n");
-        sys_gui("set answer [tk_messageBox -type okcancel -icon question -default cancel-message [_ \"$filename\" already exists. Do you want to replace it?]]\n");
-        sys_gui("if {$answer eq \"cancel\"} return;\n");
-        sys_gui("}\n");
-        sys_gui("set dirname [file dirname $filename]\n");
-        sys_gui("set basename [file tail $filename]\n");
-        sys_gui("pdsend \"$name eobjwriteto [enquote_path $dirname/$basename]\"\n");
-        sys_gui("set ::filenewdir $dirname\n");
-        sys_gui("::pd_guiprefs::update_recentfiles $filename\n");
-        sys_gui("}\n");
-        
-        // OBJECT OPEN FILE //
-        sys_gui("proc eobj_openfrom {name} {\n");
-        sys_gui("if { ! [file isdirectory $::filenewdir]} {\n");
-        sys_gui("set ::filenewdir [file normalize $::env(HOME)]\n");
-        sys_gui("}\n");
-        sys_gui("set files [tk_getOpenFile -multiple true -initialdir $::fileopendir]\n");
-        sys_gui("pdsend \"$name eobjreadfrom [enquote_path $files]\"\n");
-        sys_gui("}\n");
-        
-        // RGBA TO HEX //
-        sys_gui("proc eobj_rgba_to_hex {red green blue alpha} { \n");
-        sys_gui("set nR [expr int( $red * 65025 )]\n");
-        sys_gui("set nG [expr int( $green * 65025 )]\n");
-        sys_gui("set nB [expr int( $blue * 65025 )]\n");
-        sys_gui("set col [format {%4.4x} $nR]\n");
-        sys_gui("append col [format {%4.4x} $nG]\n");
-        sys_gui("append col [format {%4.4x} $nB]\n");
-        sys_gui("return #$col\n");
-        sys_gui("}\n");
-        
-        // SEND TEXTFIELD TEXT //
-        sys_gui("proc etext_sendtext {widget name owner key} { \n");
-        sys_gui("set text [$widget get 0.0 end]\n");
-        sys_gui("pdsend \"$name text $text $key\"\n");
-        sys_gui("pdsend \"$owner texteditor_keypress $name $key\"\n");
-        sys_gui("}\n");
-        
-        epd_symbol->s_thing = (t_class **)1;
-    }
+    
+    s_cream_checkbutton = gensym("checkbutton");
+    s_cream_color       = gensym("color");
+    s_cream_number      = gensym("number");
+    s_cream_menu        = gensym("menu");
+    
+    tcltk_create_methods();
 }
 
 static const char* estrchrn(const char* s, const char* delim)
@@ -720,29 +644,6 @@ t_pd_err binbuf_get_attribute_float(t_binbuf *d, t_symbol *key, float *value)
 
 void epd_add_folder(const char* name, const char* folder)
 {
-    /*
-    // ADD TO SYSTEM PATH
-    sys_gui("foreach pathdir [concat $::sys_searchpath $::sys_staticpath] {\n");
-    sys_gui("if {[file isdirectory $pathdir]} {\n");
-    sys_gui("set dir [string trimright [file join [file normalize $pathdir] { }]]\n");
-    sys_vgui("append dir \"%s\"\n", name);
-    sys_gui("if {[file isdirectory $dir] && [file exists $dir]} {\n");
-    sys_vgui("append dir \"/%s/\"\n", folder);
-    
-    sys_gui("if {[file isdirectory $dir] && [file exists $dir]} {::helpbrowser::add_entry ::sys_searchpath dir}\n");
-            //lappend ::sys_staticpath $dir\n pdwindow::logpost 0, 2 \"OK\n\"}\n");
-    
-    sys_gui("}}}\n");
-    post("start");
-    const char dir[MAXPDSTRING], ext = '\0';
-    char dirresult[MAXPDSTRING], *nameresult = NULL;
-    if(open_via_path(dir, folder, &ext, dirresult, &nameresult, MAXPDSTRING, 0) != -1)
-    {
-        post("aki");
-    }
-    post("end");
-    */
-
 	char path[MAXPDSTRING];
 	t_namelist* var = sys_searchpath;
 	while (var)

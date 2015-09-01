@@ -347,68 +347,6 @@ t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
  */
 t_symbol* ebox_get_presetid(t_ebox* x);
 
-//! The default user font method for all ebox called by PD (PRIVATE)
-/*
- * \memberof        ebox
- * \param x         The gobj
- * \param attr      Nothing (for Max 6 compatibility)
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \return          Always 0 (for the moment)
- */
-t_pd_err ebox_set_font(t_ebox *x, t_object *attr, int argc, t_atom *argv);
-
-//! The default user fontweight method for all ebox called by PD (PRIVATE)
-/*
- * \memberof        ebox
- * \param x         The gobj
- * \param attr      Nothing (for Max 6 compatibility)
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \return          Always 0 (for the moment)
- */
-t_pd_err ebox_set_fontweight(t_ebox *x, t_object *attr, int argc, t_atom *argv);
-
-//! The default user fontslant method for all ebox called by PD (PRIVATE)
-/*
- * \memberof        ebox
- * \param x         The gobj
- * \param attr      Nothing (for Max 6 compatibility)
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \return          Always 0 (for the moment)
- */
-t_pd_err ebox_set_fontslant(t_ebox *x, t_object *attr, int argc, t_atom *argv);
-
-//! The default user fontsize method for all ebox called by PD (PRIVATE)
-/*
- * \memberof        ebox
- * \param x         The gobj
- * \param attr      Nothing (for Max 6 compatibility)
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \return          Always 0 (for the moment)
- */
-t_pd_err ebox_set_fontsize(t_ebox *x, t_object *attr, int argc, t_atom *argv);
-
-//! Open the properties window (PRIVATE)
-/*
- * \memberof        ebox
- * \param z         The gobj object
- * \param glist     The canvas
- * \return          Nothing
- */
-void ebox_properties(t_ebox *x, t_glist *glist);
-
-//! Receive the properties window messages and change the attributes values (PRIVATE)
-/*
- * \memberof        ebox
- * \param x         The object
- * \param s         Nothing (for Max 6 compatibility)
- * \return          Nothing
- */
-void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv);
-
 //! The default notify method of ebox called when an attribute has changed // PRIVATE
 /*
  * \memberof        ebox
@@ -449,14 +387,6 @@ void ebox_texteditor_keypress(t_ebox *x,  t_symbol *s, float f);
  * \return          Nothing
  */
 void ebox_texteditor_keyfilter(t_ebox *x, t_symbol *s, float f);
-
-//! The attribute print method that post all the attributes characteristics in the PD console // PRIVATE
-/*
- * \memberof        ebox
- * \param x         The ebox
- * \return          Nothing
- */
-void ebox_attrprint(t_ebox* x);
 
 // The defaults pd widgets
 void ebox_wgetrect(t_gobj *z,     t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2);

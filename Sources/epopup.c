@@ -574,19 +574,19 @@ t_eparam* ebox_parameter_create(t_ebox *x, int index)
                 param->p_auto       = 1;
                 param->p_meta       = 0;
                 pd_bind((t_pd *)param, param->p_bind);
-                if(index < x->b_nparams)
+                if(x->b_params && index < x->b_nparams)
                 {
                     x->b_params[index] = param;
                     eobj_widget_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_create);
                     return param;
                 }
-                else if(x->b_nparams && x->b_params)
+                else if(x->b_params && index >= x->b_nparams)
                 {
                     temp = (t_eparam **)realloc(x->b_params, sizeof(t_eparam *) * (size_t)(index + 1));
                     if(temp)
                     {
                         x->b_params = temp;
-                        for(i = x->b_nparams; i < index; i++)
+                        for(i = (int)x->b_nparams; i < index; i++)
                         {
                             x->b_params[i] = NULL;
                         }
@@ -600,7 +600,7 @@ t_eparam* ebox_parameter_create(t_ebox *x, int index)
                         return NULL;
                     }
                 }
-                else
+                else if(!x->b_params || !x->b_nparams)
                 {
                     x->b_params = (t_eparam **)malloc(sizeof(t_eparam *) * (size_t)(index + 1));
                     if(x->b_params)
@@ -877,7 +877,7 @@ void eparameter_setvalue_text(t_eparam* param, char const* text)
     {
         param->p_setter_t(param->p_owner, param, text);
     }
-    else if(isdigit(text))
+    else if(isdigit(text[0]))
     {
         eparameter_setvalue(param, atof(text));
     }
@@ -893,6 +893,233 @@ t_eparam* eparameter_getfromsymbol(t_symbol* name)
     return NULL;
 }
 
+
+void eobj_create_properties_window(t_eobj* x, t_glist *glist)
+{
+    int i, j, argc = 0;
+    t_atom* argv = NULL;
+    t_rgba color;
+    char tx[MAXPDSTRING];
+    char va[MAXPDSTRING];
+    const t_eattr* attr;
+    const t_eclass* c = eobj_getclass(x);
+
+    sprintf(tx, ".epw%ld", (unsigned long)x);
+    sprintf(va, "var%ld", (unsigned long)x);
+    
+    sys_vgui("destroy %s\n", tx);
+    sys_vgui("toplevel %s\n", tx);
+    sys_vgui("wm title %s {%s properties}\n", tx, eobj_getclassname(x)->s_name);
+    sys_vgui("wm resizable %s 0 0\n", tx);
+    
+    for(i = 0; i < c->c_nattr; i++)
+    {
+        attr = c->c_attr[i];
+        if(!attr->invisible)
+        {
+            sys_vgui("frame %s.label%i \n", tx, i+1);
+            sys_vgui("frame %s.selec%i \n", tx, i+1);
+            
+            sys_vgui("label %s.label%i.name -justify left -font {Helvetica 12} -text \"%s (%s):\"\n",
+                     tx, i+1, attr->label->s_name, attr->name->s_name);
+            sys_vgui("pack  %s.label%i.name -side left\n",  tx, i+1);
+            eobj_attr_getvalueof(x,  attr->name, &argc, &argv);
+            if(argc && argv)
+            {
+                if(attr->style == s_cream_checkbutton && atom_gettype(argv) == A_FLOAT)
+                {
+                    sys_vgui("set %s%i %i\n", va, i+1, (int)atom_getfloat(argv));
+                    sys_vgui("checkbutton %s.selec%i.cb -variable var%s%i -command {pdsend \"%s %s $%s%i\"}\n",
+                             tx, i+1, tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
+                    sys_vgui("pack %s.selec%i.cb -side left\n",tx, i+1);
+                }
+                else if(attr->style == s_cream_color && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT
+                        && atom_gettype(argv+2) == A_FLOAT && atom_gettype(argv+3) == A_FLOAT)
+                {
+                    color.red = atom_getfloat(argv); color.green = atom_getfloat(argv+1);
+                    color.blue = atom_getfloat(argv+2); color.alpha = atom_getfloat(argv+3);
+                    sys_vgui("set %s%i %s\n", va, i+1, rgba_to_hex(&color));
+                    sys_vgui("entry %s.selec%i.cb -font {Helvetica 12} -width 20 -readonlybackground $%s%i -state readonly\n",
+                             tx, i+1, va, i+1);
+                    sys_vgui("bind %s.selec%i.cb <Button> [concat epicker_apply %s %s $%s%i %s.selec%i.cb]\n",
+                             tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1, tx, i+1);
+                    sys_vgui("pack %s.selec%i.cb -side left\n",tx, i+1);
+                }
+                else if(attr->style == s_cream_number && atom_gettype(argv) == A_FLOAT)
+                {
+                    sys_vgui("set %s%i %f\n", va, i+1, atom_getfloat(argv));
+                    sys_vgui("spinbox %s.selec%i.cb -font {Helvetica 12} -width 18 \
+                             -textvariable [string trim %s%i] -command {pdsend \"%s %s $%s%i\"} \
+                             -increment %f -from %f -to %f\n", tx, i+1, va, i+1,
+                             x->o_id->s_name, attr->name->s_name, va, i+1,
+                             attr->step, (attr->clipped % 2) ? attr->minimum : FLT_MIN,
+                             (attr->clipped > 1) ? attr->maximum : FLT_MAX);
+                    sys_vgui("bind %s.selec%i.cb <KeyPress-Return> {pdsend \"%s %s $%s%i\"}\n",
+                             tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
+                    sys_vgui("pack %s.selec%i.cb -side left\n",tx, i+1);
+                }
+                else if(attr->style == s_cream_menu && atom_gettype(argv) == A_SYMBOL)
+                {
+                    sys_vgui("set %s%i %f\n", va, i+1, atom_getsymbol(argv)->s_name);
+                    sys_vgui("spinbox %s.selec%i.cb -font {Helvetica 12} -width 18 -state readonly\
+                             -textvariable [string trim %s%i] -command {pdsend \"%s %s $%s%i\"} \
+                             -values {", tx, i+1, va, i+1,
+                             x->o_id->s_name, attr->name->s_name, va, i+1);
+                    for(j = 0; j < attr->itemssize; j++)
+                    {
+                        sys_vgui("%s ", attr->itemslist[attr->itemssize - 1 - j]->s_name);
+                    }
+                    sys_vgui("}\n");
+                    sys_vgui("pack %s.selec%i.cb -side left\n",tx, i+1);
+                }
+                else
+                {
+                    sys_vgui("set %s%i \"", va, i+1);
+                    for(j = 0; j < argc - 1; j++)
+                    {
+                        if(atom_gettype(argv+1) == A_FLOAT)
+                        {
+                            sys_vgui("%f ", atom_getfloat(argv+i));
+                        }
+                        else if(atom_gettype(argv+i) == A_SYMBOL)
+                        {
+                            sys_vgui("%s ", atom_getsymbol(argv+i)->s_name);
+                        }
+                    }
+                    if(atom_gettype(argv+argc-1) == A_FLOAT)
+                    {
+                        sys_vgui("%f", atom_getfloat(argv+argc-1));
+                    }
+                    else if(atom_gettype(argv+i) == A_SYMBOL)
+                    {
+                        sys_vgui("%s", atom_getsymbol(argv+argc-1)->s_name);
+                    }
+                    sys_gui("\"\n");
+                    sys_vgui("entry %s.selec%i.cb -font {Helvetica 12} -width 20 \
+                             -textvariable [string trim %s%i]\n", tx, i+1, va, i+1);
+                    sys_vgui("bind %s.selec%i.cb <KeyPress-Return> {pdsend \"%s %s $%s%i\"}\n",
+                             tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
+                    sys_vgui("pack %s.selec%i.cb -side left\n",tx, i+1);
+                }
+                free(argv);
+            }
+        
+            argv = NULL;
+            argc = 0;
+            
+            sys_vgui("grid config %s.label%i -column 0 -row %i -sticky w\n", tx, i+1, i+1);
+            sys_vgui("grid config %s.selec%i -column 1 -row %i -sticky w\n", tx, i+1, i+1);
+        }
+    }
+}
+
+
+void tcltk_create_methods(void)
+{
+    t_symbol* epd_symbol = gensym("epd1572");
+    if(!epd_symbol->s_thing)
+    {
+        // PATCHER MOUSE MOTION //
+        sys_vgui("proc eobj_canvas_motion {patcher val} {\n");
+        sys_gui(" set rx [winfo rootx $patcher]\n");
+        sys_gui(" set ry [winfo rooty $patcher]\n");
+        sys_gui(" set x  [winfo pointerx .]\n");
+        sys_gui(" set y  [winfo pointery .]\n");
+        sys_vgui(" pdtk_canvas_motion $patcher [expr $x - $rx] [expr $y - $ry] $val\n");
+        sys_gui("}\n");
+        
+        // PATCHER MOUSE DOWN //
+        sys_vgui("proc eobj_canvas_down {patcher val} {\n");
+        sys_gui(" set rx [winfo rootx $patcher]\n");
+        sys_gui(" set ry [winfo rooty $patcher]\n");
+        sys_gui(" set x  [winfo pointerx .]\n");
+        sys_gui(" set y  [winfo pointery .]\n");
+        sys_vgui(" pdtk_canvas_mouse $patcher [expr $x - $rx] [expr $y - $ry] 0 $val\n");
+        sys_gui("}\n");
+        
+        // PATCHER MOUSE UP //
+        sys_vgui("proc eobj_canvas_up {patcher} {\n");
+        sys_gui(" set rx [winfo rootx $patcher]\n");
+        sys_gui(" set ry [winfo rooty $patcher]\n");
+        sys_gui(" set x  [winfo pointerx .]\n");
+        sys_gui(" set y  [winfo pointery .]\n");
+        sys_vgui(" pdtk_canvas_mouseup $patcher [expr $x - $rx] [expr $y - $ry] 0\n");
+        sys_gui("}\n");
+        
+        // PATCHER MOUSE RIGHT //
+        sys_vgui("proc eobj_canvas_right {patcher} {\n");
+        sys_gui(" set rx [winfo rootx $patcher]\n");
+        sys_gui(" set ry [winfo rooty $patcher]\n");
+        sys_gui(" set x  [winfo pointerx .]\n");
+        sys_gui(" set y  [winfo pointery .]\n");
+        sys_vgui(" pdtk_canvas_rightclick $patcher [expr $x - $rx] [expr $y - $ry] 0\n");
+        sys_gui("}\n");
+        
+        // OBJECT SAVE FILE //
+        sys_gui("proc eobj_saveas {name initialfile initialdir} {\n");
+        sys_gui("if { ! [file isdirectory $initialdir]} {set initialdir $::env(HOME)}\n");
+        sys_gui("set filename [tk_getSaveFile -initialfile $initialfile -initialdir $initialdir -defaultextension .pd -filetypes $::filetypes]\n");
+        sys_gui("if {$filename eq \"\"} return;\n");
+        
+        sys_gui("set extension [file extension $filename]\n");
+        sys_gui("set oldfilename $filename\n");
+        
+        sys_gui("if {$filename ne $oldfilename && [file exists $filename]} {\n");
+        sys_gui("set answer [tk_messageBox -type okcancel -icon question -default cancel-message [_ \"$filename\" already exists. Do you want to replace it?]]\n");
+        sys_gui("if {$answer eq \"cancel\"} return;\n");
+        sys_gui("}\n");
+        sys_gui("set dirname [file dirname $filename]\n");
+        sys_gui("set basename [file tail $filename]\n");
+        sys_gui("pdsend \"$name eobjwriteto [enquote_path $dirname/$basename]\"\n");
+        sys_gui("set ::filenewdir $dirname\n");
+        sys_gui("::pd_guiprefs::update_recentfiles $filename\n");
+        sys_gui("}\n");
+        
+        // OBJECT OPEN FILE //
+        sys_gui("proc eobj_openfrom {name} {\n");
+        sys_gui("if { ! [file isdirectory $::filenewdir]} {\n");
+        sys_gui("set ::filenewdir [file normalize $::env(HOME)]\n");
+        sys_gui("}\n");
+        sys_gui("set files [tk_getOpenFile -multiple true -initialdir $::fileopendir]\n");
+        sys_gui("pdsend \"$name eobjreadfrom [enquote_path $files]\"\n");
+        sys_gui("}\n");
+        
+        // RGBA TO HEX //
+        sys_gui("proc eobj_rgba_to_hex {red green blue alpha} { \n");
+        sys_gui("set nR [expr int( $red * 65025 )]\n");
+        sys_gui("set nG [expr int( $green * 65025 )]\n");
+        sys_gui("set nB [expr int( $blue * 65025 )]\n");
+        sys_gui("set col [format {%4.4x} $nR]\n");
+        sys_gui("append col [format {%4.4x} $nG]\n");
+        sys_gui("append col [format {%4.4x} $nB]\n");
+        sys_gui("return #$col\n");
+        sys_gui("}\n");
+        
+        // SEND TEXTFIELD TEXT //
+        sys_gui("proc etext_sendtext {widget name owner key} { \n");
+        sys_gui("set text [$widget get 0.0 end]\n");
+        sys_gui("pdsend \"$name text $text $key\"\n");
+        sys_gui("pdsend \"$owner texteditor_keypress $name $key\"\n");
+        sys_gui("}\n");
+        
+        // COLOR PICKER WINOW //
+        sys_gui("proc epicker_apply {objid attrname initcolor sentry} { \n");
+        sys_gui("set color [tk_chooseColor -title \"Choose Color\" -initialcolor $initcolor]\n");
+        sys_gui("if {$color == \"\"} return \n");
+        sys_gui("foreach {red2 green2 blue2} [winfo rgb . $color] {}\n");
+        sys_gui("set nR2 [expr ( $red2 / 65025. )]\n");
+        sys_gui("set nG2 [expr ( $green2 / 65025. )]\n");
+        sys_gui("set nB2 [expr ( $blue2 / 65025. )]\n");
+        sys_gui("if {$nR2 > 1.} {set nR2 1.} \n");
+        sys_gui("if {$nG2 > 1.} {set nG2 1.} \n");
+        sys_gui("if {$nB2 > 1.} {set nB2 1.} \n");
+        sys_gui("pdsend \"$objid $attrname $nR2 $nG2 $nB2\"\n");
+        sys_gui("$sentry configure -readonlybackground $color\n");
+        sys_gui("}\n");
+        
+        epd_symbol->s_thing = (t_class **)1;
+    }
+}
 
 
 

@@ -71,6 +71,7 @@ void eobj_free(void *x)
         z->o_proxy = NULL;
         z->o_nproxy= 0;
     }
+    sys_vgui("destroy .epw%ld\n", (unsigned long)x);
 }
 
 t_pd_err eobj_iscicm(void* x)
@@ -188,8 +189,9 @@ void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
         {
             atom_setsym(av, atom_getsymbol(argv));
             if(c->c_widget.w_write)
+            {
                 c->c_widget.w_write(x, s, 1, av);
-            return;
+            }
         }
         // The folder isn't defined so write it in the canvas folder
         else
@@ -197,8 +199,9 @@ void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
             sprintf(buf, "%s/%s", canvas_getdir(x->o_canvas)->s_name, atom_getsymbol(argv)->s_name);
             atom_setsym(av, gensym(buf));
             if(c->c_widget.w_write)
+            {
                 c->c_widget.w_write(x, s, 1, av);
-            return;
+            }
         }
     }
     // The file name is not defined so we popup a window

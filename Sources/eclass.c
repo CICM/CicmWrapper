@@ -15,7 +15,6 @@
 #include "epopup.h"
 #include "egraphics.h"
 
-static void eclass_properties_dialog(t_eclass* c);
 static void ewidget_init(t_eclass* c);
 
 t_eclass* eclass_new(const char *name, t_typ_method newm, t_typ_method freem, size_t size, int flags, t_atomtype arg1, int arg2)
@@ -55,7 +54,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_SYMBOL       (c, "fontname", 0, t_ebox, b_font.c_family);
     CLASS_ATTR_SYMBOL       (c, "fontweight", 0, t_ebox, b_font.c_weight);
     CLASS_ATTR_SYMBOL       (c, "fontslant", 0, t_ebox, b_font.c_slant);
-    CLASS_ATTR_LONG         (c, "fontsize", 0, t_ebox, b_font.c_sizereal);
+    CLASS_ATTR_FLOAT        (c, "fontsize", 0, t_ebox, b_font.c_size);
     CLASS_ATTR_SYMBOL       (c, "receive", 0, t_ebox, b_receive_id);
     CLASS_ATTR_SYMBOL       (c, "send", 0, t_ebox, b_send_id);
     
@@ -75,21 +74,20 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_LABEL		(c, "pinned", 0, "Pinned");
     CLASS_ATTR_STYLE        (c, "pinned", 0, "onoff");
     
-    CLASS_ATTR_DEFAULT      (c, "fontname", 0, "Helvetica");
+    int todo_remove_the_setters_for_fonts_add_flag_and_check_menu_attr_setter_methods;
+    CLASS_ATTR_DEFAULT      (c, "fontname", 0, "helvetica");
     CLASS_ATTR_SAVE         (c, "fontname", 0);
     CLASS_ATTR_PAINT        (c, "fontname", 0);
     CLASS_ATTR_CATEGORY		(c, "fontname", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontname", 0, "Font Name");
-    CLASS_ATTR_ACCESSORS    (c, "fontname", NULL, (t_err_method)ebox_set_font);
     CLASS_ATTR_STYLE        (c, "fontname", 0, "menu");
-    CLASS_ATTR_ITEMS        (c, "fontname", 0, "Helvetica Monaco Courier Times DejaVu");
+    CLASS_ATTR_ITEMS        (c, "fontname", 0, "helvetica monaco courier times dejavu");
     
     CLASS_ATTR_DEFAULT      (c, "fontweight", 0, "normal");
     CLASS_ATTR_SAVE         (c, "fontweight", 0);
     CLASS_ATTR_PAINT        (c, "fontweight", 0);
     CLASS_ATTR_CATEGORY		(c, "fontweight", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontweight", 0, "Font Weight");
-    CLASS_ATTR_ACCESSORS    (c, "fontweight", NULL, (t_err_method)ebox_set_fontweight);
     CLASS_ATTR_STYLE        (c, "fontweight", 0, "menu");
     CLASS_ATTR_ITEMS        (c, "fontweight", 0, "normal bold");
     
@@ -98,7 +96,6 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_PAINT        (c, "fontslant", 0);
     CLASS_ATTR_CATEGORY		(c, "fontslant", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontslant", 0, "Font Slant");
-    CLASS_ATTR_ACCESSORS    (c, "fontslant", NULL, (t_err_method)ebox_set_fontslant);
     CLASS_ATTR_STYLE        (c, "fontslant", 0, "menu");
     CLASS_ATTR_ITEMS        (c, "fontslant", 0, "roman italic");
     
@@ -106,9 +103,9 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_FILTER_MIN   (c, "fontsize", 4);
     CLASS_ATTR_SAVE         (c, "fontsize", 0);
     CLASS_ATTR_PAINT        (c, "fontsize", 0);
+    CLASS_ATTR_STEP         (c, "fontsize", 1);
     CLASS_ATTR_CATEGORY		(c, "fontsize", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "fontsize", 0, "Font Size");
-    CLASS_ATTR_ACCESSORS    (c, "fontsize", NULL, ebox_set_fontsize);
     CLASS_ATTR_STYLE        (c, "fontsize", 0, "number");
     
     CLASS_ATTR_DEFAULT      (c, "receive", 0, "");
@@ -129,10 +126,7 @@ void eclass_guiinit(t_eclass* c, long flags)
         class_addmethod((t_class *)c, (t_method)ebox_texteditor_keyfilter, gensym("texteditor_keyfilter"), A_SYMBOL,A_DEFFLOAT,0);
     }
     
-    // GUI always needs this methods //
-    class_addmethod((t_class *)c, (t_method)ebox_attrprint,         gensym("attrprint"),    A_NULL,  0);
-    class_addmethod((t_class *)c, (t_method)ebox_dialog,            gensym("dialog"),       A_GIMME, 0);
-    
+    // GUI always needs this methods // 
     class_addmethod((t_class *)c, (t_method)ebox_mouse_enter, gensym("mouseenter"), A_NULL, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_leave, gensym("mouseleave"), A_NULL, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_move,  gensym("mousemove"),  A_GIMME, 0);
@@ -170,11 +164,7 @@ t_pd_err eclass_register(t_symbol *name, t_eclass *c)
         c->c_class.c_floatsignalin = calcoffset(t_edspobj, d_dsp.d_float);
     }
     
-    if(c->c_nattr)
-    {
-        eclass_properties_dialog(c);
-        class_setpropertiesfn((t_class *)c, (t_propertiesfn)ebox_properties);
-    }
+    class_setpropertiesfn((t_class *)c, (t_propertiesfn)eobj_create_properties_window);
     class_addmethod((t_class *)c, (t_method)is_cicm, s_iscicm, A_NULL, 0);
     return 0;
 }
@@ -275,6 +265,7 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
     }
     else if(gensym(name) == gensym("preset"))
     {
+        int remove_preset;
         CLASS_ATTR_SYMBOL       (c, "presetname", 0, t_ebox, b_preset_id);
         CLASS_ATTR_DEFAULT      (c, "presetname", 0, "");
         CLASS_ATTR_SAVE         (c, "presetname", 0);
@@ -938,162 +929,6 @@ static void ewidget_init(t_eclass* c)
     c->c_widget.w_read              = NULL;
     c->c_widget.w_texteditor_keypress = NULL;
     c->c_widget.w_texteditor_keyfilter= NULL;
-}
-
-//! Initialize the tcl/tk properties dialog window functions // PRIVATE
-/*
- \ @memberof            eclass
- \ @param c             The eclass pointer
- \ @return              Nothing
- */
-static void eclass_properties_dialog(t_eclass* c)
-{
-    int i, j, lenght;
-    char buffer[1000];
-    char temp[1000];
-    
-    // DIALOG WINDOW APPLY //
-    for(i = 0; i < c->c_nattr; i++)
-    {
-        if(c->c_attr[i]->style == gensym("color"))
-        {
-            sys_vgui("proc pdtk_%s_picker_apply_%s {id red green blue alpha} { \n", c->c_class.c_name->s_name, c->c_attr[i]->name->s_name);
-            sys_gui("set nR [expr int( $red * 65025 )]\n");
-            sys_gui("set nG [expr int( $green * 65025 )]\n");
-            sys_gui("set nB [expr int( $blue * 65025 )]\n");
-            sys_gui("set col [format {%4.4x} $nR]\n");
-            sys_gui("append col [format {%4.4x} $nG]\n");
-            sys_gui("append col [format {%4.4x} $nB]\n");
-            sys_vgui("set color [tk_chooseColor -title {%s} -initialcolor #${col}]\n", c->c_attr[i]->label->s_name, c->c_attr[i]->name->s_name);
-            sys_gui("if {$color == \"\"} return \n");
-            sys_gui("foreach {red2 green2 blue2} [winfo rgb . $color] {}\n");
-            sys_gui("set nR2 [expr ( $red2 / 65025. )]\n");
-            sys_gui("set nG2 [expr ( $green2 / 65025. )]\n");
-            sys_gui("set nB2 [expr ( $blue2 / 65025. )]\n");
-            sys_gui("if {$nR2 > 1.} {set nR2 1.} \n");
-            sys_gui("if {$nG2 > 1.} {set nG2 1.} \n");
-            sys_gui("if {$nB2 > 1.} {set nB2 1.} \n");
-            sprintf(buffer, "set cmd [concat $id dialog $id %i ", i+1);
-            sprintf(temp, "@%s ", c->c_attr[i]->name->s_name);
-            lenght = (int)strlen(temp);
-            strncat(buffer, temp, lenght);
-            sprintf(temp, "[concat $nR2 $nG2 $nB2] ");
-            lenght = (int)strlen(temp);
-            strncat(buffer, temp, lenght);
-            strncat(buffer, "]\n", 2);
-            sys_gui(buffer);
-            sys_gui("pdsend $cmd\n");
-            sys_gui("}\n");
-        }
-        else
-        {
-            sys_vgui("proc pdtk_%s_dialog_apply_%s {id} { \n", c->c_class.c_name->s_name, c->c_attr[i]->name->s_name);
-            sys_gui("set vid [string trimleft $id .]\n");
-            sys_vgui("set var_%s [concat %s_$vid] \n", c->c_attr[i]->name->s_name, c->c_attr[i]->name->s_name);
-            sys_vgui("global $var_%s \n", c->c_attr[i]->name->s_name);
-            sprintf(buffer, "set cmd [concat $id dialog $id %i ", i+1);
-            sprintf(temp, "@%s ", c->c_attr[i]->name->s_name);
-            lenght = (int)strlen(temp);
-            strncat(buffer, temp, lenght);
-            sprintf(temp, "[eval concat $$var_%s] ", c->c_attr[i]->name->s_name);
-            lenght = (int)strlen(temp);
-            strncat(buffer, temp, lenght);
-            strncat(buffer, "]\n", 2);
-            sys_gui(buffer);
-            sys_gui("pdsend $cmd\n");
-            sys_gui("}\n");
-        }
-    }
-    
-    // DIALOG WINDOW CREATION //
-    sys_vgui("proc pdtk_%s_dialog {id \n", c->c_class.c_name->s_name);
-    for(i = 0; i < c->c_nattr; i++)
-    {
-        if(!c->c_attr[i]->invisible)
-        {
-            sys_vgui("%s \n", c->c_attr[i]->name->s_name);
-        }
-    }
-    sys_gui("} {\n");
-    sys_gui("set vid [string trimleft $id .]\n");
-    
-    for(i = 0; i < c->c_nattr; i++)
-    {
-        if(!c->c_attr[i]->invisible)
-        {
-            sys_vgui("set var_%s [concat %s_$vid]\n", c->c_attr[i]->name->s_name, c->c_attr[i]->name->s_name);
-            sys_vgui("global $var_%s \n", c->c_attr[i]->name->s_name);
-            sys_vgui("set $var_%s $%s\n", c->c_attr[i]->name->s_name,  c->c_attr[i]->name->s_name);
-        }
-    }
-    sys_vgui("toplevel $id\n");
-    sys_vgui("wm title $id {%s properties}\n", c->c_class.c_name->s_name);
-    sys_vgui("wm resizable $id 0 0\n", c->c_class.c_name->s_name);
-    
-    for(i = 0; i < c->c_nattr; i++)
-    {
-        if(!c->c_attr[i]->invisible)
-        {
-            sys_vgui("frame $id.name%i \n", i+1);
-            sys_vgui("frame $id.sele%i \n", i+1);
-            
-            // ATTRIBUTES NAMES //
-            sys_vgui("label $id.name%i.name -justify left -font {Helvetica 12} -text \"%s :\"\n", i+1, c->c_attr[i]->label->s_name);
-            sys_vgui("pack  $id.name%i.name -side left\n", i+1);
-            // SELECTOR //
-            
-            if(c->c_attr[i]->style == gensym("checkbutton"))
-            {
-                sys_vgui("checkbutton $id.sele%i.selec -variable $var_%s -command  [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_attr[i]->name->s_name, c->c_class.c_name->s_name, c->c_attr[i]->name->s_name);
-                sys_vgui("pack  $id.sele%i.selec -side left\n", i+1);
-            }
-            else if(c->c_attr[i]->style == gensym("color"))
-            {
-                sys_vgui("set color [eval eobj_rgba_to_hex $%s]\n", c->c_attr[i]->name->s_name);
-                sys_vgui("entry $id.sele%i.selec -font {Helvetica 12} -width 20 -readonlybackground $color -state readonly\n", i+1);
-                sys_vgui("bind  $id.sele%i.selec <Button> [concat pdtk_%s_picker_apply_%s $id $%s]\n", i+1, c->c_class.c_name->s_name, c->c_attr[i]->name->s_name, c->c_attr[i]->name->s_name);
-                sys_vgui("pack  $id.sele%i.selec -side left\n", i+1);
-            }
-            else if(c->c_attr[i]->style == gensym("number"))
-            {
-                sys_vgui("spinbox $id.sele%i.selec -font {Helvetica 12} -width 18 -textvariable [string trim $var_%s] -increment %f \n", i+1, c->c_attr[i]->name->s_name, (float)c->c_attr[i]->step);
-                sys_vgui("$id.sele%i.selec configure -command [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
-                sys_vgui("$id.sele%i.selec configure -from -9999999999999 -to 9999999999999\n", i+1, (float)c->c_attr[i]->maximum); // Should be enough
-                sys_vgui("$id.sele%i.selec delete 0 end \n", i+1);
-                sys_vgui("$id.sele%i.selec insert 0 $%s \n", i+1, c->c_attr[i]->name->s_name);
-                
-                sys_vgui("bind $id.sele%i.selec <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
-                sys_vgui("pack $id.sele%i.selec -side left\n", i+1);
-            }
-            else if(c->c_attr[i]->style == gensym("menu"))
-            {
-                sys_vgui("spinbox $id.sele%i.selec -font {Helvetica 12} -width 18 -textvariable [string trim $var_%s] -state readonly\n", i+1, c->c_attr[i]->name->s_name);
-                sys_vgui("$id.sele%i.selec configure -command [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
-                sys_vgui("$id.sele%i.selec configure -value {", i+1);
-                for(j = 0; j < c->c_attr[i]->itemssize; j++)
-                {
-                    sys_vgui("%s ", c->c_attr[i]->itemslist[c->c_attr[i]->itemssize - 1 - j]->s_name);
-                }
-                sys_vgui("}\n");
-                
-                sys_vgui("bind $id.sele%i.selec <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
-                sys_vgui("pack $id.sele%i.selec -side left\n", i+1);
-                sys_vgui("$id.sele%i.selec set $%s \n", i+1, c->c_attr[i]->name->s_name);
-            }
-            else
-            {
-                sys_vgui("entry $id.sele%i.selec -font {Helvetica 12} -width 20 -textvariable [string trim $var_%s]\n", i+1, c->c_attr[i]->name->s_name);
-                sys_vgui("bind $id.sele%i.selec <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
-                sys_vgui("pack $id.sele%i.selec -side left\n", i+1);
-                
-            }
-            
-            sys_vgui("grid config $id.name%i -column 0 -row %i -sticky w\n", i+1, i+1);
-            sys_vgui("grid config $id.sele%i -column 1 -row %i -sticky w\n", i+1, i+1);
-        }
-    }
-    sys_gui("}\n");
-    
 }
 
 

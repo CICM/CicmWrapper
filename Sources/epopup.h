@@ -261,7 +261,7 @@ void ebox_parameter_setvalue_normalized(t_ebox* x, int index, float value, char 
  * \brief           Retrieves the minimum value of the parameter.
  * \param x         The t_ebox pointer.
  * \param index     The index of the parameter.
- * \return The minimum value of the parameter.
+ * \return          The minimum value of the parameter.
  */
 float ebox_parameter_getmin(t_ebox* x, int index);
 
@@ -270,7 +270,7 @@ float ebox_parameter_getmin(t_ebox* x, int index);
  * \brief           Retrieves the maximum value of the parameter.
  * \param x         The t_ebox pointer.
  * \param index     The index of the parameter.
- * \return The maximum value of the parameter.
+ * \return          The maximum value of the parameter.
  */
 float ebox_parameter_getmax(t_ebox* x, int index);
 
@@ -279,40 +279,33 @@ float ebox_parameter_getmax(t_ebox* x, int index);
  * \brief           Retrieves if the minimum and the maximum are inverted.
  * \param x         The t_ebox pointer.
  * \param index     The index of the parameter.
- * \return A non null value if the minimum and the maximum are inverted, otherwise 0.
+ * \return          A non null value if the minimum and the maximum are inverted, otherwise 0.
  */
 char ebox_parameter_isinverted(t_ebox* x, int index);
 
 /*!
- * \fn          void ebox_parameter_notify_changes(t_ebox *x, int index)
- * \brief       Notifies the listeners that the value changed.
- * \param x     The t_ebox pointer.
- * \param index The index of the parameter.
+ * \fn              void ebox_parameter_notify_changes(t_ebox *x, int index)
+ * \brief           Notifies the listeners that the value changed.
+ * \param x         The t_ebox pointer.
+ * \param index     The index of the parameter.
  */
 void ebox_parameter_notify_changes(t_ebox *x, int index);
 
 /*!
  * \fn              void ebox_parameter_begin_changes(t_eparam* param);
  * \brief           Notifies the listeners that the value begins to change.
- * \param x     The t_ebox pointer.
- * \param index The index of the parameter.
+ * \param x         The t_ebox pointer.
+ * \param index     The index of the parameter.
  */
 void ebox_parameter_begin_changes(t_ebox *x, int index);
 
 /*!
- * \fn          void ebox_parameter_end_changes(t_eparam* param)
- * \brief       Notifies the listeners that the value finishes to change.
- * \param x     The t_ebox pointer.
- * \param index The index of the parameter.
+ * \fn              void ebox_parameter_end_changes(t_eparam* param)
+ * \brief           Notifies the listeners that the value finishes to change.
+ * \param x         The t_ebox pointer.
+ * \param index     The index of the parameter.
  */
 void ebox_parameter_end_changes(t_ebox *x, int index);
-
-void ebox_parameter_methods(t_eparam* param, t_param_getter getter, t_param_setter setter);
-void ebox_parameter_options(t_eparam* param, char meta, char autom);
-
-float ebox_parameter_getdefault(t_eparam* param, t_symbol* name);
-void ebox_parameter_gettextforvalue(t_eparam* param, char** value, float f);
-float ebox_parameter_getvaluefortext(t_eparam* param, char const* value);
 
 //! @cond
 
@@ -358,7 +351,6 @@ void eparameter_setvalue(t_eparam* param, float value);
  * \details         This function shoudl be called from outside the owner object.
  * \param param     The t_eparam pointer.
  * \param value     The new value of the parameter.
- * \param notify    A non null value if the listener should be notified.
  */
 void eparameter_setvalue_normalized(t_eparam* param, float value);
 
@@ -379,6 +371,18 @@ void eparameter_setvalue_text(t_eparam* param, char const* text);
 t_eparam* eparameter_getfromsymbol(t_symbol* name);
 
 //! @endcond
+
+
+
+//! @cond
+
+void eobj_create_properties_window(t_eobj* x, t_glist *glist);
+
+void tcltk_create_methods(void);
+
+//! @endcond
+
+
 
 /** @} */
 

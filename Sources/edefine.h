@@ -119,6 +119,15 @@ extern t_symbol* s_pinned;
 //! The pre-defined s_iscicm t_symbol*
 extern t_symbol* s_iscicm;
 
+//! The pre-defined checkbutton t_symbol*
+extern t_symbol* s_cream_checkbutton;
+//! The pre-defined color t_symbol*
+extern t_symbol* s_cream_color;
+//! The pre-defined number t_symbol*
+extern t_symbol* s_cream_number;
+//! The pre-defined menu t_symbol*
+extern t_symbol* s_cream_menu;
+
 //! The pre-defined linear t_symbol*
 extern t_symbol* s_cream_linear;
 //! The pre-defined exponential t_symbol*
@@ -346,7 +355,6 @@ extern const t_rgba rgba_red;
 typedef struct t_efont
 {
     float       c_size;     /*!< The size of the font. */
-    long        c_sizereal; /*!< The plateform's size of the font. */
     t_symbol*   c_family;   /*!< The family of the font (times, helvetica, ect.). */
     t_symbol*   c_slant;    /*!< The slant of the font (regular, italic, etc.). */
     t_symbol*   c_weight;   /*!< The weight of the font (normal, bold). */
