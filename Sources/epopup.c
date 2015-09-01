@@ -1142,7 +1142,6 @@ void tcltk_create_methods(void)
         sys_gui("$sentry delete 0 end\n");
         sys_gui("$sentry insert 0 [string trim $nfont]\n");
         sys_gui("$sentry configure -state readonly\n");
-        sys_gui("$sentry configure -font {$nfont 12}\n");
         sys_gui("}\n");
         
 
