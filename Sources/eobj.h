@@ -229,13 +229,6 @@ t_sample* eobj_getsignaloutput(void *x, long index);
  */
 void eobj_save(t_gobj* x, t_binbuf *b);
 
-//! The default save method for UI ebox (PRIVATE)
-/*
- * \memberof        eobj
- * \param z         The eobj pointor
- * \param b         The binbuf
- */
-void eobj_dosave(t_eobj* x, t_binbuf *b);
 
 //! The popup method called by tcl/tk (PRIVATE)
 /*
@@ -253,6 +246,7 @@ void eobj_popup(t_eobj* x, t_symbol* s, float itemid);
  * \param s         The symbol selector
  * \param argc      The size of the array of atoms
  * \param argv      The array of atoms
+ * \todo Put the content of the function in the widget part.
  */
 void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv);
 
@@ -263,6 +257,7 @@ void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv);
  * \param s         The symbol selector
  * \param argc      The size of the array of atoms
  * \param argv      The array of atoms
+ * \todo Put the content of the function in the widget part.
  */
 void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv);
 
@@ -272,18 +267,6 @@ void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv);
  * \param sp    The pointers to signal structures
  */
 void eobj_dsp(void *x, t_signal **sp);
-
-//! The perform method for no inplace(PRIVATE)
-/*
- * \param w     The pointer sent by the dsp method
- */
-t_int* eobj_perform_inplace(t_int* w);
-
-//! The perform method for no inplace(PRIVATE)
-/*
- * \param w     The pointer sent by the dsp method
- */
-t_int* eobj_perform_noinplace(t_int* w);
 
 //! The dsp add method (PRIVATE)
 /*

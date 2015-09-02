@@ -13,6 +13,7 @@
 #include "eobj.h"
 #include "eclass.h"
 #include "epopup.h"
+#include "float.h"
 
 static char *my_cursorlist[] =
 {
@@ -56,7 +57,6 @@ void ebox_new(t_ebox *x, long flags)
     x->b_visible            = 1;
     x->b_params             = NULL;
     x->b_nparams            = 0;
-    eobj_getclass(x)->c_widget.w_dosave = (t_typ_method)ebox_save;
     eclass_attrs_setdefault((t_object *)x);
 }
 
@@ -1572,6 +1572,447 @@ void ebox_set_parameter_attribute(t_ebox *x, t_symbol *s, int argc, t_atom* argv
             }
         }
     }
+}
+
+static void ebox_parameter_notify(t_eobj* obj, t_symbol* widget, t_symbol* name, t_symbol* action)
+{
+    t_atom av[2];
+    if(is_valid_symbol(obj->o_camo_id) && obj->o_camo_id->s_thing)
+    {
+        atom_setsym(av, name);
+        atom_setsym(av+1, action);
+        pd_typedmess(obj->o_camo_id->s_thing, widget, 2, av);
+    }
+}
+
+static t_class* eparameter_setup()
+{
+    t_class* eparameter_class = NULL;
+    t_symbol* eparameter1572_sym = gensym("eparameter1572");
+    if(!eparameter1572_sym->s_thing)
+    {
+        eparameter_class = class_new(gensym("eparameter"), NULL, (t_method)NULL, sizeof(t_etexteditor), CLASS_PD, A_GIMME, 0);
+        eparameter1572_sym->s_thing = (t_class **)eparameter_class;
+        return eparameter_class;
+    }
+    else
+    {
+        return (t_class *)eparameter1572_sym->s_thing;
+    }
+}
+
+t_eparam* ebox_parameter_create(t_ebox *x, int index)
+{
+    int i;
+    char text[MAXPDSTRING];
+    t_eparam **temp  = NULL, *param = NULL;
+    t_class* c = eparameter_setup();
+    if(c)
+    {
+        if(index < x->b_nparams && x->b_params[index])
+        {
+            return x->b_params[index];
+        }
+        else
+        {
+            param = (t_eparam *)pd_new(c);
+            if(param)
+            {
+                sprintf(text, "param%ld", (unsigned long)(param));
+                param->p_bind       = gensym(text);
+                param->p_name       = s_cream_empty;
+                param->p_label      = s_cream_empty;
+                param->p_owner      = x;
+                param->p_index      = index;
+                param->p_value      = 0.f;
+                param->p_min        = 0.f;
+                param->p_max        = 1.f;
+                param->p_step       = FLT_EPSILON;
+                param->p_getter     = (t_param_getter)NULL;
+                param->p_setter     = (t_param_setter)NULL;
+                param->p_getter_t   = (t_param_getter_t)NULL;
+                param->p_setter_t   = (t_param_setter_t)NULL;
+                param->p_auto       = 1;
+                param->p_meta       = 0;
+                param->p_flags      = 0;
+                pd_bind((t_pd *)param, param->p_bind);
+                if(x->b_params && index < x->b_nparams)
+                {
+                    x->b_params[index] = param;
+                    ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_create);
+                    return param;
+                }
+                else if(x->b_params && index >= x->b_nparams)
+                {
+                    temp = (t_eparam **)realloc(x->b_params, sizeof(t_eparam *) * (size_t)(index + 1));
+                    if(temp)
+                    {
+                        x->b_params = temp;
+                        for(i = (int)x->b_nparams; i < index; i++)
+                        {
+                            x->b_params[i] = NULL;
+                        }
+                        x->b_params[index] = param;
+                        x->b_nparams = index+1;
+                        ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_create);
+                        return param;
+                    }
+                    else
+                    {
+                        return NULL;
+                    }
+                }
+                else if(!x->b_params || !x->b_nparams)
+                {
+                    x->b_params = (t_eparam **)malloc(sizeof(t_eparam *) * (size_t)(index + 1));
+                    if(x->b_params)
+                    {
+                        for(i = 0; i < index; i++)
+                        {
+                            x->b_params[i] = NULL;
+                        }
+                        x->b_params[index] = param;
+                        x->b_nparams = index+1;
+                        ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_create);
+                        return param;
+                    }
+                    else
+                    {
+                        x->b_nparams = 0;
+                        return NULL;
+                    }
+                }
+            }
+            
+        }
+    }
+    return NULL;
+}
+
+void ebox_parameter_destroy(t_ebox* x, int index)
+{
+    int i = 0;
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_destroy);
+            pd_unbind((t_pd *)x->b_params[index], x->b_params[index]->p_bind);
+            free(x->b_params[index]);
+            x->b_params[index] = NULL;
+            for(i = index; i < x->b_nparams - 1; i++)
+            {
+                x->b_params[i] = x->b_params[i+1];
+            }
+        }
+    }
+}
+
+float ebox_parameter_getvalue(t_ebox* x, int index)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            if(x->b_params[index]->p_getter)
+            {
+                return x->b_params[index]->p_getter(x->b_params[index]->p_owner, x->b_params[index]);
+            }
+            return x->b_params[index]->p_value;
+        }
+    }
+    return 0;
+}
+
+void ebox_parameter_setvalue(t_ebox* x, int index, float value, char notify)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            if(x->b_params[index]->p_setter)
+            {
+                x->b_params[index]->p_setter(x->b_params[index]->p_owner, x->b_params[index], value);
+            }
+            else
+            {
+                if(x->b_params[index]->p_min < x->b_params[index]->p_max)
+                {
+                    x->b_params[index]->p_value = pd_clip(value, x->b_params[index]->p_min, x->b_params[index]->p_max);
+                }
+                else
+                {
+                    x->b_params[index]->p_value  = pd_clip(value, x->b_params[index]->p_max, x->b_params[index]->p_min);
+                }
+            }
+            if(notify)
+            {
+                ebox_parameter_notify_changes(x, index);
+            }
+        }
+    }
+}
+
+float ebox_parameter_getvalue_normalized(t_ebox* x, int index)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            if(x->b_params[index]->p_max == x->b_params[index]->p_min)
+            {
+                return 1.;
+            }
+            else if(x->b_params[index]->p_min < x->b_params[index]->p_max)
+            {
+                return (ebox_parameter_getvalue(x, index) - x->b_params[index]->p_min) / (x->b_params[index]->p_max - x->b_params[index]->p_min);
+            }
+            else
+            {
+                return (ebox_parameter_getvalue(x, index) - x->b_params[index]->p_max) / (x->b_params[index]->p_min - x->b_params[index]->p_max);
+            }
+        }
+    }
+    return 0.f;
+}
+
+void ebox_parameter_setvalue_normalized(t_ebox* x, int index, float value, char notify)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            if(x->b_params[index]->p_min < x->b_params[index]->p_max)
+            {
+                ebox_parameter_setvalue(x, index, (value * (x->b_params[index]->p_max - x->b_params[index]->p_min) + x->b_params[index]->p_min), notify);
+            }
+            else
+            {
+                ebox_parameter_setvalue(x, index, ((1.f - value) * (x->b_params[index]->p_min - x->b_params[index]->p_max) + x->b_params[index]->p_max), notify);
+            }
+        }
+    }
+}
+
+float ebox_parameter_getmin(t_ebox* x, int index)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            return x->b_params[index]->p_min;
+        }
+    }
+    return 1.f;
+}
+
+float ebox_parameter_getmax(t_ebox* x, int index)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            return x->b_params[index]->p_max;
+        }
+    }
+    return 1.f;
+}
+
+char ebox_parameter_isinverted(t_ebox* x, int index)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            return (char)(x->b_params[index]->p_max < x->b_params[index]->p_min);
+        }
+    }
+    return 0;
+}
+
+void ebox_parameter_notify_changes(t_ebox *x, int index)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            ebox_parameter_notify((t_eobj *)x->b_params[index]->p_owner, s_cream_parameter, x->b_params[index]->p_bind, s_cream_changes);
+        }
+    }
+}
+
+void ebox_parameter_begin_changes(t_ebox *x, int index)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_beginchanges);
+        }
+    }
+}
+
+void ebox_parameter_end_changes(t_ebox *x, int index)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_endchanges);
+        }
+    }
+}
+
+void ebox_parameter_setname(t_ebox* x, int index, t_symbol* name)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            x->b_params[index]->p_name = get_valid_symbol(name);
+            ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
+        }
+    }
+}
+
+void ebox_parameter_setlabel(t_ebox* x, int index, t_symbol* label)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            x->b_params[index]->p_label = get_valid_symbol(label);
+            ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
+        }
+    }
+}
+
+void ebox_parameter_setmin(t_ebox* x, int index, float min)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            x->b_params[index]->p_min = min;
+            ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
+        }
+    }
+}
+
+void ebox_parameter_setmax(t_ebox* x, int index, float max)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            x->b_params[index]->p_max = max;
+            ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
+        }
+    }
+}
+
+void ebox_parameter_flags(t_ebox* x, int index, long flags)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            x->b_params[index]->p_flags = flags;
+            ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
+        }
+    }
+}
+
+float eparameter_getvalue(t_eparam* param)
+{
+    if(param->p_getter)
+    {
+        return param->p_getter(param->p_owner, param);
+    }
+    return param->p_value;
+}
+
+float eparameter_getvalue_normalized(t_eparam* param)
+{
+    if(param->p_max == param->p_min)
+    {
+        return 1.;
+    }
+    else if(param->p_min < param->p_max)
+    {
+        return (eparameter_getvalue(param) - param->p_min) / (param->p_max - param->p_min);
+    }
+    else
+    {
+        return (eparameter_getvalue(param) - param->p_max) / (param->p_min - param->p_max);
+    }
+}
+
+void eparameter_getvalue_text(t_eparam* param, char* text)
+{
+    if(param->p_getter_t)
+    {
+        param->p_getter_t(param->p_owner, param, text);
+    }
+    else
+    {
+        sprintf(text, "%.4f", eparameter_getvalue(param));
+    }
+}
+
+void eparameter_setvalue(t_eparam* param, float value)
+{
+    t_eclass* c = eobj_getclass(param->p_owner);
+    if(param->p_setter)
+    {
+        param->p_setter(param->p_owner, param, value);
+    }
+    else
+    {
+        if(param->p_min < param->p_max)
+            param->p_value = pd_clip(value, param->p_min, param->p_max);
+        else
+            param->p_value  = pd_clip(value, param->p_max, param->p_min);
+        
+        if(c->c_widget.w_notify)
+        {
+            c->c_widget.w_notify(param->p_owner, param->p_bind, s_cream_param_changed, param, param->p_value);
+        }
+    }
+}
+
+void eparameter_setvalue_normalized(t_eparam* param, float value)
+{
+    if(param->p_min < param->p_max)
+    {
+        eparameter_setvalue(param, (value * (param->p_max - param->p_min) + param->p_min));
+    }
+    else
+    {
+        eparameter_setvalue(param, ((1.f - value) * (param->p_min - param->p_max) + param->p_max));
+    }
+}
+
+void eparameter_setvalue_text(t_eparam* param, char const* text)
+{
+    if(param->p_setter_t)
+    {
+        param->p_setter_t(param->p_owner, param, text);
+    }
+    else if(isdigit(text[0]))
+    {
+        eparameter_setvalue(param, atof(text));
+    }
+}
+
+t_eparam* eparameter_getfromsymbol(t_symbol* name)
+{
+    t_class* c = eparameter_setup();
+    if(c)
+    {
+        return (t_eparam *)pd_findbyclass(name, c);
+    }
+    return NULL;
 }
 
 

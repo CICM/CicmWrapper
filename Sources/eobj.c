@@ -15,6 +15,8 @@
 
 static t_eproxy* eproxy_new(void *owner, t_symbol* s);
 static void eproxy_free(void *owner, t_eproxy* proxy);
+static t_int* eobj_perform_inplace(t_int* w);
+static t_int* eobj_perform_noinplace(t_int* w);
 
 void *eobj_new(t_eclass *c)
 {
@@ -41,8 +43,6 @@ void *eobj_new(t_eclass *c)
             pd_bind(&x->o_obj.ob_pd, x->o_id);
             sprintf(buffer, "%ldcamo", (long unsigned int)x);
             x->o_camo_id = gensym(buffer);
-            
-            c->c_widget.w_dosave = (t_typ_method)eobj_dosave;
         }
         else
         {
@@ -139,37 +139,80 @@ void eobj_popup(t_eobj* x, t_symbol* s, float itemid)
     }
 }
 
-void eobj_dosave(t_eobj* x, t_binbuf *b)
-{
-    t_binbuf* d;
-    t_eclass* c = eobj_getclass(x);
-    if(c && b)
-    {
-        binbuf_addv(b, (char *)"ssii", &s__X, s_cream_obj, (t_int)x->o_obj.te_xpix, (t_int)x->o_obj.te_ypix);
-        d = x->o_obj.te_binbuf;
-        if(d)
-        {
-            binbuf_addbinbuf(b, d);
-        }
-        if(c->c_widget.w_save != NULL)
-        {
-            c->c_widget.w_save(x, b);
-        }
-        binbuf_addv(b, (char *)";");
-    }
-}
-
 void eobj_save(t_gobj* x, t_binbuf *b)
 {
-    t_eclass* c;
+    int i, state;
+    int      argc = 0;
+    t_atom*  argv    = NULL;
+    t_binbuf* d;
+    t_object* z = (t_object *)x;
+    t_ebox*   y = (t_ebox *)z;
+    t_eclass* c = eobj_getclass(x);
+    char buffer[MAXPDSTRING];
     if(x && b)
     {
-        c = eobj_getclass(x);
-        if(c && c->c_widget.w_dosave != NULL)
+        if(eobj_isbox(x))
         {
-            c->c_widget.w_dosave((t_eobj* )x, b);
+            
+            if(c && b)
+            {
+                state = canvas_suspend_dsp();
+                binbuf_addv(b, (char *)"ssiis", &s__X, s_cream_obj, (t_int)z->te_xpix, (t_int)z->te_ypix, eobj_getclassname(x));
+                for(i = 0; i < c->c_nattr; i++)
+                {
+                    if(c->c_attr[i] && c->c_attr[i]->save && c->c_attr[i]->name)
+                    {
+                        eobj_attr_getvalueof(x, c->c_attr[i]->name, &argc, &argv);
+                        if(argc && argv)
+                        {
+                            snprintf(buffer, MAXPDSTRING, "@%s", c->c_attr[i]->name->s_name);
+                            binbuf_append_attribute(b, gensym(buffer), argc, argv);
+                            argc = 0;
+                            free(argv);
+                            argv = NULL;
+                        }
+                    }
+                }
+                argv = (t_atom *)malloc(4 * sizeof(t_atom));
+                if(argv)
+                {
+                    for(i = 0; i < y->b_nparams; i++)
+                    {
+                        if(y->b_params[i])
+                        {
+                            snprintf(buffer, MAXPDSTRING, "@param%i", i);
+                            atom_setsym(argv, y->b_params[i]->p_name);
+                            atom_setsym(argv+1, y->b_params[i]->p_label);
+                            atom_setfloat(argv+2, y->b_params[i]->p_min);
+                            atom_setfloat(argv+3, y->b_params[i]->p_max);
+                            binbuf_append_attribute(b, gensym(buffer), 4, argv);
+                        }
+                    }
+                }
+                
+                if(c->c_widget.w_save != NULL)
+                {
+                    c->c_widget.w_save(x, b);
+                }
+                
+                binbuf_addv(b, (char *)";");
+                canvas_resume_dsp(state);
+            }
         }
-
+        else
+        {
+            binbuf_addv(b, (char *)"ssii", &s__X, s_cream_obj, (t_int)z->te_xpix, (t_int)z->te_ypix);
+            d = z->te_binbuf;
+            if(d)
+            {
+                binbuf_addbinbuf(b, d);
+            }
+            if(c->c_widget.w_save != NULL)
+            {
+                c->c_widget.w_save(x, b);
+            }
+            binbuf_addv(b, (char *)";");
+        }
     }
 }
 
@@ -255,27 +298,6 @@ void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)
     }
 }
 
-void eobj_attr_setvalueof(void *x, t_symbol* s, int argc, t_atom *argv)
-{
-    t_typ_method setvalue = (t_typ_method)getfn((t_pd *)x, s);
-    setvalue(x, s, argc, argv);
-}
-
-void eobj_attr_getvalueof(void *x, t_symbol *s, int *argc, t_atom **argv)
-{
-    char realname[MAXPDSTRING];
-    t_typ_method getvalue = NULL;
-    sprintf(realname, "get%s", s->s_name);
-    argc[0] = 0;
-    argv[0] = NULL;
-    getvalue = (t_typ_method)getfn((t_pd *)x, gensym(realname));
-    if(getvalue)
-    {
-        getvalue(x, s, argc, argv);
-    }
-}
-
-
 void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
 {
     char buf[MAXPDSTRING];
@@ -283,7 +305,7 @@ void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
     t_atom av[1];
     t_namelist* var;
     t_eclass* c = eobj_getclass(x);
-
+    
     // Name
     if(argc && argv && atom_gettype(argv) == A_SYMBOL)
     {
@@ -339,6 +361,27 @@ void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
     else
     {
         sys_vgui("eobj_openfrom %s\n", x->o_id->s_name);
+    }
+}
+
+
+void eobj_attr_setvalueof(void *x, t_symbol* s, int argc, t_atom *argv)
+{
+    t_typ_method setvalue = (t_typ_method)getfn((t_pd *)x, s);
+    setvalue(x, s, argc, argv);
+}
+
+void eobj_attr_getvalueof(void *x, t_symbol *s, int *argc, t_atom **argv)
+{
+    char realname[MAXPDSTRING];
+    t_typ_method getvalue = NULL;
+    sprintf(realname, "get%s", s->s_name);
+    argc[0] = 0;
+    argv[0] = NULL;
+    getvalue = (t_typ_method)getfn((t_pd *)x, gensym(realname));
+    if(getvalue)
+    {
+        getvalue(x, s, argc, argv);
     }
 }
 
@@ -621,7 +664,7 @@ t_sample* eobj_getsignaloutput(void *x, long index)
     return NULL;
 }
 
-t_int* eobj_perform_inplace(t_int* w)
+static t_int* eobj_perform_inplace(t_int* w)
 {
     t_eobj* x               = (t_eobj *)(w[1]);
     t_edsp* dsp             = (t_edsp *)(w[2]);
@@ -638,7 +681,7 @@ t_int* eobj_perform_inplace(t_int* w)
     return w + (dsp->d_size + 1);
 }
 
-t_int* eobj_perform_noinplace(t_int* w)
+static t_int* eobj_perform_noinplace(t_int* w)
 {
     int i;
     t_eobj* x               = (t_eobj *)(w[1]);

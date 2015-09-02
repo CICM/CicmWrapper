@@ -954,7 +954,6 @@ static void ewidget_init(t_eclass* c)
     c->c_widget.w_getdrawparameters = NULL;
     c->c_widget.w_notify            = NULL;
     c->c_widget.w_save              = NULL;
-    c->c_widget.w_dosave            = NULL;
     c->c_widget.w_popup             = NULL;
     c->c_widget.w_dsp               = NULL;
     c->c_widget.w_oksize            = NULL;

@@ -472,7 +472,6 @@ typedef struct t_ewidget
     t_typ_method    w_keyfilter;            /*!< The key filter method. */
     t_typ_method    w_getdrawparameters;    /*!< The get draw parameter method. */
     t_typ_method    w_save;                 /*!< The save method. */
-    t_typ_method    w_dosave;               /*!< The real save method. */
     t_typ_method    w_popup;                /*!< The popup method. */
     t_typ_method    w_dsp;                  /*!< The dsp method. */
     t_typ_method    w_oksize;               /*!< The size validation method. */
