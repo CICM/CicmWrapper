@@ -900,14 +900,15 @@ void eobj_destroy_properties_window(t_eobj* x)
 
 void eobj_create_properties_window(t_eobj* x, t_glist *glist)
 {
-    int i, j, argc = 0;
+    int i, j, nitems = 0, argc = 0;
     t_atom* argv = NULL;
     t_rgba color;
     char tx[MAXPDSTRING];
     char va[MAXPDSTRING];
     const t_eattr* attr;
     const t_eclass* c = eobj_getclass(x);
-
+    const t_ebox* z = (t_ebox *)x;
+    
     sprintf(tx, ".epw%ld", (unsigned long)x);
     sprintf(va, "var%ld", (unsigned long)x);
     
@@ -916,62 +917,79 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
     sys_vgui("wm title %s {%s properties}\n", tx, eobj_getclassname(x)->s_name);
     sys_vgui("wm resizable %s 0 0\n", tx);
     
+    sys_vgui("frame %s.attrs\n", tx);
+    sys_vgui("label %s.attrs.label -justify center -font {Helvetica 13 bold} -text Attributes -height 2\n", tx);
+    sys_vgui("pack  %s.attrs.label -side left -fill both -expand 1\n",  tx);
+    sys_vgui("grid config %s.attrs -columnspan 5 -row %i -sticky w\n", tx, nitems++);
+    
+    sys_vgui("frame %s.attrs_menu_label\n", tx);
+    sys_vgui("frame %s.attrs_menu_name\n",  tx);
+    sys_vgui("frame %s.attrs_menu_values\n",tx);
+    
+    sys_vgui("label %s.attrs_menu_label.label -justify left -font {Helvetica 12 bold} -text Label\n",    tx);
+    sys_vgui("label %s.attrs_menu_name.label -justify left -font {Helvetica 12 bold} -text Name\n",      tx);
+    sys_vgui("label %s.attrs_menu_values.label -justify left -font {Helvetica 12 bold} -text Values\n",  tx);
+    
+    sys_vgui("pack  %s.attrs_menu_label.label -side left -fill both -expand 1\n",   tx);
+    sys_vgui("pack  %s.attrs_menu_name.label -side left -fill both -expand 1\n",    tx);
+    sys_vgui("pack  %s.attrs_menu_values.label -side left -fill both -expand 1\n",  tx);
+    
+    sys_vgui("grid config %s.attrs_menu_label -column 0 -columnspan 2 -row %i -sticky w\n",   tx, nitems);
+    sys_vgui("grid config %s.attrs_menu_name -column 2 -row %i -sticky w\n",                  tx, nitems);
+    sys_vgui("grid config %s.attrs_menu_values -column 3 -columnspan 2 -row %i -sticky w\n",  tx, nitems++);
+    
+    
     for(i = 0; i < c->c_nattr; i++)
     {
         attr = c->c_attr[i];
         if(!attr->invisible)
         {
-            sys_vgui("frame %s.label%i\n", tx, i+1);
-            sys_vgui("frame %s.name%i\n", tx, i+1);
-            sys_vgui("frame %s.selec%i\n", tx, i+1);
+            sys_vgui("frame %s.attr_label%i\n", tx, i+1);
+            sys_vgui("frame %s.attr_name%i\n",  tx, i+1);
+            sys_vgui("frame %s.attr_values%i\n",tx, i+1);
             
-            sys_vgui("label %s.label%i.name -justify left -font {Helvetica 12} -text \"%s :\"\n",
+            sys_vgui("label %s.attr_label%i.label -justify left -font {Helvetica 12} -text \"%s\"\n",
                      tx, i+1, attr->label->s_name);
-            sys_vgui("label %s.name%i.name -justify left -font {Helvetica 12} -text \"(%s)\"\n",
+            sys_vgui("label %s.attr_name%i.label -justify left -font {Helvetica 12 italic} -text \"%s\"\n",
                      tx, i+1, attr->name->s_name);
-            sys_vgui("pack  %s.label%i.name -side left -fill both\n",  tx, i+1);
-            sys_vgui("pack  %s.name%i.name -side left -fill both\n",  tx, i+1);
+            
             eobj_attr_getvalueof(x,  attr->name, &argc, &argv);
             if(argc && argv)
             {
                 if(attr->style == s_cream_checkbutton && atom_gettype(argv) == A_FLOAT)
                 {
-                    sys_vgui("set %s%i %i\n", va, i+1, (int)atom_getfloat(argv));
-                    sys_vgui("checkbutton %s.selec%i.cb -variable %s%i \
-                             -command {pdsend \"%s %s $%s%i\"}\n",
+                    sys_vgui("set %sattr_value%i %i\n", va, i+1, (int)atom_getfloat(argv));
+                    sys_vgui("checkbutton %s.attr_values%i.label -variable %s%i -command {pdsend \"%s %s $%s%i\"}\n",
                              tx, i+1, va, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
-                    sys_vgui("pack %s.selec%i.cb -side right -fill both\n",tx, i+1);
                 }
                 else if(attr->style == s_cream_color && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT
                         && atom_gettype(argv+2) == A_FLOAT && atom_gettype(argv+3) == A_FLOAT)
                 {
                     color.red = atom_getfloat(argv); color.green = atom_getfloat(argv+1);
                     color.blue = atom_getfloat(argv+2); color.alpha = atom_getfloat(argv+3);
-                    sys_vgui("set %s%i %s\n", va, i+1, rgba_to_hex(&color));
-                    sys_vgui("entry %s.selec%i.cb -font {Helvetica 12} -width 20 -readonlybackground $%s%i -state readonly\n",
+                    sys_vgui("set %sattr_value%i %s\n", va, i+1, rgba_to_hex(&color));
+                    sys_vgui("entry %s.attr_values%i.label -font {Helvetica 12} -width 20 -readonlybackground $%sattr_value%i -state readonly\n",
                              tx, i+1, va, i+1);
-                    sys_vgui("bind %s.selec%i.cb <Button> [concat epicker_apply %s %s $%s%i %s.selec%i.cb]\n",
+                    sys_vgui("bind %s.attr_values%i.label <Button> [concat epicker_apply %s %s $ %sattr_value%i %s.attr_values%i.label]\n",
                              tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1, tx, i+1);
-                    sys_vgui("pack %s.selec%i.cb -side right -fill both\n",tx, i+1);
                 }
                 else if(attr->style == s_cream_number && atom_gettype(argv) == A_FLOAT)
                 {
-                    sys_vgui("set %s%i %f\n", va, i+1, atom_getfloat(argv));
-                    sys_vgui("spinbox %s.selec%i.cb -font {Helvetica 12} -width 18 \
-                             -textvariable [string trim %s%i] -command {pdsend \"%s %s $%s%i\"} \
+                    sys_vgui("set %sattr_value%i %f\n", va, i+1, atom_getfloat(argv));
+                    sys_vgui("spinbox %s.attr_values%i.label -font {Helvetica 12} -width 18 \
+                             -textvariable [string trim %s%i] -command {pdsend \"%s %s $%sattr_value%i\"} \
                              -increment %f -from %f -to %f\n", tx, i+1, va, i+1,
                              x->o_id->s_name, attr->name->s_name, va, i+1,
                              attr->step, (attr->clipped % 2) ? attr->minimum : FLT_MIN,
                              (attr->clipped > 1) ? attr->maximum : FLT_MAX);
-                    sys_vgui("bind %s.selec%i.cb <KeyPress-Return> {pdsend \"%s %s $%s%i\"}\n",
+                    sys_vgui("bind %s.attr_values%i.label <KeyPress-Return> {pdsend \"%s %s $%sattr_value%i\"}\n",
                              tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
-                    sys_vgui("pack %s.selec%i.cb -side right -fill both\n",tx, i+1);
                 }
                 else if(attr->style == s_cream_menu && atom_gettype(argv) == A_SYMBOL)
                 {
-                    sys_vgui("set %s%i %s\n", va, i+1, atom_getsymbol(argv)->s_name);
-                    sys_vgui("spinbox %s.selec%i.cb -font {Helvetica 12} -width 18 -state readonly\
-                             -textvariable [string trim %s%i] -command {pdsend \"%s %s $%s%i\"} \
+                    sys_vgui("set %sattr_value%i %s\n", va, i+1, atom_getsymbol(argv)->s_name);
+                    sys_vgui("spinbox %s.attr_values%i.label -font {Helvetica 12} -width 18 -state readonly\
+                             -textvariable [string trim %sattr_value%i] -command {pdsend \"%s %s $%sattr_value%i\"} \
                              -values {", tx, i+1, va, i+1,
                              x->o_id->s_name, attr->name->s_name, va, i+1);
                     for(j = 0; j < attr->itemssize; j++)
@@ -979,23 +997,21 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                         sys_vgui("%s ", attr->itemslist[attr->itemssize - 1 - j]->s_name);
                     }
                     sys_vgui("}\n");
-                    sys_vgui("pack %s.selec%i.cb -side right -fill both\n",tx, i+1);
                 }
                 else if(attr->style == s_cream_font && atom_gettype(argv) == A_SYMBOL && atom_gettype(argv+1) == A_FLOAT
                          && atom_gettype(argv+2) == A_SYMBOL && atom_gettype(argv+3) == A_SYMBOL)
                 {
-                    sys_vgui("set %s%i \"%s %i %s %s\"\n", va, i+1, atom_getsymbol(argv)->s_name, (int)atom_getfloat(argv+1), atom_getsymbol(argv+2)->s_name, atom_getsymbol(argv+3)->s_name);
-                    sys_vgui("entry %s.selec%i.cb -font {%s 12 %s %s} -width 20 -textvariable %s%i -state readonly\n"
+                    sys_vgui("set %sattr_value%i \"%s %i %s %s\"\n", va, i+1, atom_getsymbol(argv)->s_name, (int)atom_getfloat(argv+1), atom_getsymbol(argv+2)->s_name, atom_getsymbol(argv+3)->s_name);
+                    sys_vgui("entry %s.attr_values%i.label -font {%s 12 %s %s} -width 20 -textvariable %sattr_value%i -state readonly\n"
                              ,tx, i+1,
                              atom_getsymbol(argv)->s_name, atom_getsymbol(argv+2)->s_name, atom_getsymbol(argv+3)->s_name,
                              va, i+1);
-                    sys_vgui("bind %s.selec%i.cb <Button> [concat efont_apply %s %s {$%s%i} %s.selec%i.cb]\n",
+                    sys_vgui("bind %s.attr_values%i.label <Button> [concat efont_apply %s %s {$%sattr_value%i} %s.attr_values%i.label]\n",
                             tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1, tx, i+1);
-                    sys_vgui("pack %s.selec%i.cb -side right -fill both\n",tx, i+1);
                 }
                 else
                 {
-                    sys_vgui("set %s%i \"", va, i+1);
+                    sys_vgui("set %sattr_value%i \"", va, i+1);
                     for(j = 0; j < argc - 1; j++)
                     {
                         if(atom_gettype(argv+1) == A_FLOAT)
@@ -1016,11 +1032,11 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                         sys_vgui("%s", atom_getsymbol(argv+argc-1)->s_name);
                     }
                     sys_gui("\"\n");
-                    sys_vgui("entry %s.selec%i.cb -font {Helvetica 12} -width 20 \
-                             -textvariable [string trim %s%i]\n", tx, i+1, va, i+1);
-                    sys_vgui("bind %s.selec%i.cb <KeyPress-Return> {pdsend \"%s %s $%s%i\"}\n",
+                    sys_vgui("entry %s.attr_values%i.label -font {Helvetica 12} -width 20 \
+                             -textvariable [string trim %sattr_value%i]\n", tx, i+1, va, i+1);
+                    sys_vgui("bind %s.attr_values%i.label <KeyPress-Return> {pdsend \"%s %s $%sattr_value%i\"}\n",
                              tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
-                    sys_vgui("pack %s.selec%i.cb -side right -fill both\n",tx, i+1);
+                    
                 }
                 free(argv);
             }
@@ -1028,9 +1044,84 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
             argv = NULL;
             argc = 0;
             
-            sys_vgui("grid config %s.label%i -column 0 -row %i -sticky w\n", tx, i+1, i+1);
-            sys_vgui("grid config %s.name%i -column 1 -row %i -sticky w\n", tx, i+1, i+1);
-            sys_vgui("grid config %s.selec%i -column 2 -row %i -sticky w\n", tx, i+1, i+1);
+            sys_vgui("pack %s.attr_label%i.label    -side left -fill both -expand 1\n",     tx, i+1);
+            sys_vgui("pack %s.attr_name%i.label     -side left -fill both -expand 1\n",     tx, i+1);
+            sys_vgui("pack %s.attr_values%i.label   -side left -fill both -expand 1\n",    tx, i+1);
+            
+            sys_vgui("grid config %s.attr_label%i   -column 0 -columnspan 2 -row %i -sticky w\n", tx, i+1, nitems);
+            sys_vgui("grid config %s.attr_name%i    -column 2 -row %i -sticky w\n",               tx, i+1, nitems);
+            sys_vgui("grid config %s.attr_values%i  -column 3 -columnspan 2 -row %i -sticky w\n", tx, i+1, nitems++);
+        }
+    }
+    if(eobj_isbox(x) && z->b_nparams)
+    {
+        sys_vgui("frame %s.params\n", tx);
+        sys_vgui("label %s.params.label -justify center -font {Helvetica 13  bold} -text Parameters -height 2\n", tx);
+        sys_vgui("pack  %s.params.label -side left -fill both -expand 1\n",  tx);
+        sys_vgui("grid config %s.params -columnspan 5 -row %i -sticky w\n", tx, nitems++);
+        
+        sys_vgui("frame %s.params_menu_index\n",tx);
+        sys_vgui("frame %s.params_menu_name\n", tx);
+        sys_vgui("frame %s.params_menu_label\n",tx);
+        sys_vgui("frame %s.params_menu_min\n",  tx);
+        sys_vgui("frame %s.params_menu_max\n",  tx);
+        
+        sys_vgui("label %s.params_menu_index.label -justify left -font {Helvetica 12 bold} -text Index\n",   tx);
+        sys_vgui("label %s.params_menu_name.label -justify left -font {Helvetica 12 bold} -text Name\n",     tx);
+        sys_vgui("label %s.params_menu_label.label -justify left -font {Helvetica 12 bold} -text Label\n",   tx);
+        sys_vgui("label %s.params_menu_min.label -justify left -font {Helvetica 12 bold} -text Minimum\n",   tx);
+        sys_vgui("label %s.params_menu_max.label -justify left -font {Helvetica 12 bold} -text Maximum\n",   tx);
+        
+        sys_vgui("pack  %s.params_menu_index.label -side left -fill both -expand 1\n",  tx);
+        sys_vgui("pack  %s.params_menu_name.label -side left -fill both -expand 1\n",   tx);
+        sys_vgui("pack  %s.params_menu_label.label -side left -fill both -expand 1\n",  tx);
+        sys_vgui("pack  %s.params_menu_min.label -side left -fill both -expand 1\n",    tx);
+        sys_vgui("pack  %s.params_menu_max.label -side left -fill both -expand 1\n",    tx);
+        
+        sys_vgui("grid config %s.params_menu_index -column 0 -row %i -sticky w\n",    tx, nitems);
+        sys_vgui("grid config %s.params_menu_name -column 1 -row %i -sticky w\n",     tx, nitems);
+        sys_vgui("grid config %s.params_menu_label -column 2 -row %i -sticky w\n",    tx, nitems);
+        sys_vgui("grid config %s.params_menu_min -column 3 -row %i -sticky w\n",      tx, nitems);
+        sys_vgui("grid config %s.params_menu_max -column 4 -row %i -sticky w\n",      tx, nitems++);
+        
+        
+        for(i = 0; i < z->b_nparams; i++)
+        {
+            if(z->b_params[i])
+            {
+                sys_vgui("frame %s.param_menu_index%i\n",   tx, i+1);
+                sys_vgui("frame %s.param_menu_name%i\n",    tx, i+1);
+                sys_vgui("frame %s.param_menu_label%i\n",   tx, i+1);
+                sys_vgui("frame %s.param_menu_min%i\n",     tx, i+1);
+                sys_vgui("frame %s.param_menu_max%i\n",     tx, i+1);
+                
+                sys_vgui("label %s.param_menu_index%i.entry -font {Helvetica 12} -width 1\
+                         -text \"%i\"\n",tx, i+1, z->b_params[i]->p_index);
+                sys_vgui("set %s.param_menu_name%i \"%s\"\n", va, i+1, z->b_params[i]->p_name->s_name);
+                sys_vgui("entry %s.param_menu_name%i.entry -font {Helvetica 12} -width 13 \
+                         -textvariable %sparam_menu_name%i\n", tx, i+1, va, i+1);
+                sys_vgui("set %s.param_menu_label%i \"%s\"\n", va, i+1, z->b_params[i]->p_label->s_name);
+                sys_vgui("entry %s.param_menu_label%i.entry -font {Helvetica 12} -width 15 \
+                         -textvariable %s.param_menu_label%i\n", tx, i+1, va, i+1);
+                sys_vgui("set %s.param_menu_min%i \"%i\"\n", va, i+1, z->b_params[i]->p_min);
+                sys_vgui("entry %s.param_menu_min%i.entry -font {Helvetica 12} -width 9 \
+                         -textvariable %s.param_menu_min%i\n", tx, i+1, va, i+1);
+                sys_vgui("set %s.param_menu_max%i \"%i\"\n", va, i+1, z->b_params[i]->p_max);
+                sys_vgui("entry %s.param_menu_max%i.entry -font {Helvetica 12} -width 9 \
+                         -textvariable %s.param_menu_max%i\n", tx, i+1, va, i+1);
+                
+                sys_vgui("pack  %s.param_menu_index%i.entry -side left -fill both -expand 1\n",  tx);
+                sys_vgui("pack  %s.param_menu_name%i.entry -side left -fill both -expand 1\n",  tx);
+                sys_vgui("pack  %s.param_menu_label%i.entry -side left -fill both -expand 1\n",  tx);
+                sys_vgui("pack  %s.param_menu_min%i.entry -side left -fill both -expand 1\n",  tx);
+                sys_vgui("pack  %s.param_menu_max%i.entry -side left -fill both -expand 1\n",  tx);
+                
+                sys_vgui("grid config %s.param_menu_index%i -column 0 -row %i -sticky w\n",   tx, i+1, nitems);
+                sys_vgui("grid config %s.param_menu_name%i -column 1 -row %i -sticky w\n",    tx, i+1, nitems);
+                sys_vgui("grid config %s.param_menu_label%i -column 2 -row %i -sticky w\n",   tx, i+1, nitems);
+                sys_vgui("grid config %s.param_menu_min%i -column 3 -row %i -sticky w\n",     tx, i+1, nitems);
+                sys_vgui("grid config %s.param_menu_max%i -column 4 -row %i -sticky w\n",     tx, i+1, nitems++);
+            }
         }
     }
 }
