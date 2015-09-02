@@ -1766,11 +1766,11 @@ float ebox_parameter_getvalue_normalized(t_ebox* x, int index)
             }
             else if(x->b_params[index]->p_min < x->b_params[index]->p_max)
             {
-                return (ebox_parameter_getvalue(x, index) - x->b_params[index]->p_min) / (x->b_params[index]->p_max - x->b_params[index]->p_min);
+                return (ebox_parameter_getvalue(x, index+1) - x->b_params[index]->p_min) / (x->b_params[index]->p_max - x->b_params[index]->p_min);
             }
             else
             {
-                return (ebox_parameter_getvalue(x, index) - x->b_params[index]->p_max) / (x->b_params[index]->p_min - x->b_params[index]->p_max);
+                return (ebox_parameter_getvalue(x, index+1) - x->b_params[index]->p_max) / (x->b_params[index]->p_min - x->b_params[index]->p_max);
             }
         }
     }
@@ -1786,11 +1786,11 @@ void ebox_parameter_setvalue_normalized(t_ebox* x, int index, float value, char 
         {
             if(x->b_params[index]->p_min < x->b_params[index]->p_max)
             {
-                ebox_parameter_setvalue(x, index, (value * (x->b_params[index]->p_max - x->b_params[index]->p_min) + x->b_params[index]->p_min), notify);
+                ebox_parameter_setvalue(x, index+1, (value * (x->b_params[index]->p_max - x->b_params[index]->p_min) + x->b_params[index]->p_min), notify);
             }
             else
             {
-                ebox_parameter_setvalue(x, index, ((1.f - value) * (x->b_params[index]->p_min - x->b_params[index]->p_max) + x->b_params[index]->p_max), notify);
+                ebox_parameter_setvalue(x, index+1, (value * (x->b_params[index]->p_min - x->b_params[index]->p_max) + x->b_params[index]->p_max), notify);
             }
         }
     }

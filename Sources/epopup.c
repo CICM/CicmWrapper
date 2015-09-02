@@ -239,10 +239,17 @@ static void etexteditor_text(t_etexteditor* x, t_symbol* s, int argc, t_atom* ar
         }
         return;
     }
-    for(i = 0; i < argc - 1; i++)
+    for(i = 0; i < argc; i++)
     {
-        atom_string(argv+i, text, MAXPDSTRING);
-        lenght += strlen(text) + 1;
+        if(atom_gettype(argv+i) == A_FLOAT)
+        {
+            sprintf(text, "%g ", atom_getfloat(argv+i));
+            lenght += strlen(text);
+        }
+        else if(atom_gettype(argv+i) == A_SYMBOL)
+        {
+            lenght += strlen(atom_getsymbol(argv+i)->s_name) + 1;
+        }
         
     }
     if(!x->c_text || !x->c_size)
@@ -272,21 +279,30 @@ static void etexteditor_text(t_etexteditor* x, t_symbol* s, int argc, t_atom* ar
         }
     }
     memset(x->c_text, 0, (size_t)x->c_size * sizeof(char));
-    for(i = 0; i < argc - 2; i++)
+    for(i = 0; i < argc - 1; i++)
     {
-        atom_string(argv+i, text, MAXPDSTRING);
-        strncat(x->c_text, text, MAXPDSTRING);
-        strncat(x->c_text, " ", 1);
+        if(atom_gettype(argv+i) == A_FLOAT)
+        {
+            sprintf(text, "%g ", atom_getfloat(argv+i));
+            strncat(x->c_text, text, MAXPDSTRING);
+        }
+        else if(atom_gettype(argv+i) == A_SYMBOL)
+        {
+            strncat(x->c_text, atom_getsymbol(argv+i)->s_name, MAXPDSTRING);
+            strncat(x->c_text, " ", 1);
+        }
     }
-    if(argc > 1)
+    if(argc)
     {
-        atom_string(argv+argc-2, text, MAXPDSTRING);
-        strncat(x->c_text, text, MAXPDSTRING);
-    }
-    if(argc && atom_gettype(argv+argc-1) == A_FLOAT && isalnum((char)atom_getfloat(argv+argc-1)))
-    {
-        sprintf(text, "%c", (char)atom_getfloat(argv+argc-1));
-        strncat(x->c_text, text, MAXPDSTRING);
+        if(atom_gettype(argv+argc-1) == A_FLOAT)
+        {
+            sprintf(text, "%g", atom_getfloat(argv+argc-1));
+            strncat(x->c_text, text, MAXPDSTRING);
+        }
+        else if(atom_gettype(argv+argc-1) == A_SYMBOL)
+        {
+            strncat(x->c_text, atom_getsymbol(argv+argc-2)->s_name, MAXPDSTRING);
+        }
     }
 }
 
@@ -483,10 +499,17 @@ void etexteditor_popup(t_etexteditor *editor, t_rect const* bounds)
 {
     t_rect rect;
     ebox_get_rect_for_view(editor->c_owner, &rect);
-    sys_vgui("bind %s <KeyPress> {etext_sendtext %s %s %s %%k}\n",
-             editor->c_name->s_name, editor->c_name->s_name,
-             editor->c_editor_id->s_name, editor->c_owner->b_obj.o_id->s_name);
+    sys_vgui("bind %s <<Modified>> {etext_sendtext %s %s}\n",
+             editor->c_name->s_name, editor->c_name->s_name, editor->c_editor_id->s_name);
+    sys_vgui("bind %s <<Paste>> {etext_sendtext %s %s}\n",
+             editor->c_name->s_name, editor->c_name->s_name, editor->c_editor_id->s_name);
+    sys_vgui("bind %s <<Cut>> {etext_sendtext %s %s}\n",
+             editor->c_name->s_name, editor->c_name->s_name, editor->c_editor_id->s_name);
+    sys_vgui("bind %s <KeyRelease> {etext_sendtext %s %s}\n",
+             editor->c_name->s_name, editor->c_name->s_name, editor->c_editor_id->s_name);
     
+    sys_vgui("bind %s <KeyPress> {+pdsend {%s texteditor_keypress %s %%k}}\n",
+             editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, editor->c_editor_id->s_name);
     sys_vgui("bind %s <Escape> {+pdsend {%s texteditor_keyfilter %s 0}}\n",
              editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, editor->c_editor_id->s_name);
     sys_vgui("bind %s <Tab> {+pdsend {%s texteditor_keyfilter %s 1}}\n",
@@ -608,7 +631,7 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                 {
                     sys_vgui("set %sattr_value%i %g\n", va, i+1, atom_getfloat(argv));
                     sys_vgui("spinbox %s.attr_values%i.label -font {Helvetica 12} -width 18 \
-                             -textvariable [string trim %s%i] -command {pdsend \"%s %s $%sattr_value%i\"} \
+                             -textvariable [string trim %sattr_value%i] -command {pdsend \"%s %s $%sattr_value%i\"} \
                              -increment %f -from %f -to %f\n", tx, i+1, va, i+1,
                              x->o_id->s_name, attr->name->s_name, va, i+1,
                              attr->step, (attr->clipped % 2) ? attr->minimum : FLT_MIN,
@@ -853,10 +876,9 @@ void tcltk_create_methods(void)
         sys_gui("}\n");
         
         // SEND TEXTFIELD TEXT //
-        sys_gui("proc etext_sendtext {widget name owner key} { \n");
+        sys_gui("proc etext_sendtext {widget name} { \n");
         sys_gui("set text [$widget get 0.0 end]\n");
-        sys_gui("pdsend \"$name text $text $key\"\n");
-        sys_gui("pdsend \"$owner texteditor_keypress $name $key\"\n");
+        sys_gui("pdsend \"$name text $text\"\n");
         sys_gui("}\n");
         
         // COLOR PICKER WINOW //
