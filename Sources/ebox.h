@@ -496,13 +496,52 @@ void ebox_parameter_setmin(t_ebox* x, int index, float min);
 void ebox_parameter_setmax(t_ebox* x, int index, float max);
 
 /*!
- * \fn              void ebox_parameter_setstep(t_ebox* x, int index, float step)
+ * \fn              void ebox_parameter_setminmax(t_ebox* x, int index, float max)
+ * \brief           Sets the maximum and maximum value of the parameter.
+ * \param x         The t_ebox pointer.
+ * \param index     The index of the parameter.
+ * \param min       The minimum value of the parameter.
+ * \param max       The maximum value of the parameter.
+ */
+void ebox_parameter_setminmax(t_ebox* x, int index, float min, float max);
+
+/*!
+ * \fn              void ebox_parameter_setnstep(t_ebox* x, int index, int nstep)
  * \brief           Sets the step value of the parameter.
  * \param x         The t_ebox pointer.
  * \param index     The index of the parameter.
- * \param step      The step value of the parameter.
+ * \param nstep     The number of step of the parameter.
  */
-void ebox_parameter_setstep(t_ebox* x, int index, float step);
+void ebox_parameter_setnstep(t_ebox* x, int index, int nstep);
+
+/*!
+ * \fn              void ebox_parameter_setflags(t_ebox* x, int index, long flags)
+ * \brief           Sets the flags of the parameter.
+ * \param x         The t_ebox pointer.
+ * \param index     The index of the parameter.
+ * \param flags     The flags the parameter.
+ */
+void ebox_parameter_setflags(t_ebox* x, int index, long flags);
+
+/*!
+ * \fn              void ebox_parameter_setsettergetter(t_ebox* x, int index, t_param_setter setter, t_param_setter getter)
+ * \brief           Sets the setter and getter methods of the parameter.
+ * \param x         The t_ebox pointer.
+ * \param index     The index of the parameter.
+ * \param setter    The setter method or NULL for the default one.
+ * \param getter    The getter method or NULL for the default one.
+ */
+void ebox_parameter_setsettergetter(t_ebox* x, int index, t_param_setter setter, t_param_getter getter);
+
+/*!
+ * \fn              void ebox_parameter_setsettergetter_text(t_ebox* x, int index, t_param_setter_t setter, t_param_getter_t getter)
+ * \brief           Sets the setter and getter methods for text values of the parameter.
+ * \param x         The t_ebox pointer.
+ * \param index     The index of the parameter.
+ * \param setter    The setter method or NULL for the default one.
+ * \param getter    The getter method or NULL for the default one.
+ */
+void ebox_parameter_setsettergetter_text(t_ebox* x, int index, t_param_setter_t setter, t_param_getter_t getter);
 
 /*!
  * \fn              void ebox_parameter_setflags(t_ebox* x, int index, long flags)

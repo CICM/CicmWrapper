@@ -1624,7 +1624,7 @@ t_eparam* ebox_parameter_create(t_ebox *x, int index)
                 param->p_value      = 0.f;
                 param->p_min        = 0.f;
                 param->p_max        = 1.f;
-                param->p_step       = FLT_EPSILON;
+                param->p_nstep      = (int)(1.f / FLT_EPSILON) + 1;
                 param->p_getter     = (t_param_getter)NULL;
                 param->p_setter     = (t_param_setter)NULL;
                 param->p_getter_t   = (t_param_getter_t)NULL;
@@ -1904,7 +1904,24 @@ void ebox_parameter_setmin(t_ebox* x, int index, float min)
     {
         if(x->b_params[index])
         {
-            x->b_params[index]->p_min = min;
+            if(x->b_params[index]->p_flags & EPARAM_STATIC_INVERTED)
+            {
+                const float max = x->b_params[index]->p_max;
+                if(x->b_params[index]->p_min < x->b_params[index]->p_max)
+                {
+                    x->b_params[index]->p_min = min < max ? min : max;
+                    x->b_params[index]->p_max = max > min ? max : min;
+                }
+                else
+                {
+                    x->b_params[index]->p_min = min > max ? min : max;
+                    x->b_params[index]->p_max = max < min ? max : min;
+                }
+            }
+            else
+            {
+                x->b_params[index]->p_min = min;
+            }
             ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
         }
     }
@@ -1917,20 +1934,68 @@ void ebox_parameter_setmax(t_ebox* x, int index, float max)
     {
         if(x->b_params[index])
         {
-            x->b_params[index]->p_max = max;
+            if(x->b_params[index]->p_flags & EPARAM_STATIC_INVERTED)
+            {
+                const float min = x->b_params[index]->p_min;
+                if(x->b_params[index]->p_min < x->b_params[index]->p_max)
+                {
+                    x->b_params[index]->p_min = min < max ? min : max;
+                    x->b_params[index]->p_max = max > min ? max : min;
+                }
+                else
+                {
+                    x->b_params[index]->p_min = min > max ? min : max;
+                    x->b_params[index]->p_max = max < min ? max : min;
+                }
+            }
+            else
+            {
+                x->b_params[index]->p_max = max;
+            }
+            
             ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
         }
     }
 }
 
-void ebox_parameter_setstep(t_ebox* x, int index, float step)
+void ebox_parameter_setminmax(t_ebox* x, int index, float min, float max)
 {
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
         if(x->b_params[index])
         {
-            x->b_params[index]->p_step = step;
+            if(x->b_params[index]->p_flags & EPARAM_STATIC_INVERTED)
+            {
+                if(x->b_params[index]->p_min < x->b_params[index]->p_max)
+                {
+                    x->b_params[index]->p_min = min < max ? min : max;
+                    x->b_params[index]->p_max = max > min ? max : min;
+                }
+                else
+                {
+                    x->b_params[index]->p_min = min > max ? min : max;
+                    x->b_params[index]->p_max = max < min ? max : min;
+                }
+            }
+            else
+            {
+                x->b_params[index]->p_min = min;
+                x->b_params[index]->p_max = max;
+            }
+            ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
+        }
+    }
+}
+
+void ebox_parameter_setnstep(t_ebox* x, int index, int nstep)
+{
+    index--;
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            x->b_params[index]->p_nstep = nstep > 1 ? (int)nstep : 1;
             ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
         }
     }
@@ -1944,6 +2009,34 @@ void ebox_parameter_setflags(t_ebox* x, int index, long flags)
         if(x->b_params[index])
         {
             x->b_params[index]->p_flags = flags;
+            ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
+        }
+    }
+}
+
+void ebox_parameter_setsettergetter(t_ebox* x, int index, t_param_setter setter, t_param_getter getter)
+{
+    index--;
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            x->b_params[index]->p_setter = setter;
+            x->b_params[index]->p_getter = getter;
+            ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
+        }
+    }
+}
+
+void ebox_parameter_setsettergetter_text(t_ebox* x, int index, t_param_setter_t setter, t_param_getter_t getter)
+{
+    index--;
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            x->b_params[index]->p_setter_t = setter;
+            x->b_params[index]->p_getter_t = getter;
             ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
         }
     }
@@ -1978,11 +2071,11 @@ void eparameter_getvalue_text(t_eparam* param, char* text)
 {
     if(param->p_getter_t)
     {
-        param->p_getter_t(param->p_owner, param, text);
+        param->p_getter_t(param->p_owner, param->p_index, text);
     }
     else
     {
-        sprintf(text, "%.4f", eparameter_getvalue(param));
+        sprintf(text, "%g", eparameter_getvalue(param));
     }
 }
 
@@ -2015,7 +2108,7 @@ void eparameter_setvalue_normalized(t_eparam* param, float value)
     }
     else
     {
-        eparameter_setvalue(param, ((1.f - value) * (param->p_min - param->p_max) + param->p_max));
+        eparameter_setvalue(param, (value * (param->p_min - param->p_max) + param->p_max));
     }
 }
 
@@ -2023,7 +2116,7 @@ void eparameter_setvalue_text(t_eparam* param, char const* text)
 {
     if(param->p_setter_t)
     {
-        param->p_setter_t(param->p_owner, param, text);
+        param->p_setter_t(param->p_owner, param->p_index, text);
     }
     else if(isdigit(text[0]))
     {

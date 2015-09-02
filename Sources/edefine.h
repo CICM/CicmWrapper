@@ -728,9 +728,9 @@ typedef void  (*t_param_setter)(struct t_ebox* x, struct t_eparam* p, float f);
 //! The t_param_getter method
 typedef float (*t_param_getter)(struct t_ebox* x, struct t_eparam* p);
 //! The t_param_setter_t method
-typedef void  (*t_param_setter_t)(struct t_ebox* x, struct t_eparam* p, char const* text);
+typedef void  (*t_param_setter_t)(struct t_ebox* x, int index, char const* text);
 //! The t_param_getter_t method
-typedef void (*t_param_getter_t)(struct t_ebox* x, struct t_eparam* p, char* text);
+typedef void (*t_param_getter_t)(struct t_ebox* x, int index, char* text);
 
 /**
  * @enum elayer_flags
@@ -743,7 +743,8 @@ typedef enum eparam_flags
     EPARAM_STATIC_LABEL     = (1<<2),   /*!< If the name of the parameter can't be changed by the users. */
     EPARAM_STATIC_MIN       = (1<<3),   /*!< If the minimum value of the parameter can't be changed by the users. */
     EPARAM_STATIC_MAX       = (1<<4),   /*!< If the maximum value of the parameter can't be changed by the users. */
-    EPARAM_STATIC_INVERTED  = (1<<5)    /*!< If the maximum and minimum values of the parameter can't be inverted by the users. */
+    EPARAM_STATIC_INVERTED  = (1<<5),   /*!< If the maximum and minimum values of the parameter can't be inverted by the users. */
+    EPARAM_STATIC_NSTEPS    = (1<<6)    /*!< If the number of steps can't be changed by the users. */
 } eparam_flags;
 
 /**
@@ -762,7 +763,7 @@ typedef struct t_eparam
     float           p_value;
     float           p_min;
     float           p_max;
-    float           p_step;
+    int             p_nstep;
     t_param_getter  p_getter;
     t_param_setter  p_setter;
     t_param_getter_t p_getter_t;
