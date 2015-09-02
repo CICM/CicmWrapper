@@ -733,6 +733,19 @@ typedef void  (*t_param_setter_t)(struct t_ebox* x, struct t_eparam* p, char con
 typedef void (*t_param_getter_t)(struct t_ebox* x, struct t_eparam* p, char* text);
 
 /**
+ * @enum elayer_flags
+ * @brief The flags that defines the status of a layer.
+ * @details It define all possible the status of a layer.
+ */
+typedef enum eparam_flags
+{
+    EPARAM_STATIC_NAME  = (1<<1),   /*!< If the name of the parameter can't be changed by the users. */
+    EPARAM_STATIC_LABEL = (1<<2),   /*!< If the name of the parameter can't be changed by the users. */
+    EPARAM_STATIC_MIN   = (1<<3),   /*!< If the minimum value of the parameter can't be changed by the users. */
+    EPARAM_STATIC_MAX   = (1<<4)    /*!< If the maximum value of the parameter can't be changed by the users. */
+} eparam_flags;
+
+/**
  * @struct t_eparam
  * @brief The parameter structure.
  * @details It contains the informations of a parameter.
@@ -755,6 +768,7 @@ typedef struct t_eparam
     t_param_setter_t p_setter_t;
     char            p_auto;
     char            p_meta;
+    long            p_flags;
 } t_eparam;
 
 /**

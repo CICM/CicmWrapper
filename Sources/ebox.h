@@ -242,14 +242,6 @@ void ebox_mouse_wheel(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
  */
 void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
 
-//! The default save method for UI ebox (PRIVATE)
-/*
- * \memberof        ebox
- * \param x         The ebox pointer
- * \param b         The binbuf
- */
-void ebox_dosave(t_ebox* x, t_binbuf *b);
-
 //! The method to move an UI ebox (PRIVATE)
 /*
  * \memberof        ebox
@@ -347,6 +339,8 @@ void ebox_texteditor_keypress(t_ebox *x,  t_symbol *s, float f);
  * \return          Nothing
  */
 void ebox_texteditor_keyfilter(t_ebox *x, t_symbol *s, float f);
+
+void ebox_set_parameter_attribute(t_ebox *x, t_symbol *s, int argc, t_atom* argv);
 
 // The defaults pd widgets
 void ebox_wgetrect(t_gobj *z,     t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2);

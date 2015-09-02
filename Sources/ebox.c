@@ -40,6 +40,8 @@ static void ebox_erase(t_ebox* x);
 static void ebox_select(t_ebox* x);
 static void ebox_move(t_ebox* x);
 
+static void ebox_save(t_ebox* x, t_binbuf *b);
+
 void ebox_new(t_ebox *x, long flags)
 {
     x->b_flags = flags;
@@ -54,7 +56,7 @@ void ebox_new(t_ebox *x, long flags)
     x->b_visible            = 1;
     x->b_params             = NULL;
     x->b_nparams            = 0;
-    eobj_getclass(x)->c_widget.w_dosave = (t_typ_method)ebox_dosave;
+    eobj_getclass(x)->c_widget.w_dosave = (t_typ_method)ebox_save;
     eclass_attrs_setdefault((t_object *)x);
 }
 
@@ -805,7 +807,7 @@ void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
     }
 }
 
-void ebox_dosave(t_ebox* x, t_binbuf *b)
+static void ebox_save(t_ebox* x, t_binbuf *b)
 {
     int         i = 0, state = 0, argc = 0;
     char        attr_name[MAXPDSTRING];
@@ -830,7 +832,23 @@ void ebox_dosave(t_ebox* x, t_binbuf *b)
                 }
             }
         }
-
+        argv = (t_atom *)malloc(4 * sizeof(t_atom));
+        if(argv)
+        {
+            for(i = 0; i < x->b_nparams; i++)
+            {
+                if(x->b_params[i])
+                {
+                    snprintf(attr_name, MAXPDSTRING, "@param%i", i);
+                    atom_setsym(argv, x->b_params[i]->p_name);
+                    atom_setsym(argv+1, x->b_params[i]->p_label);
+                    atom_setfloat(argv+2, x->b_params[i]->p_min);
+                    atom_setfloat(argv+3, x->b_params[i]->p_max);
+                    binbuf_append_attribute(b, gensym(attr_name), 4, argv);
+                }
+            }
+        }
+        
         if(c->c_widget.w_save != NULL)
             c->c_widget.w_save(x, b);
 
@@ -1522,6 +1540,38 @@ static void ebox_move(t_ebox* x)
         sys_vgui("%s coords %s %d %d\n", x->b_canvas_id->s_name, x->b_window_id->s_name, (int)(x->b_rect.x - x->b_boxparameters.d_borderthickness), (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness));
     }
     canvas_fixlinesfor(glist_getcanvas(x->b_obj.o_canvas), (t_text*)x);
+}
+
+void ebox_set_parameter_attribute(t_ebox *x, t_symbol *s, int argc, t_atom* argv)
+{
+    int index;
+    if(argc > 2 && argv && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_SYMBOL)
+    {
+        index = (int)atom_getfloat(argv) - 1;
+        if(x->b_nparams > index && x->b_params[index])
+        {
+            if(atom_getsymbol(argv+1) == gensym("name") && atom_gettype(argv+2) == A_SYMBOL &&
+               !(x->b_params[index]->p_flags & EPARAM_STATIC_NAME))
+            {
+                ebox_parameter_setname(x, index, atom_getsymbol(argv+2));
+            }
+            else if(atom_getsymbol(argv+1) == gensym("label") && atom_gettype(argv+2) == A_SYMBOL &&
+                    !(x->b_params[index]->p_flags & EPARAM_STATIC_LABEL))
+            {
+                ebox_parameter_setlabel(x, index, atom_getsymbol(argv+2));
+            }
+            else if(atom_getsymbol(argv+1) == gensym("min") && atom_gettype(argv+2) == A_FLOAT &&
+                    !(x->b_params[index]->p_flags & EPARAM_STATIC_MIN))
+            {
+                ebox_parameter_setmin(x, index, atom_getfloat(argv+2));
+            }
+            else if(atom_getsymbol(argv+1) == gensym("max") && atom_gettype(argv+2) == A_FLOAT &&
+                    !(x->b_params[index]->p_flags & EPARAM_STATIC_MAX))
+            {
+                ebox_parameter_setmax(x, index, atom_getfloat(argv+2));
+            }
+        }
+    }
 }
 
 

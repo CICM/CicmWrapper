@@ -573,6 +573,7 @@ t_eparam* ebox_parameter_create(t_ebox *x, int index)
                 param->p_setter_t   = (t_param_setter_t)NULL;
                 param->p_auto       = 1;
                 param->p_meta       = 0;
+                param->p_flags      = 0;
                 pd_bind((t_pd *)param, param->p_bind);
                 if(x->b_params && index < x->b_nparams)
                 {
@@ -797,6 +798,66 @@ void ebox_parameter_end_changes(t_ebox *x, int index)
         if(x->b_params[index])
         {
             eobj_widget_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_endchanges);
+        }
+    }
+}
+
+void ebox_parameter_setname(t_ebox* x, int index, t_symbol* name)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            x->b_params[index]->p_name = get_valid_symbol(name);
+            eobj_widget_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
+        }
+    }
+}
+
+void ebox_parameter_setlabel(t_ebox* x, int index, t_symbol* label)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            x->b_params[index]->p_label = get_valid_symbol(label);
+            eobj_widget_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
+        }
+    }
+}
+
+void ebox_parameter_setmin(t_ebox* x, int index, float min)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            x->b_params[index]->p_min = min;
+            eobj_widget_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
+        }
+    }
+}
+
+void ebox_parameter_setmax(t_ebox* x, int index, float max)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            x->b_params[index]->p_max = max;
+            eobj_widget_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
+        }
+    }
+}
+
+void ebox_parameter_flags(t_ebox* x, int index, long flags)
+{
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            x->b_params[index]->p_flags = flags;
+            eobj_widget_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
         }
     }
 }
@@ -1096,19 +1157,32 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                 sys_vgui("frame %s.param_menu_max%i\n",     tx, i+1);
                 
                 sys_vgui("label %s.param_menu_index%i.entry -font {Helvetica 12} -width 1\
-                         -text \"%i\"\n",tx, i+1, z->b_params[i]->p_index);
-                sys_vgui("set %s.param_menu_name%i \"%s\"\n", va, i+1, z->b_params[i]->p_name->s_name);
+                         -text \"%i\"\n",tx, i+1, z->b_params[i]->p_index+1);
+                sys_vgui("set %sparam_menu_name%i \"%s\"\n", va, i+1, z->b_params[i]->p_name->s_name);
                 sys_vgui("entry %s.param_menu_name%i.entry -font {Helvetica 12} -width 13 \
-                         -textvariable %sparam_menu_name%i\n", tx, i+1, va, i+1);
-                sys_vgui("set %s.param_menu_label%i \"%s\"\n", va, i+1, z->b_params[i]->p_label->s_name);
+                         -textvariable $%sparam_menu_name%i -state %s\n", tx, i+1, va, i+1,
+                         (z->b_params[i]->p_flags & EPARAM_STATIC_NAME) ? "readonly" : "normal");
+                sys_vgui("set %sparam_menu_label%i \"%s\"\n", va, i+1, z->b_params[i]->p_label->s_name);
                 sys_vgui("entry %s.param_menu_label%i.entry -font {Helvetica 12} -width 15 \
-                         -textvariable %s.param_menu_label%i\n", tx, i+1, va, i+1);
-                sys_vgui("set %s.param_menu_min%i \"%i\"\n", va, i+1, z->b_params[i]->p_min);
+                         -textvariable %sparam_menu_label%i -state %s\n", tx, i+1, va, i+1,
+                         (z->b_params[i]->p_flags & EPARAM_STATIC_LABEL) ? "readonly" : "normal");
+                sys_vgui("set %sparam_menu_min%i \"%e\"\n", va, i+1, z->b_params[i]->p_min);
                 sys_vgui("entry %s.param_menu_min%i.entry -font {Helvetica 12} -width 9 \
-                         -textvariable %s.param_menu_min%i\n", tx, i+1, va, i+1);
-                sys_vgui("set %s.param_menu_max%i \"%i\"\n", va, i+1, z->b_params[i]->p_max);
+                         -textvariable %sparam_menu_min%i -state %s\n", tx, i+1, va, i+1,
+                         (z->b_params[i]->p_flags & EPARAM_STATIC_MIN) ? "readonly" : "normal");
+                sys_vgui("set %sparam_menu_max%i \"%e\"\n", va, i+1, z->b_params[i]->p_max);
                 sys_vgui("entry %s.param_menu_max%i.entry -font {Helvetica 12} -width 9 \
-                         -textvariable %s.param_menu_max%i\n", tx, i+1, va, i+1);
+                         -textvariable %sparam_menu_max%i -state %s\n", tx, i+1, va, i+1,
+                         (z->b_params[i]->p_flags & EPARAM_STATIC_MAX) ? "readonly" : "normal");
+                
+                sys_vgui("bind %s.param_menu_name%i.entry <KeyPress-Return> {pdsend \"%s param %i name $%sparam_menu_name%i\"}\n",
+                         tx, i+1, x->o_id->s_name, i+1, va, i+1);
+                sys_vgui("bind %s.param_menu_label%i.entry <KeyPress-Return> {pdsend \"%s param %i label $%sparam_menu_label%i\"}\n",
+                         tx, i+1, x->o_id->s_name, i+1, va, i+1);
+                sys_vgui("bind %s.param_menu_min%i.entry <KeyPress-Return> {pdsend \"%s param %i min $%sparam_menu_min%i\"}\n",
+                         tx, i+1, x->o_id->s_name, i+1, va, i+1);
+                sys_vgui("bind %s.param_menu_max%i.entry <KeyPress-Return> {pdsend \"%s param %i max $%sparam_menu_max%i\"}\n",
+                         tx, i+1, x->o_id->s_name, i+1, va, i+1);
                 
                 sys_vgui("pack  %s.param_menu_index%i.entry -side left -fill both -expand 1\n",  tx);
                 sys_vgui("pack  %s.param_menu_name%i.entry -side left -fill both -expand 1\n",  tx);

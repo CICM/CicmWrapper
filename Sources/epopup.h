@@ -307,6 +307,51 @@ void ebox_parameter_begin_changes(t_ebox *x, int index);
  */
 void ebox_parameter_end_changes(t_ebox *x, int index);
 
+/*!
+ * \fn              void ebox_parameter_setname(t_ebox* x, int index, t_symbol* name)
+ * \brief           Sets the name of the parameter.
+ * \param x         The t_ebox pointer.
+ * \param index     The index of the parameter.
+ * \param name      The name of the parameter.
+ */
+void ebox_parameter_setname(t_ebox* x, int index, t_symbol* name);
+
+/*!
+ * \fn              void ebox_parameter_setlabel(t_ebox* x, int index, t_symbol* label)
+ * \brief           Sets the label of the parameter.
+ * \param x         The t_ebox pointer.
+ * \param index     The index of the parameter.
+ * \param label     The label of the parameter.
+ */
+void ebox_parameter_setlabel(t_ebox* x, int index, t_symbol* label);
+
+/*!
+ * \fn              void ebox_parameter_setmin(t_ebox* x, int index, float min)
+ * \brief           Sets the minimum value of the parameter.
+ * \param x         The t_ebox pointer.
+ * \param index     The index of the parameter.
+ * \param min       The minimum value of the parameter.
+ */
+void ebox_parameter_setmin(t_ebox* x, int index, float min);
+
+/*!
+ * \fn              void ebox_parameter_setmax(t_ebox* x, int index, float max)
+ * \brief           Sets the maximum value of the parameter.
+ * \param x         The t_ebox pointer.
+ * \param index     The index of the parameter.
+ * \param max       The maximum value of the parameter.
+ */
+void ebox_parameter_setmax(t_ebox* x, int index, float max);
+
+/*!
+ * \fn              void ebox_parameter_flags(t_ebox* x, int index, long flags)
+ * \brief           Sets the flags of the parameter.
+ * \param x         The t_ebox pointer.
+ * \param index     The index of the parameter.
+ * \param flags     The flags the parameter.
+ */
+void ebox_parameter_flags(t_ebox* x, int index, long flags);
+
 //! @cond
 
 /*!
