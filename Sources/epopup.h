@@ -378,6 +378,8 @@ t_eparam* eparameter_getfromsymbol(t_symbol* name);
 
 void eobj_create_properties_window(t_eobj* x, t_glist *glist);
 
+void eobj_destroy_properties_window(t_eobj* x);
+
 void tcltk_create_methods(void);
 
 //! @endcond
