@@ -606,7 +606,7 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                 }
                 else if(attr->style == s_cream_number && atom_gettype(argv) == A_FLOAT)
                 {
-                    sys_vgui("set %sattr_value%i %f\n", va, i+1, atom_getfloat(argv));
+                    sys_vgui("set %sattr_value%i %g\n", va, i+1, atom_getfloat(argv));
                     sys_vgui("spinbox %s.attr_values%i.label -font {Helvetica 12} -width 18 \
                              -textvariable [string trim %s%i] -command {pdsend \"%s %s $%sattr_value%i\"} \
                              -increment %f -from %f -to %f\n", tx, i+1, va, i+1,
@@ -647,7 +647,7 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                     {
                         if(atom_gettype(argv+1) == A_FLOAT)
                         {
-                            sys_vgui("%f ", atom_getfloat(argv+i));
+                            sys_vgui("%g ", atom_getfloat(argv+i));
                         }
                         else if(atom_gettype(argv+i) == A_SYMBOL)
                         {
@@ -656,7 +656,7 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                     }
                     if(atom_gettype(argv+argc-1) == A_FLOAT)
                     {
-                        sys_vgui("%f", atom_getfloat(argv+argc-1));
+                        sys_vgui("%g", atom_getfloat(argv+argc-1));
                     }
                     else if(atom_gettype(argv+i) == A_SYMBOL)
                     {
@@ -727,32 +727,32 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                 sys_vgui("frame %s.param_menu_max%i\n",     tx, i+1);
                 
                 sys_vgui("label %s.param_menu_index%i.entry -font {Helvetica 12} -width 1\
-                         -text \"%i\"\n",tx, i+1, z->b_params[i]->p_index+1);
+                         -text \"%i\"\n",tx, i+1, z->b_params[i]->p_index);
                 sys_vgui("set %sparam_menu_name%i \"%s\"\n", va, i+1, z->b_params[i]->p_name->s_name);
                 sys_vgui("entry %s.param_menu_name%i.entry -font {Helvetica 12} -width 13 \
-                         -textvariable $%sparam_menu_name%i -state %s\n", tx, i+1, va, i+1,
+                         -textvariable %sparam_menu_name%i -state %s\n", tx, i+1, va, i+1,
                          (z->b_params[i]->p_flags & EPARAM_STATIC_NAME) ? "readonly" : "normal");
                 sys_vgui("set %sparam_menu_label%i \"%s\"\n", va, i+1, z->b_params[i]->p_label->s_name);
                 sys_vgui("entry %s.param_menu_label%i.entry -font {Helvetica 12} -width 15 \
                          -textvariable %sparam_menu_label%i -state %s\n", tx, i+1, va, i+1,
                          (z->b_params[i]->p_flags & EPARAM_STATIC_LABEL) ? "readonly" : "normal");
-                sys_vgui("set %sparam_menu_min%i \"%e\"\n", va, i+1, z->b_params[i]->p_min);
+                sys_vgui("set %sparam_menu_min%i \"%g\"\n", va, i+1, z->b_params[i]->p_min);
                 sys_vgui("entry %s.param_menu_min%i.entry -font {Helvetica 12} -width 9 \
                          -textvariable %sparam_menu_min%i -state %s\n", tx, i+1, va, i+1,
                          (z->b_params[i]->p_flags & EPARAM_STATIC_MIN) ? "readonly" : "normal");
-                sys_vgui("set %sparam_menu_max%i \"%e\"\n", va, i+1, z->b_params[i]->p_max);
+                sys_vgui("set %sparam_menu_max%i \"%g\"\n", va, i+1, z->b_params[i]->p_max);
                 sys_vgui("entry %s.param_menu_max%i.entry -font {Helvetica 12} -width 9 \
                          -textvariable %sparam_menu_max%i -state %s\n", tx, i+1, va, i+1,
                          (z->b_params[i]->p_flags & EPARAM_STATIC_MAX) ? "readonly" : "normal");
                 
                 sys_vgui("bind %s.param_menu_name%i.entry <KeyPress-Return> {pdsend \"%s param %i name $%sparam_menu_name%i\"}\n",
-                         tx, i+1, x->o_id->s_name, i+1, va, i+1);
+                         tx, i+1, x->o_id->s_name, z->b_params[i]->p_index, va, i+1);
                 sys_vgui("bind %s.param_menu_label%i.entry <KeyPress-Return> {pdsend \"%s param %i label $%sparam_menu_label%i\"}\n",
-                         tx, i+1, x->o_id->s_name, i+1, va, i+1);
+                         tx, i+1, x->o_id->s_name, z->b_params[i]->p_index, va, i+1);
                 sys_vgui("bind %s.param_menu_min%i.entry <KeyPress-Return> {pdsend \"%s param %i min $%sparam_menu_min%i\"}\n",
-                         tx, i+1, x->o_id->s_name, i+1, va, i+1);
+                         tx, i+1, x->o_id->s_name, z->b_params[i]->p_index, va, i+1);
                 sys_vgui("bind %s.param_menu_max%i.entry <KeyPress-Return> {pdsend \"%s param %i max $%sparam_menu_max%i\"}\n",
-                         tx, i+1, x->o_id->s_name, i+1, va, i+1);
+                         tx, i+1, x->o_id->s_name, z->b_params[i]->p_index, va, i+1);
                 
                 sys_vgui("pack  %s.param_menu_index%i.entry -side left -fill both -expand 1\n",  tx);
                 sys_vgui("pack  %s.param_menu_name%i.entry -side left -fill both -expand 1\n",  tx);

@@ -90,6 +90,7 @@ extern t_symbol* s_cream_texteditor;
 extern t_symbol* s_cream_popup;
 //! The pre-defined parameter t_symbol*
 extern t_symbol* s_cream_parameter;
+extern t_symbol* s_cream_param;
 //! The pre-defined grabfocus t_symbol*
 extern t_symbol* s_cream_grabfocus;
 //! The pre-defined repaint t_symbol*

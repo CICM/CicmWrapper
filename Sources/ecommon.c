@@ -22,6 +22,7 @@ t_symbol* s_cream_eboxio;
 t_symbol* s_cream_texteditor;
 t_symbol* s_cream_popup;
 t_symbol* s_cream_parameter;
+t_symbol* s_cream_param;
 t_symbol* s_cream_grabfocus;
 t_symbol* s_cream_repaint;
 t_symbol* s_cream_size;
@@ -67,6 +68,7 @@ void epd_init(void)
     s_cream_repaint       = gensym("repaint");
     s_cream_popup         = gensym("popup");
     s_cream_parameter     = gensym("parameter");
+    s_cream_param         = gensym("param");
     s_cream_grabfocus     = gensym("grabfocus");
     s_cream_size          = gensym("size");
     s_cream_create        = gensym("create");

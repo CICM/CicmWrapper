@@ -41,8 +41,6 @@ static void ebox_erase(t_ebox* x);
 static void ebox_select(t_ebox* x);
 static void ebox_move(t_ebox* x);
 
-static void ebox_save(t_ebox* x, t_binbuf *b);
-
 void ebox_new(t_ebox *x, long flags)
 {
     x->b_flags = flags;
@@ -179,7 +177,7 @@ void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv)
     int     defc        = 0;
     t_atom* defv        = NULL;
     t_eclass* c         = eobj_getclass(x);
-
+    t_ebox* z = (t_ebox *)x;
     for(i = 0; i < c->c_nattr; i++)
     {
         sprintf(buffer, "@%s", c->c_attr[i]->name->s_name);
@@ -192,26 +190,71 @@ void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv)
             defv = NULL;
         }
     }
+    if(eobj_isbox(x))
+    {
+        for(i = 0; i < z->b_nparams; i++)
+        {
+            sprintf(buffer, "@param%i", i);
+            atoms_get_attribute(argc, argv, gensym(buffer), &defc, &defv);
+            if(defc && defv)
+            {
+                if(atom_gettype(defv) == A_SYMBOL)
+                    ebox_parameter_setname(x, i+1, atom_getsymbol(defv));
+                if(defc > 1 && atom_gettype(defv+1) == A_SYMBOL)
+                    ebox_parameter_setlabel(x, i+1, atom_getsymbol(defv+1));
+                if(defc > 2 && atom_gettype(defv+2) == A_FLOAT)
+                    ebox_parameter_setmin(x, i+1, atom_getfloat(defv+2));
+                if(defc > 2 && atom_gettype(defv+2) == A_FLOAT)
+                    ebox_parameter_setmax(x, i+1, atom_getfloat(defv+3));
+                defc = 0;
+                free(defv);
+                defv = NULL;
+            }
+        }
+    }
 }
 
 void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)
 {
     int i;
-    char attr_name[MAXPDSTRING];
+    char buffer[MAXPDSTRING];
 
     int defc       = 0;
     t_atom* defv    = NULL;
     t_eclass* c     = eobj_getclass(x);
+    t_ebox* z = (t_ebox *)x;
     for(i = 0; i < c->c_nattr; i++)
     {
-        sprintf(attr_name, "@%s", c->c_attr[i]->name->s_name);
-        binbuf_get_attribute(d, gensym(attr_name), &defc, &defv);
+        sprintf(buffer, "@%s", c->c_attr[i]->name->s_name);
+        binbuf_get_attribute(d, gensym(buffer), &defc, &defv);
         if(defc && defv)
         {
             eobj_attr_setvalueof(x, c->c_attr[i]->name, defc, defv);
             defc = 0;
             free(defv);
             defv = NULL;
+        }
+    }
+    if(eobj_isbox(x))
+    {
+        for(i = 0; i < z->b_nparams; i++)
+        {
+            sprintf(buffer, "@param%i", i);
+            binbuf_get_attribute(d, gensym(buffer), &defc, &defv);
+            if(defc && defv)
+            {
+                if(atom_gettype(defv) == A_SYMBOL)
+                    ebox_parameter_setname(x, i+1, atom_getsymbol(defv));
+                if(defc > 1 && atom_gettype(defv+1) == A_SYMBOL)
+                    ebox_parameter_setlabel(x, i+1, atom_getsymbol(defv+1));
+                if(defc > 2 && atom_gettype(defv+2) == A_FLOAT)
+                    ebox_parameter_setmin(x, i+1, atom_getfloat(defv+2));
+                if(defc > 2 && atom_gettype(defv+2) == A_FLOAT)
+                    ebox_parameter_setmax(x, i+1, atom_getfloat(defv+3));
+                defc = 0;
+                free(defv);
+                defv = NULL;
+            }
         }
     }
 }
@@ -807,56 +850,6 @@ void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
     }
 }
 
-static void ebox_save(t_ebox* x, t_binbuf *b)
-{
-    int         i = 0, state = 0, argc = 0;
-    char        attr_name[MAXPDSTRING];
-    t_atom*     argv    = NULL;
-    t_eclass *c = eobj_getclass(x);
-    if(c && b)
-    {
-        state = canvas_suspend_dsp();
-        binbuf_addv(b, (char *)"ssiis", &s__X, s_cream_obj, (int)x->b_obj.o_obj.te_xpix, (int)x->b_obj.o_obj.te_ypix, eobj_getclassname(x));
-        for(i = 0; i < c->c_nattr; i++)
-        {
-            if(c->c_attr[i] && c->c_attr[i]->save && c->c_attr[i]->name)
-            {
-                eobj_attr_getvalueof(x, c->c_attr[i]->name, &argc, &argv);
-                if(argc && argv)
-                {
-                    snprintf(attr_name, MAXPDSTRING, "@%s", c->c_attr[i]->name->s_name);
-                    binbuf_append_attribute(b, gensym(attr_name), argc, argv);
-                    argc = 0;
-                    free(argv);
-                    argv = NULL;
-                }
-            }
-        }
-        argv = (t_atom *)malloc(4 * sizeof(t_atom));
-        if(argv)
-        {
-            for(i = 0; i < x->b_nparams; i++)
-            {
-                if(x->b_params[i])
-                {
-                    snprintf(attr_name, MAXPDSTRING, "@param%i", i);
-                    atom_setsym(argv, x->b_params[i]->p_name);
-                    atom_setsym(argv+1, x->b_params[i]->p_label);
-                    atom_setfloat(argv+2, x->b_params[i]->p_min);
-                    atom_setfloat(argv+3, x->b_params[i]->p_max);
-                    binbuf_append_attribute(b, gensym(attr_name), 4, argv);
-                }
-            }
-        }
-        
-        if(c->c_widget.w_save != NULL)
-            c->c_widget.w_save(x, b);
-
-        binbuf_addv(b, (char *)";");
-        canvas_resume_dsp(state);
-    }
-}
-
 void ebox_pos(t_ebox* x, float newx, float newy)
 {
     x->b_rect.x = newx;
@@ -1199,14 +1192,6 @@ t_pd_err ebox_invalidate_layer(t_ebox *x, t_symbol *name)
 
 static void stringifyJustification(int justification, char* text)
 {
-    /*
-    if(justification & ETEXT_LEFT)
-        sprintf(text, "-justify left ");
-    else if(justification & ETEXT_RIGHT)
-        sprintf(text, "-justify right ");
-    else
-        sprintf(text, "-justify center ");
-    */
     if(justification & ETEXT_TOP)
         sprintf(text, "-anchor n");
     else if(justification & ETEXT_BOTTOM)
@@ -1542,33 +1527,44 @@ static void ebox_move(t_ebox* x)
     canvas_fixlinesfor(glist_getcanvas(x->b_obj.o_canvas), (t_text*)x);
 }
 
+
+
+
+
+
+
+
 void ebox_set_parameter_attribute(t_ebox *x, t_symbol *s, int argc, t_atom* argv)
 {
     int index;
     if(argc > 2 && argv && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_SYMBOL)
     {
-        index = (int)atom_getfloat(argv) - 1;
-        if(x->b_nparams > index && x->b_params[index])
+        index = (int)atom_getfloat(argv);
+        if(index && index <= x->b_nparams && x->b_params[index-1])
         {
             if(atom_getsymbol(argv+1) == gensym("name") && atom_gettype(argv+2) == A_SYMBOL &&
-               !(x->b_params[index]->p_flags & EPARAM_STATIC_NAME))
+               !(x->b_params[index-1]->p_flags & EPARAM_STATIC_NAME))
             {
                 ebox_parameter_setname(x, index, atom_getsymbol(argv+2));
+                canvas_dirty(eobj_getcanvas(x), 1);
             }
             else if(atom_getsymbol(argv+1) == gensym("label") && atom_gettype(argv+2) == A_SYMBOL &&
-                    !(x->b_params[index]->p_flags & EPARAM_STATIC_LABEL))
+                    !(x->b_params[index-1]->p_flags & EPARAM_STATIC_LABEL))
             {
                 ebox_parameter_setlabel(x, index, atom_getsymbol(argv+2));
+                canvas_dirty(eobj_getcanvas(x), 1);
             }
             else if(atom_getsymbol(argv+1) == gensym("min") && atom_gettype(argv+2) == A_FLOAT &&
-                    !(x->b_params[index]->p_flags & EPARAM_STATIC_MIN))
+                    !(x->b_params[index-1]->p_flags & EPARAM_STATIC_MIN))
             {
                 ebox_parameter_setmin(x, index, atom_getfloat(argv+2));
+                canvas_dirty(eobj_getcanvas(x), 1);
             }
             else if(atom_getsymbol(argv+1) == gensym("max") && atom_gettype(argv+2) == A_FLOAT &&
-                    !(x->b_params[index]->p_flags & EPARAM_STATIC_MAX))
+                    !(x->b_params[index-1]->p_flags & EPARAM_STATIC_MAX))
             {
                 ebox_parameter_setmax(x, index, atom_getfloat(argv+2));
+                canvas_dirty(eobj_getcanvas(x), 1);
             }
         }
     }
