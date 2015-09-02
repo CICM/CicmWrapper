@@ -108,6 +108,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
  * \param s         The attribute name
  * \param argc      The size of the array of atoms
  * \param argv      The array of atoms that contains the attributes values
+ * \todo Must clean the font style attribute parser.
  */
 void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv);
 
