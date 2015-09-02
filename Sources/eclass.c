@@ -781,12 +781,11 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
         }
         else if(type == s_cream_char)
         {
-            char* pointor = (char *)point;
             for(j = 0; j < size && j < argc; j++)
             {
                 if(atom_gettype(argv+j) == A_FLOAT)
                 {
-                    pointor[j] = (char)atom_getlong(argv+j);
+                    point[j] = (char)atom_getlong(argv+j);
                 }
             }
         }
@@ -921,7 +920,6 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
             {
                 c->c_widget.w_getdrawparameters(x, NULL, &z->b_boxparameters);
             }
-            
             ebox_redraw(z);
         }
         if(attr->save && eobj_isbox(x) && ebox_isdrawable((t_ebox*) x))
