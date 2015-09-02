@@ -1609,6 +1609,7 @@ t_eparam* ebox_parameter_create(t_ebox *x, int index)
     t_class* c = eparameter_setup();
     if(c)
     {
+        index--;
         if(index < x->b_nparams && x->b_params[index])
         {
             return x->b_params[index];
@@ -1623,7 +1624,7 @@ t_eparam* ebox_parameter_create(t_ebox *x, int index)
                 param->p_name       = s_cream_empty;
                 param->p_label      = s_cream_empty;
                 param->p_owner      = x;
-                param->p_index      = index;
+                param->p_index      = index+1;
                 param->p_value      = 0.f;
                 param->p_min        = 0.f;
                 param->p_max        = 1.f;
@@ -1692,6 +1693,7 @@ t_eparam* ebox_parameter_create(t_ebox *x, int index)
 void ebox_parameter_destroy(t_ebox* x, int index)
 {
     int i = 0;
+    index--;
     if(index >= 0 && index < x->b_nparams)
     {
         if(x->b_params[index])
@@ -1710,6 +1712,7 @@ void ebox_parameter_destroy(t_ebox* x, int index)
 
 float ebox_parameter_getvalue(t_ebox* x, int index)
 {
+    index--;
     if(index >= 0 && index < x->b_nparams)
     {
         if(x->b_params[index])
@@ -1726,6 +1729,7 @@ float ebox_parameter_getvalue(t_ebox* x, int index)
 
 void ebox_parameter_setvalue(t_ebox* x, int index, float value, char notify)
 {
+    index--;
     if(index >= 0 && index < x->b_nparams)
     {
         if(x->b_params[index])
@@ -1755,6 +1759,7 @@ void ebox_parameter_setvalue(t_ebox* x, int index, float value, char notify)
 
 float ebox_parameter_getvalue_normalized(t_ebox* x, int index)
 {
+    index--;
     if(index >= 0 && index < x->b_nparams)
     {
         if(x->b_params[index])
@@ -1778,6 +1783,7 @@ float ebox_parameter_getvalue_normalized(t_ebox* x, int index)
 
 void ebox_parameter_setvalue_normalized(t_ebox* x, int index, float value, char notify)
 {
+    index--;
     if(index >= 0 && index < x->b_nparams)
     {
         if(x->b_params[index])
@@ -1796,6 +1802,7 @@ void ebox_parameter_setvalue_normalized(t_ebox* x, int index, float value, char 
 
 float ebox_parameter_getmin(t_ebox* x, int index)
 {
+    index--;
     if(index >= 0 && index < x->b_nparams)
     {
         if(x->b_params[index])
@@ -1808,6 +1815,7 @@ float ebox_parameter_getmin(t_ebox* x, int index)
 
 float ebox_parameter_getmax(t_ebox* x, int index)
 {
+    index--;
     if(index >= 0 && index < x->b_nparams)
     {
         if(x->b_params[index])
@@ -1820,6 +1828,7 @@ float ebox_parameter_getmax(t_ebox* x, int index)
 
 char ebox_parameter_isinverted(t_ebox* x, int index)
 {
+    index--;
     if(index >= 0 && index < x->b_nparams)
     {
         if(x->b_params[index])
@@ -1832,6 +1841,7 @@ char ebox_parameter_isinverted(t_ebox* x, int index)
 
 void ebox_parameter_notify_changes(t_ebox *x, int index)
 {
+    index--;
     if(index >= 0 && index < x->b_nparams)
     {
         if(x->b_params[index])
@@ -1843,6 +1853,7 @@ void ebox_parameter_notify_changes(t_ebox *x, int index)
 
 void ebox_parameter_begin_changes(t_ebox *x, int index)
 {
+    index--;
     if(index >= 0 && index < x->b_nparams)
     {
         if(x->b_params[index])
@@ -1854,6 +1865,7 @@ void ebox_parameter_begin_changes(t_ebox *x, int index)
 
 void ebox_parameter_end_changes(t_ebox *x, int index)
 {
+    index--;
     if(index >= 0 && index < x->b_nparams)
     {
         if(x->b_params[index])
@@ -1865,6 +1877,7 @@ void ebox_parameter_end_changes(t_ebox *x, int index)
 
 void ebox_parameter_setname(t_ebox* x, int index, t_symbol* name)
 {
+    index--;
     if(index >= 0 && index < x->b_nparams)
     {
         if(x->b_params[index])
@@ -1877,6 +1890,7 @@ void ebox_parameter_setname(t_ebox* x, int index, t_symbol* name)
 
 void ebox_parameter_setlabel(t_ebox* x, int index, t_symbol* label)
 {
+    index--;
     if(index >= 0 && index < x->b_nparams)
     {
         if(x->b_params[index])
@@ -1889,6 +1903,7 @@ void ebox_parameter_setlabel(t_ebox* x, int index, t_symbol* label)
 
 void ebox_parameter_setmin(t_ebox* x, int index, float min)
 {
+    index--;
     if(index >= 0 && index < x->b_nparams)
     {
         if(x->b_params[index])
@@ -1901,6 +1916,7 @@ void ebox_parameter_setmin(t_ebox* x, int index, float min)
 
 void ebox_parameter_setmax(t_ebox* x, int index, float max)
 {
+    index--;
     if(index >= 0 && index < x->b_nparams)
     {
         if(x->b_params[index])
@@ -1911,8 +1927,22 @@ void ebox_parameter_setmax(t_ebox* x, int index, float max)
     }
 }
 
-void ebox_parameter_flags(t_ebox* x, int index, long flags)
+void ebox_parameter_setstep(t_ebox* x, int index, float step)
 {
+    index--;
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            x->b_params[index]->p_step = step;
+            ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
+        }
+    }
+}
+
+void ebox_parameter_setflags(t_ebox* x, int index, long flags)
+{
+    index--;
     if(index >= 0 && index < x->b_nparams)
     {
         if(x->b_params[index])

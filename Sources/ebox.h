@@ -496,13 +496,22 @@ void ebox_parameter_setmin(t_ebox* x, int index, float min);
 void ebox_parameter_setmax(t_ebox* x, int index, float max);
 
 /*!
- * \fn              void ebox_parameter_flags(t_ebox* x, int index, long flags)
+ * \fn              void ebox_parameter_setstep(t_ebox* x, int index, float step)
+ * \brief           Sets the step value of the parameter.
+ * \param x         The t_ebox pointer.
+ * \param index     The index of the parameter.
+ * \param step      The step value of the parameter.
+ */
+void ebox_parameter_setstep(t_ebox* x, int index, float step);
+
+/*!
+ * \fn              void ebox_parameter_setflags(t_ebox* x, int index, long flags)
  * \brief           Sets the flags of the parameter.
  * \param x         The t_ebox pointer.
  * \param index     The index of the parameter.
  * \param flags     The flags the parameter.
  */
-void ebox_parameter_flags(t_ebox* x, int index, long flags);
+void ebox_parameter_setflags(t_ebox* x, int index, long flags);
 
 //! @cond
 

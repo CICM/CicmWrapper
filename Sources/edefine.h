@@ -738,10 +738,11 @@ typedef void (*t_param_getter_t)(struct t_ebox* x, struct t_eparam* p, char* tex
  */
 typedef enum eparam_flags
 {
-    EPARAM_STATIC_NAME  = (1<<1),   /*!< If the name of the parameter can't be changed by the users. */
-    EPARAM_STATIC_LABEL = (1<<2),   /*!< If the name of the parameter can't be changed by the users. */
-    EPARAM_STATIC_MIN   = (1<<3),   /*!< If the minimum value of the parameter can't be changed by the users. */
-    EPARAM_STATIC_MAX   = (1<<4)    /*!< If the maximum value of the parameter can't be changed by the users. */
+    EPARAM_STATIC_NAME      = (1<<1),   /*!< If the name of the parameter can't be changed by the users. */
+    EPARAM_STATIC_LABEL     = (1<<2),   /*!< If the name of the parameter can't be changed by the users. */
+    EPARAM_STATIC_MIN       = (1<<3),   /*!< If the minimum value of the parameter can't be changed by the users. */
+    EPARAM_STATIC_MAX       = (1<<4),   /*!< If the maximum value of the parameter can't be changed by the users. */
+    EPARAM_STATIC_INVERTED  = (1<<5)    /*!< If the maximum and minimum values of the parameter can't be inverted by the users. */
 } eparam_flags;
 
 /**
