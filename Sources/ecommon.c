@@ -204,13 +204,13 @@ char* estrtok(const char** str, const char* delim, char* token)
 
 float interpolation_bezier(const float f1, const float f2, const float delta, const float node)
 {
-    const float t = pd_clip_minmax(delta, 0.f, 1.f);
-    return interpolation_linear(f1, f2, pd_clip_minmax(t * t + 2.f * t * (1.f - t) * node, 0.f, 1.f));
+    const float t = pd_clip(delta, 0.f, 1.f);
+    return interpolation_linear(f1, f2, pd_clip(t * t + 2.f * t * (1.f - t) * node, 0.f, 1.f));
 }
 
 float interpolation_linear(const float f1, const float f2, const float delta)
 {
-    const float delta2 = pd_clip_minmax(delta, 0., 1.);
+    const float delta2 = pd_clip(delta, 0., 1.);
     return f1 * (1.f - delta2) + f2 * delta;
 }
 
@@ -395,7 +395,7 @@ int atoms_get_attributes_offset(int argc, t_atom* argv)
             break;
         }
     }
-    return (int)pd_clip_minmax(i, 0, argc);
+    return (int)pd_clip(i, 0, argc);
 }
 
 int binbuf_get_attributes_offset(t_binbuf *d)

@@ -496,9 +496,10 @@ t_rgba rgba_addContrast(t_rgba color, float contrast);
 t_rgb rgb_addContrast(t_rgb color, float contrast);
 
 //! @cond
+float pd_wrap(float f, const float min, const float max);
 float pd_clip_min(float aValue, float aMinimum);
 float pd_clip_max(float aValue, float aMaximum);
-float pd_clip_minmax(float aValue, float aMinimum, float aMaximum);
+float pd_clip(float aValue, float aMinimum, float aMaximum);
 float pd_ordinate(float radius, float angle);
 float pd_abscissa(float radius, float angle);
 float pd_radius(float x, float y);

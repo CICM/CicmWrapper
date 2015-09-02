@@ -676,11 +676,11 @@ void ebox_parameter_setvalue(t_ebox* x, int index, float value, char notify)
             {
                 if(x->b_params[index]->p_min < x->b_params[index]->p_max)
                 {
-                    x->b_params[index]->p_value = pd_clip_minmax(value, x->b_params[index]->p_min, x->b_params[index]->p_max);
+                    x->b_params[index]->p_value = pd_clip(value, x->b_params[index]->p_min, x->b_params[index]->p_max);
                 }
                 else
                 {
-                    x->b_params[index]->p_value  = pd_clip_minmax(value, x->b_params[index]->p_max, x->b_params[index]->p_min);
+                    x->b_params[index]->p_value  = pd_clip(value, x->b_params[index]->p_max, x->b_params[index]->p_min);
                 }
             }
             if(notify)
@@ -848,9 +848,9 @@ void eparameter_setvalue(t_eparam* param, float value)
     else
     {
         if(param->p_min < param->p_max)
-            param->p_value = pd_clip_minmax(value, param->p_min, param->p_max);
+            param->p_value = pd_clip(value, param->p_min, param->p_max);
         else
-            param->p_value  = pd_clip_minmax(value, param->p_max, param->p_min);
+            param->p_value  = pd_clip(value, param->p_max, param->p_min);
         
         if(c->c_widget.w_notify)
         {
@@ -893,6 +893,10 @@ t_eparam* eparameter_getfromsymbol(t_symbol* name)
     return NULL;
 }
 
+void eobj_destroy_properties_window(t_eobj* x)
+{
+    sys_vgui("destroy .epw%ld\n", (unsigned long)x);
+}
 
 void eobj_create_properties_window(t_eobj* x, t_glist *glist)
 {
@@ -933,8 +937,9 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                 if(attr->style == s_cream_checkbutton && atom_gettype(argv) == A_FLOAT)
                 {
                     sys_vgui("set %s%i %i\n", va, i+1, (int)atom_getfloat(argv));
-                    sys_vgui("checkbutton %s.selec%i.cb -variable var%s%i -command {pdsend \"%s %s $%s%i\"}\n",
-                             tx, i+1, tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
+                    sys_vgui("checkbutton %s.selec%i.cb -variable %s%i \
+                             -command {pdsend \"%s %s $%s%i\"}\n",
+                             tx, i+1, va, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
                     sys_vgui("pack %s.selec%i.cb -side right -fill both\n",tx, i+1);
                 }
                 else if(attr->style == s_cream_color && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT

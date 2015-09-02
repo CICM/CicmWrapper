@@ -71,7 +71,7 @@ void eobj_free(void *x)
         z->o_proxy = NULL;
         z->o_nproxy= 0;
     }
-    sys_vgui("destroy .epw%ld\n", (unsigned long)x);
+    eobj_destroy_properties_window(z);
 }
 
 t_pd_err eobj_iscicm(void* x)

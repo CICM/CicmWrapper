@@ -161,7 +161,7 @@ void ebox_set_cursor(t_ebox* x, int cursor)
 {
     if(x->b_drawing_id)
     {
-        cursor = (int)pd_clip_minmax(cursor, 0, 12);
+        cursor = (int)pd_clip(cursor, 0, 12);
         sys_vgui("%s configure -cursor %s\n", x->b_drawing_id->s_name, my_cursorlist[cursor]);
     }
     else
@@ -851,7 +851,7 @@ void ebox_pos(t_ebox* x, float newx, float newy)
 
 void ebox_vis(t_ebox* x, int vis)
 {
-    vis = (int)pd_clip_minmax(vis, 0, 1);
+    vis = (int)pd_clip(vis, 0, 1);
     if(x->b_visible != vis)
     {
         x->b_visible = (char)vis;
@@ -1261,12 +1261,12 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                 if(gobj->e_filled)
                 {
                     sprintf(header, "%s create polygon ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-smooth true -fill %s -width 0 -tags { %s %s }\n", rgba_to_hex(&gobj->e_color),  g->e_id->s_name, x->b_all_id->s_name);
+                    sprintf(bottom, "-smooth bezier -fill %s -width 0 -tags { %s %s }\n", rgba_to_hex(&gobj->e_color),  g->e_id->s_name, x->b_all_id->s_name);
                 }
                 else
                 {
                     sprintf(header, "%s create line ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-smooth true -fill %s -width %f -tags { %s %s }\n", rgba_to_hex(&gobj->e_color), gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
+                    sprintf(bottom, "-smooth bezier -fill %s -width %f -tags { %s %s }\n", rgba_to_hex(&gobj->e_color), gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
                 }
                 
                 for(j = 0; j < gobj->e_npoints; )

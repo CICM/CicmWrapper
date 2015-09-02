@@ -840,18 +840,18 @@ t_rgba hsla_to_rgba(t_hsla const* color)
 t_rgba rgba_addContrast(t_rgba color, float contrast)
 {
     t_rgba new_color = color;
-    new_color.red = (float)pd_clip_minmax(new_color.red += contrast, 0., 1.);
-    new_color.green = (float)pd_clip_minmax(new_color.green += contrast, 0., 1.);
-    new_color.blue = (float)pd_clip_minmax(new_color.blue += contrast, 0., 1.);
+    new_color.red = (float)pd_clip(new_color.red += contrast, 0., 1.);
+    new_color.green = (float)pd_clip(new_color.green += contrast, 0., 1.);
+    new_color.blue = (float)pd_clip(new_color.blue += contrast, 0., 1.);
     return new_color;
 }
 
 t_rgb rgb_addContrast(t_rgb color, float contrast)
 {
     t_rgb new_color = color;
-    new_color.red = (float)pd_clip_minmax(new_color.red += contrast, 0., 1.);
-    new_color.green = (float)pd_clip_minmax(new_color.green += contrast, 0., 1.);
-    new_color.blue = (float)pd_clip_minmax(new_color.blue += contrast, 0., 1.);
+    new_color.red = (float)pd_clip(new_color.red += contrast, 0., 1.);
+    new_color.green = (float)pd_clip(new_color.green += contrast, 0., 1.);
+    new_color.blue = (float)pd_clip(new_color.blue += contrast, 0., 1.);
     return new_color;
 }
 
@@ -1023,7 +1023,25 @@ void efont_init(t_efont* font, t_symbol* family, char bold, char italic, float s
     font->size = pd_clip_min(size, 1.f);
 }
 
-float pd_clip_minmax(float aValue, float aMinimum, float aMaximum)
+float pd_wrap(float f, const float min, const float max)
+{
+    if(min < max)
+    {
+        const float ratio = max - min;
+        while(f < min){f += ratio;}
+        while(f > max){f -= ratio;}
+        return f;
+    }
+    else
+    {
+        const float ratio = min - max;
+        while(f < max){f += ratio;}
+        while(f > min){f -= ratio;}
+        return f;
+    }
+}
+
+float pd_clip(float aValue, float aMinimum, float aMaximum)
 {
     if(aValue < aMinimum)
         return aMinimum;
