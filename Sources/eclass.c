@@ -822,50 +822,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
         }
         else if(type == s_cream_font)
         {
-            t_efont* pointor = (t_efont *)point;
-            if(ac && atom_gettype(av) == A_SYMBOL)
-            {
-                pointor->family = atom_getsymbol(av);
-            }
-            if(ac > 1 && atom_gettype(av+1) == A_FLOAT)
-                pointor->size   = atom_getfloat(av+1);
-            if(ac > 2 && atom_gettype(av+2) == A_SYMBOL)
-            {
-                if(atom_getsymbol(av+2) == gensym("bold"))
-                {
-                    pointor->weight = atom_getsymbol(av+2);
-                    if(ac > 3 && atom_gettype(av+3) == A_SYMBOL &&  atom_getsymbol(av+3) == gensym("italic"))
-                    {
-                        pointor->slant = atom_getsymbol(av+3);
-                    }
-                    else
-                    {
-                        pointor->slant = gensym("roman");
-                    }
-                }
-                else if(atom_getsymbol(av+2) == gensym("italic"))
-                {
-                    pointor->slant = atom_getsymbol(av+2);
-                    if(ac > 3 && atom_gettype(av+3) == A_SYMBOL &&  atom_getsymbol(av+3) == gensym("bold"))
-                    {
-                        pointor->weight = atom_getsymbol(av+3);
-                    }
-                    else
-                    {
-                        pointor->weight = gensym("roman");
-                    }
-                }
-                else
-                {
-                    pointor->weight = gensym("normal");
-                    pointor->slant = gensym("roman");
-                }
-            }
-            else
-            {
-                pointor->weight = gensym("normal");
-                pointor->slant = gensym("roman");
-            }
+            efont_initwithatoms((t_efont *)point, ac, av);
         }
         
         ebox_notify(z, s, s_cream_attr_modified, NULL, NULL);
