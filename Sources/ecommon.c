@@ -391,7 +391,7 @@ void unparse_atoms(int argc, t_atom* argv, int* ac, t_atom** av)
                 s = atom_getsymbol(argv+i);
                 if(!str) // We are not in a string
                 {
-                    if(s->s_name[0] == '{' || s->s_name[0] == '\'' || s->s_name[0] == '"') // We enter a string
+                    if(s->s_name[0] == '{' || s->s_name[0] == '\'' || s->s_name[0] == '"' || s->s_name[0] == '[') // We enter a string
                     {
                         l = strlen(s->s_name);
                         memset(text, 0, MAXPDSTRING);
@@ -416,7 +416,7 @@ void unparse_atoms(int argc, t_atom* argv, int* ac, t_atom** av)
                 else
                 {
                     l = strlen(s->s_name);
-                    if(s->s_name[l-1] == '}' || s->s_name[l-1] == '\'' || s->s_name[l-1] == '"') // We leave the string
+                    if(s->s_name[l-1] == '}' || s->s_name[l-1] == '\'' || s->s_name[l-1] == '"' || s->s_name[0] == ']') // We leave the string
                     {
                         strncat(text, " ", 1);
                         strncat(text, s->s_name, l-1);
