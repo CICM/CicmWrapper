@@ -1379,7 +1379,7 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                 char text[256];
                 stringifyJustification(gobj->e_justify, text);
                 const t_pt np = recomputeRectangle(gobj->e_justify, gobj->e_points, gobj->e_points+1);
-                sys_vgui("%s create text %d %d -text {%s} %s -font {%s %d %s %s} -fill %s -width %d -tags { %s %s }\n",
+                sys_vgui("%s create text %d %d -text {%s} %s -font {\"%s\" %d %s %s} -fill %s -width %d -tags { %s %s }\n",
                          x->b_drawing_id->s_name,
                          (int)(np.x + x_p + bdsize),
                          (int)(np.y + y_p + bdsize),
