@@ -1024,6 +1024,57 @@ void efont_init(t_efont* font, t_symbol* family, char bold, char italic, float s
     font->size = pd_clip_min(size, 1.f);
 }
 
+void efont_initwithatoms(t_efont* font, int argc, t_atom* argv)
+{
+    if(argc && atom_gettype(argv) == A_SYMBOL)
+    {
+        font->family = atom_getsymbol(argv);
+    }
+    else
+    {
+        font->family = gensym("DejaVu");
+    }
+    if(argc > 1 && atom_gettype(argv+1) == A_FLOAT)
+        font->size   = atom_getfloat(argv+1);
+    if(argc > 2 && atom_gettype(argv+2) == A_SYMBOL)
+    {
+        if(atom_getsymbol(argv+2) == gensym("bold"))
+        {
+            font->weight = atom_getsymbol(argv+2);
+            if(argc > 3 && atom_gettype(argv+3) == A_SYMBOL &&  atom_getsymbol(argv+3) == gensym("italic"))
+            {
+                font->slant = atom_getsymbol(argv+3);
+            }
+            else
+            {
+                font->slant = gensym("roman");
+            }
+        }
+        else if(atom_getsymbol(argv+2) == gensym("italic"))
+        {
+            font->slant = atom_getsymbol(argv+2);
+            if(argc > 3 && atom_gettype(argv+3) == A_SYMBOL &&  atom_getsymbol(argv+3) == gensym("bold"))
+            {
+                font->weight = atom_getsymbol(argv+3);
+            }
+            else
+            {
+                font->weight = gensym("roman");
+            }
+        }
+        else
+        {
+            font->weight = gensym("normal");
+            font->slant = gensym("roman");
+        }
+    }
+    else
+    {
+        font->weight = gensym("normal");
+        font->slant = gensym("roman");
+    }
+}
+
 float pd_wrap(float f, const float min, const float max)
 {
     if(min < max)

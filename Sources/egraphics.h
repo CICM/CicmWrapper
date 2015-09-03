@@ -307,7 +307,7 @@ void etext_layout_set(t_etext* textlayout, const char* text, t_efont *font,  flo
 void etext_layout_settextcolor(t_etext* textlayout, t_rgba* color);
 
 /*!
- * \fn          void efont_init(t_efont* font, t_symbol* family, char bold, char italic, float size);
+ * \fn          void efont_init(t_efont* font, t_symbol* family, char bold, char italic, float size)
  * \brief       Initializes a t_efont.
  * \param font The t_efont pointer.
  * \param family The font family.
@@ -316,6 +316,15 @@ void etext_layout_settextcolor(t_etext* textlayout, t_rgba* color);
  * \param size The font size.
  */
 void efont_init(t_efont* font, t_symbol* family, char bold, char italic, float size);
+
+/*!
+ * \fn          void efont_initwithatoms(t_efont* font, int argc, t_atom* argv)
+ * \brief       Initializes a t_efont with an array of t_atom.
+ * \param font The t_efont pointer.
+ * \param argc The number of t_atom.
+ * \param argv The pointer of  t_atom.
+ */
+void efont_initwithatoms(t_efont* font, int argc, t_atom* argv);
 
 /*!
  * \fn          void egraphics_fill(t_elayer *g)
