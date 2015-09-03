@@ -538,8 +538,14 @@ static void eclass_attr_dosetdefault(t_object* x, t_eattr* attr)
     char *pch = NULL;
     const char* temp;
     int argc = 0;
+    char* point;
     t_atom* argv = NULL;
     const size_t size = attr->sizemax ? ((size_t)attr->sizemax) : ((size_t)attr->size);
+    if(attr->type == s_cream_font)
+    {
+        point = (char *)x + attr->offset;
+        efont_init((t_efont *)point, gensym("DejaVu"), 0, 0, 11.f);
+    }
     if(attr->defvals)
     {
         argv = (t_atom *)malloc(size* sizeof(t_atom));

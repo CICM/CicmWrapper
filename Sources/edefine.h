@@ -770,6 +770,7 @@ typedef struct t_eparam
     t_param_setter_t p_setter_t;
     char            p_auto;
     char            p_meta;
+    char            p_enable;
     long            p_flags;
 } t_eparam;
 
