@@ -154,6 +154,7 @@ void etext_layout_draw(t_etext* textlayout, t_elayer *g)
                 
                 g->e_objects[index].e_font        = textlayout->c_font;
                 g->e_objects[index].e_justify     = textlayout->c_justify;
+                g->e_objects[index].e_wrap        = textlayout->c_wrap;
             }
             else
             {
