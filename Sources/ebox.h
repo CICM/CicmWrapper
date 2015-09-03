@@ -544,6 +544,22 @@ void ebox_parameter_setsettergetter(t_ebox* x, int index, t_param_setter setter,
 void ebox_parameter_setsettergetter_text(t_ebox* x, int index, t_param_setter_t setter, t_param_getter_t getter);
 
 /*!
+ * \fn              void ebox_parameter_enable(t_ebox* x, int index)
+ * \brief           Enables a parameter.
+ * \param x         The t_ebox pointer.
+ * \param index     The index of the parameter.
+ */
+void ebox_parameter_enable(t_ebox* x, int index);
+
+/*!
+ * \fn              void ebox_parameter_disable(t_ebox* x, int index)
+ * \brief           Disables a parameter.
+ * \param x         The t_ebox pointer.
+ * \param index     The index of the parameter.
+ */
+void ebox_parameter_disable(t_ebox* x, int index);
+
+/*!
  * \fn              void ebox_parameter_setflags(t_ebox* x, int index, long flags)
  * \brief           Sets the flags of the parameter.
  * \param x         The t_ebox pointer.

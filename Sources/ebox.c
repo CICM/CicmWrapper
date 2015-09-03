@@ -1045,8 +1045,6 @@ void ebox_redraw(t_ebox *x)
 {
     if(ebox_isdrawable(x) && x->b_have_window)
     {
-        ebox_invalidate_layer(x, s_cream_eboxbd);
-        ebox_invalidate_layer(x, s_cream_eboxio);
         ebox_paint(x);
     }
     if(x->b_obj.o_camo_id->s_thing)
@@ -1242,7 +1240,12 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
         if(x->b_layers[i].e_name == name)
         {
             g = &x->b_layers[i];
-            if(g->e_state != EGRAPHICS_TODRAW)
+            if(g->e_state == EGRAPHICS_CLOSE)
+            {
+                sys_vgui("%s raise %s\n", x->b_drawing_id->s_name, g->e_id->s_name);
+                return -1;
+            }
+            else if(g->e_state != EGRAPHICS_TODRAW)
             {
                 return -1;
             }
@@ -1631,6 +1634,7 @@ t_eparam* ebox_parameter_create(t_ebox *x, int index)
                 param->p_setter_t   = (t_param_setter_t)NULL;
                 param->p_auto       = 1;
                 param->p_meta       = 0;
+                param->p_enable     = 1;
                 param->p_flags      = 0;
                 pd_bind((t_pd *)param, param->p_bind);
                 if(x->b_params && index < x->b_nparams)
@@ -2009,6 +2013,32 @@ void ebox_parameter_setflags(t_ebox* x, int index, long flags)
         if(x->b_params[index])
         {
             x->b_params[index]->p_flags = flags;
+            ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
+        }
+    }
+}
+
+void ebox_parameter_enable(t_ebox* x, int index)
+{
+    index--;
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            x->b_params[index]->p_enable = 1;
+            ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
+        }
+    }
+}
+
+void ebox_parameter_disable(t_ebox* x, int index)
+{
+    index--;
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            x->b_params[index]->p_enable = 0;
             ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
         }
     }
