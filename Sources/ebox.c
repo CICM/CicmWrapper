@@ -1822,6 +1822,19 @@ float ebox_parameter_getmax(t_ebox* x, int index)
     return 1.f;
 }
 
+t_symbol* ebox_parameter_getbind(t_ebox* x, int index)
+{
+    index--;
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            return x->b_params[index]->p_bind;
+        }
+    }
+    return NULL;
+}
+
 char ebox_parameter_isinverted(t_ebox* x, int index)
 {
     index--;
@@ -2017,6 +2030,8 @@ void ebox_parameter_setsettergetter_text(t_ebox* x, int index, t_param_setter_t 
     }
 }
 
+
+
 float eparameter_getvalue(t_eparam* param)
 {
     if(param->p_getter)
@@ -2054,9 +2069,24 @@ void eparameter_getvalue_text(t_eparam* param, char* text)
     }
 }
 
-void eparameter_setvalue(t_eparam* param, float value)
+static float eparameter_compute_value(float value, float min, float max, float nstep)
+{
+    const float step = (max - min) / nstep;
+    const float rval = floorf((value - min) / step + 0.5);
+    return step * rval;
+}
+
+static void eparameter_notify_owner(t_eparam* param, t_symbol* message)
 {
     t_eclass* c = eobj_getclass(param->p_owner);
+    if(c->c_widget.w_notify)
+    {
+        c->c_widget.w_notify(param->p_owner, param->p_bind, message, NULL, NULL);
+    }
+}
+
+void eparameter_setvalue(t_eparam* param, float value)
+{
     if(param->p_setter)
     {
         param->p_setter(param->p_owner, param, value);
@@ -2064,14 +2094,14 @@ void eparameter_setvalue(t_eparam* param, float value)
     else
     {
         if(param->p_min < param->p_max)
-            param->p_value = pd_clip(value, param->p_min, param->p_max);
-        else
-            param->p_value  = pd_clip(value, param->p_max, param->p_min);
-        
-        if(c->c_widget.w_notify)
         {
-            c->c_widget.w_notify(param->p_owner, param->p_bind, s_cream_param_changed, param, param->p_value);
+            param->p_value = eparameter_compute_value(value, param->p_min, param->p_max, (float)param->p_nstep);
         }
+        else
+        {
+            param->p_value = eparameter_compute_value(value, param->p_max, param->p_min, (float)param->p_nstep);
+        }
+        eparameter_notify_owner(param, s_cream_value_changed);
     }
 }
 
@@ -2104,6 +2134,7 @@ void eparameter_setname(t_eparam* param, t_symbol* name)
     if(!(param->p_flags & EPARAM_STATIC_NAME))
     {
         param->p_name = get_valid_symbol(name);
+        eparameter_notify_owner(param, s_cream_attr_modified);
         canvas_dirty(eobj_getcanvas(eobj_getcanvas(param->p_owner)), 1);
     }
 }
@@ -2113,6 +2144,7 @@ void eparameter_setlabel(t_eparam* param, t_symbol* label)
     if(!(param->p_flags & EPARAM_STATIC_LABEL))
     {
         param->p_label = get_valid_symbol(label);
+        eparameter_notify_owner(param, s_cream_attr_modified);
         canvas_dirty(eobj_getcanvas(eobj_getcanvas(param->p_owner)), 1);
     }
 }
@@ -2139,6 +2171,8 @@ void eparameter_setmin(t_eparam* param, float min)
         {
             param->p_min = min;
         }
+        eparameter_notify_owner(param, s_cream_attr_modified);
+        eparameter_setvalue(param, param->p_value);
         canvas_dirty(eobj_getcanvas(eobj_getcanvas(param->p_owner)), 1);
     }
 }
@@ -2165,6 +2199,8 @@ void eparameter_setmax(t_eparam* param, float max)
         {
             param->p_max = max;
         }
+        eparameter_notify_owner(param, s_cream_attr_modified);
+        eparameter_setvalue(param, param->p_value);
         canvas_dirty(eobj_getcanvas(eobj_getcanvas(param->p_owner)), 1);
     }
 }
@@ -2174,6 +2210,8 @@ void eparameter_setnstep(t_eparam* param, int nstep)
     if(!(param->p_flags & EPARAM_STATIC_NSTEPS))
     {
         param->p_nstep = nstep > 1 ? (int)nstep : 1;
+        eparameter_notify_owner(param, s_cream_attr_modified);
+        eparameter_setvalue(param, param->p_value);
         canvas_dirty(eobj_getcanvas(eobj_getcanvas(param->p_owner)), 1);
     }
 }

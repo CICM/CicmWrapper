@@ -78,8 +78,8 @@ extern t_symbol* s_cream_empty;
 extern t_symbol* s_cream_obj;
 //! The pre-defined attr_modified t_symbol*
 extern t_symbol* s_cream_attr_modified;
-//! The pre-defined param_changed t_symbol*
-extern t_symbol* s_cream_param_changed;
+//! The pre-defined value_changed t_symbol*
+extern t_symbol* s_cream_value_changed;
 //! The pre-defined eboxbd t_symbol*
 extern t_symbol* s_cream_eboxbd;
 //! The pre-defined eboxio t_symbol*

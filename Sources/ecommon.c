@@ -16,7 +16,7 @@ t_symbol* s_cream_null;
 t_symbol* s_cream_empty;
 t_symbol* s_cream_obj;
 t_symbol* s_cream_attr_modified;
-t_symbol* s_cream_param_changed;
+t_symbol* s_cream_value_changed;
 t_symbol* s_cream_eboxbd;
 t_symbol* s_cream_eboxio;
 t_symbol* s_cream_texteditor;
@@ -61,7 +61,7 @@ void epd_init(void)
     s_cream_empty         = gensym("");
     s_cream_obj           = gensym("obj");
     s_cream_attr_modified = gensym("attr_modified");
-    s_cream_param_changed = gensym("param_changed");
+    s_cream_value_changed = gensym("value_changed");
     s_cream_eboxbd        = gensym("eboxbd");
     s_cream_eboxio        = gensym("eboxio");
     s_cream_texteditor    = gensym("texteditor");

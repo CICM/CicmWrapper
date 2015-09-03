@@ -427,6 +427,15 @@ float ebox_parameter_getmin(t_ebox* x, int index);
 float ebox_parameter_getmax(t_ebox* x, int index);
 
 /*!
+ * \fn              t_symbol* ebox_parameter_getbind(t_ebox* x, int index)
+ * \brief           Retrieves the binding t_symbol of the parameter.
+ * \param x         The t_ebox pointer.
+ * \param index     The index of the parameter.
+ * \return          The binding t_symbol of the parameter.
+ */
+t_symbol* ebox_parameter_getbind(t_ebox* x, int index);
+
+/*!
  * \fn              char ebox_parameter_isinverted(t_ebox* x, int index)
  * \brief           Retrieves if the minimum and the maximum are inverted.
  * \param x         The t_ebox pointer.
