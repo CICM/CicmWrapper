@@ -375,6 +375,106 @@ char is_valid_symbol(t_symbol* s)
     }
 }
 
+void unparse_atoms(int argc, t_atom* argv, int* ac, t_atom** av)
+{
+    char text[MAXPDSTRING], temp[256];
+    int i; char str; t_symbol* s; size_t l;
+    *ac = 0;
+    *av = (t_atom*)malloc((size_t)argc * sizeof(t_atom));
+    if(*av)
+    {
+        str = 0;
+        for(i = 0; i < argc; i++)
+        {
+            if(atom_gettype(argv+i) == A_SYMBOL)
+            {
+                s = atom_getsymbol(argv+i);
+                if(!str) // We are not in a string
+                {
+                    if(s->s_name[0] == '{' || s->s_name[0] == '\'' || s->s_name[0] == '"') // We enter a string
+                    {
+                        l = strlen(s->s_name);
+                        memset(text, 0, MAXPDSTRING);
+                        if(s->s_name[l-1] == '}' || s->s_name[l-1] == '\'' || s->s_name[l-1] == '"') // We leave the string
+                        {
+                            strncpy(text, s->s_name+1, l-1);
+                            atom_setsym(av[0]+ac[0], gensym(text));
+                            ac[0]++;
+                        }
+                        else // We continue the string
+                        {
+                            strncpy(text, s->s_name+1, l-1);
+                            str = 1;
+                        }
+                    }
+                    else // The string is good
+                    {
+                        atom_setsym(av[0]+ac[0], s);
+                        ac[0]++;
+                    }
+                }
+                else
+                {
+                    l = strlen(s->s_name);
+                    if(s->s_name[l-1] == '}' || s->s_name[l-1] == '\'' || s->s_name[l-1] == '"') // We leave the string
+                    {
+                        strncat(text, " ", 1);
+                        strncat(text, s->s_name, l-1);
+                        atom_setsym(av[0]+ac[0], gensym(text));
+                        ac[0]++;
+                        str = 0;
+                    }
+                    else // We are still in the string
+                    {
+                        strncat(text, " ", 1);
+                        strncat(text, s->s_name, l);
+                    }
+                }
+                
+            }
+            else if(atom_gettype(argv+i) == A_FLOAT)
+            {
+                if(str)
+                {
+                    memset(temp, 0, 256);
+                    sprintf(temp, " %g", atom_getfloat(argv+i));
+                    strncat(text, temp, 256);
+                }
+                else
+                {
+                    atom_setfloat(av[0]+ac[0], atom_getfloat(argv+i));
+                    ac[0]++;
+                }
+            }
+        }
+        if(str)
+        {
+            atom_setsym(av[0]+ac[0], gensym(text));
+            ac[0]++;
+        }
+    }
+}
+
+void parse_atoms(int argc, t_atom* argv, int* ac, t_atom** av)
+{
+    char text[MAXPDSTRING];
+    *ac = argc;
+    *av = (t_atom*)malloc((size_t)argc * sizeof(t_atom));
+    int i;
+    if(*av)
+    {
+        memcpy(*av, argv, (size_t)argc * sizeof(t_atom));
+        for(i = 0; i < ac[0]; i++)
+        {
+            if(atom_gettype(av[0]+i) == A_SYMBOL && strchr(atom_getsymbol(av[0]+i)->s_name, ' ') != NULL)
+            {
+                sprintf(text, "\"%s\"", atom_getsymbol(av[0]+i)->s_name);
+                atom_setsym(av[0]+i, gensym(text));
+            }
+        }
+    }
+}
+
 t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, int argc, t_atom *argv)
 {
     if(d && key && argc && argv)

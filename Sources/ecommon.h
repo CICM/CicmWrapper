@@ -93,6 +93,30 @@ t_symbol* get_valid_symbol(t_symbol* s);
 char is_valid_symbol(t_symbol* s);
 
 /*!
+ * \fn          void unparse_atoms(int argc, t_atom* argv, int* ac, t_atom** av)
+ * \brief       Unparses an array of atoms .
+ * \details     The function looks for the first t_symbol* that starts with the character \@.
+ * \param argc  The size of the array of t_atom.
+ * \param argv  The array of t_atom.
+ * \param ac  The size of the array of t_atom.
+ * \param av  The size of the array of t_atom.
+ * \todo Documentation and later try to clean all this functions
+ */
+void unparse_atoms(int argc, t_atom* argv, int* ac, t_atom** av);
+
+/*!
+ * \fn          void unparse_atoms(int argc, t_atom* argv, int* ac, t_atom** av)
+ * \brief       Unparses an array of atoms .
+ * \details     The function looks for the first t_symbol* that starts with the character \@.
+ * \param argc  The size of the array of t_atom.
+ * \param argv  The array of t_atom.
+ * \param ac  The size of the array of t_atom.
+ * \param av  The size of the array of t_atom.
+ * \todo Documentation and later try to clean all this functions
+ */
+void parse_atoms(int argc, t_atom* argv, int* ac, t_atom** av);
+
+/*!
  * \fn          long atoms_get_attributes_offset(int ac, t_atom* av)
  * \brief       Retrieves the position of the first attribute in an array of t_atom.
  * \details     The function looks for the first t_symbol* that starts with the character \@.

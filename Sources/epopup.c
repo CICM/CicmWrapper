@@ -691,7 +691,7 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
             }
             else
             {
-                sys_vgui("set %sattr_value%i \"", va, i+1);
+                sys_vgui("set %sattr_value%i [concat ", va, i+1);
                 if(argc && argv)
                 {
                     for(j = 0; j < argc - 1; j++)
@@ -702,7 +702,7 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                         }
                         else if(atom_gettype(argv+j) == A_SYMBOL)
                         {
-                            sys_vgui("%s ", atom_getsymbol(argv+j)->s_name);
+                            sys_vgui("'%s' ", atom_getsymbol(argv+j)->s_name);
                         }
                     }
                     if(atom_gettype(argv+argc-1) == A_FLOAT)
@@ -711,10 +711,10 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                     }
                     else if(atom_gettype(argv+argc-1) == A_SYMBOL)
                     {
-                        sys_vgui("%s", atom_getsymbol(argv+argc-1)->s_name);
+                        sys_vgui("'%s'", atom_getsymbol(argv+argc-1)->s_name);
                     }
                 }
-                sys_gui("\"\n");
+                sys_gui("]\n");
                 sys_vgui("entry %s.attr_values%i.label -font {Helvetica 12} -width 20 \
                          -textvariable %sattr_value%i\n", tx, i+1, va, i+1);
                 sys_vgui("bind %s.attr_values%i.label <KeyPress-Return> {pdsend \"%s %s $%sattr_value%i\"}\n",
