@@ -785,7 +785,7 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                 sys_vgui("frame %s.param_menu_max%i\n",     tx, i+1);
                 
                 sys_vgui("label %s.param_menu_index%i.entry -font {Helvetica 12} -width 1\
-                         -text \"%i\"\n",tx, i+1, z->b_params[i]->p_index);
+                         -text \"%i\"\n",tx, i+1, i+1);
                 sys_vgui("set %sparam_menu_name%i \"%s\"\n", va, i+1, z->b_params[i]->p_name->s_name);
                 sys_vgui("entry %s.param_menu_name%i.entry -font {Helvetica 12} -width 13 \
                          -textvariable %sparam_menu_name%i -state %s\n", tx, i+1, va, i+1,
@@ -804,13 +804,13 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                          (z->b_params[i]->p_flags & EPARAM_STATIC_MAX) ? "readonly" : "normal");
                 
                 sys_vgui("bind %s.param_menu_name%i.entry <KeyPress-Return> {pdsend \"%s param %i name $%sparam_menu_name%i\"}\n",
-                         tx, i+1, x->o_id->s_name, z->b_params[i]->p_index, va, i+1);
+                         tx, i+1, x->o_id->s_name, i+1, va, i+1);
                 sys_vgui("bind %s.param_menu_label%i.entry <KeyPress-Return> {pdsend \"%s param %i label $%sparam_menu_label%i\"}\n",
-                         tx, i+1, x->o_id->s_name, z->b_params[i]->p_index, va, i+1);
+                         tx, i+1, x->o_id->s_name, i+1, va, i+1);
                 sys_vgui("bind %s.param_menu_min%i.entry <KeyPress-Return> {pdsend \"%s param %i min $%sparam_menu_min%i\"}\n",
-                         tx, i+1, x->o_id->s_name, z->b_params[i]->p_index, va, i+1);
+                         tx, i+1, x->o_id->s_name, i+1, va, i+1);
                 sys_vgui("bind %s.param_menu_max%i.entry <KeyPress-Return> {pdsend \"%s param %i max $%sparam_menu_max%i\"}\n",
-                         tx, i+1, x->o_id->s_name, z->b_params[i]->p_index, va, i+1);
+                         tx, i+1, x->o_id->s_name, i+1, va, i+1);
                 
                 sys_vgui("pack  %s.param_menu_index%i.entry -side left -fill both -expand 1\n",  tx);
                 sys_vgui("pack  %s.param_menu_name%i.entry -side left -fill both -expand 1\n",  tx);

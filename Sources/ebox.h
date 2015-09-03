@@ -679,6 +679,15 @@ void eparameter_setmax(t_eparam* param, float max);
 void eparameter_setnstep(t_eparam* param, int nstep);
 
 /*!
+ * \fn              void eparameter_setindex(t_eparam* param, int index)
+ * \brief           Sets the internal index of parameter.
+ * \details         This function shoudl be called from outside the owner object.
+ * \param param     The t_eparam pointer.
+ * \param index     The index of the parameter.
+ */
+void eparameter_setindex(t_eparam* param, int index);
+
+/*!
  * \fn          t_eparam* eparameter_getfromsymbol(t_symbol* name)
  * \brief       Retrieves a t_eparam from a symbol.
  * \param name  The binding symbol of the t_eparam.
