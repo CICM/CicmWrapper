@@ -608,93 +608,123 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                      tx, i+1, attr->name->s_name);
             
             eobj_attr_getvalueof(x,  attr->name, &argc, &argv);
-            if(argc && argv)
+            if(attr->style == s_cream_checkbutton)
             {
-                if(attr->style == s_cream_checkbutton && atom_gettype(argv) == A_FLOAT)
-                {
+                if(argc && argv && atom_gettype(argv) == A_FLOAT)
                     sys_vgui("set %sattr_value%i %i\n", va, i+1, (int)atom_getfloat(argv));
-                    sys_vgui("checkbutton %s.attr_values%i.label -variable %s%i -command {pdsend \"%s %s $%s%i\"}\n",
-                             tx, i+1, va, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
-                }
-                else if(attr->style == s_cream_color && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT
-                        && atom_gettype(argv+2) == A_FLOAT && atom_gettype(argv+3) == A_FLOAT)
+                else
+                    sys_vgui("set %sattr_value%i 0\n", va, i+1);
+                sys_vgui("checkbutton %s.attr_values%i.label -variable %s%i -command {pdsend \"%s %s $%s%i\"}\n",
+                         tx, i+1, va, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
+            }
+            else if(attr->style == s_cream_color)
+            {
+                if(argc && argv && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT
+                   && atom_gettype(argv+2) == A_FLOAT && atom_gettype(argv+3) == A_FLOAT)
                 {
                     color.red = atom_getfloat(argv); color.green = atom_getfloat(argv+1);
                     color.blue = atom_getfloat(argv+2); color.alpha = atom_getfloat(argv+3);
-                    sys_vgui("set %sattr_value%i %s\n", va, i+1, rgba_to_hex(&color));
-                    sys_vgui("entry %s.attr_values%i.label -font {Helvetica 12} -width 20 -readonlybackground $%sattr_value%i -state readonly\n",
-                             tx, i+1, va, i+1);
-                    sys_vgui("bind %s.attr_values%i.label <Button> [concat epicker_apply %s %s $ %sattr_value%i %s.attr_values%i.label]\n",
-                             tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1, tx, i+1);
                 }
-                else if(attr->style == s_cream_number && atom_gettype(argv) == A_FLOAT)
+                else
                 {
-                    sys_vgui("set %sattr_value%i %g\n", va, i+1, atom_getfloat(argv));
-                    sys_vgui("spinbox %s.attr_values%i.label -font {Helvetica 12} -width 18 \
-                             -textvariable [string trim %sattr_value%i] -command {pdsend \"%s %s $%sattr_value%i\"} \
-                             -increment %f -from %f -to %f\n", tx, i+1, va, i+1,
-                             x->o_id->s_name, attr->name->s_name, va, i+1,
-                             attr->step, (attr->clipped % 2) ? attr->minimum : FLT_MIN,
-                             (attr->clipped > 1) ? attr->maximum : FLT_MAX);
-                    sys_vgui("bind %s.attr_values%i.label <KeyPress-Return> {pdsend \"%s %s $%sattr_value%i\"}\n",
-                             tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
+                    color = rgba_white;
                 }
-                else if(attr->style == s_cream_menu && atom_gettype(argv) == A_SYMBOL)
+                sys_vgui("set %sattr_value%i %s\n", va, i+1, rgba_to_hex(&color));
+                sys_vgui("entry %s.attr_values%i.label -font {Helvetica 12} -width 20 -readonlybackground $%sattr_value%i -state readonly\n",
+                         tx, i+1, va, i+1);
+                sys_vgui("bind %s.attr_values%i.label <Button> [concat epicker_apply %s %s $ %sattr_value%i %s.attr_values%i.label]\n",
+                         tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1, tx, i+1);
+            }
+            else if(attr->style == s_cream_number)
+            {
+                if(argc && argv && atom_gettype(argv) == A_FLOAT)
+                    sys_vgui("set %sattr_value%i %g\n", va, i+1, (int)atom_getfloat(argv));
+                else
+                    sys_vgui("set %sattr_value%i 0\n", va, i+1);
+                sys_vgui("spinbox %s.attr_values%i.label -font {Helvetica 12} -width 18 \
+                         -textvariable [string trim %sattr_value%i] -command {pdsend \"%s %s $%sattr_value%i\"} \
+                         -increment %f -from %f -to %f\n", tx, i+1, va, i+1,
+                         x->o_id->s_name, attr->name->s_name, va, i+1,
+                         attr->step, (attr->clipped % 2) ? attr->minimum : FLT_MIN,
+                         (attr->clipped > 1) ? attr->maximum : FLT_MAX);
+                sys_vgui("bind %s.attr_values%i.label <KeyPress-Return> {pdsend \"%s %s $%sattr_value%i\"}\n",
+                         tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
+            }
+            else if(attr->style == s_cream_menu && atom_gettype(argv) == A_SYMBOL)
+            {
+                if(argc && argv && atom_gettype(argv) == A_SYMBOL)
+                    sys_vgui("set %sattr_value%i %s\n", va, i+1,  atom_getsymbol(argv)->s_name);
+                else
+                    sys_vgui("set %sattr_value%i \"\"\n", va, i+1);
+                sys_vgui("spinbox %s.attr_values%i.label -font {Helvetica 12} -width 18 -state readonly\
+                         -textvariable [string trim %sattr_value%i] -command {pdsend \"%s %s $%sattr_value%i\"} \
+                         -values {", tx, i+1, va, i+1,
+                         x->o_id->s_name, attr->name->s_name, va, i+1);
+                for(j = 0; j < attr->itemssize; j++)
                 {
-                    sys_vgui("set %sattr_value%i %s\n", va, i+1, atom_getsymbol(argv)->s_name);
-                    sys_vgui("spinbox %s.attr_values%i.label -font {Helvetica 12} -width 18 -state readonly\
-                             -textvariable [string trim %sattr_value%i] -command {pdsend \"%s %s $%sattr_value%i\"} \
-                             -values {", tx, i+1, va, i+1,
-                             x->o_id->s_name, attr->name->s_name, va, i+1);
-                    for(j = 0; j < attr->itemssize; j++)
-                    {
-                        sys_vgui("%s ", attr->itemslist[attr->itemssize - 1 - j]->s_name);
-                    }
-                    sys_vgui("}\n");
+                    sys_vgui("%s ", attr->itemslist[attr->itemssize - 1 - j]->s_name);
                 }
-                else if(attr->style == s_cream_font && atom_gettype(argv) == A_SYMBOL && atom_gettype(argv+1) == A_FLOAT
-                         && atom_gettype(argv+2) == A_SYMBOL && atom_gettype(argv+3) == A_SYMBOL)
+                sys_vgui("}\n");
+            }
+            else if(attr->style == s_cream_font)
+            {
+                if(argc && argv && atom_gettype(argv) == A_SYMBOL && atom_gettype(argv+1) == A_FLOAT
+                   && atom_gettype(argv+2) == A_SYMBOL && atom_gettype(argv+3) == A_SYMBOL)
                 {
                     sys_vgui("set %sattr_value%i \"%s %i %s %s\"\n", va, i+1, atom_getsymbol(argv)->s_name, (int)atom_getfloat(argv+1), atom_getsymbol(argv+2)->s_name, atom_getsymbol(argv+3)->s_name);
                     sys_vgui("entry %s.attr_values%i.label -font {%s 12 %s %s} -width 20 -textvariable %sattr_value%i -state readonly\n"
                              ,tx, i+1,
                              atom_getsymbol(argv)->s_name, atom_getsymbol(argv+2)->s_name, atom_getsymbol(argv+3)->s_name,
                              va, i+1);
-                    sys_vgui("bind %s.attr_values%i.label <Button> [concat efont_apply %s %s {$%sattr_value%i} %s.attr_values%i.label]\n",
-                            tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1, tx, i+1);
                 }
                 else
                 {
-                    sys_vgui("set %sattr_value%i \"", va, i+1);
+                    sys_vgui("set %sattr_value%i \"\"\n", va, i+1);
+                    sys_vgui("entry %s.attr_values%i.label -font {Helvetica 12} -width 20 -textvariable %sattr_value%i -state readonly\n"
+                             ,tx, i+1,
+                             atom_getsymbol(argv)->s_name, atom_getsymbol(argv+2)->s_name, atom_getsymbol(argv+3)->s_name,
+                             va, i+1);
+                }
+                
+                sys_vgui("bind %s.attr_values%i.label <Button> [concat efont_apply %s %s {$%sattr_value%i} %s.attr_values%i.label]\n",
+                         tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1, tx, i+1);
+            }
+            else
+            {
+                sys_vgui("set %sattr_value%i \"", va, i+1);
+                if(argc && argv)
+                {
                     for(j = 0; j < argc - 1; j++)
                     {
-                        if(atom_gettype(argv+1) == A_FLOAT)
+                        if(atom_gettype(argv+j) == A_FLOAT)
                         {
-                            sys_vgui("%g ", atom_getfloat(argv+i));
+                            sys_vgui("%g ", atom_getfloat(argv+j));
                         }
-                        else if(atom_gettype(argv+i) == A_SYMBOL)
+                        else if(atom_gettype(argv+j) == A_SYMBOL)
                         {
-                            sys_vgui("%s ", atom_getsymbol(argv+i)->s_name);
+                            sys_vgui("%s ", atom_getsymbol(argv+j)->s_name);
                         }
                     }
                     if(atom_gettype(argv+argc-1) == A_FLOAT)
                     {
                         sys_vgui("%g", atom_getfloat(argv+argc-1));
                     }
-                    else if(atom_gettype(argv+i) == A_SYMBOL)
+                    else if(atom_gettype(argv+argc-1) == A_SYMBOL)
                     {
                         sys_vgui("%s", atom_getsymbol(argv+argc-1)->s_name);
                     }
-                    sys_gui("\"\n");
-                    sys_vgui("entry %s.attr_values%i.label -font {Helvetica 12} -width 20 \
-                             -textvariable [string trim %sattr_value%i]\n", tx, i+1, va, i+1);
-                    sys_vgui("bind %s.attr_values%i.label <KeyPress-Return> {pdsend \"%s %s $%sattr_value%i\"}\n",
-                             tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
-                    
                 }
+                sys_gui("\"\n");
+                sys_vgui("entry %s.attr_values%i.label -font {Helvetica 12} -width 20 \
+                         -textvariable %sattr_value%i\n", tx, i+1, va, i+1);
+                sys_vgui("bind %s.attr_values%i.label <KeyPress-Return> {pdsend \"%s %s $%sattr_value%i\"}\n",
+                         tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
+                
+            }
+            if(argc && argv)
+            {
                 free(argv);
             }
-        
             argv = NULL;
             argc = 0;
             
