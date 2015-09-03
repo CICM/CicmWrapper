@@ -847,7 +847,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
             {
                 if(atom_gettype(argv+j) == A_SYMBOL)
                 {
-                    pointor[j] = gensym(atom_getsymbol(argv+j)->s_name);
+                    pointor[j] = atom_getsymbol(argv+j);
                 }
             }
         }
