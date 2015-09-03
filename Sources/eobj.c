@@ -165,8 +165,11 @@ void eobj_save(t_gobj* x, t_binbuf *b)
                         eobj_attr_getvalueof(x, c->c_attr[i]->name, &argc, &argv);
                         if(argc && argv)
                         {
-                            snprintf(buffer, MAXPDSTRING, "@%s", c->c_attr[i]->name->s_name);
-                            binbuf_append_attribute(b, gensym(buffer), argc, argv);
+                            if(!(argc == 1 && atom_gettype(argv) == A_SYMBOL && !is_valid_symbol(atom_getsymbol(argv))))
+                            {
+                                snprintf(buffer, MAXPDSTRING, "@%s", c->c_attr[i]->name->s_name);
+                                binbuf_append_attribute(b, gensym(buffer), argc, argv);
+                            }
                             argc = 0;
                             free(argv);
                             argv = NULL;
