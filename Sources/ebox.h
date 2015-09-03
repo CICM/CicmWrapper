@@ -625,11 +625,64 @@ void eparameter_setvalue_normalized(t_eparam* param, float value);
 void eparameter_setvalue_text(t_eparam* param, char const* text);
 
 /*!
+ * \fn              void eparameter_setname(t_eparam* param, t_symbol* name)
+ * \brief           Sets name of the parameter.
+ * \details         This function shoudl be called from outside the owner object.
+ * \param param     The t_eparam pointer.
+ * \param name      The name of the parameter.
+ */
+void eparameter_setname(t_eparam* param, t_symbol* name);
+
+/*!
+ * \fn              void eparameter_setlabel(t_eparam* param, t_symbol* label)
+ * \brief           Sets label of the parameter.
+ * \details         This function shoudl be called from outside the owner object.
+ * \param param     The t_eparam pointer.
+ * \param label     The label of the parameter.
+ */
+void eparameter_setlabel(t_eparam* param, t_symbol* label);
+
+/*!
+ * \fn              void eparameter_setmin(t_eparam* param, float min)
+ * \brief           Sets minimum value of the parameter.
+ * \details         This function shoudl be called from outside the owner object.
+ * \param param     The t_eparam pointer.
+ * \param min       The minimum value of the parameter.
+ */
+void eparameter_setmin(t_eparam* param, float min);
+
+/*!
+ * \fn              void eparameter_setmax(t_eparam* param, float max)
+ * \brief           Sets maximum value of the parameter.
+ * \details         This function shoudl be called from outside the owner object.
+ * \param param     The t_eparam pointer.
+ * \param max       The maximum value of the parameter.
+ */
+void eparameter_setmax(t_eparam* param, float max);
+
+/*!
+ * \fn              void eparameter_setnstep(t_eparam* param, int nstep)
+ * \brief           Sets number of steps of the parameter.
+ * \details         This function shoudl be called from outside the owner object.
+ * \param param     The t_eparam pointer.
+ * \param nstep     The number of steps of the parameter.
+ */
+void eparameter_setnstep(t_eparam* param, int nstep);
+
+/*!
  * \fn          t_eparam* eparameter_getfromsymbol(t_symbol* name)
  * \brief       Retrieves a t_eparam from a symbol.
  * \param name  The binding symbol of the t_eparam.
  */
 t_eparam* eparameter_getfromsymbol(t_symbol* name);
+
+/*!
+ * \fn          t_eparam* eparameter_getbyindex(t_ebox* x, int index)
+ * \brief       Retrieves a t_eparam from a symbol.
+ * \param x     The t_ebox that owns the parameter.
+ * \param index The index of the parameter.
+ */
+t_eparam* eparameter_getbyindex(t_ebox* x, int index);
 
 //! @endcond
 

@@ -1379,7 +1379,7 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
                 char text[256];
                 stringifyJustification(gobj->e_justify, text);
                 const t_pt np = recomputeRectangle(gobj->e_justify, gobj->e_points, gobj->e_points+1);
-                sys_vgui("%s create text %d %d -text {%s} %s -font {\"%s\" %d %s %s} -fill %s -width %d -tags { %s %s }\n",
+                sys_vgui("%s create text %d %d -text {%s} %s -font {{%s} %d %s %s} -fill %s -width %d -tags { %s %s }\n",
                          x->b_drawing_id->s_name,
                          (int)(np.x + x_p + bdsize),
                          (int)(np.y + y_p + bdsize),
@@ -1539,35 +1539,31 @@ static void ebox_move(t_ebox* x)
 
 void ebox_set_parameter_attribute(t_ebox *x, t_symbol *s, int argc, t_atom* argv)
 {
-    int index;
+    t_eparam* param;
     if(argc > 2 && argv && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_SYMBOL)
     {
-        index = (int)atom_getfloat(argv);
-        if(index && index <= x->b_nparams && x->b_params[index-1])
+        param = eparameter_getbyindex(x, (int)atom_getfloat(argv));
+        if(param)
         {
-            if(atom_getsymbol(argv+1) == gensym("name") && atom_gettype(argv+2) == A_SYMBOL &&
-               !(x->b_params[index-1]->p_flags & EPARAM_STATIC_NAME))
+            if(atom_getsymbol(argv+1) == gensym("name") && atom_gettype(argv+2) == A_SYMBOL)
             {
-                ebox_parameter_setname(x, index, atom_getsymbol(argv+2));
-                canvas_dirty(eobj_getcanvas(x), 1);
+                eparameter_setname(param, atom_getsymbol(argv+2));
             }
-            else if(atom_getsymbol(argv+1) == gensym("label") && atom_gettype(argv+2) == A_SYMBOL &&
-                    !(x->b_params[index-1]->p_flags & EPARAM_STATIC_LABEL))
+            else if(atom_getsymbol(argv+1) == gensym("label") && atom_gettype(argv+2) == A_SYMBOL)
             {
-                ebox_parameter_setlabel(x, index, atom_getsymbol(argv+2));
-                canvas_dirty(eobj_getcanvas(x), 1);
+                eparameter_setlabel(param, atom_getsymbol(argv+2));
             }
-            else if(atom_getsymbol(argv+1) == gensym("min") && atom_gettype(argv+2) == A_FLOAT &&
-                    !(x->b_params[index-1]->p_flags & EPARAM_STATIC_MIN))
+            else if(atom_getsymbol(argv+1) == gensym("min") && atom_gettype(argv+2) == A_FLOAT )
             {
-                ebox_parameter_setmin(x, index, atom_getfloat(argv+2));
-                canvas_dirty(eobj_getcanvas(x), 1);
+                eparameter_setmin(param, atom_getfloat(argv+2));
             }
-            else if(atom_getsymbol(argv+1) == gensym("max") && atom_gettype(argv+2) == A_FLOAT &&
-                    !(x->b_params[index-1]->p_flags & EPARAM_STATIC_MAX))
+            else if(atom_getsymbol(argv+1) == gensym("max") && atom_gettype(argv+2) == A_FLOAT)
             {
-                ebox_parameter_setmax(x, index, atom_getfloat(argv+2));
-                canvas_dirty(eobj_getcanvas(x), 1);
+                eparameter_setmax(param, atom_getfloat(argv+2));
+            }
+            else if(atom_getsymbol(argv+1) == gensym("nstep") && atom_gettype(argv+2) == A_FLOAT)
+            {
+                eparameter_setnstep(param, (int)atom_getfloat(argv+2));
             }
         }
     }
@@ -1908,24 +1904,7 @@ void ebox_parameter_setmin(t_ebox* x, int index, float min)
     {
         if(x->b_params[index])
         {
-            if(x->b_params[index]->p_flags & EPARAM_STATIC_INVERTED)
-            {
-                const float max = x->b_params[index]->p_max;
-                if(x->b_params[index]->p_min < x->b_params[index]->p_max)
-                {
-                    x->b_params[index]->p_min = min < max ? min : max;
-                    x->b_params[index]->p_max = max > min ? max : min;
-                }
-                else
-                {
-                    x->b_params[index]->p_min = min > max ? min : max;
-                    x->b_params[index]->p_max = max < min ? max : min;
-                }
-            }
-            else
-            {
-                x->b_params[index]->p_min = min;
-            }
+            x->b_params[index]->p_min = min;
             ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
         }
     }
@@ -1938,25 +1917,7 @@ void ebox_parameter_setmax(t_ebox* x, int index, float max)
     {
         if(x->b_params[index])
         {
-            if(x->b_params[index]->p_flags & EPARAM_STATIC_INVERTED)
-            {
-                const float min = x->b_params[index]->p_min;
-                if(x->b_params[index]->p_min < x->b_params[index]->p_max)
-                {
-                    x->b_params[index]->p_min = min < max ? min : max;
-                    x->b_params[index]->p_max = max > min ? max : min;
-                }
-                else
-                {
-                    x->b_params[index]->p_min = min > max ? min : max;
-                    x->b_params[index]->p_max = max < min ? max : min;
-                }
-            }
-            else
-            {
-                x->b_params[index]->p_max = max;
-            }
-            
+            x->b_params[index]->p_max = max;
             ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
         }
     }
@@ -1969,24 +1930,8 @@ void ebox_parameter_setminmax(t_ebox* x, int index, float min, float max)
     {
         if(x->b_params[index])
         {
-            if(x->b_params[index]->p_flags & EPARAM_STATIC_INVERTED)
-            {
-                if(x->b_params[index]->p_min < x->b_params[index]->p_max)
-                {
-                    x->b_params[index]->p_min = min < max ? min : max;
-                    x->b_params[index]->p_max = max > min ? max : min;
-                }
-                else
-                {
-                    x->b_params[index]->p_min = min > max ? min : max;
-                    x->b_params[index]->p_max = max < min ? max : min;
-                }
-            }
-            else
-            {
-                x->b_params[index]->p_min = min;
-                x->b_params[index]->p_max = max;
-            }
+            x->b_params[index]->p_min = min;
+            x->b_params[index]->p_max = max;
             ebox_parameter_notify((t_eobj *)x, s_cream_parameter, x->b_params[index]->p_bind, s_cream_attr_modified);
         }
     }
@@ -2154,12 +2099,104 @@ void eparameter_setvalue_text(t_eparam* param, char const* text)
     }
 }
 
+void eparameter_setname(t_eparam* param, t_symbol* name)
+{
+    if(!(param->p_flags & EPARAM_STATIC_NAME))
+    {
+        param->p_name = get_valid_symbol(name);
+        canvas_dirty(eobj_getcanvas(eobj_getcanvas(param->p_owner)), 1);
+    }
+}
+
+void eparameter_setlabel(t_eparam* param, t_symbol* label)
+{
+    if(!(param->p_flags & EPARAM_STATIC_LABEL))
+    {
+        param->p_label = get_valid_symbol(label);
+        canvas_dirty(eobj_getcanvas(eobj_getcanvas(param->p_owner)), 1);
+    }
+}
+
+void eparameter_setmin(t_eparam* param, float min)
+{
+    if(!(param->p_flags & EPARAM_STATIC_MIN))
+    {
+        if(param->p_flags & EPARAM_STATIC_INVERTED)
+        {
+            const float max = param->p_max;
+            if(param->p_min < param->p_max)
+            {
+                param->p_min = min < max ? min : max;
+                param->p_max = max > min ? max : min;
+            }
+            else
+            {
+                param->p_min = min > max ? min : max;
+                param->p_max = max < min ? max : min;
+            }
+        }
+        else
+        {
+            param->p_min = min;
+        }
+        canvas_dirty(eobj_getcanvas(eobj_getcanvas(param->p_owner)), 1);
+    }
+}
+
+void eparameter_setmax(t_eparam* param, float max)
+{
+    if(!(param->p_flags & EPARAM_STATIC_MAX))
+    {
+        if(param->p_flags & EPARAM_STATIC_INVERTED)
+        {
+            const float min = param->p_min;
+            if(param->p_min < param->p_max)
+            {
+                param->p_min = min < max ? min : max;
+                param->p_max = max > min ? max : min;
+            }
+            else
+            {
+                param->p_min = min > max ? min : max;
+                param->p_max = max < min ? max : min;
+            }
+        }
+        else
+        {
+            param->p_max = max;
+        }
+        canvas_dirty(eobj_getcanvas(eobj_getcanvas(param->p_owner)), 1);
+    }
+}
+
+void eparameter_setnstep(t_eparam* param, int nstep)
+{
+    if(!(param->p_flags & EPARAM_STATIC_NSTEPS))
+    {
+        param->p_nstep = nstep > 1 ? (int)nstep : 1;
+        canvas_dirty(eobj_getcanvas(eobj_getcanvas(param->p_owner)), 1);
+    }
+}
+
 t_eparam* eparameter_getfromsymbol(t_symbol* name)
 {
     t_class* c = eparameter_setup();
     if(c)
     {
         return (t_eparam *)pd_findbyclass(name, c);
+    }
+    return NULL;
+}
+
+t_eparam* eparameter_getbyindex(t_ebox* x, int index)
+{
+    index--;
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            return x->b_params[index];
+        }
     }
     return NULL;
 }
