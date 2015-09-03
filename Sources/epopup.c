@@ -88,7 +88,7 @@ void epopupmenu_destroy(t_epopup* popup)
 
 void epopupmenu_setfont(t_epopup* popup, t_efont *font)
 {
-    sys_vgui("%s configure -font {%s %d %s italic}\n", popup->c_name->s_name, font[0].family->s_name, (int)font[0].size, font[0].weight->s_name, font[0].slant->s_name);
+    sys_vgui("%s configure -font {{%s} %d %s italic}\n", popup->c_name->s_name, font[0].family->s_name, (int)font[0].size, font[0].weight->s_name, font[0].slant->s_name);
     memcpy(&popup->c_font, font, sizeof(t_efont));
     eobj_widget_notify(popup->c_owner, s_cream_popup, popup->c_popup_id, s_cream_attr_modified);
 }
@@ -457,7 +457,7 @@ void etexteditor_clear(t_etexteditor* editor)
 
 void etexteditor_setfont(t_etexteditor *editor, t_efont const* font)
 {
-    sys_vgui("%s configure -font {%s %d %s %s}\n", editor->c_name->s_name,
+    sys_vgui("%s configure -font {{%s} %d %s %s}\n", editor->c_name->s_name,
              font->family->s_name, (int)font->size, font->weight->s_name, font->slant->s_name);
     
     memcpy(&editor->c_font, font, sizeof(t_efont));
@@ -671,8 +671,8 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                 if(argc && argv && atom_gettype(argv) == A_SYMBOL && atom_gettype(argv+1) == A_FLOAT
                    && atom_gettype(argv+2) == A_SYMBOL && atom_gettype(argv+3) == A_SYMBOL)
                 {
-                    sys_vgui("set %sattr_value%i \"%s %i %s %s\"\n", va, i+1, atom_getsymbol(argv)->s_name, (int)atom_getfloat(argv+1), atom_getsymbol(argv+2)->s_name, atom_getsymbol(argv+3)->s_name);
-                    sys_vgui("entry %s.attr_values%i.label -font {%s 12 %s %s} -width 20 -textvariable %sattr_value%i -state readonly\n"
+                    sys_vgui("set %sattr_value%i \"{%s} %i %s %s\"\n", va, i+1, atom_getsymbol(argv)->s_name, (int)atom_getfloat(argv+1), atom_getsymbol(argv+2)->s_name, atom_getsymbol(argv+3)->s_name);
+                    sys_vgui("entry %s.attr_values%i.label -font {\"%s\" 12 %s %s} -width 20 -textvariable %sattr_value%i -state readonly\n"
                              ,tx, i+1,
                              atom_getsymbol(argv)->s_name, atom_getsymbol(argv+2)->s_name, atom_getsymbol(argv+3)->s_name,
                              va, i+1);
@@ -691,9 +691,10 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
             }
             else
             {
-                sys_vgui("set %sattr_value%i [concat ", va, i+1);
+                
                 if(argc && argv)
                 {
+                    sys_vgui("set %sattr_value%i [concat ", va, i+1);
                     for(j = 0; j < argc - 1; j++)
                     {
                         if(atom_gettype(argv+j) == A_FLOAT)
@@ -709,12 +710,16 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                     {
                         sys_vgui("%g", atom_getfloat(argv+argc-1));
                     }
-                    else if(atom_gettype(argv+argc-1) == A_SYMBOL)
+                    else if(atom_gettype(argv+argc-1) == A_SYMBOL && is_valid_symbol(atom_getsymbol(argv+argc-1)))
                     {
                         sys_vgui("'%s'", atom_getsymbol(argv+argc-1)->s_name);
                     }
+                    sys_gui("]\n");
                 }
-                sys_gui("]\n");
+                else
+                {
+                    sys_vgui("set %sattr_value%i \"\"", va, i+1);
+                }
                 sys_vgui("entry %s.attr_values%i.label -font {Helvetica 12} -width 20 \
                          -textvariable %sattr_value%i\n", tx, i+1, va, i+1);
                 sys_vgui("bind %s.attr_values%i.label <KeyPress-Return> {pdsend \"%s %s $%sattr_value%i\"}\n",
