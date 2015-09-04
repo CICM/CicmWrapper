@@ -789,19 +789,19 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                 sys_vgui("set %sparam_menu_name%i \"%s\"\n", va, i+1, z->b_params[i]->p_name->s_name);
                 sys_vgui("entry %s.param_menu_name%i.entry -font {Helvetica 12} -width 13 \
                          -textvariable %sparam_menu_name%i -state %s\n", tx, i+1, va, i+1,
-                         (z->b_params[i]->p_flags & EPARAM_STATIC_NAME) ? "readonly" : "normal");
+                         (z->b_params[i]->p_flags & EPARAM_STATIC_NAME) ? "disable" : "normal");
                 sys_vgui("set %sparam_menu_label%i \"%s\"\n", va, i+1, z->b_params[i]->p_label->s_name);
                 sys_vgui("entry %s.param_menu_label%i.entry -font {Helvetica 12} -width 15 \
                          -textvariable %sparam_menu_label%i -state %s\n", tx, i+1, va, i+1,
-                         (z->b_params[i]->p_flags & EPARAM_STATIC_LABEL) ? "readonly" : "normal");
+                         (z->b_params[i]->p_flags & EPARAM_STATIC_LABEL) ? "disable" : "normal");
                 sys_vgui("set %sparam_menu_min%i \"%g\"\n", va, i+1, z->b_params[i]->p_min);
                 sys_vgui("entry %s.param_menu_min%i.entry -font {Helvetica 12} -width 9 \
                          -textvariable %sparam_menu_min%i -state %s\n", tx, i+1, va, i+1,
-                         (z->b_params[i]->p_flags & EPARAM_STATIC_MIN) ? "readonly" : "normal");
+                         (z->b_params[i]->p_flags & EPARAM_STATIC_MIN) ? "disable" : "normal");
                 sys_vgui("set %sparam_menu_max%i \"%g\"\n", va, i+1, z->b_params[i]->p_max);
                 sys_vgui("entry %s.param_menu_max%i.entry -font {Helvetica 12} -width 9 \
                          -textvariable %sparam_menu_max%i -state %s\n", tx, i+1, va, i+1,
-                         (z->b_params[i]->p_flags & EPARAM_STATIC_MAX) ? "readonly" : "normal");
+                         (z->b_params[i]->p_flags & EPARAM_STATIC_MAX) ? "disable" : "normal");
                 
                 sys_vgui("bind %s.param_menu_name%i.entry <KeyPress-Return> {pdsend \"%s param %i name $%sparam_menu_name%i\"}\n",
                          tx, i+1, x->o_id->s_name, i+1, va, i+1);
