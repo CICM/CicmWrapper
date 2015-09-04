@@ -1914,7 +1914,7 @@ void ebox_parameter_setminmax(t_ebox* x, int index, float min, float max)
             x->b_params[index]->p_min = min;
             x->b_params[index]->p_max = max;
             ebox_parameter_notify(x->b_params[index], s_cream_attr_modified);
-            ebox_parameter_setvalue(x, index +1, x->b_params[index]->p_value, 1);
+            ebox_parameter_setvalue(x, index+1, x->b_params[index]->p_value, 1);
         }
     }
 }
