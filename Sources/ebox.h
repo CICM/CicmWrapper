@@ -427,6 +427,15 @@ float ebox_parameter_getmin(t_ebox* x, int index);
 float ebox_parameter_getmax(t_ebox* x, int index);
 
 /*!
+ * \fn              int ebox_parameter_getnstep(t_ebox* x, int index)
+ * \brief           Retrieves the number of steps of the parameter.
+ * \param x         The t_ebox pointer.
+ * \param index     The index of the parameter.
+ * \return          The number of steps of the parameter.
+ */
+int ebox_parameter_getnstep(t_ebox* x, int index);
+
+/*!
  * \fn              t_symbol* ebox_parameter_getbind(t_ebox* x, int index)
  * \brief           Retrieves the binding t_symbol of the parameter.
  * \param x         The t_ebox pointer.

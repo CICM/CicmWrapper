@@ -1823,6 +1823,19 @@ float ebox_parameter_getmax(t_ebox* x, int index)
     return 1.f;
 }
 
+int ebox_parameter_getnstep(t_ebox* x, int index)
+{
+    index--;
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            return x->b_params[index]->p_nstep;
+        }
+    }
+    return 1;
+}
+
 t_symbol* ebox_parameter_getbind(t_ebox* x, int index)
 {
     index--;
