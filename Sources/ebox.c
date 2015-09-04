@@ -1904,32 +1904,6 @@ void ebox_parameter_setlabel(t_ebox* x, int index, t_symbol* label)
     }
 }
 
-void ebox_parameter_setmin(t_ebox* x, int index, float min)
-{
-    index--;
-    if(index >= 0 && index < x->b_nparams)
-    {
-        if(x->b_params[index])
-        {
-            x->b_params[index]->p_min = min;
-            ebox_parameter_notify(x->b_params[index], s_cream_attr_modified);
-        }
-    }
-}
-
-void ebox_parameter_setmax(t_ebox* x, int index, float max)
-{
-    index--;
-    if(index >= 0 && index < x->b_nparams)
-    {
-        if(x->b_params[index])
-        {
-            x->b_params[index]->p_max = max;
-            ebox_parameter_notify(x->b_params[index], s_cream_attr_modified);
-        }
-    }
-}
-
 void ebox_parameter_setminmax(t_ebox* x, int index, float min, float max)
 {
     index--;
@@ -1940,6 +1914,7 @@ void ebox_parameter_setminmax(t_ebox* x, int index, float min, float max)
             x->b_params[index]->p_min = min;
             x->b_params[index]->p_max = max;
             ebox_parameter_notify(x->b_params[index], s_cream_attr_modified);
+            ebox_parameter_setvalue(x, index +1, x->b_params[index]->p_value, 1);
         }
     }
 }

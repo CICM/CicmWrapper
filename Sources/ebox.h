@@ -496,24 +496,6 @@ void ebox_parameter_setname(t_ebox* x, int index, t_symbol* name);
 void ebox_parameter_setlabel(t_ebox* x, int index, t_symbol* label);
 
 /*!
- * \fn              void ebox_parameter_setmin(t_ebox* x, int index, float min)
- * \brief           Sets the minimum value of the parameter.
- * \param x         The t_ebox pointer.
- * \param index     The index of the parameter.
- * \param min       The minimum value of the parameter.
- */
-void ebox_parameter_setmin(t_ebox* x, int index, float min);
-
-/*!
- * \fn              void ebox_parameter_setmax(t_ebox* x, int index, float max)
- * \brief           Sets the maximum value of the parameter.
- * \param x         The t_ebox pointer.
- * \param index     The index of the parameter.
- * \param max       The maximum value of the parameter.
- */
-void ebox_parameter_setmax(t_ebox* x, int index, float max);
-
-/*!
  * \fn              void ebox_parameter_setminmax(t_ebox* x, int index, float max)
  * \brief           Sets the maximum and maximum value of the parameter.
  * \param x         The t_ebox pointer.
