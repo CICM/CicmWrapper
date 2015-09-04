@@ -752,26 +752,18 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
         sys_vgui("frame %s.params_menu_index\n",tx);
         sys_vgui("frame %s.params_menu_name\n", tx);
         sys_vgui("frame %s.params_menu_label\n",tx);
-        sys_vgui("frame %s.params_menu_min\n",  tx);
-        sys_vgui("frame %s.params_menu_max\n",  tx);
         
         sys_vgui("label %s.params_menu_index.label -justify left -font {Helvetica 12 bold} -text Index\n",   tx);
         sys_vgui("label %s.params_menu_name.label -justify left -font {Helvetica 12 bold} -text Name\n",     tx);
         sys_vgui("label %s.params_menu_label.label -justify left -font {Helvetica 12 bold} -text Label\n",   tx);
-        sys_vgui("label %s.params_menu_min.label -justify left -font {Helvetica 12 bold} -text Minimum\n",   tx);
-        sys_vgui("label %s.params_menu_max.label -justify left -font {Helvetica 12 bold} -text Maximum\n",   tx);
         
         sys_vgui("pack  %s.params_menu_index.label -side left -fill both -expand 1\n",  tx);
         sys_vgui("pack  %s.params_menu_name.label -side left -fill both -expand 1\n",   tx);
         sys_vgui("pack  %s.params_menu_label.label -side left -fill both -expand 1\n",  tx);
-        sys_vgui("pack  %s.params_menu_min.label -side left -fill both -expand 1\n",    tx);
-        sys_vgui("pack  %s.params_menu_max.label -side left -fill both -expand 1\n",    tx);
         
         sys_vgui("grid config %s.params_menu_index -column 0 -row %i -sticky w\n",    tx, nitems);
         sys_vgui("grid config %s.params_menu_name -column 1 -row %i -sticky w\n",     tx, nitems);
-        sys_vgui("grid config %s.params_menu_label -column 2 -row %i -sticky w\n",    tx, nitems);
-        sys_vgui("grid config %s.params_menu_min -column 3 -row %i -sticky w\n",      tx, nitems);
-        sys_vgui("grid config %s.params_menu_max -column 4 -row %i -sticky w\n",      tx, nitems++);
+        sys_vgui("grid config %s.params_menu_label -column 2 -row %i -sticky w\n",    tx, nitems++);
         
         
         for(i = 0; i < z->b_nparams; i++)
@@ -781,8 +773,6 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                 sys_vgui("frame %s.param_menu_index%i\n",   tx, i+1);
                 sys_vgui("frame %s.param_menu_name%i\n",    tx, i+1);
                 sys_vgui("frame %s.param_menu_label%i\n",   tx, i+1);
-                sys_vgui("frame %s.param_menu_min%i\n",     tx, i+1);
-                sys_vgui("frame %s.param_menu_max%i\n",     tx, i+1);
                 
                 sys_vgui("label %s.param_menu_index%i.entry -font {Helvetica 12} -width 1\
                          -text \"%i\"\n",tx, i+1, i+1);
@@ -794,35 +784,19 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                 sys_vgui("entry %s.param_menu_label%i.entry -font {Helvetica 12} -width 15 \
                          -textvariable %sparam_menu_label%i -state %s\n", tx, i+1, va, i+1,
                          (z->b_params[i]->p_flags & EPARAM_STATIC_LABEL) ? "disable" : "normal");
-                sys_vgui("set %sparam_menu_min%i \"%g\"\n", va, i+1, z->b_params[i]->p_min);
-                sys_vgui("entry %s.param_menu_min%i.entry -font {Helvetica 12} -width 9 \
-                         -textvariable %sparam_menu_min%i -state %s\n", tx, i+1, va, i+1,
-                         (z->b_params[i]->p_flags & EPARAM_STATIC_MIN) ? "disable" : "normal");
-                sys_vgui("set %sparam_menu_max%i \"%g\"\n", va, i+1, z->b_params[i]->p_max);
-                sys_vgui("entry %s.param_menu_max%i.entry -font {Helvetica 12} -width 9 \
-                         -textvariable %sparam_menu_max%i -state %s\n", tx, i+1, va, i+1,
-                         (z->b_params[i]->p_flags & EPARAM_STATIC_MAX) ? "disable" : "normal");
                 
                 sys_vgui("bind %s.param_menu_name%i.entry <KeyPress-Return> {pdsend \"%s param %i name $%sparam_menu_name%i\"}\n",
                          tx, i+1, x->o_id->s_name, i+1, va, i+1);
                 sys_vgui("bind %s.param_menu_label%i.entry <KeyPress-Return> {pdsend \"%s param %i label $%sparam_menu_label%i\"}\n",
                          tx, i+1, x->o_id->s_name, i+1, va, i+1);
-                sys_vgui("bind %s.param_menu_min%i.entry <KeyPress-Return> {pdsend \"%s param %i min $%sparam_menu_min%i\"}\n",
-                         tx, i+1, x->o_id->s_name, i+1, va, i+1);
-                sys_vgui("bind %s.param_menu_max%i.entry <KeyPress-Return> {pdsend \"%s param %i max $%sparam_menu_max%i\"}\n",
-                         tx, i+1, x->o_id->s_name, i+1, va, i+1);
                 
                 sys_vgui("pack  %s.param_menu_index%i.entry -side left -fill both -expand 1\n",  tx);
                 sys_vgui("pack  %s.param_menu_name%i.entry -side left -fill both -expand 1\n",  tx);
                 sys_vgui("pack  %s.param_menu_label%i.entry -side left -fill both -expand 1\n",  tx);
-                sys_vgui("pack  %s.param_menu_min%i.entry -side left -fill both -expand 1\n",  tx);
-                sys_vgui("pack  %s.param_menu_max%i.entry -side left -fill both -expand 1\n",  tx);
                 
                 sys_vgui("grid config %s.param_menu_index%i -column 0 -row %i -sticky w\n",   tx, i+1, nitems);
                 sys_vgui("grid config %s.param_menu_name%i -column 1 -row %i -sticky w\n",    tx, i+1, nitems);
-                sys_vgui("grid config %s.param_menu_label%i -column 2 -row %i -sticky w\n",   tx, i+1, nitems);
-                sys_vgui("grid config %s.param_menu_min%i -column 3 -row %i -sticky w\n",     tx, i+1, nitems);
-                sys_vgui("grid config %s.param_menu_max%i -column 4 -row %i -sticky w\n",     tx, i+1, nitems++);
+                sys_vgui("grid config %s.param_menu_label%i -column 2 -row %i -sticky w\n",   tx, i+1, nitems++);
             }
         }
     }
