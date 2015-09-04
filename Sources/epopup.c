@@ -638,11 +638,11 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
             else if(attr->style == s_cream_number)
             {
                 if(argc && argv && atom_gettype(argv) == A_FLOAT)
-                    sys_vgui("set %sattr_value%i %g\n", va, i+1, (int)atom_getfloat(argv));
+                    sys_vgui("set %sattr_value%i %g\n", va, i+1, atom_getfloat(argv));
                 else
                     sys_vgui("set %sattr_value%i 0\n", va, i+1);
                 sys_vgui("spinbox %s.attr_values%i.label -font {Helvetica 12} -width 18 \
-                         -textvariable [string trim %sattr_value%i] -command {pdsend \"%s %s $%sattr_value%i\"} \
+                         -textvariable %sattr_value%i -command {pdsend \"%s %s $%sattr_value%i\"} \
                          -increment %f -from %f -to %f\n", tx, i+1, va, i+1,
                          x->o_id->s_name, attr->name->s_name, va, i+1,
                          attr->step, (attr->clipped % 2) ? attr->minimum : FLT_MIN,
