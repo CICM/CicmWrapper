@@ -661,33 +661,6 @@ void eparameter_setname(t_eparam* param, t_symbol* name);
 void eparameter_setlabel(t_eparam* param, t_symbol* label);
 
 /*!
- * \fn              void eparameter_setmin(t_eparam* param, float min)
- * \brief           Sets minimum value of the parameter.
- * \details         This function shoudl be called from outside the owner object.
- * \param param     The t_eparam pointer.
- * \param min       The minimum value of the parameter.
- */
-void eparameter_setmin(t_eparam* param, float min);
-
-/*!
- * \fn              void eparameter_setmax(t_eparam* param, float max)
- * \brief           Sets maximum value of the parameter.
- * \details         This function shoudl be called from outside the owner object.
- * \param param     The t_eparam pointer.
- * \param max       The maximum value of the parameter.
- */
-void eparameter_setmax(t_eparam* param, float max);
-
-/*!
- * \fn              void eparameter_setnstep(t_eparam* param, int nstep)
- * \brief           Sets number of steps of the parameter.
- * \details         This function shoudl be called from outside the owner object.
- * \param param     The t_eparam pointer.
- * \param nstep     The number of steps of the parameter.
- */
-void eparameter_setnstep(t_eparam* param, int nstep);
-
-/*!
  * \fn              void eparameter_setindex(t_eparam* param, int index)
  * \brief           Sets the internal index of parameter.
  * \details         This function shoudl be called from outside the owner object.
