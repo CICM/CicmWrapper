@@ -614,7 +614,7 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                     sys_vgui("set %sattr_value%i %i\n", va, i+1, (int)atom_getfloat(argv));
                 else
                     sys_vgui("set %sattr_value%i 0\n", va, i+1);
-                sys_vgui("checkbutton %s.attr_values%i.label -variable %sattr_value%i -command {pdsend \"%s %s $%s%i\"}\n",
+                sys_vgui("checkbutton %s.attr_values%i.label -variable %sattr_value%i -command {pdsend \"%s %s $%sattr_value%i\"}\n",
                          tx, i+1, va, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
             }
             else if(attr->style == s_cream_color)
