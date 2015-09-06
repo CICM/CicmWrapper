@@ -632,7 +632,7 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                 sys_vgui("set %sattr_value%i %s\n", va, i+1, rgba_to_hex(&color));
                 sys_vgui("entry %s.attr_values%i.label -font {Helvetica 12} -width 20 -readonlybackground $%sattr_value%i -state readonly\n",
                          tx, i+1, va, i+1);
-                sys_vgui("bind %s.attr_values%i.label <Button> [concat epicker_apply %s %s $ %sattr_value%i %s.attr_values%i.label]\n",
+                sys_vgui("bind %s.attr_values%i.label <Button> [concat epicker_apply %s %s $%sattr_value%i %s.attr_values%i.label]\n",
                          tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1, tx, i+1);
             }
             else if(attr->style == s_cream_number)
