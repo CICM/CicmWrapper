@@ -796,7 +796,6 @@ typedef struct t_ebox
     long                b_flags;            /*!< The ebox flags. */
     t_rect              b_rect;             /*!< The ebox rectangle. */
     t_rect              b_rect_last;        /*!< The ebox previous rectangle. */
-
     int                 b_pinned;           /*!< If the ebox is pinned to the canvas. */
     int                 b_selected_box;     /*!< The selected state */
     int                 b_selected_item;    /*!< The items selected. */
@@ -843,7 +842,6 @@ typedef struct t_edspbox
     long                b_flags;            /*!< The ebox flags. */
     t_rect              b_rect;             /*!< The ebox rectangle. */
     t_rect              b_rect_last;        /*!< The ebox previous rectangle. */
-    t_efont             b_font;             /*!< The ebox font. */
     int                 b_pinned;           /*!< If the ebox is pinned to the canvas. */
     int                 b_selected_box;     /*!< The selected state */
     int                 b_selected_item;    /*!< The items selected. */
