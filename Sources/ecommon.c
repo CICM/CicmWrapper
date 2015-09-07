@@ -397,7 +397,7 @@ void unparse_atoms(int argc, t_atom* argv, int* ac, t_atom** av)
                         memset(text, 0, MAXPDSTRING);
                         if(s->s_name[l-1] == '}' || s->s_name[l-1] == '\'' || s->s_name[l-1] == '"') // We leave the string
                         {
-                            strncpy(text, s->s_name+1, l-1);
+                            strncpy(text, s->s_name+1, l-2);
                             atom_setsym(av[0]+ac[0], gensym(text));
                             ac[0]++;
                         }
