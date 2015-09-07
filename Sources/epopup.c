@@ -718,7 +718,7 @@ void eobj_create_properties_window(t_eobj* x, t_glist *glist)
                 }
                 else
                 {
-                    sys_vgui("set %sattr_value%i \"\"", va, i+1);
+                    sys_vgui("set %sattr_value%i \"\"\n", va, i+1);
                 }
                 sys_vgui("entry %s.attr_values%i.label -font {Helvetica 12} -width 20 \
                          -textvariable %sattr_value%i\n", tx, i+1, va, i+1);
