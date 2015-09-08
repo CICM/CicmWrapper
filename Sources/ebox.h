@@ -281,24 +281,6 @@ t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
  */
 t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
 
-//! The default user preset id method for all ebox called by PD (PRIVATE)
-/*
- * \memberof        ebox
- * \param x         The ebox
- * \param attr      Nothing (for Max 6 compatibility)
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \return          Always 0 (for the moment)
- */
-t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
-
-//! Retrive the preset id of an ebox
-/*
- * \memberof        ebox
- * \param x         The ebox
- */
-t_symbol* ebox_get_presetid(t_ebox* x);
-
 //! The default notify method of ebox called when an attribute has changed // PRIVATE
 /*
  * \memberof        ebox

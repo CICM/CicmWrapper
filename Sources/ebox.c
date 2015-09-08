@@ -51,7 +51,6 @@ void ebox_new(t_ebox *x, long flags)
     x->b_window_id          = s_cream_empty;
     x->b_receive_id         = s_cream_empty;
     x->b_send_id            = s_cream_empty;
-    x->b_preset_id          = s_cream_empty;
     x->b_visible            = 1;
     x->b_params             = NULL;
     x->b_nparams            = 0;
@@ -909,31 +908,6 @@ t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
         x->b_send_id = s_cream_empty;
     }
 
-    return 0;
-}
-
-t_symbol* ebox_get_presetid(t_ebox* x)
-{
-    if(x->b_preset_id)
-    {
-        return x->b_preset_id;
-    }
-    else
-    {
-        return s_cream_empty;
-    }
-}
-
-t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, int argc, t_atom *argv)
-{
-    if(argc && argv && atom_gettype(argv) == A_SYMBOL)
-    {
-        x->b_preset_id = atom_getsymbol(argv);
-    }
-    else
-    {
-        x->b_preset_id = s_cream_empty;
-    }
     return 0;
 }
 

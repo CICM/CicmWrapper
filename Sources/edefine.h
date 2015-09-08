@@ -786,7 +786,6 @@ typedef struct t_ebox
     
     t_symbol*           b_receive_id;       /*!< The object user ID. */
     t_symbol*           b_send_id;          /*!< The object send ID. */
-    t_symbol*           b_preset_id;        /*!< The object preset ID. */
     
     t_symbol*           b_canvas_id;        /*!< The canvas ID. */
     t_symbol*           b_drawing_id;       /*!< The drawing ID. */
@@ -832,7 +831,6 @@ typedef struct t_edspbox
     
     t_symbol*           b_receive_id;       /*!< The object user ID. */
     t_symbol*           b_send_id;          /*!< The object send ID. */
-    t_symbol*           b_preset_id;     /*!< The object preset ID. */
     
     t_symbol*           b_canvas_id;        /*!< The canvas ID. */
     t_symbol*           b_drawing_id;       /*!< The drawing ID. */
