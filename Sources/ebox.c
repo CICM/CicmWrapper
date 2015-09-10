@@ -2079,7 +2079,7 @@ void eparameter_setname(t_eparam* param, t_symbol* name)
     {
         param->p_name = get_valid_symbol(name);
         eparameter_notify_owner(param, s_cream_attr_modified);
-        canvas_dirty(eobj_getcanvas(eobj_getcanvas(param->p_owner)), 1);
+        canvas_dirty(eobj_getcanvas(param->p_owner), 1);
     }
 }
 
@@ -2089,7 +2089,7 @@ void eparameter_setlabel(t_eparam* param, t_symbol* label)
     {
         param->p_label = get_valid_symbol(label);
         eparameter_notify_owner(param, s_cream_attr_modified);
-        canvas_dirty(eobj_getcanvas(eobj_getcanvas(param->p_owner)), 1);
+        canvas_dirty(eobj_getcanvas(param->p_owner), 1);
     }
 }
 
