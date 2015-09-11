@@ -754,8 +754,19 @@ void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom *argv)
     t_pt mouse;
     t_eclass *c = eobj_getclass(x);
     long modif  = modifier_wrapper((long)atom_getfloat(argv+2));
-    if(is_for_box(x, modif) && c->c_widget.w_dblclick && !(x->b_flags & EBOX_IGNORELOCKCLICK))
+    if(is_for_box(x, modif) &&
+       c->c_widget.w_dblclick &&
+       !(x->b_flags & EBOX_IGNORELOCKCLICK) &&
+       !(x->b_flags & EBOX_DBLCLICK_EDIT))
     {
+        mouse.x = atom_getfloat(argv);
+        mouse.y = atom_getfloat(argv+1);
+        c->c_widget.w_dblclick(x, x->b_obj.o_canvas, mouse);
+    }
+    else if(!is_for_box(x, modif) && c->c_widget.w_dblclick && x->b_flags & EBOX_DBLCLICK_EDIT)
+    {
+        sys_vgui("eobj_canvas_down %s 1\n", x->b_canvas_id->s_name);
+        sys_vgui("eobj_canvas_up %s\n", x->b_canvas_id->s_name);
         mouse.x = atom_getfloat(argv);
         mouse.y = atom_getfloat(argv+1);
         c->c_widget.w_dblclick(x, x->b_obj.o_canvas, mouse);
@@ -973,6 +984,20 @@ void ebox_texteditor_keyfilter(t_ebox *x, t_symbol *s, float f)
         if(editor)
         {
             c->c_widget.w_texteditor_keyfilter(x, editor, (int)f);
+        }
+    }
+}
+
+void ebox_texteditor_focus(t_ebox *x, t_symbol *s, float f)
+{
+    t_etexteditor* editor;
+    const t_eclass* c = eobj_getclass(x);
+    if(c && c->c_widget.w_texteditor_focus)
+    {
+        editor = etexteditor_getfromsymbol(s);
+        if(editor)
+        {
+            c->c_widget.w_texteditor_focus(x, editor, (int)f);
         }
     }
 }
