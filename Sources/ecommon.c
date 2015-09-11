@@ -759,6 +759,35 @@ t_pd_err binbuf_get_attribute_float(t_binbuf *d, t_symbol *key, float *value)
         return -1;
 }
 
+t_pd_err atoms_get_attribute_symbol(int ac, t_atom* av, t_symbol *key, t_symbol **value)
+{
+    int argc = 0;
+    t_atom* argv = NULL;
+    if(!atoms_get_attribute(ac, av, key, &argc, &argv))
+    {
+        if(argc && argv)
+        {
+            if(atom_gettype(argv) == A_SYMBOL)
+            {
+                value[0] = atom_getsymbol(argv);
+                free(argv);
+                return 0;
+            }
+            free(argv);
+        }
+        return -1;
+    }
+    return -1;
+}
+
+t_pd_err binbuf_get_attribute_symbol(t_binbuf *d, t_symbol *key, t_symbol **value)
+{
+    if(d)
+        return atoms_get_attribute_symbol(binbuf_getnatom(d), binbuf_getvec(d), key, value);
+    else
+        return -1;
+}
+
 void epd_add_folder(const char* name, const char* folder)
 {
 	char path[MAXPDSTRING];
