@@ -201,6 +201,8 @@ void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv)
                     ebox_parameter_setname(x, i+1, atom_getsymbol(defv));
                 if(defc > 1 && atom_gettype(defv+1) == A_SYMBOL)
                     ebox_parameter_setlabel(x, i+1, atom_getsymbol(defv+1));
+                if(defc > 1 && atom_gettype(defv+2) == A_FLOAT)
+                    ebox_parameter_setindex(x, i+1, (int)atom_getfloat(defv+2));
                 defc = 0;
                 free(defv);
                 defv = NULL;
@@ -242,6 +244,8 @@ void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)
                     ebox_parameter_setname(x, i+1, atom_getsymbol(defv));
                 if(defc > 1 && atom_gettype(defv+1) == A_SYMBOL)
                     ebox_parameter_setlabel(x, i+1, atom_getsymbol(defv+1));
+                if(defc > 1 && atom_gettype(defv+2) == A_FLOAT)
+                    ebox_parameter_setindex(x, i+1, (int)atom_getfloat(defv+2));
                 defc = 0;
                 free(defv);
                 defv = NULL;
@@ -1544,6 +1548,10 @@ void ebox_set_parameter_attribute(t_ebox *x, t_symbol *s, int argc, t_atom* argv
             {
                 eparameter_setlabel(param, atom_getsymbol(argv+2));
             }
+            else if(atom_getsymbol(argv+1) == gensym("index") && atom_gettype(argv+2) == A_FLOAT)
+            {
+                eparameter_setindex(param, atom_getfloat(argv+2));
+            }
         }
     }
 }
@@ -1931,6 +1939,19 @@ void ebox_parameter_setnstep(t_ebox* x, int index, int nstep)
     }
 }
 
+void ebox_parameter_setindex(t_ebox* x, int index, int pindex)
+{
+    index--;
+    if(index >= 0 && index < x->b_nparams)
+    {
+        if(x->b_params[index])
+        {
+            x->b_params[index]->p_index = pindex;
+            ebox_parameter_notify(x->b_params[index], s_cream_attr_modified);
+        }
+    }
+}
+
 void ebox_parameter_setflags(t_ebox* x, int index, long flags)
 {
     index--;
@@ -2120,8 +2141,12 @@ void eparameter_setlabel(t_eparam* param, t_symbol* label)
 
 void eparameter_setindex(t_eparam* param, int index)
 {
-    param->p_index = index;
-    eparameter_notify_owner(param, s_cream_attr_modified);
+    if(!(param->p_flags & EPARAM_STATIC_INDEX))
+    {
+        param->p_index = index;
+        eparameter_notify_owner(param, s_cream_attr_modified);
+        canvas_dirty(eobj_getcanvas(param->p_owner), 1);
+    }
 }
 
 t_eparam* eparameter_getfromsymbol(t_symbol* name)

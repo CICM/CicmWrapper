@@ -176,7 +176,7 @@ void eobj_save(t_gobj* x, t_binbuf *b)
                         }
                     }
                 }
-                argv = (t_atom *)malloc(2 * sizeof(t_atom));
+                argv = (t_atom *)malloc(3 * sizeof(t_atom));
                 if(argv)
                 {
                     for(i = 0; i < y->b_nparams; i++)
@@ -186,7 +186,8 @@ void eobj_save(t_gobj* x, t_binbuf *b)
                             snprintf(buffer, MAXPDSTRING, "@param%i", i);
                             atom_setsym(argv, y->b_params[i]->p_name);
                             atom_setsym(argv+1, y->b_params[i]->p_label);
-                            binbuf_append_attribute(b, gensym(buffer), 2, argv);
+                            atom_setfloat(argv+2, y->b_params[i]->p_index);
+                            binbuf_append_attribute(b, gensym(buffer), 3, argv);
                         }
                     }
                 }

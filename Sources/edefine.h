@@ -746,7 +746,8 @@ typedef enum eparam_flags
     EPARAM_STATIC_MIN       = (1<<3),   /*!< If the minimum value of the parameter can't be changed by the users. */
     EPARAM_STATIC_MAX       = (1<<4),   /*!< If the maximum value of the parameter can't be changed by the users. */
     EPARAM_STATIC_INVERTED  = (1<<5),   /*!< If the maximum and minimum values of the parameter can't be inverted by the users. */
-    EPARAM_STATIC_NSTEPS    = (1<<6)    /*!< If the number of steps can't be changed by the users. */
+    EPARAM_STATIC_NSTEPS    = (1<<6),    /*!< If the number of steps can't be changed by the users. */
+    EPARAM_STATIC_INDEX     = (1<<7)    /*!< If the number of steps can't be changed by the users. */
 } eparam_flags;
 
 /**
