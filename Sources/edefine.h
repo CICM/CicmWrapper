@@ -481,6 +481,7 @@ typedef struct t_ewidget
     t_typ_method    w_read;                 /*!< The read from file method. */
     t_typ_method    w_texteditor_keypress;  /*!< The text editor key press method. */
     t_typ_method    w_texteditor_keyfilter; /*!< The text editor key filter method. */
+    t_typ_method    w_texteditor_focus;     /*!< The text editor focus method. */
 } t_ewidget;
 
 /**
@@ -677,12 +678,13 @@ typedef enum eselitem_flags
  */
 typedef enum
 {
-    EBOX_GROWNO          = (1<<4),    /*!< The width and the height can't be modified. */
-    EBOX_GROWLINK        = (1<<5),    /*!< The width and the height are linked. */
-    EBOX_GROWINDI        = (1<<6),    /*!< The width and the height are independant. */
-    EBOX_IGNORELOCKCLICK = (1<<7),    /*!< The t_ebox ignore the mouse events. */
-    EBOX_TEXTFIELD       = (1<<11),   /*!< The t_ebox supports text fields. */
-    EBOX_FONTSIZE        = (1<<18)    /*!< The t_ebox font attr changes the size. */
+    EBOX_GROWNO          = (1<<4),      /*!< The width and the height can't be modified. */
+    EBOX_GROWLINK        = (1<<5),      /*!< The width and the height are linked. */
+    EBOX_GROWINDI        = (1<<6),      /*!< The width and the height are independant. */
+    EBOX_IGNORELOCKCLICK = (1<<7),      /*!< The t_ebox ignore the mouse events. */
+    EBOX_TEXTFIELD       = (1<<11),     /*!< The t_ebox supports text fields. */
+    EBOX_FONTSIZE        = (1<<18),     /*!< The t_ebox font attr changes the size. */
+    EBOX_DBLCLICK_EDIT   = (1<<26)      /*!< The double-click is received in edition. */
 } ebox_flags;
 
 /**
