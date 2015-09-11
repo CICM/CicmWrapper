@@ -84,6 +84,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     {
         class_addmethod((t_class *)c, (t_method)ebox_texteditor_keypress, gensym("texteditor_keypress"), A_SYMBOL,A_DEFFLOAT,0);
         class_addmethod((t_class *)c, (t_method)ebox_texteditor_keyfilter, gensym("texteditor_keyfilter"), A_SYMBOL,A_DEFFLOAT,0);
+        class_addmethod((t_class *)c, (t_method)ebox_texteditor_focus, gensym("texteditor_focus"), A_SYMBOL,A_DEFFLOAT,0);
     }
     
     // GUI always needs this methods // 
@@ -243,6 +244,10 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
     else if(gensym(name) == gensym("texteditor_keyfilter"))
     {
         c->c_widget.w_texteditor_keyfilter = m;
+    }
+    else if(gensym(name) == gensym("texteditor_focus"))
+    {
+        c->c_widget.w_texteditor_focus = m;
     }
     else
     {
@@ -878,6 +883,7 @@ static void ewidget_init(t_eclass* c)
     c->c_widget.w_read              = NULL;
     c->c_widget.w_texteditor_keypress = NULL;
     c->c_widget.w_texteditor_keyfilter= NULL;
+    c->c_widget.w_texteditor_focus    = NULL;
 }
 
 

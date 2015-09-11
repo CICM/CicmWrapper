@@ -291,6 +291,29 @@ t_pd_err atoms_get_attribute_float(int ac, t_atom* av, t_symbol *key, float *val
 t_pd_err binbuf_get_attribute_float(t_binbuf *d, t_symbol *key, float *value);
 
 /*!
+ * \fn          t_pd_err atoms_get_attribute_symbol(int ac, t_atom* av, t_symbol *key, t_symbol **value)
+ * \brief       Retrieves the t_symbol value of an attribute from an array of t_atom.
+ * \details     The function looks for an attribute and retrieves its t_symbol value.
+ * \param ac    The size of the array of t_atom.
+ * \param av    The array of t_atom.
+ * \param key   The key of the attribute.
+ * \param value The pointer to the t_symbol value that will be initialized.
+ * \return 0 if the attribute value has been returned.
+ */
+t_pd_err atoms_get_attribute_symbol(int ac, t_atom* av, t_symbol *key, t_symbol **value);
+
+/*!
+ * \fn          t_pd_err binbuf_get_attribute_symbol(t_binbuf *d, t_symbol *key, t_symbol **value)
+ * \brief       Retrieves the t_symbol value of an attribute from a t_binbuf.
+ * \details     The function looks for an attribute and retrieves its t_symbol value.
+ * \param d     The t_binbuf.
+ * \param key   The key of the attribute.
+ * \param value The pointer to the t_symbol value that will be initialized.
+ * \return 0 if the attribute value has been returned.
+ */
+t_pd_err binbuf_get_attribute_symbol(t_binbuf *d, t_symbol *key, t_symbol **value);
+
+/*!
  * \fn          long atoms_get_keys(int ac, t_atom* av, t_symbol*** s)
  * \brief       Retrieves the keys of attributes presents in an array of t_atom.
  * \details     The function retrieves all the t_symbol* that start with the character \@. You should free the result memory if it has been allocated.
