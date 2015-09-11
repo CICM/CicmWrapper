@@ -239,6 +239,7 @@ static void etexteditor_text(t_etexteditor* x, t_symbol* s, int argc, t_atom* ar
         }
         return;
     }
+    
     for(i = 0; i < argc; i++)
     {
         if(atom_gettype(argv+i) == A_FLOAT)
@@ -252,6 +253,7 @@ static void etexteditor_text(t_etexteditor* x, t_symbol* s, int argc, t_atom* ar
         }
         
     }
+    
     if(!x->c_text || !x->c_size)
     {
         x->c_text = (char *)malloc((size_t)lenght * sizeof(char));
@@ -301,7 +303,7 @@ static void etexteditor_text(t_etexteditor* x, t_symbol* s, int argc, t_atom* ar
         }
         else if(atom_gettype(argv+argc-1) == A_SYMBOL)
         {
-            strncat(x->c_text, atom_getsymbol(argv+argc-2)->s_name, MAXPDSTRING);
+            strncat(x->c_text, atom_getsymbol(argv+argc-1)->s_name, MAXPDSTRING);
         }
     }
 }
@@ -368,7 +370,7 @@ t_etexteditor* etexteditor_create(t_ebox* x)
             sys_vgui("text %s -borderwidth 0.0 -highlightthickness 0 -insertborderwidth 0\n", editor->c_name->s_name);
             sys_vgui("pack %s -side left -fill both \n", editor->c_name->s_name);
             sys_vgui("pack %s -side bottom -fill both \n", editor->c_frame_id->s_name);
-            
+            sys_vgui("%s delete 0.0 end\n", editor->c_name->s_name);
             eobj_widget_notify((t_eobj *)x, s_cream_texteditor, editor->c_editor_id, s_cream_create);
         }
         return editor;
@@ -395,7 +397,7 @@ void etexteditor_settext(t_etexteditor* editor, const char* text)
 {
     char* temp;
     const size_t lenght = strlen(text);
-    sys_vgui("%s insert 0.0 %s\n", editor->c_name->s_name, text);
+    sys_vgui("%s insert 0.0 {%s}\n", editor->c_name->s_name, text);
     if(!editor->c_text || !editor->c_size)
     {
         editor->c_text = (char *)malloc((size_t)lenght * sizeof(char));
@@ -499,24 +501,28 @@ void etexteditor_popup(t_etexteditor *editor, t_rect const* bounds)
 {
     t_rect rect;
     ebox_get_rect_for_view(editor->c_owner, &rect);
-    sys_vgui("bind %s <<Modified>> {etext_sendtext %s %s}\n",
-             editor->c_name->s_name, editor->c_name->s_name, editor->c_editor_id->s_name);
-    sys_vgui("bind %s <<Paste>> {etext_sendtext %s %s}\n",
-             editor->c_name->s_name, editor->c_name->s_name, editor->c_editor_id->s_name);
-    sys_vgui("bind %s <<Cut>> {etext_sendtext %s %s}\n",
-             editor->c_name->s_name, editor->c_name->s_name, editor->c_editor_id->s_name);
-    sys_vgui("bind %s <KeyRelease> {etext_sendtext %s %s}\n",
-             editor->c_name->s_name, editor->c_name->s_name, editor->c_editor_id->s_name);
-    
+    sys_vgui("bind %s <KeyRelease> {+pdsend \"%s text [%s get 0.0 end]\"}\n",
+             editor->c_name->s_name, editor->c_editor_id->s_name, editor->c_name->s_name);
+    sys_vgui("bind %s <<Modified>> {+pdsend \"%s text [%s get 0.0 end]\"}\n",
+             editor->c_name->s_name, editor->c_editor_id->s_name, editor->c_name->s_name);
+    sys_vgui("bind %s <<Paste>> {+pdsend \"%s text [%s get 0.0 end]\"}\n",
+             editor->c_name->s_name, editor->c_editor_id->s_name, editor->c_name->s_name);
+    sys_vgui("bind %s <<Cut>> {+pdsend \"%s text [%s get 0.0 end]\"}\n",
+             editor->c_name->s_name, editor->c_editor_id->s_name, editor->c_name->s_name);
+
     sys_vgui("bind %s <KeyPress> {+pdsend {%s texteditor_keypress %s %%k}}\n",
              editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, editor->c_editor_id->s_name);
-    sys_vgui("bind %s <Escape> {+pdsend {%s texteditor_keyfilter %s 0}}\n",
+    sys_vgui("bind %s <Delete> {+pdsend {%s texteditor_keyfilter %s 0}}\n",
              editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, editor->c_editor_id->s_name);
     sys_vgui("bind %s <Tab> {+pdsend {%s texteditor_keyfilter %s 1}}\n",
              editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, editor->c_editor_id->s_name);
     sys_vgui("bind %s <Return> {+pdsend {%s texteditor_keyfilter %s 2}}\n",
              editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, editor->c_editor_id->s_name);
-    sys_vgui("bind %s <Delete> {+pdsend {%s texteditor_keyfilter %s 3}}\n",
+    sys_vgui("bind %s <Escape> {+pdsend {%s texteditor_keyfilter %s 3}}\n",
+             editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, editor->c_editor_id->s_name);
+    sys_vgui("bind %s <FocusIn> {+pdsend {%s texteditor_focus %s 1}}\n",
+             editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, editor->c_editor_id->s_name);
+    sys_vgui("bind %s <FocusOut> {+pdsend {%s texteditor_focus %s 0}}\n",
              editor->c_name->s_name, editor->c_owner->b_obj.o_id->s_name, editor->c_editor_id->s_name);
     
     sys_vgui("%s create window %d %d -anchor nw -window %s    \
@@ -882,12 +888,6 @@ void tcltk_create_methods(void)
         sys_gui("append col [format {%4.4x} $nG]\n");
         sys_gui("append col [format {%4.4x} $nB]\n");
         sys_gui("return #$col\n");
-        sys_gui("}\n");
-        
-        // SEND TEXTFIELD TEXT //
-        sys_gui("proc etext_sendtext {widget name} { \n");
-        sys_gui("set text [$widget get 0.0 end]\n");
-        sys_gui("pdsend \"$name text $text\"\n");
         sys_gui("}\n");
         
         // COLOR PICKER WINOW //
