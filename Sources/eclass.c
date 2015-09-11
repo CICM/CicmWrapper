@@ -836,6 +836,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
             }
             if(c->c_widget.w_getdrawparameters != NULL)
             {
+                ebox_invalidate_layer((t_ebox *)x, s_cream_eboxbd);
                 c->c_widget.w_getdrawparameters(x, NULL, &z->b_boxparameters);
             }
             ebox_redraw(z);
