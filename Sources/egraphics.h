@@ -504,6 +504,15 @@ t_rgba rgba_addContrast(t_rgba color, float contrast);
  */
 t_rgb rgb_addContrast(t_rgb color, float contrast);
 
+/*!
+ * \fn          t_rgba rgba_is_equal(t_rgba const& color, t_rgba const& other);
+ * \brief       Compares two t_rgba colors.
+ * \param color The t_rgba color.
+ * \param other The other t_rgba color.
+ * \return a non negative value if the colors are equals.
+ */
+char rgba_is_equal(t_rgba const* color, t_rgba const* other);
+
 //! @cond
 float pd_wrap(float f, const float min, const float max);
 float pd_clip_min(float aValue, float aMinimum);

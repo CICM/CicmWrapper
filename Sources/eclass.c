@@ -594,10 +594,10 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
 {
     int j;
     char *point;
-    *argv = NULL;
-    *argc = 0;
     t_symbol* type; t_efont* font; t_symbol** syms;
     t_eattr* attr = eclass_getattr(eobj_getclass(x), s);
+    *argv = NULL;
+    *argc = 0;
     if(attr)
     {
         type = attr->type;
@@ -689,6 +689,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
     char *point;
     long *point_size;
     t_symbol* type;
+    t_edrawparams params;
     t_ebox* z   = (t_ebox *)x;
     t_eclass* c = (t_eclass *)z->b_obj.o_obj.te_g.g_pd;
     int ac = 0; t_atom* av = NULL;
@@ -836,8 +837,21 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
             }
             if(c->c_widget.w_getdrawparameters != NULL)
             {
-                ebox_invalidate_layer((t_ebox *)x, s_cream_eboxbd);
-                c->c_widget.w_getdrawparameters(x, NULL, &z->b_boxparameters);
+                c->c_widget.w_getdrawparameters(x, NULL, &params);
+                if(!rgba_is_equal(&(params.d_bordercolor), &(z->b_boxparameters.d_bordercolor)))
+                {
+                    memcpy(&z->b_boxparameters, &params, sizeof(t_edrawparams));
+                    ebox_invalidate_layer((t_ebox *)x, s_cream_eboxbd);
+                }
+                else if(params.d_borderthickness != z->b_boxparameters.d_borderthickness)
+                {
+                    memcpy(&z->b_boxparameters, &params, sizeof(t_edrawparams));
+                    ebox_notify(z, s_cream_size, s_cream_size, NULL, NULL);
+                }
+                else
+                {
+                    memcpy(&z->b_boxparameters, &params, sizeof(t_edrawparams));
+                }
             }
             ebox_redraw(z);
         }

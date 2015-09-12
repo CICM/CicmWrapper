@@ -889,6 +889,12 @@ void hsl_set(t_hsl *color, float hue, float saturation, float lightness)
     color->lightness = lightness;
 }
 
+char rgba_is_equal(t_rgba const* color, t_rgba const* other)
+{
+    return color->red == other->red && color->green == other->green &&
+    color->blue == other->blue && color->alpha == other->alpha;
+}
+
 void egraphics_matrix_init(t_matrix *x, float xx, float yx, float xy, float yy, float x0, float y0)
 {
     x->xx = xx;
