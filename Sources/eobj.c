@@ -60,6 +60,7 @@ void *eobj_new(t_eclass *c)
 void eobj_free(void *x)
 {
     t_eobj*     z = (t_eobj *)x;
+    ewindowprop_destroy(z);
     if(z->o_id)
     {
         pd_unbind((t_pd *)x, z->o_id);
@@ -71,7 +72,6 @@ void eobj_free(void *x)
         z->o_proxy = NULL;
         z->o_nproxy= 0;
     }
-    eobj_destroy_properties_window(z);
 }
 
 t_pd_err eobj_iscicm(void* x)
@@ -256,50 +256,6 @@ void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
     }
 }
 
-void eobj_attrprocess_viatoms(void *x, int argc, t_atom *argv)
-{
-    int     i;
-    char    buffer[MAXPDSTRING];
-    int     defc        = 0;
-    t_atom* defv        = NULL;
-    t_eclass* c         = eobj_getclass(x);
-
-    for(i = 0; i < c->c_nattr; i++)
-    {
-        sprintf(buffer, "@%s", c->c_attr[i]->name->s_name);
-        atoms_get_attribute(argc, argv, gensym(buffer), &defc, &defv);
-        if(defc && defv)
-        {
-            eobj_attr_setvalueof(x, c->c_attr[i]->name, defc, defv);
-            defc = 0;
-            free(defv);
-            defv = NULL;
-        }
-    }
-}
-
-void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)
-{
-    int i;
-    char attr_name[MAXPDSTRING];
-
-    int defc       = 0;
-    t_atom* defv    = NULL;
-    t_eclass* c     = eobj_getclass(x);
-    for(i = 0; i < c->c_nattr; i++)
-    {
-        sprintf(attr_name, "@%s", c->c_attr[i]->name->s_name);
-        binbuf_get_attribute(d, gensym(attr_name), &defc, &defv);
-        if(defc && defv)
-        {
-            eobj_attr_setvalueof(x, c->c_attr[i]->name, defc, defv);
-            defc = 0;
-            free(defv);
-            defv = NULL;
-        }
-    }
-}
-
 void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
 {
     char buf[MAXPDSTRING];
@@ -366,6 +322,49 @@ void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
     }
 }
 
+void eobj_attrprocess_viatoms(void *x, int argc, t_atom *argv)
+{
+    int     i;
+    char    buffer[MAXPDSTRING];
+    int     defc        = 0;
+    t_atom* defv        = NULL;
+    t_eclass* c         = eobj_getclass(x);
+
+    for(i = 0; i < c->c_nattr; i++)
+    {
+        sprintf(buffer, "@%s", c->c_attr[i]->name->s_name);
+        atoms_get_attribute(argc, argv, gensym(buffer), &defc, &defv);
+        if(defc && defv)
+        {
+            eobj_attr_setvalueof(x, c->c_attr[i]->name, defc, defv);
+            defc = 0;
+            free(defv);
+            defv = NULL;
+        }
+    }
+}
+
+void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)
+{
+    int i;
+    char attr_name[MAXPDSTRING];
+
+    int defc       = 0;
+    t_atom* defv    = NULL;
+    t_eclass* c     = eobj_getclass(x);
+    for(i = 0; i < c->c_nattr; i++)
+    {
+        sprintf(attr_name, "@%s", c->c_attr[i]->name->s_name);
+        binbuf_get_attribute(d, gensym(attr_name), &defc, &defv);
+        if(defc && defv)
+        {
+            eobj_attr_setvalueof(x, c->c_attr[i]->name, defc, defv);
+            defc = 0;
+            free(defv);
+            defv = NULL;
+        }
+    }
+}
 
 void eobj_attr_setvalueof(void *x, t_symbol* s, int argc, t_atom *argv)
 {
@@ -715,6 +714,11 @@ void eobj_dsp_add(void *x, t_symbol* s, t_object* za, t_typ_method m, long flags
         dsp->d_user_param = userparam;
         dsp->d_perform_method = m;
     }
+}
+
+void eobj_properties_window(t_eobj* x, t_glist *glist)
+{
+    ewindowprop_create(x);
 }
 
 //! @cond

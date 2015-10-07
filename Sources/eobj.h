@@ -278,6 +278,11 @@ void eobj_dsp(void *x, t_signal **sp);
  * \param userparam The user perform parameters
  */
 void eobj_dsp_add(void *x, t_symbol* s, t_object* obj, t_typ_method m, long flags, void *userparam);
+
+//! The object property method (PRIVATE)
+/*
+ */
+void eobj_properties_window(t_eobj* x, t_glist *glist);
 //! @endcond
 
 #endif

@@ -45,7 +45,7 @@
 
 
 #define PD_INSTANCE (PD_MAJOR_VERSION >= 0) && (PD_MINOR_VERSION) >= 46) && (PD_BUGFIX_VERSION >= 6)
-
+#define CICM_VERSION 0.5
 
 /*! @addtogroup groupcommon The Common Part
  * @brief The general part.
@@ -69,6 +69,8 @@ typedef void        (*t_typ_method)(void* x, ...);
 typedef void*       (*t_ret_method)(void* x, ...);
 //! The error method
 typedef t_pd_err    (*t_err_method)(void* x, ...);
+//! The error method
+typedef float    (*t_flt_method)(void* x, ...);
 
 //! The pre-defined (null) t_symbol*
 extern t_symbol* s_cream_null;
@@ -798,7 +800,6 @@ typedef struct t_ebox
     long                b_flags;            /*!< The ebox flags. */
     t_rect              b_rect;             /*!< The ebox rectangle. */
     t_rect              b_rect_last;        /*!< The ebox previous rectangle. */
-    int                 b_pinned;           /*!< If the ebox is pinned to the canvas. */
     int                 b_selected_box;     /*!< The selected state */
     int                 b_selected_item;    /*!< The items selected. */
     int                 b_selected_inlet;   /*!< The inlet selected. */
@@ -806,6 +807,8 @@ typedef struct t_ebox
     
     char                b_mouse_down;       /*!< The mouse state. */
     
+    char                b_pinned;           /*!< If pinned state. */
+    char                b_ignore_click;     /*!< The igore click state. */
     char                b_visible;          /*!< The visible state. */
     char                b_ready_to_draw;    /*!< The ebox state for drawing. */
     char                b_have_window;      /*!< The ebox window state. */
@@ -843,7 +846,6 @@ typedef struct t_edspbox
     long                b_flags;            /*!< The ebox flags. */
     t_rect              b_rect;             /*!< The ebox rectangle. */
     t_rect              b_rect_last;        /*!< The ebox previous rectangle. */
-    int                 b_pinned;           /*!< If the ebox is pinned to the canvas. */
     int                 b_selected_box;     /*!< The selected state */
     int                 b_selected_item;    /*!< The items selected. */
     int                 b_selected_inlet;   /*!< The inlet selected. */
@@ -851,6 +853,8 @@ typedef struct t_edspbox
     
     char                b_mouse_down;       /*!< The mouse state. */
     
+    char                b_pinned;           /*!< If pinned state. */
+    char                b_ignore_click;     /*!< The igore click state. */
     char                b_visible;          /*!< The visible State. */
     char                b_ready_to_draw;    /*!< The ebox state for drawing. */
     char                b_have_window;      /*!< The ebox window state. */
@@ -928,6 +932,18 @@ typedef struct t_etexteditor
     char        c_wrap;
     t_rect      c_bounds;
 }t_etexteditor;
+
+/**
+ * @struct t_ewindowprop
+ * @brief The properties window structure.
+ * @details It contains the informations to show and retrieve a properties window.
+ */
+typedef struct t_ewindowprop
+{
+    t_object    c_obj;          /*!< The object. */
+    t_eobj*     c_owner;
+    int         c_nitems;
+}t_ewindowprop;
 
 /** @} */
 

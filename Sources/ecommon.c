@@ -101,7 +101,7 @@ void epd_init(void)
     s_cream_entry       = gensym("entry");
     s_cream_font        = gensym("font");
     
-    tcltk_create_methods();
+    cicmwrapper_init();
 }
 
 static const char* estrchrn(const char* s, const char* delim)
@@ -204,18 +204,6 @@ char* estrtok(const char** str, const char* delim, char* token)
     
 }
 
-float interpolation_bezier(const float f1, const float f2, const float delta, const float node)
-{
-    const float t = pd_clip(delta, 0.f, 1.f);
-    return interpolation_linear(f1, f2, pd_clip(t * t + 2.f * t * (1.f - t) * node, 0.f, 1.f));
-}
-
-float interpolation_linear(const float f1, const float f2, const float delta)
-{
-    const float delta2 = pd_clip(delta, 0., 1.);
-    return f1 * (1.f - delta2) + f2 * delta;
-}
-
 void object_method(void* x, t_symbol* s, void* z, t_typ_method method, long number, void* other)
 {
     t_ret_method nrmethod = (t_ret_method)getfn((t_pd *)x, s);
@@ -250,7 +238,6 @@ static t_symbol* format_symbol(t_symbol* s)
     buffer[j++] = '\"';
     buffer[j] = '\0';
     return gensym(buffer);
-    return gensym("");
 }
 
 static t_atom* format_atoms(int ac, t_atom* av)
@@ -261,10 +248,6 @@ static t_atom* format_atoms(int ac, t_atom* av)
         if(atom_gettype(av+i) == A_SYMBOL)
         {
             atom_setsym(av+i, format_symbol(atom_getsymbol(av+i)));
-        }
-        else
-        {
-            av[i] = av[i];
         }
     }
     return av;
@@ -319,9 +302,7 @@ static long unformat_atoms(int ac, t_atom* av)
                 if(!str)
                 {
                     atom_setsym(av+newize, gensym(buffer));
-                    //sprintf(buffer, "");
-                    //buffer[0] = '\0'; //-> is equal to sprintf(buffer, "") but only change the first caractere
-                    memset(buffer, '\0', MAXPDSTRING*sizeof(char)); //-> clean all the buffer
+                    memset(buffer, '\0', MAXPDSTRING * sizeof(char));
                     newize++;
                 }
             }
@@ -786,6 +767,14 @@ t_pd_err binbuf_get_attribute_symbol(t_binbuf *d, t_symbol *key, t_symbol **valu
         return atoms_get_attribute_symbol(binbuf_getnatom(d), binbuf_getvec(d), key, value);
     else
         return -1;
+}
+
+void atom_getcolorarg(int witch, int argc, t_atom* argv, t_rgba* color)
+{
+    color->red = atom_getfloatarg(witch, argc, argv);
+    color->green = atom_getfloatarg(witch+1, argc, argv);
+    color->blue = atom_getfloatarg(witch+2, argc, argv);
+    color->alpha = atom_getfloatarg(witch+3, argc, argv);
 }
 
 void epd_add_folder(const char* name, const char* folder)

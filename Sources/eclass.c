@@ -58,13 +58,24 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_LABEL		(c, "size", 0, "Patching Size");
     CLASS_ATTR_ACCESSORS    (c, "size", NULL, (t_err_method)ebox_size_set);
     
-    CLASS_ATTR_INT          (c, "pinned", 0, t_ebox, b_pinned);
+    CLASS_ATTR_CHAR         (c, "pinned", 0, t_ebox, b_pinned);
     CLASS_ATTR_DEFAULT      (c, "pinned", 0, "0");
     CLASS_ATTR_FILTER_CLIP  (c, "pinned", 0, 1);
     CLASS_ATTR_SAVE         (c, "pinned", 0);
     CLASS_ATTR_CATEGORY		(c, "pinned", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "pinned", 0, "Pinned");
     CLASS_ATTR_STYLE        (c, "pinned", 0, "onoff");
+    
+    if(!(flags & EBOX_IGNORELOCKCLICK))
+    {
+        CLASS_ATTR_CHAR         (c, "ignoreclick", 0, t_ebox, b_ignore_click);
+        CLASS_ATTR_DEFAULT      (c, "ignoreclick", 0, "0");
+        CLASS_ATTR_FILTER_CLIP  (c, "ignoreclick", 0, 1);
+        CLASS_ATTR_SAVE         (c, "ignoreclick", 0);
+        CLASS_ATTR_CATEGORY		(c, "ignoreclick", 0, "Basic");
+        CLASS_ATTR_LABEL		(c, "ignoreclick", 0, "Ignore Click");
+        CLASS_ATTR_STYLE        (c, "ignoreclick", 0, "onoff");
+    }
     
     CLASS_ATTR_SYMBOL       (c, "receive", 0, t_ebox, b_receive_id);
     CLASS_ATTR_DEFAULT      (c, "receive", 0, "");
@@ -87,7 +98,7 @@ void eclass_guiinit(t_eclass* c, long flags)
         class_addmethod((t_class *)c, (t_method)ebox_texteditor_focus, gensym("texteditor_focus"), A_SYMBOL,A_DEFFLOAT,0);
     }
     
-    // GUI always needs this methods // 
+    // GUI always needs this methods //
     class_addmethod((t_class *)c, (t_method)ebox_mouse_enter, gensym("mouseenter"), A_NULL, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_leave, gensym("mouseleave"), A_NULL, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_move,  gensym("mousemove"),  A_GIMME, 0);
@@ -126,7 +137,7 @@ t_pd_err eclass_register(t_symbol *name, t_eclass *c)
         c->c_class.c_floatsignalin = calcoffset(t_edspobj, d_dsp.d_float);
     }
     
-    class_setpropertiesfn((t_class *)c, (t_propertiesfn)eobj_create_properties_window);
+    class_setpropertiesfn((t_class *)c, (t_propertiesfn)eobj_properties_window);
     class_addmethod((t_class *)c, (t_method)is_cicm, s_iscicm, A_NULL, 0);
     return 0;
 }
@@ -859,7 +870,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
         {
             canvas_dirty(eobj_getcanvas(x), 1);
         }
-        
+        ewindowprop_update((t_eobj *)x);
         if(ac && av)
         {
             free(av);

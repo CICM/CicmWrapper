@@ -553,291 +553,475 @@ t_etexteditor* etexteditor_getfromsymbol(t_symbol* name)
 }
 
 
-void eobj_destroy_properties_window(t_eobj* x)
+
+
+
+
+static t_class* ewindowprop_setup()
 {
-    sys_vgui("destroy .epw%ld\n", (unsigned long)x);
+    t_class* eclass = NULL;
+    t_pd* obj = gensym("ewindowprop1572")->s_thing;
+    if(!obj)
+    {
+        eclass = class_new(gensym("ewindowprop"), NULL, (t_method)NULL, sizeof(t_ewindowprop), CLASS_PD, A_GIMME, 0);
+        obj = pd_new(eclass);
+        pd_bind(obj, gensym("ewindowprop1572"));
+        return eclass;
+    }
+    else
+    {
+        return *obj;
+    }
 }
 
-void eobj_create_properties_window(t_eobj* x, t_glist *glist)
+t_ewindowprop* ewindowprop_getfromobject(t_eobj* x)
 {
-    int i, j, nitems = 0, argc = 0;
-    t_atom* argv = NULL;
-    t_rgba color;
-    char tx[MAXPDSTRING];
-    char va[MAXPDSTRING];
-    const t_eattr* attr;
-    const t_eclass* c = eobj_getclass(x);
-    const t_ebox* z = (t_ebox *)x;
-    
-    sprintf(tx, ".epw%ld", (unsigned long)x);
-    sprintf(va, "var%ld", (unsigned long)x);
-    
-    sys_vgui("destroy %s\n", tx);
-    sys_vgui("toplevel %s\n", tx);
-    sys_vgui("wm title %s {%s properties}\n", tx, eobj_getclassname(x)->s_name);
-    sys_vgui("wm resizable %s 0 0\n", tx);
-    
-    sys_vgui("frame %s.attrs\n", tx);
-    sys_vgui("label %s.attrs.label -justify center -font {Helvetica 13 bold} -text Attributes -height 2\n", tx);
-    sys_vgui("pack  %s.attrs.label -side left -fill both -expand 1\n",  tx);
-    sys_vgui("grid config %s.attrs -columnspan 5 -row %i -sticky w\n", tx, nitems++);
-    
-    sys_vgui("frame %s.attrs_menu_label\n", tx);
-    sys_vgui("frame %s.attrs_menu_name\n",  tx);
-    sys_vgui("frame %s.attrs_menu_values\n",tx);
-    
-    sys_vgui("label %s.attrs_menu_label.label -justify left -font {Helvetica 12 bold} -text Label\n",    tx);
-    sys_vgui("label %s.attrs_menu_name.label -justify left -font {Helvetica 12 bold} -text Name\n",      tx);
-    sys_vgui("label %s.attrs_menu_values.label -justify left -font {Helvetica 12 bold} -text Values\n",  tx);
-    
-    sys_vgui("pack  %s.attrs_menu_label.label -side left -fill both -expand 1\n",   tx);
-    sys_vgui("pack  %s.attrs_menu_name.label -side left -fill both -expand 1\n",    tx);
-    sys_vgui("pack  %s.attrs_menu_values.label -side left -fill both -expand 1\n",  tx);
-    
-    sys_vgui("grid config %s.attrs_menu_label -column 0 -columnspan 2 -row %i -sticky w\n",   tx, nitems);
-    sys_vgui("grid config %s.attrs_menu_name -column 2 -row %i -sticky w\n",                  tx, nitems);
-    sys_vgui("grid config %s.attrs_menu_values -column 3 -columnspan 2 -row %i -sticky w\n",  tx, nitems++);
-    
-    
-    for(i = 0; i < c->c_nattr; i++)
+    char text[MAXPDSTRING];
+    t_class* c = ewindowprop_setup();
+    if(c)
     {
-        attr = c->c_attr[i];
-        if(!attr->invisible)
+        sprintf(text, "windowprop%ld", (unsigned long)x);
+        return (t_ewindowprop *)pd_findbyclass(gensym(text), c);
+    }
+    return NULL;
+}
+
+void ewindowprop_destroy(t_eobj* x)
+{
+    char text[MAXPDSTRING];
+    t_ewindowprop* wm = ewindowprop_getfromobject(x);
+    if(wm)
+    {
+        sys_vgui("destroy .epw%ld\n", (unsigned long)x);
+        sprintf(text, "windowprop%ld", (unsigned long)x);
+        pd_unbind((t_pd *)wm, gensym(text));
+        free(wm);
+    }
+}
+
+void ewindowprop_update(t_eobj* x)
+{
+    int i, j, argc;
+    t_atom* argv;
+    t_rgba color;
+    char text[MAXPDSTRING];
+    t_ewindowprop* wm = ewindowprop_getfromobject(x);
+    const unsigned long ref = (unsigned long)x;
+    t_eclass const* c = eobj_getclass(x);
+    if(wm)
+    {
+        for(i = 0; i < c->c_nattr; i++)
         {
-            sys_vgui("frame %s.attr_label%i\n", tx, i+1);
-            sys_vgui("frame %s.attr_name%i\n",  tx, i+1);
-            sys_vgui("frame %s.attr_values%i\n",tx, i+1);
+            if(!c->c_attr[i]->invisible)
+            {
+                eobj_attr_getvalueof(x,  c->c_attr[i]->name, &argc, &argv);
+                if(c->c_attr[i]->style == s_cream_checkbutton)
+                {
+                    sys_vgui("set var%ldattr_value%i %ld\n", ref, i+1, atom_getintarg(0, argc, argv));
+                }
+                else if(c->c_attr[i]->style == s_cream_color)
+                {
+                    atom_getcolorarg(0, argc, argv, &color);
+                    sys_vgui("set var%ldattr_value%i %s\n", ref, i+1, rgba_to_hex(&color));
+                    sys_vgui("if {[winfo exists .epw%ld]} {\n \
+                             .epw%ld.attr_values%i.label configure -readonlybackground $var%ldattr_value%i\n}\n",
+                             ref, ref, i+1, ref, i+1);
+                }
+                else if(c->c_attr[i]->style == s_cream_number)
+                {
+                    sys_vgui("set var%ldattr_value%i %g\n", ref, i+1, atom_getfloatarg(0, argc, argv));
+                }
+                else if(c->c_attr[i]->style == s_cream_menu)
+                {
+                    sys_vgui("set var%ldattr_value%i \"%s\"\n", ref, i+1, atom_getsymbolarg(0, argc, argv));
+                }
+                else
+                {
+                    if(argc && argv)
+                    {
+                        sys_vgui("set var%ldattr_value%i [concat ", ref, i+1);
+                        for(j = 0; j < argc; j++)
+                        {
+                            if(atom_gettype(argv+j) == A_FLOAT)
+                            {
+                                sys_vgui("%g ", atom_getfloat(argv+j));
+                            }
+                            else if(atom_gettype(argv+j) == A_SYMBOL)
+                            {
+                                atom_string(argv+j, text, MAXPDSTRING);
+                                sys_vgui("'%s' ", text);
+                            }
+                        }
+                        sys_gui("]\n");
+                    }
+                    else
+                    {
+                        sys_vgui("set var%ldattr_value%i \"\"\n", ref, i+1);
+                    }
+                }
+            }
+        }
+    }
+}
+
+static void ewindowprop_addattr(t_ewindowprop* x, t_eattr* attr, int i)
+{
+    int j, argc;
+    t_atom* argv;
+    t_rgba color;
+    char text[MAXPDSTRING];
+    const unsigned long ref = (unsigned long)x->c_owner;
+    
+    if(attr->style == s_cream_font)
+        return;
+    
+    sys_vgui("frame .epw%ld.attr_label%i\n", ref, i+1);
+    sys_vgui("frame .epw%ld.attr_name%i\n",  ref, i+1);
+    sys_vgui("frame .epw%ld.attr_values%i\n",ref, i+1);
+    
+    sys_vgui("label .epw%ld.attr_label%i.label -justify left -font {Helvetica 12} -text \"%s\"\n", ref, i+1, attr->label->s_name);
+    sys_vgui("label .epw%ld.attr_name%i.label -justify left -font {Helvetica 12 italic} -text \"%s\"\n", ref, i+1, attr->name->s_name);
+    
+    eobj_attr_getvalueof(x->c_owner,  attr->name, &argc, &argv);
+    if(attr->style == s_cream_checkbutton)
+    {
+        sys_vgui("set var%ldattr_value%i %f\n", ref, i+1, (int)atom_getfloatarg(0, argc, argv));
+        
+        sys_vgui("checkbutton .epw%ld.attr_values%i.label ", ref, i+1);
+        sys_vgui("-variable var%ldattr_value%i -command {pdsend \"%s %s $var%ldattr_value%i\"}\n",
+                 ref, i+1, x->c_owner->o_id->s_name, attr->name->s_name, ref, i+1);
+    }
+    else if(attr->style == s_cream_color)
+    {
+        atom_getcolorarg(0, argc, argv, &color);
+        sys_vgui("set var%ldattr_value%i %s\n", ref, i+1, rgba_to_hex(&color));
+        
+        sys_vgui("entry .epw%ld.attr_values%i.label -font {Helvetica 12} -width 20 ", ref, i+1);
+        sys_vgui("-readonlybackground $var%ldattr_value%i -state readonly\n", ref, i+1);
+
+        sys_vgui("bind .epw%ld.attr_values%i.label <Button> ", ref, i+1);
+        sys_vgui("[concat epicker_apply %s %s $var%ldattr_value%i .epw%ld.attr_values%i.label]\n",
+                 x->c_owner->o_id->s_name, attr->name->s_name, ref, i+1, ref, i+1);
+    }
+    else if(attr->style == s_cream_number)
+    {
+        sys_vgui("set var%ldattr_value%i %g\n", ref, i+1, atom_getfloatarg(0, argc, argv));
+        
+        sys_vgui("spinbox .epw%ld.attr_values%i.label -font {Helvetica 12} -width 18 ", ref, i+1);
+        sys_vgui("-textvariable var%ldattr_value%i -command {pdsend \"%s %s $var%ldattr_value%i\"} ",
+                 ref, i+1, x->c_owner->o_id->s_name, attr->name->s_name, ref, i+1);
+        sys_vgui("-increment %f -from %f -to %f\n",
+                 attr->step, (attr->clipped % 2) ? attr->minimum : FLT_MIN, (attr->clipped > 1) ? attr->maximum : FLT_MAX);
+        
+        sys_vgui("bind .epw%ld.attr_values%i.label <KeyPress-Return> {pdsend \"%s %s $var%ldattr_value%i\"}\n",
+                 ref, i+1, x->c_owner->o_id->s_name, attr->name->s_name, ref, i+1);
+        sys_vgui("bind .epw%ld.attr_values%i.label <KeyPress-Tab> {pdsend \"%s %s $var%ldattr_value%i\"}\n",
+                 ref, i+1, x->c_owner->o_id->s_name, attr->name->s_name, ref, i+1);
+        sys_vgui("bind .epw%ld.attr_values%i.label <FocusOut> {pdsend \"%s %s $var%ldattr_value%i\"}\n",
+                 ref, i+1, x->c_owner->o_id->s_name, attr->name->s_name, ref, i+1);
+        sys_vgui("bind .epw%ld.attr_values%i.label <KeyPress-Escape> {set var%ldattr_value%i %f}\n",
+                 ref, i+1, ref, i+1, atom_getfloatarg(0, argc, argv));
+    }
+    else if(attr->style == s_cream_menu)
+    {
+        sys_vgui("set var%ldattr_value%i \"%s\"\n", ref, i+1, atom_getsymbolarg(0, argc, argv));
+        
+        sys_vgui("spinbox .epw%ld.attr_values%i.label -font {Helvetica 12} -width 18 -state readonly ", ref, i+1);
+        sys_vgui("-textvariable [string trim var%ldattr_value%i] -command {pdsend \"%s %s $var%ldattr_value%i\"}",
+                 ref, i+1, x->c_owner->o_id->s_name, attr->name->s_name, ref, i+1);
+        sys_vgui("-values {");
+        for(j = 0; j < attr->itemssize; j++)
+        {
+            sys_vgui("%s ", attr->itemslist[attr->itemssize - 1 - j]->s_name);
+        }
+        sys_vgui("}\n");
+        
+        sys_vgui("bind .epw%ld.attr_values%i.label <KeyPress-Return> {pdsend \"%s %s $var%ldattr_value%i\"}\n",
+                 ref, i+1, x->c_owner->o_id->s_name, attr->name->s_name, ref, i+1);
+        sys_vgui("bind .epw%ld.attr_values%i.label <KeyPress-Tab> {pdsend \"%s %s $var%ldattr_value%i\"}\n",
+                 ref, i+1, x->c_owner->o_id->s_name, attr->name->s_name, ref, i+1);
+        sys_vgui("bind .epw%ld.attr_values%i.label <FocusOut> {pdsend \"%s %s $var%ldattr_value%i\"}\n",
+                 ref, i+1, x->c_owner->o_id->s_name, attr->name->s_name, ref, i+1);
+        sys_vgui("bind .epw%ld.attr_values%i.label <KeyPress-Escape> {set var%ldattr_value%i %f}\n",
+                 ref, i+1, ref, i+1, atom_getsymbolarg(0, argc, argv));
+    }
+    else
+    {
+        if(argc && argv)
+        {
+            sys_vgui("set var%ldattr_value%i [concat ", ref, i+1);
+            for(j = 0; j < argc; j++)
+            {
+                if(atom_gettype(argv+j) == A_FLOAT)
+                {
+                    sys_vgui("%g ", atom_getfloat(argv+j));
+                }
+                else if(atom_gettype(argv+j) == A_SYMBOL)
+                {
+                    atom_string(argv+j, text, MAXPDSTRING);
+                    sys_vgui("'%s' ", text);
+                }
+            }
+            sys_gui("]\n");
+        }
+        else
+        {
+            sys_vgui("set var%ldattr_value%i \"\"\n", ref, i+1);
+        }
+        
+        sys_vgui("entry .epw%ld.attr_values%i.label -font {Helvetica 12} -width 20 ", ref, i+1);
+        sys_vgui("-textvariable var%ldattr_value%i\n", ref, i+1);
+        
+        sys_vgui("bind .epw%ld.attr_values%i.label <KeyPress-Return> {pdsend \"%s %s $var%ldattr_value%i\"}\n",
+                 ref, i+1, x->c_owner->o_id->s_name, attr->name->s_name, ref, i+1);
+        sys_vgui("bind .epw%ld.attr_values%i.label <KeyPress-Tab> {pdsend \"%s %s $var%ldattr_value%i\"}\n",
+                 ref, i+1, x->c_owner->o_id->s_name, attr->name->s_name, ref, i+1);
+        sys_vgui("bind .epw%ld.attr_values%i.label <FocusOut> {pdsend \"%s %s $var%ldattr_value%i\"}\n",
+                 ref, i+1, x->c_owner->o_id->s_name, attr->name->s_name, ref, i+1);
+        sys_vgui("bind .epw%ld.attr_values%i.label <KeyPress-Escape> {set var%ldattr_value%i %f}\n",
+                 ref, i+1, ref, i+1, atom_getsymbolarg(0, argc, argv));
+    }
+    if(argc && argv)
+    {
+        free(argv);
+    }
+    argv = NULL;
+    argc = 0;
+    
+    
+    sys_vgui("pack .epw%ld.attr_label%i.label    -side left -fill both -expand 1\n",    ref, i+1);
+    sys_vgui("pack .epw%ld.attr_name%i.label     -side left -fill both -expand 1\n",    ref, i+1);
+    sys_vgui("pack .epw%ld.attr_values%i.label   -side left -fill both -expand 1\n",    ref, i+1);
+    
+    sys_vgui("grid config .epw%ld.attr_label%i   -column 0 -columnspan 2 -row %i -sticky w\n", ref, i+1, x->c_nitems);
+    sys_vgui("grid config .epw%ld.attr_name%i    -column 2 -row %i -sticky w\n",               ref, i+1, x->c_nitems);
+    sys_vgui("grid config .epw%ld.attr_values%i  -column 3 -columnspan 2 -row %i -sticky w\n", ref, i+1, x->c_nitems++);
+}
+
+static void ewindowprop_addparam(t_ewindowprop* x, t_eparam const* param, int i)
+{
+    t_ebox const* z        = (t_ebox const*)x->c_owner;
+    const unsigned long tx = (unsigned long)x->c_owner;
+    
+    sys_vgui("frame .epw%ld.params_menu_index%i\n",   tx, i+1);
+    sys_vgui("frame .epw%ld.params_menu_name%i\n",    tx, i+1);
+    sys_vgui("frame .epw%ld.params_menu_label%i\n",   tx, i+1);
+    
+    sys_vgui("set var%ldparam_menu_index%i %i\n", tx, i+1, z->b_params[i]->p_index);
+    sys_vgui("entry .epw%ld.params_menu_index%i.entry -font {Helvetica 12} -width 5 \
+             -textvariable var%ldparam_menu_index%i\n", tx, i+1, tx, i+1,
+             (z->b_params[i]->p_flags & EPARAM_STATIC_INDEX) ? "disable" : "normal");
+    sys_vgui("set var%ldparam_menu_name%i \"%s\"\n", tx, i+1, param->p_name->s_name);
+    sys_vgui("entry .epw%ld.params_menu_name%i.entry -font {Helvetica 12} -width 13 \
+             -textvariable var%ldparam_menu_name%i -state %s\n", tx, i+1, tx, i+1,
+             (z->b_params[i]->p_flags & EPARAM_STATIC_NAME) ? "disable" : "normal");
+    sys_vgui("set var%ldparam_menu_label%i \"%s\"\n", tx, i+1, z->b_params[i]->p_label->s_name);
+    sys_vgui("entry .epw%ld.params_menu_label%i.entry -font {Helvetica 12} -width 15 \
+             -textvariable var%ldparam_menu_label%i -state %s\n", tx, i+1, tx, i+1,
+             (z->b_params[i]->p_flags & EPARAM_STATIC_LABEL) ? "disable" : "normal");
+    
+    sys_vgui("bind .epw%ld.params_menu_index%i.entry <KeyPress-Return> {pdsend \"%s param %i index $var%ldparam_menu_index%i\"}\n",
+             tx, i+1, z->b_obj.o_id->s_name, i+1, tx, i+1);
+    sys_vgui("bind .epw%ld.params_menu_name%i.entry <KeyPress-Return> {pdsend \"%s param %i name '$var%ldparam_menu_name%i'\"}\n",
+             tx, i+1, z->b_obj.o_id->s_name, i+1, tx, i+1);
+    sys_vgui("bind .epw%ld.params_menu_label%i.entry <KeyPress-Return> {pdsend \"%s param %i label '$var%ldparam_menu_label%i'\"}\n",
+             tx, i+1, z->b_obj.o_id->s_name, i+1, tx, i+1);
+    
+    sys_vgui("bind .epw%ld.params_menu_index%i.entry <KeyPress-Tab> {pdsend \"%s param %i index $var%ldparam_menu_index%i\"}\n",
+             tx, i+1, z->b_obj.o_id->s_name, i+1, tx, i+1);
+    sys_vgui("bind .epw%ld.params_menu_name%i.entry <KeyPress-Tab> {pdsend \"%s param %i name '$var%ldparam_menu_name%i'\"}\n",
+             tx, i+1, z->b_obj.o_id->s_name, i+1, tx, i+1);
+    sys_vgui("bind .epw%ld.params_menu_label%i.entry <KeyPress-Tab> {pdsend \"%s param %i label '$var%ldparam_menu_label%i'\"}\n",
+             tx, i+1, z->b_obj.o_id->s_name, i+1, tx, i+1);
+    
+    sys_vgui("bind .epw%ld.params_menu_index%i.entry <FocusOut> {pdsend \"%s param %i index $var%ldparam_menu_index%i\"}\n",
+             tx, i+1, z->b_obj.o_id->s_name, i+1, tx, i+1);
+    sys_vgui("bind .epw%ld.params_menu_name%i.entry <FocusOut> {pdsend \"%s param %i name '$var%ldparam_menu_name%i'\"}\n",
+             tx, i+1, z->b_obj.o_id->s_name, i+1, tx, i+1);
+    sys_vgui("bind .epw%ld.params_menu_label%i.entry <FocusOut> {pdsend \"%s param %i label '$var%ldparam_menu_label%i'\"}\n",
+             tx, i+1, z->b_obj.o_id->s_name, i+1, tx, i+1);
+    
+    
+    sys_vgui("bind .epw%ld.params_menu_index%i.entry <KeyPress-Escape> {set var%ldparam_menu_index%i %i}\n",
+             tx, i+1, tx, i+1, z->b_params[i]->p_index);
+    sys_vgui("bind .epw%ld.params_menu_name%i.entry <KeyPress-Escape> {set var%ldparam_menu_name%i %s}\n",
+             tx, i+1, tx, i+1, z->b_params[i]->p_name->s_name);
+    sys_vgui("bind .epw%ld.params_menu_label%i.entry <KeyPress-Escape> {set var%ldparam_menu_label%i %s}\n",
+             tx, i+1, tx, i+1, z->b_params[i]->p_label->s_name);
+    
+    sys_vgui("pack  .epw%ld.params_menu_index%i.entry -side left -fill both -expand 1\n",  tx);
+    sys_vgui("pack  .epw%ld.params_menu_name%i.entry -side left -fill both -expand 1\n",  tx);
+    sys_vgui("pack  .epw%ld.params_menu_label%i.entry -side left -fill both -expand 1\n",  tx);
+    
+    sys_vgui("grid config .epw%ld.params_menu_index%i -column 0 -row %i -sticky w\n",   tx, i+1, x->c_nitems);
+    sys_vgui("grid config .epw%ld.params_menu_name%i -column 1 -row %i -sticky w\n",    tx, i+1, x->c_nitems);
+    sys_vgui("grid config .epw%ld.params_menu_label%i -column 2 -row %i -sticky w\n",   tx, i+1, x->c_nitems++);
+}
+
+t_ewindowprop* ewindowprop_create(t_eobj* x)
+{
+    int i;
+    char text[MAXPDSTRING];
+    t_ewindowprop* wm = ewindowprop_getfromobject(x);
+    const unsigned long ref = (unsigned long)x;
+    t_eclass const* c = eobj_getclass(x);
+    t_ebox const* z   = (t_ebox *)x;
+    if(!wm)
+    {
+        t_class* c2 = ewindowprop_setup();
+        if(c2)
+        {
+            wm = (t_ewindowprop *)pd_new(c2);
+            if(wm)
+            {
+                sprintf(text, "windowprop%ld", ref);
+                wm->c_owner = x;
+                pd_bind((t_pd *)wm, gensym(text));
+            }
+        }
+    }
+    else
+    {
+        sys_vgui("destroy .epw%ld\n", ref);
+    }
+    if(wm)
+    {
+        wm->c_nitems = 0;
+        // Window
+        sys_vgui("toplevel .epw%ld\n", ref);
+        sys_vgui("wm title .epw%ld {%s properties}\n", ref, c->c_class.c_name->s_name);
+        sys_vgui("wm resizable .epw%ld 0 0\n", ref);
+        
+        // Attrs
+        sys_vgui("frame .epw%ld.attrs\n", ref);
+        sys_vgui("label .epw%ld.attrs.label -justify center -font {Helvetica 13 bold} -text Attributes -height 2\n", ref);
+        sys_vgui("pack  .epw%ld.attrs.label -side left -fill both -expand 1\n", ref);
+        sys_vgui("grid config .epw%ld.attrs -columnspan 5 -row %i -sticky w\n", ref, wm->c_nitems++);
+        
+        sys_vgui("frame .epw%ld.attrs_menu_label\n", ref);
+        sys_vgui("frame .epw%ld.attrs_menu_name\n",  ref);
+        sys_vgui("frame .epw%ld.attrs_menu_values\n",ref);
+        
+        sys_vgui("label .epw%ld.attrs_menu_label.label -justify left -font {Helvetica 12 bold} -text Label\n",    ref);
+        sys_vgui("label .epw%ld.attrs_menu_name.label -justify left -font {Helvetica 12 bold} -text Name\n",      ref);
+        sys_vgui("label .epw%ld.attrs_menu_values.label -justify left -font {Helvetica 12 bold} -text Values\n",  ref);
+        
+        sys_vgui("pack  .epw%ld.attrs_menu_label.label -side left -fill both -expand 1\n",   ref);
+        sys_vgui("pack  .epw%ld.attrs_menu_name.label -side left -fill both -expand 1\n",    ref);
+        sys_vgui("pack  .epw%ld.attrs_menu_values.label -side left -fill both -expand 1\n",  ref);
+        
+        sys_vgui("grid config .epw%ld.attrs_menu_label -column 0 -columnspan 2 -row %i -sticky w\n",   ref, wm->c_nitems);
+        sys_vgui("grid config .epw%ld.attrs_menu_name -column 2 -row %i -sticky w\n",                  ref, wm->c_nitems);
+        sys_vgui("grid config .epw%ld.attrs_menu_values -column 3 -columnspan 2 -row %i -sticky w\n",  ref, wm->c_nitems++);
+        
+        for(i = 0; i < c->c_nattr; i++)
+        {
+            if(!c->c_attr[i]->invisible)
+            {
+                ewindowprop_addattr(wm, c->c_attr[i], i);
+            }
+        }
+        
+        // Params
+        if(eobj_isbox(x) && z->b_nparams)
+        {
+            sys_vgui("frame .epw%ld.params\n", ref);
+            sys_vgui("label .epw%ld.params.label -justify center -font {Helvetica 13  bold} -text Parameters -height 2\n", ref);
+            sys_vgui("pack  .epw%ld.params.label -side left -fill both -expand 1\n",  ref);
+            sys_vgui("grid config .epw%ld.params -columnspan 3 -row %i -sticky w\n", ref, wm->c_nitems++);
             
-            sys_vgui("label %s.attr_label%i.label -justify left -font {Helvetica 12} -text \"%s\"\n",
-                     tx, i+1, attr->label->s_name);
-            sys_vgui("label %s.attr_name%i.label -justify left -font {Helvetica 12 italic} -text \"%s\"\n",
-                     tx, i+1, attr->name->s_name);
+            sys_vgui("frame .epw%ld.params_menu_index\n",ref);
+            sys_vgui("frame .epw%ld.params_menu_name\n", ref);
+            sys_vgui("frame .epw%ld.params_menu_label\n",ref);
             
-            eobj_attr_getvalueof(x,  attr->name, &argc, &argv);
-            if(attr->style == s_cream_checkbutton)
+            sys_vgui("label .epw%ld.params_menu_index.label -justify left -font {Helvetica 12 bold} -text Index\n",   ref);
+            sys_vgui("label .epw%ld.params_menu_name.label -justify left -font {Helvetica 12 bold} -text Name\n",     ref);
+            sys_vgui("label .epw%ld.params_menu_label.label -justify left -font {Helvetica 12 bold} -text Label\n",   ref);
+            
+            sys_vgui("pack  .epw%ld.params_menu_index.label -side left -fill both -expand 1\n",  ref);
+            sys_vgui("pack  .epw%ld.params_menu_name.label -side left -fill both -expand 1\n",   ref);
+            sys_vgui("pack  .epw%ld.params_menu_label.label -side left -fill both -expand 1\n",  ref);
+            
+            sys_vgui("grid config .epw%ld.params_menu_index -column 0 -row %i -sticky w\n",    ref, wm->c_nitems);
+            sys_vgui("grid config .epw%ld.params_menu_name -column 1 -row %i -sticky w\n",     ref, wm->c_nitems);
+            sys_vgui("grid config .epw%ld.params_menu_label -column 2 -row %i -sticky w\n",    ref, wm->c_nitems++);
+            
+            for(i = 0; i < z->b_nparams; i++)
             {
-                if(argc && argv && atom_gettype(argv) == A_FLOAT)
-                    sys_vgui("set %sattr_value%i %i\n", va, i+1, (int)atom_getfloat(argv));
-                else
-                    sys_vgui("set %sattr_value%i 0\n", va, i+1);
-                sys_vgui("checkbutton %s.attr_values%i.label -variable %sattr_value%i -command {pdsend \"%s %s $%sattr_value%i\"}\n",
-                         tx, i+1, va, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
+                if(z->b_params[i])
+                {
+                    ewindowprop_addparam(wm, z->b_params[i], i);
+                }
             }
-            else if(attr->style == s_cream_color)
+        }
+    }
+    return wm;
+}
+
+static float ecicmwrapper_getversion(t_object* x)
+{
+    return CICM_VERSION;
+}
+
+static int cicmwrapper_setup()
+{
+    float version;
+    t_flt_method getversion = NULL;
+    t_class* ecicmwrapper_class = NULL;
+    t_pd* cicm = gensym("cicmwrapper_1572")->s_thing;
+    if(!cicm)
+    {
+        ecicmwrapper_class = class_new(gensym("cicmwrapper"), NULL, (t_method)NULL, sizeof(t_object), CLASS_PD, A_GIMME, 0);
+        class_addmethod(ecicmwrapper_class, (t_method)ecicmwrapper_getversion, gensym("version"), A_NULL, 0);
+        
+        cicm = pd_new(ecicmwrapper_class);
+        if(cicm)
+        {
+            pd_bind(cicm, gensym("cicmwrapper_1572"));
+        }
+    }
+    else
+    {
+        getversion = (t_flt_method)getfn((t_pd *)cicm, gensym("version"));
+        if(getversion)
+        {
+            version = getversion(cicm);
+            if(version != CICM_VERSION)
             {
-                if(argc && argv && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT
-                   && atom_gettype(argv+2) == A_FLOAT && atom_gettype(argv+3) == A_FLOAT)
-                {
-                    color.red = atom_getfloat(argv); color.green = atom_getfloat(argv+1);
-                    color.blue = atom_getfloat(argv+2); color.alpha = atom_getfloat(argv+3);
-                }
-                else
-                {
-                    color = rgba_white;
-                }
-                sys_vgui("set %sattr_value%i %s\n", va, i+1, rgba_to_hex(&color));
-                sys_vgui("entry %s.attr_values%i.label -font {Helvetica 12} -width 20 -readonlybackground $%sattr_value%i -state readonly\n",
-                         tx, i+1, va, i+1);
-                sys_vgui("bind %s.attr_values%i.label <Button> [concat epicker_apply %s %s $%sattr_value%i %s.attr_values%i.label]\n",
-                         tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1, tx, i+1);
-            }
-            else if(attr->style == s_cream_number)
-            {
-                if(argc && argv && atom_gettype(argv) == A_FLOAT)
-                    sys_vgui("set %sattr_value%i %g\n", va, i+1, atom_getfloat(argv));
-                else
-                    sys_vgui("set %sattr_value%i 0\n", va, i+1);
-                sys_vgui("spinbox %s.attr_values%i.label -font {Helvetica 12} -width 18 \
-                         -textvariable %sattr_value%i -command {pdsend \"%s %s $%sattr_value%i\"} \
-                         -increment %f -from %f -to %f\n", tx, i+1, va, i+1,
-                         x->o_id->s_name, attr->name->s_name, va, i+1,
-                         attr->step, (attr->clipped % 2) ? attr->minimum : FLT_MIN,
-                         (attr->clipped > 1) ? attr->maximum : FLT_MAX);
-                sys_vgui("bind %s.attr_values%i.label <KeyPress-Return> {pdsend \"%s %s $%sattr_value%i\"}\n",
-                         tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
-            }
-            else if(attr->style == s_cream_menu && atom_gettype(argv) == A_SYMBOL)
-            {
-                if(argc && argv && atom_gettype(argv) == A_SYMBOL)
-                    sys_vgui("set %sattr_value%i %s\n", va, i+1,  atom_getsymbol(argv)->s_name);
-                else
-                    sys_vgui("set %sattr_value%i \"\"\n", va, i+1);
-                sys_vgui("spinbox %s.attr_values%i.label -font {Helvetica 12} -width 18 -state readonly\
-                         -textvariable [string trim %sattr_value%i] -command {pdsend \"%s %s $%sattr_value%i\"} \
-                         -values {", tx, i+1, va, i+1,
-                         x->o_id->s_name, attr->name->s_name, va, i+1);
-                for(j = 0; j < attr->itemssize; j++)
-                {
-                    sys_vgui("%s ", attr->itemslist[attr->itemssize - 1 - j]->s_name);
-                }
-                sys_vgui("}\n");
-            }
-            else if(attr->style == s_cream_font)
-            {
-                if(argc && argv && atom_gettype(argv) == A_SYMBOL && atom_gettype(argv+1) == A_FLOAT
-                   && atom_gettype(argv+2) == A_SYMBOL && atom_gettype(argv+3) == A_SYMBOL)
-                {
-                    sys_vgui("set %sattr_value%i \"{%s} %i %s %s\"\n", va, i+1, atom_getsymbol(argv)->s_name, (int)atom_getfloat(argv+1), atom_getsymbol(argv+2)->s_name, atom_getsymbol(argv+3)->s_name);
-                    sys_vgui("entry %s.attr_values%i.label -font {\"%s\" 12 %s %s} -width 20 -textvariable %sattr_value%i -state readonly\n"
-                             ,tx, i+1,
-                             atom_getsymbol(argv)->s_name, atom_getsymbol(argv+2)->s_name, atom_getsymbol(argv+3)->s_name,
-                             va, i+1);
-                }
-                else
-                {
-                    sys_vgui("set %sattr_value%i \"\"\n", va, i+1);
-                    sys_vgui("entry %s.attr_values%i.label -font {Helvetica 12} -width 20 -textvariable %sattr_value%i -state readonly\n"
-                             ,tx, i+1,
-                             atom_getsymbol(argv)->s_name, atom_getsymbol(argv+2)->s_name, atom_getsymbol(argv+3)->s_name,
-                             va, i+1);
-                }
+                pd_error(cicm, "Two version of the CICM wrapper are used : %g and %g.\nIt could generates problems.", version, CICM_VERSION);
+                ecicmwrapper_class = class_new(gensym("cicmwrapper"), NULL, (t_method)NULL, sizeof(t_object), CLASS_PD, A_GIMME, 0);
+                class_addmethod(ecicmwrapper_class, (t_method)ecicmwrapper_getversion, gensym("version"), A_NULL, 0);
                 
-                sys_vgui("bind %s.attr_values%i.label <Button> [concat efont_apply %s %s {$%sattr_value%i} %s.attr_values%i.label]\n",
-                         tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1, tx, i+1);
+                cicm = pd_new(ecicmwrapper_class);
+                if(cicm)
+                {
+                    pd_bind(cicm, gensym("cicmwrapper_1572"));
+                }
             }
             else
             {
-                
-                if(argc && argv)
-                {
-                    sys_vgui("set %sattr_value%i [concat ", va, i+1);
-                    for(j = 0; j < argc - 1; j++)
-                    {
-                        if(atom_gettype(argv+j) == A_FLOAT)
-                        {
-                            sys_vgui("%g ", atom_getfloat(argv+j));
-                        }
-                        else if(atom_gettype(argv+j) == A_SYMBOL)
-                        {
-                            sys_vgui("'%s' ", atom_getsymbol(argv+j)->s_name);
-                        }
-                    }
-                    if(atom_gettype(argv+argc-1) == A_FLOAT)
-                    {
-                        sys_vgui("%g", atom_getfloat(argv+argc-1));
-                    }
-                    else if(atom_gettype(argv+argc-1) == A_SYMBOL && is_valid_symbol(atom_getsymbol(argv+argc-1)))
-                    {
-                        sys_vgui("'%s'", atom_getsymbol(argv+argc-1)->s_name);
-                    }
-                    sys_gui("]\n");
-                }
-                else
-                {
-                    sys_vgui("set %sattr_value%i \"\"\n", va, i+1);
-                }
-                sys_vgui("entry %s.attr_values%i.label -font {Helvetica 12} -width 20 \
-                         -textvariable %sattr_value%i\n", tx, i+1, va, i+1);
-                sys_vgui("bind %s.attr_values%i.label <KeyPress-Return> {pdsend \"%s %s $%sattr_value%i\"}\n",
-                         tx, i+1, x->o_id->s_name, attr->name->s_name, va, i+1);
-                
+                return 0;
             }
-            if(argc && argv)
-            {
-                free(argv);
-            }
-            argv = NULL;
-            argc = 0;
-            
-            sys_vgui("pack %s.attr_label%i.label    -side left -fill both -expand 1\n",     tx, i+1);
-            sys_vgui("pack %s.attr_name%i.label     -side left -fill both -expand 1\n",     tx, i+1);
-            sys_vgui("pack %s.attr_values%i.label   -side left -fill both -expand 1\n",    tx, i+1);
-            
-            sys_vgui("grid config %s.attr_label%i   -column 0 -columnspan 2 -row %i -sticky w\n", tx, i+1, nitems);
-            sys_vgui("grid config %s.attr_name%i    -column 2 -row %i -sticky w\n",               tx, i+1, nitems);
-            sys_vgui("grid config %s.attr_values%i  -column 3 -columnspan 2 -row %i -sticky w\n", tx, i+1, nitems++);
         }
-    }
-    if(eobj_isbox(x) && z->b_nparams)
-    {
-        sys_vgui("frame %s.params\n", tx);
-        sys_vgui("label %s.params.label -justify center -font {Helvetica 13  bold} -text Parameters -height 2\n", tx);
-        sys_vgui("pack  %s.params.label -side left -fill both -expand 1\n",  tx);
-        sys_vgui("grid config %s.params -columnspan 5 -row %i -sticky w\n", tx, nitems++);
-        
-        sys_vgui("frame %s.params_menu_index\n",tx);
-        sys_vgui("frame %s.params_menu_name\n", tx);
-        sys_vgui("frame %s.params_menu_label\n",tx);
-        
-        sys_vgui("label %s.params_menu_index.label -justify left -font {Helvetica 12 bold} -text Index\n",   tx);
-        sys_vgui("label %s.params_menu_name.label -justify left -font {Helvetica 12 bold} -text Name\n",     tx);
-        sys_vgui("label %s.params_menu_label.label -justify left -font {Helvetica 12 bold} -text Label\n",   tx);
-        
-        sys_vgui("pack  %s.params_menu_index.label -side left -fill both -expand 1\n",  tx);
-        sys_vgui("pack  %s.params_menu_name.label -side left -fill both -expand 1\n",   tx);
-        sys_vgui("pack  %s.params_menu_label.label -side left -fill both -expand 1\n",  tx);
-        
-        sys_vgui("grid config %s.params_menu_index -column 0 -row %i -sticky w\n",    tx, nitems);
-        sys_vgui("grid config %s.params_menu_name -column 1 -row %i -sticky w\n",     tx, nitems);
-        sys_vgui("grid config %s.params_menu_label -column 2 -row %i -sticky w\n",    tx, nitems++);
-        
-        
-        for(i = 0; i < z->b_nparams; i++)
+        else
         {
-            if(z->b_params[i])
+            pd_error(cicm, "Two version of the CICM wrapper are used : 0.4 and %g.\nIt could generates problems.", CICM_VERSION);
+            ecicmwrapper_class = class_new(gensym("cicmwrapper"), NULL, (t_method)NULL, sizeof(t_object), CLASS_PD, A_GIMME, 0);
+            class_addmethod(ecicmwrapper_class, (t_method)ecicmwrapper_getversion, gensym("version"), A_NULL, 0);
+            
+            cicm = pd_new(ecicmwrapper_class);
+            if(cicm)
             {
-                sys_vgui("frame %s.param_menu_index%i\n",   tx, i+1);
-                sys_vgui("frame %s.param_menu_name%i\n",    tx, i+1);
-                sys_vgui("frame %s.param_menu_label%i\n",   tx, i+1);
-                
-                sys_vgui("set %sparam_menu_index%i %i\n", va, i+1, z->b_params[i]->p_index);
-                sys_vgui("entry %s.param_menu_index%i.entry -font {Helvetica 12} -width 5 \
-                         -textvariable %sparam_menu_index%i\n", tx, i+1, va, i+1,
-                         (z->b_params[i]->p_flags & EPARAM_STATIC_INDEX) ? "disable" : "normal");
-                sys_vgui("set %sparam_menu_name%i \"%s\"\n", va, i+1, z->b_params[i]->p_name->s_name);
-                sys_vgui("entry %s.param_menu_name%i.entry -font {Helvetica 12} -width 13 \
-                         -textvariable %sparam_menu_name%i -state %s\n", tx, i+1, va, i+1,
-                         (z->b_params[i]->p_flags & EPARAM_STATIC_NAME) ? "disable" : "normal");
-                sys_vgui("set %sparam_menu_label%i \"%s\"\n", va, i+1, z->b_params[i]->p_label->s_name);
-                sys_vgui("entry %s.param_menu_label%i.entry -font {Helvetica 12} -width 15 \
-                         -textvariable %sparam_menu_label%i -state %s\n", tx, i+1, va, i+1,
-                         (z->b_params[i]->p_flags & EPARAM_STATIC_LABEL) ? "disable" : "normal");
-                
-                sys_vgui("bind %s.param_menu_index%i.entry <KeyPress-Return> {pdsend \"%s param %i index $%sparam_menu_index%i\"}\n", tx, i+1, x->o_id->s_name, i+1, va, i+1);
-                sys_vgui("bind %s.param_menu_name%i.entry <KeyPress-Return> {pdsend \"%s param %i name $%sparam_menu_name%i\"}\n",
-                         tx, i+1, x->o_id->s_name, i+1, va, i+1);
-                sys_vgui("bind %s.param_menu_label%i.entry <KeyPress-Return> {pdsend \"%s param %i label $%sparam_menu_label%i\"}\n", tx, i+1, x->o_id->s_name, i+1, va, i+1);
-                
-                sys_vgui("bind %s.param_menu_index%i.entry <KeyPress-Tab> {pdsend \"%s param %i index $%sparam_menu_index%i\"}\n", tx, i+1, x->o_id->s_name, i+1, va, i+1);
-                sys_vgui("bind %s.param_menu_name%i.entry <KeyPress-Tab> {pdsend \"%s param %i name $%sparam_menu_name%i\"}\n",
-                         tx, i+1, x->o_id->s_name, i+1, va, i+1);
-                sys_vgui("bind %s.param_menu_label%i.entry <KeyPress-Tab> {pdsend \"%s param %i label $%sparam_menu_label%i\"}\n", tx, i+1, x->o_id->s_name, i+1, va, i+1);
-
-                sys_vgui("bind %s.param_menu_index%i.entry <FocusOut> {pdsend \"%s param %i index $%sparam_menu_index%i\"}\n", tx, i+1, x->o_id->s_name, i+1, va, i+1);
-                sys_vgui("bind %s.param_menu_name%i.entry <FocusOut> {pdsend \"%s param %i name $%sparam_menu_name%i\"}\n",
-                         tx, i+1, x->o_id->s_name, i+1, va, i+1);
-                sys_vgui("bind %s.param_menu_label%i.entry <FocusOut> {pdsend \"%s param %i label $%sparam_menu_label%i\"}\n", tx, i+1, x->o_id->s_name, i+1, va, i+1);
-                
-                sys_vgui("bind %s.param_menu_index%i.entry <Destroy> {pdsend \"%s param %i index $%sparam_menu_index%i\"}\n", tx, i+1, x->o_id->s_name, i+1, va, i+1);
-                sys_vgui("bind %s.param_menu_name%i.entry <Destroy> {pdsend \"%s param %i name $%sparam_menu_name%i\"}\n",
-                         tx, i+1, x->o_id->s_name, i+1, va, i+1);
-                sys_vgui("bind %s.param_menu_label%i.entry <Destroy> {pdsend \"%s param %i label $%sparam_menu_label%i\"}\n", tx, i+1, x->o_id->s_name, i+1, va, i+1);
-
-                
-                sys_vgui("bind %s.param_menu_index%i.entry <KeyPress-Escape> {set %sparam_menu_index%i %i}\n",
-                         tx, i+1, va, i+1, z->b_params[i]->p_index);
-                sys_vgui("bind %s.param_menu_name%i.entry <KeyPress-Escape> {set %sparam_menu_name%i %s}\n",
-                         tx, i+1, va, i+1, z->b_params[i]->p_name->s_name);
-                sys_vgui("bind %s.param_menu_label%i.entry <KeyPress-Escape> {set %sparam_menu_label%i %s}\n",
-                         tx, i+1, va, i+1, z->b_params[i]->p_label->s_name);
-                
-                sys_vgui("pack  %s.param_menu_index%i.entry -side left -fill both -expand 1\n",  tx);
-                sys_vgui("pack  %s.param_menu_name%i.entry -side left -fill both -expand 1\n",  tx);
-                sys_vgui("pack  %s.param_menu_label%i.entry -side left -fill both -expand 1\n",  tx);
-                
-                sys_vgui("grid config %s.param_menu_index%i -column 0 -row %i -sticky w\n",   tx, i+1, nitems);
-                sys_vgui("grid config %s.param_menu_name%i -column 1 -row %i -sticky w\n",    tx, i+1, nitems);
-                sys_vgui("grid config %s.param_menu_label%i -column 2 -row %i -sticky w\n",   tx, i+1, nitems++);
+                pd_bind(cicm, gensym("cicmwrapper_1572"));
             }
         }
     }
+    return 1;
 }
 
-
-void tcltk_create_methods(void)
+void cicmwrapper_init(void)
 {
-    t_symbol* epd_symbol = gensym("epd1572");
-    if(!epd_symbol->s_thing)
+    if(cicmwrapper_setup())
     {
         // PATCHER MOUSE MOTION //
         sys_vgui("proc eobj_canvas_motion {patcher val} {\n");
@@ -929,205 +1113,8 @@ void tcltk_create_methods(void)
         sys_gui("pdsend \"$objid $attrname $nR2 $nG2 $nB2\"\n");
         sys_gui("$sentry configure -readonlybackground $color\n");
         sys_gui("}\n");
-        
-        // FONT PICKER WINOW //
-        sys_gui("proc efont_apply {objid attrname initfont sentry} { \n");
-        sys_gui("set nfont [::ChooseFont::ChooseFont $initfont]\n");
-        sys_gui("pdsend \"$objid $attrname $nfont\"\n");
-        sys_gui("$sentry configure -state normal\n");
-        sys_gui("$sentry delete 0 end\n");
-        sys_gui("$sentry insert 0 [string trim $nfont]\n");
-        sys_gui("$sentry configure -state readonly\n");
-        sys_gui("}\n");
-        
-
-        sys_gui("namespace eval ::ChooseFont {\n");
-        sys_gui("   variable S\n");
-        sys_gui("\n");
-        sys_gui("   set S(W) .cfont\n");
-        sys_gui("   set S(fonts) [lsort -dictionary [font families]]\n");
-        sys_gui("   set S(styles) {Regular Italic Bold \"Bold Italic\"}\n");
-        sys_gui("\n");
-        sys_gui("   set S(sizes) {8 9 10 11 12 14 16 18 20 22 24 26 28 36 48 72}\n");
-        sys_gui("   set S(strike) 0\n");
-        sys_gui("   set S(under) 0\n");
-        sys_gui("   set S(first) 1\n");
-        sys_gui("\n");
-        sys_gui("   set S(fonts,lcase) {}\n");
-        sys_gui("   foreach font $S(fonts) { lappend S(fonts,lcase) [string tolower $font]}\n");
-        sys_gui("   set S(styles,lcase) {regular italic bold \"bold italic\"}\n");
-        sys_gui("   set S(sizes,lcase) $S(sizes)\n");
-        sys_gui("\n");
-        sys_gui("}\n");
-        sys_gui("proc ::ChooseFont::ChooseFont {{defaultFont \"\"}} {\n");
-        sys_gui("   variable S\n");
-        sys_gui("\n");
-        sys_gui("   destroy $S(W)\n");
-        sys_gui("   toplevel $S(W) -padx 10 -pady 10\n");
-        sys_gui("   wm title $S(W) \"Font\"\n");
-        sys_gui("\n");
-        sys_gui("   set tile [expr {[catch {package present tile}] ? \"\" : \"::ttk\"}]\n");
-        sys_gui("\n");
-        sys_gui("   ${tile}::label $S(W).font -text \"Font:\"\n");
-        sys_gui("   ${tile}::label $S(W).style -text \"Font style:\"\n");
-        sys_gui("   ${tile}::label $S(W).size -text \"Size:\"\n");
-        sys_gui("   entry $S(W).efont -textvariable ::ChooseFont::S(font) ;# -state disabled\n");
-        sys_gui("   entry $S(W).estyle -textvariable ::ChooseFont::S(style) ;# -state disabled\n");
-        sys_gui("   entry $S(W).esize -textvariable ::ChooseFont::S(size) -width 0 \
-                -validate key -vcmd {string is double %P}\n");
-        sys_gui("\n");
-        sys_gui("   ${tile}::scrollbar $S(W).sbfonts -command [list $S(W).lfonts yview]\n");
-        sys_gui("   listbox $S(W).lfonts -listvariable ::ChooseFont::S(fonts) -height 7  \
-                -yscroll [list $S(W).sbfonts set] -height 7 -exportselection 0\n");
-        sys_gui("   listbox $S(W).lstyles -listvariable ::ChooseFont::S(styles) -height 7  \
-                -exportselection 0\n");
-        sys_gui("   ${tile}::scrollbar $S(W).sbsizes -command [list $S(W).lsizes yview]\n");
-        sys_gui("   listbox $S(W).lsizes -listvariable ::ChooseFont::S(sizes)  \
-                -yscroll [list $S(W).sbsizes set] -width 6 -height 7 -exportselection 0\n");
-        sys_gui("\n");
-        sys_gui("   bind $S(W).lfonts <<ListboxSelect>> [list ::ChooseFont::Click font]\n");
-        sys_gui("   bind $S(W).lstyles <<ListboxSelect>> [list ::ChooseFont::Click style]\n");
-        sys_gui("   bind $S(W).lsizes <<ListboxSelect>> [list ::ChooseFont::Click size]\n");
-        sys_gui("\n");
-        sys_gui("   set WE $S(W).effects\n");
-        sys_gui("   ${tile}::labelframe $WE -text \"Effects\"\n");
-        sys_gui("   ${tile}::checkbutton $WE.strike -variable ::ChooseFont::S(strike)  \
-                -text Strikeout -command [list ::ChooseFont::Click strike]\n");
-        sys_gui("   ${tile}::checkbutton $WE.under -variable ::ChooseFont::S(under)  \
-                -text Underline -command [list ::ChooseFont::Click under]\n");
-        sys_gui("\n");
-        sys_gui("   ${tile}::button $S(W).ok -text OK -command [list ::ChooseFont::Done 1]\n");
-        sys_gui("   ${tile}::button $S(W).cancel -text Cancel -command [list ::ChooseFont::Done 0]\n");
-        sys_gui("   wm protocol $S(W) WM_DELETE_WINDOW [list ::ChooseFont::Done 0]\n");
-        sys_gui("\n");
-        sys_gui("   grid $S(W).font - x $S(W).style - x $S(W).size - x -sticky w\n");
-        sys_gui("   grid $S(W).efont - x $S(W).estyle - x $S(W).esize - x $S(W).ok -sticky ew\n");
-        sys_gui("   grid $S(W).lfonts $S(W).sbfonts x  \
-                $S(W).lstyles - x  \
-                $S(W).lsizes $S(W).sbsizes x  \
-                $S(W).cancel -sticky news\n");
-        sys_gui("   grid config $S(W).cancel -sticky n -pady 5\n");
-        sys_gui("   grid columnconfigure $S(W) {2 5 8} -minsize 10\n");
-        sys_gui("   grid columnconfigure $S(W) {0 3 6} -weight 1\n");
-        sys_gui("\n");
-        sys_gui("   grid $WE.strike -sticky w -padx 10\n");
-        sys_gui("   grid $WE.under -sticky w -padx 10\n");
-        sys_gui("   grid columnconfigure $WE 1 -weight 1\n");
-        sys_gui("   grid $WE - x -sticky news -row 100 -column 0\n");
-        sys_gui("\n");
-        sys_gui("   set WS $S(W).sample\n");
-        sys_gui("   ${tile}::labelframe $WS -text \"Sample\"\n");
-        sys_gui("   label $WS.fsample -bd 2 -relief sunken\n");
-        sys_gui("   label $WS.fsample.sample -text \"AaBbYyZz\"\n");
-        sys_gui("   set S(sample) $WS.fsample.sample\n");
-        sys_gui("   pack $WS.fsample -fill both -expand 1 -padx 10 -pady 10 -ipady 15\n");
-        sys_gui("   pack $WS.fsample.sample -fill both -expand 1\n");
-        sys_gui("   pack propagate $WS.fsample 0\n");
-        sys_gui("\n");
-        sys_gui("   grid rowconfigure $S(W) 2 -weight 1\n");
-        sys_gui("   grid rowconfigure $S(W) 99 -minsize 30\n");
-        sys_gui("   grid $WS - - - - -sticky news -row 100 -column 3\n");
-        sys_gui("   grid rowconfigure $S(W) 101 -minsize 30\n");
-        sys_gui("\n");
-        sys_gui("   trace variable ::ChooseFont::S(size) w ::ChooseFont::Tracer\n");
-        sys_gui("   trace variable ::ChooseFont::S(style) w ::ChooseFont::Tracer\n");
-        sys_gui("   trace variable ::ChooseFont::S(font) w ::ChooseFont::Tracer\n");
-        sys_gui("   ::ChooseFont::Init $defaultFont\n");
-        sys_gui("   tkwait window $S(W)\n");
-        sys_gui("   return $S(result)\n");
-        sys_gui("}\n");
-        sys_gui("\n");
-        sys_gui("proc ::ChooseFont::Done {ok} {\n");
-        sys_gui("   if {! $ok} {set ::ChooseFont::S(result) \"\"}\n");
-        sys_gui("   destroy $::ChooseFont::S(W)\n");
-        sys_gui("}\n");
-        sys_gui("proc ::ChooseFont::Init {{defaultFont \"\"}} {\n");
-        sys_gui("   variable S\n");
-        sys_gui("\n");
-        sys_gui("   if {$S(first) || $defaultFont ne \"\"} {\n");
-        sys_gui("       if {$defaultFont eq \"\"} {\n");
-        sys_gui("           set defaultFont [[entry .___e] cget -font]\n");
-        sys_gui("           destroy .___e\n");
-        sys_gui("       }\n");
-        sys_gui("       array set F [font actual $defaultFont]\n");
-        sys_gui("       set S(font) $F(-family)\n");
-        sys_gui("       set S(size) $F(-size)\n");
-        sys_gui("       set S(strike) $F(-overstrike)\n");
-        sys_gui("       set S(under) $F(-underline)\n");
-        sys_gui("       set S(style) \"Regular\"\n");
-        sys_gui("       if {$F(-weight) eq \"bold\" && $F(-slant) eq \"italic\"} {\n");
-        sys_gui("           set S(style) \"Bold Italic\"\n");
-        sys_gui("       } elseif {$F(-weight) eq \"bold\"} {\n");
-        sys_gui("           set S(style) \"Bold\"\n");
-        sys_gui("       } elseif {$F(-slant) eq \"italic\"} {\n");
-        sys_gui("           set S(style) \"Italic\"\n");
-        sys_gui("       }\n");
-        sys_gui("\n");
-        sys_gui("       set S(first) 0\n");
-        sys_gui("   }\n");
-        sys_gui("\n");
-        sys_gui("   ::ChooseFont::Tracer a b c\n");
-        sys_gui("   ::ChooseFont::Show\n");
-        sys_gui("}\n");
-        sys_gui("\n");
-        sys_gui("proc ::ChooseFont::Click {who} {\n");
-        sys_gui("   variable S\n");
-        sys_gui("\n");
-        sys_gui("   if {$who eq \"font\"} {\n");
-        sys_gui("       set S(font) [$S(W).lfonts get [$S(W).lfonts curselection]]\n");
-        sys_gui("   } elseif {$who eq \"style\"} {\n");
-        sys_gui("       set S(style) [$S(W).lstyles get [$S(W).lstyles curselection]]\n");
-        sys_gui("   } elseif {$who eq \"size\"} {\n");
-        sys_gui("       set S(size) [$S(W).lsizes get [$S(W).lsizes curselection]]\n");
-        sys_gui("   }\n");
-        sys_gui("   ::ChooseFont::Show\n");
-        sys_gui("}\n");
-        sys_gui("proc ::ChooseFont::Tracer {var1 var2 op} {\n");
-        sys_gui("   variable S\n");
-        sys_gui("\n");
-        sys_gui("   set bad 0\n");
-        sys_gui("   set nstate normal\n");
-        sys_gui("   foreach var {font style size} {\n");
-        sys_gui("       set value [string tolower $S($var)]\n");
-        sys_gui("       $S(W).l${var}s selection clear 0 end\n");
-        sys_gui("       set n [lsearch -exact $S(${var}s,lcase) $value]\n");
-        sys_gui("       $S(W).l${var}s selection set $n\n");
-        sys_gui("       if {$n != -1} {\n");
-        sys_gui("           set S($var) [lindex $S(${var}s) $n]\n");
-        sys_gui("           $S(W).e$var icursor end\n");
-        sys_gui("           $S(W).e$var selection clear\n");
-        sys_gui("       } else {                                ;\n");
-        sys_gui("           set n [lsearch -glob $S(${var}s,lcase) \"$value*\"]\n");
-        sys_gui("           set bad 1\n");
-        sys_gui("           if {$var ne \"size\" || ! [string is double -strict $value]} {\n");
-        sys_gui("               set nstate disabled\n");
-        sys_gui("           }\n");
-        sys_gui("       }\n");
-        sys_gui("       $S(W).l${var}s see $n\n");
-        sys_gui("   }\n");
-        sys_gui("   if {! $bad} ::ChooseFont::Show\n");
-        sys_gui("   $S(W).ok config -state $nstate\n");
-        sys_gui("}\n");
-        sys_gui("\n");
-        sys_gui("proc ::ChooseFont::Show {} {\n");
-        sys_gui("   variable S\n");
-        sys_gui("\n");
-        sys_gui("   set S(result) [list $S(font) $S(size)]\n");
-        sys_gui("   if {$S(style) eq \"Bold\"} { lappend S(result) bold }\n");
-        sys_gui("   if {$S(style) eq \"Italic\"} { lappend S(result) italic }\n");
-        sys_gui("   if {$S(style) eq \"Bold Italic\"} { lappend S(result) bold italic}\n");
-        sys_gui("   if {$S(strike)} { lappend S(result) overstrike}\n");
-        sys_gui("   if {$S(under)} { lappend S(result) underline}\n");
-        sys_gui("\n");
-        sys_gui("   $S(sample) config -font $S(result)\n");
-        sys_gui("}\n");
-        
-        
-        
-        epd_symbol->s_thing = (t_class **)1;
     }
 }
-
 
 
 
