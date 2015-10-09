@@ -60,14 +60,6 @@ void ebox_free(t_ebox* x);
  */
 t_pd* ebox_getsender(t_ebox* x);
 
-/*!
- * \fn          char ebox_isdrawable(t_ebox* x)
- * \brief       Retrieves if a t_ebox is drawable.
- * \details     Checks several things that ensure that the t_ebox can be drawn;
- * \param x     The t_ebox pointer.
- * \return      The function returns 1 if the box is drawable otherwise 0.
- */
-char ebox_isdrawable(t_ebox* x);
 
 /*!
  * \fn      void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)
@@ -114,16 +106,17 @@ void ebox_redraw(t_ebox *x);
 void ebox_get_rect_for_view(t_ebox* x, t_rect *rect);
 
 /*!
- * \fn      t_elayer* ebox_start_layer(t_ebox *b, t_symbol *name, float width, float height)
+ * \fn      t_elayer* ebox_start_layer(t_ebox *b, t_object* view, t_symbol *name, float width, float height)
  * \brief   Creates or initializes a layer for the t_ebox.
  * \details If the layer is new, the function allocate a new empty layer. if the layer already exist and is marked as invalid the layer is returned otherwise(if the layer is maked as redeay to be drawn for example) the function returns NULL. You should always check the returned layer of the function before using it.
- * \param x The t_ebox pointer.
- * \param name The name of the layer.
- * \param width The width of the layer.
- * \param height The height of the layer.
- * \see ebox_end_layer ebox_invalidate_layer ebox_paint_layer t_elayer_flags t_elayer
+ * \param x         The t_ebox pointer.
+ * \param view      The view pointer.
+ * \param name      The name of the layer.
+ * \param width     The width of the layer.
+ * \param height    The height of the layer.
+ * \see ebox_end_layer ebox_invalidate_layer ebox_paint_layer
  */
-t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height);
+t_elayer* ebox_start_layer(t_ebox *x, t_object* view, t_symbol *name, float width, float height);
 
 /*!
  * \fn      t_pd_err ebox_end_layer(t_ebox *b, t_symbol *name)
@@ -131,7 +124,7 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
  * \details After the several painting methods, you should call this function to notify  that the layer is ready to be drawn.
  * \param x The t_ebox pointer.
  * \param name The name of the layer.
- * \see ebox_start_layer ebox_invalidate_layer ebox_paint_layer t_elayer_flags t_elayer
+ * \see ebox_start_layer ebox_invalidate_layer ebox_paint_layer
  */
 t_pd_err ebox_end_layer(t_ebox *x, t_symbol *name);
 
@@ -143,7 +136,7 @@ t_pd_err ebox_end_layer(t_ebox *x, t_symbol *name);
  * \param name The name of the layer.
  * \param x_p The abscissa of the layer in the t_ebox.
  * \param y_p The ordinate of the layer in the t_ebox.
- * \see ebox_start_layer ebox_end_layer ebox_invalidate_layer t_elayer_flags t_elayer
+ * \see ebox_start_layer ebox_end_layer ebox_invalidate_layer
  */
 t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p);
 
@@ -159,105 +152,7 @@ t_pd_err ebox_invalidate_layer(t_ebox *x, t_symbol *name);
 
 /** @} */
 
-
 //! @cond
-//! The mouse enter method called by tcl/tk (PRIVATE)
-/*
- * \memberof        ebox
- * \param x         The ebox pointer
- * \return          Nothing
- */
-void ebox_mouse_enter(t_ebox* x);
-
-//! The mouse leave method called by tcl/tk (PRIVATE)
-/*
- * \memberof        ebox
- * \param x         The ebox pointer
- * \return          Nothing
- */
-void ebox_mouse_leave(t_ebox* x);
-
-//! The mouse move method called by tcl/tk (PRIVATE)
-/*
- * \memberof        ebox
- * \param x         The ebox pointer
- * \param s         The message selector
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \return          Nothing
- */
-void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
-
-//! The mouse up method called by tcl/tk (PRIVATE)
-/*
- * \memberof        ebox
- * \param x         The ebox pointer
- * \param s         The message selector
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \return          Nothing
- */
-void ebox_mouse_up(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
-
-//! The mouse down method called by tcl/tk (PRIVATE)
-/*
- * \memberof        ebox
- * \param x         The ebox pointer
- * \param s         The message selector
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \return          Nothing
- */
-void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
-
-//! The mouse double click method called by tcl/tk (PRIVATE)
-/*
- * \memberof        ebox
- * \param x         The ebox pointer
- * \param s         The message selector
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \return          Nothing
- */
-void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
-
-//! The mouse wheel method called by tcl/tk (PRIVATE)
-/*
- * \memberof        ebox
- * \param x         The ebox pointer
- * \param s         The message selector
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \return          Nothing
- */
-void ebox_mouse_wheel(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
-
-//! The key down method called by tcl/tk (PRIVATE AND NOT READY)
-/*
- * \memberof        ebox
- * \param x         The ebox pointer
- * \param s         The message selector
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- */
-void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
-
-//! The method to move an UI ebox (PRIVATE)
-/*
- * \memberof        ebox
- * \param x         The ebox pointer
- * \param newx      The new abscissa
- * \param newy      The new ordinate
- */
-void ebox_pos(t_ebox* x, float newx, float newy);
-
-//! The method to show or hide an UI ebox (PRIVATE)
-/*
- * \memberof        ebox
- * \param x         The ebox pointer
- * \param vis       The visible state
- */
-void ebox_vis(t_ebox* x, int vis);
 
 //! The default user id method for all ebox called by PD (PRIVATE)
 /*

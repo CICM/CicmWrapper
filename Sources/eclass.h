@@ -48,14 +48,12 @@ t_eclass* eclass_new(const char *name, t_typ_method newm, t_typ_method freem, si
 void eclass_guiinit(t_eclass* c, long flags);
 
 /*!
- * \fn          void eclass_init(t_eclass* c, long flags)
- * \brief       Initialize the t_eclass for the GUI behavior (deprecated).
- * \details     Sets the defaults values and initializes the methods of the t_eclass for the GUI behavior.
+ * \fn          void eclass_dspinit(t_eclass* c)
+ * \brief       Initialize the t_eclass for the DSP behavior.
+ * \details     Sets the defaults values and initializes the methods of the t_eclass for the DSP behavior.
  * \param c     The t_eclass pointer.
- * \param flags The dummy flags.
-* \deprecated Please use eclass_guiinit.
  */
-void eclass_init(t_eclass* c, long flags) _FUNCTION_DEPRECTAED_;
+void eclass_dspinit(t_eclass* c);
 
 /*!
  * \fn          t_pd_err eclass_register(t_symbol *name, t_eclass *c)
@@ -65,14 +63,6 @@ void eclass_init(t_eclass* c, long flags) _FUNCTION_DEPRECTAED_;
  * \param c     The t_eclass pointer.
  */
 t_pd_err eclass_register(t_symbol *name, t_eclass *c);
-
-/*!
- * \fn          void eclass_dspinit(t_eclass* c)
- * \brief       Initialize the t_eclass for the DSP behavior.
- * \details     Sets the defaults values and initializes the methods of the t_eclass for the DSP behavior.
- * \param c     The t_eclass pointer.
- */
-void eclass_dspinit(t_eclass* c);
 
 /*!
  * \fn          void eclass_addmethod(t_eclass* c, method m, const char* name, t_atomtype type, long anything)

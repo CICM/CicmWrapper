@@ -22,7 +22,6 @@ t_symbol* s_cream_eboxio;
 t_symbol* s_cream_texteditor;
 t_symbol* s_cream_popup;
 t_symbol* s_cream_parameter;
-t_symbol* s_cream_param;
 t_symbol* s_cream_grabfocus;
 t_symbol* s_cream_repaint;
 t_symbol* s_cream_size;
@@ -31,6 +30,9 @@ t_symbol* s_cream_destroy;
 t_symbol* s_cream_beginchanges;
 t_symbol* s_cream_endchanges;
 t_symbol* s_cream_changes;
+t_symbol* s_cream_view;
+t_symbol* s_cream_notify;
+
 t_symbol* s_pinned;
 t_symbol* s_iscicm;
 
@@ -68,7 +70,6 @@ void epd_init(void)
     s_cream_repaint       = gensym("repaint");
     s_cream_popup         = gensym("popup");
     s_cream_parameter     = gensym("parameter");
-    s_cream_param         = gensym("param");
     s_cream_grabfocus     = gensym("grabfocus");
     s_cream_size          = gensym("size");
     s_cream_create        = gensym("create");
@@ -76,6 +77,8 @@ void epd_init(void)
     s_cream_beginchanges  = gensym("beginchanges");
     s_cream_endchanges    = gensym("endchanges");
     s_cream_changes       = gensym("changes");
+    s_cream_view            = gensym("view");
+    s_cream_notify          = gensym("notify");
     
     s_cream_char            = gensym("char");
     s_cream_int             = gensym("int");

@@ -19,6 +19,20 @@
  *  @{
  */
 
+//! @cond
+/*!
+ * \fn              t_elayer* egraphics_create(t_object *owner, t_symbol *name, float width, float height)
+ * \brief           The t_elayer creation function.
+ * \details         Allocates and initializes a new t_elayer.
+ * \param owner     The owner pointer.
+ * \param name      The name of the layer.
+ * \param width     The width of the layer.
+ * \param height    The height of the layer.
+ * \return          This function returns a pointer to a new t_elayer.
+ */
+t_elayer* egraphics_create(t_object *owner, t_symbol *name, float width, float height);
+
+//! @endcond
 /*!
  * \fn          void egraphics_set_line_width(t_elayer *g, float width)
  * \brief       Sets the line width that will be used by the t_elayer.
@@ -44,12 +58,12 @@ void egraphics_set_color_rgba(t_elayer *g, const t_rgba *rgba);
 void egraphics_set_color_rgb(t_elayer *g, const t_rgb *rgb);
 
 /*!
- * \fn          void egraphics_set_color_hex(t_elayer *g, t_symbol *hex)
+ * \fn          void egraphics_set_color_hex(t_elayer *g, const char *hex)
  * \brief       Sets the color in hexadecimal that will be used by the t_elayer.
  * \param g     The t_elayer pointer.
  * \param hex   The hexadecimal color.
  */
-void egraphics_set_color_hex(t_elayer *g, t_symbol *hex);
+void egraphics_set_color_hex(t_elayer *g, const char *hex);
 
 /*!
  * \fn          void egraphics_set_color_hsla(t_elayer *g, const t_hsla *hsla)
@@ -317,14 +331,6 @@ void etext_layout_settextcolor(t_etext* textlayout, t_rgba* color);
  */
 void efont_init(t_efont* font, t_symbol* family, char bold, char italic, float size);
 
-/*!
- * \fn          void efont_initwithatoms(t_efont* font, int argc, t_atom* argv)
- * \brief       Initializes a t_efont with an array of t_atom.
- * \param font The t_efont pointer.
- * \param argc The number of t_atom.
- * \param argv The pointer of  t_atom.
- */
-void efont_initwithatoms(t_efont* font, int argc, t_atom* argv);
 
 /*!
  * \fn          void egraphics_fill(t_elayer *g)
@@ -458,7 +464,7 @@ t_hsl rgb_to_hsl(t_rgb const* color);
  * \param color The hexadecimal color.
  * \return The t_rgba color.
  */
-t_rgba hex_to_rgba(char* color);
+t_rgba hex_to_rgba(char const* color);
 
 /*!
  * \fn          t_rgb hex_to_rgb(char* color)
@@ -466,7 +472,7 @@ t_rgba hex_to_rgba(char* color);
  * \param color The hexadecimal color.
  * \return The t_rgb color.
  */
-t_rgb hex_to_rgb(char* color);
+t_rgb hex_to_rgb(char const* color);
 
 /*!
  * \fn          t_rgba hsla_to_rgba(t_hsla color)
@@ -515,13 +521,13 @@ char rgba_is_equal(t_rgba const* color, t_rgba const* other);
 
 //! @cond
 float pd_wrap(float f, const float min, const float max);
-float pd_clip_min(float aValue, float aMinimum);
-float pd_clip_max(float aValue, float aMaximum);
-float pd_clip(float aValue, float aMinimum, float aMaximum);
-float pd_ordinate(float radius, float angle);
-float pd_abscissa(float radius, float angle);
-float pd_radius(float x, float y);
-float pd_angle(float x, float y);
+float pd_clip_min(const float f, const float min);
+float pd_clip_max(const float f, const float max);
+float pd_clip(const float f, const float min, const float max);
+float pd_ordinate(const float radius, const float angle);
+float pd_abscissa(const float radius, const float angle);
+float pd_radius(const float x, const float y);
+float pd_angle(const float x, const float y);
 //! @endcond
 
 /** @} */

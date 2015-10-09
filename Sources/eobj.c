@@ -13,10 +13,92 @@
 #include "egraphics.h"
 #include "epopup.h"
 
+union inletunion
+{
+    t_symbol *iu_symto;
+    t_gpointer *iu_pointerslot;
+    t_float *iu_floatslot;
+    t_symbol **iu_symslot;
+#ifdef PD_BLOBS
+    t_blob **iu_blobslot;
+#endif
+    t_float iu_floatsignalvalue;
+};
+
+struct _inlet
+{
+    t_pd i_pd;
+    struct _inlet *i_next;
+    t_object *i_owner;
+    t_pd *i_dest;
+    t_symbol *i_symfrom;
+    union inletunion i_un;
+};
+
+struct _outlet
+{
+    t_object *o_owner;
+    struct _outlet *o_next;
+    t_outconnect *o_connections;
+    t_symbol *o_sym;
+};
+
+static t_class* eproxy_class;
+
+typedef struct _eproxy
+{
+    t_pd        p_pd;       /*!< The class object. */
+    t_object*   p_owner;    /*!< The pointer to the eobj owner. */
+    t_inlet*    p_inlet;    /*!< The pointer to the inlet. */
+    int         p_index;    /*!< The index of the proxy. */
+} t_eproxy;
+
+struct _eobj
+{
+    t_object            o_obj;              /*!< The Pd object. */
+    t_symbol*           o_id;               /*!< The object id. */
+    t_canvas*           o_canvas;           /*!< The canvas that own the object. */
+    t_eproxy**          o_proxy;            /*!< The array of proxy inlets. */
+    int                 o_nproxy;           /*!< The number of proxy inlets. */
+    int                 o_cproxy;           /*!< The index of the current proxy inlet used */
+    t_symbol*           o_listeners;        /*!< The listeners id. */
+};
+
+typedef struct _edsp
+{
+    float               d_float;            /*!< The float member to initialize the signal method. */
+    long                d_size;             /*!< The number of signal inlets and outlets. */
+    t_int*              d_vectors;          /*!< The vector that contains all the pointers for the perform method. */
+    long                d_flags;            /*!< The flags to initialize the perform method. */
+    void*               d_user_param;       /*!< The user parameters to pass through the perform method. */
+    t_float**           d_sigs_out;         /*!< The array of signal vectors. */
+    t_float*            d_sigs_real;        /*!< The real array of signal. */
+    t_typ_method        d_perform_method;   /*!< The user perform method. */
+    long                d_misc;             /*!< The flag that could be inplace or not. */
+}t_edsp;
+
+struct _edspobj
+{
+    t_eobj d_obj; /*!< The default object. */
+    t_edsp d_dsp; /*!< The dsp structure. */
+};
+
+/*
+ * Methods
+ */
+
 static t_eproxy* eproxy_new(void *owner, t_symbol* s);
 static void eproxy_free(void *owner, t_eproxy* proxy);
 static t_int* eobj_perform_inplace(t_int* w);
 static t_int* eobj_perform_noinplace(t_int* w);
+
+extern void eobj_popup(t_eobj* x, t_symbol* s, float itemid);
+extern void eobj_save(t_gobj* x, t_binbuf *b);
+extern void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv);
+extern void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv);
+extern void eobj_dsp(void *x, t_signal **sp);
+extern void eobj_dsp_add(void *x, t_symbol* s, t_object* za, t_typ_method m, long flags, void *userparam);
+extern void eobj_properties_window(t_eobj* x, t_glist *glist);
 
 void *eobj_new(t_eclass *c)
 {
@@ -42,7 +124,7 @@ void *eobj_new(t_eclass *c)
             x->o_id = gensym(buffer);
             pd_bind(&x->o_obj.ob_pd, x->o_id);
             sprintf(buffer, "%ldcamo", (long unsigned int)x);
-            x->o_camo_id = gensym(buffer);
+            x->o_listeners = gensym(buffer);
         }
         else
         {
@@ -53,13 +135,12 @@ void *eobj_new(t_eclass *c)
     {
         bug("pd_new: apparently called before setup routine");
     }
-
     return (x);
 }
 
 void eobj_free(void *x)
 {
-    t_eobj*     z = (t_eobj *)x;
+    t_eobj* z = (t_eobj *)x;
     ewindowprop_destroy(z);
     if(z->o_id)
     {
@@ -74,58 +155,69 @@ void eobj_free(void *x)
     }
 }
 
-t_pd_err eobj_iscicm(void* x)
+t_pd_err eobj_iscicm(void const* x)
 {
     return (t_pd_err)zgetfn((t_pd *)x, s_iscicm);
 }
 
-t_eproxy* eobj_proxynew(void* x)
+void eobj_proxynew(void* x)
 {
-    return eproxy_new(x, NULL);
+    eproxy_new(x, NULL);
 }
 
-int eobj_getproxy(void* x)
+int eobj_getproxy(void const* x)
 {
-    t_eobj *z = (t_eobj *)x;
-    return z->o_current_proxy;
+    return ((t_eobj const*)x)->o_cproxy;
 }
 
-t_eclass* eobj_getclass(void* x)
+t_eclass* eobj_getclass(void const* x)
 {
-    t_eobj *z = (t_eobj *)x;
-    return (t_eclass *)z->o_obj.te_g.g_pd;
+    return (t_eclass *)((t_gobj const*)x)->g_pd;
 }
 
-t_symbol* eobj_getclassname(void* x)
+t_symbol* eobj_getclassname(void const* x)
 {
-    t_eobj *z = (t_eobj *)x;
-    return z->o_obj.te_g.g_pd->c_name;
+    return ((t_gobj const*)x)->g_pd->c_name;
 }
 
-t_canvas* eobj_getcanvas(void *x)
+t_canvas* eobj_getcanvas(void const* x)
 {
-    t_eobj*     z = (t_eobj *)x;
-    return z->o_canvas;
+    return ((t_eobj const*)x)->o_canvas;
 }
 
-char eobj_isbox(void *x)
+t_symbol* eobj_getid(void const* x)
 {
-    t_eobj*     z = (t_eobj *)x;
-    t_eclass*   c = eobj_getclass(z);
-    return c->c_box;
+    return ((t_eobj const*)x)->o_id;
 }
 
-char eobj_isdsp(void *x)
+char eobj_isbox(void const* x)
 {
-    t_eobj*     z = (t_eobj *)x;
-    t_eclass*   c = eobj_getclass(z);
-    if(c->c_dsp && c->c_widget.w_dsp)
-        return 1;
-    else
-        return 0;
+    return eobj_getclass((t_eobj const*)x)->c_box;
 }
 
-void eobj_popup(t_eobj* x, t_symbol* s, float itemid)
+char eobj_isdsp(void const* x)
+{
+    t_eclass const* c = eobj_getclass(x);
+    return (char)(c->c_dsp && c->c_widget.w_dsp);
+}
+
+void eobj_bind(void const* b, void* const l)
+{
+    if(getfn((t_pd *)l, s_cream_notify))
+    {
+        pd_bind((t_pd *)l, ((t_eobj const*)b)->o_listeners);
+    }
+}
+
+void eobj_unbind(void const* b, void* const l)
+{
+    if(getfn((t_pd *)l, s_cream_notify))
+    {
+        pd_unbind((t_pd *)l, ((t_eobj const*)b)->o_listeners);
+    }
+}
+
+extern void eobj_popup(t_eobj* x, t_symbol* s, float itemid)
 {
     t_epopup* popup;
     t_eclass* c = eobj_getclass(x);
@@ -139,7 +231,7 @@ void eobj_popup(t_eobj* x, t_symbol* s, float itemid)
     }
 }
 
-void eobj_save(t_gobj* x, t_binbuf *b)
+extern void eobj_save(t_gobj* x, t_binbuf *b)
 {
     int i, state;
     int      argc = 0;
@@ -153,7 +245,8 @@ void eobj_save(t_gobj* x, t_binbuf *b)
     {
         if(eobj_isbox(x))
         {
-            
+            int important_todo;
+            /*
             if(c && b)
             {
                 state = canvas_suspend_dsp();
@@ -200,6 +293,7 @@ void eobj_save(t_gobj* x, t_binbuf *b)
                 binbuf_addv(b, (char *)";");
                 canvas_resume_dsp(state);
             }
+            */
         }
         else
         {
@@ -218,7 +312,7 @@ void eobj_save(t_gobj* x, t_binbuf *b)
     }
 }
 
-void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
+extern void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
 {
     char buf[MAXPDSTRING];
     char* pch;
@@ -256,7 +350,7 @@ void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
     }
 }
 
-void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
+extern void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
 {
     char buf[MAXPDSTRING];
     char* pch;
@@ -388,18 +482,18 @@ void eobj_attr_getvalueof(void *x, t_symbol *s, int *argc, t_atom **argv)
 
 static t_edsp* eobj_getdsp(void *x)
 {
-    if(x && eobj_isbox(x) && eobj_isdsp(x))
+    if(eobj_isdsp(x))
     {
-        return &((t_edspbox *)x)->d_dsp;
+        if(eobj_isbox(x))
+        {
+            int important_todo;
+        }
+        else
+        {
+            return &((t_edspobj *)x)->d_dsp;
+        }
     }
-    else if(x && eobj_isdsp(x))
-    {
-        return &((t_edspobj *)x)->d_dsp;
-    }
-    else
-    {
-        return NULL;
-    }
+    return NULL;
 }
 
 void eobj_dspsetup(void *x, long nins, long nouts)
@@ -474,7 +568,7 @@ void eobj_resize_inputs(void *x, long nins)
     canvas_fixlinesfor(eobj_getcanvas(obj), (t_text *)x);
 }
 
-void eobj_dsp(void *x, t_signal **sp)
+extern void eobj_dsp(void *x, t_signal **sp)
 {
     int i;
     short* count;
@@ -705,7 +799,7 @@ static t_int* eobj_perform_noinplace(t_int* w)
     return w + (dsp->d_size + 1);
 }
 
-void eobj_dsp_add(void *x, t_symbol* s, t_object* za, t_typ_method m, long flags, void *userparam)
+extern void eobj_dsp_add(void *x, t_symbol* s, t_object* za, t_typ_method m, long flags, void *userparam)
 {
     t_edsp* dsp = eobj_getdsp(x);
     if(dsp)
@@ -716,44 +810,14 @@ void eobj_dsp_add(void *x, t_symbol* s, t_object* za, t_typ_method m, long flags
     }
 }
 
-void eobj_properties_window(t_eobj* x, t_glist *glist)
+extern void eobj_properties_window(t_eobj* x, t_glist *glist)
 {
     ewindowprop_create(x);
 }
 
-//! @cond
-union inletunion
-{
-    t_symbol *iu_symto;
-    t_gpointer *iu_pointerslot;
-    t_float *iu_floatslot;
-    t_symbol **iu_symslot;
-#ifdef PD_BLOBS
-    t_blob **iu_blobslot;
-#endif
-    t_float iu_floatsignalvalue;
-};
 
-struct _inlet
-{
-    t_pd i_pd;
-    struct _inlet *i_next;
-    t_object *i_owner;
-    t_pd *i_dest;
-    t_symbol *i_symfrom;
-    union inletunion i_un;
-};
 
-struct _outlet
-{
-    t_object *o_owner;
-    struct _outlet *o_next;
-    t_outconnect *o_connections;
-    t_symbol *o_sym;
-};
-//! @endcond
 
-static t_class* eproxy_class;
 
 static void inlet_wrong(t_inlet *x, t_symbol *s)
 {
@@ -775,9 +839,9 @@ static void new_inlet_bang(t_inlet *x)
     {
         t_eproxy* proxy = (t_eproxy *)x->i_dest;
         t_eobj *z = (t_eobj *)proxy->p_owner;
-        z->o_current_proxy = proxy->p_index;
+        z->o_cproxy = proxy->p_index;
         pd_typedmess((t_pd *)proxy->p_owner, &s_bang, 0, NULL);
-        z->o_current_proxy = 0;
+        z->o_cproxy = 0;
     }
     else inlet_wrong(x, &s_bang);
 }
@@ -799,10 +863,10 @@ static void new_inlet_pointer(t_inlet *x, t_gpointer *gp)
         t_atom a;
         t_eproxy* proxy = (t_eproxy *)x->i_dest;
         t_eobj *z = (t_eobj *)proxy->p_owner;
-        z->o_current_proxy = proxy->p_index;
+        z->o_cproxy = proxy->p_index;
         SETPOINTER(&a, gp);
         pd_typedmess((t_pd *)x->i_dest, &s_pointer, 1, &a);
-        z->o_current_proxy = 0;
+        z->o_cproxy = 0;
     }
     else inlet_wrong(x, &s_pointer);
 }
@@ -816,10 +880,10 @@ static void new_inlet_float(t_inlet *x, t_float f)
         t_atom a;
         t_eproxy* proxy = (t_eproxy *)x->i_dest;
         t_eobj *z = (t_eobj *)proxy->p_owner;
-        z->o_current_proxy = proxy->p_index;
+        z->o_cproxy = proxy->p_index;
         SETFLOAT(&a, f);
         pd_typedmess((t_pd *)x->i_dest, &s_float, 1, &a);
-        z->o_current_proxy = 0;
+        z->o_cproxy = 0;
     }
     else if (x->i_symfrom == &s_signal)
         x->i_un.iu_floatsignalvalue = f;
@@ -851,10 +915,10 @@ static void new_inlet_symbol(t_inlet *x, t_symbol *s)
         t_atom a;
         t_eproxy* proxy = (t_eproxy *)x->i_dest;
         t_eobj *z = (t_eobj *)proxy->p_owner;
-        z->o_current_proxy = proxy->p_index;
+        z->o_cproxy = proxy->p_index;
         SETSYMBOL(&a, s);
         pd_typedmess((t_pd *)x->i_dest, &s_symbol, 1, &a);
-        z->o_current_proxy = 0;
+        z->o_cproxy = 0;
     }
     else inlet_wrong(x, &s_symbol);
 }
@@ -867,14 +931,13 @@ static void new_inlet_list(t_inlet *x, t_symbol *s, int argc, t_atom *argv)
     {
         t_eproxy* proxy = (t_eproxy *)x->i_dest;
         t_eobj *z = (t_eobj *)proxy->p_owner;
-        z->o_current_proxy = proxy->p_index;
+        z->o_cproxy = proxy->p_index;
         pd_typedmess((t_pd *)x->i_dest, s, argc, argv);
-        z->o_current_proxy = 0;
+        z->o_cproxy = 0;
     }
     else if (!x->i_symfrom)
     {
         typedmess(x->i_dest, s, argc, argv);
-        //pd_list(x->i_dest, s, argc, argv);
     }
     else if (!argc)
         new_inlet_bang(x);
@@ -896,9 +959,9 @@ static void new_inlet_anything(t_inlet *x, t_symbol *s, int argc, t_atom *argv)
     {
         t_eproxy* proxy = (t_eproxy *)x->i_dest;
         t_eobj *z = (t_eobj *)proxy->p_owner;
-        z->o_current_proxy = proxy->p_index;
+        z->o_cproxy = proxy->p_index;
         pd_typedmess((t_pd *)x->i_dest, s, argc, argv);
-        z->o_current_proxy = 0;
+        z->o_cproxy = 0;
     }
     else inlet_wrong(x, s);
 }
@@ -906,35 +969,35 @@ static void new_inlet_anything(t_inlet *x, t_symbol *s, int argc, t_atom *argv)
 static void eproxy_anything(t_eproxy *x, t_symbol *s, int argc, t_atom *argv)
 {
     t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_current_proxy = x->p_index;
+    z->o_cproxy = x->p_index;
     pd_typedmess((t_pd *)x->p_owner, s, argc, argv);
 }
 
 static void eproxy_bang(t_eproxy *x)
 {
     t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_current_proxy = x->p_index;
+    z->o_cproxy = x->p_index;
     pd_bang((t_pd *)x->p_owner);
 }
 
 static void eproxy_float(t_eproxy *x, float f)
 {
     t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_current_proxy = x->p_index;
+    z->o_cproxy = x->p_index;
     pd_float((t_pd *)x->p_owner, f);
 }
 
 static void eproxy_symbol(t_eproxy *x, t_symbol* s)
 {
     t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_current_proxy = x->p_index;
+    z->o_cproxy = x->p_index;
     pd_symbol((t_pd *)x->p_owner, s);
 }
 
 static void eproxy_list(t_eproxy *x, t_symbol* s, int argc, t_atom* argv)
 {
     t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_current_proxy = x->p_index;
+    z->o_cproxy = x->p_index;
     pd_list((t_pd *)x->p_owner, s, argc, argv);
 }
 
@@ -950,6 +1013,7 @@ static t_class* eproxy_setup()
         class_addfloat(eproxy_class,  (t_method)eproxy_float);
         class_addsymbol(eproxy_class,  (t_method)eproxy_symbol);
         class_addlist(eproxy_class, (t_method)eproxy_list);
+        
         return eproxy_class;
     }
     else

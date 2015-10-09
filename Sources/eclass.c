@@ -15,6 +15,96 @@
 #include "epopup.h"
 #include "egraphics.h"
 
+/**
+ * @struct t_ewidget
+ * @brief The default method of a class.
+ * @details It contains the adress of the default methods of a class.
+ */
+typedef struct _ewidget
+{
+    t_getrectfn     w_getrectfn;            /*!< The native Pd get size method. */
+    t_displacefn    w_displacefn;           /*!< The native Pd displace method. */
+    t_selectfn      w_selectfn;             /*!< The native Pd selection method. */
+    t_activatefn    w_activatefn;           /*!< The native (dummy) Pd active method. */
+    t_deletefn      w_deletefn;             /*!< The native Pd deletion method. */
+    t_visfn         w_visfn;                /*!< The native Pd visible method. */
+    t_clickfn       w_clickfn;              /*!< The native Pd click method. */
+    t_typ_method    w_assist;               /*!< The dummy iolets assist method. */
+    t_typ_method    w_paint;                /*!< The paint method. */
+    t_typ_method    w_mouseenter;           /*!< The mouse enter method. */
+    t_typ_method    w_mouseleave;           /*!< The mouse leave method. */
+    t_typ_method    w_mousemove;            /*!< The mouse move method. */
+    t_typ_method    w_mousedown;            /*!< The mouse down method. */
+    t_typ_method    w_mousedrag;            /*!< The mouse drag method. */
+    t_typ_method    w_mouseup;              /*!< The mouse up method. */
+    t_typ_method    w_mousewheel;           /*!< The mouse wheel method. */
+    t_typ_method    w_dblclick;             /*!< The mouse double click method. */
+    t_typ_method    w_key;                  /*!< The key method. */
+    t_typ_method    w_keyfilter;            /*!< The key filter method. */
+    t_typ_method    w_getdrawparameters;    /*!< The get draw parameter method. */
+    t_typ_method    w_save;                 /*!< The save method. */
+    t_typ_method    w_popup;                /*!< The popup method. */
+    t_typ_method    w_dsp;                  /*!< The dsp method. */
+    t_typ_method    w_oksize;               /*!< The size validation method. */
+    t_err_method    w_notify;               /*!< The notification method. */
+    t_typ_method    w_write;                /*!< The write to file method. */
+    t_typ_method    w_read;                 /*!< The read from file method. */
+    t_typ_method    w_texteditor_keypress;  /*!< The text editor key press method. */
+    t_typ_method    w_texteditor_keyfilter; /*!< The text editor key filter method. */
+    t_typ_method    w_texteditor_focus;     /*!< The text editor focus method. */
+} t_ewidget;
+
+/**
+ * @struct t_eattr
+ * @brief The attribute.
+ * @details It contains the members and the methods for an attribute. It is not already an object but perhaps it will be in the futur.
+ */
+typedef struct _eattr
+{
+    t_object        obj;        /*!< The dummy object. */
+    t_symbol*       name;       /*!< The name of the attribute. */
+    t_symbol*       type;       /*!< The type of the attribute (int, long, float, double, rgba, etc.). */
+    t_symbol*       category;   /*!< The dummy category of the attribute. */
+    t_symbol*       label;      /*!< The label of the attribute. */
+    t_symbol*       style;      /*!< The style of the attribute (checkbutton, color, number, entry, menu). */
+    long            order;      /*!< The dummy order of the attribute. */
+    char            save;       /*!< If the attribute should be saved. */
+    char            paint;      /*!< If the attribute should repaint the t_ebox when it has changed. */
+    char            invisible;  /*!< If the attribute is invisible. */
+    long			flags;      /*!< The dummy flags of the attribute. */
+    long            offset;     /*!< The offset of the attribute in the object structure. */
+    long            sizemax;    /*!< The maximum size of the attribute if the attribute is an array. */
+    long            size;       /*!< The size of the attribute if the attribute is an array. */
+    
+    t_err_method    getter;     /*!< The getter method of the attribute. */
+    t_err_method    setter;     /*!< The setter method of the attribute. */
+    long            clipped;    /*!< If the attribute is clipped if it's value or an array of numerical values. */
+    float           minimum;    /*!< The minimum value of the attribute. */
+    float           maximum;    /*!< The maximum value of the attribute. */
+    float           step;       /*!< The increment or decrement step calue of the attribute. */
+    t_symbol*       defvals;    /*!< The default value of the attribute. */
+    t_symbol**      itemslist;  /*!< The available items of an attribute if it is a menu. */
+    long            itemssize;  /*!< The number of available items of an attribute if it is a menu. */
+} t_eattr;
+
+struct _eclass
+{
+    t_class     c_class;    /*!< The default class. */
+    long        c_flags;    /*!< The flags of the class. */
+    char        c_box;      /*!< The marker if the class is GUI. */
+    char        c_dsp;      /*!< The marker if the class is DSP. */
+    t_ewidget   c_widget;   /*!< The extra widget methods. */
+    t_eattr**   c_attr;     /*!< The attributes. */
+    long        c_nattr;    /*!< The number of attributes. */
+};
+
+extern void eobj_save(t_gobj* x, t_binbuf *b);
+extern void eobj_popup(t_eobj* x, t_symbol* s, float itemid);
+extern void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv);
+extern void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv); void eobj_dsp(void *x, t_signal **sp);
+extern void eobj_dsp_add(void *x, t_symbol* s, t_object* obj, t_typ_method m, long flags, void *userparam);
+extern void eobj_properties_window(t_eobj* x, t_glist *glist);
+
 static void ewidget_init(t_eclass* c);
 
 t_eclass* eclass_new(const char *name, t_typ_method newm, t_typ_method freem, size_t size, int flags, t_atomtype arg1, int arg2)
@@ -37,11 +127,6 @@ t_eclass* eclass_new(const char *name, t_typ_method newm, t_typ_method freem, si
         bug("Memory allocation failed for the class %s.", name);
     }
     return c;
-}
-
-void eclass_init(t_eclass* c, long flags)
-{
-    eclass_guiinit(c, flags);
 }
 
 void eclass_guiinit(t_eclass* c, long flags)
@@ -90,27 +175,6 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_SAVE         (c, "send", 0);
     CLASS_ATTR_CATEGORY		(c, "send", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "send", 0, "Send Symbol");
-    
-    if(flags & EBOX_TEXTFIELD)
-    {
-        class_addmethod((t_class *)c, (t_method)ebox_texteditor_keypress, gensym("texteditor_keypress"), A_SYMBOL,A_DEFFLOAT,0);
-        class_addmethod((t_class *)c, (t_method)ebox_texteditor_keyfilter, gensym("texteditor_keyfilter"), A_SYMBOL,A_DEFFLOAT,0);
-        class_addmethod((t_class *)c, (t_method)ebox_texteditor_focus, gensym("texteditor_focus"), A_SYMBOL,A_DEFFLOAT,0);
-    }
-    
-    // GUI always needs this methods //
-    class_addmethod((t_class *)c, (t_method)ebox_mouse_enter, gensym("mouseenter"), A_NULL, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_mouse_leave, gensym("mouseleave"), A_NULL, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_mouse_move,  gensym("mousemove"),  A_GIMME, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_mouse_down,  gensym("mousedown"),  A_GIMME, 0);
-    class_addmethod((t_class *)c, (t_method)ebox_mouse_up,    gensym("mouseup"),    A_GIMME, 0);
-    
-    class_addmethod((t_class *)c, (t_method)ebox_pos, gensym("pos"), A_DEFFLOAT,A_DEFFLOAT,0);
-    class_addmethod((t_class *)c, (t_method)ebox_vis, gensym("vis"), A_DEFFLOAT,0);
-    class_addmethod((t_class *)c, (t_method)ebox_set_parameter_attribute, gensym("param"), A_GIMME, 0);
-    
-    class_setwidget((t_class *)&c->c_class, (t_widgetbehavior *)&c->c_widget);
-    class_setsavefn((t_class *)&c->c_class, (t_savefn)eobj_save);
 }
 
 void eclass_dspinit(t_eclass* c)
@@ -139,6 +203,18 @@ t_pd_err eclass_register(t_symbol *name, t_eclass *c)
     
     class_setpropertiesfn((t_class *)c, (t_propertiesfn)eobj_properties_window);
     class_addmethod((t_class *)c, (t_method)is_cicm, s_iscicm, A_NULL, 0);
+    
+    if(c-> flags & EBOX_TEXTFIELD)
+    {
+        class_addmethod((t_class *)c, (t_method)ebox_texteditor_keypress, gensym("texteditor_keypress"), A_SYMBOL,A_DEFFLOAT,0);
+        class_addmethod((t_class *)c, (t_method)ebox_texteditor_keyfilter, gensym("texteditor_keyfilter"), A_SYMBOL,A_DEFFLOAT,0);
+        class_addmethod((t_class *)c, (t_method)ebox_texteditor_focus, gensym("texteditor_focus"), A_SYMBOL,A_DEFFLOAT,0);
+    }
+    
+    class_addmethod((t_class *)c, (t_method)ebox_set_parameter_attribute, gensym("param"), A_GIMME, 0);
+    
+    class_setwidget((t_class *)&c->c_class, (t_widgetbehavior *)&c->c_widget);
+    class_setsavefn((t_class *)&c->c_class, (t_savefn)eobj_save);
     return 0;
 }
 
@@ -170,22 +246,19 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
     }
     else if(gensym(name) == gensym("mousewheel"))
     {
-        class_addmethod((t_class *)c, (t_method)ebox_mouse_wheel, gensym("mousewheel"), A_GIMME, 0);
         c->c_widget.w_mousewheel = m;
     }
     else if(gensym(name) == gensym("dblclick"))
     {
-        class_addmethod((t_class *)c, (t_method)ebox_mouse_dblclick, gensym("dblclick"),   A_GIMME, 0);
         c->c_widget.w_dblclick = m;
     }
-    else if(gensym(name) == gensym("key") || gensym(name) == gensym("keyfilter"))
+    if(gensym(name) == gensym("key"))
     {
-        if(c->c_widget.w_key == NULL && c->c_widget.w_keyfilter == NULL)
-            class_addmethod((t_class *)c, (t_method)ebox_key,         gensym("key"),        A_GIMME, 0);
-        if(gensym(name) == gensym("key"))
-            c->c_widget.w_key = m;
-        if(gensym(name) == gensym("keyfilter"))
-            c->c_widget.w_keyfilter = m;
+        c->c_widget.w_key = m;
+    }
+    if(gensym(name) == gensym("keyfilter"))
+    {
+        c->c_widget.w_keyfilter = m;
     }
     else if(gensym(name) == gensym("paint"))
     {
@@ -605,7 +678,7 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
 {
     int j;
     char *point;
-    t_symbol* type; t_efont* font; t_symbol** syms;
+    t_symbol* type; t_symbol** syms;
     t_eattr* attr = eclass_getattr(eobj_getclass(x), s);
     *argv = NULL;
     *argc = 0;
@@ -683,14 +756,6 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
                 argv[0][j] = ((t_atom *)point)[j];
             }
         }
-        else if(type == s_cream_font)
-        {
-            font = (t_efont *)point;
-            atom_setsym(argv[0], font->family);
-            atom_setfloat(argv[0]+1, font->size);
-            atom_setsym(argv[0]+2, font->slant);
-            atom_setsym(argv[0]+3, font->weight);
-        }
     }
 }
 
@@ -702,7 +767,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
     t_symbol* type;
     t_edrawparams params;
     t_ebox* z   = (t_ebox *)x;
-    t_eclass* c = (t_eclass *)z->b_obj.o_obj.te_g.g_pd;
+    t_eclass* c = (t_eclass *)eobj_getclass(x);
     int ac = 0; t_atom* av = NULL;
     t_eattr* attr = eclass_getattr(eobj_getclass(x), s);
     if(attr)
@@ -826,19 +891,11 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                 pointor[j] = av[j];
             }
         }
-        else if(type == s_cream_font)
-        {
-            efont_initwithatoms((t_efont *)point, ac, av);
-        }
         
         ebox_notify(z, s, s_cream_attr_modified, NULL, NULL);
         if(c->c_widget.w_notify != NULL)
         {
             c->c_widget.w_notify(x, s, s_cream_attr_modified, NULL, NULL);
-        }
-        if(type == s_cream_font && eobj_isbox(x) && z->b_flags & EBOX_FONTSIZE)
-        {
-            eobj_attr_setvalueof(x, s_cream_size, 0, NULL);
         }
         if(attr->paint)
         {
@@ -866,7 +923,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
             }
             ebox_redraw(z);
         }
-        if(attr->save && eobj_isbox(x) && ebox_isdrawable((t_ebox*) x))
+        if(attr->save && eobj_isbox(x) && !eobj_getcanvas(x)->gl_loading)
         {
             canvas_dirty(eobj_getcanvas(x), 1);
         }

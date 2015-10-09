@@ -41,75 +41,105 @@ void *eobj_new(t_eclass *c);
 void eobj_free(void *x);
 
 /*!
- * \fn          t_pd_err eobj_iscicm(void* x)
+ * \fn          t_pd_err eobj_iscicm(void const* x)
  * \brief       Checks if the t_object uses a t_eclass.
  * \param x     The t_eobj pointer.
  * \return      This function returns 1 if the t_object uses a t_eclass, otherwise it returns 0.
  */
-t_pd_err eobj_iscicm(void* x);
+t_pd_err eobj_iscicm(void const* x);
 
 /*!
  * \fn          void eobj_proxynew(void* x)
  * \brief       Adds a proxy inlet to a t_eobj.
  * \details     Allocates and initializes a new proxy inlet. \n This function should replace inlet_new().
  * \param x     The t_eobj pointer.
-  * \return     This function returns a pointer to the new proxy inlet.
  */
-t_eproxy* eobj_proxynew(void* x);
+void eobj_proxynew(void* x);
 
 /*!
- * \fn          int eobj_getproxy(void* x)
+ * \fn          int eobj_getproxy(void const* x)
  * \brief       Retreives the index of the proxy that received the last message.
  * \details     Retreives the current proxy index. This function should only be used while a message has been received.
  * \param x     The t_eobj pointer.
  * \return      This function return the index of the current proxy.
  */
-int  eobj_getproxy(void* x);
+int  eobj_getproxy(void const* x);
 
 /*!
- * \fn          t_eclass* eobj_getclass(void* x)
+ * \fn          t_eclass* eobj_getclass(void const* x)
  * \brief       Retrieves the eclass of a t_eobj.
  * \details     Directly access to the eclass structure of the t_eobj.
  * \param x     The t_eobj pointer.
  * \return      This function returns a pointer to the eclass of the t_eobj.
  */
-t_eclass* eobj_getclass(void* x);
+t_eclass* eobj_getclass(void const* x);
 
 /*!
- * \fn          t_symbol* eobj_getclassname(void* x)
+ * \fn          t_symbol* eobj_getclassname(void const* x)
  * \brief       Retrieves the classe name of a t_eobj
  * \details     Directly access to the name of the eclass of the t_eobj.
  * \param x     The t_eobj pointer.
  * \return      This function returns the name of the class of the t_eobj.
  */
-t_symbol* eobj_getclassname(void* x);
+t_symbol* eobj_getclassname(void const* x);
 
 /*!
- * \fn          t_canvas* eobj_getcanvas(void *x)
+ * \fn          t_canvas* eobj_getcanvas(void const* x)
  * \brief       Retreives the canvas that owns the t_eobj.
  * \details     Directly access to the canvas structure of the t_eobj.
  * \param x     The t_eobj pointer.
  * \return      This function returns a pointer the canvas that owns the t_eobj.
  */
-t_canvas* eobj_getcanvas(void *x);
+t_canvas* eobj_getcanvas(void const* x);
 
 /*!
- * \fn          char eobj_isbox(void *x)
+ * \fn          t_symbol* eobj_getid(void const* x)
+ * \brief       Retreives the id of the t_eobj.
+ * \details     Directly access to the t_symbol id structure of the t_eobj.
+ * \param x     The t_eobj pointer.
+ * \return      This function returns a pointer t_symbol id.
+ */
+t_symbol* eobj_getid(void const* x);
+
+/*!
+ * \fn          char eobj_isbox(void const* x)
  * \brief       Retreives if a t_eobj is a GUI box or not.
  * \details     Check if the box flag is postive or null.
  * \param x     The t_eobj pointer.
  * \return      This function returns 1 if the t_eobj is a GUI and 0 if not.
  */
-char eobj_isbox(void *x);
+char eobj_isbox(void const* x);
 
 /*!
- * \fn          char eobj_isdsp(void *x)
+ * \fn          char eobj_isdsp(void const* x)
  * \brief       Retreives if a t_eobj is a DSP object or not
  * \details     Check if the dsp method has been initialized.
  * \param x     The t_eobj pointer.
  * \return      This function returns 1 if the t_eobj is a DSP object and 0 if not.
  */
-char eobj_isdsp(void *x);
+char eobj_isdsp(void const* x);
+
+/*!
+ * \fn          void eobj_bind(void const* b, void* const l)
+ * \brief       Binds a listener t_object to another to a broadcaster t_eobj.
+ * \details     When a listener is attached to a broadcaster, the broadcaster will notify the
+ * \details     listener via its t_notify_method method.
+ * \param b     The t_eobj broadcaster pointer.
+ * \param l     The t_object listener pointer.
+ * \see eobj_unbind, t_notify_method
+ */
+void eobj_bind(void const* b, void* const l);
+
+/*!
+ * \fn          void eobj_unbind(void const* b, void* const l)
+ * \brief       Unbind a listener t_object to another to a broadcaster t_eobj.
+ * \details     When a listener is attached to a broadcaster, the broadcaster will notify the
+ * \details     listener via its t_notify_method method.
+ * \param b     The t_eobj broadcaster pointer.
+ * \param l     The t_object listener pointer.
+ * \see eobj_bind, t_notify_method
+ */
+void eobj_unbind(void const* b, void* const l);
 
 /*!
  * \fn      void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)
@@ -193,6 +223,7 @@ void eobj_dspfree(void *x);
  * \details     Allocates or free the signal inputs. The method can be called after the allocation of the object.
  * \param x     The edspobj pointer.
  * \param nins  The number of signal inputs.
+ * \deprecated change the name
  */
 void eobj_resize_inputs(void *x, long nins);
 
@@ -203,6 +234,7 @@ void eobj_resize_inputs(void *x, long nins);
  * \param x     The edspobj pointer.
  * \param index The index of the input.
  * \return      A pointer to the signal vector or NULL.
+ * \deprecated change the name
  */
 t_sample* eobj_getsignalinput(void *x, long index);
 
@@ -213,77 +245,11 @@ t_sample* eobj_getsignalinput(void *x, long index);
  * \param x     The edspobj pointer.
  * \param index The index of the output.
  * \return      A pointer to the signal vector or NULL.
+ * \deprecated change the name
  */
 t_sample* eobj_getsignaloutput(void *x, long index);
 
 /** @} */
-
-
-//! @cond
-
-//! The default save method for eobj called by PD (PRIVATE)
-/*
- * \memberof        eobj
- * \param z         The eobj pointor
- * \param b         The binbuf
- */
-void eobj_save(t_gobj* x, t_binbuf *b);
-
-
-//! The popup method called by tcl/tk (PRIVATE)
-/*
- * \memberof        eobj
- * \param x         The eobj pointer
- * \param s         The message selector
- * \param itemid    the id of the selected item
- */
-void eobj_popup(t_eobj* x, t_symbol* s, float itemid);
-
-//! The default write method for all eobj called by PD (PRIVATE)
-/*
- * \memberof        eobj
- * \param x         The eobj pointor
- * \param s         The symbol selector
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \todo Put the content of the function in the widget part.
- */
-void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv);
-
-//! The default read method for all eobj called by PD (PRIVATE)
-/*
- * \memberof        eobj
- * \param x         The eobj pointor
- * \param s         The symbol selector
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \todo Put the content of the function in the widget part.
- */
-void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv);
-
-//! The dsp method (PRIVATE)
-/*
- * \param x     The edspobj pointer
- * \param sp    The pointers to signal structures
- */
-void eobj_dsp(void *x, t_signal **sp);
-
-//! The dsp add method (PRIVATE)
-/*
- * \param x         The edspobj
- * \param s         Nothing (for Max 6 compatibility)
- * \param obj       Nothing (for Max 6 compatibility)
- * \param m         The user perform method
- * \param flags     The user perform flags
- * \param userparam The user perform parameters
- */
-void eobj_dsp_add(void *x, t_symbol* s, t_object* obj, t_typ_method m, long flags, void *userparam);
-
-//! The object property method (PRIVATE)
-/*
- */
-void eobj_properties_window(t_eobj* x, t_glist *glist);
-//! @endcond
 
 #endif
 

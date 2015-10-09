@@ -47,6 +47,16 @@
 #define PD_INSTANCE (PD_MAJOR_VERSION >= 0) && (PD_MINOR_VERSION) >= 46) && (PD_BUGFIX_VERSION >= 6)
 #define CICM_VERSION 0.5
 
+/*! @defgroup groupobj The BASIC Object Part
+ * @brief The t_eobj part.
+ * @details This part refers to the methods and structures that can be used by all the t_eobj structures.
+ */
+
+/*! @addtogroup groupdspobj The DSP Object Part
+ * @brief The t_edspobj and t_edspbox part.
+ * @details This part refers to the methods and structures that can be used by all the t_edspobj structures.
+ */
+
 /*! @addtogroup groupcommon The Common Part
  * @brief The general part.
  * @details This part refers to the general methods and definitions.
@@ -69,8 +79,10 @@ typedef void        (*t_typ_method)(void* x, ...);
 typedef void*       (*t_ret_method)(void* x, ...);
 //! The error method
 typedef t_pd_err    (*t_err_method)(void* x, ...);
-//! The error method
-typedef float    (*t_flt_method)(void* x, ...);
+//! The float method
+typedef float       (*t_flt_method)(void* x, ...);
+//! The float method
+typedef t_pd_err    (*t_notify_method)(void* x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
 //! The pre-defined (null) t_symbol*
 extern t_symbol* s_cream_null;
@@ -92,7 +104,6 @@ extern t_symbol* s_cream_texteditor;
 extern t_symbol* s_cream_popup;
 //! The pre-defined parameter t_symbol*
 extern t_symbol* s_cream_parameter;
-extern t_symbol* s_cream_param;
 //! The pre-defined grabfocus t_symbol*
 extern t_symbol* s_cream_grabfocus;
 //! The pre-defined repaint t_symbol*
@@ -109,6 +120,10 @@ extern t_symbol* s_cream_beginchanges;
 extern t_symbol* s_cream_endchanges;
 //! The pre-defined changes t_symbol*
 extern t_symbol* s_cream_changes;
+//! The pre-defined view t_symbol*
+extern t_symbol* s_cream_view;
+//! The pre-defined notify t_symbol*
+extern t_symbol* s_cream_notify;
 
 //! The pre-defined char t_symbol*
 extern t_symbol* s_cream_char;
@@ -158,8 +173,6 @@ extern t_symbol* s_cream_threshold;
 EXTERN t_namelist *sys_staticpath;
 EXTERN t_namelist *sys_searchpath;
 EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
-
-
 //! @endcond
 
 /** @} */
@@ -178,19 +191,6 @@ EXTERN t_namelist *namelist_append_files(t_namelist *listwas, const char *s);
 #define EPD_PI2 (1.57079632679489661923132169163975144f)
 //! Macros that define the a pi over 4
 #define EPD_PI4 (0.785398163397448309615660845819875721f)
-
-/**
- * @enum elayer_flags
- * @brief The flags that defines the status of a layer.
- * @details It define all possible the status of a layer.
- */
-typedef enum elayer_flags
-{
-    EGRAPHICS_OPEN      = 0,  /*!< Open. */
-    EGRAPHICS_CLOSE     = -1, /*!< Closed. */
-    EGRAPHICS_INVALID   = -2, /*!< Invalid. */
-    EGRAPHICS_TODRAW    = -3  /*!< To be drawn. */
-} elayer_flags;
 
 /**
  * @enum etextwrap_flags
@@ -224,9 +224,7 @@ typedef enum etextjustify_flags
     ETEXT_VERTICALLYCENTRER         = 32,
     ETEXT_CENTREDLEFT               = 33,
     ETEXT_CENTREDRIGHT              = 34,
-    ETEXT_CENTRED                   = 36,
-    horizontallyJustified           = 64
-    
+    ETEXT_CENTRED                   = 36
 } etextjustify_flags;
 
 /**
@@ -234,29 +232,6 @@ typedef enum etextjustify_flags
  * @brief The types of graphical object.
  * @details It define all the graphical type.
  */
-typedef enum
-{
-    E_GOBJ_INVALID           = 0,   /*!< This type is invalid. */
-    E_GOBJ_PATH              = 1,   /*!< This is a path. */
-    E_GOBJ_RECT              = 2,   /*!< This is a rect. */
-    E_GOBJ_ARC               = 3,   /*!< This is an arc. */
-    E_GOBJ_OVAL              = 4,   /*!< This is an oval. */
-    E_GOBJ_TEXT              = 5,   /*!< This is a text. */
-    E_GOBJ_IMAG              = 6    /*!< This is an image. */
-} egraphics_types;
-
-/**
- * @enum epath_types
- * @brief The types of path.
- * @details It define all the path type.
- */
-typedef enum
-{
-    E_PATH_MOVE    = 0,   /*!< This type is move. */
-    E_PATH_LINE    = 1,   /*!< This type is move. */
-    E_PATH_CURVE   = 2,    /*!< This type is curve. */
-    E_PATH_CLOSE   = 3    /*!< This type is curve. */
-} epath_types;
 
 /**
  * @struct t_pt
@@ -369,72 +344,22 @@ extern const t_rgba rgba_red;
  * @brief The font structure.
  * @details It contains the informations of a font.
  */
-typedef struct t_efont
+struct _efont
 {
     t_symbol*   family;   /*!< The family of the font (times, helvetica, ect.). */
     float       size;     /*!< The size of the font. */
     t_symbol*   slant;    /*!< The slant of the font (regular, italic, etc.). */
     t_symbol*   weight;   /*!< The weight of the font (normal, bold). */
-} t_efont;
+};
+typedef struct _efont t_efont;
 
-/**
- * @struct t_etext
- * @brief The text structure.
- * @details It contains the all the informations to be drawn.
- */
-typedef struct t_etext
-{
-    char*           c_text;     /*!< The text. */
-    char            c_wrap;     /*!< If the text should be wrapped. */
-    t_rgba          c_color;    /*!< The color of the text. */
-    t_efont         c_font;     /*!< The font of the text. */
-    t_rect          c_rect;     /*!< The rectangle of the text. */
-    int             c_justify;  /*!< The justification of the graphical object. */
-} t_etext;
+EXTERN_STRUCT _elayer;
+typedef struct _elayer t_elayer;
 
-/**
- * @struct t_egobj
- * @brief The  drawing object.
- * @details It contains the all the informations to be drawn.
- */
-typedef struct t_egobj
-{
-	egraphics_types e_type;         /*!< The type of the graphical object. */
-    int             e_filled;       /*!< The filled state of the graphical object. */
-    t_rgba          e_color;        /*!< The color of the graphical object. */
-    float           e_width;        /*!< The line width of the graphical object. */
-	t_pt*           e_points;       /*!< The points of the graphical object. */
-    int             e_npoints;      /*!< The number of points of the graphical object. */
-    int             e_rspace;       /*!< The real number of points of the graphical object. */
-    t_efont         e_font;         /*!< The font of the graphical object. */
-    int             e_justify;      /*!< The justification of the graphical object. */
-    char*           e_text;         /*!< The text of the graphical object. */
-    char            e_wrap;         /*!< If the text should be wrapped. */
-} t_egobj;
-
-/**
- * @struct t_elayer
- * @brief The  drawing layer.
- * @details It contains the all the informations and the graphical objects to be drawn.
- */
-typedef struct t_elayer
-{
-    t_object*           e_owner;            /*!< The layer owner. */
-    t_symbol*           e_name;             /*!< The layer name. */
-    t_symbol*           e_id;               /*!< The layer canvas ID. */
-    int                 e_state;            /*!< The layer state. */
-    t_rect              e_rect;             /*!< The layer size. */
-    
-    t_rgba              e_color;            /*!< The layer color. */
-    int                 e_line_width;       /*!< The layer line width. */
-    t_matrix            e_matrix;           /*!< The layer matrix. */
-    t_egobj             e_new_objects;      /*!< The layer new object. */
-    t_egobj*            e_objects;          /*!< The layer objects. */
-    long                e_number_objects;   /*!< The number of layer objects. */
-} t_elayer;
+EXTERN_STRUCT _etext;
+typedef struct _etext t_etext;
 
 /** @} */
-
 
 /*! @addtogroup groupclass The Class Part
  * @brief The t_eclass part.
@@ -448,161 +373,43 @@ typedef struct t_elayer
 #define CLASS_BOX			gensym("box")
 
 /**
- * @struct t_ewidget
- * @brief The default method of a class.
- * @details It contains the adress of the default methods of a class.
- */
-typedef struct t_ewidget
-{
-    t_getrectfn     w_getrectfn;            /*!< The native Pd get size method. */
-    t_displacefn    w_displacefn;           /*!< The native Pd displace method. */
-    t_selectfn      w_selectfn;             /*!< The native Pd selection method. */
-    t_activatefn    w_activatefn;           /*!< The native (dummy) Pd active method. */
-    t_deletefn      w_deletefn;             /*!< The native Pd deletion method. */
-    t_visfn         w_visfn;                /*!< The native Pd visible method. */
-    t_clickfn       w_clickfn;              /*!< The native Pd click method. */
-    t_typ_method    w_assist;               /*!< The dummy iolets assist method. */
-    t_typ_method    w_paint;                /*!< The paint method. */
-    t_typ_method    w_mouseenter;           /*!< The mouse enter method. */
-    t_typ_method    w_mouseleave;           /*!< The mouse leave method. */
-    t_typ_method    w_mousemove;            /*!< The mouse move method. */
-    t_typ_method    w_mousedown;            /*!< The mouse down method. */
-    t_typ_method    w_mousedrag;            /*!< The mouse drag method. */
-    t_typ_method    w_mouseup;              /*!< The mouse up method. */
-    t_typ_method    w_mousewheel;           /*!< The mouse wheel method. */
-    t_typ_method    w_dblclick;             /*!< The mouse double click method. */
-    t_typ_method    w_key;                  /*!< The key method. */
-    t_typ_method    w_keyfilter;            /*!< The key filter method. */
-    t_typ_method    w_getdrawparameters;    /*!< The get draw parameter method. */
-    t_typ_method    w_save;                 /*!< The save method. */
-    t_typ_method    w_popup;                /*!< The popup method. */
-    t_typ_method    w_dsp;                  /*!< The dsp method. */
-    t_typ_method    w_oksize;               /*!< The size validation method. */
-    t_err_method    w_notify;               /*!< The notification method. */
-    t_typ_method    w_write;                /*!< The write to file method. */
-    t_typ_method    w_read;                 /*!< The read from file method. */
-    t_typ_method    w_texteditor_keypress;  /*!< The text editor key press method. */
-    t_typ_method    w_texteditor_keyfilter; /*!< The text editor key filter method. */
-    t_typ_method    w_texteditor_focus;     /*!< The text editor focus method. */
-} t_ewidget;
-
-/**
- * @struct t_eattr
- * @brief The attribute.
- * @details It contains the members and the methods for an attribute. It is not already an object but perhaps it will be in the futur.
- */
-typedef struct t_eattr
-{
-    t_object        obj;        /*!< The dummy object. */
-    t_symbol*       name;       /*!< The name of the attribute. */
-    t_symbol*       type;       /*!< The type of the attribute (int, long, float, double, rgba, etc.). */
-    t_symbol*       category;   /*!< The dummy category of the attribute. */
-    t_symbol*       label;      /*!< The label of the attribute. */
-    t_symbol*       style;      /*!< The style of the attribute (checkbutton, color, number, entry, menu). */
-    long            order;      /*!< The dummy order of the attribute. */
-    char            save;       /*!< If the attribute should be saved. */
-    char            paint;      /*!< If the attribute should repaint the t_ebox when it has changed. */
-    char            invisible;  /*!< If the attribute is invisible. */
-    long			flags;      /*!< The dummy flags of the attribute. */
-    long            offset;     /*!< The offset of the attribute in the object structure. */
-    long            sizemax;    /*!< The maximum size of the attribute if the attribute is an array. */
-    long            size;       /*!< The size of the attribute if the attribute is an array. */
-    
-    t_err_method    getter;     /*!< The getter method of the attribute. */
-    t_err_method    setter;     /*!< The setter method of the attribute. */
-    long            clipped;    /*!< If the attribute is clipped if it's value or an array of numerical values. */
-    float           minimum;    /*!< The minimum value of the attribute. */
-    float           maximum;    /*!< The maximum value of the attribute. */
-    float           step;       /*!< The increment or decrement step calue of the attribute. */
-    t_symbol*       defvals;    /*!< The default value of the attribute. */
-    t_symbol**      itemslist;  /*!< The available items of an attribute if it is a menu. */
-    long            itemssize;  /*!< The number of available items of an attribute if it is a menu. */
-} t_eattr;
-
-/**
  * @struct t_eclass
  * @brief The class.
  * @details It contains the Pure Data default class with extra methods and attributes.
+ * @ingroup groupclass
  */
-typedef struct t_eclass
-{
-    t_class     c_class;    /*!< The default class. */
-    char        c_box;      /*!< The marker if the class is GUI. */
-    char        c_dsp;      /*!< The marker if the class is DSP. */
-    t_ewidget   c_widget;   /*!< The extra widget methods. */
-    t_eattr**   c_attr;     /*!< The attributes. */
-    long        c_nattr;    /*!< The number of attributes. */
-}t_eclass;
+EXTERN_STRUCT _eclass;
+typedef struct _eclass t_eclass;
 
 /** @} */
-
-/*! @addtogroup groupobj The BASIC Object Part
- * @brief The t_eobj part.
- * @details This part refers to the methods and structures that can be used by all the t_eobj structures.
- *  @{
- */
-
-/**
- * @struct t_eproxy
- * @brief The Proxy object.
- * @details It contains the proxy class, the eobj owner and the index of the proxy.
- */
-typedef struct t_eproxy
-{
-    t_pd        p_pd;       /*!< The class object. */
-    t_object*   p_owner;    /*!< The pointer to the eobj owner. */
-    t_inlet*    p_inlet;    /*!< The pointer to the inlet. */
-    int         p_index;    /*!< The index of the proxy. */
-} t_eproxy;
 
 /**
  * @struct t_eobj
  * @brief The default object.
  * @details It contains the Pd object, the canvas pointer and members for proxy inlets.
- * This should be used for no graphical object that don't have signal processing methods.
+ * @details This should be used for no graphical object that don't have signal processing methods.
+ * @ingroup groupobj
  */
-typedef struct t_eobj
-{
-    t_object            o_obj;              /*!< The Pd object. */
-    t_symbol*           o_id;               /*!< The object ID. */
-    t_canvas*           o_canvas;           /*!< The canvas that own the object. */
-    t_eproxy**          o_proxy;            /*!< The array of proxy inlets. */
-    int                 o_nproxy;           /*!< The number of proxy inlets. */
-    int                 o_current_proxy;    /*!< The index of the current proxy inlet used */
-    t_symbol*           o_camo_id;          /*!< The camomile ID. */
-}t_eobj;
+EXTERN_STRUCT _eobj;
+typedef struct _eobj t_eobj;
 
-/** @} */
-
-/*! @addtogroup groupdspobj The DSP Object Part
- * @brief The t_edspobj and t_edspbox part.
- * @details This part refers to the methods and structures that can be used by all the t_edspobj structures.
- *  @{
- */
 
 /**
  * @struct t_edsp
  * @brief The DSP structure.
  * @details It contains all the members for signal processing.
- * This should be used for no graphical object that have signal processing methods.
+ * @details This should be used for no graphical object that have signal processing methods.
+ * @ingroup groupdspobj
  */
-typedef struct t_edsp
-{
-    float               d_float;            /*!< The float member to initialize the signal method. */
-    long                d_size;         /*!< The number of signal inlets and outlets. */
-    t_int*              d_vectors;      /*!< The vector that contains all the pointers for the perform method. */
-    long                d_flags;         /*!< The flags to initialize the perform method. */
-    void*               d_user_param;   /*!< The user parameters to pass through the perform method. */
-    t_float**           d_sigs_out;         /*!< The array of signal vectors. */
-    t_float*            d_sigs_real;        /*!< The real array of signal. */
-    t_typ_method        d_perform_method;   /*!< The user perform method. */
-    long                d_misc;             /*!< The flag that could be inplace or not. */
-}t_edsp;
+EXTERN_STRUCT _edspobj;
+typedef struct _edspobj t_edspobj;
 
 /**
  * @enum edsp_flags
  * @brief The flags that discribe the behavior of a t_edspobj.
  * @details It define all the behavior of a t_edspobj.
+ * @ingroup groupdspobj
+ * @see void eobj_dspflags
  */
 typedef enum
 {
@@ -610,19 +417,6 @@ typedef enum
     E_NO_INPLACE = 1     /*!< The signal processing can't be inplace. */
 } edsp_flags;
 
-/**
- * @struct t_edspobj
- * @brief The DSP object.
- * @details It contains the t_eobj with the t_edsp structure.
- * This should be used for no graphical object that have signal processing methods.
- */
-typedef struct t_edspobj
-{
-    t_eobj d_obj; /*!< The default object. */
-    t_edsp d_dsp; /*!< The dsp structure. */
-}t_edspobj;
-
-/** @} */
 
 /*! @addtogroup groupbox The GUI Object Part
  * @brief The t_ebox and t_edspbox part.
@@ -696,16 +490,16 @@ typedef enum
  */
 typedef enum
 {
-    ECURSOR_LEFT_PTR     = 0, /*!< The left_ptr string. */
-    ECURSOR_CENTER_PTR   = 1, /*!< The center_ptr string. */
+    ECURSOR_DEFAULT      = 0, /*!< The default pointer. */
+    ECURSOR_INTERACTION  = 1, /*!< The interaction pointer. */
     ECURSOR_SDOUBLE_ARROW= 2, /*!< The sb_v_double_arrow string. */
     ECURSOR_PLUS         = 3, /*!< The plus string. */
-    ECURSOR_HAND         = 4, /*!< The hand2 string. */
-    ECURSOR_CIRCLE       = 5, /*!< The circle string. */
+    ECURSOR_SELECTION    = 4, /*!< The selection pointer. */
+    ECURSOR_OUTLET       = 5, /*!< The outlet pointer. */
     ECURSOR_X            = 6, /*!< The X_cursor string. */
-    ECURSOR_BOTTOM       = 7, /*!< The bottom_side string. */
-    ECURSOR_RIGHT_CORNER = 8, /*!< The bottom_right_corner string. */
-    ECURSOR_RIGHT_SIDE   = 9, /*!< The right_side string. */
+    ECURSOR_BOTTOM       = 7, /*!< The bottom border pointer. */
+    ECURSOR_BOTTOM_RIGHT = 8, /*!< The bottom right corner pointer. */
+    ECURSOR_RIGHT        = 9, /*!< The right border pointer. */
     ECURSOR_DOUBLE_ARROW = 10, /*!< The double_arrow string. */
     ECURSOR_EXCHANGE     = 11, /*!< The exchange string. */
     ECURSOR_XTERM        = 12  /*!< The xterm string. */
@@ -724,18 +518,6 @@ typedef struct t_edrawparams
     t_rgba      d_boxfillcolor;     /*!< The background color. */
 } t_edrawparams;
 
-struct t_ebox;
-struct t_eparam;
-
-//! The t_param_setter method
-typedef void  (*t_param_setter)(struct t_ebox* x, struct t_eparam* p, float f);
-//! The t_param_getter method
-typedef float (*t_param_getter)(struct t_ebox* x, struct t_eparam* p);
-//! The t_param_setter_t method
-typedef void  (*t_param_setter_t)(struct t_ebox* x, int index, char const* text);
-//! The t_param_getter_t method
-typedef void (*t_param_getter_t)(struct t_ebox* x, int index, char* text);
-
 /**
  * @enum elayer_flags
  * @brief The flags that defines the status of a layer.
@@ -753,121 +535,46 @@ typedef enum eparam_flags
 } eparam_flags;
 
 /**
- * @struct t_eparam
+ * @struct _eparam
  * @brief The parameter structure.
  * @details It contains the informations of a parameter.
  */
-typedef struct t_eparam
-{
-    t_object        p_object;
-    t_symbol*       p_bind;
-    t_symbol*       p_name;
-    t_symbol*       p_label;
-    struct t_ebox*  p_owner;
-    int             p_index;
-    float           p_value;
-    float           p_min;
-    float           p_max;
-    int             p_nstep;
-    t_param_getter  p_getter;
-    t_param_setter  p_setter;
-    t_param_getter_t p_getter_t;
-    t_param_setter_t p_setter_t;
-    char            p_auto;
-    char            p_meta;
-    char            p_enable;
-    long            p_flags;
-} t_eparam;
+EXTERN_STRUCT _eparam;
+typedef struct _eparam t_eparam;
 
 /**
- * @struct t_ebox
+ * @struct _ebox
  * @brief The GUI object.
  * @details It contains the t_eobj with all the members for graphical behavior.
  * This should be used for graphical object that don't have signal processing methods.
+ * @ingroup groupbox
  */
-typedef struct t_ebox
-{
-    t_eobj              b_obj;              ///<The  object.
-    
-    t_symbol*           b_receive_id;       /*!< The object user ID. */
-    t_symbol*           b_send_id;          /*!< The object send ID. */
-    
-    t_symbol*           b_canvas_id;        /*!< The canvas ID. */
-    t_symbol*           b_drawing_id;       /*!< The drawing ID. */
-    t_symbol*           b_window_id;        /*!< The window ID. */
-    t_symbol*           b_all_id;           /*!< The global ID. */
-    
-    long                b_flags;            /*!< The ebox flags. */
-    t_rect              b_rect;             /*!< The ebox rectangle. */
-    t_rect              b_rect_last;        /*!< The ebox previous rectangle. */
-    int                 b_selected_box;     /*!< The selected state */
-    int                 b_selected_item;    /*!< The items selected. */
-    int                 b_selected_inlet;   /*!< The inlet selected. */
-    int                 b_selected_outlet;  /*!< The outlet selected. */
-    
-    char                b_mouse_down;       /*!< The mouse state. */
-    
-    char                b_pinned;           /*!< If pinned state. */
-    char                b_ignore_click;     /*!< The igore click state. */
-    char                b_visible;          /*!< The visible state. */
-    char                b_ready_to_draw;    /*!< The ebox state for drawing. */
-    char                b_have_window;      /*!< The ebox window state. */
-    char                b_isinsubcanvas;    /*!< If the box is in a sub canvas. */
-    t_edrawparams       b_boxparameters;    /*!< The ebox parameters. */
-    
-    t_elayer*           b_layers;           /*!< The ebox layers. */
-    long                b_number_of_layers; /*!< The ebox number of layers. */
-    t_eparam**          b_params;           /*!< The parameters. */
-    long                b_nparams;          /*!< The number of parameters. */
-}t_ebox;
-
-/** @} */
-
+EXTERN_STRUCT _ebox;
+typedef struct _ebox t_ebox;
 
 /**
- * @struct t_edspbox
+ * @struct _edspbox
  * @brief The GUI DSP object.
  * @details It contains the t_eobj with all the members for graphical behavior and signal processing.
  * This should be used for graphical object that have signal processing methods.
  * @ingroup groupbox groupdspobj
  */
-typedef struct t_edspbox
-{
-    t_eobj              b_obj;              /*!< The  DSP object. */
-    
-    t_symbol*           b_receive_id;       /*!< The object user ID. */
-    t_symbol*           b_send_id;          /*!< The object send ID. */
-    
-    t_symbol*           b_canvas_id;        /*!< The canvas ID. */
-    t_symbol*           b_drawing_id;       /*!< The drawing ID. */
-    t_symbol*           b_window_id;        /*!< The window ID. */
-    t_symbol*           b_all_id;           /*!< The global ID. */
-    
-    long                b_flags;            /*!< The ebox flags. */
-    t_rect              b_rect;             /*!< The ebox rectangle. */
-    t_rect              b_rect_last;        /*!< The ebox previous rectangle. */
-    int                 b_selected_box;     /*!< The selected state */
-    int                 b_selected_item;    /*!< The items selected. */
-    int                 b_selected_inlet;   /*!< The inlet selected. */
-    int                 b_selected_outlet;  /*!< The outlet selected. */
-    
-    char                b_mouse_down;       /*!< The mouse state. */
-    
-    char                b_pinned;           /*!< If pinned state. */
-    char                b_ignore_click;     /*!< The igore click state. */
-    char                b_visible;          /*!< The visible State. */
-    char                b_ready_to_draw;    /*!< The ebox state for drawing. */
-    char                b_have_window;      /*!< The ebox window state. */
-    char                b_isinsubcanvas;    /*!< If the box is in a sub canvas. */
-    t_edrawparams       b_boxparameters;    /*!< The ebox parameters. */
-    
-    t_elayer*           b_layers;           /*!< The ebox layers. */
-    long                b_number_of_layers; /*!< The ebox number of layers. */
-    t_eparam**          b_params;           /*!< The parameters. */
-    long                b_nparams;          /*!< The number of parameters. */
-    
-    t_edsp d_dsp;                           /*!< The dsp structure. */
-}t_edspbox;
+EXTERN_STRUCT _edspbox;
+typedef struct _edspbox t_edspbox;
+
+//! The t_param_setter method
+typedef void  (*t_param_setter)(t_ebox* x, t_eparam* p, float f);
+//! The t_param_getter method
+typedef float (*t_param_getter)(t_ebox* x, t_eparam* p);
+//! The t_param_setter_t method
+typedef void  (*t_param_setter_t)(t_ebox* x, int index, char const* text);
+//! The t_param_getter_t method
+typedef void (*t_param_getter_t)(t_ebox* x, int index, char* text);
+
+
+/** @} */
+
+
 
 /*! @addtogroup groupwidget The Widget Part
  * @brief The t_epopup and t_etexteditor part.
@@ -901,7 +608,7 @@ typedef struct t_epopup
     t_symbol*       c_popup_id; /*!< The popup id. */
     t_symbol*       c_canvas_id;/*!< The canvas id. */
     t_symbol*       c_name;     /*!< The name of the popup. */
-    t_efont         c_font;     /*!< The font of the popup. */
+    t_efont*        c_font;     /*!< The font of the popup. */
     t_rgba          c_bgcolor;  /*!< The background color of the popup. */
     t_rgba          c_txtcolor; /*!< The text color of the popup. */
     int             c_size;     /*!< The number of items. */
@@ -926,7 +633,7 @@ typedef struct t_etexteditor
     t_symbol*   c_name;
     char*       c_text;
     int         c_size;
-    t_efont     c_font;
+    t_efont*    c_font;
     t_rgba      c_bgcolor;
     t_rgba      c_txtcolor;
     char        c_wrap;
