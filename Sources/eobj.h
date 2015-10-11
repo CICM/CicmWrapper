@@ -25,6 +25,18 @@
  *  @{
  */
 
+/**
+ * @struct t_edsp
+ * @brief The DSP structure.
+ * @details It contains all the members for signal processing.
+ * @details This should be used for no graphical object that have signal processing methods.
+ * @ingroup groupdspobj
+ */
+typedef struct _edspobj
+{
+    t_object* d_object;
+}t_edspobj;
+
 /*!
  * \fn          void *eobj_new(t_eclass *c)
  * \brief       The t_eobj creation function.
@@ -77,13 +89,13 @@ char eobj_isdsp(void const* x);
 void eobj_proxynew(void* x);
 
 /*!
- * \fn          int eobj_getproxy(void const* x)
+ * \fn          size_t eobj_getproxy(void const* x)
  * \brief       Retreives the index of the proxy that received the last message.
  * \details     Retreives the current proxy index. This function should only be used while a message has been received.
  * \param x     The t_eobj pointer.
  * \return      This function return the index of the current proxy.
  */
-int  eobj_getproxy(void const* x);
+size_t eobj_getproxy(void const* x);
 
 /*!
  * \fn          t_eclass* eobj_getclass(void const* x)
@@ -185,21 +197,23 @@ void eobj_attr_setvalueof(void *x, t_symbol* s, int argc, t_atom *argv);
  */
 void eobj_attr_getvalueof(void *x, t_symbol *s, int *argc, t_atom **argv);
 
-/** @} */
 
-/*! @addtogroup groupdspobj
- * @{
- */
+
+
+
+
+
+
 
 /*!
- * \fn void eobj_dspsetup(void *x, long nins, long nouts)
+ * \fn void     eobj_dspsetup(void *x, size_t nins, size_t nouts)
  * \brief       Initializes the dsp members of the t_edsp.
  * \details     Allocate the memory for digital dignal processing of a t_edspobj. \n This funtion should replace inlet_new and outlet_new for the signal.
  * \param x     The edspobj pointer
  * \param nins  The number of signal inputs.
  * \param nouts The number of signal outputs
  */
-void eobj_dspsetup(void *x, long nins, long nouts);
+void eobj_dspsetup(void *x, size_t nins, size_t nouts);
 
 /*!
  * \fn void eobj_dspflags(void *x, long flags)
@@ -230,26 +244,26 @@ void eobj_dspfree(void *x);
 void eobj_resize_inputs(void *x, long nins);
 
 /*!
- * \fn          t_sample* eobj_getsignalinput(void *x, long index)
+ * \fn          t_sample* eobj_dspgetinsamples(void *x, size_t index)
  * \brief       Retrieves the pointer to the signal of an input.
- * \details     Retrieves the pointer to the signal vector of an input. \n The can function can only be used during the dsp method call.
+ * \details     Retrieves the pointer to the signal vector of an input.
+ * \details     The can function can only be used during the dsp method call.
  * \param x     The edspobj pointer.
  * \param index The index of the input.
  * \return      A pointer to the signal vector or NULL.
- * \deprecated change the name
  */
-t_sample* eobj_getsignalinput(void *x, long index);
+t_sample* eobj_dspgetinsamples(void *x, size_t index);
 
 /*!
- * \fn          t_sample* eobj_getsignaloutput(void *x, long index)
+ * \fn          t_sample* eobj_dspgetoutsamples(void *x, size_t index)
  * \brief       Retrieves the pointer to the signal of an output.
- * \details     Retrieves the pointer to the signal vector of an output. \n The can function can only be used during the dsp method call.
+ * \details     Retrieves the pointer to the signal vector of an output.
+ * \details     The can function can only be used during the dsp method call.
  * \param x     The edspobj pointer.
  * \param index The index of the output.
  * \return      A pointer to the signal vector or NULL.
- * \deprecated change the name
  */
-t_sample* eobj_getsignaloutput(void *x, long index);
+t_sample* eobj_dspgetoutsamples(void *x, size_t index);
 
 /** @} */
 

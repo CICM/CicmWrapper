@@ -20,30 +20,18 @@ struct _eobj
     t_symbol*           o_id;               /*!< The object id. */
     t_canvas*           o_canvas;           /*!< The canvas that own the object. */
     t_eproxy**          o_proxy;            /*!< The array of proxy inlets. */
-    int                 o_nproxy;           /*!< The number of proxy inlets. */
-    int                 o_cproxy;           /*!< The index of the current proxy inlet used */
+    size_t              o_nproxy;           /*!< The number of proxy inlets. */
+    size_t              o_cproxy;           /*!< The index of the current proxy inlet used */
     t_symbol*           o_listeners;        /*!< The listeners id. */
 };
-
-struct _edspobj
-{
-    t_eobj d_obj; /*!< The default object. */
-};
-
-/*
- * Methods
- */
-
-static t_eproxy* eproxy_new(void *owner, t_symbol* s);
-static void eproxy_free(void *owner, t_eproxy* proxy);
 
 extern void eobj_popup(t_eobj* x, t_symbol* s, float itemid);
 extern void eobj_save(t_gobj* x, t_binbuf *b);
 extern void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv);
 extern void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv);
-extern void eobj_dsp(void *x, t_signal **sp);
-extern void eobj_dsp_add(void *x, t_symbol* s, t_object* za, t_typ_method m, long flags, void *userparam);
 extern void eobj_properties_window(t_eobj* x, t_glist *glist);
+
+extern void edsp_initclass(t_eclass* c);
 
 void *eobj_new(t_eclass *c)
 {
@@ -100,7 +88,7 @@ void eobj_proxynew(void* x)
     eproxy_new(x, NULL);
 }
 
-int eobj_getproxy(void const* x)
+size_t eobj_getproxy(void const* x)
 {
     return ((t_eobj const*)x)->o_cproxy;
 }
@@ -141,10 +129,17 @@ void eobj_unbind(void const* b, void* const l)
     }
 }
 
+static void eobj_setproxyindex(t_eobj *x, size_t index)
+{
+    x->o_cproxy = index;
+}
+
 extern void eobj_popup(t_eobj* x, t_symbol* s, float itemid)
 {
     t_epopup* popup;
     t_eclass* c = eobj_getclass(x);
+    int todo;
+    /*
     if(s && c->c_widget.w_popup)
     {
         popup = epopupmenu_getfromsymbol(s);
@@ -153,6 +148,7 @@ extern void eobj_popup(t_eobj* x, t_symbol* s, float itemid)
             c->c_widget.w_popup(x, popup, (long)itemid);
         }
     }
+     */
 }
 
 extern void eobj_save(t_gobj* x, t_binbuf *b)
@@ -165,12 +161,13 @@ extern void eobj_save(t_gobj* x, t_binbuf *b)
     t_ebox*   y = (t_ebox *)z;
     t_eclass* c = eobj_getclass(x);
     char buffer[MAXPDSTRING];
+    int important_todo;
+    /*
     if(x && b)
     {
         if(eobj_isbox(x))
         {
             int important_todo;
-            /*
             if(c && b)
             {
                 state = canvas_suspend_dsp();
@@ -217,7 +214,6 @@ extern void eobj_save(t_gobj* x, t_binbuf *b)
                 binbuf_addv(b, (char *)";");
                 canvas_resume_dsp(state);
             }
-            */
         }
         else
         {
@@ -234,6 +230,7 @@ extern void eobj_save(t_gobj* x, t_binbuf *b)
             binbuf_addv(b, (char *)";");
         }
     }
+     */
 }
 
 extern void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
@@ -242,7 +239,8 @@ extern void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
     char* pch;
     t_atom av[1];
     t_eclass* c = eobj_getclass(x);
-
+    int todo;
+    /*
     // The file name is defined
     if(argc && argv && atom_gettype(argv) == A_SYMBOL)
     {
@@ -272,6 +270,7 @@ extern void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
     {
         sys_vgui("eobj_saveas %s nothing nothing\n", x->o_id->s_name);
     }
+     */
 }
 
 extern void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
@@ -281,7 +280,8 @@ extern void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
     t_atom av[1];
     t_namelist* var;
     t_eclass* c = eobj_getclass(x);
-    
+    int todo;
+    /*
     // Name
     if(argc && argv && atom_gettype(argv) == A_SYMBOL)
     {
@@ -338,6 +338,7 @@ extern void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
     {
         sys_vgui("eobj_openfrom %s\n", x->o_id->s_name);
     }
+     */
 }
 
 void eobj_attrprocess_viatoms(void *x, int argc, t_atom *argv)
@@ -347,7 +348,7 @@ void eobj_attrprocess_viatoms(void *x, int argc, t_atom *argv)
     int     defc        = 0;
     t_atom* defv        = NULL;
     t_eclass* c         = eobj_getclass(x);
-
+    /*
     for(i = 0; i < c->c_nattr; i++)
     {
         sprintf(buffer, "@%s", c->c_attr[i]->name->s_name);
@@ -360,6 +361,7 @@ void eobj_attrprocess_viatoms(void *x, int argc, t_atom *argv)
             defv = NULL;
         }
     }
+     */
 }
 
 void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)
@@ -370,6 +372,7 @@ void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)
     int defc       = 0;
     t_atom* defv    = NULL;
     t_eclass* c     = eobj_getclass(x);
+    /*
     for(i = 0; i < c->c_nattr; i++)
     {
         sprintf(attr_name, "@%s", c->c_attr[i]->name->s_name);
@@ -382,6 +385,7 @@ void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)
             defv = NULL;
         }
     }
+     */
 }
 
 extern void eobj_properties_window(t_eobj* x, t_glist *glist)
@@ -422,13 +426,13 @@ static t_edsp* eobj_getdsp(void *x)
 {
     char text[MAXPDSTRING];
     sprintf(text, "%lxdsp", (unsigned long)x);
-    return edsp_findbyname(gensym(text))
+    return edsp_findbyname(gensym(text));
 }
 
-void eobj_dspsetup(void *x, long nins, long nouts)
+void eobj_dspsetup(void *x, size_t nins, size_t nouts)
 {
     char text[MAXPDSTRING];
-    t_edsp* dsp = edsp_new();
+    t_edsp* dsp = edsp_new(x, nins, nouts);
     if(dsp)
     {
         sprintf(text, "%lxdsp", (unsigned long)x);
@@ -441,7 +445,7 @@ void eobj_dspflags(void *x, long flags)
     t_edsp* dsp = eobj_getdsp(x);
     if(dsp)
     {
-        edsp_setflags(dsp, flags);
+        mess1((t_pd *)dsp, gensym("flags"), (void *)flags);
     }
 }
 
@@ -450,7 +454,7 @@ void eobj_dspfree(void *x)
     t_edsp* dsp = eobj_getdsp(x);
     if(dsp)
     {
-        edsp_free(dsp);
+        pd_free((t_pd *)dsp);
     }
     eobj_free(x);
 }
@@ -460,7 +464,7 @@ static void eobj_dsp(void *x, t_signal **sp)
     t_edsp* dsp = eobj_getdsp(x);
     if(dsp)
     {
-        edsp_prepare(dsp, sp);
+        mess1((t_pd *)dsp, gensym("prepare"), sp);
     }
 }
 
@@ -469,8 +473,45 @@ static void eobj_dspadd(void *x, t_symbol* s, t_object* za, t_typ_method m, long
     t_edsp* dsp = eobj_getdsp(x);
     if(dsp)
     {
-        edsp_add(dsp, m, flags, userparam);
+        mess3((t_pd *)dsp, gensym("add"), m, (void *)(flags), (userparam));
     }
+}
+
+extern void edsp_initclass(t_eclass* c)
+{
+    class_addmethod(c, (t_method)eobj_dsp,      gensym("dsp"),          A_CANT, 0);
+    class_addmethod(c, (t_method)eobj_dspadd,   gensym("dsp_add"),      A_CANT, 0);
+    class_addmethod(c, (t_method)eobj_dspadd,   gensym("dsp_add64"),    A_CANT, 0); // For Max compatibilty
+}
+
+t_sample* eobj_dspgetinsamples(void *x, size_t index)
+{
+    t_ret_method m;
+    t_edsp* dsp = eobj_getdsp(x);
+    if(dsp)
+    {
+        m = (t_ret_method)zgetfn((t_pd *)dsp, gensym("insamples"));
+        if(m)
+        {
+            return (t_sample *)((m)((t_pd *)dsp, index));
+        }
+    }
+    return NULL;
+}
+
+t_sample* eobj_dspgetoutsamples(void *x, size_t index)
+{
+    t_ret_method m;
+    t_edsp* dsp = eobj_getdsp(x);
+    if(dsp)
+    {
+        m = (t_ret_method)zgetfn((t_pd *)dsp, gensym("outsamples"));
+        if(m)
+        {
+            return (t_sample *)((m)((t_pd *)dsp, index));
+        }
+    }
+    return NULL;
 }
 
 void eobj_resize_inputs(void *x, long nins)
@@ -496,35 +537,6 @@ void eobj_resize_inputs(void *x, long nins)
     canvas_fixlinesfor(eobj_getcanvas(obj), (t_text *)x);
 }
 
-
-t_sample* eobj_getsignalinput(void *x, long index)
-{
-    t_edsp* dsp = eobj_getdsp(x);
-    if(dsp)
-    {
-        if(index < obj_nsiginlets((t_object *)x) && index >= 0 && dsp->d_vectors )
-        {
-            return (t_sample *)dsp->d_vectors[7 + index];
-        }
-    }
-    return NULL;
-}
-
-t_sample* eobj_getsignaloutput(void *x, long index)
-{
-    t_edsp* dsp = eobj_getdsp(x);
-    if(dsp)
-    {
-        if(index < obj_nsigoutlets((t_object *)x) && index >= 0 && dsp->d_vectors)
-        {
-            if(dsp->d_misc == E_NO_INPLACE)
-                return dsp->d_sigs_out[index];
-            else
-                return (t_sample *)dsp->d_vectors[index + 7 + obj_nsiginlets((t_object *)x)];
-        }
-    }
-    return NULL;
-}
 
 //! @endcond
 

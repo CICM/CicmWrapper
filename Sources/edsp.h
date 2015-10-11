@@ -37,15 +37,10 @@
 EXTERN_STRUCT _edsp;
 typedef struct _edsp t_edsp;
 
-/**
- * @enum edsp_flags
- * @brief The flags that discribe the behavior of a dsp manager.
- */
-typedef enum
-{
-    EPD_INPLACE     = 1<<0,    /*!< The signal processing can be inplace. */
-    EPD_NOINPLACE   = 1<<1     /*!< The signal processing can't be inplace. */
-} edsp_flags;
+/*!< The signal processing can be inplace. */
+#define EPD_INPLACE    (1<<0)
+/*!< The signal processing can't be inplace. */
+#define EPD_NOINPLACE  (1<<1)
 
 //! The dsp perform method
 typedef void (*t_perform_method)(t_object *x, t_object *dsp,
@@ -71,40 +66,6 @@ t_edsp* edsp_new(t_object* owner, size_t nins, size_t nouts);
  * \return          The dsp manager that matchs to the name if it exists, othersise NULL.
  */
 t_edsp* edsp_findbyname(t_symbol* name);
-
-/*!
- * \fn              void edsp_free(t_edsp *dsp)
- * \brief           Frees a dsp manager.
- * \param dsp       The dsp manager pointer.
- */
-void edsp_free(t_edsp *dsp);
-
-/*!
- * \fn              void edsp_setflags(t_edsp *dsp, long flags)
- * \brief           Sets the flags of the dsp manager
- * \param dsp       The dsp manager pointer.
- * \param flags     The flags.
- */
-void edsp_setflags(t_edsp *dsp, long flags);
-
-/*!
- * \fn              void edsp_prepare(t_edsp *dsp, t_signal **sp)
- * \brief           Prepares the dsp manager.
- * \param dsp       The dsp manager pointer.
- * \param sp        The signal pointers.
- */
-void edsp_prepare(t_edsp *dsp, t_signal **sp);
-
-/*!
- * \fn              void edsp_add(t_edsp *dsp, t_perform_method m, long flags, void *userparam)
- * \brief           Adds a perform method to the dsp manager.
- * \param dsp       The dsp manager pointer.
- * \param m         The method.
- * \param flags     The flags to pass to the method.
- * \param params    The user parameters to pas to the method.
- * \todo Later, allow to add several methods. For the moment, only one method is accepted.
- */
-void edsp_add(t_edsp *dsp, t_perform_method m, long flags, void *params);
 
 /** @} */
 

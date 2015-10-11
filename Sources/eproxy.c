@@ -10,83 +10,52 @@
 
 #include "eproxy.h"
 
-union inletunion
-{
-    t_symbol *iu_symto;
-    t_gpointer *iu_pointerslot;
-    t_float *iu_floatslot;
-    t_symbol **iu_symslot;
-#ifdef PD_BLOBS
-    t_blob **iu_blobslot;
-#endif
-    t_float iu_floatsignalvalue;
-};
+#include "m_imp.h"
 
-struct _inlet
-{
-    t_pd i_pd;
-    struct _inlet *i_next;
-    t_object *i_owner;
-    t_pd *i_dest;
-    t_symbol *i_symfrom;
-    union inletunion i_un;
-};
-
-struct _outlet
-{
-    t_object *o_owner;
-    struct _outlet *o_next;
-    t_outconnect *o_connections;
-    t_symbol *o_sym;
-};
+typedef void (*t_proxy_method)(void* x, size_t index);
 
 struct _eproxy
 {
-    t_pd        p_pd;       /*!< The class object. */
-    t_object*   p_owner;    /*!< The pointer to the eobj owner. */
-    t_inlet*    p_inlet;    /*!< The pointer to the inlet. */
-    int         p_index;    /*!< The index of the proxy. */
+    t_pd            p_pd;       /*!< The class object. */
+    t_object*       p_owner;    /*!< The pointer to the eobj owner. */
+    t_inlet*        p_inlet;    /*!< The pointer to the inlet. */
+    size_t          p_index;    /*!< The index of the proxy. */
+    t_proxy_method  p_method;   /*!< The proxy setter. */
 };
 
 static void eproxy_anything(t_eproxy *x, t_symbol *s, int argc, t_atom *argv)
 {
-    t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_cproxy = x->p_index;
+    x->p_method(x->p_owner, x->p_index);
     pd_typedmess((t_pd *)x->p_owner, s, argc, argv);
 }
 
 static void eproxy_bang(t_eproxy *x)
 {
-    t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_cproxy = x->p_index;
+    x->p_method(x->p_owner, x->p_index);
     pd_bang((t_pd *)x->p_owner);
 }
 
 static void eproxy_float(t_eproxy *x, float f)
 {
-    t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_cproxy = x->p_index;
+    x->p_method(x->p_owner, x->p_index);
     pd_float((t_pd *)x->p_owner, f);
 }
 
 static void eproxy_symbol(t_eproxy *x, t_symbol* s)
 {
-    t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_cproxy = x->p_index;
+    x->p_method(x->p_owner, x->p_index);
     pd_symbol((t_pd *)x->p_owner, s);
 }
 
 static void eproxy_pointer(t_eproxy *x, t_gpointer *gp)
 {
-    t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_cproxy = x->p_index;
+    x->p_method(x->p_owner, x->p_index);
     pd_pointer((t_pd *)x->p_owner, gp);
 }
 
 static void eproxy_list(t_eproxy *x, t_symbol* s, int argc, t_atom* argv)
 {
-    t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_cproxy = x->p_index;
+    x->p_method(x->p_owner, x->p_index);
     pd_list((t_pd *)x->p_owner, s, argc, argv);
 }
 
@@ -120,13 +89,12 @@ static t_class* eproxy_setup()
     }
 }
 
-static t_eproxy* eproxy_new(void *owner, t_symbol* s)
+t_eproxy* eproxy_new(t_object *owner, t_symbol* s)
 {
-    t_eproxy* proxy;
-    t_eproxy ** temp;
+    t_eproxy* x;
+    t_eproxy** temp;
     t_eobj *z = (t_eobj *)owner;
-    t_edsp *dsp = eobj_getdsp(owner);
-    eproxy_class = eproxy_setup();
+    t_class* c = eproxy_setup();
     if(z->o_proxy)
     {
         temp = (t_eproxy **)realloc(z->o_proxy, (size_t)(z->o_nproxy + 1) * sizeof(t_eproxy *));
@@ -138,15 +106,11 @@ static t_eproxy* eproxy_new(void *owner, t_symbol* s)
     if(temp)
     {
         z->o_proxy = temp;
-        proxy = (t_eproxy *)pd_new(eproxy_class);
-        proxy->p_owner = (t_object *)owner;
-        proxy->p_pd    = eproxy_class;
-        proxy->p_index = z->o_nproxy;
-        proxy->p_inlet = einlet_new((t_object *)owner, (t_pd *)proxy, s);
-        if(dsp)
-        {
-            proxy->p_inlet->i_un.iu_floatsignalvalue = dsp->d_float;
-        }
+        x = (t_eproxy *)pd_new(c);
+        x->p_method = (t_proxy_method)zgetfn((t_pd *)owner, gensym("setproxyindex"));
+        x->p_owner  = owner;
+        x->p_index  = z->o_nproxy;
+        x->p_inlet  = inlet_new(owner, (t_pd *)x, s, s);
         z->o_proxy[z->o_nproxy] = proxy;
         z->o_nproxy++;
         return proxy;

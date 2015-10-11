@@ -120,17 +120,14 @@ long eclass_getflags(t_eclass const* c)
 
 void eclass_guiinit(t_eclass* c, long flags)
 {
-    class_addmethod(c, (t_method)truemethod, s_cream_isgui, A_CANT);
+    class_addmethod(c, (t_method)truemethod, s_cream_isgui, A_CANT, 0);
     ebox_initclass(c);
 }
 
 void eclass_dspinit(t_eclass* c)
 {
-    class_addmethod(c, (t_method)truemethod,    s_cream_isdsp,      A_CANT, 0);
+    class_addmethod(c, (t_method)truemethod, s_cream_isdsp,  A_CANT, 0);
     edsp_initclass(c);
-    class_addmethod(c, (t_method)eobj_dsp,       gensym("dsp"),          A_CANT, 0);
-    class_addmethod(c, (t_method)eobj_dsp_add,   gensym("dsp_add"),      A_CANT, 0);
-    class_addmethod(c, (t_method)eobj_dsp_add,   gensym("dsp_add64"),    A_CANT, 0); // For Max compatibilty
 }
 
 t_pd_err eclass_register(t_symbol *name, t_eclass *c)

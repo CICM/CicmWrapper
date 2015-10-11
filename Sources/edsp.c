@@ -28,91 +28,6 @@ struct _edsp
     long                d_misc;             /*!< The flag that could be inplace or not. */
 };
 
-static t_class* edsp_setup()
-{
-    t_class* c = NULL;
-    t_pd* obj = gensym("edsp1572")->s_thing;
-    if(!obj)
-    {
-        c = class_new(gensym("edsp"), (t_newmethod)NULL, (t_method)NULL, sizeof(t_edsp), CLASS_PD, A_NULL, 0);
-        if(c)
-        {
-            obj = pd_new(c);
-            pd_bind(obj, gensym("edsp1572"));
-        }
-        else
-        {
-            error("can't initialize flags class.");
-        }
-        return c;
-    }
-    else
-    {
-        return *obj;
-    }
-}
-
-t_edsp* edsp_new(t_object* owner, size_t nins, size_t nouts)
-{
-    size_t i   = 0;
-    t_edsp*  x = NULL;
-    t_class* c = edsp_setup();
-    if(c)
-    {
-        x = (t_edsp *)pd_new(c);
-        if(x)
-        {
-            x->d_owner          = owner;
-            x->d_sigs_out       = NULL;
-            x->d_sigs_real      = NULL;
-            x->d_method         = NULL;
-            x->d_size           = 0;
-            x->d_vectors        = NULL;
-            x->d_misc           = EPD_INPLACE;
-            
-            for(i = (size_t)obj_nsigoutlets(owner); i < nouts; i++)
-            {
-                outlet_new((t_object *)x, &s_signal);
-            }
-            for(i = (size_t)obj_nsiginlets(owner); i < nins; i++)
-            {
-                eproxy_new(x, &s_signal);
-            }
-        }
-        else
-        {
-            pd_error(owner, "can't allocate dsp manager.");
-        }
-    }
-    return x;
-}
-
-t_edsp* edsp_findbyname(t_symbol* name)
-{
-    t_class* c = edsp_setup();
-    if(c)
-    {
-        return (t_edsp *)pd_findbyclass(name, c);
-    }
-    return NULL;
-}
-
-void edsp_free(t_edsp *dsp)
-{
-    if(dsp->d_sigs_out)
-        free(dsp->d_sigs_out);
-    if(dsp->d_sigs_real)
-        free(dsp->d_sigs_real);
-    if(dsp->d_vectors)
-        free(dsp->d_vectors);
-    pd_free((t_pd *)dsp);
-}
-
-void edsp_setflags(t_edsp *dsp, long flags)
-{
-    dsp->d_flags = flags;
-}
-
 static t_int* dsp_perform_inplace(t_int* w)
 {
     t_eobj* x               = (t_eobj *)(w[1]);
@@ -153,7 +68,12 @@ static t_int* dsp_perform_noinplace(t_int* w)
     return w + (dsp->d_size + 1);
 }
 
-void edsp_prepare(t_edsp *dsp, t_signal **sp)
+static void edsp_flags(t_edsp *dsp, long flags)
+{
+    dsp->d_flags = flags;
+}
+
+static void edsp_prepare(t_edsp *dsp, t_signal **sp)
 {
     short* count;
     t_int* temp;
@@ -313,11 +233,117 @@ void edsp_prepare(t_edsp *dsp, t_signal **sp)
     }
 }
 
-void edsp_add(t_edsp *dsp, t_perform_method m, long flags, void *params)
+static void edsp_add(t_edsp *dsp, t_perform_method m, long flags, void *params)
 {
     dsp->d_flags = flags;
     dsp->d_user_param = params;
     dsp->d_method = m;
+}
+
+static t_sample* edsp_getinsamples(t_edsp *dsp, size_t index)
+{
+    if(index < (size_t)obj_nsiginlets(dsp->d_owner) && dsp->d_vectors )
+    {
+        return (t_sample *)dsp->d_vectors[7 + index];
+    }
+    return NULL;
+}
+
+static t_sample* edsp_getoutsamples(t_edsp *dsp, size_t index)
+{
+    if(index < (size_t)obj_nsigoutlets(dsp->d_owner) && dsp->d_vectors)
+    {
+        if(dsp->d_misc == EPD_NOINPLACE)
+            return dsp->d_sigs_out[index];
+        else
+            return (t_sample *)dsp->d_vectors[index + 7 + (size_t)obj_nsiginlets(dsp->d_owner)];
+    }
+    return NULL;
+}
+
+static void edsp_free(t_edsp *dsp)
+{
+    if(dsp->d_sigs_out)
+        free(dsp->d_sigs_out);
+    if(dsp->d_sigs_real)
+        free(dsp->d_sigs_real);
+    if(dsp->d_vectors)
+        free(dsp->d_vectors);
+}
+
+
+static t_class* edsp_setup()
+{
+    t_class* c = NULL;
+    t_pd* obj = gensym("edsp1572")->s_thing;
+    if(!obj)
+    {
+        c = class_new(gensym("edsp"), (t_newmethod)NULL, (t_method)edsp_free, sizeof(t_edsp), CLASS_PD, A_NULL, 0);
+        if(c)
+        {
+            class_addmethod(c, (t_method)edsp_flags,        gensym("flags"),        A_CANT);
+            class_addmethod(c, (t_method)edsp_prepare,      gensym("prepare"),      A_CANT);
+            class_addmethod(c, (t_method)edsp_add,          gensym("add"),          A_CANT);
+            class_addmethod(c, (t_method)edsp_getinsamples, gensym("insamples"),    A_CANT);
+            class_addmethod(c, (t_method)edsp_getoutsamples,gensym("outsamples"),   A_CANT);
+            obj = pd_new(c);
+            pd_bind(obj, gensym("edsp1572"));
+        }
+        else
+        {
+            error("can't initialize flags class.");
+        }
+        return c;
+    }
+    else
+    {
+        return *obj;
+    }
+}
+
+t_edsp* edsp_new(t_object* owner, size_t nins, size_t nouts)
+{
+    size_t i   = 0;
+    t_edsp*  x = NULL;
+    t_class* c = edsp_setup();
+    if(c)
+    {
+        x = (t_edsp *)pd_new(c);
+        if(x)
+        {
+            x->d_owner          = owner;
+            x->d_sigs_out       = NULL;
+            x->d_sigs_real      = NULL;
+            x->d_method         = NULL;
+            x->d_size           = 0;
+            x->d_vectors        = NULL;
+            x->d_misc           = EPD_INPLACE;
+            
+            for(i = (size_t)obj_nsigoutlets(owner); i < nouts; i++)
+            {
+                outlet_new(owner, &s_signal);
+            }
+            for(i = (size_t)obj_nsiginlets(owner); i < nins; i++)
+            {
+                eproxy_new(owner, &s_signal);
+            }
+        }
+        else
+        {
+            pd_error(owner, "can't allocate dsp manager.");
+        }
+    }
+    return x;
+}
+
+t_edsp* edsp_findbyname(t_symbol* name)
+{
+    t_class* c = edsp_setup();
+    if(c)
+    {
+        return (t_edsp *)pd_findbyclass(name, c);
+    }
+    return NULL;
 }
 
 

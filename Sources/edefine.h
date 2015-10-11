@@ -387,17 +387,6 @@ EXTERN_STRUCT _eobj;
 typedef struct _eobj t_eobj;
 
 
-/**
- * @struct t_edsp
- * @brief The DSP structure.
- * @details It contains all the members for signal processing.
- * @details This should be used for no graphical object that have signal processing methods.
- * @ingroup groupdspobj
- */
-EXTERN_STRUCT _edspobj;
-typedef struct _edspobj t_edspobj;
-
-
 /*! @addtogroup groupbox The GUI Object Part
  * @brief The t_ebox and t_edspbox part.
  * @details This part refers to the methods and structures that can be used by all the t_ebox structures.

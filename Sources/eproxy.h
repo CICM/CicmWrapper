@@ -38,12 +38,13 @@ EXTERN_STRUCT _eproxy;
 typedef struct _eproxy t_eproxy;
 
 /*!
- * \fn              t_edsp* edsp_new(void)
- * \brief           Allocates and initializes a new dsp manager.
- * \param owner     The owner of the dsp manager.
- * \return          The new dsp manager.
+ * \fn              t_eproxy* eproxy_new(t_object *owner, t_symbol* s)
+ * \brief           Allocates and initializes a new proxy inlet.
+ * \param owner     The owner of the proxy inlet.
+ * \param s         The symbol of the proxy inlet.
+ * \return          The new proxy inlet.
  */
-t_edsp* edsp_new(t_object* owner);
+t_eproxy* eproxy_new(t_object *owner, t_symbol* s);
 
 /*!
  * \fn              t_edsp* edsp_findbyname(t_symbol* name)
@@ -51,14 +52,7 @@ t_edsp* edsp_new(t_object* owner);
  * \param name      The name of the dsp manager.
  * \return          The dsp manager that matchs to the name if it exists, othersise NULL.
  */
-t_edsp* edsp_findbyname(t_symbol* name);
-
-/*!
- * \fn              void edsp_free(t_edsp *dsp)
- * \brief           Frees a dsp manager.
- * \param dsp       The dsp manager pointer.
- */
-void edsp_free(t_edsp *dsp);
+//t_edsp* edsp_findbyname(t_symbol* name);
 
 /*!
  * \fn              void edsp_setflags(t_edsp *dsp, long flags)
@@ -66,7 +60,7 @@ void edsp_free(t_edsp *dsp);
  * \param dsp       The dsp manager pointer.
  * \param flags     The flags.
  */
-void edsp_setflags(t_edsp *dsp, long flags);
+//void edsp_setflags(t_edsp *dsp, long flags);
 
 
 
