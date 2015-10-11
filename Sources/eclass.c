@@ -243,13 +243,21 @@ static t_eattr* eclass_getattr(t_eclass const* c, t_symbol* name)
     t_eattrset* as = eclass_getattrset(c);
     if(c)
     {
-        return eattrset_getattr(as);
+        return eattrset_getattr(as, name);
     }
 }
 
-void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, long size, long maxsize, long flags, long offset)
+void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
+                           size_t size, size_t maxsize, long flags, size_t offset)
 {
-    ;
+    t_symbol* name = gensym(attrname);
+    t_eattrset* as = eclass_getattrset(c);
+    if(as)
+    {
+        eattrset_attr_new(as, name, gensym(type), size, maxsize, offset);
+        eattrset_attr_category(as, name, gensym(class_getname(c)));
+        eattrset_attr_flags(as, name, flags);
+    }
 }
 
 void eclass_attr_default(t_eclass* c, const char* attrname, long flags, const char* value)
@@ -259,22 +267,46 @@ void eclass_attr_default(t_eclass* c, const char* attrname, long flags, const ch
 
 void eclass_attr_category(t_eclass* c, const char* attrname, long flags, const char* category)
 {
-    ;
+    t_symbol* name = gensym(attrname);
+    t_eattrset* as = eclass_getattrset(c);
+    if(as)
+    {
+        eattrset_attr_category(as, name, gensym(category));
+        eattrset_attr_flags(as, name, flags);
+    }
 }
 
 void eclass_attr_order(t_eclass* c, const char* attrname, long flags, const char* order)
 {
-    ;
+    t_symbol* name = gensym(attrname);
+    t_eattrset* as = eclass_getattrset(c);
+    if(as)
+    {
+        eattrset_attr_order(as, name, (long)atoi(order));
+        eattrset_attr_flags(as, name, flags);
+    }
 }
 
 void eclass_attr_label(t_eclass* c, const char* attrname, long flags, const char* label)
 {
-    ;
+    t_symbol* name = gensym(attrname);
+    t_eattrset* as = eclass_getattrset(c);
+    if(as)
+    {
+        eattrset_attr_label(as, name, gensym(label));
+        eattrset_attr_flags(as, name, flags);
+    }
 }
 
 void eclass_attr_style(t_eclass* c, const char* attrname, long flags, const char* style)
 {
-    ;
+    t_symbol* name = gensym(attrname);
+    t_eattrset* as = eclass_getattrset(c);
+    if(as)
+    {
+        eattrset_attr_style(as, name, gensym(style));
+        eattrset_attr_flags(as, name, flags);
+    }
 }
 
 void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const char* list)

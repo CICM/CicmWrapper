@@ -42,12 +42,30 @@ void *eobj_new(t_eclass *c);
 void eobj_free(void *x);
 
 /*!
- * \fn          t_pd_err eobj_iscicm(void const* x)
+ * \fn          char eobj_iscicm(void const* x)
  * \brief       Checks if the t_object uses a t_eclass.
  * \param x     The t_eobj pointer.
  * \return      This function returns 1 if the t_object uses a t_eclass, otherwise it returns 0.
  */
-t_pd_err eobj_iscicm(void const* x);
+char eobj_iscicm(void const* x);
+
+/*!
+ * \fn          char eobj_isgui(void const* x)
+ * \brief       Retreives if a t_eobj is a GUI box or not.
+ * \details     Check if the box flag is postive or null.
+ * \param x     The t_eobj pointer.
+ * \return      This function returns 1 if the t_eobj is a GUI and 0 if not.
+ */
+char eobj_isgui(void const* x);
+
+/*!
+ * \fn          char eobj_isdsp(void const* x)
+ * \brief       Retreives if a t_eobj is a DSP object or not
+ * \details     Check if the dsp method has been initialized.
+ * \param x     The t_eobj pointer.
+ * \return      This function returns 1 if the t_eobj is a DSP object and 0 if not.
+ */
+char eobj_isdsp(void const* x);
 
 /*!
  * \fn          void eobj_proxynew(void* x)
@@ -101,24 +119,6 @@ t_canvas* eobj_getcanvas(void const* x);
  * \return      This function returns a pointer t_symbol id.
  */
 t_symbol* eobj_getid(void const* x);
-
-/*!
- * \fn          char eobj_isbox(void const* x)
- * \brief       Retreives if a t_eobj is a GUI box or not.
- * \details     Check if the box flag is postive or null.
- * \param x     The t_eobj pointer.
- * \return      This function returns 1 if the t_eobj is a GUI and 0 if not.
- */
-char eobj_isbox(void const* x);
-
-/*!
- * \fn          char eobj_isdsp(void const* x)
- * \brief       Retreives if a t_eobj is a DSP object or not
- * \details     Check if the dsp method has been initialized.
- * \param x     The t_eobj pointer.
- * \return      This function returns 1 if the t_eobj is a DSP object and 0 if not.
- */
-char eobj_isdsp(void const* x);
 
 /*!
  * \fn          void eobj_bind(void const* b, void* const l)

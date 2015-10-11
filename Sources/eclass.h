@@ -92,6 +92,10 @@ void eclass_dspinit(t_eclass* c);
  */
 t_pd_err eclass_register(t_symbol *name, t_eclass *c);
 
+
+
+
+
 /*!
  * \fn          void eclass_addmethod(t_eclass* c, method m, const char* name, t_atomtype type, long anything)
  * \brief       Adds a method to the t_eclass.
@@ -101,11 +105,12 @@ t_pd_err eclass_register(t_symbol *name, t_eclass *c);
  * \param name  The name of the method.
  * \param type  The type of the method.
  * \param dummy The dummy type that should be 0.
+ * \deprecated No really but have to parse va_list
  */
 void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type, long dummy);
 
 /*!
- * \fn          void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, long size, long maxsize, long flags, long offset)
+ * \fn          void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, size_t size, size_t maxsize, long flags, size_t offset)
  * \brief           Creates a new attribute.
  * \details         Allocates the memory and intializes an new attribute for an eclass. You should prefer to use the MACROS.
  * \param c         The t_eclass pointer
@@ -113,10 +118,11 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
  * \param type      The attribute type
  * \param size      The attribute size
  * \param maxsize   The attribute max size
- * \param flags     The attribute flags (dummy)
+ * \param flags     The attribute flags
  * \param offset    The attribute bit offset in the object structure
  */
-void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, long size, long maxsize, long flags, long offset);
+void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
+                           size_t size, size_t maxsize, long flags, size_t offset);
 
 //! @cond
 /*!
@@ -139,25 +145,6 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv);
  * \param argv      The array of atoms that contains the attributes values
  */
 void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv);
-
-//! @cond
-/*!
- * \fn       void eclass_attr_setdefault(t_object* x, t_symbol *s)
- * \brief           Sets an attribute to its default value if there is one.
- * \param x         The object pointer
- * \param s         The attribute name
- */
-void eclass_attr_setdefault(t_object* x, t_symbol *s);
-
-//! @cond
-/*!
- * \fn       void eclass_attrs_setdefault(t_object* x)
- * \brief           Sets all the attribute to their default values.
- * \param x         The object pointer
- */
-void eclass_attrs_setdefault(t_object* x);
-
-//! @endcond
 
 /*!
  * \fn          void eclass_attr_category(t_eclass* c, const char* attrname, long flags, const char* category)

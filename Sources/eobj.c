@@ -135,9 +135,19 @@ void eobj_free(void *x)
     }
 }
 
-t_pd_err eobj_iscicm(void const* x)
+char eobj_iscicm(void const* x)
 {
-    return (t_pd_err)zgetfn((t_pd *)x, s_iscicm);
+    return (char)zgetfn((t_pd *)x, s_cream_iscicm);
+}
+
+char eobj_isgui(void const* x)
+{
+    return (char)zgetfn((t_pd *)x, s_cream_isgui);
+}
+
+char eobj_isdsp(void const* x)
+{
+    return (char)zgetfn((t_pd *)x, s_cream_isdsp);
 }
 
 void eobj_proxynew(void* x)
@@ -168,17 +178,6 @@ t_canvas* eobj_getcanvas(void const* x)
 t_symbol* eobj_getid(void const* x)
 {
     return ((t_eobj const*)x)->o_id;
-}
-
-char eobj_isbox(void const* x)
-{
-    return eobj_getclass((t_eobj const*)x)->c_box;
-}
-
-char eobj_isdsp(void const* x)
-{
-    t_eclass const* c = eobj_getclass(x);
-    return (char)(c->c_dsp && c->c_widget.w_dsp);
 }
 
 void eobj_bind(void const* b, void* const l)

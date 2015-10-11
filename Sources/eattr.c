@@ -15,28 +15,106 @@ struct _eattr
     t_object        a_obj;        /*!< The object. */
     t_symbol*       a_name;       /*!< The name of the attribute. */
     t_symbol*       a_type;       /*!< The type of the attribute (int, long, float, double, rgba, etc.). */
-    t_symbol*       a_category;   /*!< The dummy category of the attribute. */
+    t_symbol*       a_category;   /*!< The category of the attribute. */
     t_symbol*       a_label;      /*!< The label of the attribute. */
     t_symbol*       a_style;      /*!< The style of the attribute (checkbutton, color, number, entry, menu). */
-    char            a_save;       /*!< If the attribute should be saved. */
+    char            a_saved;      /*!< If the attribute should be saved. */
     char            a_paint;      /*!< If the attribute should repaint the t_ebox when it has changed. */
     char            a_invisible;  /*!< If the attribute is invisible. */
     long            a_order;      /*!< The order of the attribute. */
     long			a_flags;      /*!< The flags of the attribute. */
-    long            a_offset;     /*!< The offset of the attribute in the object structure. */
-    long            a_sizemax;    /*!< The maximum size of the attribute if the attribute is an array. */
-    long            a_size;       /*!< The size of the attribute if the attribute is an array. */
+    
+    size_t          a_offset;     /*!< The offset of the attribute in the object structure. */
+    size_t          a_sizemax;    /*!< The maximum size of the attribute if the attribute is an array. */
+    size_t          a_size;       /*!< The size of the attribute if the attribute is an array. */
     
     t_getter_method a_getter;     /*!< The getter method of the attribute. */
     t_setter_method a_setter;     /*!< The setter method of the attribute. */
-    long            a_clipped;    /*!< If the attribute is clipped if it's value or an array of numerical values. */
+    
+    char            a_clipped;    /*!< If the attribute is clipped if it's value or an array of numerical values. */
     float           a_minimum;    /*!< The minimum value of the attribute. */
     float           a_maximum;    /*!< The maximum value of the attribute. */
+    
     float           a_step;       /*!< The increment or decrement step calue of the attribute. */
     t_symbol*       a_defvals;    /*!< The default value of the attribute. */
     t_symbol**      a_items;      /*!< The available items of an attribute if it is a menu. */
-    long            a_nitems;     /*!< The number of available items of an attribute if it is a menu. */
+    size_t          a_nitems;     /*!< The number of available items of an attribute if it is a menu. */
 };
+
+static t_class* eattr_setup()
+{
+    t_class* c = NULL;
+    t_pd* obj = gensym("eattr1572")->s_thing;
+    if(!obj)
+    {
+        c = class_new(gensym("eattr"), (t_newmethod)NULL, (t_method)NULL, sizeof(t_eattr), CLASS_PD, A_NULL, 0);
+        if(c)
+        {
+            obj = pd_new(c);
+            pd_bind(obj, gensym("eattr1572"));
+        }
+        else
+        {
+            error("can't initialize attribute class.");
+        }
+        return c;
+    }
+    else
+    {
+        return *obj;
+    }
+}
+
+t_eattr *eattr_new(t_symbol *name, t_symbol *type, size_t size, size_t maxsize, size_t offset)
+{
+    t_eattr *x = NULL;
+    t_class* c = eattr_setup();
+    if(c)
+    {
+        x  = (t_eattr *)pd_new(c);
+        if(x)
+        {
+            x->a_name       = name;
+            x->a_type       = type;
+            x->a_category   = s_cream_empty;
+            x->a_label      = s_cream_empty;
+            x->a_style      = s_cream_empty;
+            x->a_saved       = 0;
+            x->a_paint      = 0;
+            x->a_invisible  = 0;
+            x->a_order      = 0;
+            x->a_flags      = 0;
+            x->a_offset     = offset;
+            x->a_size       = size;
+            x->a_sizemax    = maxsize;
+            x->a_getter     = NULL;
+            x->a_setter     = NULL;
+            x->a_clipped    = 0;
+            x->a_minimum    = 0;
+            x->a_maximum    = 1;
+            x->a_step       = 1;
+            x->a_defvals    = NULL;
+            x->a_items      = NULL;
+            x->a_nitems     = 0;
+        }
+        else
+        {
+            error("can't allocate attribute %s.", name->s_name);
+        }
+    }
+    return x;
+}
+
+static void eattr_free(t_eattr *attr)
+{
+    if(attr->a_nitems && attr->a_items)
+    {
+        free(attr->a_items);
+        attr->a_items = NULL;
+        attr->a_nitems = 0;
+    }
+    pd_free((t_pd *)attr);
+}
 
 t_symbol* eattr_getname(t_eattr const* attr)
 {
@@ -68,9 +146,9 @@ long eattr_getorder(t_eattr const* attr)
     return attr->a_order;
 }
 
-char eattr_shouldrepaint(t_eattr const* attr)
+char eattr_repaint(t_eattr const* attr)
 {
-    return attr->a_save;
+    return attr->a_paint;
 }
 
 char eattr_isvisible(t_eattr const* attr)
@@ -80,7 +158,7 @@ char eattr_isvisible(t_eattr const* attr)
 
 char eattr_issaved(t_eattr const* attr)
 {
-    return attr->a_save;
+    return attr->a_saved;
 }
 
 char eattr_hasminimum(t_eattr const* attr)
@@ -108,14 +186,14 @@ float eattr_getstep(t_eattr const* attr)
     return attr->a_step;
 }
 
-void eattr_getitems(t_eattr const*attr, long* nitems, t_symbol*** items)
+void eattr_getitems(t_eattr const*attr, size_t* nitems, t_symbol*** items)
 {
     if(attr->a_nitems && attr->a_items)
     {
-        *items = (t_symbol **)malloc((size_t)attr->a_nitems * sizeof(t_symbol *));
+        *items = (t_symbol **)malloc(attr->a_nitems * sizeof(t_symbol *));
         if(*items)
         {
-            memcpy(*items, attr->a_items, (size_t)attr->a_nitems * sizeof(t_symbol *));
+            memcpy(*items, attr->a_items, attr->a_nitems * sizeof(t_symbol *));
             *nitems = attr->a_nitems;
             return;
         }
@@ -124,203 +202,149 @@ void eattr_getitems(t_eattr const*attr, long* nitems, t_symbol*** items)
     items   = NULL;
 }
 
-static void eattr_setdefault(t_eattr* x, t_symbol* value)
+
+
+
+
+static void eattr_setdefault(t_eattr* attr, t_symbol* value)
 {
-    x->a_defvals = value;
+    attr->a_defvals = value;
 }
 
-static void eattr_setcategory(t_eattr* x, t_symbol* category)
+static void eattr_setcategory(t_eattr* attr, t_symbol* category)
 {
-    x->a_category = category;
+    attr->a_category = category;
 }
 
-static void eattr_setlabel(t_eattr* x, t_symbol* label)
+static void eattr_setlabel(t_eattr* attr, t_symbol* label)
 {
-    x->a_label = label;
+    attr->a_label = label;
 }
 
-static void eattr_setstyle(t_eattr* x, t_symbol* style)
+static void eattr_setstyle(t_eattr* attr, t_symbol* style)
 {
     if(style == s_cream_checkbutton || style == s_cream_onoff)
     {
-        x->a_style = s_cream_checkbutton;
+        attr->a_style = s_cream_checkbutton;
     }
     else if(style == s_cream_color)
     {
-        x->a_style = s_cream_color;
+        attr->a_style = s_cream_color;
     }
     else if(style == s_cream_number)
     {
-        x->a_style = s_cream_number;
+        attr->a_style = s_cream_number;
     }
     else if(style == s_cream_menu)
     {
-        x->a_style = s_cream_menu;
+        attr->a_style = s_cream_menu;
     }
     else if(style == s_cream_font)
     {
-        x->a_style = s_cream_font;
+        attr->a_style = s_cream_font;
     }
     else
     {
-        x->a_style = s_cream_entry;
+        attr->a_style = s_cream_entry;
     }
 }
 
-static void eattr_setorder(t_eattr* x, float order)
+static void eattr_setorder(t_eattr* attr, long order)
 {
-    x->a_order = (long)order;
+    attr->a_order = order;
 }
 
-static void eattr_setflags(t_eattr* x, float flags)
+static void eattr_setflags(t_eattr* attr, long flags)
 {
-    x->a_flags = (long)flags;
+    attr->a_flags = flags;
 }
 
-static void eattr_setmin(t_eattr* x, float value)
+static void eattr_setmin(t_eattr* attr, float value)
 {
-    if(x->a_clipped == 0)
-        x->a_clipped = 1;
-    else if(x->a_clipped == 2)
-        x->a_clipped = 3;
-    x->a_minimum = value;
+    (attr->a_clipped == 0) ? (attr->a_clipped = 1) : (attr->a_clipped = 3);
+    attr->a_minimum = value;
 }
 
-static void eattr_setmax(t_eattr* x, float value)
+static void eattr_setmax(t_eattr* attr, float value)
 {
-    if(x->a_clipped == 0)
-        x->a_clipped = 2;
-    else if(x->a_clipped == 1)
-        x->a_clipped = 3;
-    
-    x->a_maximum = value;
+    (attr->a_clipped == 0) ? (attr->a_clipped = 2) : (attr->a_clipped = 3);
+    attr->a_maximum = value;
 }
 
-static void eattr_free(t_eattr *x)
+static void eattr_setstep(t_eattr* attr, float value)
 {
-    if(x->a_itemssize && x->a_itemslist)
+    attr->a_step = value;
+}
+
+static void eattr_setitems(t_eattr* attr, size_t nitems, t_symbol** items)
+{
+    t_symbol** temp;
+    if(nitems && items)
     {
-        free(x->a_itemslist);
-        x->a_itemslist = NULL;
-        x->a_itemssize = 0;
-    }
-}
-
-static t_class* eattr_setup()
-{
-    t_class* c = NULL;
-    t_pd* obj = gensym("eattr1572")->s_thing;
-    if(!obj)
-    {
-        c = class_new(gensym("eattr"), (t_newmethod)NULL, (t_method)eattr_free, sizeof(t_eattr), CLASS_PD, A_NULL, 0);
-        if(c)
+        if(attr->a_nitems && attr->a_items)
         {
-            obj = pd_new(c);
-            pd_bind(obj, gensym("eattr1572"));
-        }
-        else
-        {
-            error("can't initialize attribute class.");
-        }
-        return c;
-    }
-    else
-    {
-        return *obj;
-    }
-}
-
-t_eattr *eattr_new(t_symbol *name, t_symbol *type, long size, long maxsize, long flags, long offset)
-{
-    t_eattr *x = NULL;
-    t_class* c = eattr_setup();
-    if(c)
-    {
-        x  = (t_eattr *)pd_new(c);
-        if(x)
-        {
-            x->a_name       = name;
-            x->a_type       = type;
-            x->a_category   = s_cream_empty;
-            x->a_label      = s_cream_empty;
-            x->a_style      = s_cream_empty;
-            x->a_save       = 0;
-            x->a_paint      = 0;
-            x->a_invisible  = 0;
-            x->a_order      = 0;
-            x->a_flags      = flags;
-            x->a_offset     = offset;
-            x->a_size       = size;
-            x->a_sizemax    = maxsize;
-            x->a_getter     = NULL;
-            x->a_setter     = NULL;
-            x->a_clipped    = 0;
-            x->a_minimum    = 0;
-            x->a_maximum    = 1;
-            x->a_step       = 1;
-            x->a_defvals    = NULL;
-            x->a_items      = NULL;
-            x->a_nitems     = 0;
-        }
-        else
-        {
-            error("can't allocate attribute %s.", name->s_name);
-        }
-    }
-    return x;
-}
-
-void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const char* list)
-{
-    int j = 0;
-    char* pch;
-    int size = 0;
-    t_eattr* attr = eclass_getattr(c, gensym(attrname));
-    if(attr)
-    {
-        pch = strtok(gensym(list)->s_name," ,");
-        
-        while(pch != NULL)
-        {
-            pch = strtok(NULL, " ,");
-            size++;
-        }
-        if(size > 0)
-        {
-            if(attr->itemssize)
+            temp = (t_symbol **)realloc(attr->a_items, nitems * sizeof(t_symbol *));
+            if(temp)
             {
-                attr->itemslist = (t_symbol **)realloc(attr->itemslist, (unsigned long)size * sizeof(t_symbol *));
-                if(attr->itemslist)
-                    attr->itemssize = size;
+                attr->a_items   = temp;
+                attr->a_nitems  = nitems;
+                memcpy(attr->a_items, items, nitems * sizeof(t_symbol *));
             }
             else
             {
-                attr->itemslist = (t_symbol **)calloc((unsigned long)size, sizeof(t_symbol *));
-                if(attr->itemslist)
-                    attr->itemssize = size;
+                free(attr->a_items);
+                attr->a_items   = NULL;
+                attr->a_nitems  = 0;
+                pd_error(attr, "can't allocate memory for attribute's items.");
             }
-            if(attr->itemslist && attr->itemssize)
-            {
-                pch = strtok(gensym(list)->s_name," ,");
-                while(pch != NULL && (long)j < attr->itemssize)
-                {
-                    attr->itemslist[j] = gensym(pch);
-                    pch = strtok(NULL, " ,");
-                    j++;
-                }
-            }
-            
         }
         else
         {
-            if(attr->itemssize)
-                free(attr->itemslist);
-            attr->itemssize = 0;
+            attr->a_items = (t_symbol **)malloc(nitems * sizeof(t_symbol *));
+            if(attr->a_items)
+            {
+                attr->a_nitems  = nitems;
+                memcpy(attr->a_items, items, nitems * sizeof(t_symbol *));
+            }
+            else
+            {
+                pd_error(attr, "can't allocate memory for attribute's items.");
+            }
         }
+    }
+    else
+    {
+        if(attr->a_nitems && attr->a_items)
+        {
+            free(attr->a_items);
+        }
+        attr->a_items   = NULL;
+        attr->a_nitems  = 0;
     }
 }
 
-static void eclass_attr_dosetdefault(t_object* x, t_eattr* attr)
+static void eattr_setaccessors(t_eattr* attr, t_getter_method getter, t_setter_method setter)
+{
+    attr->a_getter = getter;
+    attr->a_setter = setter;
+}
+
+static void eattr_shouldsave(t_eattr* attr, char saved)
+{
+    attr->a_saved = saved;
+}
+
+static void eattr_shouldrepaint(t_eattr* attr, char repaint)
+{
+    attr->a_paint = repaint;
+}
+
+static void eattr_shoulddisplay(t_eattr* attr, char visible)
+{
+    attr->a_invisible = !visible;
+}
+
+static void eattrset_attr_dosetdefault(t_object* x, t_eattr* attr)
 {
     char *pch = NULL;
     const char* temp;
@@ -358,37 +382,37 @@ static void eclass_attr_dosetdefault(t_object* x, t_eattr* attr)
                 }
                 pch = estrtok(&temp, " ',\"", pch);
             }
-            eclass_attr_setter(x, attr->name, argc, argv);
+            eattrset_attr_setter(x, attr->name, argc, argv);
             free(argv);
         }
     }
 }
 
-void eclass_attr_setdefault(t_object* x, t_symbol *s)
+void eattrset_attr_setdefault(t_object* x, t_symbol *s)
 {
-    t_eattr* attr = eclass_getattr(eobj_getclass(x), s);
+    t_eattr* attr = eattrset_getattr(eobj_getclass(x), s);
     if(attr)
     {
-        eclass_attr_dosetdefault(x, attr);
+        eattrset_attr_dosetdefault(x, attr);
     }
 }
 
-void eclass_attrs_setdefault(t_object* x)
+void eattrset_attrs_setdefault(t_object* x)
 {
     int i;
     t_eclass* c = eobj_getclass(x);
     for(i = 0; i < c->c_nattr; i++)
     {
-        eclass_attr_dosetdefault(x, c->c_attr[i]);
+        eattrset_attr_dosetdefault(x, c->c_attr[i]);
     }
 }
 
-void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
+void eattrset_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
 {
     int j;
     char *point;
     t_symbol* type; t_symbol** syms;
-    t_eattr* attr = eclass_getattr(eobj_getclass(x), s);
+    t_eattr* attr = eattrset_getattr(eobj_getclass(x), s);
     *argv = NULL;
     *argc = 0;
     if(attr)
@@ -468,7 +492,7 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
     }
 }
 
-void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
+void eattrset_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
 {
     long j, size;
     char *point;
@@ -478,7 +502,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
     t_ebox* z   = (t_ebox *)x;
     t_eclass* c = (t_eclass *)eobj_getclass(x);
     int ac = 0; t_atom* av = NULL;
-    t_eattr* attr = eclass_getattr(eobj_getclass(x), s);
+    t_eattr* attr = eattrset_getattr(eobj_getclass(x), s);
     if(attr)
     {
         unparse_atoms(argc, argv, &ac, &av);
@@ -730,7 +754,7 @@ size_t eattrset_getnattrs(t_eattrset const* attrset)
     return attrset->s_nattrs;
 }
 
-void eclass_getattrs(t_eattrset const* attrset, size_t* nattrs, t_object*** attrs)
+void eattrset_getattrs(t_eattrset const* attrset, size_t* nattrs, t_object*** attrs)
 {
     if(attrset->s_nattrs && attrset->s_attrs)
     {
@@ -746,12 +770,26 @@ void eclass_getattrs(t_eattrset const* attrset, size_t* nattrs, t_object*** attr
     *attrs  = NULL;
 }
 
+t_eattr* eattrset_getattr(t_eattrset const* attrset, t_symbol const* name)
+{
+    size_t i = 0;
+    for(i = 0; i < attrset->s_nattrs; i++)
+    {
+        if(eattr_getname(attrset->s_attrs[i] == name))
+        {
+            return attrset->s_attrs[i];
+        }
+    }
+    return NULL;
+}
+
+
 size_t eattrset_getncategories(t_eattrset const* attrset)
 {
     return attrset->s_ncates;
 }
 
-void eclass_getcategories(t_eattrset const* attrset, size_t* ncates, t_symbol*** cates)
+void eattrset_getcategories(t_eattrset const* attrset, size_t* ncates, t_symbol*** cates)
 {
     if(attrset->s_ncates && attrset->s_cates)
     {
@@ -767,7 +805,7 @@ void eclass_getcategories(t_eattrset const* attrset, size_t* ncates, t_symbol***
     *cates    = NULL;
 }
 
-void eclass_getcategory_attrs(t_eattrset const* attrset, t_symbol const* name, size_t* nattrs, t_object*** attrs)
+void eattrset_getcategory_attrs(t_eattrset const* attrset, t_symbol const* name, size_t* nattrs, t_object*** attrs)
 {
     if(attrset->s_nattrs && attrset->s_attrs)
     {
@@ -781,6 +819,232 @@ void eclass_getcategory_attrs(t_eattrset const* attrset, t_symbol const* name, s
     }
     *nattrs = 0;
     *attrs  = NULL;
+}
+
+void eattrset_attr_new(t_eattrset* attrset, t_symbol* name, t_symbol* type, size_t size, size_t maxsize, size_t offset)
+{
+    size_t i = 0;
+    t_eattr **temp = NULL, *newattr = NULL;
+    if(eattrset_getattr(attrset, name))
+    {
+        pd_error(attrset, "attribute set already have the %s attribute.", name->s_name);
+        return;
+    }
+    newattr = eattr_new(name, type, size, maxsize, offset);
+    if(newattr)
+    {
+        if(attrset->s_nattrs && attrset->s_attrs)
+        {
+            temp = (t_eattr**)realloc(attrset->s_attrs, (attrset->s_nattrs + 1) * sizeof(t_eattr *));
+            if(temp)
+            {
+                attrset->s_attrs = temp;
+                attrset->s_attrs[attrset->s_nattrs] = newattr;
+                attrset->s_nattrs++;
+            }
+            else
+            {
+                pd_error(attrset, "attribute set can't allocate memory for the new attribute %s.", name->s_name);
+                return;
+            }
+        }
+        else
+        {
+            attrset->s_attrs = (t_eattr**)malloc(sizeof(t_eattr *));
+            if(attrset->s_attrs)
+            {
+                attrset->s_attrs[0] = newattr;
+                attrset->s_nattrs = 1;
+            }
+            else
+            {
+                pd_error(attrset, "attribute set can't allocate memory for the new attribute %s.", name->s_name);
+                return;
+            }
+        }
+    }
+}
+
+void eattrset_attr_category(t_eattrset* attrset, t_symbol* name, t_symbol* category)
+{
+    t_eattr *attr = eattrset_getattr(attrset, name);
+    if(attr)
+    {
+        eattr_setcategory(attr, category);
+    }
+    else
+    {
+        pd_error(attrset, "has no attribute %s.", name->s_name);
+        return;
+    }
+}
+
+void eattrset_attr_order(t_eattrset* attrset, t_symbol* name, long order)
+{
+    t_eattr *attr = eattrset_getattr(attrset, name);
+    if(attr)
+    {
+        eattr_setorder(attr, order);
+    }
+    else
+    {
+        pd_error(attrset, "has no attribute %s.", name->s_name);
+        return;
+    }
+}
+
+void eattrset_attr_flags(t_eattrset* attrset, t_symbol* name, long flags)
+{
+    t_eattr *attr = eattrset_getattr(attrset, name);
+    if(attr)
+    {
+        eattr_setflags(attr, flags);
+    }
+    else
+    {
+        pd_error(attrset, "has no attribute %s.", name->s_name);
+        return;
+    }
+}
+
+void eattrset_attr_label(t_eattrset* attrset, t_symbol* name, t_symbol* label)
+{
+    t_eattr *attr = eattrset_getattr(attrset, name);
+    if(attr)
+    {
+        eattr_setlabel(attr, label);
+    }
+    else
+    {
+        pd_error(attrset, "has no attribute %s.", name->s_name);
+        return;
+    }
+}
+
+void eattrset_attr_style(t_eattrset* attrset, t_symbol* name, t_symbol* style)
+{
+    t_eattr *attr = eattrset_getattr(attrset, name);
+    if(attr)
+    {
+        eattr_setstyle(attr, style);
+    }
+    else
+    {
+        pd_error(attrset, "has no attribute %s.", name->s_name);
+        return;
+    }
+}
+
+void eattrset_attr_filter_min(t_eattrset* attrset, t_symbol* name, float value)
+{
+    t_eattr *attr = eattrset_getattr(attrset, name);
+    if(attr)
+    {
+        eattr_setmin(attr, value);
+    }
+    else
+    {
+        pd_error(attrset, "has no attribute %s.", name->s_name);
+        return;
+    }
+}
+
+void eattrset_attr_filter_max(t_eattrset* attrset, t_symbol* name, float value)
+{
+    t_eattr *attr = eattrset_getattr(attrset, name);
+    if(attr)
+    {
+        eattr_setmax(attr, value);
+    }
+    else
+    {
+        pd_error(attrset, "has no attribute %s.", name->s_name);
+        return;
+    }
+}
+
+void eattrset_attr_step(t_eattrset* attrset, t_symbol* name, float value)
+{
+    t_eattr *attr = eattrset_getattr(attrset, name);
+    if(attr)
+    {
+        eattr_setstep(attr, value);
+    }
+    else
+    {
+        pd_error(attrset, "has no attribute %s.", name->s_name);
+        return;
+    }
+}
+
+void eattrset_attr_save(t_eattrset* attrset, t_symbol* name, char saved)
+{
+    t_eattr *attr = eattrset_getattr(attrset, name);
+    if(attr)
+    {
+        eattr_shouldsave(attr, saved);
+    }
+    else
+    {
+        pd_error(attrset, "has no attribute %s.", name->s_name);
+        return;
+    }
+}
+
+void eattrset_attr_paint(t_eattrset* attrset, t_symbol* name, char repaint)
+{
+    t_eattr *attr = eattrset_getattr(attrset, name);
+    if(attr)
+    {
+        eattr_shouldrepaint(attr, repaint);
+    }
+    else
+    {
+        pd_error(attrset, "has no attribute %s.", name->s_name);
+        return;
+    }
+}
+
+void eattrset_attr_invisible(t_eattrset* attrset, t_symbol* name, char visible)
+{
+    t_eattr *attr = eattrset_getattr(attrset, name);
+    if(attr)
+    {
+        eattr_shoulddisplay(attr, visible);
+    }
+    else
+    {
+        pd_error(attrset, "has no attribute %s.", name->s_name);
+        return;
+    }
+}
+
+void eattrset_attr_accessor(t_eattrset* attrset, t_symbol* name, t_getter_method getter, t_setter_method setter)
+{
+    t_eattr *attr = eattrset_getattr(attrset, name);
+    if(attr)
+    {
+        eattr_setaccessors(attr, getter, setter);
+    }
+    else
+    {
+        pd_error(attrset, "has no attribute %s.", name->s_name);
+        return;
+    }
+}
+
+void eattrset_attr_items(t_eattrset* attrset, t_symbol* name, size_t nitems, t_symbol** items)
+{
+    t_eattr *attr = eattrset_getattr(attrset, name);
+    if(attr)
+    {
+        eattr_setitems(attr, nitems, items);
+    }
+    else
+    {
+        pd_error(attrset, "has no attribute %s.", name->s_name);
+        return;
+    }
 }
 
 
