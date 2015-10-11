@@ -90,7 +90,6 @@ struct _edspbox
 {
     t_eobj          d_obj;  /*!< The object. */
     struct _egui    d_gui;  /*!< The GUI object. */
-    t_edsp          d_dsp;   /*!< The dsp structure. */
 }_edspbox;
 
 extern void ebox_initclass(t_eclass* c)

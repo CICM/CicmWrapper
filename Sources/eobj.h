@@ -19,23 +19,37 @@
 
 #include "edefine.h"
 #include "eclass.h"
-#include "edsp.h"
 
 /*! @addtogroup groupobj
  *  @{
  */
 
 /**
- * @struct t_edsp
- * @brief The DSP structure.
+ * @struct t_eobj
+ * @brief The default object.
+ * @details It contains the native object, the canvas pointer and members for proxy inlets.
+ * @details This should be used for no graphical object that don't have signal processing methods.
+ * @ingroup groupobj
+ */
+typedef struct _eobj
+{
+    t_object            o_obj;              /*!< The Pd object. */
+    t_symbol*           o_id;               /*!< The object id. */
+    t_canvas*           o_canvas;           /*!< The canvas that own the object. */
+    t_object**          o_proxy;            /*!< The array of proxy inlets. */
+    size_t              o_nproxy;           /*!< The number of proxy inlets. */
+    size_t              o_cproxy;           /*!< The index of the current proxy inlet used */
+    t_symbol*           o_listeners;        /*!< The listeners id. */
+} t_eobj;
+
+/**
+ * @struct t_edspobj
+ * @brief The dsp object.
  * @details It contains all the members for signal processing.
  * @details This should be used for no graphical object that have signal processing methods.
  * @ingroup groupdspobj
  */
-typedef struct _edspobj
-{
-    t_object* d_object;
-}t_edspobj;
+typedef t_eobj t_edspobj;
 
 /*!
  * \fn          void *eobj_new(t_eclass *c)
@@ -83,10 +97,20 @@ char eobj_isdsp(void const* x);
 /*!
  * \fn          void eobj_proxynew(void* x)
  * \brief       Adds a proxy inlet to a t_eobj.
- * \details     Allocates and initializes a new proxy inlet. \n This function should replace inlet_new().
+ * \details     Allocates and initializes a new proxy inlet. 
+ * \details     This function should replace inlet_new().
+ * \param x     The t_eobj pointer.
+ * \param ...   The symbol for a specific proxy.
+ */
+void eobj_proxynew(void* x, ...);
+
+/*!
+ * \fn          void eobj_proxyfree(void* x);
+ * \brief       Removes the last proxy inlet of a t_eobj.
+ * \details     Frees a the last proxy inlet.
  * \param x     The t_eobj pointer.
  */
-void eobj_proxynew(void* x);
+void eobj_proxyfree(void* x);
 
 /*!
  * \fn          size_t eobj_getproxy(void const* x)
@@ -232,16 +256,6 @@ void eobj_dspflags(void *x, long flags);
  * \param x     The edspobj pointer
  */
 void eobj_dspfree(void *x);
-
-/*!
- * \fn          void eobj_resize_inputs(void *x, long nins)
- * \brief       Resizes the number of signal inputs of a t_edspobj.
- * \details     Allocates or free the signal inputs. The method can be called after the allocation of the object.
- * \param x     The edspobj pointer.
- * \param nins  The number of signal inputs.
- * \deprecated change the name
- */
-void eobj_resize_inputs(void *x, long nins);
 
 /*!
  * \fn          t_sample* eobj_dspgetinsamples(void *x, size_t index)

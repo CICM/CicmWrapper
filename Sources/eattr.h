@@ -50,13 +50,6 @@ typedef struct _eattr t_eattr;
 t_eattr *eattr_new(t_symbol *name, t_symbol *type, size_t size, size_t maxsize, size_t offset);
 
 /*!
- * \fn              void eattr_free(t_eattr *attr)
- * \brief           Frees an attribute.
- * \param attr      The attribute pointer.
- */
-void eattr_free(t_eattr *attr);
-
-/*!
  * \fn          t_symbol* eattr_getname(t_eattr *x)
  * \brief       Retrieves the name of an attribute.
  * \param attr  The attribute pointer.
@@ -202,13 +195,6 @@ t_eattrset* eattrset_new();
 t_eattrset* eattrset_findbyname(t_symbol* name);
 
 /*!
- * \fn              void eattrset_free(t_eattrset* x)
- * \brief           Frees an attributes set.
- * \param attrset   The attributes set pointer.
- */
-void eattrset_free(t_eattrset* attrset);
-
-/*!
  * \fn              size_t eattrset_getnattrs(t_eattrset const* attrset)
  * \brief           Retrieves the number of attributes of an attributes set.
  * \param attrset   The attributes set pointer.
@@ -252,7 +238,8 @@ size_t eattrset_getncategories(t_eattrset const* attrset);
 void eattrset_getcategories(t_eattrset const* attrset, size_t* ncates, t_symbol*** cates);
 
 /*!
- * \fn          void eattrset_attr_new(t_eattrset* attrset, t_symbol* name, t_symbol* type, size_t size, size_t maxsize, size_t offset)
+ * \fn              t_eattr* eattrset_attr_new(t_eattrset* attrset, t_symbol* name, t_symbol* type, 
+                    size_t size, size_t maxsize, size_t offset)
  * \brief           Creates a new attribute.
  * \details         Allocates the memory and intializes an new attribute for an eclass. You should prefer to use the MACROS.
  * \param attrset   The attributes set pointer.
@@ -261,8 +248,9 @@ void eattrset_getcategories(t_eattrset const* attrset, size_t* ncates, t_symbol*
  * \param size      The attribute size
  * \param maxsize   The attribute max size
  * \param offset    The attribute bit offset in the object structure
+ * \return          The pointer to new attribute.
  */
-void eattrset_attr_new(t_eattrset* attrset, t_symbol* name, t_symbol* type, size_t size, size_t maxsize, size_t offset);
+t_eattr* eattrset_attr_new(t_eattrset* attrset, t_symbol* name, t_symbol* type, size_t size, size_t maxsize, size_t offset);
 
 /*!
  * \fn              void eattrset_attr_category(t_eattrset* attrset, t_symbol* name, t_symbol* category)

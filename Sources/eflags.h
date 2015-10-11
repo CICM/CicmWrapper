@@ -53,13 +53,6 @@ t_eflagman* eflags_new(void);
 t_eflagman* eflags_findbyname(t_symbol* name);
 
 /*!
- * \fn              void eflags_free(t_eflagman *flagman)
- * \brief           Frees a flags manager.
- * \param flagman   The flags manager pointer.
- */
-void eflags_free(t_eflagman *flagman);
-
-/*!
  * \fn              long eflags_get(t_eflagman const* flagman)
  * \brief           Retrieves the flags from a flags manager.
  * \param flagman   The flags manager pointer.

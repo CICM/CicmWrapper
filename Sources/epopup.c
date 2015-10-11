@@ -1618,7 +1618,7 @@ void cicmwrapper_init(void)
         sys_gui("}\n");
         sys_gui("set dirname [file dirname $filename]\n");
         sys_gui("set basename [file tail $filename]\n");
-        sys_gui("pdsend \"$name eobjwriteto [enquote_path $dirname/$basename]\"\n");
+        sys_gui("pdsend \"$name dowrite [enquote_path $dirname/$basename]\"\n");
         sys_gui("set ::filenewdir $dirname\n");
         sys_gui("::pd_guiprefs::update_recentfiles $filename\n");
         sys_gui("}\n");
@@ -1629,7 +1629,7 @@ void cicmwrapper_init(void)
         sys_gui("set ::filenewdir [file normalize $::env(HOME)]\n");
         sys_gui("}\n");
         sys_gui("set files [tk_getOpenFile -multiple true -initialdir $::fileopendir]\n");
-        sys_gui("pdsend \"$name eobjreadfrom [enquote_path $files]\"\n");
+        sys_gui("pdsend \"$name doread [enquote_path $files]\"\n");
         sys_gui("}\n");
         
         // RGBA TO HEX //

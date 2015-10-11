@@ -303,7 +303,6 @@ static t_class* edsp_setup()
 
 t_edsp* edsp_new(t_object* owner, size_t nins, size_t nouts)
 {
-    size_t i   = 0;
     t_edsp*  x = NULL;
     t_class* c = edsp_setup();
     if(c)
@@ -318,15 +317,6 @@ t_edsp* edsp_new(t_object* owner, size_t nins, size_t nouts)
             x->d_size           = 0;
             x->d_vectors        = NULL;
             x->d_misc           = EPD_INPLACE;
-            
-            for(i = (size_t)obj_nsigoutlets(owner); i < nouts; i++)
-            {
-                outlet_new(owner, &s_signal);
-            }
-            for(i = (size_t)obj_nsiginlets(owner); i < nins; i++)
-            {
-                eproxy_new(owner, &s_signal);
-            }
         }
         else
         {

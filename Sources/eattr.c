@@ -42,13 +42,29 @@ struct _eattr
     size_t          a_nitems;     /*!< The number of available items of an attribute if it is a menu. */
 };
 
+static void eattr_free(t_eattr *attr)
+{
+    if(attr->a_nitems && attr->a_items)
+    {
+        free(attr->a_items);
+        attr->a_items = NULL;
+        attr->a_nitems = 0;
+    }
+    if(attr->a_defaults && attr->a_ndefaults)
+    {
+        free(attr->a_defaults);
+        attr->a_defaults = NULL;
+        attr->a_ndefaults = 0;
+    }
+}
+
 static t_class* eattr_setup()
 {
     t_class* c = NULL;
     t_pd* obj = gensym("eattr1572")->s_thing;
     if(!obj)
     {
-        c = class_new(gensym("eattr"), (t_newmethod)NULL, (t_method)NULL, sizeof(t_eattr), CLASS_PD, A_NULL, 0);
+        c = class_new(gensym("eattr"), (t_newmethod)NULL, (t_method)eattr_free, sizeof(t_eattr), CLASS_PD, A_NULL, 0);
         if(c)
         {
             obj = pd_new(c);
@@ -105,17 +121,6 @@ t_eattr *eattr_new(t_symbol *name, t_symbol *type, size_t size, size_t maxsize, 
         }
     }
     return x;
-}
-
-void eattr_free(t_eattr *attr)
-{
-    if(attr->a_nitems && attr->a_items)
-    {
-        free(attr->a_items);
-        attr->a_items = NULL;
-        attr->a_nitems = 0;
-    }
-    pd_free((t_pd *)attr);
 }
 
 t_symbol* eattr_getname(t_eattr const* attr)
@@ -720,13 +725,29 @@ typedef struct _eattrset
     t_eattr**       s_attrs;    /*!< The attributes. */
 } t_eattrset;
 
+static void eattrset_free(t_eattrset* attrset)
+{
+    size_t i = 0;
+    pd_unbind((t_pd *)attrset, attrset->s_name);
+    if(attrset->s_nattrs && attrset->s_attrs)
+    {
+        for(i = 0; i < attrset->s_nattrs; i++)
+        {
+            eattr_free(attrset->s_attrs[i]);
+        }
+        free(attrset->s_attrs);
+        attrset->s_attrs = NULL;
+        attrset->s_nattrs  = 0;
+    }
+}
+
 static t_class* eattrset_setup()
 {
     t_class* c = NULL;
     t_pd* obj = gensym("eattrset1572")->s_thing;
     if(!obj)
     {
-        c = class_new(gensym("eattrset"), (t_newmethod)NULL, (t_method)NULL, sizeof(t_eattrset), CLASS_PD, A_NULL, 0);
+        c = class_new(gensym("eattrset"), (t_newmethod)NULL, (t_method)eattrset_free, sizeof(t_eattrset), CLASS_PD, A_NULL, 0);
         if(c)
         {
             obj = pd_new(c);
@@ -769,23 +790,6 @@ t_eattrset* eattrset_findbyname(t_symbol* name)
         x = (t_eattrset *)pd_findbyclass(name, c);
     }
     return x;
-}
-
-void eattrset_free(t_eattrset* attrset)
-{
-    size_t i = 0;
-    pd_unbind((t_pd *)attrset, attrset->s_name);
-    if(attrset->s_nattrs && attrset->s_attrs)
-    {
-        for(i = 0; i < attrset->s_nattrs; i++)
-        {
-            eattr_free(attrset->s_attrs[i]);
-        }
-        free(attrset->s_attrs);
-        attrset->s_attrs = NULL;
-        attrset->s_nattrs  = 0;
-    }
-    pd_free((t_pd *)attrset);
 }
 
 t_symbol* eattrset_getname(t_eattrset const* attrset)
@@ -865,7 +869,7 @@ void eattrset_getcategory_attrs(t_eattrset const* attrset, t_symbol const* name,
     *attrs  = NULL;
 }
 
-void eattrset_attr_new(t_eattrset* attrset, t_symbol* name, t_symbol* type, size_t size, size_t maxsize, size_t offset)
+t_eattr* eattrset_attr_new(t_eattrset* attrset, t_symbol* name, t_symbol* type, size_t size, size_t maxsize, size_t offset)
 {
     size_t i = 0;
     t_eattr **temp = NULL, *newattr = NULL;
@@ -907,6 +911,7 @@ void eattrset_attr_new(t_eattrset* attrset, t_symbol* name, t_symbol* type, size
             }
         }
     }
+    return newattr;
 }
 
 void eattrset_attr_default(t_eattrset* attrset, t_symbol* name, size_t ndefaults, t_atom* defaults)

@@ -9,6 +9,7 @@
  */
 
 #include "eproxy.h"
+#include "eobj.h"
 
 #include "m_imp.h"
 
@@ -59,13 +60,35 @@ static void eproxy_list(t_eproxy *x, t_symbol* s, int argc, t_atom* argv)
     pd_list((t_pd *)x->p_owner, s, argc, argv);
 }
 
+static void canvas_deletelines_for_io(t_canvas *x, t_text *text, t_inlet *inp, t_outlet *outp)
+{
+    int later_try_toavoid_this;
+    t_linetraverser t;
+    t_outconnect *oc;
+    linetraverser_start(&t, x);
+    while((oc = linetraverser_next(&t)))
+    {
+        if ((t.tr_ob == text && t.tr_outlet == outp) || (t.tr_ob2 == text && t.tr_inlet == inp))
+        {
+            obj_disconnect(t.tr_ob, t.tr_outno, t.tr_ob2, t.tr_inno);
+        }
+    }
+    canvas_fixlinesfor(x, text);
+}
+
+static void eproxy_free(t_eproxy* proxy)
+{
+    canvas_deletelines_for_io(eobj_getcanvas(proxy->p_owner), (t_text *)proxy->p_owner, proxy->p_inlet, NULL);
+    inlet_free(proxy->p_inlet);
+}
+
 static t_class* eproxy_setup()
 {
     t_class* c = NULL;
     t_pd* obj = gensym("eproxy1572")->s_thing;
     if(!obj)
     {
-        c = class_new(gensym("eproxy"), (t_newmethod)NULL, (t_method)NULL, sizeof(t_eproxy), CLASS_PD, A_NULL, 0);
+        c = class_new(gensym("eproxy"), (t_newmethod)NULL, (t_method)eproxy_free, sizeof(t_eproxy), CLASS_PD, A_NULL, 0);
         if(c)
         {
             class_addanything(c, (t_method)eproxy_anything);
@@ -89,92 +112,26 @@ static t_class* eproxy_setup()
     }
 }
 
-t_eproxy* eproxy_new(t_object *owner, t_symbol* s)
+t_eproxy* eproxy_new(t_object *owner, t_symbol* s, size_t index)
 {
-    t_eproxy* x;
-    t_eproxy** temp;
-    t_eobj *z = (t_eobj *)owner;
     t_class* c = eproxy_setup();
-    if(z->o_proxy)
+    t_eproxy* x = NULL;
+    if(c)
     {
-        temp = (t_eproxy **)realloc(z->o_proxy, (size_t)(z->o_nproxy + 1) * sizeof(t_eproxy *));
-    }
-    else
-    {
-        temp = (t_eproxy **)malloc(1 * sizeof(t_eproxy *));
-    }
-    if(temp)
-    {
-        z->o_proxy = temp;
         x = (t_eproxy *)pd_new(c);
-        x->p_method = (t_proxy_method)zgetfn((t_pd *)owner, gensym("setproxyindex"));
-        x->p_owner  = owner;
-        x->p_index  = z->o_nproxy;
-        x->p_inlet  = inlet_new(owner, (t_pd *)x, s, s);
-        z->o_proxy[z->o_nproxy] = proxy;
-        z->o_nproxy++;
-        return proxy;
-    }
-    else
-    {
-        pd_error(z, "cons't allocate memory for a new proxy inlet.");
-        return NULL;
-    }
-}
-
-static void canvas_deletelines_for_io(t_canvas *x, t_text *text, t_inlet *inp, t_outlet *outp)
-{
-    t_linetraverser t;
-    t_outconnect *oc;
-    linetraverser_start(&t, x);
-    while((oc = linetraverser_next(&t)))
-    {
-        if ((t.tr_ob == text && t.tr_outlet == outp) || (t.tr_ob2 == text && t.tr_inlet == inp))
+        if(x)
         {
-            if(glist_isvisible(x))
-            {
-                sys_vgui(".x%lx.c delete l%lx\n", glist_getcanvas(x), oc);
-            }
-            obj_disconnect(t.tr_ob, t.tr_outno, t.tr_ob2, t.tr_inno);
-        }
-    }
-}
-
-static void eproxy_free(void *owner, t_eproxy* proxy)
-{
-    t_eobj *z   = (t_eobj *)owner;
-    t_eproxy ** temp;
-    if(z && proxy && proxy->p_owner == (t_object *)z)
-    {
-        if(z->o_nproxy == proxy->p_index + 1)
-        {
-            canvas_deletelines_for_io(eobj_getcanvas(owner), (t_text *)owner, proxy->p_inlet, NULL);
-            inlet_free(proxy->p_inlet);
-            if(z->o_nproxy == 1)
-            {
-                pd_free((t_pd *)z->o_proxy);
-                z->o_nproxy = 0;
-            }
-            else
-            {
-                temp = (t_eproxy **)realloc(z->o_proxy, (size_t)(z->o_nproxy - 1) * sizeof(t_eproxy *));
-                if(temp)
-                {
-                    z->o_proxy = temp;
-                }
-                else
-                {
-                    pd_error(owner, "a proxy hasn't been freed.");
-                }
-                z->o_nproxy--;
-                
-            }
+            x->p_method = (t_proxy_method)zgetfn((t_pd *)owner, gensym("setproxyindex"));
+            x->p_owner  = owner;
+            x->p_index  =index;
+            x->p_inlet  = inlet_new(owner, (t_pd *)x, s, s);
         }
         else
         {
-            pd_error(owner, "can't free a proxy if it's not the last one.");
+            pd_error(owner, "can't allocate proxy inlet.");
         }
     }
+    return x;
 }
 
 

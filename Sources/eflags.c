@@ -65,11 +65,6 @@ t_eflagman* eflags_findbyname(t_symbol* name)
     return NULL;
 }
 
-void eflags_free(t_eflagman *flags)
-{
-    pd_free((t_pd *)flags);
-}
-
 long eflags_get(t_eflagman const* flagman)
 {
     return flagman->f_flags;

@@ -30,6 +30,17 @@ void object_method(void* x, t_symbol* s, void* z, t_typ_method method, long numb
 void epd_init(void);
 //! @endcond
 
+static t_pd_err truemethod(void* x)
+{
+    return 1;
+}
+
+static t_pd_err falsemethod(void* x)
+{
+    return 0;
+}
+
+
 /*!
  * \fn          char* estrtok(const char* s, const char* delim, const char* ref)
  * \brief       Personal implentation of strtok_r

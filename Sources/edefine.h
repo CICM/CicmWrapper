@@ -92,6 +92,8 @@ typedef t_pd_err    (*t_notify_method)(void* x, t_symbol *s, t_symbol *msg, void
 typedef t_pd_err    (*t_setter_method)(void* x, t_object *attr, int ac, t_atom *av);
 //! The setter method
 typedef t_pd_err    (*t_getter_method)(void *x, t_object *attr, int* ac, t_atom **av);
+//! The binbuf method
+typedef void        (*t_binbuf_method)(void *x, t_binbuf* b);
 
 //! The pre-defined (null) t_symbol*
 extern t_symbol* s_cream_null;
@@ -376,17 +378,6 @@ typedef struct _etext t_etext;
 
 /** @} */
 
-/**
- * @struct t_eobj
- * @brief The default object.
- * @details It contains the Pd object, the canvas pointer and members for proxy inlets.
- * @details This should be used for no graphical object that don't have signal processing methods.
- * @ingroup groupobj
- */
-EXTERN_STRUCT _eobj;
-typedef struct _eobj t_eobj;
-
-
 /*! @addtogroup groupbox The GUI Object Part
  * @brief The t_ebox and t_edspbox part.
  * @details This part refers to the methods and structures that can be used by all the t_ebox structures.
@@ -573,7 +564,7 @@ typedef struct t_epopup_item
 typedef struct t_epopup
 {
     t_object        c_obj;      /*!< The object. */
-    t_eobj*         c_owner;    /*!< The owner. */
+    t_object*       c_owner;    /*!< The owner. */
     t_symbol*       c_popup_id; /*!< The popup id. */
     t_symbol*       c_canvas_id;/*!< The canvas id. */
     t_symbol*       c_name;     /*!< The name of the popup. */
@@ -617,7 +608,7 @@ typedef struct t_etexteditor
 typedef struct t_ewindowprop
 {
     t_object    c_obj;          /*!< The object. */
-    t_eobj*     c_owner;
+    t_object*   c_owner;
     int         c_nitems;
 }t_ewindowprop;
 

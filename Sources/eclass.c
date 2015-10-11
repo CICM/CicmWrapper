@@ -15,23 +15,7 @@
 #include "epopup.h"
 #include "egraphics.h"
 
-static t_pd_err truemethod(void* x)
-{
-    return 1;
-}
-
-static t_pd_err falsemethod(void* x)
-{
-    return 0;
-}
-
-
-extern void eobj_save(t_gobj* x, t_binbuf *b);
-extern void eobj_popup(t_eobj* x, t_symbol* s, float itemid);
-extern void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv);
-extern void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv); void eobj_dsp(void *x, t_signal **sp);
-extern void eobj_properties_window(t_eobj* x, t_glist *glist);
-
+extern void eobj_initclass(t_eclass* c);
 extern void ebox_initclass(t_eclass* c);
 extern void edsp_initclass(t_eclass* c);
 
@@ -89,9 +73,20 @@ t_eclass *eclass_new(const char *name, t_method newmethod, t_method freemethod, 
         a = (t_pd *)eattrset_new();
         sprintf(text, "%lxattrs", (unsigned long)c);
         pd_bind(f, gensym(text));
-        class_addmethod(c, (t_method)truemethod, s_cream_iscicm, A_CANT, 0);
+        eobj_initclass(c);
     }
     return (c);
+}
+
+void eclass_guiinit(t_eclass* c, long flags)
+{
+    class_addmethod(c, (t_method)truemethod, s_cream_isgui, A_CANT, 0);
+    ebox_initclass(c);
+}
+
+void eclass_dspinit(t_eclass* c)
+{
+    edsp_initclass(c);
 }
 
 static t_eflagman* eclass_getflagman(t_eclass const* c)
@@ -118,23 +113,8 @@ long eclass_getflags(t_eclass const* c)
     return 0;
 }
 
-void eclass_guiinit(t_eclass* c, long flags)
-{
-    class_addmethod(c, (t_method)truemethod, s_cream_isgui, A_CANT, 0);
-    ebox_initclass(c);
-}
-
-void eclass_dspinit(t_eclass* c)
-{
-    class_addmethod(c, (t_method)truemethod, s_cream_isdsp,  A_CANT, 0);
-    edsp_initclass(c);
-}
-
 t_pd_err eclass_register(t_symbol *name, t_eclass *c)
 {
-    t_widgetbehavior widget;
-    char help[MAXPDSTRING];
-    class_setpropertiesfn(c, (t_propertiesfn)eobj_properties_window);
     if(eclass_getflags(c) & EBOX_TEXTFIELD)
     {
         class_addmethod((t_class *)c, (t_method)ebox_texteditor_keypress, gensym("texteditor_keypress"), A_SYMBOL,A_DEFFLOAT,0);
@@ -143,86 +123,53 @@ t_pd_err eclass_register(t_symbol *name, t_eclass *c)
     }
     
     class_addmethod((t_class *)c, (t_method)ebox_set_parameter_attribute, gensym("param"), A_GIMME, 0);
-    
-    class_setwidget((t_class *)&c, (t_widgetbehavior *)&widget);
-    class_setsavefn((t_class *)&c, (t_savefn)eobj_save);
-    sprintf(help, "helps/%s", class_getname(c));
-    class_sethelpsymbol((t_class *)c, gensym(help));
     return 0;
 }
 
-void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type, long dummy)
+void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type1, ...)
 {
-    /*
-    t_symbol const*s = gensym(name);
-    if(s == gensym("mouseenter") || s == gensym("mouseleave") || s == gensym("mousemove") || s == gensym("mousedown") ||
-       s == gensym("mousedrag") || s == gensym("mouseup") || s == gensym("mousewheel") || s == gensym("dblclick") ||
-       s == gensym("key") || s == gensym("keyfilter") || s == gensym("paint") || s == gensym("notify") || s == gensym("getdrawparams") || s == gensym("oksize"))
+    int count = 0;
+    va_list ap;
+    t_atomtype vec[MAXPDARG+1];
+    t_atomtype *vp = vec;
+    *vp = type1;
+    va_start(ap, type1);
+    while(*vp && count < MAXPDARG)
     {
-        class_addmethod(c, (t_method)m, gensym(name), A_CANT);
+        vp++;
+        count++;
+        *vp = va_arg(ap, t_atomtype);
     }
-    else if(gensym(name) == gensym("save") || gensym(name) == gensym("jsave"))
+    va_end(ap);
+    
+    if(count == 0)
     {
-        c->c_widget.w_save = m;
+        class_addmethod(c, (t_method)m, gensym(name), type1);
     }
-    else if(gensym(name) == gensym("popup"))
+    else if(count == 1)
     {
-        class_addmethod((t_class *)c, (t_method)eobj_popup, gensym("popup"),  A_SYMBOL, A_DEFFLOAT, 0);
-        c->c_widget.w_popup = m;
+        class_addmethod(c, (t_method)m, gensym(name), type1, vec[0]);
     }
-    else if(gensym(name) == gensym("dsp") || gensym(name) == gensym("dsp64"))
+    else if(count == 2)
     {
-        c->c_widget.w_dsp = m;
+        class_addmethod(c, (t_method)m, gensym(name), type1, vec[0], vec[1]);
     }
-    else if(gensym(name) == &s_bang)
+    else if(count == 3)
     {
-        class_addbang((t_class *)c, m);
+        class_addmethod(c, (t_method)m, gensym(name), type1, vec[0], vec[1], vec[2]);
     }
-    else if(gensym(name) == &s_float)
+    else if(count == 3)
     {
-        class_addfloat((t_class *)c, m);
+        class_addmethod(c, (t_method)m, gensym(name), type1, vec[0], vec[1], vec[2], vec[3]);
     }
-    else if(gensym(name) == &s_list)
+    else if(count == 4)
     {
-        class_addlist((t_class *)c, m);
-    }
-    else if(gensym(name) == &s_anything)
-    {
-        class_addanything((t_class *)c, m);
-    }
-    else if(gensym(name) == &s_symbol)
-    {
-        class_addsymbol((t_class *)c, m);
-    }
-    else if(gensym(name) == gensym("write"))
-    {        
-        class_addmethod((t_class *)c, (t_method)eobj_write, gensym(name), type, 0);
-        class_addmethod((t_class *)c, (t_method)eobj_write, gensym("eobjwriteto"), type, 0);
-        c->c_widget.w_write = m;
-    }
-    else if(gensym(name) == gensym("read"))
-    {
-        class_addmethod((t_class *)c, (t_method)eobj_read, gensym(name), type, 0);
-        class_addmethod((t_class *)c, (t_method)eobj_read, gensym("eobjreadfrom"), type, 0);
-        c->c_widget.w_read = m;
-    }
-    else if(gensym(name) == gensym("texteditor_keypress"))
-    {
-        c->c_widget.w_texteditor_keypress = m;
-    }
-    else if(gensym(name) == gensym("texteditor_keyfilter"))
-    {
-        c->c_widget.w_texteditor_keyfilter = m;
-    }
-    else if(gensym(name) == gensym("texteditor_focus"))
-    {
-        c->c_widget.w_texteditor_focus = m;
+        class_addmethod(c, (t_method)m, gensym(name), type1, vec[0], vec[1], vec[2], vec[3], vec[4]);
     }
     else
     {
-        class_addmethod((t_class *)c, (t_method)m, gensym(name), type, 0);
+        class_addmethod(c, (t_method)m, gensym(name), type1, vec[0], vec[1], vec[2], vec[3], vec[4], vec[5]);
     }
-     */
 }
 
 long eclass_getnattrs(t_eclass const* c)
@@ -254,6 +201,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
         eattrset_attr_new(as, name, gensym(type), size, maxsize, offset);
         eattrset_attr_category(as, name, gensym(class_getname(c)));
         eattrset_attr_flags(as, name, flags);
+        class_addmethod(c, (t_method)NULL, name, A_GIMME, 0);
     }
 }
 

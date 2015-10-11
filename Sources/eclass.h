@@ -96,17 +96,15 @@ t_pd_err eclass_register(t_symbol *name, t_eclass *c);
 
 
 /*!
- * \fn          void eclass_addmethod(t_eclass* c, method m, const char* name, t_atomtype type, long anything)
- * \brief       Adds a method to the t_eclass.
- * \details     Adds and wraps the methods of the class. For the moment the funtion takes only 1 type the second type is a dummy one and should always be 0.
+ * \fn          void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type1, ...)
+ * \brief       Adds a method to the class.
  * \param c     The t_eclass pointer.
  * \param m     The method.
  * \param name  The name of the method.
- * \param type  The type of the method.
- * \param dummy The dummy type that should be 0.
- * \deprecated No really but have to parse va_list
+ * \param type1 The type of the first argument of the method.
+ * \param ...   The other types.
  */
-void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type, long dummy);
+void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type1, ...);
 
 /*!
  * \fn          void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, size_t size, size_t maxsize, long flags, size_t offset)
