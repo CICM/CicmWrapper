@@ -262,7 +262,16 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
 
 void eclass_attr_default(t_eclass* c, const char* attrname, long flags, const char* value)
 {
-    ;
+    size_t ndefaults;
+    t_atom* defaults;
+    t_symbol* name = gensym(attrname);
+    t_eattrset* as = eclass_getattrset(c);
+    if(as)
+    {
+        int todo_parser;
+        eattrset_attr_default(as, name, ndefaults, defaults);
+        eattrset_attr_flags(as, name, flags);
+    }
 }
 
 void eclass_attr_category(t_eclass* c, const char* attrname, long flags, const char* category)
@@ -309,45 +318,93 @@ void eclass_attr_style(t_eclass* c, const char* attrname, long flags, const char
     }
 }
 
-void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const char* list)
+void eclass_attr_items(t_eclass* c, const char* attrname, long flags, const char* list)
 {
-    ;
+    size_t nitems;
+    t_symbol** items;
+    t_symbol* name = gensym(attrname);
+    t_eattrset* as = eclass_getattrset(c);
+    if(as)
+    {
+        int todo_parser;
+        eattrset_attr_items(as, name, nitems, items);
+        eattrset_attr_flags(as, name, flags);
+    }
 }
 
 void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value)
 {
-    ;
+    t_symbol* name = gensym(attrname);
+    t_eattrset* as = eclass_getattrset(c);
+    if(as)
+    {
+        eattrset_attr_filter_min(as, name, value);
+    }
 }
 
 void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value)
 {
-    ;
+    t_symbol* name = gensym(attrname);
+    t_eattrset* as = eclass_getattrset(c);
+    if(as)
+    {
+        eattrset_attr_filter_max(as, name, value);
+    }
 }
 
 void eclass_attr_step(t_eclass* c, const char* attrname, float value)
 {
-    ;
+    t_symbol* name = gensym(attrname);
+    t_eattrset* as = eclass_getattrset(c);
+    if(as)
+    {
+        eattrset_attr_step(as, name, value);
+    }
 }
 
 void eclass_attr_save(t_eclass* c, const char* attrname, long flags)
 {
-    ;
+    t_symbol* name = gensym(attrname);
+    t_eattrset* as = eclass_getattrset(c);
+    if(as)
+    {
+        eattrset_attr_save(as, name, 1);
+        eattrset_attr_flags(as, name, flags);
+    }
 }
 
 void eclass_attr_paint(t_eclass* c, const char* attrname, long flags)
 {
-    ;
+    t_symbol* name = gensym(attrname);
+    t_eattrset* as = eclass_getattrset(c);
+    if(as)
+    {
+        eattrset_attr_paint(as, name, 1);
+        eattrset_attr_flags(as, name, flags);
+    }
 }
 
 void eclass_attr_invisible(t_eclass* c, const char* attrname, long flags)
 {
-    ;
+    t_symbol* name = gensym(attrname);
+    t_eattrset* as = eclass_getattrset(c);
+    if(as)
+    {
+        eattrset_attr_visible(as, name, 0);
+        eattrset_attr_flags(as, name, flags);
+    }
 }
 
-void eclass_attr_accessor(t_eclass* c, const char* attrname, t_err_method getter, t_err_method setter)
+void eclass_attr_accessor(t_eclass* c, const char* attrname, t_getter_method getter, t_setter_method setter)
 {
-    ;
+    t_symbol* name = gensym(attrname);
+    t_eattrset* as = eclass_getattrset(c);
+    if(as)
+    {
+        eattrset_attr_accessor(as, name, getter, setter);
+    }
 }
+
 
 
 

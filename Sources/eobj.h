@@ -19,6 +19,7 @@
 
 #include "edefine.h"
 #include "eclass.h"
+#include "edsp.h"
 
 /*! @addtogroup groupobj
  *  @{

@@ -12,46 +12,7 @@
 #include "ecommon.h"
 #include "egraphics.h"
 #include "epopup.h"
-
-union inletunion
-{
-    t_symbol *iu_symto;
-    t_gpointer *iu_pointerslot;
-    t_float *iu_floatslot;
-    t_symbol **iu_symslot;
-#ifdef PD_BLOBS
-    t_blob **iu_blobslot;
-#endif
-    t_float iu_floatsignalvalue;
-};
-
-struct _inlet
-{
-    t_pd i_pd;
-    struct _inlet *i_next;
-    t_object *i_owner;
-    t_pd *i_dest;
-    t_symbol *i_symfrom;
-    union inletunion i_un;
-};
-
-struct _outlet
-{
-    t_object *o_owner;
-    struct _outlet *o_next;
-    t_outconnect *o_connections;
-    t_symbol *o_sym;
-};
-
-static t_class* eproxy_class;
-
-typedef struct _eproxy
-{
-    t_pd        p_pd;       /*!< The class object. */
-    t_object*   p_owner;    /*!< The pointer to the eobj owner. */
-    t_inlet*    p_inlet;    /*!< The pointer to the inlet. */
-    int         p_index;    /*!< The index of the proxy. */
-} t_eproxy;
+#include "eproxy.h"
 
 struct _eobj
 {
@@ -64,23 +25,9 @@ struct _eobj
     t_symbol*           o_listeners;        /*!< The listeners id. */
 };
 
-typedef struct _edsp
-{
-    float               d_float;            /*!< The float member to initialize the signal method. */
-    long                d_size;             /*!< The number of signal inlets and outlets. */
-    t_int*              d_vectors;          /*!< The vector that contains all the pointers for the perform method. */
-    long                d_flags;            /*!< The flags to initialize the perform method. */
-    void*               d_user_param;       /*!< The user parameters to pass through the perform method. */
-    t_float**           d_sigs_out;         /*!< The array of signal vectors. */
-    t_float*            d_sigs_real;        /*!< The real array of signal. */
-    t_typ_method        d_perform_method;   /*!< The user perform method. */
-    long                d_misc;             /*!< The flag that could be inplace or not. */
-}t_edsp;
-
 struct _edspobj
 {
     t_eobj d_obj; /*!< The default object. */
-    t_edsp d_dsp; /*!< The dsp structure. */
 };
 
 /*
@@ -89,8 +36,6 @@ struct _edspobj
 
 static t_eproxy* eproxy_new(void *owner, t_symbol* s);
 static void eproxy_free(void *owner, t_eproxy* proxy);
-static t_int* eobj_perform_inplace(t_int* w);
-static t_int* eobj_perform_noinplace(t_int* w);
 
 extern void eobj_popup(t_eobj* x, t_symbol* s, float itemid);
 extern void eobj_save(t_gobj* x, t_binbuf *b);
@@ -439,10 +384,18 @@ void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)
     }
 }
 
+extern void eobj_properties_window(t_eobj* x, t_glist *glist)
+{
+    ewindowprop_create(x);
+}
+
 void eobj_attr_setvalueof(void *x, t_symbol* s, int argc, t_atom *argv)
 {
     t_typ_method setvalue = (t_typ_method)getfn((t_pd *)x, s);
-    setvalue(x, s, argc, argv);
+    if(setvalue)
+    {
+        setvalue(x, s, argc, argv);
+    }
 }
 
 void eobj_attr_getvalueof(void *x, t_symbol *s, int *argc, t_atom **argv)
@@ -459,46 +412,27 @@ void eobj_attr_getvalueof(void *x, t_symbol *s, int *argc, t_atom **argv)
     }
 }
 
-extern t_edsp* ebox_getdsp(void *x);
+
+
+
+
+
 
 static t_edsp* eobj_getdsp(void *x)
 {
-    if(eobj_isdsp(x))
-    {
-        if(eobj_isbox(x))
-        {
-            return ebox_getdsp(x);
-        }
-        else
-        {
-            return &((t_edspobj *)x)->d_dsp;
-        }
-    }
-    return NULL;
+    char text[MAXPDSTRING];
+    sprintf(text, "%lxdsp", (unsigned long)x);
+    return edsp_findbyname(gensym(text))
 }
 
 void eobj_dspsetup(void *x, long nins, long nouts)
 {
-    int i;
-    t_edsp* dsp = eobj_getdsp(x);
+    char text[MAXPDSTRING];
+    t_edsp* dsp = edsp_new();
     if(dsp)
     {
-        nins = (long)pd_clip_min(nins, 0);
-        nouts = (long)pd_clip_min(nouts, 0);
-        dsp->d_sigs_out       = NULL;
-        dsp->d_sigs_real      = NULL;
-        dsp->d_perform_method = NULL;
-        dsp->d_size           = 0;
-        dsp->d_vectors        = NULL;
-        dsp->d_misc           = E_INPLACE;
-        for(i = obj_nsigoutlets((t_object *)x); i < nouts; i++)
-        {
-            outlet_new((t_object *)x, &s_signal);
-        }
-        for(i = obj_nsiginlets((t_object *)x); i < nins; i++)
-        {
-            eproxy_new(x, &s_signal);
-        }
+        sprintf(text, "%lxdsp", (unsigned long)x);
+        pd_bind((t_pd *)dsp, gensym(text));
     }
 }
 
@@ -507,7 +441,7 @@ void eobj_dspflags(void *x, long flags)
     t_edsp* dsp = eobj_getdsp(x);
     if(dsp)
     {
-        dsp->d_misc = flags;
+        edsp_setflags(dsp, flags);
     }
 }
 
@@ -516,14 +450,27 @@ void eobj_dspfree(void *x)
     t_edsp* dsp = eobj_getdsp(x);
     if(dsp)
     {
-        if(dsp->d_sigs_out)
-            free(dsp->d_sigs_out);
-        if(dsp->d_sigs_real)
-            free(dsp->d_sigs_real);
-        if(dsp->d_vectors)
-            free(dsp->d_vectors);
+        edsp_free(dsp);
     }
     eobj_free(x);
+}
+
+static void eobj_dsp(void *x, t_signal **sp)
+{
+    t_edsp* dsp = eobj_getdsp(x);
+    if(dsp)
+    {
+        edsp_prepare(dsp, sp);
+    }
+}
+
+static void eobj_dspadd(void *x, t_symbol* s, t_object* za, t_typ_method m, long flags, void *userparam)
+{
+    t_edsp* dsp = eobj_getdsp(x);
+    if(dsp)
+    {
+        edsp_add(dsp, m, flags, userparam);
+    }
 }
 
 void eobj_resize_inputs(void *x, long nins)
@@ -549,167 +496,6 @@ void eobj_resize_inputs(void *x, long nins)
     canvas_fixlinesfor(eobj_getcanvas(obj), (t_text *)x);
 }
 
-extern void eobj_dsp(void *x, t_signal **sp)
-{
-    int i;
-    short* count;
-    t_int* temp;
-    t_float **tempout, *tempreal;
-    t_linetraverser t;
-    t_outconnect    *oc;
-    t_eclass* c = eobj_getclass(x);
-    t_edsp* dsp = eobj_getdsp(x);
-    int nouts = obj_nsigoutlets((t_object *)x);
-    int nins  = obj_nsiginlets((t_object *)x);
-    int samplesize;
-    if(c && c->c_widget.w_dsp && dsp && (nins || nouts) && sp && sp[0])
-    {
-        samplesize = sp[0]->s_n;
-        dsp->d_perform_method = NULL;
-        if(dsp->d_misc == E_NO_INPLACE)
-        {
-            if(dsp->d_sigs_out)
-            {
-                tempout = (t_float **)realloc(dsp->d_sigs_out, (size_t)nouts * sizeof(t_float *));
-            }
-            else
-            {
-                tempout = (t_float **)malloc((size_t)nouts * sizeof(t_float *));
-            }
-            if(!tempout)
-            {
-                if(dsp->d_sigs_out)
-                {
-                    free(dsp->d_sigs_out);
-                    dsp->d_sigs_out = NULL;
-                }
-                pd_error(dsp, "can't allocate memory for no inpace processing.");
-                return;
-            }
-            dsp->d_sigs_out = tempout;
-
-            if(dsp->d_sigs_real)
-            {
-                tempreal = (t_float *)realloc(dsp->d_sigs_real, (size_t)(nouts * samplesize) * sizeof(t_float));
-            }
-            else
-            {
-                tempreal = (t_float *)malloc((size_t)(nouts * samplesize) * sizeof(t_float));
-            }
-            if(!tempreal)
-            {
-                if(dsp->d_sigs_real)
-                {
-                    free(dsp->d_sigs_real);
-                    dsp->d_sigs_real = NULL;
-                }
-                free(dsp->d_sigs_out);
-                dsp->d_sigs_out = NULL;
-                pd_error(dsp, "can't allocate memory for no inpace processing.");
-                return;
-            }
-            dsp->d_sigs_real = tempreal;
-            for(i = 0; i < nouts; i++)
-            {
-                dsp->d_sigs_out[i] = dsp->d_sigs_real+i*samplesize;
-            }
-        }
-        if(dsp->d_vectors)
-        {
-            temp = (t_int *)realloc(dsp->d_vectors, (size_t)(nins + nouts + 7) * sizeof(t_int));
-        }
-        else
-        {
-            temp = (t_int *)malloc((size_t)(nins + nouts + 7) * sizeof(t_int));
-        }
-        if(!temp)
-        {
-            if(dsp->d_vectors)
-            {
-                free(dsp->d_vectors);
-                dsp->d_vectors = NULL;
-            }
-            free(dsp->d_sigs_real);
-            dsp->d_sigs_real = NULL;
-            free(dsp->d_sigs_out);
-            dsp->d_sigs_out = NULL;
-            dsp->d_size = 0;
-            pd_error(x, "can't allocate memory for dsp vector.");
-            return;
-        }
-        dsp->d_vectors = temp;
-        dsp->d_size = nins + nouts + 7;
-        count = (short*)malloc((size_t)(nins + nouts) * sizeof(short));
-        if(count)
-        {
-            for(i = 0; i < (nins + nouts); i++)
-            {
-                count[i] = 0;
-            }
-            linetraverser_start(&t, eobj_getcanvas(x));
-            while((oc = linetraverser_next(&t)))
-            {
-                if(t.tr_ob2 == x && obj_issignaloutlet(t.tr_ob, t.tr_outno))
-                {
-                    count[t.tr_inno] = 1;
-                }
-            }
-
-            dsp->d_vectors[0] = (t_int)x;
-            dsp->d_vectors[1] = (t_int)dsp;
-            dsp->d_vectors[2] = (t_int)sp[0]->s_n;
-            dsp->d_vectors[3] = (t_int)dsp->d_flags;
-            dsp->d_vectors[4] = (t_int)dsp->d_user_param;
-            dsp->d_vectors[5] = (t_int)nins;
-            dsp->d_vectors[6] = (t_int)nouts;
-
-            for(i = 7; i < dsp->d_size; i++)
-            {
-                if(sp[i - 7] && sp[i - 7]->s_vec)
-                {
-                    dsp->d_vectors[i] = (t_int)(sp[i - 7]->s_vec);
-                }
-                else
-                {
-                    free(count);
-                    free(dsp->d_vectors);
-                    dsp->d_vectors = NULL;
-                    free(dsp->d_sigs_real);
-                    dsp->d_sigs_real = NULL;
-                    free(dsp->d_sigs_out);
-                    dsp->d_sigs_out = NULL;
-                    dsp->d_size = 0;
-                    pd_error(x, "one of the signal isn't allocated.");
-                    return;
-                }
-            }
-
-            c->c_widget.w_dsp(x, x, count, sp[0]->s_sr, sp[0]->s_n, 0);
-            if(dsp->d_perform_method != NULL && dsp->d_misc == E_INPLACE)
-            {
-                dsp_addv(eobj_perform_inplace, (int)dsp->d_size, dsp->d_vectors);
-            }
-            else if(dsp->d_perform_method != NULL && dsp->d_misc == E_NO_INPLACE)
-            {
-                dsp_addv(eobj_perform_noinplace, (int)dsp->d_size, dsp->d_vectors);
-            }
-
-            free(count);
-            return;
-        }
-        else
-        {
-            free(dsp->d_vectors);
-            dsp->d_vectors = NULL;
-            free(dsp->d_sigs_real);
-            dsp->d_sigs_real = NULL;
-            free(dsp->d_sigs_out);
-            dsp->d_sigs_out = NULL;
-            dsp->d_size = 0;
-            pd_error(x, "can't allocate memory for dsp chain counter.");
-        }
-    }
-}
 
 t_sample* eobj_getsignalinput(void *x, long index)
 {
@@ -738,379 +524,6 @@ t_sample* eobj_getsignaloutput(void *x, long index)
         }
     }
     return NULL;
-}
-
-static t_int* eobj_perform_inplace(t_int* w)
-{
-    t_eobj* x               = (t_eobj *)(w[1]);
-    t_edsp* dsp             = (t_edsp *)(w[2]);
-    long nsamples           = (long)(w[3]);
-    long flag               = (long)(w[4]);
-    void* user_p            = (void *)(w[5]);
-    long nins               = (long)(w[6]);
-    long nouts              = (long)(w[7]);
-    t_sample** ins           = (t_sample **)(&w[8]);
-    t_sample** outs          = (t_sample **)(&w[8 + nins]);
-
-    dsp->d_perform_method((void *)x, (t_object *)dsp, ins, nins, outs, nouts, nsamples, flag, user_p);
-
-    return w + (dsp->d_size + 1);
-}
-
-static t_int* eobj_perform_noinplace(t_int* w)
-{
-    int i;
-    t_eobj* x               = (t_eobj *)(w[1]);
-    t_edsp* dsp             = (t_edsp *)(w[2]);
-    long nsamples           = (long)(w[3]);
-    long flag               = (long)(w[4]);
-    void* user_p            = (void *)(w[5]);
-    long nins               = (long)(w[6]);
-    long nouts              = (long)(w[7]);
-    t_sample** ins           = (t_sample **)(&w[8]);
-    t_sample** outs          = (t_sample **)(&w[8 + nins]);
-
-    for(i = 0; i < nouts; i++)
-    {
-        memcpy(outs[i], dsp->d_sigs_out[i], (size_t)nsamples * sizeof(t_float));
-    }
-
-    dsp->d_perform_method((void *)x, (t_object *)dsp, ins, nins, outs, nouts, nsamples, flag, user_p);
-
-    return w + (dsp->d_size + 1);
-}
-
-extern void eobj_dsp_add(void *x, t_symbol* s, t_object* za, t_typ_method m, long flags, void *userparam)
-{
-    t_edsp* dsp = eobj_getdsp(x);
-    if(dsp)
-    {
-        dsp->d_flags = flags;
-        dsp->d_user_param = userparam;
-        dsp->d_perform_method = m;
-    }
-}
-
-extern void eobj_properties_window(t_eobj* x, t_glist *glist)
-{
-    ewindowprop_create(x);
-}
-
-
-
-
-
-static void inlet_wrong(t_inlet *x, t_symbol *s)
-{
-    pd_error(x->i_owner, "inlet: expected '%s' but got '%s'",
-             x->i_symfrom->s_name, s->s_name);
-}
-
-static void new_inlet_list(t_inlet *x, t_symbol *s, int argc, t_atom *argv);
-
-static void new_inlet_bang(t_inlet *x)
-{
-    if (x->i_symfrom == &s_bang)
-        pd_vmess(x->i_dest, x->i_un.iu_symto, "");
-    else if (!x->i_symfrom)
-        pd_bang(x->i_dest);
-    else if (x->i_symfrom == &s_list)
-        new_inlet_list(x, &s_bang, 0, 0);
-    else if (*x->i_dest == eproxy_class)
-    {
-        t_eproxy* proxy = (t_eproxy *)x->i_dest;
-        t_eobj *z = (t_eobj *)proxy->p_owner;
-        z->o_cproxy = proxy->p_index;
-        pd_typedmess((t_pd *)proxy->p_owner, &s_bang, 0, NULL);
-        z->o_cproxy = 0;
-    }
-    else inlet_wrong(x, &s_bang);
-}
-
-static void new_inlet_pointer(t_inlet *x, t_gpointer *gp)
-{
-    if (x->i_symfrom == &s_pointer)
-        pd_vmess(x->i_dest, x->i_un.iu_symto, "p", gp);
-    else if (!x->i_symfrom)
-        pd_pointer(x->i_dest, gp);
-    else if (x->i_symfrom == &s_list)
-    {
-        t_atom a;
-        SETPOINTER(&a, gp);
-        new_inlet_list(x, &s_pointer, 1, &a);
-    }
-    else if (*x->i_dest == eproxy_class)
-    {
-        t_atom a;
-        t_eproxy* proxy = (t_eproxy *)x->i_dest;
-        t_eobj *z = (t_eobj *)proxy->p_owner;
-        z->o_cproxy = proxy->p_index;
-        SETPOINTER(&a, gp);
-        pd_typedmess((t_pd *)x->i_dest, &s_pointer, 1, &a);
-        z->o_cproxy = 0;
-    }
-    else inlet_wrong(x, &s_pointer);
-}
-
-static void new_inlet_float(t_inlet *x, t_float f)
-{
-    if (x->i_symfrom == &s_float)
-        pd_vmess(x->i_dest, x->i_un.iu_symto, "f", (t_floatarg)f);
-    else if (*x->i_dest == eproxy_class)
-    {
-        t_atom a;
-        t_eproxy* proxy = (t_eproxy *)x->i_dest;
-        t_eobj *z = (t_eobj *)proxy->p_owner;
-        z->o_cproxy = proxy->p_index;
-        SETFLOAT(&a, f);
-        pd_typedmess((t_pd *)x->i_dest, &s_float, 1, &a);
-        z->o_cproxy = 0;
-    }
-    else if (x->i_symfrom == &s_signal)
-        x->i_un.iu_floatsignalvalue = f;
-    else if (!x->i_symfrom)
-        pd_float(x->i_dest, f);
-    else if (x->i_symfrom == &s_list)
-    {
-        t_atom a;
-        SETFLOAT(&a, f);
-        new_inlet_list(x, &s_float, 1, &a);
-    }
-    else inlet_wrong(x, &s_float);
-}
-
-static void new_inlet_symbol(t_inlet *x, t_symbol *s)
-{
-    if (x->i_symfrom == &s_symbol)
-        pd_vmess(x->i_dest, x->i_un.iu_symto, "s", s);
-    else if (!x->i_symfrom)
-        pd_symbol(x->i_dest, s);
-    else if (x->i_symfrom == &s_list)
-    {
-        t_atom a;
-        SETSYMBOL(&a, s);
-        new_inlet_list(x, &s_symbol, 1, &a);
-    }
-    else if (*x->i_dest == eproxy_class)
-    {
-        t_atom a;
-        t_eproxy* proxy = (t_eproxy *)x->i_dest;
-        t_eobj *z = (t_eobj *)proxy->p_owner;
-        z->o_cproxy = proxy->p_index;
-        SETSYMBOL(&a, s);
-        pd_typedmess((t_pd *)x->i_dest, &s_symbol, 1, &a);
-        z->o_cproxy = 0;
-    }
-    else inlet_wrong(x, &s_symbol);
-}
-
-static void new_inlet_list(t_inlet *x, t_symbol *s, int argc, t_atom *argv)
-{
-    if (x->i_symfrom == &s_list || x->i_symfrom == &s_float || x->i_symfrom == &s_symbol || x->i_symfrom == &s_pointer)
-        typedmess(x->i_dest, x->i_un.iu_symto, argc, argv);
-    else if (*x->i_dest == eproxy_class)
-    {
-        t_eproxy* proxy = (t_eproxy *)x->i_dest;
-        t_eobj *z = (t_eobj *)proxy->p_owner;
-        z->o_cproxy = proxy->p_index;
-        pd_typedmess((t_pd *)x->i_dest, s, argc, argv);
-        z->o_cproxy = 0;
-    }
-    else if (!x->i_symfrom)
-    {
-        typedmess(x->i_dest, s, argc, argv);
-    }
-    else if (!argc)
-        new_inlet_bang(x);
-    else if (argc==1 && argv->a_type == A_FLOAT)
-        new_inlet_float(x, atom_getfloat(argv));
-    else if (argc==1 && argv->a_type == A_SYMBOL)
-        new_inlet_symbol(x, atom_getsymbol(argv));
-    else inlet_wrong(x, &s_list);
-
-}
-
-static void new_inlet_anything(t_inlet *x, t_symbol *s, int argc, t_atom *argv)
-{
-    if (x->i_symfrom == s)
-        typedmess(x->i_dest, x->i_un.iu_symto, argc, argv);
-    else if (!x->i_symfrom)
-        typedmess(x->i_dest, s, argc, argv);
-    else if (*x->i_dest == eproxy_class)
-    {
-        t_eproxy* proxy = (t_eproxy *)x->i_dest;
-        t_eobj *z = (t_eobj *)proxy->p_owner;
-        z->o_cproxy = proxy->p_index;
-        pd_typedmess((t_pd *)x->i_dest, s, argc, argv);
-        z->o_cproxy = 0;
-    }
-    else inlet_wrong(x, s);
-}
-
-static void eproxy_anything(t_eproxy *x, t_symbol *s, int argc, t_atom *argv)
-{
-    t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_cproxy = x->p_index;
-    pd_typedmess((t_pd *)x->p_owner, s, argc, argv);
-}
-
-static void eproxy_bang(t_eproxy *x)
-{
-    t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_cproxy = x->p_index;
-    pd_bang((t_pd *)x->p_owner);
-}
-
-static void eproxy_float(t_eproxy *x, float f)
-{
-    t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_cproxy = x->p_index;
-    pd_float((t_pd *)x->p_owner, f);
-}
-
-static void eproxy_symbol(t_eproxy *x, t_symbol* s)
-{
-    t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_cproxy = x->p_index;
-    pd_symbol((t_pd *)x->p_owner, s);
-}
-
-static void eproxy_list(t_eproxy *x, t_symbol* s, int argc, t_atom* argv)
-{
-    t_eobj *z = (t_eobj *)x->p_owner;
-    z->o_cproxy = x->p_index;
-    pd_list((t_pd *)x->p_owner, s, argc, argv);
-}
-
-static t_class* eproxy_setup()
-{
-    t_symbol* eproxy1572_sym = gensym("eproxy1572");
-    if(!eproxy1572_sym->s_thing)
-    {
-        eproxy_class = class_new(gensym("eproxy"), NULL, (t_method)NULL, sizeof(t_eproxy), CLASS_PD, A_GIMME, 0);
-        eproxy1572_sym->s_thing = (t_class **)eproxy_class;
-        class_addanything(eproxy_class, (t_method)eproxy_anything);
-        class_addbang(eproxy_class,  (t_method)eproxy_bang);
-        class_addfloat(eproxy_class,  (t_method)eproxy_float);
-        class_addsymbol(eproxy_class,  (t_method)eproxy_symbol);
-        class_addlist(eproxy_class, (t_method)eproxy_list);
-        
-        return eproxy_class;
-    }
-    else
-    {
-        return (t_class *)eproxy1572_sym->s_thing;
-    }
-}
-
-static t_inlet* einlet_new(t_object* owner, t_pd* proxy, t_symbol* s)
-{
-    t_class* inlet_class;
-    t_inlet* inlet = inlet_new((t_object *)owner, (t_pd *)proxy, s, s);
-    if(inlet)
-    {
-        inlet_class = inlet->i_pd;
-        inlet_class->c_bangmethod = (t_bangmethod)new_inlet_bang;
-        inlet_class->c_pointermethod = (t_pointermethod)new_inlet_pointer;
-        inlet_class->c_floatmethod = (t_floatmethod)new_inlet_float;
-        inlet_class->c_symbolmethod = (t_symbolmethod)new_inlet_symbol;
-        inlet_class->c_listmethod = (t_listmethod)new_inlet_list;
-        inlet_class->c_anymethod = (t_anymethod)new_inlet_anything;
-    }
-    return inlet;
-}
-
-static t_eproxy* eproxy_new(void *owner, t_symbol* s)
-{
-    t_eproxy* proxy;
-    t_eproxy ** temp;
-    t_eobj *z = (t_eobj *)owner;
-    t_edsp *dsp = eobj_getdsp(owner);
-    eproxy_class = eproxy_setup();
-    if(z->o_proxy)
-    {
-        temp = (t_eproxy **)realloc(z->o_proxy, (size_t)(z->o_nproxy + 1) * sizeof(t_eproxy *));
-    }
-    else
-    {
-        temp = (t_eproxy **)malloc(1 * sizeof(t_eproxy *));
-    }
-    if(temp)
-    {
-        z->o_proxy = temp;
-        proxy = (t_eproxy *)pd_new(eproxy_class);
-        proxy->p_owner = (t_object *)owner;
-        proxy->p_pd    = eproxy_class;
-        proxy->p_index = z->o_nproxy;
-        proxy->p_inlet = einlet_new((t_object *)owner, (t_pd *)proxy, s);
-        if(dsp)
-        {
-            proxy->p_inlet->i_un.iu_floatsignalvalue = dsp->d_float;
-        }
-        z->o_proxy[z->o_nproxy] = proxy;
-        z->o_nproxy++;
-        return proxy;
-    }
-    else
-    {
-        pd_error(z, "cons't allocate memory for a new proxy inlet.");
-        return NULL;
-    }
-}
-
-static void canvas_deletelines_for_io(t_canvas *x, t_text *text, t_inlet *inp, t_outlet *outp)
-{
-    t_linetraverser t;
-    t_outconnect *oc;
-    linetraverser_start(&t, x);
-    while((oc = linetraverser_next(&t)))
-    {
-        if ((t.tr_ob == text && t.tr_outlet == outp) || (t.tr_ob2 == text && t.tr_inlet == inp))
-        {
-            if(glist_isvisible(x))
-            {
-                sys_vgui(".x%lx.c delete l%lx\n", glist_getcanvas(x), oc);
-            }
-            obj_disconnect(t.tr_ob, t.tr_outno, t.tr_ob2, t.tr_inno);
-        }
-    }
-}
-
-static void eproxy_free(void *owner, t_eproxy* proxy)
-{
-    t_eobj *z   = (t_eobj *)owner;
-    t_eproxy ** temp;
-    if(z && proxy && proxy->p_owner == (t_object *)z)
-    {
-        if(z->o_nproxy == proxy->p_index + 1)
-        {
-            canvas_deletelines_for_io(eobj_getcanvas(owner), (t_text *)owner, proxy->p_inlet, NULL);
-            inlet_free(proxy->p_inlet);
-            if(z->o_nproxy == 1)
-            {
-                pd_free((t_pd *)z->o_proxy);
-                z->o_nproxy = 0;
-            }
-            else
-            {
-                temp = (t_eproxy **)realloc(z->o_proxy, (size_t)(z->o_nproxy - 1) * sizeof(t_eproxy *));
-                if(temp)
-                {
-                    z->o_proxy = temp;
-                }
-                else
-                {
-                    pd_error(owner, "a proxy hasn't been freed.");
-                }
-                z->o_nproxy--;
-
-            }
-        }
-        else
-        {
-            pd_error(owner, "can't free a proxy if it's not the last one.");
-        }
-    }
 }
 
 //! @endcond

@@ -50,6 +50,13 @@ typedef struct _eattr t_eattr;
 t_eattr *eattr_new(t_symbol *name, t_symbol *type, size_t size, size_t maxsize, size_t offset);
 
 /*!
+ * \fn              void eattr_free(t_eattr *attr)
+ * \brief           Frees an attribute.
+ * \param attr      The attribute pointer.
+ */
+void eattr_free(t_eattr *attr);
+
+/*!
  * \fn          t_symbol* eattr_getname(t_eattr *x)
  * \brief       Retrieves the name of an attribute.
  * \param attr  The attribute pointer.
@@ -305,14 +312,14 @@ void eattrset_attr_label(t_eattrset* attrset, t_symbol* name, t_symbol* label);
 void eattrset_attr_style(t_eattrset* attrset, t_symbol* name, t_symbol* style);
 
 /*!
- * \fn          void eattrset_attr_default(t_eattrset* attrset, t_symbol* name, const char* value)
- * \brief           Sets the default value of an attribute.
- * \details         The default value is a string that will be parse into an array of atoms or a array of number if needed. You should prefer to use the MACROS.
+ * \fn              void eattrset_attr_default(t_eattrset* attrset, t_symbol* name, size_t ndefaults, t_atom* defaults);
+ * \brief           Sets the default values of an attribute.
  * \param attrset   The attributes set pointer.
  * \param name      The name of the attribute.
- * \param value     The default value
+ * \param ndefaults The number of values.
+ * \param defaults  The defualt values.
  */
-void eattrset_attr_default(t_eattrset* attrset, t_symbol* name, const char* value);
+void eattrset_attr_default(t_eattrset* attrset, t_symbol* name, size_t ndefaults, t_atom* defaults);
 
 /*!
  * \fn          void eattrset_attr_filter_min(t_eattrset* attrset, t_symbol* name, float value)
@@ -365,13 +372,13 @@ void eattrset_attr_save(t_eattrset* attrset, t_symbol* name, char saved);
 void eattrset_attr_paint(t_eattrset* attrset, t_symbol* name, char repaint);
 
 /*!
- * \fn              void eattrset_attr_invisible(t_eattrset* attrset, t_symbol* name, char visible)
+ * \fn              void eattrset_attr_visible(t_eattrset* attrset, t_symbol* name, char visible)
  * \brief           Sets if the attribute should be displayed in the properties window.
  * \param attrset   The attributes set pointer.
  * \param name      The name of the attribute.
  * \param visible   A non-null value if the attribute should be visible, otherwise 0.
  */
-void eattrset_attr_invisible(t_eattrset* attrset, t_symbol* name, char visible);
+void eattrset_attr_visible(t_eattrset* attrset, t_symbol* name, char visible);
 
 /*!
  * \fn              void eattrset_attr_accessor(t_eattrset* attrset, t_symbol* name, t_err_method getter, t_err_method setter)

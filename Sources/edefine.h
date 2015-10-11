@@ -397,19 +397,6 @@ typedef struct _eobj t_eobj;
 EXTERN_STRUCT _edspobj;
 typedef struct _edspobj t_edspobj;
 
-/**
- * @enum edsp_flags
- * @brief The flags that discribe the behavior of a t_edspobj.
- * @details It define all the behavior of a t_edspobj.
- * @ingroup groupdspobj
- * @see void eobj_dspflags
- */
-typedef enum
-{
-    EPD_INPLACE    = 1<<0,    /*!< The signal processing can be inplace. */
-    EPD_NO_INPLACE = 1<<1     /*!< The signal processing can't be inplace. */
-} edsp_flags;
-
 
 /*! @addtogroup groupbox The GUI Object Part
  * @brief The t_ebox and t_edspbox part.

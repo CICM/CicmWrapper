@@ -34,9 +34,10 @@ struct _eattr
     char            a_clipped;    /*!< If the attribute is clipped if it's value or an array of numerical values. */
     float           a_minimum;    /*!< The minimum value of the attribute. */
     float           a_maximum;    /*!< The maximum value of the attribute. */
-    
     float           a_step;       /*!< The increment or decrement step calue of the attribute. */
-    t_symbol*       a_defvals;    /*!< The default value of the attribute. */
+    
+    t_atom*         a_defaults;   /*!< The default values of the attribute. */
+    size_t          a_ndefaults;  /*!< The number of default values of the attribute. */
     t_symbol**      a_items;      /*!< The available items of an attribute if it is a menu. */
     size_t          a_nitems;     /*!< The number of available items of an attribute if it is a menu. */
 };
@@ -93,7 +94,8 @@ t_eattr *eattr_new(t_symbol *name, t_symbol *type, size_t size, size_t maxsize, 
             x->a_minimum    = 0;
             x->a_maximum    = 1;
             x->a_step       = 1;
-            x->a_defvals    = NULL;
+            x->a_ndefaults  = 0;
+            x->a_defaults   = NULL;
             x->a_items      = NULL;
             x->a_nitems     = 0;
         }
@@ -105,7 +107,7 @@ t_eattr *eattr_new(t_symbol *name, t_symbol *type, size_t size, size_t maxsize, 
     return x;
 }
 
-static void eattr_free(t_eattr *attr)
+void eattr_free(t_eattr *attr)
 {
     if(attr->a_nitems && attr->a_items)
     {
@@ -206,9 +208,51 @@ void eattr_getitems(t_eattr const*attr, size_t* nitems, t_symbol*** items)
 
 
 
-static void eattr_setdefault(t_eattr* attr, t_symbol* value)
+static void eattr_setdefault(t_eattr* attr, size_t ndefault, t_atom* defaults)
 {
-    attr->a_defvals = value;
+    t_atom* temp;
+    if(ndefault && defaults)
+    {
+        if(attr->a_ndefaults && attr->a_defaults)
+        {
+            temp = (t_atom *)realloc(attr->a_defaults, ndefault * sizeof(t_atom));
+            if(temp)
+            {
+                attr->a_defaults    = temp;
+                attr->a_ndefaults   = ndefault;
+                memcpy(attr->a_defaults, defaults, ndefault * sizeof(t_atom));
+            }
+            else
+            {
+                free(attr->a_defaults);
+                attr->a_defaults   = NULL;
+                attr->a_ndefaults  = 0;
+                pd_error(attr, "can't allocate memory for attribute's default values.");
+            }
+        }
+        else
+        {
+            attr->a_defaults = (t_atom *)malloc(ndefault * sizeof(t_atom));
+            if(attr->a_defaults)
+            {
+                attr->a_ndefaults  = ndefault;
+                memcpy(attr->a_defaults, defaults, ndefault * sizeof(t_atom));
+            }
+            else
+            {
+                pd_error(attr, "can't allocate memory for attribute's items.");
+            }
+        }
+    }
+    else
+    {
+        if(attr->a_ndefaults && attr->a_defaults)
+        {
+            free(attr->a_defaults);
+        }
+        attr->a_defaults    = NULL;
+        attr->a_ndefaults   = 0;
+    }
 }
 
 static void eattr_setcategory(t_eattr* attr, t_symbol* category)
@@ -352,11 +396,6 @@ static void eattrset_attr_dosetdefault(t_object* x, t_eattr* attr)
     char* point;
     t_atom* argv = NULL;
     const size_t size = attr->sizemax ? ((size_t)attr->sizemax) : ((size_t)attr->size);
-    if(attr->type == s_cream_font)
-    {
-        point = (char *)x + attr->offset;
-        efont_init((t_efont *)point, gensym("DejaVu"), 0, 0, 11.f);
-    }
     if(attr->defvals)
     {
         argv = (t_atom *)malloc(size* sizeof(t_atom));
@@ -734,9 +773,14 @@ t_eattrset* eattrset_findbyname(t_symbol* name)
 
 void eattrset_free(t_eattrset* attrset)
 {
+    size_t i = 0;
     pd_unbind((t_pd *)attrset, attrset->s_name);
     if(attrset->s_nattrs && attrset->s_attrs)
     {
+        for(i = 0; i < attrset->s_nattrs; i++)
+        {
+            eattr_free(attrset->s_attrs[i]);
+        }
         free(attrset->s_attrs);
         attrset->s_attrs = NULL;
         attrset->s_nattrs  = 0;
@@ -862,6 +906,20 @@ void eattrset_attr_new(t_eattrset* attrset, t_symbol* name, t_symbol* type, size
                 return;
             }
         }
+    }
+}
+
+void eattrset_attr_default(t_eattrset* attrset, t_symbol* name, size_t ndefaults, t_atom* defaults)
+{
+    t_eattr *attr = eattrset_getattr(attrset, name);
+    if(attr)
+    {
+        eattr_setdefault(attr, ndefaults, defaults);
+    }
+    else
+    {
+        pd_error(attrset, "has no attribute %s.", name->s_name);
+        return;
     }
 }
 
@@ -1005,7 +1063,7 @@ void eattrset_attr_paint(t_eattrset* attrset, t_symbol* name, char repaint)
     }
 }
 
-void eattrset_attr_invisible(t_eattrset* attrset, t_symbol* name, char visible)
+void eattrset_attr_visible(t_eattrset* attrset, t_symbol* name, char visible)
 {
     t_eattr *attr = eattrset_getattr(attrset, name);
     if(attr)

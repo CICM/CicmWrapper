@@ -21,7 +21,7 @@
 #include "eattr.h"
 #include "eflags.h"
 
-/*! @defgroup groupclass The class part of the library.
+/*! @defgroup groupclasspart The class part of the library.
  * @brief The t_eclass part.
  * @details This part refers to the methods and structures that can be used by all the t_eclass structures.
  *  @{
@@ -32,17 +32,16 @@
 //! Macros that define the a GUI box
 #define CLASS_BOX			gensym("box")
 
+/*! @addtogroup groupclasspart
+ *  @{
+ */
+
 /**
  * @struct _class
  * @brief The class.
- * @details It contains the Pure Data default class with extra methods and attributes.
- * @ingroup groupclass
+ * @details The native class.
  */
 typedef struct _class t_eclass;
-
-/*! @addtogroup groupclass
- *  @{
- */
 
 /*!
  * \fn          t_eclass* eclass_new(const char *name, t_method newm, t_method freem, size_t size, int flags, t_atomtype arg1, ...)
@@ -262,7 +261,7 @@ void eclass_attr_paint(t_eclass* c, const char* attrname, long flags);
 void eclass_attr_invisible(t_eclass* c, const char* attrname, long flags);
 
 /*!
- * \fn          void eclass_attr_accessor(t_eclass* c, const char* attrname, t_err_method getter, t_err_method setter)
+ * \fn              void eclass_attr_accessor(t_eclass* c, const char* attrname, t_getter_method getter, t_setter_method setter)
  * \brief           Initialize new getter and setter methods for the attributes.
  * \details         By default the attribute is initialized with default getter and setter methods. If you just want to be notify when an attribute has changed, you should prefer to use the notify method. You should prefer to use the MACROS.
  * \param c         The t_eclass pointer
@@ -270,10 +269,10 @@ void eclass_attr_invisible(t_eclass* c, const char* attrname, long flags);
  * \param getter    The getter method.
  * \param setter    The setter method.
  */
-void eclass_attr_accessor(t_eclass* c, const char* attrname, t_err_method getter, t_err_method setter);
+void eclass_attr_accessor(t_eclass* c, const char* attrname, t_getter_method getter, t_setter_method setter);
 
 /*!
- * \fn          void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const char* list)
+ * \fn              void eclass_attr_items(t_eclass* c, const char* attrname, long flags, const char* list)
  * \brief           Sets the list available items of an attribute.
  * \details         For example, the font weight attribute offers \"normal\" and \"bold\". You should prefer to use the MACROS.
  * \param c         The t_eclass pointer
@@ -281,7 +280,7 @@ void eclass_attr_accessor(t_eclass* c, const char* attrname, t_err_method getter
  * \param flags     The flags of the attribute (dummy)
  * \param list      The list of items.
  */
-void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const char* list);
+void eclass_attr_items(t_eclass* c, const char* attrname, long flags, const char* list);
 
 //! @cond
 #define calcoffset(x,y) ((long)(&(((x *)0L)->y)))
@@ -314,7 +313,7 @@ eclass_new_attr_typed(c,name, "symbol", 1, 0, flags, calcoffset(struct,member))
 //! Macros that create a atom attribute
 #define CLASS_ATTR_ATOM(c,name,flags,struct,member) \
 eclass_new_attr_typed(c,name, "atom", 1, 0, flags, calcoffset(struct,member))
-//! Macros that create a atom attribute
+//! Macros that create a font attribute
 #ifdef __APPLE__
 #define CLASS_ATTR_FONT(c,name,flags,struct,member) \
 eclass_new_attr_typed(c,name, "font", 4, 0, flags, calcoffset(struct,member)); \
@@ -402,7 +401,7 @@ eclass_new_attr_typed(c,name, "atom", calcoffset(struct,size), maxsize, flags, c
 //! Macros that define the setter and getter of the attributes
 #define CLASS_ATTR_ACCESSORS(c,name,getter,setter)      eclass_attr_accessor(c,name,(t_err_method)getter,(t_err_method)setter)
 //! Macros that define the items list of the attributes
-#define CLASS_ATTR_ITEMS(c,name,flags, list)            eclass_attr_itemlist(c,name,flags, list)
+#define CLASS_ATTR_ITEMS(c,name,flags, list)            eclass_attr_items(c,name,flags, list)
 //! Macros that define the deault value, save and paint bbehavior of the attributes
 #define CLASS_ATTR_DEFAULT_SAVE_PAINT(c,attrname,flags,parsestr) \
 { CLASS_ATTR_DEFAULT(c,attrname,flags,parsestr); CLASS_ATTR_SAVE(c,attrname,flags); CLASS_ATTR_PAINT(c,attrname,flags); }

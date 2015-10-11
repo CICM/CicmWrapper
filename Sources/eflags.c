@@ -40,7 +40,7 @@ static t_class* eflags_setup()
     }
 }
 
-t_eflagman* eflags_new()
+t_eflagman* eflags_new(void)
 {
     t_eflagman* x = NULL;
     t_class*    c = eflags_setup();

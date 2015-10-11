@@ -19,7 +19,7 @@
 
 #include "edefine.h"
 
-/*! @defgroup groupflags The flags part of the library.
+/*! @defgroup groupattrpart The flags part of the library.
  * @brief The flags part of the library.
  * @details This part refers to the methods and structures that can be used
  * @details to manage flags.
@@ -38,11 +38,11 @@ EXTERN_STRUCT _eflagman;
 typedef struct _eflagman t_eflagman;
 
 /*!
- * \fn              t_eflagman* eflags_new()
+ * \fn              t_eflagman* eflags_new(void)
  * \brief           Allocates and initializes a new flags manager.
  * \return          The new flags manager.
  */
-t_eflagman* eflags_new();
+t_eflagman* eflags_new(void);
 
 /*!
  * \fn              t_eflagman* eflags_findbyname(t_symbol* name)
