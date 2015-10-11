@@ -35,6 +35,8 @@ t_symbol* s_cream_notify;
 
 t_symbol* s_pinned;
 t_symbol* s_iscicm;
+t_symbol* s_isgui;
+t_symbol* s_isdsp;
 
 t_symbol* s_cream_char;
 t_symbol* s_cream_int;
@@ -88,15 +90,16 @@ void epd_init(void)
     s_cream_atom            = gensym("atom");
     s_cream_symbol          = gensym("symbol");
     
-    s_pinned        = gensym("pinned");
-    s_iscicm        = gensym("iscicm");
+    s_cream_pinned        = gensym("pinned");
+    s_cream_iscicm        = gensym("iscicm");
+    s_cream_isgui         = gensym("isgui");
+    s_cream_isdsp         = gensym("isdsp");
     
     s_cream_linear      = gensym("linear");
     s_cream_exponential = gensym("exponential");
     s_cream_logarithmic = gensym("logarithmic");
     s_cream_threshold   = gensym("threshold");
     
-    s_cream_checkbutton = gensym("checkbutton");
     s_cream_onoff       = gensym("onoff");
     s_cream_color       = gensym("color");
     s_cream_number      = gensym("number");

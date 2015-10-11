@@ -18,6 +18,7 @@
 #define DEF_EOBJ
 
 #include "edefine.h"
+#include "eclass.h"
 
 /*! @addtogroup groupobj
  *  @{

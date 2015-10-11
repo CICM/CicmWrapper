@@ -1603,42 +1603,6 @@ void cicmwrapper_init(void)
 {
     if(cicmwrapper_setup())
     {
-        // PATCHER MOUSE MOTION //
-        sys_vgui("proc eobj_canvas_motion {patcher val} {\n");
-        sys_gui(" set rx [winfo rootx $patcher]\n");
-        sys_gui(" set ry [winfo rooty $patcher]\n");
-        sys_gui(" set x  [winfo pointerx .]\n");
-        sys_gui(" set y  [winfo pointery .]\n");
-        sys_vgui(" pdtk_canvas_motion $patcher [expr $x - $rx] [expr $y - $ry] $val\n");
-        sys_gui("}\n");
-        
-        // PATCHER MOUSE DOWN //
-        sys_vgui("proc eobj_canvas_down {patcher val} {\n");
-        sys_gui(" set rx [winfo rootx $patcher]\n");
-        sys_gui(" set ry [winfo rooty $patcher]\n");
-        sys_gui(" set x  [winfo pointerx .]\n");
-        sys_gui(" set y  [winfo pointery .]\n");
-        sys_vgui(" pdtk_canvas_mouse $patcher [expr $x - $rx] [expr $y - $ry] 0 $val\n");
-        sys_gui("}\n");
-        
-        // PATCHER MOUSE UP //
-        sys_vgui("proc eobj_canvas_up {patcher} {\n");
-        sys_gui(" set rx [winfo rootx $patcher]\n");
-        sys_gui(" set ry [winfo rooty $patcher]\n");
-        sys_gui(" set x  [winfo pointerx .]\n");
-        sys_gui(" set y  [winfo pointery .]\n");
-        sys_vgui(" pdtk_canvas_mouseup $patcher [expr $x - $rx] [expr $y - $ry] 0\n");
-        sys_gui("}\n");
-        
-        // PATCHER MOUSE RIGHT //
-        sys_vgui("proc eobj_canvas_right {patcher} {\n");
-        sys_gui(" set rx [winfo rootx $patcher]\n");
-        sys_gui(" set ry [winfo rooty $patcher]\n");
-        sys_gui(" set x  [winfo pointerx .]\n");
-        sys_gui(" set y  [winfo pointery .]\n");
-        sys_vgui(" pdtk_canvas_rightclick $patcher [expr $x - $rx] [expr $y - $ry] 0\n");
-        sys_gui("}\n");
-        
         // OBJECT SAVE FILE //
         sys_gui("proc eobj_saveas {name initialfile initialdir} {\n");
         sys_gui("if { ! [file isdirectory $initialdir]} {set initialdir $::env(HOME)}\n");

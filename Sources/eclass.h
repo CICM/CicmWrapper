@@ -18,25 +18,53 @@
 #define DEF_ECLASS
 
 #include "edefine.h"
+#include "eattr.h"
+#include "eflags.h"
+
+/*! @defgroup groupclass The class part of the library.
+ * @brief The t_eclass part.
+ * @details This part refers to the methods and structures that can be used by all the t_eclass structures.
+ *  @{
+ */
+
+//! Macros that define the a default object
+#define CLASS_OBJ           gensym("obj")
+//! Macros that define the a GUI box
+#define CLASS_BOX			gensym("box")
+
+/**
+ * @struct _class
+ * @brief The class.
+ * @details It contains the Pure Data default class with extra methods and attributes.
+ * @ingroup groupclass
+ */
+typedef struct _class t_eclass;
 
 /*! @addtogroup groupclass
  *  @{
  */
 
 /*!
- * \fn          t_eclass* eclass_new(const char *name, t_typ_method newm, t_typ_method freem, size_t size, int flags, t_atomtype arg1, int arg2)
- * \brief       Allocates the memory and initialize a new t_eclass.
- * \details     Allocates and intializes the default Pd t_class then enlarges it to fit a t_eclass. \n This function should be replace class_new().
+ * \fn          t_eclass* eclass_new(const char *name, t_method newm, t_method freem, size_t size, int flags, t_atomtype arg1, ...)
+ * \brief       Allocates the memory and initialize a new class.
  * \param name  The class name.
  * \param newm  The new method.
  * \param freem The free method.
  * \param size  The size of the object.
  * \param flags The class flags.
- * \param arg1  The type of parameters the new function.
- * \param arg2  The type of object.
- * \return      This function return the new eclass
+ * \param arg1  The first type of parameter of the new method.
+ * \param ...   The other types of parameter of the new method.
+ * \return      This function return the new class
  */
-t_eclass* eclass_new(const char *name, t_typ_method newm, t_typ_method freem, size_t size, int flags, t_atomtype arg1, int arg2);
+t_eclass* eclass_new(const char *name, t_method newm, t_method freem, size_t size, int flags, t_atomtype arg1, ...);
+
+/*!
+ * \fn          long eclass_getflags(t_eclass const* c)
+ * \brief       Retrieves the flags of a class.
+ * \param c     The class pointer.
+ * \return      The flags of the class.
+ */
+long eclass_getflags(t_eclass const* c);
 
 /*!
  * \fn          void eclass_guiinit(t_eclass* c, long flags)

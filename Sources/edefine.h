@@ -28,7 +28,6 @@
 #endif
 
 #include <m_pd.h>
-#include <m_imp.h>
 #include <g_canvas.h>
 #include <s_stuff.h>
 
@@ -81,8 +80,18 @@ typedef void*       (*t_ret_method)(void* x, ...);
 typedef t_pd_err    (*t_err_method)(void* x, ...);
 //! The float method
 typedef float       (*t_flt_method)(void* x, ...);
-//! The float method
+//! The long method
+typedef long        (*t_long_method)(void* x, ...);
+//! The symbol method
+typedef t_symbol*   (*t_sym_method)(void* x, ...);
+//! The object method
+typedef t_object*   (*t_obj_method)(void* x, ...);
+//! The notify method
 typedef t_pd_err    (*t_notify_method)(void* x, t_symbol *s, t_symbol *msg, void *sender, void *data);
+//! The setter method
+typedef t_pd_err    (*t_setter_method)(void* x, t_object *attr, int ac, t_atom *av);
+//! The setter method
+typedef t_pd_err    (*t_getter_method)(void *x, t_object *attr, int* ac, t_atom **av);
 
 //! The pre-defined (null) t_symbol*
 extern t_symbol* s_cream_null;
@@ -142,8 +151,12 @@ extern t_symbol* s_cream_symbol;
 
 //! The pre-defined s_pinned t_symbol*
 extern t_symbol* s_pinned;
-//! The pre-defined s_iscicm t_symbol*
-extern t_symbol* s_iscicm;
+//! The pre-defined iscicm t_symbol*
+extern t_symbol* s_cream_iscicm;
+//! The pre-defined isgui t_symbol*
+extern t_symbol* s_cream_isgui;
+//! The pre-defined isdsp t_symbol*
+extern t_symbol* s_cream_isdsp;
 
 //! The pre-defined checkbutton t_symbol*
 extern t_symbol* s_cream_checkbutton;
@@ -361,26 +374,6 @@ typedef struct _etext t_etext;
 
 /** @} */
 
-/*! @addtogroup groupclass The Class Part
- * @brief The t_eclass part.
- * @details This part refers to the methods and structures that can be used by all the t_eclass structures.
- *  @{
- */
-
-//! Macros that define the a default object
-#define CLASS_OBJ           gensym("obj")
-//! Macros that define the a GUI box
-#define CLASS_BOX			gensym("box")
-
-/**
- * @struct t_eclass
- * @brief The class.
- * @details It contains the Pure Data default class with extra methods and attributes.
- * @ingroup groupclass
- */
-EXTERN_STRUCT _eclass;
-typedef struct _eclass t_eclass;
-
 /** @} */
 
 /**
@@ -413,8 +406,8 @@ typedef struct _edspobj t_edspobj;
  */
 typedef enum
 {
-    E_INPLACE    = 0,    /*!< The signal processing can be inplace. */
-    E_NO_INPLACE = 1     /*!< The signal processing can't be inplace. */
+    EPD_INPLACE    = 1<<0,    /*!< The signal processing can be inplace. */
+    EPD_NO_INPLACE = 1<<1     /*!< The signal processing can't be inplace. */
 } edsp_flags;
 
 

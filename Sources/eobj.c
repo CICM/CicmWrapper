@@ -102,38 +102,18 @@ extern void eobj_properties_window(t_eobj* x, t_glist *glist);
 
 void *eobj_new(t_eclass *c)
 {
-    t_eobj* x = NULL;
+    t_eobj* x = (t_eobj *)pd_new(c);
     char buffer[MAXPDSTRING];
-    if(c)
+    if(x)
     {
-        x  = (t_eobj *)getbytes(c->c_class.c_size);
-        if(x)
-        {
-            *((t_pd *)x)  = (t_pd)c;
-
-            if(c->c_class.c_patchable)
-            {
-                ((t_object *)x)->ob_inlet = 0;
-                ((t_object *)x)->ob_outlet = 0;
-            }
-
-            x->o_nproxy = 0;
-            x->o_proxy = NULL;
-            x->o_canvas = canvas_getcurrent();
-            sprintf(buffer,"#%s%lx", c->c_class.c_name->s_name, (long unsigned int)x);
-            x->o_id = gensym(buffer);
-            pd_bind(&x->o_obj.ob_pd, x->o_id);
-            sprintf(buffer, "%ldcamo", (long unsigned int)x);
-            x->o_listeners = gensym(buffer);
-        }
-        else
-        {
-            bug("pd_new: object %s allocation failed", c->c_class.c_name->s_name);
-        }
-    }
-    else
-    {
-        bug("pd_new: apparently called before setup routine");
+        x->o_nproxy = 0;
+        x->o_proxy = NULL;
+        x->o_canvas = canvas_getcurrent();
+        sprintf(buffer,"#%s%lx", class_getname(c), (long unsigned int)x);
+        x->o_id = gensym(buffer);
+        pd_bind(&x->o_obj.ob_pd, x->o_id);
+        sprintf(buffer, "%ldcamo", (long unsigned int)x);
+        x->o_listeners = gensym(buffer);
     }
     return (x);
 }
@@ -177,7 +157,7 @@ t_eclass* eobj_getclass(void const* x)
 
 t_symbol* eobj_getclassname(void const* x)
 {
-    return ((t_gobj const*)x)->g_pd->c_name;
+    return gensym(class_getname(eobj_getclass(x)));
 }
 
 t_canvas* eobj_getcanvas(void const* x)
@@ -480,13 +460,15 @@ void eobj_attr_getvalueof(void *x, t_symbol *s, int *argc, t_atom **argv)
     }
 }
 
+extern t_edsp* ebox_getdsp(void *x);
+
 static t_edsp* eobj_getdsp(void *x)
 {
     if(eobj_isdsp(x))
     {
         if(eobj_isbox(x))
         {
-            int important_todo;
+            return ebox_getdsp(x);
         }
         else
         {
@@ -602,7 +584,7 @@ extern void eobj_dsp(void *x, t_signal **sp)
                     free(dsp->d_sigs_out);
                     dsp->d_sigs_out = NULL;
                 }
-                pd_error(dsp, "can't allocate memory for ni inpace processing.");
+                pd_error(dsp, "can't allocate memory for no inpace processing.");
                 return;
             }
             dsp->d_sigs_out = tempout;
@@ -624,7 +606,7 @@ extern void eobj_dsp(void *x, t_signal **sp)
                 }
                 free(dsp->d_sigs_out);
                 dsp->d_sigs_out = NULL;
-                pd_error(dsp, "can't allocate memory for ni inpace processing.");
+                pd_error(dsp, "can't allocate memory for no inpace processing.");
                 return;
             }
             dsp->d_sigs_real = tempreal;

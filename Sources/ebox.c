@@ -40,6 +40,8 @@ static void ebox_erase(t_ebox* x);
 static void ebox_select(t_ebox* x);
 static void ebox_move(t_ebox* x);
 
+extern void ebox_initclass(t_eclass* c);
+
 
 struct t_eparam
 {
@@ -90,6 +92,51 @@ struct _edspbox
     struct _egui    d_gui;  /*!< The GUI object. */
     t_edsp          d_dsp;   /*!< The dsp structure. */
 }_edspbox;
+
+extern void ebox_initclass(t_eclass* c)
+{
+    CLASS_ATTR_FLOAT_ARRAY  (c, "size", 0, t_ebox, b_rect.width, 2);
+    CLASS_ATTR_DEFAULT      (c, "size", 0, "100. 100.");
+    CLASS_ATTR_FILTER_MIN   (c, "size", 4);
+    CLASS_ATTR_SAVE         (c, "size", 0);
+    CLASS_ATTR_PAINT        (c, "size", 0);
+    CLASS_ATTR_CATEGORY		(c, "size", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "size", 0, "Patching Size");
+    CLASS_ATTR_ACCESSORS    (c, "size", NULL, (t_err_method)ebox_size_set);
+    
+    CLASS_ATTR_CHAR         (c, "pinned", 0, t_ebox, b_pinned);
+    CLASS_ATTR_DEFAULT      (c, "pinned", 0, "0");
+    CLASS_ATTR_FILTER_CLIP  (c, "pinned", 0, 1);
+    CLASS_ATTR_SAVE         (c, "pinned", 0);
+    CLASS_ATTR_CATEGORY		(c, "pinned", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "pinned", 0, "Pinned");
+    CLASS_ATTR_STYLE        (c, "pinned", 0, "onoff");
+    
+    if(!(eclass_getflags(c) & EBOX_IGNORELOCKCLICK))
+    {
+        CLASS_ATTR_CHAR         (c, "ignoreclick", 0, t_ebox, b_ignore_click);
+        CLASS_ATTR_DEFAULT      (c, "ignoreclick", 0, "0");
+        CLASS_ATTR_FILTER_CLIP  (c, "ignoreclick", 0, 1);
+        CLASS_ATTR_SAVE         (c, "ignoreclick", 0);
+        CLASS_ATTR_CATEGORY		(c, "ignoreclick", 0, "Basic");
+        CLASS_ATTR_LABEL		(c, "ignoreclick", 0, "Ignore Click");
+        CLASS_ATTR_STYLE        (c, "ignoreclick", 0, "onoff");
+    }
+    
+    CLASS_ATTR_SYMBOL       (c, "receive", 0, t_ebox, b_receive_id);
+    CLASS_ATTR_DEFAULT      (c, "receive", 0, "");
+    CLASS_ATTR_ACCESSORS    (c, "receive", NULL, ebox_set_receiveid);
+    CLASS_ATTR_SAVE         (c, "receive", 0);
+    CLASS_ATTR_CATEGORY		(c, "receive", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "receive", 0, "Receive Symbol");
+    
+    CLASS_ATTR_SYMBOL       (c, "send", 0, t_ebox, b_send_id);
+    CLASS_ATTR_DEFAULT      (c, "send", 0, "");
+    CLASS_ATTR_ACCESSORS    (c, "send", NULL, ebox_set_sendid);
+    CLASS_ATTR_SAVE         (c, "send", 0);
+    CLASS_ATTR_CATEGORY		(c, "send", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "send", 0, "Send Symbol");
+}
 
 void ebox_new(t_ebox *x, long flags)
 {
