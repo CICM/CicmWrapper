@@ -57,7 +57,7 @@ typedef struct _egui t_egui;
  * \brief           Allocates and initializes a new gui manager.
  * \param owner     The owner of the gui manager.
  * \param flags     The flags of the gui.
- * \return          The new gui manager.
+ * \return          The new gui manager pointer.
  */
 t_egui* egui_new(t_object* owner, long flags);
 
@@ -68,6 +68,14 @@ t_egui* egui_new(t_object* owner, long flags);
  * \return          The dspguimanager that matchs to the name if it exists, othersise NULL.
  */
 t_egui* egui_findbyname(t_symbol* name);
+
+/*!
+ * \fn              t_symbol* egui_getreceive_symbol(t_egui const* gui)
+ * \brief           Retrieves receive symbol of a gui manager.
+ * \param gui       The gui manager pointer.
+ * \return          The receive symbol.
+ */
+t_symbol* egui_getreceive_symbol(t_egui const* gui);
 
 /** @} */
 

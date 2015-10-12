@@ -180,11 +180,11 @@ EXTERN_STRUCT _eattrset;
 typedef struct _eattrset t_eattrset;
 
 /*!
- * \fn              t_eattrset* eattrset_new(t_symbol* name)
+ * \fn              t_eattrset* eattrset_new(void)
  * \brief           Allocates and initializes a new attributes set.
  * \return          The new attributes set.
  */
-t_eattrset* eattrset_new();
+t_eattrset* eattrset_new(void);
 
 /*!
  * \fn              t_eattrset* eattrset_findbyname(t_symbol* name)

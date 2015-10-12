@@ -33,7 +33,7 @@
  * \param cursor The type of cursor.
  * \see ebox_cursors
  */
-void ebox_set_cursor(t_ebox* x, int cursor);
+void ebox_set_cursor(t_ebox* x, t_object* view, int cursor);
 
 /*!
  * \fn      void ebox_redraw(t_ebox* x)
@@ -100,27 +100,6 @@ t_pd_err ebox_invalidate_layer(t_ebox *x, t_symbol *name);
 
 //! @cond
 
-//! The default user id method for all ebox called by PD (PRIVATE)
-/*
- * \memberof        ebox
- * \param x         The gobj
- * \param attr      Nothing (for Max 6 compatibility)
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \return          Always 0 (for the moment)
- */
-t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
-
-//! The default user send id method for all ebox called by PD (PRIVATE)
-/*
- * \memberof        ebox
- * \param x         The gobj
- * \param attr      Nothing (for Max 6 compatibility)
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \return          Always 0 (for the moment)
- */
-t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
 
 //! The default notify method of ebox called when an attribute has changed // PRIVATE
 /*
@@ -134,16 +113,6 @@ t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
  */
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
-//! The default size attribute method of ebox called when an size attribute has changed. This function restrains the width and the height depending of the ebox flags EBOX_GROWNO, EBOX_GROWLINK and EBOX_GROWINDI // PRIVATE
-/*
- * \memberof        ebox
- * \param x         The ebox
- * \param attr      Nothing (for Max 6 compatibility)
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms that contains the new width and the new height
- * \return          Always 0 (for the moment)
- */
-t_pd_err ebox_size_set(t_ebox *x, t_object *attr, int argc, t_atom *argv);
 
 //!
 /*
@@ -175,11 +144,6 @@ void ebox_texteditor_focus(t_ebox *x, t_symbol *s, float f);
 void ebox_set_parameter_attribute(t_ebox *x, t_symbol *s, int argc, t_atom* argv);
 
 // The defaults pd widgets
-void ebox_wgetrect(t_gobj *z,     t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2);
-void ebox_wvis(t_gobj *z,         t_glist *glist, int vis);
-void ebox_wdisplace(t_gobj *z,    t_glist *glist, int dx, int dy);
-void ebox_wselect(t_gobj *z,      t_glist *glist, int selected);
-void ebox_wdelete(t_gobj *z,      t_glist *glist);
 //! @endcond
 
 

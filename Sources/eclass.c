@@ -12,6 +12,7 @@
 #include "ecommon.h"
 #include "eobj.h"
 #include "ebox.h"
+#include "egui.h"
 #include "epopup.h"
 #include "egraphics.h"
 

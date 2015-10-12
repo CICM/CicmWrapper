@@ -9,6 +9,9 @@
  */
 
 #include "egui.h"
+#include "ecommon.h"
+#include "egraphics.h"
+#include "eobj.h"
 
 struct _egui
 {
@@ -18,8 +21,8 @@ struct _egui
     t_object**      g_views;            /*!< The gui view. */
     float           g_size[2];          /*!< The gui size. */
     int             g_nviews;           /*!< The gui number of views. */
-    t_symbol*       g_receive_id;       /*!< The reveive symbol (attribute). */
-    t_symbol*       g_send_id;          /*!< The send send (attribute). */
+    t_symbol*       g_receive;          /*!< The reveive symbol (attribute). */
+    t_symbol*       g_send;             /*!< The send send (attribute). */
     char            g_pinned;           /*!< The pinned state (attribute). */
     char            g_ignore_click;     /*!< The igore click state (attribute). */
     char            g_visible;          /*!< The visible state (attribute). */
@@ -28,7 +31,57 @@ struct _egui
 
 static void egui_free(t_egui *gui)
 {
-    ;
+    if(is_valid_symbol(gui->g_receive))
+    {
+        pd_unbind((t_pd *)gui->g_owner, gui->g_receive);
+    }
+}
+
+static void egui_setreceive(t_egui *gui, t_symbol* s)
+{
+    if(is_valid_symbol(gui->g_receive))
+    {
+        pd_unbind((t_pd *)gui->g_owner, canvas_realizedollar(eobj_getcanvas(gui->g_owner), gui->g_receive));
+    }
+    gui->g_receive = s;
+    if(is_valid_symbol(gui->g_receive))
+    {
+        pd_bind((t_pd *)gui->g_owner, canvas_realizedollar(eobj_getcanvas(gui->g_owner), gui->g_receive));
+    }
+}
+
+static void egui_setsend(t_egui *gui, t_symbol* s)
+{
+    gui->g_send = s;
+}
+
+static void egui_setsize(t_egui *gui, float width, float height)
+{
+    if(gui->g_flags & EBOX_GROWLINK)
+    {
+        width  = pd_clip_min(width, 4);
+        height = gui->g_size[1];
+        gui->g_size[1] += (width - gui->g_size[0]);
+        if(gui->g_size[1] < 4)
+        {
+            gui->g_size[0] += 4 - height;
+            gui->g_size[1] = 4;
+        }
+        else
+        {
+            gui->g_size[0] =  width;
+        }
+    }
+    else if(gui->g_flags & EBOX_GROWINDI)
+    {
+        gui->g_size[0] = pd_clip_min(width, 4.f);
+        gui->g_size[1] = pd_clip_min(height, 4.f);
+    }
+}
+
+static void egui_setignoreclick(t_egui *gui, float f)
+{
+    gui->g_ignore_click = (f == 0.f) ? 0 : 1;
 }
 
 static t_class* egui_setup()
@@ -40,6 +93,10 @@ static t_class* egui_setup()
         c = class_new(gensym("egui"), (t_newmethod)NULL, (t_method)egui_free, sizeof(t_egui), CLASS_PD, A_NULL, 0);
         if(c)
         {
+            class_addmethod(c, (t_method)egui_setreceive,       gensym("receive"),      A_SYMBOL, 0);
+            class_addmethod(c, (t_method)egui_setsend,          gensym("send"),         A_SYMBOL, 0);
+            class_addmethod(c, (t_method)egui_setsize,          gensym("size"),         A_FLOAT, A_FLOAT, 0);
+            class_addmethod(c, (t_method)egui_setignoreclick,   gensym("ignoreclick"),  A_FLOAT, 0);
             obj = pd_new(c);
             pd_bind(obj, gensym("egui1572"));
         }
@@ -66,8 +123,8 @@ t_egui* egui_new(t_object* owner, long flags)
         {
             x->g_owner              = owner;
             x->g_flags              = flags;
-            x->g_receive_id         = s_cream_empty;
-            x->g_send_id            = s_cream_empty;
+            x->g_receive            = s_cream_empty;
+            x->g_send               = s_cream_empty;
             x->g_visible            = 1;
             x->g_ignore_click       = 0;
             x->g_views              = NULL;
@@ -93,6 +150,11 @@ t_egui* egui_findbyname(t_symbol* name)
         return (t_egui *)pd_findbyclass(name, c);
     }
     return NULL;
+}
+
+t_symbol* egui_getreceive_symbol(t_egui const* gui)
+{
+    return gui->g_receive;
 }
 
 

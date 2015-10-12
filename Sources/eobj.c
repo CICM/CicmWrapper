@@ -459,6 +459,7 @@ void eobj_attrprocess_viatoms(void *x, int argc, t_atom *argv)
         }
         free(attrs);
     }
+    int later_manage_the_parameters;
 }
 
 void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)
@@ -500,7 +501,7 @@ void eobj_attr_getvalueof(void *x, t_symbol *s, int *argc, t_atom **argv)
 
 
 
-static t_edsp* eobj_getdsp(void *x)
+static t_edsp* eobj_getdsp(void const* x)
 {
     char text[MAXPDSTRING];
     sprintf(text, "%lxdsp", (unsigned long)x);
@@ -600,7 +601,9 @@ t_sample* eobj_dspgetoutsamples(void *x, size_t index)
 
 
 
-static t_egui* eobj_getgui(void *x)
+
+
+static t_egui* eobj_getgui(void const* x)
 {
     char text[MAXPDSTRING];
     sprintf(text, "%lxgui", (unsigned long)x);
@@ -637,15 +640,9 @@ void ebox_ready(t_ebox *x)
 
 void ebox_free(t_ebox* x)
 {
-    int i;
     t_egui* gui = eobj_getgui(x);
     if(gui)
     {
-        if(is_valid_symbol(x->b_receive_id))
-        {
-            pd_unbind((t_pd *)x, x->b_receive_id);
-        }
-        
         pd_free((t_pd *)gui);
     }
     eobj_isdsp(x) ? eobj_dspfree(x) : eobj_free(x);
@@ -653,7 +650,139 @@ void ebox_free(t_ebox* x)
     int later_manage_parameter_destruction;
 }
 
+t_pd* ebox_getsender(t_ebox* x)
+{
+    t_egui const* gui = eobj_getgui(x);
+    if(gui && is_valid_symbol(egui_getreceive_symbol(gui)))
+    {
+        return canvas_realizedollar(eobj_getcanvas(x), egui_getreceive_symbol(gui))->s_thing;
+    }
+    return NULL;
+}
 
+static t_pd_err ebox_defaultattibutes_set(t_ebox *x, t_object *attr, int argc, t_atom *argv)
+{
+    t_egui* gui = eobj_getgui(x);
+    if(gui)
+    {
+        pd_typedmess((t_pd *)gui, eattr_getname((t_eattr *)attr), argc, argv);
+        return 0;
+    }
+    return -1;
+}
+
+static t_pd_err ebox_defaultattibutes_get(t_ebox *x, t_object *attr, int* argc, t_atom **argv)
+{
+    t_egui* gui = eobj_getgui(x);
+    if(gui)
+    {
+        int todo;
+    }
+    return -1;
+}
+
+static void ebox_wgetrect(t_gobj *z, t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2)
+{
+    t_egui const* gui = eobj_getgui(z);
+    *xp1 = text_xpix((t_text *)z, glist);
+    *yp1 = text_ypix((t_text *)z, glist);
+    if(gui)
+    {
+        int todo;
+    }
+    else
+    {
+        *xp2 = *xp1 + (int)((t_text *)z)->te_width;
+        *yp2 = *yp1 + (int)10;
+    }
+}
+
+void ebox_wvis(t_gobj *z, t_glist *glist, int vis)
+{
+    long i;
+    t_ebox* x   = (t_ebox *)z;
+    t_object *view = NULL, **temp;
+    /*
+    if(vis)
+    {
+        view = eview_create(x, glist);
+        if(view)
+        {
+            for(i = 0; i < x->b_nviews; i++)
+            {
+                if(x->b_views[i] == view)
+                {
+                    return;
+                }
+            }
+            
+            if(x->b_nviews)
+            {
+                temp = (t_object **)realloc(x->b_views, sizeof(t_object *) * (size_t)(x->b_nviews + 1));
+                if(temp)
+                {
+                    x->b_views[x->b_nviews] = view;
+                    x->b_nviews++;
+                }
+                else
+                {
+                    eview_destroy(view);
+                    pd_error(x, "can't register view for %s.", eobj_getclassname(x)->s_name);
+                }
+            }
+            else
+            {
+                x->b_views = (t_object **)malloc(sizeof(t_object *));
+                if(x->b_views)
+                {
+                    x->b_views[0] = view;
+                    x->b_nviews   = 1;
+                }
+                else
+                {
+                    eview_destroy(view);
+                    pd_error(x, "can't register view for %s.", eobj_getclassname(x)->s_name);
+                }
+            }
+        }
+        else
+        {
+            pd_error(x, "can't create view for %s.", eobj_getclassname(x)->s_name);
+        }
+    }
+    else
+    {
+        ebox_erase(x);
+        canvas_fixlinesfor(glist_getcanvas(glist), (t_text*)x);
+    }
+     */
+}
+
+//! Widget
+void ebox_wdisplace(t_gobj *z, t_glist *glist, int dx, int dy)
+{
+    t_object* view = eview_create((t_ebox *)z, glist);
+    if(view)
+    {
+        pd_symbol((t_pd *)view, s_cream_changes);
+    }
+}
+
+//! Widget
+void ebox_wselect(t_gobj *z, t_glist *glist, int selected)
+{
+    t_ebox *x = (t_ebox *)z;
+    x->b_selected_box = selected ? 1 : 0;
+    ebox_select(x);
+}
+
+//! Widget
+void ebox_wdelete(t_gobj *z, t_glist *glist)
+{
+    t_ebox *x = (t_ebox *)z;
+    ebox_erase(x);
+    canvas_deletelinesfor(glist, (t_text *)z);
+}
 
 
 
@@ -662,8 +791,6 @@ void ebox_free(t_ebox* x)
 extern void eobj_initclass(t_eclass* c)
 {
     char help[MAXPDSTRING];
-    t_widgetbehavior widget;
-    
     class_addmethod(c, (t_method)truemethod,         s_cream_iscicm,            A_CANT, 0);
     class_addmethod(c, (t_method)eobj_setproxyindex, gensym("setproxyindex"),   A_CANT, 0);
     class_addmethod(c, (t_method)eobj_popup,         gensym("dopopup"),         A_SYMBOL, A_FLOAT, 0);
@@ -674,7 +801,6 @@ extern void eobj_initclass(t_eclass* c)
     class_sethelpsymbol((t_class *)c, gensym(help));
     class_setpropertiesfn(c, (t_propertiesfn)eobj_propertieswindow);
     class_setsavefn((t_class *)c, (t_savefn)eobj_save);
-    class_setwidget((t_class *)c, (t_widgetbehavior *)&widget);
 }
 
 extern void edsp_initclass(t_eclass* c)
@@ -687,47 +813,58 @@ extern void edsp_initclass(t_eclass* c)
 
 extern void ebox_initclass(t_eclass* c)
 {
-    CLASS_ATTR_FLOAT_ARRAY  (c, "size", 0, t_ebox, o_obj, 2);
+    t_widgetbehavior widget;
+    widget.w_visfn      = ebox_wvis;
+    widget.w_getrectfn  = ebox_wgetrect;
+    widget.w_selectfn   = ebox_wselect;
+    widget.w_deletefn   = ebox_wdelete;
+    widget.w_displacefn = ebox_wdisplace;
+    
+    CLASS_ATTR_FLOAT_ARRAY  (c, "size", 0, t_ebox, o_dummy, 2);
     CLASS_ATTR_DEFAULT      (c, "size", 0, "100. 100.");
     CLASS_ATTR_FILTER_MIN   (c, "size", 4);
     CLASS_ATTR_SAVE         (c, "size", 0);
     CLASS_ATTR_PAINT        (c, "size", 0);
     CLASS_ATTR_CATEGORY		(c, "size", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "size", 0, "Patching Size");
-    CLASS_ATTR_ACCESSORS    (c, "size", NULL, ebox_size_set);
+    CLASS_ATTR_ACCESSORS    (c, "size", ebox_defaultattibutes_get, ebox_defaultattibutes_set);
     
-    CLASS_ATTR_CHAR         (c, "pinned", 0, t_ebox, b_pinned);
+    CLASS_ATTR_CHAR         (c, "pinned", 0, t_ebox, o_dummy);
     CLASS_ATTR_DEFAULT      (c, "pinned", 0, "0");
     CLASS_ATTR_FILTER_CLIP  (c, "pinned", 0, 1);
     CLASS_ATTR_SAVE         (c, "pinned", 0);
     CLASS_ATTR_CATEGORY		(c, "pinned", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "pinned", 0, "Pinned");
     CLASS_ATTR_STYLE        (c, "pinned", 0, "onoff");
+    CLASS_ATTR_ACCESSORS    (c, "pinned", ebox_defaultattibutes_get, ebox_defaultattibutes_set);
     
     if(!(eclass_getflags(c) & EBOX_IGNORELOCKCLICK))
     {
-        CLASS_ATTR_CHAR         (c, "ignoreclick", 0, t_ebox, b_ignore_click);
+        CLASS_ATTR_CHAR         (c, "ignoreclick", 0, t_ebox, o_dummy);
         CLASS_ATTR_DEFAULT      (c, "ignoreclick", 0, "0");
         CLASS_ATTR_FILTER_CLIP  (c, "ignoreclick", 0, 1);
         CLASS_ATTR_SAVE         (c, "ignoreclick", 0);
         CLASS_ATTR_CATEGORY		(c, "ignoreclick", 0, "Basic");
         CLASS_ATTR_LABEL		(c, "ignoreclick", 0, "Ignore Click");
         CLASS_ATTR_STYLE        (c, "ignoreclick", 0, "onoff");
+        CLASS_ATTR_ACCESSORS    (c, "ignoreclick", ebox_defaultattibutes_get, ebox_defaultattibutes_set);
     }
     
-    CLASS_ATTR_SYMBOL       (c, "receive", 0, t_ebox, b_receive_id);
+    CLASS_ATTR_SYMBOL       (c, "receive", 0, t_ebox, o_dummy);
     CLASS_ATTR_DEFAULT      (c, "receive", 0, "");
-    CLASS_ATTR_ACCESSORS    (c, "receive", NULL, ebox_set_receiveid);
     CLASS_ATTR_SAVE         (c, "receive", 0);
     CLASS_ATTR_CATEGORY		(c, "receive", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "receive", 0, "Receive Symbol");
+    CLASS_ATTR_ACCESSORS    (c, "receive", ebox_defaultattibutes_get, ebox_defaultattibutes_set);
     
-    CLASS_ATTR_SYMBOL       (c, "send", 0, t_ebox, b_send_id);
+    CLASS_ATTR_SYMBOL       (c, "send", 0, t_ebox, o_dummy);
     CLASS_ATTR_DEFAULT      (c, "send", 0, "");
-    CLASS_ATTR_ACCESSORS    (c, "send", NULL, ebox_set_sendid);
     CLASS_ATTR_SAVE         (c, "send", 0);
     CLASS_ATTR_CATEGORY		(c, "send", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "send", 0, "Send Symbol");
+    CLASS_ATTR_ACCESSORS    (c, "send", ebox_defaultattibutes_get, ebox_defaultattibutes_set);
+    
+    class_setwidget((t_class *)c, (t_widgetbehavior *)&widget);
 }
 
 

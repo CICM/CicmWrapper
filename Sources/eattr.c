@@ -760,13 +760,13 @@ static t_class* eattrset_setup()
     }
 }
 
-t_eattrset* eattrset_create()
+t_eattrset* eattrset_new(void)
 {
     t_eattrset* x = NULL;
     t_class*    c = eattrset_setup();
     if(c)
     {
-        x = (t_eattrset *)pd_new(c2);
+        x = (t_eattrset *)pd_new(c);
         if(x)
         {
             x->s_nattrs = 0;
@@ -785,11 +785,6 @@ t_eattrset* eattrset_findbyname(t_symbol* name)
         x = (t_eattrset *)pd_findbyclass(name, c);
     }
     return x;
-}
-
-t_symbol* eattrset_getname(t_eattrset const* attrset)
-{
-    return attrset->s_name;
 }
 
 size_t eattrset_getnattrs(t_eattrset const* attrset)
@@ -818,7 +813,7 @@ t_eattr* eattrset_getattr(t_eattrset const* attrset, t_symbol const* name)
     size_t i = 0;
     for(i = 0; i < attrset->s_nattrs; i++)
     {
-        if(eattr_getname(attrset->s_attrs[i] == name))
+        if(eattr_getname(attrset->s_attrs[i]) == name)
         {
             return attrset->s_attrs[i];
         }
@@ -829,27 +824,18 @@ t_eattr* eattrset_getattr(t_eattrset const* attrset, t_symbol const* name)
 
 size_t eattrset_getncategories(t_eattrset const* attrset)
 {
-    return attrset->s_ncates;
+    int todo;
+    return 0;
 }
 
 void eattrset_getcategories(t_eattrset const* attrset, size_t* ncates, t_symbol*** cates)
 {
-    if(attrset->s_ncates && attrset->s_cates)
-    {
-        *cates  = (t_symbol **)malloc(attrset->s_ncates * sizeof(t_symbol *));
-        if(*cates)
-        {
-            memcpy(*cates, attrset->s_cates, attrset->s_ncates * sizeof(t_eattr *));
-            *ncates = attrset->s_ncates;
-            return;
-        }
-    }
-    *s_ncates = 0;
-    *cates    = NULL;
+    int todo;
 }
 
 void eattrset_getcategory_attrs(t_eattrset const* attrset, t_symbol const* name, size_t* nattrs, t_object*** attrs)
 {
+    int todo;
     if(attrset->s_nattrs && attrset->s_attrs)
     {
         *attrs  = (t_object **)malloc(attrset->s_nattrs * sizeof(t_eattr *));
@@ -866,12 +852,11 @@ void eattrset_getcategory_attrs(t_eattrset const* attrset, t_symbol const* name,
 
 t_eattr* eattrset_attr_new(t_eattrset* attrset, t_symbol* name, t_symbol* type, size_t size, size_t maxsize, size_t offset)
 {
-    size_t i = 0;
     t_eattr **temp = NULL, *newattr = NULL;
-    if(eattrset_getattr(attrset, name))
+    if((newattr = eattrset_getattr(attrset, name)))
     {
         pd_error(attrset, "attribute set already have the %s attribute.", name->s_name);
-        return;
+        return newattr;
     }
     newattr = eattr_new(name, type, size, maxsize, offset);
     if(newattr)
@@ -888,7 +873,7 @@ t_eattr* eattrset_attr_new(t_eattrset* attrset, t_symbol* name, t_symbol* type, 
             else
             {
                 pd_error(attrset, "attribute set can't allocate memory for the new attribute %s.", name->s_name);
-                return;
+                return NULL;
             }
         }
         else
@@ -902,7 +887,7 @@ t_eattr* eattrset_attr_new(t_eattrset* attrset, t_symbol* name, t_symbol* type, 
             else
             {
                 pd_error(attrset, "attribute set can't allocate memory for the new attribute %s.", name->s_name);
-                return;
+                return NULL;
             }
         }
     }

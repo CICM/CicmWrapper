@@ -394,6 +394,7 @@ typedef struct _eobj
     size_t              o_nproxy;           /*!< The number of proxy inlets. */
     size_t              o_cproxy;           /*!< The index of the current proxy inlet used */
     t_symbol*           o_listeners;        /*!< The listeners id. */
+    void*               o_dummy;            /*!< The dummy member. */
 } t_eobj;
 
 /**

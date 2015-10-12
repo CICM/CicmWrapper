@@ -20,6 +20,7 @@
 #include "edefine.h"
 #include "eattr.h"
 #include "eflags.h"
+#include "eobj.h"
 
 /*! @defgroup groupclasspart The class part of the library.
  * @brief The t_eclass part.
