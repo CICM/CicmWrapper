@@ -36,13 +36,6 @@
  *  @{
  */
 
-/**
- * @struct _class
- * @brief The class.
- * @details The native class.
- */
-typedef struct _class t_eclass;
-
 /*!
  * \fn          t_eclass* eclass_new(const char *name, t_method newm, t_method freem, size_t size, int flags, t_atomtype arg1, ...)
  * \brief       Allocates the memory and initialize a new class.
@@ -106,6 +99,11 @@ t_pd_err eclass_register(t_symbol *name, t_eclass *c);
  */
 void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type1, ...);
 
+
+
+
+
+
 /*!
  * \fn          void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, size_t size, size_t maxsize, long flags, size_t offset)
  * \brief           Creates a new attribute.
@@ -120,6 +118,26 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
  */
 void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
                            size_t size, size_t maxsize, long flags, size_t offset);
+
+
+/*!
+ * \fn              t_eattr* eclass_getattr(t_eclass const* c, t_symbol* name)
+ * \brief           Retrieves the attribute that matches to a specific name in a class.
+ * \param c         The t_eclass pointer
+ * \param name      The name of the attribute.
+ * \return          The attribute that matches to the specific name if exists, otherwise NULL.
+ */
+t_eattr* eclass_getattr(t_eclass const* c, t_symbol* name);
+
+/*!
+ * \fn              void eclass_getattrs(t_eclass const* c, size_t* nattrs, t_eattr*** attrs)
+ * \brief           Retrieves the attributes of an attributes set.
+ * \param c         The t_eclass pointer
+ * \param nattrs    The number of attributes of the attributes set.
+ * \param attrs     The attributes of the attributes set.
+ */
+void eclass_getattrs(t_eclass const* c, size_t* nattrs, t_eattr*** attrs);
+
 
 //! @cond
 /*!
@@ -397,7 +415,7 @@ eclass_new_attr_typed(c,name, "atom", calcoffset(struct,size), maxsize, flags, c
 //! Macros that define the visible behavior of the attributes
 #define CLASS_ATTR_INVISIBLE(c,name,flags)              eclass_attr_invisible(c,name,flags)
 //! Macros that define the setter and getter of the attributes
-#define CLASS_ATTR_ACCESSORS(c,name,getter,setter)      eclass_attr_accessor(c,name,(t_err_method)getter,(t_err_method)setter)
+#define CLASS_ATTR_ACCESSORS(c,name,getter,setter)      eclass_attr_accessor(c,name,(t_getter_method)getter,(t_setter_method)setter)
 //! Macros that define the items list of the attributes
 #define CLASS_ATTR_ITEMS(c,name,flags, list)            eclass_attr_items(c,name,flags, list)
 //! Macros that define the deault value, save and paint bbehavior of the attributes

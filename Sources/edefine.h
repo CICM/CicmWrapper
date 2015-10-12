@@ -44,7 +44,7 @@
 
 
 #define PD_INSTANCE (PD_MAJOR_VERSION >= 0) && (PD_MINOR_VERSION) >= 46) && (PD_BUGFIX_VERSION >= 6)
-#define CICM_VERSION 0.5
+#define CICM_VERSION 1.0
 
 /*! @defgroup groupobj The BASIC Object Part
  * @brief The t_eobj part.
@@ -74,6 +74,7 @@
 typedef long t_pd_err;
 //! The standart method
 typedef void        (*t_typ_method)(void* x, ...);
+typedef t_typ_method    method;
 //! The return method
 typedef void*       (*t_ret_method)(void* x, ...);
 //! The error method
@@ -376,6 +377,59 @@ typedef struct _etext t_etext;
 
 /** @} */
 
+
+/**
+ * @struct t_eobj
+ * @brief The default object.
+ * @details It contains the native object, the canvas pointer and members for proxy inlets.
+ * @details This should be used for no graphical object that don't have signal processing methods.
+ * @ingroup groupobj
+ */
+typedef struct _eobj
+{
+    t_object            o_obj;              /*!< The Pd object. */
+    t_symbol*           o_id;               /*!< The object id. */
+    t_canvas*           o_canvas;           /*!< The canvas that own the object. */
+    t_object**          o_proxy;            /*!< The array of proxy inlets. */
+    size_t              o_nproxy;           /*!< The number of proxy inlets. */
+    size_t              o_cproxy;           /*!< The index of the current proxy inlet used */
+    t_symbol*           o_listeners;        /*!< The listeners id. */
+} t_eobj;
+
+/**
+ * @struct t_eobj
+ * @brief The GUI object.
+ * @details It contains the t_eobj with all the members for graphical behavior.
+ * This should be used for graphical object that don't have signal processing methods.
+ * @ingroup groupbox
+ */
+typedef t_eobj t_ebox;
+
+/**
+ * @struct t_edspobj
+ * @brief The dsp object.
+ * @details It contains all the members for signal processing.
+ * @details This should be used for no graphical object that have signal processing methods.
+ * @ingroup groupdspobj
+ */
+typedef t_eobj t_edspobj;
+
+/**
+ * @struct _edspbox
+ * @brief The GUI DSP object.
+ * @details It contains the t_eobj with all the members for graphical behavior and signal processing.
+ * This should be used for graphical object that have signal processing methods.
+ * @ingroup groupbox groupdspobj
+ */
+typedef t_ebox t_edspbox;
+
+/**
+ * @struct t_eclass
+ * @brief The class.
+ * @details The native class.
+ */
+typedef struct _class t_eclass;
+
 /** @} */
 
 /*! @addtogroup groupbox The GUI Object Part
@@ -427,21 +481,6 @@ typedef enum eselitem_flags
 } eselitem_flags;
 //! @endcond
 
-/**
- * @enum ebox_flags
- * @brief The flags that discribe the behavior of a t_ebox.
- * @details It define all the behavior of a t_ebox.
- */
-typedef enum
-{
-    EBOX_GROWNO          = (1<<4),      /*!< The width and the height can't be modified. */
-    EBOX_GROWLINK        = (1<<5),      /*!< The width and the height are linked. */
-    EBOX_GROWINDI        = (1<<6),      /*!< The width and the height are independant. */
-    EBOX_IGNORELOCKCLICK = (1<<7),      /*!< The t_ebox ignore the mouse events. */
-    EBOX_TEXTFIELD       = (1<<11),     /*!< The t_ebox supports text fields. */
-    EBOX_FONTSIZE        = (1<<18),     /*!< The t_ebox font attr changes the size. */
-    EBOX_DBLCLICK_EDIT   = (1<<26)      /*!< The double-click is received in edition. */
-} ebox_flags;
 
 /**
  * @enum ebox_cursors
@@ -493,43 +532,6 @@ typedef enum eparam_flags
     EPARAM_STATIC_NSTEPS    = (1<<6),    /*!< If the number of steps can't be changed by the users. */
     EPARAM_STATIC_INDEX     = (1<<7)    /*!< If the number of steps can't be changed by the users. */
 } eparam_flags;
-
-/**
- * @struct _eparam
- * @brief The parameter structure.
- * @details It contains the informations of a parameter.
- */
-EXTERN_STRUCT _eparam;
-typedef struct _eparam t_eparam;
-
-/**
- * @struct _ebox
- * @brief The GUI object.
- * @details It contains the t_eobj with all the members for graphical behavior.
- * This should be used for graphical object that don't have signal processing methods.
- * @ingroup groupbox
- */
-EXTERN_STRUCT _ebox;
-typedef struct _ebox t_ebox;
-
-/**
- * @struct _edspbox
- * @brief The GUI DSP object.
- * @details It contains the t_eobj with all the members for graphical behavior and signal processing.
- * This should be used for graphical object that have signal processing methods.
- * @ingroup groupbox groupdspobj
- */
-EXTERN_STRUCT _edspbox;
-typedef struct _edspbox t_edspbox;
-
-//! The t_param_setter method
-typedef void  (*t_param_setter)(t_ebox* x, t_eparam* p, float f);
-//! The t_param_getter method
-typedef float (*t_param_getter)(t_ebox* x, t_eparam* p);
-//! The t_param_setter_t method
-typedef void  (*t_param_setter_t)(t_ebox* x, int index, char const* text);
-//! The t_param_getter_t method
-typedef void (*t_param_getter_t)(t_ebox* x, int index, char* text);
 
 
 /** @} */
@@ -585,7 +587,7 @@ typedef struct t_epopup
 typedef struct t_etexteditor
 {
     t_object    c_obj;          /*!< The object. */
-    t_ebox*     c_owner;
+    t_object*   c_owner;
     t_symbol*   c_editor_id;
     t_symbol*   c_canvas_id;
     t_symbol*   c_frame_id;

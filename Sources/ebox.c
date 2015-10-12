@@ -8,6 +8,7 @@
  * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
+#include "eobj.h"
 #include "ebox.h"
 #include "egraphics.h"
 #include "eobj.h"
@@ -43,150 +44,6 @@ static void ebox_move(t_ebox* x);
 extern void ebox_initclass(t_eclass* c);
 
 
-struct t_eparam
-{
-    t_object        p_object;
-    t_symbol*       p_bind;
-    t_symbol*       p_name;
-    t_symbol*       p_label;
-    struct t_ebox*  p_owner;
-    int             p_index;
-    float           p_value;
-    float           p_min;
-    float           p_max;
-    int             p_nstep;
-    t_param_getter  p_getter;
-    t_param_setter  p_setter;
-    t_param_getter_t p_getter_t;
-    t_param_setter_t p_setter_t;
-    char            p_auto;
-    char            p_meta;
-    char            p_enable;
-    long            p_flags;
-};
-
-struct _egui
-{
-    long                g_flags;            /*!< The ebox flags. */
-    t_object**          g_views;            /*!< The ebox view. */
-    int                 g_nviews;           /*!< The ebox number of views. */
-    t_eparam**          g_params;           /*!< The parameters. */
-    int                 g_nparams;          /*!< The number of parameters. */
-    t_symbol*           g_receive_id;       /*!< The reveive symbol (attribute). */
-    t_symbol*           g_send_id;          /*!< The send send (attribute). */
-    char                g_pinned;           /*!< The pinned state (attribute). */
-    char                g_ignore_click;     /*!< The igore click state (attribute). */
-    char                g_visible;          /*!< The visible state (attribute). */
-    t_edrawparams       g_boxparameters;    /*!< The ebox parameters. */
-};
-
-struct _ebox
-{
-    t_eobj          b_obj;  /*!< The object. */
-    struct _egui    b_gui;  /*!< The GUI object. */
-};
-
-struct _edspbox
-{
-    t_eobj          d_obj;  /*!< The object. */
-    struct _egui    d_gui;  /*!< The GUI object. */
-}_edspbox;
-
-extern void ebox_initclass(t_eclass* c)
-{
-    CLASS_ATTR_FLOAT_ARRAY  (c, "size", 0, t_ebox, b_rect.width, 2);
-    CLASS_ATTR_DEFAULT      (c, "size", 0, "100. 100.");
-    CLASS_ATTR_FILTER_MIN   (c, "size", 4);
-    CLASS_ATTR_SAVE         (c, "size", 0);
-    CLASS_ATTR_PAINT        (c, "size", 0);
-    CLASS_ATTR_CATEGORY		(c, "size", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "size", 0, "Patching Size");
-    CLASS_ATTR_ACCESSORS    (c, "size", NULL, (t_err_method)ebox_size_set);
-    
-    CLASS_ATTR_CHAR         (c, "pinned", 0, t_ebox, b_pinned);
-    CLASS_ATTR_DEFAULT      (c, "pinned", 0, "0");
-    CLASS_ATTR_FILTER_CLIP  (c, "pinned", 0, 1);
-    CLASS_ATTR_SAVE         (c, "pinned", 0);
-    CLASS_ATTR_CATEGORY		(c, "pinned", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "pinned", 0, "Pinned");
-    CLASS_ATTR_STYLE        (c, "pinned", 0, "onoff");
-    
-    if(!(eclass_getflags(c) & EBOX_IGNORELOCKCLICK))
-    {
-        CLASS_ATTR_CHAR         (c, "ignoreclick", 0, t_ebox, b_ignore_click);
-        CLASS_ATTR_DEFAULT      (c, "ignoreclick", 0, "0");
-        CLASS_ATTR_FILTER_CLIP  (c, "ignoreclick", 0, 1);
-        CLASS_ATTR_SAVE         (c, "ignoreclick", 0);
-        CLASS_ATTR_CATEGORY		(c, "ignoreclick", 0, "Basic");
-        CLASS_ATTR_LABEL		(c, "ignoreclick", 0, "Ignore Click");
-        CLASS_ATTR_STYLE        (c, "ignoreclick", 0, "onoff");
-    }
-    
-    CLASS_ATTR_SYMBOL       (c, "receive", 0, t_ebox, b_receive_id);
-    CLASS_ATTR_DEFAULT      (c, "receive", 0, "");
-    CLASS_ATTR_ACCESSORS    (c, "receive", NULL, ebox_set_receiveid);
-    CLASS_ATTR_SAVE         (c, "receive", 0);
-    CLASS_ATTR_CATEGORY		(c, "receive", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "receive", 0, "Receive Symbol");
-    
-    CLASS_ATTR_SYMBOL       (c, "send", 0, t_ebox, b_send_id);
-    CLASS_ATTR_DEFAULT      (c, "send", 0, "");
-    CLASS_ATTR_ACCESSORS    (c, "send", NULL, ebox_set_sendid);
-    CLASS_ATTR_SAVE         (c, "send", 0);
-    CLASS_ATTR_CATEGORY		(c, "send", 0, "Basic");
-    CLASS_ATTR_LABEL		(c, "send", 0, "Send Symbol");
-}
-
-void ebox_new(t_ebox *x, long flags)
-{
-    struct _egui* g = &x->b_gui;
-    g->g_flags = flags;
-    g->g_receive_id         = s_cream_empty;
-    g->g_send_id            = s_cream_empty;
-    g->g_visible            = 1;
-    g->g_ignore_click       = 0;
-    g->g_params             = NULL;
-    g->g_nparams            = 0;
-    g->g_views              = NULL;
-    g->g_nviews             = 0;
-    eclass_attrs_setdefault((t_object *)x);
-}
-
-void ebox_ready(t_ebox *x)
-{
-    struct _egui* g = &x->b_gui;
-    g->g_boxparameters.d_bordercolor = rgba_black;
-    g->g_boxparameters.d_borderthickness = 1;
-    g->g_boxparameters.d_boxfillcolor = rgba_white;
-    g->g_boxparameters.d_cornersize = 0;
-}
-
-void ebox_free(t_ebox* x)
-{
-    int i;
-    struct _egui* g = &x->b_gui;
-    if(eobj_isdsp(x))
-    {
-        eobj_dspfree(x);
-    }
-    else
-    {
-        eobj_free(x);
-    }
-    if(is_valid_symbol(g->g_receive_id))
-    {
-        pd_unbind((t_pd *)x, g->g_receive_id);
-    }
-    if(g->g_nparams && g->g_params)
-    {
-        for(i = 0; i < g->g_nparams; i++)
-        {
-            ebox_parameter_destroy(x, i);
-        }
-        free(g->g_params);
-    }
-}
-
 void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv)
 {
     int   i;
@@ -210,7 +67,7 @@ void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv)
     }
     if(eobj_isbox(x))
     {
-        for(i = 0; i < g->g_nparams; i++)
+        for(i = 0; i < x->b_nparams; i++)
         {
             sprintf(buffer, "@param%i", i);
             atoms_get_attribute(argc, argv, gensym(buffer), &defc, &defv);
@@ -230,19 +87,14 @@ void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv)
     }
 }
 
-void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)
-{
-    ebox_attrprocess_viatoms(x, binbuf_getnatom(d), binbuf_getvec(d));
-}
-
 //! Widget
 void ebox_wgetrect(t_gobj *z, t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2)
 {
     t_ebox *x = (t_ebox *)z;
     *xp1 = text_xpix(&x->b_obj.o_obj, glist);
     *yp1 = text_ypix(&x->b_obj.o_obj, glist);
-    *xp2 = text_xpix(&x->b_obj.o_obj, glist) + (int)x->b_rect.width;
-    *yp2 = text_ypix(&x->b_obj.o_obj, glist) + (int)x->b_rect.height;
+    *xp2 = text_xpix(&x->b_obj.o_obj, glist) + (int)x->b_size[0];
+    *yp2 = text_ypix(&x->b_obj.o_obj, glist) + (int)x->b_size[1];
 }
 
 static void ebox_paint(t_ebox *x)
@@ -367,9 +219,9 @@ t_pd* ebox_getsender(t_ebox* x)
 {
     t_symbol* sname;
     struct _egui* g = &x->b_gui;
-    if(is_valid_symbol(g->g_send_id))
+    if(is_valid_symbol(x->b_send_id))
     {
-        sname = canvas_realizedollar(eobj_getcanvas(x), g->g_send_id);
+        sname = canvas_realizedollar(eobj_getcanvas(x), x->b_send_id);
         if(sname && sname->s_thing)
         {
             return sname->s_thing;
@@ -1436,147 +1288,9 @@ void ebox_parameter_setsettergetter_text(t_ebox* x, int index, t_param_setter_t 
 }
 
 
-
-float eparameter_getvalue(t_eparam* param)
-{
-    if(param->p_getter)
-    {
-        return param->p_getter(param->p_owner, param);
-    }
-    return param->p_value;
-}
-
-float eparameter_getvalue_normalized(t_eparam* param)
-{
-    if(param->p_max == param->p_min)
-    {
-        return 1.;
-    }
-    else if(param->p_min < param->p_max)
-    {
-        return (eparameter_getvalue(param) - param->p_min) / (param->p_max - param->p_min);
-    }
-    else
-    {
-        return (eparameter_getvalue(param) - param->p_max) / (param->p_min - param->p_max);
-    }
-}
-
-void eparameter_getvalue_text(t_eparam* param, char* text)
-{
-    if(param->p_getter_t)
-    {
-        param->p_getter_t(param->p_owner, param->p_index, text);
-    }
-    else
-    {
-        sprintf(text, "%g", eparameter_getvalue(param));
-    }
-}
-
-static void eparameter_notify_owner(t_eparam* param, t_symbol* message)
-{
-    t_eclass* c = eobj_getclass(param->p_owner);
-    if(c->c_widget.w_notify)
-    {
-        c->c_widget.w_notify(param->p_owner, param->p_bind, message, NULL, NULL);
-    }
-}
-
-static float eparameter_compute_value(float value, float min, float max, float nstep)
-{
-    const float step = (max - min) / nstep;
-    const float rval = floorf((value - min) / step + 0.5);
-    return pd_clip_max(step * rval + min, max);
-}
-
-
-void eparameter_setvalue(t_eparam* param, float value)
-{
-    if(param->p_setter)
-    {
-        param->p_setter(param->p_owner, param, value);
-    }
-    else
-    {
-        if(param->p_min < param->p_max)
-        {
-            param->p_value = eparameter_compute_value(value, param->p_min, param->p_max, (float)param->p_nstep);
-        }
-        else
-        {
-            param->p_value = eparameter_compute_value(value, param->p_max, param->p_min, (float)param->p_nstep);
-        }
-        eparameter_notify_owner(param, s_cream_value_changed);
-    }
-}
-
-void eparameter_setvalue_normalized(t_eparam* param, float value)
-{
-    if(param->p_min < param->p_max)
-    {
-        eparameter_setvalue(param, (value * (param->p_max - param->p_min) + param->p_min));
-    }
-    else
-    {
-        eparameter_setvalue(param, (value * (param->p_min - param->p_max) + param->p_max));
-    }
-}
-
-void eparameter_setvalue_text(t_eparam* param, char const* text)
-{
-    if(param->p_setter_t)
-    {
-        param->p_setter_t(param->p_owner, param->p_index, text);
-    }
-    else if(isdigit(text[0]))
-    {
-        eparameter_setvalue(param, atof(text));
-    }
-}
-
-void eparameter_setname(t_eparam* param, t_symbol* name)
-{
-    if(!(param->p_flags & EPARAM_STATIC_NAME))
-    {
-        param->p_name = get_valid_symbol(name);
-        eparameter_notify_owner(param, s_cream_attr_modified);
-        canvas_dirty(eobj_getcanvas(param->p_owner), 1);
-    }
-}
-
-void eparameter_setlabel(t_eparam* param, t_symbol* label)
-{
-    if(!(param->p_flags & EPARAM_STATIC_LABEL))
-    {
-        param->p_label = get_valid_symbol(label);
-        eparameter_notify_owner(param, s_cream_attr_modified);
-        canvas_dirty(eobj_getcanvas(param->p_owner), 1);
-    }
-}
-
-void eparameter_setindex(t_eparam* param, int index)
-{
-    if(!(param->p_flags & EPARAM_STATIC_INDEX))
-    {
-        param->p_index = index;
-        eparameter_notify_owner(param, s_cream_attr_modified);
-        canvas_dirty(eobj_getcanvas(param->p_owner), 1);
-    }
-}
-
-t_eparam* eparameter_getfromsymbol(t_symbol* name)
-{
-    t_class* c = eparameter_setup();
-    if(c)
-    {
-        return (t_eparam *)pd_findbyclass(name, c);
-    }
-    return NULL;
-}
-
 t_eparam* eparameter_getbyindex(t_ebox* x, int index)
 {
+    int tod_chaned;
     index--;
     if(index >= 0 && index < x->b_nparams)
     {

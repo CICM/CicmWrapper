@@ -203,13 +203,13 @@ t_eattrset* eattrset_findbyname(t_symbol* name);
 size_t eattrset_getnattrs(t_eattrset const* attrset);
 
 /*!
- * \fn              void eattrset_getattrs(t_eattrset const* attrset, size_t* nattrs, t_object*** attrs)
+ * \fn              void eattrset_getattrs(t_eattrset const* attrset, size_t* nattrs, t_eattr*** attrs)
  * \brief           Retrieves the attributes of an attributes set.
  * \param attrset   The attributes set pointer.
  * \param nattrs    The number of attributes of the attributes set.
  * \param attrs     The attributes of the attributes set.
  */
-void eattrset_getattrs(t_eattrset const* attrset, size_t* nattrs, t_object*** attrs);
+void eattrset_getattrs(t_eattrset const* attrset, size_t* nattrs, t_eattr*** attrs);
 
 /*!
  * \fn              t_eattr* eattrset_getattr(t_eattrset const* attrset, t_symbol const* name)

@@ -18,38 +18,10 @@
 #define DEF_EOBJ
 
 #include "edefine.h"
-#include "eclass.h"
 
 /*! @addtogroup groupobj
  *  @{
  */
-
-/**
- * @struct t_eobj
- * @brief The default object.
- * @details It contains the native object, the canvas pointer and members for proxy inlets.
- * @details This should be used for no graphical object that don't have signal processing methods.
- * @ingroup groupobj
- */
-typedef struct _eobj
-{
-    t_object            o_obj;              /*!< The Pd object. */
-    t_symbol*           o_id;               /*!< The object id. */
-    t_canvas*           o_canvas;           /*!< The canvas that own the object. */
-    t_object**          o_proxy;            /*!< The array of proxy inlets. */
-    size_t              o_nproxy;           /*!< The number of proxy inlets. */
-    size_t              o_cproxy;           /*!< The index of the current proxy inlet used */
-    t_symbol*           o_listeners;        /*!< The listeners id. */
-} t_eobj;
-
-/**
- * @struct t_edspobj
- * @brief The dsp object.
- * @details It contains all the members for signal processing.
- * @details This should be used for no graphical object that have signal processing methods.
- * @ingroup groupdspobj
- */
-typedef t_eobj t_edspobj;
 
 /*!
  * \fn          void *eobj_new(t_eclass *c)
@@ -278,6 +250,51 @@ t_sample* eobj_dspgetinsamples(void *x, size_t index);
  * \return      A pointer to the signal vector or NULL.
  */
 t_sample* eobj_dspgetoutsamples(void *x, size_t index);
+
+
+
+
+
+
+
+/*!
+ * \fn          void ebox_new(t_ebox *x, long flags)
+ * \brief       Initializes the graphical members of the t_ebox.
+ * \details     Sets the defaults values and initializes the attributes. 
+ * \details     This function should be call after eobj_new().
+ * \param x     The t_ebox pointer.
+ * \param flags A set of flags that defines the gui behavior.
+ */
+void ebox_new(t_ebox *x, long flags);
+
+/*!
+ * \fn          void ebox_ready(t_ebox *x)
+ * \brief       Indicates that the t_ebox can be drawn.
+ * \details     Actives the drawind methods. \n 
+ * \details     This function should be call during the new method just before returning the object.
+ * \param x     The t_ebox pointer.
+ */
+void ebox_ready(t_ebox *x);
+
+/*!
+ * \fn          void ebox_free(t_ebox* x)
+ * \brief       Indicates that the t_ebox can be drawn.
+ * \details     Deletes the drawings. 
+ * \details     This function should replace pd_free() and you shouldn't have to call eobj_free() or eobj_dspfree();
+ * \param x     The t_ebox pointer.
+ */
+void ebox_free(t_ebox* x);
+
+/*!
+ * \fn          t_pd* ebox_getsender(t_ebox* x)
+ * \brief       Retrieves the link list of object binded to the t_ebox.
+ * \param x     The t_ebox pointer.
+ * \return      The pointer to the link list.
+ */
+t_pd* ebox_getsender(t_ebox* x);
+
+#define ebox_attrprocess_viabinbuf(x, d) eobj_attrprocess_viabinbuf(x, d)
+#define ebox_attrprocess_viaatoms(x, argc, argv) eobj_attrprocess_viatoms(x, argc, argv)
 
 /** @} */
 

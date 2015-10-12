@@ -19,66 +19,12 @@
 #define DEF_EBOX
 
 #include "edefine.h"
+#include "eparam.h"
 
 /*! @addtogroup groupbox
  * @{
  */
 
-/*!
- * \fn          void ebox_new(t_ebox *x, long flags)
- * \brief       Initializes the graphical members of the t_ebox.
- * \details     Sets the defaults values and initializes the attributes. \n This function should be call after eobj_new().
- * \param x     The t_ebox pointer.
- * \param flags A set of flags that defines the t_ebox behavior.
- * \see ebox_flags
- * \todo Not here but for doc (in ebox_wvis vis is called sevral times with vis = 1 perhaps we can avoid to recreate the stuff at each time)
- */
-void ebox_new(t_ebox *x, long flags);
-
-
-/*!
- * \fn          void ebox_ready(t_ebox *x)
- * \brief       Indicates that the t_ebox can be drawn.
- * \details     Actives the drawind methods. \n This function should be call after durng the new method just before returning the object.
- * \param x     The t_ebox pointer.
- */
-void ebox_ready(t_ebox *x);
-
-/*!
- * \fn          void ebox_free(t_ebox* x)
- * \brief       Indicates that the t_ebox can be drawn.
- * \details     Deletes the drawings. \n This function should replace pd_free() and you shouldn't have to call eobj_free() or eobj_dspfree();
- * \param x     The t_ebox pointer.
- */
-void ebox_free(t_ebox* x);
-
-/*!
- * \fn          t_pd* ebox_getsender(t_ebox* x)
- * \brief       Retrieves the link list of object binded to the t_ebox.
- * \param x     The t_ebox pointer.
- * \return      The pointer to the link list.
- */
-t_pd* ebox_getsender(t_ebox* x);
-
-
-/*!
- * \fn      void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)
- * \brief   Changes the attributes with a binbuf.
- * \details Retrieves and interpretes a binbuf to initialize the attributes.
- * \param x The t_ebox pointer.
- * \param d The binbuf pointer.
- */
-void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d);
-
-/*!
- * \fn      void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv)
- * \brief   Changes the attributes with an array of atoms.
- * \details Retrieves and interpretes a binbuf to initialize the attributes.
- * \param x The t_ebox pointer.
- * \param argc The number of atoms.
- * \param argv The pointer to the atoms.
- */
-void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv);
 
 /*!
  * \fn      void ebox_set_cursor(t_ebox* x, int cursor)
@@ -464,95 +410,6 @@ void ebox_parameter_disable(t_ebox* x, int index);
 void ebox_parameter_setflags(t_ebox* x, int index, long flags);
 
 //! @cond
-
-/*!
- * \fn              float eparameter_getvalue(t_eparam* param)
- * \brief           Retrieves the current (non-normalized) value of the parameter.
- * \details         This function shoudl be called from outside the owner object.
- * \param param     The t_eparam pointer.
- * \return          This function returns the current value of the parameter.
- */
-float eparameter_getvalue(t_eparam* param);
-
-/*!
- * \fn              float eparameter_getvalue_normalized(t_eparam* param)
- * \brief           Retrieves the current normalized value of the parameter.
- * \details         This function shoudl be called from outside the owner object.
- * \param param     The t_eparam pointer.
- * \return          This function returns the current value of the parameter.
- */
-float eparameter_getvalue_normalized(t_eparam* param);
-
-/*!
- * \fn              void eparameter_getvalue_text(t_eparam* param, char* text);
- * \brief           Retrieves the current value of the parameter as a string.
- * \details         This function shoudl be called from outside the owner object.
- * \param param     The t_eparam pointer.
- * \param text      The string to fill (the size of the string should be big enough to retrieve the value).
- */
-void eparameter_getvalue_text(t_eparam* param, char* text);
-
-/*!
- * \fn              void eparameter_setvalue(t_eparam* param, float value)
- * \brief           Sets the current (non-normalized) value of the parameter and notify the owner that the value changed.
- * \details         This function shoudl be called from outside the owner object.
- * \param param     The t_eparam pointer.
- * \param value     The new value of the parameter.
- */
-void eparameter_setvalue(t_eparam* param, float value);
-
-/*!
- * \fn              void eparameter_setvalue_normalized(t_eparam* param, float value)
- * \brief           Sets the current normalized value of the parameter and notify the owner that the value changed.
- * \details         This function shoudl be called from outside the owner object.
- * \param param     The t_eparam pointer.
- * \param value     The new value of the parameter.
- */
-void eparameter_setvalue_normalized(t_eparam* param, float value);
-
-/*!
- * \fn              void eparameter_setvalue_text(t_eparam* param, char* text)
- * \brief           Sets the current value of the parameter with a string and notify the owner that the value changed.
- * \details         This function shoudl be called from outside the owner object.
- * \param param     The t_eparam pointer.
- * \param text      The value as a string.
- */
-void eparameter_setvalue_text(t_eparam* param, char const* text);
-
-/*!
- * \fn              void eparameter_setname(t_eparam* param, t_symbol* name)
- * \brief           Sets name of the parameter.
- * \details         This function shoudl be called from outside the owner object.
- * \param param     The t_eparam pointer.
- * \param name      The name of the parameter.
- */
-void eparameter_setname(t_eparam* param, t_symbol* name);
-
-/*!
- * \fn              void eparameter_setlabel(t_eparam* param, t_symbol* label)
- * \brief           Sets label of the parameter.
- * \details         This function shoudl be called from outside the owner object.
- * \param param     The t_eparam pointer.
- * \param label     The label of the parameter.
- */
-void eparameter_setlabel(t_eparam* param, t_symbol* label);
-
-/*!
- * \fn              void eparameter_setindex(t_eparam* param, int index)
- * \brief           Sets the internal index of parameter.
- * \details         This function shoudl be called from outside the owner object.
- * \param param     The t_eparam pointer.
- * \param index     The index of the parameter.
- */
-void eparameter_setindex(t_eparam* param, int index);
-
-/*!
- * \fn          t_eparam* eparameter_getfromsymbol(t_symbol* name)
- * \brief       Retrieves a t_eparam from a symbol.
- * \param name  The binding symbol of the t_eparam.
- */
-t_eparam* eparameter_getfromsymbol(t_symbol* name);
-
 /*!
  * \fn          t_eparam* eparameter_getbyindex(t_ebox* x, int index)
  * \brief       Retrieves a t_eparam from a symbol.

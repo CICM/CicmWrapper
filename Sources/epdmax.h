@@ -11,7 +11,7 @@
 #ifndef DEF_EPD_MAX
 #define DEF_EPD_MAX
 
-typedef t_typ_method    method;
+
 typedef t_matrix        t_jmatrix;
 typedef t_elayer        t_jgraphics;
 typedef t_rgba          t_jrgba;

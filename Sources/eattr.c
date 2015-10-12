@@ -9,6 +9,7 @@
  */
 
 #include "eattr.h"
+#include "egraphics.h"
 
 struct _eattr
 {
@@ -42,6 +43,276 @@ struct _eattr
     size_t          a_nitems;     /*!< The number of available items of an attribute if it is a menu. */
 };
 
+static inline void* eattr_getvalue_adress(t_object const* x, t_eattr const* attr)
+{
+    return (char *)x + attr->a_offset;
+}
+
+static inline long* eattr_getsize_adress(t_object const* x, t_eattr const* attr)
+{
+    return (long *)((char *)x + attr->a_size);
+}
+
+static inline size_t eattr_getsize(t_object const* x, t_eattr const* attr)
+{
+    const size_t size = (size_t)(long *)((char *)x + attr->a_size);
+    if(attr->a_sizemax == 0)
+    {
+        return attr->a_size;
+    }
+    return attr->a_sizemax < size ? attr->a_sizemax : size;
+}
+
+static float atom_getfloatcliparg(int which, int argc, t_atom* argv, char clipping, float min, float max)
+{
+    if(clipping == 1)
+    {
+        return pd_clip_min(atom_getfloatarg(which, argc, argv), min);
+    }
+    else if(clipping == 2)
+    {
+        return pd_clip_max(atom_getfloatarg(which, argc, argv), max);
+    }
+    else if(clipping == 3)
+    {
+        return pd_clip(atom_getfloatarg(which, argc, argv), min, max);
+    }
+    return atom_getfloatarg(which, argc, argv);
+}
+
+static t_pd_err eattr_setvalue_char(t_object* x, t_eattr* attr, int argc, t_atom* argv)
+{
+    int i;
+    char* pointer = (char *)eattr_getvalue_adress(x, attr);
+    for(i = 0; i < argc; i++)
+    {
+        pointer[i] = (char)atom_getfloatcliparg(i, argc, argv, attr->a_clipped, attr->a_minimum, attr->a_maximum);
+    }
+    return 0;
+}
+
+static t_pd_err eattr_setvalue_int(t_object* x, t_eattr* attr, int argc, t_atom* argv)
+{
+    int i;
+    int* pointer = (int *)eattr_getvalue_adress(x, attr);
+    for(i = 0; i < argc; i++)
+    {
+        pointer[i] = (int)atom_getfloatcliparg(i, argc, argv, attr->a_clipped, attr->a_minimum, attr->a_maximum);
+    }
+    return 0;
+}
+
+static t_pd_err eattr_setvalue_long(t_object* x, t_eattr* attr, int argc, t_atom* argv)
+{
+    int i;
+    long* pointer = (long *)eattr_getvalue_adress(x, attr);
+    for(i = 0; i < argc; i++)
+    {
+        pointer[i] = (long)atom_getfloatcliparg(i, argc, argv, attr->a_clipped, attr->a_minimum, attr->a_maximum);
+    }
+    return 0;
+}
+
+static t_pd_err eattr_setvalue_float(t_object* x, t_eattr* attr, int argc, t_atom* argv)
+{
+    int i;
+    float* pointer = (float *)eattr_getvalue_adress(x, attr);
+    for(i = 0; i < argc; i++)
+    {
+        pointer[i] = atom_getfloatcliparg(i, argc, argv, attr->a_clipped, attr->a_minimum, attr->a_maximum);
+    }
+    return 0;
+}
+
+static t_pd_err eattr_setvalue_double(t_object* x, t_eattr* attr, int argc, t_atom* argv)
+{
+    int i;
+    double* pointer = (double *)eattr_getvalue_adress(x, attr);
+    for(i = 0; i < argc; i++)
+    {
+        pointer[i] = (double)atom_getfloatcliparg(i, argc, argv, attr->a_clipped, attr->a_minimum, attr->a_maximum);
+    }
+    return 0;
+}
+
+static t_pd_err eattr_setvalue_symbol(t_object* x, t_eattr* attr, int argc, t_atom* argv)
+{
+    int i;
+    t_symbol** pointer = (t_symbol **)eattr_getvalue_adress(x, attr);
+    for(i = 0; i < argc; i++)
+    {
+        pointer[i] = atom_getsymbolarg(i, argc, argv);
+    }
+    return 0;
+}
+
+static t_pd_err eattr_setvalue_atom(t_object* x, t_eattr* attr, int argc, t_atom* argv)
+{
+    t_atom* pointer = (t_atom *)eattr_getvalue_adress(x, attr);
+    memcpy(pointer, argv, (size_t)argc * sizeof(t_atom));
+    return 0;
+}
+
+static void eattr_setvalue(t_eattr* attr, t_object *x, int argc, t_atom *argv)
+{
+    int ac = 0; t_atom* av = NULL;
+    int this_stuff_should_be_in_the_submethod;
+    unparse_atoms(argc, argv, &ac, &av);
+    if(attr->a_sizemax == 0)
+    {
+        ac = ((int)attr->a_size < ac) ? (int)attr->a_size : ac;
+    }
+    else
+    {
+        ac = ((int)attr->a_sizemax < ac) ? (int)attr->a_sizemax : ac;
+        *(eattr_getsize_adress(x, attr)) = ac;
+    }
+    (attr->a_setter)(x, (t_object *)attr, ac, av);
+    if(ac && av)
+    {
+        free(av);
+    }
+}
+
+static void eattr_setvalue_default(t_eattr* attr, t_object *x)
+{
+    eattr_setvalue(attr, x, (int)attr->a_ndefaults, attr->a_defaults);
+}
+
+
+
+
+
+
+static t_pd_err eattr_getvalue_char(t_object* x, t_eattr* attr, int* argc, t_atom** argv)
+{
+    int i;
+    char const* pointer = (char const*)eattr_getvalue_adress(x, attr);
+    *argc = (int)eattr_getsize(x, attr);
+    *argv = (t_atom *)malloc((size_t)(*argc) * sizeof(t_atom));
+    if(*argv)
+    {
+        for(i = 0; i < *argc; i++)
+        {
+            atom_setfloat((*argv)+i, (float)(pointer[i]));
+        }
+        return 0;
+    }
+    return -1;
+}
+
+static t_pd_err eattr_getvalue_int(t_object* x, t_eattr* attr, int* argc, t_atom** argv)
+{
+    int i;
+    int const* pointer = (int const*)eattr_getvalue_adress(x, attr);
+    *argc = (int)eattr_getsize(x, attr);
+    *argv = (t_atom *)malloc((size_t)(*argc) * sizeof(t_atom));
+    if(*argv)
+    {
+        for(i = 0; i < *argc; i++)
+        {
+            atom_setfloat((*argv)+i, (float)(pointer[i]));
+        }
+        return 0;
+    }
+    return -1;
+}
+
+static t_pd_err eattr_getvalue_long(t_object* x, t_eattr* attr, int* argc, t_atom** argv)
+{
+    int i;
+    long const* pointer = (long const*)eattr_getvalue_adress(x, attr);
+    *argc = (int)eattr_getsize(x, attr);
+    *argv = (t_atom *)malloc((size_t)(*argc) * sizeof(t_atom));
+    if(*argv)
+    {
+        for(i = 0; i < *argc; i++)
+        {
+            atom_setfloat((*argv)+i, (float)(pointer[i]));
+        }
+        return 0;
+    }
+    return -1;
+}
+
+static t_pd_err eattr_getvalue_float(t_object* x, t_eattr* attr, int* argc, t_atom** argv)
+{
+    int i;
+    float const* pointer = (float const*)eattr_getvalue_adress(x, attr);
+    *argc = (int)eattr_getsize(x, attr);
+    *argv = (t_atom *)malloc((size_t)(*argc) * sizeof(t_atom));
+    if(*argv)
+    {
+        for(i = 0; i < *argc; i++)
+        {
+            atom_setfloat((*argv)+i, (float)(pointer[i]));
+        }
+        return 0;
+    }
+    return -1;
+}
+
+static t_pd_err eattr_getvalue_double(t_object* x, t_eattr* attr, int* argc, t_atom** argv)
+{
+    int i;
+    double const* pointer = (double const*)eattr_getvalue_adress(x, attr);
+    *argc = (int)eattr_getsize(x, attr);
+    *argv = (t_atom *)malloc((size_t)(*argc) * sizeof(t_atom));
+    if(*argv)
+    {
+        for(i = 0; i < *argc; i++)
+        {
+            atom_setfloat((*argv)+i, (float)(pointer[i]));
+        }
+        return 0;
+    }
+    return -1;
+}
+
+static t_pd_err eattr_getvalue_symbol(t_object* x, t_eattr* attr, int* argc, t_atom** argv)
+{
+    int i;
+    t_symbol* const* pointer = (t_symbol* const*)eattr_getvalue_adress(x, attr);
+    *argc = (int)eattr_getsize(x, attr);
+    *argv = (t_atom *)malloc((size_t)(*argc) * sizeof(t_atom));
+    if(*argv)
+    {
+        for(i = 0; i < *argc; i++)
+        {
+            atom_setsym((*argv)+i, (t_symbol *)(pointer[i]));
+        }
+        return 0;
+    }
+    return -1;
+}
+
+static t_pd_err eattr_getvalue_atom(t_object* x, t_eattr* attr, int* argc, t_atom** argv)
+{
+    t_atom const* pointer = (t_atom const*)eattr_getvalue_adress(x, attr);
+    *argc = (int)eattr_getsize(x, attr);
+    *argv = (t_atom *)malloc((size_t)(*argc) * sizeof(t_atom));
+    if(*argv)
+    {
+         memcpy(argv, pointer, (size_t)argc * sizeof(t_atom));
+        return 0;
+    }
+    return -1;
+}
+
+static t_pd_err eattr_getvalue(t_eattr* attr, t_object *x, int* argc, t_atom **argv)
+{
+    if(attr->a_getter)
+    {
+        return (attr->a_getter)(x, (t_object *)attr, argc, argv);
+    }
+    pd_error(attr, "attribute getter isn't initialized.");
+    return -1;
+}
+
+
+
+
+
 static void eattr_free(t_eattr *attr)
 {
     if(attr->a_nitems && attr->a_items)
@@ -67,6 +338,9 @@ static t_class* eattr_setup()
         c = class_new(gensym("eattr"), (t_newmethod)NULL, (t_method)eattr_free, sizeof(t_eattr), CLASS_PD, A_NULL, 0);
         if(c)
         {
+            class_addmethod(c, (t_method)eattr_getvalue, gensym("getvalue"), A_CANT, 0);
+            class_addmethod(c, (t_method)eattr_setvalue, gensym("setvalue"), A_CANT, 0);
+            class_addmethod(c, (t_method)eattr_setvalue_default, gensym("setvaluedefault"), A_CANT, 0);
             obj = pd_new(c);
             pd_bind(obj, gensym("eattr1572"));
         }
@@ -104,8 +378,6 @@ t_eattr *eattr_new(t_symbol *name, t_symbol *type, size_t size, size_t maxsize, 
             x->a_offset     = offset;
             x->a_size       = size;
             x->a_sizemax    = maxsize;
-            x->a_getter     = NULL;
-            x->a_setter     = NULL;
             x->a_clipped    = 0;
             x->a_minimum    = 0;
             x->a_maximum    = 1;
@@ -114,6 +386,48 @@ t_eattr *eattr_new(t_symbol *name, t_symbol *type, size_t size, size_t maxsize, 
             x->a_defaults   = NULL;
             x->a_items      = NULL;
             x->a_nitems     = 0;
+            
+            
+            if(x->a_type == s_cream_char)
+            {
+                x->a_setter = (t_setter_method)eattr_setvalue_char;
+                x->a_getter = (t_getter_method)eattr_getvalue_char;
+            }
+            else if(x->a_type == s_cream_int)
+            {
+                x->a_setter = (t_setter_method)eattr_setvalue_int;
+                x->a_getter = (t_getter_method)eattr_getvalue_int;
+            }
+            else if(x->a_type == s_cream_long)
+            {
+                x->a_setter = (t_setter_method)eattr_setvalue_long;
+                x->a_getter = (t_getter_method)eattr_getvalue_long;
+            }
+            else if(x->a_type == s_cream_float)
+            {
+                x->a_setter = (t_setter_method)eattr_setvalue_float;
+                x->a_getter = (t_getter_method)eattr_getvalue_float;
+            }
+            else if(x->a_type == s_cream_double)
+            {
+                x->a_setter = (t_setter_method)eattr_setvalue_double;
+                x->a_getter = (t_getter_method)eattr_getvalue_double;
+            }
+            else if(x->a_type == s_cream_symbol)
+            {
+                x->a_setter = (t_setter_method)eattr_setvalue_symbol;
+                x->a_getter = (t_getter_method)eattr_getvalue_symbol;
+            }
+            else if(x->a_type == s_cream_atom)
+            {
+                x->a_setter = (t_setter_method)eattr_setvalue_atom;
+                x->a_getter = (t_getter_method)eattr_getvalue_atom;
+            }
+            else
+            {
+                x->a_getter     = NULL;
+                x->a_setter     = NULL;
+            }
         }
         else
         {
@@ -393,324 +707,6 @@ static void eattr_shoulddisplay(t_eattr* attr, char visible)
     attr->a_invisible = !visible;
 }
 
-static void eattrset_attr_dosetdefault(t_object* x, t_eattr* attr)
-{
-    char *pch = NULL;
-    const char* temp;
-    int argc = 0;
-    char* point;
-    t_atom* argv = NULL;
-    const size_t size = attr->sizemax ? ((size_t)attr->sizemax) : ((size_t)attr->size);
-    if(attr->defvals)
-    {
-        argv = (t_atom *)malloc(size* sizeof(t_atom));
-        if(argv)
-        {
-            temp = attr->defvals->s_name;
-            pch = estrtok(&temp, " ',\"", pch);
-            while(pch != NULL)
-            {
-                if(isdigit(pch[0]))
-                {
-                    atom_setfloat(argv+argc, (float)atof(pch));
-                    ++argc;
-                }
-                else if(isalpha(pch[0]))
-                {
-                    atom_setsym(argv+argc, gensym(pch));
-                    ++argc;
-                }
-                if(argc > (int)size)
-                {
-                    break;
-                }
-                pch = estrtok(&temp, " ',\"", pch);
-            }
-            eattrset_attr_setter(x, attr->name, argc, argv);
-            free(argv);
-        }
-    }
-}
-
-void eattrset_attr_setdefault(t_object* x, t_symbol *s)
-{
-    t_eattr* attr = eattrset_getattr(eobj_getclass(x), s);
-    if(attr)
-    {
-        eattrset_attr_dosetdefault(x, attr);
-    }
-}
-
-void eattrset_attrs_setdefault(t_object* x)
-{
-    int i;
-    t_eclass* c = eobj_getclass(x);
-    for(i = 0; i < c->c_nattr; i++)
-    {
-        eattrset_attr_dosetdefault(x, c->c_attr[i]);
-    }
-}
-
-void eattrset_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
-{
-    int j;
-    char *point;
-    t_symbol* type; t_symbol** syms;
-    t_eattr* attr = eattrset_getattr(eobj_getclass(x), s);
-    *argv = NULL;
-    *argc = 0;
-    if(attr)
-    {
-        type = attr->type;
-        if(attr->sizemax == 0)
-        {
-            argc[0] = (int)attr->size;
-        }
-        else
-        {
-            point = (char *)x + attr->size;
-            argc[0] = (int)point[0];
-            if(argc[0] > attr->sizemax)
-            {
-                argc[0] = (int)attr->sizemax;
-            }
-        }
-        
-        point = (char *)x + attr->offset;
-        
-        argv[0] = (t_atom *)calloc((size_t)argc[0], sizeof(t_atom));
-        if(attr->getter)
-        {
-            attr->getter(x, attr, argc, argv);
-        }
-        else if(type == s_cream_char)
-        {
-            for(j = 0; j < argc[0]; j++)
-            {
-                atom_setlong(argv[0]+j, ((char *)point)[j]);
-            }
-        }
-        else if(type == s_cream_int)
-        {
-            for(j = 0; j < argc[0]; j++)
-            {
-                atom_setlong(argv[0]+j, ((int *)point)[j]);
-            }
-        }
-        else if(type == s_cream_long)
-        {
-            for(j = 0; j < argc[0]; j++)
-            {
-                atom_setlong(argv[0]+j, ((long *)point)[j]);
-            }
-        }
-        else if(type == s_cream_float)
-        {
-            for(j = 0; j < argc[0]; j++)
-            {
-                atom_setfloat(argv[0]+j, ((float *)point)[j]);
-            }
-        }
-        else if(type == s_cream_double)
-        {
-            for(j = 0; j < argc[0]; j++)
-            {
-                atom_setfloat(argv[0]+j, (float)(((double *)point)[j]));
-            }
-        }
-        else if(type == s_cream_symbol)
-        {
-            syms = (t_symbol **)point;
-            for(j = 0; j < argc[0]; j++)
-            {
-                atom_setsym(argv[0]+j, get_valid_symbol(syms[j]));
-            }
-        }
-        else if(type == s_cream_atom)
-        {
-            for(j = 0; j < argc[0]; j++)
-            {
-                argv[0][j] = ((t_atom *)point)[j];
-            }
-        }
-    }
-}
-
-void eattrset_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
-{
-    long j, size;
-    char *point;
-    long *point_size;
-    t_symbol* type;
-    t_edrawparams params;
-    t_ebox* z   = (t_ebox *)x;
-    t_eclass* c = (t_eclass *)eobj_getclass(x);
-    int ac = 0; t_atom* av = NULL;
-    t_eattr* attr = eattrset_getattr(eobj_getclass(x), s);
-    if(attr)
-    {
-        unparse_atoms(argc, argv, &ac, &av);
-        
-        type = attr->type;
-        if(attr->sizemax == 0)
-        {
-            size = attr->size;
-        }
-        else
-        {
-            if(ac > attr->sizemax)
-            {
-                ac = (int)attr->sizemax;
-            }
-            size = ac;
-            point = (char *)x + attr->size;
-            point_size = (long *)point;
-            point_size[0] = (long)size;
-        }
-        
-        point = (char *)(x) + attr->offset;
-        
-        if(attr->clipped == 1 || attr->clipped == 3)
-        {
-            for(j = 0; j < ac; j++)
-            {
-                if(atom_gettype(av+j) == A_FLOAT)
-                {
-                    atom_setfloat(av+j, (float)pd_clip_min(atom_getfloat(av+j), attr->minimum));
-                }
-            }
-        }
-        if(attr->clipped == 2 || attr->clipped == 3)
-        {
-            for(j = 0; j < ac; j++)
-            {
-                if(atom_gettype(av+j) == A_FLOAT)
-                {
-                    atom_setfloat(av+j, (float)pd_clip_max(atom_getfloat(av+j), attr->maximum));
-                }
-            }
-        }
-        
-        if(attr->setter)
-        {
-            attr->setter(x, attr, ac, av);
-        }
-        else if(type == s_cream_char)
-        {
-            for(j = 0; j < size && j < ac; j++)
-            {
-                if(atom_gettype(av+j) == A_FLOAT)
-                {
-                    point[j] = (char)atom_getlong(av+j);
-                }
-            }
-        }
-        else if(type == s_cream_int)
-        {
-            int* pointor = (int *)point;
-            for(j = 0; j < size && j < ac; j++)
-            {
-                if(atom_gettype(av+j) == A_FLOAT)
-                {
-                    pointor[j] = (int)atom_getlong(av+j);
-                }
-            }
-        }
-        else if(type == s_cream_long)
-        {
-            long* pointor = (long *)point;
-            for(j = 0; j < size && j < ac; j++)
-            {
-                if(atom_gettype(av+j) == A_FLOAT)
-                {
-                    pointor[j] = (long)atom_getlong(av+j);
-                }
-            }
-        }
-        else if(type == s_cream_float)
-        {
-            float* pointor = (float *)point;
-            for(j = 0; j < size && j < ac; j++)
-            {
-                if(atom_gettype(av+j) == A_FLOAT)
-                {
-                    pointor[j] = (float)atom_getfloat(av+j);
-                }
-            }
-        }
-        else if(type == s_cream_double)
-        {
-            double* pointor = (double *)point;
-            for(j = 0; j < size && j < ac; j++)
-            {
-                if(atom_gettype(av+j) == A_FLOAT)
-                {
-                    pointor[j] = (double)atom_getfloat(av+j);
-                }
-            }
-        }
-        else if(type == s_cream_symbol)
-        {
-            t_symbol** pointor = (t_symbol **)point;
-            for(j = 0; j < size && j < ac; j++)
-            {
-                if(atom_gettype(av+j) == A_SYMBOL)
-                {
-                    pointor[j] = atom_getsymbol(av+j);
-                }
-            }
-        }
-        else if(type == s_cream_atom)
-        {
-            t_atom* pointor = (t_atom *)point;
-            for(j = 0; j < size && j < ac; j++)
-            {
-                pointor[j] = av[j];
-            }
-        }
-        
-        ebox_notify(z, s, s_cream_attr_modified, NULL, NULL);
-        if(c->c_widget.w_notify != NULL)
-        {
-            c->c_widget.w_notify(x, s, s_cream_attr_modified, NULL, NULL);
-        }
-        if(attr->paint)
-        {
-            if(c->c_widget.w_oksize != NULL)
-            {
-                c->c_widget.w_oksize(x, &z->b_rect);
-            }
-            if(c->c_widget.w_getdrawparameters != NULL)
-            {
-                c->c_widget.w_getdrawparameters(x, NULL, &params);
-                if(!rgba_is_equal(&(params.d_bordercolor), &(z->b_boxparameters.d_bordercolor)))
-                {
-                    memcpy(&z->b_boxparameters, &params, sizeof(t_edrawparams));
-                    ebox_invalidate_layer((t_ebox *)x, s_cream_eboxbd);
-                }
-                else if(params.d_borderthickness != z->b_boxparameters.d_borderthickness)
-                {
-                    memcpy(&z->b_boxparameters, &params, sizeof(t_edrawparams));
-                    ebox_notify(z, s_cream_size, s_cream_size, NULL, NULL);
-                }
-                else
-                {
-                    memcpy(&z->b_boxparameters, &params, sizeof(t_edrawparams));
-                }
-            }
-            ebox_redraw(z);
-        }
-        if(attr->save && eobj_isbox(x) && !eobj_getcanvas(x)->gl_loading)
-        {
-            canvas_dirty(eobj_getcanvas(x), 1);
-        }
-        ewindowprop_update((t_eobj *)x);
-        if(ac && av)
-        {
-            free(av);
-        }
-    }
-}
 
 
 
@@ -718,17 +714,16 @@ void eattrset_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
 
 
 
-typedef struct _eattrset
+struct _eattrset
 {
     t_object        s_object;   /*!< The object. */
     size_t          s_nattrs;   /*!< The number of attributes. */
     t_eattr**       s_attrs;    /*!< The attributes. */
-} t_eattrset;
+};
 
 static void eattrset_free(t_eattrset* attrset)
 {
     size_t i = 0;
-    pd_unbind((t_pd *)attrset, attrset->s_name);
     if(attrset->s_nattrs && attrset->s_attrs)
     {
         for(i = 0; i < attrset->s_nattrs; i++)
@@ -802,11 +797,11 @@ size_t eattrset_getnattrs(t_eattrset const* attrset)
     return attrset->s_nattrs;
 }
 
-void eattrset_getattrs(t_eattrset const* attrset, size_t* nattrs, t_object*** attrs)
+void eattrset_getattrs(t_eattrset const* attrset, size_t* nattrs, t_eattr*** attrs)
 {
     if(attrset->s_nattrs && attrset->s_attrs)
     {
-        *attrs  = (t_object **)malloc(attrset->s_nattrs * sizeof(t_eattr *));
+        *attrs  = (t_eattr **)malloc(attrset->s_nattrs * sizeof(t_eattr *));
         if(*attrs)
         {
             memcpy(*attrs, attrset->s_attrs, attrset->s_nattrs * sizeof(t_eattr *));

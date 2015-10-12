@@ -10,7 +10,6 @@
 
 #include "edsp.h"
 #include "eobj.h"
-#include "eproxy.h"
 
 #include "m_imp.h"
 
@@ -30,7 +29,7 @@ struct _edsp
 
 static t_int* dsp_perform_inplace(t_int* w)
 {
-    t_eobj* x               = (t_eobj *)(w[1]);
+    t_object* x             = (t_object *)(w[1]);
     t_edsp* dsp             = (t_edsp *)(w[2]);
     long nsamples           = (long)(w[3]);
     long flag               = (long)(w[4]);
@@ -40,7 +39,7 @@ static t_int* dsp_perform_inplace(t_int* w)
     t_sample** ins           = (t_sample **)(&w[8]);
     t_sample** outs          = (t_sample **)(&w[8 + nins]);
     
-    dsp->d_method((t_object *)x, (t_object *)dsp, ins, nins, outs, nouts, nsamples, flag, user_p);
+    dsp->d_method(x, (t_object *)dsp, ins, nins, outs, nouts, nsamples, flag, user_p);
     
     return w + (dsp->d_size + 1);
 }
@@ -48,7 +47,7 @@ static t_int* dsp_perform_inplace(t_int* w)
 static t_int* dsp_perform_noinplace(t_int* w)
 {
     int i;
-    t_eobj* x               = (t_eobj *)(w[1]);
+    t_object* x             = (t_object *)(w[1]);
     t_edsp* dsp             = (t_edsp *)(w[2]);
     long nsamples           = (long)(w[3]);
     long flag               = (long)(w[4]);
@@ -301,7 +300,7 @@ static t_class* edsp_setup()
     }
 }
 
-t_edsp* edsp_new(t_object* owner, size_t nins, size_t nouts)
+t_edsp* edsp_new(t_object* owner)
 {
     t_edsp*  x = NULL;
     t_class* c = edsp_setup();

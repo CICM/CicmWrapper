@@ -53,11 +53,9 @@ typedef void (*t_dsp_method)(t_object *x, t_object *dsp, short *count, double sa
  * \fn              t_edsp* edsp_new(void)
  * \brief           Allocates and initializes a new dsp manager.
  * \param owner     The owner of the dsp manager.
- * \param nins      The default number of inputs.
- * \param nouts     The default number of outputs.
  * \return          The new dsp manager.
  */
-t_edsp* edsp_new(t_object* owner, size_t nins, size_t nouts);
+t_edsp* edsp_new(t_object* owner);
 
 /*!
  * \fn              t_edsp* edsp_findbyname(t_symbol* name)

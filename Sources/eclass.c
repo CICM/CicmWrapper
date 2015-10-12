@@ -172,24 +172,11 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
     }
 }
 
-long eclass_getnattrs(t_eclass const* c)
-{
-    t_eattrset* as = eclass_getattrset(c);
-    if(as)
-    {
-        return (long)as->s_size;
-    }
-    return 0;
-}
 
-static t_eattr* eclass_getattr(t_eclass const* c, t_symbol* name)
-{
-    t_eattrset* as = eclass_getattrset(c);
-    if(c)
-    {
-        return eattrset_getattr(as, name);
-    }
-}
+
+
+
+
 
 void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
                            size_t size, size_t maxsize, long flags, size_t offset)
@@ -202,6 +189,27 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
         eattrset_attr_category(as, name, gensym(class_getname(c)));
         eattrset_attr_flags(as, name, flags);
         class_addmethod(c, (t_method)NULL, name, A_GIMME, 0);
+    }
+}
+
+t_eattr* eclass_getattr(t_eclass const* c, t_symbol* name)
+{
+    t_eattrset* as = eclass_getattrset(c);
+    if(as)
+    {
+        return eattrset_getattr(as, name);
+    }
+    return NULL;
+}
+
+void eclass_getattrs(t_eclass const* c, size_t* nattrs, t_eattr*** attrs)
+{
+    t_eattrset* as = eclass_getattrset(c);
+    *nattrs = 0;
+    *attrs  = NULL;
+    if(as)
+    {
+        eattrset_getattrs(as, nattrs, attrs);
     }
 }
 

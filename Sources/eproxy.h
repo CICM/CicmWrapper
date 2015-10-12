@@ -30,7 +30,7 @@
  */
 
 /**
- * @struct _edsp
+ * @struct _eproxy
  * @brief The proxy inlet object.
  * @details It contains the members and the methods for proxy inlet.
  */

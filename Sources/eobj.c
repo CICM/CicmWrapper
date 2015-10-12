@@ -13,13 +13,16 @@
 #include "egraphics.h"
 #include "epopup.h"
 #include "edsp.h"
+#include "egui.h"
 #include "eproxy.h"
 #include "ecommon.h"
+#include "eclass.h"
 
 #include "m_imp.h"
 
 extern void edsp_initclass(t_eclass* c);
 extern void eobj_initclass(t_eclass* c);
+extern void ebox_initclass(t_eclass* c);
 
 void *eobj_new(t_eclass *c)
 {
@@ -372,27 +375,90 @@ extern void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
      */
 }
 
+static t_pd_err eobj_attr_dosetvalue(t_eobj *x, t_eattr* attr, int argc, t_atom* argv)
+{
+    int use_static_symbols;
+    mess3((t_pd *)attr, gensym("setvalue"), x, (void *)argc, argv);
+    int todo_important;
+    //ebox_notify(z, s, s_cream_attr_modified, NULL, NULL);
+    /*
+     if(c->c_widget.w_notify != NULL)
+     {
+     c->c_widget.w_notify(x, s, s_cream_attr_modified, NULL, NULL);
+     }
+     */
+    if(eattr_repaint(attr))
+    {
+        int todo_important;
+        /*
+         if(c->c_widget.w_oksize != NULL)
+         {
+         c->c_widget.w_oksize(x, &z->b_rect);
+         }
+         if(c->c_widget.w_getdrawparameters != NULL)
+         {
+         c->c_widget.w_getdrawparameters(x, NULL, &params);
+         if(!rgba_is_equal(&(params.d_bordercolor), &(z->b_boxparameters.d_bordercolor)))
+         {
+         memcpy(&z->b_boxparameters, &params, sizeof(t_edrawparams));
+         ebox_invalidate_layer((t_ebox *)x, s_cream_eboxbd);
+         }
+         else if(params.d_borderthickness != z->b_boxparameters.d_borderthickness)
+         {
+         memcpy(&z->b_boxparameters, &params, sizeof(t_edrawparams));
+         ebox_notify(z, s_cream_size, s_cream_size, NULL, NULL);
+         }
+         else
+         {
+         memcpy(&z->b_boxparameters, &params, sizeof(t_edrawparams));
+         }
+         }
+         ebox_redraw(z);
+         */
+    }
+    if(eattr_issaved(attr) && eobj_isgui(x) && !eobj_getcanvas(x)->gl_loading)
+    {
+        canvas_dirty(eobj_getcanvas(x), 1);
+    }
+    if(eattr_isvisible(attr))
+    {
+        ewindowprop_update((t_eobj *)x);
+    }
+}
+
+static t_pd_err eobj_attr_setvalue(t_eobj *x, t_symbol* s, int argc, t_atom* argv)
+{
+    t_eattr* attr = eclass_getattr(eobj_getclass(x), s);
+    if(attr)
+    {
+        eobj_attr_dosetvalue(x, attr, argc, argv);
+    }
+    return 0;
+}
+
 void eobj_attrprocess_viatoms(void *x, int argc, t_atom *argv)
 {
-    int     i;
-    char    buffer[MAXPDSTRING];
-    int     defc        = 0;
-    t_atom* defv        = NULL;
-    t_eclass* c         = eobj_getclass(x);
-    /*
-    for(i = 0; i < c->c_nattr; i++)
+    size_t  i;
+    int       defc        = 0;
+    t_atom*   defv        = NULL;
+    size_t    nattrs;
+    t_eattr** attrs;
+    eclass_getattrs(eobj_getclass(x), &nattrs, &attrs);
+    if(attrs && nattrs)
     {
-        sprintf(buffer, "@%s", c->c_attr[i]->name->s_name);
-        atoms_get_attribute(argc, argv, gensym(buffer), &defc, &defv);
-        if(defc && defv)
+        for(i = 0; i < nattrs; i++)
         {
-            eobj_attr_setvalueof(x, c->c_attr[i]->name, defc, defv);
-            defc = 0;
-            free(defv);
-            defv = NULL;
+            atoms_get_attribute(argc, argv, eattr_getname(attrs[i]), &defc, &defv);
+            if(defc && defv)
+            {
+                eobj_attr_dosetvalue(x, attrs[i], defc, defv);
+                defc = 0;
+                free(defv);
+                defv = NULL;
+            }
         }
+        free(attrs);
     }
-     */
 }
 
 void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)
@@ -445,7 +511,7 @@ void eobj_dspsetup(void *x, size_t nins, size_t nouts)
 {
     size_t i;
     char text[MAXPDSTRING];
-    t_edsp* dsp = edsp_new(x, nins, nouts);
+    t_edsp* dsp = edsp_new(x);
     if(dsp)
     {
         sprintf(text, "%lxdsp", (unsigned long)x);
@@ -529,6 +595,70 @@ t_sample* eobj_dspgetoutsamples(void *x, size_t index)
 }
 
 
+
+
+
+
+
+static t_egui* eobj_getgui(void *x)
+{
+    char text[MAXPDSTRING];
+    sprintf(text, "%lxgui", (unsigned long)x);
+    return egui_findbyname(gensym(text));
+}
+
+void ebox_new(t_ebox *x, long flags)
+{
+    size_t    i, nattrs;
+    t_eattr** attrs;
+    char text[MAXPDSTRING];
+    t_egui* gui = egui_new((t_object *)x, flags);
+    if(gui)
+    {
+        sprintf(text, "%lxdsp", (unsigned long)x);
+        pd_bind((t_pd *)gui, gensym(text));
+    }
+    eclass_getattrs(eobj_getclass(x), &nattrs, &attrs);
+    if(attrs && nattrs)
+    {
+        for(i = 0; i < nattrs; i++)
+        {
+            mess1((t_pd *)attrs[0], gensym("setvaluedefault"), x);
+        }
+        free(attrs);
+    }
+    int later_manage_parameter_construction;
+}
+
+void ebox_ready(t_ebox *x)
+{
+    
+}
+
+void ebox_free(t_ebox* x)
+{
+    int i;
+    t_egui* gui = eobj_getgui(x);
+    if(gui)
+    {
+        if(is_valid_symbol(x->b_receive_id))
+        {
+            pd_unbind((t_pd *)x, x->b_receive_id);
+        }
+        
+        pd_free((t_pd *)gui);
+    }
+    eobj_isdsp(x) ? eobj_dspfree(x) : eobj_free(x);
+    
+    int later_manage_parameter_destruction;
+}
+
+
+
+
+
+
+
 extern void eobj_initclass(t_eclass* c)
 {
     char help[MAXPDSTRING];
@@ -553,6 +683,51 @@ extern void edsp_initclass(t_eclass* c)
     class_addmethod(c, (t_method)eobj_dsp,      gensym("dsp"),          A_CANT, 0);
     class_addmethod(c, (t_method)eobj_dspadd,   gensym("dsp_add"),      A_CANT, 0);
     class_addmethod(c, (t_method)eobj_dspadd,   gensym("dsp_add64"),    A_CANT, 0);
+}
+
+extern void ebox_initclass(t_eclass* c)
+{
+    CLASS_ATTR_FLOAT_ARRAY  (c, "size", 0, t_ebox, o_obj, 2);
+    CLASS_ATTR_DEFAULT      (c, "size", 0, "100. 100.");
+    CLASS_ATTR_FILTER_MIN   (c, "size", 4);
+    CLASS_ATTR_SAVE         (c, "size", 0);
+    CLASS_ATTR_PAINT        (c, "size", 0);
+    CLASS_ATTR_CATEGORY		(c, "size", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "size", 0, "Patching Size");
+    CLASS_ATTR_ACCESSORS    (c, "size", NULL, ebox_size_set);
+    
+    CLASS_ATTR_CHAR         (c, "pinned", 0, t_ebox, b_pinned);
+    CLASS_ATTR_DEFAULT      (c, "pinned", 0, "0");
+    CLASS_ATTR_FILTER_CLIP  (c, "pinned", 0, 1);
+    CLASS_ATTR_SAVE         (c, "pinned", 0);
+    CLASS_ATTR_CATEGORY		(c, "pinned", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "pinned", 0, "Pinned");
+    CLASS_ATTR_STYLE        (c, "pinned", 0, "onoff");
+    
+    if(!(eclass_getflags(c) & EBOX_IGNORELOCKCLICK))
+    {
+        CLASS_ATTR_CHAR         (c, "ignoreclick", 0, t_ebox, b_ignore_click);
+        CLASS_ATTR_DEFAULT      (c, "ignoreclick", 0, "0");
+        CLASS_ATTR_FILTER_CLIP  (c, "ignoreclick", 0, 1);
+        CLASS_ATTR_SAVE         (c, "ignoreclick", 0);
+        CLASS_ATTR_CATEGORY		(c, "ignoreclick", 0, "Basic");
+        CLASS_ATTR_LABEL		(c, "ignoreclick", 0, "Ignore Click");
+        CLASS_ATTR_STYLE        (c, "ignoreclick", 0, "onoff");
+    }
+    
+    CLASS_ATTR_SYMBOL       (c, "receive", 0, t_ebox, b_receive_id);
+    CLASS_ATTR_DEFAULT      (c, "receive", 0, "");
+    CLASS_ATTR_ACCESSORS    (c, "receive", NULL, ebox_set_receiveid);
+    CLASS_ATTR_SAVE         (c, "receive", 0);
+    CLASS_ATTR_CATEGORY		(c, "receive", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "receive", 0, "Receive Symbol");
+    
+    CLASS_ATTR_SYMBOL       (c, "send", 0, t_ebox, b_send_id);
+    CLASS_ATTR_DEFAULT      (c, "send", 0, "");
+    CLASS_ATTR_ACCESSORS    (c, "send", NULL, ebox_set_sendid);
+    CLASS_ATTR_SAVE         (c, "send", 0);
+    CLASS_ATTR_CATEGORY		(c, "send", 0, "Basic");
+    CLASS_ATTR_LABEL		(c, "send", 0, "Send Symbol");
 }
 
 
