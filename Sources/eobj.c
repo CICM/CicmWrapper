@@ -660,6 +660,16 @@ t_pd* ebox_getsender(t_ebox* x)
     return NULL;
 }
 
+long ebox_getflags(t_ebox* x)
+{
+    t_egui const* gui = eobj_getgui(x);
+    if(gui && is_valid_symbol(egui_getreceive_symbol(gui)))
+    {
+        return egui_getflags(gui);
+    }
+    return 0;
+}
+
 static t_pd_err ebox_defaultattibutes_set(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
     t_egui* gui = eobj_getgui(x);
@@ -761,27 +771,33 @@ void ebox_wvis(t_gobj *z, t_glist *glist, int vis)
 //! Widget
 void ebox_wdisplace(t_gobj *z, t_glist *glist, int dx, int dy)
 {
+    /*
     t_object* view = eview_create((t_ebox *)z, glist);
     if(view)
     {
         pd_symbol((t_pd *)view, s_cream_changes);
     }
+     */
 }
 
 //! Widget
 void ebox_wselect(t_gobj *z, t_glist *glist, int selected)
 {
+    /*
     t_ebox *x = (t_ebox *)z;
     x->b_selected_box = selected ? 1 : 0;
     ebox_select(x);
+     */
 }
 
 //! Widget
 void ebox_wdelete(t_gobj *z, t_glist *glist)
 {
+    /*
     t_ebox *x = (t_ebox *)z;
     ebox_erase(x);
     canvas_deletelinesfor(glist, (t_text *)z);
+     */
 }
 
 

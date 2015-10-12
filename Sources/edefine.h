@@ -153,7 +153,7 @@ extern t_symbol* s_cream_atom;
 extern t_symbol* s_cream_symbol;
 
 //! The pre-defined s_pinned t_symbol*
-extern t_symbol* s_pinned;
+extern t_symbol* s_cream_pinned;
 //! The pre-defined iscicm t_symbol*
 extern t_symbol* s_cream_iscicm;
 //! The pre-defined isgui t_symbol*
@@ -377,6 +377,10 @@ typedef struct _etext t_etext;
 
 /** @} */
 
+
+typedef void (*t_mouse_method)(void *x, t_object *view, t_pt pt, long modifiers);
+typedef void (*t_mousewheel_method)(void *x, t_object *view, t_pt pt, long modifiers, float deltax, float deltay);
+typedef void (*t_key_method)(void *x, t_object *view, char textcharacter, long modifiers);
 
 /**
  * @struct t_eobj

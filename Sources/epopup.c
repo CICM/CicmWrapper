@@ -13,16 +13,19 @@
 #include "eobj.h"
 #include "ebox.h"
 #include "egraphics.h"
+#include "eattr.h"
 
-static void eobj_widget_notify(t_eobj* obj, t_symbol* widget, t_symbol* name, t_symbol* action)
+static void eobj_widget_notify(void* obj, t_symbol* widget, t_symbol* name, t_symbol* action)
 {
     t_atom av[2];
+    /*
     if(is_valid_symbol(obj->o_camo_id) && obj->o_camo_id->s_thing)
     {
         atom_setsym(av, name);
         atom_setsym(av+1, action);
         pd_typedmess(obj->o_camo_id->s_thing, widget, 2, av);
     }
+     */
 }
 
 static t_class* epopup_setup()
@@ -46,6 +49,7 @@ t_epopup* epopupmenu_create(t_eobj* x)
     char buffer[MAXPDSTRING];
     t_epopup* popup = NULL; t_canvas* canvas = NULL;
     t_class* c = epopup_setup();
+    /*
     if(c)
     {
         popup = (t_epopup *)pd_new(c);
@@ -68,6 +72,7 @@ t_epopup* epopupmenu_create(t_eobj* x)
             eobj_widget_notify(x, s_cream_popup, popup->c_popup_id, s_cream_create);
         }
     }
+     */
     return popup;
 }
 
@@ -347,7 +352,7 @@ t_etexteditor* etexteditor_create(t_ebox* x)
             sprintf(buffer, "%s.window%lx", editor->c_canvas_id->s_name, (long unsigned int)editor);
             editor->c_window_id = gensym(buffer);
             
-            editor->c_owner = x;
+            editor->c_owner = (t_object *)x;
             editor->c_text = NULL;
             editor->c_size = 0;
             efont_init(editor->c_font, gensym("Helvetica"), 0, 0, 12);
@@ -367,7 +372,7 @@ t_etexteditor* etexteditor_create(t_ebox* x)
             sys_vgui("pack %s -side left -fill both \n", editor->c_name->s_name);
             sys_vgui("pack %s -side bottom -fill both \n", editor->c_frame_id->s_name);
             sys_vgui("%s delete 0.0 end\n", editor->c_name->s_name);
-            eobj_widget_notify((t_eobj *)x, s_cream_texteditor, editor->c_editor_id, s_cream_create);
+            eobj_widget_notify((t_object *)x, s_cream_texteditor, editor->c_editor_id, s_cream_create);
         }
         return editor;
     }
@@ -496,7 +501,7 @@ void etexteditor_setwrap(t_etexteditor *editor, char wrap)
 void etexteditor_popup(t_etexteditor *editor, t_rect const* bounds)
 {
     t_rect rect;
-    ebox_get_rect_for_view(editor->c_owner, &rect);
+    ebox_get_rect_for_view((t_ebox *)editor->c_owner, &rect);
     sys_vgui("bind %s <KeyRelease> {+pdsend \"%s text [%s get 0.0 end]\"}\n",
              editor->c_name->s_name, editor->c_editor_id->s_name, editor->c_name->s_name);
     sys_vgui("bind %s <<Modified>> {+pdsend \"%s text [%s get 0.0 end]\"}\n",
@@ -606,6 +611,7 @@ void ewindowprop_update(t_eobj* x)
     t_eclass const* c = eobj_getclass(x);
     if(wm)
     {
+        /*
         for(i = 0; i < c->c_nattr; i++)
         {
             if(!c->c_attr[i]->invisible)
@@ -657,6 +663,7 @@ void ewindowprop_update(t_eobj* x)
                 }
             }
         }
+         */
     }
 }
 
@@ -668,6 +675,7 @@ static void ewindowprop_addattr(t_ewindowprop* x, t_eattr* attr, int i)
     char text[MAXPDSTRING];
     const unsigned long ref = (unsigned long)x->c_owner;
     
+    /*
     if(attr->style == s_cream_font)
         return;
     
@@ -781,6 +789,7 @@ static void ewindowprop_addattr(t_ewindowprop* x, t_eattr* attr, int i)
     {
         free(argv);
     }
+     */
     argv = NULL;
     argc = 0;
     
@@ -802,7 +811,7 @@ static void ewindowprop_addparam(t_ewindowprop* x, t_eparam const* param, int i)
     sys_vgui("frame .epw%lx.params_menu_index%i\n",   tx, i+1);
     sys_vgui("frame .epw%lx.params_menu_name%i\n",    tx, i+1);
     sys_vgui("frame .epw%lx.params_menu_label%i\n",   tx, i+1);
-    
+    /*
     sys_vgui("set var%lxparam_menu_index%i %i\n", tx, i+1, z->b_params[i]->p_index);
     sys_vgui("entry .epw%lx.params_menu_index%i.entry -font {Helvetica 12} -width 5 \
              -textvariable var%lxparam_menu_index%i\n", tx, i+1, tx, i+1,
@@ -852,6 +861,7 @@ static void ewindowprop_addparam(t_ewindowprop* x, t_eparam const* param, int i)
     sys_vgui("grid config .epw%lx.params_menu_index%i -column 0 -row %i -sticky w\n",   tx, i+1, x->c_nitems);
     sys_vgui("grid config .epw%lx.params_menu_name%i -column 1 -row %i -sticky w\n",    tx, i+1, x->c_nitems);
     sys_vgui("grid config .epw%lx.params_menu_label%i -column 2 -row %i -sticky w\n",   tx, i+1, x->c_nitems++);
+     */
 }
 
 t_ewindowprop* ewindowprop_create(t_eobj* x)
@@ -862,6 +872,7 @@ t_ewindowprop* ewindowprop_create(t_eobj* x)
     const unsigned long ref = (unsigned long)x;
     t_eclass const* c = eobj_getclass(x);
     t_ebox const* z   = (t_ebox *)x;
+    /*
     if(!wm)
     {
         t_class* c2 = ewindowprop_setup();
@@ -951,592 +962,11 @@ t_ewindowprop* ewindowprop_create(t_eobj* x)
             }
         }
     }
+     */
     return wm;
 }
 
 
-
-
-typedef struct _eview
-{
-    t_object        v_object;       /*!< The object. */
-    struct t_ebox*  v_owner;        /*!< The owner. */
-    t_canvas*       v_canvas;       /*!< The canvas of the view. */
-    t_symbol*       v_id;           /*!< The widget id. */
-    t_symbol*       v_tag;          /*!< The widget tag. */
-    t_rect          v_bounds;       /*!< The bounds of the view. */
-    t_rect          v_last;         /*!< The last bounds of the view. */
-    char            v_mousedown;    /*!< The mouse down status. */
-    char            v_item;         /*!< The selected item. */
-    t_elayer*       v_layers;       /*!< The layers. */
-    size_t          v_nlayers;      /*!< The number of layers. */
-} t_eview;
-
-typedef enum view_items
-{
-    VITEM_NONE    = 0,
-    VITEM_OBJ     = 1,
-    VITEM_BOTTOM  = 2,
-    VITEM_CORNER  = 3,
-    VITEM_RIGHT   = 4
-} view_items;
-
-static long view_getmodifier(t_float mod)
-{
-#ifdef __APPLE__
-    if(mod >= 256)
-    {
-        mod -= 256;
-    }
-#elif _WINDOWS
-    
-    if(mod >= 131072)
-    {
-        mod -= 131072;
-        mod += EMOD_ALT;
-    }
-#else
-    if (mod == 24)
-        mod = EMOD_CMD;
-    else if (mod & EMOD_CMD)
-    {
-        mod ^= EMOD_CMD;
-        mod |= EMOD_ALT;
-    }
-#endif
-    return (long)mod;
-}
-
-inline static char view_isrunmode(t_eview const* view, long mod)
-{
-    return !view->v_canvas->gl_edit || mod == EMOD_CMD;
-}
-
-inline static char view_isinsubcanvas(t_eview const* view)
-{
-    return view->v_canvas != eobj_getcanvas(view->v_owner);
-}
-
-inline static char view_ignoreclick(t_eview const* view)
-{
-    return !(view->v_owner->b_flags & EBOX_IGNORELOCKCLICK) && !view->v_owner->b_ignore_click;
-}
-
-static void view_mouseenter(t_eview* view, t_float x, t_float y, t_float modifier)
-{
-    t_pt const pt = {x, y};
-    long const mod = view_getmodifier(modifier);
-    t_eclass const* c = eobj_getclass(view->v_owner);
-    if(view_isrunmode(view, mod) && c->c_widget.w_mouseenter && !view->v_mousedown)
-    {
-        c->c_widget.w_mouseenter(view->v_owner, view, pt, mod);
-    }
-}
-
-static void view_mouseleave(t_eview* view, t_float x, t_float y, t_float modifier)
-{
-    t_pt const pt = {x, y};
-    long const mod = view_getmodifier(modifier);
-    t_eclass const* c = eobj_getclass(view->v_owner);
-    if(view_isrunmode(view, mod) && !view->v_mousedown)
-    {
-        if(c->c_widget.w_mouseleave)
-        {
-            c->c_widget.w_mouseleave(view->v_owner, view, pt, mod);
-        }
-        ebox_set_cursor(view->v_owner, 0);
-    }
-    else if(!view_isrunmode(view, mod) && !view->v_mousedown)
-    {
-        ebox_set_cursor(view->v_owner, 4);
-    }
-}
-
-static void view_mousedown(t_eview* view, t_float x, t_float y, t_float modifier)
-{
-    t_pt const pt = {x, y};
-    long const mod = view_getmodifier(modifier);
-    t_eclass const* c = eobj_getclass(view->v_owner);
-    if(view_isrunmode(view, mod))
-    {
-        if(c->c_widget.w_mousedown && !view_ignoreclick(view))
-        {
-            c->c_widget.w_mousedown(view->v_owner, view, pt, mod);
-        }
-    }
-    else
-    {
-        if(view->v_item == VITEM_NONE)
-        {
-            if(mod == EMOD_SHIFT)
-            {
-                sys_vgui("pdtk_canvas_mouse .x%lx.c  \
-                         [expr $[winfo pointerx .] - $[winfo rootx .x%lx.c]] [expr $[winfo pointery .] - $[winfo rootx .x%lx.c]] 0 1\n", (unsigned long)view->v_canvas, (unsigned long)view->v_canvas, (unsigned long)view->v_canvas);
-            }
-            else if(mod == EMOD_RIGHT)
-            {
-                sys_vgui("pdtk_canvas_rightclick .x%lx.c  \
-                         [expr $[winfo pointerx .] - $[winfo rootx .x%lx.c]] [expr $[winfo pointery .] - $[winfo rootx .x%lx.c]] 0\n", (unsigned long)view->v_canvas, (unsigned long)view->v_canvas, (unsigned long)view->v_canvas);
-            }
-            else
-            {
-                sys_vgui("pdtk_canvas_mouse .x%lx.c  \
-                         [expr $[winfo pointerx .] - $[winfo rootx .x%lx.c]] [expr $[winfo pointery .] - $[winfo rootx .x%lx.c]] 0 0\n", (unsigned long)view->v_canvas, (unsigned long)view->v_canvas, (unsigned long)view->v_canvas);
-            }
-        }
-        else
-        {
-            view->v_last = view->v_bounds;
-        }
-    }
-    view->v_mousedown = 1;
-}
-
-static void view_mouseup(t_eview* view, t_float x, t_float y, t_float modifier)
-{
-    t_pt const pt = {x, y};
-    long const mod = view_getmodifier(modifier);
-    t_eclass const* c = eobj_getclass(view->v_owner);
-    if(view_isrunmode(view, mod))
-    {
-        if(c->c_widget.w_mouseup && !view_ignoreclick(view))
-        {
-            c->c_widget.w_mouseup(view->v_owner, view, pt, mod);
-        }
-    }
-    else
-    {
-        sys_vgui("pdtk_canvas_mouseup .x%lx.c  \
-                 [expr $[winfo pointerx .] - $[winfo rootx .x%lx.c]] [expr $[winfo pointery .] - $[winfo rootx .x%lx.c]] 0\n",
-                 (unsigned long)view->v_canvas, (unsigned long)view->v_canvas, (unsigned long)view->v_canvas);
-    }
-    view->v_mousedown = 0;
-}
-
-static void view_mousemove(t_eview* view, t_float x, t_float y, t_float modifier)
-{
-    int i; char outlet; float iopos;
-    t_pt const pt = {x, y};
-    char const bottom = pt.y > view->v_bounds.height - 3.f;
-    char const right  = pt.x > view->v_bounds.width - 3.f;
-    long const mod = view_getmodifier(modifier);
-    t_eclass const* c = eobj_getclass(view->v_owner);
-    int const noutlet = obj_noutlets((t_object *)view->v_owner);
-    if(view_isrunmode(view, mod))
-    {
-        if(view_ignoreclick(view))
-        {
-            ebox_set_cursor(view->v_owner, ECURSOR_DEFAULT);
-        }
-        else
-        {
-            ebox_set_cursor(view->v_owner, ECURSOR_INTERACTION);
-            if(c->c_widget.w_mousemove)
-            {
-                c->c_widget.w_mousemove(view->v_owner, view, pt, mod);
-            }
-        }
-    }
-    else
-    {
-        if(!view_isinsubcanvas(view) && pt.x >= 0.f && pt.x <= view->v_bounds.width && pt.y >= 0.f && pt.y <= view->v_bounds.height)
-        {
-            if(right && bottom)
-            {
-                view->v_item = VITEM_CORNER;
-                ebox_set_cursor(view->v_owner, ECURSOR_BOTTOM_RIGHT);
-            }
-            else if(bottom)
-            {
-                outlet = 0;
-                if(noutlet)
-                {
-                    if(pt.y < 3.f)
-                    {
-                        if(pt.x <= 7.f)
-                        {
-                            outlet = 1;
-                        }
-                        else
-                        {
-                            for(i = 1; i < noutlet; i++)
-                            {
-                                iopos = (int)(i / (float)(noutlet - 1) * (view->v_bounds.width - 8.f));
-                                if(pt.x >= iopos && pt.x <= iopos + 7.f)
-                                {
-                                    outlet = 1;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-                if(!outlet)
-                {
-                    view->v_item = VITEM_BOTTOM;
-                    ebox_set_cursor(view->v_owner, ECURSOR_BOTTOM);
-                }
-                else
-                {
-                    view->v_item = VITEM_OBJ;
-                    ebox_set_cursor(view->v_owner, ECURSOR_OUTLET);
-                }
-            }
-            else if(right)
-            {
-                view->v_item = VITEM_RIGHT;
-                ebox_set_cursor(view->v_owner, ECURSOR_RIGHT);
-            }
-            else
-            {
-                ebox_set_cursor(view->v_owner, ECURSOR_SELECTION);
-            }
-        }
-        else
-        {
-            view->v_item = VITEM_NONE;
-        }
-        
-        sys_vgui("pdtk_canvas_motion .x%lx.c  \
-                 [expr $[winfo pointerx .] - $[winfo rootx .x%lx.c]] [expr $[winfo pointery .] - $[winfo rootx .x%lx.c]] 0\n",
-                 (unsigned long)view->v_canvas, (unsigned long)view->v_canvas, (unsigned long)view->v_canvas);
-    }
-}
-
-static void view_mousedrag(t_eview* view, t_float x, t_float y, t_float modifier)
-{
-    t_atom av[2];
-    t_pt const pt = {x, y};
-    long const mod = view_getmodifier(modifier);
-    t_eclass const* c = eobj_getclass(view->v_owner);
-    if(view_isrunmode(view, mod))
-    {
-        if(c->c_widget.w_mousemove && !view_ignoreclick(view))
-        {
-            c->c_widget.w_mousedrag(view->v_owner, view, pt, mod);
-        }
-    }
-    else if(!view_isinsubcanvas(view))
-    {
-        if(view->v_item == VITEM_NONE)
-        {
-            sys_vgui("pdtk_canvas_motion .x%lx.c  \
-                     [expr $[winfo pointerx .] - $[winfo rootx .x%lx.c]] [expr $[winfo pointery .] - $[winfo rootx .x%lx.c]] 0\n",
-                     (unsigned long)view->v_canvas, (unsigned long)view->v_canvas, (unsigned long)view->v_canvas);
-        }
-        else if(!(view->v_owner->b_flags & EBOX_GROWNO))
-        {
-            if(view->v_owner->b_flags & EBOX_GROWLINK)
-            {
-                if(view->v_item == VITEM_BOTTOM)
-                {
-                    atom_setfloat(av, view->v_last.width + (pt.y - view->v_last.height));
-                    atom_setfloat(av+1, pt.y);
-                }
-                else if(view->v_item == VITEM_RIGHT)
-                {
-                    atom_setfloat(av, pt.x);
-                    atom_setfloat(av+1, view->v_last.height + (pt.x - view->v_last.width));
-                }
-                else if(view->v_item == VITEM_CORNER)
-                {
-                    if(pt.y > pt.x)
-                    {
-                        atom_setfloat(av, pt.y);
-                        atom_setfloat(av+1, pt.y);
-                    }
-                    else
-                    {
-                        atom_setfloat(av, pt.x);
-                        atom_setfloat(av+1, pt.x);
-                    }
-                }
-            }
-            else if(view->v_owner->b_flags & EBOX_GROWINDI)
-            {
-                if(view->v_item == VITEM_BOTTOM)
-                {
-                    atom_setfloat(av,view->v_last.width);
-                    atom_setfloat(av+1, pt.y);
-                }
-                else if(view->v_item == VITEM_RIGHT)
-                {
-                    atom_setfloat(av, pt.x);
-                    atom_setfloat(av+1,view->v_last.height);
-                }
-                else if(view->v_item == VITEM_CORNER)
-                {
-                    atom_setfloat(av, pt.x);
-                    atom_setfloat(av+1, pt.y);
-                }
-            }
-            pd_typedmess((t_pd *)view->v_owner, s_cream_size, 2, av);
-        }
-    }
-    else
-    {
-        sys_vgui("pdtk_canvas_motion .x%lx.c  \
-                 [expr $[winfo pointerx .] - $[winfo rootx .x%lx.c]] [expr $[winfo pointery .] - $[winfo rootx .x%lx.c]] 1\n",
-                 (unsigned long)view->v_canvas, (unsigned long)view->v_canvas, (unsigned long)view->v_canvas);
-    }
-}
-
-static void view_mousemotion(t_eview* view, t_float x, t_float y, t_float modifier)
-{
-    if(!view->v_mousedown)
-    {
-        view_mousedrag(view, x, y, modifier);
-    }
-    else
-    {
-        view_mousemove(view, x, y, modifier);
-    }
-}
-
-static void view_mousedblclick(t_eview* view, t_symbol* s, int argc, t_atom *argv)
-{
-    t_pt const pt = {atom_getfloatarg(0, argc, argv), atom_getfloatarg(1, argc, argv)};
-    long const mod = view_getmodifier(atom_getfloatarg(2, argc, argv));
-    t_eclass const* c = eobj_getclass(view->v_owner);
-    if(c->c_widget.w_dblclick && !view_ignoreclick(view))
-    {
-        if(view_isrunmode(view, mod) && !(view->v_owner->b_flags & EBOX_DBLCLICK_EDIT))
-        {
-            c->c_widget.w_dblclick(view->v_owner, view, pt, mod);
-        }
-        else if(!view_isrunmode(view, mod) && (view->v_owner->b_flags & EBOX_DBLCLICK_EDIT))
-        {
-            sys_vgui("pdtk_canvas_mouse .x%lx.c  \
-                     [expr $[winfo pointerx .] - $[winfo rootx .x%lx.c]] [expr $[winfo pointery .] - $[winfo rootx .x%lx.c]] 0 1\n", (unsigned long)view->v_canvas, (unsigned long)view->v_canvas, (unsigned long)view->v_canvas);
-            
-            sys_vgui("pdtk_canvas_mouseup .x%lx.c  \
-                     [expr $[winfo pointerx .] - $[winfo rootx .x%lx.c]] [expr $[winfo pointery .] - $[winfo rootx .x%lx.c]] 0\n",
-                     (unsigned long)view->v_canvas, (unsigned long)view->v_canvas, (unsigned long)view->v_canvas);
-            
-            c->c_widget.w_dblclick(view->v_owner, view, pt, mod);
-        }
-    }
-}
-
-static void view_mousewheel(t_eview* view, t_symbol* s, int argc, t_atom *argv)
-{
-    t_pt const pt = {atom_getfloatarg(0, argc, argv), atom_getfloatarg(1, argc, argv)};
-    float const delta = atom_getfloatarg(2, argc, argv);
-    long const mod = view_getmodifier(atom_getfloatarg(3, argc, argv));
-    t_eclass const* c = eobj_getclass(view->v_owner);
-    if(view_isrunmode(view, mod) && c->c_widget.w_mousewheel && !view_ignoreclick(view))
-    {
-        c->c_widget.w_mousewheel(view->v_owner, view, pt, mod, delta, delta);
-    }
-}
-
-static void view_key(t_eview* view, t_float key, t_float modifier)
-{
-    long const kchar = (char)key;
-    long const mod = view_getmodifier(modifier);
-    t_eclass const* c = eobj_getclass(view->v_owner);
-    if(view_isrunmode(view, mod))
-    {
-        if(kchar == 65288)
-        {
-            if(c->c_widget.w_keyfilter)
-            {
-                c->c_widget.w_keyfilter(view->v_owner, view, EKEY_DEL, mod);
-            }
-            else if(c->c_widget.w_key)
-            {
-                c->c_widget.w_key(view->v_owner, view, EKEY_DEL, mod);
-            }
-        }
-        else if(kchar == 65289)
-        {
-            if(c->c_widget.w_keyfilter)
-            {
-                c->c_widget.w_keyfilter(view->v_owner, view, EKEY_TAB, mod);
-            }
-            else if(c->c_widget.w_key)
-            {
-                c->c_widget.w_key(view->v_owner, view, EKEY_TAB, mod);
-            }
-        }
-        else if(kchar == 65293)
-        {
-            if(c->c_widget.w_keyfilter)
-            {
-                c->c_widget.w_keyfilter(view->v_owner, view, EKEY_RETURN, mod);
-            }
-            else if(c->c_widget.w_key)
-            {
-                c->c_widget.w_key(view->v_owner, view, EKEY_RETURN, mod);
-            }
-        }
-        else if(kchar == 65307)
-        {
-            if(c->c_widget.w_keyfilter)
-            {
-                c->c_widget.w_keyfilter(view->v_owner, view, EKEY_ESC, mod);
-            }
-            else if(c->c_widget.w_key)
-            {
-                c->c_widget.w_key(view->v_owner, view, EKEY_ESC, mod);
-            }
-        }
-        else
-        {
-            if(c->c_widget.w_key)
-            {
-                c->c_widget.w_key(view->v_owner, view, (char)kchar, mod);
-            }
-        }
-    }
-}
-
-static void view_changed(t_eview* view)
-{
-    t_canvas* glist = eobj_getcanvas(view->v_canvas);
-    int x1, y1, x2, y2;
-    gobj_getrect((t_gobj *)view->v_owner, glist, &x1, &y1, &x2, &y2);
-    view->v_bounds.x = x1;
-    view->v_bounds.y = x2;
-    while(glist->gl_owner && !glist->gl_havewindow && glist->gl_isgraph)
-    {
-        view->v_bounds.x += glist->gl_obj.te_xpix - glist->gl_xmargin;
-        view->v_bounds.y += glist->gl_obj.te_ypix - glist->gl_ymargin;
-        glist = glist->gl_owner;
-    }
-    
-    if(glist_isvisible(view->v_canvas))
-    {
-        sys_vgui("x%lx.c.canvas%lx coords %s %i %i\n", (unsigned long)view->v_canvas, (unsigned long)view,
-                 view->v_id->s_name, (int)(view->v_bounds.x), (int)(view->v_bounds.y));
-    }
-    canvas_fixlinesfor(view->v_canvas, (t_text*)view->v_owner);
-    eobj_widget_notify((t_eobj *)view->v_owner, s_cream_view, view->v_id, s_cream_menu);
-}
-
-static t_class* eview_setup()
-{
-    t_class* eclass = NULL;
-    t_pd* obj = gensym("eview1572")->s_thing;
-    if(!obj)
-    {
-        eclass = class_new(gensym("eview"), NULL, (t_method)NULL, sizeof(t_eview), CLASS_PD, A_GIMME, 0);
-        
-        class_addmethod(eclass, (t_method)view_mouseenter,      gensym("mouseenter"),   A_FLOAT, A_FLOAT, A_FLOAT);
-        class_addmethod(eclass, (t_method)view_mouseleave,      gensym("mouseleave"),   A_FLOAT, A_FLOAT, A_FLOAT);
-        class_addmethod(eclass, (t_method)view_mousedown,       gensym("mousedown"),    A_FLOAT, A_FLOAT, A_FLOAT);
-        class_addmethod(eclass, (t_method)view_mouseup,         gensym("mouseup"),      A_FLOAT, A_FLOAT, A_FLOAT);
-        class_addmethod(eclass, (t_method)view_mousemotion,     gensym("mousemotion"),  A_FLOAT, A_FLOAT, A_FLOAT);
-        class_addmethod(eclass, (t_method)view_mousewheel,      gensym("mousewheel"),   A_GIMME);
-        class_addmethod(eclass, (t_method)view_mousedblclick,   gensym("dblclick"),     A_GIMME);
-        class_addmethod(eclass, (t_method)view_key,             gensym("key"),          A_FLOAT, A_FLOAT);
-        
-        class_addmethod(eclass, (t_method)view_changed,         gensym("changes"),        A_NULL);
-        
-        obj = pd_new(eclass);
-        pd_bind(obj, gensym("eview1572"));
-        return eclass;
-    }
-    else
-    {
-        return *obj;
-    }
-}
-
-static t_eview* eview_get(t_ebox* x, t_canvas* cnv)
-{
-    char text[MAXPDSTRING];
-    t_class* c = eview_setup();
-    if(c)
-    {
-        sprintf(text, "view%lx%lx", (unsigned long)x, (unsigned long)cnv);
-        return (t_eview *)pd_findbyclass(gensym(text), c);
-    }
-    return NULL;
-}
-
-t_object* eview_create(t_ebox* x, t_canvas* cnv)
-{
-    char buffer[MAXPDSTRING];
-    t_eview* v = eview_get(x, cnv);
-    t_class* c = eview_setup();
-    if(!v && c)
-    {
-        v = (t_eview *)pd_new(c);
-        if(v)
-        {
-            post("%lx %lx", (unsigned long)v->v_canvas, (unsigned long)v);
-            v->v_canvas     = glist_getcanvas(cnv);
-            v->v_bounds     = x->b_rect;
-            v->v_mousedown  = 0;
-            v->v_item       = VITEM_NONE;
-            v->v_nlayers    = 0;
-            v->v_layers     = NULL;
-            
-            sprintf(buffer, "view%lx%lx", (unsigned long)x, (unsigned long)cnv);
-            v->v_id = gensym(buffer);
-            sprintf(buffer, "tag%lx", (unsigned long)v);
-            v->v_tag = gensym(buffer);
-            pd_bind((t_pd *)v, v->v_id);
-            
-            int todo_size;
-            sys_vgui("canvas .x%lx.c.canvas%lx -width %i -height %i -bd 0 -takefocus 1\n",
-                     (unsigned long)v->v_canvas, (unsigned long)v, (int)v->v_bounds.width, (int)v->v_bounds.height);
-            
-            sys_vgui("bind .x%lx.c.canvas%lx <Enter> {+pdsend {%s mouseenter %%x %%y %%s}}\n",
-                     (unsigned long)v->v_canvas, (unsigned long)v, v->v_id->s_name);
-            sys_vgui("bind .x%lx.c.canvas%lx <Leave> {+pdsend {%s mouseleave %%x %%y %%s}}\n",
-                     (unsigned long)v->v_canvas, (unsigned long)v, v->v_id->s_name);
-            sys_vgui("bind .x%lx.c.canvas%lx <Button-3> {+pdsend {%s mousedown %%x %%y %i}}\n",
-                     (unsigned long)v->v_canvas, (unsigned long)v, v->v_id->s_name, EMOD_RIGHT);
-            sys_vgui("bind .x%lx.c.canvas%lx <Button-2> {+pdsend {%s mousedown %%x %%y %i}}\n",
-                     (unsigned long)v->v_canvas, (unsigned long)v, v->v_id->s_name, EMOD_RIGHT);
-            sys_vgui("bind .x%lx.c.canvas%lx <Button-1> {+pdsend {%s mousedown %%x %%y %%s}}\n",
-                     (unsigned long)v->v_canvas, (unsigned long)v, v->v_id->s_name);
-            sys_vgui("bind .x%lx.c.canvas%lx <ButtonRelease> {+pdsend {%s mouseup %%x %%y %%s}}\n",
-                     (unsigned long)v->v_canvas, (unsigned long)v, v->v_id->s_name);
-            sys_vgui("bind .x%lx.c.canvas%lx <Motion> {+pdsend {%s mousemove %%x %%y %%s}}\n",
-                     (unsigned long)v->v_canvas, (unsigned long)v, v->v_id->s_name);
-            
-            if(eobj_getclass(x)->c_widget.w_dblclick)
-            {
-                sys_vgui("bind .x%lx.c.canvas%lx <Double-Button-1> {+pdsend {%s dblclick %%x %%y %%s}}\n",
-                         (unsigned long)v->v_canvas, (unsigned long)v, v->v_id->s_name);
-            }
-            if(eobj_getclass(x)->c_widget.w_mousewheel)
-            {
-                sys_vgui("bind .x%lx.c.canvas%lx <MouseWheel> {+pdsend {%s mousewheel  %%x %%y %%D %%s}}\n",
-                         (unsigned long)v->v_canvas, (unsigned long)v, v->v_id->s_name);
-            }
-            if(eobj_getclass(x)->c_widget.w_key || eobj_getclass(x)->c_widget.w_keyfilter)
-            {
-                sys_vgui("bind .x%lx.c.canvas%lx <KeyPress>  {+pdsend {%s key %%N %%s}} \n",
-                         (unsigned long)v->v_canvas, (unsigned long)v, v->v_id->s_name);
-            }
-    
-            int todo_position;
-            sys_vgui(".x%lx.c create window %i %i -anchor nw -window .x%lx.c.canvas%lx -tags %s -width %i -height %i\n",
-                     (unsigned long)v->v_canvas,
-                     (int)v->v_bounds.x, (int)v->v_bounds.y,
-                     (unsigned long)v->v_canvas, (unsigned long)v, v->v_id->s_name, v->v_tag->s_name,
-                     (int)v->v_bounds.width, (int)v->v_bounds.height);
-            
-            eobj_widget_notify((t_eobj *)x, s_cream_view, v->v_id, s_cream_create);
-        }
-    }
-    return (t_object *)v;
-}
-
-void eview_destroy(t_object* view)
-{
-    t_eview* v = (t_eview *)view;
-    pd_unbind((t_pd *)v, v->v_id);
-    sys_vgui("destroy x%lx.c.canvas%lx\n", (unsigned long)v->v_canvas, (unsigned long)v);
-    canvas_deletelinesfor(v->v_canvas, (t_text *)v->v_owner);
-    eobj_widget_notify((t_eobj *)v->v_owner, s_cream_view, v->v_id, s_cream_destroy);
-    
-    pd_free((t_pd *)v);
-}
 
 static float ecicmwrapper_getversion(t_object* x)
 {
@@ -1630,17 +1060,6 @@ void cicmwrapper_init(void)
         sys_gui("}\n");
         sys_gui("set files [tk_getOpenFile -multiple true -initialdir $::fileopendir]\n");
         sys_gui("pdsend \"$name doread [enquote_path $files]\"\n");
-        sys_gui("}\n");
-        
-        // RGBA TO HEX //
-        sys_gui("proc eobj_rgba_to_hex {red green blue alpha} { \n");
-        sys_gui("set nR [expr int( $red * 65025 )]\n");
-        sys_gui("set nG [expr int( $green * 65025 )]\n");
-        sys_gui("set nB [expr int( $blue * 65025 )]\n");
-        sys_gui("set col [format {%4.4x} $nR]\n");
-        sys_gui("append col [format {%4.4x} $nG]\n");
-        sys_gui("append col [format {%4.4x} $nB]\n");
-        sys_gui("return #$col\n");
         sys_gui("}\n");
         
         // COLOR PICKER WINOW //

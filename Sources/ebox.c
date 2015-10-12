@@ -625,6 +625,7 @@ void ebox_set_parameter_attribute(t_ebox *x, t_symbol *s, int argc, t_atom* argv
 
 static void ebox_parameter_notify(t_eparam* param, t_symbol* action)
 {
+    /*
     t_atom av[3];
     if(is_valid_symbol(eobj_getid(param->p_owner)) && eobj_getid(param->p_owner)->s_thing)
     {
@@ -633,10 +634,12 @@ static void ebox_parameter_notify(t_eparam* param, t_symbol* action)
         atom_setfloat(av+2, (float)param->p_index);
         pd_typedmess(param->p_owner->b_obj.o_camo_id->s_thing, s_cream_parameter, 3, av);
     }
+     */
 }
 
 static t_class* eparameter_setup()
 {
+    /*
     t_class* eparameter_class = NULL;
     t_symbol* eparameter1572_sym = gensym("eparameter1572");
     if(!eparameter1572_sym->s_thing)
@@ -650,6 +653,7 @@ static t_class* eparameter_setup()
     {
         return (t_class *)eparameter1572_sym->s_thing;
     }
+     */
 }
 
 t_eparam* ebox_parameter_create(t_ebox *x, int index)
@@ -786,6 +790,7 @@ float ebox_parameter_getvalue(t_ebox* x, int index)
 
 void ebox_parameter_setvalue(t_ebox* x, int index, float value, char notify)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -812,10 +817,12 @@ void ebox_parameter_setvalue(t_ebox* x, int index, float value, char notify)
             }
         }
     }
+     */
 }
 
 float ebox_parameter_getvalue_normalized(t_ebox* x, int index)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -835,11 +842,13 @@ float ebox_parameter_getvalue_normalized(t_ebox* x, int index)
             }
         }
     }
+     */
     return 0.f;
 }
 
 void ebox_parameter_setvalue_normalized(t_ebox* x, int index, float value, char notify)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -855,10 +864,12 @@ void ebox_parameter_setvalue_normalized(t_ebox* x, int index, float value, char 
             }
         }
     }
+     */
 }
 
 float ebox_parameter_getmin(t_ebox* x, int index)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -867,11 +878,13 @@ float ebox_parameter_getmin(t_ebox* x, int index)
             return x->b_params[index]->p_min;
         }
     }
+     */
     return 1.f;
 }
 
 float ebox_parameter_getmax(t_ebox* x, int index)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -880,11 +893,13 @@ float ebox_parameter_getmax(t_ebox* x, int index)
             return x->b_params[index]->p_max;
         }
     }
+     */
     return 1.f;
 }
 
 int ebox_parameter_getnstep(t_ebox* x, int index)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -893,11 +908,13 @@ int ebox_parameter_getnstep(t_ebox* x, int index)
             return x->b_params[index]->p_nstep;
         }
     }
+     */
     return 1;
 }
 
 t_symbol* ebox_parameter_getbind(t_ebox* x, int index)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -906,11 +923,13 @@ t_symbol* ebox_parameter_getbind(t_ebox* x, int index)
             return x->b_params[index]->p_bind;
         }
     }
+     */
     return NULL;
 }
 
 char ebox_parameter_isinverted(t_ebox* x, int index)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -919,11 +938,13 @@ char ebox_parameter_isinverted(t_ebox* x, int index)
             return (char)(x->b_params[index]->p_max < x->b_params[index]->p_min);
         }
     }
+     */
     return 0;
 }
 
 void ebox_parameter_notify_changes(t_ebox *x, int index)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -932,10 +953,12 @@ void ebox_parameter_notify_changes(t_ebox *x, int index)
             ebox_parameter_notify(x->b_params[index], s_cream_value_changed);
         }
     }
+     */
 }
 
 void ebox_parameter_begin_changes(t_ebox *x, int index)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -944,10 +967,12 @@ void ebox_parameter_begin_changes(t_ebox *x, int index)
             ebox_parameter_notify(x->b_params[index], s_cream_beginchanges);
         }
     }
+     */
 }
 
 void ebox_parameter_end_changes(t_ebox *x, int index)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -956,10 +981,12 @@ void ebox_parameter_end_changes(t_ebox *x, int index)
             ebox_parameter_notify(x->b_params[index], s_cream_endchanges);
         }
     }
+     */
 }
 
 void ebox_parameter_setname(t_ebox* x, int index, t_symbol* name)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -969,10 +996,12 @@ void ebox_parameter_setname(t_ebox* x, int index, t_symbol* name)
             ebox_parameter_notify(x->b_params[index], s_cream_attr_modified);
         }
     }
+     */
 }
 
 void ebox_parameter_setlabel(t_ebox* x, int index, t_symbol* label)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -982,10 +1011,12 @@ void ebox_parameter_setlabel(t_ebox* x, int index, t_symbol* label)
             ebox_parameter_notify(x->b_params[index], s_cream_attr_modified);
         }
     }
+     */
 }
 
 void ebox_parameter_setminmax(t_ebox* x, int index, float min, float max)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -997,10 +1028,12 @@ void ebox_parameter_setminmax(t_ebox* x, int index, float min, float max)
             ebox_parameter_setvalue(x, index+1, x->b_params[index]->p_value, 1);
         }
     }
+     */
 }
 
 void ebox_parameter_setnstep(t_ebox* x, int index, int nstep)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -1010,10 +1043,12 @@ void ebox_parameter_setnstep(t_ebox* x, int index, int nstep)
             ebox_parameter_notify(x->b_params[index], s_cream_attr_modified);
         }
     }
+     */
 }
 
 void ebox_parameter_setindex(t_ebox* x, int index, int pindex)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -1023,10 +1058,12 @@ void ebox_parameter_setindex(t_ebox* x, int index, int pindex)
             ebox_parameter_notify(x->b_params[index], s_cream_attr_modified);
         }
     }
+     */
 }
 
 void ebox_parameter_setflags(t_ebox* x, int index, long flags)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -1036,10 +1073,12 @@ void ebox_parameter_setflags(t_ebox* x, int index, long flags)
             ebox_parameter_notify(x->b_params[index], s_cream_attr_modified);
         }
     }
+     */
 }
 
 void ebox_parameter_enable(t_ebox* x, int index)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -1049,10 +1088,12 @@ void ebox_parameter_enable(t_ebox* x, int index)
             ebox_parameter_notify(x->b_params[index], s_cream_attr_modified);
         }
     }
+     */
 }
 
 void ebox_parameter_disable(t_ebox* x, int index)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -1062,10 +1103,12 @@ void ebox_parameter_disable(t_ebox* x, int index)
             ebox_parameter_notify(x->b_params[index], s_cream_attr_modified);
         }
     }
+     */
 }
 
 void ebox_parameter_setsettergetter(t_ebox* x, int index, t_param_setter setter, t_param_getter getter)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -1076,10 +1119,12 @@ void ebox_parameter_setsettergetter(t_ebox* x, int index, t_param_setter setter,
             ebox_parameter_notify(x->b_params[index], s_cream_attr_modified);
         }
     }
+     */
 }
 
 void ebox_parameter_setsettergetter_text(t_ebox* x, int index, t_param_setter_t setter, t_param_getter_t getter)
 {
+    /*
     index--;
     if(index >= 0 && index < x->b_nparams)
     {
@@ -1090,11 +1135,13 @@ void ebox_parameter_setsettergetter_text(t_ebox* x, int index, t_param_setter_t 
             ebox_parameter_notify(x->b_params[index], s_cream_attr_modified);
         }
     }
+     */
 }
 
 
 t_eparam* eparameter_getbyindex(t_ebox* x, int index)
 {
+    /*
     int tod_chaned;
     index--;
     if(index >= 0 && index < x->b_nparams)
@@ -1104,6 +1151,7 @@ t_eparam* eparameter_getbyindex(t_ebox* x, int index)
             return x->b_params[index];
         }
     }
+     */
     return NULL;
 }
 

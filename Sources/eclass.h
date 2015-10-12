@@ -98,7 +98,7 @@ t_pd_err eclass_register(t_symbol *name, t_eclass *c);
  * \param type1 The type of the first argument of the method.
  * \param ...   The other types.
  */
-void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type1, ...);
+void eclass_addmethod(t_eclass* c, t_method m, const char* name, t_atomtype type1, ...);
 
 
 

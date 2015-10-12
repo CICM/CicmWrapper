@@ -127,7 +127,7 @@ t_pd_err eclass_register(t_symbol *name, t_eclass *c)
     return 0;
 }
 
-void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type1, ...)
+void eclass_addmethod(t_eclass* c, t_method m, const char* name, t_atomtype type1, ...)
 {
     int count = 0;
     va_list ap;
@@ -145,31 +145,31 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
     
     if(count == 0)
     {
-        class_addmethod(c, (t_method)m, gensym(name), type1);
+        class_addmethod(c, m, gensym(name), type1);
     }
     else if(count == 1)
     {
-        class_addmethod(c, (t_method)m, gensym(name), type1, vec[0]);
+        class_addmethod(c, m, gensym(name), type1, vec[0]);
     }
     else if(count == 2)
     {
-        class_addmethod(c, (t_method)m, gensym(name), type1, vec[0], vec[1]);
+        class_addmethod(c, m, gensym(name), type1, vec[0], vec[1]);
     }
     else if(count == 3)
     {
-        class_addmethod(c, (t_method)m, gensym(name), type1, vec[0], vec[1], vec[2]);
+        class_addmethod(c, m, gensym(name), type1, vec[0], vec[1], vec[2]);
     }
     else if(count == 3)
     {
-        class_addmethod(c, (t_method)m, gensym(name), type1, vec[0], vec[1], vec[2], vec[3]);
+        class_addmethod(c, m, gensym(name), type1, vec[0], vec[1], vec[2], vec[3]);
     }
     else if(count == 4)
     {
-        class_addmethod(c, (t_method)m, gensym(name), type1, vec[0], vec[1], vec[2], vec[3], vec[4]);
+        class_addmethod(c, m, gensym(name), type1, vec[0], vec[1], vec[2], vec[3], vec[4]);
     }
     else
     {
-        class_addmethod(c, (t_method)m, gensym(name), type1, vec[0], vec[1], vec[2], vec[3], vec[4], vec[5]);
+        class_addmethod(c, m, gensym(name), type1, vec[0], vec[1], vec[2], vec[3], vec[4], vec[5]);
     }
 }
 

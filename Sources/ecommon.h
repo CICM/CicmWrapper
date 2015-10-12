@@ -20,7 +20,8 @@
 
 #include "edefine.h"
 
-void object_method(void* x, t_symbol* s, void* z, t_typ_method method, long number, void* other);
+#define object_method(x, s, ...) t_method m = (t_method)getfn((t_pd *)x, s); (m)(x, s, ...);
+//void object_method(void* x, t_symbol* s, void* z, t_typ_method method, long number, void* other);
 
 /*! @addtogroup groupcommon The Common Part
  *  @{

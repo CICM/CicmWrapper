@@ -157,6 +157,11 @@ t_symbol* egui_getreceive_symbol(t_egui const* gui)
     return gui->g_receive;
 }
 
+long egui_getflags(t_egui const* gui)
+{
+    return gui->g_flags;
+}
+
 
 
 

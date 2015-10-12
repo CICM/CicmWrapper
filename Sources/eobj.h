@@ -293,6 +293,14 @@ void ebox_free(t_ebox* x);
  */
 t_pd* ebox_getsender(t_ebox* x);
 
+/*!
+ * \fn          long ebox_getflags(t_ebox* x)
+ * \brief       Retrieves the flags of a t_ebox.
+ * \param x     The t_ebox pointer.
+ * \return      The flags of the t_ebox.
+ */
+long ebox_getflags(t_ebox* x);
+
 #define ebox_attrprocess_viabinbuf(x, d) eobj_attrprocess_viabinbuf(x, d)
 #define ebox_attrprocess_viaatoms(x, argc, argv) eobj_attrprocess_viatoms(x, argc, argv)
 

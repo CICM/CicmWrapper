@@ -33,10 +33,10 @@ t_symbol* s_cream_changes;
 t_symbol* s_cream_view;
 t_symbol* s_cream_notify;
 
-t_symbol* s_pinned;
-t_symbol* s_iscicm;
-t_symbol* s_isgui;
-t_symbol* s_isdsp;
+t_symbol* s_cream_pinned;
+t_symbol* s_cream_iscicm;
+t_symbol* s_cream_isgui;
+t_symbol* s_cream_isdsp;
 
 t_symbol* s_cream_char;
 t_symbol* s_cream_int;
@@ -210,11 +210,14 @@ char* estrtok(const char** str, const char* delim, char* token)
     
 }
 
+int todo_again;
+/*
 void object_method(void* x, t_symbol* s, void* z, t_typ_method method, long number, void* other)
 {
-    t_ret_method nrmethod = (t_ret_method)getfn((t_pd *)x, s);
-    nrmethod(x, s, z, method, number, other);
+    t_method m = (t_method)getfn((t_pd *)x, s);
+    (m)(x, s, z, method, number, other);
 }
+ */
 
 t_binbuf* binbuf_via_atoms(int ac, t_atom *av)
 {

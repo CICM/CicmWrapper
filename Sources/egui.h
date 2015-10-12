@@ -77,6 +77,14 @@ t_egui* egui_findbyname(t_symbol* name);
  */
 t_symbol* egui_getreceive_symbol(t_egui const* gui);
 
+/*!
+ * \fn              long egui_getflags(t_egui const* gui)
+ * \brief           Retrieves the flags of a gui manager.
+ * \param gui       The gui manager pointer.
+ * \return          The flags of the gui manager.
+ */
+long egui_getflags(t_egui const* gui);
+
 /** @} */
 
 #endif

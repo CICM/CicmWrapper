@@ -237,23 +237,6 @@ t_ewindowprop* ewindowprop_getfromobject(t_eobj* x);
 //! @endcond
 
 
-/*!
- * \fn          t_object* eview_create(t_ebox* x, t_canvas* cnv)
- * \brief       The view creation function.
- * \details     Allocates and initializes a new view for a t_ebox and a t_canvas.
- * \param x     The t_ebox pointer.
- * \param cnv   The t_canvas pointer.
- * \return      This function returns a pointer to a new view.
- */
-t_object* eview_create(t_ebox* x, t_canvas* cnv);
-
-/*!
- * \fn          void eview_destroy(t_object* view)
- * \brief       The view deletion function.
- * \param view  The view pointer.
- */
-void eview_destroy(t_object* view);
-
 
 
 

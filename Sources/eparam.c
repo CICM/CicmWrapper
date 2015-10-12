@@ -10,6 +10,7 @@
 
 #include "eparam.h"
 #include "eobj.h"
+#include "egraphics.h"
 
 #include "m_imp.h"
 
@@ -78,10 +79,12 @@ void eparameter_getvalue_text(t_eparam* param, char* text)
 static void eparameter_notify_owner(t_eparam* param, t_symbol* message)
 {
     t_eclass* c = eobj_getclass(param->p_owner);
+    /*
     if(c->c_widget.w_notify)
     {
         c->c_widget.w_notify(param->p_owner, param->p_bind, message, NULL, NULL);
     }
+     */
 }
 
 static float eparameter_compute_value(float value, float min, float max, float nstep)
@@ -168,7 +171,7 @@ void eparameter_setindex(t_eparam* param, int index)
 
 t_eparam* eparameter_getfromsymbol(t_symbol* name)
 {
-    t_class* c = eparameter_setup();
+    t_class* c = NULL;//eparameter_setup();
     if(c)
     {
         return (t_eparam *)pd_findbyclass(name, c);
@@ -177,57 +180,6 @@ t_eparam* eparameter_getfromsymbol(t_symbol* name)
     
 }
 
-static t_class* eproxy_setup()
-{
-    t_class* c = NULL;
-    t_pd* obj = gensym("eproxy1572")->s_thing;
-    if(!obj)
-    {
-        c = class_new(gensym("eproxy"), (t_newmethod)NULL, (t_method)eproxy_free, sizeof(t_eproxy), CLASS_PD, A_NULL, 0);
-        if(c)
-        {
-            class_addanything(c, (t_method)eproxy_anything);
-            class_addbang(c,  (t_method)eproxy_bang);
-            class_addfloat(c,  (t_method)eproxy_float);
-            class_addsymbol(c,  (t_method)eproxy_symbol);
-            class_addlist(c, (t_method)eproxy_list);
-            class_addpointer(c, (t_method)eproxy_pointer);
-            obj = pd_new(c);
-            pd_bind(obj, gensym("eproxy1572"));
-        }
-        else
-        {
-            error("can't initialize proxy inlet class.");
-        }
-        return c;
-    }
-    else
-    {
-        return *obj;
-    }
-}
-
-t_eproxy* eproxy_new(t_object *owner, t_symbol* s, size_t index)
-{
-    t_class* c = eproxy_setup();
-    t_eproxy* x = NULL;
-    if(c)
-    {
-        x = (t_eproxy *)pd_new(c);
-        if(x)
-        {
-            x->p_method = (t_proxy_method)zgetfn((t_pd *)owner, gensym("setproxyindex"));
-            x->p_owner  = owner;
-            x->p_index  =index;
-            x->p_inlet  = inlet_new(owner, (t_pd *)x, s, s);
-        }
-        else
-        {
-            pd_error(owner, "can't allocate proxy inlet.");
-        }
-    }
-    return x;
-}
 
 
 
