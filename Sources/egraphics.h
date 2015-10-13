@@ -19,6 +19,15 @@
  *  @{
  */
 
+/*!< Open state of a layer. */
+#define EPD_LAYER_OPEN      0
+/*!< Close state of a layer. */
+#define EPD_LAYER_CLOSE     1
+/*!< Invalid state of a layer. */
+#define EPD_LAYER_INVALID   2
+ /*!< REady state of a layer. */
+#define EPD_LAYER_READY     3
+
 //! @cond
 /*!
  * \fn              t_elayer* egraphics_create(t_object *owner, t_symbol *name, float width, float height)
@@ -31,6 +40,13 @@
  * \return          This function returns a pointer to a new t_elayer.
  */
 t_elayer* egraphics_create(t_object *owner, t_symbol *name, float width, float height);
+
+/*!
+* \fn          long egraphics_get_state(t_elayer const* g)
+* \brief       Retrieves the state of a t_elayer.
+* \param g     The t_elayer pointer.
+*/
+long egraphics_get_state(t_elayer const* g);
 
 //! @endcond
 /*!

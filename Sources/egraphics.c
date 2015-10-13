@@ -47,19 +47,6 @@ typedef enum
     E_PATH_CLOSE   = 3    /*!< This type is curve. */
 } epath_types;
 
-/**
- * @enum elayer_flags
- * @brief The flags that defines the status of a layer.
- * @details It define all possible the status of a layer.
- */
-typedef enum elayer_flags
-{
-    EGRAPHICS_OPEN      = 0,  /*!< Open. */
-    EGRAPHICS_CLOSE     = -1, /*!< Closed. */
-    EGRAPHICS_INVALID   = -2, /*!< Invalid. */
-    EGRAPHICS_TODRAW    = -3  /*!< To be drawn. */
-} elayer_flags;
-
 
 /**
  * @struct t_etext
@@ -106,7 +93,7 @@ struct _elayer
     t_object*           l_owner;            /*!< The layer owner. */
     t_symbol*           l_name;             /*!< The layer name. */
     char                l_tag[MAXPDSTRING]; /*!< The layer tag. */
-    char                l_state;            /*!< The layer state. */
+    long                l_state;            /*!< The layer state. */
     float               l_width;            /*!< The layer width. */
     float               l_height;           /*!< The layer height. */
     t_matrix            l_matrix;           /*!< The layer matrix. */
@@ -122,21 +109,26 @@ t_elayer* egraphics_create(t_object *owner, t_symbol *name, float width, float h
     t_elayer* graphic = (t_elayer *)malloc(sizeof(t_elayer));
     if(graphic)
     {
-        graphic->l_owner        = owner;
-        graphic->l_name         = name;
+        graphic->l_owner                = owner;
+        graphic->l_name                 = name;
         sprintf(graphic->l_tag, "%s%ld", name->s_name, (long)owner);
-        graphic->l_state        = EGRAPHICS_OPEN;
-        graphic->l_height       = (float)pd_clip_min(height, 0.);
-        graphic->l_width        = (float)pd_clip_min(width, 0.);
+        graphic->l_state                = EPD_LAYER_OPEN;
+        graphic->l_height               = (float)pd_clip_min(height, 0.);
+        graphic->l_width                = (float)pd_clip_min(width, 0.);
 
         egraphics_matrix_init(&graphic->l_matrix, 1., 0., 0., 1., 0., 0.);
-        graphic->l_ngobjs       = 0;
-        graphic->l_gobjs        = NULL;
+        graphic->l_ngobjs               = 0;
+        graphic->l_gobjs                = NULL;
         graphic->l_current.e_points     = NULL;
         graphic->l_current.e_npoints    = 0;
         graphic->l_current.e_rspace     = 0;
     }
     return graphic;
+}
+
+long egraphics_get_state(t_elayer const* g)
+{
+    return g->l_state;
 }
 
 void egraphics_set_line_width(t_elayer *g, float width)
@@ -347,7 +339,7 @@ static void egraphics_prealloc(t_elayer *g, const size_t size)
 
 void egraphics_move_to(t_elayer *g, float x, float y)
 {
-    if(g->l_state == EGRAPHICS_OPEN)
+    if(g->l_state == EPD_LAYER_OPEN)
     {
         egraphics_prealloc(g, 2);
         if(g->l_current.e_points)
@@ -367,7 +359,7 @@ void egraphics_move_to(t_elayer *g, float x, float y)
 
 void egraphics_line_to(t_elayer *g, float x, float y)
 {
-    if(g->l_state == EGRAPHICS_OPEN)
+    if(g->l_state == EPD_LAYER_OPEN)
     {
         egraphics_prealloc(g, 2);
         if(g->l_current.e_points)
@@ -387,7 +379,7 @@ void egraphics_line_to(t_elayer *g, float x, float y)
 
 void egraphics_curve_to(t_elayer *g, float ctrl1x, float ctrl1y, float ctrl2x, float ctrl2y, float endx, float endy)
 {
-    if(g->l_state == EGRAPHICS_OPEN)
+    if(g->l_state == EPD_LAYER_OPEN)
     {
         egraphics_prealloc(g, 4);
         if(g->l_current.e_points)
@@ -411,7 +403,7 @@ void egraphics_curve_to(t_elayer *g, float ctrl1x, float ctrl1y, float ctrl2x, f
 
 void egraphics_close_path(t_elayer *g)
 {
-    if(g->l_state == EGRAPHICS_OPEN && g->l_current.e_npoints >= 1)
+    if(g->l_state == EPD_LAYER_OPEN && g->l_current.e_npoints >= 1)
     {
         if(g->l_current.e_type == E_GOBJ_PATH)
         {
@@ -422,7 +414,7 @@ void egraphics_close_path(t_elayer *g)
 
 void egraphics_line(t_elayer *g, float x0, float y0, float x1, float y1)
 {
-    if(g->l_state == EGRAPHICS_OPEN)
+    if(g->l_state == EPD_LAYER_OPEN)
     {
         egraphics_prealloc(g, 4);
         egraphics_move_to(g, x0, y0);
@@ -432,7 +424,7 @@ void egraphics_line(t_elayer *g, float x0, float y0, float x1, float y1)
 
 void egraphics_line_fast(t_elayer *g, float x0, float y0, float x1, float y1)
 {
-    if(g->l_state == EGRAPHICS_OPEN)
+    if(g->l_state == EPD_LAYER_OPEN)
     {
         egraphics_prealloc(g, 4);
         egraphics_move_to(g, x0, y0);
@@ -443,7 +435,7 @@ void egraphics_line_fast(t_elayer *g, float x0, float y0, float x1, float y1)
 
 void egraphics_curve(t_elayer *g, float startx, float starty, float ctrl1x, float ctrl1y, float ctrl2x, float ctrl2y, float endx, float endy)
 {
-    if(g->l_state == EGRAPHICS_OPEN)
+    if(g->l_state == EPD_LAYER_OPEN)
     {
         egraphics_prealloc(g, 6);
         egraphics_move_to(g, startx, starty);
@@ -454,7 +446,7 @@ void egraphics_curve(t_elayer *g, float startx, float starty, float ctrl1x, floa
 void egraphics_rectangle(t_elayer *g, float x, float y, float width, float height)
 {
     /*
-    if(g->l_state == EGRAPHICS_OPEN)
+    if(g->l_state == EPD_LAYER_OPEN)
     {
         egraphics_prealloc(g, 10);
         egraphics_move_to(g, x, y);
@@ -478,7 +470,7 @@ void egraphics_rectangle(t_elayer *g, float x, float y, float width, float heigh
 
 void egraphics_rectangle_rounded(t_elayer *g, float x, float y, float width, float height, float roundness)
 {
-    if(g->l_state == EGRAPHICS_OPEN)
+    if(g->l_state == EPD_LAYER_OPEN)
     {
         int todo;
         if(g->l_current.e_points == NULL)
@@ -520,7 +512,7 @@ void egraphics_rectangle_rounded(t_elayer *g, float x, float y, float width, flo
 
 void egraphics_oval(t_elayer *g, float xc, float yc, float radiusx, float radiusy)
 {
-    if(g->l_state == EGRAPHICS_OPEN)
+    if(g->l_state == EPD_LAYER_OPEN)
     {
         egraphics_prealloc(g, 4);
         if(g->l_current.e_points)
@@ -574,7 +566,7 @@ static void create_small_arc(const float r, const float start, const float exten
 
 void egraphics_arc_to(t_elayer *g, float cx, float cy, float extend)
 {
-    if(g->l_state == EGRAPHICS_OPEN)
+    if(g->l_state == EPD_LAYER_OPEN)
     {
         if(g->l_current.e_type == E_GOBJ_PATH && g->l_current.e_points)
         {
@@ -646,7 +638,7 @@ static void create_small_arc_oval(const float r1, const float r2, const float st
 
 void egraphics_arc_oval_to(t_elayer *g, float cx, float cy, float radius, float extend)
 {
-    if(g->l_state == EGRAPHICS_OPEN)
+    if(g->l_state == EPD_LAYER_OPEN)
     {
         if(g->l_current.e_type == E_GOBJ_PATH && g->l_current.e_points)
         {
@@ -698,7 +690,7 @@ void egraphics_arc_oval_to(t_elayer *g, float cx, float cy, float radius, float 
 
 void egraphics_arc(t_elayer *g, float xc, float yc, float radius, float angle1, float angle2)
 {
-    if(g->l_state == EGRAPHICS_OPEN)
+    if(g->l_state == EPD_LAYER_OPEN)
     {
         if(g->l_current.e_points == NULL)
             g->l_current.e_points   = (t_pt *)malloc(3 * sizeof(t_pt));
@@ -724,7 +716,7 @@ void egraphics_arc(t_elayer *g, float xc, float yc, float radius, float angle1, 
 
 void egraphics_arc_oval(t_elayer *g, float xc, float yc, float radiusx, float radiusy, float angle1, float angle2)
 {
-    if(g->l_state == EGRAPHICS_OPEN)
+    if(g->l_state == EPD_LAYER_OPEN)
     {
         if(g->l_current.e_points == NULL)
             g->l_current.e_points   = (t_pt *)malloc(3 * sizeof(t_pt));

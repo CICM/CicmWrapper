@@ -501,7 +501,7 @@ void etexteditor_setwrap(t_etexteditor *editor, char wrap)
 void etexteditor_popup(t_etexteditor *editor, t_rect const* bounds)
 {
     t_rect rect;
-    ebox_get_rect_for_view((t_ebox *)editor->c_owner, &rect);
+    ebox_get_rect_for_view((t_ebox *)editor->c_owner, NULL, &rect);
     sys_vgui("bind %s <KeyRelease> {+pdsend \"%s text [%s get 0.0 end]\"}\n",
              editor->c_name->s_name, editor->c_editor_id->s_name, editor->c_name->s_name);
     sys_vgui("bind %s <<Modified>> {+pdsend \"%s text [%s get 0.0 end]\"}\n",
@@ -616,7 +616,7 @@ void ewindowprop_update(t_eobj* x)
         {
             if(!c->c_attr[i]->invisible)
             {
-                eobj_attr_getvalueof(x,  c->c_attr[i]->name, &argc, &argv);
+                eobj_attr_getvalue(x,  c->c_attr[i]->name, &argc, &argv);
                 if(c->c_attr[i]->style == s_cream_checkbutton)
                 {
                     sys_vgui("set var%lxattr_value%i %lx\n", ref, i+1, atom_getintarg(0, argc, argv));
@@ -686,7 +686,7 @@ static void ewindowprop_addattr(t_ewindowprop* x, t_eattr* attr, int i)
     sys_vgui("label .epw%lx.attr_label%i.label -justify left -font {Helvetica 12} -text \"%s\"\n", ref, i+1, attr->label->s_name);
     sys_vgui("label .epw%lx.attr_name%i.label -justify left -font {Helvetica 12 italic} -text \"%s\"\n", ref, i+1, attr->name->s_name);
     
-    eobj_attr_getvalueof(x->c_owner,  attr->name, &argc, &argv);
+    eobj_attr_getvalue(x->c_owner,  attr->name, &argc, &argv);
     if(attr->style == s_cream_checkbutton)
     {
         sys_vgui("set var%lxattr_value%i %f\n", ref, i+1, (int)atom_getfloatarg(0, argc, argv));

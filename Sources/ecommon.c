@@ -110,6 +110,16 @@ void epd_init(void)
     cicmwrapper_init();
 }
 
+t_pd_err method_true(void* x)
+{
+    return 1;
+}
+
+t_pd_err method_false(void* x)
+{
+    return 0;
+}
+
 static const char* estrchrn(const char* s, const char* delim)
 {
     char state = 0;
@@ -463,18 +473,6 @@ void parse_atoms(int argc, t_atom* argv, int* ac, t_atom** av)
             }
         }
     }
-}
-
-t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, int argc, t_atom *argv)
-{
-    if(d && key && argc && argv)
-    {
-        format_atoms(argc, argv);
-        binbuf_addv(d, "s", key);
-        binbuf_add(d, argc, argv);
-        return 0;
-    }
-    return -1;
 }
 
 int atoms_get_attributes_offset(int argc, t_atom* argv)

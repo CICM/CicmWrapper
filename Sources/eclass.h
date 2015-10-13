@@ -122,45 +122,56 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
 
 
 /*!
- * \fn              t_eattr* eclass_getattr(t_eclass const* c, t_symbol* name)
- * \brief           Retrieves the attribute that matches to a specific name in a class.
- * \param c         The t_eclass pointer
- * \param name      The name of the attribute.
- * \return          The attribute that matches to the specific name if exists, otherwise NULL.
- */
-t_eattr* eclass_getattr(t_eclass const* c, t_symbol* name);
-
-/*!
- * \fn              void eclass_getattrs(t_eclass const* c, size_t* nattrs, t_eattr*** attrs)
- * \brief           Retrieves the attributes of an attributes set.
- * \param c         The t_eclass pointer
- * \param nattrs    The number of attributes of the attributes set.
- * \param attrs     The attributes of the attributes set.
- */
-void eclass_getattrs(t_eclass const* c, size_t* nattrs, t_eattr*** attrs);
-
-
-//! @cond
-/*!
- * \fn       void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
+ * \fn              t_pd_err eclass_attr_setvalue(t_eclass* c, t_object* x, t_symbol *s, int argc, t_atom *argv)
  * \brief           The setter method of the attributes.
+ * \param c         The t_eclass pointer
  * \param x         The object pointer
  * \param s         The attribute name
  * \param argc      The size of the array of atoms
  * \param argv      The array of atoms that contains the attributes values
  * \todo Must clean the font style attribute parser.
  */
-void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv);
+t_pd_err eclass_attr_setvalue(t_eclass* c, t_object* x, t_symbol *s, int argc, t_atom *argv);
 
 /*!
- * \fn       void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
+ * \fn              t_pd_err eclass_attr_getvalue(t_eclass* c, t_object const* x, t_symbol *s, int* argc, t_atom** argv)
  * \brief           The getter method of the attributes.
+ * \param c         The t_eclass pointer
  * \param x         The object pointer
  * \param s         The attribute name
  * \param argc      The size of the array of atoms
  * \param argv      The array of atoms that contains the attributes values
  */
-void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv);
+t_pd_err eclass_attr_getvalue(t_eclass* c, t_object const* x, t_symbol *s, int* argc, t_atom** argv);
+
+/*!
+ * \fn              t_pd_err eclass_attr_setvalue_default(t_eclass* c, t_object* x, t_symbol *s)
+ * \brief           Sets the default value of an attribute.
+ * \param c         The t_eclass pointer
+ * \param x         The object pointer
+ * \param s         The attribute name
+ */
+t_pd_err eclass_attr_setvalue_default(t_eclass* c, t_object* x, t_symbol *s);
+
+/*!
+ * \fn              t_pd_err eclass_attr_write(t_eclass* c, t_object const* x, t_symbol *s, t_binbuf* b)
+ * \brief           Saves the value of an attribute in a binbuf.
+ * \param c         The t_eclass pointer
+ * \param x         The object pointer
+ * \param s         The attribute name
+ * \param b         The binbuf to write.
+ */
+t_pd_err eclass_attr_write(t_eclass* c, t_object const* x, t_symbol *s, t_binbuf* b);
+
+/*!
+ * \fn              t_pd_err eclass_attr_read(t_eclass* c, t_object* x, t_symbol *s, t_binbuf const* b);
+ * \brief           Reads the value of an attribute from a binbuf.
+ * \param c         The t_eclass pointer
+ * \param x         The object pointer
+ * \param s         The attribute name
+ * \param b         The binbuf to read.
+ */
+t_pd_err eclass_attr_read(t_eclass* c, t_object* x, t_symbol *s, t_binbuf const* b);
 
 /*!
  * \fn          void eclass_attr_category(t_eclass* c, const char* attrname, long flags, const char* category)

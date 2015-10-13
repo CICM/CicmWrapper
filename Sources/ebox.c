@@ -161,36 +161,6 @@ t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *
 }
 
 
-
-void ebox_redraw(t_ebox *x)
-{
-    /*
-    if(ebox_isdrawable(x) && x->b_have_window)
-    {
-        ebox_paint(x);
-    }
-    if(x->b_obj.o_camo_id->s_thing)
-    {
-        pd_symbol(x->b_obj.o_camo_id->s_thing, s_cream_repaint);
-    }
-     */
-}
-
-void ebox_get_rect_for_view(t_ebox *x, t_rect *rect)
-{
-    /*
-    rect->x = x->b_rect.x + x->b_boxparameters.d_borderthickness;
-    rect->y = x->b_rect.y + x->b_boxparameters.d_borderthickness;
-    rect->width = x->b_rect.width - x->b_boxparameters.d_borderthickness * 2.f;
-    rect->height = x->b_rect.height - x->b_boxparameters.d_borderthickness * 2.f;
-     */
-}
-
-t_elayer* ebox_start_layer(t_ebox *x, t_object* view, t_symbol *name, float width, float height)
-{
-    return NULL;
-}
-
 t_pd_err ebox_end_layer(t_ebox *x, t_symbol *name)
 {
     int i;

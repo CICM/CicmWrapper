@@ -123,7 +123,7 @@ t_eproxy* eproxy_new(t_object *owner, t_symbol* s, size_t index)
         {
             x->p_method = (t_proxy_method)zgetfn((t_pd *)owner, gensym("setproxyindex"));
             x->p_owner  = owner;
-            x->p_index  =index;
+            x->p_index  = index;
             x->p_inlet  = inlet_new(owner, (t_pd *)x, s, s);
         }
         else

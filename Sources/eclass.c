@@ -17,8 +17,10 @@
 #include "egraphics.h"
 
 extern void eobj_initclass(t_eclass* c);
-extern void ebox_initclass(t_eclass* c);
+
 extern void edsp_initclass(t_eclass* c);
+
+extern void ebox_initclass(t_eclass* c);
 
 t_eclass *eclass_new(const char *name, t_method newmethod, t_method freemethod, size_t size, int flags, t_atomtype type1, ...)
 {
@@ -29,6 +31,9 @@ t_eclass *eclass_new(const char *name, t_method newmethod, t_method freemethod, 
     t_eclass *c = NULL;
     t_pd *f = NULL, *a = NULL;
     char text[MAXPDSTRING];
+    
+    epd_init();
+    
     *vp = type1;
     va_start(ap, type1);
     while(*vp && count < MAXPDARG)
@@ -44,27 +49,27 @@ t_eclass *eclass_new(const char *name, t_method newmethod, t_method freemethod, 
     }
     else if(count == 1)
     {
-        c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, vec[0]);
+        c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, vec[0], 0);
     }
     else if(count == 2)
     {
-        c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, vec[0], vec[1]);
+        c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, vec[0], vec[1], 0);
     }
     else if(count == 3)
     {
-        c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, vec[0], vec[1], vec[2]);
+        c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, vec[0], vec[1], vec[2], 0);
     }
     else if(count == 3)
     {
-        c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, vec[0], vec[1], vec[2], vec[3]);
+        c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, vec[0], vec[1], vec[2], vec[3], 0);
     }
     else if(count == 4)
     {
-        c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, vec[0], vec[1], vec[2], vec[3], vec[4]);
+        c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, vec[0], vec[1], vec[2], vec[3], vec[4], 0);
     }
     else
     {
-        c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, vec[0], vec[1], vec[2], vec[3], vec[4], vec[5]);
+        c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, vec[0], vec[1], vec[2], vec[3], vec[4], vec[5], 0);
     }
     if(c)
     {
@@ -81,7 +86,6 @@ t_eclass *eclass_new(const char *name, t_method newmethod, t_method freemethod, 
 
 void eclass_guiinit(t_eclass* c, long flags)
 {
-    class_addmethod(c, (t_method)truemethod, s_cream_isgui, A_CANT, 0);
     ebox_initclass(c);
 }
 
@@ -133,6 +137,40 @@ void eclass_addmethod(t_eclass* c, t_method m, const char* name, t_atomtype type
     va_list ap;
     t_atomtype vec[MAXPDARG+1];
     t_atomtype *vp = vec;
+    t_symbol* sname = gensym(name);
+    int create_sym;
+    if(sname == gensym("dsp"))
+    {
+        class_addmethod(c,(t_method)m, gensym("dodsp"), A_CANT, 0);
+        return;
+    }
+    else if(sname == &s_bang)
+    {
+        class_addbang(c, (t_method)m);
+        return;
+    }
+    else if(sname == &s_float)
+    {
+        class_addfloat(c, (t_method)m);
+        return;
+    }
+    else if(sname == &s_symbol)
+    {
+        class_addsymbol(c, (t_method)m);
+        return;
+    }
+    else if(sname == &s_list)
+    {
+        class_addlist(c, (t_method)m);
+        return;
+    }
+    else if(sname == &s_anything)
+    {
+        class_addanything(c, (t_method)m);
+        return;
+    }
+    
+    
     *vp = type1;
     va_start(ap, type1);
     while(*vp && count < MAXPDARG)
@@ -145,31 +183,31 @@ void eclass_addmethod(t_eclass* c, t_method m, const char* name, t_atomtype type
     
     if(count == 0)
     {
-        class_addmethod(c, m, gensym(name), type1);
+        class_addmethod(c, m, sname, type1);
     }
     else if(count == 1)
     {
-        class_addmethod(c, m, gensym(name), type1, vec[0]);
+        class_addmethod(c, m, sname, type1, vec[0], 0);
     }
     else if(count == 2)
     {
-        class_addmethod(c, m, gensym(name), type1, vec[0], vec[1]);
+        class_addmethod(c, m, sname, type1, vec[0], vec[1], 0);
     }
     else if(count == 3)
     {
-        class_addmethod(c, m, gensym(name), type1, vec[0], vec[1], vec[2]);
+        class_addmethod(c, m, sname, type1, vec[0], vec[1], vec[2], 0);
     }
     else if(count == 3)
     {
-        class_addmethod(c, m, gensym(name), type1, vec[0], vec[1], vec[2], vec[3]);
+        class_addmethod(c, m, sname, type1, vec[0], vec[1], vec[2], vec[3], 0);
     }
     else if(count == 4)
     {
-        class_addmethod(c, m, gensym(name), type1, vec[0], vec[1], vec[2], vec[3], vec[4]);
+        class_addmethod(c, m, sname, type1, vec[0], vec[1], vec[2], vec[3], vec[4], 0);
     }
     else
     {
-        class_addmethod(c, m, gensym(name), type1, vec[0], vec[1], vec[2], vec[3], vec[4], vec[5]);
+        class_addmethod(c, m, sname, type1, vec[0], vec[1], vec[2], vec[3], vec[4], vec[5], 0);
     }
 }
 
@@ -182,6 +220,7 @@ void eclass_addmethod(t_eclass* c, t_method m, const char* name, t_atomtype type
 void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
                            size_t size, size_t maxsize, long flags, size_t offset)
 {
+    char text[MAXPDSTRING];
     t_symbol* name = gensym(attrname);
     t_eattrset* as = eclass_getattrset(c);
     if(as)
@@ -189,30 +228,62 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
         eattrset_attr_new(as, name, gensym(type), size, maxsize, offset);
         eattrset_attr_category(as, name, gensym(class_getname(c)));
         eattrset_attr_flags(as, name, flags);
-        class_addmethod(c, (t_method)NULL, name, A_GIMME, 0);
+        class_addmethod(c, (t_method)eobj_attr_setvalue, name, A_GIMME, 0);
+        sprintf(text, "get%s", attrname);
+        class_addmethod(c, (t_method)eobj_attr_getvalue, gensym(text), A_GIMME, 0);
     }
 }
 
-t_eattr* eclass_getattr(t_eclass const* c, t_symbol* name)
+t_pd_err eclass_attr_setvalue(t_eclass* c, t_object* x, t_symbol *s, int argc, t_atom *argv)
 {
     t_eattrset* as = eclass_getattrset(c);
     if(as)
     {
-        return eattrset_getattr(as, name);
+        return eattrset_setvalue(as, s, x, argc, argv);
     }
-    return NULL;
+    return -1;
 }
 
-void eclass_getattrs(t_eclass const* c, size_t* nattrs, t_eattr*** attrs)
+t_pd_err eclass_attr_getvalue(t_eclass* c, t_object const* x, t_symbol *s, int* argc, t_atom** argv)
 {
     t_eattrset* as = eclass_getattrset(c);
-    *nattrs = 0;
-    *attrs  = NULL;
     if(as)
     {
-        eattrset_getattrs(as, nattrs, attrs);
+        return eattrset_getvalue(as, s, x, argc, argv);
     }
+    return -1;
 }
+
+t_pd_err eclass_attr_setvalue_default(t_eclass* c, t_object* x, t_symbol *s)
+{
+    t_eattrset* as = eclass_getattrset(c);
+    if(as)
+    {
+        return eattrset_setvalue_default(as, s, x);
+    }
+    return -1;
+}
+
+t_pd_err eclass_attr_write(t_eclass* c, t_object const* x, t_symbol *s, t_binbuf* b)
+{
+    t_eattrset* as = eclass_getattrset(c);
+    if(as)
+    {
+        return eattrset_write(as, s, x, b);
+    }
+    return -1;
+}
+
+t_pd_err eclass_attr_read(t_eclass* c, t_object* x, t_symbol *s, t_binbuf const* b)
+{
+    t_eattrset* as = eclass_getattrset(c);
+    if(as)
+    {
+        return eattrset_read(as, s, x, b);
+    }
+    return -1;
+}
+                                    
 
 void eclass_attr_default(t_eclass* c, const char* attrname, long flags, const char* value)
 {

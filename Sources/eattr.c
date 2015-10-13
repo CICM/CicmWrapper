@@ -9,7 +9,6 @@
  */
 
 #include "eattr.h"
-#include "egraphics.h"
 
 struct _eattr
 {
@@ -43,6 +42,8 @@ struct _eattr
     size_t          a_nitems;     /*!< The number of available items of an attribute if it is a menu. */
 };
 
+
+
 static inline void* eattr_getvalue_adress(t_object const* x, t_eattr const* attr)
 {
     return (char *)x + attr->a_offset;
@@ -65,20 +66,29 @@ static inline size_t eattr_getsize(t_object const* x, t_eattr const* attr)
 
 static float atom_getfloatcliparg(int which, int argc, t_atom* argv, char clipping, float min, float max)
 {
+    const float f = atom_getfloatarg(which, argc, argv);
     if(clipping == 1)
     {
-        return pd_clip_min(atom_getfloatarg(which, argc, argv), min);
+        return (f < min) ? min : f;
     }
     else if(clipping == 2)
     {
-        return pd_clip_max(atom_getfloatarg(which, argc, argv), max);
+        return (f > max) ? max : f;
     }
     else if(clipping == 3)
     {
-        return pd_clip(atom_getfloatarg(which, argc, argv), min, max);
+        return (f < min) ? min : ((f > max) ? max : f);
     }
-    return atom_getfloatarg(which, argc, argv);
+    return f;
 }
+
+
+
+
+
+
+
+
 
 static t_pd_err eattr_setvalue_char(t_object* x, t_eattr* attr, int argc, t_atom* argv)
 {
@@ -152,37 +162,6 @@ static t_pd_err eattr_setvalue_atom(t_object* x, t_eattr* attr, int argc, t_atom
     memcpy(pointer, argv, (size_t)argc * sizeof(t_atom));
     return 0;
 }
-
-static void eattr_setvalue(t_eattr* attr, t_object *x, int argc, t_atom *argv)
-{
-    int ac = 0; t_atom* av = NULL;
-    int this_stuff_should_be_in_the_submethod;
-    unparse_atoms(argc, argv, &ac, &av);
-    if(attr->a_sizemax == 0)
-    {
-        ac = ((int)attr->a_size < ac) ? (int)attr->a_size : ac;
-    }
-    else
-    {
-        ac = ((int)attr->a_sizemax < ac) ? (int)attr->a_sizemax : ac;
-        *(eattr_getsize_adress(x, attr)) = ac;
-    }
-    (attr->a_setter)(x, (t_object *)attr, ac, av);
-    if(ac && av)
-    {
-        free(av);
-    }
-}
-
-static void eattr_setvalue_default(t_eattr* attr, t_object *x)
-{
-    eattr_setvalue(attr, x, (int)attr->a_ndefaults, attr->a_defaults);
-}
-
-
-
-
-
 
 static t_pd_err eattr_getvalue_char(t_object* x, t_eattr* attr, int* argc, t_atom** argv)
 {
@@ -299,15 +278,6 @@ static t_pd_err eattr_getvalue_atom(t_object* x, t_eattr* attr, int* argc, t_ato
     return -1;
 }
 
-static t_pd_err eattr_getvalue(t_eattr* attr, t_object *x, int* argc, t_atom **argv)
-{
-    if(attr->a_getter)
-    {
-        return (attr->a_getter)(x, (t_object *)attr, argc, argv);
-    }
-    pd_error(attr, "attribute getter isn't initialized.");
-    return -1;
-}
 
 
 
@@ -338,9 +308,6 @@ static t_class* eattr_setup()
         c = class_new(gensym("eattr"), (t_newmethod)NULL, (t_method)eattr_free, sizeof(t_eattr), CLASS_PD, A_NULL, 0);
         if(c)
         {
-            class_addmethod(c, (t_method)eattr_getvalue, gensym("getvalue"), A_CANT, 0);
-            class_addmethod(c, (t_method)eattr_setvalue, gensym("setvalue"), A_CANT, 0);
-            class_addmethod(c, (t_method)eattr_setvalue_default, gensym("setvaluedefault"), A_CANT, 0);
             obj = pd_new(c);
             pd_bind(obj, gensym("eattr1572"));
         }
@@ -521,6 +488,81 @@ void eattr_getitems(t_eattr const*attr, size_t* nitems, t_symbol*** items)
     }
     *nitems = 0;
     items   = NULL;
+}
+
+static t_pd_err eattr_setvalue(t_eattr* attr, t_object *x, int argc, t_atom *argv)
+{
+    int ac = 0; t_atom* av = NULL;
+    int this_stuff_should_be_in_the_submethod;
+    //unparse_atoms(argc, argv, &ac, &av);
+    if(attr->a_sizemax == 0)
+    {
+        ac = ((int)attr->a_size < ac) ? (int)attr->a_size : ac;
+    }
+    else
+    {
+        ac = ((int)attr->a_sizemax < ac) ? (int)attr->a_sizemax : ac;
+        *(eattr_getsize_adress(x, attr)) = ac;
+    }
+    (attr->a_setter)(x, (t_object *)attr, ac, av);
+    if(ac && av)
+    {
+        free(av);
+    }
+    return 0;
+}
+
+static t_pd_err eattr_setvalue_default(t_eattr* attr, t_object *x)
+{
+    return eattr_setvalue(attr, x, (int)attr->a_ndefaults, attr->a_defaults);
+}
+
+static t_pd_err eattr_getvalue(t_eattr* attr, t_object const* x, int* argc, t_atom **argv)
+{
+    if(attr->a_getter)
+    {
+        return (attr->a_getter)((t_object *)x, (t_object *)attr, argc, argv);
+    }
+    pd_error(attr, "attribute getter isn't initialized.");
+    return -1;
+}
+
+static t_pd_err eattr_write(t_eattr* attr, t_object const* x, t_binbuf* b)
+{
+    int argc = 0;
+    t_atom* argv = NULL;
+    char text[MAXPDSTRING];
+    if(attr->a_getter && attr->a_saved)
+    {
+        (attr->a_getter)((t_object *)x, (t_object *)attr, &argc, &argv);
+        if(argc && argv)
+        {
+            int todo;
+            //format_atoms(argc, argv);
+            sprintf(text, "@%s", attr->a_name->s_name);
+            binbuf_text(b, text, MAXPDSTRING);
+            binbuf_add(b, argc, argv);
+            free(argv);
+        }
+        return 0;
+    }
+    pd_error(attr, "attribute getter isn't initialized.");
+    return -1;
+}
+
+static t_pd_err eattr_read(t_eattr* attr, t_object* x, t_binbuf const* b)
+{
+    int todo;
+    int argc = 0;
+    t_atom* argv = NULL;
+    //binbuf_get_attribute((t_binbuf *)b, , <#int *argc#>, <#t_atom **argv#>)
+    if(attr->a_setter)
+    {
+        (attr->a_setter)((t_object *)x, (t_object *)attr, argc, argv);
+        return 0;
+    }
+    pd_error(attr, "attribute getter isn't initialized.");
+    return -1;
 }
 
 
@@ -787,28 +829,7 @@ t_eattrset* eattrset_findbyname(t_symbol* name)
     return x;
 }
 
-size_t eattrset_getnattrs(t_eattrset const* attrset)
-{
-    return attrset->s_nattrs;
-}
-
-void eattrset_getattrs(t_eattrset const* attrset, size_t* nattrs, t_eattr*** attrs)
-{
-    if(attrset->s_nattrs && attrset->s_attrs)
-    {
-        *attrs  = (t_eattr **)malloc(attrset->s_nattrs * sizeof(t_eattr *));
-        if(*attrs)
-        {
-            memcpy(*attrs, attrset->s_attrs, attrset->s_nattrs * sizeof(t_eattr *));
-            *nattrs = attrset->s_nattrs;
-            return;
-        }
-    }
-    *nattrs = 0;
-    *attrs  = NULL;
-}
-
-t_eattr* eattrset_getattr(t_eattrset const* attrset, t_symbol const* name)
+static inline t_eattr* eattrset_getattr(t_eattrset const* attrset, t_symbol const* name)
 {
     size_t i = 0;
     for(i = 0; i < attrset->s_nattrs; i++)
@@ -819,35 +840,6 @@ t_eattr* eattrset_getattr(t_eattrset const* attrset, t_symbol const* name)
         }
     }
     return NULL;
-}
-
-
-size_t eattrset_getncategories(t_eattrset const* attrset)
-{
-    int todo;
-    return 0;
-}
-
-void eattrset_getcategories(t_eattrset const* attrset, size_t* ncates, t_symbol*** cates)
-{
-    int todo;
-}
-
-void eattrset_getcategory_attrs(t_eattrset const* attrset, t_symbol const* name, size_t* nattrs, t_object*** attrs)
-{
-    int todo;
-    if(attrset->s_nattrs && attrset->s_attrs)
-    {
-        *attrs  = (t_object **)malloc(attrset->s_nattrs * sizeof(t_eattr *));
-        if(*attrs)
-        {
-            memcpy(*attrs, attrset->s_attrs, attrset->s_nattrs * sizeof(t_eattr *));
-            *nattrs = attrset->s_nattrs;
-            return;
-        }
-    }
-    *nattrs = 0;
-    *attrs  = NULL;
 }
 
 t_eattr* eattrset_attr_new(t_eattrset* attrset, t_symbol* name, t_symbol* type, size_t size, size_t maxsize, size_t offset)
@@ -1087,6 +1079,125 @@ void eattrset_attr_items(t_eattrset* attrset, t_symbol* name, size_t nitems, t_s
     {
         pd_error(attrset, "has no attribute %s.", name->s_name);
         return;
+    }
+}
+
+
+
+
+
+t_pd_err eattrset_setvalue(t_eattrset const* attrset, t_symbol const* name, t_object *x, int argc, t_atom *argv)
+{
+    t_eattr *attr = eattrset_getattr(attrset, name);
+    if(attr)
+    {
+        return eattr_setvalue(attr, x, argc, argv);
+    }
+    else
+    {
+        pd_error((t_object *)attrset, "has no attribute %s.", name->s_name);
+        return -1;
+    }
+}
+
+t_pd_err eattrset_getvalue(t_eattrset const* attrset, t_symbol const* name, t_object const* x, int* argc, t_atom **argv)
+{
+    t_eattr *attr = eattrset_getattr(attrset, name);
+    if(attr)
+    {
+        return eattr_getvalue(attr, x, argc, argv);
+    }
+    else
+    {
+        pd_error((t_object *)attrset, "has no attribute %s.", name->s_name);
+        return -1;
+    }
+}
+
+t_pd_err eattrset_setvalue_default(t_eattrset const* attrset, t_symbol const* name, t_object *x)
+{
+    t_pd_err err;
+    size_t i;
+    t_eattr *attr;
+    if(name)
+    {
+        attr = eattrset_getattr(attrset, name);
+        if(attr)
+        {
+            return eattr_setvalue_default(attr, x);
+        }
+        else
+        {
+            pd_error((t_object *)attrset, "has no attribute %s.", name->s_name);
+            return -1;
+        }
+    }
+    else
+    {
+        err = 0;
+        for(i = 0; i < attrset->s_nattrs; i++)
+        {
+            err = (eattr_setvalue_default(attrset->s_attrs[i], x) == -1) ? -1 : err;
+        }
+        return err;
+    }
+}
+
+t_pd_err eattrset_write(t_eattrset const* attrset, t_symbol const* name, t_object const* x, t_binbuf* b)
+{
+    t_pd_err err;
+    size_t i;
+    t_eattr *attr;
+    if(name)
+    {
+        attr = eattrset_getattr(attrset, name);
+        if(attr)
+        {
+            return eattr_write(attr, x, b);
+        }
+        else
+        {
+            pd_error((t_object *)attrset, "has no attribute %s.", name->s_name);
+            return -1;
+        }
+    }
+    else
+    {
+        err = 0;
+        for(i = 0; i < attrset->s_nattrs; i++)
+        {
+            err = (eattr_write(attrset->s_attrs[i], x, b) == -1) ? -1 : err;
+        }
+        return err;
+    }
+}
+
+t_pd_err eattrset_read(t_eattrset const* attrset, t_symbol const* name, t_object *x, t_binbuf const* b)
+{
+    t_pd_err err;
+    size_t i;
+    t_eattr *attr;
+    if(name)
+    {
+        attr = eattrset_getattr(attrset, name);
+        if(attr)
+        {
+            return eattr_read(attr, x, b);
+        }
+        else
+        {
+            pd_error((t_object *)attrset, "has no attribute %s.", name->s_name);
+            return -1;
+        }
+    }
+    else
+    {
+        err = 0;
+        for(i = 0; i < attrset->s_nattrs; i++)
+        {
+            err = (eattr_read(attrset->s_attrs[i], x, b) == -1) ? -1 : err;
+        }
+        return err;
     }
 }
 

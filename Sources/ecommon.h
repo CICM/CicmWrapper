@@ -20,7 +20,7 @@
 
 #include "edefine.h"
 
-#define object_method(x, s, ...) t_method m = (t_method)getfn((t_pd *)x, s); (m)(x, s, ...);
+//#define object_method(x, s, ...) t_method m = (t_method)getfn((t_pd *)x, s); (m)(x, s, ...);
 //void object_method(void* x, t_symbol* s, void* z, t_typ_method method, long number, void* other);
 
 /*! @addtogroup groupcommon The Common Part
@@ -31,15 +31,19 @@
 void epd_init(void);
 //! @endcond
 
-static t_pd_err truemethod(void* x)
-{
-    return 1;
-}
+/*!
+ * \fn          t_pd_err method_true(void* x)
+ * \brief       A method that always return 1.
+ * \return 1.
+ */
+t_pd_err method_true(void* x);
 
-static t_pd_err falsemethod(void* x)
-{
-    return 0;
-}
+/*!
+ * \fn          t_pd_err method_true(void* x)
+ * \brief       A method that always return 0.
+ * \return 0.
+ */
+t_pd_err method_false(void* x);
 
 
 /*!
@@ -321,18 +325,6 @@ int binbuf_get_keys(t_binbuf *d, t_symbol*** keys);
  * \return The t_binbuf or NULL if the allocation goes wrong.
  */
 t_binbuf* binbuf_via_atoms(int ac, t_atom *av);
-
-/*!
- * \fn          long binbuf_append_attribute(t_binbuf *d, t_symbol *key, int argc, t_atom *argv)
- * \brief       Adds the key and the values of an attribute to a t_binbuf.
- * \details     The function format and append the key and the values of an attribute.
- * \param d     The t_binbuf.
- * \param key   The key of the attribute.
- * \param argc  The size of the array of t_atom.
- * \param argv  The array of t_atom that owns the values.
- * \return 0 if the attribute has been added.
- */
-t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, int argc, t_atom *argv);
 
 /*!
  * \fn          void epd_add_folder(const char* name, const char* folder)

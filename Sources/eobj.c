@@ -13,6 +13,7 @@
 #include "egraphics.h"
 #include "epopup.h"
 #include "edsp.h"
+#include "eview.h"
 #include "egui.h"
 #include "eproxy.h"
 #include "ecommon.h"
@@ -81,12 +82,17 @@ char eobj_isdsp(void const* x)
 void eobj_proxynew(void* x, ...)
 {
     va_list ap;
-    t_symbol* type;
+    t_symbol* type  = NULL;
     t_eproxy** temp = NULL;
     t_eproxy* proxy = NULL;
     t_eobj* z       = (t_eobj *)x;
+    int tocheck;
     va_start(ap, x);
-    type = va_arg(ap, t_symbol*);
+    type = va_arg(ap, typeof(t_symbol*));
+    if(type == (t_symbol *)1ul)
+    {
+        type = NULL;
+    }
     va_end(ap);
     
     proxy = eproxy_new(x, type, z->o_nproxy);
@@ -186,6 +192,26 @@ void eobj_unbind(void const* b, void* const l)
     }
 }
 
+void eobj_attr_read(void *x, t_binbuf const* b)
+{
+    eclass_attr_read(eobj_getclass(x), (t_object *)x, NULL, b);
+}
+
+void eobj_attr_write(void const* x, t_binbuf *b)
+{
+    eclass_attr_write(eobj_getclass(x), (t_object *)x, NULL, b);
+}
+
+void eobj_attr_setvalue(void *x, t_symbol* s, int argc, t_atom *argv)
+{
+    eclass_attr_setvalue(eobj_getclass(x), (t_object *)x, s, argc, argv);
+}
+
+void eobj_attr_getvalue(void *x, t_symbol *s, int *argc, t_atom **argv)
+{
+    eclass_attr_getvalue(eobj_getclass(x), (t_object *)x, s, argc, argv);
+}
+
 static void eobj_setproxyindex(t_eobj *x, size_t index)
 {
     x->o_cproxy = index;
@@ -193,33 +219,14 @@ static void eobj_setproxyindex(t_eobj *x, size_t index)
 
 static void eobj_save(t_gobj* x, t_binbuf *b)
 {
-    t_binbuf_method m;
+    t_binbuf_method m = NULL;
     binbuf_addv(b, (char *)"ssii", &s__X, s_cream_obj, (t_int)((t_text *)x)->te_xpix, (t_int)((t_text *)x)->te_ypix);
     if(eobj_isgui(x))
     {
-        int important_todo;
-        /*
-        binbuf_addv(b, (char *)"s", eobj_getclassname(x));
-        for(i = 0; i < c->c_nattr; i++)
-        {
-            if(c->c_attr[i] && c->c_attr[i]->save && c->c_attr[i]->name)
-            {
-                eobj_attr_getvalueof(x, c->c_attr[i]->name, &argc, &argv);
-                if(argc && argv)
-                {
-                    if(!(argc == 1 && atom_gettype(argv) == A_SYMBOL && !is_valid_symbol(atom_getsymbol(argv))))
-                    {
-                        snprintf(buffer, MAXPDSTRING, "@%s", c->c_attr[i]->name->s_name);
-                        binbuf_append_attribute(b, gensym(buffer), argc, argv);
-                    }
-                    argc = 0;
-                    free(argv);
-                    argv = NULL;
-                }
-            }
-        }
+        binbuf_addv(b, (char *)"s", eobj_getclassname(x)->s_name);
+        eclass_attr_write(eobj_getclass(x),(t_object *)x, NULL, b);
         int parameter_save_todo_later;
-        
+        /*
         argv = (t_atom *)malloc(3 * sizeof(t_atom));
         if(argv)
         {
@@ -375,18 +382,18 @@ extern void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
      */
 }
 
-static t_pd_err eobj_attr_dosetvalue(t_eobj *x, t_eattr* attr, int argc, t_atom* argv)
+static t_pd_err eobj_attr_dosetvalue(t_eobj *x, t_symbol* s, int argc, t_atom* argv)
 {
-    int use_static_symbols;
-    mess3((t_pd *)attr, gensym("setvalue"), x, (void *)argc, argv);
+    eclass_attr_setvalue(eobj_getclass(x), (t_object *)x, s, argc, argv);
     int todo_important;
+    int notify;
     //ebox_notify(z, s, s_cream_attr_modified, NULL, NULL);
     /*
      if(c->c_widget.w_notify != NULL)
      {
      c->c_widget.w_notify(x, s, s_cream_attr_modified, NULL, NULL);
      }
-     */
+     
     if(eattr_repaint(attr))
     {
         int todo_important;
@@ -414,7 +421,6 @@ static t_pd_err eobj_attr_dosetvalue(t_eobj *x, t_eattr* attr, int argc, t_atom*
          }
          }
          ebox_redraw(z);
-         */
     }
     if(eattr_issaved(attr) && eobj_isgui(x) && !eobj_getcanvas(x)->gl_loading)
     {
@@ -424,75 +430,13 @@ static t_pd_err eobj_attr_dosetvalue(t_eobj *x, t_eattr* attr, int argc, t_atom*
     {
         ewindowprop_update((t_eobj *)x);
     }
-}
-
-static t_pd_err eobj_attr_setvalue(t_eobj *x, t_symbol* s, int argc, t_atom* argv)
-{
-    t_eattr* attr = eclass_getattr(eobj_getclass(x), s);
-    if(attr)
-    {
-        eobj_attr_dosetvalue(x, attr, argc, argv);
-    }
+*/
     return 0;
-}
-
-void eobj_attrprocess_viatoms(void *x, int argc, t_atom *argv)
-{
-    size_t  i;
-    int       defc        = 0;
-    t_atom*   defv        = NULL;
-    size_t    nattrs;
-    t_eattr** attrs;
-    eclass_getattrs(eobj_getclass(x), &nattrs, &attrs);
-    if(attrs && nattrs)
-    {
-        for(i = 0; i < nattrs; i++)
-        {
-            atoms_get_attribute(argc, argv, eattr_getname(attrs[i]), &defc, &defv);
-            if(defc && defv)
-            {
-                eobj_attr_dosetvalue(x, attrs[i], defc, defv);
-                defc = 0;
-                free(defv);
-                defv = NULL;
-            }
-        }
-        free(attrs);
-    }
-    int later_manage_the_parameters;
-}
-
-void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)
-{
-    eobj_attrprocess_viatoms(x, binbuf_getnatom(d), binbuf_getvec(d));
 }
 
 static void eobj_propertieswindow(t_eobj* x, t_glist *glist)
 {
     ewindowprop_create(x);
-}
-
-void eobj_attr_setvalueof(void *x, t_symbol* s, int argc, t_atom *argv)
-{
-    t_typ_method setvalue = (t_typ_method)getfn((t_pd *)x, s);
-    if(setvalue)
-    {
-        setvalue(x, s, argc, argv);
-    }
-}
-
-void eobj_attr_getvalueof(void *x, t_symbol *s, int *argc, t_atom **argv)
-{
-    char realname[MAXPDSTRING];
-    t_typ_method getvalue = NULL;
-    sprintf(realname, "get%s", s->s_name);
-    argc[0] = 0;
-    argv[0] = NULL;
-    getvalue = (t_typ_method)getfn((t_pd *)x, gensym(realname));
-    if(getvalue)
-    {
-        getvalue(x, s, argc, argv);
-    }
 }
 
 
@@ -612,24 +556,14 @@ static t_egui* eobj_getgui(void const* x)
 
 void ebox_new(t_ebox *x, long flags)
 {
-    size_t    i, nattrs;
-    t_eattr** attrs;
     char text[MAXPDSTRING];
     t_egui* gui = egui_new((t_object *)x, flags);
     if(gui)
     {
-        sprintf(text, "%lxdsp", (unsigned long)x);
+        sprintf(text, "%lxgui", (unsigned long)x);
         pd_bind((t_pd *)gui, gensym(text));
     }
-    eclass_getattrs(eobj_getclass(x), &nattrs, &attrs);
-    if(attrs && nattrs)
-    {
-        for(i = 0; i < nattrs; i++)
-        {
-            mess1((t_pd *)attrs[0], gensym("setvaluedefault"), x);
-        }
-        free(attrs);
-    }
+    eclass_attr_setvalue_default(eobj_getclass(x), (t_object *)x, NULL);
     int later_manage_parameter_construction;
 }
 
@@ -650,25 +584,46 @@ void ebox_free(t_ebox* x)
     int later_manage_parameter_destruction;
 }
 
-t_pd* ebox_getsender(t_ebox* x)
+t_pd* ebox_getsender(t_ebox const* x)
 {
     t_egui const* gui = eobj_getgui(x);
-    if(gui && is_valid_symbol(egui_getreceive_symbol(gui)))
+    if(gui && is_valid_symbol(egui_getreceive(gui)))
     {
-        return canvas_realizedollar(eobj_getcanvas(x), egui_getreceive_symbol(gui))->s_thing;
+        return canvas_realizedollar(eobj_getcanvas(x), egui_getreceive(gui))->s_thing;
     }
     return NULL;
 }
 
-long ebox_getflags(t_ebox* x)
+long ebox_getflags(t_ebox const* x)
 {
     t_egui const* gui = eobj_getgui(x);
-    if(gui && is_valid_symbol(egui_getreceive_symbol(gui)))
+    if(gui)
     {
         return egui_getflags(gui);
     }
     return 0;
 }
+
+void ebox_redraw(t_ebox *x)
+{
+    t_egui* gui = eobj_getgui(x);
+    if(gui)
+    {
+        egui_redraw(gui);
+    }
+    int notify_redraw;
+}
+
+void ebox_get_rect_for_view(t_ebox const* x, t_object const* view, t_rect *rect)
+{
+    eview_getbounds((t_eview const*)view, rect);
+}
+
+t_elayer* ebox_start_layer(t_ebox *x, t_object* view, t_symbol *name, float width, float height)
+{
+    ;
+}
+
 
 static t_pd_err ebox_defaultattibutes_set(t_ebox *x, t_object *attr, int argc, t_atom *argv)
 {
@@ -688,126 +643,106 @@ static t_pd_err ebox_defaultattibutes_get(t_ebox *x, t_object *attr, int* argc, 
     {
         int todo;
     }
+    *argc = 0;
+    *argv = NULL;
     return -1;
 }
 
 static void ebox_wgetrect(t_gobj *z, t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2)
 {
+    t_rect bounds;
     t_egui const* gui = eobj_getgui(z);
-    *xp1 = text_xpix((t_text *)z, glist);
-    *yp1 = text_ypix((t_text *)z, glist);
     if(gui)
     {
-        int todo;
-    }
-    else
-    {
-        *xp2 = *xp1 + (int)((t_text *)z)->te_width;
-        *yp2 = *yp1 + (int)10;
+        egui_view_getbounds(gui, glist, &bounds);
+        *xp1 = bounds.x;
+        *yp1 = bounds.y;
+        *xp2 = bounds.x + bounds.width;
+        *yp2 = bounds.y + bounds.height;
     }
 }
 
-void ebox_wvis(t_gobj *z, t_glist *glist, int vis)
+static void ebox_wvis(t_gobj *z, t_glist *glist, int vis)
 {
-    long i;
-    t_ebox* x   = (t_ebox *)z;
-    t_object *view = NULL, **temp;
-    /*
-    if(vis)
+    t_egui* gui = eobj_getgui(z);
+    if(gui)
     {
-        view = eview_create(x, glist);
-        if(view)
+        if(vis)
         {
-            for(i = 0; i < x->b_nviews; i++)
-            {
-                if(x->b_views[i] == view)
-                {
-                    return;
-                }
-            }
-            
-            if(x->b_nviews)
-            {
-                temp = (t_object **)realloc(x->b_views, sizeof(t_object *) * (size_t)(x->b_nviews + 1));
-                if(temp)
-                {
-                    x->b_views[x->b_nviews] = view;
-                    x->b_nviews++;
-                }
-                else
-                {
-                    eview_destroy(view);
-                    pd_error(x, "can't register view for %s.", eobj_getclassname(x)->s_name);
-                }
-            }
-            else
-            {
-                x->b_views = (t_object **)malloc(sizeof(t_object *));
-                if(x->b_views)
-                {
-                    x->b_views[0] = view;
-                    x->b_nviews   = 1;
-                }
-                else
-                {
-                    eview_destroy(view);
-                    pd_error(x, "can't register view for %s.", eobj_getclassname(x)->s_name);
-                }
-            }
+            egui_view_add(gui, glist);
         }
         else
         {
-            pd_error(x, "can't create view for %s.", eobj_getclassname(x)->s_name);
+            egui_view_remove(gui, glist);
         }
     }
-    else
+}
+
+static void ebox_wdisplace(t_gobj *z, t_glist *glist, int dx, int dy)
+{
+    t_pt pos;
+    t_egui* gui = eobj_getgui(z);
+    if(gui)
     {
-        ebox_erase(x);
-        canvas_fixlinesfor(glist_getcanvas(glist), (t_text*)x);
+        egui_view_getposition(gui, glist, &pos);
+        pos.x += (float)dx;
+        pos.y += (float)dy;
+        egui_view_setposition(gui, glist, &pos);
     }
-     */
 }
 
-//! Widget
-void ebox_wdisplace(t_gobj *z, t_glist *glist, int dx, int dy)
+static void ebox_wselect(t_gobj *z, t_glist *glist, int selected)
 {
-    /*
-    t_object* view = eview_create((t_ebox *)z, glist);
-    if(view)
+    t_egui* gui = eobj_getgui(z);
+    if(gui)
     {
-        pd_symbol((t_pd *)view, s_cream_changes);
+        if(selected)
+        {
+            egui_view_select(gui, glist);
+        }
+        else
+        {
+            egui_view_deselect(gui, glist);
+        }
     }
-     */
 }
 
-//! Widget
-void ebox_wselect(t_gobj *z, t_glist *glist, int selected)
+static void ebox_wdelete(t_gobj *z, t_glist *glist)
 {
-    /*
-    t_ebox *x = (t_ebox *)z;
-    x->b_selected_box = selected ? 1 : 0;
-    ebox_select(x);
-     */
-}
-
-//! Widget
-void ebox_wdelete(t_gobj *z, t_glist *glist)
-{
-    /*
-    t_ebox *x = (t_ebox *)z;
-    ebox_erase(x);
-    canvas_deletelinesfor(glist, (t_text *)z);
-     */
+    t_egui* gui = eobj_getgui(z);
+    if(gui)
+    {
+        egui_view_remove(gui, glist);
+    }
 }
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+static t_widgetbehavior eboxwidget;
+
+extern void eobj_initclass(t_eclass* c);
+
+extern void edsp_initclass(t_eclass* c);
+
+extern void ebox_initclass(t_eclass* c);
 
 extern void eobj_initclass(t_eclass* c)
 {
     char help[MAXPDSTRING];
-    class_addmethod(c, (t_method)truemethod,         s_cream_iscicm,            A_CANT, 0);
+    class_addmethod(c, (t_method)method_true,        s_cream_iscicm,           A_CANT, 0);
     class_addmethod(c, (t_method)eobj_setproxyindex, gensym("setproxyindex"),   A_CANT, 0);
     class_addmethod(c, (t_method)eobj_popup,         gensym("dopopup"),         A_SYMBOL, A_FLOAT, 0);
     class_addmethod(c, (t_method)eobj_read,          gensym("doread"),          A_GIMME, 0);
@@ -821,7 +756,7 @@ extern void eobj_initclass(t_eclass* c)
 
 extern void edsp_initclass(t_eclass* c)
 {
-    class_addmethod(c, (t_method)truemethod,    s_cream_isdsp,          A_CANT, 0);
+    class_addmethod(c, (t_method)method_true,   s_cream_isdsp,          A_CANT, 0);
     class_addmethod(c, (t_method)eobj_dsp,      gensym("dsp"),          A_CANT, 0);
     class_addmethod(c, (t_method)eobj_dspadd,   gensym("dsp_add"),      A_CANT, 0);
     class_addmethod(c, (t_method)eobj_dspadd,   gensym("dsp_add64"),    A_CANT, 0);
@@ -829,12 +764,14 @@ extern void edsp_initclass(t_eclass* c)
 
 extern void ebox_initclass(t_eclass* c)
 {
-    t_widgetbehavior widget;
-    widget.w_visfn      = ebox_wvis;
-    widget.w_getrectfn  = ebox_wgetrect;
-    widget.w_selectfn   = ebox_wselect;
-    widget.w_deletefn   = ebox_wdelete;
-    widget.w_displacefn = ebox_wdisplace;
+    eboxwidget.w_visfn      = ebox_wvis;
+    eboxwidget.w_getrectfn  = ebox_wgetrect;
+    eboxwidget.w_selectfn   = ebox_wselect;
+    eboxwidget.w_deletefn   = ebox_wdelete;
+    eboxwidget.w_displacefn = ebox_wdisplace;
+    
+    
+    class_addmethod(c, (t_method)method_true, s_cream_isgui, A_CANT, 0);
     
     CLASS_ATTR_FLOAT_ARRAY  (c, "size", 0, t_ebox, o_dummy, 2);
     CLASS_ATTR_DEFAULT      (c, "size", 0, "100. 100.");
@@ -880,7 +817,7 @@ extern void ebox_initclass(t_eclass* c)
     CLASS_ATTR_LABEL		(c, "send", 0, "Send Symbol");
     CLASS_ATTR_ACCESSORS    (c, "send", ebox_defaultattibutes_get, ebox_defaultattibutes_set);
     
-    class_setwidget((t_class *)c, (t_widgetbehavior *)&widget);
+    class_setwidget((t_class *)c, (t_widgetbehavior *)&eboxwidget);
 }
 
 

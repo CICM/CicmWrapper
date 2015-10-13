@@ -70,12 +70,12 @@ t_egui* egui_new(t_object* owner, long flags);
 t_egui* egui_findbyname(t_symbol* name);
 
 /*!
- * \fn              t_symbol* egui_getreceive_symbol(t_egui const* gui)
+ * \fn              t_symbol* egui_getreceive(t_egui const* gui)
  * \brief           Retrieves receive symbol of a gui manager.
  * \param gui       The gui manager pointer.
  * \return          The receive symbol.
  */
-t_symbol* egui_getreceive_symbol(t_egui const* gui);
+t_symbol* egui_getreceive(t_egui const* gui);
 
 /*!
  * \fn              long egui_getflags(t_egui const* gui)
@@ -84,6 +84,99 @@ t_symbol* egui_getreceive_symbol(t_egui const* gui);
  * \return          The flags of the gui manager.
  */
 long egui_getflags(t_egui const* gui);
+
+/*!
+ * \fn          void egui_redraw(t_egui* gui)
+ * \brief       Notifies the gui that it should be redrawn.
+ * \param gui   The gui manager pointer.
+ */
+void egui_redraw(t_egui* gui);
+
+/*!
+ * \fn          void egui_view_add(t_egui *gui, t_glist* glist)
+ * \brief       Displays a view of the gui for a canvas.
+ * \param gui   The gui pointer.
+ * \param glist The canvas pointer.
+ */
+void egui_view_add(t_egui *gui, t_glist* glist);
+
+/*!
+ * \fn          void ebox_view_remove(t_egui *gui, t_glist *glist)
+ * \brief       Removes a view of the gui.
+ * \param gui   The gui pointer.
+ * \param glist The canvas pointer.
+ */
+void egui_view_remove(t_egui *gui, t_glist *glist);
+
+/*!
+ * \fn          void egui_view_getposition(t_egui const* gui, t_glist const* glist, t_pt* pos)
+ * \brief       Retrieves the position of a view.
+ * \param gui   The gui pointer.
+ * \param glist The canvas pointer.
+ * \param pos   The position of the view.
+ */
+void egui_view_getposition(t_egui const* gui, t_glist const* glist, t_pt* pos);
+
+/*!
+ * \fn          void egui_view_getsize(t_egui const* gui, t_glist const* glist, t_pt* size)
+ * \brief       Retrieves the size of a view.
+ * \param gui   The gui pointer.
+ * \param glist The canvas pointer.
+ * \param size  The size of the view.
+ */
+void egui_view_getsize(t_egui const* gui, t_glist const* glist, t_pt* size);
+
+/*!
+ * \fn              void egui_view_getbounds(t_egui const* gui, t_glist const* glist, t_rect* bounds)
+ * \brief           Retrieves the bounds of a view.
+ * \param gui       The gui pointer.
+ * \param glist     The canvas pointer.
+ * \param bounds    The bounds of the view.
+ */
+void egui_view_getbounds(t_egui const* gui, t_glist const* glist, t_rect* bounds);
+
+/*!
+ * \fn          void egui_view_setposition(t_egui *gui, t_glist *glist, t_pt const* pos)
+ * \brief       Sets the position of a view.
+ * \param gui   The gui pointer.
+ * \param glist The canvas pointer.
+ * \param pos   The position of the view.
+ */
+void egui_view_setposition(t_egui *gui, t_glist *glist, t_pt const* pos);
+
+/*!
+ * \fn          void egui_view_setsize(t_egui const* gui, t_glist const* glist, t_pt const* size)
+ * \brief       Sets the size of a view.
+ * \param gui   The gui pointer.
+ * \param glist The canvas pointer.
+ * \param size  The size of the view.
+ */
+void egui_view_setsize(t_egui* gui, t_glist const* glist, t_pt const* size);
+
+/*!
+ * \fn              void egui_view_setbounds(t_egui const* gui, t_glist const* glist, t_rect const* bounds)
+ * \brief           Sets the bounds of a view.
+ * \param gui       The gui pointer.
+ * \param glist     The canvas pointer.
+ * \param bounds    The bounds of the view.
+ */
+void egui_view_setbounds(t_egui* gui, t_glist const* glist, t_rect const* bounds);
+
+/*!
+ * \fn              void egui_view_select(t_egui *gui, t_glist *glist)
+ * \brief           Selects a view.
+ * \param gui       The gui pointer.
+ * \param glist     The canvas pointer.
+ */
+void egui_view_select(t_egui *gui, t_glist *glist);
+
+/*!
+ * \fn              void egui_view_deselect(t_egui *gui, t_glist *glist)
+ * \brief           Deselects a view.
+ * \param gui       The gui pointer.
+ * \param glist     The canvas pointer.
+ */
+void egui_view_deselect(t_egui *gui, t_glist *glist);
 
 /** @} */
 

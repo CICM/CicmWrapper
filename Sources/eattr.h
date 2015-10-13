@@ -171,6 +171,17 @@ float eattr_getstep(t_eattr const* attr);
  */
 void eattr_getitems(t_eattr const*attr, size_t* nitems, t_symbol*** items);
 
+
+
+
+
+
+
+
+
+
+
+
 /**
  * @struct _eattrset
  * @brief The attributes container object.
@@ -193,49 +204,6 @@ t_eattrset* eattrset_new(void);
  * \return          The attribute set that matchs to the name if it exists, othersise NULL.
  */
 t_eattrset* eattrset_findbyname(t_symbol* name);
-
-/*!
- * \fn              size_t eattrset_getnattrs(t_eattrset const* attrset)
- * \brief           Retrieves the number of attributes of an attributes set.
- * \param attrset   The attributes set pointer.
- * \return          The number of attributes of the attributes set.
- */
-size_t eattrset_getnattrs(t_eattrset const* attrset);
-
-/*!
- * \fn              void eattrset_getattrs(t_eattrset const* attrset, size_t* nattrs, t_eattr*** attrs)
- * \brief           Retrieves the attributes of an attributes set.
- * \param attrset   The attributes set pointer.
- * \param nattrs    The number of attributes of the attributes set.
- * \param attrs     The attributes of the attributes set.
- */
-void eattrset_getattrs(t_eattrset const* attrset, size_t* nattrs, t_eattr*** attrs);
-
-/*!
- * \fn              t_eattr* eattrset_getattr(t_eattrset const* attrset, t_symbol const* name)
- * \brief           Retrieves the attribute that matches to a specific name of an attributes set.
- * \param attrset   The attributes set pointer.
- * \param name      The name of the attribute.
- * \return          The attribute that matches to the specific name if exists, otherwise NULL.
- */
-t_eattr* eattrset_getattr(t_eattrset const* attrset, t_symbol const* name);
-
-/*!
- * \fn              size_t eattrset_getncategories(t_eattrset const* attrset)
- * \brief           Retrieves the number of categories of an attributes set.
- * \param attrset   The attributes set pointer.
- * \return          The number of categories of the attributes set.
- */
-size_t eattrset_getncategories(t_eattrset const* attrset);
-
-/*!
- * \fn              size_t eattrset_getncategories(t_eattrset const* attrset)
- * \brief           Retrieves the categories of an attributes set.
- * \param attrset   The attributes set pointer.
- * \param ncates    The number of categories of the attributes set.
- * \param cates     The categories of the attributes set.
- */
-void eattrset_getcategories(t_eattrset const* attrset, size_t* ncates, t_symbol*** cates);
 
 /*!
  * \fn              t_eattr* eattrset_attr_new(t_eattrset* attrset, t_symbol* name, t_symbol* type, 
@@ -389,6 +357,61 @@ void eattrset_attr_accessor(t_eattrset* attrset, t_symbol* name, t_getter_method
  * \param items     The items.
  */
 void eattrset_attr_items(t_eattrset* attrset, t_symbol* name, size_t nitems, t_symbol** items);
+
+
+
+
+
+/*!
+ * \fn              t_pd_err eattrset_setvalue(t_eattrset const* attrset, t_symbol const* name, t_object *x, int argc, t_atom *argv)
+ * \brief           Sets the value of an attribute.
+ * \param attrset   The attributes set pointer.
+ * \param name      The name of the attribute (NULL means for all attributes).
+ * \param x         The object pointer.
+ * \param argc      The number of arguments.
+ * \param argv      The arguments.
+ */
+t_pd_err eattrset_setvalue(t_eattrset const* attrset, t_symbol const* name, t_object *x, int argc, t_atom *argv);
+
+/*!
+ * \fn              t_pd_err eattrset_getvalue(t_eattrset const* attrset, t_symbol const* name, t_object const* x, int* argc, t_atom **argv)
+ * \brief           Gets the value of an attribute.
+ * \param attrset   The attributes set pointer.
+ * \param name      The name of the attribute.
+ * \param x         The object pointer.
+ * \param argc      The number of arguments.
+ * \param argv      The arguments.
+ */
+t_pd_err eattrset_getvalue(t_eattrset const* attrset, t_symbol const* name, t_object const* x, int* argc, t_atom **argv);
+
+/*!
+ * \fn              t_pd_err eattrset_setvalue_default(t_eattrset const* attrset, t_symbol const* name, t_object *x)
+ * \brief           Sets the default value of an attribute.
+ * \param attrset   The attributes set pointer.
+ * \param name      The name of the attribute (NULL means for all attributes).
+ * \param x         The object pointer.
+ */
+t_pd_err eattrset_setvalue_default(t_eattrset const* attrset, t_symbol const* name, t_object *x);
+
+/*!
+ * \fn              t_pd_err eattrset_write(t_eattrset const* attrset, t_symbol const* name, t_object *x, t_binbuf* b)
+ * \brief           Saves the value of an attribute to a binbuf.
+ * \param attrset   The attributes set pointer.
+ * \param name      The name of the attribute (NULL means for all attributes).
+ * \param x         The object pointer.
+ * \param b         The binbuf to write.
+ */
+t_pd_err eattrset_write(t_eattrset const* attrset, t_symbol const* name, t_object const* x, t_binbuf* b);
+
+/*!
+ * \fn              t_pd_err eattr_save(t_eattrset const* attrset, t_symbol const* name, t_object *x, t_binbuf* b)
+ * \brief           Reads the value of an attribute from a binbuf.
+ * \param attrset   The attributes set pointer.
+ * \param name      The name of the attribute.
+ * \param x         The object pointer.
+ * \param b         The binbuf to read.
+ */
+t_pd_err eattrset_read(t_eattrset const* attrset, t_symbol const* name, t_object *x, t_binbuf const* b);
 
 /** @} */
 

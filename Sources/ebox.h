@@ -36,22 +36,6 @@
 void ebox_set_cursor(t_ebox* x, t_object* view, int cursor);
 
 /*!
- * \fn      void ebox_redraw(t_ebox* x)
- * \brief   Notifies the t_ebox that it should be redrawn.
- * \param x The t_ebox pointer.
- */
-void ebox_redraw(t_ebox *x);
-
-/*!
- * \fn      void ebox_get_rect_for_view(t_ebox* x, t_rect *rect)
- * \brief   Retrieves the rectangle of the t_ebox.
- * \details This function should be used while the paint method is called to retrieves the current size of the t_ebox.
- * \param x The t_ebox pointer.
- * \param rect The t_rect pointer.
- */
-void ebox_get_rect_for_view(t_ebox* x, t_rect *rect);
-
-/*!
  * \fn      t_elayer* ebox_start_layer(t_ebox *b, t_object* view, t_symbol *name, float width, float height)
  * \brief   Creates or initializes a layer for the t_ebox.
  * \details If the layer is new, the function allocate a new empty layer. if the layer already exist and is marked as invalid the layer is returned otherwise(if the layer is maked as redeay to be drawn for example) the function returns NULL. You should always check the returned layer of the function before using it.

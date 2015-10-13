@@ -152,46 +152,41 @@ void eobj_bind(void const* b, void* const l);
 void eobj_unbind(void const* b, void* const l);
 
 /*!
- * \fn      void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)
- * \brief   Changes the attributes with a binbuf.
- * \details Retrieves and interpretes a binbuf to initialize the attributes.
+ * \fn      void eobj_attr_read(void *x, t_binbuf *b)
+ * \brief   Initializes the attributes values with a binbuf.
  * \param x The t_ebox pointer.
- * \param d The binbuf pointer.
+ * \param b The binbuf pointer.
  */
-void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d);
+void eobj_attr_read(void *x, t_binbuf const* b);
 
 /*!
- * \fn      void eobj_attrprocess_viatoms(void *x, int argc, t_atom *argv)
- * \brief   Changes the attributes with an array of atoms.
- * \details Retrieves and interpretes a binbuf to initialize the attributes.
+ * \fn      void eobj_attr_write(void *x, t_binbuf *b)
+ * \brief   Writes the attributes values in a binbuf
  * \param x The t_ebox pointer.
- * \param argc The number of atoms.
- * \param argv The pointer to the atoms.
+ * \param b The binbuf pointer.
  */
-void eobj_attrprocess_viatoms(void *x, int argc, t_atom *argv);
+void eobj_attr_write(void const* x, t_binbuf *b);
 
 /*!
- * \fn      void eobj_attr_setvalueof(void *x, t_symbol* s, int argc, t_atom *argv)
+ * \fn      void eobj_attr_setvalue(void *x, t_symbol* s, int argc, t_atom *argv)
  * \brief   Sets the values of an attribute.
- * \details Retrieves the attribute setter and calls it if it exist otherwise it does nothing.
  * \param x The t_eobj pointer.
  * \param s The name of the attribute.
  * \param argc The number of the atoms.
  * \param argv The array of the atoms.
  */
-void eobj_attr_setvalueof(void *x, t_symbol* s, int argc, t_atom *argv);
+void eobj_attr_setvalue(void *x, t_symbol* s, int argc, t_atom *argv);
 
 /*!
- * \fn      void eobj_attr_getvalueof(void *x, t_symbol* s, int *argc, t_atom **argv)
+ * \fn      void eobj_attr_getvalue(void *x, t_symbol* s, int *argc, t_atom **argv)
  * \brief   Gets the values of an attribute.
- * \details Retrieves the attribute getter method and calls it if it exist otherwise it does nothing.
  * \details You should free the atoms if they has been allocated.
  * \param x The t_eobj pointer.
  * \param s The name of the attribute.
  * \param argc The pointer to an int that will be initialize with the number of the atoms.
  * \param argv The pointer to the array of the atoms that will be allocated if the attribute exist.
  */
-void eobj_attr_getvalueof(void *x, t_symbol *s, int *argc, t_atom **argv);
+void eobj_attr_getvalue(void *x, t_symbol *s, int *argc, t_atom **argv);
 
 
 
@@ -285,13 +280,14 @@ void ebox_ready(t_ebox *x);
  */
 void ebox_free(t_ebox* x);
 
+
 /*!
  * \fn          t_pd* ebox_getsender(t_ebox* x)
  * \brief       Retrieves the link list of object binded to the t_ebox.
  * \param x     The t_ebox pointer.
  * \return      The pointer to the link list.
  */
-t_pd* ebox_getsender(t_ebox* x);
+t_pd* ebox_getsender(t_ebox const* x);
 
 /*!
  * \fn          long ebox_getflags(t_ebox* x)
@@ -299,10 +295,23 @@ t_pd* ebox_getsender(t_ebox* x);
  * \param x     The t_ebox pointer.
  * \return      The flags of the t_ebox.
  */
-long ebox_getflags(t_ebox* x);
+long ebox_getflags(t_ebox const* x);
 
-#define ebox_attrprocess_viabinbuf(x, d) eobj_attrprocess_viabinbuf(x, d)
-#define ebox_attrprocess_viaatoms(x, argc, argv) eobj_attrprocess_viatoms(x, argc, argv)
+/*!
+ * \fn      void ebox_redraw(t_ebox* x)
+ * \brief   Notifies the t_ebox that it should be redrawn.
+ * \param x The t_ebox pointer.
+ */
+void ebox_redraw(t_ebox *x);
+
+
+/*!
+ * \fn          void ebox_get_rect_for_view(t_ebox const* x, t_object const* view, t_rect *rect)
+ * \brief       Retrieves the bounds of the view of a t_ebox.
+ * \param x     The t_ebox pointer.
+ * \param rect The rectangle pointer.
+ */
+void ebox_get_rect_for_view(t_ebox const* x, t_object const* view, t_rect *rect);
 
 /** @} */
 

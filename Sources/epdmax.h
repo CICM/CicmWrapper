@@ -8,9 +8,7 @@
  * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
-#ifndef DEF_EPD_MAX
-#define DEF_EPD_MAX
-
+#ifdef DEF_EPD_MAX
 
 typedef t_matrix        t_jmatrix;
 typedef t_elayer        t_jgraphics;
@@ -27,7 +25,7 @@ typedef t_binbuf        t_dictionary;
 
 #define A_LONG             A_FLOAT
 #define A_SYM              A_SYMBOL
-#define atom_getsym(atom)  atom_getsymbol(atom)
+#define atom_getsymbol(atom)  atom_getsymbol(atom)
 
 #define outlet_int(outlet, val) outlet_float(outlet, (float)val)
 #define bangout(x) outlet_new((t_object *)x, &s_bang)
@@ -36,8 +34,8 @@ typedef t_binbuf        t_dictionary;
 #define listout(x) outlet_new((t_object *)x, &s_list)
 #define anythingout(x) outlet_new((t_object *)x, &s_anything)
 
-#define object_attr_setvalueof eobj_attr_setvalueof
-#define object_attr_getvalueof eobj_attr_getvalueof
+#define object_attr_setvalueof eobj_attr_setvalue
+#define object_attr_getvalueof eobj_attr_getvalue
 
 /*
 #define pd_library_add_folder epd_add_folder
@@ -111,7 +109,7 @@ typedef t_binbuf        t_dictionary;
 #define dictionary_new                              binbuf_new
 #define dictionary_free                             binbuf_free
 #define dictionary_write(dict, filename, dir)       binbuf_write(dict, filename, dir, 0)
-#define attr_dictionary_process(object, dict)       ebox_attrprocess_viabinbuf(object, dict)
+#define attr_dictionary_process(object, dict)       eobj_attr_read(object, dict)
 #define object_dictionaryarg(ac, av)                binbuf_via_atoms(ac, av)
 #define dictionary_copyatoms(d, key, argc, argv)    binbuf_get_attribute(d, key, argc, argv)
 

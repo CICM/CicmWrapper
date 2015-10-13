@@ -74,7 +74,6 @@
 typedef long t_pd_err;
 //! The standart method
 typedef void        (*t_typ_method)(void* x, ...);
-typedef t_typ_method    method;
 //! The return method
 typedef void*       (*t_ret_method)(void* x, ...);
 //! The error method
@@ -402,7 +401,6 @@ typedef struct _eobj
 } t_eobj;
 
 /**
- * @struct t_eobj
  * @brief The GUI object.
  * @details It contains the t_eobj with all the members for graphical behavior.
  * This should be used for graphical object that don't have signal processing methods.
@@ -411,7 +409,6 @@ typedef struct _eobj
 typedef t_eobj t_ebox;
 
 /**
- * @struct t_edspobj
  * @brief The dsp object.
  * @details It contains all the members for signal processing.
  * @details This should be used for no graphical object that have signal processing methods.
@@ -420,7 +417,6 @@ typedef t_eobj t_ebox;
 typedef t_eobj t_edspobj;
 
 /**
- * @struct _edspbox
  * @brief The GUI DSP object.
  * @details It contains the t_eobj with all the members for graphical behavior and signal processing.
  * This should be used for graphical object that have signal processing methods.
@@ -429,7 +425,6 @@ typedef t_eobj t_edspobj;
 typedef t_ebox t_edspbox;
 
 /**
- * @struct t_eclass
  * @brief The class.
  * @details The native class.
  */
