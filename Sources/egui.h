@@ -70,12 +70,52 @@ t_egui* egui_new(t_object* owner, long flags);
 t_egui* egui_findbyname(t_symbol* name);
 
 /*!
+ * \fn              float egui_getwidth(t_egui const* gui)
+ * \brief           Retrieves if the width of a gui manager.
+ * \param gui       The gui manager pointer.
+ * \return          The width.
+ */
+float egui_getwidth(t_egui const* gui);
+
+/*!
+ * \fn              float egui_getheight(t_egui const* gui)
+ * \brief           Retrieves if the height of a gui manager.
+ * \param gui       The gui manager pointer.
+ * \return          The height.
+ */
+float egui_getheight(t_egui const* gui);
+
+/*!
+ * \fn              char egui_ispinned(t_egui const* gui)
+ * \brief           Retrieves if the gui manager is pinned.
+ * \param gui       The gui manager pointer.
+ * \return          A non-null value if the gui manager is pinned, otherwise 0.
+ */
+char egui_ispinned(t_egui const* gui);
+
+/*!
+ * \fn              char egui_ignoreclick(t_egui const* gui)
+ * \brief           Retrieves if the gui manager ignores clicks.
+ * \param gui       The gui manager pointer.
+ * \return          A non-null value if the gui manager ignores clicks, otherwise 0.
+ */
+char egui_ignoreclick(t_egui const* gui);
+
+/*!
  * \fn              t_symbol* egui_getreceive(t_egui const* gui)
  * \brief           Retrieves receive symbol of a gui manager.
  * \param gui       The gui manager pointer.
  * \return          The receive symbol.
  */
 t_symbol* egui_getreceive(t_egui const* gui);
+
+/*!
+ * \fn              t_symbol* egui_getsend(t_egui const* gui)
+ * \brief           Retrieves send symbol of a gui manager.
+ * \param gui       The gui manager pointer.
+ * \return          The send symbol.
+ */
+t_symbol* egui_getsend(t_egui const* gui);
 
 /*!
  * \fn              long egui_getflags(t_egui const* gui)
@@ -91,6 +131,47 @@ long egui_getflags(t_egui const* gui);
  * \param gui   The gui manager pointer.
  */
 void egui_redraw(t_egui* gui);
+
+/*!
+ * \fn          void egui_setreceive(t_egui *gui, t_symbol* s)
+ * \brief       Sets the receive symbol of the gui manager.
+ * \param gui   The gui manager pointer.
+ * \param s     The symbol.
+ */
+void egui_setreceive(t_egui *gui, t_symbol* s);
+
+/*!
+ * \fn          void egui_setsend(t_egui *gui, t_symbol* s)
+ * \brief       Sets the send symbol of the gui manager.
+ * \param gui   The gui manager pointer.
+ * \param s     The symbol.
+ */
+void egui_setsend(t_egui *gui, t_symbol* s);
+
+/*!
+ * \fn              void egui_setsize(t_egui *gui, float width, float height)
+ * \brief           Sets the global size of the gui manager.
+ * \param gui       The gui manager pointer.
+ * \param width     The width.
+ * \param height    The height.
+ */
+void egui_setsize(t_egui *gui, float width, float height);
+
+/*!
+ * \fn          void egui_setignoreclick(t_egui *gui, char ignore)
+ * \brief       Sets if the gui should ignore mouse click.
+ * \param gui   The gui manager pointer.
+ * \param state A positive value to ignore, otherwise a non-null value.
+ */
+void egui_setignoreclick(t_egui *gui, char state);
+
+/*!
+ * \fn          void egui_setpinned(t_egui *gui, char state)
+ * \brief       Sets if the gui should be pinned to the canvas.
+ * \param gui   The gui manager pointer.
+ * \param state A positive value to pinne, otherwise a non-null value.
+ */
+void egui_setpinned(t_egui *gui, char state);
 
 /*!
  * \fn          void egui_view_add(t_egui *gui, t_glist* glist)

@@ -39,53 +39,6 @@ static void egui_free(t_egui *gui)
     }
 }
 
-static void egui_setreceive(t_egui *gui, t_symbol* s)
-{
-    if(is_valid_symbol(gui->g_receive))
-    {
-        pd_unbind((t_pd *)gui->g_owner, canvas_realizedollar(eobj_getcanvas(gui->g_owner), gui->g_receive));
-    }
-    gui->g_receive = s;
-    if(is_valid_symbol(gui->g_receive))
-    {
-        pd_bind((t_pd *)gui->g_owner, canvas_realizedollar(eobj_getcanvas(gui->g_owner), gui->g_receive));
-    }
-}
-
-static void egui_setsend(t_egui *gui, t_symbol* s)
-{
-    gui->g_send = s;
-}
-
-static void egui_setsize(t_egui *gui, float width, float height)
-{
-    if(gui->g_flags & EBOX_GROWLINK)
-    {
-        width  = pd_clip_min(width, 4);
-        height = gui->g_bounds.height;
-        gui->g_bounds.height += (width - gui->g_bounds.width);
-        if(gui->g_bounds.height < 4)
-        {
-            gui->g_bounds.width += 4 - height;
-            gui->g_bounds.height = 4;
-        }
-        else
-        {
-            gui->g_bounds.width =  width;
-        }
-    }
-    else if(gui->g_flags & EBOX_GROWINDI)
-    {
-        gui->g_bounds.width = pd_clip_min(width, 4.f);
-        gui->g_bounds.height = pd_clip_min(height, 4.f);
-    }
-}
-
-static void egui_setignoreclick(t_egui *gui, float f)
-{
-    gui->g_ignore_click = (f == 0.f) ? 0 : 1;
-}
-
 static t_eview* egui_getview(t_egui const* gui, t_glist const* glist)
 {
     
@@ -115,6 +68,7 @@ void egui_view_getbounds(t_egui const* gui, t_glist const* glist, t_rect* bounds
     if(view)
     {
         eview_getbounds(view, bounds);
+        int todo_aki_and_next;
     }
 }
 
@@ -215,9 +169,34 @@ void egui_view_add(t_egui *gui, t_glist* glist)
     }
 }
 
+float egui_getwidth(t_egui const* gui)
+{
+    return gui->g_bounds.width;
+}
+
+float egui_getheight(t_egui const* gui)
+{
+    return gui->g_bounds.height;
+}
+
+char egui_ispinned(t_egui const* gui)
+{
+    return gui->g_pinned;
+}
+
+char egui_ignoreclick(t_egui const* gui)
+{
+    return gui->g_ignore_click;
+}
+
 t_symbol* egui_getreceive(t_egui const* gui)
 {
     return gui->g_receive;
+}
+
+t_symbol* egui_getsend(t_egui const* gui)
+{
+    return gui->g_send;
 }
 
 long egui_getflags(t_egui const* gui)
@@ -234,6 +213,61 @@ void egui_redraw(t_egui* gui)
     }
 }
 
+void egui_setreceive(t_egui *gui, t_symbol* s)
+{
+    if(is_valid_symbol(gui->g_receive))
+    {
+        pd_unbind((t_pd *)gui->g_owner, canvas_realizedollar(eobj_getcanvas(gui->g_owner), gui->g_receive));
+    }
+    gui->g_receive = s;
+    if(is_valid_symbol(gui->g_receive))
+    {
+        pd_bind((t_pd *)gui->g_owner, canvas_realizedollar(eobj_getcanvas(gui->g_owner), gui->g_receive));
+    }
+}
+
+void egui_setsend(t_egui *gui, t_symbol* s)
+{
+    gui->g_send = s;
+}
+
+void egui_setsize(t_egui *gui, float width, float height)
+{
+    if(gui->g_flags & EBOX_GROWLINK)
+    {
+        width  = pd_clip_min(width, 4);
+        height = gui->g_bounds.height;
+        gui->g_bounds.height += (width - gui->g_bounds.width);
+        if(gui->g_bounds.height < 4)
+        {
+            gui->g_bounds.width += 4 - height;
+            gui->g_bounds.height = 4;
+        }
+        else
+        {
+            gui->g_bounds.width =  width;
+        }
+    }
+    else if(gui->g_flags & EBOX_GROWINDI)
+    {
+        gui->g_bounds.width = pd_clip_min(width, 4.f);
+        gui->g_bounds.height = pd_clip_min(height, 4.f);
+    }
+    int notify_views;
+}
+
+void egui_setignoreclick(t_egui *gui, char state)
+{
+    gui->g_ignore_click = (state == 0) ? 0 : 1;
+    int notify_views;
+}
+
+void egui_setpinned(t_egui *gui, char state)
+{
+    gui->g_pinned = (state == 0) ? 0 : 1;
+    int notify_views;
+}
+
 static t_class* egui_setup()
 {
     t_class* c = NULL;
@@ -243,11 +277,6 @@ static t_class* egui_setup()
         c = class_new(gensym("egui"), (t_newmethod)NULL, (t_method)egui_free, sizeof(t_egui), CLASS_PD, A_NULL, 0);
         if(c)
         {
-            class_addmethod(c, (t_method)egui_setreceive,       gensym("receive"),      A_SYMBOL, 0);
-            class_addmethod(c, (t_method)egui_setsend,          gensym("send"),         A_SYMBOL, 0);
-            class_addmethod(c, (t_method)egui_setsize,          gensym("size"),         A_FLOAT, A_FLOAT, 0);
-            class_addmethod(c, (t_method)egui_setignoreclick,   gensym("ignoreclick"),  A_FLOAT, 0);
-
             obj = pd_new(c);
             pd_bind(obj, gensym("egui1572"));
         }

@@ -66,6 +66,7 @@
 #define atom_setfloat(a, f) SETFLOAT(a, f)
 #define atom_setlong(a, l)  SETFLOAT(a, (float)l)
 #define atom_setsym(a, s)   SETSYMBOL(a, s)
+#define atom_setsymbol(a, s)   SETSYMBOL(a, s)
 #define atom_getlong(a)     (long)atom_getfloat(a)
 #define atom_gettype(a)     (a)[0].a_type
 //! @endcond
@@ -99,6 +100,7 @@ typedef void        (*t_binbuf_method)(void *x, t_binbuf* b);
 extern t_symbol* s_cream_null;
 //! The pre-defined "" t_symbol*
 extern t_symbol* s_cream_empty;
+extern t_symbol* s_cream_quote;
 //! The pre-defined obj t_symbol*
 extern t_symbol* s_cream_obj;
 //! The pre-defined attr_modified t_symbol*
@@ -153,6 +155,11 @@ extern t_symbol* s_cream_symbol;
 
 //! The pre-defined s_pinned t_symbol*
 extern t_symbol* s_cream_pinned;
+//! The pre-defined ignoreclick t_symbol*
+extern t_symbol* s_cream_ignoreclick;
+extern t_symbol* s_cream_send;
+extern t_symbol* s_cream_save;
+extern t_symbol* s_cream_receive;
 //! The pre-defined iscicm t_symbol*
 extern t_symbol* s_cream_iscicm;
 //! The pre-defined isgui t_symbol*

@@ -14,6 +14,7 @@
 
 t_symbol* s_cream_null;
 t_symbol* s_cream_empty;
+t_symbol* s_cream_quote;
 t_symbol* s_cream_obj;
 t_symbol* s_cream_attr_modified;
 t_symbol* s_cream_value_changed;
@@ -34,6 +35,11 @@ t_symbol* s_cream_view;
 t_symbol* s_cream_notify;
 
 t_symbol* s_cream_pinned;
+t_symbol* s_cream_ignoreclick;
+t_symbol* s_cream_send;
+t_symbol* s_cream_save;
+t_symbol* s_cream_receive;
+
 t_symbol* s_cream_iscicm;
 t_symbol* s_cream_isgui;
 t_symbol* s_cream_isdsp;
@@ -63,6 +69,7 @@ void epd_init(void)
 {
     s_cream_null          = gensym("(null)");
     s_cream_empty         = gensym("");
+    s_cream_quote         = gensym("""");
     s_cream_obj           = gensym("obj");
     s_cream_attr_modified = gensym("attr_modified");
     s_cream_value_changed = gensym("value_changed");
@@ -90,6 +97,10 @@ void epd_init(void)
     s_cream_atom            = gensym("atom");
     s_cream_symbol          = gensym("symbol");
     
+    s_cream_ignoreclick     = gensym("ignoreclick");
+    s_cream_send            = gensym("send");
+    s_cream_save            = gensym("save");
+    s_cream_receive         = gensym("receive");
     s_cream_pinned        = gensym("pinned");
     s_cream_iscicm        = gensym("iscicm");
     s_cream_isgui         = gensym("isgui");
@@ -353,7 +364,7 @@ static long unformat_atoms(int ac, t_atom* av)
 
 t_symbol* get_valid_symbol(t_symbol* s)
 {
-    if(s && s != s_cream_null)
+    if(s && s != s_cream_null && s != s_cream_quote)
     {
         return s;
     }
@@ -365,14 +376,7 @@ t_symbol* get_valid_symbol(t_symbol* s)
 
 char is_valid_symbol(t_symbol* s)
 {
-    if(s && s != s_cream_null && s != s_cream_empty)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
+    return s && s != s_cream_null && s != s_cream_empty && s != s_cream_quote;
 }
 
 void unparse_atoms(int argc, t_atom* argv, int* ac, t_atom** av)

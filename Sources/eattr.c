@@ -9,11 +9,13 @@
  */
 
 #include "eattr.h"
+#include "ecommon.h"
 
 struct _eattr
 {
     t_object        a_obj;        /*!< The object. */
     t_symbol*       a_name;       /*!< The name of the attribute. */
+    t_symbol*       a_fname;      /*!< The formatted name of the attribute. */
     t_symbol*       a_type;       /*!< The type of the attribute (int, long, float, double, rgba, etc.). */
     t_symbol*       a_category;   /*!< The category of the attribute. */
     t_symbol*       a_label;      /*!< The label of the attribute. */
@@ -42,16 +44,84 @@ struct _eattr
     size_t          a_nitems;     /*!< The number of available items of an attribute if it is a menu. */
 };
 
+static inline char atom_equal(t_atom* a1, t_atom* a2)
+{
+    if(atom_gettype(a1) == atom_gettype(a2))
+    {
+        if(atom_gettype(a1) == A_FLOAT)
+        {
+            return atom_getfloat(a1) == atom_getfloat(a2);
+        }
+        else
+        {
+            return get_valid_symbol(atom_getsymbol(a1)) == get_valid_symbol(atom_getsymbol(a2));
+        }
+    }
+    return 0;
+}
 
+static inline char atoms_equal(int s1, t_atom* a1, int s2, t_atom* a2)
+{
+    int i = 0;
+    if(s1 == s2)
+    {
+        while(i < s1)
+        {
+            if(!atom_equal(a1+i, a2+i))
+            {
+                return 0;
+            }
+            i++;
+        }
+        return 1;
+    }
+    return 0;
+}
+
+static t_symbol* format_symbol(t_symbol* s)
+{
+    int i, j, lenght;
+    char buffer[MAXPDSTRING];
+    s = get_valid_symbol(s);
+    lenght = (int)strlen(s->s_name);
+    buffer[0] = '\"';
+    for(i = 0, j = 1; i < lenght && j < MAXPDSTRING - 2; i++, j++)
+    {
+        if(s->s_name[i] == '"' || s->s_name[i] == '\\')
+        {
+            buffer[j++] = '\\';
+        }
+        buffer[j] = s->s_name[i];
+    }
+    buffer[j++] = '\"';
+    buffer[j] = '\0';
+    return gensym(buffer);
+}
+
+static t_atom* format_atoms(int ac, t_atom* av)
+{
+    int i;
+    for(i = 0; i < ac; i++)
+    {
+        if(atom_gettype(av+i) == A_SYMBOL)
+        {
+            atom_setsym(av+i, format_symbol(atom_getsymbol(av+i)));
+        }
+    }
+    return av;
+}
 
 static inline void* eattr_getvalue_adress(t_object const* x, t_eattr const* attr)
 {
     return (char *)x + attr->a_offset;
 }
 
-static inline long* eattr_getsize_adress(t_object const* x, t_eattr const* attr)
+static inline void eattr_setvalue_adress(t_object const* x, t_eattr const* attr, long v)
 {
-    return (long *)((char *)x + attr->a_size);
+    if(attr->a_sizemax != 0)
+    {
+        *(long *)((char *)x + attr->a_size) = ((long)attr->a_sizemax < v) ? (long)attr->a_sizemax : v;
+    }
 }
 
 static inline size_t eattr_getsize(t_object const* x, t_eattr const* attr)
@@ -94,6 +164,7 @@ static t_pd_err eattr_setvalue_char(t_object* x, t_eattr* attr, int argc, t_atom
 {
     int i;
     char* pointer = (char *)eattr_getvalue_adress(x, attr);
+    eattr_setvalue_adress(x, attr, (long)argc);
     for(i = 0; i < argc; i++)
     {
         pointer[i] = (char)atom_getfloatcliparg(i, argc, argv, attr->a_clipped, attr->a_minimum, attr->a_maximum);
@@ -105,6 +176,7 @@ static t_pd_err eattr_setvalue_int(t_object* x, t_eattr* attr, int argc, t_atom*
 {
     int i;
     int* pointer = (int *)eattr_getvalue_adress(x, attr);
+    eattr_setvalue_adress(x, attr, (long)argc);
     for(i = 0; i < argc; i++)
     {
         pointer[i] = (int)atom_getfloatcliparg(i, argc, argv, attr->a_clipped, attr->a_minimum, attr->a_maximum);
@@ -116,6 +188,7 @@ static t_pd_err eattr_setvalue_long(t_object* x, t_eattr* attr, int argc, t_atom
 {
     int i;
     long* pointer = (long *)eattr_getvalue_adress(x, attr);
+    eattr_setvalue_adress(x, attr, (long)argc);
     for(i = 0; i < argc; i++)
     {
         pointer[i] = (long)atom_getfloatcliparg(i, argc, argv, attr->a_clipped, attr->a_minimum, attr->a_maximum);
@@ -127,6 +200,7 @@ static t_pd_err eattr_setvalue_float(t_object* x, t_eattr* attr, int argc, t_ato
 {
     int i;
     float* pointer = (float *)eattr_getvalue_adress(x, attr);
+    eattr_setvalue_adress(x, attr, (long)argc);
     for(i = 0; i < argc; i++)
     {
         pointer[i] = atom_getfloatcliparg(i, argc, argv, attr->a_clipped, attr->a_minimum, attr->a_maximum);
@@ -138,6 +212,7 @@ static t_pd_err eattr_setvalue_double(t_object* x, t_eattr* attr, int argc, t_at
 {
     int i;
     double* pointer = (double *)eattr_getvalue_adress(x, attr);
+    eattr_setvalue_adress(x, attr, (long)argc);
     for(i = 0; i < argc; i++)
     {
         pointer[i] = (double)atom_getfloatcliparg(i, argc, argv, attr->a_clipped, attr->a_minimum, attr->a_maximum);
@@ -149,6 +224,7 @@ static t_pd_err eattr_setvalue_symbol(t_object* x, t_eattr* attr, int argc, t_at
 {
     int i;
     t_symbol** pointer = (t_symbol **)eattr_getvalue_adress(x, attr);
+    eattr_setvalue_adress(x, attr, (long)argc);
     for(i = 0; i < argc; i++)
     {
         pointer[i] = atom_getsymbolarg(i, argc, argv);
@@ -162,6 +238,9 @@ static t_pd_err eattr_setvalue_atom(t_object* x, t_eattr* attr, int argc, t_atom
     memcpy(pointer, argv, (size_t)argc * sizeof(t_atom));
     return 0;
 }
+
+
+
 
 static t_pd_err eattr_getvalue_char(t_object* x, t_eattr* attr, int* argc, t_atom** argv)
 {
@@ -279,6 +358,83 @@ static t_pd_err eattr_getvalue_atom(t_object* x, t_eattr* attr, int* argc, t_ato
 }
 
 
+static t_pd_err eattr_setvalue(t_eattr* attr, t_object *x, int argc, t_atom *argv)
+{
+    int ac = 0; t_atom* av = NULL;
+    unparse_atoms(argc, argv, &ac, &av);
+    (attr->a_setter)(x, (t_object *)attr, ac, av);
+    if(ac && av)
+    {
+        free(av);
+    }
+    return 0;
+}
+
+static t_pd_err eattr_setvalue_default(t_eattr* attr, t_object *x)
+{
+    return eattr_setvalue(attr, x, (int)attr->a_ndefaults, attr->a_defaults);
+}
+
+static t_pd_err eattr_getvalue(t_eattr* attr, t_object const* x, int* argc, t_atom **argv)
+{
+    if(attr->a_getter)
+    {
+        return (attr->a_getter)((t_object *)x, (t_object *)attr, argc, argv);
+    }
+    pd_error(attr, "attribute getter isn't initialized.");
+    return -1;
+}
+
+static t_pd_err eattr_write(t_eattr* attr, t_object const* x, t_binbuf* b)
+{
+    int argc = 0;
+    t_atom* argv = NULL;
+    if(attr->a_getter)
+    {
+        if(attr->a_saved && !((attr->a_getter)((t_object *)x, (t_object *)attr, &argc, &argv)))
+        {
+            if(argc && argv)
+            {
+                format_atoms(argc, argv);
+                int see_for_symbols;
+                if(!atoms_equal(argc, argv, (int)attr->a_ndefaults, attr->a_defaults))
+                {
+                    binbuf_addv(b, "s", attr->a_fname);
+                    binbuf_add(b, argc, argv);
+                }
+                free(argv);
+            }
+            
+        }
+        return 0;
+    }
+    pd_error(attr, "attribute getter isn't initialized.");
+    return -1;
+}
+
+static t_pd_err eattr_read(t_eattr* attr, t_object* x, t_binbuf const* b)
+{
+    int argc = 0;
+    t_atom* argv = NULL;
+    binbuf_get_attribute((t_binbuf *)b, attr->a_fname, &argc, &argv);
+    if(argc && argv)
+    {
+        if(attr->a_setter)
+        {
+            (attr->a_setter)((t_object *)x, (t_object *)attr, argc, argv);
+        }
+        else
+        {
+             pd_error(attr, "attribute getter isn't initialized.");
+            return -1;
+        }
+        free(argv);
+    }
+    return 0;
+}
+
+
+
 
 
 
@@ -325,6 +481,7 @@ static t_class* eattr_setup()
 
 t_eattr *eattr_new(t_symbol *name, t_symbol *type, size_t size, size_t maxsize, size_t offset)
 {
+    char text[MAXPDSTRING];
     t_eattr *x = NULL;
     t_class* c = eattr_setup();
     if(c)
@@ -332,7 +489,9 @@ t_eattr *eattr_new(t_symbol *name, t_symbol *type, size_t size, size_t maxsize, 
         x  = (t_eattr *)pd_new(c);
         if(x)
         {
+            sprintf(text, "@%s", name->s_name);
             x->a_name       = name;
+            x->a_fname      = gensym(text);
             x->a_type       = type;
             x->a_category   = s_cream_empty;
             x->a_label      = s_cream_empty;
@@ -349,8 +508,8 @@ t_eattr *eattr_new(t_symbol *name, t_symbol *type, size_t size, size_t maxsize, 
             x->a_minimum    = 0;
             x->a_maximum    = 1;
             x->a_step       = 1;
-            x->a_ndefaults  = 0;
-            x->a_defaults   = NULL;
+            x->a_ndefaults  = 1;
+            x->a_defaults   = (t_atom *)malloc(sizeof(t_atom));
             x->a_items      = NULL;
             x->a_nitems     = 0;
             
@@ -359,36 +518,43 @@ t_eattr *eattr_new(t_symbol *name, t_symbol *type, size_t size, size_t maxsize, 
             {
                 x->a_setter = (t_setter_method)eattr_setvalue_char;
                 x->a_getter = (t_getter_method)eattr_getvalue_char;
+                atom_setfloat(x->a_defaults, 0);
             }
             else if(x->a_type == s_cream_int)
             {
                 x->a_setter = (t_setter_method)eattr_setvalue_int;
                 x->a_getter = (t_getter_method)eattr_getvalue_int;
+                atom_setfloat(x->a_defaults, 0);
             }
             else if(x->a_type == s_cream_long)
             {
                 x->a_setter = (t_setter_method)eattr_setvalue_long;
                 x->a_getter = (t_getter_method)eattr_getvalue_long;
+                atom_setfloat(x->a_defaults, 0);
             }
             else if(x->a_type == s_cream_float)
             {
                 x->a_setter = (t_setter_method)eattr_setvalue_float;
                 x->a_getter = (t_getter_method)eattr_getvalue_float;
+                atom_setfloat(x->a_defaults, 0);
             }
             else if(x->a_type == s_cream_double)
             {
                 x->a_setter = (t_setter_method)eattr_setvalue_double;
                 x->a_getter = (t_getter_method)eattr_getvalue_double;
+                atom_setfloat(x->a_defaults, 0);
             }
             else if(x->a_type == s_cream_symbol)
             {
                 x->a_setter = (t_setter_method)eattr_setvalue_symbol;
                 x->a_getter = (t_getter_method)eattr_getvalue_symbol;
+                atom_setsym(x->a_defaults, s_cream_empty);
             }
             else if(x->a_type == s_cream_atom)
             {
                 x->a_setter = (t_setter_method)eattr_setvalue_atom;
                 x->a_getter = (t_getter_method)eattr_getvalue_atom;
+                atom_setsym(x->a_defaults, s_cream_empty);
             }
             else
             {
@@ -488,132 +654,6 @@ void eattr_getitems(t_eattr const*attr, size_t* nitems, t_symbol*** items)
     }
     *nitems = 0;
     items   = NULL;
-}
-
-static t_pd_err eattr_setvalue(t_eattr* attr, t_object *x, int argc, t_atom *argv)
-{
-    int ac = 0; t_atom* av = NULL;
-    int this_stuff_should_be_in_the_submethod;
-    //unparse_atoms(argc, argv, &ac, &av);
-    if(attr->a_sizemax == 0)
-    {
-        ac = ((int)attr->a_size < ac) ? (int)attr->a_size : ac;
-    }
-    else
-    {
-        ac = ((int)attr->a_sizemax < ac) ? (int)attr->a_sizemax : ac;
-        *(eattr_getsize_adress(x, attr)) = ac;
-    }
-    (attr->a_setter)(x, (t_object *)attr, ac, av);
-    if(ac && av)
-    {
-        free(av);
-    }
-    return 0;
-}
-
-static t_pd_err eattr_setvalue_default(t_eattr* attr, t_object *x)
-{
-    return eattr_setvalue(attr, x, (int)attr->a_ndefaults, attr->a_defaults);
-}
-
-static t_pd_err eattr_getvalue(t_eattr* attr, t_object const* x, int* argc, t_atom **argv)
-{
-    if(attr->a_getter)
-    {
-        return (attr->a_getter)((t_object *)x, (t_object *)attr, argc, argv);
-    }
-    pd_error(attr, "attribute getter isn't initialized.");
-    return -1;
-}
-
-static t_pd_err eattr_write(t_eattr* attr, t_object const* x, t_binbuf* b)
-{
-    int argc = 0;
-    t_atom* argv = NULL;
-    char text[MAXPDSTRING];
-    if(attr->a_getter && attr->a_saved)
-    {
-        (attr->a_getter)((t_object *)x, (t_object *)attr, &argc, &argv);
-        if(argc && argv)
-        {
-            int todo;
-            //format_atoms(argc, argv);
-            sprintf(text, "@%s", attr->a_name->s_name);
-            binbuf_text(b, text, MAXPDSTRING);
-            binbuf_add(b, argc, argv);
-            free(argv);
-        }
-        return 0;
-    }
-    pd_error(attr, "attribute getter isn't initialized.");
-    return -1;
-}
-
-static t_pd_err eattr_read(t_eattr* attr, t_object* x, t_binbuf const* b)
-{
-    int todo;
-    int argc = 0;
-    t_atom* argv = NULL;
-    //binbuf_get_attribute((t_binbuf *)b, , <#int *argc#>, <#t_atom **argv#>)
-    if(attr->a_setter)
-    {
-        (attr->a_setter)((t_object *)x, (t_object *)attr, argc, argv);
-        return 0;
-    }
-    pd_error(attr, "attribute getter isn't initialized.");
-    return -1;
-}
-
-
-
-
-
-static void eattr_setdefault(t_eattr* attr, size_t ndefault, t_atom* defaults)
-{
-    t_atom* temp;
-    if(ndefault && defaults)
-    {
-        if(attr->a_ndefaults && attr->a_defaults)
-        {
-            temp = (t_atom *)realloc(attr->a_defaults, ndefault * sizeof(t_atom));
-            if(temp)
-            {
-                attr->a_defaults    = temp;
-                attr->a_ndefaults   = ndefault;
-                memcpy(attr->a_defaults, defaults, ndefault * sizeof(t_atom));
-            }
-            else
-            {
-                free(attr->a_defaults);
-                attr->a_defaults   = NULL;
-                attr->a_ndefaults  = 0;
-                pd_error(attr, "can't allocate memory for attribute's default values.");
-            }
-        }
-        else
-        {
-            attr->a_defaults = (t_atom *)malloc(ndefault * sizeof(t_atom));
-            if(attr->a_defaults)
-            {
-                attr->a_ndefaults  = ndefault;
-                memcpy(attr->a_defaults, defaults, ndefault * sizeof(t_atom));
-            }
-            else
-            {
-                pd_error(attr, "can't allocate memory for attribute's items.");
-            }
-        }
-    }
-    else
-    {
-        if(attr->a_ndefaults && attr->a_defaults)
-        {
-            free(attr->a_defaults);
-        }
-        attr->a_defaults    = NULL;
-        attr->a_ndefaults   = 0;
-    }
 }
 
 static void eattr_setcategory(t_eattr* attr, t_symbol* category)
@@ -725,6 +765,92 @@ static void eattr_setitems(t_eattr* attr, size_t nitems, t_symbol** items)
         }
         attr->a_items   = NULL;
         attr->a_nitems  = 0;
+    }
+}
+
+
+static void eattr_setdefault(t_eattr* attr, size_t ndefault, t_atom* defaults)
+{
+    t_atom* temp;
+    if(ndefault && defaults)
+    {
+        if(attr->a_ndefaults && attr->a_defaults)
+        {
+            temp = (t_atom *)realloc(attr->a_defaults, ndefault * sizeof(t_atom));
+            if(temp)
+            {
+                attr->a_defaults    = temp;
+                attr->a_ndefaults   = ndefault;
+                memcpy(attr->a_defaults, defaults, ndefault * sizeof(t_atom));
+            }
+            else
+            {
+                free(attr->a_defaults);
+                attr->a_defaults   = NULL;
+                attr->a_ndefaults  = 0;
+                pd_error(attr, "can't allocate memory for attribute's default values.");
+            }
+        }
+        else
+        {
+            attr->a_defaults = (t_atom *)malloc(ndefault * sizeof(t_atom));
+            if(attr->a_defaults)
+            {
+                attr->a_ndefaults  = ndefault;
+                memcpy(attr->a_defaults, defaults, ndefault * sizeof(t_atom));
+            }
+            else
+            {
+                pd_error(attr, "can't allocate memory for attribute's items.");
+            }
+        }
+    }
+    else
+    {
+        if(attr->a_ndefaults && attr->a_defaults)
+        {
+            temp = (t_atom *)realloc(attr->a_defaults, sizeof(t_atom));
+            if(temp)
+            {
+                attr->a_defaults    = temp;
+                attr->a_ndefaults   = 1;
+                if(attr->a_type == s_cream_symbol || attr->a_type == s_cream_atom)
+                {
+                    atom_setsym(attr->a_defaults, s_cream_empty);
+                }
+                else
+                {
+                    atom_setfloat(attr->a_defaults, 0.f);
+                }
+            }
+            else
+            {
+                free(attr->a_defaults);
+                attr->a_defaults   = NULL;
+                attr->a_ndefaults  = 0;
+                pd_error(attr, "can't allocate memory for attribute's default values.");
+            }
+        }
+        else
+        {
+            attr->a_defaults = (t_atom *)malloc(sizeof(t_atom));
+            if(attr->a_defaults)
+            {
+                attr->a_ndefaults   = 1;
+                if(attr->a_type == s_cream_symbol || attr->a_type == s_cream_atom)
+                {
+                    atom_setsym(attr->a_defaults, s_cream_empty);
+                }
+                else
+                {
+                    atom_setfloat(attr->a_defaults, 0.f);
+                }
+            }
+            else
+            {
+                pd_error(attr, "can't allocate memory for attribute's items.");
+            }
+        }
     }
 }
 

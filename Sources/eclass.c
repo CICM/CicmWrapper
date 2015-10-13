@@ -78,7 +78,7 @@ t_eclass *eclass_new(const char *name, t_method newmethod, t_method freemethod, 
         pd_bind(f, gensym(text));
         a = (t_pd *)eattrset_new();
         sprintf(text, "%lxattrs", (unsigned long)c);
-        pd_bind(f, gensym(text));
+        pd_bind(a, gensym(text));
         eobj_initclass(c);
     }
     return (c);
@@ -138,7 +138,7 @@ void eclass_addmethod(t_eclass* c, t_method m, const char* name, t_atomtype type
     t_atomtype vec[MAXPDARG+1];
     t_atomtype *vp = vec;
     t_symbol* sname = gensym(name);
-    int create_sym;
+    int create_sym_and_do_others;
     if(sname == gensym("dsp"))
     {
         class_addmethod(c,(t_method)m, gensym("dodsp"), A_CANT, 0);
@@ -287,15 +287,19 @@ t_pd_err eclass_attr_read(t_eclass* c, t_object* x, t_symbol *s, t_binbuf const*
 
 void eclass_attr_default(t_eclass* c, const char* attrname, long flags, const char* value)
 {
-    size_t ndefaults;
-    t_atom* defaults;
+    t_binbuf* b = NULL;
     t_symbol* name = gensym(attrname);
     t_eattrset* as = eclass_getattrset(c);
     if(as)
     {
-        int todo_parser;
-        eattrset_attr_default(as, name, ndefaults, defaults);
-        eattrset_attr_flags(as, name, flags);
+        b = binbuf_new();
+        if(b)
+        {
+            binbuf_text(b, (char *)value, strlen(value));
+            eattrset_attr_default(as, name, (size_t)binbuf_getnatom(b), binbuf_getvec(b));
+            eattrset_attr_flags(as, name, flags);
+            binbuf_free(b);
+        }
     }
 }
 
@@ -345,15 +349,36 @@ void eclass_attr_style(t_eclass* c, const char* attrname, long flags, const char
 
 void eclass_attr_items(t_eclass* c, const char* attrname, long flags, const char* list)
 {
-    size_t nitems;
-    t_symbol** items;
+    t_binbuf* b = NULL;
+    char buffer[MAXPDSTRING];
+    int i, ac; t_atom* av;
+    t_symbol** items = NULL;
     t_symbol* name = gensym(attrname);
     t_eattrset* as = eclass_getattrset(c);
     if(as)
     {
-        int todo_parser;
-        eattrset_attr_items(as, name, nitems, items);
-        eattrset_attr_flags(as, name, flags);
+        b = binbuf_new();
+        if(b)
+        {
+            binbuf_text(b, (char *)list, strlen(list));
+            parse_atoms(binbuf_getnatom(b), binbuf_getvec(b), &ac, &av);
+            if(ac && av)
+            {
+                items = (t_symbol **)malloc((size_t)ac * sizeof(t_symbol *));
+                if(items)
+                {
+                    for(i = 0; i < ac; i++)
+                    {
+                        atom_string(av+i, buffer, MAXPDSTRING);
+                        items[i] = gensym(buffer);
+                    }
+                    eattrset_attr_items(as, name, (size_t)ac, items);
+                    eattrset_attr_flags(as, name, flags);
+                    free(items);
+                }
+            }
+            binbuf_free(b);
+        }
     }
 }
 

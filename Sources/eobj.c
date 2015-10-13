@@ -223,7 +223,7 @@ static void eobj_save(t_gobj* x, t_binbuf *b)
     binbuf_addv(b, (char *)"ssii", &s__X, s_cream_obj, (t_int)((t_text *)x)->te_xpix, (t_int)((t_text *)x)->te_ypix);
     if(eobj_isgui(x))
     {
-        binbuf_addv(b, (char *)"s", eobj_getclassname(x)->s_name);
+        binbuf_addv(b, (char *)"s", eobj_getclassname(x));
         eclass_attr_write(eobj_getclass(x),(t_object *)x, NULL, b);
         int parameter_save_todo_later;
         /*
@@ -249,7 +249,7 @@ static void eobj_save(t_gobj* x, t_binbuf *b)
         binbuf_addbinbuf(b, ((t_text *)x)->te_binbuf);
     }
     
-    m = (t_binbuf_method)zgetfn((t_pd *)x, gensym("save"));
+    m = (t_binbuf_method)zgetfn((t_pd *)x, s_cream_save);
     if(m)
     {
         (m)(x, b);
@@ -630,8 +630,31 @@ static t_pd_err ebox_defaultattibutes_set(t_ebox *x, t_object *attr, int argc, t
     t_egui* gui = eobj_getgui(x);
     if(gui)
     {
-        pd_typedmess((t_pd *)gui, eattr_getname((t_eattr *)attr), argc, argv);
-        return 0;
+        if(eattr_getname((t_eattr *)attr) == s_cream_size)
+        {
+            egui_setsize(gui, atom_getfloatarg(0, argc, argv), atom_getfloatarg(1, argc, argv));
+            return 0;
+        }
+        else if(eattr_getname((t_eattr *)attr) == s_cream_pinned)
+        {
+            egui_setpinned(gui, (char)atom_getfloatarg(0, argc, argv));
+            return 0;
+        }
+        else if(eattr_getname((t_eattr *)attr) == s_cream_ignoreclick)
+        {
+            egui_setignoreclick(gui, (char)atom_getfloatarg(0, argc, argv));
+            return 0;
+        }
+        else if(eattr_getname((t_eattr *)attr) == s_cream_send)
+        {
+            egui_setsend(gui, atom_getsymbolarg(0, argc, argv));
+            return 0;
+        }
+        else if(eattr_getname((t_eattr *)attr) == s_cream_receive)
+        {
+            egui_setreceive(gui, atom_getsymbolarg(0, argc, argv));
+            return 0;
+        }
     }
     return -1;
 }
@@ -641,7 +664,58 @@ static t_pd_err ebox_defaultattibutes_get(t_ebox *x, t_object *attr, int* argc, 
     t_egui* gui = eobj_getgui(x);
     if(gui)
     {
-        int todo;
+        if(eattr_getname((t_eattr *)attr) == s_cream_size)
+        {
+            *argv = (t_atom *)malloc(2 * sizeof(t_atom));
+            if(*argv)
+            {
+                atom_setfloat((*argv), egui_getwidth(gui));
+                atom_setfloat((*argv)+1, egui_getheight(gui));
+                *argc = 2;
+                return 0;
+            }
+            
+        }
+        else if(eattr_getname((t_eattr *)attr) == s_cream_pinned)
+        {
+            *argv = (t_atom *)malloc(sizeof(t_atom));
+            if(*argv)
+            {
+                atom_setfloat(*argv, (float)egui_ispinned(gui));
+                *argc = 1;
+                return 0;
+            }
+        }
+        else if(eattr_getname((t_eattr *)attr) == s_cream_ignoreclick)
+        {
+            *argv = (t_atom *)malloc(sizeof(t_atom));
+            if(*argv)
+            {
+                atom_setfloat(*argv, (float)egui_ignoreclick(gui));
+                *argc = 1;
+                return 0;
+            }
+        }
+        else if(eattr_getname((t_eattr *)attr) == s_cream_send)
+        {
+            *argv = (t_atom *)malloc(sizeof(t_atom));
+            if(*argv)
+            {
+                atom_setsymbol(*argv, egui_getsend(gui));
+                *argc = 1;
+                return 0;
+            }
+        }
+        else if(eattr_getname((t_eattr *)attr) == s_cream_receive)
+        {
+            *argv = (t_atom *)malloc(sizeof(t_atom));
+            if(*argv)
+            {
+                atom_setsymbol(*argv, egui_getreceive(gui));
+                *argc = 1;
+                return 0;
+            }
+        }
     }
     *argc = 0;
     *argv = NULL;
