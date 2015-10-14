@@ -232,7 +232,7 @@ static void edsp_prepare(t_edsp *dsp, t_signal **sp)
     }
 }
 
-static void edsp_add(t_edsp *dsp, t_perform_method m, long flags, void *params)
+static void edsp_add(t_edsp *dsp, t_object* x, t_perform_method m, long flags, void *params)
 {
     dsp->d_flags = flags;
     dsp->d_user_param = params;
@@ -282,7 +282,8 @@ static t_class* edsp_setup()
         {
             class_addmethod(c, (t_method)edsp_flags,        gensym("flags"),        A_CANT);
             class_addmethod(c, (t_method)edsp_prepare,      gensym("prepare"),      A_CANT);
-            class_addmethod(c, (t_method)edsp_add,          gensym("add"),          A_CANT);
+            class_addmethod(c, (t_method)edsp_add,          gensym("dsp_add"),      A_CANT);
+            class_addmethod(c, (t_method)edsp_add,          gensym("dsp_add64"),    A_CANT);
             class_addmethod(c, (t_method)edsp_getinsamples, gensym("insamples"),    A_CANT);
             class_addmethod(c, (t_method)edsp_getoutsamples,gensym("outsamples"),   A_CANT);
             obj = pd_new(c);

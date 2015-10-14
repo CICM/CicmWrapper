@@ -138,7 +138,7 @@ void eclass_addmethod(t_eclass* c, t_method m, const char* name, t_atomtype type
     t_atomtype vec[MAXPDARG+1];
     t_atomtype *vp = vec;
     t_symbol* sname = gensym(name);
-    int create_sym_and_do_others;
+ 
     if(sname == gensym("dsp"))
     {
         class_addmethod(c,(t_method)m, gensym("dodsp"), A_CANT, 0);

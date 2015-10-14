@@ -93,11 +93,11 @@ void epopupmenu_popup(t_epopup *popup, t_rect const* bounds);
 //! @cond
 
 /*!
- * \fn          t_epopup* epopupmenu_getfromsymbol(t_symbol* name)
+ * \fn          t_epopup* epopup_findbyname(t_symbol* name)
  * \brief       Retrieves a popup from a symbol.
  * \param name  The binding symbol of the texteditor.
  */
-t_epopup* epopupmenu_getfromsymbol(t_symbol* name);
+t_epopup* epopup_findbyname(t_symbol* name);
 
 //! @endcond
 

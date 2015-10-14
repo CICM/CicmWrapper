@@ -97,6 +97,7 @@ t_pd_err eclass_register(t_symbol *name, t_eclass *c);
  * \param name  The name of the method.
  * \param type1 The type of the first argument of the method.
  * \param ...   The other types.
+ * \todo Later figure out if there are other methods that need to be wrapped and if we can avoid some gensym calls.
  */
 void eclass_addmethod(t_eclass* c, t_method m, const char* name, t_atomtype type1, ...);
 

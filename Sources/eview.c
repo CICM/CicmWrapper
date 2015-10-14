@@ -202,6 +202,7 @@ static void view_mousemove(t_eview* view, t_float x, t_float y, t_float modifier
     }
     else
     {
+        view->v_item = VITEM_NONE;
         if(!view_isinsubcanvas(view) && pt.x >= 0.f && pt.x <= view->v_bounds.width && pt.y >= 0.f && pt.y <= view->v_bounds.height)
         {
             if(right && bottom)
@@ -224,7 +225,7 @@ static void view_mousemove(t_eview* view, t_float x, t_float y, t_float modifier
                         {
                             for(i = 1; i < noutlet; i++)
                             {
-                                iopos = (int)(i / (float)(noutlet - 1) * (view->v_bounds.width - 8.f));
+                                iopos = (int)(i / (float)(noutlet - 1) * (view->v_bounds.width));
                                 if(pt.x >= iopos && pt.x <= iopos + 7.f)
                                 {
                                     outlet = 1;
@@ -255,11 +256,6 @@ static void view_mousemove(t_eview* view, t_float x, t_float y, t_float modifier
                 eview_setcursor(view, ECURSOR_SELECTION);
             }
         }
-        else
-        {
-            view->v_item = VITEM_NONE;
-        }
-
         sys_vgui("pdtk_canvas_motion .x%lx.c [expr [winfo pointerx .] - [winfo rootx .x%lx.c]] [expr [winfo pointery .] - [winfo rooty .x%lx.c]] 0\n", (unsigned long)view->v_canvas, (unsigned long)view->v_canvas, (unsigned long)view->v_canvas);
     }
 }
@@ -443,10 +439,8 @@ static void view_key(t_eview* view, t_float key, t_float modifier)
 static void eview_free(t_eview* view)
 {
     pd_unbind((t_pd *)view, view->v_tag);
-    sys_vgui("destroy x%lx.c.canvas%lx\n", (unsigned long)view->v_canvas, (unsigned long)view);
+    sys_vgui("destroy .x%lx.c.canvas%lx\n", (unsigned long)view->v_canvas, (unsigned long)view);
     canvas_deletelinesfor(view->v_canvas, (t_text *)view->v_owner);
-    int notify;
-    //eobj_widget_notify((t_eobj *)v->v_owner, s_cream_view, v->v_tag, s_cream_destroy);
 }
 
 static t_class* eview_setup()
@@ -487,7 +481,7 @@ t_eview* eview_findbyname(t_symbol* name)
     return x;
 }
 
-t_eview* eview_new(t_object* x, t_canvas* cnv, t_pt const* size)
+t_eview* eview_new(t_object* x, t_canvas* cnv, t_rect const* bounds)
 {
     char buffer[MAXPDSTRING];
     t_eview* v = NULL;
@@ -499,14 +493,25 @@ t_eview* eview_new(t_object* x, t_canvas* cnv, t_pt const* size)
         {
             v->v_canvas         = glist_getcanvas(cnv);
             v->v_owner          = x;
-            v->v_bounds.x       = (float)text_xpix((t_text *)x, cnv);
-            v->v_bounds.y       = (float)text_ypix((t_text *)x, cnv);
-            v->v_bounds.width   = size->x;
-            v->v_bounds.height  = size->y;
+            v->v_bounds.x       = bounds->x;
+            v->v_bounds.y       = bounds->y;
+            v->v_bounds.width   = bounds->width;
+            v->v_bounds.height  = bounds->height;
             v->v_mousedown      = 0;
             v->v_item           = VITEM_NONE;
             v->v_nlayers        = 0;
             v->v_layers         = NULL;
+            
+            v->v_mouse_enter    = (t_mouse_method)zgetfn((t_pd *)x, gensym("mouseenter"));
+            v->v_mouse_leave    = (t_mouse_method)zgetfn((t_pd *)x, gensym("mouseleave"));
+            v->v_mouse_down     = (t_mouse_method)zgetfn((t_pd *)x, gensym("mousedown"));
+            v->v_mouse_up       = (t_mouse_method)zgetfn((t_pd *)x, gensym("mouseup"));
+            v->v_mouse_move     = (t_mouse_method)zgetfn((t_pd *)x, gensym("mousemove"));
+            v->v_mouse_drag     = (t_mouse_method)zgetfn((t_pd *)x, gensym("mousedrag"));
+            v->v_mouse_dblclick = (t_mouse_method)zgetfn((t_pd *)x, gensym("dblclick"));
+            v->v_mouse_wheel    = (t_mousewheel_method)zgetfn((t_pd *)x, gensym("mousewheel"));
+            v->v_key_press      = (t_key_method)zgetfn((t_pd *)x, gensym("key"));
+            v->v_key_filter     = (t_key_method)zgetfn((t_pd *)x, gensym("keyfilter"));
             
             sprintf(buffer, "tag%lx", (unsigned long)v);
             v->v_tag = gensym(buffer);
@@ -530,18 +535,17 @@ t_eview* eview_new(t_object* x, t_canvas* cnv, t_pt const* size)
             sys_vgui("bind .x%lx.c.canvas%lx <Motion> {+pdsend {%s mousemotion %%x %%y %%s}}\n",
                      (unsigned long)v->v_canvas, (unsigned long)v, v->v_tag->s_name);
             
-            int todo_methods;
-            if(zgetfn((t_pd *)x, gensym("dblclick")))
+            if(v->v_mouse_dblclick)
             {
                 sys_vgui("bind .x%lx.c.canvas%lx <Double-Button-1> {+pdsend {%s dblclick %%x %%y %%s}}\n",
                          (unsigned long)v->v_canvas, (unsigned long)v, v->v_tag->s_name);
             }
-            if(zgetfn((t_pd *)x, gensym("mousewheel")))
+            if(v->v_mouse_wheel)
             {
                 sys_vgui("bind .x%lx.c.canvas%lx <MouseWheel> {+pdsend {%s mousewheel  %%x %%y %%D %%s}}\n",
                          (unsigned long)v->v_canvas, (unsigned long)v, v->v_tag->s_name);
             }
-            if(zgetfn((t_pd *)x, gensym("key")) || zgetfn((t_pd *)x, gensym("keyfilter")))
+            if(v->v_key_press || v->v_key_filter)
             {
                 sys_vgui("bind .x%lx.c.canvas%lx <KeyPress>  {+pdsend {%s key %%N %%s}} \n",
                          (unsigned long)v->v_canvas, (unsigned long)v, v->v_tag->s_name);
@@ -553,10 +557,6 @@ t_eview* eview_new(t_object* x, t_canvas* cnv, t_pt const* size)
                      (int)v->v_bounds.x, (int)v->v_bounds.y,
                      (unsigned long)v->v_canvas, (unsigned long)v, (unsigned long)v,
                      (int)v->v_bounds.width, (int)v->v_bounds.height);
-            int to_do_tags; // -tags wintag
-            
-            int notify;
-            //eobj_widget_notify((t_eobj *)x, s_cream_view, v->v_tag, s_cream_create);
         }
     }
     return v;
@@ -589,14 +589,12 @@ void eview_getbounds(t_eview const* view, t_rect* bounds)
 
 void eview_setposition(t_eview* view, t_pt const* pos)
 {
-    view->v_bounds.x = view->v_bounds.x - (float)(text_xpix((t_text *)view->v_owner, view->v_canvas)) + pos->x;
-    view->v_bounds.y = view->v_bounds.y - (float)(text_ypix((t_text *)view->v_owner, view->v_canvas)) + pos->y;
+    view->v_bounds.x = pos->x;
+    view->v_bounds.y = pos->y;
     sys_vgui(".x%lx.c coords win%lx %d %d\n", (unsigned long)view->v_canvas, (unsigned long)view,
              (int)view->v_bounds.x, (int)view->v_bounds.y);
     
     canvas_fixlinesfor(view->v_canvas, (t_text*)view->v_owner);
-    int notify;
-    //eobj_widget_notify((t_eobj *)x, s_cream_view, v->v_tag, s_cream_create);
 }
 
 void eview_setsize(t_eview* view, t_pt const* size)
@@ -607,14 +605,12 @@ void eview_setsize(t_eview* view, t_pt const* size)
              (int)view->v_bounds.width, (int)view->v_bounds.height);
     
     canvas_fixlinesfor(view->v_canvas, (t_text*)view->v_owner);
-    int notify;
-    //eobj_widget_notify((t_eobj *)x, s_cream_view, v->v_tag, s_cream_create);
 }
 
 void eview_setbounds(t_eview* view, t_rect const* bounds)
 {
-    view->v_bounds.x = view->v_bounds.x - (float)(text_xpix((t_text *)view->v_owner, view->v_canvas)) + bounds->x;
-    view->v_bounds.y = view->v_bounds.y - (float)(text_ypix((t_text *)view->v_owner, view->v_canvas)) + bounds->y;
+    view->v_bounds.x = bounds->x;
+    view->v_bounds.y = bounds->y;
     view->v_bounds.width    = bounds->width;
     view->v_bounds.height   = bounds->height;
     sys_vgui(".x%lx.c coords win%lx %d %d\n", (unsigned long)view->v_canvas, (unsigned long)view,
@@ -623,8 +619,6 @@ void eview_setbounds(t_eview* view, t_rect const* bounds)
              (int)view->v_bounds.width, (int)view->v_bounds.height);
     
     canvas_fixlinesfor(view->v_canvas, (t_text*)view->v_owner);
-    int notify;
-    //eobj_widget_notify((t_eobj *)x, s_cream_view, v->v_tag, s_cream_create);
 }
 
 static char *my_cursorlist[] =
@@ -646,8 +640,8 @@ static char *my_cursorlist[] =
 
 void eview_setcursor(t_eview* view, ebox_cursors cursor)
 {
-    sys_vgui(".x%lx.c.canvas%lx configure -cursor %s\n", (unsigned long)view->v_canvas, (unsigned long)view, my_cursorlist[cursor]);
-    int notify;
+    sys_vgui(".x%lx.c.canvas%lx configure -cursor %s\n",
+             (unsigned long)view->v_canvas, (unsigned long)view, my_cursorlist[cursor]);
 }
 
 void eview_layers_update(t_eview* view)
@@ -662,7 +656,6 @@ void eview_layers_update(t_eview* view)
             
         }
     }
-    int notify;
 }
 
 void eview_layer_start(t_eview* view, t_symbol *name, float width, float height)
@@ -670,9 +663,8 @@ void eview_layer_start(t_eview* view, t_symbol *name, float width, float height)
     size_t i;
     for(i = 0; view->v_nlayers; i++)
     {
-        ;
+        int todo;
     }
-    int notify;
 }
 
 

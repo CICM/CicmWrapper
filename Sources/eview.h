@@ -43,10 +43,10 @@ typedef struct _eview t_eview;
  * \details         Allocates and initializes a new view for a t_ebox and a t_canvas.
  * \param owner     The view owner.
  * \param cnv       The t_canvas pointer.
- * \param size      The size of the view.
+ * \param bounds    The bounds of the view.
  * \return          This function returns a pointer to a new view.
  */
-t_eview* eview_new(t_object* owner, t_canvas* cnv, t_pt const* size);
+t_eview* eview_new(t_object* owner, t_canvas* cnv, t_rect const* bounds);
 
 /*!
  * \fn              t_eview* eview_findbyname(t_symbol* name)

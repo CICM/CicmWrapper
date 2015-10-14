@@ -225,11 +225,16 @@ void egui_view_remove(t_egui *gui, t_glist *glist)
 
 void egui_view_add(t_egui *gui, t_glist* glist)
 {
+    t_rect bounds;
     t_eview **temp = NULL;
     t_eview *view =  egui_getview(gui, glist);
     if(!view)
     {
-        view = eview_new(gui->g_owner, glist, &gui->g_size);
+        bounds.x = text_xpix((t_text *)gui->g_owner, glist);
+        bounds.y = text_ypix((t_text *)gui->g_owner, glist);
+        bounds.width = gui->g_size.x;
+        bounds.height = gui->g_size.y;
+        view = eview_new(gui->g_owner, glist, &bounds);
         if(view)
         {
             if(gui->g_nviews)

@@ -213,7 +213,7 @@ void epopupmenu_popup(t_epopup* popup, t_rect const* bounds)
     eobj_widget_notify(popup->c_owner, s_cream_popup, popup->c_popup_id, s_cream_popup);
 }
 
-t_epopup* epopupmenu_getfromsymbol(t_symbol* name)
+t_epopup* epopup_findbyname(t_symbol* name)
 {
     t_class* c = epopup_setup();
     if(c)

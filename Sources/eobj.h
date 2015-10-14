@@ -72,9 +72,9 @@ char eobj_isdsp(void const* x);
  * \details     Allocates and initializes a new proxy inlet. 
  * \details     This function should replace inlet_new().
  * \param x     The t_eobj pointer.
- * \param ...   The symbol for a specific proxy.
+ * \todo Later try to use selector specification with va_list parameters.
  */
-void eobj_proxynew(void* x, ...);
+void eobj_proxynew(void* x);
 
 /*!
  * \fn          void eobj_proxyfree(void* x);

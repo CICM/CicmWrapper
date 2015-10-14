@@ -79,23 +79,12 @@ char eobj_isdsp(void const* x)
     return (char)zgetfn((t_pd *)x, s_cream_isdsp);
 }
 
-void eobj_proxynew(void* x, ...)
+void eobj_proxynew(void* x)
 {
-    va_list ap;
-    t_symbol* type  = NULL;
     t_eproxy** temp = NULL;
     t_eproxy* proxy = NULL;
     t_eobj* z       = (t_eobj *)x;
-    int tocheck;
-    va_start(ap, x);
-    type = va_arg(ap, typeof(t_symbol*));
-    if(type == (t_symbol *)1ul)
-    {
-        type = NULL;
-    }
-    va_end(ap);
-    
-    proxy = eproxy_new(x, type, z->o_nproxy);
+    proxy = eproxy_new(x, NULL, z->o_nproxy);
     if(proxy)
     {
         if(z->o_proxy && z->o_nproxy)
@@ -226,23 +215,6 @@ static void eobj_save(t_gobj* x, t_binbuf *b)
         binbuf_addv(b, (char *)"s", eobj_getclassname(x));
         eclass_attr_write(eobj_getclass(x),(t_object *)x, NULL, b);
         int parameter_save_todo_later;
-        /*
-        argv = (t_atom *)malloc(3 * sizeof(t_atom));
-        if(argv)
-        {
-            for(i = 0; i < y->b_nparams; i++)
-            {
-                if(y->b_params[i])
-                {
-                    snprintf(buffer, MAXPDSTRING, "@param%i", i);
-                    atom_setsym(argv, y->b_params[i]->p_name);
-                    atom_setsym(argv+1, y->b_params[i]->p_label);
-                    atom_setfloat(argv+2, y->b_params[i]->p_index);
-                    binbuf_append_attribute(b, gensym(buffer), 3, argv);
-                }
-            }
-        }
-        */
     }
     else
     {
@@ -257,129 +229,24 @@ static void eobj_save(t_gobj* x, t_binbuf *b)
     binbuf_addv(b, (char *)";");
 }
 
-extern void eobj_popup(t_eobj* x, t_symbol* s, float itemid)
+static void eobj_popup(t_eobj* x, t_symbol* s, float itemid)
 {
-    t_epopup* popup;
-    t_eclass* c = eobj_getclass(x);
-    int todo;
-    /*
-     if(s && c->c_widget.w_popup)
-     {
-     popup = epopupmenu_getfromsymbol(s);
-     if(popup)
-     {
-     c->c_widget.w_popup(x, popup, (long)itemid);
-     }
-     }
-     */
+    t_epopup* popup  = epopup_findbyname(s);
+    t_popup_method m = (t_popup_method)getfn((t_pd *)x, s_cream_popup);
+    if(popup && m)
+    {
+        (m)(x, (t_object *)popup, (long)itemid);
+    }
 }
 
-extern void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
+static void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
 {
-    char buf[MAXPDSTRING];
-    char* pch;
-    t_atom av[1];
-    t_eclass* c = eobj_getclass(x);
     int todo;
-    /*
-    // The file name is defined
-    if(argc && argv && atom_gettype(argv) == A_SYMBOL)
-    {
-        pch = strpbrk(atom_getsymbol(argv)->s_name, "/\"");
-        // The folder seems defined
-        if(pch != NULL)
-        {
-            atom_setsym(av, atom_getsymbol(argv));
-            if(c->c_widget.w_write)
-            {
-                c->c_widget.w_write(x, s, 1, av);
-            }
-        }
-        // The folder isn't defined so write it in the canvas folder
-        else
-        {
-            sprintf(buf, "%s/%s", canvas_getdir(x->o_canvas)->s_name, atom_getsymbol(argv)->s_name);
-            atom_setsym(av, gensym(buf));
-            if(c->c_widget.w_write)
-            {
-                c->c_widget.w_write(x, s, 1, av);
-            }
-        }
-    }
-    // The file name is not defined so we popup a window
-    else
-    {
-        sys_vgui("eobj_saveas %s nothing nothing\n", x->o_id->s_name);
-    }
-     */
 }
 
-extern void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
+static void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
 {
-    char buf[MAXPDSTRING];
-    char* pch;
-    t_atom av[1];
-    t_namelist* var;
-    t_eclass* c = eobj_getclass(x);
     int todo;
-    /*
-    // Name
-    if(argc && argv && atom_gettype(argv) == A_SYMBOL)
-    {
-        // Valid path
-        if((access(atom_getsymbol(argv)->s_name, O_RDONLY) != -1))
-        {
-            if(c->c_widget.w_read)
-                c->c_widget.w_read(x, s, 1, argv);
-        }
-        // Invalid path or no path
-        else
-        {
-            // Wrong path but we don't care
-            pch = strpbrk(atom_getsymbol(argv)->s_name, "/\"");
-            if(pch != NULL)
-            {
-                if(c->c_widget.w_read)
-                    c->c_widget.w_read(x, s, 1, argv);
-            }
-            else
-            {
-                // Look in the canvas folder
-                sprintf(buf, "%s/%s", canvas_getdir(x->o_canvas)->s_name, atom_getsymbol(argv)->s_name);
-                if((access(buf, O_RDONLY) != -1))
-                {
-                    atom_setsym(av, gensym(buf));
-                    if(c->c_widget.w_read)
-                        c->c_widget.w_read(x, s, 1, av);
-                    return;
-                }
-                // Look in the search path
-                var = sys_searchpath;
-                while (var)
-                {
-                    sprintf(buf, "%s/%s", var->nl_string, atom_getsymbol(argv)->s_name);
-                    if((access(buf, O_RDONLY) != -1))
-                    {
-                        atom_setsym(av, gensym(buf));
-                        if(c->c_widget.w_read)
-                            c->c_widget.w_read(x, s, 1, av);
-                        return;
-                    }
-                    var = var->nl_next;
-                }
-                // Nothing work but we don't care
-                if(c->c_widget.w_read)
-                    c->c_widget.w_read(x, s, 1, av);
-                return;
-            }
-        }
-    }
-    // No name so we popup a window
-    else
-    {
-        sys_vgui("eobj_openfrom %s\n", x->o_id->s_name);
-    }
-     */
 }
 
 static t_pd_err eobj_attr_dosetvalue(t_eobj *x, t_symbol* s, int argc, t_atom* argv)
@@ -497,15 +364,6 @@ static void eobj_dsp(void *x, t_signal **sp)
     if(dsp)
     {
         mess1((t_pd *)dsp, gensym("prepare"), sp);
-    }
-}
-
-static void eobj_dspadd(void *x, t_symbol* s, t_object* za, t_typ_method m, long flags, void *userparam)
-{
-    t_edsp* dsp = eobj_getdsp(x);
-    if(dsp)
-    {
-        mess3((t_pd *)dsp, gensym("add"), m, (void *)(flags), (userparam));
     }
 }
 
@@ -764,9 +622,10 @@ static void ebox_wdisplace(t_gobj *z, t_glist *glist, int dx, int dy)
     t_egui* gui = eobj_getgui(z);
     if(gui)
     {
-        egui_view_getposition(gui, glist, &pos);
-        pos.x += (float)dx;
-        pos.y += (float)dy;
+        ((t_text *)z)->te_xpix += dx;
+        ((t_text *)z)->te_ypix += dy;
+        pos.x = text_xpix(((t_text *)z), glist);
+        pos.y = text_ypix(((t_text *)z), glist);
         egui_view_setposition(gui, glist, &pos);
     }
 }
@@ -824,6 +683,8 @@ extern void eobj_initclass(t_eclass* c)
     char help[MAXPDSTRING];
     class_addmethod(c, (t_method)method_true,        s_cream_iscicm,           A_CANT, 0);
     class_addmethod(c, (t_method)eobj_setproxyindex, gensym("setproxyindex"),   A_CANT, 0);
+    
+    int check_ready_forthismethods;
     class_addmethod(c, (t_method)eobj_popup,         gensym("dopopup"),         A_SYMBOL, A_FLOAT, 0);
     class_addmethod(c, (t_method)eobj_read,          gensym("doread"),          A_GIMME, 0);
     class_addmethod(c, (t_method)eobj_write,         gensym("dowrite"),         A_GIMME, 0);
@@ -838,8 +699,6 @@ extern void edsp_initclass(t_eclass* c)
 {
     class_addmethod(c, (t_method)method_true,   s_cream_isdsp,          A_CANT, 0);
     class_addmethod(c, (t_method)eobj_dsp,      gensym("dsp"),          A_CANT, 0);
-    class_addmethod(c, (t_method)eobj_dspadd,   gensym("dsp_add"),      A_CANT, 0);
-    class_addmethod(c, (t_method)eobj_dspadd,   gensym("dsp_add64"),    A_CANT, 0);
 }
 
 extern void ebox_initclass(t_eclass* c)

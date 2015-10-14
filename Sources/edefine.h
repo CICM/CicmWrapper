@@ -387,6 +387,7 @@ typedef struct _etext t_etext;
 typedef void (*t_mouse_method)(void *x, t_object *view, t_pt pt, long modifiers);
 typedef void (*t_mousewheel_method)(void *x, t_object *view, t_pt pt, long modifiers, float deltax, float deltay);
 typedef void (*t_key_method)(void *x, t_object *view, char textcharacter, long modifiers);
+typedef void (*t_popup_method)(void *x, t_object *view, long itemid);
 
 /**
  * @struct t_eobj
