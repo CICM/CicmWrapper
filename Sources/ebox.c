@@ -16,22 +16,6 @@
 #include "epopup.h"
 #include "float.h"
 
-static char *my_cursorlist[] =
-{
-    "left_ptr",
-    "center_ptr",
-    "sb_v_double_arrow",
-    "plus",
-    "hand2",
-    "circle",
-    "X_cursor",
-    "bottom_side",
-    "bottom_right_corner",
-    "right_side",
-    "double_arrow",
-    "exchange",
-    "xterm"
-};
 
 static void ebox_invalidate_all(t_ebox *x);
 static void ebox_draw_border(t_ebox* x);
@@ -63,22 +47,6 @@ static void ebox_paint(t_ebox *x)
 }
 
 //! Widget
-
-void ebox_set_cursor(t_ebox* x, t_object* view, int cursor)
-{
-    /*
-    if(x->b_drawing_id)
-    {
-        cursor = (int)pd_clip(cursor, 0, 12);
-        sys_vgui("%s configure -cursor %s\n", x->b_drawing_id->s_name, my_cursorlist[cursor]);
-    }
-    else
-    {
-        int todo;
-    }
-     */
-}
-
 
 
 void ebox_texteditor_keypress(t_ebox *x, t_symbol *s, float f)

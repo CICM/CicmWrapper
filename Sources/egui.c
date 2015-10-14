@@ -21,7 +21,7 @@ struct _egui
     long            g_flags;            /*!< The gui flags. */
     t_eview**       g_views;            /*!< The gui view. */
     size_t          g_nviews;           /*!< The gui number of views. */
-    t_rect          g_bounds;           /*!< The gui bounds. */
+    t_pt            g_size;             /*!< The gui size. */
     
     t_symbol*       g_receive;          /*!< The reveive symbol (attribute). */
     t_symbol*       g_send;             /*!< The send send (attribute). */
@@ -33,15 +33,28 @@ struct _egui
 
 static void egui_free(t_egui *gui)
 {
-    if(is_valid_symbol(gui->g_receive))
+    size_t i;
+    for(i = 0; i < gui->g_nviews; i++)
     {
-        pd_unbind((t_pd *)gui->g_owner, gui->g_receive);
+        pd_free((t_pd *)gui->g_views[i]);
+    }
+    if(gui->g_nviews && gui->g_views)
+    {
+        free(gui->g_views);
     }
 }
 
 static t_eview* egui_getview(t_egui const* gui, t_glist const* glist)
 {
-    
+    size_t i;
+    for(i = 0; i < gui->g_nviews; i++)
+    {
+        if(eview_getcanvas(gui->g_views[i]) == glist)
+        {
+            return gui->g_views[i];
+        }
+    }
+    return NULL;
 }
 
 void egui_view_getposition(t_egui const* gui, t_glist const* glist, t_pt* pos)
@@ -68,115 +81,201 @@ void egui_view_getbounds(t_egui const* gui, t_glist const* glist, t_rect* bounds
     if(view)
     {
         eview_getbounds(view, bounds);
-        int todo_aki_and_next;
     }
 }
 
 void egui_view_setposition(t_egui *gui, t_glist *glist, t_pt const* pos)
 {
-     t_eview* view = egui_getview(gui, glist);
-     if(view)
-     {
-         ;
-     }
+    size_t i;
+    t_eview* view = NULL;
+    if(glist)
+    {
+        view = egui_getview(gui, glist);
+        if(view)
+        {
+            eview_setposition(view, pos);
+        }
+    }
+    else
+    {
+        for(i = 0; i < gui->g_nviews; i++)
+        {
+            eview_setposition(gui->g_views[i], pos);
+        }
+    }
 }
 
 void egui_view_setsize(t_egui* gui, t_glist const* glist, t_pt const* size)
 {
-    t_eview* view = egui_getview(gui, glist);
-    if(view)
+    size_t i;
+    t_eview* view = NULL;
+    if(glist)
     {
-        ;
+        view = egui_getview(gui, glist);
+        if(view)
+        {
+            eview_setsize(view, size);
+        }
+    }
+    else
+    {
+        for(i = 0; i < gui->g_nviews; i++)
+        {
+            eview_setsize(gui->g_views[i], size);
+        }
     }
 }
 
 void egui_view_setbounds(t_egui* gui, t_glist const* glist, t_rect const* bounds)
 {
-    t_eview* view = egui_getview(gui, glist);
-    if(view)
+    size_t i;
+    t_eview* view = NULL;
+    if(glist)
     {
-        ;
+        view = egui_getview(gui, glist);
+        if(view)
+        {
+            eview_setbounds(view, bounds);
+        }
+    }
+    else
+    {
+        for(i = 0; i < gui->g_nviews; i++)
+        {
+            eview_setbounds(gui->g_views[i], bounds);
+        }
     }
 }
 
 void egui_view_select(t_egui *gui, t_glist *glist)
 {
-    t_eview* view = egui_getview(gui, glist);
-    if(view)
+    size_t i;
+    t_eview* view = NULL;
+    if(glist)
     {
-        ;
+        view = egui_getview(gui, glist);
+        if(view)
+        {
+            //eview_setbounds(view, bounds);
+        }
+    }
+    else
+    {
+        for(i = 0; i < gui->g_nviews; i++)
+        {
+            //eview_setbounds(gui->g_views[i], bounds);
+        }
     }
 }
 
 void egui_view_deselect(t_egui *gui, t_glist *glist)
 {
-    t_eview* view = egui_getview(gui, glist);
-    if(view)
+    size_t i;
+    t_eview* view = NULL;
+    if(glist)
     {
-        ;
+        view = egui_getview(gui, glist);
+        if(view)
+        {
+            //eview_setbounds(view, bounds);
+        }
+    }
+    else
+    {
+        for(i = 0; i < gui->g_nviews; i++)
+        {
+            //eview_setbounds(gui->g_views[i], bounds);
+        }
     }
 }
 
 void egui_view_remove(t_egui *gui, t_glist *glist)
 {
-    t_eview* view = egui_getview(gui, glist);
-    if(view)
+    size_t i;
+    t_eview ** temp;
+    for(i = 0; i < gui->g_nviews; i++)
     {
-        pd_free((t_pd *)view);
-        int do_need_this_;
-        //canvas_fixlinesfor(glist_getcanvas(glist), (t_text*)x);
+        if(eview_getcanvas(gui->g_views[i]) == glist)
+        {
+            pd_free((t_pd *)gui->g_views[i]);
+            for(i = i+1; i < gui->g_nviews; i++)
+            {
+                gui->g_views[i] = gui->g_views[i-1];
+            }
+            gui->g_nviews--;
+            if(!gui->g_nviews)
+            {
+                free(gui->g_views);
+            }
+            else
+            {
+                temp = (t_eview **)realloc(gui->g_views, gui->g_nviews * sizeof(t_eview *));
+                if(temp)
+                {
+                    gui->g_views = temp;
+                }
+                else
+                {
+                    pd_error(gui, "a strange error occurs while freeing memory.");
+                }
+            }
+        }
     }
 }
 
 void egui_view_add(t_egui *gui, t_glist* glist)
 {
-    t_eview *view = NULL, **temp;
-    view = eview_new(gui->g_owner, glist);
-    if(view)
+    t_eview **temp = NULL;
+    t_eview *view =  egui_getview(gui, glist);
+    if(!view)
     {
-        if(gui->g_nviews)
+        view = eview_new(gui->g_owner, glist, &gui->g_size);
+        if(view)
         {
-            temp = (t_eview **)realloc(gui->g_views, sizeof(t_object *) * (size_t)(gui->g_nviews + 1));
-            if(temp)
+            if(gui->g_nviews)
             {
-                gui->g_views[gui->g_nviews] = view;
-                gui->g_nviews++;
+                temp = (t_eview **)realloc(gui->g_views, sizeof(t_object *) * (size_t)(gui->g_nviews + 1));
+                if(temp)
+                {
+                    gui->g_views[gui->g_nviews] = view;
+                    gui->g_nviews++;
+                }
+                else
+                {
+                    pd_free((t_pd *)view);
+                    pd_error(gui->g_owner, "can't register view for %s.", eobj_getclassname(gui->g_owner)->s_name);
+                }
             }
             else
             {
-                pd_free((t_pd *)view);
-                pd_error(gui->g_owner, "can't register view for %s.", eobj_getclassname(gui->g_owner)->s_name);
+                gui->g_views = (t_eview **)malloc(sizeof(t_object *));
+                if(gui->g_views)
+                {
+                    gui->g_views[0] = view;
+                    gui->g_nviews   = 1;
+                }
+                else
+                {
+                    pd_free((t_pd *)view);
+                    pd_error(gui->g_owner, "can't register view for %s.", eobj_getclassname(gui->g_owner)->s_name);
+                }
             }
         }
         else
         {
-            gui->g_views = (t_eview **)malloc(sizeof(t_object *));
-            if(gui->g_views)
-            {
-                gui->g_views[0] = view;
-                gui->g_nviews   = 1;
-            }
-            else
-            {
-                pd_free((t_pd *)view);
-                pd_error(gui->g_owner, "can't register view for %s.", eobj_getclassname(gui->g_owner)->s_name);
-            }
+            pd_error(gui->g_owner, "can't create view for %s.", eobj_getclassname(gui->g_owner)->s_name);
         }
-    }
-    else
-    {
-        pd_error(gui->g_owner, "can't create view for %s.", eobj_getclassname(gui->g_owner)->s_name);
     }
 }
 
 float egui_getwidth(t_egui const* gui)
 {
-    return gui->g_bounds.width;
+    return gui->g_size.x;
 }
 
 float egui_getheight(t_egui const* gui)
 {
-    return gui->g_bounds.height;
+    return gui->g_size.y;
 }
 
 char egui_ispinned(t_egui const* gui)
@@ -236,24 +335,25 @@ void egui_setsize(t_egui *gui, float width, float height)
     if(gui->g_flags & EBOX_GROWLINK)
     {
         width  = pd_clip_min(width, 4);
-        height = gui->g_bounds.height;
-        gui->g_bounds.height += (width - gui->g_bounds.width);
-        if(gui->g_bounds.height < 4)
+        height = gui->g_size.y;
+        gui->g_size.y += (width - gui->g_size.x);
+        if(gui->g_size.y < 4)
         {
-            gui->g_bounds.width += 4 - height;
-            gui->g_bounds.height = 4;
+            gui->g_size.x += 4 - height;
+            gui->g_size.y = 4;
         }
         else
         {
-            gui->g_bounds.width =  width;
+            gui->g_size.x =  width;
         }
+        egui_view_setsize(gui, NULL, &gui->g_size);
     }
     else if(gui->g_flags & EBOX_GROWINDI)
     {
-        gui->g_bounds.width = pd_clip_min(width, 4.f);
-        gui->g_bounds.height = pd_clip_min(height, 4.f);
+        gui->g_size.x = pd_clip_min(width, 4.f);
+        gui->g_size.y = pd_clip_min(height, 4.f);
+        egui_view_setsize(gui, NULL, &gui->g_size);
     }
-    int notify_views;
 }
 
 void egui_setignoreclick(t_egui *gui, char state)

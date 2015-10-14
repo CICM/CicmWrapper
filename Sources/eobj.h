@@ -306,10 +306,20 @@ void ebox_redraw(t_ebox *x);
 
 
 /*!
+ * \fn              void ebox_set_cursor(t_ebox* x, int cursor)
+ * \brief           Changes the cursor of the mouse.
+ * \param x         The t_ebox pointer.
+ * \param view      The view pointer.
+ * \param cursor    The type of cursor.
+ */
+void ebox_set_cursor_for_view(t_ebox const* x, t_object* view, ebox_cursors cursor);
+
+/*!
  * \fn          void ebox_get_rect_for_view(t_ebox const* x, t_object const* view, t_rect *rect)
  * \brief       Retrieves the bounds of the view of a t_ebox.
  * \param x     The t_ebox pointer.
- * \param rect The rectangle pointer.
+ * \param view  The view pointer.
+ * \param rect  The rectangle pointer.
  */
 void ebox_get_rect_for_view(t_ebox const* x, t_object const* view, t_rect *rect);
 

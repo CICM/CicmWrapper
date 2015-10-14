@@ -26,14 +26,7 @@
  */
 
 
-/*!
- * \fn      void ebox_set_cursor(t_ebox* x, int cursor)
- * \brief   Changes the cursor of the mouse.
- * \param x The t_ebox pointer.
- * \param cursor The type of cursor.
- * \see ebox_cursors
- */
-void ebox_set_cursor(t_ebox* x, t_object* view, int cursor);
+
 
 /*!
  * \fn      t_elayer* ebox_start_layer(t_ebox *b, t_object* view, t_symbol *name, float width, float height)

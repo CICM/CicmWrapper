@@ -614,6 +614,11 @@ void ebox_redraw(t_ebox *x)
     int notify_redraw;
 }
 
+void ebox_set_cursor_for_view(t_ebox const* x, t_object * view, ebox_cursors cursor)
+{
+    eview_setcursor((t_eview *)view, cursor);
+}
+
 void ebox_get_rect_for_view(t_ebox const* x, t_object const* view, t_rect *rect)
 {
     eview_getbounds((t_eview const*)view, rect);
@@ -621,7 +626,7 @@ void ebox_get_rect_for_view(t_ebox const* x, t_object const* view, t_rect *rect)
 
 t_elayer* ebox_start_layer(t_ebox *x, t_object* view, t_symbol *name, float width, float height)
 {
-    ;
+    return NULL;
 }
 
 
@@ -655,6 +660,7 @@ static t_pd_err ebox_defaultattibutes_set(t_ebox *x, t_object *attr, int argc, t
             egui_setreceive(gui, atom_getsymbolarg(0, argc, argv));
             return 0;
         }
+        int notify_box;
     }
     return -1;
 }
