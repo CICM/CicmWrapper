@@ -13,7 +13,7 @@
 typedef t_matrix        t_jmatrix;
 typedef t_elayer        t_jgraphics;
 typedef t_rgba          t_jrgba;
-typedef t_etext         t_jtextlayout;
+typedef t_etextlayout         t_jtextlayout;
 typedef t_efont         t_jfont;
 typedef t_epopup        t_jpopupmenu;
 typedef t_edrawparams   t_jboxdrawparams;
@@ -92,8 +92,8 @@ typedef t_binbuf        t_dictionary;
 #define jbox_redraw(t_jbox)                         ebox_redraw(t_jbox)
 #define jbox_resize_inputs(t_jbox, nins)            eobj_resize_inputs(t_jbox, nins)
 #define jbox_resize_outputs(t_jbox, nouts)          
-#define jbox_get_rect_for_view(t_object, view, rect) ebox_get_rect_for_view(t_object, view, rect)
-#define jmouse_setcursor(patcherview, t_jbox, mode) ebox_set_cursor(t_jbox, mode)
+#define jbox_get_rect_for_view(t_object, view, rect) ebox_getbounds(t_object, view, rect)
+#define jmouse_setcursor(patcherview, t_jbox, mode) ebox_setcursor(t_jbox, mode)
 #define jbox_start_layer(box, view, name, x, y)     ebox_start_layer((t_ebox *)box, name, x, y)
 #define jbox_end_layer(box, view, name)             ebox_end_layer((t_ebox *)box, name)
 #define jbox_invalidate_layer(box, view, name)      ebox_invalidate_layer((t_ebox *)box, name)
@@ -113,14 +113,14 @@ typedef t_binbuf        t_dictionary;
 #define object_dictionaryarg(ac, av)                binbuf_via_atoms(ac, av)
 #define dictionary_copyatoms(d, key, argc, argv)    binbuf_get_attribute(d, key, argc, argv)
 
-#define jgraphics_set_line_width    egraphics_set_line_width
-#define jgraphics_set_source_jrgba  egraphics_set_color_rgba
-#define jgraphics_fill              egraphics_fill
-#define jgraphics_fill_preserve     egraphics_fill_preserve
-#define jgraphics_stroke            egraphics_stroke
-#define jgraphics_stroke_preserve   egraphics_stroke_preserve
+#define jgraphics_set_line_width    elayer_set_line_width
+#define jgraphics_set_source_jrgba  elayer_set_color_rgba
+#define jgraphics_fill              elayer_fill
+#define jgraphics_fill_preserve     elayer_fill_preserve
+#define jgraphics_stroke            elayer_stroke
+#define jgraphics_stroke_preserve   elayer_stroke_preserve
 
-#define jgraphics_rotate            egraphics_rotate
+#define jgraphics_rotate            elayer_rotate
 
 // POPUP MENU //
 #define jpopupmenu_create(jbox, name)               epopupmenu_create(jbox, name)
@@ -130,32 +130,32 @@ typedef t_binbuf        t_dictionary;
 #define jpopupmenu_addseperator(menu)               epopupmenu_addseperator(menu)
 #define jpopupmenu_additem(menu, itemid, text, textColor, checked, disabled, icon) epopupmenu_additem(menu, itemid, text, checked, disabled)
 
-#define jgraphics_set_line_width    egraphics_set_line_width
-#define jgraphics_fill              egraphics_fill
-#define jgraphics_fill_preserve     egraphics_fill_preserve
-#define jgraphics_stroke            egraphics_stroke
-#define jgraphics_stroke_preserve   egraphics_stroke_preserve
+#define jgraphics_set_line_width    elayer_set_line_width
+#define jgraphics_fill              elayer_fill
+#define jgraphics_fill_preserve     elayer_fill_preserve
+#define jgraphics_stroke            elayer_stroke
+#define jgraphics_stroke_preserve   elayer_stroke_preserve
 
-#define jgraphics_rotate            egraphics_rotate
-#define jgraphics_set_matrix        egraphics_set_matrix
+#define jgraphics_rotate            elayer_rotate
+#define jgraphics_set_matrix        elayer_set_matrix
 
-#define jgraphics_rectangle(graphics, x, y, width, height)      egraphics_rectangle(graphics, x, y, width, height)
-#define jgraphics_arc(graphics, xc, yc, radius, angle1, angle2) egraphics_arc(graphics, xc, yc, radius, angle1, angle2)
+#define jgraphics_rectangle(graphics, x, y, width, height)      elayer_rectangle(graphics, x, y, width, height)
+#define jgraphics_arc(graphics, xc, yc, radius, angle1, angle2) elayer_arc(graphics, xc, yc, radius, angle1, angle2)
 
-#define jgraphics_line_to(graphics, x, y)                       egraphics_line_to(graphics, x, y)
-#define jgraphics_move_to(graphics, x, y)                       egraphics_move_to(graphics, x, y)
+#define jgraphics_line_to(graphics, x, y)                       elayer_line_to(graphics, x, y)
+#define jgraphics_move_to(graphics, x, y)                       elayer_move_to(graphics, x, y)
 
-#define jgraphics_close_path(graphics)                          egraphics_close_path(graphics)
+#define jgraphics_close_path(graphics)                          elayer_close_path(graphics)
 
-#define jgraphics_matrix_init(matrix, xx, yx, xy, yy, x0, y0)   egraphics_matrix_init(matrix, xx, yx, xy, yy, x0, y0)
+#define jgraphics_matrix_init(matrix, xx, yx, xy, yy, x0, y0)   elayer_matrix_init(matrix, xx, yx, xy, yy, x0, y0)
 
 #define jrgba_addContrast(color, contrast)                      rgba_addContrast(color, contrast)
 
-#define jtextlayout_create()                                    etext_layout_create()
-#define jtextlayout_destroy(textlayout)                         etext_layout_destroy(textlayout)
-#define jtextlayout_set(textlayout, text, jfont, x, y, width, height, justification, wrap) etext_layout_set(textlayout, text, jfont, x, y, width, height, justification, wrap)
-#define jtextlayout_settextcolor(textlayout, color)             etext_layout_settextcolor(textlayout, color)
-#define jtextlayout_draw(textlayout, g)                    etext_layout_draw(textlayout, g)
+#define jtextlayout_create()                                    etextlayout_new()
+#define jtextlayout_destroy(textlayout)                         etextlayout_destroy(textlayout)
+#define jtextlayout_set(textlayout, text, jfont, x, y, width, height, justification, wrap) etextlayout_set(textlayout, text, jfont, x, y, width, height, justification, wrap)
+#define jtextlayout_settextcolor(textlayout, color)             etextlayout_settextcolor(textlayout, color)
+#define jtextlayout_draw(textlayout, g)                    etextlayout_draw(textlayout, g)
 #define jfont_create(family, slant, weight, size)               efont_create(family, slant, weight, size)
 #define jfont_destroy(font)                                     efont_destroy(font)
 

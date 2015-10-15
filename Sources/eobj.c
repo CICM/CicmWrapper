@@ -10,7 +10,7 @@
 
 #include "eobj.h"
 #include "ecommon.h"
-#include "egraphics.h"
+#include "elayer.h"
 #include "epopup.h"
 #include "edsp.h"
 #include "eview.h"
@@ -36,7 +36,7 @@ void *eobj_new(t_eclass *c)
         x->o_canvas = canvas_getcurrent();
         sprintf(buffer,"#%s%lx", class_getname(c), (long unsigned int)x);
         x->o_id = gensym(buffer);
-        pd_bind(&x->o_obj.ob_pd, x->o_id);
+        pd_bind((t_pd *)x, x->o_id);
         sprintf(buffer, "%ldcamo", (long unsigned int)x);
         x->o_listeners = gensym(buffer);
     }
@@ -253,7 +253,6 @@ static t_pd_err eobj_attr_dosetvalue(t_eobj *x, t_symbol* s, int argc, t_atom* a
 {
     eclass_attr_setvalue(eobj_getclass(x), (t_object *)x, s, argc, argv);
     int todo_important;
-    int notify;
     //ebox_notify(z, s, s_cream_attr_modified, NULL, NULL);
     /*
      if(c->c_widget.w_notify != NULL)
@@ -264,7 +263,7 @@ static t_pd_err eobj_attr_dosetvalue(t_eobj *x, t_symbol* s, int argc, t_atom* a
     if(eattr_repaint(attr))
     {
         int todo_important;
-        /*
+     
          if(c->c_widget.w_oksize != NULL)
          {
          c->c_widget.w_oksize(x, &z->b_rect);
@@ -275,7 +274,7 @@ static t_pd_err eobj_attr_dosetvalue(t_eobj *x, t_symbol* s, int argc, t_atom* a
          if(!rgba_is_equal(&(params.d_bordercolor), &(z->b_boxparameters.d_bordercolor)))
          {
          memcpy(&z->b_boxparameters, &params, sizeof(t_edrawparams));
-         ebox_invalidate_layer((t_ebox *)x, s_cream_eboxbd);
+         ebox_invalidate_layer((t_ebox *)x, NULL, s_cream_eboxbd);
          }
          else if(params.d_borderthickness != z->b_boxparameters.d_borderthickness)
          {
@@ -462,6 +461,32 @@ long ebox_getflags(t_ebox const* x)
     return 0;
 }
 
+void ebox_setcursor(t_ebox const* x, t_object * view, ebox_cursors cursor)
+{
+    t_egui* gui = NULL;
+    if(view)
+    {
+        eview_setcursor((t_eview *)view, cursor);
+    }
+    else
+    {
+        egui_view_setcursor(gui, NULL, cursor);
+    }
+}
+
+void ebox_getbounds(t_ebox const* x, t_object const* view, t_rect *rect)
+{
+    t_egui* gui = NULL;
+    if(view)
+    {
+        eview_getbounds((t_eview const*)view, rect);
+    }
+    else
+    {
+        egui_view_getbounds(gui, NULL, rect);
+    }
+}
+
 void ebox_redraw(t_ebox *x)
 {
     t_egui* gui = eobj_getgui(x);
@@ -469,23 +494,75 @@ void ebox_redraw(t_ebox *x)
     {
         egui_redraw(gui);
     }
-    int notify_redraw;
 }
 
-void ebox_set_cursor_for_view(t_ebox const* x, t_object * view, ebox_cursors cursor)
+t_pd_err ebox_invalidate_layer(t_ebox *x, t_object* view, t_symbol *name)
 {
-    eview_setcursor((t_eview *)view, cursor);
+    t_egui* gui = NULL;
+    if(view)
+    {
+        return eview_layer_invalidate((t_eview *)view, name);
+    }
+    gui = eobj_getgui(x);
+    if(gui)
+    {
+        return egui_view_invalidate_layer(gui, NULL, name);
+    }
+    return -1;
 }
 
-void ebox_get_rect_for_view(t_ebox const* x, t_object const* view, t_rect *rect)
+t_elayer* ebox_start_layer(t_ebox *x, t_object* view, t_symbol *name,
+                           const float width, const float height)
 {
-    eview_getbounds((t_eview const*)view, rect);
-}
-
-t_elayer* ebox_start_layer(t_ebox *x, t_object* view, t_symbol *name, float width, float height)
-{
+    t_egui* gui = NULL;
+    if(view)
+    {
+        return eview_layer_start((t_eview *)view, name, width, height);
+    }
+    gui = eobj_getgui(x);
+    if(gui)
+    {
+        return egui_view_start_layer(gui, NULL, name, width, height);
+    }
     return NULL;
 }
+
+t_pd_err ebox_end_layer(t_ebox *x, t_object* view, t_symbol *name)
+{
+    t_egui* gui = NULL;
+    if(view)
+    {
+        return eview_layer_end((t_eview *)view, name);
+    }
+    gui = eobj_getgui(x);
+    if(gui)
+    {
+        return egui_view_end_layer(gui, NULL, name);
+    }
+    return -1;
+}
+
+t_pd_err ebox_paint_layer(t_ebox *x, t_object* view, t_symbol *name,
+                          const float xoffset, const float yoffset)
+{
+    t_egui* gui = NULL;
+    if(view)
+    {
+        return eview_layer_paint((t_eview *)view, name, xoffset, yoffset);
+    }
+    gui = eobj_getgui(x);
+    if(gui)
+    {
+        return egui_view_paint_layer(gui, NULL, name, xoffset, yoffset);
+    }
+    return -1;
+}
+
+
+
+
+
+
 
 
 static t_pd_err ebox_defaultattibutes_set(t_ebox *x, t_object *attr, int argc, t_atom *argv)
@@ -593,10 +670,10 @@ static void ebox_wgetrect(t_gobj *z, t_glist *glist, int *xp1, int *yp1, int *xp
     if(gui)
     {
         egui_view_getbounds(gui, glist, &bounds);
-        *xp1 = bounds.x;
-        *yp1 = bounds.y;
-        *xp2 = bounds.x + bounds.width;
-        *yp2 = bounds.y + bounds.height;
+        *xp1 = (int)bounds.x;
+        *yp1 = (int)bounds.y;
+        *xp2 = (int)(bounds.x + bounds.width) - 1;
+        *yp2 = (int)(bounds.y + bounds.height) - 1;
     }
 }
 

@@ -9,7 +9,7 @@
  */
 
 #include "ecommon.h"
-#include "egraphics.h"
+#include "elayer.h"
 #include "epopup.h"
 
 t_symbol* s_cream_null;
@@ -489,7 +489,7 @@ int atoms_get_attributes_offset(int argc, t_atom* argv)
             break;
         }
     }
-    return (int)pd_clip(i, 0, argc);
+    return i;
 }
 
 int binbuf_get_attributes_offset(t_binbuf *d)

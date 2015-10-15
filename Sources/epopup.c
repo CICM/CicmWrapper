@@ -12,7 +12,7 @@
 #include "epopup.h"
 #include "eobj.h"
 #include "ebox.h"
-#include "egraphics.h"
+#include "elayer.h"
 #include "eattr.h"
 
 static void eobj_widget_notify(void* obj, t_symbol* widget, t_symbol* name, t_symbol* action)
@@ -230,7 +230,7 @@ t_epopup* epopup_findbyname(t_symbol* name)
 
 
 
-static void etexteditor_text(t_etexteditor* x, t_symbol* s, int argc, t_atom* argv)
+static void etexteditor_text(t_etextlayouteditor* x, t_symbol* s, int argc, t_atom* argv)
 {
     int i;
     size_t lenght = 0;
@@ -319,7 +319,7 @@ static t_class* etexteditor_setup()
     t_symbol* etexteditor1572_sym = gensym("etexteditor1572");
     if(!etexteditor1572_sym->s_thing)
     {
-        etexteditor_class = class_new(gensym("etexteditor"), NULL, (t_method)NULL, sizeof(t_etexteditor), CLASS_PD, A_GIMME, 0);
+        etexteditor_class = class_new(gensym("etexteditor"), NULL, (t_method)NULL, sizeof(t_etextlayouteditor), CLASS_PD, A_GIMME, 0);
         etexteditor1572_sym->s_thing = (t_class **)etexteditor_class;
         class_addmethod(etexteditor_class, (t_method)etexteditor_text, gensym("text"), A_GIMME, 0);
         return etexteditor_class;
@@ -330,14 +330,14 @@ static t_class* etexteditor_setup()
     }
 }
 
-t_etexteditor* etexteditor_create(t_ebox* x)
+t_etextlayouteditor* etexteditor_create(t_ebox* x)
 {
     char buffer[MAXPDSTRING];
-    t_canvas* canvas = NULL; t_etexteditor* editor = NULL;
+    t_canvas* canvas = NULL; t_etextlayouteditor* editor = NULL;
     t_class* c = etexteditor_setup();
     if(c)
     {
-        editor = (t_etexteditor *)pd_new(c);
+        editor = (t_etextlayouteditor *)pd_new(c);
         if(editor)
         {
             canvas = eobj_getcanvas(x);
@@ -381,7 +381,7 @@ t_etexteditor* etexteditor_create(t_ebox* x)
     return NULL;
 }
 
-void etexteditor_destroy(t_etexteditor* editor)
+void etexteditor_destroy(t_etextlayouteditor* editor)
 {
     if(editor)
     {
@@ -394,7 +394,7 @@ void etexteditor_destroy(t_etexteditor* editor)
     }
 }
 
-void etexteditor_settext(t_etexteditor* editor, const char* text)
+void etexteditor_settext(t_etextlayouteditor* editor, const char* text)
 {
     char* temp;
     const size_t lenght = strlen(text);
@@ -429,7 +429,7 @@ void etexteditor_settext(t_etexteditor* editor, const char* text)
     eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, editor->c_editor_id, s_cream_attr_modified);
 }
 
-void etexteditor_gettext(t_etexteditor *editor, char** text)
+void etexteditor_gettext(t_etextlayouteditor *editor, char** text)
 {
     if(editor->c_text && editor->c_size)
     {
@@ -452,13 +452,13 @@ void etexteditor_gettext(t_etexteditor *editor, char** text)
     eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, editor->c_editor_id, s_cream_attr_modified);
 }
 
-void etexteditor_clear(t_etexteditor* editor)
+void etexteditor_clear(t_etextlayouteditor* editor)
 {
     sys_vgui("%s delete 0.0 end\n", editor->c_name->s_name);
     eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, editor->c_editor_id, s_cream_attr_modified);
 }
 
-void etexteditor_setfont(t_etexteditor *editor, t_efont const* font)
+void etexteditor_setfont(t_etextlayouteditor *editor, t_efont const* font)
 {
     sys_vgui("%s configure -font {{%s} %d %s %s}\n", editor->c_name->s_name,
              font->family->s_name, (int)font->size, font->weight->s_name, font->slant->s_name);
@@ -467,7 +467,7 @@ void etexteditor_setfont(t_etexteditor *editor, t_efont const* font)
     eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, editor->c_editor_id, s_cream_attr_modified);
 }
 
-void etexteditor_setbackgroundcolor(t_etexteditor *editor, t_rgba const* color)
+void etexteditor_setbackgroundcolor(t_etextlayouteditor *editor, t_rgba const* color)
 {
     sys_vgui("%s configure -background %s\n", editor->c_name->s_name, rgba_to_hex(color));
     
@@ -475,7 +475,7 @@ void etexteditor_setbackgroundcolor(t_etexteditor *editor, t_rgba const* color)
     eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, editor->c_editor_id, s_cream_attr_modified);
 }
 
-void etexteditor_settextcolor(t_etexteditor *editor, t_rgba const* color)
+void etexteditor_settextcolor(t_etextlayouteditor *editor, t_rgba const* color)
 {
     sys_vgui("%s configure -foreground %s\n", editor->c_name->s_name, rgba_to_hex(color));
     
@@ -483,7 +483,7 @@ void etexteditor_settextcolor(t_etexteditor *editor, t_rgba const* color)
     eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, editor->c_editor_id, s_cream_attr_modified);
 }
 
-void etexteditor_setwrap(t_etexteditor *editor, char wrap)
+void etexteditor_setwrap(t_etextlayouteditor *editor, char wrap)
 {
     if(wrap)
     {
@@ -498,10 +498,10 @@ void etexteditor_setwrap(t_etexteditor *editor, char wrap)
     eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, editor->c_editor_id, s_cream_attr_modified);
 }
 
-void etexteditor_popup(t_etexteditor *editor, t_rect const* bounds)
+void etexteditor_popup(t_etextlayouteditor *editor, t_rect const* bounds)
 {
     t_rect rect;
-    ebox_get_rect_for_view((t_ebox *)editor->c_owner, NULL, &rect);
+    ebox_getbounds((t_ebox *)editor->c_owner, NULL, &rect);
     sys_vgui("bind %s <KeyRelease> {+pdsend \"%s text [%s get 0.0 end]\"}\n",
              editor->c_name->s_name, editor->c_editor_id->s_name, editor->c_name->s_name);
     sys_vgui("bind %s <<Modified>> {+pdsend \"%s text [%s get 0.0 end]\"}\n",
@@ -537,18 +537,18 @@ void etexteditor_popup(t_etexteditor *editor, t_rect const* bounds)
     eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, editor->c_editor_id, s_cream_popup);
 }
 
-void etexteditor_grabfocus(t_etexteditor *editor)
+void etexteditor_grabfocus(t_etextlayouteditor *editor)
 {
     sys_vgui("focus -force %s\n", editor->c_name->s_name);
     eobj_widget_notify((t_eobj *)(editor->c_owner), s_cream_texteditor, editor->c_editor_id, s_cream_grabfocus);
 }
 
-t_etexteditor* etexteditor_getfromsymbol(t_symbol* name)
+t_etextlayouteditor* etexteditor_getfromsymbol(t_symbol* name)
 {
     t_class* c = etexteditor_setup();
     if(c)
     {
-        return (t_etexteditor *)pd_findbyclass(name, c);
+        return (t_etextlayouteditor *)pd_findbyclass(name, c);
     }
     return NULL;
 }

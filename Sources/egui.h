@@ -173,6 +173,9 @@ void egui_setignoreclick(t_egui *gui, char state);
  */
 void egui_setpinned(t_egui *gui, char state);
 
+
+
+
 /*!
  * \fn          void egui_view_add(t_egui *gui, t_glist* glist)
  * \brief       Displays a view of the gui for a canvas.
@@ -258,6 +261,65 @@ void egui_view_select(t_egui *gui, t_glist *glist);
  * \param glist     The canvas pointer.
  */
 void egui_view_deselect(t_egui *gui, t_glist *glist);
+
+/*!
+ * \fn              void egui_view_setcursor(t_egui *gui, t_glist *glist, ebox_cursors cursor)
+ * \brief           Changes the cursor of the mouse.
+ * \param gui       The gui pointer.
+ * \param glist     The canvas pointer.
+ * \param cursor    The type of cursor.
+ */
+void egui_view_setcursor(t_egui *gui, t_glist *glist, ebox_cursors cursor);
+
+/*!
+ * \fn              t_pd_err egui_view_invalidate_layer(t_egui *gui, t_glist *glist, t_symbol *name)
+ * \brief           Invalidates a layer in a view
+ * \param gui       The gui pointer.
+ * \param glist     The canvas pointer.
+ * \param name      The name of the layer.
+ * \return A null value if nothing goes wrong, otherwise a non-null value.
+ */
+t_pd_err egui_view_invalidate_layer(t_egui *gui, t_glist *glist, t_symbol *name);
+
+/*!
+ * \fn              t_elayer* egui_view_start_layer(t_egui *gui, t_glist *glist, t_symbol *name,
+                                                                 const float width, const float height)
+ * \brief           Starts a new layer in a view
+ * \param gui       The gui pointer.
+ * \param glist     The canvas pointer.
+ * \param name      The name of the layer.
+ * \param width     The width of the layer.
+ * \param height    The height of the layer.
+ * \return the pointer of the layer if nothing goes wrong, otherwise a NULL.
+ */
+t_elayer* egui_view_start_layer(t_egui *gui, t_glist *glist, t_symbol *name,
+                                             const float width, const float height);
+/*!
+ * \fn              t_pd_err egui_view_end_layer(t_egui *gui, t_glist *glist, t_symbol *name)
+ * \brief           Ends a layer in a view
+ * \param gui       The gui pointer.
+ * \param glist     The canvas pointer.
+ * \param name      The name of the layer.
+ * \return A null value if nothing goes wrong, otherwise a non-null value.
+ */
+t_pd_err egui_view_end_layer(t_egui *gui, t_glist *glist, t_symbol *name);
+
+/*!
+ * \fn              t_pd_err egui_view_paint_layer(t_egui *gui, t_glist *glist, t_symbol *name,
+                                                                const float xoffset, const float yoffset)
+ * \brief           Paints a layer in a view
+ * \param gui       The gui pointer.
+ * \param glist     The canvas pointer.
+ * \param name      The name of the layer.
+ * \param xoffset   The abscissa offset of the layer.
+ * \param yoffset   The ordinate yoffset of the layer.
+ * \return A null value if nothing goes wrong, otherwise a non-null value.
+ */
+t_pd_err egui_view_paint_layer(t_egui *gui, t_glist *glist, t_symbol *name,
+                               const float xoffset, const float yoffset);
+
+
+
 
 /** @} */
 

@@ -10,7 +10,7 @@
 
 #include "eparam.h"
 #include "eobj.h"
-#include "egraphics.h"
+#include "elayer.h"
 
 #include "m_imp.h"
 
@@ -91,7 +91,8 @@ static float eparameter_compute_value(float value, float min, float max, float n
 {
     const float step = (max - min) / nstep;
     const float rval = floorf((value - min) / step + 0.5);
-    return pd_clip_max(step * rval + min, max);
+    const float val = step * rval + min;
+    return (val < max) ? val : max;
 }
 
 

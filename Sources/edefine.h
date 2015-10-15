@@ -250,7 +250,7 @@ typedef enum etextjustify_flags
 } etextjustify_flags;
 
 /**
- * @enum egraphics_types
+ * @enum elayer_types
  * @brief The types of graphical object.
  * @details It define all the graphical type.
  */
@@ -362,6 +362,19 @@ extern const t_rgba rgba_green;
 extern const t_rgba rgba_red;
 
 /**
+ * @struct t_edrawparams
+ * @brief The  drawing parameters.
+ * @details It contains the default parameters of a ebox.
+ */
+typedef struct t_edrawparams
+{
+    float		d_cornersize;       /*!< The corner roundness. */
+    float       d_borderthickness;  /*!< The border size. */
+    t_rgba      d_bordercolor;      /*!< The border color. */
+    t_rgba      d_boxfillcolor;     /*!< The background color. */
+} t_edrawparams;
+
+/**
  * @struct t_efont
  * @brief The font structure.
  * @details It contains the informations of a font.
@@ -375,11 +388,19 @@ struct _efont
 };
 typedef struct _efont t_efont;
 
+/**
+ * @struct t_etextlayout
+ * @brief The text structure.
+ * @details It contains the all the informations to be drawn.
+ */
 EXTERN_STRUCT _elayer;
 typedef struct _elayer t_elayer;
 
-EXTERN_STRUCT _etext;
-typedef struct _etext t_etext;
+EXTERN_STRUCT _epath;
+typedef struct _epath t_epath;
+
+EXTERN_STRUCT _etextlayout;
+typedef struct _etextlayout t_etextlayout;
 
 /** @} */
 
@@ -388,6 +409,8 @@ typedef void (*t_mouse_method)(void *x, t_object *view, t_pt pt, long modifiers)
 typedef void (*t_mousewheel_method)(void *x, t_object *view, t_pt pt, long modifiers, float deltax, float deltay);
 typedef void (*t_key_method)(void *x, t_object *view, char textcharacter, long modifiers);
 typedef void (*t_popup_method)(void *x, t_object *view, long itemid);
+typedef void (*t_drawparameter_method)(void *x, t_object *view, t_edrawparams* params);
+typedef void (*t_paint_method)(void *x, t_object *view);
 
 /**
  * @struct t_eobj
@@ -513,19 +536,6 @@ typedef enum
 } ebox_cursors;
 
 /**
- * @struct t_edrawparams
- * @brief The  drawing parameters.
- * @details It contains the default parameters of a ebox.
- */
-typedef struct t_edrawparams
-{
-    float		d_cornersize;       /*!< The corner roundness. */
-    float       d_borderthickness;  /*!< The border size. */
-    t_rgba      d_bordercolor;      /*!< The border color. */
-    t_rgba      d_boxfillcolor;     /*!< The background color. */
-} t_edrawparams;
-
-/**
  * @enum elayer_flags
  * @brief The flags that defines the status of a layer.
  * @details It define all possible the status of a layer.
@@ -547,8 +557,8 @@ typedef enum eparam_flags
 
 
 /*! @addtogroup groupwidget The Widget Part
- * @brief The t_epopup and t_etexteditor part.
- * @details This part refers to the methods and structures that can be used by all the t_epopup and t_etexteditor structures.
+ * @brief The t_epopup and t_etextlayouteditor part.
+ * @details This part refers to the methods and structures that can be used by all the t_epopup and t_etextlayouteditor structures.
  *  @{
  */
 
@@ -588,11 +598,11 @@ typedef struct t_epopup
 
 
 /**
- * @struct t_etexteditor
+ * @struct t_etextlayouteditor
  * @brief The text editor structure.
  * @details It contains the informations to show and retrieve a popup.
  */
-typedef struct t_etexteditor
+typedef struct t_etextlayouteditor
 {
     t_object    c_obj;          /*!< The object. */
     t_object*   c_owner;
@@ -608,7 +618,7 @@ typedef struct t_etexteditor
     t_rgba      c_txtcolor;
     char        c_wrap;
     t_rect      c_bounds;
-}t_etexteditor;
+}t_etextlayouteditor;
 
 /**
  * @struct t_ewindowprop

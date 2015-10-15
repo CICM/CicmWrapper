@@ -121,11 +121,51 @@ void eview_setbounds(t_eview* view, t_rect const* bounds);
 void eview_setcursor(t_eview* view, ebox_cursors cursor);
 
 /*!
- * \fn              void eview_layers_update(t_eview* view)
- * \brief           Updates the layers of a view.
+ * \fn              void eview_redraw(t_eview* view)
+ * \brief           Notifies a view that it should be redrawn.
  * \param view      The view pointer.
  */
-void eview_layers_update(t_eview* view);
+void eview_redraw(t_eview* view);
+
+/*!
+ * \fn              t_elayer* eview_layer_start(t_eview* view, t_symbol *name, float width, float height)
+ * \brief           Starts a new layers.
+ * \param view      The view pointer.
+ * \param name      The name of the layer.
+ * \param width     The width of the layer.
+ * \param height    The height of the layer.
+ */
+t_elayer* eview_layer_start(t_eview* view, t_symbol *name, float width, float height);
+
+/*!
+ * \fn              t_pd_err eview_layer_invalidate(t_eview* view, t_symbol *name)
+ * \brief           Invalidates a layer in a view.
+ * \param view      The view pointer.
+ * \param name      The name of the layer.
+ * \return A null value if nothing goes wrong, otherwise a non-null value.
+ */
+t_pd_err eview_layer_invalidate(t_eview* view, t_symbol *name);
+
+/*!
+ * \fn              t_pd_err eview_layer_end(t_eview* view, t_symbol *name)
+ * \brief           Ends a layer in a view.
+ * \param view      The view pointer.
+ * \param name      The name of the layer.
+ * \return A null value if nothing goes wrong, otherwise a non-null value.
+ */
+t_pd_err eview_layer_end(t_eview* view, t_symbol *name);
+
+/*!
+ * \fn              t_pd_err eview_layer_paint(t_eview* view, t_symbol *name, const float xoffset, const float yoffset)
+ * \brief           Paints a layer in a view.
+ * \param view      The view pointer.
+ * \param name      The name of the layer.
+ * \param xoffset   The abscissa offset of the layer.
+ * \param yoffset   The ordinate yoffset of the layer.
+ * \return A null value if nothing goes wrong, otherwise a non-null value.
+ */
+t_pd_err eview_layer_paint(t_eview* view, t_symbol *name, const float xoffset, const float yoffset);
+
 
 /** @} */
 

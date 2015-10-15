@@ -14,7 +14,7 @@
 #include "ebox.h"
 #include "egui.h"
 #include "epopup.h"
-#include "egraphics.h"
+#include "elayer.h"
 
 extern void eobj_initclass(t_eclass* c);
 

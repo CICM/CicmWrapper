@@ -12,7 +12,7 @@
 #include "eobj.h"
 #include "ebox.h"
 #include "egui.h"
-#include "egraphics.h"
+#include "elayer.h"
 
 #include <m_imp.h>
 
@@ -40,6 +40,7 @@ struct _eview
     t_mousewheel_method v_mouse_wheel;
     t_key_method    v_key_press;
     t_key_method    v_key_filter;
+    t_paint_method  v_paint;
 };
 
 typedef enum view_items
@@ -215,7 +216,7 @@ static void view_mousemove(t_eview* view, t_float x, t_float y, t_float modifier
                 outlet = 0;
                 if(noutlet)
                 {
-                    if(pt.y < 3.f)
+                    if(pt.x > 3.f)
                     {
                         if(pt.x <= 7.f)
                         {
@@ -242,7 +243,6 @@ static void view_mousemove(t_eview* view, t_float x, t_float y, t_float modifier
                 }
                 else
                 {
-                    view->v_item = VITEM_OBJ;
                     eview_setcursor(view, ECURSOR_OUTLET);
                 }
             }
@@ -438,6 +438,17 @@ static void view_key(t_eview* view, t_float key, t_float modifier)
 
 static void eview_free(t_eview* view)
 {
+    size_t i;
+    for(i = 0; i < view->v_nlayers; i++)
+    {
+        elayer_free(view->v_layers[i]);
+    }
+    if(view->v_nlayers && view->v_layers)
+    {
+        free(view->v_layers);
+        view->v_layers  = NULL;
+        view->v_nlayers = 0;
+    }
     pd_unbind((t_pd *)view, view->v_tag);
     sys_vgui("destroy .x%lx.c.canvas%lx\n", (unsigned long)view->v_canvas, (unsigned long)view);
     canvas_deletelinesfor(view->v_canvas, (t_text *)view->v_owner);
@@ -512,12 +523,14 @@ t_eview* eview_new(t_object* x, t_canvas* cnv, t_rect const* bounds)
             v->v_mouse_wheel    = (t_mousewheel_method)zgetfn((t_pd *)x, gensym("mousewheel"));
             v->v_key_press      = (t_key_method)zgetfn((t_pd *)x, gensym("key"));
             v->v_key_filter     = (t_key_method)zgetfn((t_pd *)x, gensym("keyfilter"));
+            v->v_paint          = (t_paint_method)zgetfn((t_pd *)x, gensym("paint"));
             
             sprintf(buffer, "tag%lx", (unsigned long)v);
             v->v_tag = gensym(buffer);
             pd_bind((t_pd *)v, v->v_tag);
             
-            sys_vgui("canvas .x%lx.c.canvas%lx -width %i -height %i -bd 0 -takefocus 1 -bg grey\n",
+            sys_vgui("canvas .x%lx.c.canvas%lx -width %i -height %i -takefocus 1 -bg grey \
+                     -highlightthickness 0 -insertborderwidth 0 -state normal -insertwidth 0 -bd 0\n",
                      (unsigned long)v->v_canvas, (unsigned long)v, (int)v->v_bounds.width, (int)v->v_bounds.height);
             
             sys_vgui("bind .x%lx.c.canvas%lx <Enter> {+pdsend {%s mouseenter %%x %%y %%s}}\n",
@@ -551,7 +564,6 @@ t_eview* eview_new(t_object* x, t_canvas* cnv, t_rect const* bounds)
                          (unsigned long)v->v_canvas, (unsigned long)v, v->v_tag->s_name);
             }
             
-            int todo_position;
             sys_vgui(".x%lx.c create window %i %i -anchor nw -window .x%lx.c.canvas%lx -tags win%lx -width %i -height %i\n",
                      (unsigned long)v->v_canvas,
                      (int)v->v_bounds.x, (int)v->v_bounds.y,
@@ -644,28 +656,124 @@ void eview_setcursor(t_eview* view, ebox_cursors cursor)
              (unsigned long)view->v_canvas, (unsigned long)view, my_cursorlist[cursor]);
 }
 
-void eview_layers_update(t_eview* view)
+static t_elayer* eview_getlayer(t_eview const* view, t_symbol const* name)
 {
     size_t i;
     for(i = 0; view->v_nlayers; i++)
     {
-        if(egraphics_get_state(view->v_layers[i]) == EPD_LAYER_INVALID)
+        if(elayer_getname(view->v_layers[i]) == name)
         {
-            int todo;
-            //sys_vgui(".x%lx.c.canvas%lx delete %s\n", (unsigned long)view->v_canvas, (unsigned long)view, x->b_layers[i].e_id->s_name);
-            
+            return view->v_layers[i];
         }
     }
+    return NULL;
 }
 
-void eview_layer_start(t_eview* view, t_symbol *name, float width, float height)
+void eview_redraw(t_eview* view)
 {
+    post("eview_redraw");
     size_t i;
+    // pinned & background color
+    /*
     for(i = 0; view->v_nlayers; i++)
     {
-        int todo;
+        if((elayer_getstate(view->v_layers[i]) == EPD_LAYER_INVALID))
+        {
+            sys_vgui(".x%lx.c.canvas%lx delete %s%lx\n", (unsigned long)view->v_canvas, (unsigned long)view,
+                    elayer_getname(view->v_layers[i]), (unsigned long)view);
+        }
     }
+     */
+    if(view->v_paint)
+    {
+        (view->v_paint)(view->v_owner, (t_object *)view);
+    }
+    //ebox_draw_border(x);
+    //ebox_draw_iolets(x);
 }
+
+t_elayer* eview_layer_start(t_eview* view, t_symbol *name, float width, float height)
+{
+    t_elayer** temp = NULL;
+    t_elayer* l = eview_getlayer(view, name);
+    if(!l)
+    {
+        l = elayer_new(name, width, height);
+        if(l)
+        {
+            if(view->v_nlayers && view->v_layers)
+            {
+                temp = (t_elayer **)realloc(view->v_layers, (view->v_nlayers + 1) * sizeof(t_elayer *));
+                if(temp)
+                {
+                    view->v_layers = temp;
+                    view->v_layers[view->v_nlayers] = l;
+                    view->v_nlayers++;
+                    return l;
+                }
+                else
+                {
+                    pd_error(view, "can't increase the number of layers.");
+                    elayer_free(l);
+                    return NULL;
+                }
+            }
+            else
+            {
+                view->v_layers = (t_elayer **)malloc(sizeof(t_elayer *));
+                if(view->v_layers)
+                {
+                    view->v_nlayers = 1;
+                    view->v_layers[0] = l;
+                    return l;
+                }
+                else
+                {
+                    pd_error(view, "can't allocate any layers.");
+                    elayer_free(l);
+                    return NULL;
+                }
+            }
+        }
+    }
+    return (elayer_getstate(l) == EPD_LAYER_INVALID) ? l : NULL;
+}
+
+t_pd_err eview_layer_invalidate(t_eview* view, t_symbol *name)
+{
+    t_elayer* l = eview_getlayer(view, name);
+    if(l)
+    {
+        return elayer_invalidate(l);
+    }
+    return -1;
+}
+
+t_pd_err eview_layer_end(t_eview* view, t_symbol *name)
+{
+    t_elayer* l = eview_getlayer(view, name);
+    if(l)
+    {
+        return elayer_end(l);
+    }
+    return -1;
+}
+
+t_pd_err eview_layer_paint(t_eview* view, t_symbol *name, const float xoffset, const float yoffset)
+{
+    t_elayer* l = eview_getlayer(view, name);
+    if(l)
+    {
+        return elayer_paint(l);
+    }
+    return -1;
+}
+
+
+
+
+
+
 
 
 

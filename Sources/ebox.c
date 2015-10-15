@@ -10,49 +10,21 @@
 
 #include "eobj.h"
 #include "ebox.h"
-#include "egraphics.h"
+#include "elayer.h"
 #include "eobj.h"
 #include "eclass.h"
 #include "epopup.h"
 #include "float.h"
 
 
-static void ebox_invalidate_all(t_ebox *x);
 static void ebox_draw_border(t_ebox* x);
 static void ebox_draw_iolets(t_ebox* x);
-static void ebox_update(t_ebox *x);
-static void ebox_erase(t_ebox* x);
 static void ebox_select(t_ebox* x);
-static void ebox_move(t_ebox* x);
-
-
-
-static void ebox_paint(t_ebox *x)
-{
-    /*
-    t_eclass* c = eobj_getclass(x);
-    ebox_update(x);
-    sys_vgui("%s configure -bg %s\n", x->b_drawing_id->s_name, rgba_to_hex(&(x->b_boxparameters.d_boxfillcolor)));
-    if(x->b_pinned)
-    {
-        sys_vgui((char *)"lower %s\n", x->b_drawing_id->s_name);
-    }
-    if(c->c_widget.w_paint)
-    {
-        c->c_widget.w_paint(x, (t_object *)eobj_getcanvas(x));
-    }
-    ebox_draw_border(x);
-    ebox_draw_iolets(x);
-     */
-}
-
-//! Widget
-
 
 void ebox_texteditor_keypress(t_ebox *x, t_symbol *s, float f)
 {
     /*
-    t_etexteditor* editor;
+    t_etextlayouteditor* editor;
     const t_eclass* c = eobj_getclass(x);
     if(c && c->c_widget.w_texteditor_keypress)
     {
@@ -68,7 +40,7 @@ void ebox_texteditor_keypress(t_ebox *x, t_symbol *s, float f)
 void ebox_texteditor_keyfilter(t_ebox *x, t_symbol *s, float f)
 {
     /*
-    t_etexteditor* editor;
+    t_etextlayouteditor* editor;
     const t_eclass* c = eobj_getclass(x);
     if(c && c->c_widget.w_texteditor_keyfilter)
     {
@@ -84,7 +56,7 @@ void ebox_texteditor_keyfilter(t_ebox *x, t_symbol *s, float f)
 void ebox_texteditor_focus(t_ebox *x, t_symbol *s, float f)
 {
     /*
-    t_etexteditor* editor;
+    t_etextlayouteditor* editor;
     const t_eclass* c = eobj_getclass(x);
     if(c && c->c_widget.w_texteditor_focus)
     {
@@ -99,8 +71,9 @@ void ebox_texteditor_focus(t_ebox *x, t_symbol *s, float f)
 
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
-    t_eclass* c = eobj_getclass(x);
     /*
+    t_eclass* c = eobj_getclass(x);
+    
     if(s == s_cream_size)
     {
         if(c->c_widget.w_oksize != NULL)
@@ -128,39 +101,6 @@ t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *
     return 0;
 }
 
-
-t_pd_err ebox_end_layer(t_ebox *x, t_symbol *name)
-{
-    int i;
-    /*
-    for(i = 0; i < x->b_number_of_layers; i++)
-    {
-        if(x->b_layers[i].e_name == name)
-        {
-            x->b_layers[i].e_state = EGRAPHICS_TODRAW;
-            return 0;
-        }
-    }
-     */
-    return -1;
-}
-
-
-t_pd_err ebox_invalidate_layer(t_ebox *x, t_symbol *name)
-{
-    int i;
-    /*
-    for(i = 0; i < x->b_number_of_layers; i++)
-    {
-        if(x->b_layers[i].e_name == name)
-        {
-            x->b_layers[i].e_state = EGRAPHICS_INVALID;
-            return 0;
-        }
-    }
-     */
-    return -1;
-}
 
 static void stringifyJustification(int justification, char* text)
 {
@@ -199,186 +139,6 @@ static t_pt recomputeRectangle(int justification, t_pt const* p1, t_pt const* p2
     return pt;
 }
 
-t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p)
-{
-    if(1)//!x->b_drawing_id)
-    {
-        return 0;
-    }
-    /*
-    int i, j;
-    float start, extent, radius;
-    t_elayer* g = NULL;
-    for(i = 0; i < x->b_number_of_layers; i++)
-    {
-        if(x->b_layers[i].e_name == name)
-        {
-            g = &x->b_layers[i];
-            if(g->e_state == EGRAPHICS_CLOSE)
-            {
-                sys_vgui("%s raise %s\n", x->b_drawing_id->s_name, g->e_id->s_name);
-                return -1;
-            }
-            else if(g->e_state != EGRAPHICS_TODRAW)
-            {
-                return -1;
-            }
-        }
-    }
-    if(g)
-    {
-        
-        for(i = 0; i < g->e_number_objects; i++)
-        {
-            t_egobj* gobj = g->e_objects+i;
-            t_pt * pt;
-            ////////////// PATH & LINE ///////////////////////////
-            if(gobj->e_type == E_GOBJ_PATH && gobj->e_npoints > 3)
-            {
-                char header[256];
-                char bottom[256];
-                int mode = E_PATH_MOVE;
-                if(gobj->e_filled)
-                {
-                    sprintf(header, "%s create polygon ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-smooth bezier -fill %s -width 0 -tags { %s %s }\n", rgba_to_hex(&gobj->e_color),  g->e_id->s_name, x->b_all_id->s_name);
-                }
-                else
-                {
-                    sprintf(header, "%s create line ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-smooth bezier -fill %s -width %f -tags { %s %s }\n", rgba_to_hex(&gobj->e_color), gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
-                }
-                
-                for(j = 0; j < gobj->e_npoints; )
-                {
-                    pt = gobj->e_points+j++;
-                    if(pt->x == E_PATH_MOVE)
-                    {
-                        if(mode == E_PATH_CURVE)
-                        {
-                            sys_vgui("%s", bottom);
-                        }
-                        sys_vgui("%s", header);
-                        pt = gobj->e_points+j++;
-                        sys_vgui("%d %d ", (int)(pt->x + x_p), (int)(pt->y + y_p));
-                        mode = E_PATH_MOVE;
-                    }
-                    else if(pt->x == E_PATH_CURVE)
-                    {
-                        pt = gobj->e_points+j++;
-                        sys_vgui("%d %d %d %d %d %d ",
-                                 (int)((pt+1)->x + x_p), (int)((pt+1)->y + y_p),
-                                 (int)((pt+2)->x + x_p), (int)((pt+2)->y + y_p),
-                                 (int)((pt+3)->x + x_p), (int)((pt+3)->y + y_p));
-                        j += 3;
-                        mode = E_PATH_CURVE;
-                    }
-                    else if(pt->x == E_PATH_LINE)
-                    {
-                        pt = gobj->e_points+j-1;
-                        sys_vgui("%d %d %d %d %d %d ",
-                                 (int)((pt-1)->x + x_p), (int)((pt-1)->y + y_p),
-                                 (int)((pt+1)->x + x_p), (int)((pt+1)->y + y_p),
-                                 (int)((pt+1)->x + x_p), (int)((pt+1)->y + y_p));
-                        ++j;
-                        mode = E_PATH_CURVE;
-                    }
-                    else
-                    {
-                        j++;
-                    }
-                }
-                sys_vgui("%s", bottom);
-            }
-            ////////////// RECT ///////////////////////////
-            else if(gobj->e_type == E_GOBJ_RECT)
-            {
-                if(gobj->e_filled)
-                    sys_vgui("%s create polygon ", x->b_drawing_id->s_name);
-                else
-                    sys_vgui("%s create line ", x->b_drawing_id->s_name);
-                
-                for(j = 0; j < gobj->e_npoints; j ++)
-                {
-                    sys_vgui("%d %d ", (int)(gobj->e_points[j].x + x_p), (int)(gobj->e_points[j].y + y_p));
-                }
-                
-                if(gobj->e_filled)
-                    sys_vgui("-fill %s -width 0 -tags { %s %s }\n", rgba_to_hex(&gobj->e_color),  g->e_id->s_name, x->b_all_id->s_name);
-                else
-                    sys_vgui("-fill %s -width %f -tags { %s %s }\n", rgba_to_hex(&gobj->e_color), gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
-                
-            }
-            ////////////// OVAL /////////////////
-            else if (gobj->e_type == E_GOBJ_OVAL)
-            {
-                sys_vgui("%s create oval %d %d %d %d ",
-                         x->b_drawing_id->s_name,
-                         (int)(gobj->e_points[0].x + x_p),
-                         (int)(gobj->e_points[0].y + y_p),
-                         (int)(gobj->e_points[1].x + x_p),
-                         (int)(gobj->e_points[1].y + y_p));
-                if(gobj->e_filled)
-                    sys_vgui("-fill %s -width 0 -tags { %s %s }\n", rgba_to_hex(&gobj->e_color),  g->e_id->s_name, x->b_all_id->s_name);
-                else
-                    sys_vgui("-outline %s -width %f -tags { %s %s }\n", rgba_to_hex(&gobj->e_color), gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
-                
-            }
-            ////////////// ARC /////////////////
-            else if (gobj->e_type == E_GOBJ_ARC)
-            {
-                start = (float)pd_angle(gobj->e_points[1].x - gobj->e_points[0].x,  gobj->e_points[1].y - gobj->e_points[0].y);
-                
-                extent = gobj->e_points[2].x;
-                radius = gobj->e_points[2].y;
-                
-                sys_vgui("%s create arc %d %d %d %d -start %f -extent %f ",
-                         x->b_drawing_id->s_name,
-                         (int)(gobj->e_points[0].x - radius + x_p),
-                         (int)(gobj->e_points[0].y - radius + y_p),
-                         (int)(gobj->e_points[0].x + radius + x_p),
-                         (int)(gobj->e_points[0].y + radius + y_p),
-                         (float)start / EPD_2PI * 360.f,
-                         (float)extent / EPD_2PI * 360.f);
-                
-                if(gobj->e_filled)
-                    sys_vgui("-style pieslice -fill %s -width 0 -tags { %s %s }\n", rgba_to_hex(&gobj->e_color),  g->e_id->s_name, x->b_all_id->s_name);
-                else
-                    sys_vgui("-style arc -outline %s -width %f -tags { %s %s }\n", rgba_to_hex(&gobj->e_color), gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
-                
-            }
-            ////////////// TEXT ////////////////
-            else if(gobj->e_type == E_GOBJ_TEXT)
-            {
-                char text[256];
-                stringifyJustification(gobj->e_justify, text);
-                const t_pt np = recomputeRectangle(gobj->e_justify, gobj->e_points, gobj->e_points+1);
-                sys_vgui("%s create text %d %d -text {%s} %s -font {{%s} %d %s %s} -fill %s -width %d -tags { %s %s }\n",
-                         x->b_drawing_id->s_name,
-                         (int)(np.x + x_p),
-                         (int)(np.y + y_p),
-                         gobj->e_text,
-                         text,
-                         gobj->e_font.family->s_name, (int)gobj->e_font.size, gobj->e_font.weight->s_name, gobj->e_font.slant->s_name,
-                         rgba_to_hex(&gobj->e_color),
-                         (int)(gobj->e_points[1].x) * (int)gobj->e_wrap,
-                         g->e_id->s_name,
-                         x->b_all_id->s_name);
-            }
-            else
-            {
-                return -1;
-            }
-        }
-        g->e_state = EGRAPHICS_CLOSE;
-    }
-    else
-    {
-        return -1;
-    }*/
-    
-    return 0;
-}
 
 static void ebox_draw_border(t_ebox* x)
 {
@@ -390,15 +150,15 @@ static void ebox_draw_border(t_ebox* x)
     {
         if(x->b_selected_box == EITEM_OBJ)
         {
-            egraphics_set_color_rgba(g, &rgba_blue);
+            elayer_set_color_rgba(g, &rgba_blue);
         }
         else
         {
-            egraphics_set_color_rgba(g, &x->b_boxparameters.d_bordercolor);
+            elayer_set_color_rgba(g, &x->b_boxparameters.d_bordercolor);
         }
-        egraphics_set_line_width(g, bdsize);
-        egraphics_rectangle(g, 0.f, 0.f, x->b_rect.width - bdsize, x->b_rect.height - bdsize);
-        egraphics_stroke(g);
+        elayer_set_line_width(g, bdsize);
+        elayer_rectangle(g, 0.f, 0.f, x->b_rect.width - bdsize, x->b_rect.height - bdsize);
+        elayer_stroke(g);
         
         ebox_end_layer(x, s_cream_eboxbd);
     }
@@ -408,22 +168,23 @@ static void ebox_draw_border(t_ebox* x)
 
 static void ebox_draw_iolets(t_ebox* x)
 {
+     /*
     int i;
-    /*
+   
     const float bdsize = (x->b_selected_box == EITEM_OBJ) ? pd_clip_min(x->b_boxparameters.d_borderthickness, 1.f) : x->b_boxparameters.d_borderthickness;
     int remove_null;
     t_elayer* g = ebox_start_layer(x, NULL, s_cream_eboxio, x->b_rect.width, x->b_rect.height);
     if(g && !x->b_isinsubcanvas)
     {
-        egraphics_set_line_width(g, 1);
-        egraphics_set_color_rgba(g, &rgba_black);
+        elayer_set_line_width(g, 1);
+        elayer_set_color_rgba(g, &rgba_black);
         for(i = 0; i < obj_ninlets((t_object *)x); i++)
         {
             int pos_x_inlet = 0;
             if(obj_ninlets((t_object *)x) != 1)
                 pos_x_inlet = (int)(i / (float)(obj_ninlets((t_object *)x) - 1) * (x->b_rect.width - 8));
-            egraphics_rectangle(g, pos_x_inlet, 0, 7, 1);
-            egraphics_stroke(g);
+            elayer_rectangle(g, pos_x_inlet, 0, 7, 1);
+            elayer_stroke(g);
         }
 
         for(i = 0; i < obj_noutlets((t_object *)x); i++)
@@ -431,54 +192,12 @@ static void ebox_draw_iolets(t_ebox* x)
             int pos_x_outlet = 0;
             if(obj_noutlets((t_object *)x) != 1)
                 pos_x_outlet = (int)(i / (float)(obj_noutlets((t_object *)x) - 1) * (x->b_rect.width - 8));
-            egraphics_rectangle(g, pos_x_outlet, x->b_rect.height - 2 + bdsize * 2, 7, 1);
-            egraphics_stroke(g);
+            elayer_rectangle(g, pos_x_outlet, x->b_rect.height - 2 + bdsize * 2, 7, 1);
+            elayer_stroke(g);
         }
         ebox_end_layer(x, s_cream_eboxio);
     }
     ebox_paint_layer(x, s_cream_eboxio, 0.f, 0.f);
-     */
-}
-
-static void ebox_invalidate_all(t_ebox *x)
-{
-    /*
-    int i;
-    for(i = 0; i < x->b_number_of_layers; i++)
-    {
-        x->b_layers[i].e_state = EGRAPHICS_INVALID;
-    }
-     */
-}
-
-static void ebox_update(t_ebox *x)
-{
-    /*
-    int i;
-    for(i = 0; i < x->b_number_of_layers; i++)
-    {
-        if(x->b_layers[i].e_state == EGRAPHICS_INVALID)
-        {
-            sys_vgui("%s delete %s\n", x->b_drawing_id->s_name, x->b_layers[i].e_id->s_name);
-        }
-    }
-     */
-}
-
-static void ebox_erase(t_ebox* x)
-{
-    /*
-    if(x->b_obj.o_canvas && glist_isvisible(x->b_obj.o_canvas) && x->b_have_window)
-    {
-        sys_vgui("destroy %s \n", x->b_drawing_id->s_name);
-        x->b_have_window = 0;
-    }
-    if(x->b_layers)
-    {
-        free(x->b_layers);
-        x->b_layers = NULL;
-    }
-    x->b_number_of_layers = 0;
      */
 }
 
@@ -498,29 +217,6 @@ static void ebox_select(t_ebox* x)
     }
      */
 }
-
-static void ebox_move(t_ebox* x)
-{
-    /*
-    if(glist_isvisible(x->b_obj.o_canvas))
-    {
-        sys_vgui("%s coords %s %d %d\n", x->b_canvas_id->s_name, x->b_window_id->s_name, (int)(x->b_rect.x - x->b_boxparameters.d_borderthickness), (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness));
-    }
-    canvas_fixlinesfor(glist_getcanvas(x->b_obj.o_canvas), (t_text*)x);
-     */
-}
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -582,7 +278,7 @@ static t_class* eparameter_setup()
     t_symbol* eparameter1572_sym = gensym("eparameter1572");
     if(!eparameter1572_sym->s_thing)
     {
-        eparameter_class = class_new(gensym("eparameter"), NULL, (t_method)NULL, sizeof(t_etexteditor), CLASS_PD, A_GIMME, 0);
+        eparameter_class = class_new(gensym("eparameter"), NULL, (t_method)NULL, sizeof(t_etextlayouteditor), CLASS_PD, A_GIMME, 0);
         int aki;
         eparameter1572_sym->s_thing = (t_class **)eparameter_class;
         return eparameter_class;

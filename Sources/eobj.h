@@ -254,74 +254,135 @@ t_sample* eobj_dspgetoutsamples(void *x, size_t index);
 
 /*!
  * \fn          void ebox_new(t_ebox *x, long flags)
- * \brief       Initializes the graphical members of the t_ebox.
+ * \brief       Initializes the graphical members of the box.
  * \details     Sets the defaults values and initializes the attributes. 
  * \details     This function should be call after eobj_new().
- * \param x     The t_ebox pointer.
+ * \param x     The pointer of the box.
  * \param flags A set of flags that defines the gui behavior.
  */
 void ebox_new(t_ebox *x, long flags);
 
 /*!
  * \fn          void ebox_ready(t_ebox *x)
- * \brief       Indicates that the t_ebox can be drawn.
- * \details     Actives the drawind methods. \n 
+ * \brief       Indicates that the box can be drawn.
  * \details     This function should be call during the new method just before returning the object.
- * \param x     The t_ebox pointer.
+ * \param x     The pointer of the box.
  */
 void ebox_ready(t_ebox *x);
 
 /*!
  * \fn          void ebox_free(t_ebox* x)
- * \brief       Indicates that the t_ebox can be drawn.
+ * \brief       Frees a box.
  * \details     Deletes the drawings. 
- * \details     This function should replace pd_free() and you shouldn't have to call eobj_free() or eobj_dspfree();
- * \param x     The t_ebox pointer.
+ * \details     This function should replace pd_free().
+ * \details     You shouldn't have to call eobj_free() or eobj_dspfree();
+ * \param x     The pointer of the box.
  */
 void ebox_free(t_ebox* x);
 
-
 /*!
  * \fn          t_pd* ebox_getsender(t_ebox* x)
- * \brief       Retrieves the link list of object binded to the t_ebox.
- * \param x     The t_ebox pointer.
+ * \brief       Retrieves the link list of object binded to the box.
+ * \param x     The pointer of the box.
  * \return      The pointer to the link list.
  */
 t_pd* ebox_getsender(t_ebox const* x);
 
 /*!
  * \fn          long ebox_getflags(t_ebox* x)
- * \brief       Retrieves the flags of a t_ebox.
- * \param x     The t_ebox pointer.
+ * \brief       Retrieves the flags of a box.
+ * \param x     The pointer of the box.
  * \return      The flags of the t_ebox.
  */
 long ebox_getflags(t_ebox const* x);
 
 /*!
- * \fn      void ebox_redraw(t_ebox* x)
- * \brief   Notifies the t_ebox that it should be redrawn.
- * \param x The t_ebox pointer.
+ * \fn          void ebox_redraw(t_ebox* x)
+ * \brief       Notifies the box that it should be redrawn.
+ * \param x     The pointer of the box.
  */
 void ebox_redraw(t_ebox *x);
 
-
 /*!
- * \fn              void ebox_set_cursor(t_ebox* x, int cursor)
+ * \fn              void ebox_setcursor(t_ebox* x, t_object* view, ebox_cursors cursor)
  * \brief           Changes the cursor of the mouse.
- * \param x         The t_ebox pointer.
- * \param view      The view pointer.
+ * \param x         The pointer of the box.
+ * \param view      The pointer of the view (if NULL the function uses the first view).
  * \param cursor    The type of cursor.
  */
-void ebox_set_cursor_for_view(t_ebox const* x, t_object* view, ebox_cursors cursor);
+void ebox_setcursor(t_ebox const* x, t_object* view, ebox_cursors cursor);
 
 /*!
- * \fn          void ebox_get_rect_for_view(t_ebox const* x, t_object const* view, t_rect *rect)
- * \brief       Retrieves the bounds of the view of a t_ebox.
- * \param x     The t_ebox pointer.
- * \param view  The view pointer.
- * \param rect  The rectangle pointer.
+ * \fn              void ebox_getbounds(t_ebox const* x, t_object const* view, t_rect *rect)
+ * \brief           Retrieves the bounds of a view of a box.
+ * \param x         The pointer of the box.
+ * \param view      The pointer of the view (if NULL the function uses the first view).
+ * \param rect      The rectangle pointer.
  */
-void ebox_get_rect_for_view(t_ebox const* x, t_object const* view, t_rect *rect);
+void ebox_getbounds(t_ebox const* x, t_object const* view, t_rect *rect);
+
+/*!
+ * \fn              t_elayer* ebox_start_layer(t_ebox *b, t_object* view, t_symbol *name,
+                                                           const float width, const float height)
+ * \brief           Creates or initializes a new layer for a view of a box.
+ * \details         If the layer is new, the function allocate a new empty layer. 
+ * \details         If the layer already exist and is marked as invalid the layer is returned.
+ * \details         Otherwise, if the layer is maked as ready to be drawn for example, the 
+ * \details         function returns NULL. You should always check the validity of the pointer
+ * \details         before using it.
+ * \param x         The pointer of the box.
+ * \param view      The pointer of the view (if NULL the function uses the first view).
+ * \param name      The name of the layer.
+ * \param width     The width of the layer.
+ * \param height    The height of the layer.
+ * \return A null value if nothing goes wrong, otherwise a non-null value.
+ * \see ebox_end_layer ebox_invalidate_layer ebox_paint_layer
+ */
+t_elayer* ebox_start_layer(t_ebox *x, t_object* view, t_symbol *name,
+                                      const float width, const float height);
+
+/*!
+ * \fn              t_pd_err ebox_end_layer(t_ebox *b, t_symbol *name)
+ * \brief           Marks a layer as ready to be drawn.
+ * \details         After the several painting methods, you should call this function to 
+ * \details         notify a layer that he is ready to be drawn.
+ * \param x         The pointer of the box.
+ * \param view      The pointer of the view (if NULL the function uses the first view).
+ * \param name      The name of the layer.
+ * \return A null value if nothing goes wrong, otherwise a non-null value.
+ * \see ebox_start_layer ebox_invalidate_layer ebox_paint_layer
+ */
+t_pd_err ebox_end_layer(t_ebox *x, t_object* view, t_symbol *name);
+
+/*!
+ * \fn              t_pd_err ebox_paint_layer(t_ebox *x, t_object* view, t_symbol *name,
+                                                         const float xoffset, const float yoffset)
+ * \brief           Paints a layer of a box.
+ * \details         If a layer is ready to be drawn, the function performs the painting.
+ * \param x         The pointer of the box.
+ * \param name      The name of the layer.
+ * \param view      The pointer of the view (if NULL the function uses the first view).
+ * \param xoffset   The abscissa offset of the layer.
+ * \param yoffset   The ordinate yoffset of the layer.
+ * \return A null value if nothing goes wrong, otherwise a non-null value.
+ * \see ebox_start_layer ebox_end_layer ebox_invalidate_layer
+ */
+t_pd_err ebox_paint_layer(t_ebox *x, t_object* view, t_symbol *name,
+                                     const float xoffset, const float yoffset);
+
+/*!
+ * \fn              t_pd_err ebox_invalidate_layer(t_ebox *x, t_object* view, t_symbol *name)
+ * \brief           Marks a layer as invalid.
+ * \details         When you want to redraw a layer you have to call this function before 
+ * \details         calling ebox_redraw. If several layers must be invalidate, you should 
+ * \details         always prefer to invalidate all of them before calling ebox_redraw .
+ * \param x         The pointer of the box.
+ * \param view      The pointer of the view (if NULL the function uses the first view).
+ * \param name      The name of the layer.
+ * \return A null value if nothing goes wrong, otherwise a non-null value.
+ * \see ebox_start_layer ebox_end_layer ebox_redraw ebox_paint_layer t_elayer_flags t_elayer
+ */
+t_pd_err ebox_invalidate_layer(t_ebox *x, t_object* view, t_symbol *name);
 
 /** @} */
 

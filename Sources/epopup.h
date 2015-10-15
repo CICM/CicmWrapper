@@ -102,100 +102,100 @@ t_epopup* epopup_findbyname(t_symbol* name);
 //! @endcond
 
 /*!
- * \fn          t_etexteditor* etexteditor_create(t_eobj* x, t_symbol* name)
- * \brief       The t_etexteditor creation function.
- * \details     Allocates the memory for a t_etexteditor, intialize the defaults values and link it to the t_eobj.
+ * \fn          t_etextlayouteditor* etexteditor_create(t_eobj* x, t_symbol* name)
+ * \brief       The t_etextlayouteditor creation function.
+ * \details     Allocates the memory for a t_etextlayouteditor, intialize the defaults values and link it to the t_eobj.
  * \param x     The t_ebox pointer.
- * \return      This function returns a pointer to a new t_etexteditor.
+ * \return      This function returns a pointer to a new t_etextlayouteditor.
  */
-t_etexteditor* etexteditor_create(t_ebox* x);
+t_etextlayouteditor* etexteditor_create(t_ebox* x);
 
 /*!
- * \fn          void etexteditor_destroy(t_etexteditor* editor)
- * \brief       The t_etexteditor free function.
- * \details     Frees the memory for a t_etexteditor.
- * \param editor The t_etexteditor pointer.
+ * \fn          void etexteditor_destroy(t_etextlayouteditor* editor)
+ * \brief       The t_etextlayouteditor free function.
+ * \details     Frees the memory for a t_etextlayouteditor.
+ * \param editor The t_etextlayouteditor pointer.
  */
-void etexteditor_destroy(t_etexteditor* editor);
+void etexteditor_destroy(t_etextlayouteditor* editor);
 
 /*!
- * \fn          void etexteditor_settext(t_etexteditor* editor, const char* text)
+ * \fn          void etexteditor_settext(t_etextlayouteditor* editor, const char* text)
  * \brief       Sets the text of the text editor.
- * \param editor The t_etexteditor pointer.
+ * \param editor The t_etextlayouteditor pointer.
  * \param text   The text to show.
  */
-void etexteditor_settext(t_etexteditor* editor, const char* text);
+void etexteditor_settext(t_etextlayouteditor* editor, const char* text);
 
 /*!
- * \fn          void etexteditor_gettext(t_etexteditor *editor, char* text)
+ * \fn          void etexteditor_gettext(t_etextlayouteditor *editor, char* text)
  * \brief        Retrieves the text of the text editor.
- * \param editor The t_etexteditor pointer.
+ * \param editor The t_etextlayouteditor pointer.
  * \param text   The text to fill.
  */
-void etexteditor_gettext(t_etexteditor *editor, char** text);
+void etexteditor_gettext(t_etextlayouteditor *editor, char** text);
 
 /*!
- * \fn          void etexteditor_clear(t_etexteditor* editor)
+ * \fn          void etexteditor_clear(t_etextlayouteditor* editor)
  * \brief       Clears the text of the text editor.
- * \param editor The t_etexteditor pointer.
+ * \param editor The t_etextlayouteditor pointer.
  */
-void etexteditor_clear(t_etexteditor* editor);
+void etexteditor_clear(t_etextlayouteditor* editor);
 
 /*!
- * \fn          void etexteditor_setfont(t_etexteditor *editor, t_efont *font)
- * \brief       Sets the font of a t_etexteditor.
- * \param editor The t_etexteditor pointer.
+ * \fn          void etexteditor_setfont(t_etextlayouteditor *editor, t_efont *font)
+ * \brief       Sets the font of a t_etextlayouteditor.
+ * \param editor The t_etextlayouteditor pointer.
  * \param font  The t_efont pointer.
  */
-void etexteditor_setfont(t_etexteditor *editor, t_efont const* font);
+void etexteditor_setfont(t_etextlayouteditor *editor, t_efont const* font);
 
 /*!
- * \fn          void etexteditor_setbackgroundcolor(t_etexteditor *editor, t_rgba *color)
- * \brief       Sets the background color of a t_etexteditor.
- * \param editor The t_etexteditor pointer.
+ * \fn          void etexteditor_setbackgroundcolor(t_etextlayouteditor *editor, t_rgba *color)
+ * \brief       Sets the background color of a t_etextlayouteditor.
+ * \param editor The t_etextlayouteditor pointer.
  * \param color  The t_rgba pointer.
  */
-void etexteditor_setbackgroundcolor(t_etexteditor *editor, t_rgba const* color);
+void etexteditor_setbackgroundcolor(t_etextlayouteditor *editor, t_rgba const* color);
 
 /*!
- * \fn          void etexteditor_settextcolor(t_etexteditor *editor, t_rgba const* color)
- * \brief       Sets the text color of a t_etexteditor.
- * \param editor The t_etexteditor pointer.
+ * \fn          void etexteditor_settextcolor(t_etextlayouteditor *editor, t_rgba const* color)
+ * \brief       Sets the text color of a t_etextlayouteditor.
+ * \param editor The t_etextlayouteditor pointer.
  * \param color  The t_rgba pointer.
  */
-void etexteditor_settextcolor(t_etexteditor *editor, t_rgba const* color);
+void etexteditor_settextcolor(t_etextlayouteditor *editor, t_rgba const* color);
 
 /*!
- * \fn          void etexteditor_setwrap(t_etexteditor *editor, char wrap)
+ * \fn          void etexteditor_setwrap(t_etextlayouteditor *editor, char wrap)
  * \brief       Sets if the text shound be wrapped or not.
- * \param editor The t_etexteditor pointer.
+ * \param editor The t_etextlayouteditor pointer.
  * \param wrap  0 if the text shouldn't be wrapped.
  */
-void etexteditor_setwrap(t_etexteditor *editor, char wrap);
+void etexteditor_setwrap(t_etextlayouteditor *editor, char wrap);
 
 /*!
- * \fn          void etexteditor_popup(t_etexteditor *editor, t_rect bounds)
+ * \fn          void etexteditor_popup(t_etextlayouteditor *editor, t_rect bounds)
  * \brief       Shows the text editor on the screen.
- * \param editor The t_etexteditor pointer.
+ * \param editor The t_etextlayouteditor pointer.
  * \param bounds The boundaries relative on the canvas.
  */
-void etexteditor_popup(t_etexteditor *editor, t_rect const* bounds);
+void etexteditor_popup(t_etextlayouteditor *editor, t_rect const* bounds);
 
 /*!
- * \fn          void etexteditor_grabfocus(t_etexteditor *editor)
+ * \fn          void etexteditor_grabfocus(t_etextlayouteditor *editor)
  * \brief        Forces the focus on the text editor.
- * \param editor The t_etexteditor pointer.
+ * \param editor The t_etextlayouteditor pointer.
  */
-void etexteditor_grabfocus(t_etexteditor *editor);
+void etexteditor_grabfocus(t_etextlayouteditor *editor);
 
 //! @cond
 
 /*!
- * \fn          t_etexteditor* etexteditor_getfromsymbol(t_symbol* name)
+ * \fn          t_etextlayouteditor* etexteditor_getfromsymbol(t_symbol* name)
  * \brief       Retrieves a texteditor from a symbol.
  * \param name  The binding symbol of the texteditor.
  */
-t_etexteditor* etexteditor_getfromsymbol(t_symbol* name);
+t_etextlayouteditor* etexteditor_getfromsymbol(t_symbol* name);
 
 //! @endcond
 
