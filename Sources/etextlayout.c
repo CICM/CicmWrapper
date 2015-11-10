@@ -9,16 +9,7 @@
  */
 
 #include "etextlayout.h"
-
-struct _etextlayout
-{
-    char*           c_text;     /*!< The text. */
-    char            c_wrap;     /*!< If the text should be wrapped. */
-    t_rgba          c_color;    /*!< The color of the text. */
-    t_efont         c_font;     /*!< The font of the text. */
-    t_rect          c_rect;     /*!< The rectangle of the text. */
-    int             c_justify;  /*!< The justification of the graphical object. */
-};
+#include "eguiimp.h"
 
 t_etextlayout* etextlayout_new(void)
 {
@@ -29,10 +20,7 @@ t_etextlayout* etextlayout_new(void)
         if(txt->c_text)
         {
             memset(txt->c_text, 0, MAXPDSTRING * sizeof(char));
-            txt->c_color.red    = 0.;
-            txt->c_color.green  = 0.;
-            txt->c_color.blue   = 0.;
-            txt->c_color.alpha  = 1.;
+            txt->c_color        = rgba_black;
             return txt;
         }
         else
@@ -44,16 +32,27 @@ t_etextlayout* etextlayout_new(void)
     return NULL;
 }
 
+void etextlayout_copy(t_etextlayout* textlayout, t_etextlayout const* other)
+{
+    memcpy(textlayout->c_text, other->c_text, sizeof(char) * MAXPDSTRING);
+    textlayout->c_font          = other->c_font;
+    textlayout->c_rect          = other->c_rect;
+    textlayout->c_wrap          = other->c_wrap;
+    textlayout->c_justify       = other->c_justify;
+}
+
 void etextlayout_destroy(t_etextlayout* textlayout)
 {
     free(textlayout->c_text);
     free(textlayout);
 }
 
-void etextlayout_set(t_etextlayout* textlayout, const char* text, t_efont *font,  float x, float y, float width,  float height, etextjustify_flags justify, etextwrap_flags wrap)
+void etextlayout_set(t_etextlayout* textlayout, const char* text, t_efont const* font,
+                     const float x, const float y, const float width,  const float height,
+                     const etextjustify_flags justify, const etextwrap_flags wrap)
 {
     strncpy(textlayout->c_text, text, MAXPDSTRING);
-    textlayout->c_font          = font[0];
+    textlayout->c_font          = *font;
     textlayout->c_rect.x        = (float)x;
     textlayout->c_rect.y        = (float)y;
     textlayout->c_rect.width    = (float)width;
@@ -64,7 +63,7 @@ void etextlayout_set(t_etextlayout* textlayout, const char* text, t_efont *font,
 
 void etextlayout_settextcolor(t_etextlayout* textlayout, t_rgba const* color)
 {
-    textlayout->c_color = color[0];
+    textlayout->c_color = *color;
 }
 
 

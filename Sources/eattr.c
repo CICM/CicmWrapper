@@ -351,7 +351,7 @@ static t_pd_err eattr_getvalue_atom(t_object* x, t_eattr* attr, int* argc, t_ato
     *argv = (t_atom *)malloc((size_t)(*argc) * sizeof(t_atom));
     if(*argv)
     {
-         memcpy(argv, pointer, (size_t)argc * sizeof(t_atom));
+        memcpy(argv, pointer, (size_t)argc * sizeof(t_atom));
         return 0;
     }
     return -1;
@@ -381,7 +381,7 @@ static t_pd_err eattr_getvalue(t_eattr* attr, t_object const* x, int* argc, t_at
     {
         return (attr->a_getter)((t_object *)x, (t_object *)attr, argc, argv);
     }
-    pd_error(attr, "attribute getter isn't initialized.");
+    pd_error(attr, "attribute %s getter isn't initialized.", attr->a_name->s_name);
     return -1;
 }
 

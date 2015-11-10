@@ -49,9 +49,13 @@ t_eclass *eclass_new(const char *name, t_method newmethod, t_method freemethod, 
     }
     else if(count == 1)
     {
-        c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, vec[0], 0);
+        c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, 0);
     }
     else if(count == 2)
+    {
+        c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, vec[0], 0);
+    }
+    else if(count == 3)
     {
         c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, vec[0], vec[1], 0);
     }
@@ -59,17 +63,13 @@ t_eclass *eclass_new(const char *name, t_method newmethod, t_method freemethod, 
     {
         c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, vec[0], vec[1], vec[2], 0);
     }
-    else if(count == 3)
+    else if(count == 4)
     {
         c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, vec[0], vec[1], vec[2], vec[3], 0);
     }
-    else if(count == 4)
-    {
-        c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, vec[0], vec[1], vec[2], vec[3], vec[4], 0);
-    }
     else
     {
-        c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, vec[0], vec[1], vec[2], vec[3], vec[4], vec[5], 0);
+        c = class_new(gensym(name), (t_newmethod)newmethod, freemethod, size, flags, type1, vec[0], vec[1], vec[2],vec[3],vec[4],0);
     }
     if(c)
     {
@@ -122,9 +122,12 @@ t_pd_err eclass_register(t_symbol *name, t_eclass *c)
 {
     if(eclass_getflags(c) & EBOX_TEXTFIELD)
     {
+        int todo;
+        /*
         class_addmethod((t_class *)c, (t_method)ebox_texteditor_keypress, gensym("texteditor_keypress"), A_SYMBOL,A_DEFFLOAT,0);
         class_addmethod((t_class *)c, (t_method)ebox_texteditor_keyfilter, gensym("texteditor_keyfilter"), A_SYMBOL,A_DEFFLOAT,0);
         class_addmethod((t_class *)c, (t_method)ebox_texteditor_focus, gensym("texteditor_focus"), A_SYMBOL,A_DEFFLOAT,0);
+         */
     }
     
     class_addmethod((t_class *)c, (t_method)ebox_set_parameter_attribute, gensym("param"), A_GIMME, 0);

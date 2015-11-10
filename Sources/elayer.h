@@ -22,14 +22,21 @@
  *  @{
  */
 
-/*!< Open state of a layer. */
-#define EPD_LAYER_OPEN      0
-/*!< Close state of a layer. */
-#define EPD_LAYER_CLOSE     1
-/*!< Invalid state of a layer. */
-#define EPD_LAYER_INVALID   2
- /*!< REady state of a layer. */
-#define EPD_LAYER_READY     3
+/*!
+ * \fn              t_elayer* elayer_findbyname(t_symbol* name)
+ * \brief           Retrieves the layer that matchs to the name.
+ * \param name      The name of the layer.
+ * \return          The layer that matchs to the name if it exists, othersise NULL.
+ */
+t_elayer* elayer_findbyname(t_symbol* name);
+
+/*!
+ * \fn          t_symbol* elayer_get_name(t_elayer const* g)
+ * \brief       Gets the name of a layer.
+ * \param g     The layer pointer.
+ * \return      The name of the layer.
+ */
+t_symbol* elayer_getname(t_elayer const* g);
 
 /*!
  * \fn              t_elayer* elayer_new(t_object *owner, t_symbol *name, const float width, const float height)
@@ -41,37 +48,20 @@
  */
 t_elayer* elayer_new(t_symbol *name, const float width, const float height);
 
+/*!
+ * \fn              t_elayer* elayer_reopen(t_elayer* g)
+ * \brief           If the layer is invalidated, prepares it for a new drawing and returns it.
+ * \param g         The layer pointer.
+ * \return          The pointer to the layer if it was invalidated, otherwise a non-null value.
+ */
+t_elayer* elayer_reopen(t_elayer* g);
 
 /*!
- * \fn              void elayer_free(t_elayer *g)
- * \brief           Frees a layer t_elayer.
+ * \fn          void elayer_free(t_elayer *g)
+ * \brief       Frees a layer t_elayer.
  * \param g     The layer pointer.
  */
 void elayer_free(t_elayer *g);
-
-/*!
- * \fn              t_elayer* elayer_findbyname(t_symbol* name)
- * \brief           Retrieves the layer that matchs to the name.
- * \param name      The name of the layer.
- * \return          The layer that matchs to the name if it exists, othersise NULL.
- */
-t_elayer* elayer_findbyname(t_symbol* name);
-
-/*!
-* \fn          long elayer_get_state(t_elayer const* g)
-* \brief       Gets the state of a layer.
-* \param g     The layer pointer.
-* \return     The state of the layer.
-*/
-long elayer_getstate(t_elayer const* g);
-
-/*!
- * \fn          t_symbol* elayer_get_name(t_elayer const* g)
- * \brief       Gets the name of a layer.
- * \param g     The layer pointer.
- * \return      The name of the layer.
- */
-t_symbol* elayer_getname(t_elayer const* g);
 
 /*!
  * \fn          void elayer_invalidate(t_elayer* g)
@@ -91,11 +81,19 @@ t_pd_err elayer_end(t_elayer* g);
 
 /*!
  * \fn          t_pd_err elayer_paint(t_elayer* g)
- * \brief       Paints a layer.
+ * \brief       Marks a layer as painted.
  * \param g     The layer pointer.
  * \return A null value if nothing goes wrong, otherwise a non-null value.
  */
-t_pd_err elayer_paint(t_elayer* g);
+t_pd_err elayer_painted(t_elayer* g);
+
+
+
+
+
+
+
+
 
 /*!
  * \fn          void elayer_set_line_width(t_elayer *g, const float width)

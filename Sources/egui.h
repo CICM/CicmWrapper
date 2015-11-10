@@ -202,6 +202,15 @@ void egui_view_remove(t_egui *gui, t_glist *glist);
 void egui_view_getposition(t_egui const* gui, t_glist const* glist, t_pt* pos);
 
 /*!
+ * \fn              void egui_view_getdrawbounds(t_egui const* gui, t_glist const* glist, t_rect* bounds)
+ * \brief           Retrieves the drawing bounds of a view (without the border size).
+ * \param gui       The gui pointer.
+ * \param glist     The canvas pointer.
+ * \param bounds    The bounds of the view.
+ */
+void egui_view_getdrawbounds(t_egui const* gui, t_glist const* glist, t_rect* bounds);
+
+/*!
  * \fn          void egui_view_getsize(t_egui const* gui, t_glist const* glist, t_pt* size)
  * \brief       Retrieves the size of a view.
  * \param gui   The gui pointer.
@@ -263,13 +272,13 @@ void egui_view_select(t_egui *gui, t_glist *glist);
 void egui_view_deselect(t_egui *gui, t_glist *glist);
 
 /*!
- * \fn              void egui_view_setcursor(t_egui *gui, t_glist *glist, ebox_cursors cursor)
+ * \fn              void egui_view_setcursor(t_egui *gui, t_glist *glist, ecursor_types cursor)
  * \brief           Changes the cursor of the mouse.
  * \param gui       The gui pointer.
  * \param glist     The canvas pointer.
  * \param cursor    The type of cursor.
  */
-void egui_view_setcursor(t_egui *gui, t_glist *glist, ebox_cursors cursor);
+void egui_view_setcursor(t_egui *gui, t_glist *glist, ecursor_types cursor);
 
 /*!
  * \fn              t_pd_err egui_view_invalidate_layer(t_egui *gui, t_glist *glist, t_symbol *name)

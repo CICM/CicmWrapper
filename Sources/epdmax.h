@@ -92,7 +92,7 @@ typedef t_binbuf        t_dictionary;
 #define jbox_redraw(t_jbox)                         ebox_redraw(t_jbox)
 #define jbox_resize_inputs(t_jbox, nins)            eobj_resize_inputs(t_jbox, nins)
 #define jbox_resize_outputs(t_jbox, nouts)          
-#define jbox_get_rect_for_view(t_object, view, rect) ebox_getbounds(t_object, view, rect)
+#define jbox_get_rect_for_view(t_object, view, rect) ebox_getdrawbounds(t_object, view, rect)
 #define jmouse_setcursor(patcherview, t_jbox, mode) ebox_setcursor(t_jbox, mode)
 #define jbox_start_layer(box, view, name, x, y)     ebox_start_layer((t_ebox *)box, name, x, y)
 #define jbox_end_layer(box, view, name)             ebox_end_layer((t_ebox *)box, name)

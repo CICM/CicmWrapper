@@ -431,9 +431,12 @@ void ebox_ready(t_ebox *x)
 
 void ebox_free(t_ebox* x)
 {
+    char text[MAXPDSTRING];
     t_egui* gui = eobj_getgui(x);
     if(gui)
     {
+        sprintf(text, "%lxgui", (unsigned long)x);
+        pd_unbind((t_pd *)gui, gensym(text));
         pd_free((t_pd *)gui);
     }
     eobj_isdsp(x) ? eobj_dspfree(x) : eobj_free(x);
@@ -461,7 +464,17 @@ long ebox_getflags(t_ebox const* x)
     return 0;
 }
 
-void ebox_setcursor(t_ebox const* x, t_object * view, ebox_cursors cursor)
+char ebox_ignoreclick(t_ebox const* x)
+{
+    t_egui const* gui = eobj_getgui(x);
+    if(gui)
+    {
+        return egui_ignoreclick(gui);
+    }
+    return 0;
+}
+
+void ebox_setcursor(t_ebox const* x, t_object* view, ecursor_types cursor)
 {
     t_egui* gui = NULL;
     if(view)
@@ -474,16 +487,16 @@ void ebox_setcursor(t_ebox const* x, t_object * view, ebox_cursors cursor)
     }
 }
 
-void ebox_getbounds(t_ebox const* x, t_object const* view, t_rect *rect)
+void ebox_getdrawbounds(t_ebox const* x, t_object const* view, t_rect *rect)
 {
     t_egui* gui = NULL;
     if(view)
     {
-        eview_getbounds((t_eview const*)view, rect);
+        eview_getdrawbounds((t_eview const*)view, rect);
     }
     else
     {
-        egui_view_getbounds(gui, NULL, rect);
+        egui_view_getdrawbounds(gui, NULL, rect);
     }
 }
 
@@ -684,6 +697,7 @@ static void ebox_wvis(t_gobj *z, t_glist *glist, int vis)
     {
         if(vis)
         {
+            egui_view_remove(gui, glist);
             egui_view_add(gui, glist);
         }
         else

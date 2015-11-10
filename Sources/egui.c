@@ -58,6 +58,23 @@ static t_eview* egui_getview(t_egui const* gui, t_glist const* glist)
     return NULL;
 }
 
+void egui_view_getdrawbounds(t_egui const* gui, t_glist const* glist, t_rect* bounds)
+{
+    t_eview* view = NULL;
+    if(glist)
+    {
+        view = egui_getview(gui, glist);
+        if(view)
+        {
+            eview_getdrawbounds(view, bounds);
+        }
+    }
+    else if(gui->g_nviews && gui->g_views)
+    {
+        eview_getdrawbounds(gui->g_views[0], bounds);
+    }
+}
+
 void egui_view_getposition(t_egui const* gui, t_glist const* glist, t_pt* pos)
 {
     t_eview* view = NULL;
@@ -111,6 +128,7 @@ void egui_view_getbounds(t_egui const* gui, t_glist const* glist, t_rect* bounds
 
 void egui_view_setposition(t_egui *gui, t_glist *glist, t_pt const* pos)
 {
+    size_t i;
     t_eview* view = NULL;
     if(glist)
     {
@@ -122,12 +140,16 @@ void egui_view_setposition(t_egui *gui, t_glist *glist, t_pt const* pos)
     }
     else if(gui->g_nviews && gui->g_views)
     {
-        eview_setposition(gui->g_views[0], pos);
+        for(i = 0; i < gui->g_nviews; i++)
+        {
+            eview_setposition(gui->g_views[i], pos);
+        }
     }
 }
 
 void egui_view_setsize(t_egui* gui, t_glist const* glist, t_pt const* size)
 {
+    size_t i;
     t_eview* view = NULL;
     if(glist)
     {
@@ -139,12 +161,16 @@ void egui_view_setsize(t_egui* gui, t_glist const* glist, t_pt const* size)
     }
     else if(gui->g_nviews && gui->g_views)
     {
-        eview_setsize(gui->g_views[0], size);
+        for(i = 0; i < gui->g_nviews; i++)
+        {
+            eview_setsize(gui->g_views[i], size);
+        }
     }
 }
 
 void egui_view_setbounds(t_egui* gui, t_glist const* glist, t_rect const* bounds)
 {
+    size_t i;
     t_eview* view = NULL;
     if(glist)
     {
@@ -156,21 +182,48 @@ void egui_view_setbounds(t_egui* gui, t_glist const* glist, t_rect const* bounds
     }
     else if(gui->g_nviews && gui->g_views)
     {
-        eview_setbounds(gui->g_views[0], bounds);
+        for(i = 0; i < gui->g_nviews; i++)
+        {
+            eview_setbounds(gui->g_views[i], bounds);
+        }
     }
 }
 
 void egui_view_select(t_egui *gui, t_glist *glist)
 {
-    int todo;
+    t_eview* view = NULL;
+    if(glist)
+    {
+        view = egui_getview(gui, glist);
+        if(view)
+        {
+            eview_select(view);
+        }
+    }
+    else if(gui->g_nviews && gui->g_views)
+    {
+        eview_select(gui->g_views[0]);
+    }
 }
 
 void egui_view_deselect(t_egui *gui, t_glist *glist)
 {
-    int todo;
+    t_eview* view = NULL;
+    if(glist)
+    {
+        view = egui_getview(gui, glist);
+        if(view)
+        {
+            eview_deselect(view);
+        }
+    }
+    else if(gui->g_nviews && gui->g_views)
+    {
+        eview_deselect(gui->g_views[0]);
+    }
 }
 
-void egui_view_setcursor(t_egui *gui, t_glist *glist, ebox_cursors cursor)
+void egui_view_setcursor(t_egui *gui, t_glist *glist, ecursor_types cursor)
 {
     t_eview* view = NULL;
     if(glist)
@@ -320,7 +373,7 @@ void egui_view_add(t_egui *gui, t_glist* glist)
                 {
                     gui->g_views[gui->g_nviews] = view;
                     gui->g_nviews++;
-                    eview_redraw(view);
+                    eview_draw(view);
                 }
                 else
                 {
@@ -335,7 +388,7 @@ void egui_view_add(t_egui *gui, t_glist* glist)
                 {
                     gui->g_views[0] = view;
                     gui->g_nviews   = 1;
-                    eview_redraw(view);
+                    eview_draw(view);
                 }
                 else
                 {
@@ -349,10 +402,6 @@ void egui_view_add(t_egui *gui, t_glist* glist)
             pd_error(gui->g_owner, "can't create view for %s.", eobj_getclassname(gui->g_owner)->s_name);
         }
     }
-    else
-    {
-        eview_redraw(view);
-    }
 }
 
 void egui_redraw(t_egui* gui)
@@ -360,7 +409,7 @@ void egui_redraw(t_egui* gui)
     size_t i = 0;
     for(i = 0; i < gui->g_nviews; i++)
     {
-        eview_redraw(gui->g_views[i]);
+        eview_draw(gui->g_views[i]);
     }
 }
 
@@ -504,7 +553,7 @@ t_egui* egui_new(t_object* owner, long flags)
         }
         else
         {
-            pd_error(owner, "can't allocate dsp manager.");
+            pd_error(owner, "can't allocate gui manager.");
         }
     }
     return x;

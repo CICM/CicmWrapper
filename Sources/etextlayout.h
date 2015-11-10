@@ -20,12 +20,6 @@
  */
 
 /*!
- * \fn          t_epath * epath_new(void)
- * \brief       Allocates a new path
- * \return      The pointer of the path.
- */
-
-/*!
  * \fn          t_etextlayout* etextlayout_new(void)
  * \brief       Allocates a new t_etextlayout layout.
  * \return      The new t_etextlayout pointer.
@@ -40,7 +34,9 @@ t_etextlayout* etextlayout_new(void);
 void etextlayout_destroy(t_etextlayout* textlayout);
 
 /*!
- * \fn          void etextlayout_set(t_etextlayout* textlayout, const char* text, t_efont *jfont,  float x, float y, float width,  float height, etextanchor_flags anchor, etextjustify_flags justify, etextwrap_flags wrap)
+ * \fn          void etextlayout_set(t_etextlayout* textlayout, const char* text, t_efont const* font,
+                                    const float x, const float y, const float width,  const float height,
+                                    const etextjustify_flags justify, const etextwrap_flags wrap)
  * \brief       Initializes a t_etextlayout.
  * \param textlayout The t_etextlayout pointer.
  * \param text The text to draw.
@@ -52,7 +48,9 @@ void etextlayout_destroy(t_etextlayout* textlayout);
  * \param justify The justification of the text.
  * \param wrap if the text should be wrap or not.
  */
-void etextlayout_set(t_etextlayout* textlayout, const char* text, t_efont *font,  float x, float y, float width,  float height,etextjustify_flags justify, etextwrap_flags wrap);
+void etextlayout_set(t_etextlayout* textlayout, const char* text, t_efont const* font,
+                     const float x, const float y, const float width,  const float height,
+                     const etextjustify_flags justify, const etextwrap_flags wrap);
 
 /*!
  * \fn                  void etextlayout_settextcolor(t_etextlayout* textlayout, t_rgba* color)
@@ -61,6 +59,14 @@ void etextlayout_set(t_etextlayout* textlayout, const char* text, t_efont *font,
  * \param color         The color pointer.
  */
 void etextlayout_settextcolor(t_etextlayout* textlayout, t_rgba const* color);
+
+/*!
+ * \fn                  void etextlayout_copy(t_etextlayout* textlayout, t_etextlayout const* other)
+ * \brief               Copies a text layout to another.
+ * \param textlayout    The text layout to write.
+ * \param other         The text layout to copy.
+ */
+void etextlayout_copy(t_etextlayout* textlayout, t_etextlayout const* other);
 
 
 

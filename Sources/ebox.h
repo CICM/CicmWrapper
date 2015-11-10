@@ -45,38 +45,12 @@
 t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
 
-//!
-/*
- * \memberof        ebox
- * \param x         The object
- * \param s         Nothing (for Max 6 compatibility)
- * \return          Nothing
- */
-void ebox_texteditor_keypress(t_ebox *x,  t_symbol *s, float f);
-
-//!
-/*
- * \memberof        ebox
- * \param x         The object
- * \param s         Nothing (for Max 6 compatibility)
- * \return          Nothing
- */
-void ebox_texteditor_keyfilter(t_ebox *x, t_symbol *s, float f);
-
-//!
-/*
- * \memberof        ebox
- * \param x         The object
- * \param s         Nothing (for Max 6 compatibility)
- * \return          Nothing
- */
-void ebox_texteditor_focus(t_ebox *x, t_symbol *s, float f);
-
-void ebox_set_parameter_attribute(t_ebox *x, t_symbol *s, int argc, t_atom* argv);
 
 // The defaults pd widgets
 //! @endcond
 
+
+void ebox_set_parameter_attribute(t_ebox *x, t_symbol *s, int argc, t_atom* argv);
 
 /*!
  * \fn          t_eparam* ebox_parameter_create(t_ebox *x, int index)

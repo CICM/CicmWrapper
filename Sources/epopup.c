@@ -501,7 +501,7 @@ void etexteditor_setwrap(t_etextlayouteditor *editor, char wrap)
 void etexteditor_popup(t_etextlayouteditor *editor, t_rect const* bounds)
 {
     t_rect rect;
-    ebox_getbounds((t_ebox *)editor->c_owner, NULL, &rect);
+    ebox_getdrawbounds((t_ebox *)editor->c_owner, NULL, &rect);
     sys_vgui("bind %s <KeyRelease> {+pdsend \"%s text [%s get 0.0 end]\"}\n",
              editor->c_name->s_name, editor->c_editor_id->s_name, editor->c_name->s_name);
     sys_vgui("bind %s <<Modified>> {+pdsend \"%s text [%s get 0.0 end]\"}\n",
@@ -1029,10 +1029,13 @@ static int cicmwrapper_setup()
     return 1;
 }
 
+#include "eguicontext.h"
+
 void cicmwrapper_init(void)
 {
     if(cicmwrapper_setup())
     {
+        eguicontext_init();
         // OBJECT SAVE FILE //
         sys_gui("proc eobj_saveas {name initialfile initialdir} {\n");
         sys_gui("if { ! [file isdirectory $initialdir]} {set initialdir $::env(HOME)}\n");

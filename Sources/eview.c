@@ -13,35 +13,10 @@
 #include "ebox.h"
 #include "egui.h"
 #include "elayer.h"
+#include "eguiimp.h"
+#include "eguicontext.h"
 
 #include <m_imp.h>
-
-struct _eview
-{
-    t_object        v_object;       /*!< The object. */
-    t_object*       v_owner;        /*!< The owner. */
-    t_symbol*       v_tag;          /*!< The widget tag. */
-    
-    t_canvas*       v_canvas;       /*!< The canvas of the view. */
-    t_rect          v_bounds;       /*!< The bounds of the view. */
-    t_rect          v_last;         /*!< The last bounds of the view. */
-    char            v_mousedown;    /*!< The mouse down status. */
-    char            v_item;         /*!< The selected item. */
-    t_elayer**      v_layers;       /*!< The layers. */
-    size_t          v_nlayers;      /*!< The number of layers. */
-    
-    t_mouse_method  v_mouse_enter;
-    t_mouse_method  v_mouse_leave;
-    t_mouse_method  v_mouse_down;
-    t_mouse_method  v_mouse_up;
-    t_mouse_method  v_mouse_move;
-    t_mouse_method  v_mouse_drag;
-    t_mouse_method  v_mouse_dblclick;
-    t_mousewheel_method v_mouse_wheel;
-    t_key_method    v_key_press;
-    t_key_method    v_key_filter;
-    t_paint_method  v_paint;
-};
 
 typedef enum view_items
 {
@@ -90,8 +65,7 @@ inline static char view_isinsubcanvas(t_eview const* view)
 
 inline static char view_ignoreclick(t_eview const* view)
 {
-    int todo;
-    return (char)(ebox_getflags((t_ebox *)view->v_owner) & EBOX_IGNORELOCKCLICK); //&& !view->v_owner->b_ignore_click;
+    return (char)(ebox_getflags((t_ebox *)view->v_owner) & EBOX_IGNORELOCKCLICK) && !ebox_ignoreclick((t_ebox *)view->v_owner);
 }
 
 static void view_mouseenter(t_eview* view, t_float x, t_float y, t_float modifier)
@@ -136,25 +110,13 @@ static void view_mousedown(t_eview* view, t_float x, t_float y, t_float modifier
     }
     else
     {
+#ifdef CICM_WRAPPER_TCL
         if(view->v_item == VITEM_NONE)
         {
-            if(mod == EMOD_SHIFT)
-            {
-                sys_vgui("pdtk_canvas_mouse .x%lx.c [expr [winfo pointerx .] - [winfo rootx .x%lx.c]] [expr [winfo pointery .] - [winfo rooty .x%lx.c]] 0 1\n", (unsigned long)view->v_canvas, (unsigned long)view->v_canvas, (unsigned long)view->v_canvas);
-            }
-            else if(mod == EMOD_RIGHT)
-            {
-                sys_vgui("pdtk_canvas_rightclick .x%lx.c [expr [winfo pointerx .] - [winfo rootx .x%lx.c]] [expr [winfo pointery .] - [winfo rooty .x%lx.c]] 0\n", (unsigned long)view->v_canvas, (unsigned long)view->v_canvas, (unsigned long)view->v_canvas);
-            }
-            else
-            {
-                sys_vgui("pdtk_canvas_mouse .x%lx.c [expr [winfo pointerx .] - [winfo rootx .x%lx.c]] [expr [winfo pointery .] - [winfo rooty .x%lx.c]] 0 0\n", (unsigned long)view->v_canvas, (unsigned long)view->v_canvas, (unsigned long)view->v_canvas);
-            }
+            eguicontext_canvas_mousedown(eguicontext_get(), view->v_canvas, mod);
         }
-        else
-        {
-            view->v_last = view->v_bounds;
-        }
+#endif
+        view->v_last = view->v_bounds;
     }
     view->v_mousedown = 1;
 }
@@ -172,7 +134,9 @@ static void view_mouseup(t_eview* view, t_float x, t_float y, t_float modifier)
     }
     else
     {
-        sys_vgui("pdtk_canvas_mouseup .x%lx.c [expr [winfo pointerx .] - [winfo rootx .x%lx.c]] [expr [winfo pointery .] - [winfo rooty .x%lx.c]] 1\n", (unsigned long)view->v_canvas, (unsigned long)view->v_canvas, (unsigned long)view->v_canvas);
+#ifdef CICM_WRAPPER_TCL
+        eguicontext_canvas_mouseup(eguicontext_get(), view->v_canvas, mod);
+#endif
     }
     view->v_mousedown = 0;
 }
@@ -446,12 +410,11 @@ static void eview_free(t_eview* view)
     if(view->v_nlayers && view->v_layers)
     {
         free(view->v_layers);
-        view->v_layers  = NULL;
-        view->v_nlayers = 0;
     }
+    view->v_layers  = NULL;
+    view->v_nlayers = 0;
     pd_unbind((t_pd *)view, view->v_tag);
-    sys_vgui("destroy .x%lx.c.canvas%lx\n", (unsigned long)view->v_canvas, (unsigned long)view);
-    canvas_deletelinesfor(view->v_canvas, (t_text *)view->v_owner);
+    eguicontext_view_remove(eguicontext_get(), view);
 }
 
 static t_class* eview_setup()
@@ -504,6 +467,11 @@ t_eview* eview_new(t_object* x, t_canvas* cnv, t_rect const* bounds)
         {
             v->v_canvas         = glist_getcanvas(cnv);
             v->v_owner          = x;
+            v->v_params.d_borderthickness = 1.f;
+            v->v_params.d_cornersize      = 0.f;
+            v->v_params.d_bordercolor     = rgba_black;
+            v->v_params.d_boxfillcolor    = rgba_white;
+            
             v->v_bounds.x       = bounds->x;
             v->v_bounds.y       = bounds->y;
             v->v_bounds.width   = bounds->width;
@@ -512,6 +480,7 @@ t_eview* eview_new(t_object* x, t_canvas* cnv, t_rect const* bounds)
             v->v_item           = VITEM_NONE;
             v->v_nlayers        = 0;
             v->v_layers         = NULL;
+            v->v_selected       = 0;
             
             v->v_mouse_enter    = (t_mouse_method)zgetfn((t_pd *)x, gensym("mouseenter"));
             v->v_mouse_leave    = (t_mouse_method)zgetfn((t_pd *)x, gensym("mouseleave"));
@@ -524,52 +493,21 @@ t_eview* eview_new(t_object* x, t_canvas* cnv, t_rect const* bounds)
             v->v_key_press      = (t_key_method)zgetfn((t_pd *)x, gensym("key"));
             v->v_key_filter     = (t_key_method)zgetfn((t_pd *)x, gensym("keyfilter"));
             v->v_paint          = (t_paint_method)zgetfn((t_pd *)x, gensym("paint"));
+            v->v_drawparams     = (t_drawparameter_method)zgetfn((t_pd *)x, gensym("getdrawparams"));
             
             sprintf(buffer, "tag%lx", (unsigned long)v);
             v->v_tag = gensym(buffer);
             pd_bind((t_pd *)v, v->v_tag);
-            
-            sys_vgui("canvas .x%lx.c.canvas%lx -width %i -height %i -takefocus 1 -bg grey \
-                     -highlightthickness 0 -insertborderwidth 0 -state normal -insertwidth 0 -bd 0\n",
-                     (unsigned long)v->v_canvas, (unsigned long)v, (int)v->v_bounds.width, (int)v->v_bounds.height);
-            
-            sys_vgui("bind .x%lx.c.canvas%lx <Enter> {+pdsend {%s mouseenter %%x %%y %%s}}\n",
-                     (unsigned long)v->v_canvas, (unsigned long)v, v->v_tag->s_name);
-            sys_vgui("bind .x%lx.c.canvas%lx <Leave> {+pdsend {%s mouseleave %%x %%y %%s}}\n",
-                     (unsigned long)v->v_canvas, (unsigned long)v, v->v_tag->s_name);
-            sys_vgui("bind .x%lx.c.canvas%lx <Button-3> {+pdsend {%s mousedown %%x %%y %i}}\n",
-                     (unsigned long)v->v_canvas, (unsigned long)v, v->v_tag->s_name, EMOD_RIGHT);
-            sys_vgui("bind .x%lx.c.canvas%lx <Button-2> {+pdsend {%s mousedown %%x %%y %i}}\n",
-                     (unsigned long)v->v_canvas, (unsigned long)v, v->v_tag->s_name, EMOD_RIGHT);
-            sys_vgui("bind .x%lx.c.canvas%lx <Button-1> {+pdsend {%s mousedown %%x %%y %%s}}\n",
-                     (unsigned long)v->v_canvas, (unsigned long)v, v->v_tag->s_name);
-            sys_vgui("bind .x%lx.c.canvas%lx <ButtonRelease> {+pdsend {%s mouseup %%x %%y %%s}}\n",
-                     (unsigned long)v->v_canvas, (unsigned long)v, v->v_tag->s_name);
-            sys_vgui("bind .x%lx.c.canvas%lx <Motion> {+pdsend {%s mousemotion %%x %%y %%s}}\n",
-                     (unsigned long)v->v_canvas, (unsigned long)v, v->v_tag->s_name);
-            
-            if(v->v_mouse_dblclick)
-            {
-                sys_vgui("bind .x%lx.c.canvas%lx <Double-Button-1> {+pdsend {%s dblclick %%x %%y %%s}}\n",
-                         (unsigned long)v->v_canvas, (unsigned long)v, v->v_tag->s_name);
-            }
-            if(v->v_mouse_wheel)
-            {
-                sys_vgui("bind .x%lx.c.canvas%lx <MouseWheel> {+pdsend {%s mousewheel  %%x %%y %%D %%s}}\n",
-                         (unsigned long)v->v_canvas, (unsigned long)v, v->v_tag->s_name);
-            }
-            if(v->v_key_press || v->v_key_filter)
-            {
-                sys_vgui("bind .x%lx.c.canvas%lx <KeyPress>  {+pdsend {%s key %%N %%s}} \n",
-                         (unsigned long)v->v_canvas, (unsigned long)v, v->v_tag->s_name);
-            }
-            
-            sys_vgui(".x%lx.c create window %i %i -anchor nw -window .x%lx.c.canvas%lx -tags win%lx -width %i -height %i\n",
-                     (unsigned long)v->v_canvas,
-                     (int)v->v_bounds.x, (int)v->v_bounds.y,
-                     (unsigned long)v->v_canvas, (unsigned long)v, (unsigned long)v,
-                     (int)v->v_bounds.width, (int)v->v_bounds.height);
+            eguicontext_view_add(eguicontext_get(), v);
         }
+        else
+        {
+            pd_error(x, "can't allocate a new view.");
+        }
+    }
+    else
+    {
+        pd_error(x, "can't find the view class.");
     }
     return v;
 }
@@ -577,6 +515,19 @@ t_eview* eview_new(t_object* x, t_canvas* cnv, t_rect const* bounds)
 t_canvas* eview_getcanvas(t_eview const* view)
 {
     return view->v_canvas;
+}
+
+void eview_getdrawparams(t_eview const* view, t_edrawparams* params)
+{
+    memcpy(params, &view->v_params, sizeof(t_edrawparams));
+}
+
+void eview_getdrawbounds(t_eview const* view, t_rect* bounds)
+{
+    bounds->x = view->v_bounds.x + view->v_params.d_borderthickness;
+    bounds->y = view->v_bounds.y + view->v_params.d_borderthickness;
+    bounds->width = view->v_bounds.width -  2.f * view->v_params.d_borderthickness;
+    bounds->height = view->v_bounds.height -  2.f * view->v_params.d_borderthickness;
 }
 
 void eview_getposition(t_eview const* view, t_pt* pos)
@@ -603,20 +554,16 @@ void eview_setposition(t_eview* view, t_pt const* pos)
 {
     view->v_bounds.x = pos->x;
     view->v_bounds.y = pos->y;
-    sys_vgui(".x%lx.c coords win%lx %d %d\n", (unsigned long)view->v_canvas, (unsigned long)view,
-             (int)view->v_bounds.x, (int)view->v_bounds.y);
-    
-    canvas_fixlinesfor(view->v_canvas, (t_text*)view->v_owner);
+    eguicontext_view_boundschanged(eguicontext_get(), view);
 }
 
 void eview_setsize(t_eview* view, t_pt const* size)
 {
     view->v_bounds.width    = size->x;
     view->v_bounds.height   = size->y;
-    sys_vgui(".x%lx.c itemconfigure win%lx -width %d -height %d\n", (unsigned long)view->v_canvas, (unsigned long)view,
-             (int)view->v_bounds.width, (int)view->v_bounds.height);
-    
-    canvas_fixlinesfor(view->v_canvas, (t_text*)view->v_owner);
+    eguicontext_view_boundschanged(eguicontext_get(), view);
+    eview_layer_invalidate(view, NULL);
+    eview_draw(view);
 }
 
 void eview_setbounds(t_eview* view, t_rect const* bounds)
@@ -625,41 +572,40 @@ void eview_setbounds(t_eview* view, t_rect const* bounds)
     view->v_bounds.y = bounds->y;
     view->v_bounds.width    = bounds->width;
     view->v_bounds.height   = bounds->height;
-    sys_vgui(".x%lx.c coords win%lx %d %d\n", (unsigned long)view->v_canvas, (unsigned long)view,
-             (int)view->v_bounds.x, (int)view->v_bounds.y);
-    sys_vgui(".x%lx.c itemconfigure win%lx -width %d -height %d\n", (unsigned long)view->v_canvas, (unsigned long)view,
-             (int)view->v_bounds.width, (int)view->v_bounds.height);
-    
-    canvas_fixlinesfor(view->v_canvas, (t_text*)view->v_owner);
+    eguicontext_view_boundschanged(eguicontext_get(), view);
+    eview_layer_invalidate(view, NULL);
+    eview_draw(view);
 }
 
-static char *my_cursorlist[] =
+void eview_select(t_eview* view)
 {
-    "left_ptr",
-    "center_ptr",
-    "sb_v_double_arrow",
-    "plus",
-    "hand2",
-    "circle",
-    "X_cursor",
-    "bottom_side",
-    "bottom_right_corner",
-    "right_side",
-    "double_arrow",
-    "exchange",
-    "xterm"
-};
+    if(!view->v_selected)
+    {
+        view->v_selected = 1;
+        eview_layer_invalidate(view, gensym("eborder_layer"));
+        eview_draw(view);
+    }
+}
 
-void eview_setcursor(t_eview* view, ebox_cursors cursor)
+void eview_deselect(t_eview* view)
 {
-    sys_vgui(".x%lx.c.canvas%lx configure -cursor %s\n",
-             (unsigned long)view->v_canvas, (unsigned long)view, my_cursorlist[cursor]);
+    if(view->v_selected)
+    {
+        view->v_selected = 0;
+        eview_layer_invalidate(view, gensym("eborder_layer"));
+        eview_draw(view);
+    }
+}
+
+void eview_setcursor(t_eview* view, ecursor_types cursor)
+{
+    eguicontext_view_setcursor(eguicontext_get(), view, cursor);
 }
 
 static t_elayer* eview_getlayer(t_eview const* view, t_symbol const* name)
 {
     size_t i;
-    for(i = 0; view->v_nlayers; i++)
+    for(i = 0; i < view->v_nlayers; i++)
     {
         if(elayer_getname(view->v_layers[i]) == name)
         {
@@ -669,25 +615,13 @@ static t_elayer* eview_getlayer(t_eview const* view, t_symbol const* name)
     return NULL;
 }
 
-void eview_redraw(t_eview* view)
+void eview_draw(t_eview* view)
 {
-    post("eview_redraw");
-    size_t i;
-    // pinned & background color
-    /*
-    for(i = 0; view->v_nlayers; i++)
-    {
-        if((elayer_getstate(view->v_layers[i]) == EPD_LAYER_INVALID))
-        {
-            sys_vgui(".x%lx.c.canvas%lx delete %s%lx\n", (unsigned long)view->v_canvas, (unsigned long)view,
-                    elayer_getname(view->v_layers[i]), (unsigned long)view);
-        }
-    }
-     */
     if(view->v_paint)
     {
         (view->v_paint)(view->v_owner, (t_object *)view);
     }
+    int todo;
     //ebox_draw_border(x);
     //ebox_draw_iolets(x);
 }
@@ -706,9 +640,9 @@ t_elayer* eview_layer_start(t_eview* view, t_symbol *name, float width, float he
                 temp = (t_elayer **)realloc(view->v_layers, (view->v_nlayers + 1) * sizeof(t_elayer *));
                 if(temp)
                 {
-                    view->v_layers = temp;
+                    view->v_layers                  = temp;
                     view->v_layers[view->v_nlayers] = l;
-                    view->v_nlayers++;
+                    view->v_nlayers                 = view->v_nlayers + 1;
                     return l;
                 }
                 else
@@ -723,30 +657,45 @@ t_elayer* eview_layer_start(t_eview* view, t_symbol *name, float width, float he
                 view->v_layers = (t_elayer **)malloc(sizeof(t_elayer *));
                 if(view->v_layers)
                 {
-                    view->v_nlayers = 1;
-                    view->v_layers[0] = l;
+                    view->v_nlayers     = 1;
+                    view->v_layers[0]   = l;
                     return l;
                 }
                 else
                 {
-                    pd_error(view, "can't allocate any layers.");
+                    pd_error(view, "can't allocate any layer.");
                     elayer_free(l);
                     return NULL;
                 }
             }
         }
+        return NULL;
     }
-    return (elayer_getstate(l) == EPD_LAYER_INVALID) ? l : NULL;
+    return elayer_reopen(l);
 }
 
 t_pd_err eview_layer_invalidate(t_eview* view, t_symbol *name)
 {
-    t_elayer* l = eview_getlayer(view, name);
-    if(l)
+    size_t i = 0;
+    t_pd_err err = 0;
+    t_elayer* l = NULL;
+    if(name)
     {
-        return elayer_invalidate(l);
+        l = eview_getlayer(view, name);
+        if(l)
+        {
+            return elayer_invalidate(l);
+        }
+        return -1;
     }
-    return -1;
+    else
+    {
+        for(i = 0; i < view->v_nlayers; i++)
+        {
+            err = (elayer_invalidate(view->v_layers[i]) != 0) ? -1 : err;
+        }
+        return err;
+    }
 }
 
 t_pd_err eview_layer_end(t_eview* view, t_symbol *name)
@@ -764,7 +713,17 @@ t_pd_err eview_layer_paint(t_eview* view, t_symbol *name, const float xoffset, c
     t_elayer* l = eview_getlayer(view, name);
     if(l)
     {
-        return elayer_paint(l);
+        if(view->v_drawparams)
+        {
+            view->v_drawparams(view->v_owner, (t_object *)view, &view->v_params);
+        }
+        if(!eguicontext_view_paint_layer(eguicontext_get(), view, l,
+                                     xoffset + view->v_params.d_borderthickness,
+                                     yoffset + view->v_params.d_borderthickness))
+        {
+            return elayer_painted(l);
+        }
+        return -1;
     }
     return -1;
 }

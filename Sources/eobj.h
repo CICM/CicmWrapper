@@ -37,6 +37,7 @@ void *eobj_new(t_eclass *c);
  * \brief       The t_eobj deletion function. \n This function should replace pd_free().
  * \details     Detaches the t_eobj from Pure Data and frees the proxy inlets.
  * \param x     The t_eobj pointer
+ * \todo Check if we really don't have to free the proxies
  */
 void eobj_free(void *x);
 
@@ -297,6 +298,14 @@ t_pd* ebox_getsender(t_ebox const* x);
 long ebox_getflags(t_ebox const* x);
 
 /*!
+ * \fn          char ebox_ignoreclick(t_ebox const* x)
+ * \brief       Retrieves the a box ignores clicks.
+ * \param x     The pointer of the box.
+ * \return      A non-null value if the box ignroes clicks, otherwise zero.
+ */
+char ebox_ignoreclick(t_ebox const* x);
+
+/*!
  * \fn          void ebox_redraw(t_ebox* x)
  * \brief       Notifies the box that it should be redrawn.
  * \param x     The pointer of the box.
@@ -304,22 +313,22 @@ long ebox_getflags(t_ebox const* x);
 void ebox_redraw(t_ebox *x);
 
 /*!
- * \fn              void ebox_setcursor(t_ebox* x, t_object* view, ebox_cursors cursor)
+ * \fn              void ebox_setcursor(t_ebox* x, t_object* view, ecursor_types cursor)
  * \brief           Changes the cursor of the mouse.
  * \param x         The pointer of the box.
  * \param view      The pointer of the view (if NULL the function uses the first view).
  * \param cursor    The type of cursor.
  */
-void ebox_setcursor(t_ebox const* x, t_object* view, ebox_cursors cursor);
+void ebox_setcursor(t_ebox const* x, t_object* view, ecursor_types cursor);
 
 /*!
- * \fn              void ebox_getbounds(t_ebox const* x, t_object const* view, t_rect *rect)
+ * \fn              void ebox_getdrawbounds(t_ebox const* x, t_object const* view, t_rect *rect)
  * \brief           Retrieves the bounds of a view of a box.
  * \param x         The pointer of the box.
  * \param view      The pointer of the view (if NULL the function uses the first view).
  * \param rect      The rectangle pointer.
  */
-void ebox_getbounds(t_ebox const* x, t_object const* view, t_rect *rect);
+void ebox_getdrawbounds(t_ebox const* x, t_object const* view, t_rect *rect);
 
 /*!
  * \fn              t_elayer* ebox_start_layer(t_ebox *b, t_object* view, t_symbol *name,

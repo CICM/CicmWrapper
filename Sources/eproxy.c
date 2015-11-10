@@ -60,26 +60,11 @@ static void eproxy_list(t_eproxy *x, t_symbol* s, int argc, t_atom* argv)
     pd_list((t_pd *)x->p_owner, s, argc, argv);
 }
 
-static void canvas_deletelines_for_io(t_canvas *x, t_text *text, t_inlet *inp, t_outlet *outp)
-{
-    int later_try_toavoid_this;
-    t_linetraverser t;
-    t_outconnect *oc;
-    linetraverser_start(&t, x);
-    while((oc = linetraverser_next(&t)))
-    {
-        if ((t.tr_ob == text && t.tr_outlet == outp) || (t.tr_ob2 == text && t.tr_inlet == inp))
-        {
-            obj_disconnect(t.tr_ob, t.tr_outno, t.tr_ob2, t.tr_inno);
-        }
-    }
-    canvas_fixlinesfor(x, text);
-}
-
 static void eproxy_free(t_eproxy* proxy)
 {
-    canvas_deletelines_for_io(eobj_getcanvas(proxy->p_owner), (t_text *)proxy->p_owner, proxy->p_inlet, NULL);
     inlet_free(proxy->p_inlet);
+    canvas_deletelinesfor(eobj_getcanvas(proxy->p_owner), (t_text *)proxy->p_owner);
+    canvas_fixlinesfor(eobj_getcanvas(proxy->p_owner), (t_text *)proxy->p_owner);
 }
 
 static t_class* eproxy_setup()

@@ -388,17 +388,20 @@ struct _efont
 };
 typedef struct _efont t_efont;
 
-/**
- * @struct t_etextlayout
- * @brief The text structure.
- * @details It contains the all the informations to be drawn.
- */
+EXTERN_STRUCT _eguicontext;
+typedef struct _eguicontext t_eguicontext;
+
 EXTERN_STRUCT _elayer;
 typedef struct _elayer t_elayer;
 
 EXTERN_STRUCT _epath;
 typedef struct _epath t_epath;
 
+/**
+ * @struct t_etextlayout
+ * @brief The text structure.
+ * @details It contains the all the informations to be drawn.
+ */
 EXTERN_STRUCT _etextlayout;
 typedef struct _etextlayout t_etextlayout;
 
@@ -428,7 +431,7 @@ typedef struct _eobj
     size_t              o_nproxy;           /*!< The number of proxy inlets. */
     size_t              o_cproxy;           /*!< The index of the current proxy inlet used */
     t_symbol*           o_listeners;        /*!< The listeners id. */
-    void*               o_dummy;            /*!< The dummy member. */
+    long                o_dummy;            /*!< The dummy member. */
 } t_eobj;
 
 /**
@@ -514,7 +517,7 @@ typedef enum eselitem_flags
 
 
 /**
- * @enum ebox_cursors
+ * @enum ecursor_types
  * @brief The cursors that can be used.
  * @details It define all the available cursors.
  */
@@ -533,7 +536,7 @@ typedef enum
     ECURSOR_DOUBLE_ARROW = 10, /*!< The double_arrow string. */
     ECURSOR_EXCHANGE     = 11, /*!< The exchange string. */
     ECURSOR_XTERM        = 12  /*!< The xterm string. */
-} ebox_cursors;
+} ecursor_types;
 
 /**
  * @enum elayer_flags

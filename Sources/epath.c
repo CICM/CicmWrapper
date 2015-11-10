@@ -9,35 +9,7 @@
  */
 
 #include "epath.h"
-
-/**
- * @enum epath_maker
- * @brief The types of path.
- * @details It define all the path type.
- */
-typedef enum
-{
-    E_PATH_MOVE     = 0,   /*!< This type is move. */
-    E_PATH_LINE     = 1,   /*!< This type is line maker. */
-    E_PATH_CURVE    = 2,   /*!< This type is curve. */
-    E_PATH_CLOSE    = 3,   /*!< This type is curve. */
-    E_PATH_RECT     = 4,   /*!< This type is rectangle. */
-    E_PATH_OVAL     = 5,   /*!< This type is oval. */
-    E_PATH_ARC      = 6    /*!< This type is arc. */
-} epath_maker;
-
-
-/**
- * @struct t_epath
- * @brief The path object.
- * @details It contains the all the informations to be drawn.
- */
-struct _epath
-{
-    t_pt*   p_points;   /*!< The points. */
-    size_t  p_size;     /*!< The number of valid points. */
-    size_t  p_rsize;    /*!< The real number of points. */
-};
+#include "eguiimp.h"
 
 static inline char epath_prealloc(t_epath *p, const size_t size)
 {
@@ -281,6 +253,7 @@ static inline void epoint_apply_matrix(t_pt *pt, t_matrix const* matrix)
     t_pt temp;
     temp.x = pt->x * matrix->xx + pt->y * matrix->xy + matrix->x0;
     temp.y = pt->x * matrix->yx + pt->y * matrix->yy + matrix->y0;
+    *pt = temp;
 }
 
 void epath_apply_matrix(t_epath *p, t_matrix const* matrix)

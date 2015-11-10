@@ -29,12 +29,6 @@
  *  @{
  */
 
-/**
- * @struct _egui
- * @brief The view object.
- * @details It contains the members and the methods for view management.
- */
-EXTERN_STRUCT _eview;
 typedef struct _eview t_eview;
 
 /*!
@@ -63,6 +57,22 @@ t_eview* eview_findbyname(t_symbol* name);
  * \return      The canvas of the view.
  */
 t_canvas* eview_getcanvas(t_eview const* view);
+
+/*!
+ * \fn              void eview_getdrawparams(t_eview const* view, t_edrawparams* params)
+ * \brief           Retrieves the draw parameters of a view.
+ * \param view      The view pointer.
+ * \param params    The draw parameters to fill.
+ */
+void eview_getdrawparams(t_eview const* view, t_edrawparams* params);
+
+/*!
+ * \fn              void eview_getdrawbounds(t_eview const* view, t_rect* bounds)
+ * \brief           Retrieves the drawing bounds of a view (without the border size).
+ * \param view      The view pointer.
+ * \param bounds    The bounds of the view.
+ */
+void eview_getdrawbounds(t_eview const* view, t_rect* bounds);
 
 /*!
  * \fn          void eview_getposition(t_eview* view, t_pt* pos)
@@ -113,19 +123,33 @@ void eview_setsize(t_eview* view, t_pt const* size);
 void eview_setbounds(t_eview* view, t_rect const* bounds);
 
 /*!
- * \fn              void eview_setcursor(t_eview* view, ebox_cursors cursor)
+ * \fn              void eview_select(t_eview* view)
+ * \brief           Notifies a view that it has been selected.
+ * \param view      The view pointer.
+ */
+void eview_select(t_eview* view);
+
+/*!
+ * \fn              void eview_deselect(t_eview* view)
+ * \brief           Notifies a view that it has been deselected.
+ * \param view      The view pointer.
+ */
+void eview_deselect(t_eview* view);
+
+/*!
+ * \fn              void eview_setcursor(t_eview* view, ecursor_types cursor)
  * \brief           Sets the cursor of a view.
  * \param view      The view pointer.
  * \param cursor    The type of cursor.
  */
-void eview_setcursor(t_eview* view, ebox_cursors cursor);
+void eview_setcursor(t_eview* view, ecursor_types cursor);
 
 /*!
- * \fn              void eview_redraw(t_eview* view)
- * \brief           Notifies a view that it should be redrawn.
+ * \fn              void eview_draw(t_eview* view)
+ * \brief           Notifies a view that it should drawn.
  * \param view      The view pointer.
  */
-void eview_redraw(t_eview* view);
+void eview_draw(t_eview* view);
 
 /*!
  * \fn              t_elayer* eview_layer_start(t_eview* view, t_symbol *name, float width, float height)
