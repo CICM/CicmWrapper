@@ -44,6 +44,12 @@ t_eguicontext* eguicontext_get(void);
  */
 t_pd_err eguicontext_fontfamilies(t_eguicontext *ctxt, size_t* nfonts, t_symbol*** fonts);
 
+
+
+
+
+
+
 /*!
  * \fn              t_pd_err eguicontext_view_add(t_eguicontext *ctxt, t_eview *view)
  * \brief           Adds a new view in a gui context.

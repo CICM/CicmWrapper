@@ -415,6 +415,7 @@ static void eview_free(t_eview* view)
     view->v_nlayers = 0;
     pd_unbind((t_pd *)view, view->v_tag);
     eguicontext_view_remove(eguicontext_get(), view);
+    canvas_deletelinesfor(view->v_canvas, (t_text *)view->v_owner);
 }
 
 static t_class* eview_setup()
@@ -498,6 +499,10 @@ t_eview* eview_new(t_object* x, t_canvas* cnv, t_rect const* bounds)
             sprintf(buffer, "tag%lx", (unsigned long)v);
             v->v_tag = gensym(buffer);
             pd_bind((t_pd *)v, v->v_tag);
+            if(v->v_drawparams)
+            {
+                v->v_drawparams(v->v_owner, (t_object *)v, &v->v_params);
+            }
             eguicontext_view_add(eguicontext_get(), v);
         }
         else
@@ -582,7 +587,6 @@ void eview_select(t_eview* view)
     if(!view->v_selected)
     {
         view->v_selected = 1;
-        eview_layer_invalidate(view, gensym("eborder_layer"));
         eview_draw(view);
     }
 }
@@ -592,7 +596,6 @@ void eview_deselect(t_eview* view)
     if(view->v_selected)
     {
         view->v_selected = 0;
-        eview_layer_invalidate(view, gensym("eborder_layer"));
         eview_draw(view);
     }
 }
@@ -617,6 +620,10 @@ static t_elayer* eview_getlayer(t_eview const* view, t_symbol const* name)
 
 void eview_draw(t_eview* view)
 {
+    if(view->v_drawparams)
+    {
+        view->v_drawparams(view->v_owner, (t_object *)view, &view->v_params);
+    }
     if(view->v_paint)
     {
         (view->v_paint)(view->v_owner, (t_object *)view);
@@ -713,10 +720,6 @@ t_pd_err eview_layer_paint(t_eview* view, t_symbol *name, const float xoffset, c
     t_elayer* l = eview_getlayer(view, name);
     if(l)
     {
-        if(view->v_drawparams)
-        {
-            view->v_drawparams(view->v_owner, (t_object *)view, &view->v_params);
-        }
         if(!eguicontext_view_paint_layer(eguicontext_get(), view, l,
                                      xoffset + view->v_params.d_borderthickness,
                                      yoffset + view->v_params.d_borderthickness))
