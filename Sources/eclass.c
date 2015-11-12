@@ -458,6 +458,15 @@ void eclass_attr_accessor(t_eclass* c, const char* attrname, t_getter_method get
     }
 }
 
+void eclass_get_attrs(t_eclass const* c, size_t* nattrs, t_eattr const*** attrs)
+{
+    t_eattrset* as = eclass_getattrset(c);
+    if(as)
+    {
+        eattrset_get_attrs(as, nattrs, attrs);
+    }
+}
+
 
 
 

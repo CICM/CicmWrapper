@@ -413,6 +413,7 @@ typedef void (*t_mousewheel_method)(void *x, t_object *view, t_pt pt, long modif
 typedef void (*t_key_method)(void *x, t_object *view, char textcharacter, long modifiers);
 typedef void (*t_popup_method)(void *x, t_object *view, long itemid);
 typedef void (*t_drawparameter_method)(void *x, t_object *view, t_edrawparams* params);
+typedef void (*t_oksize_method)(void *x, t_object *view, t_rect *newrect);
 typedef void (*t_paint_method)(void *x, t_object *view);
 
 /**
@@ -624,16 +625,6 @@ typedef struct t_etextlayouteditor
 }t_etextlayouteditor;
 
 /**
- * @struct t_ewindowprop
- * @brief The properties window structure.
- * @details It contains the informations to show and retrieve a properties window.
- */
-typedef struct t_ewindowprop
-{
-    t_object    c_obj;          /*!< The object. */
-    t_object*   c_owner;
-    int         c_nitems;
-}t_ewindowprop;
 
 /** @} */
 

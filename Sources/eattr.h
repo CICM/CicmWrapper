@@ -413,6 +413,16 @@ t_pd_err eattrset_write(t_eattrset const* attrset, t_symbol const* name, t_objec
  */
 t_pd_err eattrset_read(t_eattrset const* attrset, t_symbol const* name, t_object *x, t_binbuf const* b);
 
+/*!
+ * \fn              void eattrset_get_attrs(t_eclass* c, size_t* nattrs, t_eattr** attrs)
+ * \brief           Retrieves the attributes of an attribute set.
+ * \param attrset   The attributes set pointer.
+ * \param nattrs    The number of attributes
+ * \param attrs     The attributes
+ */
+void eattrset_get_attrs(t_eattrset const* attrset, size_t* nattrs, t_eattr const*** attrs);
+
+
 /** @} */
 
 #endif

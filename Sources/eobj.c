@@ -18,6 +18,7 @@
 #include "eproxy.h"
 #include "ecommon.h"
 #include "eclass.h"
+#include "eguicontext.h"
 
 #include "m_imp.h"
 
@@ -302,7 +303,13 @@ static t_pd_err eobj_attr_dosetvalue(t_eobj *x, t_symbol* s, int argc, t_atom* a
 
 static void eobj_propertieswindow(t_eobj* x, t_glist *glist)
 {
-    ewindowprop_create(x);
+    char text[MAXPDSTRING];
+    sprintf(text, "propw%ld", (unsigned long)x);
+    t_object* propw = eguicontext_propw_new(eguicontext_get(), (t_object *)x);
+    if(propw)
+    {
+        pd_bind((t_pd *)propw, gensym(text));
+    }
 }
 
 

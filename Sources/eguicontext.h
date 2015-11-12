@@ -99,6 +99,41 @@ t_pd_err eguicontext_view_boundschanged(t_eguicontext *ctxt, t_eview* view);
 t_pd_err eguicontext_view_paint_layer(t_eguicontext *ctxt, t_eview *view, t_elayer *l, const float xoffset, const float yoffset);
 
 
+
+/*!
+ * \fn          t_object* eguicontext_propw_new(t_eguicontext *ctxt, t_object* owner)
+ * \brief       The window properties creation function.
+ * \details     Displays a properties window for an object.
+ * \param ctxt  The pointer of the guicontext.
+ * \param owner The owner object pointer.
+ * \return      This function returns a pointer to the window properties object.
+ */
+t_object* eguicontext_propw_new(t_eguicontext *ctxt, t_object* owner);
+
+/*!
+ * \fn          void ewindowprop_destroy(t_eobj* x)
+ * \brief       The t_ewindowprop free function.
+ * \details     Frees the memory for a t_ewindowprop and deletes its window.
+ * \param x     The t_eobj pointer that owns the t_ewindowprop.
+ */
+void ewindowprop_destroy(t_eobj* x);
+
+/*!
+ * \fn          void ewindowprop_update(t_eobj* x)
+ * \brief       The t_ewindowprop update function.
+ * \details     Updates the values of the properties window.
+ * \param x     The t_eobj pointer that owns the t_ewindowprop.
+ */
+void ewindowprop_update(t_eobj* x);
+
+/*!
+ * \fn          t_ewindowprop* ewindowprop_getfromobject(t_eobj* x)
+ * \brief       Retrieves a t_ewindowprop of a t_eobj.
+ * \param x     The t_eobj pointer that owns the t_ewindowprop.
+ * \return      This function returns a pointer to the t_ewindowprop if it exists.
+ */
+t_object* epropw_getfromname(t_symbol* name);
+
 #ifdef CICM_WRAPPER_TCL
 
 /*!

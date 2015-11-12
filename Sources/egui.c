@@ -119,6 +119,13 @@ void egui_view_getbounds(t_egui const* gui, t_glist const* glist, t_rect* bounds
         {
             eview_getbounds(view, bounds);
         }
+        else
+        {
+            bounds->x = text_xpix((t_text *)gui->g_owner, (t_glist *)glist);
+            bounds->y = text_ypix((t_text *)gui->g_owner, (t_glist *)glist);
+            bounds->width = gui->g_size.x;
+            bounds->height = gui->g_size.y;
+        }
     }
     else if(gui->g_nviews && gui->g_views)
     {

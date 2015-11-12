@@ -10,6 +10,7 @@
 
 #include "eattr.h"
 #include "ecommon.h"
+#include "float.h"
 
 struct _eattr
 {
@@ -505,8 +506,8 @@ t_eattr *eattr_new(t_symbol *name, t_symbol *type, size_t size, size_t maxsize, 
             x->a_size       = size;
             x->a_sizemax    = maxsize;
             x->a_clipped    = 0;
-            x->a_minimum    = 0;
-            x->a_maximum    = 1;
+            x->a_minimum    = FLT_MIN;
+            x->a_maximum    = FLT_MAX;
             x->a_step       = 1;
             x->a_ndefaults  = 1;
             x->a_defaults   = (t_atom *)malloc(sizeof(t_atom));
@@ -1324,6 +1325,21 @@ t_pd_err eattrset_read(t_eattrset const* attrset, t_symbol const* name, t_object
             err = (eattr_read(attrset->s_attrs[i], x, b) == -1) ? -1 : err;
         }
         return err;
+    }
+}
+
+void eattrset_get_attrs(t_eattrset const* attrset, size_t* nattrs, t_eattr const*** attrs)
+{
+    *attrs  = NULL;
+    *nattrs = 0;
+    if(attrset->s_nattrs)
+    {
+        *attrs = (t_eattr const**)malloc(attrset->s_nattrs * sizeof(t_eattr const**));
+        if(*attrs)
+        {
+            memcpy(*attrs, attrset->s_attrs, attrset->s_nattrs * sizeof(t_eattr const**));
+            *nattrs = attrset->s_nattrs;
+        }
     }
 }
 

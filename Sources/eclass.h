@@ -311,6 +311,15 @@ void eclass_attr_accessor(t_eclass* c, const char* attrname, t_getter_method get
  */
 void eclass_attr_items(t_eclass* c, const char* attrname, long flags, const char* list);
 
+/*!
+ * \fn              void eclass_get_attrs(t_eclass* c, size_t* nattrs, t_eattr** attrs)
+ * \brief           Retrieves the attributes of a class.
+ * \param c         The t_eclass pointer
+ * \param nattrs    The number of attributes
+ * \param attrs     The attributes
+ */
+void eclass_get_attrs(t_eclass const* c, size_t* nattrs, t_eattr const*** attrs);
+
 //! @cond
 #define calcoffset(x,y) ((long)(&(((x *)0L)->y)))
 //! @endcond

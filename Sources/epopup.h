@@ -197,50 +197,6 @@ void etexteditor_grabfocus(t_etextlayouteditor *editor);
  */
 t_etextlayouteditor* etexteditor_getfromsymbol(t_symbol* name);
 
-//! @endcond
-
-/*!
- * \fn          t_ewindowprop* ewindowprop_create(t_eobj* x)
- * \brief       The t_ewindowprop creation function.
- * \details     Allocates the memory for a t_ewindowprop if it does not already exists and displays the properties window.
- * \param x     The t_eobj pointer.
- * \return      This function returns a pointer to a new t_ewindowprop.
- */
-t_ewindowprop* ewindowprop_create(t_eobj* x);
-
-/*!
- * \fn          void ewindowprop_destroy(t_eobj* x)
- * \brief       The t_ewindowprop free function.
- * \details     Frees the memory for a t_ewindowprop and deletes its window.
- * \param x     The t_eobj pointer that owns the t_ewindowprop.
- */
-void ewindowprop_destroy(t_eobj* x);
-
-/*!
- * \fn          void ewindowprop_update(t_eobj* x)
- * \brief       The t_ewindowprop update function.
- * \details     Updates the values of the properties window.
- * \param x     The t_eobj pointer that owns the t_ewindowprop.
- */
-void ewindowprop_update(t_eobj* x);
-
-//! @cond
-
-/*!
- * \fn          t_ewindowprop* ewindowprop_getfromobject(t_eobj* x)
- * \brief       Retrieves a t_ewindowprop of a t_eobj.
- * \param x     The t_eobj pointer that owns the t_ewindowprop.
- * \return      This function returns a pointer to the t_ewindowprop if it exists.
- */
-t_ewindowprop* ewindowprop_getfromobject(t_eobj* x);
-
-//! @endcond
-
-
-
-
-
-//! @cond
 
 /*!
  * \fn          void cicmwrapper_init(void)

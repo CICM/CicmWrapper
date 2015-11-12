@@ -180,22 +180,19 @@ static void view_mousemove(t_eview* view, t_float x, t_float y, t_float modifier
                 outlet = 0;
                 if(noutlet)
                 {
-                    if(pt.x > 3.f)
+                    if(pt.x <= 7.f)
                     {
-                        if(pt.x <= 7.f)
+                        outlet = 1;
+                    }
+                    else
+                    {
+                        for(i = 1; i < noutlet; i++)
                         {
-                            outlet = 1;
-                        }
-                        else
-                        {
-                            for(i = 1; i < noutlet; i++)
+                            iopos = (int)(i / (float)(noutlet - 1) * (view->v_bounds.width));
+                            if(pt.x >= iopos && pt.x <= iopos + 7.f)
                             {
-                                iopos = (int)(i / (float)(noutlet - 1) * (view->v_bounds.width));
-                                if(pt.x >= iopos && pt.x <= iopos + 7.f)
-                                {
-                                    outlet = 1;
-                                    break;
-                                }
+                                outlet = 1;
+                                break;
                             }
                         }
                     }
@@ -587,7 +584,8 @@ void eview_select(t_eview* view)
     if(!view->v_selected)
     {
         view->v_selected = 1;
-        eview_draw(view);
+        int todo;
+        eguicontext_view_boundschanged(eguicontext_get(), view);
     }
 }
 
@@ -596,7 +594,8 @@ void eview_deselect(t_eview* view)
     if(view->v_selected)
     {
         view->v_selected = 0;
-        eview_draw(view);
+        int todo;
+        eguicontext_view_boundschanged(eguicontext_get(), view);
     }
 }
 
