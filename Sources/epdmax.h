@@ -98,7 +98,7 @@ typedef t_binbuf        t_dictionary;
 #define jbox_end_layer(box, view, name)             ebox_end_layer((t_ebox *)box, name)
 #define jbox_invalidate_layer(box, view, name)      ebox_invalidate_layer((t_ebox *)box, name)
 #define jbox_paint_layer(box, view, name, x, y)     ebox_paint_layer((t_ebox *)box, name, x, y)
-#define jbox_notify(object, s, msg, sender, data)   ebox_notify(object, s, msg, sender, data)
+#define jbox_notify(object, s, msg, sender, data)   eobj_notify(object, s, msg, sender, data)
 
 #define jbox_get_fontname(object)                   ebox_getfontname(object)
 #define jbox_get_font_slant(object)                 ebox_getfontslant(object)

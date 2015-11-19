@@ -17,10 +17,6 @@
 #include "float.h"
 
 
-static void ebox_draw_border(t_ebox* x);
-static void ebox_draw_iolets(t_ebox* x);
-static void ebox_select(t_ebox* x);
-
 void ebox_texteditor_keypress(t_ebox *x, t_symbol *s, float f)
 {
     /*
@@ -69,39 +65,6 @@ void ebox_texteditor_focus(t_ebox *x, t_symbol *s, float f)
      */
 }
 
-t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
-{
-    /*
-    t_eclass* c = eobj_getclass(x);
-    
-    if(s == s_cream_size)
-    {
-        if(c->c_widget.w_oksize != NULL)
-            c->c_widget.w_oksize(x, &x->b_rect);
-        ebox_invalidate_all(x);
-        if(ebox_isdrawable(x))
-        {
-            sys_vgui("%s itemconfigure %s -width %d -height %d\n", x->b_canvas_id->s_name, x->b_window_id->s_name, (int)x->b_rect.width, (int)x->b_rect.height);
-            canvas_fixlinesfor(x->b_obj.o_canvas, (t_text *)x);
-        }
-        ebox_redraw(x);
-    }
-    else if(s == s_pinned && ebox_isdrawable(x))
-    {
-        if(x->b_pinned)
-        {
-            sys_vgui((char *)"lower %s\n", x->b_drawing_id->s_name);
-        }
-        else
-        {
-            sys_vgui((char *)"raise %s\n", x->b_drawing_id->s_name);
-        }
-    }
-    */
-    return 0;
-}
-
-
 static void stringifyJustification(int justification, char* text)
 {
     if(justification & ETEXT_TOP)
@@ -139,84 +102,6 @@ static t_pt recomputeRectangle(int justification, t_pt const* p1, t_pt const* p2
     return pt;
 }
 
-
-static void ebox_draw_border(t_ebox* x)
-{
-    /*
-    const float bdsize = (x->b_selected_box == EITEM_OBJ) ? pd_clip_min(x->b_boxparameters.d_borderthickness, 1.f) : x->b_boxparameters.d_borderthickness;
-    int remove_null;
-    t_elayer* g = ebox_start_layer(x, NULL, s_cream_eboxbd, x->b_rect.width, x->b_rect.height);
-    if(g && bdsize)
-    {
-        if(x->b_selected_box == EITEM_OBJ)
-        {
-            elayer_set_color_rgba(g, &rgba_blue);
-        }
-        else
-        {
-            elayer_set_color_rgba(g, &x->b_boxparameters.d_bordercolor);
-        }
-        elayer_set_line_width(g, bdsize);
-        elayer_rectangle(g, 0.f, 0.f, x->b_rect.width - bdsize, x->b_rect.height - bdsize);
-        elayer_stroke(g);
-        
-        ebox_end_layer(x, s_cream_eboxbd);
-    }
-    ebox_paint_layer(x, s_cream_eboxbd, 0.f, 0.f);
-     */
-}
-
-static void ebox_draw_iolets(t_ebox* x)
-{
-     /*
-    int i;
-   
-    const float bdsize = (x->b_selected_box == EITEM_OBJ) ? pd_clip_min(x->b_boxparameters.d_borderthickness, 1.f) : x->b_boxparameters.d_borderthickness;
-    int remove_null;
-    t_elayer* g = ebox_start_layer(x, NULL, s_cream_eboxio, x->b_rect.width, x->b_rect.height);
-    if(g && !x->b_isinsubcanvas)
-    {
-        elayer_set_line_width(g, 1);
-        elayer_set_color_rgba(g, &rgba_black);
-        for(i = 0; i < obj_ninlets((t_object *)x); i++)
-        {
-            int pos_x_inlet = 0;
-            if(obj_ninlets((t_object *)x) != 1)
-                pos_x_inlet = (int)(i / (float)(obj_ninlets((t_object *)x) - 1) * (x->b_rect.width - 8));
-            elayer_rectangle(g, pos_x_inlet, 0, 7, 1);
-            elayer_stroke(g);
-        }
-
-        for(i = 0; i < obj_noutlets((t_object *)x); i++)
-        {
-            int pos_x_outlet = 0;
-            if(obj_noutlets((t_object *)x) != 1)
-                pos_x_outlet = (int)(i / (float)(obj_noutlets((t_object *)x) - 1) * (x->b_rect.width - 8));
-            elayer_rectangle(g, pos_x_outlet, x->b_rect.height - 2 + bdsize * 2, 7, 1);
-            elayer_stroke(g);
-        }
-        ebox_end_layer(x, s_cream_eboxio);
-    }
-    ebox_paint_layer(x, s_cream_eboxio, 0.f, 0.f);
-     */
-}
-
-static void ebox_select(t_ebox* x)
-{
-    /*
-    if(glist_isvisible(x->b_obj.o_canvas))
-    {
-        if(x->b_selected_box == EITEM_OBJ)
-        {
-            sys_vgui("%s itemconfigure eboxbd%ld -fill %s\n", x->b_drawing_id->s_name, x,rgba_to_hex(&rgba_blue));
-        }
-        else
-        {
-            sys_vgui("%s itemconfigure eboxbd%ld -fill %s\n", x->b_drawing_id->s_name, x,rgba_to_hex(&x->b_boxparameters.d_bordercolor));
-        }
-    }
-     */
-}
 
 
 

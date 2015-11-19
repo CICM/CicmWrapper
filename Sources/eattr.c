@@ -362,13 +362,22 @@ static t_pd_err eattr_getvalue_atom(t_object* x, t_eattr* attr, int* argc, t_ato
 static t_pd_err eattr_setvalue(t_eattr* attr, t_object *x, int argc, t_atom *argv)
 {
     int ac = 0; t_atom* av = NULL;
-    unparse_atoms(argc, argv, &ac, &av);
-    (attr->a_setter)(x, (t_object *)attr, ac, av);
-    if(ac && av)
+    if(attr->a_setter)
     {
-        free(av);
+        unparse_atoms(argc, argv, &ac, &av);
+        if(!(attr->a_setter)(x, (t_object *)attr, ac, av))
+        {
+            int todo;
+            //mess4(x, s_cream_notify, eobj_getid(x), s_cream_attr_modified, attr, attr);
+        }
+        if(ac && av)
+        {
+            free(av);
+        }
+        return 0;
     }
-    return 0;
+    pd_error(attr, "attribute %s setter isn't initialized.", attr->a_name->s_name);
+    return -1;
 }
 
 static t_pd_err eattr_setvalue_default(t_eattr* attr, t_object *x)
@@ -465,6 +474,14 @@ static t_class* eattr_setup()
         c = class_new(gensym("eattr"), (t_newmethod)NULL, (t_method)eattr_free, sizeof(t_eattr), CLASS_PD, A_NULL, 0);
         if(c)
         {
+            class_addmethod(c, (t_method)eattr_getname,     gensym("getname"),      A_CANT);
+            class_addmethod(c, (t_method)eattr_gettype,     gensym("gettype"),      A_CANT);
+            class_addmethod(c, (t_method)eattr_getcategory, gensym("getcategory"),  A_CANT);
+            class_addmethod(c, (t_method)eattr_getlabel,    gensym("getlabel"),     A_CANT);
+            class_addmethod(c, (t_method)eattr_getstyle,    gensym("getstyle"),     A_CANT);
+            class_addmethod(c, (t_method)eattr_getorder,    gensym("getorder"),     A_CANT);
+            class_addmethod(c, (t_method)eattr_issaved,     gensym("issaved"),      A_CANT);
+            class_addmethod(c, (t_method)eattr_repaint,     gensym("repaint"),      A_CANT);
             obj = pd_new(c);
             pd_bind(obj, gensym("eattr1572"));
         }

@@ -624,9 +624,6 @@ typedef struct t_etextlayouteditor
     t_rect      c_bounds;
 }t_etextlayouteditor;
 
-/**
-
-/** @} */
 
 
 

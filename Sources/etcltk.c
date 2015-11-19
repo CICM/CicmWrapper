@@ -222,9 +222,7 @@ static void eguicontext_view_create_iolet(t_eguicontext *ctxt, t_eview *view)
 
 t_pd_err eguicontext_view_add(t_eguicontext *ctxt, t_eview *view)
 {
-    const float xpos = text_xpix(((t_text *)view->v_owner), glist_getcanvas(view->v_canvas));
-    const float ypos = text_ypix(((t_text *)view->v_owner), glist_getcanvas(view->v_canvas));
-    post("eguicontext_view_add %f %f", xpos, ypos);
+    sys_vgui("destroy .x%lx.c.canvas%lx\n", (unsigned long)view->v_canvas, (unsigned long)view);
     sys_vgui("canvas .x%lx.c.canvas%lx -width %i -height %i -takefocus 1 -bg grey \
              -highlightthickness 0 -insertborderwidth 0 -state normal -insertwidth 0 -bd 0\n",
              (unsigned long)view->v_canvas, (unsigned long)view, (int)view->v_bounds.width, (int)view->v_bounds.height);
@@ -262,7 +260,7 @@ t_pd_err eguicontext_view_add(t_eguicontext *ctxt, t_eview *view)
     
     sys_vgui(".x%lx.c create window %i %i -anchor nw -window .x%lx.c.canvas%lx -tags win%lx -width %i -height %i\n",
              (unsigned long)view->v_canvas,
-             (int)xpos, (int)ypos,
+             (int)view->v_bounds.x, (int)view->v_bounds.y,
              (unsigned long)view->v_canvas, (unsigned long)view, (unsigned long)view,
              (int)view->v_bounds.width, (int)view->v_bounds.height);
     
@@ -275,6 +273,7 @@ t_pd_err eguicontext_view_add(t_eguicontext *ctxt, t_eview *view)
 t_pd_err eguicontext_view_remove(t_eguicontext *ctxt, t_eview *view)
 {
     sys_vgui("destroy .x%lx.c.canvas%lx\n", (unsigned long)view->v_canvas, (unsigned long)view);
+    sys_vgui("destroy .win%lx\n", (unsigned long)view);
     return 0;
 }
 
@@ -324,6 +323,7 @@ t_pd_err eguicontext_canvas_mouseup(t_eguicontext *ctxt, t_canvas* cnv, long mod
 
 static void eguicontext_view_paint_gatom(t_eview *view, t_elayer const* l, t_gatom *a, const float xoffset, const float yoffset)
 {
+    size_t i; t_pt ref;
     t_gpath_impl const* tp;
     if(a->a_type == EPD_GATOM_PATH && a->a_word.w_path.i_path.p_size)
     {
@@ -332,11 +332,32 @@ static void eguicontext_view_paint_gatom(t_eview *view, t_elayer const* l, t_gat
         {
             if(tp->i_filled)
             {
-                sys_vgui(".x%lx.c.canvas%lx create polygon %f %f %f %f -fill %s -width 0 -tags layer%lx\n",
+                ref = tp->i_path.p_points[1];
+                sys_vgui(".x%lx.c.canvas%lx create polygon %f %f\n",
                          (unsigned long)view->v_canvas, (unsigned long)view,
-                         tp->i_path.p_points[1].x + xoffset, tp->i_path.p_points[1].y + yoffset,
-                         tp->i_path.p_points[2].x + xoffset, tp->i_path.p_points[2].y + yoffset,
-                         rgba_to_hex(&tp->i_color), (unsigned long)l);
+                         tp->i_path.p_points[1].x + xoffset, tp->i_path.p_points[1].y + yoffset);
+                i = 2;
+                while(i < tp->i_path.p_size)
+                {
+                    if(tp->i_path.p_points[i].x == E_PATH_MOVE)
+                    {
+                        sys_vgui(" -fill %s -width 0 -tags layer%lx\n", rgba_to_hex(&tp->i_color), (unsigned long)l);
+                        sys_vgui(".x%lx.c.canvas%lx create polygon %f %f\n",
+                                 (unsigned long)view->v_canvas, (unsigned long)view,
+                                 tp->i_path.p_points[i+1].x + xoffset, tp->i_path.p_points[i+1].y + yoffset);
+                        i += 2;
+                    }
+                    else if(tp->i_path.p_points[i].x == E_PATH_LINE)
+                    {
+                        sys_vgui(" %f %f\n", tp->i_path.p_points[i+1].x + xoffset, tp->i_path.p_points[i+1].y + yoffset);
+                        i += 2;
+                    }
+                    else if(tp->i_path.p_points[i].x == E_PATH_CURVE)
+                    {
+                        sys_vgui(" %f %f\n", tp->i_path.p_points[i+1].x + xoffset, tp->i_path.p_points[i+1].y + yoffset);
+                        i += 2;
+                    }
+                }
             }
             else
             {

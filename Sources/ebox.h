@@ -32,18 +32,6 @@
 //! @cond
 
 
-//! The default notify method of ebox called when an attribute has changed // PRIVATE
-/*
- * \memberof        ebox
- * \param x         The ebox
- * \param s         The name of the attribute
- * \param msg       Nothing (for Max 6 compatibility)
- * \param sender    Nothing (for Max 6 compatibility)
- * \param data      Nothing (for Max 6 compatibility)
- * \return          Always 0 (for the moment)
- */
-t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
-
 
 
 // The defaults pd widgets

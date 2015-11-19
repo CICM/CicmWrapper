@@ -189,6 +189,18 @@ void eobj_attr_setvalue(void *x, t_symbol* s, int argc, t_atom *argv);
  */
 void eobj_attr_getvalue(void *x, t_symbol *s, int *argc, t_atom **argv);
 
+/*
+ * \fn      t_pd_err eobj_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
+ * \brief   Notifies method of a t_eobj.
+ * \param x         The t_eobj pointer.
+ * \param s         The name of the attribute
+ * \param msg       The second message of the notification.
+ * \param sender    Nothing (for Max 6 compatibility)
+ * \param data      Nothing (for Max 6 compatibility)
+ * \return          Always 0 (for the moment)
+ */
+t_pd_err eobj_notify(void *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
+
 
 
 

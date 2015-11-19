@@ -627,9 +627,6 @@ void eview_draw(t_eview* view)
     {
         (view->v_paint)(view->v_owner, (t_object *)view);
     }
-    int todo;
-    //ebox_draw_border(x);
-    //ebox_draw_iolets(x);
 }
 
 t_elayer* eview_layer_start(t_eview* view, t_symbol *name, float width, float height)

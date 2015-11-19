@@ -194,7 +194,10 @@ void eobj_attr_write(void const* x, t_binbuf *b)
 
 void eobj_attr_setvalue(void *x, t_symbol* s, int argc, t_atom *argv)
 {
-    eclass_attr_setvalue(eobj_getclass(x), (t_object *)x, s, argc, argv);
+    if(!eclass_attr_setvalue(eobj_getclass(x), (t_object *)x, s, argc, argv))
+    {
+        ;
+    }
 }
 
 void eobj_attr_getvalue(void *x, t_symbol *s, int *argc, t_atom **argv)
@@ -250,57 +253,6 @@ static void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
     int todo;
 }
 
-static t_pd_err eobj_attr_dosetvalue(t_eobj *x, t_symbol* s, int argc, t_atom* argv)
-{
-    eclass_attr_setvalue(eobj_getclass(x), (t_object *)x, s, argc, argv);
-    int todo_important;
-    //ebox_notify(z, s, s_cream_attr_modified, NULL, NULL);
-    /*
-     if(c->c_widget.w_notify != NULL)
-     {
-     c->c_widget.w_notify(x, s, s_cream_attr_modified, NULL, NULL);
-     }
-     
-    if(eattr_repaint(attr))
-    {
-        int todo_important;
-     
-         if(c->c_widget.w_oksize != NULL)
-         {
-         c->c_widget.w_oksize(x, &z->b_rect);
-         }
-         if(c->c_widget.w_getdrawparameters != NULL)
-         {
-         c->c_widget.w_getdrawparameters(x, NULL, &params);
-         if(!rgba_is_equal(&(params.d_bordercolor), &(z->b_boxparameters.d_bordercolor)))
-         {
-         memcpy(&z->b_boxparameters, &params, sizeof(t_edrawparams));
-         ebox_invalidate_layer((t_ebox *)x, NULL, s_cream_eboxbd);
-         }
-         else if(params.d_borderthickness != z->b_boxparameters.d_borderthickness)
-         {
-         memcpy(&z->b_boxparameters, &params, sizeof(t_edrawparams));
-         ebox_notify(z, s_cream_size, s_cream_size, NULL, NULL);
-         }
-         else
-         {
-         memcpy(&z->b_boxparameters, &params, sizeof(t_edrawparams));
-         }
-         }
-         ebox_redraw(z);
-    }
-    if(eattr_issaved(attr) && eobj_isgui(x) && !eobj_getcanvas(x)->gl_loading)
-    {
-        canvas_dirty(eobj_getcanvas(x), 1);
-    }
-    if(eattr_isvisible(attr))
-    {
-        ewindowprop_update((t_eobj *)x);
-    }
-*/
-    return 0;
-}
-
 static void eobj_propertieswindow(t_eobj* x, t_glist *glist)
 {
     char text[MAXPDSTRING];
@@ -310,6 +262,22 @@ static void eobj_propertieswindow(t_eobj* x, t_glist *glist)
     {
         pd_bind((t_pd *)propw, gensym(text));
     }
+}
+
+t_pd_err eobj_notify(void *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
+{
+    if(data && msg == s_cream_attr_modified)
+    {
+        if(!eobj_getcanvas(x)->gl_loading && eattr_issaved((t_eattr const*)data))
+        {
+            canvas_dirty(eobj_getcanvas(x), 1.f);
+        }
+        if(!eobj_getcanvas(x)->gl_loading && eattr_repaint((t_eattr const*)data))
+        {
+            ebox_redraw((t_ebox *)x);
+        }
+    }
+    return 0;
 }
 
 
