@@ -41,8 +41,6 @@ static void egui_free(t_egui *gui)
     }
 }
 
-
-
 static t_eview* egui_getview(t_egui const* gui, t_glist const* glist)
 {
     t_gobj* current = (t_gobj *)gui->g_views;

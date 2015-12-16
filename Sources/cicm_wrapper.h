@@ -14,7 +14,7 @@
 #include "eclass.h"
 #include "ecommon.h"
 #include "eobj.h"
-#include "ebox.h"
+#include "eparam.h"
 #include "egui.h"
 #include "epopup.h"
 #include "elayer.h"

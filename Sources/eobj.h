@@ -18,6 +18,7 @@
 #define DEF_EOBJ
 
 #include "edefine.h"
+#include "eparam.h"
 
 /*! @addtogroup groupobj
  *  @{

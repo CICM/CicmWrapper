@@ -773,12 +773,19 @@ static void ewindowprop_addattr(t_ewindowprop* x, t_eattr const* attr, size_t i)
         sys_vgui("spinbox .epw%lx.attr_values%i.label -font {Helvetica 12} -width 18 -state readonly ", ref, i+1);
         sys_vgui("-textvariable [string trim var%lxattr_value%i] -command {pdsend \"%s %s $var%lxattr_value%i\"}",
                  ref, i+1, eobj_getid(x->c_owner)->s_name, name->s_name, ref, i+1);
-        sys_vgui("-values {");
-        for(j = 0; j < nitems; j++)
+        if(nitems)
         {
-            sys_vgui("%s ", items[nitems- 1 - j]->s_name);
+            sys_vgui("-values {");
+            for(j = 0; j < nitems; j++)
+            {
+                sys_vgui("%s ", items[nitems- 1 - j]->s_name);
+            }
+            sys_vgui("}\n");
         }
-        sys_vgui("}\n");
+        else
+        {
+            sys_vgui("\n");
+        }
         
         sys_vgui("bind .epw%lx.attr_values%i.label <KeyPress-Return> {pdsend \"%s %s $var%lxattr_value%i\"}\n",
                  ref, i+1, eobj_getid(x->c_owner)->s_name, name->s_name, ref, i+1);
@@ -795,6 +802,8 @@ static void ewindowprop_addattr(t_ewindowprop* x, t_eattr const* attr, size_t i)
     }
     else
     {
+        post("%i", argc);
+        postatom(argc, argv);
         if(argc && argv)
         {
             sys_vgui("set var%lxattr_value%i [concat ", ref, i+1);
@@ -814,7 +823,7 @@ static void ewindowprop_addattr(t_ewindowprop* x, t_eattr const* attr, size_t i)
         }
         else
         {
-            sys_vgui("set var%lxattr_value%i \"\"\n", ref, i+1);
+            sys_vgui("set var%lxattr_value%i \n", ref, i+1);
         }
         
         sys_vgui("entry .epw%lx.attr_values%i.label -font {Helvetica 12} -width 20 ", ref, i+1);

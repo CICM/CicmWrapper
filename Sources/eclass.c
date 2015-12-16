@@ -11,7 +11,7 @@
 #include "eclass.h"
 #include "ecommon.h"
 #include "eobj.h"
-#include "ebox.h"
+#include "eparam.h"
 #include "egui.h"
 #include "epopup.h"
 #include "elayer.h"
@@ -130,7 +130,8 @@ t_pd_err eclass_register(t_symbol *name, t_eclass *c)
          */
     }
     
-    class_addmethod((t_class *)c, (t_method)ebox_set_parameter_attribute, gensym("param"), A_GIMME, 0);
+    int todo;
+    //class_addmethod((t_class *)c, (t_method)ebox_set_parameter_attribute, gensym("param"), A_GIMME, 0);
     return 0;
 }
 

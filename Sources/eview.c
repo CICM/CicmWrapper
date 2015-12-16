@@ -10,7 +10,6 @@
 
 #include "eview.h"
 #include "eobj.h"
-#include "ebox.h"
 #include "egui.h"
 #include "elayer.h"
 #include "eguiimp.h"

@@ -34,6 +34,7 @@
  * @brief The parameter object.
  * @details It contains the members and the methods for a parameter.
  */
+
 EXTERN_STRUCT _eparam;
 typedef struct _eparam t_eparam;
 
@@ -46,6 +47,33 @@ typedef void  (*t_param_setter_t)(t_object* x, int index, char const* text);
 //! The t_param_getter_t method
 typedef void (*t_param_getter_t)(t_object* x, int index, char* text);
 
+
+void ebox_set_parameter_attribute(t_ebox *x, t_symbol *s, int argc, t_atom* argv);
+t_eparam* ebox_parameter_create(t_ebox *x, int index);
+void ebox_parameter_destroy(t_ebox* x, int index);
+float ebox_parameter_getvalue(t_ebox* x, int index);
+void ebox_parameter_setvalue(t_ebox* x, int index, float value, char notify);
+float ebox_parameter_getvalue_normalized(t_ebox* x, int index);
+void ebox_parameter_setvalue_normalized(t_ebox* x, int index, float value, char notify);
+float ebox_parameter_getmin(t_ebox* x, int index);
+float ebox_parameter_getmax(t_ebox* x, int index);
+int ebox_parameter_getnstep(t_ebox* x, int index);
+t_symbol* ebox_parameter_getbind(t_ebox* x, int index);
+char ebox_parameter_isinverted(t_ebox* x, int index);
+void ebox_parameter_notify_changes(t_ebox *x, int index);
+void ebox_parameter_begin_changes(t_ebox *x, int index);
+void ebox_parameter_end_changes(t_ebox *x, int index);
+void ebox_parameter_setname(t_ebox* x, int index, t_symbol* name);
+void ebox_parameter_setlabel(t_ebox* x, int index, t_symbol* label);
+void ebox_parameter_setminmax(t_ebox* x, int index, float min, float max);
+void ebox_parameter_setnstep(t_ebox* x, int index, int nstep);
+void ebox_parameter_setindex(t_ebox* x, int index, int pindex);
+void ebox_parameter_setflags(t_ebox* x, int index, long flags);
+void ebox_parameter_enable(t_ebox* x, int index);
+void ebox_parameter_disable(t_ebox* x, int index);
+void ebox_parameter_setsettergetter(t_ebox* x, int index, t_param_setter setter, t_param_getter getter);
+void ebox_parameter_setsettergetter_text(t_ebox* x, int index, t_param_setter_t setter, t_param_getter_t getter);
+t_eparam* eparameter_getbyindex(t_ebox* x, int index);
 
 /*!
  * \fn              float eparameter_getvalue(t_eparam* param)

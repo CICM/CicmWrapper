@@ -11,7 +11,6 @@
 #include "float.h"
 #include "epopup.h"
 #include "eobj.h"
-#include "ebox.h"
 #include "elayer.h"
 #include "eattr.h"
 

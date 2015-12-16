@@ -16,10 +16,9 @@
 #include "epopup.h"
 #include "float.h"
 
-
+/*
 void ebox_texteditor_keypress(t_ebox *x, t_symbol *s, float f)
 {
-    /*
     t_etextlayouteditor* editor;
     const t_eclass* c = eobj_getclass(x);
     if(c && c->c_widget.w_texteditor_keypress)
@@ -30,12 +29,10 @@ void ebox_texteditor_keypress(t_ebox *x, t_symbol *s, float f)
             c->c_widget.w_texteditor_keypress(x, editor, (int)f);
         }
     }
-     */
 }
 
 void ebox_texteditor_keyfilter(t_ebox *x, t_symbol *s, float f)
 {
-    /*
     t_etextlayouteditor* editor;
     const t_eclass* c = eobj_getclass(x);
     if(c && c->c_widget.w_texteditor_keyfilter)
@@ -46,12 +43,10 @@ void ebox_texteditor_keyfilter(t_ebox *x, t_symbol *s, float f)
             c->c_widget.w_texteditor_keyfilter(x, editor, (int)f);
         }
     }
-     */
 }
 
 void ebox_texteditor_focus(t_ebox *x, t_symbol *s, float f)
 {
-    /*
     t_etextlayouteditor* editor;
     const t_eclass* c = eobj_getclass(x);
     if(c && c->c_widget.w_texteditor_focus)
@@ -62,8 +57,8 @@ void ebox_texteditor_focus(t_ebox *x, t_symbol *s, float f)
             c->c_widget.w_texteditor_focus(x, editor, (int)f);
         }
     }
-     */
 }
+
 
 static void stringifyJustification(int justification, char* text)
 {
@@ -101,7 +96,7 @@ static t_pt recomputeRectangle(int justification, t_pt const* p1, t_pt const* p2
     
     return pt;
 }
-
+*/
 
 
 
