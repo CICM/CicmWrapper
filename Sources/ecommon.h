@@ -20,6 +20,7 @@
 
 #include "edefine.h"
 
+// TODO av : method documentation
 void object_method(void* x, t_symbol* s, void* z, t_typ_method method, long number, void* other);
 
 /*! @addtogroup groupcommon The Common Part

@@ -46,7 +46,7 @@ void ebox_ready(t_ebox *x);
 
 /*!
  * \fn          void ebox_free(t_ebox* x)
- * \brief       Indicates that the t_ebox can be drawn.
+ * \brief       Free the object.
  * \details     Deletes the drawings. \n This function should replace pd_free() and you shouldn't have to call eobj_free() or eobj_dspfree();
  * \param x     The t_ebox pointer.
  */
