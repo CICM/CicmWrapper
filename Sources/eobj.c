@@ -299,7 +299,7 @@ void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
                     return;
                 }
                 // Look in the search path
-                var = sys_searchpath;
+                var = pd_this->pd_stuff->st_searchpath;
                 while (var)
                 {
                     sprintf(buf, "%s/%s", var->nl_string, atom_getsymbol(argv)->s_name);
