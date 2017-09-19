@@ -49,7 +49,7 @@ void eclass_guiinit(t_eclass* c, long flags)
 {
     ewidget_init(c);
     c->c_box = 1;
-    
+
     // DEFAULT ATTRIBUTES //
     CLASS_ATTR_FLOAT_ARRAY  (c, "size", 0, t_ebox, b_rect.width, 2);
     CLASS_ATTR_SYMBOL       (c, "fontname", 0, t_ebox, b_font.c_family);
@@ -58,7 +58,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_LONG         (c, "fontsize", 0, t_ebox, b_font.c_sizereal);
     CLASS_ATTR_SYMBOL       (c, "receive", 0, t_ebox, b_receive_id);
     CLASS_ATTR_SYMBOL       (c, "send", 0, t_ebox, b_send_id);
-    
+
     CLASS_ATTR_DEFAULT      (c, "size", 0, "100. 100.");
     CLASS_ATTR_FILTER_MIN   (c, "size", 4);
     CLASS_ATTR_SAVE         (c, "size", 0);
@@ -66,7 +66,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_CATEGORY		(c, "size", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "size", 0, "Patching Size");
     CLASS_ATTR_ACCESSORS    (c, "size", NULL, (t_err_method)ebox_size_set);
-    
+
     CLASS_ATTR_DEFAULT      (c, "fontname", 0, "Helvetica");
     CLASS_ATTR_SAVE         (c, "fontname", 0);
     CLASS_ATTR_PAINT        (c, "fontname", 0);
@@ -75,7 +75,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_ACCESSORS    (c, "fontname", NULL, (t_err_method)ebox_set_font);
     CLASS_ATTR_STYLE        (c, "fontname", 0, "menu");
     CLASS_ATTR_ITEMS        (c, "fontname", 0, "Helvetica Monaco Courier Times DejaVu");
-    
+
     CLASS_ATTR_DEFAULT      (c, "fontweight", 0, "normal");
     CLASS_ATTR_SAVE         (c, "fontweight", 0);
     CLASS_ATTR_PAINT        (c, "fontweight", 0);
@@ -84,7 +84,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_ACCESSORS    (c, "fontweight", NULL, (t_err_method)ebox_set_fontweight);
     CLASS_ATTR_STYLE        (c, "fontweight", 0, "menu");
     CLASS_ATTR_ITEMS        (c, "fontweight", 0, "normal bold");
-    
+
     CLASS_ATTR_DEFAULT      (c, "fontslant", 0, "roman");
     CLASS_ATTR_SAVE         (c, "fontslant", 0);
     CLASS_ATTR_PAINT        (c, "fontslant", 0);
@@ -93,7 +93,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_ACCESSORS    (c, "fontslant", NULL, (t_err_method)ebox_set_fontslant);
     CLASS_ATTR_STYLE        (c, "fontslant", 0, "menu");
     CLASS_ATTR_ITEMS        (c, "fontslant", 0, "roman italic");
-    
+
     CLASS_ATTR_DEFAULT      (c, "fontsize", 0, "11");
     CLASS_ATTR_FILTER_MIN   (c, "fontsize", 4);
     CLASS_ATTR_SAVE         (c, "fontsize", 0);
@@ -102,32 +102,32 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_LABEL		(c, "fontsize", 0, "Font Size");
     CLASS_ATTR_ACCESSORS    (c, "fontsize", NULL, ebox_set_fontsize);
     CLASS_ATTR_STYLE        (c, "fontsize", 0, "number");
-    
+
     CLASS_ATTR_DEFAULT      (c, "receive", 0, "(null)");
     CLASS_ATTR_ACCESSORS    (c, "receive", NULL, ebox_set_receiveid);
     CLASS_ATTR_SAVE         (c, "receive", 0);
     CLASS_ATTR_CATEGORY		(c, "receive", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "receive", 0, "Receive Symbol");
-    
+
     CLASS_ATTR_DEFAULT      (c, "send", 0, "(null)");
     CLASS_ATTR_ACCESSORS    (c, "send", NULL, ebox_set_sendid);
     CLASS_ATTR_SAVE         (c, "send", 0);
     CLASS_ATTR_CATEGORY		(c, "send", 0, "Basic");
     CLASS_ATTR_LABEL		(c, "send", 0, "Send Symbol");
-    
+
     // GUI always need this methods //
     class_addmethod((t_class *)c, (t_method)ebox_attrprint,         gensym("attrprint"),    A_NULL,  0);
     class_addmethod((t_class *)c, (t_method)ebox_dialog,            gensym("dialog"),       A_GIMME, 0);
-    
+
     class_addmethod((t_class *)c, (t_method)ebox_mouse_enter, gensym("mouseenter"), A_NULL, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_leave, gensym("mouseleave"), A_NULL, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_move,  gensym("mousemove"),  A_GIMME, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_down,  gensym("mousedown"),  A_GIMME, 0);
     class_addmethod((t_class *)c, (t_method)ebox_mouse_up,    gensym("mouseup"),    A_GIMME, 0);
-    
+
     class_addmethod((t_class *)c, (t_method)ebox_pos, gensym("pos"), A_DEFFLOAT,A_DEFFLOAT,0);
     class_addmethod((t_class *)c, (t_method)ebox_vis, gensym("vis"), A_DEFFLOAT,0);
-    
+
     class_setwidget((t_class *)&c->c_class, (t_widgetbehavior *)&c->c_widget);
     class_setsavefn((t_class *)&c->c_class, (t_savefn)eobj_save);
 }
@@ -150,7 +150,7 @@ t_pd_err eclass_register(t_symbol *name, t_eclass *c)
     {
         c->c_class.c_floatsignalin = calcoffset(t_edspobj, d_dsp.d_float);
     }
-    
+
     if(c->c_nattr)
     {
         eclass_properties_dialog(c);
@@ -264,7 +264,7 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
         class_addmethod((t_class *)c, (t_method)m, gensym(name), type, 0);
     }
     else if(gensym(name) == gensym("write"))
-    {        
+    {
         class_addmethod((t_class *)c, (t_method)eobj_write, gensym(name), type, 0);
         class_addmethod((t_class *)c, (t_method)eobj_write, gensym("eobjwriteto"), type, 0);
         c->c_widget.w_write = m;
@@ -322,7 +322,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
             attr->defvals   = NULL;
             attr->itemslist = NULL;
             attr->itemssize = 0;
-            
+
             attrs = (t_eattr **)realloc(c->c_attr, (size_t)(c->c_nattr + 1) * sizeof(t_eattr *));
             if(attrs)
             {
@@ -337,7 +337,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
             {
                 error("%s can't increase memory for %s attribute.", c->c_class.c_name->s_name, attrname);
             }
-            
+
         }
         else
         {
@@ -445,7 +445,7 @@ void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const c
         if(c->c_attr[i]->name == gensym(attrname))
         {
             pch = strtok(gensym(list)->s_name," ,");
-            
+
             while(pch != NULL)
             {
                 pch = strtok(NULL, " ,");
@@ -475,7 +475,7 @@ void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const c
                         j++;
                     }
                 }
-                
+
             }
             else
             {
@@ -499,7 +499,7 @@ void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value)
                 c->c_attr[i]->clipped = 1;
             else if(c->c_attr[i]->clipped == 2)
                 c->c_attr[i]->clipped = 3;
-            
+
             c->c_attr[i]->minimum = value;
             return ;
         }
@@ -517,7 +517,7 @@ void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value)
                 c->c_attr[i]->clipped = 2;
             else if(c->c_attr[i]->clipped == 1)
                 c->c_attr[i]->clipped = 3;
-            
+
             c->c_attr[i]->maximum = value;
             return ;
         }
@@ -596,10 +596,15 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
     char *point;
     t_ebox* z   = (t_ebox *)x;
     t_eclass* c = (t_eclass *)z->b_obj.o_obj.te_g.g_pd;
+
+    // if argc is null, this might have been wrongly called from patcher
+    if(!argc)
+      return;
+
     if(argv[0] && argc[0])
         free(argv);
     argc[0] = 0;
-    
+
     for(i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i]->name == s)
@@ -614,9 +619,9 @@ void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
                 if(argc[0] > c->c_attr[i]->sizemax)
                     argc[0] = (int)c->c_attr[i]->sizemax;
             }
-            
+
             point = (char *)x + c->c_attr[i]->offset;
-            
+
             argv[0] = (t_atom *)calloc((size_t)argc[0], sizeof(t_atom));
             if(c->c_attr[i]->getter)
             {
@@ -679,7 +684,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
     long *point_size;
     t_ebox* z   = (t_ebox *)x;
     t_eclass* c = (t_eclass *)z->b_obj.o_obj.te_g.g_pd;
-    
+
     for(i = 0; i < c->c_nattr; i++)
     {
         if(c->c_attr[i]->name == s)
@@ -700,9 +705,9 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                 point_size = (long *)point;
                 point_size[0] = (long)size;
             }
-            
+
             point = (char *)(x) + c->c_attr[i]->offset;
-            
+
             if(c->c_attr[i]->clipped == 1 || c->c_attr[i]->clipped == 3)
             {
                 for(j = 0; j < argc; j++)
@@ -723,7 +728,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                     }
                 }
             }
-            
+
             if(c->c_attr[i]->setter)
             {
                 c->c_attr[i]->setter(x, c->c_attr[i], argc, argv);
@@ -791,13 +796,13 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                     pointor[j] = argv[j];
                 }
             }
-            
+
             ebox_notify(z, s, s_attr_modified, NULL, NULL);
             if(c->c_widget.w_notify != NULL)
             {
                 c->c_widget.w_notify(x, s, s_attr_modified, NULL, NULL);
             }
-            
+
             if(c->c_attr[i]->paint)
             {
                 if(c->c_widget.w_oksize != NULL)
@@ -808,7 +813,7 @@ void eclass_attr_setter(t_object* x, t_symbol *s, int argc, t_atom *argv)
                 {
                     c->c_widget.w_getdrawparameters(x, NULL, &z->b_boxparameters);
                 }
-                
+
                 ebox_redraw(z);
             }
             if(c->c_attr[i]->save && eobj_isbox(x) && ebox_isdrawable((t_ebox*) x))
@@ -828,7 +833,7 @@ static void ewidget_init(t_eclass* c)
     c->c_widget.w_activatefn        = NULL;
     c->c_widget.w_deletefn          = ebox_wdelete;
     c->c_widget.w_clickfn           = NULL;
-    
+
     c->c_widget.w_paint             = NULL;
     c->c_widget.w_mouseenter        = NULL;
     c->c_widget.w_mouseleave        = NULL;
@@ -862,7 +867,7 @@ static void eclass_properties_dialog(t_eclass* c)
     int i, j, lenght;
     char buffer[1000];
     char temp[1000];
-    
+
     // DIALOG WINDOW APPLY //
     for(i = 0; i < c->c_nattr; i++)
     {
@@ -915,7 +920,7 @@ static void eclass_properties_dialog(t_eclass* c)
             sys_gui("}\n");
         }
     }
-    
+
     // DIALOG WINDOW CREATION //
     sys_vgui("proc pdtk_%s_dialog {id \n", c->c_class.c_name->s_name);
     for(i = 0; i < c->c_nattr; i++)
@@ -927,7 +932,7 @@ static void eclass_properties_dialog(t_eclass* c)
     }
     sys_gui("} {\n");
     sys_gui("set vid [string trimleft $id .]\n");
-    
+
     for(i = 0; i < c->c_nattr; i++)
     {
         if(!c->c_attr[i]->invisible)
@@ -940,19 +945,19 @@ static void eclass_properties_dialog(t_eclass* c)
     sys_vgui("toplevel $id\n");
     sys_vgui("wm title $id {%s properties}\n", c->c_class.c_name->s_name);
     sys_vgui("wm resizable $id 0 0\n", c->c_class.c_name->s_name);
-    
+
     for(i = 0; i < c->c_nattr; i++)
     {
         if(!c->c_attr[i]->invisible)
         {
             sys_vgui("frame $id.name%i \n", i+1);
             sys_vgui("frame $id.sele%i \n", i+1);
-            
+
             // ATTRIBUTES NAMES //
             sys_vgui("label $id.name%i.name -justify left -font {Helvetica 12} -text \"%s :\"\n", i+1, c->c_attr[i]->label->s_name);
             sys_vgui("pack  $id.name%i.name -side left\n", i+1);
             // SELECTOR //
-            
+
             if(c->c_attr[i]->style == gensym("checkbutton"))
             {
                 sys_vgui("checkbutton $id.sele%i.selec -variable $var_%s -command  [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_attr[i]->name->s_name, c->c_class.c_name->s_name, c->c_attr[i]->name->s_name);
@@ -972,7 +977,7 @@ static void eclass_properties_dialog(t_eclass* c)
                 sys_vgui("$id.sele%i.selec configure -from -9999999999999 -to 9999999999999\n", i+1, (float)c->c_attr[i]->maximum); // Should be enough
                 sys_vgui("$id.sele%i.selec delete 0 end \n", i+1);
                 sys_vgui("$id.sele%i.selec insert 0 $%s \n", i+1, c->c_attr[i]->name->s_name);
-                
+
                 sys_vgui("bind $id.sele%i.selec <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
                 sys_vgui("pack $id.sele%i.selec -side left\n", i+1);
             }
@@ -986,7 +991,7 @@ static void eclass_properties_dialog(t_eclass* c)
                     sys_vgui("%s ", c->c_attr[i]->itemslist[c->c_attr[i]->itemssize - 1 - j]->s_name);
                 }
                 sys_vgui("}\n");
-                
+
                 sys_vgui("bind $id.sele%i.selec <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
                 sys_vgui("pack $id.sele%i.selec -side left\n", i+1);
                 sys_vgui("$id.sele%i.selec set $%s \n", i+1, c->c_attr[i]->name->s_name);
@@ -996,15 +1001,15 @@ static void eclass_properties_dialog(t_eclass* c)
                 sys_vgui("entry $id.sele%i.selec -font {Helvetica 12} -width 20 -textvariable [string trim $var_%s]\n", i+1, c->c_attr[i]->name->s_name);
                 sys_vgui("bind $id.sele%i.selec <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", i+1, c->c_class.c_name->s_name,  c->c_attr[i]->name->s_name);
                 sys_vgui("pack $id.sele%i.selec -side left\n", i+1);
-                
+
             }
-            
+
             sys_vgui("grid config $id.name%i -column 0 -row %i -sticky w\n", i+1, i+1);
             sys_vgui("grid config $id.sele%i -column 1 -row %i -sticky w\n", i+1, i+1);
         }
     }
     sys_gui("}\n");
-    
+
 }
 
 
