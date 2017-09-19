@@ -332,6 +332,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
                 sprintf(getattr, "get%s", attrname);
                 class_addmethod((t_class *)c, (t_method)eclass_attr_getter, gensym(getattr), A_GIMME, 0);
                 c->c_nattr++;
+                eclass_attr_label(c, attrname, 0, attrname);
             }
             else
             {
