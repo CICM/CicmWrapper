@@ -37,6 +37,7 @@ void epd_init(void)
     s_double        = gensym("double");
     if(!epd_symbol->s_thing)
     {
+#ifndef PURR_DATA
         // PATCHER MOUSE MOTION //
         sys_vgui("proc eobj_canvas_motion {patcher val} {\n");
         sys_gui(" set rx [winfo rootx $patcher]\n");
@@ -112,7 +113,7 @@ void epd_init(void)
         sys_gui("append col [format {%4.4x} $nB]\n");
         sys_gui("return #$col\n");
         sys_gui("}\n");
-
+#endif
         epd_symbol->s_thing = (t_class **)1;
     }
 }
