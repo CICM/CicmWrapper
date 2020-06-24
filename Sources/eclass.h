@@ -230,7 +230,7 @@ void eclass_attr_paint(t_eclass* c, const char* attrname, long flags);
 
 /*!
  * \fn          void eclass_attr_invisible(t_eclass* c, const char* attrname, long flags)
- * \brief           Sets if the attribute should be displayed in the properties window. 
+ * \brief           Sets if the attribute should be displayed in the properties window.
  * \details         You should prefer to use the MACROS.
  * \param c         The t_eclass pointer
  * \param attrname  The attribute name
@@ -261,7 +261,7 @@ void eclass_attr_accessor(t_eclass* c, const char* attrname, t_err_method getter
 void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const char* list);
 
 //! @cond
-#define calcoffset(x,y) ((long)(&(((x *)0L)->y)))
+#define calcoffset(x,y) ((intptr_t)(&(((x *)0)->y)))
 //! @endcond
 
 //! Macros that create an int attribute
