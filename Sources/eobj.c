@@ -298,6 +298,8 @@ void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
                         c->c_widget.w_read(x, s, 1, av);
                     return;
                 }
+
+#if !defined(PDL2ORK)
                 // Look in the search path
                 var = pd_this->pd_stuff->st_searchpath;
                 while (var)
@@ -312,6 +314,7 @@ void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom *argv)
                     }
                     var = var->nl_next;
                 }
+#endif
 
                 // Nothing work but we don't care
                 if(c->c_widget.w_read)
