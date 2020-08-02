@@ -507,6 +507,7 @@ t_pd_err binbuf_get_attribute_float(t_binbuf *d, t_symbol *key, float *value)
 
 void epd_add_folder(const char* name, const char* folder)
 {
+#if !defined(PDL2ORK)
     char path[MAXPDSTRING];
     t_namelist* var = pd_this->pd_stuff->st_searchpath;
     while (var)
@@ -544,6 +545,7 @@ void epd_add_folder(const char* name, const char* folder)
         }
         var = var->nl_next;
     }
+#endif
 }
 
 
