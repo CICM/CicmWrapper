@@ -37,6 +37,7 @@ void epd_init(void)
     s_double        = gensym("double");
     if(!epd_symbol->s_thing)
     {
+#ifndef PURR_DATA
         // PATCHER MOUSE MOTION //
         sys_vgui("proc eobj_canvas_motion {patcher val} {\n");
         sys_gui(" set rx [winfo rootx $patcher]\n");
@@ -45,7 +46,7 @@ void epd_init(void)
         sys_gui(" set y  [winfo pointery .]\n");
         sys_vgui(" pdtk_canvas_motion $patcher [expr $x - $rx] [expr $y - $ry] $val\n");
         sys_gui("}\n");
-        
+
         // PATCHER MOUSE DOWN //
         sys_vgui("proc eobj_canvas_down {patcher val} {\n");
         sys_gui(" set rx [winfo rootx $patcher]\n");
@@ -54,7 +55,7 @@ void epd_init(void)
         sys_gui(" set y  [winfo pointery .]\n");
         sys_vgui(" pdtk_canvas_mouse $patcher [expr $x - $rx] [expr $y - $ry] 0 $val\n");
         sys_gui("}\n");
-        
+
         // PATCHER MOUSE UP //
         sys_vgui("proc eobj_canvas_up {patcher} {\n");
         sys_gui(" set rx [winfo rootx $patcher]\n");
@@ -63,7 +64,7 @@ void epd_init(void)
         sys_gui(" set y  [winfo pointery .]\n");
         sys_vgui(" pdtk_canvas_mouseup $patcher [expr $x - $rx] [expr $y - $ry] 0\n");
         sys_gui("}\n");
-        
+
         // PATCHER MOUSE RIGHT //
         sys_vgui("proc eobj_canvas_right {patcher} {\n");
         sys_gui(" set rx [winfo rootx $patcher]\n");
@@ -72,16 +73,16 @@ void epd_init(void)
         sys_gui(" set y  [winfo pointery .]\n");
         sys_vgui(" pdtk_canvas_rightclick $patcher [expr $x - $rx] [expr $y - $ry] 0\n");
         sys_gui("}\n");
-        
+
         // OBJECT SAVE FILE //
         sys_gui("proc eobj_saveas {name initialfile initialdir} {\n");
         sys_gui("if { ! [file isdirectory $initialdir]} {set initialdir $::env(HOME)}\n");
         sys_gui("set filename [tk_getSaveFile -initialfile $initialfile -initialdir $initialdir -defaultextension .pd -filetypes $::filetypes]\n");
         sys_gui("if {$filename eq \"\"} return;\n");
-        
+
         sys_gui("set extension [file extension $filename]\n");
         sys_gui("set oldfilename $filename\n");
-        
+
         sys_gui("if {$filename ne $oldfilename && [file exists $filename]} {\n");
         sys_gui("set answer [tk_messageBox -type okcancel -icon question -default cancel-message [_ \"$filename\" already exists. Do you want to replace it?]]\n");
         sys_gui("if {$answer eq \"cancel\"} return;\n");
@@ -92,7 +93,7 @@ void epd_init(void)
         sys_gui("set ::filenewdir $dirname\n");
         sys_gui("::pd_guiprefs::update_recentfiles $filename\n");
         sys_gui("}\n");
-        
+
         // OBJECT OPEN FILE //
         sys_gui("proc eobj_openfrom {name} {\n");
         sys_gui("if { ! [file isdirectory $::filenewdir]} {\n");
@@ -101,7 +102,7 @@ void epd_init(void)
         sys_gui("set files [tk_getOpenFile -multiple true -initialdir $::fileopendir]\n");
         sys_gui("pdsend \"$name eobjreadfrom [enquote_path $files]\"\n");
         sys_gui("}\n");
-        
+
         // RGBA TO HEX //
         sys_gui("proc eobj_rgba_to_hex {red green blue alpha} { \n");
         sys_gui("set nR [expr int( $red * 65025 )]\n");
@@ -112,7 +113,7 @@ void epd_init(void)
         sys_gui("append col [format {%4.4x} $nB]\n");
         sys_gui("return #$col\n");
         sys_gui("}\n");
-        
+#endif
         epd_symbol->s_thing = (t_class **)1;
     }
 }
@@ -506,43 +507,45 @@ t_pd_err binbuf_get_attribute_float(t_binbuf *d, t_symbol *key, float *value)
 
 void epd_add_folder(const char* name, const char* folder)
 {
-	char path[MAXPDSTRING];
-	t_namelist* var = sys_searchpath;
-	while (var)
-	{
-		sprintf(path, "%s/%s",var->nl_string, name);
-		if(strncmp(var->nl_string, name, strlen(name)) == 0)
-		{
-			sprintf(path, "%s/%s", var->nl_string, folder);
-			namelist_append_files(sys_staticpath, path);
-			return;
-		}
-		else if(access(path, O_RDONLY) != -1)
-		{
-			sprintf(path, "%s/%s/%s", var->nl_string, name, folder);
-			namelist_append_files(sys_staticpath, path);
-			return;
-		}
-		var = var->nl_next;
-	}
-    var = sys_staticpath;
+#if !defined(PDL2ORK)
+    char path[MAXPDSTRING];
+    t_namelist* var = pd_this->pd_stuff->st_searchpath;
     while (var)
     {
         sprintf(path, "%s/%s",var->nl_string, name);
-		if(strncmp(var->nl_string, name, strlen(name)) == 0)
-		{
-			sprintf(path, "%s/%s", var->nl_string, folder);
-			namelist_append_files(sys_staticpath, path);
-			return;
-		}
-		else if(access(path, O_RDONLY) != -1)
-		{
-			sprintf(path, "%s/%s/%s", var->nl_string, name, folder);
-			namelist_append_files(sys_staticpath, path);
-			return;
-		}
-		var = var->nl_next;
+        if(strncmp(var->nl_string, name, strlen(name)) == 0)
+        {
+            sprintf(path, "%s/%s", var->nl_string, folder);
+            namelist_append_files(pd_this->pd_stuff->st_staticpath, path);
+            return;
+        }
+        else if(access(path, O_RDONLY) != -1)
+        {
+            sprintf(path, "%s/%s/%s", var->nl_string, name, folder);
+            namelist_append_files(pd_this->pd_stuff->st_staticpath, path);
+            return;
+        }
+        var = var->nl_next;
     }
+    var = pd_this->pd_stuff->st_staticpath;
+    while (var)
+    {
+        sprintf(path, "%s/%s",var->nl_string, name);
+        if(strncmp(var->nl_string, name, strlen(name)) == 0)
+        {
+            sprintf(path, "%s/%s", var->nl_string, folder);
+            namelist_append_files(pd_this->pd_stuff->st_staticpath, path);
+            return;
+        }
+        else if(access(path, O_RDONLY) != -1)
+        {
+            sprintf(path, "%s/%s/%s", var->nl_string, name, folder);
+            namelist_append_files(pd_this->pd_stuff->st_staticpath, path);
+            return;
+        }
+        var = var->nl_next;
+    }
+#endif
 }
 
 
